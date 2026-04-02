@@ -4,6 +4,7 @@
   <meta name="theme-color" content="#0b1020" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
   <title>Music | André Baumann</title>
   <meta name="description" content="Original music by André Baumann." />
   <link rel="stylesheet" href="../assets/css/site.css" />
@@ -30,7 +31,7 @@
           A clean listening page for original tracks, sketches, and sonic experiments.
         </p>
         <p>
-          Put your MP3 files in <strong>music/tracks/</strong> and edit the titles and notes below. GitHub Pages will serve them directly.
+          This page hosts your music directly from GitHub Pages. You can add WAV, MP3, or other web-audio files here and extend the list over time.
         </p>
         <div class="button-row">
           <a class="button" href="../index.html">Back Home</a>
@@ -43,7 +44,7 @@
         <ul class="list-clean muted">
           <li>One block per track.</li>
           <li>Track title, short note, and audio player.</li>
-          <li>Optional future addition: lyrics, credits, release date.</li>
+          <li>Optional later additions: release date, credits, lyrics, artwork.</li>
         </ul>
       </aside>
     </section>
@@ -51,24 +52,24 @@
     <section class="section">
       <h2>Tracks</h2>
       <p class="audio-note">
-        Replace filenames and track names with your own. The player below works as soon as the MP3 exists in the correct folder.
+        Add or replace tracks by duplicating one block below and changing the filename, title, and note.
       </p>
 
       <div class="grid">
         <article class="track">
           <h3>Track 01</h3>
           <p class="muted">Ambient sketch or finished release.</p>
-          <audio controls preload="none">
+          <audio controls preload="metadata">
             <source src="tracks/track-01.mp3" type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </article>
 
         <article class="track">
-          <h3>Track 02</h3>
-          <p class="muted">Experimental piece, live take, or studio version.</p>
-          <audio controls preload="none">
-            <source src="tracks/track-02.mp3" type="audio/mpeg" />
+          <h3>Record 351</h3>
+          <p class="muted">Original WAV recording.</p>
+          <audio controls preload="metadata">
+            <source src="Record-351.wav" type="audio/wav" />
             Your browser does not support the audio element.
           </audio>
         </article>
@@ -76,7 +77,7 @@
         <article class="track">
           <h3>Track 03</h3>
           <p class="muted">Another original piece with a short contextual note.</p>
-          <audio controls preload="none">
+          <audio controls preload="metadata">
             <source src="tracks/track-03.mp3" type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
@@ -92,3 +93,4 @@
   </footer>
 </body>
 </html>
+
