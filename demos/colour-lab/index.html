@@ -122,11 +122,15 @@
             <button class="clab-tab" type="button" data-mode="portrait" aria-pressed="false">Portrait</button>
           </div>
 
-          <p class="clab-mode-summary small" id="modeDescription"></p>
+          <p class="clab-mode-summary small" id="modeDescription">
+            A disciplined reduced palette for powerful mixing from a few colours.
+          </p>
 
           <div class="clab-control">
             <label for="paint1Name"><span>Paint 1</span><span class="clab-inline-meta" id="paint1Hex">#8f4b2e</span></label>
-            <select id="paint1Name"></select>
+            <select id="paint1Name" class="clab-paint-select">
+              <option value="Burnt Sienna" selected>Burnt Sienna</option>
+            </select>
           </div>
 
           <div class="clab-control">
@@ -136,7 +140,9 @@
 
           <div class="clab-control">
             <label for="paint2Name"><span>Paint 2</span><span class="clab-inline-meta" id="paint2Hex">#2f4596</span></label>
-            <select id="paint2Name"></select>
+            <select id="paint2Name" class="clab-paint-select">
+              <option value="Ultramarine Blue" selected>Ultramarine Blue</option>
+            </select>
           </div>
 
           <div class="clab-control">
@@ -146,7 +152,9 @@
 
           <div class="clab-control">
             <label for="paint3Name"><span>Paint 3</span><span class="clab-inline-meta" id="paint3Hex">#f2c230</span></label>
-            <select id="paint3Name"></select>
+            <select id="paint3Name" class="clab-paint-select">
+              <option value="Cadmium Yellow Light" selected>Cadmium Yellow Light</option>
+            </select>
           </div>
 
           <div class="clab-control">
@@ -329,6 +337,19 @@
       document.getElementById(id).textContent = text;
     }
 
+    function hexToContrastColor(hex) {
+      const rgb = hexToRgb(hex);
+      const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
+      return luminance > 0.62 ? "#111827" : "#f8fafc";
+    }
+
+    function tintSelect(selectId, hex) {
+      const select = document.getElementById(selectId);
+      select.style.background = hex;
+      select.style.color = hexToContrastColor(hex);
+      select.style.borderColor = "rgba(255, 255, 255, 0.18)";
+    }
+
     function findPaintHex(mode, paintName) {
       const paint = ARTIST_MODES[mode].paints.find(p => p.name === paintName);
       return paint ? paint.hex : "#808080";
@@ -342,14 +363,22 @@
         document.getElementById("paint3Name")
       ];
 
-      selectors.forEach(select => {
+      selectors.forEach((select) => {
+        const previousValue = select.value;
         select.innerHTML = "";
+
         paintNames.forEach(paint => {
           const option = document.createElement("option");
           option.value = paint.name;
           option.textContent = paint.name;
           select.appendChild(option);
         });
+
+        if (paintNames.some(p => p.name === previousValue)) {
+          select.value = previousValue;
+        } else {
+          select.selectedIndex = 0;
+        }
       });
     }
 
@@ -359,6 +388,16 @@
       document.getElementById("paint1Name").value = defaults.names[0];
       document.getElementById("paint2Name").value = defaults.names[1];
       document.getElementById("paint3Name").value = defaults.names[2];
+
+      if (!document.getElementById("paint1Name").value) {
+        document.getElementById("paint1Name").selectedIndex = 0;
+      }
+      if (!document.getElementById("paint2Name").value) {
+        document.getElementById("paint2Name").selectedIndex = 0;
+      }
+      if (!document.getElementById("paint3Name").value) {
+        document.getElementById("paint3Name").selectedIndex = 0;
+      }
 
       document.getElementById("paint1Amount").value = defaults.amounts[0];
       document.getElementById("paint2Amount").value = defaults.amounts[1];
@@ -442,6 +481,10 @@
       updateText("paint2AmountVal", `${amount2}%`);
       updateText("paint3AmountVal", `${amount3}%`);
       updateText("coverageVal", `${Math.round(coverage * 100)}%`);
+
+      tintSelect("paint1Name", paint1Hex);
+      tintSelect("paint2Name", paint2Hex);
+      tintSelect("paint3Name", paint3Hex);
 
       const p1 = hexToRgb(paint1Hex);
       const p2 = hexToRgb(paint2Hex);
