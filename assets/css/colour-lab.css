@@ -1,0 +1,190 @@
+/* Colour Lab add-on styles */
+
+.clab-layout {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.clab-triple {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.clab-control {
+  margin-bottom: 1rem;
+}
+
+.clab-control label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+}
+
+.clab-control input[type="range"] {
+  width: 100%;
+}
+
+.clab-control input[type="color"],
+.clab-control select {
+  width: 100%;
+  height: 3rem;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  padding: 0 0.85rem;
+  font: inherit;
+}
+
+.clab-control input[type="color"] {
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.clab-control select:focus,
+.clab-control input[type="color"]:focus {
+  outline: 2px solid rgba(110, 168, 255, 0.28);
+  outline-offset: 1px;
+}
+
+.clab-swatch-large {
+  width: 100%;
+  min-height: 280px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.clab-swatch-small {
+  width: 100%;
+  min-height: 86px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 0.65rem;
+}
+
+.clab-formula {
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: rgba(110, 168, 255, 0.08);
+  border: 1px solid rgba(110, 168, 255, 0.12);
+  color: #d9e6ff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.clab-readout {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.clab-note {
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(110, 168, 255, 0.08) 0%,
+    rgba(139, 92, 246, 0.05) 100%
+  );
+  border: 1px solid rgba(110, 168, 255, 0.12);
+}
+
+.clab-result-caption {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+.clab-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.clab-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(159, 195, 255, 0.16);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.clab-tab:hover {
+  transform: translateY(-1px);
+  background: rgba(110, 168, 255, 0.08);
+  border-color: rgba(110, 168, 255, 0.26);
+}
+
+.clab-tab.active {
+  background: linear-gradient(135deg, #2c63ff 0%, #4d8dff 100%);
+  color: #ffffff;
+  border-color: rgba(110, 168, 255, 0.3);
+}
+
+.clab-mode-summary {
+  margin-bottom: 1rem;
+  color: var(--muted);
+}
+
+.clab-inline-meta {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.clab-output-stack > * + * {
+  margin-top: 1rem;
+}
+
+.clab-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.clab-mini-card {
+  padding: 0.85rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+}
+
+.clab-mini-card h4 {
+  margin: 0 0 0.45rem;
+  font-size: 0.98rem;
+  color: var(--text);
+}
+
+.clab-mini-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+@media (max-width: 920px) {
+  .clab-layout,
+  .clab-triple,
+  .clab-mini-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .clab-swatch-large {
+    min-height: 220px;
+  }
+}
