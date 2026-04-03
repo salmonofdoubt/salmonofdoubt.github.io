@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b1020" />
   <title>Colour Lab | André Baumann</title>
-  <meta name="description" content="Interactive demo for additive RGB light and approximate subtractive paint mixing." />
+  <meta name="description" content="Interactive demo for additive RGB light and artist-oriented paint mixing." />
   <link rel="stylesheet" href="../../assets/css/site.css" />
+  <link rel="stylesheet" href="../../assets/css/colour-lab.css" />
 </head>
 <body>
   <header class="site-header">
@@ -25,17 +26,17 @@
     <section class="hero">
       <div class="panel">
         <span class="eyebrow">Colour Lab</span>
-        <h1>Additive light and subtractive paint</h1>
+        <h1>Additive light and artist-mode paint mixing</h1>
         <p class="lead">
           This demo separates two different physical situations: RGB light on a white screen, and paint on a white palette or canvas under white illumination.
         </p>
         <p>
-          In the first case, the screen reflects the incident RGB mixture. In the second, the pigments absorb part of the white light and reflect the remainder toward the eye.
+          The light section shows what a neutral white screen reflects into the eye. The paint section uses named artist colours and an approximate subtractive model to estimate what the painted surface reflects under white light.
         </p>
         <div class="button-row">
           <a class="button" href="../index.html">Back to Demos</a>
           <a class="button primary" href="#light-mixer">RGB Light</a>
-          <a class="button primary" href="#paint-mixer">Paint Mixing</a>
+          <a class="button primary" href="#paint-mixer">Artist Mode</a>
         </div>
       </div>
 
@@ -44,8 +45,8 @@
         <p class="muted">
           Light on a white screen is additive in effect. Paint under white light is subtractive in effect.
         </p>
-        <div class="note-panel small">
-          The paint section is an educational approximation using absorbance-style mixing in linear RGB. It is much better than naïve RGB averaging, but it is not a full spectral pigment model.
+        <div class="clab-note small">
+          Artist mode uses named oil-paint style presets. The paint section is an educational approximation using absorbance-style mixing in linear RGB. It is far more painterly than naïve RGB averaging, but it is not a full spectral pigment model.
         </div>
       </aside>
     </section>
@@ -53,49 +54,54 @@
     <section class="section" id="light-mixer">
       <h2>1. RGB light on a white screen</h2>
 
-      <div class="colour-lab-layout">
+      <div class="clab-layout">
         <div class="panel">
           <h3>Incident light</h3>
 
-          <div class="control">
+          <div class="clab-control">
             <label for="rLight"><span>Red light</span><span id="rLightVal">255</span></label>
             <input id="rLight" type="range" min="0" max="255" value="255" />
           </div>
 
-          <div class="control">
+          <div class="clab-control">
             <label for="gLight"><span>Green light</span><span id="gLightVal">255</span></label>
             <input id="gLight" type="range" min="0" max="255" value="255" />
           </div>
 
-          <div class="control">
+          <div class="clab-control">
             <label for="bLight"><span>Blue light</span><span id="bLightVal">255</span></label>
             <input id="bLight" type="range" min="0" max="255" value="255" />
           </div>
 
-          <div class="control">
+          <div class="clab-control">
             <label for="screenReflectance"><span>White screen reflectance</span><span id="screenReflectanceVal">100%</span></label>
             <input id="screenReflectance" type="range" min="0" max="100" value="100" />
           </div>
 
-          <div class="formula" id="lightFormula"></div>
-          <div class="readout" id="lightReadout"></div>
+          <div class="clab-formula" id="lightFormula"></div>
+          <div class="clab-readout" id="lightReadout"></div>
         </div>
 
-        <div class="panel">
-          <h3>What reaches your eye</h3>
-          <div class="swatch-large" id="lightOutput"></div>
+        <div class="panel clab-output-stack">
+          <div>
+            <h3>What reaches your eye</h3>
+            <div class="clab-swatch-large" id="lightOutput"></div>
+            <p class="clab-result-caption">
+              This swatch represents the RGB light reflected from the white screen into the eye.
+            </p>
+          </div>
 
-          <div class="colour-lab-triple">
+          <div class="clab-triple">
             <div>
-              <div class="swatch-small" id="incidentSwatch"></div>
+              <div class="clab-swatch-small" id="incidentSwatch"></div>
               <div class="small" id="incidentText"></div>
             </div>
             <div>
-              <div class="swatch-small" id="screenSwatch"></div>
+              <div class="clab-swatch-small" id="screenSwatch"></div>
               <div class="small" id="screenText"></div>
             </div>
             <div>
-              <div class="swatch-small" id="reflectedSwatch"></div>
+              <div class="clab-swatch-small" id="reflectedSwatch"></div>
               <div class="small" id="reflectedText"></div>
             </div>
           </div>
@@ -104,64 +110,99 @@
     </section>
 
     <section class="section" id="paint-mixer">
-      <h2>2. Paint on a white canvas or palette under white light</h2>
+      <h2>2. Artist mode: paint on a white canvas or palette under white light</h2>
 
-      <div class="colour-lab-layout">
+      <div class="clab-layout">
         <div class="panel">
-          <h3>Choose paints and proportions</h3>
+          <h3>Choose a painterly mode</h3>
 
-          <div class="control">
-            <label for="paint1"><span>Paint 1 colour</span><span id="paint1Hex">#d94b3d</span></label>
-            <input id="paint1" type="color" value="#d94b3d" />
+          <div class="clab-tabs" role="tablist" aria-label="Artist modes">
+            <button class="clab-tab active" type="button" data-mode="limited" aria-pressed="true">Limited</button>
+            <button class="clab-tab" type="button" data-mode="landscape" aria-pressed="false">Landscape</button>
+            <button class="clab-tab" type="button" data-mode="portrait" aria-pressed="false">Portrait</button>
           </div>
-          <div class="control">
+
+          <p class="clab-mode-summary small" id="modeDescription"></p>
+
+          <div class="clab-control">
+            <label for="paint1Name"><span>Paint 1</span><span class="clab-inline-meta" id="paint1Hex">#8f4b2e</span></label>
+            <select id="paint1Name"></select>
+          </div>
+
+          <div class="clab-control">
             <label for="paint1Amount"><span>Paint 1 amount</span><span id="paint1AmountVal">40%</span></label>
             <input id="paint1Amount" type="range" min="0" max="100" value="40" />
           </div>
 
-          <div class="control">
-            <label for="paint2"><span>Paint 2 colour</span><span id="paint2Hex">#1d4ed8</span></label>
-            <input id="paint2" type="color" value="#1d4ed8" />
+          <div class="clab-control">
+            <label for="paint2Name"><span>Paint 2</span><span class="clab-inline-meta" id="paint2Hex">#2f4596</span></label>
+            <select id="paint2Name"></select>
           </div>
-          <div class="control">
+
+          <div class="clab-control">
             <label for="paint2Amount"><span>Paint 2 amount</span><span id="paint2AmountVal">35%</span></label>
             <input id="paint2Amount" type="range" min="0" max="100" value="35" />
           </div>
 
-          <div class="control">
-            <label for="paint3"><span>Paint 3 colour</span><span id="paint3Hex">#f1c40f</span></label>
-            <input id="paint3" type="color" value="#f1c40f" />
+          <div class="clab-control">
+            <label for="paint3Name"><span>Paint 3</span><span class="clab-inline-meta" id="paint3Hex">#f2c230</span></label>
+            <select id="paint3Name"></select>
           </div>
-          <div class="control">
+
+          <div class="clab-control">
             <label for="paint3Amount"><span>Paint 3 amount</span><span id="paint3AmountVal">25%</span></label>
             <input id="paint3Amount" type="range" min="0" max="100" value="25" />
           </div>
 
-          <div class="control">
+          <div class="clab-control">
             <label for="coverage"><span>Paint coverage on white canvas</span><span id="coverageVal">100%</span></label>
             <input id="coverage" type="range" min="0" max="100" value="100" />
           </div>
 
-          <div class="formula" id="paintFormula"></div>
-          <div class="readout" id="paintReadout"></div>
+          <div class="button-row">
+            <button class="button" type="button" id="resetModeMix">Reset mode mix</button>
+          </div>
+
+          <div class="clab-formula" id="paintFormula"></div>
+          <div class="clab-readout" id="paintReadout"></div>
         </div>
 
-        <div class="panel">
-          <h3>Reflected colour under white light</h3>
-          <div class="swatch-large" id="paintOutput"></div>
+        <div class="panel clab-output-stack">
+          <div>
+            <h3>Reflected colour under white light</h3>
+            <div class="clab-swatch-large" id="paintOutput"></div>
+            <p class="clab-result-caption">
+              This swatch represents the approximate colour reflected from the mixed paint layer into the eye under white light.
+            </p>
+          </div>
 
-          <div class="colour-lab-triple">
+          <div class="clab-triple">
             <div>
-              <div class="swatch-small" id="paint1Swatch"></div>
+              <div class="clab-swatch-small" id="paint1Swatch"></div>
               <div class="small" id="paint1Text"></div>
             </div>
             <div>
-              <div class="swatch-small" id="paint2Swatch"></div>
+              <div class="clab-swatch-small" id="paint2Swatch"></div>
               <div class="small" id="paint2Text"></div>
             </div>
             <div>
-              <div class="swatch-small" id="paint3Swatch"></div>
+              <div class="clab-swatch-small" id="paint3Swatch"></div>
               <div class="small" id="paint3Text"></div>
+            </div>
+          </div>
+
+          <div class="clab-mini-grid">
+            <div class="clab-mini-card">
+              <h4>Limited</h4>
+              <p>Broad range from a restrained palette. Good for learning strong mixing logic.</p>
+            </div>
+            <div class="clab-mini-card">
+              <h4>Landscape</h4>
+              <p>Sky, greens, earths, and natural muted mixtures for land and atmosphere.</p>
+            </div>
+            <div class="clab-mini-card">
+              <h4>Portrait</h4>
+              <p>Earths, reds, and blue support for skin notes, neutral greys, and controlled warmth.</p>
             </div>
           </div>
         </div>
@@ -175,7 +216,7 @@
           In the light section, the colour reaching the eye is the incident RGB mixture scaled by the reflectance of the white screen.
         </p>
         <p class="small">
-          In the paint section, the colour reaching the eye is the reflected remainder of the white illumination after pigment absorption. The model here is intentionally approximate, but it is conceptually much closer to paint behaviour than averaging display RGB values.
+          In the artist mode section, the colour reaching the eye is the reflected remainder of the white illumination after pigment-like absorption. The model is intentionally approximate, but it is conceptually much closer to paint behaviour than averaging display RGB values.
         </p>
       </div>
     </section>
@@ -188,6 +229,65 @@
   </footer>
 
   <script>
+    const ARTIST_MODES = {
+      limited: {
+        description: "A disciplined reduced palette for powerful mixing from a few colours.",
+        paints: [
+          { name: "Titanium White", hex: "#f4f5f0" },
+          { name: "Ultramarine Blue", hex: "#2f4596" },
+          { name: "Burnt Sienna", hex: "#8f4b2e" },
+          { name: "Cadmium Yellow Light", hex: "#f2c230" },
+          { name: "Yellow Ochre", hex: "#c79b42" },
+          { name: "Burnt Umber", hex: "#5a3a2a" },
+          { name: "Permanent Rose", hex: "#c44772" },
+          { name: "Ivory Black", hex: "#1e1d1a" }
+        ],
+        defaults: {
+          names: ["Burnt Sienna", "Ultramarine Blue", "Cadmium Yellow Light"],
+          amounts: [40, 35, 25]
+        }
+      },
+      landscape: {
+        description: "Built for skies, greens, earths, cool distances, and muted natural mixtures.",
+        paints: [
+          { name: "Titanium White", hex: "#f4f5f0" },
+          { name: "Ultramarine Blue", hex: "#2f4596" },
+          { name: "Cobalt Blue", hex: "#3d66b3" },
+          { name: "Viridian", hex: "#2f7f6f" },
+          { name: "Terre Verte", hex: "#7d8f63" },
+          { name: "Cadmium Yellow Light", hex: "#f2c230" },
+          { name: "Yellow Ochre", hex: "#c79b42" },
+          { name: "Burnt Sienna", hex: "#8f4b2e" },
+          { name: "Burnt Umber", hex: "#5a3a2a" },
+          { name: "Ivory Black", hex: "#1e1d1a" }
+        ],
+        defaults: {
+          names: ["Viridian", "Yellow Ochre", "Ultramarine Blue"],
+          amounts: [40, 35, 25]
+        }
+      },
+      portrait: {
+        description: "Earths, reds, and moderated blues for skin notes, neutrals, and subtle warmth shifts.",
+        paints: [
+          { name: "Titanium White", hex: "#f4f5f0" },
+          { name: "Yellow Ochre", hex: "#c79b42" },
+          { name: "Burnt Sienna", hex: "#8f4b2e" },
+          { name: "Burnt Umber", hex: "#5a3a2a" },
+          { name: "Permanent Rose", hex: "#c44772" },
+          { name: "Alizarin Crimson Hue", hex: "#7d243e" },
+          { name: "Ultramarine Blue", hex: "#2f4596" },
+          { name: "Cobalt Blue", hex: "#3d66b3" },
+          { name: "Ivory Black", hex: "#1e1d1a" }
+        ],
+        defaults: {
+          names: ["Yellow Ochre", "Burnt Sienna", "Titanium White"],
+          amounts: [35, 30, 35]
+        }
+      }
+    };
+
+    let currentMode = "limited";
+
     function clamp01(x) {
       return Math.min(1, Math.max(0, x));
     }
@@ -227,6 +327,58 @@
 
     function updateText(id, text) {
       document.getElementById(id).textContent = text;
+    }
+
+    function findPaintHex(mode, paintName) {
+      const paint = ARTIST_MODES[mode].paints.find(p => p.name === paintName);
+      return paint ? paint.hex : "#808080";
+    }
+
+    function populatePaintSelectors(mode) {
+      const paintNames = ARTIST_MODES[mode].paints;
+      const selectors = [
+        document.getElementById("paint1Name"),
+        document.getElementById("paint2Name"),
+        document.getElementById("paint3Name")
+      ];
+
+      selectors.forEach(select => {
+        select.innerHTML = "";
+        paintNames.forEach(paint => {
+          const option = document.createElement("option");
+          option.value = paint.name;
+          option.textContent = paint.name;
+          select.appendChild(option);
+        });
+      });
+    }
+
+    function applyModeDefaults(mode) {
+      const defaults = ARTIST_MODES[mode].defaults;
+
+      document.getElementById("paint1Name").value = defaults.names[0];
+      document.getElementById("paint2Name").value = defaults.names[1];
+      document.getElementById("paint3Name").value = defaults.names[2];
+
+      document.getElementById("paint1Amount").value = defaults.amounts[0];
+      document.getElementById("paint2Amount").value = defaults.amounts[1];
+      document.getElementById("paint3Amount").value = defaults.amounts[2];
+      document.getElementById("coverage").value = 100;
+    }
+
+    function setArtistMode(mode) {
+      currentMode = mode;
+      populatePaintSelectors(mode);
+      applyModeDefaults(mode);
+      updateText("modeDescription", ARTIST_MODES[mode].description);
+
+      document.querySelectorAll(".clab-tab").forEach(button => {
+        const active = button.dataset.mode === mode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      updatePaintMixer();
     }
 
     function updateLightMixer() {
@@ -270,34 +422,38 @@
     }
 
     function updatePaintMixer() {
-      const paint1 = document.getElementById("paint1").value;
-      const paint2 = document.getElementById("paint2").value;
-      const paint3 = document.getElementById("paint3").value;
+      const paint1Name = document.getElementById("paint1Name").value;
+      const paint2Name = document.getElementById("paint2Name").value;
+      const paint3Name = document.getElementById("paint3Name").value;
+
+      const paint1Hex = findPaintHex(currentMode, paint1Name);
+      const paint2Hex = findPaintHex(currentMode, paint2Name);
+      const paint3Hex = findPaintHex(currentMode, paint3Name);
 
       const amount1 = parseInt(document.getElementById("paint1Amount").value, 10);
       const amount2 = parseInt(document.getElementById("paint2Amount").value, 10);
       const amount3 = parseInt(document.getElementById("paint3Amount").value, 10);
       const coverage = parseInt(document.getElementById("coverage").value, 10) / 100;
 
-      updateText("paint1Hex", paint1);
-      updateText("paint2Hex", paint2);
-      updateText("paint3Hex", paint3);
+      updateText("paint1Hex", paint1Hex);
+      updateText("paint2Hex", paint2Hex);
+      updateText("paint3Hex", paint3Hex);
       updateText("paint1AmountVal", `${amount1}%`);
       updateText("paint2AmountVal", `${amount2}%`);
       updateText("paint3AmountVal", `${amount3}%`);
       updateText("coverageVal", `${Math.round(coverage * 100)}%`);
 
-      const p1 = hexToRgb(paint1);
-      const p2 = hexToRgb(paint2);
-      const p3 = hexToRgb(paint3);
+      const p1 = hexToRgb(paint1Hex);
+      const p2 = hexToRgb(paint2Hex);
+      const p3 = hexToRgb(paint3Hex);
 
       setSwatch("paint1Swatch", p1);
       setSwatch("paint2Swatch", p2);
       setSwatch("paint3Swatch", p3);
 
-      updateText("paint1Text", `Paint 1 | ${paint1}`);
-      updateText("paint2Text", `Paint 2 | ${paint2}`);
-      updateText("paint3Text", `Paint 3 | ${paint3}`);
+      updateText("paint1Text", `${paint1Name} | ${paint1Hex}`);
+      updateText("paint2Text", `${paint2Name} | ${paint2Hex}`);
+      updateText("paint3Text", `${paint3Name} | ${paint3Hex}`);
 
       const sumRaw = Math.max(1, amount1 + amount2 + amount3);
       const w = [amount1 / sumRaw, amount2 / sumRaw, amount3 / sumRaw];
@@ -311,9 +467,21 @@
       const eps = 1e-4;
 
       const mixedLinear = {
-        r: Math.exp(w[0] * Math.log(Math.max(eps, paints[0].r)) + w[1] * Math.log(Math.max(eps, paints[1].r)) + w[2] * Math.log(Math.max(eps, paints[2].r))),
-        g: Math.exp(w[0] * Math.log(Math.max(eps, paints[0].g)) + w[1] * Math.log(Math.max(eps, paints[1].g)) + w[2] * Math.log(Math.max(eps, paints[2].g))),
-        b: Math.exp(w[0] * Math.log(Math.max(eps, paints[0].b)) + w[1] * Math.log(Math.max(eps, paints[1].b)) + w[2] * Math.log(Math.max(eps, paints[2].b)))
+        r: Math.exp(
+          w[0] * Math.log(Math.max(eps, paints[0].r)) +
+          w[1] * Math.log(Math.max(eps, paints[1].r)) +
+          w[2] * Math.log(Math.max(eps, paints[2].r))
+        ),
+        g: Math.exp(
+          w[0] * Math.log(Math.max(eps, paints[0].g)) +
+          w[1] * Math.log(Math.max(eps, paints[1].g)) +
+          w[2] * Math.log(Math.max(eps, paints[2].g))
+        ),
+        b: Math.exp(
+          w[0] * Math.log(Math.max(eps, paints[0].b)) +
+          w[1] * Math.log(Math.max(eps, paints[1].b)) +
+          w[2] * Math.log(Math.max(eps, paints[2].b))
+        )
       };
 
       const onWhiteCanvasLinear = {
@@ -337,21 +505,30 @@
         `Reflected to eye under white light: RGB(${reflected.r}, ${reflected.g}, ${reflected.b}) | ${rgbToHex(reflected)} | Normalised weights: ${w.map(x => x.toFixed(2)).join(", ")}`;
     }
 
-    const ids = [
-      "rLight", "gLight", "bLight", "screenReflectance",
-      "paint1", "paint2", "paint3",
-      "paint1Amount", "paint2Amount", "paint3Amount", "coverage"
-    ];
-
-    ids.forEach(id => {
-      document.getElementById(id).addEventListener("input", () => {
-        updateLightMixer();
-        updatePaintMixer();
+    document.querySelectorAll(".clab-tab").forEach(button => {
+      button.addEventListener("click", () => {
+        setArtistMode(button.dataset.mode);
       });
     });
 
+    ["paint1Name", "paint2Name", "paint3Name"].forEach(id => {
+      document.getElementById(id).addEventListener("change", updatePaintMixer);
+    });
+
+    ["paint1Amount", "paint2Amount", "paint3Amount", "coverage"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updatePaintMixer);
+    });
+
+    ["rLight", "gLight", "bLight", "screenReflectance"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updateLightMixer);
+    });
+
+    document.getElementById("resetModeMix").addEventListener("click", () => {
+      setArtistMode(currentMode);
+    });
+
     updateLightMixer();
-    updatePaintMixer();
+    setArtistMode("limited");
   </script>
 </body>
 </html>
