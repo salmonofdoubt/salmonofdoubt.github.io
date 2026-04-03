@@ -417,14 +417,19 @@ strong {
 
 .colour-lab-layout {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 1.25rem;
+  align-items: start;
 }
 
 .colour-lab-triple {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+  margin-top: 1rem;
+}
+
+.colour-lab-stack > * + * {
   margin-top: 1rem;
 }
 
@@ -437,7 +442,7 @@ strong {
   justify-content: space-between;
   gap: 1rem;
   font-weight: 700;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
   color: var(--text);
 }
 
@@ -456,10 +461,10 @@ strong {
 
 .swatch-large {
   width: 100%;
-  min-height: 240px;
+  min-height: 280px;
   border-radius: 20px;
   border: 1px solid var(--border);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 .swatch-small {
@@ -467,7 +472,7 @@ strong {
   min-height: 82px;
   border-radius: 16px;
   border: 1px solid var(--border);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.65rem;
 }
 
 .formula {
@@ -477,7 +482,8 @@ strong {
   border: 1px solid rgba(110, 168, 255, 0.12);
   color: #d9e6ff;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.94rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
@@ -498,19 +504,44 @@ strong {
   border: 1px solid rgba(110, 168, 255, 0.12);
 }
 
-.demo-card.featured-green {
-  background-color: #0d3d28;
-  border-color: #1a5c3e;
+.result-caption {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.96rem;
 }
 
-.demo-card.featured-blue {
-  background-color: #1a2a3a;
-  border-color: #2d3f4f;
+.preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.preset-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(159, 195, 255, 0.16);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.preset-btn:hover {
+  background: rgba(110, 168, 255, 0.08);
+  border-color: rgba(110, 168, 255, 0.26);
 }
 
 @media (max-width: 920px) {
   .colour-lab-layout,
   .colour-lab-triple {
     grid-template-columns: 1fr;
+  }
+
+  .swatch-large {
+    min-height: 220px;
   }
 }
