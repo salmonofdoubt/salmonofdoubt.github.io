@@ -410,3 +410,24 @@ strong {
     font-size: 2.4rem;
   }
 }
+
+/* 1. Set the default color for ALL cards to Dark Blue */
+.demo-card {
+  background-color: #1a2a3a; /* Dark Blue */
+  border: 1px solid #2d3f4f;
+  padding: 1.5rem;
+  border-radius: 8px;
+  color: #e0e0e0;
+}
+
+/* 2. Target the first THREE cards specifically to be Dark Green */
+/* This covers: Stability-Aware, Nanny-Devlin, and UrbanForest */
+.demo-card:nth-child(-n+3) {
+  background-color: #1a3a3a; /* Dark Green */
+  border: 1px solid #2d4f4f;
+}
+
+/* Optional: Ensure the Featured card stays Green as well */
+.section:first-of-type .demo-card {
+  background-color: #1a3a3a;
+}
