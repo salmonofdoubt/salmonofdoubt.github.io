@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irish Tax Liability Logic Matrix</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .matrix-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        select:disabled {
+            background-color: #ecf0f1;
+            color: #7f8c8d;
+        }
+        .results-panel {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f6f3;
+            border-left: 5px solid #1abc9c;
+            border-radius: 4px;
+        }
+        .results-panel h3 {
+            margin-top: 0;
+            color: #16a085;
+        }
+        .liability-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        .reasoning-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="matrix-container">
+    <h2>Tax Liability Simulator</h2>
+
+    <div class="form-group">
+        <label for="assetType">Asset Type</label>
+        <select id="assetType" onchange="calculateTax()">
+            <option value="btp">Italian Government Bond (BTP)</option>
+            <option value="offshore">Offshore Fund (SICAV/ETF)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="triggerEvent">Trigger Event</label>
+        <select id="triggerEvent" onchange="calculateTax()">
+            <option value="held">Held - No Dividend Paid</option>
+            <option value="dividend">Cash Dividend Paid</option>
+            <option value="sold">Asset Sold</option>
+            <option value="8year">8-Year Anniversary Reached</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="remittance">Funds Remitted to Ireland?</label>
+        <select id="remittance" onchange="calculateTax()">
+            <option value="italy">Kept in Italian Account</option>
+            <option value="ireland">Transferred to Irish Bank</option>
+        </select>
+    </div>
+
+    <div class="results-panel">
+        <h3>Calculated Irish Liability</h3>
+        <div class="liability-value" id="liabilityOutput">0%</div>
+        <div class="reasoning-text" id="reasoningOutput">
+            <strong>Statutory Reasoning:</strong> Protected by the Remittance Basis under TCA 1997 s.71. Income has not entered the Irish State.
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateTax() {
+        const asset = document.getElementById("assetType").value;
+        const event = document.getElementById("triggerEvent").value;
+        const remitted = document.getElementById("remittance").value;
+        
+        const remittanceSelect = document.getElementById("remittance");
+        const liabilityOutput = document.getElementById("liabilityOutput");
+        const reasoningOutput = document.getElementById("reasoningOutput");
+
+        let liability = "";
+        let reasoning = "";
+
+        // Logic branching based on exact statutory parameters
+        if (asset === "btp") {
+            // Remittance basis is active for government bonds
+            remittanceSelect.disabled = false;
+            
+            if (remitted === "italy") {
+                liability = "0%";
+                reasoning = "Protected by the Remittance Basis under TCA 1997 s.71. Income has not entered the Irish State.";
+                liabilityOutput.style.color = "#27ae60"; // Green for 0%
+            } else {
+                liability = "Standard Income Tax";
+                reasoning = "Remittance Basis breached. Transferring the funds to an Irish bank subjects the income to standard Irish taxation.";
+                liabilityOutput.style.color = "#e74c3c"; // Red for tax due
+            }
+        } else if (asset === "offshore") {
+            // Remittance basis is nullified for offshore funds
+            remittanceSelect.disabled = true;
+            
+            if (event === "held") {
+                liability = "0%";
+                reasoning = "Gross Roll-Up regime applies. No chargeable event (disposal or distribution) has occurred this year. Tax is deferred.";
+                liabilityOutput.style.color = "#27ae60";
+            } else {
+                liability = "41% Exit Tax";
+                reasoning = "A chargeable event was triggered under TCA 1997 s.747E. The Remittance Basis cannot shield EU offshore funds, regardless of where the money is kept.";
+                liabilityOutput.style.color = "#e74c3c";
+            }
+        }
+
+        liabilityOutput.innerText = liability;
+        reasoningOutput.innerHTML = "<strong>Statutory Reasoning:</strong> " + reasoning;
+    }
+
+    // Initialize the matrix state on page load
+    window.onload = calculateTax;
+</script>
+
+</body>
+</html>
