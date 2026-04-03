@@ -411,17 +411,106 @@ strong {
   }
 }
 
-/* Target the cards in the "All Demos" section specifically */
-.section:last-of-type .grid .demo-card {
-  background-color: #1a2a3a !important; /* Default: Dark Blue */
-  border: 1px solid #2d3f4f !important;
+/* ========================================
+   Colour Lab demo
+   ======================================== */
+
+.colour-lab-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
 }
 
-/* Target the first three cards in that grid to be Green */
-.section:last-of-type .grid .demo-card:nth-child(1),
-.section:last-of-type .grid .demo-card:nth-child(2),
-.section:last-of-type .grid .demo-card:nth-child(3) {
-  background-color: #0d3d28 !important; /* Dark Green */
-  border: 1px solid #1a5c3e !important;
+.colour-lab-triple {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
+.control {
+  margin-bottom: 1rem;
+}
+
+.control label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: var(--text);
+}
+
+.control input[type="range"] {
+  width: 100%;
+}
+
+.control input[type="color"] {
+  width: 100%;
+  height: 3rem;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.swatch-large {
+  width: 100%;
+  min-height: 240px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.swatch-small {
+  width: 100%;
+  min-height: 82px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 0.8rem;
+}
+
+.formula {
+  padding: 0.9rem 1rem;
+  border-radius: 16px;
+  background: rgba(110, 168, 255, 0.08);
+  border: 1px solid rgba(110, 168, 255, 0.12);
+  color: #d9e6ff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.94rem;
+  overflow-wrap: anywhere;
+}
+
+.readout {
+  margin-top: 0.8rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.note-panel {
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(110, 168, 255, 0.08) 0%,
+    rgba(139, 92, 246, 0.05) 100%
+  );
+  border: 1px solid rgba(110, 168, 255, 0.12);
+}
+
+.demo-card.featured-green {
+  background-color: #0d3d28;
+  border-color: #1a5c3e;
+}
+
+.demo-card.featured-blue {
+  background-color: #1a2a3a;
+  border-color: #2d3f4f;
+}
+
+@media (max-width: 920px) {
+  .colour-lab-layout,
+  .colour-lab-triple {
+    grid-template-columns: 1fr;
+  }
+}
