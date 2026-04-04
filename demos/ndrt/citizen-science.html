@@ -3,103 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nanny Watch | Citizen Science and River Action Demo</title>
+  <title>Nanny Watch | Citizen Science and River Action</title>
   <meta
     name="description"
-    content="Demo operational page for Nanny Watch: citizen science, nature-based solutions, Spartina stewardship, CSSI, and field reporting."
+    content="Demo citizen science page for the Nanny-Delvin Rivers Trust, covering nature-based solutions, Spartina stewardship, CSSI, and reporting."
   />
   <link rel="stylesheet" href="assets/css/ndrt.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="shell nav">
+    <div class="shell nav-shell">
       <a href="index.html" class="logo" aria-label="Back to Nanny-Delvin Rivers Trust homepage">
-        <span class="logo-mark">NW</span>
+        <span class="logo-mark">ND</span>
         <span class="logo-text">
           Nanny Watch
-          <small>CITIZEN SCIENCE HUB</small>
+          <small>CITIZEN SCIENCE DEMO</small>
         </span>
       </a>
 
       <nav class="nav-links" aria-label="Citizen science navigation">
-        <a href="index.html">Main Page</a>
+        <a href="index.html">Trust Home</a>
         <a href="#pathways">Pathways</a>
-        <a href="#nbs">NbS Measures</a>
+        <a href="#nbs">NbS</a>
         <a href="#spartina">Spartina</a>
         <a href="#cssi">CSSI</a>
-        <a href="#report">Report</a>
-        <a href="#training">Training</a>
+        <a href="#report" class="cta-nav">Report</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero shell">
-      <div class="hero-grid">
+    <section class="hero shell hero-compact">
+      <div class="hero-grid hero-grid-single">
         <div>
-          <p class="eyebrow">Citizen Science and River Action</p>
-          <h1 class="page-title">Practical pathways for people who want to help the catchment.</h1>
+          <div class="eyebrow">Operational Community Action</div>
+          <h1 class="hero-title">Citizen Science and River Action</h1>
           <p class="lead">
-            This second page is the operational side of the demo site. It is where volunteers,
-            hub leads, and local partners can understand what to do, what to observe, and how to
-            report it. It keeps the practical work separate from the public-facing homepage.
+            This page is the practical side of the demo. It turns public interest into action
+            through structured pathways: implement nature-based solutions, observe estuary issues,
+            carry out CSSI stream checks, and submit field updates.
           </p>
-
-          <div class="hero-actions">
-            <a class="button" href="#pathways">Choose a pathway</a>
-            <a class="button-secondary" href="#report">Open demo report form</a>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-visual">
-            <h2>Observe. Restore. Record. Learn.</h2>
-            <p>
-              The citizen science hub should turn goodwill into structured action without making
-              the process feel bureaucratic or intimidating.
-            </p>
-          </div>
         </div>
       </div>
     </section>
 
     <section id="pathways" class="shell">
       <div class="section-heading">
-        <h2>Choose Your Action Pathway</h2>
-        <p>
-          The page works best when people can enter through a task rather than reading one long wall of text.
+        <h2>Choose Your Pathway</h2>
+        <p class="lead section-lead">
+          Use large task-based entry points instead of one long undifferentiated page.
         </p>
       </div>
 
-      <div class="path-grid">
-        <article class="card highlight">
-          <h3>Implement Nature-Based Solutions</h3>
-          <p>
-            Learn what common measures do, where they fit, what good condition looks like, and what should be recorded in the field.
-          </p>
-          <div class="inline-actions">
-            <a class="button-link" href="#nbs">Open NbS guide →</a>
-          </div>
+      <div class="grid grid-4">
+        <article class="card action-card">
+          <h3>Implement NbS Measures</h3>
+          <p>Learn what good function looks like for buffers, wetlands, sediment features, and riparian recovery.</p>
+          <a class="button-link" href="#nbs">Open NbS section →</a>
         </article>
 
-        <article class="card warning">
-          <h3>Spartina and Estuary Action</h3>
-          <p>
-            Understand how to identify Spartina, why estuarine management needs care, and why any intervention should be guided rather than improvised.
-          </p>
-          <div class="inline-actions">
-            <a class="button-link" href="#spartina">Open Spartina section →</a>
-          </div>
+        <article class="card action-card">
+          <h3>Spartina Stewardship</h3>
+          <p>Identify, record, and escalate estuarine concerns through a careful and supervised route.</p>
+          <a class="button-link" href="#spartina">Open Spartina section →</a>
         </article>
 
-        <article class="card">
+        <article class="card action-card">
           <h3>CSSI Stream Health Checks</h3>
-          <p>
-            Follow a simple route into stream observation, habitat notes, indicator groups, and consistent data recording.
-          </p>
-          <div class="inline-actions">
-            <a class="button-link" href="#cssi">Open CSSI section →</a>
-          </div>
+          <p>Follow a simple pathway into stream observation, habitat notes, indicator groups, and repeatable recording.</p>
+          <a class="button-link" href="#cssi">Open CSSI section →</a>
+        </article>
+
+        <article class="card action-card highlight-card">
+          <h3>Report a Field Update</h3>
+          <p>Submit a structured observation on a visit, a site condition, or a measure that needs attention.</p>
+          <a class="button-link" href="#report">Open reporting section →</a>
         </article>
       </div>
     </section>
@@ -107,19 +85,19 @@
     <section id="nbs" class="shell">
       <div class="section-heading">
         <h2>Implementing Nature-Based Solutions</h2>
-        <p>
-          Each measure card should answer the same field questions: what it is for, where it fits, what good function looks like, and what should be recorded.
+        <p class="lead section-lead">
+          Each measure should answer the same field questions: purpose, fit, good function, warning signs, and what to record.
         </p>
       </div>
 
-      <div class="measure-grid">
+      <div class="grid grid-3">
         <article class="card">
           <h3>Riparian Buffer</h3>
           <ul>
-            <li><strong>Purpose:</strong> Slow runoff, trap sediment, reduce nutrient transfer, and improve habitat continuity.</li>
-            <li><strong>Where it fits:</strong> Stream and ditch margins with runoff pressure or bank vulnerability.</li>
-            <li><strong>Good function:</strong> Continuous vegetated strip, stable ground cover, low bare soil.</li>
-            <li><strong>Record:</strong> Width, continuity, vegetation condition, poaching, bank damage, gaps.</li>
+            <li><strong>Purpose:</strong> Slow runoff, trap sediment, reduce nutrient transfer, and support habitat continuity.</li>
+            <li><strong>Where it fits:</strong> Stream or ditch margins with runoff pressure, bank vulnerability, or habitat opportunity.</li>
+            <li><strong>Good function:</strong> Continuous vegetated strip, stable cover, low bare soil, limited trampling.</li>
+            <li><strong>Record:</strong> Width, continuity, poaching, vegetation condition, bank damage, gaps.</li>
           </ul>
         </article>
 
@@ -128,28 +106,28 @@
           <ul>
             <li><strong>Purpose:</strong> Intercept nutrient-rich flows, slow water, store sediment, and support biodiversity.</li>
             <li><strong>Where it fits:</strong> Suitable interception points with enough space and manageable inflow.</li>
-            <li><strong>Good function:</strong> Visible wetland vegetation, controlled flow path, no major scour or bypass.</li>
-            <li><strong>Record:</strong> Water presence, vegetation cover, signs of blockage, erosion, bypass, litter.</li>
+            <li><strong>Good function:</strong> Clear flow path, wetland vegetation, no major scour, no obvious bypass.</li>
+            <li><strong>Record:</strong> Water presence, vegetation cover, blockage, erosion, bypass, litter.</li>
           </ul>
         </article>
 
         <article class="card">
           <h3>Sediment Trap or Pond</h3>
           <ul>
-            <li><strong>Purpose:</strong> Capture coarse material and reduce downstream sediment transfer.</li>
+            <li><strong>Purpose:</strong> Capture coarse material and reduce downstream sediment transport.</li>
             <li><strong>Where it fits:</strong> Pathways where sediment movement is visible or expected.</li>
-            <li><strong>Good function:</strong> Defined inlet and outlet, stored material where expected, no structural collapse.</li>
-            <li><strong>Record:</strong> Fill level, erosion, overtopping, vegetation encroachment, maintenance need.</li>
+            <li><strong>Good function:</strong> Defined inlet and outlet, stored material where expected, no collapse.</li>
+            <li><strong>Record:</strong> Fill level, overtopping, erosion, vegetation encroachment, maintenance need.</li>
           </ul>
         </article>
 
         <article class="card">
           <h3>Hedgerow or Corridor Planting</h3>
           <ul>
-            <li><strong>Purpose:</strong> Support biodiversity, shelter, connectivity, and field-edge roughness.</li>
-            <li><strong>Where it fits:</strong> Boundaries, connecting lines, field edges, riparian transitions.</li>
-            <li><strong>Good function:</strong> Healthy growth, low dieback, clear continuity, limited browsing damage.</li>
-            <li><strong>Record:</strong> Survival rate, gaps, weed pressure, guards, browsing, connectivity value.</li>
+            <li><strong>Purpose:</strong> Support biodiversity, connectivity, shelter, and field-edge roughness.</li>
+            <li><strong>Where it fits:</strong> Boundaries, edges, transitions, and corridor links.</li>
+            <li><strong>Good function:</strong> Healthy growth, low dieback, limited browsing, clear continuity.</li>
+            <li><strong>Record:</strong> Survival rate, gaps, guards, weed pressure, browsing, connectivity value.</li>
           </ul>
         </article>
 
@@ -157,18 +135,18 @@
           <h3>Fencing and Stock Exclusion</h3>
           <ul>
             <li><strong>Purpose:</strong> Protect banks, reduce trampling, and allow riparian recovery.</li>
-            <li><strong>Where it fits:</strong> Livestock-access reaches with visible pressure on channel margins.</li>
+            <li><strong>Where it fits:</strong> Livestock-access reaches with visible margin pressure.</li>
             <li><strong>Good function:</strong> Fence intact, access controlled, bank vegetation recovering.</li>
-            <li><strong>Record:</strong> Fence condition, stock access points, poaching, exposed bank, regrowth.</li>
+            <li><strong>Record:</strong> Fence condition, access points, poaching, exposed bank, regrowth.</li>
           </ul>
         </article>
 
-        <article class="card highlight">
-          <h3>What This Section Should Eventually Add</h3>
+        <article class="card highlight-card">
+          <h3>What This Section Can Later Add</h3>
           <ul>
-            <li>Simple field photos showing good versus poor condition</li>
+            <li>Photo examples of good versus poor function</li>
             <li>Hub-specific examples from the catchment</li>
-            <li>Downloadable one-page measure checklists</li>
+            <li>One-page printable field checklists</li>
             <li>Maintenance prompts for repeat visits</li>
           </ul>
         </article>
@@ -178,16 +156,18 @@
     <section id="spartina" class="shell">
       <div class="section-heading">
         <h2>Spartina and Estuary Stewardship</h2>
-        <p>
-          This topic deserves a distinct section because estuarine invasive species issues are ecologically sensitive and operationally different from ordinary riparian volunteering.
+        <p class="lead section-lead">
+          This is a distinct estuary issue. It should be monitored carefully and handled through guided review, not casual volunteer removal.
         </p>
       </div>
 
-      <div class="grid-2">
-        <article class="card warning">
+      <div class="grid grid-2">
+        <article class="card warning-card">
           <h3>Why Spartina Matters</h3>
           <p>
-            Spartina can change marsh structure, sediment behaviour, access, and habitat conditions. It should be framed as a monitored estuary stewardship issue, not as a casual volunteer removal exercise.
+            Spartina can alter marsh structure, sediment behaviour, access, and habitat condition.
+            The right response is site-specific and should consider ecology, permissions, timing,
+            and risk.
           </p>
           <div class="tag-row">
             <span class="tag">Identification first</span>
@@ -196,37 +176,39 @@
           </div>
         </article>
 
-        <article class="card risk">
+        <article class="card risk-card">
           <h3>What Volunteers Should Not Do</h3>
           <ul>
             <li>Do not remove vegetation without guidance.</li>
-            <li>Do not assume all estuarine grasses are Spartina.</li>
+            <li>Do not assume every estuarine grass is Spartina.</li>
             <li>Do not disturb protected habitat or nesting areas.</li>
-            <li>Do not work in hazardous tidal conditions.</li>
+            <li>Do not work in unsafe tidal conditions.</li>
           </ul>
         </article>
       </div>
 
-      <div class="timeline" style="margin-top: 1.5rem;">
+      <div class="timeline">
         <article class="timeline-step">
-          <strong>Step 1</strong>
+          <strong>01</strong>
           <div>
             <h3>Spot and Compare</h3>
-            <p>Use a simple identification guide and photo examples before reporting a suspected Spartina patch.</p>
+            <p>Use a simple identification guide and photos before reporting a suspected patch.</p>
           </div>
         </article>
+
         <article class="timeline-step">
-          <strong>Step 2</strong>
+          <strong>02</strong>
           <div>
             <h3>Record the Sighting</h3>
-            <p>Log location, date, photos, approximate extent, and any nearby features such as creek edges, mudflat, or saltmarsh vegetation.</p>
+            <p>Log location, date, photos, approximate extent, and nearby features such as creek edge, mudflat, or marsh vegetation.</p>
           </div>
         </article>
+
         <article class="timeline-step">
-          <strong>Step 3</strong>
+          <strong>03</strong>
           <div>
             <h3>Escalate to Guided Review</h3>
-            <p>Any response should pass through a supervised review process that considers habitat, permissions, timing, and ecological trade-offs.</p>
+            <p>Any response should pass through a supervised review that considers habitat, permissions, timing, and ecological trade-offs.</p>
           </div>
         </article>
       </div>
@@ -235,32 +217,33 @@
     <section id="cssi" class="shell">
       <div class="section-heading">
         <h2>CSSI Stream Health Checks</h2>
-        <p>
-          This block should become the core onboarding route for community stream observation. Keep it simple, repeatable, and visually guided.
+        <p class="lead section-lead">
+          Keep this pathway simple, repeatable, and visually guided. It should welcome beginners without pretending to replace specialist methods.
         </p>
       </div>
 
-      <div class="grid-2">
+      <div class="grid grid-2">
         <article class="card">
           <h3>What CSSI Is For</h3>
           <p>
-            CSSI gives beginners and local volunteers a structured way to observe stream condition, visible ecological signals, and broad indicator groups without pretending to replace specialist regulatory methods.
+            CSSI gives volunteers a structured way to observe stream condition, visible ecological
+            signals, and broad indicator groups in a consistent manner.
           </p>
         </article>
 
-        <article class="card highlight">
+        <article class="card highlight-card">
           <h3>Basic Field Kit</h3>
           <ul>
             <li>Phone or camera</li>
             <li>Clipboard or waterproof field sheet</li>
             <li>Polarised glasses if available</li>
-            <li>Small tray and spoon or net if training supports it</li>
+            <li>Tray, spoon, or net if training supports it</li>
             <li>Boots, gloves, and site safety awareness</li>
           </ul>
         </article>
       </div>
 
-      <div class="timeline" style="margin-top: 1.5rem;">
+      <div class="timeline">
         <article class="timeline-step">
           <strong>01</strong>
           <div>
@@ -268,13 +251,15 @@
             <p>Select a safe, accessible section and note location, date, recent weather, and who is present.</p>
           </div>
         </article>
+
         <article class="timeline-step">
           <strong>02</strong>
           <div>
             <h3>Look at Habitat First</h3>
-            <p>Observe water clarity, banks, flow diversity, cover, substrate, shade, algae, fine sediment, and obvious disturbances.</p>
+            <p>Observe clarity, banks, flow diversity, cover, substrate, shade, algae, fine sediment, and obvious disturbance.</p>
           </div>
         </article>
+
         <article class="timeline-step">
           <strong>03</strong>
           <div>
@@ -282,6 +267,7 @@
             <p>Use the training guide to recognise broad groups rather than forcing false precision.</p>
           </div>
         </article>
+
         <article class="timeline-step">
           <strong>04</strong>
           <div>
@@ -289,11 +275,12 @@
             <p>Apply the same simple observation logic each time so results remain comparable across visits and hubs.</p>
           </div>
         </article>
+
         <article class="timeline-step">
           <strong>05</strong>
           <div>
             <h3>Submit Photos and Notes</h3>
-            <p>Photos are often as valuable as numeric entries because they help with review, interpretation, and follow-up.</p>
+            <p>Photos can be as valuable as numeric entries because they support review, interpretation, and follow-up.</p>
           </div>
         </article>
       </div>
@@ -302,12 +289,12 @@
     <section id="report" class="shell">
       <div class="section-heading">
         <h2>Demo Reporting Form</h2>
-        <p>
-          Keep the form on the operational page, not the homepage. It can later connect to Google Forms, Airtable, Formspree, or a custom workflow.
+        <p class="lead section-lead">
+          Keep the form on the operational page. It can later connect to Google Forms, Airtable, Formspree, or a custom workflow.
         </p>
       </div>
 
-      <div class="form-shell">
+      <div class="audit-box">
         <form class="form-grid" action="#" method="post">
           <div class="form-field">
             <label for="location">Location or Hub</label>
@@ -318,57 +305,47 @@
             <label for="activity">Activity Type</label>
             <select id="activity" name="activity">
               <option>CSSI stream check</option>
-              <option>NbS condition visit</option>
+              <option>NbS measure check</option>
               <option>Spartina sighting</option>
-              <option>General habitat observation</option>
+              <option>General site observation</option>
             </select>
           </div>
 
           <div class="form-field">
-            <label for="measure">Measure or Topic</label>
+            <label for="measure">Measure or Issue</label>
             <select id="measure" name="measure">
-              <option>Riparian buffer</option>
-              <option>Wetland</option>
-              <option>Sediment trap</option>
-              <option>Hedgerow or corridor</option>
-              <option>Fencing and stock exclusion</option>
-              <option>Spartina concern</option>
-              <option>CSSI only</option>
+              <option>Riparian Buffer</option>
+              <option>Constructed Wetland</option>
+              <option>Sediment Trap or Pond</option>
+              <option>Hedgerow or Corridor Planting</option>
+              <option>Fencing and Stock Exclusion</option>
+              <option>Spartina Concern</option>
             </select>
           </div>
 
           <div class="form-field">
-            <label for="condition">Condition or Status</label>
-            <select id="condition" name="condition">
-              <option>Good function observed</option>
-              <option>Maintenance needed</option>
-              <option>Possible issue to review</option>
-              <option>Urgent concern</option>
+            <label for="status">Condition Status</label>
+            <select id="status" name="status">
+              <option>Good function</option>
+              <option>Maintenance required</option>
+              <option>Under review</option>
+              <option>Potential concern</option>
             </select>
           </div>
 
           <div class="form-field form-field-full">
             <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" placeholder="Add observations, habitat notes, signs of damage, or what should happen next."></textarea>
+            <textarea id="notes" name="notes" rows="5" placeholder="Add observations, visible issues, wildlife notes, or follow-up needs."></textarea>
           </div>
 
           <div class="form-field">
-            <label for="contact-name">Your Name</label>
-            <input id="contact-name" name="contact_name" type="text" placeholder="Demo only" />
-          </div>
-
-          <div class="form-field">
-            <label for="contact-email">Contact Email</label>
-            <input id="contact-email" name="contact_email" type="email" placeholder="name@example.invalid" />
-          </div>
-
-          <div class="form-field form-field-full">
-            <button type="submit" class="button">Submit Demo Record</button>
+            <label for="submit-placeholder">Submit</label>
+            <button id="submit-placeholder" type="submit" class="button">Submit Record</button>
           </div>
         </form>
 
         <p class="form-note">
-          Prototype only. This form does not currently store anything. The placeholder email domain uses <strong>.invalid</strong> so no accidental live address is published.
+          Demo note: this form is visual only. No real data are stored and no real email route is published.
         </p>
       </div>
     </section>
@@ -376,42 +353,25 @@
     <section id="training" class="shell">
       <div class="section-heading">
         <h2>Training and Resources</h2>
-        <p>
-          This final block gives the page a practical landing area for next steps, downloads, and volunteer onboarding.
+        <p class="lead section-lead">
+          Keep the operational page useful even before a real backend exists.
         </p>
       </div>
 
-      <div class="resource-grid">
+      <div class="grid grid-3">
         <article class="card">
-          <h3>Beginner Training Day</h3>
-          <p>Introductory session for safe field conduct, basic habitat observation, and CSSI walkthrough.</p>
-        </article>
-        <article class="card">
-          <h3>NbS Measure Checklists</h3>
-          <p>Future downloadable one-page field prompts for buffers, wetlands, hedgerows, and maintenance checks.</p>
-        </article>
-        <article class="card">
-          <h3>Spartina Photo Guide</h3>
-          <p>Future guide showing what to photograph, what to record, and when to escalate rather than intervene.</p>
-        </article>
-      </div>
-
-      <div class="grid-2" style="margin-top: 1.5rem;">
-        <article class="card risk">
-          <h3>Safety Always Overrides Data Collection</h3>
-          <p>
-            No survey, photo, or observation is worth unsafe access, tidal risk, unstable banks, deep mud, livestock conflict, or private land conflict.
-          </p>
+          <h3>Training Day Placeholder</h3>
+          <p>List future hub visits, CSSI introductions, or estuary awareness days here.</p>
         </article>
 
         <article class="card">
-          <h3>Suggested Next Evolution</h3>
-          <ul>
-            <li>Downloadable CSSI appendix page</li>
-            <li>Clickable hub map</li>
-            <li>Photo-led species and habitat cards</li>
-            <li>Simple results dashboard for submitted observations</li>
-          </ul>
+          <h3>Downloadable Guides</h3>
+          <p>Later add printable CSSI sheets, NbS checklists, and Spartina photo guidance.</p>
+        </article>
+
+        <article class="card warning-card">
+          <h3>Safety First</h3>
+          <p>Every field activity should begin with access, weather, water, and tidal safety awareness.</p>
         </article>
       </div>
     </section>
@@ -420,28 +380,21 @@
   <footer class="site-footer">
     <div class="shell footer-grid">
       <div>
-        <h3>Nanny Watch</h3>
-        <p>
-          Demo operational page for citizen science, NbS observations, estuary stewardship, and structured field reporting.
+        <p><strong>Nanny Watch</strong></p>
+        <p>Citizen science and river action demo for the Nanny-Delvin Rivers Trust.</p>
+        <p class="footer-note">
+          Contact placeholder: <strong>volunteers@ndrt.demo.invalid</strong>
         </p>
-        <div class="muted-box small">
-          Demo contact placeholder: <strong>nannywatch@ndrt.demo.invalid</strong><br />
-          Replace only after governance, ownership, and workflow are agreed.
-        </div>
       </div>
 
       <div>
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="index.html">Back to main page</a></li>
-          <li><a href="#nbs">NbS measures</a></li>
-          <li><a href="#spartina">Spartina</a></li>
-          <li><a href="#cssi">CSSI</a></li>
-          <li><a href="#report">Report a field update</a></li>
-        </ul>
+        <p><strong>Quick Links</strong></p>
+        <p><a href="index.html">Back to Trust homepage</a></p>
+        <p><a href="#cssi">CSSI</a></p>
+        <p><a href="#spartina">Spartina</a></p>
+        <p><a href="#report">Reporting</a></p>
       </div>
     </div>
   </footer>
 </body>
 </html>
-
