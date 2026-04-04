@@ -3,623 +3,778 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nanny-Delvin Rivers Trust | Our River, Our Future</title>
-  <meta
-    name="description"
-    content="Community-led restoration, water quality improvement, biodiversity action, and citizen participation across the Nanny-Delvin catchment."
-  />
+  <title>Nanny-Delvin Rivers Trust | Prototype</title>
+  <meta name="description" content="Prototype website for the Nanny-Delvin Rivers Trust, grounded in the Strategic Framework 2025-26 and Community Coordination Framework v10." />
   <style>
     :root {
       --bg: #f6faf8;
-      --surface: rgba(255, 255, 255, 0.95);
-      --surface-solid: #ffffff;
+      --surface: rgba(255,255,255,0.9);
+      --surface-strong: #ffffff;
       --text: #16342a;
       --muted: #5d776d;
+      --line: rgba(22,52,42,0.12);
       --brand: #0f5e46;
-      --brand-soft: #e8f5e9;
+      --brand-soft: #dff0e7;
       --brand-2: #79b58e;
-      --accent-risk: #f88;
-      --border: rgba(0, 0, 0, 0.08);
-      --shadow: 0 20px 45px rgba(16, 48, 38, 0.08);
-      --radius: 24px;
-      --radius-small: 14px;
+      --accent: #eff7f2;
+      --shadow: 0 18px 45px rgba(16, 48, 38, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
       --max: 1200px;
-      --transition: 0.25s ease;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       line-height: 1.6;
       background:
-        radial-gradient(circle at top right, rgba(121, 181, 142, 0.15), transparent 30%),
+        radial-gradient(circle at top right, rgba(121,181,142,0.22), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(15,94,70,0.08), transparent 24%),
         var(--bg);
     }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    a {
-      color: inherit;
-    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
     .shell {
-      width: min(calc(100% - 3rem), var(--max));
+      width: min(calc(100% - 2rem), var(--max));
       margin: 0 auto;
     }
 
-    .section-heading {
-      text-align: center;
-      margin-bottom: 4rem;
-    }
-
-    .section-heading h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.1;
-      margin: 0 0 1rem;
-      color: var(--brand);
-    }
-
-    .section-heading .lead {
-      margin: 0 auto;
-    }
-
-    .eyebrow {
-      font-weight: 800;
-      color: var(--brand-2);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-    }
-
-    .lead {
-      font-size: 1.2rem;
-      color: var(--muted);
-      margin: 2rem 0;
-      max-width: 600px;
-    }
-
-    .button,
-    .cta-nav {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--brand);
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 700;
-      padding: 0.85rem 1.5rem;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
-    }
-
-    .button:hover,
-    .cta-nav:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(15, 94, 70, 0.2);
-    }
-
-    .button:focus,
-    .cta-nav:focus,
-    input:focus,
-    select:focus {
-      outline: 3px solid rgba(121, 181, 142, 0.35);
-      outline-offset: 2px;
-    }
-
-    /* Header */
-    .site-header {
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(246, 250, 248, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
+      z-index: 20;
+      background: rgba(246,250,248,0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(22,52,42,0.08);
+    }
+
+    .topbar-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      position: relative;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.35);
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 999px;
+    }
+
+    .brand-mark::before {
+      width: 18px;
+      height: 18px;
+      top: 8px;
+      background: rgba(255,255,255,0.92);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    .brand-mark::after {
+      width: 24px;
+      height: 10px;
+      bottom: 8px;
+      background: rgba(255,255,255,0.82);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.03;
+    }
+
+    .brand-text small {
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 700;
     }
 
     .nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 1rem;
+      gap: 0.7rem;
       flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .logo {
-      font-weight: 900;
-      font-size: 1.4rem;
-      color: var(--brand);
-      letter-spacing: -1px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 700;
+    .nav a {
+      padding: 0.65rem 0.95rem;
+      border-radius: 999px;
+      font-weight: 600;
       color: var(--text);
-      font-size: 0.95rem;
-      padding: 0.35rem 0.5rem;
-      border-radius: 10px;
     }
 
-    .nav-links a:hover {
-      background: rgba(15, 94, 70, 0.06);
+    .nav a:hover { background: rgba(15,94,70,0.08); }
+
+    .nav .cta {
+      background: var(--brand);
+      color: #fff;
+      box-shadow: var(--shadow);
     }
 
-    /* Hero */
     .hero {
-      padding: 6rem 0 4rem;
+      padding: 4.5rem 0 2rem;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 2.5rem;
-      align-items: center;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 1.25rem;
+      align-items: stretch;
     }
 
-    .hero-title {
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      line-height: 1;
-      margin: 0;
-      letter-spacing: -0.04em;
-      color: var(--brand);
-    }
-
-    .feature-img {
-      width: 100%;
-      border-radius: var(--radius);
+    .panel,
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.6);
       box-shadow: var(--shadow);
-      object-fit: cover;
+      border-radius: var(--radius-xl);
     }
 
-    .hero-image {
-      height: 500px;
+    .hero-copy {
+      padding: 2rem;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    /* Stats */
-    .stats {
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      padding: 0.48rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(15,94,70,0.08);
+      color: var(--brand);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(2.6rem, 5vw, 5rem);
+      margin-top: 1rem;
+      max-width: 12ch;
+    }
+
+    h2 {
+      font-size: clamp(1.9rem, 3vw, 3rem);
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    .lead {
+      font-size: 1.14rem;
+      color: var(--text);
+      max-width: 64ch;
+      margin-top: 1.1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.4rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.15rem;
+      border-radius: 999px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 0.16s ease;
+    }
+
+    .button:hover { transform: translateY(-1px); }
+    .button-primary { background: var(--brand); color: white; }
+    .button-secondary { background: transparent; color: var(--brand); border-color: rgba(15,94,70,0.18); }
+
+    .hero-stats {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      margin-top: 3rem;
+      gap: 0.8rem;
+      margin-top: 1.8rem;
     }
 
-    .stat-card {
-      background: var(--surface-solid);
-      padding: 1.5rem;
-      border-radius: 20px;
-      box-shadow: var(--shadow);
-      text-align: center;
+    .stat {
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.68);
+      border: 1px solid var(--line);
     }
 
-    .stat-card strong {
+    .stat strong {
       display: block;
-      font-size: 1.8rem;
-      color: var(--brand);
-      margin-bottom: 0.2rem;
+      font-size: 1.6rem;
+      letter-spacing: -0.05em;
     }
 
-    .stat-card span {
-      font-size: 0.85rem;
-      font-weight: 600;
+    .stat span {
+      display: block;
+      font-size: 0.92rem;
       color: var(--muted);
-      text-transform: uppercase;
+      margin-top: 0.25rem;
     }
 
-    .stat-card-risk {
-      border-bottom: 4px solid var(--accent-risk);
-    }
-
-    /* Generic sections */
-    section {
-      padding: 5rem 0;
-    }
-
-    .grid {
+    .hero-side {
+      padding: 1.15rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
+      gap: 1rem;
     }
+
+    .mini-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.7));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+    }
+
+    .mini-card p { margin: 0.5rem 0 0; color: var(--text); }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.9rem;
+    }
+
+    .chip {
+      padding: 0.55rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(15,94,70,0.08);
+      color: var(--brand);
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    section {
+      padding: 1.25rem 0 0.85rem;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 66ch;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
     .card {
-      background: var(--surface-solid);
-      padding: 3rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      padding: 1.35rem;
       height: 100%;
     }
 
-    .card h3 {
-      font-size: 1.8rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-      color: var(--brand);
-      line-height: 1.15;
-    }
-
-    /* Story image */
-    .story-image {
-      height: 500px;
-      margin-bottom: 4rem;
-    }
-
-    /* Philosophy block */
-    .philosophy {
-      background: var(--brand);
-      color: #ffffff;
-      padding: 5rem 2rem;
-      border-radius: 40px;
-      margin: 4rem 0;
-      text-align: center;
-    }
-
-    .philosophy h2 {
-      font-size: clamp(2.2rem, 5vw, 3rem);
-      margin: 0 0 1.5rem;
-      color: #ffffff;
-    }
-
-    .philosophy p {
-      font-size: 1.25rem;
-      max-width: 800px;
-      margin: 0 auto;
-      opacity: 0.95;
-      font-style: italic;
-    }
-
-    /* Highlight card */
-    .highlight-card {
-      background: var(--brand-soft);
-      border-left: 6px solid var(--brand);
-    }
-
-    .highlight-card .button {
-      margin-top: 1.5rem;
-    }
-
-    /* Form block */
-    .audit-box {
-      background: var(--brand-soft);
-      padding: 3rem;
-      border-radius: var(--radius);
-    }
-
-    .audit-box h2 {
-      margin-top: 0;
-      margin-bottom: 1rem;
-      color: var(--brand);
-      font-size: clamp(2rem, 4vw, 2.6rem);
-      line-height: 1.1;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
-    .form-field label {
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 0.5rem;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      font-family: inherit;
-      font-size: 1rem;
-      background: #ffffff;
+    .card p,
+    .card li,
+    .card dt,
+    .card dd {
       color: var(--text);
     }
 
-    .form-note {
+    .number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      margin-bottom: 0.8rem;
+      border-radius: 50%;
+      background: rgba(15,94,70,0.1);
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .list-clean {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .list-clean li {
+      position: relative;
+      padding-left: 1rem;
+    }
+
+    .list-clean li::before {
+      content: "";
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--brand-2);
+      position: absolute;
+      left: 0;
+      top: 0.68rem;
+    }
+
+    .kpi-banner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .kpi {
+      padding: 1.2rem;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(15,94,70,0.96), rgba(45,117,88,0.92));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 2rem;
+      letter-spacing: -0.05em;
+    }
+
+    .kpi span {
+      display: block;
+      margin-top: 0.35rem;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .table-like {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.68);
+      border: 1px solid var(--line);
+    }
+
+    .row strong {
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.92rem;
+    }
+
+    .callout {
+      padding: 1.5rem;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(135deg, rgba(15,94,70,0.96), rgba(45,117,88,0.92));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .callout p { color: rgba(255,255,255,0.9); margin: 0.6rem 0 0; }
+
+    .footer {
+      padding: 2rem 0 3rem;
+    }
+
+    .footer-box {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-top: 1.3rem;
+      border-top: 1px solid rgba(22,52,42,0.12);
+      color: var(--muted);
+    }
+
+    .small-note {
+      font-size: 0.92rem;
+      color: var(--muted);
       margin-top: 1rem;
-      font-size: 0.9rem;
-      color: var(--muted);
     }
 
-    /* Footer */
-    .site-footer {
-      padding: 4rem 0;
-      text-align: center;
-      color: var(--muted);
-      border-top: 1px solid #eee;
-      background: #f9fdfb;
-    }
-
-    .site-footer p {
-      margin: 0.35rem 0;
-    }
-
-    .footer-small {
-      margin-top: 2rem;
-      opacity: 0.6;
-      font-size: 0.8rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
+    @media (max-width: 1080px) {
       .hero-grid,
-      .stats,
-      .grid {
+      .grid-4,
+      .kpi-banner {
         grid-template-columns: 1fr;
       }
 
-      .hero-image,
-      .story-image {
-        height: 320px;
-      }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    }
 
-      .nav {
+    @media (max-width: 760px) {
+      .topbar-inner,
+      .section-head,
+      .footer-box {
+        flex-direction: column;
         align-items: flex-start;
       }
 
-      .nav-links {
+      .nav {
         width: 100%;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .shell {
-        width: min(calc(100% - 1.5rem), var(--max));
+        justify-content: flex-start;
       }
 
-      .card,
-      .audit-box {
-        padding: 2rem;
-      }
-
-      .philosophy {
-        padding: 3rem 1.25rem;
-        border-radius: 28px;
-      }
+      .hero-copy { min-height: auto; }
+      .grid-2,
+      .grid-3,
+      .hero-stats,
+      .kpi-banner { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-
-  <header class="site-header">
-    <div class="shell nav">
-      <a href="#top" class="logo">NANNY-DELVIN RIVERS TRUST [DEMO]</a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#river">Our Story</a>
-        <a href="#hubs">Local Hubs</a>
-        <a href="#watch">Nanny Watch</a>
-        <a href="#involved" class="cta-nav">Get Involved</a>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a href="#home" class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">
+          <small>Prototype</small>
+          <span>Nanny-Delvin Rivers Trust</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#catchment">Catchment</a>
+        <a href="#priorities">Priorities</a>
+        <a href="#projects">Projects</a>
+        <a href="#involved">Get involved</a>
+        <a class="cta" href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
-  <main id="top">
-
-    <!-- HERO -->
-    <section class="hero shell">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow">Community-Led Restoration</div>
-          <h1 class="hero-title">Healthy Waters.<br>Connected People.</h1>
-          <p class="lead">
-            We are a movement of farmers, neighbours, and guardians working together
-            to restore the ecological health of the Nanny-Delvin catchment.
-          </p>
-
-          <div class="stats">
-            <div class="stat-card">
-              <strong>711 km²</strong>
-              <span>Catchment</span>
+  <main id="home">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="panel hero-copy">
+          <div>
+            <div class="eyebrow">Community-led catchment restoration</div>
+            <h1>Healthy waterbodies. Connected communities. Practical restoration.</h1>
+            <p class="lead">
+              This prototype is designed as the future public-facing home of the Nanny-Delvin Rivers Trust: a place to explain the catchment, show priorities, coordinate projects, and invite communities, landowners, schools, and partners into action.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#involved">Join the catchment effort</a>
+              <a class="button button-secondary" href="#projects">See priority projects</a>
             </div>
-            <div class="stat-card">
-              <strong>34</strong>
-              <span>River Waterbodies</span>
-            </div>
-            <div class="stat-card">
-              <strong>6</strong>
-              <span>Local Hubs</span>
-            </div>
-            <div class="stat-card stat-card-risk">
-              <strong>64%</strong>
-              <span>At Risk</span>
+            <div class="hero-stats" aria-label="Key catchment facts">
+              <div class="stat">
+                <strong>711 km²</strong>
+                <span>Catchment area</span>
+              </div>
+              <div class="stat">
+                <strong>6</strong>
+                <span>Sub-catchments</span>
+              </div>
+              <div class="stat">
+                <strong>34</strong>
+                <span>River waterbodies</span>
+              </div>
+              <div class="stat">
+                <strong>16</strong>
+                <span>Groundwater bodies</span>
+              </div>
             </div>
           </div>
+          <div class="small-note">Built as a static-page prototype so it can live on GitHub Pages now and transfer cleanly to a custom domain later.</div>
         </div>
 
-        <div>
-          <!-- Replace with your actual image path -->
-          <img
-            src="assets/images/nanny1.jpg"
-            alt="A healthy mossy river bank"
-            class="feature-img hero-image"
-          />
+        <aside class="panel hero-side">
+          <div class="mini-card">
+            <h3>Vision</h3>
+            <p>Engaged, empowered, and connected communities working together to support water quality, biodiversity, natural heritage, and ecological integrity for the mutual benefit of all.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Mission</h3>
+            <p>Take an integrated and holistic approach to restoring the ecological health, complexity, and resilience of waterbodies across the catchment for the mutual benefit of people and ecosystems.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Values</h3>
+            <div class="pill-row">
+              <span class="chip">Scientific rigour</span>
+              <span class="chip">Community</span>
+              <span class="chip">Transparency</span>
+              <span class="chip">Accountability</span>
+              <span class="chip">Social ecology</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="shell">
+        <div class="section-head">
+          <div><h2>What this website must do</h2></div>
+          <p>This should not behave like a generic environmental brochure. It should function as the Trust’s public front door, strategic explainer, and action platform.</p>
+        </div>
+        <div class="grid-4">
+          <article class="card">
+            <div class="number">1</div>
+            <h3>Explain the Trust</h3>
+            <p>State the vision, mission, values, and governance logic clearly and simply.</p>
+          </article>
+          <article class="card">
+            <div class="number">2</div>
+            <h3>Show the catchment</h3>
+            <p>Make the geography, conservation interests, pressures, and sub-catchments legible to the public.</p>
+          </article>
+          <article class="card">
+            <div class="number">3</div>
+            <h3>Coordinate action</h3>
+            <p>Support projects, events, citizen science, volunteering, and partner coordination.</p>
+          </article>
+          <article class="card">
+            <div class="number">4</div>
+            <h3>Build credibility</h3>
+            <p>Demonstrate scientific rigour, transparency, and measurable progress over time.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- OUR STORY -->
-    <section id="river" class="shell">
-      <div class="section-heading">
-        <h2>A Journey Through Time</h2>
-        <p class="lead">
-          From the source near Brannanstown to the estuaries at Laytown, the river
-          connects local heritage, ecological health, and the future of the catchment.
-        </p>
+    <section id="catchment">
+      <div class="shell">
+        <div class="section-head">
+          <div><h2>The catchment at a glance</h2></div>
+          <p>The site should orient first-time visitors quickly: where the catchment is, why it matters, and what makes it ecologically significant.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Catchment context</h3>
+            <ul class="list-clean">
+              <li>The Nanny-Delvin catchment includes waters draining to tidal water between Mornington Point and Sea Mount, County Dublin.</li>
+              <li>The catchment contains 6 sub-catchments, 34 river waterbodies, 3 transitional waters, 3 coastal waters, and 16 groundwater bodies.</li>
+              <li>The Nanny estuary, Rogerstown Estuary, and Malahide Estuary create a strong coastal-estuarine identity for the Trust.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Special conservation interests</h3>
+            <ul class="list-clean">
+              <li>River Nanny Estuary & Shore SPA and pNHA.</li>
+              <li>Rogerstown Estuary SAC, SPA, and pNHA.</li>
+              <li>Malahide Estuary SAC, SPA, and pNHA.</li>
+              <li>Strong importance for wintering wading birds, saltmarsh, mudflat, dune, and estuarine habitats.</li>
+            </ul>
+          </article>
+        </div>
       </div>
+    </section>
 
-      <!-- Replace with your actual image path -->
-      <img
-        src="assets/images/nanny2.jpg"
-        alt="The Nanny-Delvin landscape"
-        class="feature-img story-image"
-      />
+    <section>
+      <div class="shell kpi-banner">
+        <div class="kpi">
+          <strong>64%</strong>
+          <span>Waterbodies recorded as at risk of not meeting environmental objectives.</span>
+        </div>
+        <div class="kpi">
+          <strong>Top pressure</strong>
+          <span>Agriculture is identified as the leading significant pressure in the catchment.</span>
+        </div>
+        <div class="kpi">
+          <strong>2028</strong>
+          <span>Operational horizon for the community coordination framework and measurable restoration outcomes.</span>
+        </div>
+      </div>
+    </section>
 
-      <div class="grid">
+    <section id="priorities">
+      <div class="shell">
+        <div class="section-head">
+          <div><h2>Strategic priorities</h2></div>
+          <p>The homepage should express the Trust’s priorities exactly as the governing documents imply: ecological restoration, water quality, invasive species management, community action, and governance capacity.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Ecological restoration & biodiversity</h3>
+            <ul class="list-clean">
+              <li>Wetland ecosystem restoration</li>
+              <li>Ecosystem restoration planning for the Nanny Estuary</li>
+              <li>Extension of restoration objectives to Rogerstown and Malahide</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Water quality</h3>
+            <ul class="list-clean">
+              <li>Monitoring and pollution prevention</li>
+              <li>Environmental database development</li>
+              <li>Holistic catchment collaboration with agencies and communities</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Invasive species & community</h3>
+            <ul class="list-clean">
+              <li>Catchment-wide Spartina anglica coordination</li>
+              <li>Community action groups and member network</li>
+              <li>University and expert collaboration</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="shell">
+        <div class="section-head">
+          <div><h2>Flagship and priority projects</h2></div>
+          <p>These can become linked project pages later. For the prototype, they establish real momentum and strategic coherence.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Spartina management</h3>
+            <p>A flagship catchment-wide initiative to manage and suppress common cord-grass through community action, ecological guidance, and public-body partnership.</p>
+          </article>
+          <article class="card">
+            <h3>Nanny Watch</h3>
+            <p>A citizen-science stream for monthly nitrate, phosphate, and turbidity observations, public learning, and adaptive management.</p>
+          </article>
+          <article class="card">
+            <h3>Nature-based solutions deployment</h3>
+            <p>Riparian buffers, sediment traps, wetlands, hedgerows, leaky barriers, and rewetting measures organised as practical local interventions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell grid-2">
         <article class="card">
-          <h3>The River's Story</h3>
-          <p>
-            The Nanny flows through the heart of the landscape, passing through
-            Kentstown, Duleek, and Julianstown. Along the way, it is joined by the
-            River Hurley at Boolies Little before meeting the sea at the sheltered
-            saltmarshes of Laytown.
-          </p>
+          <h2>Operational structure</h2>
+          <div class="table-like">
+            <div class="row">
+              <strong>Coordination</strong>
+              <div>The Trust oversees implementation, reporting, and stakeholder engagement.</div>
+            </div>
+            <div class="row">
+              <strong>Community hub</strong>
+              <div>Sonairte serves as meeting space, demonstration venue, and outreach platform.</div>
+            </div>
+            <div class="row">
+              <strong>Farm advice</strong>
+              <div>Teagasc ASSAP supports Rainwater Management Plans and funding linkage.</div>
+            </div>
+            <div class="row">
+              <strong>Technical oversight</strong>
+              <div>LAWPRO aligns actions with WFD objectives and supports mapping, data, and training.</div>
+            </div>
+          </div>
         </article>
-
         <article class="card">
-          <h3>Our 2028 Promise</h3>
-          <p>
-            We are not merely managing water. We are working to restore ecological
-            integrity. By 2028, we aim to support measurable reductions in nutrient
-            pressures through nature-based solutions that work with the land, including
-            native hedgerows, wetlands, and riparian buffers.
-          </p>
+          <h2>Sub-catchment logic</h2>
+          <ul class="list-clean">
+            <li>Implementation is organised across six EPA-recognised sub-catchments.</li>
+            <li>Teams combine local landholder representation, technical liaison, and community volunteers.</li>
+            <li>Action should be matched to hydrological role, nutrient pressure, and opportunity for stacked nature-based solutions.</li>
+            <li>Representative farms, fixed monitoring points, and annual review support adaptive management.</li>
+          </ul>
         </article>
       </div>
     </section>
 
-    <!-- PHILOSOPHY -->
-    <section class="shell">
-      <div class="philosophy">
-        <h2>Social Ecology</h2>
-        <p>
-          “Healthy ecosystems underpin a healthy society. By taking care of our river,
-          we take care of our neighbours, our history, and the generations to come.”
-        </p>
+    <section id="involved">
+      <div class="shell">
+        <div class="callout">
+          <h2>Get involved</h2>
+          <p>This section should become the site’s practical front door for farmers, volunteers, schools, partner organisations, and local residents. Over time it should include event sign-up, volunteer registration, project updates, eligibility guidance, and contact routes for collaboration.</p>
+        </div>
       </div>
     </section>
 
-    <!-- LOCAL HUBS / NANNY WATCH -->
-    <section id="hubs" class="shell">
-      <div class="section-heading">
-        <h2>Where Action Meets the Water</h2>
-        <p class="lead">
-          Restoration happens locally. The catchment is organised into six dedicated
-          hubs so that each stream and community receives focused attention.
-        </p>
-      </div>
-
-      <div class="grid">
+    <section>
+      <div class="shell grid-2">
         <article class="card">
-          <h3>Local Action Hubs</h3>
-          <p>
-            From source control in the Delvin headwaters to invasive species management
-            in the Nanny Estuary, local teams operate on the ground. The Trust supports
-            coordination, funding pathways, and practical advice to make restoration
-            repeatable and defensible.
-          </p>
+          <h2>Suggested site structure</h2>
+          <ul class="list-clean">
+            <li>Home</li>
+            <li>About the Trust</li>
+            <li>The Catchment</li>
+            <li>Projects</li>
+            <li>Citizen Science</li>
+            <li>Events & News</li>
+            <li>Resources</li>
+            <li>Contact</li>
+          </ul>
         </article>
-
-        <article id="watch" class="card highlight-card">
-          <h3>The Nanny Watch (CSSI)</h3>
-          <p>
-            Join the River Guardian network. We use the <strong>Citizen Science Stream
-            Index (CSSI)</strong> to help monitor river health. By observing stream life,
-            habitat condition, and visible ecological signals, communities can better
-            understand what the river needs to thrive.
-          </p>
-          <a href="#" class="button">Join a Training Day</a>
+        <article class="card" id="contact">
+          <h2>Prototype roadmap</h2>
+          <ul class="list-clean">
+            <li>Phase 1: launch this one-page GitHub Pages prototype</li>
+            <li>Phase 2: add real project pages, partner pages, and event/news sections</li>
+            <li>Phase 3: add forms, maps, and a small document archive</li>
+            <li>Phase 4: connect a custom domain and branded email</li>
+          </ul>
         </article>
       </div>
     </section>
-
-    <!-- GET INVOLVED / FIELD UPDATE -->
-    <section id="involved" class="shell">
-      <div class="audit-box">
-        <h2>Field Site Update</h2>
-        <p>
-          A simple way for teams and landowners to share progress. No jargon. Just real
-          records of trees planted, wetlands created, and water protected.
-        </p>
-
-        <form class="form-grid" action="#" method="post">
-          <div class="form-field">
-            <label for="hub-id">Location / Hub ID</label>
-            <input
-              id="hub-id"
-              name="hub_id"
-              type="text"
-              placeholder="e.g. Dunsany 08_1"
-            />
-          </div>
-
-          <div class="form-field">
-            <label for="measure">Restoration Measure</label>
-            <select id="measure" name="measure">
-              <option>Riparian Buffer</option>
-              <option>Constructed Wetland</option>
-              <option>Sediment Pond / Trap</option>
-              <option>Invasive Species Management</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="status">Condition Status</label>
-            <select id="status" name="status">
-              <option>Optimal Function</option>
-              <option>Maintenance Required</option>
-              <option>Under Review</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label for="submit-placeholder">Submit</label>
-            <button id="submit-placeholder" type="submit" class="button">
-              Submit Record
-            </button>
-          </div>
-        </form>
-
-        <p class="form-note">
-          Prototype note: this form is currently visual only. To make it actually store
-          records, you will later connect it to Google Forms, Airtable, Formspree, or a
-          small custom backend.
-        </p>
-      </div>
-    </section>
-
   </main>
 
-  <footer class="site-footer">
-    <div class="shell">
-      <p><strong>Nanny-Delvin Rivers Trust</strong></p>
-      <p>Sonairte, The Ninch, Laytown, Co. Meath | [tbd]@gmail.com</p>
-      <div class="footer-small">
-        Grounded in the NDRT Strategic Framework 2025-26 and Community Coordination Framework v10.
+  <footer class="footer">
+    <div class="shell footer-box">
+      <div>
+        <strong>Nanny-Delvin Rivers Trust</strong><br />
+        <span>Prototype website concept for staged development.</span>
       </div>
+      <div>Designed to begin as a static GitHub Pages site and later transfer to a paid domain without rebuilding the whole platform.</div>
     </div>
   </footer>
-
 </body>
 </html>
