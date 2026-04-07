@@ -25,6 +25,7 @@
         <a href="#story">Story</a>
         <a href="#method">Method</a>
         <a href="#milestones">Milestones</a>
+        <a href="#carbon">Carbon</a>
         <a href="#gallery">Gallery</a>
         <a href="#evidence">Evidence</a>
         <a href="#next">Next</a>
@@ -317,6 +318,155 @@
             </div>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <section id="carbon" class="section carbon-section">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Carbon scenario explorer</p>
+          <h2>How a compact urban forest might sequester carbon over 20 years</h2>
+          <p class="section-intro">
+            This interactive tool starts from the Parsons Hall reference case: a roughly 30 m² extension with an intended density of about 90 plants, or about 3 plants per m².
+            It then lets you vary footprint, density, planting emphasis, and current stand age to explore how a dense mixed urban forest might perform over the next 20 years.
+            It is designed as an explanatory scenario tool, not as a carbon-credit calculator.
+          </p>
+        </div>
+
+        <div class="carbon-grid">
+          <aside class="carbon-panel carbon-controls reveal">
+            <div class="carbon-panel-head">
+              <p class="mini-label">Controls</p>
+              <h3>Set your scenario</h3>
+            </div>
+
+            <div class="control-block">
+              <label for="ufArea">Urban-forest area</label>
+              <div class="control-meta">
+                <span>Footprint</span>
+                <output id="ufAreaOut" for="ufArea">30 m²</output>
+              </div>
+              <input id="ufArea" name="ufArea" type="range" min="10" max="300" step="5" value="30" />
+            </div>
+
+            <div class="control-block">
+              <label for="ufDensity">Planting density</label>
+              <div class="control-meta">
+                <span>Reference case ≈ 3 plants/m²</span>
+                <output id="ufDensityOut" for="ufDensity">3.0 plants/m²</output>
+              </div>
+              <input id="ufDensity" name="ufDensity" type="range" min="1.0" max="5.0" step="0.1" value="3.0" />
+            </div>
+
+            <div class="control-block">
+              <label for="ufAge">Current stand age</label>
+              <div class="control-meta">
+                <span>Starting point for the projection</span>
+                <output id="ufAgeOut" for="ufAge">1 year</output>
+              </div>
+              <input id="ufAge" name="ufAge" type="range" min="0" max="10" step="1" value="1" />
+            </div>
+
+            <div class="control-block">
+              <label for="ufPalette">Planting emphasis</label>
+              <select id="ufPalette" name="ufPalette">
+                <option value="implemented">Implemented mix</option>
+                <option value="shrub-heavy">Shrub-heavy mix</option>
+                <option value="tree-heavy">Tree-heavier mix</option>
+              </select>
+              <p class="control-note" id="ufPaletteNote">A balanced version of the built palette, keeping shrubs prominent while retaining a meaningful tree layer.</p>
+            </div>
+
+            <div class="control-block">
+              <label>Display mode</label>
+              <div class="mode-toggle" role="tablist" aria-label="Carbon display unit">
+                <button class="mode-toggle-btn is-active" type="button" data-unit-view="site" aria-pressed="true">Whole site</button>
+                <button class="mode-toggle-btn" type="button" data-unit-view="per-m2" aria-pressed="false">Per m²</button>
+              </div>
+              <p class="control-note" id="ufUnitNote">Whole-site values are shown for the selected footprint.</p>
+            </div>
+
+            <div class="reference-card">
+              <p class="mini-label">UrbanForest anchor</p>
+              <p><strong>Reference case:</strong> 30 m², about 90 plants, young native stock, dense mixed planting.</p>
+            </div>
+          </aside>
+
+          <div class="carbon-panel carbon-results reveal reveal-delay-1">
+            <div class="results-toolbar">
+              <p class="mini-label">Display</p>
+              <div class="results-chip" id="ufDisplayChip">Whole-site values</div>
+            </div>
+
+            <div class="carbon-summary">
+              <article class="carbon-metric">
+                <span class="metric-label">Estimated plants</span>
+                <strong id="ufPlants">90</strong>
+                <span class="metric-note">Area × density</span>
+              </article>
+              <article class="carbon-metric">
+                <span class="metric-label">Current annual uptake</span>
+                <strong id="ufCurrentAnnual">57 kg CO₂e/yr</strong>
+                <span class="metric-note" id="ufCurrentNote">Central scenario, whole site</span>
+              </article>
+              <article class="carbon-metric">
+                <span class="metric-label">20-year cumulative uptake</span>
+                <strong id="ufCumulative">1.4 t CO₂e</strong>
+                <span class="metric-note" id="ufCumulativeNote">Low to high range shown in chart, whole site</span>
+              </article>
+              <article class="carbon-metric">
+                <span class="metric-label">Year-20 annual uptake</span>
+                <strong id="ufYear20">88 kg CO₂e/yr</strong>
+                <span class="metric-note" id="ufYear20Note">Central scenario, whole site</span>
+              </article>
+            </div>
+
+            <div class="chart-shell">
+              <div class="chart-toolbar">
+                <div>
+                  <p class="mini-label">Projection</p>
+                  <h3>20-year carbon path</h3>
+                </div>
+                <div class="chart-toggle" role="tablist" aria-label="Chart view">
+                  <button class="chart-toggle-btn is-active" type="button" data-chart-view="annual" aria-pressed="true">Annual</button>
+                  <button class="chart-toggle-btn" type="button" data-chart-view="cumulative" aria-pressed="false">Cumulative</button>
+                </div>
+              </div>
+
+              <svg id="ufChart" class="carbon-chart" viewBox="0 0 760 360" role="img" aria-labelledby="ufChartTitle ufChartDesc">
+                <title id="ufChartTitle">UrbanForest carbon scenario projection</title>
+                <desc id="ufChartDesc">A chart showing a low-high uncertainty band and a central carbon uptake line for the selected urban-forest scenario.</desc>
+              </svg>
+
+              <div class="chart-legend">
+                <span><i class="legend-swatch legend-band"></i>Low to high range</span>
+                <span><i class="legend-swatch legend-line"></i>Central estimate</span>
+              </div>
+            </div>
+
+            <details class="assumptions-box">
+              <summary>Assumptions behind this tool</summary>
+              <div class="assumptions-copy">
+                <ul>
+                  <li>The site anchor uses the documented UrbanForest extension of about 30 m² and an intended density of about 90 plants, or roughly 3 plants per m².</li>
+                  <li>The model uses an area-based carbon-flow approach rather than individual-tree biomass accounting, because the planting is a dense mixed tiny-forest system.</li>
+                  <li>The central age curve is intentionally cautious for a temperate Dublin context, while the low-high band captures uncertainty around establishment, growth, survival, and maintenance.</li>
+                  <li>Tree-heavier palettes slightly raise the carbon estimate; shrub-heavier palettes slightly lower it, but shrubs may be more appropriate for compact sites and edge structure.</li>
+                  <li>The chart excludes soil carbon, deadwood, replacement planting, maintenance emissions, transport, and any avoided-emissions claims.</li>
+                  <li>Use this tool to compare scenarios and communicate scale, not to claim offsets or issue carbon-credit numbers.</li>
+                </ul>
+                <p class="assumption-linkline">The underlying literature and source documents are listed on the <a href="refs/">reference page</a>.</p>
+              </div>
+            </details>
+
+            <figure class="diagram-card">
+              <img src="assets/img/carbon-reference-diagram.svg" alt="Reference-case cumulative carbon projection diagram for a 30 square metre Trinity-style urban forest over 20 years." />
+              <figcaption>
+                Reference-case diagram for the Trinity-sized scenario: 30 m², about 90 plants, implemented mix, and a stand age of 1 year at the start of the projection.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
     </section>
 
