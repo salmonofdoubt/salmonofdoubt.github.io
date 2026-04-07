@@ -1,1 +1,77 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UrbanForest References | André Baumann</title>
+  <meta name="description" content="Reference list and source archive for the Trinity Urban Forest demo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/urbanforest.css" />
+  <style>
+    .refs-page { padding: 3.5rem 0 5rem; }
+    .refs-stack { display: grid; gap: 1rem; }
+    .ref-card { background: rgba(255,255,255,.9); border: 1px solid rgba(23,50,31,.12); border-radius: 24px; box-shadow: 0 18px 50px rgba(23,50,31,.10); padding: 1.35rem; }
+    .ref-card p:last-child { margin-bottom: 0; }
+    .ref-card code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .95rem; }
+    .note { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <div class="brand-block">
+        <a class="site-brand" href="../">UrbanForest</a>
+        <span class="divider-dot" aria-hidden="true">•</span>
+        <a class="site-home" href="../../">Demos</a>
+      </div>
+      <nav class="page-nav" aria-label="Reference navigation">
+        <a href="#apa">APA 7 list</a>
+        <a href="#archive">Archive</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="refs-page shell">
+    <section class="section-heading">
+      <p class="eyebrow">Reference layer</p>
+      <h1>UrbanForest sources</h1>
+      <p class="hero-lead">This page keeps the evidence base visible. It combines internal project files, public articles, institutional recognition, and the CBSM bridge publication.</p>
+    </section>
+
+    <section id="apa" class="refs-stack">
+      <article class="ref-card">
+        <h2>APA 7 reference list</h2>
+        <p>Baumann, A. (2025). <em>Cradle-Based Syntrophic Miyawaki (CBSM): Integrating regenerative agroforestry into native urban forests in Ireland</em> (Version 3) [Working paper]. Zenodo. <a href="https://doi.org/10.5281/zenodo.15583804" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.15583804</a></p>
+        <p>Baumann, A., Butler, A., &amp; Davis, C. (2024, April 24). <em>Work proposal: Extending the Urban Forest at Parson's Hall using the Miyawaki technique</em> [Internal project document]. Trinity College Dublin.</p>
+        <p>Davis, C., &amp; Baumann, A. (2024). <em>Urban Forest project summary</em> [Internal project document]. Trinity College Dublin.</p>
+        <p>Norman, I. (2025, May 15). <em>‘We Wanted to do Some Little Thing’: The five-month-old Trinity urban forest</em>. <em>The University Times</em>. <a href="https://universitytimes.ie/2025/05/we-wanted-to-do-some-little-thing-the-five-month-old-trinity-urban-forest/" target="_blank" rel="noopener">Article page</a></p>
+        <p>Trinity College Dublin. (2025, January 14). <em>An Urban Forest on Campus</em>. Trinity News &amp; Events. <a href="https://www.tcd.ie/news_events/articles/2025/an-urban-forest-on-campus-/" target="_blank" rel="noopener">Article page</a></p>
+        <p>Trinity College Dublin. (2025). <em>Trinity Sustainability Annual Report 2024</em>. <a href="https://www.tcd.ie/media/tcd/sustainability/pdfs/Trinity-Sustainability-Annual-Report-2024-FINAL.pdf" target="_blank" rel="noopener">PDF</a></p>
+      </article>
+    </section>
+
+    <section id="archive" class="refs-stack">
+      <article class="ref-card">
+        <h2>Internal document archive</h2>
+        <p><a href="../assets/docs/urban-forest-conor.pdf" target="_blank" rel="noopener">Urban Forest CONOR.pdf</a></p>
+        <p><a href="../assets/docs/work-proposal.pdf" target="_blank" rel="noopener">Urban Forest Work Proposal TCD UrbanForest [v2]</a></p>
+        <p><a href="../assets/docs/phase-2-3-slides.pdf" target="_blank" rel="noopener">UrbanForest Parsons Bldg - Phase 2_3 slides</a></p>
+        <p><a href="../assets/docs/urban-forest-info.pdf" target="_blank" rel="noopener">Urban Forest info</a></p>
+      </article>
+
+      <article class="ref-card">
+        <h2>Portable structure note</h2>
+        <p class="note">This demo is deliberately isolated. It carries its own CSS, JavaScript, images, PDFs, and references. That makes it easy to move to another host without rewiring the wider site.</p>
+        <p><code>/demos/urbanforest/index.html</code></p>
+        <p><code>/demos/urbanforest/css/urbanforest.css</code></p>
+        <p><code>/demos/urbanforest/js/urbanforest.js</code></p>
+        <p><code>/demos/urbanforest/assets/img/*</code></p>
+        <p><code>/demos/urbanforest/assets/docs/*</code></p>
+        <p><code>/demos/urbanforest/refs/index.html</code></p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
