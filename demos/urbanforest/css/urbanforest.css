@@ -983,3 +983,50 @@ dl {
     align-items: flex-start;
   }
 }
+
+/* Wellbeing section: equal-height cards */
+#wellbeing .species-layout {
+  align-items: stretch;
+}
+
+#wellbeing .species-layout > * {
+  height: 100%;
+}
+
+#wellbeing .species-card,
+#wellbeing .species-figure {
+  display: flex;
+  flex-direction: column;
+}
+
+#wellbeing .species-figure {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(22, 53, 31, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 18px 40px rgba(22, 53, 31, 0.08);
+}
+
+#wellbeing .species-figure img {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+#wellbeing .species-figure figcaption {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+@media (max-width: 900px) {
+  #wellbeing .species-layout > * {
+    height: auto;
+  }
+
+  #wellbeing .species-figure img {
+    min-height: 260px;
+  }
+}
