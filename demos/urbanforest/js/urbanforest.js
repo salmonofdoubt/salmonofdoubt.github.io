@@ -148,10 +148,6 @@ const carbonTool = (() => {
     return interpolate(centralAnchors, ageYears);
   }
 
-  function displayLabel() {
-    return unitView === 'site' ? 'whole-site values' : 'per-m² values';
-  }
-
   function formatMass(kg, perM2 = false) {
     const suffix = perM2 ? ' CO₂e/m²' : ' CO₂e';
     if (kg >= 1000) {
@@ -176,7 +172,7 @@ const carbonTool = (() => {
     const area = parseFloat(els.area.value);
     const density = parseFloat(els.density.value);
     const age = parseFloat(els.age.value);
-    const palette = paletteMap[els.palette.value] || paletteMap['implemented'];
+    const palette = paletteMap[els.palette.value] || paletteMap.implemented;
     const modifier = densityFactor(density) * palette.factor;
 
     const years = Array.from({ length: 20 }, (_, index) => index + 1);
@@ -230,7 +226,6 @@ const carbonTool = (() => {
       area,
       density,
       age,
-      modifier,
       palette,
       annualSite,
       cumulativeSite,
@@ -371,20 +366,25 @@ const carbonTool = (() => {
     });
   });
 
-const shareUrl = "https://salmonofdoubt.github.io/demos/urbanforest/";
-const shareTitle = "Trinity Urban Forest";
-const copyShareLinkBtn = document.getElementById("copyShareLink");
-const nativeShareBtn = document.getElementById("nativeShare");
+  update();
+
+  return { update };
+})();
+
+const shareUrl = 'https://salmonofdoubt.github.io/demos/urbanforest/';
+const shareTitle = 'Trinity Urban Forest';
+const copyShareLinkBtn = document.getElementById('copyShareLink');
+const nativeShareBtn = document.getElementById('nativeShare');
 
 if (copyShareLinkBtn) {
-  copyShareLinkBtn.addEventListener("click", async () => {
+  copyShareLinkBtn.addEventListener('click', async () => {
     const originalText = copyShareLinkBtn.textContent;
 
     try {
       await navigator.clipboard.writeText(shareUrl);
-      copyShareLinkBtn.textContent = "Copied";
+      copyShareLinkBtn.textContent = 'Copied';
     } catch (error) {
-      copyShareLinkBtn.textContent = "Copy failed";
+      copyShareLinkBtn.textContent = 'Copy failed';
     }
 
     window.setTimeout(() => {
@@ -395,26 +395,17 @@ if (copyShareLinkBtn) {
 
 if (nativeShareBtn) {
   if (navigator.share) {
-    nativeShareBtn.addEventListener("click", async () => {
+    nativeShareBtn.addEventListener('click', async () => {
       try {
         await navigator.share({
           title: shareTitle,
-          text: "Trinity Urban Forest demo",
+          text: 'Trinity Urban Forest demo',
           url: shareUrl
         });
       } catch (error) {
       }
     });
   } else {
-    nativeShareBtn.style.display = "none";
+    nativeShareBtn.style.display = 'none';
   }
 }
-
-  update();
-
-  
-
-  return { update };
-})();
-
-
