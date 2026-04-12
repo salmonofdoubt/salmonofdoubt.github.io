@@ -30,7 +30,9 @@ if (dialog && dialogImg && dialogClose && galleryImgs.length) {
   });
 
   const closeLightbox = () => {
-    dialog.close();
+    if (dialog.open) {
+      dialog.close();
+    }
     dialogImg.src = '';
     document.body.style.overflow = '';
   };
@@ -88,7 +90,7 @@ const carbonTool = (() => {
   }
 
   const paletteMap = {
-    'implemented': {
+    implemented: {
       factor: 1.0,
       note: 'A balanced version of the built palette, keeping shrubs prominent while retaining a meaningful tree layer.'
     },
@@ -176,10 +178,12 @@ const carbonTool = (() => {
     const modifier = densityFactor(density) * palette.factor;
 
     const years = Array.from({ length: 20 }, (_, index) => index + 1);
+
     const annualSite = years.map((yearOffset) => {
       const standAge = age + yearOffset - 1;
       const centralPerM2 = annualRatePerM2(standAge) * modifier;
       const central = centralPerM2 * area;
+
       return {
         year: yearOffset,
         standAge,
@@ -197,6 +201,7 @@ const carbonTool = (() => {
       cumulativeLow += row.low;
       cumulativeCentral += row.central;
       cumulativeHigh += row.high;
+
       return {
         year: row.year,
         standAge: row.standAge,
@@ -270,7 +275,9 @@ const carbonTool = (() => {
   }
 
   function pathFrom(points, xScale, yScale) {
-    return points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${xScale(point.x)} ${yScale(point.y)}`).join(' ');
+    return points
+      .map((point, index) => `${index === 0 ? 'M' : 'L'} ${xScale(point.x)} ${yScale(point.y)}`)
+      .join(' ');
   }
 
   function renderChart(model) {
@@ -345,11 +352,13 @@ const carbonTool = (() => {
   els.toggleButtons.forEach((button) => {
     button.addEventListener('click', () => {
       chartView = button.dataset.chartView;
+
       els.toggleButtons.forEach((candidate) => {
         const active = candidate === button;
         candidate.classList.toggle('is-active', active);
         candidate.setAttribute('aria-pressed', String(active));
       });
+
       update();
     });
   });
@@ -357,11 +366,13 @@ const carbonTool = (() => {
   els.unitButtons.forEach((button) => {
     button.addEventListener('click', () => {
       unitView = button.dataset.unitView;
+
       els.unitButtons.forEach((candidate) => {
         const active = candidate === button;
         candidate.classList.toggle('is-active', active);
         candidate.setAttribute('aria-pressed', String(active));
       });
+
       update();
     });
   });
@@ -407,5 +418,26 @@ if (nativeShareBtn) {
     });
   } else {
     nativeShareBtn.style.display = 'none';
+  }
+}
+
+const visitCountEl = document.getElementById('visitCount');
+
+if (visitCountEl) {
+  if (typeof Counter === 'undefined') {
+    visitCountEl.textContent = '—';
+  } else {
+    const counter = new Counter({
+      workspace: 'salmonofdoubt'
+    });
+
+    counter.up('urbanforest-visits')
+      .then((result) => {
+        visitCountEl.textContent = Number(result.value).toLocaleString('en-IE');
+      })
+      .catch((error) => {
+        console.error('CounterAPI error:', error);
+        visitCountEl.textContent = '—';
+      });
   }
 }
