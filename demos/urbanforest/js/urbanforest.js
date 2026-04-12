@@ -371,7 +371,50 @@ const carbonTool = (() => {
     });
   });
 
+const shareUrl = "https://salmonofdoubt.github.io/demos/urbanforest/";
+const shareTitle = "Trinity Urban Forest";
+const copyShareLinkBtn = document.getElementById("copyShareLink");
+const nativeShareBtn = document.getElementById("nativeShare");
+
+if (copyShareLinkBtn) {
+  copyShareLinkBtn.addEventListener("click", async () => {
+    const originalText = copyShareLinkBtn.textContent;
+
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      copyShareLinkBtn.textContent = "Copied";
+    } catch (error) {
+      copyShareLinkBtn.textContent = "Copy failed";
+    }
+
+    window.setTimeout(() => {
+      copyShareLinkBtn.textContent = originalText;
+    }, 1600);
+  });
+}
+
+if (nativeShareBtn) {
+  if (navigator.share) {
+    nativeShareBtn.addEventListener("click", async () => {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: "Trinity Urban Forest demo",
+          url: shareUrl
+        });
+      } catch (error) {
+      }
+    });
+  } else {
+    nativeShareBtn.style.display = "none";
+  }
+}
+
   update();
+
+  
 
   return { update };
 })();
+
+
