@@ -334,6 +334,17 @@ dl {
   max-width: 26rem;
 }
 
+.share-strip__count {
+  margin: 0.45rem 0 0;
+  font-size: 0.94rem;
+  color: var(--muted);
+}
+
+.share-strip__count strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+
 .share-strip__actions {
   grid-area: actions;
   display: flex;
