@@ -421,23 +421,44 @@ if (nativeShareBtn) {
   }
 }
 
+function waitForCounter(maxWaitMs = 4000, intervalMs = 100) {
+  return new Promise((resolve, reject) => {
+    const started = Date.now();
+
+    const check = () => {
+      if (typeof Counter !== 'undefined') {
+        resolve(Counter);
+        return;
+      }
+
+      if (Date.now() - started >= maxWaitMs) {
+        reject(new Error('CounterAPI script not available'));
+        return;
+      }
+
+      window.setTimeout(check, intervalMs);
+    };
+
+    check();
+  });
+}
+
 const visitCountEl = document.getElementById('visitCount');
 
 if (visitCountEl) {
-  if (typeof Counter === 'undefined') {
-    visitCountEl.textContent = '—';
-  } else {
-    const counter = new Counter({
-      workspace: 'salmonofdoubt'
-    });
-
-    counter.up('urbanforest-visits')
-      .then((result) => {
-        visitCountEl.textContent = Number(result.value).toLocaleString('en-IE');
-      })
-      .catch((error) => {
-        console.error('CounterAPI error:', error);
-        visitCountEl.textContent = '—';
+  waitForCounter()
+    .then(() => {
+      const counter = new Counter({
+        workspace: 'salmonofdoubt'
       });
-  }
+
+      return counter.up('urbanforest-visits');
+    })
+    .then((result) => {
+      visitCountEl.textContent = Number(result.value).toLocaleString('en-IE');
+    })
+    .catch((error) => {
+      console.error('CounterAPI error:', error);
+      visitCountEl.textContent = '—';
+    });
 }
