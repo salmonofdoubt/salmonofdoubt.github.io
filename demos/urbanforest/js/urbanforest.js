@@ -421,19 +421,3 @@ if (nativeShareBtn) {
   }
 }
 
-const visitCountEl = document.getElementById('visitCount');
-
-if (visitCountEl) {
-  fetch('https://api.countapi.xyz/hit/salmonofdoubt.github.io/urbanforest')
-    .then((response) => response.json())
-    .then((data) => {
-      const value = Number(data.value);
-      visitCountEl.textContent = Number.isFinite(value)
-        ? value.toLocaleString('en-IE')
-        : '—';
-    })
-    .catch((error) => {
-      console.error('Visit counter error:', error);
-      visitCountEl.textContent = '—';
-    });
-}
