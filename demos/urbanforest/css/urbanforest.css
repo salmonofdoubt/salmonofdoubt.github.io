@@ -115,6 +115,8 @@ a:focus-visible {
   color: var(--muted);
 }
 
+/**/
+
 .hero {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -172,6 +174,77 @@ dl {
   font-size: 1.06rem;
   color: var(--muted);
 }
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 2rem;
+  padding: 4rem 0 2.2rem;
+  align-items: start;
+}
+
+.hero-side {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.hero-side .share-strip {
+  margin: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "intro qr"
+    "actions qr";
+  align-items: center;
+}
+
+.hero-side .share-strip__intro {
+  grid-area: intro;
+}
+
+.hero-side .share-strip__actions {
+  grid-area: actions;
+  width: auto;
+}
+
+.hero-side .share-strip__qr {
+  grid-area: qr;
+  align-self: center;
+}
+
+.hero-side .share-strip__qr img {
+  width: 96px;
+  height: 96px;
+}
+
+.hero-side .hero-figure {
+  margin: 0;
+}
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-side .share-strip {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "intro"
+      "actions"
+      "qr";
+    justify-items: start;
+  }
+
+  .hero-side .share-strip__actions {
+    width: 100%;
+  }
+
+  .hero-side .share-strip__qr img {
+    width: 104px;
+    height: 104px;
+  }
+}
+/**/
 
 .hero-actions {
   display: flex;
