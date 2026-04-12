@@ -50,50 +50,47 @@
           <a class="button button-secondary" href="refs/">Open references</a>
         </div>
 
-        <script>
-  (function () {
-    const pageUrl = "https://salmonofdoubt.github.io/demos/urbanforest/";
-    const pageTitle = "Trinity Urban Forest";
+        <div class="share-strip" aria-label="Share this page">
+          <div class="share-strip__intro">
+            <p class="share-strip__label">Share</p>
+            <p class="share-strip__text">Copy the link, use native share on mobile, or scan the QR code.</p>
+          </div>
 
-    const copyBtn = document.getElementById("copyShareLink");
-    const shareBtn = document.getElementById("nativeShare");
+          <div class="share-strip__actions">
+            <a
+              class="share-btn"
+              href="https://salmonofdoubt.github.io/demos/urbanforest/"
+              target="_blank"
+              rel="noopener"
+            >
+              Open link
+            </a>
 
-    if (copyBtn) {
-      copyBtn.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(pageUrl);
-          copyBtn.textContent = "Copied";
-          setTimeout(() => {
-            copyBtn.textContent = "Copy link";
-          }, 1600);
-        } catch (err) {
-          copyBtn.textContent = "Copy failed";
-          setTimeout(() => {
-            copyBtn.textContent = "Copy link";
-          }, 1600);
-        }
-      });
-    }
+            <button class="share-btn" id="copyShareLink" type="button">
+              Copy link
+            </button>
 
-    if (shareBtn) {
-      if (navigator.share) {
-        shareBtn.addEventListener("click", async () => {
-          try {
-            await navigator.share({
-              title: pageTitle,
-              text: "Trinity Urban Forest demo",
-              url: pageUrl
-            });
-          } catch (err) {
-            /* user cancelled or share failed */
-          }
-        });
-      } else {
-        shareBtn.style.display = "none";
-      }
-    }
-  })();
-</script>
+            <button class="share-btn share-btn-primary" id="nativeShare" type="button">
+              Share
+            </button>
+          </div>
+
+          <a
+            class="share-strip__qr"
+            href="https://salmonofdoubt.github.io/demos/urbanforest/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Open the Urban Forest demo"
+          >
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fsalmonofdoubt.github.io%2Fdemos%2Furbanforest%2F"
+              alt="QR code linking to the Trinity Urban Forest demo"
+              loading="lazy"
+              width="180"
+              height="180"
+            />
+          </a>
+        </div>
 
         <ul class="hero-stats" aria-label="Project facts">
           <li>
