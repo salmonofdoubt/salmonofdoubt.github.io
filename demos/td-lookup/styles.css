@@ -32,6 +32,10 @@ body {
   min-height: 100vh;
 }
 
+a {
+  color: #bbf7d0;
+}
+
 .shell {
   max-width: 1120px;
   margin: 0 auto;
@@ -83,11 +87,80 @@ h1 {
   color: #d9fbe5;
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.action-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.78rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.action-pill:hover {
+  filter: brightness(1.06);
+}
+
+.action-pill-primary {
+  background: linear-gradient(180deg, var(--accent) 0%, #22c55e 100%);
+  color: #072011;
+  border-color: rgba(74, 222, 128, 0.28);
+}
+
+.support-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.support-strip h2 {
+  margin-bottom: 0.35rem;
+}
+
+.support-strip p {
+  margin-bottom: 0;
+  color: var(--muted);
+  max-width: 66ch;
+}
+
+.support-strip-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.support-link,
+.text-link {
+  color: #d9fbe5;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.support-link:hover,
+.text-link:hover {
+  text-decoration: underline;
+}
+
 .lookup-panel,
 .status,
 .meta,
 #notesBox,
-.smallprint {
+.smallprint,
+.support-card {
   padding: 1rem 1.1rem;
   margin-bottom: 1rem;
 }
@@ -153,6 +226,10 @@ button:hover {
   gap: 1rem;
 }
 
+.support-grid {
+  margin-top: 0.15rem;
+}
+
 .section-head {
   margin-bottom: 1rem;
 }
@@ -161,7 +238,8 @@ button:hover {
 .smallprint,
 .meta-line,
 .notes,
-.card .meta {
+.card .meta,
+.support-card p {
   color: var(--muted);
 }
 
@@ -251,6 +329,10 @@ button:hover {
   line-height: 1.55;
 }
 
+.compact-notes li + li {
+  margin-top: 0.22rem;
+}
+
 code {
   background: rgba(255, 255, 255, 0.08);
   padding: 0.15rem 0.35rem;
@@ -263,6 +345,16 @@ code {
     grid-template-columns: 1fr;
   }
 
+  .support-strip {
+    align-items: flex-start;
+  }
+
+  .hero-actions,
+  .support-strip-actions {
+    width: 100%;
+  }
+
+  .action-pill,
   button {
     width: 100%;
   }

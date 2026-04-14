@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0f3d2e" />
   <title>Dublin Representative Finder</title>
+  <meta name="description" content="Open civic lookup tool for Dublin constituencies, local electoral areas, TDs, and councillor contacts." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -19,9 +20,28 @@
       <p class="micro-note">
         Best accuracy on GitHub Pages comes from <strong>Use my location</strong>. Address lookup is available too.
       </p>
+      <div class="hero-actions">
+        <a class="action-pill action-pill-primary" href="support.html">Support this tool</a>
+        <a class="action-pill" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/td-lookup">View code</a>
+        <a class="action-pill" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues">Report an issue</a>
+      </div>
     </header>
 
     <main>
+      <section class="panel support-strip" aria-label="Funding and collaboration">
+        <div>
+          <h2>Open civic tool, openly maintained</h2>
+          <p>
+            This demonstrator is public code. Support funds maintenance, data refreshes, accessibility work,
+            quality assurance, and future expansion.
+          </p>
+        </div>
+        <div class="support-strip-actions">
+          <a class="support-link" href="support.html">Funding and sponsorship</a>
+          <a class="support-link" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/discussions">Discussions</a>
+        </div>
+      </section>
+
       <section class="panel lookup-panel">
         <form id="lookupForm" class="lookup-form">
           <label for="query" class="label">Address or Eircode</label>
@@ -61,6 +81,38 @@
             <p>Dublin councillors matched by local electoral area where bundled data is available.</p>
           </div>
           <div id="councillorList" class="card-list empty-state">No result yet.</div>
+        </section>
+      </section>
+
+      <section class="grid two-col support-grid">
+        <section class="panel support-card">
+          <h2>Fund this demonstrator</h2>
+          <p>
+            Suitable for small sponsorships, civic-tech backing, academic engagement, local democracy work,
+            and public-interest digital infrastructure support.
+          </p>
+          <ul class="notes compact-notes">
+            <li>maintenance and bug fixing</li>
+            <li>representative data refreshes</li>
+            <li>accessibility and UX improvements</li>
+            <li>future geographic expansion</li>
+          </ul>
+          <p><a class="text-link" href="support.html">Open the support page</a></p>
+        </section>
+
+        <section class="panel support-card">
+          <h2>Crowdsource improvements</h2>
+          <p>
+            Use structured issue forms for bugs, contact corrections, and feature requests.
+            Broader ideas and collaboration can go through GitHub Discussions.
+          </p>
+          <ul class="notes compact-notes">
+            <li>lookup or boundary bug</li>
+            <li>representative data correction</li>
+            <li>feature or coverage request</li>
+            <li>institutional co-funding or collaboration</li>
+          </ul>
+          <p><a class="text-link" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/new/choose">Open issue forms</a></p>
         </section>
       </section>
 

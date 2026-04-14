@@ -1,0 +1,54 @@
+name: Lookup or boundary bug
+description: Report an incorrect lookup result, failed lookup, or boundary mismatch in the td-lookup demo.
+title: "[td-lookup bug] "
+labels:
+  - td-lookup
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for lookup failures, wrong constituency or LEA matches, broken geolocation, or other reproducible defects in the Dublin Representative Finder demo.
+  - type: input
+    id: location
+    attributes:
+      label: Address, Eircode, or approximate location tested
+      description: Do not post personal information unless you are comfortable doing so. Approximate location is fine.
+      placeholder: Example: D08 VF8H or Dublin 8
+    validations:
+      required: true
+  - type: dropdown
+    id: lookup_mode
+    attributes:
+      label: How did you run the lookup?
+      options:
+        - Use my location
+        - Typed address or Eircode
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: What happened?
+      placeholder: Describe the wrong result, error, or mismatch.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+      placeholder: Example: expected Dublin Bay South, received Dublin Central.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or notes
+      description: Add screenshots, official references, or any notes that help verify the issue.
+      placeholder: Optional but useful.
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Example: Chrome on macOS, Safari on iPhone
