@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stability-Aware SDSS | NbS Prioritisation</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .doi-strip {
+      margin-top: 14px;
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 0.92rem;
+      line-height: 1.2;
+    }
+
+    .doi-label {
+      opacity: 0.72;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.72rem;
+    }
+
+    .doi-link {
+      color: #8fe3ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .doi-link:hover {
+      text-decoration: underline;
+    }
+
+    .footer-doi {
+      margin-top: 14px;
+    }
+
+    .footer-doi a {
+      color: #8fe3ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer-doi a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="tooltip-panel" id="tooltip"></div>
+
+  <a class="back-to-demos" href="/demos/" aria-label="Back to demos">← Back to demos</a>
+
+  <div class="page">
+    <section class="hero">
+      <div class="eyebrow">
+        Demo variant • André Baumann • GitHub Pages • Interactive SDSS architecture
+      </div>
+
+      <h1>
+        Stability-Aware Spatial Decision Support System (SDSS) for Prioritising NbS Portfolios
+      </h1>
+
+      <p class="subhead">
+        This website presents a stability-aware <strong>SDSS</strong>, meaning a
+        <strong>Spatial Decision Support System</strong> in which prioritisation is tested
+        under data, parameter, structural, and scale uncertainty. The system is designed to
+        show where NbS portfolios should be prioritised first, how robust those priorities are
+        when assumptions change, and what minimum verification is needed before implementation.
+      </p>
+
+      <p class="variant-note">
+        This is the demos variant of the SDSS concept page. The original standalone version remains available separately.
+      </p>
+
+   <div class="badge-row">
+  <span
+    class="badge"
+    data-tip-title="SDSS meaning"
+    data-tip="SDSS stands for Spatial Decision Support System. In this project, the novelty lies in making the SDSS stability-aware rather than inventing a different system type."
+  >
+    SDSS, clearly defined
+  </span>
+
+  <span
+    class="badge"
+    data-tip-title="Core novelty"
+    data-tip="The contribution is not just a suitability map. It is a transferable SDSS method that distinguishes eligibility, suitability, priority, and decision robustness under uncertainty."
+  >
+    Stability-aware prioritisation
+  </span>
+
+  <span
+    class="badge"
+    data-tip-title="Objective order"
+    data-tip="The ranking logic is lexicographic. Nutrient reduction comes first. Biodiversity connectivity, flood attenuation, and sediment reduction refine priorities rather than flattening the decision into a single weighted average."
+  >
+    Nutrients first
+  </span>
+
+  <span
+    class="badge"
+    data-tip-title="Portfolio logic"
+    data-tip="The SDSS outputs coherent measure families such as riparian corridors, runoff interception, wetlands, floodplain packages, and peat or organic-soil protection rather than one isolated best measure per location."
+  >
+    Portfolio families
+  </span>
+
+  <span
+    class="badge"
+    data-tip-title="Maintainability"
+    data-tip="Maintainability enters as an implementation-persistence factor. It shapes sequencing and confidence rather than silently altering the raw environmental claim."
+  >
+    Maintainability matters
+  </span>
+</div>
+
+<div class="doi-strip">
+  <span class="doi-label">Archived release</span>
+  <a href="https://doi.org/10.5281/zenodo.19487210" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://zenodo.org/badge/DOI/10.5281/zenodo.19487210.svg"
+      alt="DOI: 10.5281/zenodo.19487210"
+    />
+  </a>
+</div>
+
+    
+
+      <div class="hero-grid">
+        <div class="mini-panel">
+          <h3>Doctoral spine</h3>
+          <div class="meta-grid">
+            <div class="stat">
+              <div class="stat-label">Demonstrator</div>
+              <div class="stat-value">Nanny-Delvin</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">Spatial scales</div>
+              <div class="stat-value">Reach to subcatchment</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">Uncertainty classes</div>
+              <div class="stat-value">Data • Parameter • Structural • Scale</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">Decision outputs</div>
+              <div class="stat-value">Priority atlas + stability maps</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-panel">
+          <h3>Translation context</h3>
+          <div class="meta-grid">
+            <div class="stat">
+              <div class="stat-label">Subcatchments</div>
+              <div class="stat-value">6</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">River waterbodies</div>
+              <div class="stat-value">34</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">Governance signal</div>
+              <div class="stat-value">Trust + LAWPRO + ASSAP</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">Community interface</div>
+              <div class="stat-value">Nanny Watch</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="sticky-nav">
+      <a href="#overview">Overview</a>
+      <a href="#uml">SDSS map</a>
+      <a href="#engine">Ranking engine</a>
+      <a href="#simulation">Simulation lab</a>
+      <a href="#verification">Verification</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#outputs">Outputs</a>
+      <a href="#deploy">Source basis</a>
+    </nav>
+
+    <section class="section panel" id="overview">
+      <h2>What this SDSS actually does</h2>
+
+      <p class="section-lead">
+        This SDSS is a decision-support model rather than a full process-response simulator.
+        Its purpose is to show where NbS portfolios should be prioritised first, which portfolios
+        are most defensible, how recommendations behave when assumptions change, and what minimum
+        verification is needed before implementation. The outcome is an inspectable prioritisation
+        claim rather than a visually persuasive but opaque map.
+      </p>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>1. Evidence architecture</h3>
+          <p>
+            Combine official assessment inputs, environmental spatial layers, protected-area
+            constraints, and derived analytical variables into a governance-anchored evidence stack.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>2. Rule-explicit decision logic</h3>
+          <p>
+            Formalise exclusions, eligibility rules, suitability rules, portfolio dependencies,
+            do-no-harm constraints, and scaling assumptions into an inspectable rule sheet.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>3. Stability-aware prioritisation</h3>
+          <p>
+            Run perturbation experiments across data, parameter, structural, and scale uncertainty
+            to classify recommendations as robust, conditional, or fragile.
+          </p>
+        </article>
+      </div>
+
+      <div class="callout">
+        <strong>Interpretive distinction.</strong>
+        Eligibility asks whether a measure can be considered. Suitability asks whether the
+        environmental and pathway context fit. Priority asks where action should happen first.
+        Stability asks whether that recommendation survives plausible perturbations.
+        Maintainability then shapes sequencing and confidence for implementation.
+      </div>
+    </section>
+
+    <section class="section panel primary-doctoral" id="primary-data">
+      <h2>Bounded Doctoral Validation and Calibration</h2>
+
+      <p class="section-lead">
+        The thesis uses bounded, georeferenced validation evidence to test critical assumptions,
+        refine maintainability judgements, and calibrate stability diagnostics within the SDSS.
+      </p>
+
+      <div class="grid-3">
+        <article class="card primary-doctoral">
+          <h3>Reach-Audit Variables</h3>
+          <p>
+            Targeted reach-audit observations of bank condition, livestock access, and visible
+            connectivity used to identify potential misclassification and strengthen rule traceability.
+          </p>
+        </article>
+
+        <article class="card primary-doctoral">
+          <h3>Maintainability Proxies</h3>
+          <p>
+            Targeted maintainability indicators relating to implementation persistence, including
+            repair burden, recurrent pressure, and inspection visibility.
+          </p>
+        </article>
+
+        <article class="card primary-doctoral">
+          <h3>Uncertainty Calibration</h3>
+          <p>
+            Limited repeat-audit evidence used to estimate observer and seasonal variance within
+            the perturbation framework.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section panel" id="uml">
+      <h2>SDSS dependency map</h2>
+
+      <p class="section-lead">
+        Hover the nodes. This is the SDSS backbone: governance context and evidence architecture
+        feed rule formalisation; rules drive the lexicographic engine; the engine feeds portfolios,
+        perturbation experiments, stability diagnostics, sequencing, verification, and reproducible outputs.
+      </p>
+
+      <div class="uml-layout">
+        <div class="diagram-shell">
+          <svg
+            id="uml-svg"
+            viewBox="0 0 980 720"
+            aria-label="SDSS dependency diagram"
+          ></svg>
+
+          <div class="legend-row">
+            <span
+              class="legend-chip"
+              data-tip-title="Inputs"
+              data-tip="Static or semi-static sources used to define what the SDSS is allowed to say."
+            >
+              Inputs
+            </span>
+
+            <span
+              class="legend-chip"
+              data-tip-title="Decision core"
+              data-tip="The explicit rule layer and ranking engine that transform evidence into recommendations."
+            >
+              Decision core
+            </span>
+
+            <span
+              class="legend-chip"
+              data-tip-title="Uncertainty layer"
+              data-tip="The ensemble logic that perturbs evidence, parameters, structure, and scale to test stability."
+            >
+              Uncertainty layer
+            </span>
+
+            <span
+              class="legend-chip"
+              data-tip-title="Implementation interface"
+              data-tip="Sequencing, verification design, and reproducibility packaging that make outputs usable beyond research text."
+            >
+              Implementation interface
+            </span>
+
+            <span
+              class="legend-chip"
+              style="color:#5dbbe5; border:1px dashed #5dbbe5"
+              data-tip-title="Validation and calibration data"
+              data-tip="New empirical evidence generated specifically to validate the doctoral decision architecture."
+            >
+              Validation and Calibration Data
+            </span>
+          </div>
+        </div>
+
+        <aside class="detail-panel panel" id="detail-panel">
+          <h3>Select a node</h3>
+          <p>Move the pointer over a node to inspect its role in the architecture.</p>
+          <ul>
+            <li>Dependencies show the required upstream logic.</li>
+            <li>Outputs show what each node emits downstream.</li>
+            <li>The emphasis is transparency, not black-box scoring.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section panel" id="engine">
+      <h2>Ranking engine and algorithm spine</h2>
+
+      <p class="section-lead">
+        The SDSS is not a flat weighted-average machine. It combines exclusions, eligibility logic,
+        lexicographic ranking, portfolio assignment, stability diagnostics, and sequencing rules.
+        Maintainability affects implementation readiness and sequencing, rather than altering the
+        underlying environmental prioritisation claim.
+      </p>
+
+      <div class="tabs" id="engine-tabs">
+        <button class="tab-btn active" data-tab="eligibility">Eligibility</button>
+        <button class="tab-btn" data-tab="lexicographic">Lexicographic ranking</button>
+        <button class="tab-btn" data-tab="portfolio">Portfolio logic</button>
+        <button class="tab-btn" data-tab="sequencing">Sequencing</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-eligibility">
+        <div class="algorithm-grid">
+          <div class="algorithm-box">
+            <pre>for each decision_unit in spatial_frame:
+    if exclusion_mask == TRUE:
+        status = "impossible / excluded"
+    else:
+        eligibility = f(pathway_presence,
+                        receiving_water_sensitivity,
+                        land_cover_fit,
+                        hydromorphology,
+                        protected_area_constraints,
+                        do_no_harm_rules)
+        if eligibility &lt; threshold:
+            status = "eligible but low plausibility"
+        else:
+            status = "send to ranking engine"</pre>
+            <div class="code-note">
+              This stage separates impossible, weak, and genuinely plausible intervention space.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>What flows into eligibility</h3>
+            <ul class="list-clean">
+              <li
+                data-tip-title="Governance-anchored evidence"
+                data-tip="Official assessment inputs, protected-area designations, Area for Action logic, and pressure flags are part of the evidence stack before the model begins to score anything."
+              >
+                <strong>Governance layers.</strong>
+                WFD/RBMP context, Area for Action, protected sites, catchment restoration priorities.
+              </li>
+
+              <li
+                data-tip-title="Biophysical fit"
+                data-tip="A measure has to match pathway and place. A treatment wetland or riparian package is not just drawn because a parcel is nearby."
+              >
+                <strong>Pathway fit.</strong>
+                Source-pathway-receptor logic, terrain, corridor opportunity, wetness, connectivity.
+              </li>
+
+              <li
+                data-tip-title="Do-no-harm rules"
+                data-tip="Protected habitats and ecological safeguards act as constraints. The engine must not optimise by recommending harm."
+              >
+                <strong>Constraint handling.</strong>
+                Exclusions, do-no-harm rules, ecological safeguards.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-lexicographic">
+        <div class="algorithm-grid">
+          <div class="algorithm-box">
+            <pre>rank candidate units by ordered objective logic:
+
+1. maximise nutrient_reduction_tier
+2. break ties using biodiversity_connectivity_tier
+3. break remaining ties using flood_attenuation_tier
+4. break remaining ties using sediment_reduction_tier
+5. retain rule trace, assumptions, and evidence-quality flags
+
+output:
+    eligible / low-priority / strategic-priority surfaces
+    with explicit confidence and rationale</pre>
+            <div class="code-note">
+              The core point is hierarchy. Secondary objectives refine the decision. They do not
+              silently override the nutrients-first mission.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Why lexicographic ordering matters</h3>
+            <ul class="list-clean">
+              <li><strong>Nutrient reduction stays primary.</strong> This keeps water-quality delivery at the centre of the model.</li>
+              <li><strong>Biodiversity is operationalised as connectivity.</strong> Corridor continuity and ecological safeguards refine placement.</li>
+              <li><strong>Flood and sediment remain structured secondary objectives.</strong> They improve portfolio coherence without flattening priorities into one composite score.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-portfolio">
+        <div class="grid-3">
+          <article class="card" data-tip-title="Riparian corridor package" data-tip="Buffers, stock exclusion, planting or restoration, and corridor enhancement belong together because one measure alone may underperform.">
+            <h3>Riparian corridor</h3>
+            <p>Buffers, fencing, hedgerow or native planting, and corridor continuity enhancement.</p>
+          </article>
+
+          <article class="card" data-tip-title="Runoff interception package" data-tip="Interception measures belong where pathway interruption matters more than channel-edge action.">
+            <h3>Runoff interception</h3>
+            <p>Field-edge strips, swales, sediment traps, and small attenuation features.</p>
+          </article>
+
+          <article class="card" data-tip-title="Wetland package" data-tip="Wetlands are treated as portfolio measures with upstream logic and downstream verification, not as isolated blue polygons.">
+            <h3>Wetland package</h3>
+            <p>Treatment wetland plus upstream interception logic and downstream verification triggers.</p>
+          </article>
+
+          <article class="card" data-tip-title="Floodplain package" data-tip="Floodplain reconnection and wet grassland logic belong where attenuation and habitat logic align.">
+            <h3>Floodplain package</h3>
+            <p>Floodplain reconnection or wet grassland restoration combined with habitat logic.</p>
+          </article>
+
+          <article class="card" data-tip-title="Peat or organic-soil package" data-tip="Peat and organic soils are often treated as constraints, protection zones, or rewetting opportunities rather than generic intervention targets.">
+            <h3>Peat / organic-soil protection</h3>
+            <p>Avoidance, constraint handling, or rewetting-oriented logic where relevant.</p>
+          </article>
+
+          <article class="card" data-tip-title="Portfolio principle" data-tip="The SDSS does not output one universal best measure. It outputs coherent families and their interactions.">
+            <h3>Portfolio principle</h3>
+            <p>Interacting measures are treated as systems. One intervention often depends on whether another is also present.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-sequencing">
+        <div class="algorithm-grid">
+          <div class="algorithm-box">
+            <pre>sequencing_score = g(priority_rank,
+                     portfolio_coherence,
+                     stability_class,
+                     evidence_quality,
+                     practical_implementation_logic,
+                     maintainability)
+
+if stability_class == "robust" and maintainability high:
+    phase = "early action"
+elif stability_class == "conditional":
+    phase = "targeted verification / conservative deployment"
+else:
+    phase = "do not claim early confidence"</pre>
+            <div class="code-note">
+              Maintainability is explicit here. A reach can look attractive on a map and still be
+              a poor early-action candidate if persistence is weak.
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Maintainability variables</h3>
+            <ul class="list-clean">
+              <li><strong>Recurrent stock pressure.</strong> Is the corridor likely to be damaged again?</li>
+              <li><strong>Access and inspection visibility.</strong> Can the intervention be checked and maintained in practice?</li>
+              <li><strong>Repair burden and conflict risk.</strong> Drain-cleaning conflict, mowing conflict, bank-instability burden.</li>
+              <li><strong>Persistence without repeated intervention.</strong> Durable fit matters more than apparent fit.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section panel" id="simulation">
+      <h2>Simulation lab: perturbation and ranking stability</h2>
+
+      <p class="section-lead">
+        This sandbox is illustrative and non-final. Its purpose is to make the perturbation logic
+        legible rather than to present the definitive thesis implementation. Plausible changes in
+        data quality, thresholds, structure, scale, and maintainability alter how often a candidate
+        remains in the top shortlist and whether it is safe to phase early.
+      </p>
+
+      <div class="sim-layout">
+        <div class="controls">
+          <div class="control">
+            <label for="nutrientBase">
+              <span>Nutrient base strength</span>
+              <strong id="nutrientBaseVal">0.82</strong>
+            </label>
+            <input id="nutrientBase" type="range" min="0.3" max="0.98" step="0.01" value="0.82" />
+            <small>Primary mission strength for this candidate under the nutrients-first logic.</small>
+          </div>
+
+          <div class="control">
+            <label for="secondaryBase">
+              <span>Secondary refinement strength</span>
+              <strong id="secondaryBaseVal">0.66</strong>
+            </label>
+            <input id="secondaryBase" type="range" min="0.2" max="0.95" step="0.01" value="0.66" />
+            <small>Represents biodiversity connectivity, flood attenuation, and sediment refinement combined.</small>
+          </div>
+
+          <div class="control">
+            <label for="portfolioBase">
+              <span>Portfolio coherence</span>
+              <strong id="portfolioBaseVal">0.74</strong>
+            </label>
+            <input id="portfolioBase" type="range" min="0.2" max="0.98" step="0.01" value="0.74" />
+            <small>Are the measures mutually supportive rather than loosely assembled?</small>
+          </div>
+
+          <div class="control">
+            <label for="maintainabilityBase">
+              <span>Maintainability</span>
+              <strong id="maintainabilityBaseVal">0.61</strong>
+            </label>
+            <input id="maintainabilityBase" type="range" min="0.1" max="0.98" step="0.01" value="0.61" />
+            <small>Implementation persistence: access, damage risk, repair burden, and inspection practicality.</small>
+          </div>
+
+          <div class="control">
+            <label for="uncertainty">
+              <span>Global uncertainty intensity</span>
+              <strong id="uncertaintyVal">0.32</strong>
+            </label>
+            <input id="uncertainty" type="range" min="0.05" max="0.75" step="0.01" value="0.32" />
+            <small>Blends data, parameter, structural, and scale uncertainty for the illustrative sandbox.</small>
+          </div>
+        </div>
+
+        <div class="sim-results">
+          <div class="result-grid">
+            <div class="result-card">
+              <div class="stat-label">Top-shortlist persistence</div>
+              <div class="big" id="persistValue">84%</div>
+              <div class="caption">Share of perturbation runs in which the candidate remains in the top shortlist.</div>
+            </div>
+
+            <div class="result-card">
+              <div class="stat-label">Phase-readiness</div>
+              <div class="big" id="phaseValue">Early action</div>
+              <div class="caption">Combines shortlist persistence, portfolio coherence, and maintainability.</div>
+            </div>
+
+            <div class="result-card">
+              <div class="stat-label">Stability class</div>
+              <div class="big" id="stabilityValue">Robust</div>
+              <div class="caption">Robust ≥ 80%. Conditional 40% to 79%. Fragile &lt; 40%.</div>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <div class="stat-label">Illustrative persistence bar</div>
+            <div class="status-bar"><span id="statusBar"></span></div>
+            <p class="caption" id="simNarrative" style="margin-top: 12px;">
+              High nutrient strength and moderate uncertainty keep this candidate in the shortlist
+              often enough to support early action.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Perturbation ingredients in the actual proposal</h3>
+            <ul class="list-clean">
+              <li data-tip-title="Data uncertainty" data-tip="Missingness, classification error, alternative vintages, and coarse versus fine resolution.">
+                <strong>Data.</strong> Missingness, classification error, vintage changes, resolution changes.
+              </li>
+              <li data-tip-title="Parameter uncertainty" data-tip="Thresholds, scoring breakpoints, connectivity distances, corridor widths, and shortlist definitions.">
+                <strong>Parameter.</strong> Thresholds, breakpoints, connectivity distance, corridor width, shortlist size.
+              </li>
+              <li data-tip-title="Structural uncertainty" data-tip="Alternative but defensible rule formulations and different ways of representing pathway dominance or portfolio grouping.">
+                <strong>Structural.</strong> Alternative rule formulations and portfolio grouping logics.
+              </li>
+              <li data-tip-title="Scale uncertainty" data-tip="Reach versus subcatchment units and changes in aggregation or shortlist definition.">
+                <strong>Scale.</strong> Reach versus subcatchment and local versus aggregated prioritisation.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section panel" id="verification">
+      <h2>Verification interface and community translation</h2>
+
+      <p class="section-lead">
+        The verification layer is deliberately bounded. It does not try to become a full monitoring
+        programme. It specifies the minimum follow-up needed for credible implementation and
+        distinguishes formal ecological assessment from citizen-facing stewardship tools.
+      </p>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Formal assessment</h3>
+          <p>
+            <strong>Q-value</strong> remains the formal ecological assessment anchor for river
+            condition where expert-led biological classification is required.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Citizen-facing screening</h3>
+          <p>
+            <strong>CSSI</strong> and <strong>SSIS</strong> can sit in the community-facing
+            verification interface as stewardship and adaptive-review tools rather than direct
+            substitutes for regulatory assessment.
+          </p>
+        </article>
+      </div>
+
+      <div class="grid-3" style="margin-top: 16px;">
+        <article class="card">
+          <h3>Nanny Watch</h3>
+          <p>
+            Nanny Watch is framed here as a community-facing observational interface that can
+            support stewardship, visibility, and adaptive review alongside the doctoral method,
+            without defining the core evidential burden of the PhD.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Trust translation role</h3>
+          <p>
+            The River Trust and Sonairte provide a governance and community translation interface
+            that helps keep the outputs inspectable, discussable, and usable beyond academia.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Minimum-viable verification</h3>
+          <p>
+            The SDSS specifies indicators, directional progress, triggers for review, and what
+            minimum information is required before action is treated as credible.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section panel" id="timeline">
+      <h2>Phased delivery timeline</h2>
+
+      <p class="section-lead">
+        The doctoral timeline below uses the six work packages in the proposal. A parallel strip
+        then shows how the Nanny translation context can sit alongside the PhD without swallowing
+        its core methodological focus.
+      </p>
+
+      <div class="timeline-wrap">
+        <p class="timeline-note">
+          Months 1 to 48 are shown across the top. The coloured bars are designed to be easy to
+          edit for future versions.
+        </p>
+
+        <table class="gantt" id="ganttTable"></table>
+
+        <div class="mobile-timeline-summary">
+          <div class="card">
+            <strong>WP1–WP2</strong><br />
+            Evidence architecture, rule formalisation, and core GIS build.
+          </div>
+          <div class="card">
+            <strong>WP3–WP4</strong><br />
+            Portfolio logic plus uncertainty and ranking-stability experiments.
+          </div>
+          <div class="card">
+            <strong>WP5–WP6</strong><br />
+            Validation, verification design, reproducibility, publications, and thesis integration.
+          </div>
+        </div>
+
+        <div class="parallel-strip">
+          <div class="phase-chip">
+            <strong>2026</strong>
+            Community-context milestones including forum establishment, representative farm mapping,
+            and RMP completion.
+          </div>
+
+          <div class="phase-chip">
+            <strong>2027</strong>
+            Community and implementation-context activities including buffer and wetland projects,
+            Nanny Watch launch, annual review, and communications rollout.
+          </div>
+
+          <div class="phase-chip">
+            <strong>2028</strong>
+            Translation and replication context for targeted nutrient reduction, biodiversity
+            enhancement, and potential transfer to neighbouring catchments.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section panel" id="outputs">
+      <h2>Outputs, risks, and what the user sees</h2>
+
+      <p class="section-lead">
+        Every major stage produces an inspectable artefact. That is part of the feasibility story.
+        The site highlights the deliverables that make the SDSS legible to technical and
+        non-technical audiences alike.
+      </p>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Scientific outputs</h3>
+          <ul>
+            <li>Methods paper on stability-aware SDSS design.</li>
+            <li>Demonstrator paper for Nanny-Delvin.</li>
+            <li>Thesis contribution on portfolios and scaling.</li>
+            <li>Methods appendix or technical note on reach-audit validation and calibration.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Practical outputs</h3>
+          <ul>
+            <li>Priority atlas and stability maps.</li>
+            <li>Portfolio-specific verification templates.</li>
+            <li>Rule sheet, assumptions register, and decision log.</li>
+            <li>Rebuild instructions for transfer to other catchments.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Risk controls</h3>
+          <ul>
+            <li>Versioned rule sheet to manage contestation.</li>
+            <li>Conservative classification where data quality is weak.</li>
+            <li>Explicit scope boundary against process-response sprawl.</li>
+            <li>Bounded field component tied to validation, not monitoring expansion.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer panel" id="deploy">
+      <strong>Source basis for this site.</strong><br />
+      Content is based on the long-form TRDA proposal (v9), the Nanny-Delvin River Trust strategic
+      framework, and the Nanny community coordination framework. The doctoral logic shown here
+      includes the lexicographic objective order, work packages, perturbation framework, stability
+      thresholds, maintainability logic, and the bounded verification interface. The Nanny context
+      contributes the six-subcatchment demonstrator structure, governance signals, and the community
+      translation layer within which the doctoral outputs can be interpreted and discussed.
+
+     <div class="footer-doi">
+      <strong>Archived release DOI:</strong><br />
+      <a href="https://doi.org/10.5281/zenodo.19487210" target="_blank" rel="noopener noreferrer">
+      <img
+      src="https://zenodo.org/badge/DOI/10.5281/zenodo.19487210.svg"
+      alt="DOI: 10.5281/zenodo.19487210"
+      />
+      </a>
+    </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+     <!-- Cloudflare Web Analytics -->
+  <script 
+    defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'>
+  </script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>
