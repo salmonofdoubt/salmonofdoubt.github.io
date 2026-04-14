@@ -269,6 +269,34 @@ h1 {
   background: rgba(159, 238, 203, 0.08);
 }
 
+.back-to-demos {
+  position: sticky;
+  top: 12px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(8, 23, 34, 0.72);
+  border: 1px solid rgba(195, 255, 225, 0.14);
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: var(--blur);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  transition: var(--transition-base);
+}
+
+.back-to-demos:hover {
+  color: var(--color-text-strong);
+  background: rgba(10, 28, 40, 0.82);
+  border-color: rgba(159, 238, 203, 0.22);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
 .section { margin: 0 0 22px; padding: 28px; }
 
 .section h2 { margin: 0 0 10px; font-size: 1.9rem; }
