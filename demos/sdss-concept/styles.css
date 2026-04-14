@@ -14,30 +14,30 @@
   --radius-xl: 28px;
   --radius-pill: 999px;
 
-  --color-text: #e9f5f1;
-  --color-text-strong: #f5fffb;
-  --color-text-soft: #c9dfd7;
-  --color-text-muted: #a8c8bd;
-  --color-text-subtle: #92b7aa;
-  --color-link: #a6f0ca;
+  --color-text: #eef7f3;
+  --color-text-strong: #f8fffd;
+  --color-text-soft: #cfe6de;
+  --color-text-muted: #b4d8cb;
+  --color-text-subtle: #9cc8b8;
+  --color-link: #7fd4ff;
 
-  --color-bg-top: #08152c;
-  --color-bg-mid: #0b1a35;
-  --color-bg-bottom: #091220;
+  --color-bg-top: #05101f;
+  --color-bg-mid: #0a1830;
+  --color-bg-bottom: #040b15;
 
-  --color-surface-panel: rgba(20, 44, 37, 0.78);
-  --color-surface-card: rgba(16, 35, 30, 0.86);
+  --color-surface-panel: rgba(26, 78, 61, 0.78);
+  --color-surface-card: rgba(18, 58, 45, 0.86);
   --color-surface-soft: rgba(255, 255, 255, 0.04);
   --color-surface-soft-2: rgba(255, 255, 255, 0.05);
 
-  --color-border: rgba(184, 234, 208, 0.14);
-  --color-border-soft: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(166, 240, 202, 0.34);
+  --color-border: rgba(150, 232, 190, 0.18);
+  --color-border-soft: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(124, 231, 184, 0.42);
 
-  --color-primary-soft: rgba(166, 240, 202, 0.14);
-  --color-primary-glow: rgba(133, 239, 195, 0.18);
-  --color-secondary-accent: #6fb9ee;
-  --color-secondary-accent-soft: rgba(111, 185, 238, 0.08);
+  --color-primary-soft: rgba(124, 231, 184, 0.16);
+  --color-primary-glow: rgba(124, 231, 184, 0.22);
+  --color-secondary-accent: #7fd4ff;
+  --color-secondary-accent-soft: rgba(127, 212, 255, 0.1);
 
   --color-success: #00ff88;
   --color-warning: #ff9f00;
@@ -64,9 +64,9 @@ body {
   font-family: var(--font-sans);
   color: var(--color-text);
   background:
-    radial-gradient(circle at top left, rgba(64, 118, 99, 0.22), transparent 28%),
-    radial-gradient(circle at top right, rgba(83, 124, 229, 0.24), transparent 30%),
-    radial-gradient(circle at bottom left, rgba(46, 151, 111, 0.10), transparent 24%),
+    radial-gradient(circle at top left, rgba(48, 164, 122, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(95, 157, 255, 0.22), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(78, 196, 139, 0.12), transparent 24%),
     linear-gradient(180deg, var(--color-bg-top) 0%, var(--color-bg-mid) 42%, var(--color-bg-bottom) 100%);
 }
 
@@ -106,8 +106,8 @@ svg {
 .hero {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(195, 255, 225, 0.14);
-  background: linear-gradient(135deg, rgba(20, 46, 39, 0.96), rgba(10, 24, 49, 0.95));
+  border: 1px solid rgba(176, 245, 214, 0.18);
+  background: linear-gradient(135deg, rgba(27, 92, 70, 0.96), rgba(9, 31, 58, 0.96));
   border-radius: var(--radius-xl);
   padding: 36px;
   box-shadow: var(--shadow-hero);
@@ -131,12 +131,12 @@ svg {
   gap: 8px;
   padding: 8px 12px;
   border-radius: var(--radius-pill);
-  background: rgba(117, 255, 198, 0.1);
-  color: #b9f7dc;
+  background: rgba(98, 211, 255, 0.12);
+  color: #d3f0ff;
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  border: 1px solid rgba(117, 255, 198, 0.2);
+  border: 1px solid rgba(98, 211, 255, 0.24);
 }
 
 h1 {
@@ -150,7 +150,7 @@ h1 {
   max-width: 980px;
   font-size: 1.08rem;
   line-height: 1.7;
-  color: #cae2d9;
+  color: #d8ece4;
 }
 
 .hero-grid,
@@ -178,7 +178,7 @@ h1 {
 
 .mini-panel {
   padding: 18px 18px 16px;
-  background: var(--color-surface-panel);
+  background: linear-gradient(180deg, rgba(24, 82, 63, 0.84), rgba(15, 51, 41, 0.9));
 }
 
 .mini-panel h3,
@@ -199,7 +199,7 @@ h1 {
 
 .stat {
   padding: 14px;
-  background: rgba(10, 24, 19, 0.8);
+  background: rgba(16, 55, 42, 0.82);
 }
 
 .stat-label {
@@ -213,7 +213,7 @@ h1 {
 .stat-value {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--color-text-strong);
+  color: #062031;
 }
 
 .badge-row,
@@ -286,7 +286,7 @@ h1 {
 
 .card {
   padding: 18px;
-  background: var(--color-surface-card);
+  background: linear-gradient(180deg, rgba(20, 70, 54, 0.86), rgba(13, 43, 35, 0.92));
 }
 
 .card h3 { font-size: 1.08rem; }
@@ -397,7 +397,7 @@ h1 {
   position: sticky;
   top: var(--detail-panel-top);
   min-height: 320px;
-  background: var(--color-surface-panel);
+  background: linear-gradient(180deg, rgba(24, 82, 63, 0.84), rgba(15, 51, 41, 0.9));
 }
 
 .detail-panel h3 { font-size: 1.15rem; }
@@ -844,17 +844,17 @@ table.gantt {
   margin: 0 0 14px;
   padding: 10px 14px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(184, 234, 208, 0.18);
-  background: rgba(14, 33, 49, 0.82);
-  color: var(--color-text-strong);
+  border: 1px solid rgba(129, 214, 255, 0.28);
+  background: linear-gradient(135deg, rgba(116, 242, 192, 0.96), rgba(120, 214, 255, 0.94));
+  color: #062031;
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
   backdrop-filter: var(--blur);
 }
 
 .back-to-demos:hover {
   text-decoration: none;
-  background: rgba(20, 44, 37, 0.94);
-  border-color: rgba(166, 240, 202, 0.34);
+  background: linear-gradient(135deg, rgba(138, 248, 204, 0.98), rgba(143, 223, 255, 0.98));
+  border-color: rgba(255, 255, 255, 0.48);
   transform: translateY(-1px);
 }
 
@@ -864,8 +864,8 @@ table.gantt {
   padding: 12px 14px;
   border-radius: var(--radius-md);
   border: 1px solid rgba(184, 234, 208, 0.14);
-  background: rgba(255, 255, 255, 0.045);
-  color: #d7ebe2;
+  background: rgba(12, 46, 40, 0.55);
+  color: #e0f2eb;
   line-height: 1.6;
 }
 
@@ -880,3 +880,6 @@ table.gantt {
     font-size: 0.96rem;
   }
 }
+
+
+/* Demo variant palette override: navy background + greener cards */
