@@ -17,7 +17,7 @@ revealEls.forEach((el) => observer.observe(el));
 const dialog = document.getElementById('lightbox');
 const dialogImg = document.getElementById('lightboxImage');
 const dialogClose = document.getElementById('lightboxClose');
-const galleryImgs = document.querySelectorAll('.gallery-card img');
+const galleryImgs = document.querySelectorAll('.gallery-card img, .hero-figure img');
 
 if (dialog && dialogImg && dialogClose && galleryImgs.length) {
   galleryImgs.forEach((img) => {
