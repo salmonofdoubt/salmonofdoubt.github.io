@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#12382e" />
+  <title>Grant Radar | Nature, Ecology, Environment, Energy</title>
+  <meta name="description" content="GitHub Pages-ready grant radar for nature, ecology, environment, biodiversity and community-scale funding opportunities." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="hero panel">
+      <p class="eyebrow">Open funding radar · demos branch · GitHub Pages ready</p>
+      <div class="crumbs">
+        <a href="/demos/">← Back to demos</a>
+      </div>
+
+      <div class="hero-title-row">
+        <div class="hero-copy">
+          <h1>Grant Radar</h1>
+          <p class="lede">
+            Track grants and calls in the nature, ecology, biodiversity, environmental, climate and energy space.
+            Filter first by purpose, then narrow by applicant type, access route, grant scale, change state, and deadline timing.
+          </p>
+          <p class="micro-note">
+            This GitHub Pages version is intentionally static in the browser. The interface reads a generated JSON catalogue,
+            so it stays fast and deployable while a scheduled harvester refreshes the underlying data.
+          </p>
+        </div>
+
+        <div class="hero-radar" aria-hidden="true">
+          <svg viewBox="0 0 320 320" role="img" focusable="false">
+            <defs>
+              <radialGradient id="radarCore" cx="50%" cy="50%" r="60%">
+                <stop offset="0%" stop-color="rgba(153,255,219,0.92)" />
+                <stop offset="35%" stop-color="rgba(65,214,170,0.45)" />
+                <stop offset="100%" stop-color="rgba(12,36,54,0)" />
+              </radialGradient>
+              <linearGradient id="radarSweep" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="rgba(111,255,192,0)" />
+                <stop offset="52%" stop-color="rgba(111,255,192,0.07)" />
+                <stop offset="100%" stop-color="rgba(111,255,192,0.7)" />
+              </linearGradient>
+              <filter id="radarGlow">
+                <feGaussianBlur stdDeviation="5" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <circle cx="160" cy="160" r="130" class="radar-disc" />
+            <circle cx="160" cy="160" r="130" class="radar-ring radar-ring-strong" />
+            <circle cx="160" cy="160" r="96" class="radar-ring" />
+            <circle cx="160" cy="160" r="62" class="radar-ring" />
+            <path d="M160 160 L278 88 A130 130 0 0 1 284 166 Z" class="radar-sweep" filter="url(#radarGlow)" />
+            <line x1="30" y1="160" x2="290" y2="160" class="radar-axis" />
+            <line x1="160" y1="30" x2="160" y2="290" class="radar-axis" />
+            <path d="M160 160 C122 118, 78 98, 55 70" class="leaf-stem" />
+            <path d="M160 160 C188 120, 234 101, 267 76" class="leaf-stem" />
+            <path d="M142 124 C112 90, 70 91, 52 68 C76 60, 120 64, 142 124 Z" class="leaf-shape" />
+            <path d="M180 118 C215 86, 258 84, 276 64 C248 58, 203 64, 180 118 Z" class="leaf-shape leaf-shape-alt" />
+            <circle cx="203" cy="118" r="6" class="radar-blip" />
+            <circle cx="102" cy="206" r="5" class="radar-blip radar-blip-soft" />
+            <circle cx="226" cy="202" r="4" class="radar-blip radar-blip-soft" />
+            <circle cx="160" cy="160" r="12" class="radar-centre" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-meta-grid">
+        <div class="hero-card action-card">
+          <p class="hero-card-kicker">Quick links</p>
+          <div class="top-links">
+            <a class="pill-link" id="support-link" href="https://buymeacoffee.com/andrecbaum1" target="_blank" rel="noopener noreferrer">☕ Buy me a coffee</a>
+            <a class="pill-link" id="code-link" href="#repo-placeholder">View code</a>
+            <a class="pill-link" id="issues-link" href="#issues-placeholder">Report an issue</a>
+            <a class="pill-link" id="discussions-link" href="#discussions-placeholder">Discussions</a>
+          </div>
+          <div class="hero-doi-row">
+            <div class="doi-strip" aria-label="Archived release DOI">
+              <span class="doi-strip-label">Archived release</span>
+              <span class="doi-strip-badge">DOI</span>
+              <a class="doi-strip-link" href="https://doi.org/10.5281/zenodo.0000000" target="_blank" rel="noopener noreferrer">10.5281/zenodo.0000000</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card share-card">
+          <div class="share-header">
+            <div>
+              <p class="share-kicker">Share</p>
+              <p class="share-copy">Copy the link, use native share on mobile, or scan the QR code.</p>
+            </div>
+          </div>
+          <div class="share-main-row">
+            <div class="share-actions-wrap">
+              <div class="share-actions">
+                <a class="pill-link share-open-link" id="share-open-link" href="#" target="_blank" rel="noopener noreferrer">↗ Open link</a>
+                <button class="pill-link share-copy-btn" id="copy-link-btn" type="button">⧉ Copy link</button>
+                <button class="pill-link share-native-btn" id="native-share-btn" type="button">⤴ Share</button>
+              </div>
+            </div>
+            <div class="share-qr-wrap">
+              <img id="qr-image" class="qr-image" alt="QR code linking to the current Grant Radar page" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel controls-panel">
+        <div class="section-head">
+          <h2>Find opportunities</h2>
+          <p>Start with thematic purpose, then narrow by who can apply, how access works, and whether the cycle is new, open, or already closed.</p>
+        </div>
+
+        <div class="controls-grid">
+          <div class="control-block control-wide">
+            <label for="search-input">Search</label>
+            <input id="search-input" type="search" placeholder="e.g. biodiversity, peatland, wetlands, community group, EPA" />
+          </div>
+
+          <div class="control-block">
+            <label for="status-select">Call status</label>
+            <select id="status-select">
+              <option value="all">All</option>
+              <option value="open">Open</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="closed">Closed</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <label for="applicant-select">Applicant type</label>
+            <select id="applicant-select">
+              <option value="all">All applicant types</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <label for="access-select">Access route</label>
+            <select id="access-select">
+              <option value="all">All access routes</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <label for="scale-select">Grant scale</label>
+            <select id="scale-select">
+              <option value="all">All scales</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <label for="change-select">Change type</label>
+            <select id="change-select">
+              <option value="all">All changes</option>
+              <option value="new">New</option>
+              <option value="deadline_updated">Deadline updated</option>
+              <option value="status_changed">Status changed</option>
+              <option value="awarded">Awarded / results posted</option>
+              <option value="none">No recent flagged change</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <label for="change-window-select">Changed within</label>
+            <select id="change-window-select">
+              <option value="all">Any time</option>
+              <option value="7">Last 7 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="365">Last year</option>
+            </select>
+          </div>
+
+          <div class="control-block">
+            <label for="deadline-from">Deadline from</label>
+            <input id="deadline-from" type="date" />
+          </div>
+
+          <div class="control-block">
+            <label for="deadline-to">Deadline to</label>
+            <input id="deadline-to" type="date" />
+          </div>
+        </div>
+
+        <div class="purpose-wrap">
+          <div class="purpose-head">
+            <h3>Purpose</h3>
+            <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
+          </div>
+          <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
+        </div>
+      </section>
+
+      <section class="panel summary-panel">
+        <div class="summary-grid">
+          <div>
+            <p class="summary-label">Catalogue updated</p>
+            <p id="generated-at" class="summary-value">Loading…</p>
+          </div>
+          <div>
+            <p class="summary-label">Matching opportunities</p>
+            <p id="match-count" class="summary-value">0</p>
+          </div>
+          <div>
+            <p class="summary-label">Tracked sources</p>
+            <p id="source-count" class="summary-value">0</p>
+          </div>
+          <div>
+            <p class="summary-label">Recent change flags</p>
+            <p id="change-count" class="summary-value">0</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <h2>Recent changes</h2>
+          <p>New calls, deadline shifts, and award/result announcements appear here before the full list.</p>
+        </div>
+        <div id="changes-feed" class="changes-feed"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <h2>Matching opportunities</h2>
+          <p>Each card shows purpose tags, source, status, deadline, applicant fit, access route, and the last detected change.</p>
+        </div>
+        <div id="results" class="cards-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-head">
+          <h2>Tracked sources</h2>
+          <p>These are the official or curated websites being monitored in the current demonstrator.</p>
+        </div>
+        <div id="sources" class="source-grid"></div>
+      </section>
+
+      <section class="panel support-panel">
+        <div class="section-head">
+          <h2>Fund this demonstrator</h2>
+          <p>Suitable for small sponsorships, environmental and energy scanning work, academic prototyping, and public-interest digital infrastructure.</p>
+        </div>
+        <ul class="support-list">
+          <li>source expansion and new grant trackers</li>
+          <li>deadline-change detection and better parsing rules</li>
+          <li>community-grant, energy, and local-authority route coverage</li>
+          <li>accessibility and interface refinement</li>
+          <li>GitHub Action automation and quality checks</li>
+        </ul>
+        <a class="cta-link" href="https://buymeacoffee.com/andrecbaum1" target="_blank" rel="noopener noreferrer">Open the support page</a>
+      </section>
+
+      <section class="panel notes-panel">
+        <div class="section-head">
+          <h2>How this GitHub version works</h2>
+        </div>
+        <ul class="support-list">
+          <li>The interface is entirely static and can run inside <code>/demos/grant-radar/</code>.</li>
+          <li>A Python harvester writes a JSON catalogue that the site reads directly.</li>
+          <li>The harvester can run locally or on a scheduled GitHub Actions workflow.</li>
+          <li>Change detection compares the newest crawl with the previous saved catalogue.</li>
+          <li>The seeded dataset now includes community-scale, energy, local-authority-routed, entrepreneurship, and major research funding examples.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <template id="opportunity-card-template">
+    <article class="card opportunity-card">
+      <div class="card-top">
+        <div class="tag-row top-tags"></div>
+        <div class="status-pill"></div>
+      </div>
+      <h3 class="card-title"></h3>
+      <p class="card-source"></p>
+      <p class="card-summary"></p>
+      <dl class="meta-grid meta-grid-opportunity">
+        <div>
+          <dt>Deadline</dt>
+          <dd class="deadline"></dd>
+        </div>
+        <div>
+          <dt>Changed</dt>
+          <dd class="changed"></dd>
+        </div>
+        <div>
+          <dt>Region</dt>
+          <dd class="region"></dd>
+        </div>
+        <div>
+          <dt>Applicant</dt>
+          <dd class="applicant"></dd>
+        </div>
+        <div>
+          <dt>Access</dt>
+          <dd class="access"></dd>
+        </div>
+        <div>
+          <dt>Scale</dt>
+          <dd class="scale"></dd>
+        </div>
+      </dl>
+      <div class="tag-row purpose-tags"></div>
+      <div class="card-actions">
+        <a class="button-link open-link" target="_blank" rel="noopener noreferrer">Open source page</a>
+      </div>
+    </article>
+  </template>
+
+  <template id="source-card-template">
+    <article class="card source-card">
+      <div class="tag-row source-purpose-tags"></div>
+      <h3 class="source-name"></h3>
+      <p class="source-note"></p>
+      <dl class="meta-grid">
+        <div>
+          <dt>Scope</dt>
+          <dd class="source-scope"></dd>
+        </div>
+        <div>
+          <dt>Last checked</dt>
+          <dd class="source-checked"></dd>
+        </div>
+        <div>
+          <dt>Method</dt>
+          <dd class="source-method"></dd>
+        </div>
+        <div>
+          <dt>Tracked items</dt>
+          <dd class="source-op-count"></dd>
+        </div>
+      </dl>
+      <div class="card-actions">
+        <a class="button-link source-link" target="_blank" rel="noopener noreferrer">Visit source</a>
+      </div>
+    </article>
+  </template>
+
+  <template id="change-item-template">
+    <article class="change-item">
+      <div class="change-top">
+        <span class="change-badge"></span>
+        <span class="change-date"></span>
+      </div>
+      <h3 class="change-title"></h3>
+      <p class="change-meta"></p>
+      <a class="change-link" target="_blank" rel="noopener noreferrer">Open source page</a>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
