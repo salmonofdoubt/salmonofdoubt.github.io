@@ -1,0 +1,37 @@
+title: "[Demo feedback] "
+labels: ["demo-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for broader discussion about any demo on the site.
+
+        Please include the demo name in the title, for example:
+        **[Grant Radar] Better handling of rolling deadlines**
+  - type: input
+    id: demo
+    attributes:
+      label: Which demo is this about?
+      placeholder: Grant Radar / Urbanforest / TD Lookup / SDSS Concept
+    validations:
+      required: true
+  - type: dropdown
+    id: discussion-type
+    attributes:
+      label: What kind of discussion is this?
+      options:
+        - Question
+        - Feedback
+        - Idea
+        - Data/source suggestion
+        - Accessibility / usability
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Discussion
+      description: Add your question, feedback, or idea.
+    validations:
+      required: true

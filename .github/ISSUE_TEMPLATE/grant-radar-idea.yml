@@ -1,0 +1,44 @@
+name: Grant Radar improvement
+description: Suggest a new feature, source, filter, or UX improvement for the Grant Radar demo.
+title: "[Grant Radar idea] "
+labels: ["enhancement", "grant-radar"]
+type: feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for new ideas, source suggestions, or usability improvements for Grant Radar.
+  - type: dropdown
+    id: idea-type
+    attributes:
+      label: Idea type
+      options:
+        - New funding source
+        - New filter or tag
+        - Better mobile layout
+        - Better visual design
+        - New alert or tracking behavior
+        - Better community / small grants coverage
+        - Better energy / SEAI coverage
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Your proposal
+      description: What should be added or changed?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would this help?
+      description: Who benefits, and what problem does it solve?
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example links or references
+      description: Add any grant pages, screenshots, or examples here.

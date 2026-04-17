@@ -1,0 +1,21 @@
+title: "[Q&A] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category for questions that are not bug reports.
+  - type: input
+    id: demo
+    attributes:
+      label: Which demo is this about?
+      placeholder: Grant Radar / Urbanforest / TD Lookup / SDSS Concept
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: Ask the question as clearly as possible.
+    validations:
+      required: true

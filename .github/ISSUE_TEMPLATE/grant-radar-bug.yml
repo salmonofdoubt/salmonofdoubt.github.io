@@ -1,0 +1,67 @@
+name: Grant Radar bug report
+description: Report a bug or broken behavior in the Grant Radar demo.
+title: "[Grant Radar bug] "
+labels: ["bug", "grant-radar"]
+type: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a Grant Radar problem.
+
+        Please use this form for broken behavior, wrong links, layout issues, bad filtering, or data/status errors in the Grant Radar demo.
+  - type: input
+    id: page
+    attributes:
+      label: Page URL
+      description: Paste the exact page URL where you saw the problem.
+      placeholder: https://salmonofdoubt.github.io/demos/grant-radar/
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of Grant Radar is affected?
+      options:
+        - Filters
+        - Opportunity cards
+        - Tracked sources
+        - Share / QR block
+        - DOI / hero buttons
+        - Styling / mobile layout
+        - Data freshness / wrong dates
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly.
+      placeholder: I expected ..., but instead ...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Short, numbered steps help a great deal.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+      placeholder: The correct behavior should have been...
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot or notes
+      description: Add a screenshot, device details, or anything else useful.

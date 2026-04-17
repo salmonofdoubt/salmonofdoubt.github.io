@@ -1,0 +1,21 @@
+title: "[Showcase] "
+labels: ["showcase"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this category to share examples, screenshots, downstream uses, or public mentions of a demo.
+  - type: input
+    id: demo
+    attributes:
+      label: Which demo are you showcasing?
+      placeholder: Grant Radar / Urbanforest / TD Lookup / SDSS Concept
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What are you sharing?
+      description: Add links, screenshots, or context.
+    validations:
+      required: true
