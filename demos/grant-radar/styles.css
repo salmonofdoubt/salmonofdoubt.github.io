@@ -71,7 +71,7 @@ select {
 
 .panel {
   position: relative;
-  overflow: clip;
+  overflow: hidden;
   background: linear-gradient(180deg, rgba(7, 29, 38, 0.94), rgba(12, 39, 42, 0.94));
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -79,6 +79,7 @@ select {
   margin-top: 1rem;
   box-shadow: var(--shadow);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .panel::before {
@@ -147,6 +148,8 @@ select {
   height: 100%;
   display: block;
 }
+
+
 
 .radar-disc {
   fill: rgba(7, 42, 46, 0.78);
@@ -860,5 +863,19 @@ select:focus,
     overflow-wrap: anywhere;
     white-space: normal;
     line-height: 1.2;
+  }
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 960px) {
+  .panel {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero-radar::before,
+  .radar-blip,
+  .radar-blip-soft,
+  .radar-centre {
+    filter: none;
   }
 }
