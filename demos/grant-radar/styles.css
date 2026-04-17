@@ -30,7 +30,9 @@
 }
 
 * { box-sizing: border-box; }
+
 html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -149,8 +151,6 @@ select {
   display: block;
 }
 
-
-
 .radar-disc {
   fill: rgba(7, 42, 46, 0.78);
   stroke: rgba(122, 230, 210, 0.16);
@@ -229,6 +229,19 @@ select {
 }
 
 .top-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.grant-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.top-row-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
@@ -415,6 +428,52 @@ select {
   background: linear-gradient(180deg, #23a56d, #1c8157);
   border-color: #67d5a0;
   color: #ffffff;
+}
+
+.email-link {
+  background: linear-gradient(180deg, rgba(255, 240, 186, 0.2), rgba(255, 226, 122, 0.14));
+  border-color: rgba(255, 223, 123, 0.42);
+  color: #fff4cc;
+  box-shadow: 0 10px 24px rgba(92, 72, 10, 0.18);
+}
+
+.email-link:hover {
+  background: linear-gradient(180deg, rgba(255, 245, 209, 0.26), rgba(255, 232, 144, 0.18));
+  border-color: rgba(255, 233, 159, 0.62);
+  color: #fff9df;
+}
+
+.github-blob {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+}
+
+.github-label {
+  color: var(--muted);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.github-inline-link {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.github-inline-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.github-sep {
+  color: rgba(255, 255, 255, 0.38);
 }
 
 .section-head { margin-bottom: 1rem; }
@@ -674,7 +733,6 @@ select:focus,
   margin-top: 0.85rem;
 }
 
-
 .source-card {
   background:
     radial-gradient(circle at 10% 14%, rgba(120, 206, 255, 0.16), transparent 26%),
@@ -727,7 +785,6 @@ select:focus,
 .hidden {
   display: none !important;
 }
-
 
 @media (max-width: 860px) {
   .share-main-row {
@@ -809,7 +866,8 @@ select:focus,
   }
 
   .top-links,
-  .card-actions {
+  .card-actions,
+  .top-row-links {
     flex-direction: column;
     align-items: stretch;
   }
@@ -847,6 +905,11 @@ select:focus,
   .qr-image {
     width: 118px;
     height: 118px;
+  }
+
+  .github-blob {
+    border-radius: 20px;
+    align-items: flex-start;
   }
 }
 
