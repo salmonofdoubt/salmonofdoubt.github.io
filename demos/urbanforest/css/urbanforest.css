@@ -287,6 +287,11 @@ dl {
   aspect-ratio: auto;
 }
 
+.hero-figure img,
+.gallery-card img {
+  cursor: zoom-in;
+}
+
 .hero-figure figcaption,
 .species-figure figcaption,
 .gallery-card figcaption {
