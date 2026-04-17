@@ -376,3 +376,50 @@ code {
   filter: brightness(0.98);
   transform: translateY(-1px);
 }
+
+.demo-back-nav {
+  margin: 0 0 1rem;
+}
+
+.demo-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(135deg, rgba(57, 143, 194, 0.16), rgba(30, 122, 92, 0.16)),
+    rgba(10, 19, 25, 0.72);
+  color: #eaf6ff;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.demo-back-btn:hover,
+.demo-back-btn:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(120, 210, 255, 0.38);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+  outline: none;
+}
+
+.demo-back-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .demo-back-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
