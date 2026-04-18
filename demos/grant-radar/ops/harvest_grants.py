@@ -21,14 +21,12 @@ import requests
 from bs4 import BeautifulSoup
 from dateutil import parser as dateparser
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
-SITE_DIR = REPO_ROOT / "demos" / "grant-radar"
+SITE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = SITE_DIR / "data"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 CATALOG_PATH = DATA_DIR / "catalog.json"
 USER_AGENT = "GrantRadarBot/1.2 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = 25
-
 
 @dataclass
 class ExtractedItem:
@@ -235,12 +233,12 @@ def harvest() -> dict[str, Any]:
         "opportunities": items_out,
     }
 
-
 def main() -> None:
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
     catalog = harvest()
     CATALOG_PATH.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote {CATALOG_PATH}")
-
+    
 
 if __name__ == "__main__":
     main()
