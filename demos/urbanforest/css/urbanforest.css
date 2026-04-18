@@ -323,6 +323,57 @@ dl {
   min-width: 0;
 }
 
+.share-strip__doi {
+  margin: 0 0 0.85rem;
+}
+
+.doi-strip {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+  padding: 0.58rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(29, 108, 196, 0.18);
+  background: linear-gradient(180deg, rgba(235, 244, 255, 0.96), rgba(247, 251, 255, 0.96));
+  box-shadow: 0 10px 24px rgba(29, 108, 196, 0.08);
+}
+
+.doi-strip-label {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2563a6;
+}
+
+.doi-strip-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: 0 0.6rem;
+  border-radius: 999px;
+  background: #1d6cc4;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.doi-strip-link {
+  font-weight: 700;
+  color: #174d86;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.doi-strip-link:hover,
+.doi-strip-link:focus-visible {
+  text-decoration: underline;
+}
+
 .share-strip__label {
   margin: 0 0 0.25rem;
   font-size: 0.74rem;
