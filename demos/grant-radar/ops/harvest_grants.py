@@ -26,7 +26,7 @@ DATA_DIR = SITE_DIR / "data"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 CATALOG_PATH = DATA_DIR / "catalog.json"
 USER_AGENT = "GrantRadarBot/1.2 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
-TIMEOUT = 25
+TIMEOUT = (10, 30)
 
 @dataclass
 class ExtractedItem:
@@ -163,55 +163,76 @@ def harvest() -> dict[str, Any]:
     scale_seen: set[str] = set()
 
     for source in registry:
-        text, checked_at = fetch_text(source["url"])
         extract = source.get("extract", {})
-        deadline_raw = regex_extract(extract.get("deadline_regex"), text)
-        launch_raw = regex_extract(extract.get("launch_regex"), text) or regex_extract(extract.get("open_regex"), text)
-        deadline_iso, deadline_text = normalise_date(deadline_raw)
-
         summary = extract.get("summary_hint") or source.get("note", "")
         applicant_types = extract.get("applicant_types", [])
         access_route = extract.get("access_route")
         scale = extract.get("scale")
         keywords = sorted({source["name"].lower(), *(source.get("purposes", [])), *applicant_types})
 
-        item = ExtractedItem(
-            source_id=source["id"],
-            source_name=source["name"],
-            title=extract.get("title", source["name"]),
-            programme=extract.get("programme", source["name"]),
-            url=source["url"],
-            summary=summary,
-            status=extract.get("status_hint", "open"),
-            change_type="none",
-            changed_at=None,
-            deadline_iso=deadline_iso,
-            deadline_text=deadline_text or (f"Launch or open marker: {launch_raw}" if launch_raw else None),
-            region=source.get("scope", "—"),
-            audience=applicant_types,
-            applicant_types=applicant_types,
-            access_route=access_route,
-            scale=scale,
-            purposes=source.get("purposes", []),
-            keywords=keywords,
-            cta_label=f"Open {source['name']}",
-        )
+        try:
+            text, checked_at = fetch_text(source["url"])
+            deadline_raw = regex_extract(extract.get("deadline_regex"), text)
+            launch_raw = regex_extract(extract.get("launch_regex"), text) or regex_extract(extract.get("open_regex"), text)
+            deadline_iso, deadline_text = normalise_date(deadline_raw)
 
-        determine_change(item, previous_items, seen_at)
-        items_out.append(item.as_dict())
+            item = ExtractedItem(
+                source_id=source["id"],
+                source_name=source["name"],
+                title=extract.get("title", source["name"]),
+                programme=extract.get("programme", source["name"]),
+                url=source["url"],
+                summary=summary,
+                status=extract.get("status_hint", "open"),
+                change_type="none",
+                changed_at=None,
+                deadline_iso=deadline_iso,
+                deadline_text=deadline_text or (f"Launch or open marker: {launch_raw}" if launch_raw else None),
+                region=source.get("scope", "—"),
+                audience=applicant_types,
+                applicant_types=applicant_types,
+                access_route=access_route,
+                scale=scale,
+                purposes=source.get("purposes", []),
+                keywords=keywords,
+                cta_label=f"Open {source['name']}",
+            )
 
-        sources_out.append(
-            {
-                "id": source["id"],
-                "name": source["name"],
-                "url": source["url"],
-                "scope": source.get("scope", "—"),
-                "purposes": source.get("purposes", []),
-                "note": source.get("note", ""),
-                "last_checked": checked_at or seen_at,
-                "discovery_method": source.get("discovery_method", "configured extraction"),
-            }
-        )
+            determine_change(item, previous_items, seen_at)
+            items_out.append(item.as_dict())
+
+            sources_out.append(
+                {
+                    "id": source["id"],
+                    "name": source["name"],
+                    "url": source["url"],
+                    "scope": source.get("scope", "—"),
+                    "purposes": source.get("purposes", []),
+                    "note": source.get("note", ""),
+                    "last_checked": checked_at or seen_at,
+                    "discovery_method": source.get("discovery_method", "configured extraction"),
+                    "fetch_status": "ok",
+                }
+            )
+
+        except requests.exceptions.RequestException as e:
+            print(f"[WARN] Failed to fetch {source['name']} ({source['url']}): {e}")
+
+            sources_out.append(
+                {
+                    "id": source["id"],
+                    "name": source["name"],
+                    "url": source["url"],
+                    "scope": source.get("scope", "—"),
+                    "purposes": source.get("purposes", []),
+                    "note": source.get("note", ""),
+                    "last_checked": seen_at,
+                    "discovery_method": source.get("discovery_method", "configured extraction"),
+                    "fetch_status": "error",
+                    "fetch_error": str(e),
+                }
+            )
+
         purposes_seen.update(source.get("purposes", []))
         applicant_seen.update(applicant_types)
         if access_route:
@@ -232,7 +253,6 @@ def harvest() -> dict[str, Any]:
         "sources": sources_out,
         "opportunities": items_out,
     }
-
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     catalog = harvest()
