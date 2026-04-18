@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "Grant Radar",
-    "generated_at": "2026-04-17T12:05:00Z",
-    "generator": "grant-radar-demo 1.2.0",
+    "generated_at": "2026-04-18T21:46:45+00:00",
+    "generator": "grant-radar-demo 1.1.0",
     "available_purposes": [
       "biodiversity",
       "bioeconomy",
@@ -21,7 +21,6 @@
       "geoscience",
       "habitat restoration",
       "heritage",
-      "innovation",
       "nature-based solutions",
       "peatlands",
       "renewable energy",
@@ -84,9 +83,10 @@
         "biodiversity",
         "climate adaptation"
       ],
-      "note": "Official national research call page with explicit opening and applicant deadline markers.",
-      "last_checked": "2026-04-17T10:32:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Direct call page with explicit key dates.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "life_calls",
@@ -100,9 +100,10 @@
         "nature-based solutions",
         "wetlands"
       ],
-      "note": "Official CINEA landing page for the 2026 LIFE call cycle.",
-      "last_checked": "2026-04-17T10:33:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Seed page before topic-level portal extraction.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "horizon_biodiv",
@@ -115,9 +116,10 @@
         "environmental research",
         "nature-based solutions"
       ],
-      "note": "Official REA biodiversity topic page with a stated 2026 opening and deadline.",
-      "last_checked": "2026-04-17T10:34:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Biodiversity topic page with deadline markers.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "lawpro_small_grants",
@@ -131,9 +133,10 @@
         "citizen science",
         "education"
       ],
-      "note": "Micro-grant route for community events, awareness, and water-linked local action.",
-      "last_checked": "2026-04-17T10:41:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Micro-grant route for community events and local engagement.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "lawpro_cwdf",
@@ -147,9 +150,10 @@
         "restoration",
         "education"
       ],
-      "note": "Community and voluntary funding route for local water-quality and catchment action.",
-      "last_checked": "2026-04-17T10:42:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Community and voluntary funding route for local water-quality action.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "heritage_community_grant",
@@ -163,9 +167,10 @@
         "education",
         "surveys"
       ],
-      "note": "National community heritage grant stream that also supports biodiversity surveys, works, and training.",
-      "last_checked": "2026-04-17T10:44:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "National community heritage and biodiversity grant stream.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "npws_local_biodiversity_action_fund",
@@ -178,9 +183,10 @@
         "surveys",
         "community nature"
       ],
-      "note": "NPWS-managed biodiversity fund aimed at local authorities, often relevant through community partnerships.",
-      "last_checked": "2026-04-17T10:45:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Local-authority-led biodiversity funding route.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "npws_peatlands_natura_scheme",
@@ -193,9 +199,10 @@
         "community nature",
         "conservation"
       ],
-      "note": "Official announcement and award update for a dedicated community conservation scheme.",
-      "last_checked": "2026-04-17T10:46:00Z",
-      "discovery_method": "official press release monitoring"
+      "note": "Award update for the community conservation scheme.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official press release monitoring",
+      "fetch_status": "ok"
     },
     {
       "id": "waterways_heritage_biodiversity",
@@ -209,9 +216,11 @@
         "water quality",
         "education"
       ],
-      "note": "Small community grant for projects linked to waterway heritage and biodiversity.",
-      "last_checked": "2026-04-17T10:47:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Waterway-focused small community grant.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.waterwaysireland.org', port=443) at 0x7f759fb09710>, 'Connection to www.waterwaysireland.org timed out. (connect timeout=10)'))"
     },
     {
       "id": "leader_programme",
@@ -225,9 +234,10 @@
         "rural development",
         "renewable energy"
       ],
-      "note": "Community-led local development route with biodiversity and water-resource eligibility under rural environment themes.",
-      "last_checked": "2026-04-17T10:48:00Z",
-      "discovery_method": "official programme page monitoring"
+      "note": "Rolling community-led local development route via Local Action Groups.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official programme page monitoring",
+      "fetch_status": "ok"
     },
     {
       "id": "seai_community_grant",
@@ -240,9 +250,11 @@
         "decarbonisation",
         "climate action"
       ],
-      "note": "SEAI capital-funding route for homes, community buildings and businesses, managed through project coordinators.",
-      "last_checked": "2026-04-17T11:52:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "SEAI community capital-funding route managed via project coordinators.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "error",
+      "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/community-grants"
     },
     {
       "id": "seai_sec_network",
@@ -255,9 +267,11 @@
         "climate action",
         "decarbonisation"
       ],
-      "note": "SEC network and Energy Master Plan funding route for communities.",
-      "last_checked": "2026-04-17T11:53:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "SEC network and Energy Master Plan support route.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "error",
+      "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community"
     },
     {
       "id": "seai_rdd",
@@ -265,15 +279,16 @@
       "url": "https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund",
       "scope": "Ireland",
       "purposes": [
+        "environmental research",
         "energy efficiency",
         "community energy",
-        "environmental research",
-        "innovation",
         "decarbonisation"
       ],
-      "note": "National energy research funding stream; 2026 call signalled as opening soon.",
-      "last_checked": "2026-04-17T11:54:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "National energy RD&D funding stream; 2026 call signalled as opening soon.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "error",
+      "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund"
     },
     {
       "id": "climate_action_communities",
@@ -287,9 +302,10 @@
         "biodiversity",
         "decarbonisation"
       ],
-      "note": "Local-authority-led climate action infrastructure and feasibility support with community relevance.",
-      "last_checked": "2026-04-17T11:55:00Z",
-      "discovery_method": "official press release monitoring"
+      "note": "START local-authority-led climate action scheme with community relevance.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official press release monitoring",
+      "fetch_status": "ok"
     },
     {
       "id": "research_ireland_goipg",
@@ -303,9 +319,10 @@
         "biodiversity",
         "nature-based solutions"
       ],
-      "note": "Recurring national postgraduate scholarship route relevant to doctoral work in environment and sustainability.",
-      "last_checked": "2026-04-17T11:56:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Recurring national postgraduate scholarship scheme.",
+      "last_checked": "2026-04-17T16:13:01+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "teagasc_walsh",
@@ -319,9 +336,10 @@
         "biodiversity",
         "research training"
       ],
-      "note": "Current Teagasc postgraduate opportunities across agriculture, environment, climate and rural development.",
-      "last_checked": "2026-04-17T11:57:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Current Teagasc postgraduate opportunities page.",
+      "last_checked": "2026-04-18T21:05:35+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "enterprise_ireland_greenplus",
@@ -334,9 +352,10 @@
         "decarbonisation",
         "climate action"
       ],
-      "note": "Business sustainability support for companies undertaking structured green transition work.",
-      "last_checked": "2026-04-17T11:58:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Business sustainability support route.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "leo_energy_efficiency",
@@ -349,9 +368,10 @@
         "decarbonisation",
         "climate action"
       ],
-      "note": "LEO green pathway for micro and small businesses, including consultancy and an Energy Efficiency Grant.",
-      "last_checked": "2026-04-17T11:59:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Local LEO green supports including Energy Efficiency Grant.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     },
     {
       "id": "gsi_geoheritage",
@@ -364,25 +384,26 @@
         "education",
         "community nature"
       ],
-      "note": "Small community-based geoheritage grant stream with the next scheme flagged for Q4 2026.",
-      "last_checked": "2026-04-17T12:00:00Z",
-      "discovery_method": "official page text extraction"
+      "note": "Community-based geoheritage grant stream.",
+      "last_checked": "2026-04-18T21:46:45+00:00",
+      "discovery_method": "official page text extraction",
+      "fetch_status": "ok"
     }
   ],
   "opportunities": [
     {
-      "id": "epa_2026_research_call",
+      "id": "epa_research_call_epa_research_call_2026",
       "source_id": "epa_research_call",
       "source_name": "EPA Research Call",
       "title": "EPA Research Call 2026",
       "programme": "EPA Research Programme 2030",
       "url": "https://www.epa.ie/our-services/research/epa--research-funding/epa-research-call/",
-      "summary": "Irish environmental and climate research call covering policy and evidence needs across nine themes, with projects ranging from 24 to 48 months.",
+      "summary": "Irish environmental and climate research call.",
       "status": "open",
       "change_type": "new",
-      "changed_at": "2026-04-02T12:00:00Z",
-      "deadline_iso": "2026-05-28T15:00:00Z",
-      "deadline_text": "28 May 2026, 16:00 Irish standard time",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": "28 May 2026, 16:00 (Irish standard time) Authorisation deadline: 04 June 2026, 16:00 (Irish standard time)",
       "region": "Ireland",
       "audience": [
         "researchers",
@@ -403,27 +424,30 @@
         "climate adaptation"
       ],
       "keywords": [
-        "epa",
-        "research",
-        "environment",
-        "climate",
-        "policy"
+        "biodiversity",
+        "climate adaptation",
+        "environmental research",
+        "epa research call",
+        "public bodies",
+        "researchers",
+        "universities",
+        "water quality"
       ],
-      "cta_label": "Open EPA call"
+      "cta_label": "Open EPA Research Call"
     },
     {
-      "id": "life_2026_calls_seed",
+      "id": "life_calls_life_calls_for_proposals_2026",
       "source_id": "life_calls",
       "source_name": "EU LIFE Calls",
       "title": "LIFE Calls for proposals 2026",
       "programme": "LIFE Programme",
       "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_en",
-      "summary": "Official 2026 LIFE call landing page covering nature and biodiversity, circular economy and quality of life, climate mitigation and adaptation, and clean energy transition.",
+      "summary": "Environment and climate action funding instrument.",
       "status": "upcoming",
       "change_type": "new",
-      "changed_at": "2026-04-17T00:00:00Z",
+      "changed_at": "2026-04-18T21:46:45+00:00",
       "deadline_iso": null,
-      "deadline_text": "Calls publish on 21 April 2026; individual topic deadlines follow on the Funding & Tenders portal",
+      "deadline_text": "Launch or open marker: 21 April 2026",
       "region": "European Union",
       "audience": [
         "NGOs",
@@ -447,27 +471,32 @@
         "wetlands"
       ],
       "keywords": [
-        "life",
-        "nature",
-        "climate",
+        "NGOs",
         "biodiversity",
-        "restoration"
+        "climate adaptation",
+        "community nature",
+        "consortia",
+        "eu life calls",
+        "nature-based solutions",
+        "public bodies",
+        "researchers",
+        "wetlands"
       ],
-      "cta_label": "Open LIFE page"
+      "cta_label": "Open EU LIFE Calls"
     },
     {
-      "id": "horizon_biodiv_2026",
+      "id": "horizon_biodiv_horizon_cl6_2026_01_biodiv",
       "source_id": "horizon_biodiv",
       "source_name": "Horizon Europe Cluster 6 Biodiversity",
       "title": "HORIZON-CL6-2026-01-BIODIV",
       "programme": "Horizon Europe Cluster 6",
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en",
-      "summary": "2026 biodiversity and ecosystem services call with seven topics including insect decline, groundwater ecosystems, deep sea conservation, nature-positive economy and agrobiodiversity.",
+      "summary": "Biodiversity and ecosystem services call.",
       "status": "upcoming",
       "change_type": "new",
-      "changed_at": "2026-04-17T00:00:00Z",
-      "deadline_iso": "2026-09-17T21:59:00Z",
-      "deadline_text": "17 September 2026",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": "Launch or open marker: 17 April 2026",
       "region": "European Union",
       "audience": [
         "research consortia",
@@ -488,26 +517,30 @@
         "nature-based solutions"
       ],
       "keywords": [
-        "horizon",
-        "cluster 6",
         "biodiversity",
-        "ecosystems"
+        "ecology",
+        "environmental research",
+        "horizon europe cluster 6 biodiversity",
+        "institutes",
+        "nature-based solutions",
+        "research consortia",
+        "universities"
       ],
-      "cta_label": "Open biodiversity call"
+      "cta_label": "Open Horizon Europe Cluster 6 Biodiversity"
     },
     {
-      "id": "lawpro_small_grants_2026",
+      "id": "lawpro_small_grants_lawpro_small_grants_and_events_scheme_2026",
       "source_id": "lawpro_small_grants",
       "source_name": "LAWPRO Small Grants and Events Scheme",
       "title": "LAWPRO Small Grants and Events Scheme 2026",
       "programme": "LAWPRO community micro-grants",
       "url": "https://lawaters.ie/small-grants-and-events-scheme/",
-      "summary": "Community micro-grant stream for water awareness, wetlands days, local events, education, signage, and small citizen-science or engagement activities.",
+      "summary": "Community micro-grants for events, education and local water-linked action.",
       "status": "closed",
-      "change_type": "status_changed",
-      "changed_at": "2026-02-06T22:00:00Z",
-      "deadline_iso": "2026-02-06T22:00:00Z",
-      "deadline_text": "6 February 2026, 10:00 PM",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": "2026-02-06T22:00:00+00:00",
+      "deadline_text": "6th February 2026 at 10pm",
       "region": "Ireland",
       "audience": [
         "community groups",
@@ -527,26 +560,30 @@
         "education"
       ],
       "keywords": [
-        "lawpro",
-        "micro grant",
-        "wetlands day",
-        "community"
+        "citizen science",
+        "community groups",
+        "community nature",
+        "education",
+        "lawpro small grants and events scheme",
+        "voluntary groups",
+        "water quality",
+        "wetlands"
       ],
-      "cta_label": "Open LAWPRO small grants"
+      "cta_label": "Open LAWPRO Small Grants and Events Scheme"
     },
     {
-      "id": "lawpro_cwdf_2026",
+      "id": "lawpro_cwdf_community_water_development_fund_2026",
       "source_id": "lawpro_cwdf",
       "source_name": "LAWPRO Community Water Development Fund",
       "title": "Community Water Development Fund 2026",
       "programme": "LAWPRO CWDF",
       "url": "https://lawaters.ie/cwdf/",
-      "summary": "Open-call community water fund for local projects that improve water quality, awareness, collaboration, habitat, and catchment action.",
+      "summary": "Community water funding for local projects and awareness action.",
       "status": "closed",
-      "change_type": "status_changed",
-      "changed_at": "2026-01-20T23:30:00Z",
-      "deadline_iso": "2026-01-20T23:30:00Z",
-      "deadline_text": "20 January 2026, 11:30 PM",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "community groups",
@@ -568,26 +605,31 @@
         "education"
       ],
       "keywords": [
-        "lawpro",
-        "cwdf",
-        "water quality",
-        "community"
+        "citizen science",
+        "community groups",
+        "community nature",
+        "education",
+        "environmental NGOs",
+        "lawpro community water development fund",
+        "restoration",
+        "voluntary groups",
+        "water quality"
       ],
-      "cta_label": "Open CWDF"
+      "cta_label": "Open LAWPRO Community Water Development Fund"
     },
     {
-      "id": "heritage_council_community_2026",
+      "id": "heritage_community_grant_community_heritage_grant_scheme_2026",
       "source_id": "heritage_community_grant",
       "source_name": "Heritage Council Community Heritage Grant Scheme",
       "title": "Community Heritage Grant Scheme 2026",
       "programme": "Heritage Council community grant",
       "url": "https://www.heritagecouncil.ie/funding/community-heritage-grant-scheme-2",
-      "summary": "National community grant stream that supports heritage, biodiversity surveys, conservation works, workshops, training, and digital heritage outputs.",
+      "summary": "Community heritage scheme that also supports biodiversity outputs.",
       "status": "closed",
-      "change_type": "status_changed",
-      "changed_at": "2026-03-20T20:00:00Z",
-      "deadline_iso": "2026-03-20T20:00:00Z",
-      "deadline_text": "20 March 2026, 8:00 PM",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "community groups",
@@ -607,25 +649,30 @@
         "surveys"
       ],
       "keywords": [
-        "heritage council",
         "biodiversity",
-        "community heritage"
+        "community groups",
+        "community nature",
+        "education",
+        "heritage",
+        "heritage NGOs",
+        "heritage council community heritage grant scheme",
+        "surveys"
       ],
-      "cta_label": "Open Heritage Council scheme"
+      "cta_label": "Open Heritage Council Community Heritage Grant Scheme"
     },
     {
-      "id": "npws_local_biodiversity_action_fund_2026",
+      "id": "npws_local_biodiversity_action_fund_local_biodiversity_action_fund_2026",
       "source_id": "npws_local_biodiversity_action_fund",
       "source_name": "Local Biodiversity Action Fund",
       "title": "Local Biodiversity Action Fund 2026",
       "programme": "NPWS Local Biodiversity Action Fund",
       "url": "https://www.npws.ie/legislation/national-biodiversity-action-plan/local-biodiversity-action-fund",
-      "summary": "Biodiversity fund for local authorities covering research, surveys, invasive species work, habitat management, and other locally led biodiversity actions. Relevant to community groups through council partnerships.",
+      "summary": "Local authority biodiversity fund relevant through community partnerships.",
       "status": "closed",
-      "change_type": "status_changed",
-      "changed_at": "2026-02-05T17:00:00Z",
-      "deadline_iso": "2026-02-05T17:00:00Z",
-      "deadline_text": "5 February 2026",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "local authorities",
@@ -644,25 +691,29 @@
         "community nature"
       ],
       "keywords": [
-        "npws",
+        "biodiversity",
+        "community nature",
+        "community partners",
+        "habitat restoration",
+        "local authorities",
         "local biodiversity action fund",
-        "local authority"
+        "surveys"
       ],
-      "cta_label": "Open biodiversity fund"
+      "cta_label": "Open Local Biodiversity Action Fund"
     },
     {
-      "id": "npws_peatlands_natura_2026_results",
+      "id": "npws_peatlands_natura_scheme_peatlands_and_natura_community_engagement_scheme_2026_results",
       "source_id": "npws_peatlands_natura_scheme",
       "source_name": "NPWS Peatlands and Natura Community Engagement Scheme",
       "title": "Peatlands and Natura Community Engagement Scheme 2026 results",
       "programme": "NPWS community conservation scheme",
       "url": "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects/",
-      "summary": "Award announcement showing 53 supported community conservation initiatives across 20 counties under the 2026 peatlands and Natura scheme.",
+      "summary": "Award announcement for 2026 peatlands and Natura community projects.",
       "status": "closed",
-      "change_type": "awarded",
-      "changed_at": "2026-02-27T09:00:00Z",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
       "deadline_iso": null,
-      "deadline_text": "Awards announced 27 February 2026",
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "community groups",
@@ -681,65 +732,29 @@
         "conservation"
       ],
       "keywords": [
-        "npws",
-        "peatlands",
-        "natura",
-        "community conservation"
-      ],
-      "cta_label": "Open award announcement"
-    },
-    {
-      "id": "waterways_heritage_biodiversity_2026",
-      "source_id": "waterways_heritage_biodiversity",
-      "source_name": "Waterways Ireland Community Heritage and Biodiversity Grant Programme",
-      "title": "Community Heritage and Biodiversity Grant Programme 2026",
-      "programme": "Waterways Ireland community grant",
-      "url": "https://www.waterwaysireland.org/about-us/heritage/community-heritage-and-biodiversity-grant-programme",
-      "summary": "Small grant programme for community-based projects supporting heritage and biodiversity along Waterways Ireland corridors.",
-      "status": "closed",
-      "change_type": "status_changed",
-      "changed_at": "2026-01-31T23:59:00Z",
-      "deadline_iso": "2026-01-31T23:59:00Z",
-      "deadline_text": "31 January 2026",
-      "region": "Ireland and Northern Ireland waterways",
-      "audience": [
-        "community groups",
-        "voluntary groups"
-      ],
-      "applicant_types": [
-        "community groups",
-        "voluntary groups"
-      ],
-      "access_route": "direct",
-      "scale": "small",
-      "purposes": [
         "biodiversity",
-        "heritage",
+        "community groups",
         "community nature",
-        "water quality",
-        "education"
+        "conservation",
+        "conservation groups",
+        "npws peatlands and natura community engagement scheme",
+        "peatlands"
       ],
-      "keywords": [
-        "waterways ireland",
-        "heritage",
-        "biodiversity",
-        "community"
-      ],
-      "cta_label": "Open Waterways Ireland grant"
+      "cta_label": "Open NPWS Peatlands and Natura Community Engagement Scheme"
     },
     {
-      "id": "leader_programme_environment_route",
+      "id": "leader_programme_leader_2023_to_2027_rural_environment_route",
       "source_id": "leader_programme",
       "source_name": "LEADER Programme",
       "title": "LEADER 2023 to 2027 rural environment route",
       "programme": "LEADER Programme",
       "url": "https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development/",
-      "summary": "Community-led local development route delivered by Local Action Groups. Relevant environmental themes include water resources, biodiversity, and renewable energy in rural areas.",
+      "summary": "Community-led local development with environmental themes.",
       "status": "open",
-      "change_type": "none",
-      "changed_at": null,
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
       "deadline_iso": null,
-      "deadline_text": "Rolling through Local Action Groups; check your local LEADER area",
+      "deadline_text": null,
       "region": "Rural Ireland",
       "audience": [
         "community groups",
@@ -761,153 +776,31 @@
         "renewable energy"
       ],
       "keywords": [
-        "leader",
-        "rural environment",
-        "local action group",
-        "biodiversity"
+        "biodiversity",
+        "community groups",
+        "community nature",
+        "leader programme",
+        "renewable energy",
+        "rural development",
+        "rural networks",
+        "social enterprises",
+        "water quality"
       ],
-      "cta_label": "Open LEADER overview"
+      "cta_label": "Open LEADER Programme"
     },
     {
-      "id": "seai_community_grant_rolling",
-      "source_id": "seai_community_grant",
-      "source_name": "SEAI Community Grant",
-      "title": "SEAI Community Grant",
-      "programme": "SEAI Community Grant",
-      "url": "https://www.seai.ie/grants/community-grants",
-      "summary": "Capital funding for energy upgrades in homes, community buildings and businesses, accessed through registered project coordinators.",
-      "status": "open",
-      "change_type": "none",
-      "changed_at": "2026-04-17T11:52:00Z",
-      "deadline_iso": null,
-      "deadline_text": "Rolling via registered project coordinators throughout the year",
-      "region": "Ireland",
-      "audience": [
-        "community groups",
-        "businesses",
-        "homeowners",
-        "project coordinators"
-      ],
-      "applicant_types": [
-        "community groups",
-        "businesses",
-        "homeowners",
-        "project coordinators"
-      ],
-      "access_route": "via project coordinator",
-      "scale": "major",
-      "purposes": [
-        "community energy",
-        "energy efficiency",
-        "decarbonisation",
-        "climate action"
-      ],
-      "keywords": [
-        "seai",
-        "retrofit",
-        "community grant",
-        "energy",
-        "buildings"
-      ],
-      "cta_label": "Open SEAI community grant"
-    },
-    {
-      "id": "seai_sec_master_plan",
-      "source_id": "seai_sec_network",
-      "source_name": "SEAI Sustainable Energy Communities",
-      "title": "SEAI Sustainable Energy Communities Energy Master Plan support",
-      "programme": "SEAI SEC network",
-      "url": "https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community",
-      "summary": "Community entry route to the SEC network, with dedicated Energy Master Plan funding for local planning and prioritisation.",
-      "status": "open",
-      "change_type": "none",
-      "changed_at": "2026-04-17T11:53:00Z",
-      "deadline_iso": null,
-      "deadline_text": "Rolling community entry route; Energy Master Plan support available",
-      "region": "Ireland",
-      "audience": [
-        "community groups",
-        "local authorities",
-        "schools",
-        "voluntary groups"
-      ],
-      "applicant_types": [
-        "community groups",
-        "local authorities",
-        "schools",
-        "voluntary groups"
-      ],
-      "access_route": "direct",
-      "scale": "small",
-      "purposes": [
-        "community energy",
-        "energy efficiency",
-        "climate action",
-        "decarbonisation"
-      ],
-      "keywords": [
-        "seai",
-        "sec",
-        "energy master plan",
-        "community energy"
-      ],
-      "cta_label": "Open SEC pathway"
-    },
-    {
-      "id": "seai_rdd_2026_watch",
-      "source_id": "seai_rdd",
-      "source_name": "SEAI RD&D Funding",
-      "title": "SEAI RD&D Call 2026 watch",
-      "programme": "SEAI National Energy Research Funding Programme",
-      "url": "https://www.seai.ie/blog/seai-awarded-eu205-million-2025-34-new-research-projects",
-      "summary": "SEAI has stated that the 2026 RD&D call will open soon, with open and thematic strands. This is a watch entry until the formal call page goes live.",
-      "status": "upcoming",
-      "change_type": "new",
-      "changed_at": "2026-03-23T09:00:00Z",
-      "deadline_iso": null,
-      "deadline_text": "Opening date not yet published; SEAI says the 2026 call will open soon",
-      "region": "Ireland",
-      "audience": [
-        "researchers",
-        "universities",
-        "institutes",
-        "businesses"
-      ],
-      "applicant_types": [
-        "researchers",
-        "universities",
-        "institutes",
-        "businesses"
-      ],
-      "access_route": "direct",
-      "scale": "major",
-      "purposes": [
-        "environmental research",
-        "energy efficiency",
-        "community energy",
-        "decarbonisation"
-      ],
-      "keywords": [
-        "seai",
-        "research",
-        "rdd",
-        "energy innovation"
-      ],
-      "cta_label": "Monitor SEAI RD&D update"
-    },
-    {
-      "id": "start_2026_climate_action",
+      "id": "climate_action_communities_start_2026_climate_action_in_our_communities",
       "source_id": "climate_action_communities",
       "source_name": "Climate Action in our Communities / START",
       "title": "START 2026 climate action in our communities",
       "programme": "Climate Action in our Communities",
       "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/press-releases/minister-obrien-announces-new-funding-of-almost-35-million-to-underpin-climate-action-in-our-communities/",
-      "summary": "Irish local-authority climate funding with infrastructure and feasibility strands that can support community-linked energy and nature action.",
+      "summary": "Infrastructure and feasibility strands.",
       "status": "upcoming",
       "change_type": "new",
-      "changed_at": "2026-02-16T09:00:00Z",
-      "deadline_iso": "2026-06-02T16:00:00Z",
-      "deadline_text": "Infrastructure strand closes 2 June 2026; feasibility strand closes 30 June 2026",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "local authorities",
@@ -927,26 +820,30 @@
         "decarbonisation"
       ],
       "keywords": [
-        "start",
+        "biodiversity",
         "climate action",
-        "local authority",
-        "community"
+        "climate action in our communities / start",
+        "community energy",
+        "community partners",
+        "decarbonisation",
+        "habitat restoration",
+        "local authorities"
       ],
-      "cta_label": "Open START announcement"
+      "cta_label": "Open Climate Action in our Communities / START"
     },
     {
-      "id": "goipg_2026_cycle",
+      "id": "research_ireland_goipg_goipg_cycle_watch",
       "source_id": "research_ireland_goipg",
       "source_name": "Research Ireland Government of Ireland Postgraduate Scholarship",
-      "title": "Government of Ireland Postgraduate Scholarship Programme 2026 cycle",
+      "title": "GOIPG cycle watch",
       "programme": "Research Ireland GOIPG",
       "url": "https://www.researchireland.ie/funding/government-ireland-postgraduate/",
-      "summary": "Recurring national postgraduate scholarship route for Master\u2019s and PhD study, highly relevant to environmental and NbS research careers.",
+      "summary": "National postgraduate scholarship scheme.",
       "status": "closed",
-      "change_type": "none",
-      "changed_at": "2025-10-23T16:00:00Z",
-      "deadline_iso": "2025-10-23T15:00:00Z",
-      "deadline_text": "2026 cycle applicant deadline was 23 October 2025, 16:00 Irish local time",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "phd applicants",
@@ -968,26 +865,31 @@
         "nature-based solutions"
       ],
       "keywords": [
-        "research ireland",
-        "goipg",
-        "phd",
-        "scholarship"
+        "biodiversity",
+        "environmental research",
+        "nature-based solutions",
+        "phd applicants",
+        "postgraduate researchers",
+        "research ireland government of ireland postgraduate scholarship",
+        "research training",
+        "universities",
+        "water quality"
       ],
-      "cta_label": "Open GOI scholarship page"
+      "cta_label": "Open Research Ireland Government of Ireland Postgraduate Scholarship"
     },
     {
-      "id": "teagasc_walsh_2026_current",
+      "id": "teagasc_walsh_teagasc_walsh_scholars_2026_opportunities",
       "source_id": "teagasc_walsh",
       "source_name": "Teagasc Walsh Scholars Opportunities",
       "title": "Teagasc Walsh Scholars 2026 opportunities",
       "programme": "Teagasc Walsh Scholars Programme",
       "url": "https://teagasc.ie/about/research-innovation/the-walsh-scholars-programme/walsh-scholars-opportunities/",
-      "summary": "Current funded postgraduate opportunities in agriculture, environment, climate and rural development, with individual project deadlines.",
+      "summary": "Current funded postgraduate opportunities.",
       "status": "open",
       "change_type": "new",
-      "changed_at": "2026-02-10T09:00:00Z",
-      "deadline_iso": "2026-04-17T16:00:00Z",
-      "deadline_text": "Current listed closing dates vary by project; one environment-linked PhD closes 17 April 2026, 17:00",
+      "changed_at": "2026-04-18T21:46:45+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "phd applicants",
@@ -1009,27 +911,31 @@
         "research training"
       ],
       "keywords": [
-        "teagasc",
-        "walsh",
-        "phd",
-        "environment",
-        "agriculture"
+        "biodiversity",
+        "bioeconomy",
+        "environmental research",
+        "phd applicants",
+        "postgraduate researchers",
+        "research training",
+        "teagasc walsh scholars opportunities",
+        "universities",
+        "water quality"
       ],
-      "cta_label": "Browse Walsh opportunities"
+      "cta_label": "Open Teagasc Walsh Scholars Opportunities"
     },
     {
-      "id": "enterprise_greenplus",
+      "id": "enterprise_ireland_greenplus_enterprise_ireland_greenplus",
       "source_id": "enterprise_ireland_greenplus",
       "source_name": "Enterprise Ireland GreenPlus",
       "title": "Enterprise Ireland GreenPlus",
       "programme": "Enterprise Ireland GreenPlus",
       "url": "https://www.enterprise-ireland.com/en/supports/green-plus",
-      "summary": "Business sustainability grant support for structured green transition work, including external expertise and training costs.",
+      "summary": "Up to €50k business sustainability support.",
       "status": "open",
-      "change_type": "none",
-      "changed_at": "2026-04-17T11:58:00Z",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
       "deadline_iso": null,
-      "deadline_text": "Rolling support; consult Enterprise Ireland",
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "businesses",
@@ -1050,26 +956,30 @@
         "climate action"
       ],
       "keywords": [
-        "enterprise ireland",
-        "greenplus",
-        "startup",
-        "sustainability"
+        "businesses",
+        "climate action",
+        "decarbonisation",
+        "early-stage founders",
+        "energy efficiency",
+        "enterprise ireland greenplus",
+        "entrepreneurship",
+        "social enterprises"
       ],
-      "cta_label": "Open GreenPlus"
+      "cta_label": "Open Enterprise Ireland GreenPlus"
     },
     {
-      "id": "leo_energy_efficiency_grant",
+      "id": "leo_energy_efficiency_leo_energy_efficiency_grant",
       "source_id": "leo_energy_efficiency",
       "source_name": "Local Enterprise Office green supports",
       "title": "LEO Energy Efficiency Grant",
-      "programme": "Local Enterprise Office green supports",
+      "programme": "LEO green supports",
       "url": "https://www.localenterprise.ie/Green/New-Green-Images/How-to-Apply.html",
-      "summary": "Follow-on support for small enterprises investing in technologies or equipment identified through Green for Micro, GreenStart, or an SEAI energy audit.",
+      "summary": "Small-enterprise sustainability support.",
       "status": "open",
-      "change_type": "none",
-      "changed_at": "2026-04-17T11:59:00Z",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
       "deadline_iso": null,
-      "deadline_text": "Check with your local LEO; grant is administered locally",
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "micro-enterprises",
@@ -1090,26 +1000,30 @@
         "climate action"
       ],
       "keywords": [
-        "leo",
+        "businesses",
+        "climate action",
+        "decarbonisation",
+        "early-stage founders",
         "energy efficiency",
-        "green for business",
-        "micro"
+        "entrepreneurship",
+        "local enterprise office green supports",
+        "micro-enterprises"
       ],
-      "cta_label": "Open LEO green supports"
+      "cta_label": "Open Local Enterprise Office green supports"
     },
     {
-      "id": "gsi_geoheritage_2027_watch",
+      "id": "gsi_geoheritage_gsi_geoheritage_grant_scheme_watch",
       "source_id": "gsi_geoheritage",
       "source_name": "Geological Survey Ireland Geoheritage Grant Scheme",
-      "title": "GSI Geoheritage Grant Scheme 2027 watch",
-      "programme": "Geological Survey Ireland Geoheritage Grant Scheme",
+      "title": "GSI Geoheritage Grant Scheme watch",
+      "programme": "GSI Geoheritage",
       "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
-      "summary": "Small community-based geoheritage grant route. Geological Survey Ireland says the 2027 scheme will open in Q4 2026.",
+      "summary": "Q4 2026 expected opening for the 2027 scheme.",
       "status": "upcoming",
-      "change_type": "none",
-      "changed_at": "2026-04-17T12:00:00Z",
+      "change_type": "new",
+      "changed_at": "2026-04-18T21:46:45+00:00",
       "deadline_iso": null,
-      "deadline_text": "Next scheme expected to open in Q4 2026",
+      "deadline_text": null,
       "region": "Ireland",
       "audience": [
         "community groups",
@@ -1130,12 +1044,16 @@
         "community nature"
       ],
       "keywords": [
-        "gsi",
-        "geoheritage",
-        "community grant",
-        "education"
+        "community groups",
+        "community nature",
+        "education",
+        "geological survey ireland geoheritage grant scheme",
+        "geoscience",
+        "heritage",
+        "schools",
+        "voluntary groups"
       ],
-      "cta_label": "Monitor GSI geoheritage"
+      "cta_label": "Open Geological Survey Ireland Geoheritage Grant Scheme"
     }
   ]
 }
