@@ -616,3 +616,15 @@ select:focus,
     line-height: 1.2;
   }
 }
+
+.zenodo-badge {
+  display: inline-block;
+  margin: 0 0 0.85rem;
+  text-decoration: none;
+}
+
+.zenodo-badge img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
