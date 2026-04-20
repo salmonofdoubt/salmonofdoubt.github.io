@@ -68,23 +68,18 @@
             <a class="pill-link" id="issues-link" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/new/choose" target="_blank" rel="noopener noreferrer">Issues</a>
             <a class="pill-link" id="discussions-link" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/discussions" target="_blank" rel="noopener noreferrer">Discussions</a>
           </div>
+          <div class="hero-doi-row">
+            <div class="doi-strip" aria-label="Archived release DOI">
+              <span class="doi-strip-label">Archived release</span>
+              <span class="doi-strip-badge">DOI</span>
+              <a class="doi-strip-link" href="https://doi.org/10.5281/zenodo.000000" target="_blank" rel="noopener noreferrer">10.5281/zenodo.000000</a>
+            </div>
+          </div>
         </div>
 
         <div class="hero-card share-card">
           <div class="share-header">
             <div>
-              <a
-                class="zenodo-badge"
-                href="https://doi.org/10.5281/zenodo.000000"
-                target="_blank"
-                rel="noopener"
-                aria-label="Open Zenodo DOI record"
-              >
-                <img
-                  src="https://zenodo.org/badge/DOI/10.5281/zenodo.000000.svg"
-                  alt="DOI"
-                />
-              </a>
               <p class="share-kicker">Share</p>
               <p class="share-copy">Copy the link, use native share on mobile, or scan the QR code.</p>
             </div>
@@ -110,21 +105,10 @@
           <p>Start with scientific purpose, then narrow by applicant type, access route, scale, change state, and timing.</p>
         </div>
 
-        <div class="purpose-wrap purpose-wrap-priority">
-          <div class="purpose-head">
-            <div class="purpose-head-copy">
-              <h3>Purpose</h3>
-              <p class="purpose-intro">Begin here. The purpose chips are the primary filter layer; free-text search is optional.</p>
-            </div>
-            <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
-          </div>
-          <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
-        </div>
-
-        <div class="controls-grid controls-grid-secondary">
+        <div class="controls-grid">
           <div class="control-block control-wide">
             <label for="search-input">Search</label>
-            <input id="search-input" type="search" placeholder="Optional free-text search only, after choosing purpose chips" />
+            <input id="search-input" type="search" placeholder="e.g. geochemistry, hydrogen, geothermal, Potsdam, DFG, ERC" />
           </div>
 
           <div class="control-block">
@@ -190,6 +174,14 @@
             <label for="deadline-to">Deadline to</label>
             <input id="deadline-to" type="date" />
           </div>
+        </div>
+
+        <div class="purpose-wrap">
+          <div class="purpose-head">
+            <h3>Purpose</h3>
+            <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
+          </div>
+          <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
         </div>
       </section>
 

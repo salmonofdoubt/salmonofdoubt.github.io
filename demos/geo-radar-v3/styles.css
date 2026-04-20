@@ -179,19 +179,6 @@ button, input, select { font: inherit; }
   color: var(--accent3);
 }
 
-.zenodo-badge {
-  display: inline-block;
-  margin: 0 0 0.85rem;
-  text-decoration: none;
-}
-
-.zenodo-badge img {
-  display: block;
-  height: auto;
-  max-width: 100%;
-}
-
-
 .top-links,
 .share-actions,
 .chip-row,
@@ -203,6 +190,71 @@ button, input, select { font: inherit; }
 }
 
 
+.hero-doi-row {
+  margin-top: 0.7rem;
+}
+
+.doi-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.34rem 0.42rem 0.34rem 0.58rem;
+  border-radius: 999px;
+  border: 1px solid rgba(143, 220, 255, 0.14);
+  background: linear-gradient(180deg, rgba(16, 54, 57, 0.92), rgba(13, 43, 46, 0.94));
+  box-shadow: inset 0 1px 0 rgba(221, 247, 255, 0.06), 0 10px 24px rgba(2, 16, 20, 0.22);
+  width: fit-content;
+  max-width: 100%;
+}
+
+.doi-strip-label {
+  color: rgba(228, 242, 233, 0.9);
+  font-size: 0.69rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.doi-strip-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.32rem;
+  padding: 0.08rem 0.34rem;
+  border-radius: 0.26rem;
+  background: rgba(111, 121, 130, 0.42);
+  border: 1px solid rgba(210, 220, 228, 0.12);
+  color: #f0f4f7;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.doi-strip-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.52rem;
+  padding: 0.08rem 0.56rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #1787dd, #0f72c8);
+  border: 1px solid rgba(171, 224, 255, 0.42);
+  color: #f4fbff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: inset 0 1px 0 rgba(233, 247, 255, 0.22), 0 8px 14px rgba(4, 53, 93, 0.22);
+  white-space: nowrap;
+}
+
+.doi-strip-link:hover {
+  background: linear-gradient(180deg, #2796ea, #137fd6);
+  border-color: rgba(201, 236, 255, 0.68);
+  text-decoration: none;
+}
 
 .share-main-row {
   display: grid;
@@ -549,194 +601,18 @@ select:focus,
 }
 
 
-
-
-.purpose-wrap-priority {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  padding-top: 0;
-  border-top: 0;
-}
-
-.purpose-wrap-priority .chip-row {
-  margin-top: 0.35rem;
-}
-
-.purpose-wrap-priority .chip-btn {
-  padding: 0.52rem 0.82rem;
-}
-
-.opportunity-card .card-top {
-  align-items: flex-start;
-}
-
-.opportunity-card .status-pill {
-  min-width: 86px;
-  justify-content: center;
-  text-align: center;
-  margin-left: 0.5rem;
-  padding: 0.52rem 0.9rem;
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  border-width: 1px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.18),
-    0 8px 18px rgba(0,0,0,0.18);
-}
-
-.status-open {
-  background: linear-gradient(180deg, #39b86f, #238a4f);
-  border-color: rgba(180, 255, 210, 0.55);
-  color: #f5fff8;
-}
-
-.status-upcoming {
-  background: linear-gradient(180deg, #f2b84b, #c98716);
-  border-color: rgba(255, 233, 176, 0.58);
-  color: #fff9ec;
-}
-
-.status-closed {
-  background: linear-gradient(180deg, #d26a7f, #a7465a);
-  border-color: rgba(255, 203, 214, 0.5);
-  color: #fff4f6;
-}
-
-.status-neutral {
-  background: linear-gradient(180deg, #6c7a89, #4d5864);
-  border-color: rgba(220, 230, 240, 0.3);
-  color: #f3f7fa;
-}
-
-
-
-
-/* v2 layout and status emphasis fixes */
-
-.controls-panel {
-  display: flex;
-  flex-direction: column;
-}
-
-.controls-panel .section-head {
-  order: 1;
-}
-
-.controls-panel .purpose-wrap-priority {
-  order: 2;
-}
-
-.controls-panel .controls-grid-secondary {
-  order: 3;
-}
-
-.purpose-wrap-priority {
-  margin: 0 0 1.1rem;
-  padding: 0 0 1rem;
-  border-top: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.purpose-head {
-  align-items: flex-start;
-}
-
-.purpose-head-copy {
-  min-width: 0;
-}
-
-.purpose-intro {
-  margin: 0.28rem 0 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-
-.purpose-wrap-priority .chip-row {
-  margin-top: 0.55rem;
-  margin-bottom: 0;
-}
-
-.purpose-wrap-priority .chip-btn {
-  padding: 0.56rem 0.9rem;
-  font-size: 0.84rem;
-  font-weight: 700;
-  background: rgba(255,255,255,0.045);
-  border-color: rgba(255,255,255,0.12);
-}
-
-.purpose-wrap-priority .chip-btn:hover {
-  background: rgba(139, 209, 255, 0.12);
-  border-color: rgba(139, 209, 255, 0.34);
-}
-
-.purpose-wrap-priority .chip-btn.active {
-  background: linear-gradient(180deg, rgba(103, 197, 255, 0.22), rgba(72, 169, 231, 0.14));
-  border-color: rgba(145, 219, 255, 0.56);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.16),
-    0 8px 18px rgba(5, 17, 26, 0.2);
-}
-
-.controls-grid-secondary {
-  margin-top: 0.05rem;
-}
-
-.opportunity-card .top-tags .tag {
-  background: rgba(255,255,255,0.05);
-  border-color: rgba(255,255,255,0.11);
-}
-
-.opportunity-card .status-pill {
-  min-width: 98px;
-  justify-content: center;
-  text-align: center;
-  align-self: flex-start;
-  margin-left: 0.65rem;
-  padding: 0.62rem 1.02rem;
-  font-size: 0.88rem;
-  font-weight: 900;
-  letter-spacing: 0.01em;
-  border-width: 2px;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.14);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.24),
-    0 10px 22px rgba(0,0,0,0.24);
-}
-
-.status-open {
-  background: linear-gradient(180deg, #42d97f, #1c9e58);
-  border-color: rgba(202, 255, 222, 0.74);
-  color: #f7fff9;
-}
-
-.status-upcoming {
-  background: linear-gradient(180deg, #ffc95c, #de8f11);
-  border-color: rgba(255, 237, 181, 0.78);
-  color: #fffaf0;
-}
-
-.status-closed {
-  background: linear-gradient(180deg, #e57a92, #ba425f);
-  border-color: rgba(255, 216, 224, 0.74);
-  color: #fff7f9;
-}
-
-.status-neutral {
-  background: linear-gradient(180deg, #7c8b99, #576472);
-  border-color: rgba(231, 239, 247, 0.42);
-  color: #f7fbfe;
-}
-
 @media (max-width: 640px) {
-  .purpose-head {
-    flex-direction: column;
-    align-items: flex-start;
+  .doi-strip {
+    flex-wrap: wrap;
+    row-gap: 0.42rem;
+    border-radius: 18px;
+    padding-right: 0.58rem;
   }
 
-  .opportunity-card .status-pill {
-    margin-left: 0;
+  .doi-strip-link {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    line-height: 1.2;
   }
 }
-
