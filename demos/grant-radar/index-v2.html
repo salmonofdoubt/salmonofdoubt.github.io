@@ -72,36 +72,73 @@
       <div class="hero-meta-grid">
         <div class="hero-card action-card">
           <p class="hero-card-kicker">Quick links</p>
+    
 
           <div class="top-links grant-links">
-            <div class="top-row-links">
-              <a class="pill-link" id="support-link" href="https://buymeacoffee.com/andrecbaum1" target="_blank" rel="noopener noreferrer">
-                Buy me a coffee
-              </a>
+  <div class="top-row-links">
+    <a
+      class="pill-link"
+      id="support-link"
+      href="https://buymeacoffee.com/andrecbaum1"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Buy me a coffee
+    </a>
 
-              <a class="pill-link email-link" id="email-link" href="mailto:qiquantum42@gmail.com?subject=Grant%20Radar%20feedback">
-                Send feedback
-              </a>
-            </div>
+    <a
+      class="pill-link email-link"
+      id="email-link"
+      href="mailto:qiquantum42@gmail.com?subject=Grant%20Radar%20feedback"
+    >
+      Send feedback
+    </a>
+  </div>
 
-            <div class="github-blob" aria-label="Grant Radar GitHub links">
-              <span class="github-label">GitHub</span>
+  <div class="github-blob" aria-label="Grant Radar GitHub links">
+    <span class="github-label">GitHub</span>
 
-              <a class="github-inline-link" id="code-link" href="https://github.com/salmonofdoubt/grant-radar" target="_blank" rel="noopener noreferrer">
-                Code
-              </a>
+    <a
+      class="github-inline-link"
+      id="code-link"
+      href="https://github.com/salmonofdoubt/grant-radar"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Code
+    </a>
 
-              <span class="github-sep">|</span>
+    <span class="github-sep">|</span>
 
-              <a class="github-inline-link" id="issues-link" href="https://github.com/salmonofdoubt/grant-radar/issues/new/choose" target="_blank" rel="noopener noreferrer">
-                Issues
-              </a>
+    <a
+      class="github-inline-link"
+      id="issues-link"
+      href="https://github.com/salmonofdoubt/grant-radar/issues/new/choose"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Issues
+    </a>
 
-              <span class="github-sep">|</span>
+    <span class="github-sep">|</span>
 
-              <a class="github-inline-link" id="discussions-link" href="https://github.com/salmonofdoubt/grant-radar/discussions" target="_blank" rel="noopener noreferrer">
-                Discussions
-              </a>
+    <a
+      class="github-inline-link"
+      id="discussions-link"
+      href="https://github.com/salmonofdoubt/grant-radar/discussions"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Discussions
+    </a>
+  </div>
+</div>
+
+          <div class="hero-doi-row">
+            <div class="doi-strip" aria-label="Archived release DOI">
+              <span class="doi-strip-label">Archived release</span>
+              <span class="doi-strip-badge">DOI</span>
+              <a class="doi-strip-link" href="https://doi.org/10.5281/zenodo.19633908" target="_blank" rel="noopener noreferrer">10.5281/zenodo.19633908</a>
             </div>
           </div>
         </div>
@@ -109,31 +146,21 @@
         <div class="hero-card share-card">
           <div class="share-header">
             <div>
-              <a
-                class="zenodo-badge"
-                href="https://doi.org/10.5281/zenodo.19633908"
-                target="_blank"
-                rel="noopener"
-                aria-label="Open Zenodo DOI record"
-              >
-                <img
-                  src="https://zenodo.org/badge/DOI/10.5281/zenodo.19633908.svg"
-                  alt="DOI"
-                />
-              </a>
               <p class="share-kicker">Share</p>
               <p class="share-copy">Copy the link, use native share on mobile, or scan the QR code.</p>
             </div>
           </div>
-
-          <div class="share-qr-wrap">
-            <img id="qr-image" class="qr-image" alt="QR code linking to the current Grant Radar page" />
-          </div>
-
-          <div class="share-actions">
-            <a class="pill-link share-open-link" id="share-open-link" href="#" target="_blank" rel="noopener noreferrer">↗ Open link</a>
-            <button class="pill-link share-copy-btn" id="copy-link-btn" type="button">⧉ Copy link</button>
-            <button class="pill-link share-native-btn" id="native-share-btn" type="button">⤴ Share</button>
+          <div class="share-main-row">
+            <div class="share-actions-wrap">
+              <div class="share-actions">
+                <a class="pill-link share-open-link" id="share-open-link" href="#" target="_blank" rel="noopener noreferrer">↗ Open link</a>
+                <button class="pill-link share-copy-btn" id="copy-link-btn" type="button">⧉ Copy link</button>
+                <button class="pill-link share-native-btn" id="native-share-btn" type="button">⤴ Share</button>
+              </div>
+            </div>
+            <div class="share-qr-wrap">
+              <img id="qr-image" class="qr-image" alt="QR code linking to the current Grant Radar page" />
+            </div>
           </div>
         </div>
       </div>
@@ -143,24 +170,13 @@
       <section class="panel controls-panel">
         <div class="section-head">
           <h2>Find opportunities</h2>
-          <p>Start with thematic purpose, then narrow by who can apply, how access works, scale, change state, and deadline timing.</p>
+          <p>Start with thematic purpose, then narrow by who can apply, how access works, and whether the cycle is new, open, or already closed.</p>
         </div>
 
-        <div class="purpose-wrap purpose-wrap-priority">
-          <div class="purpose-head">
-            <div class="purpose-head-copy">
-              <h3>Purpose</h3>
-              <p class="purpose-intro">Begin here. The purpose chips are the primary filter layer; free-text search is optional.</p>
-            </div>
-            <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
-          </div>
-          <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
-        </div>
-
-        <div class="controls-grid controls-grid-secondary">
+        <div class="controls-grid">
           <div class="control-block control-wide">
             <label for="search-input">Search</label>
-            <input id="search-input" type="search" placeholder="Optional free-text search across title, programme, source, and keywords" />
+            <input id="search-input" type="search" placeholder="e.g. biodiversity, peatland, wetlands, community group, EPA" />
           </div>
 
           <div class="control-block">
@@ -226,6 +242,14 @@
             <label for="deadline-to">Deadline to</label>
             <input id="deadline-to" type="date" />
           </div>
+        </div>
+
+        <div class="purpose-wrap">
+          <div class="purpose-head">
+            <h3>Purpose</h3>
+            <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
+          </div>
+          <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
         </div>
       </section>
 

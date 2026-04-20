@@ -187,8 +187,8 @@ function getChangeBadgeClass(changeType = 'none') {
 
 function getChangeTagClass(changeType = 'none') {
   if (changeType === 'new') return 'tone-green';
-  if (changeType === 'deadline_updated' || changeType === 'status_changed') return 'tone-amber';
-  if (changeType === 'awarded') return 'tone-red';
+  if (changeType === 'deadline_updated' || changeType === 'status_changed') return `tag-change-${changeType} tone-amber`;
+  if (changeType === 'awarded') return 'tag-change-awarded tone-red';
   return 'tone-neutral';
 }
 
@@ -290,10 +290,14 @@ function renderSources(opportunities) {
   });
 }
 
+function getShareUrl() {
+  return window.location.href;
+}
+
 function updateSharePanel() {
-  const shareUrl = window.location.href;
-  const shareTitle = 'Geo Radar';
-  const shareText = 'Track Germany and EU geoscience funding routes for hydrogen, geochemistry, subsurface and sustainability-linked research.';
+  const shareUrl = getShareUrl();
+  const shareTitle = 'Grant Radar';
+  const shareText = 'Track grants and funding calls in nature, ecology, environment, energy, and community action.';
 
   if (el.shareOpenLink) {
     el.shareOpenLink.href = shareUrl;
