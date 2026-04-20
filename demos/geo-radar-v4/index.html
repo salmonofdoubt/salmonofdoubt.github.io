@@ -25,7 +25,7 @@
             and sustainability-facing collaboration routes.
           </p>
           <p class="micro-note">
-            This version stays static in the browser and reads a generated JSON catalogue. It is designed to be fast,
+            This version stays static in the browser and reads a JSON catalogue that is neing refeshed regularly. It is designed to be fast,
             portable, GitHub Pages-friendly, and easy to fork for one researcher, one lab, or one thematic niche. The source set now explicitly includes GFZ careers monitoring.
           </p>
         </div>
@@ -86,18 +86,18 @@
                 />
               </a>
               <p class="share-kicker">Share</p>
-              <p class="share-copy">Copy the link, use native share on mobile, or scan the QR code.</p>
+              <p class="share-copy"></p>
             </div>
           </div>
-
-          <div class="share-qr-wrap">
-            <img id="qr-image" class="qr-image" alt="QR code linking to the current Geo Radar page" />
-          </div>
-
-          <div class="share-actions">
-            <a class="pill-link share-open-link" id="share-open-link" href="#" target="_blank" rel="noopener noreferrer">↗ Open link</a>
-            <button class="pill-link share-copy-btn" id="copy-link-btn" type="button">⧉ Copy link</button>
-            <button class="pill-link share-native-btn" id="native-share-btn" type="button">⤴ Share</button>
+          <div class="share-main-row">
+            <div class="share-actions">
+              <a class="pill-link share-open-link" id="share-open-link" href="#" target="_blank" rel="noopener noreferrer">↗ Open link</a>
+              <button class="pill-link share-copy-btn" id="copy-link-btn" type="button">⧉ Copy link</button>
+              <button class="pill-link share-native-btn" id="native-share-btn" type="button">⤴ Share</button>
+            </div>
+            <div class="share-qr-wrap">
+              <img id="qr-image" class="qr-image" alt="QR code linking to the current Geo Radar page" />
+            </div>
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@
         <div class="controls-grid controls-grid-secondary">
           <div class="control-block control-wide">
             <label for="search-input">Search</label>
-            <input id="search-input" type="search" placeholder="Optional free-text search after selecting purpose chips" />
+            <input id="search-input" type="search" placeholder="Optional free-text search only, after choosing purpose chips" />
           </div>
 
           <div class="control-block">
