@@ -70,4 +70,6 @@ The initial source set prioritises:
 - ERC established-researcher routes
 - Horizon and Clean Hydrogen consortium calls
 - German applied-energy-research funding
+- direct GFZ careers-page monitoring
+- a GFZ-hosted fellowship route alongside the external RIFS page
 - a Potsdam-relevant bridge fellowship route
