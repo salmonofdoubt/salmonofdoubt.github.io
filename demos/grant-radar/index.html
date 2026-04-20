@@ -20,12 +20,19 @@
         <div class="hero-copy">
           <h1>Grant Radar</h1>
           <p class="lede">
-            Track grants and calls in the nature, ecology, biodiversity, environmental, climate and energy space.
-            Filter first by purpose, then narrow by applicant type, access route, grant scale, change state, and deadline timing.
+            A focused funding intelligence tool for nature, biodiversity, ecology,
+            environment, climate, water, and energy. Filter by purpose first, then 
+            narrow by eligibility, access route, grant scale, cycle status, recent
+            movement, and deadline timing to identify the opportunities that actually fit.
           </p>
           <p class="micro-note">
-            This GitHub Pages version is intentionally static in the browser. The interface reads a generated JSON catalogue,
-            so it stays fast and deployable while a scheduled harvester refreshes the underlying data.
+            The live site is deliberately static at the front end and powered by a generated
+            JSON catalogue behind the scenes, which keeps it fast, stable, and easy to 
+            deploy. Alongside that trusted catalogue, Grant Radar now includes a discovery 
+            layer that scans selected sources for possible new grant pages, places them into
+            a separate review queue sorted by confidence, and only promotes them into the 
+            main radar once they have been checked through an implementation CL. 
+            This preserves reliability while steadily expanding coverage.
           </p>
         </div>
 
@@ -88,7 +95,7 @@
               >
                 Review candidates
               </a>
-              
+
             </div>
 
             <div class="github-blob" aria-label="Grant Radar GitHub links">
