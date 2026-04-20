@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Grant Radar",
-    "generated_at": "2026-04-20T17:52:48+00:00",
+    "generated_at": "2026-04-20T18:17:45+00:00",
     "generator": "grant-radar-demo 1.1.0",
     "available_purposes": [
       "biodiversity",
@@ -84,7 +84,7 @@
         "climate adaptation"
       ],
       "note": "Direct call page with explicit key dates.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -101,7 +101,7 @@
         "wetlands"
       ],
       "note": "Seed page before topic-level portal extraction.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -117,7 +117,7 @@
         "nature-based solutions"
       ],
       "note": "Biodiversity topic page with deadline markers.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -134,7 +134,7 @@
         "education"
       ],
       "note": "Micro-grant route for community events and local engagement.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -151,7 +151,7 @@
         "education"
       ],
       "note": "Community and voluntary funding route for local water-quality action.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -168,7 +168,7 @@
         "surveys"
       ],
       "note": "National community heritage and biodiversity grant stream.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -184,7 +184,7 @@
         "community nature"
       ],
       "note": "Local-authority-led biodiversity funding route.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -200,7 +200,7 @@
         "conservation"
       ],
       "note": "Award update for the community conservation scheme.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -217,10 +217,10 @@
         "education"
       ],
       "note": "Waterway-focused small community grant.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))"
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.waterwaysireland.org', port=443) at 0x7fee95c452d0>, 'Connection to www.waterwaysireland.org timed out. (connect timeout=10)'))"
     },
     {
       "id": "leader_programme",
@@ -235,7 +235,7 @@
         "renewable energy"
       ],
       "note": "Rolling community-led local development route via Local Action Groups.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -251,7 +251,7 @@
         "climate action"
       ],
       "note": "SEAI community capital-funding route managed via project coordinators.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/community-grants"
@@ -268,7 +268,7 @@
         "decarbonisation"
       ],
       "note": "SEC network and Energy Master Plan support route.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community"
@@ -285,7 +285,7 @@
         "decarbonisation"
       ],
       "note": "National energy RD&D funding stream; 2026 call signalled as opening soon.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund"
@@ -303,7 +303,7 @@
         "decarbonisation"
       ],
       "note": "START local-authority-led climate action scheme with community relevance.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -353,7 +353,7 @@
         "climate action"
       ],
       "note": "Business sustainability support route.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -369,7 +369,7 @@
         "climate action"
       ],
       "note": "Local LEO green supports including Energy Efficiency Grant.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -385,7 +385,7 @@
         "community nature"
       ],
       "note": "Community-based geoheritage grant stream.",
-      "last_checked": "2026-04-20T17:52:48+00:00",
+      "last_checked": "2026-04-20T18:17:45+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     }
