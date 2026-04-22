@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Auto-generate promotion CL drafts for approved Grant Radar candidates."""
+"""Auto-generate promotion CL drafts for approved or requested Grant Radar candidates."""
 
 from __future__ import annotations
 
@@ -32,14 +32,16 @@ def main() -> None:
     payload = load_json(CANDIDATES_PATH, default={})
     drafted = 0
     for candidate in payload.get("candidates", []):
-        if candidate.get("status") != "approved":
+        status = candidate.get("status")
+        wants_request = candidate.get("promotion_requested", False)
+        if status not in {"approved", "cl_drafted"} and not wants_request:
             continue
         if draft_exists(candidate):
             continue
         candidate_id = candidate.get("id")
         if not candidate_id:
             continue
-        print(f"Generating CL draft for approved candidate: {candidate_id}")
+        print(f"Generating CL draft for candidate: {candidate_id}")
         subprocess.run([sys.executable, str(PROMOTE_SCRIPT), "--id", candidate_id], check=True)
         drafted += 1
     print(f"Generated {drafted} new CL draft(s).")

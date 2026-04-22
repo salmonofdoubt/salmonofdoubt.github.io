@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Create reviewable promotion CL drafts for Grant Radar candidates."""
+"""Create reviewable promotion CL drafts for Grant Radar candidates.
+
+Safe by design:
+- creates HTML + JSON CL drafts under demos/grant-radar/promotion-drafts/
+- updates discovery-candidates.json so the review page can show draft status
+- does NOT mutate source-registry.json unless --apply is explicitly used
+"""
 
 from __future__ import annotations
 
@@ -381,16 +387,21 @@ def update_meta_counts(payload: dict[str, Any]) -> None:
     meta["approved_count"] = sum(1 for item in candidates if item.get("status") == "approved")
     meta["cl_drafted_count"] = sum(1 for item in candidates if item.get("status") == "cl_drafted")
     meta["promoted_count"] = sum(1 for item in candidates if item.get("status") == "promoted")
+    meta["promotion_requested_count"] = sum(1 for item in candidates if item.get("promotion_requested"))
 
 
 def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list[dict[str, Any]], payload: dict[str, Any]) -> None:
     duplicate = registry_duplicate_info(candidate, registry)
     if duplicate and duplicate["kind"] == "url":
         raise SystemExit(f"Cannot apply: registry already contains this URL under id {duplicate['id']}")
+
     registry.append(entry)
     registry.sort(key=lambda x: x.get("id", ""))
     save_json(REGISTRY_PATH, registry)
+
     candidate["status"] = "promoted"
+    candidate["promotion_requested"] = False
+    candidate["request_origin_status"] = None
     update_meta_counts(payload)
     save_json(CANDIDATES_PATH, payload)
 
@@ -424,11 +435,11 @@ def main() -> None:
     print(f"Updated candidate queue metadata: {CANDIDATES_PATH}")
 
     if args.apply:
-      apply_entry(candidate, entry, registry, payload)
-      print(f"Applied entry to {REGISTRY_PATH}")
-      print(f"Marked candidate as promoted in {CANDIDATES_PATH}")
+        apply_entry(candidate, entry, registry, payload)
+        print(f"Applied entry to {REGISTRY_PATH}")
+        print(f"Marked candidate as promoted in {CANDIDATES_PATH}")
     else:
-      print("Draft created. Registry unchanged.")
+        print("Draft created. Registry unchanged.")
 
 
 if __name__ == "__main__":
