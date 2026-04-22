@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Simple grant harvester for a static GitHub Pages catalogue.
+"""Grant Radar harvester tuned for both research and practical catchment routes.
 
-This is intentionally conservative. It fetches configured official pages,
-applies source-specific regex extraction, and writes a single JSON catalogue.
-It also compares against the previous catalogue to flag new entries or deadline
-changes.
+The public site remains conservative: it reads trusted configured sources only.
+This harvester now:
+- skips discovery-only hubs
+- normalises applicant categories and scale labels so local/community/farmer routes are easy to filter
+- preserves all existing routes while broadening support for practical Irish water-quality delivery
 """
 
 from __future__ import annotations
@@ -25,8 +26,31 @@ SITE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = SITE_DIR / "data"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 CATALOG_PATH = DATA_DIR / "catalog.json"
-USER_AGENT = "GrantRadarBot/1.2 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarBot/1.3 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
+
+APPLICANT_PRIORITY = [
+    "local groups",
+    "farmers",
+    "public bodies",
+    "researchers",
+    "businesses",
+    "NGOs",
+    "schools",
+    "households",
+]
+
+SCALE_PRIORITY = ["local", "support", "medium", "major"]
+
+ACCESS_PRIORITY = [
+    "direct",
+    "advisory support",
+    "via advisor",
+    "via local authority",
+    "via local action group",
+    "via project coordinator",
+    "consortium",
+]
 
 @dataclass
 class ExtractedItem:
@@ -49,6 +73,7 @@ class ExtractedItem:
     purposes: list[str]
     keywords: list[str]
     cta_label: str
+    opportunity_type: str
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -72,6 +97,7 @@ class ExtractedItem:
             "purposes": self.purposes,
             "keywords": self.keywords,
             "cta_label": self.cta_label,
+            "opportunity_type": self.opportunity_type,
         }
 
 
@@ -124,6 +150,88 @@ def normalise_date(value: str | None) -> tuple[str | None, str | None]:
         return None, value
 
 
+def dedupe_keep_order(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for value in values:
+        clean = str(value).strip()
+        if not clean or clean in seen:
+            continue
+        seen.add(clean)
+        out.append(clean)
+    return out
+
+
+def ordered(values: list[str], priority: list[str]) -> list[str]:
+    unique = dedupe_keep_order(values)
+    order_map = {value: index for index, value in enumerate(priority)}
+    return sorted(unique, key=lambda value: (order_map.get(value, 999), value.lower()))
+
+
+def normalise_applicant_types(raw_types: list[str]) -> list[str]:
+    lowered = [value.lower() for value in raw_types]
+    simplified: list[str] = []
+
+    def has(*needles: str) -> bool:
+        return any(any(needle in value for needle in needles) for value in lowered)
+
+    if has("community", "voluntary", "tidy", "angling", "association", "local development", "catchment partnership", "rural network", "social enterprise", "community partners"):
+        simplified.append("local groups")
+    if has("farmer", "farmers", "farm family"):
+        simplified.append("farmers")
+    if has("local authorit", "public bod", "project coordinator", "state agenc", "co-operation project"):
+        simplified.append("public bodies")
+    if has("research", "universit", "institute", "phd", "postgraduate", "scholar"):
+        simplified.append("researchers")
+    if has("business", "enterprise", "founder", "micro-enterprise"):
+        simplified.append("businesses")
+    if has("ngo", "non-governmental", "conservation group", "heritage ngo", "environmental ngo"):
+        simplified.append("NGOs")
+    if has("school"):
+        simplified.append("schools")
+    if has("homeowner", "household"):
+        simplified.append("households")
+
+    if not simplified:
+        simplified = raw_types[:]
+
+    return ordered(simplified, APPLICANT_PRIORITY)
+
+
+def normalise_scale(raw_scale: str | None) -> str | None:
+    if not raw_scale:
+        return None
+    lowered = raw_scale.lower().strip()
+    if lowered in {"micro", "small", "local"}:
+        return "local"
+    if lowered in {"support", "advisory support", "implementation support"}:
+        return "support"
+    if lowered == "medium":
+        return "medium"
+    if lowered == "major":
+        return "major"
+    return raw_scale
+
+
+def normalise_access_route(raw_route: str | None) -> str | None:
+    if not raw_route:
+        return None
+    lowered = raw_route.lower().strip()
+    if lowered in {"advisory support", "implementation support"}:
+        return "advisory support"
+    if lowered in {"via advisor", "via adviser", "via project advisor"}:
+        return "via advisor"
+    if lowered in {"via local authority", "via local authorities"}:
+        return "via local authority"
+    if lowered in {"via local action group", "via lag"}:
+        return "via local action group"
+    if lowered in {"via project coordinator"}:
+        return "via project coordinator"
+    if lowered in {"consortium", "via consortium"}:
+        return "consortium"
+    return "direct" if lowered == "direct" else raw_route
+
+
 def determine_change(item: ExtractedItem, previous_map: dict[str, dict[str, Any]], seen_at: str) -> None:
     key = slugify(f"{item.source_id}_{item.title}")
     old = previous_map.get(key)
@@ -163,12 +271,20 @@ def harvest() -> dict[str, Any]:
     scale_seen: set[str] = set()
 
     for source in registry:
+        if not source.get("harvest_enabled", True):
+            continue
+
         extract = source.get("extract", {})
         summary = extract.get("summary_hint") or source.get("note", "")
-        applicant_types = extract.get("applicant_types", [])
-        access_route = extract.get("access_route")
-        scale = extract.get("scale")
-        keywords = sorted({source["name"].lower(), *(source.get("purposes", [])), *applicant_types})
+        raw_applicant_types = extract.get("applicant_types", [])
+        applicant_types = normalise_applicant_types(raw_applicant_types)
+        access_route = normalise_access_route(extract.get("access_route"))
+        scale = normalise_scale(extract.get("scale"))
+        opportunity_type = extract.get("opportunity_type", "grant")
+        keywords = ordered(
+            [source["name"].lower(), *source.get("purposes", []), *raw_applicant_types, *applicant_types, opportunity_type],
+            []
+        )
 
         try:
             text, checked_at = fetch_text(source["url"])
@@ -189,13 +305,14 @@ def harvest() -> dict[str, Any]:
                 deadline_iso=deadline_iso,
                 deadline_text=deadline_text or (f"Launch or open marker: {launch_raw}" if launch_raw else None),
                 region=source.get("scope", "—"),
-                audience=applicant_types,
+                audience=raw_applicant_types,
                 applicant_types=applicant_types,
                 access_route=access_route,
                 scale=scale,
                 purposes=source.get("purposes", []),
                 keywords=keywords,
                 cta_label=f"Open {source['name']}",
+                opportunity_type=opportunity_type,
             )
 
             determine_change(item, previous_items, seen_at)
@@ -215,9 +332,8 @@ def harvest() -> dict[str, Any]:
                 }
             )
 
-        except requests.exceptions.RequestException as e:
-            print(f"[WARN] Failed to fetch {source['name']} ({source['url']}): {e}")
-
+        except requests.exceptions.RequestException as exc:
+            print(f"[WARN] Failed to fetch {source['name']} ({source['url']}): {exc}")
             sources_out.append(
                 {
                     "id": source["id"],
@@ -229,7 +345,7 @@ def harvest() -> dict[str, Any]:
                     "last_checked": seen_at,
                     "discovery_method": source.get("discovery_method", "configured extraction"),
                     "fetch_status": "error",
-                    "fetch_error": str(e),
+                    "fetch_error": str(exc),
                 }
             )
 
@@ -244,21 +360,23 @@ def harvest() -> dict[str, Any]:
         "meta": {
             "title": "Grant Radar",
             "generated_at": seen_at,
-            "generator": "grant-radar-demo 1.1.0",
+            "generator": "grant-radar-demo 1.3.0",
             "available_purposes": sorted(purposes_seen),
-            "available_applicant_types": sorted(applicant_seen),
-            "available_access_routes": sorted(access_seen),
-            "available_scales": sorted(scale_seen),
+            "available_applicant_types": ordered(list(applicant_seen), APPLICANT_PRIORITY),
+            "available_access_routes": ordered(list(access_seen), ACCESS_PRIORITY),
+            "available_scales": ordered(list(scale_seen), SCALE_PRIORITY),
         },
         "sources": sources_out,
         "opportunities": items_out,
     }
+
+
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     catalog = harvest()
     CATALOG_PATH.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"Wrote {CATALOG_PATH}")
-    
+
 
 if __name__ == "__main__":
     main()

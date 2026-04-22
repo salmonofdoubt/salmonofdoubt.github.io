@@ -1,13 +1,9 @@
 #!/usr/bin/env python3
-"""Discovery layer for Grant Radar.
+"""Discovery layer for Grant Radar, tuned for practical catchment and water-quality routes.
 
-This script does NOT publish directly to the live catalogue.
-Instead, it scans trusted domains derived from source-registry.json,
-finds candidate funding pages, assigns lightweight classifications,
-and writes them to data/discovery-candidates.json for review.
-
-It also keeps simple page memory in data/source-memory.json so Grant Radar
-can become more receptive to grant pages it has never seen before.
+This still does NOT publish directly to the live catalogue.
+It scans trusted domains derived from source-registry.json, including practical
+delivery hubs, and writes candidates to the review queue.
 """
 
 from __future__ import annotations
@@ -32,17 +28,30 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/0.2 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/0.3 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
-MAX_CHILD_LINKS_PER_SOURCE = 16
-MAX_CANDIDATES_PER_SOURCE = 12
+MAX_CHILD_LINKS_PER_SOURCE = 18
+MAX_CANDIDATES_PER_SOURCE = 14
+
+APPLICANT_PRIORITY = [
+    "local groups",
+    "farmers",
+    "public bodies",
+    "researchers",
+    "businesses",
+    "NGOs",
+    "schools",
+    "households",
+]
 
 COMMON_WATCH_TERMS = [
     "grant", "grants", "fund", "funding", "call", "calls", "scheme", "schemes",
     "proposals", "application", "applications", "research", "community", "biodiversity",
-    "environment", "energy", "climate",
+    "environment", "energy", "climate", "water", "catchment", "river", "farmers",
+    "farm", "advisory", "restoration", "habitat", "riparian", "wetlands", "peatlands",
+    "tidy towns", "local groups",
 ]
 
 FUNDING_PHRASES = [
@@ -50,11 +59,14 @@ FUNDING_PHRASES = [
     "grant scheme", "grant programme", "funding programme", "funding opportunity", "open call",
     "research call", "expression of interest", "apply now", "scheme launched", "call opens",
     "deadline for applications", "deadline for applicants", "submit a proposal",
+    "advisory service", "support programme", "improve water quality", "priority areas",
+    "catchment action plan", "farmers will be invited", "free programme available to all farmers",
 ]
 
 LINK_HINT_TERMS = [
     "grant", "fund", "funding", "call", "scheme", "proposal", "application", "award",
-    "research", "biodiversity", "climate", "energy", "community",
+    "research", "biodiversity", "climate", "energy", "community", "water", "catchment",
+    "farm", "farmer", "assap", "acres", "advisory", "tidy towns", "restoration",
 ]
 
 DEADLINE_PATTERNS = [
@@ -63,7 +75,6 @@ DEADLINE_PATTERNS = [
     r"(applications? close[^\n\r]{0,120})",
     r"(submit(?:ted)? by[^\n\r]{0,120})",
 ]
-
 
 @dataclass
 class Candidate:
@@ -174,6 +185,76 @@ def dedupe_keep_order(values: list[str]) -> list[str]:
     return out
 
 
+def ordered(values: list[str], priority: list[str]) -> list[str]:
+    unique = dedupe_keep_order(values)
+    order_map = {value: index for index, value in enumerate(priority)}
+    return sorted(unique, key=lambda value: (order_map.get(value, 999), value.lower()))
+
+
+def normalise_applicant_types(raw_types: list[str]) -> list[str]:
+    lowered = [value.lower() for value in raw_types]
+    simplified: list[str] = []
+
+    def has(*needles: str) -> bool:
+        return any(any(needle in value for needle in needles) for value in lowered)
+
+    if has("community", "voluntary", "tidy", "angling", "association", "local development", "catchment partnership", "rural network", "social enterprise", "community partners"):
+        simplified.append("local groups")
+    if has("farmer", "farmers", "farm family"):
+        simplified.append("farmers")
+    if has("local authorit", "public bod", "project coordinator", "state agenc"):
+        simplified.append("public bodies")
+    if has("research", "universit", "institute", "phd", "postgraduate", "scholar"):
+        simplified.append("researchers")
+    if has("business", "enterprise", "founder", "micro-enterprise"):
+        simplified.append("businesses")
+    if has("ngo", "non-governmental", "conservation group", "heritage ngo", "environmental ngo"):
+        simplified.append("NGOs")
+    if has("school"):
+        simplified.append("schools")
+    if has("homeowner", "household"):
+        simplified.append("households")
+
+    if not simplified:
+        simplified = raw_types[:]
+
+    return ordered(simplified, APPLICANT_PRIORITY)
+
+
+def normalise_scale(raw_scale: str | None) -> str | None:
+    if not raw_scale:
+        return None
+    lowered = raw_scale.lower().strip()
+    if lowered in {"micro", "small", "local"}:
+        return "local"
+    if lowered in {"support", "advisory support", "implementation support"}:
+        return "support"
+    if lowered == "medium":
+        return "medium"
+    if lowered == "major":
+        return "major"
+    return raw_scale
+
+
+def normalise_access_route(raw_route: str | None) -> str | None:
+    if not raw_route:
+        return None
+    lowered = raw_route.lower().strip()
+    if lowered in {"advisory support", "implementation support"}:
+        return "advisory support"
+    if lowered in {"via advisor", "via adviser", "via project advisor"}:
+        return "via advisor"
+    if lowered in {"via local authority", "via local authorities"}:
+        return "via local authority"
+    if lowered in {"via local action group", "via lag"}:
+        return "via local action group"
+    if lowered in {"via project coordinator"}:
+        return "via project coordinator"
+    if lowered in {"consortium", "via consortium"}:
+        return "consortium"
+    return "direct" if lowered == "direct" else raw_route
+
+
 def ensure_registry_defaults(registry: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], bool]:
     changed = False
     for source in registry:
@@ -181,8 +262,10 @@ def ensure_registry_defaults(registry: list[dict[str, Any]]) -> tuple[list[dict[
         if source.get("trusted_domain") != trusted_domain:
             source["trusted_domain"] = trusted_domain
             changed = True
+
         defaults = {
             "source_class": "programme_page",
+            "harvest_enabled": True,
             "discovery_enabled": True,
             "cadence": "unknown",
             "usual_open_months": [],
@@ -193,14 +276,17 @@ def ensure_registry_defaults(registry: list[dict[str, Any]]) -> tuple[list[dict[
             if key not in source:
                 source[key] = value
                 changed = True
+
         source["watch_terms"] = dedupe_keep_order(
             list(source.get("watch_terms", [])) + list(source.get("purposes", [])) + [source.get("name", "")]
         )
         source["watch_terms"] = dedupe_keep_order(source["watch_terms"] + COMMON_WATCH_TERMS)
+
         extract = source.setdefault("extract", {})
         if "mode" not in extract:
             extract["mode"] = "single_item"
             changed = True
+
     return registry, changed
 
 
@@ -211,19 +297,23 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
         response.raise_for_status()
     except requests.exceptions.RequestException as exc:
         return None, str(exc)
+
     soup = BeautifulSoup(response.text, "html.parser")
     title = ""
     if soup.title and soup.title.string:
         title = re.sub(r"\s+", " ", soup.title.string).strip()
+
     text = soup.get_text("\n", strip=True)
     snippet = re.sub(r"\s+", " ", text[:700]).strip()
     page_hash = "sha256:" + hashlib.sha256(response.text.encode("utf-8", errors="ignore")).hexdigest()
+
     links: list[dict[str, str]] = []
     for anchor in soup.find_all("a", href=True):
         href = canonical_url(urljoin(url, anchor["href"]))
         label = re.sub(r"\s+", " ", anchor.get_text(" ", strip=True)).strip()
         if href.startswith("http"):
             links.append({"url": href, "label": label})
+
     return {
         "url": canonical_url(url),
         "title": title,
@@ -265,23 +355,26 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
     text = page.get("text", "")
     snippet = page.get("snippet", "")
     trusted_domain = source["trusted_domain"]
+
     combined = f"{title}\n{snippet}\n{text[:4000]}".lower()
     phrase_hits = count_phrase_hits(combined, FUNDING_PHRASES)
     watch_hits = count_phrase_hits(combined, source.get("watch_terms", []))
     deadline_hint = detect_deadline_hint(text)
+
     confidence = 0.0
     reason_flags: list[str] = []
+
     if is_same_or_child_domain(page["url"], trusted_domain):
         confidence += 0.25
         reason_flags.append("trusted_domain")
     if phrase_hits:
         confidence += min(0.25, 0.08 * phrase_hits)
-        reason_flags.append("funding_phrase")
+        reason_flags.append("funding_or_support_phrase")
     if deadline_hint:
         confidence += 0.15
         reason_flags.append("deadline_detected")
     if watch_hits:
-        confidence += min(0.15, 0.03 * watch_hits)
+        confidence += min(0.18, 0.03 * watch_hits)
         reason_flags.append("watch_term_overlap")
     if source.get("usual_open_months"):
         month = datetime.now(UTC).month
@@ -291,16 +384,27 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
     if discovered_via == "child_link":
         confidence += 0.10
         reason_flags.append("child_page")
+
     confidence = min(confidence, 0.99)
     if confidence < 0.45:
         return None
+
     candidate_type = "call_page"
     lowered_title = title.lower()
     if "news" in lowered_title or "press release" in lowered_title:
         candidate_type = "news_page"
     if "award" in lowered_title or "results" in lowered_title:
         candidate_type = "award_page"
+    if any(token in lowered_title for token in ["advisory", "campaign", "support", "programme"]):
+        candidate_type = "support_page"
+
+    raw_applicant_types = source.get("extract", {}).get("applicant_types", [])
+    applicant_types = normalise_applicant_types(raw_applicant_types)
+    access_route = normalise_access_route(source.get("extract", {}).get("access_route"))
+    scale = normalise_scale(source.get("extract", {}).get("scale"))
+
     candidate_id = slugify(f"cand_{source['id']}_{page['url']}")
+
     return Candidate(
         id=candidate_id,
         url=page["url"],
@@ -316,9 +420,9 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
         confidence=confidence,
         status="pending_review",
         suggested_purposes=source.get("purposes", [])[:8],
-        suggested_applicant_types=source.get("extract", {}).get("applicant_types", [])[:8],
-        suggested_access_route=source.get("extract", {}).get("access_route"),
-        suggested_scale=source.get("extract", {}).get("scale"),
+        suggested_applicant_types=applicant_types[:8],
+        suggested_access_route=access_route,
+        suggested_scale=scale,
         reason_flags=dedupe_keep_order(reason_flags),
         deadline_hint=deadline_hint,
         page_hash=page["page_hash"],
@@ -330,6 +434,7 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
 def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candidate], seen_at: str) -> dict[str, Any]:
     previous_candidates = {item["url"]: item for item in previous_payload.get("candidates", [])}
     merged: dict[str, dict[str, Any]] = {}
+
     for candidate in newly_found:
         item = candidate.as_dict()
         old = previous_candidates.get(item["url"])
@@ -338,6 +443,7 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
             item["status"] = old.get("status", item["status"])
             item["notes"] = old.get("notes", item["notes"])
         merged[item["url"]] = item
+
     for url, old in previous_candidates.items():
         if url in merged:
             continue
@@ -345,17 +451,20 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
         old_copy["seen_in_latest_run"] = False
         old_copy["last_seen"] = old.get("last_seen", seen_at)
         merged[url] = old_copy
+
     candidates = list(merged.values())
     candidates.sort(key=lambda item: (-float(item.get("confidence", 0)), item.get("title", "")))
+
     high_conf = sum(1 for item in candidates if float(item.get("confidence", 0)) >= 0.8)
     pending = sum(1 for item in candidates if item.get("status") == "pending_review")
     by_domain = defaultdict(int)
     for item in candidates:
         by_domain[item.get("domain", "unknown")] += 1
+
     return {
         "meta": {
             "generated_at": seen_at,
-            "generator": "grant-radar-discovery 0.2",
+            "generator": "grant-radar-discovery 0.3",
             "candidate_count": len(candidates),
             "high_confidence_count": high_conf,
             "pending_review_count": pending,
@@ -384,26 +493,32 @@ def discover() -> None:
     registry = load_json(REGISTRY_PATH, default=[])
     registry, registry_changed = ensure_registry_defaults(registry)
     previous_discovery = load_json(DISCOVERY_PATH, default={})
-    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.2"}, "pages": {}})
+    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.3"}, "pages": {}})
     newly_found: list[Candidate] = []
+
     for source in registry:
         if not source.get("discovery_enabled", True):
             continue
+
         trusted_domain = source["trusted_domain"]
         candidate_count_for_source = 0
+
         for watch_url in build_watch_urls(source):
             page, error = fetch_page(watch_url)
             if error or not page:
                 error_page = {"url": canonical_url(watch_url), "title": "", "page_hash": ""}
                 update_memory(memory, error_page, f"error: {error}", seen_at)
                 continue
+
             update_memory(memory, page, "ok", seen_at)
             direct_candidate = classify_candidate(page, source, "source_page", seen_at)
             if direct_candidate:
                 newly_found.append(direct_candidate)
                 candidate_count_for_source += 1
+
             if candidate_count_for_source >= MAX_CANDIDATES_PER_SOURCE:
                 continue
+
             same_domain_links = []
             for link in page.get("links", []):
                 href = link["url"]
@@ -413,6 +528,7 @@ def discover() -> None:
                     continue
                 if looks_like_grant_link(href, link.get("label", ""), source.get("watch_terms", [])):
                     same_domain_links.append(href)
+
             for child_url in dedupe_keep_order(same_domain_links)[:MAX_CHILD_LINKS_PER_SOURCE]:
                 if candidate_count_for_source >= MAX_CANDIDATES_PER_SOURCE:
                     break
@@ -426,15 +542,19 @@ def discover() -> None:
                 if child_candidate:
                     newly_found.append(child_candidate)
                     candidate_count_for_source += 1
+
     best_by_url: dict[str, Candidate] = {}
     for candidate in newly_found:
         existing = best_by_url.get(candidate.url)
         if existing is None or candidate.confidence > existing.confidence:
             best_by_url[candidate.url] = candidate
+
     merged_payload = merge_candidates(previous_discovery, list(best_by_url.values()), seen_at)
+
     memory.setdefault("meta", {})
     memory["meta"]["generated_at"] = seen_at
-    memory["meta"]["generator"] = "grant-radar-discovery 0.2"
+    memory["meta"]["generator"] = "grant-radar-discovery 0.3"
+
     if registry_changed:
         save_json(REGISTRY_PATH, registry)
     save_json(DISCOVERY_PATH, merged_payload)
@@ -442,7 +562,7 @@ def discover() -> None:
     print(f"Wrote {DISCOVERY_PATH}")
     print(f"Wrote {MEMORY_PATH}")
     if registry_changed:
-        print(f"Updated {REGISTRY_PATH} with Phase 2 discovery defaults")
+        print(f"Updated {REGISTRY_PATH} with discovery defaults")
 
 
 if __name__ == "__main__":

@@ -34,6 +34,29 @@ const templates = {
   change: document.getElementById('change-item-template'),
 };
 
+const APPLICANT_ORDER = [
+  'local groups',
+  'farmers',
+  'public bodies',
+  'researchers',
+  'businesses',
+  'NGOs',
+  'schools',
+  'households',
+];
+
+const SCALE_ORDER = ['local', 'support', 'medium', 'major'];
+
+const ACCESS_ORDER = [
+  'direct',
+  'advisory support',
+  'via advisor',
+  'via local authority',
+  'via local action group',
+  'via project coordinator',
+  'consortium',
+];
+
 const fmtDate = (value) => {
   if (!value) return '—';
   const date = new Date(value);
@@ -60,10 +83,29 @@ const fmtDateTime = (value) => {
 
 const daysBetween = (a, b) => Math.floor((a - b) / (1000 * 60 * 60 * 24));
 
+function titleCaseLabel(value) {
+  if (!value) return value;
+  if (value === 'NGOs') return value;
+  return value
+    .split(' ')
+    .map((part) => part ? part.charAt(0).toUpperCase() + part.slice(1) : part)
+    .join(' ');
+}
+
+function ordered(values, preferred) {
+  const order = new Map(preferred.map((value, index) => [value, index]));
+  return [...values].sort((a, b) => {
+    const rankA = order.has(a) ? order.get(a) : 999;
+    const rankB = order.has(b) ? order.get(b) : 999;
+    if (rankA !== rankB) return rankA - rankB;
+    return a.localeCompare(b);
+  });
+}
+
 function makeTag(text, className = '') {
   const span = document.createElement('span');
   span.className = `tag ${className}`.trim();
-  span.textContent = text;
+  span.textContent = titleCaseLabel(text);
   return span;
 }
 
@@ -85,17 +127,17 @@ function createChip(label) {
   return btn;
 }
 
-function fillSelect(select, values, placeholder) {
+function fillSelect(select, values, placeholder, preferred = []) {
   select.innerHTML = '';
   const allOption = document.createElement('option');
   allOption.value = 'all';
   allOption.textContent = placeholder;
   select.appendChild(allOption);
 
-  values.forEach((value) => {
+  ordered(values, preferred).forEach((value) => {
     const option = document.createElement('option');
     option.value = value;
-    option.textContent = value;
+    option.textContent = titleCaseLabel(value);
     select.appendChild(option);
   });
 }
@@ -108,9 +150,9 @@ function renderPurposeChips() {
 
 function populateDynamicFilters() {
   const meta = state.catalog.meta || {};
-  fillSelect(el.applicantSelect, meta.available_applicant_types || [], 'All applicant types');
-  fillSelect(el.accessSelect, meta.available_access_routes || [], 'All access routes');
-  fillSelect(el.scaleSelect, meta.available_scales || [], 'All scales');
+  fillSelect(el.applicantSelect, meta.available_applicant_types || [], 'All applicant types', APPLICANT_ORDER);
+  fillSelect(el.accessSelect, meta.available_access_routes || [], 'All access routes', ACCESS_ORDER);
+  fillSelect(el.scaleSelect, meta.available_scales || [], 'All scales', SCALE_ORDER);
 }
 
 function matchesPurpose(item) {
@@ -139,6 +181,7 @@ function getFilteredOpportunities() {
       item.programme,
       item.access_route,
       item.scale,
+      item.opportunity_type,
       ...(item.purposes || []),
       ...(item.applicant_types || item.audience || []),
       ...(item.keywords || []),
@@ -240,6 +283,7 @@ function renderOpportunities(opportunities) {
     const statusPill = root.querySelector('.status-pill');
 
     topTags.appendChild(makeTag(item.source_name));
+    if (item.opportunity_type) topTags.appendChild(makeTag(item.opportunity_type));
     if (item.scale) topTags.appendChild(makeTag(item.scale, 'tag-scale'));
     if (item.access_route) topTags.appendChild(makeTag(item.access_route, 'tag-access'));
     if (item.change_type && item.change_type !== 'none') {
@@ -255,9 +299,9 @@ function renderOpportunities(opportunities) {
     root.querySelector('.deadline').textContent = item.deadline_text || 'Deadline not yet extracted';
     root.querySelector('.changed').textContent = item.changed_at ? fmtDate(item.changed_at) : '—';
     root.querySelector('.region').textContent = item.region || '—';
-    root.querySelector('.applicant').textContent = (item.applicant_types || item.audience || []).join(', ') || '—';
-    root.querySelector('.access').textContent = item.access_route || '—';
-    root.querySelector('.scale').textContent = item.scale || '—';
+    root.querySelector('.applicant').textContent = (item.applicant_types || item.audience || []).map(titleCaseLabel).join(', ') || '—';
+    root.querySelector('.access').textContent = titleCaseLabel(item.access_route || '—');
+    root.querySelector('.scale').textContent = titleCaseLabel(item.scale || '—');
 
     (item.purposes || []).forEach((purpose) => purposeTags.appendChild(makeTag(purpose)));
 

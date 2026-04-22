@@ -25,6 +25,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r demos/grant-radar/ops/requirements.txt
 
+      - name: Seed practical catchment and local routes
+        run: python demos/grant-radar/ops/seed_catchment_routes.py
+
       - name: Discover candidate grant pages
         run: python demos/grant-radar/ops/discover_grants.py
 
@@ -39,5 +42,6 @@ jobs:
           git add demos/grant-radar/data/discovery-candidates.json
           git add demos/grant-radar/data/source-memory.json
           git add demos/grant-radar/data/source-registry.json
+          git add demos/grant-radar/app.js
           git diff --cached --quiet || git commit -m "Refresh grant radar data"
           git push
