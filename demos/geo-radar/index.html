@@ -20,13 +20,15 @@
         <div class="hero-copy">
           <h1>Geo Radar</h1>
           <p class="lede">
-            A geoscience-specific funding radar tuned to an experienced GFZ/Potsdam-style research profile:
+            A geoscience-specific funding intelligence tool tuned to an experienced GFZ/Potsdam-style research profile:
             geochemistry, gas analytics, hydrogen, subsurface storage, geothermal systems, wetland interfaces,
             and sustainability-facing collaboration routes.
           </p>
           <p class="micro-note">
-            This version stays static in the browser and reads a generated JSON catalogue. It is designed to be fast,
-            portable, GitHub Pages-friendly, and easy to fork for one researcher, one lab, or one thematic niche. The source set now explicitly includes GFZ careers monitoring.
+            The live site is deliberately static at the front end and powered by a generated JSON catalogue behind the scenes,
+            which keeps it fast, stable, and easy to deploy. Alongside that trusted catalogue, Geo Radar now includes a
+            discovery layer that scans selected German and EU sources for possible new grant, fellowship, and research-opportunity
+            pages, places them into a separate review queue, and only promotes them into the main radar once they have been checked.
           </p>
         </div>
 
@@ -64,6 +66,7 @@
           <div class="top-links">
             <a class="pill-link" id="support-link" href="https://buymeacoffee.com/andrecbaum1" target="_blank" rel="noopener noreferrer">Buy me a coffee</a>
             <a class="pill-link email-link" id="email-link" href="mailto:qiquantum42@gmail.com?subject=Geo%20Radar%20feedback">Send feedback</a>
+            <a class="pill-link" href="./review.html">Review candidates</a>
             <a class="pill-link" id="code-link" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/geo-radar" target="_blank" rel="noopener noreferrer">Code</a>
             <a class="pill-link" id="issues-link" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/new/choose" target="_blank" rel="noopener noreferrer">Issues</a>
             <a class="pill-link" id="discussions-link" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/discussions" target="_blank" rel="noopener noreferrer">Discussions</a>
@@ -246,7 +249,7 @@
           <li>German and EU routes relevant to experienced geoscience researchers</li>
           <li>hydrogen, subsurface storage, geothermal and gas-monitoring opportunities</li>
           <li>single-investigator, network, consortium and fellowship pathways</li>
-          <li>Potsdam/GFZ-adjacent strategic scanning rather than generic grant browsing</li>
+          <li>a separate discovery queue for candidate pages not yet promoted to the trusted radar</li>
         </ul>
       </section>
     </main>

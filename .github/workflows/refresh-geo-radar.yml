@@ -25,7 +25,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r demos/geo-radar/ops/requirements.txt
 
-      - name: Refresh geo radar catalogue
+      - name: Discover candidate opportunity pages
+        run: python demos/geo-radar/ops/discover_grants.py
+
+      - name: Refresh trusted geo radar catalogue
         run: python demos/geo-radar/ops/harvest_grants.py
 
       - name: Commit updated geo radar files
@@ -33,6 +36,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add demos/geo-radar/data/catalog.json
+          git add demos/geo-radar/data/discovery-candidates.json
+          git add demos/geo-radar/data/source-memory.json
           git add demos/geo-radar/data/source-registry.json
           git diff --cached --quiet || git commit -m "Refresh geo radar data"
           git push
