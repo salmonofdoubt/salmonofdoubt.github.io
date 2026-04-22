@@ -16,11 +16,7 @@
       --shadow: 0 24px 58px rgba(0, 0, 0, 0.28);
       --radius: 20px;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -31,22 +27,9 @@
       color: var(--text);
       min-height: 100vh;
     }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .shell {
-      width: min(1240px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 1rem 0 3rem;
-    }
-
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .shell { width: min(1240px, calc(100% - 2rem)); margin: 0 auto; padding: 1rem 0 3rem; }
     .panel {
       margin-top: 1rem;
       padding: 1.25rem;
@@ -55,7 +38,6 @@
       background: linear-gradient(180deg, rgba(7, 29, 38, 0.94), rgba(12, 39, 42, 0.94));
       box-shadow: var(--shadow);
     }
-
     .eyebrow {
       margin: 0 0 0.5rem;
       font-size: 0.8rem;
@@ -63,67 +45,22 @@
       text-transform: uppercase;
       color: #d7ff8a;
     }
-
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
-
-    .lede,
-    .muted,
-    .small {
-      color: var(--muted);
-    }
-
-    .summary-grid,
-    .controls-grid,
-    .cards-grid {
-      display: grid;
-      gap: 0.85rem;
-    }
-
-    .summary-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .controls-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .cards-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .summary-box,
-    .candidate-card {
+    h1, h2, h3, p { margin-top: 0; }
+    .lede, .muted, .small { color: var(--muted); }
+    .summary-grid, .controls-grid, .cards-grid { display: grid; gap: 0.85rem; }
+    .summary-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .controls-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .summary-box, .candidate-card {
       border-radius: 18px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
       padding: 1rem;
     }
-
-    .summary-label {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .summary-value {
-      font-size: 1.3rem;
-      font-weight: 800;
-      margin-top: 0.2rem;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.4rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    input,
-    select {
+    .summary-label { font-size: 0.85rem; color: var(--muted); }
+    .summary-value { font-size: 1.3rem; font-weight: 800; margin-top: 0.2rem; }
+    label { display: block; margin-bottom: 0.4rem; color: var(--muted); font-size: 0.9rem; }
+    input, select {
       width: 100%;
       min-height: 46px;
       padding: 0.8rem 0.9rem;
@@ -132,24 +69,14 @@
       background: rgba(5, 16, 25, 0.72);
       color: var(--text);
     }
-
-    .top-row,
-    .tag-row,
-    .actions {
+    .top-row, .tag-row, .actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.55rem;
       align-items: center;
     }
-
-    .top-row {
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.8rem;
-    }
-
-    .tag,
-    .pill {
+    .top-row { justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+    .tag, .pill {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -159,57 +86,15 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       white-space: nowrap;
     }
-
-    .pill-pending {
-      background: rgba(255, 202, 87, 0.16);
-      border-color: rgba(255, 202, 87, 0.45);
-      color: #fff2c4;
-    }
-
-    .pill-approved {
-      background: rgba(70, 207, 126, 0.16);
-      border-color: rgba(70, 207, 126, 0.45);
-      color: #defee7;
-    }
-
-    .pill-rejected {
-      background: rgba(234, 121, 146, 0.16);
-      border-color: rgba(234, 121, 146, 0.45);
-      color: #ffe7ee;
-    }
-
-    .pill-promoted {
-      background: rgba(149, 221, 255, 0.16);
-      border-color: rgba(149, 221, 255, 0.45);
-      color: #e6f8ff;
-    }
-
-    .score-high {
-      background: linear-gradient(180deg, #46cf7e, #279c58);
-      border-color: rgba(205, 255, 224, 0.7);
-      color: #f6fff8;
-      font-weight: 800;
-    }
-
-    .score-mid {
-      background: linear-gradient(180deg, #ffca57, #de8e10);
-      border-color: rgba(255, 239, 188, 0.72);
-      color: #fffaf0;
-      font-weight: 800;
-    }
-
-    .score-low {
-      background: linear-gradient(180deg, #738394, #566270);
-      border-color: rgba(228, 236, 245, 0.42);
-      color: #f5f8fb;
-      font-weight: 800;
-    }
-
-    .tag {
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
-    }
-
+    .pill-pending { background: rgba(255, 202, 87, 0.16); border-color: rgba(255, 202, 87, 0.45); color: #fff2c4; }
+    .pill-approved { background: rgba(70, 207, 126, 0.16); border-color: rgba(70, 207, 126, 0.45); color: #defee7; }
+    .pill-cl-drafted { background: rgba(149, 221, 255, 0.18); border-color: rgba(149, 221, 255, 0.48); color: #eaf8ff; }
+    .pill-rejected { background: rgba(234, 121, 146, 0.16); border-color: rgba(234, 121, 146, 0.45); color: #ffe7ee; }
+    .pill-promoted { background: rgba(137, 237, 187, 0.18); border-color: rgba(137, 237, 187, 0.5); color: #effff5; }
+    .score-high { background: linear-gradient(180deg, #46cf7e, #279c58); border-color: rgba(205, 255, 224, 0.7); color: #f6fff8; font-weight: 800; }
+    .score-mid { background: linear-gradient(180deg, #ffca57, #de8e10); border-color: rgba(255, 239, 188, 0.72); color: #fffaf0; font-weight: 800; }
+    .score-low { background: linear-gradient(180deg, #738394, #566270); border-color: rgba(228, 236, 245, 0.42); color: #f5f8fb; font-weight: 800; }
+    .tag { background: rgba(255, 255, 255, 0.04); color: var(--text); }
     .actions a {
       display: inline-flex;
       align-items: center;
@@ -223,12 +108,15 @@
       font-weight: 700;
       text-decoration: none;
     }
-
-    .actions a:hover {
-      background: rgba(114, 235, 194, 0.12);
-      border-color: var(--accent);
+    .actions a:hover { background: rgba(114, 235, 194, 0.12); border-color: var(--accent); }
+    .draft-note {
+      margin-top: 0.8rem;
+      padding: 0.8rem 0.9rem;
+      border-radius: 14px;
+      background: rgba(149, 221, 255, 0.08);
+      border: 1px solid rgba(149, 221, 255, 0.18);
+      color: var(--muted);
     }
-
     .empty-state {
       padding: 1rem;
       border-radius: 16px;
@@ -236,13 +124,8 @@
       border: 1px dashed rgba(255, 255, 255, 0.16);
       color: var(--muted);
     }
-
     @media (max-width: 980px) {
-      .summary-grid,
-      .controls-grid,
-      .cards-grid {
-        grid-template-columns: 1fr;
-      }
+      .summary-grid, .controls-grid, .cards-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -252,9 +135,8 @@
       <p class="eyebrow">Grant Radar review layer</p>
       <h1>Discovery candidates</h1>
       <p class="lede">
-        A review queue for newly detected funding pages. These candidates are discovered separately from
-        the live radar and are held here for assessment before any verified opportunities are promoted
-        into the trusted catalogue.
+        A review queue for newly detected funding pages. Candidates can move from review to an approved state,
+        then into a reviewable promotion CL draft, and only after inspection into the trusted catalogue.
       </p>
       <p><a href="./">← Back to Grant Radar</a></p>
     </section>
@@ -277,8 +159,9 @@
             <option value="all">All statuses</option>
             <option value="pending_review">Pending review</option>
             <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
+            <option value="cl_drafted">CL draft ready</option>
             <option value="promoted">Promoted</option>
+            <option value="rejected">Rejected</option>
           </select>
         </div>
         <div>
@@ -296,6 +179,14 @@
             <option value="all">All</option>
             <option value="yes">Seen now</option>
             <option value="no">Older only</option>
+          </select>
+        </div>
+        <div>
+          <label for="clready">CL draft</label>
+          <select id="clready">
+            <option value="all">Any</option>
+            <option value="yes">Draft ready</option>
+            <option value="no">No draft yet</option>
           </select>
         </div>
       </div>
@@ -317,6 +208,7 @@
       status: document.getElementById('status'),
       confidence: document.getElementById('confidence'),
       seen: document.getElementById('seen'),
+      clready: document.getElementById('clready'),
     };
 
     function scoreClass(score) {
@@ -327,6 +219,7 @@
 
     function statusClass(status) {
       if (status === 'approved') return 'pill-approved';
+      if (status === 'cl_drafted') return 'pill-cl-drafted';
       if (status === 'rejected') return 'pill-rejected';
       if (status === 'promoted') return 'pill-promoted';
       return 'pill-pending';
@@ -347,7 +240,8 @@
         summaryBox('Generated at', meta.generated_at || '—'),
         summaryBox('Candidates', meta.candidate_count || 0),
         summaryBox('High confidence', meta.high_confidence_count || 0),
-        summaryBox('Pending review', meta.pending_review_count || 0),
+        summaryBox('Approved', meta.approved_count || 0),
+        summaryBox('CL drafts ready', meta.cl_drafted_count || 0),
       ].join('');
     }
 
@@ -356,6 +250,7 @@
       const status = el.status.value;
       const minConfidence = Number(el.confidence.value);
       const seen = el.seen.value;
+      const clready = el.clready.value;
 
       return (state.payload.candidates || []).filter((item) => {
         const haystack = [
@@ -372,6 +267,8 @@
         if (Number(item.confidence || 0) < minConfidence) return false;
         if (seen === 'yes' && !item.seen_in_latest_run) return false;
         if (seen === 'no' && item.seen_in_latest_run) return false;
+        if (clready === 'yes' && !item.cl_draft_ready) return false;
+        if (clready === 'no' && item.cl_draft_ready) return false;
         return true;
       });
     }
@@ -388,7 +285,7 @@
         <article class="candidate-card">
           <div class="top-row">
             <div class="tag-row">
-              <span class="pill ${statusClass(item.status)}">${item.status.replaceAll('_', ' ')}</span>
+              <span class="pill ${statusClass(item.status)}">${(item.status || 'pending_review').replaceAll('_', ' ')}</span>
               <span class="pill ${scoreClass(Number(item.confidence || 0))}">confidence ${Number(item.confidence || 0).toFixed(2)}</span>
             </div>
             <div class="small">${item.seen_in_latest_run ? 'Seen in latest run' : 'Older candidate'}</div>
@@ -410,8 +307,17 @@
           <p class="small"><strong>Deadline hint:</strong> ${item.deadline_hint || '—'}</p>
           <p class="small"><strong>First seen:</strong> ${item.first_seen || '—'}<br><strong>Last seen:</strong> ${item.last_seen || '—'}</p>
 
+          ${item.cl_draft_ready ? `
+            <div class="draft-note">
+              <strong>CL draft ready.</strong><br>
+              Draft created: ${item.cl_draft_generated_at || '—'}
+            </div>
+          ` : ''}
+
           <div class="actions">
             <a href="${item.url}" target="_blank" rel="noopener noreferrer">Open candidate page</a>
+            ${item.cl_draft_html ? `<a href="./${item.cl_draft_html}" target="_blank" rel="noopener noreferrer">Open CL draft</a>` : ''}
+            ${item.cl_draft_json ? `<a href="./${item.cl_draft_json}" target="_blank" rel="noopener noreferrer">Open draft JSON</a>` : ''}
           </div>
         </article>
       `).join('');
@@ -424,7 +330,7 @@
       renderSummary();
       renderCards();
 
-      [el.search, el.status, el.confidence, el.seen].forEach((node) => {
+      [el.search, el.status, el.confidence, el.seen, el.clready].forEach((node) => {
         node.addEventListener('input', renderCards);
       });
     }

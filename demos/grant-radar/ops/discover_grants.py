@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Discovery layer for Grant Radar, tuned for practical catchment and water-quality routes.
-
-This still does NOT publish directly to the live catalogue.
-It scans trusted domains derived from source-registry.json, including practical
-delivery hubs, and writes candidates to the review queue.
-"""
+"""Discovery layer for Grant Radar with persistent CL draft metadata."""
 
 from __future__ import annotations
 
@@ -28,7 +23,7 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/0.3 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/0.4 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
@@ -75,6 +70,7 @@ DEADLINE_PATTERNS = [
     r"(applications? close[^\n\r]{0,120})",
     r"(submit(?:ted)? by[^\n\r]{0,120})",
 ]
+
 
 @dataclass
 class Candidate:
@@ -214,10 +210,8 @@ def normalise_applicant_types(raw_types: list[str]) -> list[str]:
         simplified.append("schools")
     if has("homeowner", "household"):
         simplified.append("households")
-
     if not simplified:
         simplified = raw_types[:]
-
     return ordered(simplified, APPLICANT_PRIORITY)
 
 
@@ -431,6 +425,16 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
     )
 
 
+PERSISTENT_FIELDS = [
+    "status",
+    "notes",
+    "cl_draft_ready",
+    "cl_draft_generated_at",
+    "cl_draft_json",
+    "cl_draft_html",
+]
+
+
 def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candidate], seen_at: str) -> dict[str, Any]:
     previous_candidates = {item["url"]: item for item in previous_payload.get("candidates", [])}
     merged: dict[str, dict[str, Any]] = {}
@@ -440,8 +444,10 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
         old = previous_candidates.get(item["url"])
         if old:
             item["first_seen"] = old.get("first_seen", item["first_seen"])
-            item["status"] = old.get("status", item["status"])
-            item["notes"] = old.get("notes", item["notes"])
+            item["last_seen"] = seen_at
+            for field in PERSISTENT_FIELDS:
+                if field in old:
+                    item[field] = old[field]
         merged[item["url"]] = item
 
     for url, old in previous_candidates.items():
@@ -457,6 +463,9 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
 
     high_conf = sum(1 for item in candidates if float(item.get("confidence", 0)) >= 0.8)
     pending = sum(1 for item in candidates if item.get("status") == "pending_review")
+    approved = sum(1 for item in candidates if item.get("status") == "approved")
+    drafted = sum(1 for item in candidates if item.get("status") == "cl_drafted")
+    promoted = sum(1 for item in candidates if item.get("status") == "promoted")
     by_domain = defaultdict(int)
     for item in candidates:
         by_domain[item.get("domain", "unknown")] += 1
@@ -464,10 +473,13 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
     return {
         "meta": {
             "generated_at": seen_at,
-            "generator": "grant-radar-discovery 0.3",
+            "generator": "grant-radar-discovery 0.4",
             "candidate_count": len(candidates),
             "high_confidence_count": high_conf,
             "pending_review_count": pending,
+            "approved_count": approved,
+            "cl_drafted_count": drafted,
+            "promoted_count": promoted,
             "domains_seen": dict(sorted(by_domain.items())),
         },
         "candidates": candidates,
@@ -493,7 +505,7 @@ def discover() -> None:
     registry = load_json(REGISTRY_PATH, default=[])
     registry, registry_changed = ensure_registry_defaults(registry)
     previous_discovery = load_json(DISCOVERY_PATH, default={})
-    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.3"}, "pages": {}})
+    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.4"}, "pages": {}})
     newly_found: list[Candidate] = []
 
     for source in registry:
@@ -553,7 +565,7 @@ def discover() -> None:
 
     memory.setdefault("meta", {})
     memory["meta"]["generated_at"] = seen_at
-    memory["meta"]["generator"] = "grant-radar-discovery 0.3"
+    memory["meta"]["generator"] = "grant-radar-discovery 0.4"
 
     if registry_changed:
         save_json(REGISTRY_PATH, registry)
