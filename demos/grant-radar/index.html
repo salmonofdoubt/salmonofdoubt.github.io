@@ -110,6 +110,13 @@
               >
                 Send feedback
               </a>
+
+              <a
+                class="pill-link"
+                href="./review.html"
+              >
+                Review candidates
+              </a>
             </div>
 
             <div class="github-blob" aria-label="Grant Radar GitHub links">
@@ -190,10 +197,21 @@
           <p>Start with thematic purpose, then narrow by who can apply, how access works, and whether the cycle is new, open, or already closed.</p>
         </div>
 
-        <div class="controls-grid">
+        <div class="purpose-wrap purpose-wrap-priority">
+          <div class="purpose-head">
+            <div class="purpose-head-copy">
+              <h3>Purpose</h3>
+              <p class="purpose-intro">Begin here. The purpose chips are the primary filter layer; free-text search is optional.</p>
+            </div>
+            <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
+          </div>
+          <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
+        </div>
+
+        <div class="controls-grid controls-grid-secondary">
           <div class="control-block control-wide">
             <label for="search-input">Search</label>
-            <input id="search-input" type="search" placeholder="e.g. biodiversity, peatland, wetlands, community group, EPA" />
+            <input id="search-input" type="search" placeholder="Optional free-text search across title, programme, source, and keywords" />
           </div>
 
           <div class="control-block">
@@ -259,14 +277,6 @@
             <label for="deadline-to">Deadline to</label>
             <input id="deadline-to" type="date" />
           </div>
-        </div>
-
-        <div class="purpose-wrap">
-          <div class="purpose-head">
-            <h3>Purpose</h3>
-            <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
-          </div>
-          <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
         </div>
       </section>
 
