@@ -4,10 +4,10 @@
     "generator": "grant-radar-discovery 0.4",
     "candidate_count": 171,
     "high_confidence_count": 10,
-    "pending_review_count": 168,
+    "pending_review_count": 167,
     "approved_count": 0,
     "cl_drafted_count": 2,
-    "promoted_count": 1,
+    "promoted_count": 2,
     "domains_seen": {
       "agriculture.gov.ie": 1,
       "cinea.ec.europa.eu": 9,
@@ -384,7 +384,7 @@
       "source_id_hint": "horizon_biodiv",
       "candidate_type": "call_page",
       "confidence": 0.82,
-      "status": "pending_review",
+      "status": "promoted",
       "suggested_purposes": [
         "biodiversity",
         "ecology",
@@ -405,7 +405,17 @@
       "deadline_hint": "deadline which will be evaluated against only two award criteria: ‘Excellence’ and ‘Impact’. Successful applicants are invited to",
       "page_hash": "sha256:924c5dfe6bab5f28a320dacce3d3db33fd9fe9a203c2c83af2870814f5e99df3",
       "notes": "",
-      "seen_in_latest_run": true
+      "seen_in_latest_run": true,
+      "cl_draft_ready": true,
+      "cl_draft_generated_at": "2026-04-23T16:48:11+00:00",
+      "cl_draft_json": "promotion-drafts/20260423T164811Z_cand_horizon_biodiv_https_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_biodiversity_and_ecosystem_services_en.json",
+      "cl_draft_html": "promotion-drafts/20260423T164811Z_cand_horizon_biodiv_https_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_biodiversity_and_ecosystem_services_en.html",
+      "already_trusted": true,
+      "trusted_registry_id": "horizon_biodiv",
+      "promotion_requested": false,
+      "promotion_request_issue_number": 9,
+      "promotion_request_issue_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/9",
+      "request_origin_status": null
     },
     {
       "id": "cand_gsi_geoheritage_https_www_gsi_ie_en_ie_research",
