@@ -9,7 +9,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: grant-radar-master-writes
+  group: repo-master-writes
   cancel-in-progress: false
 
 jobs:
