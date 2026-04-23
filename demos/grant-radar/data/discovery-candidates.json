@@ -4,9 +4,9 @@
     "generator": "grant-radar-discovery 0.4",
     "candidate_count": 171,
     "high_confidence_count": 10,
-    "pending_review_count": 171,
+    "pending_review_count": 170,
     "approved_count": 0,
-    "cl_drafted_count": 0,
+    "cl_drafted_count": 1,
     "promoted_count": 0,
     "domains_seen": {
       "agriculture.gov.ie": 1,
@@ -23,7 +23,8 @@
       "rea.ec.europa.eu": 8,
       "researchireland.ie": 14,
       "teagasc.ie": 18
-    }
+    },
+    "promotion_requested_count": 1
   },
   "candidates": [
     {
@@ -1215,7 +1216,7 @@
       "source_id_hint": "heritage_community_grant",
       "candidate_type": "call_page",
       "confidence": 0.66,
-      "status": "pending_review",
+      "status": "cl_drafted",
       "suggested_purposes": [
         "biodiversity",
         "heritage",
@@ -1238,7 +1239,15 @@
       "deadline_hint": "deadline was",
       "page_hash": "sha256:56bdd2b32936b4f1f9017bc56b3bea1a73e789d196eafc1a0b6ba8a655ffe90e",
       "notes": "",
-      "seen_in_latest_run": true
+      "seen_in_latest_run": true,
+      "promotion_requested": true,
+      "promotion_request_issue_number": 5,
+      "promotion_request_issue_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/5",
+      "request_origin_status": "pending_review",
+      "cl_draft_ready": true,
+      "cl_draft_generated_at": "2026-04-23T14:17:49+00:00",
+      "cl_draft_json": "promotion-drafts/20260423T141749Z_cand_heritage_community_grant_https_www_heritagecouncil_ie_funding_community_heritage_grant_scheme_2.json",
+      "cl_draft_html": "promotion-drafts/20260423T141749Z_cand_heritage_community_grant_https_www_heritagecouncil_ie_funding_community_heritage_grant_scheme_2.html"
     },
     {
       "id": "cand_research_ireland_goipg_https_www_researchireland_ie_funding_government_ireland_postgraduate",
