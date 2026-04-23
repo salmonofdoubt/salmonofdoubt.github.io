@@ -49,7 +49,7 @@
     .lede, .muted, .small { color: var(--muted); }
     .summary-grid, .controls-grid, .cards-grid { display: grid; gap: 0.85rem; }
     .summary-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-    .controls-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .controls-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
     .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .summary-box, .candidate-card {
       border-radius: 18px;
@@ -173,12 +173,11 @@
       <p class="eyebrow">Grant Radar review layer</p>
       <h1>Discovery candidates</h1>
       <p class="lede">
-        Use the suggest box on a candidate to open a GitHub request issue. The workflow then creates a reviewable CL draft.
+        Use the suggest box on a candidate to open a GitHub request issue. The workflow then creates a reviewable draft.
         In the issue, tick either <strong>Accept promotion into trusted catalogue</strong> or <strong>Reject suggestion</strong>.
-        Accept promotes the candidate into the main catalogue. Reject clears the suggestion state.
       </p>
       <p class="dedupe-note">
-        This version deduplicates multilingual and structurally repeated candidates, hides completed items by default, and uses a separate review.js file.
+        This version hides completed items by default, suppresses already-trusted items unless you ask to see them, deduplicates multilingual repeats, and reuses stable draft files so deployment does not keep growing.
       </p>
       <p><a href="./">← Back to Grant Radar</a></p>
     </section>
@@ -232,6 +231,14 @@
           </select>
         </div>
         <div>
+          <label for="trusted">Already trusted</label>
+          <select id="trusted">
+            <option value="hide" selected>Hide</option>
+            <option value="show">Show</option>
+            <option value="only">Only already trusted</option>
+          </select>
+        </div>
+        <div>
           <label for="dedupe">View mode</label>
           <select id="dedupe">
             <option value="deduped" selected>Deduped view</option>
@@ -247,6 +254,6 @@
     </section>
   </div>
 
-  <script src="./review.js" defer></script>
+  <script src="./review.js?v=20260423b" defer></script>
 </body>
 </html>

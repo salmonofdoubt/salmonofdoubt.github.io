@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Handle GitHub issue-driven promotion requests for Grant Radar candidates.
 
-This version is intentionally state-driven:
-- candidate identity is taken from the issue title first
-- body parsing is tolerant of literal \n sequences
+State-driven approach:
+- candidate identity comes from the issue title first
+- issue body parsing tolerates literal \n sequences
 - duplicate or already-trusted promotions are treated as success
-- the workflow comments a diagnostic instead of crashing on lookup failure
+- missing candidates produce comments, not hard crashes
 """
 
 from __future__ import annotations
@@ -183,10 +183,6 @@ def clear_request(candidate: dict[str, Any]) -> None:
     candidate["promotion_request_issue_number"] = None
     candidate["promotion_request_issue_url"] = None
     candidate["request_origin_status"] = None
-    candidate["cl_draft_ready"] = False
-    candidate["cl_draft_generated_at"] = None
-    candidate["cl_draft_json"] = None
-    candidate["cl_draft_html"] = None
 
 
 def main() -> None:
@@ -229,7 +225,7 @@ def main() -> None:
         save_json(CANDIDATES_PATH, payload)
         issue_comment(
             issue_number,
-            "Suggestion rejected. The request flag and draft metadata have been cleared from the review queue.",
+            "Suggestion rejected. The request flag has been cleared from the review queue.",
         )
         close_issue(issue_number)
         return
@@ -258,7 +254,7 @@ def main() -> None:
             if candidate.get("already_trusted"):
                 issue_comment(
                     issue_number,
-                    f"Candidate already existed in the trusted registry under `{candidate.get('trusted_registry_id')}`. The review state has been cleaned up.",
+                    f"Candidate was already represented in the trusted registry under `{candidate.get('trusted_registry_id')}`. The review state has been cleaned up.",
                 )
             else:
                 issue_comment(
@@ -288,7 +284,7 @@ def main() -> None:
     )
     issue_comment(
         issue_number,
-        "Promotion request registered. A reviewable CL draft has been generated and linked from the review queue.",
+        "Promotion request registered. A reviewable draft has been generated and linked from the review queue.",
     )
 
 

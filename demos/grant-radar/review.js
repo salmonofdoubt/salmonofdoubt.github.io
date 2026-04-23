@@ -9,6 +9,7 @@ const el = {
   confidence: document.getElementById('confidence'),
   seen: document.getElementById('seen'),
   requested: document.getElementById('requested'),
+  trusted: document.getElementById('trusted'),
   dedupe: document.getElementById('dedupe'),
 };
 
@@ -114,8 +115,8 @@ function renderSummary(rawCandidates, visibleCandidates) {
     summaryBox('Visible candidates', visibleCandidates.length),
     summaryBox('High confidence', visibleCandidates.filter((item) => Number(item.confidence || 0) >= 0.8).length),
     summaryBox('Requests open', visibleCandidates.filter((item) => item.promotion_requested).length),
-    summaryBox('CL drafts ready', visibleCandidates.filter((item) => item.cl_draft_ready).length),
-    summaryBox('Promoted', visibleCandidates.filter((item) => item.status === 'promoted').length),
+    summaryBox('Drafts ready', visibleCandidates.filter((item) => item.cl_draft_ready).length),
+    summaryBox('Already trusted', visibleCandidates.filter((item) => item.already_trusted).length),
   ].join('');
 }
 
@@ -125,6 +126,7 @@ function filteredCandidates() {
   const minConfidence = Number(el.confidence.value);
   const seen = el.seen.value;
   const requested = el.requested.value;
+  const trusted = el.trusted.value;
 
   return (state.payload.candidates || []).filter((item) => {
     const haystack = [
@@ -144,6 +146,9 @@ function filteredCandidates() {
     } else if (item.status !== status) {
       return false;
     }
+
+    if (trusted === 'hide' && item.already_trusted) return false;
+    if (trusted === 'only' && !item.already_trusted) return false;
 
     if (Number(item.confidence || 0) < minConfidence) return false;
     if (seen === 'yes' && !item.seen_in_latest_run) return false;
@@ -191,7 +196,7 @@ function renderCards() {
           <span class="pill ${statusClass(item.status)}">${(item.status || 'pending_review').replaceAll('_', ' ')}</span>
           <span class="pill ${scoreClass(Number(item.confidence || 0))}">confidence ${Number(item.confidence || 0).toFixed(2)}</span>
           ${item.promotion_requested ? '<span class="pill pill-requested">request open</span>' : ''}
-          ${item.already_trusted ? '<span class="pill pill-already">already trusted</span>' : ''}
+          ${item.already_trusted ? `<span class="pill pill-already">already trusted${item.trusted_registry_id ? `: ${item.trusted_registry_id}` : ''}</span>` : ''}
         </div>
         <div class="small">${item.seen_in_latest_run ? 'Seen in latest run' : 'Older candidate'}</div>
       </div>
@@ -224,21 +229,21 @@ function renderCards() {
             <input type="checkbox" class="suggest-checkbox" data-candidate-id="${item.id}" />
             Suggest for promotion
           </label>
-          <button type="button" class="request-btn" data-candidate-id="${item.id}" disabled>Open request issue</button>
+          <button type="button" class="request-btn" data-candidate-id="${item.id}" ${item.already_trusted ? 'disabled' : 'disabled'}>Open request issue</button>
         </div>
       `}
 
       ${item.cl_draft_ready ? `
         <div class="draft-note">
-          <strong>CL draft ready.</strong><br>
-          Draft created: ${item.cl_draft_generated_at || '—'}
+          <strong>Draft ready.</strong><br>
+          Draft path is stable and reused for this candidate, so the site does not keep growing.
         </div>
       ` : ''}
 
       <div class="actions">
         <a href="${item.url}" target="_blank" rel="noopener noreferrer">Open candidate page</a>
         ${item.promotion_request_issue_url ? `<a href="${item.promotion_request_issue_url}" target="_blank" rel="noopener noreferrer">Open request issue</a>` : ''}
-        ${item.cl_draft_html ? `<a href="./${item.cl_draft_html}" target="_blank" rel="noopener noreferrer">Open CL draft</a>` : ''}
+        ${item.cl_draft_html ? `<a href="./${item.cl_draft_html}" target="_blank" rel="noopener noreferrer">Open draft</a>` : ''}
         ${item.cl_draft_json ? `<a href="./${item.cl_draft_json}" target="_blank" rel="noopener noreferrer">Open draft JSON</a>` : ''}
       </div>
     </article>
@@ -256,7 +261,7 @@ function renderCards() {
     button.addEventListener('click', () => {
       const id = button.dataset.candidateId;
       const item = candidates.find((candidate) => candidate.id === id);
-      if (!item) return;
+      if (!item || item.already_trusted) return;
       window.open(buildIssueUrl(item), '_blank', 'noopener');
     });
   });
@@ -268,7 +273,7 @@ async function init() {
 
   renderCards();
 
-  [el.search, el.status, el.confidence, el.seen, el.requested, el.dedupe]
+  [el.search, el.status, el.confidence, el.seen, el.requested, el.trusted, el.dedupe]
     .filter(Boolean)
     .forEach((node) => {
       node.addEventListener('input', renderCards);

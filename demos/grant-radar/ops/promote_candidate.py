@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Create reviewable promotion CL drafts for Grant Radar candidates.
+"""Create and apply stable promotion drafts for Grant Radar candidates.
 
-Safe by design:
-- creates HTML + JSON CL drafts under demos/grant-radar/promotion-drafts/
-- updates discovery-candidates.json so the review page can show draft status
-- mutates source-registry.json only when --apply is explicitly used
-- treats duplicate URL or family matches as already-trusted success
+Key behavior:
+- one stable JSON + one stable HTML draft per candidate
+- no timestamped draft accumulation
+- stale draft pruning
+- duplicate URL or family matches are treated as already-trusted success
 """
 
 from __future__ import annotations
@@ -70,10 +70,6 @@ def canonical_candidate_family_key(url: str) -> str:
 def canonical_domain(url: str) -> str:
     host = urlparse(url).netloc.lower()
     return host[4:] if host.startswith("www.") else host
-
-
-def timestamp_slug() -> str:
-    return datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
 
 
 def now_iso() -> str:
@@ -264,11 +260,9 @@ def registry_duplicate_info(candidate: dict[str, Any], registry: list[dict[str, 
     for item in registry:
         if canonical_url(item.get("url", "")) == candidate_url:
             return {"kind": "url", "id": item.get("id"), "name": item.get("name")}
-
     for item in registry:
         if canonical_candidate_family_key(item.get("url", "")) == candidate_family:
             return {"kind": "family", "id": item.get("id"), "name": item.get("name")}
-
     source_id_hint = candidate.get("source_id_hint")
     if source_id_hint:
         for item in registry:
@@ -282,10 +276,10 @@ def build_html(candidate: dict[str, Any], entry: dict[str, Any], duplicate: dict
     if duplicate:
         duplicate_html = f"""
         <section class="panel">
-          <h2>Duplicate check</h2>
-          <p><strong>Existing registry match kind:</strong> {html.escape(duplicate['kind'])}</p>
-          <p><strong>Existing registry id:</strong> {html.escape(duplicate['id'])}</p>
-          <p><strong>Existing registry name:</strong> {html.escape(duplicate['name'])}</p>
+          <h2>Registry match</h2>
+          <p><strong>Kind:</strong> {html.escape(duplicate['kind'])}</p>
+          <p><strong>Existing id:</strong> {html.escape(duplicate['id'])}</p>
+          <p><strong>Existing name:</strong> {html.escape(duplicate['name'])}</p>
         </section>
         """
 
@@ -294,20 +288,13 @@ def build_html(candidate: dict[str, Any], entry: dict[str, Any], duplicate: dict
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grant Radar Promotion CL Draft</title>
+  <title>Grant Radar Promotion Draft</title>
   <style>
-    :root {{
-      --line: rgba(110, 214, 196, 0.18);
-      --text: #ecf8f5;
-      --muted: #b8d9d1;
-      --radius: 18px;
-    }}
-    * {{ box-sizing: border-box; }}
     body {{
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: linear-gradient(135deg, #06111d 0%, #0a1e2c 35%, #0b2d31 62%, #0f362e 100%);
-      color: var(--text);
+      color: #ecf8f5;
     }}
     .shell {{
       width: min(1100px, calc(100% - 2rem));
@@ -317,74 +304,36 @@ def build_html(candidate: dict[str, Any], entry: dict[str, Any], duplicate: dict
     .panel {{
       margin-top: 1rem;
       padding: 1.1rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(7, 29, 38, 0.96), rgba(12, 39, 42, 0.96));
+      border-radius: 18px;
+      border: 1px solid rgba(110,214,196,0.18);
+      background: linear-gradient(180deg, rgba(7,29,38,0.96), rgba(12,39,42,0.96));
     }}
-    h1, h2, p, pre {{ margin-top: 0; }}
-    .eyebrow {{ color: #d7ff8a; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; }}
-    .muted {{ color: var(--muted); }}
     pre {{
       overflow: auto;
       padding: 1rem;
       border-radius: 14px;
-      background: rgba(5, 16, 25, 0.78);
+      background: rgba(5,16,25,0.78);
       border: 1px solid rgba(255,255,255,0.08);
-      color: #eff8ff;
       white-space: pre-wrap;
       word-break: break-word;
     }}
-    .actions {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }}
-    a.button {{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 0 1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
+    a {{
+      color: #72ebc2;
       text-decoration: none;
-      font-weight: 700;
     }}
   </style>
 </head>
 <body>
   <div class="shell">
     <section class="panel">
-      <p class="eyebrow">Grant Radar promotion CL draft</p>
       <h1>{html.escape(candidate.get("title", "Untitled candidate"))}</h1>
-      <p class="muted">Candidate id: {html.escape(candidate.get("id", ""))}</p>
-      <div class="actions">
-        <a class="button" href="{html.escape(candidate.get("url", ""))}" target="_blank" rel="noopener noreferrer">Open candidate page</a>
-      </div>
+      <p>Candidate id: {html.escape(candidate.get("id", ""))}</p>
+      <p><a href="{html.escape(candidate.get("url", ""))}" target="_blank" rel="noopener noreferrer">Open candidate page</a></p>
     </section>
-
-    <section class="panel">
-      <h2>Candidate summary</h2>
-      <p><strong>Status:</strong> {html.escape(candidate.get("status", "pending_review"))}</p>
-      <p><strong>Confidence:</strong> {html.escape(str(candidate.get("confidence", "")))}</p>
-      <p><strong>Source hint:</strong> {html.escape(candidate.get("source_hint", ""))}</p>
-      <p><strong>Suggested purposes:</strong> {html.escape(", ".join(candidate.get("suggested_purposes", [])) or "—")}</p>
-      <p><strong>Suggested applicant types:</strong> {html.escape(", ".join(candidate.get("suggested_applicant_types", [])) or "—")}</p>
-      <p><strong>Deadline hint:</strong> {html.escape(candidate.get("deadline_hint", "") or "—")}</p>
-    </section>
-
     {duplicate_html}
-
     <section class="panel">
       <h2>Proposed registry entry</h2>
       <pre>{html.escape(json.dumps(entry, indent=2, ensure_ascii=False))}</pre>
-    </section>
-
-    <section class="panel">
-      <h2>Suggested next step</h2>
-      <p class="muted">Inspect this draft first. Only after review should it be applied to source-registry.json and harvested into the live catalogue.</p>
     </section>
   </div>
 </body>
@@ -392,22 +341,28 @@ def build_html(candidate: dict[str, Any], entry: dict[str, Any], duplicate: dict
 """
 
 
+def stable_draft_paths(candidate: dict[str, Any]) -> tuple[Path, Path]:
+    stem = slugify(candidate["id"])
+    return DRAFT_DIR / f"{stem}.json", DRAFT_DIR / f"{stem}.html"
+
+
+def prune_stale_drafts(payload: dict[str, Any]) -> None:
+    DRAFT_DIR.mkdir(parents=True, exist_ok=True)
+    keep = set()
+    for item in payload.get("candidates", []):
+        if item.get("cl_draft_json"):
+            keep.add((SITE_DIR / item["cl_draft_json"]).resolve())
+        if item.get("cl_draft_html"):
+            keep.add((SITE_DIR / item["cl_draft_html"]).resolve())
+
+    for path in DRAFT_DIR.glob("*"):
+        if path.is_file() and path.resolve() not in keep:
+            path.unlink(missing_ok=True)
+
+
 def write_draft(candidate: dict[str, Any], entry: dict[str, Any], duplicate: dict[str, Any] | None) -> tuple[Path, Path, str]:
     DRAFT_DIR.mkdir(parents=True, exist_ok=True)
-    existing_html = candidate.get("cl_draft_html")
-    existing_json = candidate.get("cl_draft_json")
-    if existing_html and existing_json:
-        html_path = SITE_DIR / existing_html
-        json_path = SITE_DIR / existing_json
-        if html_path.exists() and json_path.exists():
-            return json_path, html_path, now_iso()
-
-    stem = f"{timestamp_slug()}_{slugify(candidate['id'])}"
-    json_rel = f"promotion-drafts/{stem}.json"
-    html_rel = f"promotion-drafts/{stem}.html"
-    json_path = SITE_DIR / json_rel
-    html_path = SITE_DIR / html_rel
-
+    json_path, html_path = stable_draft_paths(candidate)
     save_json(json_path, entry)
     html_path.write_text(build_html(candidate, entry, duplicate) + "\n", encoding="utf-8")
     return json_path, html_path, now_iso()
@@ -439,6 +394,7 @@ def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list
         candidate["cl_draft_ready"] = True
         update_meta_counts(payload)
         save_json(CANDIDATES_PATH, payload)
+        prune_stale_drafts(payload)
         print(f"Already trusted under registry id {duplicate['id']}; marked candidate as promoted instead of re-adding.")
         return
 
@@ -455,10 +411,11 @@ def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list
     candidate["request_origin_status"] = None
     update_meta_counts(payload)
     save_json(CANDIDATES_PATH, payload)
+    prune_stale_drafts(payload)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Create or apply a reviewable promotion CL draft for a Grant Radar candidate.")
+    parser = argparse.ArgumentParser(description="Create or apply a stable promotion draft for a Grant Radar candidate.")
     parser.add_argument("--id", dest="candidate_id", help="Candidate id from discovery-candidates.json")
     parser.add_argument("--url", dest="candidate_url", help="Candidate url from discovery-candidates.json")
     parser.add_argument("--apply", action="store_true", help="Apply the generated entry to source-registry.json after review")
@@ -480,6 +437,7 @@ def main() -> None:
     candidate["cl_draft_html"] = str(html_path.relative_to(SITE_DIR)).replace("\\", "/")
     update_meta_counts(payload)
     save_json(CANDIDATES_PATH, payload)
+    prune_stale_drafts(payload)
 
     print(f"Wrote draft JSON: {json_path}")
     print(f"Wrote draft HTML: {html_path}")

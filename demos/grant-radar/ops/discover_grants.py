@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Discovery layer for Grant Radar with persistent CL draft metadata.
+"""Discovery layer for Grant Radar with persistent metadata.
 
-This version reduces duplicate review candidates by:
-- blocking obvious non-funding child pages
-- collapsing multilingual URL variants into one candidate family
-- preferring English variants when several language pages exist
-- tagging candidates that are already represented in the trusted registry
-- preserving review and CL metadata across refreshes
+This version:
+- blocks obvious non-funding child pages
+- collapses multilingual URL variants into one candidate family
+- prefers English variants when several language pages exist
+- tags candidates already represented in the trusted registry
+- preserves review metadata across refreshes
 """
 
 from __future__ import annotations
@@ -31,7 +31,7 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/0.6 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/0.7 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
@@ -185,15 +185,9 @@ def save_json(path: Path, data: Any) -> None:
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def slugify(value: str) -> str:
-    return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
-
-
 def canonical_domain(url: str) -> str:
     host = urlparse(url).netloc.lower()
-    if host.startswith("www."):
-        host = host[4:]
-    return host
+    return host[4:] if host.startswith("www.") else host
 
 
 def canonical_url(url: str) -> str:
@@ -216,6 +210,10 @@ def canonical_candidate_family_key(url: str) -> str:
     path = LANGUAGE_SUFFIX_RE.sub("", parsed.path)
     normalized = parsed._replace(path=path, query="", fragment="")
     return urlunparse(normalized)
+
+
+def slugify(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
 
 
 def is_same_or_child_domain(url: str, trusted_domain: str) -> bool:
@@ -355,7 +353,7 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     snippet = re.sub(r"\s+", " ", text[:700]).strip()
     page_hash = "sha256:" + hashlib.sha256(response.text.encode("utf-8", errors="ignore")).hexdigest()
 
-    links: list[dict[str, str]] = []
+    links = []
     for anchor in soup.find_all("a", href=True):
         href = canonical_url(urljoin(url, anchor["href"]))
         label = re.sub(r"\s+", " ", anchor.get_text(" ", strip=True)).strip()
@@ -437,7 +435,7 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
     deadline_hint = detect_deadline_hint(text)
 
     confidence = 0.0
-    reason_flags: list[str] = []
+    reason_flags = []
 
     if is_same_or_child_domain(page["url"], trusted_domain):
         confidence += 0.25
@@ -474,18 +472,12 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         candidate_type = "support_page"
 
     raw_applicant_types = source.get("extract", {}).get("applicant_types", [])
-    applicant_types = normalise_applicant_types(raw_applicant_types)
-    access_route = normalise_access_route(source.get("extract", {}).get("access_route"))
-    scale = normalise_scale(source.get("extract", {}).get("scale"))
-    family_key = canonical_candidate_family_key(page["url"])
-    candidate_id = slugify(f"cand_{source['id']}_{page['url']}")
-
     registry_match = find_existing_registry_match(page["url"], registry)
 
-    candidate = Candidate(
-        id=candidate_id,
+    return Candidate(
+        id=slugify(f"cand_{source['id']}_{page['url']}"),
         url=page["url"],
-        canonical_family_key=family_key,
+        canonical_family_key=canonical_candidate_family_key(page["url"]),
         domain=canonical_domain(page["url"]),
         title=title,
         snippet=snippet[:420],
@@ -498,9 +490,9 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         confidence=confidence,
         status="pending_review",
         suggested_purposes=source.get("purposes", [])[:8],
-        suggested_applicant_types=applicant_types[:8],
-        suggested_access_route=access_route,
-        suggested_scale=scale,
+        suggested_applicant_types=normalise_applicant_types(raw_applicant_types)[:8],
+        suggested_access_route=normalise_access_route(source.get("extract", {}).get("access_route")),
+        suggested_scale=normalise_scale(source.get("extract", {}).get("scale")),
         reason_flags=dedupe_keep_order(reason_flags),
         deadline_hint=deadline_hint,
         page_hash=page["page_hash"],
@@ -509,7 +501,6 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         already_trusted=bool(registry_match),
         trusted_registry_id=registry_match["id"] if registry_match else None,
     )
-    return candidate
 
 
 PERSISTENT_FIELDS = [
@@ -553,7 +544,7 @@ def choose_better_candidate(existing: Candidate, candidate: Candidate) -> Candid
 
 def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candidate], seen_at: str) -> dict[str, Any]:
     previous_candidates = {item["url"]: item for item in previous_payload.get("candidates", [])}
-    merged: dict[str, dict[str, Any]] = {}
+    merged = {}
 
     for candidate in newly_found:
         item = candidate.as_dict()
@@ -590,7 +581,7 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
     return {
         "meta": {
             "generated_at": seen_at,
-            "generator": "grant-radar-discovery 0.6",
+            "generator": "grant-radar-discovery 0.7",
             "candidate_count": len(candidates),
             "high_confidence_count": high_conf,
             "pending_review_count": pending,
@@ -624,8 +615,8 @@ def discover() -> None:
     registry = load_json(REGISTRY_PATH, default=[])
     registry, registry_changed = ensure_registry_defaults(registry)
     previous_discovery = load_json(DISCOVERY_PATH, default={})
-    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.6"}, "pages": {}})
-    newly_found: list[Candidate] = []
+    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.7"}, "pages": {}})
+    newly_found = []
 
     for source in registry:
         if not source.get("discovery_enabled", True):
@@ -660,8 +651,8 @@ def discover() -> None:
                 if looks_like_grant_link(href, link.get("label", ""), source.get("watch_terms", [])):
                     same_domain_links.append(href)
 
-            family_seen: set[str] = set()
-            filtered_child_urls: list[str] = []
+            family_seen = set()
+            filtered_child_urls = []
             for child_url in dedupe_keep_order(same_domain_links):
                 family_key = canonical_candidate_family_key(child_url)
                 if family_key in family_seen:
@@ -683,7 +674,7 @@ def discover() -> None:
                     newly_found.append(child_candidate)
                     candidate_count_for_source += 1
 
-    best_by_family: dict[str, Candidate] = {}
+    best_by_family = {}
     for candidate in newly_found:
         existing = best_by_family.get(candidate.canonical_family_key)
         if existing is None:
@@ -695,7 +686,7 @@ def discover() -> None:
 
     memory.setdefault("meta", {})
     memory["meta"]["generated_at"] = seen_at
-    memory["meta"]["generator"] = "grant-radar-discovery 0.6"
+    memory["meta"]["generator"] = "grant-radar-discovery 0.7"
 
     if registry_changed:
         save_json(REGISTRY_PATH, registry)
