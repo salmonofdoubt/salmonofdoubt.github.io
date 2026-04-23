@@ -84,32 +84,37 @@ def update_meta_counts(payload: dict[str, Any]) -> None:
 
 
 def parse_issue_body(body: str) -> tuple[str | None, str | None, bool, bool]:
+    # Some issue bodies arrive with literal "\n" sequences instead of clean line breaks.
+    # Normalise those first so both browser-created and email-edited issues are parseable.
+    normalised = body.replace("\\r\\n", "\n").replace("\\n", "\n")
+
     candidate_id = None
     candidate_url = None
 
-    for line in body.splitlines():
-        stripped = line.strip()
-        if stripped.lower().startswith("candidate_id:"):
-            candidate_id = stripped.split(":", 1)[1].strip()
-        if stripped.lower().startswith("candidate_url:"):
-            candidate_url = stripped.split(":", 1)[1].strip()
+    id_match = re.search(r"candidate_id:\s*([^\s]+)", normalised, flags=re.IGNORECASE)
+    if id_match:
+        candidate_id = id_match.group(1).strip()
+
+    url_match = re.search(r"candidate_url:\s*(https?://\S+)", normalised, flags=re.IGNORECASE)
+    if url_match:
+        candidate_url = url_match.group(1).strip()
 
     accept = bool(
         re.search(
-            r"- \[x\] Accept promotion into trusted catalogue",
-            body,
+            r"-\s*\[x\]\s*Accept promotion into trusted catalogue",
+            normalised,
             flags=re.IGNORECASE,
         )
     )
     reject = bool(
         re.search(
-            r"- \[x\] Reject suggestion",
-            body,
+            r"-\s*\[x\]\s*Reject suggestion",
+            normalised,
             flags=re.IGNORECASE,
         )
     )
-    return candidate_id, candidate_url, accept, reject
 
+    return candidate_id, candidate_url, accept, reject
 
 def parse_candidate_id_from_title(title: str) -> str | None:
     # Preferred exact pattern
