@@ -4,7 +4,8 @@
 Safe by design:
 - creates HTML + JSON CL drafts under demos/grant-radar/promotion-drafts/
 - updates discovery-candidates.json so the review page can show draft status
-- does NOT mutate source-registry.json unless --apply is explicitly used
+- mutates source-registry.json only when --apply is explicitly used
+- treats duplicate URL or family matches as already-trusted success
 """
 
 from __future__ import annotations
@@ -16,7 +17,7 @@ import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 SITE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = SITE_DIR / "data"
@@ -25,6 +26,10 @@ DRAFT_DIR = SITE_DIR / "promotion-drafts"
 CANDIDATES_PATH = DATA_DIR / "discovery-candidates.json"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 
+LANGUAGE_SUFFIX_RE = re.compile(
+    r"_(bg|cs|da|de|el|en|es|et|fi|fr|ga|hr|hu|it|lt|lv|mt|nl|pl|pt|ro|sk|sl|sv)$",
+    flags=re.IGNORECASE,
+)
 
 def load_json(path: Path, default: Any) -> Any:
     if not path.exists():
@@ -38,6 +43,28 @@ def save_json(path: Path, data: Any) -> None:
 
 def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
+
+
+def canonical_url(url: str) -> str:
+    parsed = urlparse(url)
+    cleaned_query = [(k, v) for k, v in parse_qsl(parsed.query, keep_blank_values=True) if not k.lower().startswith("utm_")]
+    normalized = parsed._replace(
+        scheme=(parsed.scheme or "https").lower(),
+        netloc=parsed.netloc.lower(),
+        fragment="",
+        query=urlencode(cleaned_query, doseq=True),
+    )
+    out = urlunparse(normalized)
+    if out.endswith("/") and parsed.path not in ("", "/"):
+        out = out[:-1]
+    return out
+
+
+def canonical_candidate_family_key(url: str) -> str:
+    parsed = urlparse(canonical_url(url))
+    path = LANGUAGE_SUFFIX_RE.sub("", parsed.path)
+    normalized = parsed._replace(path=path, query="", fragment="")
+    return urlunparse(normalized)
 
 
 def canonical_domain(url: str) -> str:
@@ -231,9 +258,17 @@ def find_candidate(payload: dict[str, Any], *, candidate_id: str | None, url: st
 
 
 def registry_duplicate_info(candidate: dict[str, Any], registry: list[dict[str, Any]]) -> dict[str, Any] | None:
+    candidate_url = canonical_url(candidate["url"])
+    candidate_family = canonical_candidate_family_key(candidate["url"])
+
     for item in registry:
-        if item.get("url") == candidate.get("url"):
+        if canonical_url(item.get("url", "")) == candidate_url:
             return {"kind": "url", "id": item.get("id"), "name": item.get("name")}
+
+    for item in registry:
+        if canonical_candidate_family_key(item.get("url", "")) == candidate_family:
+            return {"kind": "family", "id": item.get("id"), "name": item.get("name")}
+
     source_id_hint = candidate.get("source_id_hint")
     if source_id_hint:
         for item in registry:
@@ -393,8 +428,10 @@ def update_meta_counts(payload: dict[str, Any]) -> None:
 def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list[dict[str, Any]], payload: dict[str, Any]) -> None:
     duplicate = registry_duplicate_info(candidate, registry)
 
-    if duplicate and duplicate["kind"] == "url":
+    if duplicate:
         candidate["status"] = "promoted"
+        candidate["already_trusted"] = True
+        candidate["trusted_registry_id"] = duplicate["id"]
         candidate["promotion_requested"] = False
         candidate["promotion_request_issue_number"] = None
         candidate["promotion_request_issue_url"] = None
@@ -402,7 +439,7 @@ def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list
         candidate["cl_draft_ready"] = True
         update_meta_counts(payload)
         save_json(CANDIDATES_PATH, payload)
-        print(f"URL already present in registry under id {duplicate['id']}; marked candidate as promoted instead of re-adding.")
+        print(f"Already trusted under registry id {duplicate['id']}; marked candidate as promoted instead of re-adding.")
         return
 
     registry.append(entry)
@@ -410,6 +447,8 @@ def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list
     save_json(REGISTRY_PATH, registry)
 
     candidate["status"] = "promoted"
+    candidate["already_trusted"] = False
+    candidate["trusted_registry_id"] = entry["id"]
     candidate["promotion_requested"] = False
     candidate["promotion_request_issue_number"] = None
     candidate["promotion_request_issue_url"] = None
@@ -448,8 +487,7 @@ def main() -> None:
 
     if args.apply:
         apply_entry(candidate, entry, registry, payload)
-        print(f"Applied entry to {REGISTRY_PATH}")
-        print(f"Marked candidate as promoted in {CANDIDATES_PATH}")
+        print(f"Apply phase completed for {candidate['id']}")
     else:
         print("Draft created. Registry unchanged.")
 

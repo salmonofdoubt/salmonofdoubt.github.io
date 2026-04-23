@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Handle GitHub issue-driven promotion requests for Grant Radar candidates.
 
-This version is more fault-tolerant than the original:
-- parses candidate_id and candidate_url from the issue body
-- falls back to the issue title if candidate_id is missing from the body
-- normalises URLs before matching
-- comments diagnostic information back to the issue
-- exits cleanly instead of hard-failing when the candidate cannot be resolved
+This version is intentionally state-driven:
+- candidate identity is taken from the issue title first
+- body parsing is tolerant of literal \n sequences
+- duplicate or already-trusted promotions are treated as success
+- the workflow comments a diagnostic instead of crashing on lookup failure
 """
 
 from __future__ import annotations
@@ -84,8 +83,6 @@ def update_meta_counts(payload: dict[str, Any]) -> None:
 
 
 def parse_issue_body(body: str) -> tuple[str | None, str | None, bool, bool]:
-    # Some issue bodies arrive with literal "\n" sequences instead of clean line breaks.
-    # Normalise those first so both browser-created and email-edited issues are parseable.
     normalised = body.replace("\\r\\n", "\n").replace("\\n", "\n")
 
     candidate_id = None
@@ -116,13 +113,12 @@ def parse_issue_body(body: str) -> tuple[str | None, str | None, bool, bool]:
 
     return candidate_id, candidate_url, accept, reject
 
+
 def parse_candidate_id_from_title(title: str) -> str | None:
-    # Preferred exact pattern
     match = re.match(r"^\[Grant Radar\]\s+Promote candidate\s+(.+?)\s*$", title.strip())
     if match:
         return match.group(1).strip()
 
-    # Fallback: try to extract a cand_* token from anywhere in the title
     match = re.search(r"\b(cand_[a-z0-9_]+)\b", title.lower())
     if match:
         return match.group(1).strip()
@@ -206,11 +202,9 @@ def main() -> None:
     issue_url = issue["html_url"]
     body = issue.get("body", "") or ""
 
-    candidate_id, candidate_url, accept, reject = parse_issue_body(body)
+    body_candidate_id, candidate_url, accept, reject = parse_issue_body(body)
     title_candidate_id = parse_candidate_id_from_title(title)
-
-    if not candidate_id and title_candidate_id:
-        candidate_id = title_candidate_id
+    candidate_id = title_candidate_id or body_candidate_id
 
     payload = load_json(CANDIDATES_PATH, default={})
     candidate = find_candidate(payload, candidate_id, candidate_url)
@@ -218,10 +212,9 @@ def main() -> None:
     if not candidate:
         diagnostic = (
             "I could not find the referenced candidate in `discovery-candidates.json`.\n\n"
-            f"- Parsed `candidate_id` from body/title: `{candidate_id or 'None'}`\n"
+            f"- Parsed `candidate_id` from title/body: `{candidate_id or 'None'}`\n"
             f"- Parsed `candidate_url` from body: `{candidate_url or 'None'}`\n\n"
-            "This usually means the issue body did not preserve the candidate fields exactly, "
-            "or the candidate is no longer present in the latest discovery queue."
+            "This usually means the candidate is no longer present in the latest discovery queue."
         )
         issue_comment(issue_number, diagnostic)
         print("Candidate not found")
@@ -262,14 +255,25 @@ def main() -> None:
             update_meta_counts(payload)
             save_json(CANDIDATES_PATH, payload)
 
-        issue_comment(
-            issue_number,
-            "Promotion accepted. The candidate has been added to `source-registry.json` and the trusted catalogue has been rebuilt.",
-        )
+            if candidate.get("already_trusted"):
+                issue_comment(
+                    issue_number,
+                    f"Candidate already existed in the trusted registry under `{candidate.get('trusted_registry_id')}`. The review state has been cleaned up.",
+                )
+            else:
+                issue_comment(
+                    issue_number,
+                    f"Promotion accepted. The candidate has been added to the trusted registry as `{candidate.get('trusted_registry_id')}` and the catalogue has been rebuilt.",
+                )
+        else:
+            issue_comment(
+                issue_number,
+                "Promotion run completed, but the candidate could not be reloaded from the queue afterward.",
+            )
+
         close_issue(issue_number)
         return
 
-    # Open or edited request without accept/reject decision yet
     if not candidate.get("promotion_requested"):
         candidate["promotion_requested"] = True
         candidate["promotion_request_issue_number"] = issue_number

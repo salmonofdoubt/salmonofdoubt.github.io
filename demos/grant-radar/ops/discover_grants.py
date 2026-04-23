@@ -5,7 +5,8 @@ This version reduces duplicate review candidates by:
 - blocking obvious non-funding child pages
 - collapsing multilingual URL variants into one candidate family
 - preferring English variants when several language pages exist
-- preserving review / CL metadata across refreshes
+- tagging candidates that are already represented in the trusted registry
+- preserving review and CL metadata across refreshes
 """
 
 from __future__ import annotations
@@ -30,7 +31,7 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/0.5 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/0.6 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
@@ -137,6 +138,8 @@ class Candidate:
     page_hash: str
     notes: str
     seen_in_latest_run: bool
+    already_trusted: bool = False
+    trusted_registry_id: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -163,6 +166,8 @@ class Candidate:
             "page_hash": self.page_hash,
             "notes": self.notes,
             "seen_in_latest_run": self.seen_in_latest_run,
+            "already_trusted": self.already_trusted,
+            "trusted_registry_id": self.trusted_registry_id,
         }
 
 
@@ -403,7 +408,24 @@ def build_watch_urls(source: dict[str, Any]) -> list[str]:
     return dedupe_keep_order(urls)[:MAX_WATCH_URLS_PER_SOURCE]
 
 
-def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_via: str, seen_at: str) -> Candidate | None:
+def find_existing_registry_match(candidate_url: str, registry: list[dict[str, Any]]) -> dict[str, Any] | None:
+    target_url = canonical_url(candidate_url)
+    target_family = canonical_candidate_family_key(candidate_url)
+
+    for item in registry:
+        item_url = item.get("url", "")
+        if canonical_url(item_url) == target_url:
+            return {"kind": "url", "id": item.get("id")}
+
+    for item in registry:
+        item_url = item.get("url", "")
+        if canonical_candidate_family_key(item_url) == target_family:
+            return {"kind": "family", "id": item.get("id")}
+
+    return None
+
+
+def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: list[dict[str, Any]], discovered_via: str, seen_at: str) -> Candidate | None:
     title = page.get("title", "") or source.get("name", "Untitled candidate")
     text = page.get("text", "")
     snippet = page.get("snippet", "")
@@ -456,10 +478,11 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
     access_route = normalise_access_route(source.get("extract", {}).get("access_route"))
     scale = normalise_scale(source.get("extract", {}).get("scale"))
     family_key = canonical_candidate_family_key(page["url"])
-
     candidate_id = slugify(f"cand_{source['id']}_{page['url']}")
 
-    return Candidate(
+    registry_match = find_existing_registry_match(page["url"], registry)
+
+    candidate = Candidate(
         id=candidate_id,
         url=page["url"],
         canonical_family_key=family_key,
@@ -483,7 +506,10 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
         page_hash=page["page_hash"],
         notes="",
         seen_in_latest_run=True,
+        already_trusted=bool(registry_match),
+        trusted_registry_id=registry_match["id"] if registry_match else None,
     )
+    return candidate
 
 
 PERSISTENT_FIELDS = [
@@ -497,6 +523,8 @@ PERSISTENT_FIELDS = [
     "cl_draft_generated_at",
     "cl_draft_json",
     "cl_draft_html",
+    "already_trusted",
+    "trusted_registry_id",
 ]
 
 
@@ -507,6 +535,10 @@ def choose_better_candidate(existing: Candidate, candidate: Candidate) -> Candid
     if candidate_is_en and not existing_is_en:
         return candidate
     if existing_is_en and not candidate_is_en:
+        return existing
+    if candidate.already_trusted and not existing.already_trusted:
+        return candidate
+    if existing.already_trusted and not candidate.already_trusted:
         return existing
     if candidate.discovered_via == "source_page" and existing.discovered_via != "source_page":
         return candidate
@@ -558,7 +590,7 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
     return {
         "meta": {
             "generated_at": seen_at,
-            "generator": "grant-radar-discovery 0.5",
+            "generator": "grant-radar-discovery 0.6",
             "candidate_count": len(candidates),
             "high_confidence_count": high_conf,
             "pending_review_count": pending,
@@ -592,7 +624,7 @@ def discover() -> None:
     registry = load_json(REGISTRY_PATH, default=[])
     registry, registry_changed = ensure_registry_defaults(registry)
     previous_discovery = load_json(DISCOVERY_PATH, default={})
-    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.5"}, "pages": {}})
+    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.6"}, "pages": {}})
     newly_found: list[Candidate] = []
 
     for source in registry:
@@ -610,7 +642,7 @@ def discover() -> None:
                 continue
 
             update_memory(memory, page, "ok", seen_at)
-            direct_candidate = classify_candidate(page, source, "source_page", seen_at)
+            direct_candidate = classify_candidate(page, source, registry, "source_page", seen_at)
             if direct_candidate:
                 newly_found.append(direct_candidate)
                 candidate_count_for_source += 1
@@ -646,7 +678,7 @@ def discover() -> None:
                     update_memory(memory, error_page, f"error: {child_error}", seen_at)
                     continue
                 update_memory(memory, child_page, "ok", seen_at)
-                child_candidate = classify_candidate(child_page, source, "child_link", seen_at)
+                child_candidate = classify_candidate(child_page, source, registry, "child_link", seen_at)
                 if child_candidate:
                     newly_found.append(child_candidate)
                     candidate_count_for_source += 1
@@ -663,7 +695,7 @@ def discover() -> None:
 
     memory.setdefault("meta", {})
     memory["meta"]["generated_at"] = seen_at
-    memory["meta"]["generator"] = "grant-radar-discovery 0.5"
+    memory["meta"]["generator"] = "grant-radar-discovery 0.6"
 
     if registry_changed:
         save_json(REGISTRY_PATH, registry)
