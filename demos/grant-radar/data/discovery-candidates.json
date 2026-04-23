@@ -412,7 +412,7 @@
       "source_id_hint": "gsi_geoheritage",
       "candidate_type": "call_page",
       "confidence": 0.77,
-      "status": "pending_review",
+      "status": "cl_drafted",
       "suggested_purposes": [
         "geoscience",
         "heritage",
@@ -434,7 +434,15 @@
       "deadline_hint": null,
       "page_hash": "sha256:34172c3f04c4b72a58c9c4eb6aef21c8a5418325223a14bda6c90cb8825bd2e8",
       "notes": "",
-      "seen_in_latest_run": true
+      "seen_in_latest_run": true,
+      "promotion_requested": true,
+      "promotion_request_issue_number": 6,
+      "promotion_request_issue_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/6",
+      "request_origin_status": "pending_review",
+      "cl_draft_ready": true,
+      "cl_draft_generated_at": "2026-04-23T14:18:04+00:00",
+      "cl_draft_json": "promotion-drafts/20260423T141804Z_cand_gsi_geoheritage_https_www_gsi_ie_en_ie_research.json",
+      "cl_draft_html": "promotion-drafts/20260423T141804Z_cand_gsi_geoheritage_https_www_gsi_ie_en_ie_research.html"
     },
     {
       "id": "cand_research_ireland_goipg_https_www_researchireland_ie_about_us_publications",
