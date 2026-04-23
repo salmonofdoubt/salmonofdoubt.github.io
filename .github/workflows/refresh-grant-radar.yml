@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: grant-radar-master-writes
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -41,11 +45,20 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add demos/grant-radar/data/catalog.json
           git add demos/grant-radar/data/discovery-candidates.json
           git add demos/grant-radar/data/source-memory.json
           git add demos/grant-radar/data/source-registry.json
           git add demos/grant-radar/review.html
           git add demos/grant-radar/promotion-drafts
-          git diff --cached --quiet || git commit -m "Refresh grant radar data"
-          git push
+
+          git diff --cached --quiet && exit 0
+
+          git commit -m "Refresh grant radar data"
+
+          for attempt in 1 2 3; do
+            git pull --rebase origin master && git push && break
+            echo "Push failed on attempt $attempt, retrying in 5 seconds..."
+            sleep 5
+          done
