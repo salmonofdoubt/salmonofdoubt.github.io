@@ -4,10 +4,10 @@
     "generator": "grant-radar-discovery 0.7",
     "candidate_count": 175,
     "high_confidence_count": 4,
-    "pending_review_count": 172,
+    "pending_review_count": 171,
     "approved_count": 0,
     "cl_drafted_count": 1,
-    "promoted_count": 2,
+    "promoted_count": 3,
     "promotion_requested_count": 0,
     "domains_seen": {
       "agriculture.gov.ie": 1,
@@ -84,7 +84,7 @@
       "source_id_hint": "research_ireland_goipg",
       "candidate_type": "support_page",
       "confidence": 0.84,
-      "status": "pending_review",
+      "status": "promoted",
       "suggested_purposes": [
         "environmental research",
         "research training",
@@ -108,8 +108,16 @@
       "page_hash": "sha256:c563e9fd93361039e7675d3aff9e0709816f9b1169797534bc14dfe26a43a730",
       "notes": "",
       "seen_in_latest_run": true,
-      "already_trusted": false,
-      "trusted_registry_id": null
+      "already_trusted": true,
+      "trusted_registry_id": "research_ireland_goipg",
+      "cl_draft_ready": true,
+      "cl_draft_generated_at": "2026-04-23T19:46:31+00:00",
+      "cl_draft_json": "promotion-drafts/cand_research_ireland_goipg_https_www_researchireland_ie_funding.json",
+      "cl_draft_html": "promotion-drafts/cand_research_ireland_goipg_https_www_researchireland_ie_funding.html",
+      "promotion_requested": false,
+      "promotion_request_issue_number": 11,
+      "promotion_request_issue_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/11",
+      "request_origin_status": null
     },
     {
       "id": "cand_life_calls_https_cinea_ec_europa_eu_funding_opportunities_calls_proposals_standard_action_projects_saps_circular_economy_and_zero_pollution_environment_0_en",
