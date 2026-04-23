@@ -6,9 +6,9 @@
     "high_confidence_count": 11,
     "pending_review_count": 207,
     "approved_count": 0,
-    "cl_drafted_count": 3,
-    "promoted_count": 2,
-    "promotion_requested_count": 3,
+    "cl_drafted_count": 2,
+    "promoted_count": 3,
+    "promotion_requested_count": 2,
     "domains_seen": {
       "agriculture.gov.ie": 1,
       "cinea.ec.europa.eu": 21,
@@ -40,7 +40,7 @@
       "source_id_hint": "horizon_biodiv",
       "candidate_type": "call_page",
       "confidence": 0.92,
-      "status": "cl_drafted",
+      "status": "promoted",
       "suggested_purposes": [
         "biodiversity",
         "ecology",
@@ -63,14 +63,16 @@
       "page_hash": "sha256:3fe181e7a3ebd76720fb73558ed9a2cee013e9fea899077ef88f8fcbf1244a6d",
       "notes": "",
       "seen_in_latest_run": false,
-      "promotion_requested": true,
+      "promotion_requested": false,
       "promotion_request_issue_number": 10,
       "promotion_request_issue_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/10",
-      "request_origin_status": "pending_review",
+      "request_origin_status": null,
       "cl_draft_ready": true,
-      "cl_draft_generated_at": "2026-04-23T17:53:53+00:00",
+      "cl_draft_generated_at": "2026-04-23T17:57:36+00:00",
       "cl_draft_json": "promotion-drafts/cand_horizon_biodiv_https_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_biodiversity_and_ecosystem_services_bg.json",
-      "cl_draft_html": "promotion-drafts/cand_horizon_biodiv_https_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_biodiversity_and_ecosystem_services_bg.html"
+      "cl_draft_html": "promotion-drafts/cand_horizon_biodiv_https_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_biodiversity_and_ecosystem_services_bg.html",
+      "already_trusted": true,
+      "trusted_registry_id": "horizon_biodiv"
     },
     {
       "id": "cand_horizon_biodiv_https_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_biodiversity_and_ecosystem_services_es",
