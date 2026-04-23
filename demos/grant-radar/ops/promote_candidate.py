@@ -392,8 +392,18 @@ def update_meta_counts(payload: dict[str, Any]) -> None:
 
 def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list[dict[str, Any]], payload: dict[str, Any]) -> None:
     duplicate = registry_duplicate_info(candidate, registry)
+
     if duplicate and duplicate["kind"] == "url":
-        raise SystemExit(f"Cannot apply: registry already contains this URL under id {duplicate['id']}")
+        candidate["status"] = "promoted"
+        candidate["promotion_requested"] = False
+        candidate["promotion_request_issue_number"] = None
+        candidate["promotion_request_issue_url"] = None
+        candidate["request_origin_status"] = None
+        candidate["cl_draft_ready"] = True
+        update_meta_counts(payload)
+        save_json(CANDIDATES_PATH, payload)
+        print(f"URL already present in registry under id {duplicate['id']}; marked candidate as promoted instead of re-adding.")
+        return
 
     registry.append(entry)
     registry.sort(key=lambda x: x.get("id", ""))
@@ -401,6 +411,8 @@ def apply_entry(candidate: dict[str, Any], entry: dict[str, Any], registry: list
 
     candidate["status"] = "promoted"
     candidate["promotion_requested"] = False
+    candidate["promotion_request_issue_number"] = None
+    candidate["promotion_request_issue_url"] = None
     candidate["request_origin_status"] = None
     update_meta_counts(payload)
     save_json(CANDIDATES_PATH, payload)
