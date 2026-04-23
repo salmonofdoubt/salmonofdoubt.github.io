@@ -4,10 +4,10 @@
     "generator": "grant-radar-discovery 0.4",
     "candidate_count": 171,
     "high_confidence_count": 10,
-    "pending_review_count": 169,
+    "pending_review_count": 168,
     "approved_count": 0,
     "cl_drafted_count": 2,
-    "promoted_count": 0,
+    "promoted_count": 1,
     "domains_seen": {
       "agriculture.gov.ie": 1,
       "cinea.ec.europa.eu": 9,
@@ -40,7 +40,7 @@
       "source_id_hint": "farming_for_water_eip",
       "candidate_type": "call_page",
       "confidence": 0.94,
-      "status": "pending_review",
+      "status": "promoted",
       "suggested_purposes": [
         "water quality",
         "catchment delivery",
@@ -64,7 +64,15 @@
       "deadline_hint": "deadline for these calls has now passed. Proposals were assessed on set criteria and projects could focus on specific areas inclu",
       "page_hash": "sha256:582dc8d71c6b602a8b35215b2e1602f4e960e1657c0793e1f4e8355ce3d7a4b6",
       "notes": "",
-      "seen_in_latest_run": true
+      "seen_in_latest_run": true,
+      "cl_draft_ready": true,
+      "cl_draft_generated_at": "2026-04-23T15:08:39+00:00",
+      "cl_draft_json": "promotion-drafts/20260423T150839Z_cand_farming_for_water_eip_https_www_gov_ie_en_department_of_agriculture_food_and_the_marine_services_european_innovation_partnership_scheme.json",
+      "cl_draft_html": "promotion-drafts/20260423T150839Z_cand_farming_for_water_eip_https_www_gov_ie_en_department_of_agriculture_food_and_the_marine_services_european_innovation_partnership_scheme.html",
+      "promotion_requested": false,
+      "request_origin_status": null,
+      "promotion_request_issue_number": 8,
+      "promotion_request_issue_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/8"
     },
     {
       "id": "cand_horizon_biodiv_https_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_biodiversity_and_ecosystem_services_bg",

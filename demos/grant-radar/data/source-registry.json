@@ -382,6 +382,61 @@
     "watch_paths": []
   },
   {
+    "id": "farming_for_water_eip_gov_ie",
+    "name": "European Innovation Partnership Scheme",
+    "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme",
+    "scope": "Ireland",
+    "purposes": [
+      "water quality",
+      "catchment delivery",
+      "farm nutrient management",
+      "sediment control",
+      "nature-based solutions"
+    ],
+    "discovery_method": "promoted from review queue",
+    "note": "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
+    "trusted_domain": "gov.ie",
+    "source_class": "implementation_programme",
+    "harvest_enabled": true,
+    "discovery_enabled": true,
+    "cadence": "unknown",
+    "usual_open_months": [],
+    "watch_paths": [],
+    "watch_terms": [
+      "water quality",
+      "catchment delivery",
+      "farm nutrient management",
+      "sediment control",
+      "nature-based solutions",
+      "farmers",
+      "trusted_domain",
+      "funding_or_support_phrase",
+      "deadline_detected",
+      "watch_term_overlap",
+      "cycle_window_match",
+      "child_page",
+      "Farming for Water EIP",
+      "European Innovation Partnership Scheme",
+      "funding",
+      "grant",
+      "call",
+      "applications"
+    ],
+    "extract": {
+      "title": "European Innovation Partnership Scheme",
+      "programme": "Farming for Water EIP",
+      "summary_hint": "European Innovation Partnership Scheme A notice about cookies This website uses cookies to collect information about how you use this site. This information is used to make the website work as well as possible. More details available in...",
+      "status_hint": "open",
+      "scale": "major",
+      "access_route": "via advisor",
+      "applicant_types": [
+        "farmers"
+      ],
+      "mode": "single_item",
+      "opportunity_type": "implementation support"
+    }
+  },
+  {
     "id": "gsi_geoheritage",
     "name": "Geological Survey Ireland Geoheritage Grant Scheme",
     "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
