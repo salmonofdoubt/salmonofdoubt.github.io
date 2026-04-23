@@ -49,7 +49,7 @@
     .lede, .muted, .small { color: var(--muted); }
     .summary-grid, .controls-grid, .cards-grid { display: grid; gap: 0.85rem; }
     .summary-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-    .controls-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .controls-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
     .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .summary-box, .candidate-card {
       border-radius: 18px;
@@ -149,6 +149,11 @@
       margin: 0;
       accent-color: var(--accent);
     }
+    .dedupe-note {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
     .empty-state {
       padding: 1rem;
       border-radius: 16px;
@@ -170,6 +175,9 @@
         Use the suggest box on a candidate to open a GitHub request issue. The workflow then creates a reviewable CL draft.
         In the issue, tick either <strong>Accept promotion into trusted catalogue</strong> or <strong>Reject suggestion</strong>.
         Accept promotes the candidate into the main catalogue. Reject clears the suggestion state.
+      </p>
+      <p class="dedupe-note">
+        The review view deduplicates near-identical candidates by canonical family key, title, domain, and source hint so multilingual or structurally repeated pages collapse into one visible card.
       </p>
       <p><a href="./">← Back to Grant Radar</a></p>
     </section>
@@ -222,6 +230,13 @@
             <option value="no">No request</option>
           </select>
         </div>
+        <div>
+          <label for="dedupe">View mode</label>
+          <select id="dedupe">
+            <option value="deduped" selected>Deduped view</option>
+            <option value="raw">Raw queue</option>
+          </select>
+        </div>
       </div>
     </section>
 
@@ -243,6 +258,7 @@
       confidence: document.getElementById('confidence'),
       seen: document.getElementById('seen'),
       requested: document.getElementById('requested'),
+      dedupe: document.getElementById('dedupe'),
     };
 
     function scoreClass(score) {
@@ -268,15 +284,82 @@
       `;
     }
 
-    function renderSummary() {
-      const meta = state.payload.meta || {};
+    function canonicalFamilyKeyFromUrl(url) {
+      try {
+        const parsed = new URL(url);
+        let path = parsed.pathname.replace(/_[a-z]{2}$/i, '');
+        path = path.replace(/\/+$/, '') || '/';
+        return `${parsed.hostname.replace(/^www\./i, '')}${path}`;
+      } catch (error) {
+        return url || 'unknown';
+      }
+    }
+
+    function fallbackReviewKey(item) {
+      const family = item.canonical_family_key || canonicalFamilyKeyFromUrl(item.url || '');
+      const title = (item.title || '').trim().toLowerCase();
+      const source = (item.source_hint || '').trim().toLowerCase();
+      const domain = (item.domain || '').trim().toLowerCase();
+      return `${family}::${title}::${source}::${domain}`;
+    }
+
+    function chooseBetterItem(existing, candidate) {
+      const existingIsEn = /_en$/i.test(existing.url || '');
+      const candidateIsEn = /_en$/i.test(candidate.url || '');
+
+      if (candidateIsEn && !existingIsEn) return candidate;
+      if (existingIsEn && !candidateIsEn) return existing;
+
+      const existingRequested = !!existing.promotion_requested;
+      const candidateRequested = !!candidate.promotion_requested;
+      if (candidateRequested && !existingRequested) return candidate;
+      if (existingRequested && !candidateRequested) return existing;
+
+      const existingDraft = !!existing.cl_draft_ready;
+      const candidateDraft = !!candidate.cl_draft_ready;
+      if (candidateDraft && !existingDraft) return candidate;
+      if (existingDraft && !candidateDraft) return existing;
+
+      const existingConfidence = Number(existing.confidence || 0);
+      const candidateConfidence = Number(candidate.confidence || 0);
+      if (candidateConfidence > existingConfidence) return candidate;
+      if (existingConfidence > candidateConfidence) return existing;
+
+      const existingSourcePage = existing.discovered_via === 'source_page';
+      const candidateSourcePage = candidate.discovered_via === 'source_page';
+      if (candidateSourcePage && !existingSourcePage) return candidate;
+      if (existingSourcePage && !candidateSourcePage) return existing;
+
+      return existing;
+    }
+
+    function getVisibleCandidates(rawCandidates) {
+      if (el.dedupe.value === 'raw') {
+        return rawCandidates;
+      }
+
+      const byKey = new Map();
+      rawCandidates.forEach((item) => {
+        const key = fallbackReviewKey(item);
+        const existing = byKey.get(key);
+        if (!existing) {
+          byKey.set(key, item);
+          return;
+        }
+        byKey.set(key, chooseBetterItem(existing, item));
+      });
+
+      return Array.from(byKey.values());
+    }
+
+    function renderSummary(rawCandidates, visibleCandidates) {
       el.summaryGrid.innerHTML = [
-        summaryBox('Generated at', meta.generated_at || '—'),
-        summaryBox('Candidates', meta.candidate_count || 0),
-        summaryBox('High confidence', meta.high_confidence_count || 0),
-        summaryBox('Requests open', meta.promotion_requested_count || 0),
-        summaryBox('CL drafts ready', meta.cl_drafted_count || 0),
-        summaryBox('Promoted', meta.promoted_count || 0),
+        summaryBox('Raw candidates', rawCandidates.length),
+        summaryBox('Visible candidates', visibleCandidates.length),
+        summaryBox('High confidence', visibleCandidates.filter((item) => Number(item.confidence || 0) >= 0.8).length),
+        summaryBox('Requests open', visibleCandidates.filter((item) => item.promotion_requested).length),
+        summaryBox('CL drafts ready', visibleCandidates.filter((item) => item.cl_draft_ready).length),
+        summaryBox('Promoted', visibleCandidates.filter((item) => item.status === 'promoted').length),
       ].join('');
     }
 
@@ -292,6 +375,7 @@
           item.title,
           item.domain,
           item.source_hint,
+          item.canonical_family_key,
           ...(item.suggested_purposes || []),
           ...(item.suggested_applicant_types || []),
           ...(item.reason_flags || []),
@@ -322,13 +406,16 @@
         '',
         '## Notes',
         'Created from the Grant Radar review page.',
-      ].join('\\n');
+      ].join('\n');
 
       return `${ISSUE_REPO_BASE}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
     }
 
     function renderCards() {
-      const candidates = filteredCandidates();
+      const rawCandidates = filteredCandidates();
+      const candidates = getVisibleCandidates(rawCandidates);
+
+      renderSummary(rawCandidates, candidates);
 
       if (candidates.length === 0) {
         el.cards.innerHTML = '<div class="empty-state">No candidates match the current review filters.</div>';
@@ -361,6 +448,7 @@
           <p class="small" style="margin-top: 0.8rem;"><strong>Reason flags:</strong> ${(item.reason_flags || []).join(', ') || '—'}</p>
           <p class="small"><strong>Deadline hint:</strong> ${item.deadline_hint || '—'}</p>
           <p class="small"><strong>First seen:</strong> ${item.first_seen || '—'}<br><strong>Last seen:</strong> ${item.last_seen || '—'}</p>
+          <p class="small"><strong>Family key:</strong> ${item.canonical_family_key || fallbackReviewKey(item)}</p>
 
           ${item.promotion_requested ? `
             <div class="request-note">
@@ -404,7 +492,7 @@
       el.cards.querySelectorAll('.request-btn').forEach((button) => {
         button.addEventListener('click', () => {
           const id = button.dataset.candidateId;
-          const item = (state.payload.candidates || []).find((candidate) => candidate.id === id);
+          const item = candidates.find((candidate) => candidate.id === id);
           if (!item) return;
           window.open(buildIssueUrl(item), '_blank', 'noopener');
         });
@@ -415,10 +503,9 @@
       const response = await fetch('./data/discovery-candidates.json', { cache: 'no-store' });
       state.payload = await response.json();
 
-      renderSummary();
       renderCards();
 
-      [el.search, el.status, el.confidence, el.seen, el.requested].forEach((node) => {
+      [el.search, el.status, el.confidence, el.seen, el.requested, el.dedupe].forEach((node) => {
         node.addEventListener('input', renderCards);
       });
     }

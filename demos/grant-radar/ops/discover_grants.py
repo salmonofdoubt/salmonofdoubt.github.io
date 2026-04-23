@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Discovery layer for Grant Radar with persistent CL draft metadata."""
+"""Discovery layer for Grant Radar with persistent CL draft metadata.
+
+This version reduces duplicate review candidates by:
+- blocking obvious non-funding child pages
+- collapsing multilingual URL variants into one candidate family
+- preferring English variants when several language pages exist
+- preserving review / CL metadata across refreshes
+"""
 
 from __future__ import annotations
 
@@ -23,7 +30,7 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/0.4 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/0.5 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
@@ -71,11 +78,45 @@ DEADLINE_PATTERNS = [
     r"(submit(?:ted)? by[^\n\r]{0,120})",
 ]
 
+DENYLIST_PATTERNS = [
+    r"/about/?$",
+    r"/about-us/?$",
+    r"/contact/?$",
+    r"/contact-us/?$",
+    r"/careers/?$",
+    r"/career/?$",
+    r"/our-team/?$",
+    r"/team/?$",
+    r"/login/?$",
+    r"/log-in/?$",
+    r"/search/?$",
+    r"/board-members/?$",
+    r"/governance/?$",
+    r"/publications/?$",
+    r"/publication/?$",
+    r"/news/?$",
+    r"/jobs/?$",
+    r"/job/?$",
+    r"/events/?$",
+    r"/event/?$",
+    r"/strategy/?$",
+    r"/policies/?$",
+    r"/policy/?$",
+    r"/privacy/?$",
+    r"/cookie(?:-policy)?/?$",
+    r"/funded-research/?$",
+]
+
+LANGUAGE_SUFFIX_RE = re.compile(
+    r"_(bg|cs|da|de|el|en|es|et|fi|fr|ga|hr|hu|it|lt|lv|mt|nl|pl|pt|ro|sk|sl|sv)$",
+    flags=re.IGNORECASE,
+)
 
 @dataclass
 class Candidate:
     id: str
     url: str
+    canonical_family_key: str
     domain: str
     title: str
     snippet: str
@@ -101,6 +142,7 @@ class Candidate:
         return {
             "id": self.id,
             "url": self.url,
+            "canonical_family_key": self.canonical_family_key,
             "domain": self.domain,
             "title": self.title,
             "snippet": self.snippet,
@@ -158,10 +200,17 @@ def canonical_url(url: str) -> str:
         fragment="",
         query=urlencode(cleaned_query, doseq=True),
     )
-    url = urlunparse(normalized)
-    if url.endswith("/") and parsed.path not in ("", "/"):
-        url = url[:-1]
-    return url
+    out = urlunparse(normalized)
+    if out.endswith("/") and parsed.path not in ("", "/"):
+        out = out[:-1]
+    return out
+
+
+def canonical_candidate_family_key(url: str) -> str:
+    parsed = urlparse(canonical_url(url))
+    path = LANGUAGE_SUFFIX_RE.sub("", parsed.path)
+    normalized = parsed._replace(path=path, query="", fragment="")
+    return urlunparse(normalized)
 
 
 def is_same_or_child_domain(url: str, trusted_domain: str) -> bool:
@@ -331,8 +380,18 @@ def count_phrase_hits(text: str, phrases: list[str]) -> int:
     return sum(1 for phrase in phrases if phrase in lowered)
 
 
+def is_denied_child_url(url: str) -> bool:
+    parsed = urlparse(url)
+    path = parsed.path.lower().rstrip("/")
+    if not path:
+        return False
+    return any(re.search(pattern, path) for pattern in DENYLIST_PATTERNS)
+
+
 def looks_like_grant_link(url: str, label: str, watch_terms: list[str]) -> bool:
     haystack = f"{url} {label}".lower()
+    if is_denied_child_url(url):
+        return False
     return any(term.lower() in haystack for term in dedupe_keep_order(LINK_HINT_TERMS + watch_terms))
 
 
@@ -396,12 +455,14 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
     applicant_types = normalise_applicant_types(raw_applicant_types)
     access_route = normalise_access_route(source.get("extract", {}).get("access_route"))
     scale = normalise_scale(source.get("extract", {}).get("scale"))
+    family_key = canonical_candidate_family_key(page["url"])
 
     candidate_id = slugify(f"cand_{source['id']}_{page['url']}")
 
     return Candidate(
         id=candidate_id,
         url=page["url"],
+        canonical_family_key=family_key,
         domain=canonical_domain(page["url"]),
         title=title,
         snippet=snippet[:420],
@@ -428,11 +489,34 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], discovered_
 PERSISTENT_FIELDS = [
     "status",
     "notes",
+    "promotion_requested",
+    "promotion_request_issue_number",
+    "promotion_request_issue_url",
+    "request_origin_status",
     "cl_draft_ready",
     "cl_draft_generated_at",
     "cl_draft_json",
     "cl_draft_html",
 ]
+
+
+def choose_better_candidate(existing: Candidate, candidate: Candidate) -> Candidate:
+    existing_is_en = existing.url.lower().endswith("_en")
+    candidate_is_en = candidate.url.lower().endswith("_en")
+
+    if candidate_is_en and not existing_is_en:
+        return candidate
+    if existing_is_en and not candidate_is_en:
+        return existing
+    if candidate.discovered_via == "source_page" and existing.discovered_via != "source_page":
+        return candidate
+    if existing.discovered_via == "source_page" and candidate.discovered_via != "source_page":
+        return existing
+    if candidate.confidence > existing.confidence:
+        return candidate
+    if candidate.confidence == existing.confidence and len(candidate.url) < len(existing.url):
+        return candidate
+    return existing
 
 
 def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candidate], seen_at: str) -> dict[str, Any]:
@@ -466,6 +550,7 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
     approved = sum(1 for item in candidates if item.get("status") == "approved")
     drafted = sum(1 for item in candidates if item.get("status") == "cl_drafted")
     promoted = sum(1 for item in candidates if item.get("status") == "promoted")
+    requested = sum(1 for item in candidates if item.get("promotion_requested"))
     by_domain = defaultdict(int)
     for item in candidates:
         by_domain[item.get("domain", "unknown")] += 1
@@ -473,13 +558,14 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
     return {
         "meta": {
             "generated_at": seen_at,
-            "generator": "grant-radar-discovery 0.4",
+            "generator": "grant-radar-discovery 0.5",
             "candidate_count": len(candidates),
             "high_confidence_count": high_conf,
             "pending_review_count": pending,
             "approved_count": approved,
             "cl_drafted_count": drafted,
             "promoted_count": promoted,
+            "promotion_requested_count": requested,
             "domains_seen": dict(sorted(by_domain.items())),
         },
         "candidates": candidates,
@@ -491,6 +577,7 @@ def update_memory(memory: dict[str, Any], page: dict[str, Any], fetch_status: st
     entry = pages.get(page["url"], {})
     entry["url"] = page["url"]
     entry["domain"] = canonical_domain(page["url"])
+    entry["canonical_family_key"] = canonical_candidate_family_key(page["url"])
     entry["first_seen"] = entry.get("first_seen", seen_at)
     entry["last_seen"] = seen_at
     entry["last_title"] = page.get("title", "")
@@ -505,7 +592,7 @@ def discover() -> None:
     registry = load_json(REGISTRY_PATH, default=[])
     registry, registry_changed = ensure_registry_defaults(registry)
     previous_discovery = load_json(DISCOVERY_PATH, default={})
-    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.4"}, "pages": {}})
+    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.5"}, "pages": {}})
     newly_found: list[Candidate] = []
 
     for source in registry:
@@ -541,7 +628,16 @@ def discover() -> None:
                 if looks_like_grant_link(href, link.get("label", ""), source.get("watch_terms", [])):
                     same_domain_links.append(href)
 
-            for child_url in dedupe_keep_order(same_domain_links)[:MAX_CHILD_LINKS_PER_SOURCE]:
+            family_seen: set[str] = set()
+            filtered_child_urls: list[str] = []
+            for child_url in dedupe_keep_order(same_domain_links):
+                family_key = canonical_candidate_family_key(child_url)
+                if family_key in family_seen:
+                    continue
+                family_seen.add(family_key)
+                filtered_child_urls.append(child_url)
+
+            for child_url in filtered_child_urls[:MAX_CHILD_LINKS_PER_SOURCE]:
                 if candidate_count_for_source >= MAX_CANDIDATES_PER_SOURCE:
                     break
                 child_page, child_error = fetch_page(child_url)
@@ -555,17 +651,19 @@ def discover() -> None:
                     newly_found.append(child_candidate)
                     candidate_count_for_source += 1
 
-    best_by_url: dict[str, Candidate] = {}
+    best_by_family: dict[str, Candidate] = {}
     for candidate in newly_found:
-        existing = best_by_url.get(candidate.url)
-        if existing is None or candidate.confidence > existing.confidence:
-            best_by_url[candidate.url] = candidate
+        existing = best_by_family.get(candidate.canonical_family_key)
+        if existing is None:
+            best_by_family[candidate.canonical_family_key] = candidate
+        else:
+            best_by_family[candidate.canonical_family_key] = choose_better_candidate(existing, candidate)
 
-    merged_payload = merge_candidates(previous_discovery, list(best_by_url.values()), seen_at)
+    merged_payload = merge_candidates(previous_discovery, list(best_by_family.values()), seen_at)
 
     memory.setdefault("meta", {})
     memory["meta"]["generated_at"] = seen_at
-    memory["meta"]["generator"] = "grant-radar-discovery 0.4"
+    memory["meta"]["generator"] = "grant-radar-discovery 0.5"
 
     if registry_changed:
         save_json(REGISTRY_PATH, registry)
