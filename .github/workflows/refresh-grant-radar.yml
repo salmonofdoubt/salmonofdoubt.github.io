@@ -36,10 +36,29 @@ jobs:
         run: python demos/grant-radar/ops/discover_grants.py
 
       - name: Clean candidate grant pages
+        run: python demos/grant-radar/ops/clean_horizon_candidates.py demos/grant-radar/data/discovery-candidates.json
+
+      - name: Show discovery counts after cleaning
         run: |
-          python demos/grant-radar/ops/clean_horizon_candidates.py \
-            demos/grant-radar/data/discovery-candidates.json \
-            -o demos/grant-radar/data/discovery-candidates.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("demos/grant-radar/data/discovery-candidates.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          meta = data.get("meta", {})
+          candidates = data.get("candidates", [])
+
+          print("candidate_count =", len(candidates))
+          print("pending_review_count =", sum(c.get("status") == "pending_review" for c in candidates))
+          print("promoted_count =", sum(c.get("status") == "promoted" for c in candidates))
+          print("cl_drafted_count =", sum(c.get("status") == "cl_drafted" for c in candidates))
+
+          horizon = [c["id"] for c in candidates if c.get("source_id_hint") == "horizon_biodiv"]
+          print("remaining_horizon_biodiv_entries =", len(horizon))
+          for item in horizon:
+              print(" -", item)
+          PY
 
       - name: Generate CL drafts for approved or requested candidates
         run: python demos/grant-radar/ops/generate_promotion_drafts.py
