@@ -85,31 +85,6 @@ const RESEARCH_PURPOSES = [
   'climate adaptation',
 ];
 
-const NDRT_APPLICANT_TYPES = [
-  'community groups',
-  'local groups',
-  'NGOs',
-  'public bodies',
-  'voluntary groups',
-  'schools',
-];
-
-const NDRT_ACCESS_ROUTES = [
-  'direct',
-  'via local authority',
-  'advisory support',
-  'via advisor',
-  'via local action group',
-];
-
-const NDRT_SCALES = ['local', 'support', 'medium'];
-
-const RESEARCH_APPLICANT_TYPES = ['researchers'];
-
-const RESEARCH_ACCESS_ROUTES = ['direct', 'consortium'];
-
-const RESEARCH_SCALES = ['major'];
-
 const fmtDate = (value) => {
   if (!value) return '—';
   const date = new Date(value);
@@ -270,12 +245,12 @@ function updateModeUi() {
   if (!el.modeNote) return;
 
   if (state.activeMode === 'ndrt') {
-    el.modeNote.textContent = 'River Trust mode now prefilters toward practical local and community routes: catchment, restoration, wetland, habitat, and citizen-science opportunities with river-trust-relevant applicant, access, and scale defaults.';
+    el.modeNote.textContent = 'River Trust mode highlights practical catchment, restoration, wetland, habitat, and citizen-science routes while keeping the dropdowns broad.';
     return;
   }
 
   if (state.activeMode === 'research') {
-    el.modeNote.textContent = 'Research mode now prefilters toward researcher-facing routes, especially major direct or consortium opportunities.';
+    el.modeNote.textContent = 'Research mode highlights research-facing themes and sets applicant type to Researchers where that filter exists.';
     return;
   }
 
@@ -299,7 +274,7 @@ function applyMode(mode) {
     setSelectValue(el.changeWindowSelect, '365');
   } else if (mode === 'research') {
     selectPurposes(RESEARCH_PURPOSES);
-    setSelectValue(el.applicantSelect, 'all');
+    setSelectValue(el.applicantSelect, 'researchers');
     setSelectValue(el.accessSelect, 'all');
     setSelectValue(el.scaleSelect, 'all');
     setSelectValue(el.changeWindowSelect, '365');
@@ -319,44 +294,6 @@ function matchesPurpose(item) {
   if (state.selectedPurposes.size === 0) return true;
   const itemPurposes = new Set(item.purposes || []);
   return [...state.selectedPurposes].some((purpose) => itemPurposes.has(purpose));
-}
-
-function itemMatchesModeDefaults(item, selectedApplicantType, selectedAccessRoute, selectedScale) {
-  const applicantTypes = item.applicant_types || item.audience || [];
-  const accessRoute = item.access_route || '';
-  const scale = item.scale || '';
-
-  if (state.activeMode === 'ndrt') {
-    if (selectedApplicantType === 'all' && applicantTypes.length > 0) {
-      const applicantMatch = applicantTypes.some((value) => NDRT_APPLICANT_TYPES.includes(value));
-      if (!applicantMatch) return false;
-    }
-
-    if (selectedAccessRoute === 'all' && accessRoute) {
-      if (!NDRT_ACCESS_ROUTES.includes(accessRoute)) return false;
-    }
-
-    if (selectedScale === 'all' && scale) {
-      if (!NDRT_SCALES.includes(scale)) return false;
-    }
-  }
-
-  if (state.activeMode === 'research') {
-    if (selectedApplicantType === 'all' && applicantTypes.length > 0) {
-      const applicantMatch = applicantTypes.some((value) => RESEARCH_APPLICANT_TYPES.includes(value));
-      if (!applicantMatch) return false;
-    }
-
-    if (selectedAccessRoute === 'all' && accessRoute) {
-      if (!RESEARCH_ACCESS_ROUTES.includes(accessRoute)) return false;
-    }
-
-    if (selectedScale === 'all' && scale) {
-      if (!RESEARCH_SCALES.includes(scale)) return false;
-    }
-  }
-
-  return true;
 }
 
 function getFilteredOpportunities() {
@@ -392,7 +329,6 @@ function getFilteredOpportunities() {
     if (scale !== 'all' && (item.scale || '—') !== scale) return false;
     if (changeType !== 'all' && (item.change_type || 'none') !== changeType) return false;
     if (!matchesPurpose(item)) return false;
-    if (!itemMatchesModeDefaults(item, applicantType, accessRoute, scale)) return false;
 
     if (changeWindow !== 'all') {
       if (!item.changed_at) return false;
