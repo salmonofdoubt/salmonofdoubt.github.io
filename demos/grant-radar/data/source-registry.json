@@ -675,252 +675,232 @@
     },
     "watch_paths": []
   },
- {
-  "id": "lawpro_catchment_support_fund",
-  "name": "LAWPRO Catchment Support Fund",
-  "url": "https://lawaters.ie/catchment-support-fund/",
-  "scope": "Ireland",
-  "purposes": [
-    "water quality",
-    "catchment delivery",
-    "community nature",
-    "restoration",
-    "capacity building"
-  ],
-  "discovery_method": "official page text extraction",
-  "note": "Capacity-building and core-cost support for catchment partnerships, river trusts, and local delivery bodies.",
-  "trusted_domain": "lawaters.ie",
-  "source_class": "programme_page",
-  "harvest_enabled": true,
-  "discovery_enabled": true,
-  "cadence": "annual",
-  "usual_open_months": [1, 2, 3],
-  "watch_paths": [
-    "/funding/",
-    "/latest-funding-news/"
-  ],
-  "watch_terms": [
-    "catchment support fund",
-    "catchment partnership",
-    "river trust",
-    "core costs",
-    "capacity building",
-    "governance",
-    "coordinator",
-    "community water quality improvement",
-    "water quality",
-    "catchment delivery",
-    "community nature",
-    "restoration",
-    "local delivery",
-    "voluntary groups",
-    "environmental NGOs",
-    "LAWPRO Catchment Support Fund"
-  ],
-  "extract": {
-    "title": "LAWPRO Catchment Support Fund",
-    "programme": "LAWPRO Catchment Support Fund",
-    "summary_hint": "Support for catchment partnerships, river trusts and community-led water-quality bodies through core and capacity costs.",
-    "status_hint": "closed",
-    "scale": "local",
-    "access_route": "direct",
-    "applicant_types": [
-      "community groups",
-      "catchment partnerships",
-      "environmental NGOs",
-      "voluntary groups"
-    ],
-    "mode": "single_item",
-    "opportunity_type": "community grant"
-  }
-},
   {
-  "id": "lawpro_cwdf",
-  "name": "LAWPRO Community Water Development Fund",
-  "url": "https://lawaters.ie/cwdf/",
-  "scope": "Ireland",
-  "purposes": [
-    "water quality",
-    "community nature",
-    "citizen science",
-    "restoration",
-    "education"
-  ],
-  "discovery_method": "official page text extraction",
-  "note": "Community and voluntary funding route for local water-quality projects, citizen science, awareness and practical action.",
-  "extract": {
-    "title": "LAWPRO Community Water Development Fund",
-    "programme": "LAWPRO Community Water Development Fund",
-    "summary_hint": "Local and voluntary water-quality funding route for practical projects, awareness, citizen science and community action.",
-    "status_hint": "closed",
-    "scale": "local",
-    "access_route": "direct",
-    "applicant_types": [
+    "id": "lawpro_catchment_support_fund",
+    "name": "LAWPRO Catchment Support Fund",
+    "url": "https://lawaters.ie/catchment-support-fund/",
+    "scope": "Ireland",
+    "purposes": [
+      "water quality",
+      "catchment delivery",
+      "community nature",
+      "restoration",
+      "capacity building"
+    ],
+    "discovery_method": "official page text extraction",
+    "note": "Capacity-building and core-cost support for catchment partnerships and local delivery bodies.",
+    "trusted_domain": "lawaters.ie",
+    "source_class": "programme_page",
+    "harvest_enabled": true,
+    "discovery_enabled": true,
+    "cadence": "annual",
+    "usual_open_months": [
+      1,
+      2,
+      3
+    ],
+    "watch_paths": [
+      "/funding/"
+    ],
+    "watch_terms": [
+      "catchment support fund",
+      "water quality",
+      "catchment partnership",
+      "core costs",
+      "community groups",
+      "local delivery",
+      "river basin management plan",
+      "catchment delivery",
+      "community nature",
+      "restoration",
+      "capacity building",
+      "LAWPRO Catchment Support Fund"
+    ],
+    "extract": {
+      "title": "LAWPRO Catchment Support Fund",
+      "programme": "LAWPRO Catchment Support Fund",
+      "summary_hint": "Support for catchment partnerships and community-led water-quality bodies through core and capacity costs.",
+      "status_hint": "closed",
+      "scale": "local",
+      "access_route": "direct",
+      "applicant_types": [
+        "community groups",
+        "catchment partnerships",
+        "environmental NGOs",
+        "voluntary groups"
+      ],
+      "mode": "single_item",
+      "opportunity_type": "community grant"
+    }
+  },
+  {
+    "id": "lawpro_cwdf",
+    "name": "LAWPRO Community Water Development Fund",
+    "url": "https://lawaters.ie/cwdf/",
+    "scope": "Ireland",
+    "purposes": [
+      "water quality",
+      "community nature",
+      "citizen science",
+      "restoration",
+      "education"
+    ],
+    "discovery_method": "official page text extraction",
+    "note": "Community and voluntary funding route for local water-quality projects and awareness action.",
+    "extract": {
+      "title": "LAWPRO Community Water Development Fund",
+      "programme": "LAWPRO Community Water Development Fund",
+      "summary_hint": "Local and voluntary water-quality funding route for practical projects, awareness and community action.",
+      "status_hint": "closed",
+      "scale": "local",
+      "access_route": "direct",
+      "applicant_types": [
+        "community groups",
+        "voluntary groups",
+        "environmental NGOs",
+        "tidy towns groups"
+      ],
+      "mode": "single_item",
+      "opportunity_type": "grant"
+    },
+    "trusted_domain": "lawaters.ie",
+    "source_class": "programme_page",
+    "discovery_enabled": true,
+    "harvest_enabled": true,
+    "cadence": "annual",
+    "usual_open_months": [
+      1,
+      2,
+      3
+    ],
+    "watch_paths": [
+      "/funding/"
+    ],
+    "watch_terms": [
+      "community water development fund",
+      "community water quality improvement",
+      "citizen science",
+      "monitoring",
+      "survey",
+      "education",
+      "outreach",
+      "restoration",
+      "wetlands",
+      "riparian",
       "community groups",
       "voluntary groups",
-      "environmental NGOs",
-      "tidy towns groups"
-    ],
-    "mode": "single_item",
-    "opportunity_type": "grant"
+      "river trust",
+      "LAWPRO Community Water Development Fund",
+      "water quality",
+      "community nature"
+    ]
   },
-  "trusted_domain": "lawaters.ie",
-  "source_class": "programme_page",
-  "discovery_enabled": true,
-  "harvest_enabled": true,
-  "cadence": "annual",
-  "usual_open_months": [1, 2, 3],
-  "watch_paths": [
-    "/funding/",
-    "/latest-funding-news/"
-  ],
-  "watch_terms": [
-    "community water development fund",
-    "community water quality improvement",
-    "citizen science",
-    "monitoring",
-    "survey",
-    "education",
-    "outreach",
-    "restoration",
-    "wetlands",
-    "riparian",
-    "community groups",
-    "voluntary groups",
-    "river trust",
-    "LAWPRO Community Water Development Fund"
-  ]
-},
- {
-  "id": "lawpro_funding_hub",
-  "name": "LAWPRO Latest Funding News",
-  "url": "https://lawaters.ie/latest-funding-news/",
-  "scope": "Ireland",
-  "purposes": [
-    "water quality",
-    "catchment delivery",
-    "community nature",
-    "restoration",
-    "citizen science"
-  ],
-  "discovery_method": "official funding news monitoring",
-  "note": "Discovery-only LAWPRO funding hub for small grants, catchment support, CWDF, awards, and community water-quality announcements.",
-  "trusted_domain": "lawaters.ie",
-  "source_class": "funding_hub",
-  "harvest_enabled": false,
-  "discovery_enabled": true,
-  "cadence": "ongoing",
-  "usual_open_months": [],
-  "watch_terms": [
-    "latest funding news",
-    "funding",
-    "grant",
-    "grants",
-    "small grants",
-    "events scheme",
-    "community water development fund",
-    "catchment support fund",
-    "community water quality improvement",
-    "water quality improvement",
-    "community projects",
-    "citizen science",
-    "restoration",
-    "wetlands",
-    "riparian",
-    "river restoration",
-    "talk",
-    "walk",
-    "event",
-    "survey",
-    "monitoring",
-    "volunteer",
-    "outreach",
-    "river trust",
-    "LAWPRO Latest Funding News"
-  ],
-  "watch_paths": [
-    "/funding/",
-    "/catchment-support-fund/",
-    "/small-grants-and-events-scheme/",
-    "/cwdf/"
-  ],
-  "extract": {
-    "title": "LAWPRO Latest Funding News",
-    "programme": "LAWPRO funding news",
-    "summary_hint": "Discovery hub for LAWPRO calls, awards, small grants, CWDF, catchment support and community water-quality announcements.",
-    "status_hint": "mixed",
-    "scale": "local",
-    "access_route": "direct",
-    "applicant_types": [
-      "community groups",
-      "catchment partnerships",
-      "environmental NGOs",
-      "voluntary groups"
-    ],
-    "mode": "single_item",
-    "opportunity_type": "grant"
-  }
-},
   {
-  "id": "lawpro_small_grants",
-  "name": "LAWPRO Small Grants and Events Scheme",
-  "url": "https://lawaters.ie/small-grants-and-events-scheme/",
-  "scope": "Ireland",
-  "purposes": [
-    "community nature",
-    "wetlands",
-    "water quality",
-    "citizen science",
-    "education"
-  ],
-  "discovery_method": "official page text extraction",
-  "note": "Small-scale community water-awareness, survey, signage, talks, walks, education and event route.",
-  "extract": {
-    "title": "LAWPRO Small Grants and Events Scheme",
-    "programme": "LAWPRO Small Grants and Events Scheme",
-    "summary_hint": "Local community micro-grants for water-quality awareness, events, surveys, signage and small practical initiatives.",
-    "status_hint": "closed",
-    "scale": "local",
-    "access_route": "direct",
-    "applicant_types": [
-      "community groups",
-      "voluntary groups",
-      "tidy towns groups"
+    "id": "lawpro_funding_hub",
+    "name": "LAWPRO funding hub",
+    "url": "https://lawaters.ie/funding/",
+    "scope": "Ireland",
+    "purposes": [
+      "water quality",
+      "catchment delivery",
+      "community nature",
+      "restoration",
+      "citizen science"
     ],
-    "mode": "single_item",
-    "opportunity_type": "grant"
+    "discovery_method": "official funding hub monitoring",
+    "note": "Discovery-only funding hub for LAWPRO schemes and updates.",
+    "trusted_domain": "lawaters.ie",
+    "source_class": "funding_hub",
+    "harvest_enabled": false,
+    "discovery_enabled": true,
+    "cadence": "ongoing",
+    "usual_open_months": [],
+    "watch_terms": [
+      "funding",
+      "catchment support fund",
+      "small grants",
+      "community water development fund",
+      "water quality",
+      "catchment delivery",
+      "community nature",
+      "restoration",
+      "citizen science",
+      "LAWPRO funding hub"
+    ],
+    "watch_paths": [
+      "/catchment-support-fund/",
+      "/small-grants-and-events-scheme/",
+      "/cwdf/"
+    ],
+    "extract": {
+      "mode": "single_item",
+      "opportunity_type": "grant"
+    }
   },
-  "trusted_domain": "lawaters.ie",
-  "source_class": "programme_page",
-  "discovery_enabled": true,
-  "harvest_enabled": true,
-  "cadence": "annual",
-  "usual_open_months": [4, 5, 6],
-  "watch_paths": [
-    "/funding/",
-    "/latest-funding-news/"
-  ],
-  "watch_terms": [
-    "small grants and events scheme",
-    "small grants",
-    "events scheme",
-    "community event",
-    "talk",
-    "walk",
-    "signage",
-    "survey",
-    "monitoring",
-    "citizen science",
-    "education",
-    "awareness",
-    "school",
-    "volunteer",
-    "river trust",
-    "water quality",
-    "wetlands",
-    "LAWPRO Small Grants and Events Scheme"
-  ]
-},
+  {
+    "id": "lawpro_small_grants",
+    "name": "LAWPRO Small Grants and Events Scheme",
+    "url": "https://lawaters.ie/small-grants-and-events-scheme/",
+    "scope": "Ireland",
+    "purposes": [
+      "community nature",
+      "wetlands",
+      "water quality",
+      "citizen science",
+      "education"
+    ],
+    "discovery_method": "official page text extraction",
+    "note": "Small-scale community water-awareness, survey, signage, education and event route.",
+    "extract": {
+      "title": "LAWPRO Small Grants and Events Scheme",
+      "programme": "LAWPRO Small Grants and Events Scheme",
+      "summary_hint": "Local community micro-grants for water-quality awareness, events, surveys, signage and small practical initiatives.",
+      "status_hint": "closed",
+      "scale": "local",
+      "access_route": "direct",
+      "applicant_types": [
+        "community groups",
+        "voluntary groups",
+        "tidy towns groups"
+      ],
+      "mode": "single_item",
+      "opportunity_type": "grant"
+    },
+    "trusted_domain": "lawaters.ie",
+    "source_class": "programme_page",
+    "discovery_enabled": true,
+    "harvest_enabled": true,
+    "cadence": "annual",
+    "usual_open_months": [
+      4,
+      5,
+      6
+    ],
+    "watch_paths": [
+      "/funding/"
+    ],
+    "watch_terms": [
+      "small grants and events scheme",
+      "small grants",
+      "events scheme",
+      "community event",
+      "talk",
+      "walk",
+      "signage",
+      "survey",
+      "monitoring",
+      "citizen science",
+      "education",
+      "awareness",
+      "school",
+      "volunteer",
+      "river trust",
+      "water quality",
+      "wetlands",
+      "LAWPRO Small Grants and Events Scheme",
+      "community nature"
+    ]
+  },
   {
     "id": "leader_programme",
     "name": "LEADER Programme",
