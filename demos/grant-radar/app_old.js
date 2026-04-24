@@ -1,8 +1,6 @@
 const state = {
   catalog: null,
   selectedPurposes: new Set(),
-  purposeChipButtons: new Map(),
-  activeMode: 'all',
 };
 
 const el = {
@@ -28,10 +26,6 @@ const el = {
   copyLinkBtn: document.getElementById('copy-link-btn'),
   nativeShareBtn: document.getElementById('native-share-btn'),
   qrImage: document.getElementById('qr-image'),
-  modeAllBtn: document.getElementById('mode-all-btn'),
-  modeNdrtBtn: document.getElementById('mode-ndrt-btn'),
-  modeResearchBtn: document.getElementById('mode-research-btn'),
-  modeNote: document.getElementById('mode-note'),
 };
 
 const templates = {
@@ -61,28 +55,6 @@ const ACCESS_ORDER = [
   'via local action group',
   'via project coordinator',
   'consortium',
-];
-
-const NDRT_PURPOSES = [
-  'water quality',
-  'catchment delivery',
-  'community nature',
-  'restoration',
-  'citizen science',
-  'habitat restoration',
-  'riparian management',
-  'wetlands',
-  'education',
-  'capacity building',
-];
-
-const RESEARCH_PURPOSES = [
-  'environmental research',
-  'biodiversity',
-  'ecology',
-  'nature-based solutions',
-  'water quality',
-  'climate adaptation',
 ];
 
 const fmtDate = (value) => {
@@ -116,7 +88,7 @@ function titleCaseLabel(value) {
   if (value === 'NGOs') return value;
   return value
     .split(' ')
-    .map((part) => (part ? part.charAt(0).toUpperCase() + part.slice(1) : part))
+    .map((part) => part ? part.charAt(0).toUpperCase() + part.slice(1) : part)
     .join(' ');
 }
 
@@ -137,48 +109,21 @@ function makeTag(text, className = '') {
   return span;
 }
 
-function syncPurposeChipStates() {
-  state.purposeChipButtons.forEach((button, label) => {
-    button.classList.toggle('active', state.selectedPurposes.has(label));
-  });
-}
-
-function clearSelectedPurposes() {
-  state.selectedPurposes.clear();
-  syncPurposeChipStates();
-}
-
-function selectPurposes(purposes) {
-  state.selectedPurposes.clear();
-  purposes.forEach((purpose) => {
-    if (state.purposeChipButtons.has(purpose)) {
-      state.selectedPurposes.add(purpose);
-    }
-  });
-  syncPurposeChipStates();
-}
-
 function createChip(label) {
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'chip-btn';
   btn.textContent = label;
-
-  if (state.selectedPurposes.has(label)) {
-    btn.classList.add('active');
-  }
-
   btn.addEventListener('click', () => {
     if (state.selectedPurposes.has(label)) {
       state.selectedPurposes.delete(label);
+      btn.classList.remove('active');
     } else {
       state.selectedPurposes.add(label);
+      btn.classList.add('active');
     }
-    syncPurposeChipStates();
     render();
   });
-
-  state.purposeChipButtons.set(label, btn);
   return btn;
 }
 
@@ -200,9 +145,7 @@ function fillSelect(select, values, placeholder, preferred = []) {
 function renderPurposeChips() {
   const purposes = state.catalog.meta.available_purposes || [];
   el.purposeChips.innerHTML = '';
-  state.purposeChipButtons.clear();
   purposes.forEach((purpose) => el.purposeChips.appendChild(createChip(purpose)));
-  syncPurposeChipStates();
 }
 
 function populateDynamicFilters() {
@@ -210,84 +153,6 @@ function populateDynamicFilters() {
   fillSelect(el.applicantSelect, meta.available_applicant_types || [], 'All applicant types', APPLICANT_ORDER);
   fillSelect(el.accessSelect, meta.available_access_routes || [], 'All access routes', ACCESS_ORDER);
   fillSelect(el.scaleSelect, meta.available_scales || [], 'All scales', SCALE_ORDER);
-}
-
-function setSelectValue(select, value) {
-  if (!select) return;
-  const hasOption = [...select.options].some((option) => option.value === value);
-  select.value = hasOption ? value : 'all';
-}
-
-function setDateValue(input, value = '') {
-  if (input) {
-    input.value = value;
-  }
-}
-
-function setSearchValue(value = '') {
-  if (el.searchInput) {
-    el.searchInput.value = value;
-  }
-}
-
-function updateModeUi() {
-  const modeMap = {
-    all: el.modeAllBtn,
-    ndrt: el.modeNdrtBtn,
-    research: el.modeResearchBtn,
-  };
-
-  Object.entries(modeMap).forEach(([key, button]) => {
-    if (!button) return;
-    button.classList.toggle('active', key === state.activeMode);
-  });
-
-  if (!el.modeNote) return;
-
-  if (state.activeMode === 'ndrt') {
-    el.modeNote.textContent = 'River Trust mode highlights practical catchment, restoration, wetland, habitat, and citizen-science routes while keeping the dropdowns broad.';
-    return;
-  }
-
-  if (state.activeMode === 'research') {
-    el.modeNote.textContent = 'Research mode highlights research-facing themes and sets applicant type to Researchers where that filter exists.';
-    return;
-  }
-
-  el.modeNote.textContent = 'Showing the full catalogue using the standard defaults.';
-}
-
-function applyMode(mode) {
-  state.activeMode = mode;
-
-  setSearchValue('');
-  setDateValue(el.deadlineFrom);
-  setDateValue(el.deadlineTo);
-  setSelectValue(el.statusSelect, 'all');
-  setSelectValue(el.changeSelect, 'all');
-
-  if (mode === 'ndrt') {
-    selectPurposes(NDRT_PURPOSES);
-    setSelectValue(el.applicantSelect, 'all');
-    setSelectValue(el.accessSelect, 'all');
-    setSelectValue(el.scaleSelect, 'all');
-    setSelectValue(el.changeWindowSelect, '365');
-  } else if (mode === 'research') {
-    selectPurposes(RESEARCH_PURPOSES);
-    setSelectValue(el.applicantSelect, 'researchers');
-    setSelectValue(el.accessSelect, 'all');
-    setSelectValue(el.scaleSelect, 'all');
-    setSelectValue(el.changeWindowSelect, '365');
-  } else {
-    clearSelectedPurposes();
-    setSelectValue(el.applicantSelect, 'all');
-    setSelectValue(el.accessSelect, 'all');
-    setSelectValue(el.scaleSelect, 'all');
-    setSelectValue(el.changeWindowSelect, '30');
-  }
-
-  updateModeUi();
-  render();
 }
 
 function matchesPurpose(item) {
@@ -531,11 +396,9 @@ function render() {
 async function init() {
   const response = await fetch('./data/catalog.json', { cache: 'no-store' });
   state.catalog = await response.json();
-
   renderPurposeChips();
   populateDynamicFilters();
   updateSharePanel();
-  updateModeUi();
 
   [
     el.searchInput,
@@ -550,21 +413,10 @@ async function init() {
   ].forEach((node) => node.addEventListener('input', render));
 
   el.clearPurposeBtn.addEventListener('click', () => {
-    clearSelectedPurposes();
+    state.selectedPurposes.clear();
+    document.querySelectorAll('.chip-btn').forEach((btn) => btn.classList.remove('active'));
     render();
   });
-
-  if (el.modeAllBtn) {
-    el.modeAllBtn.addEventListener('click', () => applyMode('all'));
-  }
-
-  if (el.modeNdrtBtn) {
-    el.modeNdrtBtn.addEventListener('click', () => applyMode('ndrt'));
-  }
-
-  if (el.modeResearchBtn) {
-    el.modeResearchBtn.addEventListener('click', () => applyMode('research'));
-  }
 
   render();
 }
