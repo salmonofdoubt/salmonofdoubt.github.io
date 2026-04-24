@@ -72,6 +72,105 @@ LINK_HINT_TERMS = [
     "farm", "farmer", "assap", "acres", "advisory", "tidy towns", "restoration",
 ]
 
+PRACTICAL_PURPOSES = {
+    "water quality",
+    "catchment delivery",
+    "community nature",
+    "restoration",
+    "citizen science",
+    "habitat restoration",
+    "riparian management",
+    "wetlands",
+    "education",
+    "capacity building",
+    "sediment control",
+    "conservation",
+}
+
+COMMUNITY_APPLICANT_TYPES = {
+    "local groups",
+    "NGOs",
+    "public bodies",
+    "schools",
+}
+
+PRACTICAL_ACCESS_ROUTES = {
+    "direct",
+    "advisory support",
+    "via advisor",
+    "via local authority",
+    "via local action group",
+}
+
+PRACTICAL_SCALES = {
+    "local",
+    "support",
+    "medium",
+}
+
+RIVER_TRUST_TERMS = [
+    "river trust",
+    "catchment partnership",
+    "community water quality improvement",
+    "community-led",
+    "community grant",
+    "citizen science",
+    "restoration",
+    "habitat restoration",
+    "riparian",
+    "wetland",
+    "pond",
+    "river restoration",
+    "volunteer",
+    "monitoring",
+    "survey",
+    "walk",
+    "talk",
+    "event",
+    "education",
+    "outreach",
+]
+
+STRONG_TITLE_HINT_TERMS = [
+    "grant",
+    "grants",
+    "fund",
+    "funding",
+    "call",
+    "calls",
+    "scheme",
+    "award",
+    "awards",
+    "applications open",
+    "call for proposals",
+    "community water quality improvement",
+]
+
+GENERIC_TITLE_PATTERNS = [
+    r"about",
+    r"about us",
+    r"our work",
+    r"our services",
+    r"what we do",
+    r"who we are",
+    r"how we can help",
+    r"news",
+    r"news and features",
+    r"publications",
+    r"publication",
+    r"research",
+    r"projects",
+    r"education",
+    r"funding",
+    r"funding and grants",
+    r"funding opportunities",
+    r"our organisation",
+    r"working with communities",
+    r"community information",
+]
+
+
+
 DEADLINE_PATTERNS = [
     r"(deadline(?: for (?:applications|applicants|submissions))?[:\s]+[^\n\r]{0,120})",
     r"(closing date[:\s]+[^\n\r]{0,120})",
@@ -382,6 +481,72 @@ def count_phrase_hits(text: str, phrases: list[str]) -> int:
     lowered = text.lower()
     return sum(1 for phrase in phrases if phrase in lowered)
 
+def page_title_core(title: str) -> str:
+    core = re.split(r"\s+[|\-–]\s+", title, maxsplit=1)[0]
+    return re.sub(r"\s+", " ", core).strip()
+
+
+def looks_generic_title(title: str) -> bool:
+    core = page_title_core(title).lower()
+    return any(core == pattern for pattern in GENERIC_TITLE_PATTERNS)
+
+
+def text_has_any(text: str, phrases: list[str]) -> bool:
+    lowered = text.lower()
+    return any(phrase.lower() in lowered for phrase in phrases)
+
+
+def source_priority_bonus(
+    source: dict[str, Any],
+    applicant_types: list[str],
+    access_route: str | None,
+    scale: str | None,
+) -> tuple[float, list[str]]:
+    score = 0.0
+    flags: list[str] = []
+
+    purposes = set(source.get("purposes", []))
+    source_class = source.get("source_class", "")
+
+    if purposes.intersection(PRACTICAL_PURPOSES):
+        score += 0.08
+        flags.append("practical_route")
+
+    if source_class in {"funding_hub", "programme_page", "implementation_programme"} and purposes.intersection(PRACTICAL_PURPOSES):
+        score += 0.05
+        flags.append("river_trust_source_class")
+
+    if scale in PRACTICAL_SCALES:
+        score += 0.06
+        flags.append("practical_scale")
+
+    if access_route in PRACTICAL_ACCESS_ROUTES:
+        score += 0.06
+        flags.append("practical_access")
+
+    if any(value in COMMUNITY_APPLICANT_TYPES for value in applicant_types):
+        score += 0.07
+        flags.append("community_applicant_fit")
+
+    source_watch_blob = " ".join(source.get("watch_terms", []))
+    if text_has_any(source_watch_blob, RIVER_TRUST_TERMS):
+        score += 0.05
+        flags.append("river_trust_terms")
+
+    return score, flags
+
+
+def max_child_links_for_source(source: dict[str, Any]) -> int:
+    if source.get("source_class") == "funding_hub":
+        return 28
+    return MAX_CHILD_LINKS_PER_SOURCE
+
+
+def max_candidates_for_source(source: dict[str, Any]) -> int:
+    if source.get("source_class") == "funding_hub":
+        return 20
+    return MAX_CANDIDATES_PER_SOURCE
+
 
 def is_denied_child_url(url: str) -> bool:
     parsed = urlparse(url)
@@ -428,50 +593,93 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
     text = page.get("text", "")
     snippet = page.get("snippet", "")
     trusted_domain = source["trusted_domain"]
+    extract = source.get("extract", {})
 
     combined = f"{title}\n{snippet}\n{text[:4000]}".lower()
     phrase_hits = count_phrase_hits(combined, FUNDING_PHRASES)
     watch_hits = count_phrase_hits(combined, source.get("watch_terms", []))
+    title_hits = count_phrase_hits(f"{page_title_core(title).lower()} {page['url'].lower()}", STRONG_TITLE_HINT_TERMS)
     deadline_hint = detect_deadline_hint(text)
 
+    raw_applicant_types = extract.get("applicant_types", [])
+    normalised_applicant_types = normalise_applicant_types(raw_applicant_types)
+    normalised_access_route = normalise_access_route(extract.get("access_route"))
+    normalised_scale = normalise_scale(extract.get("scale"))
+
+    lowered_title = page_title_core(title).lower()
+    lowered_url = page["url"].lower()
+
+    candidate_type = "call_page"
+    if any(token in lowered_title for token in ["award", "awarded", "results"]) or "awarded" in lowered_url:
+        candidate_type = "award_page"
+    elif "news" in lowered_title or "press release" in lowered_title or "announce" in lowered_title:
+        candidate_type = "news_page"
+    elif any(token in lowered_title for token in ["support", "programme", "program", "campaign", "hub", "funding"]) and not deadline_hint:
+        candidate_type = "support_page"
+
     confidence = 0.0
-    reason_flags = []
+    reason_flags: list[str] = []
 
     if is_same_or_child_domain(page["url"], trusted_domain):
         confidence += 0.25
         reason_flags.append("trusted_domain")
+
     if phrase_hits:
         confidence += min(0.25, 0.08 * phrase_hits)
         reason_flags.append("funding_or_support_phrase")
+
     if deadline_hint:
         confidence += 0.15
         reason_flags.append("deadline_detected")
+
     if watch_hits:
         confidence += min(0.18, 0.03 * watch_hits)
         reason_flags.append("watch_term_overlap")
+
+    if title_hits:
+        confidence += min(0.12, 0.04 * title_hits)
+        reason_flags.append("strong_title_hint")
+
+    if text_has_any(combined, RIVER_TRUST_TERMS):
+        confidence += 0.08
+        reason_flags.append("river_trust_term_hit")
+
+    source_bonus, source_bonus_flags = source_priority_bonus(
+        source,
+        normalised_applicant_types,
+        normalised_access_route,
+        normalised_scale,
+    )
+    confidence += source_bonus
+    reason_flags.extend(source_bonus_flags)
+
+    if source.get("source_class") == "funding_hub" and discovered_via == "child_link":
+        confidence += 0.08
+        reason_flags.append("funding_hub_child")
+
     if source.get("usual_open_months"):
         month = datetime.now(UTC).month
         if month in source.get("usual_open_months", []):
             confidence += 0.10
             reason_flags.append("cycle_window_match")
+
     if discovered_via == "child_link":
         confidence += 0.10
         reason_flags.append("child_page")
 
+    if looks_generic_title(title):
+        confidence -= 0.18
+        reason_flags.append("generic_title_penalty")
+
+    if candidate_type == "support_page" and not deadline_hint and phrase_hits < 2:
+        confidence -= 0.10
+        reason_flags.append("generic_support_page_penalty")
+
     confidence = min(confidence, 0.99)
+
     if confidence < 0.45:
         return None
 
-    candidate_type = "call_page"
-    lowered_title = title.lower()
-    if "news" in lowered_title or "press release" in lowered_title:
-        candidate_type = "news_page"
-    if "award" in lowered_title or "results" in lowered_title:
-        candidate_type = "award_page"
-    if any(token in lowered_title for token in ["advisory", "campaign", "support", "programme"]):
-        candidate_type = "support_page"
-
-    raw_applicant_types = source.get("extract", {}).get("applicant_types", [])
     registry_match = find_existing_registry_match(page["url"], registry)
 
     return Candidate(
@@ -490,9 +698,9 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         confidence=confidence,
         status="pending_review",
         suggested_purposes=source.get("purposes", [])[:8],
-        suggested_applicant_types=normalise_applicant_types(raw_applicant_types)[:8],
-        suggested_access_route=normalise_access_route(source.get("extract", {}).get("access_route")),
-        suggested_scale=normalise_scale(source.get("extract", {}).get("scale")),
+        suggested_applicant_types=normalised_applicant_types[:8],
+        suggested_access_route=normalised_access_route,
+        suggested_scale=normalised_scale,
         reason_flags=dedupe_keep_order(reason_flags),
         deadline_hint=deadline_hint,
         page_hash=page["page_hash"],
@@ -501,7 +709,6 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         already_trusted=bool(registry_match),
         trusted_registry_id=registry_match["id"] if registry_match else None,
     )
-
 
 PERSISTENT_FIELDS = [
     "status",
@@ -624,6 +831,8 @@ def discover() -> None:
 
         trusted_domain = source["trusted_domain"]
         candidate_count_for_source = 0
+        source_max_candidates = max_candidates_for_source(source)
+        source_max_child_links = max_child_links_for_source(source)
 
         for watch_url in build_watch_urls(source):
             page, error = fetch_page(watch_url)
@@ -638,7 +847,7 @@ def discover() -> None:
                 newly_found.append(direct_candidate)
                 candidate_count_for_source += 1
 
-            if candidate_count_for_source >= MAX_CANDIDATES_PER_SOURCE:
+            if candidate_count_for_source >= source_max_candidates:
                 continue
 
             same_domain_links = []
@@ -660,8 +869,8 @@ def discover() -> None:
                 family_seen.add(family_key)
                 filtered_child_urls.append(child_url)
 
-            for child_url in filtered_child_urls[:MAX_CHILD_LINKS_PER_SOURCE]:
-                if candidate_count_for_source >= MAX_CANDIDATES_PER_SOURCE:
+            for child_url in filtered_child_urls[:source_max_child_links]:
+                if candidate_count_for_source >= source_max_candidates:
                     break
                 child_page, child_error = fetch_page(child_url)
                 if child_error or not child_page:
