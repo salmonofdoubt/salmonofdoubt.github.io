@@ -1,20 +1,11 @@
 #!/usr/bin/env python3
 """Grant Radar harvester tuned for both research and practical catchment routes.
 
-Public-state model:
-- status remains workflow-oriented
-- public_visibility controls whether an item is shown on the public site
-- current_availability distinguishes open_now vs closed_for_now vs closed
-- recurrence_type distinguishes recurring / rolling / one_off / unknown
-- programme_state distinguishes active / historic / unknown
-
-The public site should normally show only:
-  public_visibility == "public_visible"
-
-This harvester stays conservative and backward-compatible:
-- it reads trusted configured sources only
-- it derives public-state fields from registry metadata where possible
-- it honours explicit overrides in source-registry.json when present
+The public site remains conservative: it reads trusted configured sources only.
+This harvester now:
+- skips discovery-only hubs
+- normalises applicant categories and scale labels so local/community/farmer routes are easy to filter
+- preserves all existing routes while broadening support for practical Irish water-quality delivery
 """
 
 from __future__ import annotations
@@ -35,7 +26,7 @@ SITE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = SITE_DIR / "data"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 CATALOG_PATH = DATA_DIR / "catalog.json"
-USER_AGENT = "GrantRadarBot/1.4 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarBot/1.3 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 APPLICANT_PRIORITY = [
@@ -61,27 +52,6 @@ ACCESS_PRIORITY = [
     "consortium",
 ]
 
-PUBLIC_VISIBILITY_VALUES = {"public_visible", "discovery_only", "archived"}
-CURRENT_AVAILABILITY_VALUES = {"open_now", "closed_for_now", "closed", "unknown"}
-RECURRENCE_TYPE_VALUES = {"recurring", "rolling", "one_off", "unknown"}
-PROGRAMME_STATE_VALUES = {"active", "historic", "unknown"}
-
-MONTH_NAMES = {
-    1: "Jan",
-    2: "Feb",
-    3: "Mar",
-    4: "Apr",
-    5: "May",
-    6: "Jun",
-    7: "Jul",
-    8: "Aug",
-    9: "Sep",
-    10: "Oct",
-    11: "Nov",
-    12: "Dec",
-}
-
-
 @dataclass
 class ExtractedItem:
     source_id: str
@@ -104,13 +74,6 @@ class ExtractedItem:
     keywords: list[str]
     cta_label: str
     opportunity_type: str
-    public_visibility: str
-    current_availability: str
-    recurrence_type: str
-    programme_state: str
-    last_verified_at: str
-    last_open_year: int | None
-    expected_next_window: str | None
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -135,13 +98,6 @@ class ExtractedItem:
             "keywords": self.keywords,
             "cta_label": self.cta_label,
             "opportunity_type": self.opportunity_type,
-            "public_visibility": self.public_visibility,
-            "current_availability": self.current_availability,
-            "recurrence_type": self.recurrence_type,
-            "programme_state": self.programme_state,
-            "last_verified_at": self.last_verified_at,
-            "last_open_year": self.last_open_year,
-            "expected_next_window": self.expected_next_window,
         }
 
 
@@ -219,19 +175,7 @@ def normalise_applicant_types(raw_types: list[str]) -> list[str]:
     def has(*needles: str) -> bool:
         return any(any(needle in value for needle in needles) for value in lowered)
 
-    if has(
-        "community",
-        "voluntary",
-        "tidy",
-        "angling",
-        "association",
-        "local development",
-        "catchment partnership",
-        "rural network",
-        "social enterprise",
-        "community partners",
-        "river trust",
-    ):
+    if has("community", "voluntary", "tidy", "angling", "association", "local development", "catchment partnership", "rural network", "social enterprise", "community partners"):
         simplified.append("local groups")
     if has("farmer", "farmers", "farm family"):
         simplified.append("farmers")
@@ -288,175 +232,6 @@ def normalise_access_route(raw_route: str | None) -> str | None:
     return "direct" if lowered == "direct" else raw_route
 
 
-def valid_or_none(value: str | None, allowed: set[str]) -> str | None:
-    if not value:
-        return None
-    lowered = str(value).strip().lower()
-    return lowered if lowered in allowed else None
-
-
-def month_window_label(months: list[int], year: int | None = None) -> str | None:
-    unique_months = sorted({int(m) for m in months if isinstance(m, int) and 1 <= int(m) <= 12})
-    if not unique_months:
-        return None
-
-    if len(unique_months) == 1:
-        label = MONTH_NAMES[unique_months[0]]
-    else:
-        contiguous = all(unique_months[i] + 1 == unique_months[i + 1] for i in range(len(unique_months) - 1))
-        if contiguous:
-            label = f"{MONTH_NAMES[unique_months[0]]}–{MONTH_NAMES[unique_months[-1]]}"
-        else:
-            label = ", ".join(MONTH_NAMES[m] for m in unique_months)
-
-    return f"{label} {year}" if year else label
-
-
-def infer_recurrence_type(source: dict[str, Any]) -> str:
-    explicit = valid_or_none(source.get("recurrence_type"), RECURRENCE_TYPE_VALUES)
-    if explicit:
-        return explicit
-
-    cadence = str(source.get("cadence", "")).strip().lower()
-    source_class = str(source.get("source_class", "")).strip().lower()
-
-    if cadence in {"annual", "multiannual"}:
-        return "recurring"
-    if cadence in {"ongoing", "rolling"}:
-        return "rolling"
-    if cadence in {"one_off", "historic"}:
-        return "one_off"
-    if source_class in {"historic_call", "historic_programme"}:
-        return "one_off"
-
-    return "unknown"
-
-
-def infer_programme_state(source: dict[str, Any], recurrence_type: str, status: str) -> str:
-    explicit = valid_or_none(source.get("programme_state"), PROGRAMME_STATE_VALUES)
-    if explicit:
-        return explicit
-
-    cadence = str(source.get("cadence", "")).strip().lower()
-    source_class = str(source.get("source_class", "")).strip().lower()
-    lowered_status = str(status).strip().lower()
-
-    if recurrence_type in {"recurring", "rolling"}:
-        return "active"
-    if cadence in {"historic", "one_off"}:
-        return "historic"
-    if source_class in {"historic_call", "historic_programme"}:
-        return "historic"
-    if lowered_status in {"awarded", "expired"}:
-        return "historic"
-
-    return "unknown"
-
-
-def infer_current_availability(source: dict[str, Any], status: str, recurrence_type: str, programme_state: str) -> str:
-    explicit = valid_or_none(
-        source.get("current_availability") or source.get("extract", {}).get("current_availability"),
-        CURRENT_AVAILABILITY_VALUES,
-    )
-    if explicit:
-        return explicit
-
-    lowered_status = str(status).strip().lower()
-
-    if lowered_status == "open":
-        return "open_now"
-    if lowered_status == "upcoming":
-        return "closed_for_now"
-    if lowered_status in {"awarded", "expired"}:
-        return "closed"
-    if lowered_status == "closed":
-        if recurrence_type in {"recurring", "rolling"} and programme_state == "active":
-            return "closed_for_now"
-        if recurrence_type == "one_off" or programme_state == "historic":
-            return "closed"
-        return "closed_for_now"
-
-    return "unknown"
-
-
-def infer_public_visibility(
-    source: dict[str, Any],
-    recurrence_type: str,
-    current_availability: str,
-    programme_state: str,
-) -> str:
-    explicit = valid_or_none(
-        source.get("public_visibility") or source.get("extract", {}).get("public_visibility"),
-        PUBLIC_VISIBILITY_VALUES,
-    )
-    if explicit:
-        return explicit
-
-    source_class = str(source.get("source_class", "")).strip().lower()
-
-    if source_class in {"funding_hub", "news_hub"}:
-        return "discovery_only"
-
-    if recurrence_type == "one_off" and current_availability != "open_now":
-        return "archived"
-
-    if programme_state == "historic" and current_availability != "open_now":
-        return "archived"
-
-    return "public_visible"
-
-
-def infer_last_open_year(
-    source: dict[str, Any],
-    deadline_iso: str | None,
-    current_availability: str,
-) -> int | None:
-    explicit = source.get("last_open_year")
-    if isinstance(explicit, int):
-        return explicit
-
-    if deadline_iso:
-        try:
-            return datetime.fromisoformat(deadline_iso.replace("Z", "+00:00")).year
-        except Exception:
-            pass
-
-    if current_availability == "open_now":
-        return datetime.now(UTC).year
-
-    return None
-
-
-def infer_expected_next_window(
-    source: dict[str, Any],
-    recurrence_type: str,
-    current_availability: str,
-    last_open_year: int | None,
-) -> str | None:
-    explicit = source.get("expected_next_window")
-    if explicit:
-        return str(explicit)
-
-    if recurrence_type == "rolling":
-        return "Rolling"
-
-    if recurrence_type != "recurring":
-        return None
-
-    months = source.get("usual_open_months") or []
-    if not isinstance(months, list) or not months:
-        return None
-
-    if current_availability == "open_now":
-        target_year = datetime.now(UTC).year
-    elif current_availability in {"closed_for_now", "closed"}:
-        target_year = (last_open_year + 1) if last_open_year else (datetime.now(UTC).year + 1)
-    else:
-        target_year = datetime.now(UTC).year
-
-    return month_window_label(months, target_year)
-
-
 def determine_change(item: ExtractedItem, previous_map: dict[str, dict[str, Any]], seen_at: str) -> None:
     key = slugify(f"{item.source_id}_{item.title}")
     old = previous_map.get(key)
@@ -494,8 +269,6 @@ def harvest() -> dict[str, Any]:
     applicant_seen: set[str] = set()
     access_seen: set[str] = set()
     scale_seen: set[str] = set()
-    public_visibility_seen: set[str] = set()
-    availability_seen: set[str] = set()
 
     for source in registry:
         if not source.get("harvest_enabled", True):
@@ -508,38 +281,16 @@ def harvest() -> dict[str, Any]:
         access_route = normalise_access_route(extract.get("access_route"))
         scale = normalise_scale(extract.get("scale"))
         opportunity_type = extract.get("opportunity_type", "grant")
-        status_hint = extract.get("status_hint", "open")
-
         keywords = ordered(
-            [
-                source["name"].lower(),
-                *source.get("purposes", []),
-                *raw_applicant_types,
-                *applicant_types,
-                opportunity_type,
-            ],
-            [],
+            [source["name"].lower(), *source.get("purposes", []), *raw_applicant_types, *applicant_types, opportunity_type],
+            []
         )
 
         try:
             text, checked_at = fetch_text(source["url"])
-            verified_at = checked_at or seen_at
-
             deadline_raw = regex_extract(extract.get("deadline_regex"), text)
             launch_raw = regex_extract(extract.get("launch_regex"), text) or regex_extract(extract.get("open_regex"), text)
             deadline_iso, deadline_text = normalise_date(deadline_raw)
-
-            recurrence_type = infer_recurrence_type(source)
-            programme_state = infer_programme_state(source, recurrence_type, status_hint)
-            current_availability = infer_current_availability(source, status_hint, recurrence_type, programme_state)
-            public_visibility = infer_public_visibility(source, recurrence_type, current_availability, programme_state)
-            last_open_year = infer_last_open_year(source, deadline_iso, current_availability)
-            expected_next_window = infer_expected_next_window(
-                source,
-                recurrence_type,
-                current_availability,
-                last_open_year,
-            )
 
             item = ExtractedItem(
                 source_id=source["id"],
@@ -548,7 +299,7 @@ def harvest() -> dict[str, Any]:
                 programme=extract.get("programme", source["name"]),
                 url=source["url"],
                 summary=summary,
-                status=status_hint,
+                status=extract.get("status_hint", "open"),
                 change_type="none",
                 changed_at=None,
                 deadline_iso=deadline_iso,
@@ -562,13 +313,6 @@ def harvest() -> dict[str, Any]:
                 keywords=keywords,
                 cta_label=f"Open {source['name']}",
                 opportunity_type=opportunity_type,
-                public_visibility=public_visibility,
-                current_availability=current_availability,
-                recurrence_type=recurrence_type,
-                programme_state=programme_state,
-                last_verified_at=verified_at,
-                last_open_year=last_open_year,
-                expected_next_window=expected_next_window,
             )
 
             determine_change(item, previous_items, seen_at)
@@ -582,7 +326,7 @@ def harvest() -> dict[str, Any]:
                     "scope": source.get("scope", "—"),
                     "purposes": source.get("purposes", []),
                     "note": source.get("note", ""),
-                    "last_checked": verified_at,
+                    "last_checked": checked_at or seen_at,
                     "discovery_method": source.get("discovery_method", "configured extraction"),
                     "fetch_status": "ok",
                 }
@@ -612,27 +356,15 @@ def harvest() -> dict[str, Any]:
         if scale:
             scale_seen.add(scale)
 
-    for item in items_out:
-        public_visibility_seen.add(item.get("public_visibility", "public_visible"))
-        availability_seen.add(item.get("current_availability", "unknown"))
-
-    visible_public = [item for item in items_out if item.get("public_visibility") == "public_visible"]
-    archived_public = [item for item in items_out if item.get("public_visibility") == "archived"]
-
     return {
         "meta": {
             "title": "Grant Radar",
             "generated_at": seen_at,
-            "generator": "grant-radar-demo 1.4.0",
+            "generator": "grant-radar-demo 1.3.0",
             "available_purposes": sorted(purposes_seen),
             "available_applicant_types": ordered(list(applicant_seen), APPLICANT_PRIORITY),
             "available_access_routes": ordered(list(access_seen), ACCESS_PRIORITY),
             "available_scales": ordered(list(scale_seen), SCALE_PRIORITY),
-            "available_public_visibility": sorted(public_visibility_seen),
-            "available_current_availability": sorted(availability_seen),
-            "public_visible_count": len(visible_public),
-            "archived_count": len(archived_public),
-            "total_harvested_count": len(items_out),
         },
         "sources": sources_out,
         "opportunities": items_out,

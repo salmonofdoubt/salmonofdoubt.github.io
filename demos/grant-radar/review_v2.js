@@ -73,55 +73,6 @@ function fallbackReviewKey(item) {
   return `${family}::${title}::${source}::${domain}`;
 }
 
-function effectivePublicVisibility(item) {
-  return item.public_visibility || 'discovery_only';
-}
-
-function effectiveCurrentAvailability(item) {
-  if (item.current_availability) return item.current_availability;
-  if (item.status === 'open') return 'open_now';
-  if (item.status === 'upcoming') return 'closed_for_now';
-  if (item.status === 'closed') return 'closed_for_now';
-  return 'unknown';
-}
-
-function effectiveRecurrenceType(item) {
-  return item.recurrence_type || 'unknown';
-}
-
-function publicVisibilityLabel(value) {
-  if (value === 'public_visible') return 'public visible';
-  if (value === 'archived') return 'archived';
-  return 'discovery only';
-}
-
-function publicVisibilityClass(value) {
-  if (value === 'public_visible') return 'score-high';
-  if (value === 'archived') return 'score-mid';
-  return 'score-low';
-}
-
-function currentAvailabilityLabel(value) {
-  if (value === 'open_now') return 'open now';
-  if (value === 'closed_for_now') return 'closed for now';
-  if (value === 'closed') return 'closed';
-  return 'unknown';
-}
-
-function currentAvailabilityClass(value) {
-  if (value === 'open_now') return 'score-high';
-  if (value === 'closed_for_now') return 'score-mid';
-  if (value === 'closed') return 'score-low';
-  return 'pill-pending';
-}
-
-function recurrenceLabel(value) {
-  if (value === 'recurring') return 'recurring';
-  if (value === 'rolling') return 'rolling';
-  if (value === 'one_off') return 'one-off';
-  return 'unknown cadence';
-}
-
 function derivePromotionSignal(item) {
   if (item.promotion_signal === 'green' || item.promotion_signal === 'amber' || item.promotion_signal === 'red') {
     return item.promotion_signal;
@@ -224,8 +175,6 @@ function renderSummary(rawCandidates, visibleCandidates) {
   const green = visibleCandidates.filter((item) => derivePromotionSignal(item) === 'green').length;
   const amber = visibleCandidates.filter((item) => derivePromotionSignal(item) === 'amber').length;
   const red = visibleCandidates.filter((item) => derivePromotionSignal(item) === 'red').length;
-  const publicVisible = visibleCandidates.filter((item) => effectivePublicVisibility(item) === 'public_visible').length;
-  const archived = visibleCandidates.filter((item) => effectivePublicVisibility(item) === 'archived').length;
 
   el.summaryGrid.innerHTML = [
     summaryBox('Raw candidates', rawCandidates.length),
@@ -233,8 +182,6 @@ function renderSummary(rawCandidates, visibleCandidates) {
     summaryBox('Promotable', green),
     summaryBox('Review carefully', amber),
     summaryBox('Discovery only', red),
-    summaryBox('Public visible', publicVisible),
-    summaryBox('Archived', archived),
     summaryBox('Already trusted', visibleCandidates.filter((item) => item.already_trusted).length),
   ].join('');
 }
@@ -254,11 +201,7 @@ function filteredCandidates() {
       item.source_hint,
       item.canonical_family_key,
       item.promotion_signal,
-      effectivePublicVisibility(item),
-      effectiveCurrentAvailability(item),
-      effectiveRecurrenceType(item),
-      item.programme_state,
-      item.expected_next_window,
+      item.public_visible_state,
       ...(item.suggested_purposes || []),
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),
@@ -294,10 +237,6 @@ function buildIssueUrl(item) {
     `candidate_url: ${item.url}`,
     `candidate_title: ${item.title || ''}`,
     `promotion_signal: ${derivePromotionSignal(item)}`,
-    `public_visibility: ${effectivePublicVisibility(item)}`,
-    `current_availability: ${effectiveCurrentAvailability(item)}`,
-    `recurrence_type: ${effectiveRecurrenceType(item)}`,
-    `programme_state: ${item.programme_state || 'unknown'}`,
     '',
     '## Decision',
     '- [ ] Accept promotion into trusted catalogue',
@@ -341,10 +280,6 @@ function renderCards() {
 
   el.cards.innerHTML = candidates.map((item) => {
     const signal = derivePromotionSignal(item);
-    const publicVisibility = effectivePublicVisibility(item);
-    const currentAvailability = effectiveCurrentAvailability(item);
-    const recurrenceType = effectiveRecurrenceType(item);
-
     return `
       <article class="candidate-card">
         <div class="top-row">
@@ -352,9 +287,6 @@ function renderCards() {
             <span class="pill ${statusClass(item.status)}">${(item.status || 'pending_review').replaceAll('_', ' ')}</span>
             <span class="pill ${signalClass(signal)}">${signalLabel(signal)}</span>
             <span class="pill ${scoreClass(Number(item.confidence || 0))}">confidence ${Number(item.confidence || 0).toFixed(2)}</span>
-            <span class="pill ${publicVisibilityClass(publicVisibility)}">${publicVisibilityLabel(publicVisibility)}</span>
-            <span class="pill ${currentAvailabilityClass(currentAvailability)}">${currentAvailabilityLabel(currentAvailability)}</span>
-            <span class="pill pill-pending">${recurrenceLabel(recurrenceType)}</span>
             ${item.promotion_requested ? '<span class="pill pill-requested">request open</span>' : ''}
             ${item.already_trusted ? `<span class="pill pill-already">already trusted${item.trusted_registry_id ? `: ${item.trusted_registry_id}` : ''}</span>` : ''}
           </div>
@@ -378,7 +310,6 @@ function renderCards() {
         <p class="small" style="margin-top: 0.8rem;"><strong>Promotion reasons:</strong> ${(item.promotion_reasons || []).join(', ') || '—'}</p>
         <p class="small"><strong>Reason flags:</strong> ${(item.reason_flags || []).join(', ') || '—'}</p>
         <p class="small"><strong>Deadline hint:</strong> ${item.deadline_hint || '—'}</p>
-        <p class="small"><strong>Programme state:</strong> ${item.programme_state || 'unknown'}<br><strong>Expected next window:</strong> ${item.expected_next_window || '—'}</p>
         <p class="small"><strong>First seen:</strong> ${item.first_seen || '—'}<br><strong>Last seen:</strong> ${item.last_seen || '—'}</p>
         <p class="small"><strong>Family key:</strong> ${item.canonical_family_key || fallbackReviewKey(item)}</p>
 

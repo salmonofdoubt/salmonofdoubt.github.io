@@ -105,7 +105,9 @@ const NDRT_ACCESS_ROUTES = [
 const NDRT_SCALES = ['local', 'support', 'medium'];
 
 const RESEARCH_APPLICANT_TYPES = ['researchers'];
+
 const RESEARCH_ACCESS_ROUTES = ['direct', 'consortium'];
+
 const RESEARCH_SCALES = ['major'];
 
 const fmtDate = (value) => {
@@ -151,58 +153,6 @@ function ordered(values, preferred) {
     if (rankA !== rankB) return rankA - rankB;
     return a.localeCompare(b);
   });
-}
-
-function effectivePublicVisibility(item) {
-  return item.public_visibility || 'public_visible';
-}
-
-function effectiveCurrentAvailability(item) {
-  if (item.current_availability) return item.current_availability;
-
-  if (item.status === 'open') return 'open_now';
-  if (item.status === 'upcoming') return 'closed_for_now';
-  if (item.status === 'closed') return 'closed_for_now';
-
-  return 'unknown';
-}
-
-function effectiveRecurrenceType(item) {
-  return item.recurrence_type || 'unknown';
-}
-
-function availabilityLabel(value) {
-  if (value === 'open_now') return 'Open now';
-  if (value === 'closed_for_now') return 'Closed for now';
-  if (value === 'closed') return 'Closed';
-  return 'Unknown';
-}
-
-function availabilityTagClass(value) {
-  if (value === 'open_now') return 'tone-green';
-  if (value === 'closed_for_now') return 'tone-amber';
-  if (value === 'closed') return 'tone-red';
-  return 'tone-neutral';
-}
-
-function recurrenceLabel(value) {
-  if (value === 'recurring') return 'Recurring';
-  if (value === 'rolling') return 'Rolling';
-  if (value === 'one_off') return 'One-off';
-  return 'Unknown cadence';
-}
-
-function formatDeadlineText(item) {
-  if (item.deadline_text) return item.deadline_text;
-
-  const availability = effectiveCurrentAvailability(item);
-  if (availability === 'open_now') return 'Currently open';
-  if (availability === 'closed_for_now' && item.expected_next_window) {
-    return `Expected next window: ${item.expected_next_window}`;
-  }
-  if (availability === 'closed_for_now') return 'Currently closed for now';
-  if (availability === 'closed') return 'Closed';
-  return 'Deadline not yet extracted';
 }
 
 function makeTag(text, className = '') {
@@ -329,7 +279,7 @@ function updateModeUi() {
     return;
   }
 
-  el.modeNote.textContent = 'Showing the full public catalogue using the standard defaults.';
+  el.modeNote.textContent = 'Showing the full catalogue using the standard defaults.';
 }
 
 function applyMode(mode) {
@@ -422,8 +372,6 @@ function getFilteredOpportunities() {
   const now = new Date();
 
   return state.catalog.opportunities.filter((item) => {
-    if (effectivePublicVisibility(item) !== 'public_visible') return false;
-
     const haystack = [
       item.title,
       item.summary,
@@ -432,10 +380,6 @@ function getFilteredOpportunities() {
       item.access_route,
       item.scale,
       item.opportunity_type,
-      effectiveCurrentAvailability(item),
-      effectiveRecurrenceType(item),
-      item.programme_state,
-      item.expected_next_window,
       ...(item.purposes || []),
       ...(item.applicant_types || item.audience || []),
       ...(item.keywords || []),
@@ -465,18 +409,9 @@ function getFilteredOpportunities() {
 
     return true;
   }).sort((a, b) => {
-    const aAvailability = effectiveCurrentAvailability(a);
-    const bAvailability = effectiveCurrentAvailability(b);
-
-    if (aAvailability !== bAvailability) {
-      const rank = { open_now: 1, closed_for_now: 2, unknown: 3, closed: 4 };
-      return (rank[aAvailability] || 99) - (rank[bAvailability] || 99);
-    }
-
     const aDeadline = a.deadline_iso ? new Date(a.deadline_iso).getTime() : Number.MAX_SAFE_INTEGER;
     const bDeadline = b.deadline_iso ? new Date(b.deadline_iso).getTime() : Number.MAX_SAFE_INTEGER;
     if (aDeadline !== bDeadline) return aDeadline - bDeadline;
-
     return a.title.localeCompare(b.title);
   });
 }
@@ -500,13 +435,10 @@ function getChangeTagClass(changeType = 'none') {
 }
 
 function renderSummary(opportunities) {
-  const publicItems = state.catalog.opportunities.filter((item) => effectivePublicVisibility(item) === 'public_visible');
-  const publicSources = new Set(publicItems.map((item) => item.source_id));
-
   el.generatedAt.textContent = fmtDateTime(state.catalog.meta.generated_at);
   el.matchCount.textContent = String(opportunities.length);
-  el.sourceCount.textContent = String(publicSources.size);
-  el.changeCount.textContent = String(publicItems.filter((item) => item.change_type && item.change_type !== 'none').length);
+  el.sourceCount.textContent = String(state.catalog.sources.length);
+  el.changeCount.textContent = String(state.catalog.opportunities.filter((item) => item.change_type && item.change_type !== 'none').length);
 }
 
 function renderChanges(opportunities) {
@@ -517,7 +449,7 @@ function renderChanges(opportunities) {
 
   el.changesFeed.innerHTML = '';
   if (changed.length === 0) {
-    el.changesFeed.innerHTML = '<div class="empty-state">No matching recent public changes under the current filters.</div>';
+    el.changesFeed.innerHTML = '<div class="empty-state">No matching recent changes under the current filters.</div>';
     return;
   }
 
@@ -528,7 +460,7 @@ function renderChanges(opportunities) {
     badge.classList.add(getChangeBadgeClass(item.change_type));
     node.querySelector('.change-date').textContent = fmtDate(item.changed_at);
     node.querySelector('.change-title').textContent = item.title;
-    node.querySelector('.change-meta').textContent = `${item.source_name} · ${formatDeadlineText(item)}`;
+    node.querySelector('.change-meta').textContent = `${item.source_name} · ${item.deadline_text || 'Deadline not yet extracted'}`;
     const link = node.querySelector('.change-link');
     link.href = item.url;
     el.changesFeed.appendChild(node);
@@ -538,7 +470,7 @@ function renderChanges(opportunities) {
 function renderOpportunities(opportunities) {
   el.results.innerHTML = '';
   if (opportunities.length === 0) {
-    el.results.innerHTML = '<div class="empty-state">No public opportunities match the current filters. Clear the purpose chips or widen the date window.</div>';
+    el.results.innerHTML = '<div class="empty-state">No opportunities match the current filters. Clear the purpose chips or widen the date window.</div>';
     return;
   }
 
@@ -553,15 +485,6 @@ function renderOpportunities(opportunities) {
     if (item.opportunity_type) topTags.appendChild(makeTag(item.opportunity_type));
     if (item.scale) topTags.appendChild(makeTag(item.scale, 'tag-scale'));
     if (item.access_route) topTags.appendChild(makeTag(item.access_route, 'tag-access'));
-
-    topTags.appendChild(
-      makeTag(availabilityLabel(effectiveCurrentAvailability(item)), availabilityTagClass(effectiveCurrentAvailability(item)))
-    );
-
-    if (effectiveRecurrenceType(item) !== 'unknown') {
-      topTags.appendChild(makeTag(recurrenceLabel(effectiveRecurrenceType(item)), 'tone-neutral'));
-    }
-
     if (item.change_type && item.change_type !== 'none') {
       topTags.appendChild(makeTag(item.change_type.replaceAll('_', ' '), getChangeTagClass(item.change_type)));
     }
@@ -572,8 +495,8 @@ function renderOpportunities(opportunities) {
     root.querySelector('.card-title').textContent = item.title;
     root.querySelector('.card-source').textContent = item.programme || item.source_name;
     root.querySelector('.card-summary').textContent = item.summary;
-    root.querySelector('.deadline').textContent = formatDeadlineText(item);
-    root.querySelector('.changed').textContent = item.changed_at ? fmtDate(item.changed_at) : fmtDate(item.last_verified_at);
+    root.querySelector('.deadline').textContent = item.deadline_text || 'Deadline not yet extracted';
+    root.querySelector('.changed').textContent = item.changed_at ? fmtDate(item.changed_at) : '—';
     root.querySelector('.region').textContent = item.region || '—';
     root.querySelector('.applicant').textContent = (item.applicant_types || item.audience || []).map(titleCaseLabel).join(', ') || '—';
     root.querySelector('.access').textContent = titleCaseLabel(item.access_route || '—');
@@ -591,20 +514,7 @@ function renderOpportunities(opportunities) {
 
 function renderSources(opportunities) {
   const filteredSourceIds = new Set(opportunities.map((item) => item.source_id));
-  const publicSourceCounts = new Map();
-
-  state.catalog.opportunities
-    .filter((item) => effectivePublicVisibility(item) === 'public_visible')
-    .forEach((item) => {
-      publicSourceCounts.set(item.source_id, (publicSourceCounts.get(item.source_id) || 0) + 1);
-    });
-
-  const visibleSources = state.catalog.sources.filter((source) => {
-    const publicCount = publicSourceCounts.get(source.id) || 0;
-    if (publicCount === 0) return false;
-    if (filteredSourceIds.size === 0) return true;
-    return filteredSourceIds.has(source.id);
-  });
+  const visibleSources = state.catalog.sources.filter((source) => filteredSourceIds.size === 0 || filteredSourceIds.has(source.id));
 
   el.sources.innerHTML = '';
   visibleSources.forEach((source) => {
@@ -617,7 +527,7 @@ function renderSources(opportunities) {
     root.querySelector('.source-scope').textContent = source.scope || '—';
     root.querySelector('.source-checked').textContent = fmtDateTime(source.last_checked);
     root.querySelector('.source-method').textContent = source.discovery_method || 'configured extraction';
-    root.querySelector('.source-op-count').textContent = String(publicSourceCounts.get(source.id) || 0);
+    root.querySelector('.source-op-count').textContent = String(state.catalog.opportunities.filter((item) => item.source_id === source.id).length);
     root.querySelector('.source-link').href = source.url;
     el.sources.appendChild(node);
   });
