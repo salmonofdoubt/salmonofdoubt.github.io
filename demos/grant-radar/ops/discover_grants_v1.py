@@ -1,14 +1,9 @@
 #!/usr/bin/env python3
-"""Grant Radar discovery with separate promotion signal.
+"""Discovery layer for Grant Radar with persistent metadata.
 
-This script keeps discovery confidence for relevance, but also writes a
-promotion signal that is much stricter:
-
-- green: genuinely promotable / actionable
-- amber: plausible, but incomplete or needs careful review
-- red: discovery only, not a good public-visible grant candidate
-
-It also suppresses stale and clearly non-actionable pages more aggressively.
+This replacement keeps the existing review-oriented workflow and adds
+strong stale-page suppression so old call pages do not keep surfacing
+as high-confidence candidates.
 """
 
 from __future__ import annotations
@@ -16,7 +11,6 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from collections import Counter
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -33,27 +27,12 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/0.9 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/0.8 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
 MAX_CHILD_LINKS_PER_SOURCE = 18
 MAX_CANDIDATES_PER_SOURCE = 14
-
-PERSISTENT_FIELDS = [
-    "status",
-    "notes",
-    "promotion_requested",
-    "promotion_request_issue_number",
-    "promotion_request_issue_url",
-    "request_origin_status",
-    "cl_draft_ready",
-    "cl_draft_generated_at",
-    "cl_draft_json",
-    "cl_draft_html",
-    "already_trusted",
-    "trusted_registry_id",
-]
 
 APPLICANT_PRIORITY = [
     "local groups",
@@ -99,7 +78,7 @@ COMMON_WATCH_TERMS = [
     "local groups",
 ]
 
-DISCOVERY_PHRASES = [
+FUNDING_PHRASES = [
     "applications open",
     "call for proposals",
     "call for applications",
@@ -126,45 +105,6 @@ DISCOVERY_PHRASES = [
     "free programme available to all farmers",
 ]
 
-ACTIONABLE_PHRASES = [
-    "apply now",
-    "applications open",
-    "application form",
-    "application process",
-    "how to apply",
-    "submit a proposal",
-    "submit proposal",
-    "open call",
-    "call for proposals",
-    "call for applications",
-    "expression of interest",
-    "expressions of interest",
-    "eligibility criteria",
-    "eligible applicants",
-    "online grants system",
-    "funding now available",
-    "grant scheme",
-    "grant programme",
-]
-
-NEGATIVE_PROMOTION_PHRASES = [
-    "deadline has passed",
-    "deadline for these calls has now passed",
-    "successful projects",
-    "projects awarded",
-    "awarded funding",
-    "awarded projects",
-    "press release",
-    "minister announces",
-    "minister announced",
-    "announce over €",
-    "announces over €",
-    "announces new funding",
-    "launches €",
-    "launches a €",
-    "results announced",
-]
-
 LINK_HINT_TERMS = [
     "grant",
     "fund",
@@ -188,6 +128,65 @@ LINK_HINT_TERMS = [
     "advisory",
     "tidy towns",
     "restoration",
+]
+
+PRACTICAL_PURPOSES = {
+    "water quality",
+    "catchment delivery",
+    "community nature",
+    "restoration",
+    "citizen science",
+    "habitat restoration",
+    "riparian management",
+    "wetlands",
+    "education",
+    "capacity building",
+    "sediment control",
+    "conservation",
+}
+
+COMMUNITY_APPLICANT_TYPES = {
+    "local groups",
+    "NGOs",
+    "public bodies",
+    "schools",
+}
+
+PRACTICAL_ACCESS_ROUTES = {
+    "direct",
+    "advisory support",
+    "via advisor",
+    "via local authority",
+    "via local action group",
+}
+
+PRACTICAL_SCALES = {
+    "local",
+    "support",
+    "medium",
+}
+
+RIVER_TRUST_TERMS = [
+    "river trust",
+    "catchment partnership",
+    "community water quality improvement",
+    "community-led",
+    "community grant",
+    "citizen science",
+    "restoration",
+    "habitat restoration",
+    "riparian",
+    "wetland",
+    "pond",
+    "river restoration",
+    "volunteer",
+    "monitoring",
+    "survey",
+    "walk",
+    "talk",
+    "event",
+    "education",
+    "outreach",
 ]
 
 STRONG_TITLE_HINT_TERMS = [
@@ -269,63 +268,19 @@ LANGUAGE_SUFFIX_RE = re.compile(
     flags=re.IGNORECASE,
 )
 
-PRACTICAL_PURPOSES = {
-    "water quality",
-    "catchment delivery",
-    "community nature",
-    "restoration",
-    "citizen science",
-    "habitat restoration",
-    "riparian management",
-    "wetlands",
-    "education",
-    "capacity building",
-    "sediment control",
-    "conservation",
-}
-
-COMMUNITY_APPLICANT_TYPES = {
-    "local groups",
-    "NGOs",
-    "public bodies",
-    "schools",
-}
-
-PRACTICAL_ACCESS_ROUTES = {
-    "direct",
-    "advisory support",
-    "via advisor",
-    "via local authority",
-    "via local action group",
-}
-
-PRACTICAL_SCALES = {
-    "local",
-    "support",
-    "medium",
-}
-
-RIVER_TRUST_TERMS = [
-    "river trust",
-    "catchment partnership",
-    "community water quality improvement",
-    "community-led",
-    "community grant",
-    "citizen science",
-    "restoration",
-    "habitat restoration",
-    "riparian",
-    "wetland",
-    "pond",
-    "river restoration",
-    "volunteer",
-    "monitoring",
-    "survey",
-    "walk",
-    "talk",
-    "event",
-    "education",
-    "outreach",
+PERSISTENT_FIELDS = [
+    "status",
+    "notes",
+    "promotion_requested",
+    "promotion_request_issue_number",
+    "promotion_request_issue_url",
+    "request_origin_status",
+    "cl_draft_ready",
+    "cl_draft_generated_at",
+    "cl_draft_json",
+    "cl_draft_html",
+    "already_trusted",
+    "trusted_registry_id",
 ]
 
 
@@ -344,9 +299,6 @@ class Candidate:
     source_id_hint: str
     candidate_type: str
     confidence: float
-    promotion_signal: str
-    public_visible_state: str
-    promotion_reasons: list[str]
     status: str
     suggested_purposes: list[str]
     suggested_applicant_types: list[str]
@@ -375,9 +327,6 @@ class Candidate:
             "source_id_hint": self.source_id_hint,
             "candidate_type": self.candidate_type,
             "confidence": round(self.confidence, 3),
-            "promotion_signal": self.promotion_signal,
-            "public_visible_state": self.public_visible_state,
-            "promotion_reasons": self.promotion_reasons,
             "status": self.status,
             "suggested_purposes": self.suggested_purposes,
             "suggested_applicant_types": self.suggested_applicant_types,
@@ -460,50 +409,6 @@ def ordered(values: list[str], priority: list[str]) -> list[str]:
     return sorted(unique, key=lambda value: (order_map.get(value, 999), value.lower()))
 
 
-def page_title_core(title: str) -> str:
-    core = re.split(r"\s+[|\-–]\s+", title, maxsplit=1)[0]
-    return re.sub(r"\s+", " ", core).strip()
-
-
-def looks_generic_title(title: str) -> bool:
-    return page_title_core(title).lower() in GENERIC_TITLE_PATTERNS
-
-
-def text_has_any(text: str, phrases: list[str]) -> bool:
-    lowered = text.lower()
-    return any(phrase.lower() in lowered for phrase in phrases)
-
-
-def count_phrase_hits(text: str, phrases: list[str]) -> int:
-    lowered = text.lower()
-    return sum(1 for phrase in phrases if phrase.lower() in lowered)
-
-
-def detect_deadline_hint(text: str) -> str | None:
-    for pattern in DEADLINE_PATTERNS:
-        match = re.search(pattern, text, flags=re.IGNORECASE)
-        if match:
-            return re.sub(r"\s+", " ", match.group(1)).strip()
-    return None
-
-
-def extract_years(*parts: str) -> list[int]:
-    years: set[int] = set()
-    for part in parts:
-        if not part:
-            continue
-        for match in re.findall(r"\b(20\d{2})\b", part):
-            year = int(match)
-            if 2000 <= year <= 2100:
-                years.add(year)
-    return sorted(years)
-
-
-def latest_year_hint(*parts: str) -> int | None:
-    years = extract_years(*parts)
-    return max(years) if years else None
-
-
 def is_same_or_child_domain(url: str, trusted_domain: str) -> bool:
     domain = canonical_domain(url)
     return domain == trusted_domain or domain.endswith(f".{trusted_domain}")
@@ -524,6 +429,7 @@ def normalise_applicant_types(raw_types: list[str]) -> list[str]:
         "association",
         "local development",
         "catchment partnership",
+        "rural network",
         "social enterprise",
         "community partners",
     ):
@@ -534,9 +440,9 @@ def normalise_applicant_types(raw_types: list[str]) -> list[str]:
         simplified.append("public bodies")
     if has("research", "universit", "institute", "phd", "postgraduate", "scholar"):
         simplified.append("researchers")
-    if has("business", "enterprise", "founder", "micro-enterprise", "sme"):
+    if has("business", "enterprise", "founder", "micro-enterprise"):
         simplified.append("businesses")
-    if has("ngo", "non-governmental", "conservation group", "environmental ngo", "heritage ngo"):
+    if has("ngo", "non-governmental", "conservation group", "heritage ngo", "environmental ngo"):
         simplified.append("NGOs")
     if has("school"):
         simplified.append("schools")
@@ -607,11 +513,12 @@ def ensure_registry_defaults(registry: list[dict[str, Any]]) -> tuple[list[dict[
                 source[key] = value
                 changed = True
 
-        watch_terms = list(source.get("watch_terms", []))
-        watch_terms += list(source.get("purposes", []))
-        watch_terms += [source.get("name", "")]
-        watch_terms += COMMON_WATCH_TERMS
-        source["watch_terms"] = dedupe_keep_order(watch_terms)
+        source["watch_terms"] = dedupe_keep_order(
+            list(source.get("watch_terms", []))
+            + list(source.get("purposes", []))
+            + [source.get("name", "")]
+        )
+        source["watch_terms"] = dedupe_keep_order(source["watch_terms"] + COMMON_WATCH_TERMS)
 
         extract = source.setdefault("extract", {})
         if "mode" not in extract:
@@ -656,78 +563,38 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     }, None
 
 
-def is_denied_child_url(url: str) -> bool:
-    path = urlparse(url).path.lower().rstrip("/")
-    if not path:
-        return False
-    return any(re.search(pattern, path) for pattern in DENYLIST_PATTERNS)
-
-
-def looks_like_grant_link(url: str, label: str, watch_terms: list[str]) -> bool:
-    haystack = f"{url} {label}".lower()
-    if is_denied_child_url(url):
-        return False
-    return any(term.lower() in haystack for term in dedupe_keep_order(LINK_HINT_TERMS + watch_terms))
-
-
-def build_watch_urls(source: dict[str, Any]) -> list[str]:
-    urls = [canonical_url(source["url"])]
-    root = f"{urlparse(source['url']).scheme}://{urlparse(source['url']).netloc}"
-    for path in source.get("watch_paths", []):
-        urls.append(canonical_url(urljoin(root.rstrip("/") + "/", path.lstrip("/"))))
-    return dedupe_keep_order(urls)[:MAX_WATCH_URLS_PER_SOURCE]
-
-
-def max_child_links_for_source(source: dict[str, Any]) -> int:
-    if source.get("source_class") == "funding_hub":
-        return 28
-    return MAX_CHILD_LINKS_PER_SOURCE
-
-
-def max_candidates_for_source(source: dict[str, Any]) -> int:
-    if source.get("source_class") == "funding_hub":
-        return 20
-    return MAX_CANDIDATES_PER_SOURCE
-
-
-def find_existing_registry_match(candidate_url: str, registry: list[dict[str, Any]]) -> dict[str, Any] | None:
-    target_url = canonical_url(candidate_url)
-    target_family = canonical_candidate_family_key(candidate_url)
-
-    for item in registry:
-        item_url = item.get("url", "")
-        if canonical_url(item_url) == target_url:
-            return {"kind": "url", "id": item.get("id")}
-
-    for item in registry:
-        item_url = item.get("url", "")
-        if canonical_candidate_family_key(item_url) == target_family:
-            return {"kind": "family", "id": item.get("id")}
-
+def detect_deadline_hint(text: str) -> str | None:
+    for pattern in DEADLINE_PATTERNS:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+        if match:
+            return re.sub(r"\s+", " ", match.group(1)).strip()
     return None
 
 
-def candidate_type_from_page(title: str, url: str, deadline_hint: str | None) -> str:
-    lowered_title = page_title_core(title).lower()
-    lowered_url = url.lower()
-
-    if any(token in lowered_title for token in ["award", "awarded", "results"]) or "awarded" in lowered_url:
-        return "award_page"
-    if "press release" in lowered_title or "announce" in lowered_title or "announces" in lowered_title:
-        return "news_page"
-    if "news" in lowered_title:
-        return "news_page"
-    if any(token in lowered_title for token in ["support", "programme", "program", "campaign", "hub", "funding"]) and not deadline_hint:
-        return "support_page"
-    return "call_page"
+def extract_years(*parts: str) -> list[int]:
+    years: set[int] = set()
+    for part in parts:
+        if not part:
+            continue
+        for match in re.findall(r"\b(20\d{2})\b", part):
+            year = int(match)
+            if 2000 <= year <= 2100:
+                years.add(year)
+    return sorted(years)
 
 
-def stale_penalty_or_reject(
+def latest_year_hint(*parts: str) -> int | None:
+    years = extract_years(*parts)
+    return max(years) if years else None
+
+
+def stale_year_penalty(
     latest_year: int | None,
     candidate_type: str,
     discovered_via: str,
     has_deadline_hint: bool,
 ) -> tuple[float, list[str], bool]:
+    """Return penalty_score, flags, hard_reject."""
     if latest_year is None:
         return 0.0, [], False
 
@@ -748,16 +615,36 @@ def stale_penalty_or_reject(
 
     penalty = 0.0
     if has_deadline_hint and age >= 1:
-        penalty += 0.35
+        penalty += 0.40
         flags.append("stale_deadline_year")
     if candidate_type == "call_page" and age >= 1:
-        penalty += 0.18
+        penalty += 0.22
         flags.append("stale_call_year")
     if discovered_via == "child_link" and age >= 1:
-        penalty += 0.08
+        penalty += 0.10
         flags.append("stale_child_page")
 
     return penalty, flags, False
+
+
+def count_phrase_hits(text: str, phrases: list[str]) -> int:
+    lowered = text.lower()
+    return sum(1 for phrase in phrases if phrase in lowered)
+
+
+def page_title_core(title: str) -> str:
+    core = re.split(r"\s+[|\-–]\s+", title, maxsplit=1)[0]
+    return re.sub(r"\s+", " ", core).strip()
+
+
+def looks_generic_title(title: str) -> bool:
+    core = page_title_core(title).lower()
+    return core in GENERIC_TITLE_PATTERNS
+
+
+def text_has_any(text: str, phrases: list[str]) -> bool:
+    lowered = text.lower()
+    return any(phrase.lower() in lowered for phrase in phrases)
 
 
 def source_priority_bonus(
@@ -773,122 +660,83 @@ def source_priority_bonus(
     source_class = source.get("source_class", "")
 
     if purposes.intersection(PRACTICAL_PURPOSES):
-        score += 0.06
+        score += 0.08
         flags.append("practical_route")
 
     if source_class in {"funding_hub", "programme_page", "implementation_programme"} and purposes.intersection(PRACTICAL_PURPOSES):
-        score += 0.04
+        score += 0.05
         flags.append("river_trust_source_class")
 
     if scale in PRACTICAL_SCALES:
-        score += 0.05
+        score += 0.06
         flags.append("practical_scale")
 
     if access_route in PRACTICAL_ACCESS_ROUTES:
-        score += 0.05
+        score += 0.06
         flags.append("practical_access")
 
     if any(value in COMMUNITY_APPLICANT_TYPES for value in applicant_types):
-        score += 0.06
+        score += 0.07
         flags.append("community_applicant_fit")
 
-    if text_has_any(" ".join(source.get("watch_terms", [])), RIVER_TRUST_TERMS):
-        score += 0.04
+    source_watch_blob = " ".join(source.get("watch_terms", []))
+    if text_has_any(source_watch_blob, RIVER_TRUST_TERMS):
+        score += 0.05
         flags.append("river_trust_terms")
 
     return score, flags
 
 
-def compute_promotion_signal(
-    *,
-    candidate_type: str,
-    confidence: float,
-    combined_text: str,
-    title: str,
-    deadline_hint: str | None,
-    applicant_types: list[str],
-    access_route: str | None,
-    scale: str | None,
-    practical_fit: bool,
-) -> tuple[str, str, list[str]]:
-    reasons: list[str] = []
+def max_child_links_for_source(source: dict[str, Any]) -> int:
+    if source.get("source_class") == "funding_hub":
+        return 28
+    return MAX_CHILD_LINKS_PER_SOURCE
 
-    has_negative = text_has_any(combined_text, NEGATIVE_PROMOTION_PHRASES)
-    has_actionable = text_has_any(combined_text, ACTIONABLE_PHRASES)
-    has_strong_title = text_has_any(f"{page_title_core(title).lower()} {title.lower()}", STRONG_TITLE_HINT_TERMS)
-    generic = looks_generic_title(title)
 
-    completeness = 0
-    if applicant_types:
-        completeness += 1
-    if access_route:
-        completeness += 1
-    if scale:
-        completeness += 1
+def max_candidates_for_source(source: dict[str, Any]) -> int:
+    if source.get("source_class") == "funding_hub":
+        return 20
+    return MAX_CANDIDATES_PER_SOURCE
 
-    if has_negative:
-        reasons.append("contains results, announcement, or passed-deadline language")
-        return "red", "discovery_only", reasons
 
-    if candidate_type == "award_page":
-        reasons.append("award/results page rather than live funding route")
-        return "red", "discovery_only", reasons
+def is_denied_child_url(url: str) -> bool:
+    parsed = urlparse(url)
+    path = parsed.path.lower().rstrip("/")
+    if not path:
+        return False
+    return any(re.search(pattern, path) for pattern in DENYLIST_PATTERNS)
 
-    if candidate_type == "news_page":
-        reasons.append("news or ministerial announcement page")
-        return "red", "discovery_only", reasons
 
-    if generic and not has_actionable:
-        reasons.append("generic page without clear application route")
-        return "red", "discovery_only", reasons
+def looks_like_grant_link(url: str, label: str, watch_terms: list[str]) -> bool:
+    haystack = f"{url} {label}".lower()
+    if is_denied_child_url(url):
+        return False
+    return any(term.lower() in haystack for term in dedupe_keep_order(LINK_HINT_TERMS + watch_terms))
 
-    if deadline_hint:
-        reasons.append("deadline language detected")
-    if applicant_types:
-        reasons.append("applicant type present")
-    if access_route:
-        reasons.append("access route present")
-    if scale:
-        reasons.append("scale present")
-    if has_actionable:
-        reasons.append("clear application or call language")
-    if practical_fit:
-        reasons.append("good fit for community or river-trust use")
 
-    if (
-        candidate_type == "call_page"
-        and has_actionable
-        and completeness == 3
-        and confidence >= 0.58
-        and not generic
-    ):
-        return "green", "public_visible", reasons
+def build_watch_urls(source: dict[str, Any]) -> list[str]:
+    urls = [canonical_url(source["url"])]
+    root = f"{urlparse(source['url']).scheme}://{urlparse(source['url']).netloc}"
+    for path in source.get("watch_paths", []):
+        urls.append(canonical_url(urljoin(root.rstrip("/") + "/", path.lstrip("/"))))
+    return dedupe_keep_order(urls)[:MAX_WATCH_URLS_PER_SOURCE]
 
-    if (
-        candidate_type == "support_page"
-        and (has_actionable or has_strong_title)
-        and completeness == 3
-        and confidence >= 0.55
-    ):
-        return "green", "public_visible", reasons
 
-    if (
-        has_actionable
-        and completeness >= 2
-        and confidence >= 0.50
-    ):
-        return "amber", "review_only", reasons
+def find_existing_registry_match(candidate_url: str, registry: list[dict[str, Any]]) -> dict[str, Any] | None:
+    target_url = canonical_url(candidate_url)
+    target_family = canonical_candidate_family_key(candidate_url)
 
-    if (
-        candidate_type == "support_page"
-        and practical_fit
-        and completeness >= 1
-        and confidence >= 0.48
-    ):
-        return "amber", "review_only", reasons
+    for item in registry:
+        item_url = item.get("url", "")
+        if canonical_url(item_url) == target_url:
+            return {"kind": "url", "id": item.get("id")}
 
-    reasons.append("not strong enough for public promotion")
-    return "red", "discovery_only", reasons
+    for item in registry:
+        item_url = item.get("url", "")
+        if canonical_candidate_family_key(item_url) == target_family:
+            return {"kind": "family", "id": item.get("id")}
+
+    return None
 
 
 def classify_candidate(
@@ -901,85 +749,91 @@ def classify_candidate(
     title = page.get("title", "") or source.get("name", "Untitled candidate")
     text = page.get("text", "")
     snippet = page.get("snippet", "")
-    combined = f"{title}\n{snippet}\n{text[:5000]}".lower()
     trusted_domain = source["trusted_domain"]
     extract = source.get("extract", {})
 
-    phrase_hits = count_phrase_hits(combined, DISCOVERY_PHRASES)
+    combined = f"{title}\n{snippet}\n{text[:4000]}".lower()
+    phrase_hits = count_phrase_hits(combined, FUNDING_PHRASES)
     watch_hits = count_phrase_hits(combined, source.get("watch_terms", []))
     title_hits = count_phrase_hits(f"{page_title_core(title).lower()} {page['url'].lower()}", STRONG_TITLE_HINT_TERMS)
     deadline_hint = detect_deadline_hint(text)
+    latest_year = latest_year_hint(title, page["url"], deadline_hint or "", snippet, text[:2000])
 
     raw_applicant_types = extract.get("applicant_types", [])
-    applicant_types = normalise_applicant_types(raw_applicant_types)
-    access_route = normalise_access_route(extract.get("access_route"))
-    scale = normalise_scale(extract.get("scale"))
+    normalised_applicant_types = normalise_applicant_types(raw_applicant_types)
+    normalised_access_route = normalise_access_route(extract.get("access_route"))
+    normalised_scale = normalise_scale(extract.get("scale"))
 
-    candidate_type = candidate_type_from_page(title, page["url"], deadline_hint)
+    lowered_title = page_title_core(title).lower()
+    lowered_url = page["url"].lower()
+
+    candidate_type = "call_page"
+    if any(token in lowered_title for token in ["award", "awarded", "results"]) or "awarded" in lowered_url:
+        candidate_type = "award_page"
+    elif "news" in lowered_title or "press release" in lowered_title or "announce" in lowered_title:
+        candidate_type = "news_page"
+    elif any(token in lowered_title for token in ["support", "programme", "program", "campaign", "hub", "funding"]) and not deadline_hint:
+        candidate_type = "support_page"
 
     confidence = 0.0
     reason_flags: list[str] = []
 
     if is_same_or_child_domain(page["url"], trusted_domain):
-        confidence += 0.22
+        confidence += 0.25
         reason_flags.append("trusted_domain")
 
     if phrase_hits:
-        confidence += min(0.20, 0.06 * phrase_hits)
+        confidence += min(0.25, 0.08 * phrase_hits)
         reason_flags.append("funding_or_support_phrase")
 
-    if text_has_any(combined, ACTIONABLE_PHRASES):
-        confidence += 0.12
-        reason_flags.append("application_route_language")
-
     if deadline_hint:
-        confidence += 0.08
+        confidence += 0.15
         reason_flags.append("deadline_detected")
 
     if watch_hits:
-        confidence += min(0.12, 0.02 * watch_hits)
+        confidence += min(0.18, 0.03 * watch_hits)
         reason_flags.append("watch_term_overlap")
 
     if title_hits:
-        confidence += min(0.10, 0.04 * title_hits)
+        confidence += min(0.12, 0.04 * title_hits)
         reason_flags.append("strong_title_hint")
 
     if text_has_any(combined, RIVER_TRUST_TERMS):
-        confidence += 0.07
+        confidence += 0.08
         reason_flags.append("river_trust_term_hit")
 
-    source_bonus, source_bonus_flags = source_priority_bonus(source, applicant_types, access_route, scale)
+    source_bonus, source_bonus_flags = source_priority_bonus(
+        source,
+        normalised_applicant_types,
+        normalised_access_route,
+        normalised_scale,
+    )
     confidence += source_bonus
     reason_flags.extend(source_bonus_flags)
 
     if source.get("source_class") == "funding_hub" and discovered_via == "child_link":
-        confidence += 0.07
+        confidence += 0.08
         reason_flags.append("funding_hub_child")
 
     if source.get("usual_open_months"):
         month = datetime.now(UTC).month
         if month in source.get("usual_open_months", []):
-            confidence += 0.08
+            confidence += 0.10
             reason_flags.append("cycle_window_match")
 
     if discovered_via == "child_link":
-        confidence += 0.06
+        confidence += 0.10
         reason_flags.append("child_page")
 
     if looks_generic_title(title):
         confidence -= 0.18
         reason_flags.append("generic_title_penalty")
 
-    if candidate_type in {"news_page", "award_page"}:
-        confidence -= 0.12
-        reason_flags.append("time_bound_page_penalty")
+    if candidate_type == "support_page" and not deadline_hint and phrase_hits < 2:
+        confidence -= 0.10
+        reason_flags.append("generic_support_page_penalty")
 
-    if text_has_any(combined, NEGATIVE_PROMOTION_PHRASES):
-        confidence -= 0.22
-        reason_flags.append("negative_promotion_language")
-
-    latest_year = latest_year_hint(title, page["url"], deadline_hint or "", snippet, text[:2500])
-    stale_penalty, stale_flags, hard_reject = stale_penalty_or_reject(
+    stale_penalty, stale_flags, hard_reject = stale_year_penalty(
         latest_year=latest_year,
         candidate_type=candidate_type,
         discovered_via=discovered_via,
@@ -991,22 +845,9 @@ def classify_candidate(
     if hard_reject:
         return None
 
-    confidence = max(0.0, min(confidence, 0.95))
-    if confidence < 0.42:
+    confidence = max(0.0, min(confidence, 0.99))
+    if confidence < 0.45:
         return None
-
-    practical_fit = bool(set(source.get("purposes", [])).intersection(PRACTICAL_PURPOSES))
-    promotion_signal, public_visible_state, promotion_reasons = compute_promotion_signal(
-        candidate_type=candidate_type,
-        confidence=confidence,
-        combined_text=combined,
-        title=title,
-        deadline_hint=deadline_hint,
-        applicant_types=applicant_types,
-        access_route=access_route,
-        scale=scale,
-        practical_fit=practical_fit,
-    )
 
     registry_match = find_existing_registry_match(page["url"], registry)
 
@@ -1024,14 +865,11 @@ def classify_candidate(
         source_id_hint=source["id"],
         candidate_type=candidate_type,
         confidence=confidence,
-        promotion_signal=promotion_signal,
-        public_visible_state=public_visible_state,
-        promotion_reasons=dedupe_keep_order(promotion_reasons),
         status="pending_review",
         suggested_purposes=list(source.get("purposes", []))[:8],
-        suggested_applicant_types=applicant_types[:8],
-        suggested_access_route=access_route,
-        suggested_scale=scale,
+        suggested_applicant_types=normalised_applicant_types[:8],
+        suggested_access_route=normalised_access_route,
+        suggested_scale=normalised_scale,
         reason_flags=dedupe_keep_order(reason_flags),
         deadline_hint=deadline_hint,
         page_hash=page["page_hash"],
@@ -1043,65 +881,26 @@ def classify_candidate(
 
 
 def choose_better_candidate(existing: Candidate, candidate: Candidate) -> Candidate:
-    signal_rank = {"green": 3, "amber": 2, "red": 1}
-    existing_signal = signal_rank.get(existing.promotion_signal, 0)
-    candidate_signal = signal_rank.get(candidate.promotion_signal, 0)
-
-    if candidate_signal > existing_signal:
-        return candidate
-    if existing_signal > candidate_signal:
-        return existing
-
     existing_is_en = existing.url.lower().endswith("_en")
     candidate_is_en = candidate.url.lower().endswith("_en")
+
     if candidate_is_en and not existing_is_en:
         return candidate
     if existing_is_en and not candidate_is_en:
         return existing
-
     if candidate.already_trusted and not existing.already_trusted:
         return candidate
     if existing.already_trusted and not candidate.already_trusted:
         return existing
-
     if candidate.discovered_via == "source_page" and existing.discovered_via != "source_page":
         return candidate
     if existing.discovered_via == "source_page" and candidate.discovered_via != "source_page":
         return existing
-
     if candidate.confidence > existing.confidence:
         return candidate
-    if existing.confidence > candidate.confidence:
-        return existing
-
-    if len(candidate.url) < len(existing.url):
+    if candidate.confidence == existing.confidence and len(candidate.url) < len(existing.url):
         return candidate
-
     return existing
-
-
-def should_keep_previous_candidate(item: dict[str, Any]) -> bool:
-    status = item.get("status", "pending_review")
-    if item.get("promotion_requested") or status in {"approved", "cl_drafted", "promoted", "rejected"}:
-        return True
-
-    combined = f"{item.get('title', '')}\n{item.get('snippet', '')}\n{item.get('deadline_hint', '')}".lower()
-    if text_has_any(combined, NEGATIVE_PROMOTION_PHRASES):
-        return False
-
-    latest_year = latest_year_hint(
-        item.get("title", ""),
-        item.get("url", ""),
-        item.get("deadline_hint", "") or "",
-        item.get("snippet", ""),
-    )
-    _, _, hard_reject = stale_penalty_or_reject(
-        latest_year=latest_year,
-        candidate_type=item.get("candidate_type", "call_page"),
-        discovered_via=item.get("discovered_via", "child_link"),
-        has_deadline_hint=bool(item.get("deadline_hint")),
-    )
-    return not hard_reject
 
 
 def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candidate], seen_at: str) -> dict[str, Any]:
@@ -1122,161 +921,188 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
     for url, old in previous_candidates.items():
         if url in merged:
             continue
-        if not should_keep_previous_candidate(old):
-            continue
+
         old_copy = dict(old)
         old_copy["seen_in_latest_run"] = False
         old_copy["last_seen"] = old.get("last_seen", seen_at)
+
+        old_title = old_copy.get("title", "")
+        old_snippet = old_copy.get("snippet", "")
+        old_deadline = old_copy.get("deadline_hint", "") or ""
+        old_candidate_type = old_copy.get("candidate_type", "call_page")
+        old_discovered_via = old_copy.get("discovered_via", "child_link")
+
+        old_latest_year = latest_year_hint(
+            old_title,
+            old_copy.get("url", ""),
+            old_deadline,
+            old_snippet,
+        )
+        _, stale_flags, hard_reject = stale_year_penalty(
+            latest_year=old_latest_year,
+            candidate_type=old_candidate_type,
+            discovered_via=old_discovered_via,
+            has_deadline_hint=bool(old_deadline),
+        )
+        if hard_reject:
+            continue
+
+        existing_flags = old_copy.get("reason_flags", [])
+        old_copy["reason_flags"] = dedupe_keep_order(existing_flags + stale_flags)
         merged[url] = old_copy
 
-    return {"meta": previous_payload.get("meta", {}), "candidates": list(merged.values())}
+    candidates = sorted(
+        merged.values(),
+        key=lambda item: (
+            0 if item.get("seen_in_latest_run") else 1,
+            -float(item.get("confidence", 0)),
+            item.get("title", "").lower(),
+        ),
+    )
+
+    return {"meta": previous_payload.get("meta", {}), "candidates": candidates}
 
 
-def build_meta(candidates: list[dict[str, Any]], generated_at: str) -> dict[str, Any]:
-    domains = Counter(c.get("domain") for c in candidates if c.get("domain"))
+def build_meta(candidates: list[dict[str, Any]], previous_meta: dict[str, Any]) -> dict[str, Any]:
+    domains: dict[str, int] = {}
+    for candidate in candidates:
+        domain = candidate.get("domain")
+        if domain:
+            domains[domain] = domains.get(domain, 0) + 1
+
+    meta = dict(previous_meta)
+    meta["generated_at"] = now_iso()
+    meta["generator"] = "grant-radar-discovery 0.8"
+    meta["candidate_count"] = len(candidates)
+    meta["high_confidence_count"] = sum(float(c.get("confidence", 0)) >= 0.8 for c in candidates)
+    meta["pending_review_count"] = sum(c.get("status") == "pending_review" for c in candidates)
+    meta["approved_count"] = sum(c.get("status") == "approved" for c in candidates)
+    meta["cl_drafted_count"] = sum(c.get("status") == "cl_drafted" for c in candidates)
+    meta["promoted_count"] = sum(c.get("status") == "promoted" for c in candidates)
+    meta["promotion_requested_count"] = sum(bool(c.get("promotion_requested")) for c in candidates)
+    meta["domains_seen"] = dict(sorted(domains.items()))
+    return meta
+
+
+def build_memory_page_record(source: dict[str, Any], page: dict[str, Any], discovered_via: str) -> dict[str, Any]:
     return {
-        "generated_at": generated_at,
-        "generator": "grant-radar-discovery 0.9",
-        "candidate_count": len(candidates),
-        "high_confidence_count": sum(float(c.get("confidence", 0)) >= 0.8 for c in candidates),
-        "pending_review_count": sum(c.get("status") == "pending_review" for c in candidates),
-        "approved_count": sum(c.get("status") == "approved" for c in candidates),
-        "cl_drafted_count": sum(c.get("status") == "cl_drafted" for c in candidates),
-        "promoted_count": sum(c.get("status") == "promoted" for c in candidates),
-        "promotion_requested_count": sum(bool(c.get("promotion_requested")) for c in candidates),
-        "green_count": sum(c.get("promotion_signal") == "green" for c in candidates),
-        "amber_count": sum(c.get("promotion_signal") == "amber" for c in candidates),
-        "red_count": sum(c.get("promotion_signal") == "red" for c in candidates),
-        "domains_seen": dict(sorted(domains.items())),
+        "url": page["url"],
+        "title": page.get("title", ""),
+        "page_hash": page.get("page_hash", ""),
+        "discovered_via": discovered_via,
+        "source_id_hint": source["id"],
+        "source_hint": source["name"],
+        "checked_at": now_iso(),
     }
 
 
-def discover_from_source(
-    source: dict[str, Any],
-    registry: list[dict[str, Any]],
-    memory: dict[str, Any],
-    seen_at: str,
-) -> list[Candidate]:
-    if not source.get("discovery_enabled", True):
-        return []
-
-    pages_memory = memory.setdefault("pages", {})
-    errors_memory = memory.setdefault("errors", {})
-    child_limit = max_child_links_for_source(source)
-    candidate_limit = max_candidates_for_source(source)
+def discover_for_source(source: dict[str, Any], registry: list[dict[str, Any]]) -> tuple[list[Candidate], dict[str, Any]]:
+    seen_at = now_iso()
+    source_memory: dict[str, Any] = {
+        "source_id": source["id"],
+        "source_name": source["name"],
+        "checked_at": seen_at,
+        "errors": [],
+        "pages_checked": [],
+        "watch_urls": [],
+    }
 
     watch_urls = build_watch_urls(source)
-    collected: dict[str, Candidate] = {}
-    child_urls: list[str] = []
+    source_memory["watch_urls"] = watch_urls
+
+    candidates_by_family: dict[str, Candidate] = {}
+    queued_child_urls: list[str] = []
+    queued_seen: set[str] = set()
 
     for watch_url in watch_urls:
         page, error = fetch_page(watch_url)
         if error:
-            errors_memory[watch_url] = {"error": error, "last_seen": seen_at}
+            source_memory["errors"].append({"url": watch_url, "error": error})
+            continue
+        if page is None:
             continue
 
-        pages_memory[watch_url] = {
-            "title": page["title"],
-            "page_hash": page["page_hash"],
-            "last_seen": seen_at,
-        }
+        source_memory["pages_checked"].append(build_memory_page_record(source, page, "source_page"))
 
-        candidate = classify_candidate(
-            page=page,
-            source=source,
-            registry=registry,
-            discovered_via="source_page",
-            seen_at=seen_at,
-        )
+        candidate = classify_candidate(page, source, registry, "source_page", seen_at)
         if candidate is not None:
-            existing = collected.get(candidate.canonical_family_key)
-            collected[candidate.canonical_family_key] = candidate if existing is None else choose_better_candidate(existing, candidate)
+            existing = candidates_by_family.get(candidate.canonical_family_key)
+            candidates_by_family[candidate.canonical_family_key] = (
+                choose_better_candidate(existing, candidate) if existing else candidate
+            )
 
-        for link in page["links"]:
-            if not is_same_or_child_domain(link["url"], source["trusted_domain"]):
+        for link in page.get("links", []):
+            child_url = link["url"]
+            if child_url in queued_seen:
                 continue
-            if looks_like_grant_link(link["url"], link["label"], source.get("watch_terms", [])):
-                child_urls.append(link["url"])
+            if not is_same_or_child_domain(child_url, source["trusted_domain"]):
+                continue
+            if not looks_like_grant_link(child_url, link.get("label", ""), source.get("watch_terms", [])):
+                continue
+            queued_seen.add(child_url)
+            queued_child_urls.append(child_url)
 
-    child_urls = dedupe_keep_order(child_urls)[:child_limit]
-
-    for child_url in child_urls:
+    max_child_links = max_child_links_for_source(source)
+    for child_url in queued_child_urls[:max_child_links]:
         page, error = fetch_page(child_url)
         if error:
-            errors_memory[child_url] = {"error": error, "last_seen": seen_at}
+            source_memory["errors"].append({"url": child_url, "error": error})
+            continue
+        if page is None:
             continue
 
-        pages_memory[child_url] = {
-            "title": page["title"],
-            "page_hash": page["page_hash"],
-            "last_seen": seen_at,
-        }
+        source_memory["pages_checked"].append(build_memory_page_record(source, page, "child_link"))
 
-        candidate = classify_candidate(
-            page=page,
-            source=source,
-            registry=registry,
-            discovered_via="child_link",
-            seen_at=seen_at,
-        )
+        candidate = classify_candidate(page, source, registry, "child_link", seen_at)
         if candidate is None:
             continue
 
-        existing = collected.get(candidate.canonical_family_key)
-        collected[candidate.canonical_family_key] = candidate if existing is None else choose_better_candidate(existing, candidate)
+        existing = candidates_by_family.get(candidate.canonical_family_key)
+        candidates_by_family[candidate.canonical_family_key] = (
+            choose_better_candidate(existing, candidate) if existing else candidate
+        )
 
     ordered_candidates = sorted(
-        collected.values(),
-        key=lambda item: (
-            {"green": 0, "amber": 1, "red": 2}.get(item.promotion_signal, 3),
-            -item.confidence,
-            item.title.lower(),
-        ),
+        candidates_by_family.values(),
+        key=lambda candidate: (-candidate.confidence, candidate.title.lower()),
     )
-    return ordered_candidates[:candidate_limit]
+
+    return ordered_candidates[: max_candidates_for_source(source)], source_memory
 
 
 def main() -> None:
-    generated_at = now_iso()
-
     registry = load_json(REGISTRY_PATH, [])
     registry, registry_changed = ensure_registry_defaults(registry)
     if registry_changed:
         save_json(REGISTRY_PATH, registry)
 
-    previous_payload = load_json(DISCOVERY_PATH, {"meta": {}, "candidates": []})
-    memory = load_json(MEMORY_PATH, {"pages": {}, "errors": {}})
+    previous_discovery = load_json(DISCOVERY_PATH, {"meta": {}, "candidates": []})
+    previous_memory = load_json(MEMORY_PATH, {"generated_at": None, "sources": []})
 
-    discovered: list[Candidate] = []
+    all_candidates: list[Candidate] = []
+    memory_sources: list[dict[str, Any]] = []
+
     for source in registry:
-        discovered.extend(discover_from_source(source, registry, memory, generated_at))
+        if not source.get("discovery_enabled", True):
+            continue
+        discovered, source_memory = discover_for_source(source, registry)
+        all_candidates.extend(discovered)
+        memory_sources.append(source_memory)
 
-    by_family: dict[str, Candidate] = {}
-    for candidate in discovered:
-        existing = by_family.get(candidate.canonical_family_key)
-        by_family[candidate.canonical_family_key] = candidate if existing is None else choose_better_candidate(existing, candidate)
+    merged_payload = merge_candidates(previous_discovery, all_candidates, now_iso())
+    merged_payload["meta"] = build_meta(merged_payload["candidates"], previous_discovery.get("meta", {}))
 
-    final_candidates = sorted(
-        (candidate.as_dict() for candidate in by_family.values()),
-        key=lambda item: (
-            {"green": 0, "amber": 1, "red": 2}.get(item.get("promotion_signal", "red"), 3),
-            -float(item.get("confidence", 0)),
-            (item.get("title") or "").lower(),
-        ),
-    )
-
-    merged_payload = merge_candidates(
-        previous_payload=previous_payload,
-        newly_found=[Candidate(**candidate) for candidate in final_candidates],
-        seen_at=generated_at,
-    )
-    merged_payload["meta"] = build_meta(merged_payload["candidates"], generated_at)
+    memory_payload = {
+        "generated_at": now_iso(),
+        "sources": memory_sources,
+        "previous_generated_at": previous_memory.get("generated_at"),
+    }
 
     save_json(DISCOVERY_PATH, merged_payload)
-    save_json(MEMORY_PATH, memory)
+    save_json(MEMORY_PATH, memory_payload)
 
-    print(f"Wrote {DISCOVERY_PATH}")
-    print(json.dumps(merged_payload["meta"], indent=2, ensure_ascii=False))
+    print(f"Discovered {len(all_candidates)} candidates across {len(memory_sources)} sources.")
+    print(json.dumps(merged_payload['meta'], indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":

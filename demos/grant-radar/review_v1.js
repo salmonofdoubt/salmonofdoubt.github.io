@@ -19,24 +19,6 @@ function scoreClass(score) {
   return 'score-low';
 }
 
-function signalClass(signal) {
-  if (signal === 'green') return 'score-high';
-  if (signal === 'amber') return 'score-mid';
-  return 'score-low';
-}
-
-function signalLabel(signal) {
-  if (signal === 'green') return 'promotable';
-  if (signal === 'amber') return 'review carefully';
-  return 'discovery only';
-}
-
-function signalRank(signal) {
-  if (signal === 'green') return 3;
-  if (signal === 'amber') return 2;
-  return 1;
-}
-
 function statusClass(status) {
   if (status === 'approved') return 'pill-approved';
   if (status === 'cl_drafted') return 'pill-cl-drafted';
@@ -73,51 +55,7 @@ function fallbackReviewKey(item) {
   return `${family}::${title}::${source}::${domain}`;
 }
 
-function derivePromotionSignal(item) {
-  if (item.promotion_signal === 'green' || item.promotion_signal === 'amber' || item.promotion_signal === 'red') {
-    return item.promotion_signal;
-  }
-
-  const candidateType = item.candidate_type || '';
-  const title = `${item.title || ''} ${item.url || ''}`.toLowerCase();
-  const deadline = `${item.deadline_hint || ''}`.toLowerCase();
-  const reasons = `${(item.reason_flags || []).join(' ')} ${(item.promotion_reasons || []).join(' ')}`.toLowerCase();
-
-  if (
-    candidateType === 'news_page' ||
-    candidateType === 'award_page' ||
-    title.includes('announc') ||
-    title.includes('press release') ||
-    deadline.includes('passed') ||
-    reasons.includes('announcement') ||
-    reasons.includes('passed-deadline')
-  ) {
-    return 'red';
-  }
-
-  const hasApplicants = (item.suggested_applicant_types || []).length > 0;
-  const hasRoute = !!item.suggested_access_route;
-  const hasScale = !!item.suggested_scale;
-  const actionable = title.includes('grant') || title.includes('fund') || title.includes('call') || title.includes('scheme');
-
-  if (hasApplicants && hasRoute && hasScale && actionable && Number(item.confidence || 0) >= 0.58) {
-    return 'green';
-  }
-
-  if ((hasApplicants || hasRoute || hasScale) && Number(item.confidence || 0) >= 0.48) {
-    return 'amber';
-  }
-
-  return 'red';
-}
-
 function chooseBetterItem(existing, candidate) {
-  const existingSignal = signalRank(derivePromotionSignal(existing));
-  const candidateSignal = signalRank(derivePromotionSignal(candidate));
-
-  if (candidateSignal > existingSignal) return candidate;
-  if (existingSignal > candidateSignal) return existing;
-
   const existingIsEn = /_en$/i.test(existing.url || '');
   const candidateIsEn = /_en$/i.test(candidate.url || '');
 
@@ -172,16 +110,12 @@ function getVisibleCandidates(rawCandidates) {
 }
 
 function renderSummary(rawCandidates, visibleCandidates) {
-  const green = visibleCandidates.filter((item) => derivePromotionSignal(item) === 'green').length;
-  const amber = visibleCandidates.filter((item) => derivePromotionSignal(item) === 'amber').length;
-  const red = visibleCandidates.filter((item) => derivePromotionSignal(item) === 'red').length;
-
   el.summaryGrid.innerHTML = [
     summaryBox('Raw candidates', rawCandidates.length),
     summaryBox('Visible candidates', visibleCandidates.length),
-    summaryBox('Promotable', green),
-    summaryBox('Review carefully', amber),
-    summaryBox('Discovery only', red),
+    summaryBox('High confidence', visibleCandidates.filter((item) => Number(item.confidence || 0) >= 0.8).length),
+    summaryBox('Requests open', visibleCandidates.filter((item) => item.promotion_requested).length),
+    summaryBox('Drafts ready', visibleCandidates.filter((item) => item.cl_draft_ready).length),
     summaryBox('Already trusted', visibleCandidates.filter((item) => item.already_trusted).length),
   ].join('');
 }
@@ -200,12 +134,9 @@ function filteredCandidates() {
       item.domain,
       item.source_hint,
       item.canonical_family_key,
-      item.promotion_signal,
-      item.public_visible_state,
       ...(item.suggested_purposes || []),
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),
-      ...(item.promotion_reasons || []),
     ].join(' ').toLowerCase();
 
     if (search && !haystack.includes(search)) return false;
@@ -224,7 +155,6 @@ function filteredCandidates() {
     if (seen === 'no' && item.seen_in_latest_run) return false;
     if (requested === 'yes' && !item.promotion_requested) return false;
     if (requested === 'no' && item.promotion_requested) return false;
-
     return true;
   });
 }
@@ -236,7 +166,6 @@ function buildIssueUrl(item) {
     `candidate_id: ${item.id}`,
     `candidate_url: ${item.url}`,
     `candidate_title: ${item.title || ''}`,
-    `promotion_signal: ${derivePromotionSignal(item)}`,
     '',
     '## Decision',
     '- [ ] Accept promotion into trusted catalogue',
@@ -249,27 +178,9 @@ function buildIssueUrl(item) {
   return `${ISSUE_REPO_BASE}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
 }
 
-function sortedCandidates(items) {
-  return [...items].sort((a, b) => {
-    const signalDiff = signalRank(derivePromotionSignal(b)) - signalRank(derivePromotionSignal(a));
-    if (signalDiff !== 0) return signalDiff;
-
-    const requestedDiff = Number(!!b.promotion_requested) - Number(!!a.promotion_requested);
-    if (requestedDiff !== 0) return requestedDiff;
-
-    const trustedDiff = Number(!!a.already_trusted) - Number(!!b.already_trusted);
-    if (trustedDiff !== 0) return trustedDiff;
-
-    const confidenceDiff = Number(b.confidence || 0) - Number(a.confidence || 0);
-    if (confidenceDiff !== 0) return confidenceDiff;
-
-    return (a.title || '').localeCompare(b.title || '');
-  });
-}
-
 function renderCards() {
   const rawCandidates = filteredCandidates();
-  const candidates = sortedCandidates(getVisibleCandidates(rawCandidates));
+  const candidates = getVisibleCandidates(rawCandidates);
 
   renderSummary(rawCandidates, candidates);
 
@@ -278,74 +189,65 @@ function renderCards() {
     return;
   }
 
-  el.cards.innerHTML = candidates.map((item) => {
-    const signal = derivePromotionSignal(item);
-    return `
-      <article class="candidate-card">
-        <div class="top-row">
-          <div class="tag-row">
-            <span class="pill ${statusClass(item.status)}">${(item.status || 'pending_review').replaceAll('_', ' ')}</span>
-            <span class="pill ${signalClass(signal)}">${signalLabel(signal)}</span>
-            <span class="pill ${scoreClass(Number(item.confidence || 0))}">confidence ${Number(item.confidence || 0).toFixed(2)}</span>
-            ${item.promotion_requested ? '<span class="pill pill-requested">request open</span>' : ''}
-            ${item.already_trusted ? `<span class="pill pill-already">already trusted${item.trusted_registry_id ? `: ${item.trusted_registry_id}` : ''}</span>` : ''}
-          </div>
-          <div class="small">${item.seen_in_latest_run ? 'Seen in latest run' : 'Older candidate'}</div>
-        </div>
-
-        <h3>${item.title || 'Untitled candidate'}</h3>
-        <p class="small">${item.domain} · via ${item.discovered_via} · source hint: ${item.source_hint || '—'}</p>
-        <p>${item.snippet || 'No snippet available.'}</p>
-
+  el.cards.innerHTML = candidates.map((item) => `
+    <article class="candidate-card">
+      <div class="top-row">
         <div class="tag-row">
-          ${(item.suggested_purposes || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+          <span class="pill ${statusClass(item.status)}">${(item.status || 'pending_review').replaceAll('_', ' ')}</span>
+          <span class="pill ${scoreClass(Number(item.confidence || 0))}">confidence ${Number(item.confidence || 0).toFixed(2)}</span>
+          ${item.promotion_requested ? '<span class="pill pill-requested">request open</span>' : ''}
+          ${item.already_trusted ? `<span class="pill pill-already">already trusted${item.trusted_registry_id ? `: ${item.trusted_registry_id}` : ''}</span>` : ''}
         </div>
+        <div class="small">${item.seen_in_latest_run ? 'Seen in latest run' : 'Older candidate'}</div>
+      </div>
 
-        <div class="tag-row" style="margin-top: 0.55rem;">
-          ${(item.suggested_applicant_types || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
-          ${item.suggested_access_route ? `<span class="tag">${item.suggested_access_route}</span>` : ''}
-          ${item.suggested_scale ? `<span class="tag">${item.suggested_scale}</span>` : ''}
+      <h3>${item.title || 'Untitled candidate'}</h3>
+      <p class="small">${item.domain} · via ${item.discovered_via} · source hint: ${item.source_hint || '—'}</p>
+      <p>${item.snippet || 'No snippet available.'}</p>
+
+      <div class="tag-row">
+        ${(item.suggested_purposes || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+      </div>
+
+      <div class="tag-row" style="margin-top: 0.55rem;">
+        ${(item.suggested_applicant_types || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+      </div>
+
+      <p class="small" style="margin-top: 0.8rem;"><strong>Reason flags:</strong> ${(item.reason_flags || []).join(', ') || '—'}</p>
+      <p class="small"><strong>Deadline hint:</strong> ${item.deadline_hint || '—'}</p>
+      <p class="small"><strong>First seen:</strong> ${item.first_seen || '—'}<br><strong>Last seen:</strong> ${item.last_seen || '—'}</p>
+      <p class="small"><strong>Family key:</strong> ${item.canonical_family_key || fallbackReviewKey(item)}</p>
+
+      ${item.promotion_requested ? `
+        <div class="request-note">
+          <strong>Suggestion logged.</strong><br>
+          Manage the accept/reject decision in the linked GitHub request issue.
         </div>
-
-        <p class="small" style="margin-top: 0.8rem;"><strong>Promotion reasons:</strong> ${(item.promotion_reasons || []).join(', ') || '—'}</p>
-        <p class="small"><strong>Reason flags:</strong> ${(item.reason_flags || []).join(', ') || '—'}</p>
-        <p class="small"><strong>Deadline hint:</strong> ${item.deadline_hint || '—'}</p>
-        <p class="small"><strong>First seen:</strong> ${item.first_seen || '—'}<br><strong>Last seen:</strong> ${item.last_seen || '—'}</p>
-        <p class="small"><strong>Family key:</strong> ${item.canonical_family_key || fallbackReviewKey(item)}</p>
-
-        ${item.promotion_requested ? `
-          <div class="request-note">
-            <strong>Suggestion logged.</strong><br>
-            Manage the accept/reject decision in the linked GitHub request issue.
-          </div>
-        ` : `
-          <div class="request-row" style="margin-top: 0.85rem;">
-            <label class="suggest-toggle">
-              <input type="checkbox" class="suggest-checkbox" data-candidate-id="${item.id}" />
-              Suggest for promotion
-            </label>
-            <button type="button" class="request-btn" data-candidate-id="${item.id}" ${item.already_trusted ? 'disabled' : 'disabled'}>
-              Open request issue
-            </button>
-          </div>
-        `}
-
-        ${item.cl_draft_ready ? `
-          <div class="draft-note">
-            <strong>Draft ready.</strong><br>
-            Draft path is stable and reused for this candidate, so the site does not keep growing.
-          </div>
-        ` : ''}
-
-        <div class="actions">
-          <a href="${item.url}" target="_blank" rel="noopener noreferrer">Open candidate page</a>
-          ${item.promotion_request_issue_url ? `<a href="${item.promotion_request_issue_url}" target="_blank" rel="noopener noreferrer">Open request issue</a>` : ''}
-          ${item.cl_draft_html ? `<a href="./${item.cl_draft_html}" target="_blank" rel="noopener noreferrer">Open draft</a>` : ''}
-          ${item.cl_draft_json ? `<a href="./${item.cl_draft_json}" target="_blank" rel="noopener noreferrer">Open draft JSON</a>` : ''}
+      ` : `
+        <div class="request-row" style="margin-top: 0.85rem;">
+          <label class="suggest-toggle">
+            <input type="checkbox" class="suggest-checkbox" data-candidate-id="${item.id}" />
+            Suggest for promotion
+          </label>
+          <button type="button" class="request-btn" data-candidate-id="${item.id}" ${item.already_trusted ? 'disabled' : 'disabled'}>Open request issue</button>
         </div>
-      </article>
-    `;
-  }).join('');
+      `}
+
+      ${item.cl_draft_ready ? `
+        <div class="draft-note">
+          <strong>Draft ready.</strong><br>
+          Draft path is stable and reused for this candidate, so the site does not keep growing.
+        </div>
+      ` : ''}
+
+      <div class="actions">
+        <a href="${item.url}" target="_blank" rel="noopener noreferrer">Open candidate page</a>
+        ${item.promotion_request_issue_url ? `<a href="${item.promotion_request_issue_url}" target="_blank" rel="noopener noreferrer">Open request issue</a>` : ''}
+        ${item.cl_draft_html ? `<a href="./${item.cl_draft_html}" target="_blank" rel="noopener noreferrer">Open draft</a>` : ''}
+        ${item.cl_draft_json ? `<a href="./${item.cl_draft_json}" target="_blank" rel="noopener noreferrer">Open draft JSON</a>` : ''}
+      </div>
+    </article>
+  `).join('');
 
   el.cards.querySelectorAll('.suggest-checkbox').forEach((checkbox) => {
     checkbox.addEventListener('change', (event) => {
