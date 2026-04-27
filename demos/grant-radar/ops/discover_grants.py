@@ -662,7 +662,7 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
     watch_hits = count_phrase_hits(combined, source.get("watch_terms", []))
     title_hits = count_phrase_hits(f"{page_title_core(title).lower()} {page['url'].lower()}", STRONG_TITLE_HINT_TERMS)
     deadline_hint = detect_deadline_hint(text)
-        latest_year = latest_year_hint(
+    latest_year = latest_year_hint(
         title,
         page["url"],
         deadline_hint or "",
