@@ -848,10 +848,40 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
     for url, old in previous_candidates.items():
         if url in merged:
             continue
+
         old_copy = dict(old)
         old_copy["seen_in_latest_run"] = False
         old_copy["last_seen"] = old.get("last_seen", seen_at)
-        merged[url] = old_copy
+
+        old_title = old_copy.get("title", "")
+        old_snippet = old_copy.get("snippet", "")
+        old_deadline = old_copy.get("deadline_hint", "") or ""
+        old_candidate_type = old_copy.get("candidate_type", "call_page")
+        old_discovered_via = old_copy.get("discovered_via", "child_link")
+
+        old_latest_year = latest_year_hint(
+            old_title,
+            old_copy.get("url", ""),
+            old_deadline,
+            old_snippet,
+            )
+
+        _, stale_flags, hard_reject = stale_year_penalty(
+            latest_year=old_latest_year,
+            candidate_type=old_candidate_type,
+            discovered_via=old_discovered_via,
+            has_deadline_hint=bool(old_deadline),
+            )
+
+        if hard_reject:
+            continue
+
+    existing_flags = old_copy.get("reason_flags", [])
+    old_copy["reason_flags"] = dedupe_keep_order(existing_flags + stale_flags)
+
+    merged[url] = old_copy
+
+
 
     candidates = list(merged.values())
     candidates.sort(key=lambda item: (-float(item.get("confidence", 0)), item.get("title", "")))
