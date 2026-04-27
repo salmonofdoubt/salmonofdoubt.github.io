@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#12382e" />
+  <title>Grant Radar Review | Discovery candidates</title>
+  <style>
+    :root {
+      --bg: #07111b;
+      --panel: rgba(10, 33, 44, 0.92);
+      --line: rgba(110, 214, 196, 0.18);
+      --text: #ecf8f5;
+      --muted: #b8d9d1;
+      --accent: #72ebc2;
+      --shadow: 0 24px 58px rgba(0, 0, 0, 0.28);
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(81, 216, 255, 0.18), transparent 26%),
+        radial-gradient(circle at 88% 10%, rgba(120, 255, 202, 0.18), transparent 24%),
+        linear-gradient(135deg, #06111d 0%, #0a1e2c 35%, #0b2d31 62%, #0f362e 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .shell { width: min(1240px, calc(100% - 2rem)); margin: 0 auto; padding: 1rem 0 3rem; }
+    .panel {
+      margin-top: 1rem;
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(7, 29, 38, 0.94), rgba(12, 39, 42, 0.94));
+      box-shadow: var(--shadow);
+    }
+    .eyebrow {
+      margin: 0 0 0.5rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #d7ff8a;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    .lede, .muted, .small { color: var(--muted); }
+    .summary-grid, .controls-grid, .cards-grid { display: grid; gap: 0.85rem; }
+    .summary-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .controls-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .summary-box, .candidate-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02));
+      padding: 1rem;
+    }
+    .summary-label { font-size: 0.85rem; color: var(--muted); }
+    .summary-value { font-size: 1.3rem; font-weight: 800; margin-top: 0.2rem; }
+    label { display: block; margin-bottom: 0.4rem; color: var(--muted); font-size: 0.9rem; }
+    input, select {
+      width: 100%;
+      min-height: 46px;
+      padding: 0.8rem 0.9rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(5, 16, 25, 0.72);
+      color: var(--text);
+    }
+    .top-row, .tag-row, .actions, .request-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+    }
+    .top-row { justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+    .tag, .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.82rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      white-space: nowrap;
+    }
+    .pill-pending { background: rgba(255, 202, 87, 0.16); border-color: rgba(255, 202, 87, 0.45); color: #fff2c4; }
+    .pill-approved { background: rgba(70, 207, 126, 0.16); border-color: rgba(70, 207, 126, 0.45); color: #defee7; }
+    .pill-cl-drafted { background: rgba(149, 221, 255, 0.18); border-color: rgba(149, 221, 255, 0.48); color: #eaf8ff; }
+    .pill-rejected { background: rgba(234, 121, 146, 0.16); border-color: rgba(234, 121, 146, 0.45); color: #ffe7ee; }
+    .pill-promoted { background: rgba(137, 237, 187, 0.18); border-color: rgba(137, 237, 187, 0.5); color: #effff5; }
+    .pill-requested { background: rgba(186, 182, 255, 0.16); border-color: rgba(186, 182, 255, 0.42); color: #f0efff; }
+    .pill-already { background: rgba(130, 170, 255, 0.16); border-color: rgba(130, 170, 255, 0.42); color: #e6eeff; }
+    .score-high { background: linear-gradient(180deg, #46cf7e, #279c58); border-color: rgba(205, 255, 224, 0.7); color: #f6fff8; font-weight: 800; }
+    .score-mid { background: linear-gradient(180deg, #ffca57, #de8e10); border-color: rgba(255, 239, 188, 0.72); color: #fffaf0; font-weight: 800; }
+    .score-low { background: linear-gradient(180deg, #738394, #566270); border-color: rgba(228, 236, 245, 0.42); color: #f5f8fb; font-weight: 800; }
+    .tag { background: rgba(255, 255, 255, 0.04); color: var(--text); }
+    .actions a, .actions button, .request-row button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .actions a:hover, .actions button:hover, .request-row button:hover {
+      background: rgba(114, 235, 194, 0.12);
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+    .actions button:disabled, .request-row button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .draft-note, .request-note {
+      margin-top: 0.8rem;
+      padding: 0.8rem 0.9rem;
+      border-radius: 14px;
+      color: var(--muted);
+    }
+    .draft-note {
+      background: rgba(149, 221, 255, 0.08);
+      border: 1px solid rgba(149, 221, 255, 0.18);
+    }
+    .request-note {
+      background: rgba(186, 182, 255, 0.08);
+      border: 1px solid rgba(186, 182, 255, 0.2);
+    }
+    .suggest-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: var(--text);
+      font-size: 0.92rem;
+      margin: 0;
+    }
+    .suggest-toggle input {
+      width: 18px;
+      height: 18px;
+      min-height: auto;
+      padding: 0;
+      margin: 0;
+      accent-color: var(--accent);
+    }
+    .dedupe-note {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .empty-state {
+      padding: 1rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      color: var(--muted);
+    }
+    @media (max-width: 980px) {
+      .summary-grid, .controls-grid, .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="panel">
+      <p class="eyebrow">Grant Radar review layer</p>
+      <h1>Discovery candidates</h1>
+      <p class="lede">
+        Use the suggest box on a candidate to open a GitHub request issue. The workflow then creates a reviewable draft.
+        In the issue, tick either <strong>Accept promotion into trusted catalogue</strong> or <strong>Reject suggestion</strong>.
+      </p>
+      <p class="dedupe-note">
+        This version hides completed items by default, suppresses already-trusted items unless you ask to see them, deduplicates multilingual repeats, and reuses stable draft files so deployment does not keep growing.
+      </p>
+      <p><a href="./">← Back to Grant Radar</a></p>
+    </section>
+
+    <section class="panel">
+      <h2>Summary</h2>
+      <div class="summary-grid" id="summary-grid"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Filter candidates</h2>
+      <div class="controls-grid">
+        <div>
+          <label for="search">Search</label>
+          <input id="search" type="search" placeholder="domain, title, purpose, source hint" />
+        </div>
+        <div>
+          <label for="status">Review status</label>
+          <select id="status">
+            <option value="pending_review" selected>Pending review</option>
+            <option value="approved">Approved</option>
+            <option value="cl_drafted">CL draft ready</option>
+            <option value="all">All active statuses</option>
+            <option value="promoted">Promoted</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+        <div>
+          <label for="confidence">Minimum confidence</label>
+          <select id="confidence">
+            <option value="0">Any score</option>
+            <option value="0.45">0.45+</option>
+            <option value="0.60">0.60+</option>
+            <option value="0.80">0.80+</option>
+          </select>
+        </div>
+        <div>
+          <label for="seen">Seen in latest run</label>
+          <select id="seen">
+            <option value="all">All</option>
+            <option value="yes">Seen now</option>
+            <option value="no">Older only</option>
+          </select>
+        </div>
+        <div>
+          <label for="requested">Promotion request</label>
+          <select id="requested">
+            <option value="all">Any</option>
+            <option value="yes">Request open</option>
+            <option value="no">No request</option>
+          </select>
+        </div>
+        <div>
+          <label for="trusted">Already trusted</label>
+          <select id="trusted">
+            <option value="hide" selected>Hide</option>
+            <option value="show">Show</option>
+            <option value="only">Only already trusted</option>
+          </select>
+        </div>
+        <div>
+          <label for="dedupe">View mode</label>
+          <select id="dedupe">
+            <option value="deduped" selected>Deduped view</option>
+            <option value="raw">Raw queue</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Candidate queue</h2>
+      <div id="cards" class="cards-grid"></div>
+    </section>
+  </div>
+
+  <script src="./review.js?v=20260423b" defer></script>
+</body>
+</html>
