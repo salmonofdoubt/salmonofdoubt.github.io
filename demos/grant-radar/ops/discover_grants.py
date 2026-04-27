@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 """Discovery layer for Grant Radar with persistent metadata.
 
-This version:
-- blocks obvious non-funding child pages
-- collapses multilingual URL variants into one candidate family
-- prefers English variants when several language pages exist
-- tags candidates already represented in the trusted registry
-- preserves review metadata across refreshes
+This replacement keeps the existing review-oriented workflow and adds
+strong stale-page suppression so old call pages do not keep surfacing
+as high-confidence candidates.
 """
 
 from __future__ import annotations
@@ -14,7 +11,6 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from collections import defaultdict
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -31,7 +27,7 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/0.7 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/0.8 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
@@ -50,26 +46,88 @@ APPLICANT_PRIORITY = [
 ]
 
 COMMON_WATCH_TERMS = [
-    "grant", "grants", "fund", "funding", "call", "calls", "scheme", "schemes",
-    "proposals", "application", "applications", "research", "community", "biodiversity",
-    "environment", "energy", "climate", "water", "catchment", "river", "farmers",
-    "farm", "advisory", "restoration", "habitat", "riparian", "wetlands", "peatlands",
-    "tidy towns", "local groups",
+    "grant",
+    "grants",
+    "fund",
+    "funding",
+    "call",
+    "calls",
+    "scheme",
+    "schemes",
+    "proposals",
+    "application",
+    "applications",
+    "research",
+    "community",
+    "biodiversity",
+    "environment",
+    "energy",
+    "climate",
+    "water",
+    "catchment",
+    "river",
+    "farmers",
+    "farm",
+    "advisory",
+    "restoration",
+    "habitat",
+    "riparian",
+    "wetlands",
+    "peatlands",
+    "tidy towns",
+    "local groups",
 ]
 
 FUNDING_PHRASES = [
-    "applications open", "call for proposals", "call for applications", "funding now available",
-    "grant scheme", "grant programme", "funding programme", "funding opportunity", "open call",
-    "research call", "expression of interest", "apply now", "scheme launched", "call opens",
-    "deadline for applications", "deadline for applicants", "submit a proposal",
-    "advisory service", "support programme", "improve water quality", "priority areas",
-    "catchment action plan", "farmers will be invited", "free programme available to all farmers",
+    "applications open",
+    "call for proposals",
+    "call for applications",
+    "funding now available",
+    "grant scheme",
+    "grant programme",
+    "funding programme",
+    "funding opportunity",
+    "open call",
+    "research call",
+    "expression of interest",
+    "apply now",
+    "scheme launched",
+    "call opens",
+    "deadline for applications",
+    "deadline for applicants",
+    "submit a proposal",
+    "advisory service",
+    "support programme",
+    "improve water quality",
+    "priority areas",
+    "catchment action plan",
+    "farmers will be invited",
+    "free programme available to all farmers",
 ]
 
 LINK_HINT_TERMS = [
-    "grant", "fund", "funding", "call", "scheme", "proposal", "application", "award",
-    "research", "biodiversity", "climate", "energy", "community", "water", "catchment",
-    "farm", "farmer", "assap", "acres", "advisory", "tidy towns", "restoration",
+    "grant",
+    "fund",
+    "funding",
+    "call",
+    "scheme",
+    "proposal",
+    "application",
+    "award",
+    "research",
+    "biodiversity",
+    "climate",
+    "energy",
+    "community",
+    "water",
+    "catchment",
+    "farm",
+    "farmer",
+    "assap",
+    "acres",
+    "advisory",
+    "tidy towns",
+    "restoration",
 ]
 
 PRACTICAL_PURPOSES = {
@@ -146,30 +204,28 @@ STRONG_TITLE_HINT_TERMS = [
     "community water quality improvement",
 ]
 
-GENERIC_TITLE_PATTERNS = [
-    r"about",
-    r"about us",
-    r"our work",
-    r"our services",
-    r"what we do",
-    r"who we are",
-    r"how we can help",
-    r"news",
-    r"news and features",
-    r"publications",
-    r"publication",
-    r"research",
-    r"projects",
-    r"education",
-    r"funding",
-    r"funding and grants",
-    r"funding opportunities",
-    r"our organisation",
-    r"working with communities",
-    r"community information",
-]
-
-
+GENERIC_TITLE_PATTERNS = {
+    "about",
+    "about us",
+    "our work",
+    "our services",
+    "what we do",
+    "who we are",
+    "how we can help",
+    "news",
+    "news and features",
+    "publications",
+    "publication",
+    "research",
+    "projects",
+    "education",
+    "funding",
+    "funding and grants",
+    "funding opportunities",
+    "our organisation",
+    "working with communities",
+    "community information",
+}
 
 DEADLINE_PATTERNS = [
     r"(deadline(?: for (?:applications|applicants|submissions))?[:\s]+[^\n\r]{0,120})",
@@ -211,6 +267,22 @@ LANGUAGE_SUFFIX_RE = re.compile(
     r"_(bg|cs|da|de|el|en|es|et|fi|fr|ga|hr|hu|it|lt|lv|mt|nl|pl|pt|ro|sk|sl|sv)$",
     flags=re.IGNORECASE,
 )
+
+PERSISTENT_FIELDS = [
+    "status",
+    "notes",
+    "promotion_requested",
+    "promotion_request_issue_number",
+    "promotion_request_issue_url",
+    "request_origin_status",
+    "cl_draft_ready",
+    "cl_draft_generated_at",
+    "cl_draft_json",
+    "cl_draft_html",
+    "already_trusted",
+    "trusted_registry_id",
+]
+
 
 @dataclass
 class Candidate:
@@ -291,7 +363,11 @@ def canonical_domain(url: str) -> str:
 
 def canonical_url(url: str) -> str:
     parsed = urlparse(url)
-    cleaned_query = [(k, v) for k, v in parse_qsl(parsed.query, keep_blank_values=True) if not k.lower().startswith("utm_")]
+    cleaned_query = [
+        (k, v)
+        for k, v in parse_qsl(parsed.query, keep_blank_values=True)
+        if not k.lower().startswith("utm_")
+    ]
     normalized = parsed._replace(
         scheme=(parsed.scheme or "https").lower(),
         netloc=parsed.netloc.lower(),
@@ -315,11 +391,6 @@ def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
 
 
-def is_same_or_child_domain(url: str, trusted_domain: str) -> bool:
-    domain = canonical_domain(url)
-    return domain == trusted_domain or domain.endswith(f".{trusted_domain}")
-
-
 def dedupe_keep_order(values: list[str]) -> list[str]:
     seen: set[str] = set()
     out: list[str] = []
@@ -338,6 +409,11 @@ def ordered(values: list[str], priority: list[str]) -> list[str]:
     return sorted(unique, key=lambda value: (order_map.get(value, 999), value.lower()))
 
 
+def is_same_or_child_domain(url: str, trusted_domain: str) -> bool:
+    domain = canonical_domain(url)
+    return domain == trusted_domain or domain.endswith(f".{trusted_domain}")
+
+
 def normalise_applicant_types(raw_types: list[str]) -> list[str]:
     lowered = [value.lower() for value in raw_types]
     simplified: list[str] = []
@@ -345,7 +421,18 @@ def normalise_applicant_types(raw_types: list[str]) -> list[str]:
     def has(*needles: str) -> bool:
         return any(any(needle in value for needle in needles) for value in lowered)
 
-    if has("community", "voluntary", "tidy", "angling", "association", "local development", "catchment partnership", "rural network", "social enterprise", "community partners"):
+    if has(
+        "community",
+        "voluntary",
+        "tidy",
+        "angling",
+        "association",
+        "local development",
+        "catchment partnership",
+        "rural network",
+        "social enterprise",
+        "community partners",
+    ):
         simplified.append("local groups")
     if has("farmer", "farmers", "farm family"):
         simplified.append("farmers")
@@ -361,8 +448,10 @@ def normalise_applicant_types(raw_types: list[str]) -> list[str]:
         simplified.append("schools")
     if has("homeowner", "household"):
         simplified.append("households")
+
     if not simplified:
         simplified = raw_types[:]
+
     return ordered(simplified, APPLICANT_PRIORITY)
 
 
@@ -397,7 +486,9 @@ def normalise_access_route(raw_route: str | None) -> str | None:
         return "via project coordinator"
     if lowered in {"consortium", "via consortium"}:
         return "consortium"
-    return "direct" if lowered == "direct" else raw_route
+    if lowered == "direct":
+        return "direct"
+    return raw_route
 
 
 def ensure_registry_defaults(registry: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], bool]:
@@ -423,7 +514,9 @@ def ensure_registry_defaults(registry: list[dict[str, Any]]) -> tuple[list[dict[
                 changed = True
 
         source["watch_terms"] = dedupe_keep_order(
-            list(source.get("watch_terms", [])) + list(source.get("purposes", [])) + [source.get("name", "")]
+            list(source.get("watch_terms", []))
+            + list(source.get("purposes", []))
+            + [source.get("name", "")]
         )
         source["watch_terms"] = dedupe_keep_order(source["watch_terms"] + COMMON_WATCH_TERMS)
 
@@ -444,6 +537,7 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
         return None, str(exc)
 
     soup = BeautifulSoup(response.text, "html.parser")
+
     title = ""
     if soup.title and soup.title.string:
         title = re.sub(r"\s+", " ", soup.title.string).strip()
@@ -452,7 +546,7 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     snippet = re.sub(r"\s+", " ", text[:700]).strip()
     page_hash = "sha256:" + hashlib.sha256(response.text.encode("utf-8", errors="ignore")).hexdigest()
 
-    links = []
+    links: list[dict[str, str]] = []
     for anchor in soup.find_all("a", href=True):
         href = canonical_url(urljoin(url, anchor["href"]))
         label = re.sub(r"\s+", " ", anchor.get_text(" ", strip=True)).strip()
@@ -475,6 +569,7 @@ def detect_deadline_hint(text: str) -> str | None:
         if match:
             return re.sub(r"\s+", " ", match.group(1)).strip()
     return None
+
 
 def extract_years(*parts: str) -> list[int]:
     years: set[int] = set()
@@ -499,16 +594,12 @@ def stale_year_penalty(
     discovered_via: str,
     has_deadline_hint: bool,
 ) -> tuple[float, list[str], bool]:
-    """
-    Returns:
-      penalty_score, flags, hard_reject
-    """
+    """Return penalty_score, flags, hard_reject."""
     if latest_year is None:
         return 0.0, [], False
 
     current_year = datetime.now(UTC).year
     age = current_year - latest_year
-
     if age <= 0:
         return 0.0, [], False
 
@@ -518,20 +609,17 @@ def stale_year_penalty(
         flags.append("very_stale_year")
         return 0.0, flags, True
 
-    if age >= 2 and candidate_type in {"news_page", "award_page"}:
-        flags.append("stale_news_or_award_year")
+    if age >= 2 and candidate_type in {"call_page", "news_page", "award_page"}:
+        flags.append("stale_time_bound_page")
         return 0.0, flags, True
 
     penalty = 0.0
-
     if has_deadline_hint and age >= 1:
-        penalty += 0.35
+        penalty += 0.40
         flags.append("stale_deadline_year")
-
     if candidate_type == "call_page" and age >= 1:
-        penalty += 0.20
+        penalty += 0.22
         flags.append("stale_call_year")
-
     if discovered_via == "child_link" and age >= 1:
         penalty += 0.10
         flags.append("stale_child_page")
@@ -543,6 +631,7 @@ def count_phrase_hits(text: str, phrases: list[str]) -> int:
     lowered = text.lower()
     return sum(1 for phrase in phrases if phrase in lowered)
 
+
 def page_title_core(title: str) -> str:
     core = re.split(r"\s+[|\-–]\s+", title, maxsplit=1)[0]
     return re.sub(r"\s+", " ", core).strip()
@@ -550,7 +639,7 @@ def page_title_core(title: str) -> str:
 
 def looks_generic_title(title: str) -> bool:
     core = page_title_core(title).lower()
-    return any(core == pattern for pattern in GENERIC_TITLE_PATTERNS)
+    return core in GENERIC_TITLE_PATTERNS
 
 
 def text_has_any(text: str, phrases: list[str]) -> bool:
@@ -650,7 +739,13 @@ def find_existing_registry_match(candidate_url: str, registry: list[dict[str, An
     return None
 
 
-def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: list[dict[str, Any]], discovered_via: str, seen_at: str) -> Candidate | None:
+def classify_candidate(
+    page: dict[str, Any],
+    source: dict[str, Any],
+    registry: list[dict[str, Any]],
+    discovered_via: str,
+    seen_at: str,
+) -> Candidate | None:
     title = page.get("title", "") or source.get("name", "Untitled candidate")
     text = page.get("text", "")
     snippet = page.get("snippet", "")
@@ -662,13 +757,7 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
     watch_hits = count_phrase_hits(combined, source.get("watch_terms", []))
     title_hits = count_phrase_hits(f"{page_title_core(title).lower()} {page['url'].lower()}", STRONG_TITLE_HINT_TERMS)
     deadline_hint = detect_deadline_hint(text)
-    latest_year = latest_year_hint(
-        title,
-        page["url"],
-        deadline_hint or "",
-        snippet,
-        text[:2000],
-    )
+    latest_year = latest_year_hint(title, page["url"], deadline_hint or "", snippet, text[:2000])
 
     raw_applicant_types = extract.get("applicant_types", [])
     normalised_applicant_types = normalise_applicant_types(raw_applicant_types)
@@ -757,7 +846,6 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         return None
 
     confidence = max(0.0, min(confidence, 0.99))
-
     if confidence < 0.45:
         return None
 
@@ -778,7 +866,7 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         candidate_type=candidate_type,
         confidence=confidence,
         status="pending_review",
-        suggested_purposes=source.get("purposes", [])[:8],
+        suggested_purposes=list(source.get("purposes", []))[:8],
         suggested_applicant_types=normalised_applicant_types[:8],
         suggested_access_route=normalised_access_route,
         suggested_scale=normalised_scale,
@@ -790,21 +878,6 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         already_trusted=bool(registry_match),
         trusted_registry_id=registry_match["id"] if registry_match else None,
     )
-
-PERSISTENT_FIELDS = [
-    "status",
-    "notes",
-    "promotion_requested",
-    "promotion_request_issue_number",
-    "promotion_request_issue_url",
-    "request_origin_status",
-    "cl_draft_ready",
-    "cl_draft_generated_at",
-    "cl_draft_json",
-    "cl_draft_html",
-    "already_trusted",
-    "trusted_registry_id",
-]
 
 
 def choose_better_candidate(existing: Candidate, candidate: Candidate) -> Candidate:
@@ -832,7 +905,7 @@ def choose_better_candidate(existing: Candidate, candidate: Candidate) -> Candid
 
 def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candidate], seen_at: str) -> dict[str, Any]:
     previous_candidates = {item["url"]: item for item in previous_payload.get("candidates", [])}
-    merged = {}
+    merged: dict[str, dict[str, Any]] = {}
 
     for candidate in newly_found:
         item = candidate.as_dict()
@@ -864,159 +937,173 @@ def merge_candidates(previous_payload: dict[str, Any], newly_found: list[Candida
             old_copy.get("url", ""),
             old_deadline,
             old_snippet,
-            )
-
+        )
         _, stale_flags, hard_reject = stale_year_penalty(
             latest_year=old_latest_year,
             candidate_type=old_candidate_type,
             discovered_via=old_discovered_via,
             has_deadline_hint=bool(old_deadline),
-            )
-
+        )
         if hard_reject:
             continue
 
-    existing_flags = old_copy.get("reason_flags", [])
-    old_copy["reason_flags"] = dedupe_keep_order(existing_flags + stale_flags)
+        existing_flags = old_copy.get("reason_flags", [])
+        old_copy["reason_flags"] = dedupe_keep_order(existing_flags + stale_flags)
+        merged[url] = old_copy
 
-    merged[url] = old_copy
+    candidates = sorted(
+        merged.values(),
+        key=lambda item: (
+            0 if item.get("seen_in_latest_run") else 1,
+            -float(item.get("confidence", 0)),
+            item.get("title", "").lower(),
+        ),
+    )
+
+    return {"meta": previous_payload.get("meta", {}), "candidates": candidates}
 
 
+def build_meta(candidates: list[dict[str, Any]], previous_meta: dict[str, Any]) -> dict[str, Any]:
+    domains: dict[str, int] = {}
+    for candidate in candidates:
+        domain = candidate.get("domain")
+        if domain:
+            domains[domain] = domains.get(domain, 0) + 1
 
-    candidates = list(merged.values())
-    candidates.sort(key=lambda item: (-float(item.get("confidence", 0)), item.get("title", "")))
+    meta = dict(previous_meta)
+    meta["generated_at"] = now_iso()
+    meta["generator"] = "grant-radar-discovery 0.8"
+    meta["candidate_count"] = len(candidates)
+    meta["high_confidence_count"] = sum(float(c.get("confidence", 0)) >= 0.8 for c in candidates)
+    meta["pending_review_count"] = sum(c.get("status") == "pending_review" for c in candidates)
+    meta["approved_count"] = sum(c.get("status") == "approved" for c in candidates)
+    meta["cl_drafted_count"] = sum(c.get("status") == "cl_drafted" for c in candidates)
+    meta["promoted_count"] = sum(c.get("status") == "promoted" for c in candidates)
+    meta["promotion_requested_count"] = sum(bool(c.get("promotion_requested")) for c in candidates)
+    meta["domains_seen"] = dict(sorted(domains.items()))
+    return meta
 
-    high_conf = sum(1 for item in candidates if float(item.get("confidence", 0)) >= 0.8)
-    pending = sum(1 for item in candidates if item.get("status") == "pending_review")
-    approved = sum(1 for item in candidates if item.get("status") == "approved")
-    drafted = sum(1 for item in candidates if item.get("status") == "cl_drafted")
-    promoted = sum(1 for item in candidates if item.get("status") == "promoted")
-    requested = sum(1 for item in candidates if item.get("promotion_requested"))
-    by_domain = defaultdict(int)
-    for item in candidates:
-        by_domain[item.get("domain", "unknown")] += 1
 
+def build_memory_page_record(source: dict[str, Any], page: dict[str, Any], discovered_via: str) -> dict[str, Any]:
     return {
-        "meta": {
-            "generated_at": seen_at,
-            "generator": "grant-radar-discovery 0.7",
-            "candidate_count": len(candidates),
-            "high_confidence_count": high_conf,
-            "pending_review_count": pending,
-            "approved_count": approved,
-            "cl_drafted_count": drafted,
-            "promoted_count": promoted,
-            "promotion_requested_count": requested,
-            "domains_seen": dict(sorted(by_domain.items())),
-        },
-        "candidates": candidates,
+        "url": page["url"],
+        "title": page.get("title", ""),
+        "page_hash": page.get("page_hash", ""),
+        "discovered_via": discovered_via,
+        "source_id_hint": source["id"],
+        "source_hint": source["name"],
+        "checked_at": now_iso(),
     }
 
 
-def update_memory(memory: dict[str, Any], page: dict[str, Any], fetch_status: str, seen_at: str) -> None:
-    pages = memory.setdefault("pages", {})
-    entry = pages.get(page["url"], {})
-    entry["url"] = page["url"]
-    entry["domain"] = canonical_domain(page["url"])
-    entry["canonical_family_key"] = canonical_candidate_family_key(page["url"])
-    entry["first_seen"] = entry.get("first_seen", seen_at)
-    entry["last_seen"] = seen_at
-    entry["last_title"] = page.get("title", "")
-    entry["page_hash"] = page.get("page_hash", "")
-    entry["fetch_status"] = fetch_status
-    entry["times_seen"] = int(entry.get("times_seen", 0)) + 1
-    pages[page["url"]] = entry
-
-
-def discover() -> None:
+def discover_for_source(source: dict[str, Any], registry: list[dict[str, Any]]) -> tuple[list[Candidate], dict[str, Any]]:
     seen_at = now_iso()
-    registry = load_json(REGISTRY_PATH, default=[])
+    source_memory: dict[str, Any] = {
+        "source_id": source["id"],
+        "source_name": source["name"],
+        "checked_at": seen_at,
+        "errors": [],
+        "pages_checked": [],
+        "watch_urls": [],
+    }
+
+    watch_urls = build_watch_urls(source)
+    source_memory["watch_urls"] = watch_urls
+
+    candidates_by_family: dict[str, Candidate] = {}
+    queued_child_urls: list[str] = []
+    queued_seen: set[str] = set()
+
+    for watch_url in watch_urls:
+        page, error = fetch_page(watch_url)
+        if error:
+            source_memory["errors"].append({"url": watch_url, "error": error})
+            continue
+        if page is None:
+            continue
+
+        source_memory["pages_checked"].append(build_memory_page_record(source, page, "source_page"))
+
+        candidate = classify_candidate(page, source, registry, "source_page", seen_at)
+        if candidate is not None:
+            existing = candidates_by_family.get(candidate.canonical_family_key)
+            candidates_by_family[candidate.canonical_family_key] = (
+                choose_better_candidate(existing, candidate) if existing else candidate
+            )
+
+        for link in page.get("links", []):
+            child_url = link["url"]
+            if child_url in queued_seen:
+                continue
+            if not is_same_or_child_domain(child_url, source["trusted_domain"]):
+                continue
+            if not looks_like_grant_link(child_url, link.get("label", ""), source.get("watch_terms", [])):
+                continue
+            queued_seen.add(child_url)
+            queued_child_urls.append(child_url)
+
+    max_child_links = max_child_links_for_source(source)
+    for child_url in queued_child_urls[:max_child_links]:
+        page, error = fetch_page(child_url)
+        if error:
+            source_memory["errors"].append({"url": child_url, "error": error})
+            continue
+        if page is None:
+            continue
+
+        source_memory["pages_checked"].append(build_memory_page_record(source, page, "child_link"))
+
+        candidate = classify_candidate(page, source, registry, "child_link", seen_at)
+        if candidate is None:
+            continue
+
+        existing = candidates_by_family.get(candidate.canonical_family_key)
+        candidates_by_family[candidate.canonical_family_key] = (
+            choose_better_candidate(existing, candidate) if existing else candidate
+        )
+
+    ordered_candidates = sorted(
+        candidates_by_family.values(),
+        key=lambda candidate: (-candidate.confidence, candidate.title.lower()),
+    )
+
+    return ordered_candidates[: max_candidates_for_source(source)], source_memory
+
+
+def main() -> None:
+    registry = load_json(REGISTRY_PATH, [])
     registry, registry_changed = ensure_registry_defaults(registry)
-    previous_discovery = load_json(DISCOVERY_PATH, default={})
-    memory = load_json(MEMORY_PATH, default={"meta": {"generated_at": seen_at, "generator": "grant-radar-discovery 0.7"}, "pages": {}})
-    newly_found = []
+    if registry_changed:
+        save_json(REGISTRY_PATH, registry)
+
+    previous_discovery = load_json(DISCOVERY_PATH, {"meta": {}, "candidates": []})
+    previous_memory = load_json(MEMORY_PATH, {"generated_at": None, "sources": []})
+
+    all_candidates: list[Candidate] = []
+    memory_sources: list[dict[str, Any]] = []
 
     for source in registry:
         if not source.get("discovery_enabled", True):
             continue
+        discovered, source_memory = discover_for_source(source, registry)
+        all_candidates.extend(discovered)
+        memory_sources.append(source_memory)
 
-        trusted_domain = source["trusted_domain"]
-        candidate_count_for_source = 0
-        source_max_candidates = max_candidates_for_source(source)
-        source_max_child_links = max_child_links_for_source(source)
+    merged_payload = merge_candidates(previous_discovery, all_candidates, now_iso())
+    merged_payload["meta"] = build_meta(merged_payload["candidates"], previous_discovery.get("meta", {}))
 
-        for watch_url in build_watch_urls(source):
-            page, error = fetch_page(watch_url)
-            if error or not page:
-                error_page = {"url": canonical_url(watch_url), "title": "", "page_hash": ""}
-                update_memory(memory, error_page, f"error: {error}", seen_at)
-                continue
+    memory_payload = {
+        "generated_at": now_iso(),
+        "sources": memory_sources,
+        "previous_generated_at": previous_memory.get("generated_at"),
+    }
 
-            update_memory(memory, page, "ok", seen_at)
-            direct_candidate = classify_candidate(page, source, registry, "source_page", seen_at)
-            if direct_candidate:
-                newly_found.append(direct_candidate)
-                candidate_count_for_source += 1
-
-            if candidate_count_for_source >= source_max_candidates:
-                continue
-
-            same_domain_links = []
-            for link in page.get("links", []):
-                href = link["url"]
-                if not is_same_or_child_domain(href, trusted_domain):
-                    continue
-                if href == page["url"]:
-                    continue
-                if looks_like_grant_link(href, link.get("label", ""), source.get("watch_terms", [])):
-                    same_domain_links.append(href)
-
-            family_seen = set()
-            filtered_child_urls = []
-            for child_url in dedupe_keep_order(same_domain_links):
-                family_key = canonical_candidate_family_key(child_url)
-                if family_key in family_seen:
-                    continue
-                family_seen.add(family_key)
-                filtered_child_urls.append(child_url)
-
-            for child_url in filtered_child_urls[:source_max_child_links]:
-                if candidate_count_for_source >= source_max_candidates:
-                    break
-                child_page, child_error = fetch_page(child_url)
-                if child_error or not child_page:
-                    error_page = {"url": canonical_url(child_url), "title": "", "page_hash": ""}
-                    update_memory(memory, error_page, f"error: {child_error}", seen_at)
-                    continue
-                update_memory(memory, child_page, "ok", seen_at)
-                child_candidate = classify_candidate(child_page, source, registry, "child_link", seen_at)
-                if child_candidate:
-                    newly_found.append(child_candidate)
-                    candidate_count_for_source += 1
-
-    best_by_family = {}
-    for candidate in newly_found:
-        existing = best_by_family.get(candidate.canonical_family_key)
-        if existing is None:
-            best_by_family[candidate.canonical_family_key] = candidate
-        else:
-            best_by_family[candidate.canonical_family_key] = choose_better_candidate(existing, candidate)
-
-    merged_payload = merge_candidates(previous_discovery, list(best_by_family.values()), seen_at)
-
-    memory.setdefault("meta", {})
-    memory["meta"]["generated_at"] = seen_at
-    memory["meta"]["generator"] = "grant-radar-discovery 0.7"
-
-    if registry_changed:
-        save_json(REGISTRY_PATH, registry)
     save_json(DISCOVERY_PATH, merged_payload)
-    save_json(MEMORY_PATH, memory)
-    print(f"Wrote {DISCOVERY_PATH}")
-    print(f"Wrote {MEMORY_PATH}")
-    if registry_changed:
-        print(f"Updated {REGISTRY_PATH} with discovery defaults")
+    save_json(MEMORY_PATH, memory_payload)
+
+    print(f"Discovered {len(all_candidates)} candidates across {len(memory_sources)} sources.")
+    print(json.dumps(merged_payload['meta'], indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":
-    discover()
+    main()
