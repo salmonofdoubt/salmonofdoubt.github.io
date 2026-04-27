@@ -476,6 +476,68 @@ def detect_deadline_hint(text: str) -> str | None:
             return re.sub(r"\s+", " ", match.group(1)).strip()
     return None
 
+def extract_years(*parts: str) -> list[int]:
+    years: set[int] = set()
+    for part in parts:
+        if not part:
+            continue
+        for match in re.findall(r"\b(20\d{2})\b", part):
+            year = int(match)
+            if 2000 <= year <= 2100:
+                years.add(year)
+    return sorted(years)
+
+
+def latest_year_hint(*parts: str) -> int | None:
+    years = extract_years(*parts)
+    return max(years) if years else None
+
+
+def stale_year_penalty(
+    latest_year: int | None,
+    candidate_type: str,
+    discovered_via: str,
+    has_deadline_hint: bool,
+) -> tuple[float, list[str], bool]:
+    """
+    Returns:
+      penalty_score, flags, hard_reject
+    """
+    if latest_year is None:
+        return 0.0, [], False
+
+    current_year = datetime.now(UTC).year
+    age = current_year - latest_year
+
+    if age <= 0:
+        return 0.0, [], False
+
+    flags: list[str] = []
+
+    if age >= 4:
+        flags.append("very_stale_year")
+        return 0.0, flags, True
+
+    if age >= 2 and candidate_type in {"news_page", "award_page"}:
+        flags.append("stale_news_or_award_year")
+        return 0.0, flags, True
+
+    penalty = 0.0
+
+    if has_deadline_hint and age >= 1:
+        penalty += 0.35
+        flags.append("stale_deadline_year")
+
+    if candidate_type == "call_page" and age >= 1:
+        penalty += 0.20
+        flags.append("stale_call_year")
+
+    if discovered_via == "child_link" and age >= 1:
+        penalty += 0.10
+        flags.append("stale_child_page")
+
+    return penalty, flags, False
+
 
 def count_phrase_hits(text: str, phrases: list[str]) -> int:
     lowered = text.lower()
@@ -600,6 +662,13 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
     watch_hits = count_phrase_hits(combined, source.get("watch_terms", []))
     title_hits = count_phrase_hits(f"{page_title_core(title).lower()} {page['url'].lower()}", STRONG_TITLE_HINT_TERMS)
     deadline_hint = detect_deadline_hint(text)
+        latest_year = latest_year_hint(
+        title,
+        page["url"],
+        deadline_hint or "",
+        snippet,
+        text[:2000],
+    )
 
     raw_applicant_types = extract.get("applicant_types", [])
     normalised_applicant_types = normalise_applicant_types(raw_applicant_types)
@@ -675,7 +744,19 @@ def classify_candidate(page: dict[str, Any], source: dict[str, Any], registry: l
         confidence -= 0.10
         reason_flags.append("generic_support_page_penalty")
 
-    confidence = min(confidence, 0.99)
+    stale_penalty, stale_flags, hard_reject = stale_year_penalty(
+        latest_year=latest_year,
+        candidate_type=candidate_type,
+        discovered_via=discovered_via,
+        has_deadline_hint=bool(deadline_hint),
+    )
+    confidence -= stale_penalty
+    reason_flags.extend(stale_flags)
+
+    if hard_reject:
+        return None
+
+    confidence = max(0.0, min(confidence, 0.99))
 
     if confidence < 0.45:
         return None
