@@ -4,13 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: "approve, reject, or promote"
+        description: "promote or reject"
         required: true
         type: choice
         options:
-          - approve
-          - reject
           - promote
+          - reject
       candidate_id:
         description: "Exact candidate ID"
         required: true
@@ -23,9 +22,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: repo-master-writes
+  cancel-in-progress: false
+
 jobs:
   admin:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -35,6 +39,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install Grant Radar dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r demos/grant-radar/ops/requirements.txt
+
       - name: Apply admin action
         run: |
           python demos/grant-radar/admin/admin_set_candidate_state.py \
@@ -42,7 +51,7 @@ jobs:
             --action "${{ inputs.action }}" \
             --note "${{ inputs.note }}"
 
-      - name: Commit changes
+      - name: Commit updated Grant Radar files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -53,6 +62,11 @@ jobs:
           git add demos/grant-radar/data/source-registry.json
 
           git diff --cached --quiet && exit 0
+
           git commit -m "Grant Radar admin: ${{ inputs.action }} ${{ inputs.candidate_id }}"
-          git push
-          
+
+          for attempt in 1 2 3; do
+            git pull --rebase origin master && git push && break
+            echo "Push failed on attempt $attempt, retrying in 5 seconds..."
+            sleep 5
+          done

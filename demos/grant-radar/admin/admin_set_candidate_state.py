@@ -1,30 +1,19 @@
 #!/usr/bin/env python3
-"""Minimal same-repo admin actions for Grant Radar.
+"""Real admin actions for Grant Radar.
 
-Usage examples:
-  python demos/grant-radar/admin/admin_set_candidate_state.py --candidate-id CAND_ID --action approve
-  python demos/grant-radar/admin/admin_set_candidate_state.py --candidate-id CAND_ID --action reject
-  python demos/grant-radar/admin/admin_set_candidate_state.py --candidate-id CAND_ID --action promote
-  python demos/grant-radar/admin/admin_set_candidate_state.py --candidate-id CAND_ID --action approve --note "looks real"
+Allowed actions:
+- promote: publish a genuinely new candidate into the trusted catalogue
+- reject: discard a candidate from the active review queue
 
-Behavior:
-- approve: marks a discovery candidate as approved for later promotion
-- reject: marks a discovery candidate as rejected
-- promote: adds to source-registry.json using existing Grant Radar helper logic,
-           then reruns harvest_grants.py so catalog.json updates too
-
-Deliberate limits:
-- no hidden webpage
-- no extra repo
-- no PAT
-- no auto-accept on public review page
-- no "unpublish" / "demote" logic for already-promoted catalogue entries
+Important:
+- There is no "approve" state.
+- If a candidate is already covered by an existing trusted source, promote does
+  not silently mark it as published. It is resolved to suppressed_existing.
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -38,13 +27,13 @@ OPS_DIR = SITE_DIR / "ops"
 CANDIDATES_PATH = DATA_DIR / "discovery-candidates.json"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 
-# Reuse your existing promotion helper so this stays aligned with your current schema.
 sys.path.insert(0, str(OPS_DIR))
 
 from promote_candidate import (  # type: ignore
     apply_entry,
     build_registry_entry,
     load_json,
+    registry_duplicate_info,
     save_json,
     update_meta_counts,
 )
@@ -92,32 +81,27 @@ def run_harvest() -> None:
     subprocess.run([sys.executable, str(harvest_script)], check=True)
 
 
-def approve_candidate(payload: dict[str, Any], candidate: dict[str, Any], note: str | None) -> None:
-    if candidate.get("status") == "promoted":
-        raise SystemExit(
-            "This candidate is already promoted. "
-            "This admin script does not demote or unpublish promoted catalogue items."
-        )
-
-    candidate["status"] = "approved"
-    candidate["public_visible_state"] = "discovery_only"
-    candidate["public_visibility"] = "discovery_only"
-    clear_request_flags(candidate)
-    clear_draft_flags(candidate)
-    stamp_admin_action(candidate, "approve", note)
-    save_candidates(payload)
+def normalize_pending_status(candidate: dict[str, Any]) -> str:
+    status = str(candidate.get("status") or "").strip()
+    if status in {"pending_review", "approved", "cl_drafted"}:
+        return "pending_review"
+    return status
 
 
 def reject_candidate(payload: dict[str, Any], candidate: dict[str, Any], note: str | None) -> None:
-    if candidate.get("status") == "promoted":
-        raise SystemExit(
-            "This candidate is already promoted. "
-            "This admin script does not remove promoted catalogue items."
-        )
+    current = normalize_pending_status(candidate)
+
+    if current == "promoted":
+        raise SystemExit("This candidate is already promoted. Reject cannot remove published items.")
+    if current == "rejected":
+        raise SystemExit("This candidate is already rejected.")
+    if current not in {"pending_review", "suppressed_existing", "suppressed_non_actionable"}:
+        raise SystemExit(f"Reject is only valid for review/discovery candidates, not status={current!r}")
 
     candidate["status"] = "rejected"
     candidate["public_visible_state"] = "discovery_only"
     candidate["public_visibility"] = "discovery_only"
+    candidate["promotion_signal"] = "red"
     clear_request_flags(candidate)
     clear_draft_flags(candidate)
     stamp_admin_action(candidate, "reject", note)
@@ -125,30 +109,56 @@ def reject_candidate(payload: dict[str, Any], candidate: dict[str, Any], note: s
 
 
 def promote_candidate(payload: dict[str, Any], candidate: dict[str, Any], note: str | None) -> None:
+    current = normalize_pending_status(candidate)
+
+    if current == "promoted":
+        raise SystemExit("This candidate is already promoted.")
+    if current == "rejected":
+        raise SystemExit("This candidate was rejected and should not be promoted without re-discovery.")
+    if current != "pending_review":
+        raise SystemExit(
+            f"Only pending_review candidates can be promoted. Current status is {current!r}."
+        )
+
     registry = load_json(REGISTRY_PATH, default=[])
 
-    # Build and apply using your existing promotion helper.
+    duplicate = registry_duplicate_info(candidate, registry)
+    if duplicate:
+        candidate["status"] = "suppressed_existing"
+        candidate["public_visible_state"] = "discovery_only"
+        candidate["public_visibility"] = "discovery_only"
+        candidate["promotion_signal"] = "red"
+        candidate["already_trusted"] = True
+        candidate["trusted_registry_id"] = duplicate["id"]
+        clear_request_flags(candidate)
+        clear_draft_flags(candidate)
+        stamp_admin_action(candidate, "promote_resolved_existing", note)
+        save_candidates(payload)
+        print(
+            f"Candidate is already covered by trusted source {duplicate['id']}. "
+            "Moved to suppressed_existing instead of publishing."
+        )
+        return
+
     entry = build_registry_entry(candidate, registry)
     apply_entry(candidate, entry, registry, payload)
 
-    # Normalise post-promotion state for the same-repo admin model.
     candidate["status"] = "promoted"
     candidate["public_visible_state"] = "public_visible"
     candidate["public_visibility"] = "public_visible"
+    candidate["promotion_signal"] = "green"
+    candidate["already_trusted"] = False
+    candidate["trusted_registry_id"] = entry["id"]
     clear_request_flags(candidate)
     clear_draft_flags(candidate)
     stamp_admin_action(candidate, "promote", note)
-
-    # apply_entry already writes candidates/registry, but we write once more so the
-    # normalised flags above are definitely persisted.
     save_candidates(payload)
 
-    # Rebuild public catalogue immediately.
     run_harvest()
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Apply same-repo admin state changes to Grant Radar candidates.")
+    parser = argparse.ArgumentParser(description="Apply real admin actions to Grant Radar candidates.")
     parser.add_argument(
         "--candidate-id",
         required=True,
@@ -157,7 +167,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--action",
         required=True,
-        choices=["approve", "reject", "promote"],
+        choices=["promote", "reject"],
         help="Admin action to apply",
     )
     parser.add_argument(
@@ -177,11 +187,6 @@ def main() -> None:
 
     candidate = find_candidate(payload, args.candidate_id)
 
-    if args.action == "approve":
-        approve_candidate(payload, candidate, args.note)
-        print(f"Approved candidate: {args.candidate_id}")
-        return
-
     if args.action == "reject":
         reject_candidate(payload, candidate, args.note)
         print(f"Rejected candidate: {args.candidate_id}")
@@ -189,7 +194,7 @@ def main() -> None:
 
     if args.action == "promote":
         promote_candidate(payload, candidate, args.note)
-        print(f"Promoted candidate and refreshed catalogue: {args.candidate_id}")
+        print(f"Promotion handling completed for: {args.candidate_id}")
         return
 
     raise SystemExit(f"Unsupported action: {args.action}")

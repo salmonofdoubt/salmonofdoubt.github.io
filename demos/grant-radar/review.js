@@ -4,18 +4,8 @@ const el = {
   summaryGrid: document.getElementById('summary-grid'),
   cards: document.getElementById('cards'),
   search: document.getElementById('search'),
-  lane: document.getElementById('lane'),
-  workflow: document.getElementById('workflow'),
+  view: document.getElementById('view'),
 };
-
-const PROGRAMME_KIND_VALUES = new Set([
-  'recurring_programme',
-  'rolling_support',
-  'one_off_call',
-  'announcement_or_results',
-]);
-
-const PROGRAMME_STATE_VALUES = new Set(['open', 'upcoming', 'closed', 'archived']);
 
 function escapeHtml(value) {
   return String(value ?? '')
@@ -35,325 +25,46 @@ function summaryBox(label, value) {
   `;
 }
 
-function canonicalFamilyKeyFromUrl(url) {
-  try {
-    const parsed = new URL(url);
-    let path = parsed.pathname.replace(/_[a-z]{2}$/i, '');
-    path = path.replace(/\/+$/g, '') || '/';
-    return `${parsed.hostname.replace(/^www\./i, '')}${path}`;
-  } catch {
-    return url || 'unknown';
+function normalizeStatus(item) {
+  const status = String(item.status || '').trim();
+
+  if (status === 'approved' || status === 'cl_drafted') {
+    return 'pending_review';
   }
+
+  if (
+    status === 'pending_review' ||
+    status === 'suppressed_existing' ||
+    status === 'suppressed_non_actionable' ||
+    status === 'promoted' ||
+    status === 'rejected'
+  ) {
+    return status;
+  }
+
+  return 'pending_review';
 }
 
-function fallbackReviewKey(item) {
-  const family = item.canonical_family_key || canonicalFamilyKeyFromUrl(item.url || '');
-  const title = (item.title || '').trim().toLowerCase();
-  const source = (item.source_hint || '').trim().toLowerCase();
-  const domain = (item.domain || '').trim().toLowerCase();
-  return `${family}::${title}::${source}::${domain}`;
+function statusLabel(status) {
+  if (status === 'pending_review') return 'Needs decision';
+  if (status === 'suppressed_existing') return 'Already covered';
+  if (status === 'suppressed_non_actionable') return 'Non-actionable';
+  if (status === 'promoted') return 'Promoted';
+  if (status === 'rejected') return 'Rejected';
+  return 'Needs decision';
 }
 
-function extractYearsFromText(...parts) {
-  const years = new Set();
-  parts.forEach((part) => {
-    const text = String(part || '');
-    const matches = text.match(/\b(20\d{2})\b/g) || [];
-    matches.forEach((match) => {
-      const year = Number(match);
-      if (year >= 2000 && year <= 2100) {
-        years.add(year);
-      }
-    });
-  });
-  return Array.from(years).sort((a, b) => a - b);
-}
-
-function latestYearHint(item) {
-  const years = extractYearsFromText(
-    item.title,
-    item.url,
-    item.deadline_hint,
-    item.snippet,
-    item.source_hint
-  );
-  return years.length ? years[years.length - 1] : null;
-}
-
-function isClearlyStale(item) {
-  const year = latestYearHint(item);
-  if (!year) return false;
-  const currentYear = new Date().getUTCFullYear();
-  return year <= currentYear - 1;
-}
-
-function looksBinaryGarbage(text) {
-  const sample = String(text || '').slice(0, 600);
-  if (!sample) return false;
-
-  if (sample.includes('%PDF-')) return true;
-  if (/endobj|stream|\/Type\/Page|\/ProcSet|\/MediaBox|\/Contents\s+\d+\s+\d+\s+R/i.test(sample)) return true;
-
-  const replacementCount = (sample.match(/�/g) || []).length;
-  if (replacementCount >= 4) return true;
-
-  return false;
+function statusClass(status) {
+  if (status === 'pending_review') return 'badge-pending';
+  if (status === 'suppressed_existing') return 'badge-existing';
+  if (status === 'suppressed_non_actionable') return 'badge-suppressed';
+  if (status === 'promoted') return 'badge-promoted';
+  if (status === 'rejected') return 'badge-rejected';
+  return 'badge-pending';
 }
 
 function displaySnippet(item) {
-  if (looksBinaryGarbage(item.snippet || '')) {
-    return 'Binary or PDF content detected. Preview suppressed. Open the candidate page only if you specifically need to inspect that document.';
-  }
   return item.snippet || 'No snippet available.';
-}
-
-function effectiveProgrammeKind(item) {
-  if (PROGRAMME_KIND_VALUES.has(item.programme_kind)) return item.programme_kind;
-
-  if (item.recurrence_type === 'recurring') return 'recurring_programme';
-  if (item.recurrence_type === 'rolling') return 'rolling_support';
-  if (item.recurrence_type === 'one_off') return 'one_off_call';
-
-  const haystack = [
-    item.title,
-    item.candidate_type,
-    item.source_hint,
-    item.snippet,
-  ].join(' ').toLowerCase();
-
-  if (
-    haystack.includes('announce') ||
-    haystack.includes('results') ||
-    haystack.includes('awarded') ||
-    haystack.includes('press release')
-  ) {
-    return 'announcement_or_results';
-  }
-
-  if (
-    haystack.includes('support') ||
-    haystack.includes('advisory') ||
-    haystack.includes('hub')
-  ) {
-    return 'rolling_support';
-  }
-
-  return 'one_off_call';
-}
-
-function effectiveProgrammeState(item) {
-  if (PROGRAMME_STATE_VALUES.has(item.programme_state)) return item.programme_state;
-
-  const kind = effectiveProgrammeKind(item);
-
-  if (item.current_availability === 'open_now') return 'open';
-  if (item.status === 'upcoming') return 'upcoming';
-  if (item.current_availability === 'closed_for_now') return 'closed';
-  if (item.current_availability === 'closed') {
-    return kind === 'one_off_call' || kind === 'announcement_or_results' ? 'archived' : 'closed';
-  }
-
-  if (item.public_visibility === 'archived') return 'archived';
-  if (item.status === 'open') return 'open';
-  if (item.status === 'closed') return kind === 'one_off_call' ? 'archived' : 'closed';
-
-  return 'closed';
-}
-
-function effectivePublicVisibleState(item) {
-  if (item.public_visible_state) return item.public_visible_state;
-  if (item.public_visibility === 'public_visible') return 'public_visible';
-  return 'discovery_only';
-}
-
-function programmeKindLabel(value) {
-  if (value === 'recurring_programme') return 'Recurring programme';
-  if (value === 'rolling_support') return 'Rolling support';
-  if (value === 'one_off_call') return 'One-off call';
-  if (value === 'announcement_or_results') return 'Announcement/results';
-  return 'Unknown type';
-}
-
-function programmeStateLabel(value) {
-  if (value === 'open') return 'Open';
-  if (value === 'upcoming') return 'Upcoming';
-  if (value === 'closed') return 'Closed';
-  if (value === 'archived') return 'Archived';
-  return 'Unknown';
-}
-
-function derivePromotionSignal(item) {
-  if (item.promotion_signal === 'green' || item.promotion_signal === 'amber' || item.promotion_signal === 'red') {
-    return item.promotion_signal;
-  }
-
-  const candidateType = item.candidate_type || '';
-  const title = `${item.title || ''} ${item.url || ''}`.toLowerCase();
-  const deadline = `${item.deadline_hint || ''}`.toLowerCase();
-  const reasons = `${(item.reason_flags || []).join(' ')} ${(item.promotion_reasons || []).join(' ')}`.toLowerCase();
-  const programmeKind = effectiveProgrammeKind(item);
-  const programmeState = effectiveProgrammeState(item);
-
-  if (
-    candidateType === 'news_page' ||
-    candidateType === 'award_page' ||
-    programmeKind === 'announcement_or_results' ||
-    programmeState === 'archived' ||
-    title.includes('announc') ||
-    title.includes('press release') ||
-    deadline.includes('passed') ||
-    reasons.includes('announcement') ||
-    reasons.includes('passed-deadline')
-  ) {
-    return 'red';
-  }
-
-  if (looksBinaryGarbage(item.snippet || '')) {
-    return 'red';
-  }
-
-  if (isClearlyStale(item)) {
-    return 'red';
-  }
-
-  const hasApplicants = (item.suggested_applicant_types || []).length > 0;
-  const hasRoute = !!item.suggested_access_route;
-  const hasScale = !!item.suggested_scale;
-  const actionable =
-    title.includes('grant') ||
-    title.includes('fund') ||
-    title.includes('call') ||
-    title.includes('scheme');
-
-  if (
-    programmeKind !== 'announcement_or_results' &&
-    programmeState !== 'archived' &&
-    hasApplicants &&
-    hasRoute &&
-    hasScale &&
-    actionable &&
-    Number(item.confidence || 0) >= 0.58
-  ) {
-    return 'green';
-  }
-
-  if (
-    programmeKind !== 'announcement_or_results' &&
-    programmeState !== 'archived' &&
-    (hasApplicants || hasRoute || hasScale) &&
-    Number(item.confidence || 0) >= 0.48
-  ) {
-    return 'amber';
-  }
-
-  return 'red';
-}
-
-function signalRank(signal) {
-  if (signal === 'green') return 3;
-  if (signal === 'amber') return 2;
-  return 1;
-}
-
-function signalLabel(signal) {
-  if (signal === 'green') return 'Promotable';
-  if (signal === 'amber') return 'Review carefully';
-  return 'Discovery only';
-}
-
-function signalTitle(signal) {
-  if (signal === 'green') {
-    return 'Looks like a real funding route or call page and is worth promotion review.';
-  }
-  if (signal === 'amber') {
-    return 'Possibly useful, but the signal is incomplete or weaker. Check before promoting.';
-  }
-  return 'Likely announcement, historic page, binary PDF, award note, or weak lead. Usually not for public promotion.';
-}
-
-function signalClass(signal) {
-  if (signal === 'green') return 'signal-green';
-  if (signal === 'amber') return 'signal-amber';
-  return 'signal-red';
-}
-
-function workflowBucket(item) {
-  if (item.status === 'promoted' || item.status === 'rejected') return 'completed';
-  if (item.promotion_requested) return 'requested';
-  if (item.status === 'cl_drafted' || item.cl_draft_ready) return 'draft_ready';
-  if (item.status === 'approved') return 'approved';
-  return 'pending';
-}
-
-function workflowLabel(bucket) {
-  if (bucket === 'requested') return 'Request open';
-  if (bucket === 'draft_ready') return 'Draft ready';
-  if (bucket === 'approved') return 'Approved';
-  if (bucket === 'completed') return 'Completed';
-  return 'Pending';
-}
-
-function workflowTitle(bucket) {
-  if (bucket === 'requested') return 'A private promotion request already exists for this candidate.';
-  if (bucket === 'draft_ready') return 'A draft was already generated for this candidate.';
-  if (bucket === 'approved') return 'This candidate was approved in workflow but not yet fully promoted.';
-  if (bucket === 'completed') return 'This candidate is already promoted or rejected.';
-  return 'Still waiting for review.';
-}
-
-function workflowClass(bucket) {
-  if (bucket === 'requested') return 'workflow-requested';
-  if (bucket === 'draft_ready') return 'workflow-draft';
-  if (bucket === 'approved') return 'workflow-approved';
-  if (bucket === 'completed') return 'workflow-completed';
-  return '';
-}
-
-function chooseBetterItem(existing, candidate) {
-  const existingSignal = signalRank(derivePromotionSignal(existing));
-  const candidateSignal = signalRank(derivePromotionSignal(candidate));
-
-  if (candidateSignal > existingSignal) return candidate;
-  if (existingSignal > candidateSignal) return existing;
-
-  const existingIsEn = /_en$/i.test(existing.url || '');
-  const candidateIsEn = /_en$/i.test(candidate.url || '');
-
-  if (candidateIsEn && !existingIsEn) return candidate;
-  if (existingIsEn && !candidateIsEn) return existing;
-
-  const existingRequested = !!existing.promotion_requested;
-  const candidateRequested = !!candidate.promotion_requested;
-  if (candidateRequested && !existingRequested) return candidate;
-  if (existingRequested && !candidateRequested) return existing;
-
-  const existingDraft = !!existing.cl_draft_ready;
-  const candidateDraft = !!candidate.cl_draft_ready;
-  if (candidateDraft && !existingDraft) return candidate;
-  if (existingDraft && !candidateDraft) return existing;
-
-  const existingConfidence = Number(existing.confidence || 0);
-  const candidateConfidence = Number(candidate.confidence || 0);
-  if (candidateConfidence > existingConfidence) return candidate;
-  if (existingConfidence > candidateConfidence) return existing;
-
-  return existing;
-}
-
-function getVisibleCandidates(rawCandidates) {
-  const byKey = new Map();
-
-  rawCandidates.forEach((item) => {
-    const key = fallbackReviewKey(item);
-    const existing = byKey.get(key);
-    if (!existing) {
-      byKey.set(key, item);
-      return;
-    }
-    byKey.set(key, chooseBetterItem(existing, item));
-  });
-
-  return Array.from(byKey.values());
 }
 
 function shortWhy(item) {
@@ -373,20 +84,16 @@ function shortWhy(item) {
 
 function detailRows(item) {
   const rows = [];
-  const programmeKind = effectiveProgrammeKind(item);
-  const programmeState = effectiveProgrammeState(item);
-  const publicVisibleState = effectivePublicVisibleState(item);
+  const status = normalizeStatus(item);
 
-  rows.push({ label: 'Programme kind', value: programmeKindLabel(programmeKind) });
-  rows.push({ label: 'Programme state', value: programmeStateLabel(programmeState) });
-  rows.push({ label: 'Public visibility', value: publicVisibleState });
+  rows.push({ label: 'Status', value: statusLabel(status) });
 
   if (item.id) {
     rows.push({ label: 'Candidate ID', value: item.id });
   }
 
-  if (item.expected_next_window) {
-    rows.push({ label: 'Expected next window', value: item.expected_next_window });
+  if (item.trusted_registry_id) {
+    rows.push({ label: 'Trusted source id', value: item.trusted_registry_id });
   }
 
   if (item.deadline_hint) {
@@ -436,39 +143,23 @@ function detailRows(item) {
     });
   }
 
-  const yearHint = latestYearHint(item);
-  if (yearHint) {
-    rows.push({
-      label: 'Latest year hint',
-      value: String(yearHint),
-    });
-  }
-
   return rows;
 }
 
 function filteredCandidates() {
   const search = el.search.value.trim().toLowerCase();
-  const lane = el.lane.value;
-  const workflow = el.workflow.value;
+  const view = el.view.value;
 
-  const visible = getVisibleCandidates(state.payload.candidates || []);
-
-  return visible.filter((item) => {
-    const signal = derivePromotionSignal(item);
-    const bucket = workflowBucket(item);
-    const binaryLike = looksBinaryGarbage(item.snippet || '');
-    const stale = isClearlyStale(item);
-
+  return (state.payload.candidates || []).filter((item) => {
+    const status = normalizeStatus(item);
     const haystack = [
       item.id,
       item.title,
       item.domain,
       item.source_hint,
       item.snippet,
-      effectiveProgrammeKind(item),
-      effectiveProgrammeState(item),
-      effectivePublicVisibleState(item),
+      item.deadline_hint,
+      item.trusted_registry_id,
       ...(item.suggested_purposes || []),
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),
@@ -478,26 +169,21 @@ function filteredCandidates() {
       .toLowerCase();
 
     if (search && !haystack.includes(search)) return false;
-    if (lane !== 'all' && signal !== lane) return false;
 
-    if (workflow === 'active') {
-      if (bucket === 'completed') return false;
-      if (signal === 'red') return false;
-      if (binaryLike) return false;
-      if (stale) return false;
-    } else if (workflow === 'pending') {
-      if (bucket !== 'pending') return false;
-      if (signal === 'red') return false;
-      if (binaryLike) return false;
-      if (stale) return false;
-    } else if (workflow === 'requested') {
-      if (bucket !== 'requested') return false;
-    } else if (workflow === 'draft_ready') {
-      if (bucket !== 'draft_ready') return false;
-    } else if (workflow === 'approved') {
-      if (bucket !== 'approved') return false;
-    } else if (workflow === 'completed') {
-      if (bucket !== 'completed') return false;
+    if (view === 'active') {
+      return status === 'pending_review';
+    }
+
+    if (view === 'suppressed_existing') {
+      return status === 'suppressed_existing';
+    }
+
+    if (view === 'suppressed_non_actionable') {
+      return status === 'suppressed_non_actionable';
+    }
+
+    if (view === 'completed') {
+      return status === 'promoted' || status === 'rejected';
     }
 
     return true;
@@ -505,15 +191,17 @@ function filteredCandidates() {
 }
 
 function sortedCandidates(items) {
+  const rank = {
+    pending_review: 0,
+    suppressed_existing: 1,
+    suppressed_non_actionable: 2,
+    promoted: 3,
+    rejected: 4,
+  };
+
   return [...items].sort((a, b) => {
-    const signalDiff = signalRank(derivePromotionSignal(b)) - signalRank(derivePromotionSignal(a));
-    if (signalDiff !== 0) return signalDiff;
-
-    const requestedDiff = Number(!!b.promotion_requested) - Number(!!a.promotion_requested);
-    if (requestedDiff !== 0) return requestedDiff;
-
-    const draftDiff = Number(!!b.cl_draft_ready) - Number(!!a.cl_draft_ready);
-    if (draftDiff !== 0) return draftDiff;
+    const statusDiff = rank[normalizeStatus(a)] - rank[normalizeStatus(b)];
+    if (statusDiff !== 0) return statusDiff;
 
     const confidenceDiff = Number(b.confidence || 0) - Number(a.confidence || 0);
     if (confidenceDiff !== 0) return confidenceDiff;
@@ -522,32 +210,43 @@ function sortedCandidates(items) {
   });
 }
 
-function renderSummary(candidates) {
-  const green = candidates.filter((item) => derivePromotionSignal(item) === 'green').length;
-  const amber = candidates.filter((item) => derivePromotionSignal(item) === 'amber').length;
-  const red = candidates.filter((item) => derivePromotionSignal(item) === 'red').length;
+function renderSummary(allCandidates) {
+  const counts = {
+    pending_review: 0,
+    suppressed_existing: 0,
+    suppressed_non_actionable: 0,
+    completed: 0,
+  };
+
+  allCandidates.forEach((item) => {
+    const status = normalizeStatus(item);
+    if (status === 'pending_review') counts.pending_review += 1;
+    else if (status === 'suppressed_existing') counts.suppressed_existing += 1;
+    else if (status === 'suppressed_non_actionable') counts.suppressed_non_actionable += 1;
+    else if (status === 'promoted' || status === 'rejected') counts.completed += 1;
+  });
 
   el.summaryGrid.innerHTML = [
-    summaryBox('Visible candidates', candidates.length),
-    summaryBox('Promotable', green),
-    summaryBox('Review carefully', amber),
-    summaryBox('Discovery only', red),
+    summaryBox('Needs decision', counts.pending_review),
+    summaryBox('Already covered', counts.suppressed_existing),
+    summaryBox('Non-actionable', counts.suppressed_non_actionable),
+    summaryBox('Completed', counts.completed),
   ].join('');
 }
 
 function renderCards() {
+  const allCandidates = state.payload.candidates || [];
   const candidates = sortedCandidates(filteredCandidates());
 
-  renderSummary(candidates);
+  renderSummary(allCandidates);
 
   if (candidates.length === 0) {
-    el.cards.innerHTML = '<div class="empty-state">No candidates match the current filters.</div>';
+    el.cards.innerHTML = '<div class="empty-state">No candidates match the current filter.</div>';
     return;
   }
 
   el.cards.innerHTML = candidates.map((item) => {
-    const signal = derivePromotionSignal(item);
-    const bucket = workflowBucket(item);
+    const status = normalizeStatus(item);
     const detailHtml = detailRows(item)
       .map((row) => `
         <div class="detail-item">
@@ -559,33 +258,8 @@ function renderCards() {
 
     return `
       <article class="candidate-card">
-        <div class="card-top">
-          <div class="badge-row">
-            <span
-              class="badge ${signalClass(signal)}"
-              title="${escapeHtml(signalTitle(signal))}"
-            >
-              ${escapeHtml(signalLabel(signal))}
-            </span>
-
-            ${bucket !== 'pending' ? `
-              <span
-                class="badge ${workflowClass(bucket)}"
-                title="${escapeHtml(workflowTitle(bucket))}"
-              >
-                ${escapeHtml(workflowLabel(bucket))}
-              </span>
-            ` : ''}
-
-            ${item.already_trusted ? `
-              <span
-                class="badge workflow-trusted"
-                title="A related or matching item is already present in the trusted catalogue."
-              >
-                Already trusted
-              </span>
-            ` : ''}
-          </div>
+        <div class="badge-row">
+          <span class="badge ${statusClass(status)}">${escapeHtml(statusLabel(status))}</span>
         </div>
 
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
@@ -594,25 +268,23 @@ function renderCards() {
           <strong>ID:</strong> <code>${escapeHtml(item.id || '')}</code><br>
           ${escapeHtml(item.domain || 'unknown domain')}
           ${item.source_hint ? ` · via ${escapeHtml(item.source_hint)}` : ''}
+          ${item.trusted_registry_id ? `<br><strong>Covered by:</strong> ${escapeHtml(item.trusted_registry_id)}` : ''}
         </p>
 
         <p class="snippet">${escapeHtml(displaySnippet(item))}</p>
 
         <p class="why">
-          <strong>Why it surfaced:</strong>
-          ${escapeHtml(shortWhy(item))}
+          <strong>Why:</strong> ${escapeHtml(shortWhy(item))}
         </p>
 
-        ${detailHtml ? `
-          <details>
-            <summary>More detail</summary>
-            <div class="detail-wrap">
-              <div class="detail-grid">
-                ${detailHtml}
-              </div>
+        <details>
+          <summary>More detail</summary>
+          <div class="detail-wrap">
+            <div class="detail-grid">
+              ${detailHtml}
             </div>
-          </details>
-        ` : ''}
+          </div>
+        </details>
 
         <div class="actions">
           ${item.id ? `
@@ -683,7 +355,7 @@ async function init() {
   bindCardActions();
   renderCards();
 
-  [el.search, el.lane, el.workflow].forEach((node) => {
+  [el.search, el.view].forEach((node) => {
     node.addEventListener('input', renderCards);
     node.addEventListener('change', renderCards);
   });
