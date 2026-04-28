@@ -46,59 +46,6 @@ function fallbackReviewKey(item) {
   return `${family}::${title}::${source}::${domain}`;
 }
 
-function extractYearsFromText(...parts) {
-  const years = new Set();
-  parts.forEach((part) => {
-    const text = String(part || '');
-    const matches = text.match(/\b(20\d{2})\b/g) || [];
-    matches.forEach((match) => {
-      const year = Number(match);
-      if (year >= 2000 && year <= 2100) {
-        years.add(year);
-      }
-    });
-  });
-  return Array.from(years).sort((a, b) => a - b);
-}
-
-function latestYearHint(item) {
-  const years = extractYearsFromText(
-    item.title,
-    item.url,
-    item.deadline_hint,
-    item.snippet,
-    item.source_hint
-  );
-  return years.length ? years[years.length - 1] : null;
-}
-
-function isClearlyStale(item) {
-  const year = latestYearHint(item);
-  if (!year) return false;
-  const currentYear = new Date().getUTCFullYear();
-  return year <= currentYear - 1;
-}
-
-function looksBinaryGarbage(text) {
-  const sample = String(text || '').slice(0, 600);
-  if (!sample) return false;
-
-  if (sample.includes('%PDF-')) return true;
-  if (/endobj|stream|\/Type\/Page|\/ProcSet|\/MediaBox|\/Contents\s+\d+\s+\d+\s+R/i.test(sample)) return true;
-
-  const replacementCount = (sample.match(/�/g) || []).length;
-  if (replacementCount >= 4) return true;
-
-  return false;
-}
-
-function displaySnippet(item) {
-  if (looksBinaryGarbage(item.snippet || '')) {
-    return 'Binary or PDF content detected. Preview suppressed. Open the candidate page only if you specifically need to inspect that document.';
-  }
-  return item.snippet || 'No snippet available.';
-}
-
 function derivePromotionSignal(item) {
   if (item.promotion_signal === 'green' || item.promotion_signal === 'amber' || item.promotion_signal === 'red') {
     return item.promotion_signal;
@@ -118,14 +65,6 @@ function derivePromotionSignal(item) {
     reasons.includes('announcement') ||
     reasons.includes('passed-deadline')
   ) {
-    return 'red';
-  }
-
-  if (looksBinaryGarbage(item.snippet || '')) {
-    return 'red';
-  }
-
-  if (isClearlyStale(item)) {
     return 'red';
   }
 
@@ -168,7 +107,7 @@ function signalTitle(signal) {
   if (signal === 'amber') {
     return 'Possibly useful, but the signal is incomplete or weaker. Check before promoting.';
   }
-  return 'Likely announcement, historic page, binary PDF, award note, or weak lead. Usually not for public promotion.';
+  return 'Likely announcement, historic page, award note, or weak lead. Usually not for public promotion.';
 }
 
 function signalClass(signal) {
@@ -328,14 +267,6 @@ function detailRows(item) {
     });
   }
 
-  const yearHint = latestYearHint(item);
-  if (yearHint) {
-    rows.push({
-      label: 'Latest year hint',
-      value: String(yearHint),
-    });
-  }
-
   return rows;
 }
 
@@ -367,11 +298,6 @@ function filteredCandidates() {
   const visible = getVisibleCandidates(state.payload.candidates || []);
 
   return visible.filter((item) => {
-    const signal = derivePromotionSignal(item);
-    const bucket = workflowBucket(item);
-    const binaryLike = looksBinaryGarbage(item.snippet || '');
-    const stale = isClearlyStale(item);
-
     const haystack = [
       item.title,
       item.domain,
@@ -386,27 +312,12 @@ function filteredCandidates() {
       .toLowerCase();
 
     if (search && !haystack.includes(search)) return false;
-    if (lane !== 'all' && signal !== lane) return false;
+    if (lane !== 'all' && derivePromotionSignal(item) !== lane) return false;
 
-    if (workflow === 'active') {
-      if (bucket === 'completed') return false;
-      if (signal === 'red') return false;
-      if (binaryLike) return false;
-      if (stale) return false;
-    } else if (workflow === 'pending') {
-      if (bucket !== 'pending') return false;
-      if (signal === 'red') return false;
-      if (binaryLike) return false;
-      if (stale) return false;
-    } else if (workflow === 'requested') {
-      if (bucket !== 'requested') return false;
-    } else if (workflow === 'draft_ready') {
-      if (bucket !== 'draft_ready') return false;
-    } else if (workflow === 'approved') {
-      if (bucket !== 'approved') return false;
-    } else if (workflow === 'completed') {
-      if (bucket !== 'completed') return false;
-    }
+    const bucket = workflowBucket(item);
+
+    if (workflow === 'active' && bucket === 'completed') return false;
+    if (workflow !== 'active' && workflow !== 'all' && bucket !== workflow) return false;
 
     return true;
   });
@@ -513,7 +424,7 @@ function renderCards() {
           ${item.source_hint ? ` · via ${escapeHtml(item.source_hint)}` : ''}
         </p>
 
-        <p class="snippet">${escapeHtml(displaySnippet(item))}</p>
+        <p class="snippet">${escapeHtml(item.snippet || 'No snippet available.')}</p>
 
         <p class="why">
           <strong>Why it surfaced:</strong>

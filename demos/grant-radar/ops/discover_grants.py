@@ -601,6 +601,7 @@ def ensure_registry_defaults(registry: list[dict[str, Any]]) -> tuple[list[dict[
             "usual_open_months": [],
             "watch_paths": [],
             "watch_terms": [],
+            "allow_pdf_candidates": False,
         }
         for key, value in defaults.items():
             if key not in source:
@@ -629,6 +630,36 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     except requests.exceptions.RequestException as exc:
         return None, str(exc)
 
+    final_url = canonical_url(response.url or url)
+    content_type = (response.headers.get("Content-Type") or "").lower()
+    raw_bytes = response.content or b""
+    page_hash = "sha256:" + hashlib.sha256(raw_bytes).hexdigest()
+
+    is_pdf = (
+        "application/pdf" in content_type
+        or final_url.lower().endswith(".pdf")
+        or raw_bytes.startswith(b"%PDF-")
+    )
+
+    if is_pdf:
+        filename = Path(urlparse(final_url).path).name or "pdf-document"
+        stem = Path(filename).stem or "PDF document"
+        title = re.sub(r"[-_]+", " ", stem).strip() or "PDF document"
+
+        year_match = re.search(r"\b(20\d{2})\b", final_url)
+        if year_match and year_match.group(1) not in title:
+            title = f"{title} {year_match.group(1)}"
+
+        return {
+            "url": final_url,
+            "title": title,
+            "text": "",
+            "snippet": "PDF document detected. Binary preview suppressed.",
+            "links": [],
+            "page_hash": page_hash,
+            "is_pdf": True,
+        }, None
+
     soup = BeautifulSoup(response.text, "html.parser")
 
     title = ""
@@ -637,22 +668,22 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
 
     text = soup.get_text("\n", strip=True)
     snippet = re.sub(r"\s+", " ", text[:700]).strip()
-    page_hash = "sha256:" + hashlib.sha256(response.text.encode("utf-8", errors="ignore")).hexdigest()
 
     links: list[dict[str, str]] = []
     for anchor in soup.find_all("a", href=True):
-        href = canonical_url(urljoin(url, anchor["href"]))
+        href = canonical_url(urljoin(final_url, anchor["href"]))
         label = re.sub(r"\s+", " ", anchor.get_text(" ", strip=True)).strip()
         if href.startswith("http"):
             links.append({"url": href, "label": label})
 
     return {
-        "url": canonical_url(url),
+        "url": final_url,
         "title": title,
         "text": text,
         "snippet": snippet,
         "links": links,
         "page_hash": page_hash,
+        "is_pdf": False,
     }, None
 
 
@@ -904,6 +935,9 @@ def classify_candidate(
     combined = f"{title}\n{snippet}\n{text[:5000]}".lower()
     trusted_domain = source["trusted_domain"]
     extract = source.get("extract", {})
+
+    if page.get("is_pdf") and not source.get("allow_pdf_candidates", False):
+        return None
 
     phrase_hits = count_phrase_hits(combined, DISCOVERY_PHRASES)
     watch_hits = count_phrase_hits(combined, source.get("watch_terms", []))
