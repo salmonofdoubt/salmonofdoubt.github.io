@@ -108,15 +108,6 @@ const RESEARCH_APPLICANT_TYPES = ['researchers'];
 const RESEARCH_ACCESS_ROUTES = ['direct', 'consortium'];
 const RESEARCH_SCALES = ['major'];
 
-const PROGRAMME_KIND_VALUES = new Set([
-  'recurring_programme',
-  'rolling_support',
-  'one_off_call',
-  'announcement_or_results',
-]);
-
-const PROGRAMME_STATE_VALUES = new Set(['open', 'upcoming', 'closed', 'archived']);
-
 const fmtDate = (value) => {
   if (!value) return '—';
   const date = new Date(value);
@@ -163,111 +154,54 @@ function ordered(values, preferred) {
 }
 
 function effectivePublicVisibility(item) {
-  if (item.public_visible_state) return item.public_visible_state;
-  if (item.public_visibility === 'public_visible') return 'public_visible';
-  return 'discovery_only';
+  return item.public_visibility || 'public_visible';
 }
 
-function effectiveProgrammeKind(item) {
-  if (PROGRAMME_KIND_VALUES.has(item.programme_kind)) return item.programme_kind;
+function effectiveCurrentAvailability(item) {
+  if (item.current_availability) return item.current_availability;
 
-  if (item.recurrence_type === 'recurring') return 'recurring_programme';
-  if (item.recurrence_type === 'rolling') return 'rolling_support';
-  if (item.recurrence_type === 'one_off') return 'one_off_call';
+  if (item.status === 'open') return 'open_now';
+  if (item.status === 'upcoming') return 'closed_for_now';
+  if (item.status === 'closed') return 'closed_for_now';
 
-  const haystack = [
-    item.title,
-    item.opportunity_type,
-    item.summary,
-    item.programme,
-    item.source_name,
-  ]
-    .join(' ')
-    .toLowerCase();
-
-  if (
-    haystack.includes('announce') ||
-    haystack.includes('results') ||
-    haystack.includes('awarded') ||
-    haystack.includes('press release')
-  ) {
-    return 'announcement_or_results';
-  }
-
-  if (
-    haystack.includes('support') ||
-    haystack.includes('advisory') ||
-    haystack.includes('hub')
-  ) {
-    return 'rolling_support';
-  }
-
-  return 'one_off_call';
+  return 'unknown';
 }
 
-function effectiveProgrammeState(item) {
-  if (PROGRAMME_STATE_VALUES.has(item.programme_state)) return item.programme_state;
-
-  const kind = effectiveProgrammeKind(item);
-
-  if (item.current_availability === 'open_now') return 'open';
-  if (item.status === 'upcoming') return 'upcoming';
-
-  if (item.current_availability === 'closed_for_now') return 'closed';
-
-  if (item.current_availability === 'closed') {
-    return kind === 'one_off_call' || kind === 'announcement_or_results' ? 'archived' : 'closed';
-  }
-
-  if (item.public_visibility === 'archived') return 'archived';
-  if (item.status === 'open') return 'open';
-  if (item.status === 'closed') return kind === 'one_off_call' ? 'archived' : 'closed';
-
-  return 'closed';
+function effectiveRecurrenceType(item) {
+  return item.recurrence_type || 'unknown';
 }
 
-function programmeStateLabel(value) {
-  if (value === 'open') return 'Open';
-  if (value === 'upcoming') return 'Upcoming';
+function availabilityLabel(value) {
+  if (value === 'open_now') return 'Open now';
+  if (value === 'closed_for_now') return 'Closed for now';
   if (value === 'closed') return 'Closed';
-  if (value === 'archived') return 'Archived';
   return 'Unknown';
 }
 
-function programmeStateTagClass(value) {
-  if (value === 'open') return 'tone-green';
-  if (value === 'upcoming') return 'tone-amber';
-  if (value === 'closed') return 'tone-amber';
-  if (value === 'archived') return 'tone-red';
+function availabilityTagClass(value) {
+  if (value === 'open_now') return 'tone-green';
+  if (value === 'closed_for_now') return 'tone-amber';
+  if (value === 'closed') return 'tone-red';
   return 'tone-neutral';
 }
 
-function programmeKindLabel(value) {
-  if (value === 'recurring_programme') return 'Recurring programme';
-  if (value === 'rolling_support') return 'Rolling support';
-  if (value === 'one_off_call') return 'One-off call';
-  if (value === 'announcement_or_results') return 'Announcement/results';
-  return 'Unknown type';
+function recurrenceLabel(value) {
+  if (value === 'recurring') return 'Recurring';
+  if (value === 'rolling') return 'Rolling';
+  if (value === 'one_off') return 'One-off';
+  return 'Unknown cadence';
 }
 
 function formatDeadlineText(item) {
   if (item.deadline_text) return item.deadline_text;
 
-  const stateValue = effectiveProgrammeState(item);
-
-  if (stateValue === 'open') return 'Currently open';
-  if (stateValue === 'upcoming') {
-    return item.expected_next_window
-      ? `Expected opening: ${item.expected_next_window}`
-      : 'Upcoming';
+  const availability = effectiveCurrentAvailability(item);
+  if (availability === 'open_now') return 'Currently open';
+  if (availability === 'closed_for_now' && item.expected_next_window) {
+    return `Expected next window: ${item.expected_next_window}`;
   }
-  if (stateValue === 'closed') {
-    return item.expected_next_window
-      ? `Expected next window: ${item.expected_next_window}`
-      : 'Currently closed';
-  }
-  if (stateValue === 'archived') return 'Archived or closed call';
-
+  if (availability === 'closed_for_now') return 'Currently closed for now';
+  if (availability === 'closed') return 'Closed';
   return 'Deadline not yet extracted';
 }
 
@@ -490,9 +424,6 @@ function getFilteredOpportunities() {
   return state.catalog.opportunities.filter((item) => {
     if (effectivePublicVisibility(item) !== 'public_visible') return false;
 
-    const programmeState = effectiveProgrammeState(item);
-    const programmeKind = effectiveProgrammeKind(item);
-
     const haystack = [
       item.title,
       item.summary,
@@ -501,8 +432,9 @@ function getFilteredOpportunities() {
       item.access_route,
       item.scale,
       item.opportunity_type,
-      programmeKind,
-      programmeState,
+      effectiveCurrentAvailability(item),
+      effectiveRecurrenceType(item),
+      item.programme_state,
       item.expected_next_window,
       ...(item.purposes || []),
       ...(item.applicant_types || item.audience || []),
@@ -510,7 +442,7 @@ function getFilteredOpportunities() {
     ].join(' ').toLowerCase();
 
     if (query && !haystack.includes(query)) return false;
-    if (status !== 'all' && programmeState !== status) return false;
+    if (status !== 'all' && item.status !== status) return false;
     if (applicantType !== 'all' && !(item.applicant_types || item.audience || []).includes(applicantType)) return false;
     if (accessRoute !== 'all' && (item.access_route || '—') !== accessRoute) return false;
     if (scale !== 'all' && (item.scale || '—') !== scale) return false;
@@ -533,12 +465,12 @@ function getFilteredOpportunities() {
 
     return true;
   }).sort((a, b) => {
-    const rank = { open: 1, upcoming: 2, closed: 3, archived: 4 };
-    const aState = effectiveProgrammeState(a);
-    const bState = effectiveProgrammeState(b);
+    const aAvailability = effectiveCurrentAvailability(a);
+    const bAvailability = effectiveCurrentAvailability(b);
 
-    if (aState !== bState) {
-      return (rank[aState] || 99) - (rank[bState] || 99);
+    if (aAvailability !== bAvailability) {
+      const rank = { open_now: 1, closed_for_now: 2, unknown: 3, closed: 4 };
+      return (rank[aAvailability] || 99) - (rank[bAvailability] || 99);
     }
 
     const aDeadline = a.deadline_iso ? new Date(a.deadline_iso).getTime() : Number.MAX_SAFE_INTEGER;
@@ -550,7 +482,6 @@ function getFilteredOpportunities() {
 }
 
 function getStatusClass(status = 'neutral') {
-  if (status === 'archived') return 'status-closed';
   return `status-${status}`;
 }
 
@@ -618,23 +549,25 @@ function renderOpportunities(opportunities) {
     const purposeTags = root.querySelector('.purpose-tags');
     const statusPill = root.querySelector('.status-pill');
 
-    const programmeState = effectiveProgrammeState(item);
-    const programmeKind = effectiveProgrammeKind(item);
-
     topTags.appendChild(makeTag(item.source_name));
     if (item.opportunity_type) topTags.appendChild(makeTag(item.opportunity_type));
     if (item.scale) topTags.appendChild(makeTag(item.scale, 'tag-scale'));
     if (item.access_route) topTags.appendChild(makeTag(item.access_route, 'tag-access'));
 
-    topTags.appendChild(makeTag(programmeStateLabel(programmeState), programmeStateTagClass(programmeState)));
-    topTags.appendChild(makeTag(programmeKindLabel(programmeKind), 'tone-neutral'));
+    topTags.appendChild(
+      makeTag(availabilityLabel(effectiveCurrentAvailability(item)), availabilityTagClass(effectiveCurrentAvailability(item)))
+    );
+
+    if (effectiveRecurrenceType(item) !== 'unknown') {
+      topTags.appendChild(makeTag(recurrenceLabel(effectiveRecurrenceType(item)), 'tone-neutral'));
+    }
 
     if (item.change_type && item.change_type !== 'none') {
       topTags.appendChild(makeTag(item.change_type.replaceAll('_', ' '), getChangeTagClass(item.change_type)));
     }
 
-    statusPill.textContent = programmeStateLabel(programmeState);
-    statusPill.classList.add(getStatusClass(programmeState));
+    statusPill.textContent = item.status ? item.status.charAt(0).toUpperCase() + item.status.slice(1) : 'Unknown';
+    statusPill.classList.add(getStatusClass(item.status || 'neutral'));
 
     root.querySelector('.card-title').textContent = item.title;
     root.querySelector('.card-source').textContent = item.programme || item.source_name;

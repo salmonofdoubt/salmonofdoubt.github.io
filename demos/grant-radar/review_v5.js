@@ -9,15 +9,6 @@ const el = {
   workflow: document.getElementById('workflow'),
 };
 
-const PROGRAMME_KIND_VALUES = new Set([
-  'recurring_programme',
-  'rolling_support',
-  'one_off_call',
-  'announcement_or_results',
-]);
-
-const PROGRAMME_STATE_VALUES = new Set(['open', 'upcoming', 'closed', 'archived']);
-
 function escapeHtml(value) {
   return String(value ?? '')
     .replaceAll('&', '&amp;')
@@ -108,81 +99,6 @@ function displaySnippet(item) {
   return item.snippet || 'No snippet available.';
 }
 
-function effectiveProgrammeKind(item) {
-  if (PROGRAMME_KIND_VALUES.has(item.programme_kind)) return item.programme_kind;
-
-  if (item.recurrence_type === 'recurring') return 'recurring_programme';
-  if (item.recurrence_type === 'rolling') return 'rolling_support';
-  if (item.recurrence_type === 'one_off') return 'one_off_call';
-
-  const haystack = [
-    item.title,
-    item.candidate_type,
-    item.source_hint,
-    item.snippet,
-  ].join(' ').toLowerCase();
-
-  if (
-    haystack.includes('announce') ||
-    haystack.includes('results') ||
-    haystack.includes('awarded') ||
-    haystack.includes('press release')
-  ) {
-    return 'announcement_or_results';
-  }
-
-  if (
-    haystack.includes('support') ||
-    haystack.includes('advisory') ||
-    haystack.includes('hub')
-  ) {
-    return 'rolling_support';
-  }
-
-  return 'one_off_call';
-}
-
-function effectiveProgrammeState(item) {
-  if (PROGRAMME_STATE_VALUES.has(item.programme_state)) return item.programme_state;
-
-  const kind = effectiveProgrammeKind(item);
-
-  if (item.current_availability === 'open_now') return 'open';
-  if (item.status === 'upcoming') return 'upcoming';
-  if (item.current_availability === 'closed_for_now') return 'closed';
-  if (item.current_availability === 'closed') {
-    return kind === 'one_off_call' || kind === 'announcement_or_results' ? 'archived' : 'closed';
-  }
-
-  if (item.public_visibility === 'archived') return 'archived';
-  if (item.status === 'open') return 'open';
-  if (item.status === 'closed') return kind === 'one_off_call' ? 'archived' : 'closed';
-
-  return 'closed';
-}
-
-function effectivePublicVisibleState(item) {
-  if (item.public_visible_state) return item.public_visible_state;
-  if (item.public_visibility === 'public_visible') return 'public_visible';
-  return 'discovery_only';
-}
-
-function programmeKindLabel(value) {
-  if (value === 'recurring_programme') return 'Recurring programme';
-  if (value === 'rolling_support') return 'Rolling support';
-  if (value === 'one_off_call') return 'One-off call';
-  if (value === 'announcement_or_results') return 'Announcement/results';
-  return 'Unknown type';
-}
-
-function programmeStateLabel(value) {
-  if (value === 'open') return 'Open';
-  if (value === 'upcoming') return 'Upcoming';
-  if (value === 'closed') return 'Closed';
-  if (value === 'archived') return 'Archived';
-  return 'Unknown';
-}
-
 function derivePromotionSignal(item) {
   if (item.promotion_signal === 'green' || item.promotion_signal === 'amber' || item.promotion_signal === 'red') {
     return item.promotion_signal;
@@ -192,14 +108,10 @@ function derivePromotionSignal(item) {
   const title = `${item.title || ''} ${item.url || ''}`.toLowerCase();
   const deadline = `${item.deadline_hint || ''}`.toLowerCase();
   const reasons = `${(item.reason_flags || []).join(' ')} ${(item.promotion_reasons || []).join(' ')}`.toLowerCase();
-  const programmeKind = effectiveProgrammeKind(item);
-  const programmeState = effectiveProgrammeState(item);
 
   if (
     candidateType === 'news_page' ||
     candidateType === 'award_page' ||
-    programmeKind === 'announcement_or_results' ||
-    programmeState === 'archived' ||
     title.includes('announc') ||
     title.includes('press release') ||
     deadline.includes('passed') ||
@@ -226,24 +138,11 @@ function derivePromotionSignal(item) {
     title.includes('call') ||
     title.includes('scheme');
 
-  if (
-    programmeKind !== 'announcement_or_results' &&
-    programmeState !== 'archived' &&
-    hasApplicants &&
-    hasRoute &&
-    hasScale &&
-    actionable &&
-    Number(item.confidence || 0) >= 0.58
-  ) {
+  if (hasApplicants && hasRoute && hasScale && actionable && Number(item.confidence || 0) >= 0.58) {
     return 'green';
   }
 
-  if (
-    programmeKind !== 'announcement_or_results' &&
-    programmeState !== 'archived' &&
-    (hasApplicants || hasRoute || hasScale) &&
-    Number(item.confidence || 0) >= 0.48
-  ) {
+  if ((hasApplicants || hasRoute || hasScale) && Number(item.confidence || 0) >= 0.48) {
     return 'amber';
   }
 
@@ -374,17 +273,6 @@ function shortWhy(item) {
 
 function detailRows(item) {
   const rows = [];
-  const programmeKind = effectiveProgrammeKind(item);
-  const programmeState = effectiveProgrammeState(item);
-  const publicVisibleState = effectivePublicVisibleState(item);
-
-  rows.push({ label: 'Programme kind', value: programmeKindLabel(programmeKind) });
-  rows.push({ label: 'Programme state', value: programmeStateLabel(programmeState) });
-  rows.push({ label: 'Public visibility', value: publicVisibleState });
-
-  if (item.expected_next_window) {
-    rows.push({ label: 'Expected next window', value: item.expected_next_window });
-  }
 
   if (item.deadline_hint) {
     rows.push({ label: 'Deadline hint', value: item.deadline_hint });
@@ -433,6 +321,13 @@ function detailRows(item) {
     });
   }
 
+  if (item.programme_state || item.expected_next_window) {
+    rows.push({
+      label: 'Programme state',
+      value: `${item.programme_state || 'unknown'}${item.expected_next_window ? ` | Next window: ${item.expected_next_window}` : ''}`,
+    });
+  }
+
   const yearHint = latestYearHint(item);
   if (yearHint) {
     rows.push({
@@ -452,9 +347,6 @@ function buildIssueUrl(item) {
     `candidate_url: ${item.url}`,
     `candidate_title: ${item.title || ''}`,
     `promotion_signal: ${derivePromotionSignal(item)}`,
-    `programme_kind: ${effectiveProgrammeKind(item)}`,
-    `programme_state: ${effectiveProgrammeState(item)}`,
-    `public_visible_state: ${effectivePublicVisibleState(item)}`,
     '',
     '## Decision',
     '- [ ] Accept promotion into trusted catalogue',
@@ -485,9 +377,6 @@ function filteredCandidates() {
       item.domain,
       item.source_hint,
       item.snippet,
-      effectiveProgrammeKind(item),
-      effectiveProgrammeState(item),
-      effectivePublicVisibleState(item),
       ...(item.suggested_purposes || []),
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),

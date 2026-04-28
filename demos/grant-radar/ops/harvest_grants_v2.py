@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
-"""Grant Radar harvester using the compact public-state model.
+"""Grant Radar harvester tuned for both research and practical catchment routes.
 
-Public model written to catalog items:
-- programme_kind: recurring_programme | rolling_support | one_off_call | announcement_or_results
-- programme_state: open | upcoming | closed | archived
-- expected_next_window: human-readable next round hint or null
-- public_visible_state: public_visible | review_only | discovery_only
+Public-state model:
+- status remains workflow-oriented
+- public_visibility controls whether an item is shown on the public site
+- current_availability distinguishes open_now vs closed_for_now vs closed
+- recurrence_type distinguishes recurring / rolling / one_off / unknown
+- programme_state distinguishes active / historic / unknown
 
-Legacy compatibility fields are still emitted so the front end does not break:
-- public_visibility
-- current_availability
-- recurrence_type
+The public site should normally show only:
+  public_visibility == "public_visible"
+
+This harvester stays conservative and backward-compatible:
+- it reads trusted configured sources only
+- it derives public-state fields from registry metadata where possible
+- it honours explicit overrides in source-registry.json when present
 """
 
 from __future__ import annotations
@@ -31,7 +35,7 @@ SITE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = SITE_DIR / "data"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 CATALOG_PATH = DATA_DIR / "catalog.json"
-USER_AGENT = "GrantRadarBot/1.5 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarBot/1.4 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 APPLICANT_PRIORITY = [
@@ -57,18 +61,10 @@ ACCESS_PRIORITY = [
     "consortium",
 ]
 
-PROGRAMME_KIND_VALUES = {
-    "recurring_programme",
-    "rolling_support",
-    "one_off_call",
-    "announcement_or_results",
-}
-PROGRAMME_STATE_VALUES = {"open", "upcoming", "closed", "archived"}
-PUBLIC_VISIBLE_STATE_VALUES = {"public_visible", "review_only", "discovery_only"}
-
-LEGACY_PUBLIC_VISIBILITY_VALUES = {"public_visible", "discovery_only", "archived"}
-LEGACY_CURRENT_AVAILABILITY_VALUES = {"open_now", "closed_for_now", "closed", "unknown"}
-LEGACY_RECURRENCE_TYPE_VALUES = {"recurring", "rolling", "one_off", "unknown"}
+PUBLIC_VISIBILITY_VALUES = {"public_visible", "discovery_only", "archived"}
+CURRENT_AVAILABILITY_VALUES = {"open_now", "closed_for_now", "closed", "unknown"}
+RECURRENCE_TYPE_VALUES = {"recurring", "rolling", "one_off", "unknown"}
+PROGRAMME_STATE_VALUES = {"active", "historic", "unknown"}
 
 MONTH_NAMES = {
     1: "Jan",
@@ -108,15 +104,13 @@ class ExtractedItem:
     keywords: list[str]
     cta_label: str
     opportunity_type: str
-    programme_kind: str
-    programme_state: str
-    expected_next_window: str | None
-    public_visible_state: str
-    last_verified_at: str
-    last_open_year: int | None
     public_visibility: str
     current_availability: str
     recurrence_type: str
+    programme_state: str
+    last_verified_at: str
+    last_open_year: int | None
+    expected_next_window: str | None
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -141,15 +135,13 @@ class ExtractedItem:
             "keywords": self.keywords,
             "cta_label": self.cta_label,
             "opportunity_type": self.opportunity_type,
-            "programme_kind": self.programme_kind,
-            "programme_state": self.programme_state,
-            "expected_next_window": self.expected_next_window,
-            "public_visible_state": self.public_visible_state,
-            "last_verified_at": self.last_verified_at,
-            "last_open_year": self.last_open_year,
             "public_visibility": self.public_visibility,
             "current_availability": self.current_availability,
             "recurrence_type": self.recurrence_type,
+            "programme_state": self.programme_state,
+            "last_verified_at": self.last_verified_at,
+            "last_open_year": self.last_open_year,
+            "expected_next_window": self.expected_next_window,
         }
 
 
@@ -320,180 +312,104 @@ def month_window_label(months: list[int], year: int | None = None) -> str | None
     return f"{label} {year}" if year else label
 
 
-def title_lower(source: dict[str, Any]) -> str:
-    extract = source.get("extract", {})
-    title = extract.get("title") or source.get("name") or ""
-    return str(title).strip().lower()
-
-
-def legacy_recurrence_type_to_programme_kind(value: str | None) -> str | None:
-    lowered = valid_or_none(value, LEGACY_RECURRENCE_TYPE_VALUES)
-    if lowered == "recurring":
-        return "recurring_programme"
-    if lowered == "rolling":
-        return "rolling_support"
-    if lowered == "one_off":
-        return "one_off_call"
-    return None
-
-
-def legacy_current_availability_to_programme_state(
-    value: str | None,
-    programme_kind: str,
-) -> str | None:
-    lowered = valid_or_none(value, LEGACY_CURRENT_AVAILABILITY_VALUES)
-    if lowered == "open_now":
-        return "open"
-    if lowered == "closed_for_now":
-        return "closed"
-    if lowered == "closed":
-        if programme_kind in {"one_off_call", "announcement_or_results"}:
-            return "archived"
-        return "closed"
-    return None
-
-
-def legacy_public_visibility_to_public_visible_state(value: str | None) -> str | None:
-    lowered = valid_or_none(value, LEGACY_PUBLIC_VISIBILITY_VALUES)
-    if lowered == "public_visible":
-        return "public_visible"
-    if lowered in {"discovery_only", "archived"}:
-        return "discovery_only"
-    return None
-
-
-def programme_kind_to_legacy_recurrence_type(programme_kind: str) -> str:
-    if programme_kind == "recurring_programme":
-        return "recurring"
-    if programme_kind == "rolling_support":
-        return "rolling"
-    if programme_kind in {"one_off_call", "announcement_or_results"}:
-        return "one_off"
-    return "unknown"
-
-
-def programme_state_to_legacy_current_availability(programme_kind: str, programme_state: str) -> str:
-    if programme_state == "open":
-        return "open_now"
-    if programme_state == "upcoming":
-        return "closed_for_now"
-    if programme_state == "closed":
-        return "closed_for_now" if programme_kind in {"recurring_programme", "rolling_support"} else "closed"
-    if programme_state == "archived":
-        return "closed"
-    return "unknown"
-
-
-def new_public_visible_state_to_legacy_public_visibility(
-    public_visible_state: str,
-    programme_state: str,
-) -> str:
-    if public_visible_state == "public_visible":
-        return "public_visible"
-    if programme_state == "archived":
-        return "archived"
-    return "discovery_only"
-
-
-def infer_programme_kind(source: dict[str, Any], opportunity_type: str, access_route: str | None) -> str:
-    extract = source.get("extract", {})
-
-    explicit = valid_or_none(
-        extract.get("programme_kind") or source.get("programme_kind"),
-        PROGRAMME_KIND_VALUES,
-    )
+def infer_recurrence_type(source: dict[str, Any]) -> str:
+    explicit = valid_or_none(source.get("recurrence_type"), RECURRENCE_TYPE_VALUES)
     if explicit:
         return explicit
 
-    legacy = legacy_recurrence_type_to_programme_kind(
-        extract.get("recurrence_type") or source.get("recurrence_type")
-    )
-    if legacy:
-        return legacy
-
-    lowered_title = title_lower(source)
-    source_class = str(source.get("source_class", "")).strip().lower()
     cadence = str(source.get("cadence", "")).strip().lower()
-    lowered_opportunity_type = str(opportunity_type or "").strip().lower()
-    lowered_access = str(access_route or "").strip().lower()
-
-    if (
-        source_class == "news_hub"
-        or "press release" in lowered_title
-        or "minister announces" in lowered_title
-        or "announces over €" in lowered_title
-        or "results" in lowered_title
-        or "awarded" in lowered_title
-    ):
-        return "announcement_or_results"
-
-    if cadence in {"ongoing", "rolling"}:
-        return "rolling_support"
+    source_class = str(source.get("source_class", "")).strip().lower()
 
     if cadence in {"annual", "multiannual"}:
-        return "recurring_programme"
+        return "recurring"
+    if cadence in {"ongoing", "rolling"}:
+        return "rolling"
+    if cadence in {"one_off", "historic"}:
+        return "one_off"
+    if source_class in {"historic_call", "historic_programme"}:
+        return "one_off"
 
-    if cadence in {"historic", "one_off"} or source_class in {"historic_call", "historic_programme"}:
-        return "one_off_call"
-
-    if source_class in {"implementation_programme", "support_programme"}:
-        return "rolling_support"
-
-    if lowered_access in {"advisory support", "via advisor", "via local authority", "via local action group"}:
-        return "rolling_support"
-
-    if lowered_opportunity_type in {"support", "advisory support"}:
-        return "rolling_support"
-
-    if re.search(r"\b20\d{2}\b", lowered_title):
-        return "one_off_call"
-
-    if "grant scheme" in lowered_title or "scholarship programme" in lowered_title:
-        return "recurring_programme"
-
-    if "programme" in lowered_title or "support" in lowered_title or "advisory" in lowered_title:
-        return "rolling_support"
-
-    return "one_off_call"
+    return "unknown"
 
 
-def infer_programme_state(source: dict[str, Any], status_hint: str, programme_kind: str) -> str:
-    extract = source.get("extract", {})
+def infer_programme_state(source: dict[str, Any], recurrence_type: str, status: str) -> str:
+    explicit = valid_or_none(source.get("programme_state"), PROGRAMME_STATE_VALUES)
+    if explicit:
+        return explicit
 
+    cadence = str(source.get("cadence", "")).strip().lower()
+    source_class = str(source.get("source_class", "")).strip().lower()
+    lowered_status = str(status).strip().lower()
+
+    if recurrence_type in {"recurring", "rolling"}:
+        return "active"
+    if cadence in {"historic", "one_off"}:
+        return "historic"
+    if source_class in {"historic_call", "historic_programme"}:
+        return "historic"
+    if lowered_status in {"awarded", "expired"}:
+        return "historic"
+
+    return "unknown"
+
+
+def infer_current_availability(source: dict[str, Any], status: str, recurrence_type: str, programme_state: str) -> str:
     explicit = valid_or_none(
-        extract.get("programme_state") or source.get("programme_state"),
-        PROGRAMME_STATE_VALUES,
+        source.get("current_availability") or source.get("extract", {}).get("current_availability"),
+        CURRENT_AVAILABILITY_VALUES,
     )
     if explicit:
         return explicit
 
-    legacy = legacy_current_availability_to_programme_state(
-        extract.get("current_availability") or source.get("current_availability"),
-        programme_kind,
-    )
-    if legacy:
-        return legacy
-
-    lowered_status = str(status_hint or "").strip().lower()
+    lowered_status = str(status).strip().lower()
 
     if lowered_status == "open":
-        return "open"
+        return "open_now"
     if lowered_status == "upcoming":
-        return "upcoming"
-
-    if programme_kind in {"recurring_programme", "rolling_support"}:
+        return "closed_for_now"
+    if lowered_status in {"awarded", "expired"}:
         return "closed"
+    if lowered_status == "closed":
+        if recurrence_type in {"recurring", "rolling"} and programme_state == "active":
+            return "closed_for_now"
+        if recurrence_type == "one_off" or programme_state == "historic":
+            return "closed"
+        return "closed_for_now"
 
-    if lowered_status in {"closed", "awarded", "expired"}:
+    return "unknown"
+
+
+def infer_public_visibility(
+    source: dict[str, Any],
+    recurrence_type: str,
+    current_availability: str,
+    programme_state: str,
+) -> str:
+    explicit = valid_or_none(
+        source.get("public_visibility") or source.get("extract", {}).get("public_visibility"),
+        PUBLIC_VISIBILITY_VALUES,
+    )
+    if explicit:
+        return explicit
+
+    source_class = str(source.get("source_class", "")).strip().lower()
+
+    if source_class in {"funding_hub", "news_hub"}:
+        return "discovery_only"
+
+    if recurrence_type == "one_off" and current_availability != "open_now":
         return "archived"
 
-    return "archived"
+    if programme_state == "historic" and current_availability != "open_now":
+        return "archived"
+
+    return "public_visible"
 
 
 def infer_last_open_year(
     source: dict[str, Any],
     deadline_iso: str | None,
-    programme_state: str,
+    current_availability: str,
 ) -> int | None:
     explicit = source.get("last_open_year")
     if isinstance(explicit, int):
@@ -505,7 +421,7 @@ def infer_last_open_year(
         except Exception:
             pass
 
-    if programme_state == "open":
+    if current_availability == "open_now":
         return datetime.now(UTC).year
 
     return None
@@ -513,70 +429,32 @@ def infer_last_open_year(
 
 def infer_expected_next_window(
     source: dict[str, Any],
-    programme_kind: str,
-    programme_state: str,
+    recurrence_type: str,
+    current_availability: str,
     last_open_year: int | None,
 ) -> str | None:
-    extract = source.get("extract", {})
-    explicit = extract.get("expected_next_window") or source.get("expected_next_window")
+    explicit = source.get("expected_next_window")
     if explicit:
         return str(explicit)
 
-    if programme_kind == "rolling_support":
+    if recurrence_type == "rolling":
         return "Rolling"
 
-    if programme_kind != "recurring_programme":
+    if recurrence_type != "recurring":
         return None
 
     months = source.get("usual_open_months") or []
     if not isinstance(months, list) or not months:
         return None
 
-    if programme_state == "open":
+    if current_availability == "open_now":
         target_year = datetime.now(UTC).year
-    elif programme_state in {"closed", "archived"}:
+    elif current_availability in {"closed_for_now", "closed"}:
         target_year = (last_open_year + 1) if last_open_year else (datetime.now(UTC).year + 1)
     else:
         target_year = datetime.now(UTC).year
 
     return month_window_label(months, target_year)
-
-
-def infer_public_visible_state(
-    source: dict[str, Any],
-    programme_kind: str,
-    programme_state: str,
-) -> str:
-    extract = source.get("extract", {})
-
-    explicit = valid_or_none(
-        extract.get("public_visible_state") or source.get("public_visible_state"),
-        PUBLIC_VISIBLE_STATE_VALUES,
-    )
-    if explicit:
-        return explicit
-
-    legacy = legacy_public_visibility_to_public_visible_state(
-        extract.get("public_visibility") or source.get("public_visibility")
-    )
-    if legacy:
-        return legacy
-
-    source_class = str(source.get("source_class", "")).strip().lower()
-
-    if source_class in {"funding_hub", "news_hub"}:
-        return "discovery_only"
-
-    if programme_kind == "announcement_or_results":
-        return "discovery_only"
-
-    if programme_kind == "one_off_call" and programme_state == "archived":
-        return "discovery_only"
-
-    if programme_state == "archived":
-        return "discovery_only"
-
-    return "public_visible"
 
 
 def determine_change(item: ExtractedItem, previous_map: dict[str, dict[str, Any]], seen_at: str) -> None:
@@ -594,8 +472,8 @@ def determine_change(item: ExtractedItem, previous_map: dict[str, dict[str, Any]
         item.changed_at = seen_at
         return
 
-    old_state = old.get("programme_state") or old.get("status") or ""
-    if old_state != item.programme_state:
+    old_status = old.get("status") or ""
+    if old_status != item.status:
         item.change_type = "status_changed"
         item.changed_at = seen_at
         return
@@ -612,14 +490,12 @@ def harvest() -> dict[str, Any]:
     seen_at = datetime.now(UTC).replace(microsecond=0).isoformat()
     sources_out: list[dict[str, Any]] = []
     items_out: list[dict[str, Any]] = []
-
     purposes_seen: set[str] = set()
     applicant_seen: set[str] = set()
     access_seen: set[str] = set()
     scale_seen: set[str] = set()
-    kind_seen: set[str] = set()
-    state_seen: set[str] = set()
-    public_state_seen: set[str] = set()
+    public_visibility_seen: set[str] = set()
+    availability_seen: set[str] = set()
 
     for source in registry:
         if not source.get("harvest_enabled", True):
@@ -632,11 +508,11 @@ def harvest() -> dict[str, Any]:
         access_route = normalise_access_route(extract.get("access_route"))
         scale = normalise_scale(extract.get("scale"))
         opportunity_type = extract.get("opportunity_type", "grant")
-        status_hint = str(extract.get("status_hint", "open")).strip().lower()
+        status_hint = extract.get("status_hint", "open")
 
         keywords = ordered(
             [
-                str(source.get("name", "")).lower(),
+                source["name"].lower(),
                 *source.get("purposes", []),
                 *raw_applicant_types,
                 *applicant_types,
@@ -653,28 +529,17 @@ def harvest() -> dict[str, Any]:
             launch_raw = regex_extract(extract.get("launch_regex"), text) or regex_extract(extract.get("open_regex"), text)
             deadline_iso, deadline_text = normalise_date(deadline_raw)
 
-            programme_kind = infer_programme_kind(source, opportunity_type, access_route)
-            programme_state = infer_programme_state(source, status_hint, programme_kind)
-            last_open_year = infer_last_open_year(source, deadline_iso, programme_state)
+            recurrence_type = infer_recurrence_type(source)
+            programme_state = infer_programme_state(source, recurrence_type, status_hint)
+            current_availability = infer_current_availability(source, status_hint, recurrence_type, programme_state)
+            public_visibility = infer_public_visibility(source, recurrence_type, current_availability, programme_state)
+            last_open_year = infer_last_open_year(source, deadline_iso, current_availability)
             expected_next_window = infer_expected_next_window(
                 source,
-                programme_kind,
-                programme_state,
+                recurrence_type,
+                current_availability,
                 last_open_year,
             )
-            public_visible_state = infer_public_visible_state(source, programme_kind, programme_state)
-
-            legacy_recurrence_type = programme_kind_to_legacy_recurrence_type(programme_kind)
-            legacy_current_availability = programme_state_to_legacy_current_availability(
-                programme_kind,
-                programme_state,
-            )
-            legacy_public_visibility = new_public_visible_state_to_legacy_public_visibility(
-                public_visible_state,
-                programme_state,
-            )
-
-            public_status = programme_state if programme_state in {"open", "upcoming", "closed"} else "closed"
 
             item = ExtractedItem(
                 source_id=source["id"],
@@ -683,7 +548,7 @@ def harvest() -> dict[str, Any]:
                 programme=extract.get("programme", source["name"]),
                 url=source["url"],
                 summary=summary,
-                status=public_status,
+                status=status_hint,
                 change_type="none",
                 changed_at=None,
                 deadline_iso=deadline_iso,
@@ -697,15 +562,13 @@ def harvest() -> dict[str, Any]:
                 keywords=keywords,
                 cta_label=f"Open {source['name']}",
                 opportunity_type=opportunity_type,
-                programme_kind=programme_kind,
+                public_visibility=public_visibility,
+                current_availability=current_availability,
+                recurrence_type=recurrence_type,
                 programme_state=programme_state,
-                expected_next_window=expected_next_window,
-                public_visible_state=public_visible_state,
                 last_verified_at=verified_at,
                 last_open_year=last_open_year,
-                public_visibility=legacy_public_visibility,
-                current_availability=legacy_current_availability,
-                recurrence_type=legacy_recurrence_type,
+                expected_next_window=expected_next_window,
             )
 
             determine_change(item, previous_items, seen_at)
@@ -750,29 +613,25 @@ def harvest() -> dict[str, Any]:
             scale_seen.add(scale)
 
     for item in items_out:
-        kind_seen.add(item.get("programme_kind", "one_off_call"))
-        state_seen.add(item.get("programme_state", "closed"))
-        public_state_seen.add(item.get("public_visible_state", "discovery_only"))
+        public_visibility_seen.add(item.get("public_visibility", "public_visible"))
+        availability_seen.add(item.get("current_availability", "unknown"))
 
-    public_items = [item for item in items_out if item.get("public_visible_state") == "public_visible"]
-    discovery_only_items = [item for item in items_out if item.get("public_visible_state") == "discovery_only"]
-    archived_items = [item for item in items_out if item.get("programme_state") == "archived"]
+    visible_public = [item for item in items_out if item.get("public_visibility") == "public_visible"]
+    archived_public = [item for item in items_out if item.get("public_visibility") == "archived"]
 
     return {
         "meta": {
             "title": "Grant Radar",
             "generated_at": seen_at,
-            "generator": "grant-radar-demo 1.5.0",
+            "generator": "grant-radar-demo 1.4.0",
             "available_purposes": sorted(purposes_seen),
             "available_applicant_types": ordered(list(applicant_seen), APPLICANT_PRIORITY),
             "available_access_routes": ordered(list(access_seen), ACCESS_PRIORITY),
             "available_scales": ordered(list(scale_seen), SCALE_PRIORITY),
-            "available_programme_kinds": sorted(kind_seen),
-            "available_programme_states": sorted(state_seen),
-            "available_public_visible_states": sorted(public_state_seen),
-            "public_visible_count": len(public_items),
-            "discovery_only_count": len(discovery_only_items),
-            "archived_count": len(archived_items),
+            "available_public_visibility": sorted(public_visibility_seen),
+            "available_current_availability": sorted(availability_seen),
+            "public_visible_count": len(visible_public),
+            "archived_count": len(archived_public),
             "total_harvested_count": len(items_out),
         },
         "sources": sources_out,
