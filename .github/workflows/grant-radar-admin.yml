@@ -1,0 +1,58 @@
+name: Grant Radar admin
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "approve, reject, or promote"
+        required: true
+        type: choice
+        options:
+          - approve
+          - reject
+          - promote
+      candidate_id:
+        description: "Exact candidate ID"
+        required: true
+        type: string
+      note:
+        description: "Optional admin note"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  admin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Apply admin action
+        run: |
+          python demos/grant-radar/admin/admin_set_candidate_state.py \
+            --candidate-id "${{ inputs.candidate_id }}" \
+            --action "${{ inputs.action }}" \
+            --note "${{ inputs.note }}"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add demos/grant-radar/data/catalog.json
+          git add demos/grant-radar/data/discovery-candidates.json
+          git add demos/grant-radar/data/source-memory.json
+          git add demos/grant-radar/data/source-registry.json
+
+          git diff --cached --quiet && exit 0
+          git commit -m "Grant Radar admin: ${{ inputs.action }} ${{ inputs.candidate_id }}"
+          git push
+          
