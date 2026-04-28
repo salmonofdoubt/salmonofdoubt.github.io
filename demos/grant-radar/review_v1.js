@@ -381,10 +381,6 @@ function detailRows(item) {
   rows.push({ label: 'Programme state', value: programmeStateLabel(programmeState) });
   rows.push({ label: 'Public visibility', value: publicVisibleState });
 
-  if (item.id) {
-    rows.push({ label: 'Candidate ID', value: item.id });
-  }
-
   if (item.expected_next_window) {
     rows.push({ label: 'Expected next window', value: item.expected_next_window });
   }
@@ -461,7 +457,6 @@ function filteredCandidates() {
     const stale = isClearlyStale(item);
 
     const haystack = [
-      item.id,
       item.title,
       item.domain,
       item.source_hint,
@@ -591,7 +586,6 @@ function renderCards() {
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
 
         <p class="meta">
-          <strong>ID:</strong> <code>${escapeHtml(item.id || '')}</code><br>
           ${escapeHtml(item.domain || 'unknown domain')}
           ${item.source_hint ? ` · via ${escapeHtml(item.source_hint)}` : ''}
         </p>
@@ -615,17 +609,6 @@ function renderCards() {
         ` : ''}
 
         <div class="actions">
-          ${item.id ? `
-            <button
-              type="button"
-              class="copy-id-button"
-              data-copy-id="${escapeHtml(item.id)}"
-              title="Copy candidate ID for the admin workflow."
-            >
-              Copy candidate ID
-            </button>
-          ` : ''}
-
           <a
             href="${escapeHtml(item.url)}"
             target="_blank"
@@ -640,47 +623,10 @@ function renderCards() {
   }).join('');
 }
 
-function bindCardActions() {
-  el.cards.addEventListener('click', async (event) => {
-    const button = event.target.closest('.copy-id-button');
-    if (!button) return;
-
-    const candidateId = button.getAttribute('data-copy-id') || '';
-    if (!candidateId) return;
-
-    const originalText = button.textContent;
-
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(candidateId);
-      } else {
-        const temp = document.createElement('textarea');
-        temp.value = candidateId;
-        document.body.appendChild(temp);
-        temp.select();
-        document.execCommand('copy');
-        document.body.removeChild(temp);
-      }
-
-      button.textContent = 'Copied';
-      window.setTimeout(() => {
-        button.textContent = originalText;
-      }, 1200);
-    } catch (error) {
-      console.error('Copy failed', error);
-      button.textContent = 'Copy failed';
-      window.setTimeout(() => {
-        button.textContent = originalText;
-      }, 1200);
-    }
-  });
-}
-
 async function init() {
   const response = await fetch('./data/discovery-candidates.json', { cache: 'no-store' });
   state.payload = await response.json();
 
-  bindCardActions();
   renderCards();
 
   [el.search, el.lane, el.workflow].forEach((node) => {
