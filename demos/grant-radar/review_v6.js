@@ -1,3 +1,4 @@
+const ISSUE_REPO_BASE = 'https://github.com/salmonofdoubt/salmonofdoubt.github.io';
 const state = { payload: null };
 
 const el = {
@@ -294,7 +295,7 @@ function workflowLabel(bucket) {
 }
 
 function workflowTitle(bucket) {
-  if (bucket === 'requested') return 'A private promotion request already exists for this candidate.';
+  if (bucket === 'requested') return 'A GitHub promotion request issue already exists for this candidate.';
   if (bucket === 'draft_ready') return 'A draft was already generated for this candidate.';
   if (bucket === 'approved') return 'This candidate was approved in workflow but not yet fully promoted.';
   if (bucket === 'completed') return 'This candidate is already promoted or rejected.';
@@ -443,6 +444,29 @@ function detailRows(item) {
   return rows;
 }
 
+function buildIssueUrl(item) {
+  const title = `[Grant Radar] Promote candidate ${item.id}`;
+  const body = [
+    '## Candidate',
+    `candidate_id: ${item.id}`,
+    `candidate_url: ${item.url}`,
+    `candidate_title: ${item.title || ''}`,
+    `promotion_signal: ${derivePromotionSignal(item)}`,
+    `programme_kind: ${effectiveProgrammeKind(item)}`,
+    `programme_state: ${effectiveProgrammeState(item)}`,
+    `public_visible_state: ${effectivePublicVisibleState(item)}`,
+    '',
+    '## Decision',
+    '- [ ] Accept promotion into trusted catalogue',
+    '- [ ] Reject suggestion',
+    '',
+    '## Notes',
+    'Created from the simplified Grant Radar review page.',
+  ].join('\n');
+
+  return `${ISSUE_REPO_BASE}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+}
+
 function filteredCandidates() {
   const search = el.search.value.trim().toLowerCase();
   const lane = el.lane.value;
@@ -552,6 +576,16 @@ function renderCards() {
       `)
       .join('');
 
+    const suggestButton = item.promotion_requested
+      ? `<a href="${escapeHtml(item.promotion_request_issue_url || buildIssueUrl(item))}" target="_blank" rel="noopener noreferrer" title="Open the existing promotion request issue.">Open request issue</a>`
+      : item.already_trusted
+        ? ''
+        : `<a href="${escapeHtml(buildIssueUrl(item))}" target="_blank" rel="noopener noreferrer" title="Open a GitHub issue to request promotion of this candidate.">Suggest for promotion</a>`;
+
+    const draftLink = item.cl_draft_html
+      ? `<a href="./${escapeHtml(item.cl_draft_html)}" target="_blank" rel="noopener noreferrer" title="Open the generated draft page for this candidate.">Open draft</a>`
+      : '';
+
     return `
       <article class="candidate-card">
         <div class="card-top">
@@ -617,6 +651,8 @@ function renderCards() {
           >
             Open candidate page
           </a>
+          ${suggestButton}
+          ${draftLink}
         </div>
       </article>
     `;
