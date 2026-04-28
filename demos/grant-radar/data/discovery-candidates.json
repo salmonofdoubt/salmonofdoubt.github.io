@@ -5,7 +5,7 @@
     "candidate_count": 209,
     "high_confidence_count": 67,
     "pending_review_count": 200,
-    "approved_count": 1,
+    "approved_count": 0,
     "cl_drafted_count": 1,
     "promoted_count": 7,
     "promotion_requested_count": 0,
@@ -9389,7 +9389,7 @@
       "source_id_hint": "life_calls",
       "candidate_type": "call_page",
       "confidence": 0.99,
-      "status": "approved",
+      "status": "suppressed_existing",
       "suggested_purposes": [
         "biodiversity",
         "climate adaptation",
@@ -9421,8 +9421,8 @@
       "page_hash": "sha256:756103a6594b355ca0554d09afedff519f9eb3bdc8bcad9923baf6fb5a5f9b55",
       "notes": "",
       "seen_in_latest_run": false,
-      "already_trusted": false,
-      "trusted_registry_id": null,
+      "already_trusted": true,
+      "trusted_registry_id": "life_calls",
       "public_visible_state": "discovery_only",
       "public_visibility": "discovery_only",
       "promotion_requested": false,
@@ -9433,8 +9433,9 @@
       "cl_draft_generated_at": null,
       "cl_draft_json": null,
       "cl_draft_html": null,
-      "admin_last_action": "approve",
-      "admin_last_action_at": "2026-04-28T19:29:01+00:00"
+      "admin_last_action": "promote_resolved_existing",
+      "admin_last_action_at": "2026-04-28T20:23:43+00:00",
+      "promotion_signal": "red"
     },
     {
       "id": "cand_life_calls_https_cinea_ec_europa_eu_funding_opportunities_calls_proposals_climate_governance_and_information_0_en",
