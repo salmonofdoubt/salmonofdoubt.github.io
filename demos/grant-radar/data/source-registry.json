@@ -35,7 +35,34 @@
       "peatlands",
       "habitat restoration",
       "farm payments",
-      "ACRES"
+      "ACRES",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "tidy towns",
+      "local groups"
     ],
     "extract": {
       "title": "ACRES",
@@ -50,7 +77,8 @@
       "mode": "single_item",
       "opportunity_type": "farm payment"
     },
-    "watch_paths": []
+    "watch_paths": [],
+    "allow_pdf_candidates": false
   },
   {
     "id": "assap_programme",
@@ -83,7 +111,36 @@
       "farm nutrient management",
       "sediment control",
       "advisory support",
-      "ASSAP"
+      "ASSAP",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "extract": {
       "title": "ASSAP",
@@ -98,7 +155,8 @@
       "mode": "single_item",
       "opportunity_type": "implementation support"
     },
-    "watch_paths": []
+    "watch_paths": [],
+    "allow_pdf_candidates": false
   },
   {
     "id": "better_farming_for_water",
@@ -130,7 +188,36 @@
       "farm nutrient management",
       "sediment control",
       "riparian management",
-      "Teagasc Better Farming for Water"
+      "Teagasc Better Farming for Water",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "extract": {
       "title": "Teagasc Better Farming for Water",
@@ -145,7 +232,8 @@
       "mode": "single_item",
       "opportunity_type": "implementation support"
     },
-    "watch_paths": []
+    "watch_paths": [],
+    "allow_pdf_candidates": false
   },
   {
     "id": "climate_action_communities",
@@ -203,9 +291,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "enterprise_ireland_greenplus",
@@ -263,9 +365,23 @@
       "biodiversity",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "epa_research_call",
@@ -324,9 +440,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "farming_for_water_eip",
@@ -364,7 +494,36 @@
       "farm nutrient management",
       "sediment control",
       "nature-based solutions",
-      "Farming for Water EIP"
+      "Farming for Water EIP",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "extract": {
       "title": "Farming for Water EIP",
@@ -379,7 +538,8 @@
       "mode": "single_item",
       "opportunity_type": "farm payment"
     },
-    "watch_paths": []
+    "watch_paths": [],
+    "allow_pdf_candidates": false
   },
   {
     "id": "farming_for_water_eip_gov_ie",
@@ -420,7 +580,32 @@
       "funding",
       "grant",
       "call",
-      "applications"
+      "applications",
+      "grants",
+      "fund",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "extract": {
       "title": "European Innovation Partnership Scheme",
@@ -434,7 +619,8 @@
       ],
       "mode": "single_item",
       "opportunity_type": "implementation support"
-    }
+    },
+    "allow_pdf_candidates": false
   },
   {
     "id": "gsi_geoheritage",
@@ -492,9 +678,23 @@
       "biodiversity",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "heritage_community_grant",
@@ -553,9 +753,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "horizon_biodiv",
@@ -614,9 +828,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "ifi_habitats_conservation",
@@ -654,7 +882,36 @@
       "riparian management",
       "fisheries",
       "catchment delivery",
-      "IFI Habitats & Conservation Funding Call"
+      "IFI Habitats & Conservation Funding Call",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "local groups"
     ],
     "extract": {
       "title": "IFI Habitats & Conservation Funding Call",
@@ -673,7 +930,8 @@
       "mode": "single_item",
       "opportunity_type": "community grant"
     },
-    "watch_paths": []
+    "watch_paths": [],
+    "allow_pdf_candidates": false
   },
   {
     "id": "lawpro_catchment_support_fund",
@@ -714,7 +972,36 @@
       "community nature",
       "restoration",
       "capacity building",
-      "LAWPRO Catchment Support Fund"
+      "LAWPRO Catchment Support Fund",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "extract": {
       "title": "LAWPRO Catchment Support Fund",
@@ -731,7 +1018,8 @@
       ],
       "mode": "single_item",
       "opportunity_type": "community grant"
-    }
+    },
+    "allow_pdf_candidates": false
   },
   {
     "id": "lawpro_cwdf",
@@ -792,8 +1080,36 @@
       "river trust",
       "LAWPRO Community Water Development Fund",
       "water quality",
-      "community nature"
-    ]
+      "community nature",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "habitat",
+      "peatlands",
+      "tidy towns",
+      "local groups"
+    ],
+    "allow_pdf_candidates": false
   },
   {
     "id": "lawpro_funding_hub",
@@ -825,7 +1141,35 @@
       "community nature",
       "restoration",
       "citizen science",
-      "LAWPRO funding hub"
+      "LAWPRO funding hub",
+      "grant",
+      "grants",
+      "fund",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "watch_paths": [
       "/catchment-support-fund/",
@@ -835,7 +1179,8 @@
     "extract": {
       "mode": "single_item",
       "opportunity_type": "grant"
-    }
+    },
+    "allow_pdf_candidates": false
   },
   {
     "id": "lawpro_small_grants",
@@ -898,8 +1243,38 @@
       "water quality",
       "wetlands",
       "LAWPRO Small Grants and Events Scheme",
-      "community nature"
-    ]
+      "community nature",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "peatlands",
+      "tidy towns",
+      "local groups"
+    ],
+    "allow_pdf_candidates": false
   },
   {
     "id": "leader_programme",
@@ -959,9 +1334,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "leo_energy_efficiency",
@@ -1019,9 +1408,23 @@
       "biodiversity",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "life_calls",
@@ -1082,9 +1485,22 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "npws_local_biodiversity_action_fund",
@@ -1141,9 +1557,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "npws_peatlands_natura_scheme",
@@ -1199,9 +1629,22 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "research_ireland_goipg",
@@ -1260,9 +1703,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "seai_community_grant",
@@ -1321,9 +1778,23 @@
       "biodiversity",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "seai_rdd",
@@ -1382,9 +1853,23 @@
       "biodiversity",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "seai_sec_network",
@@ -1443,9 +1928,23 @@
       "biodiversity",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "signpost_programme",
@@ -1477,7 +1976,35 @@
       "biodiversity",
       "climate action",
       "advisory support",
-      "Teagasc Signpost Programme"
+      "Teagasc Signpost Programme",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "extract": {
       "title": "Teagasc Signpost Programme",
@@ -1492,7 +2019,8 @@
       "mode": "single_item",
       "opportunity_type": "implementation support"
     },
-    "watch_paths": []
+    "watch_paths": [],
+    "allow_pdf_candidates": false
   },
   {
     "id": "teagasc_walsh",
@@ -1553,9 +2081,23 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   },
   {
     "id": "teagasc_water_quality_hub",
@@ -1588,7 +2130,36 @@
       "advisory support",
       "farm nutrient management",
       "sediment control",
-      "Teagasc water-quality hub"
+      "Teagasc water-quality hub",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "proposals",
+      "application",
+      "applications",
+      "research",
+      "community",
+      "biodiversity",
+      "environment",
+      "energy",
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
     "watch_paths": [
       "/environment/water-quality/better-farming-for-water/",
@@ -1597,7 +2168,8 @@
     "extract": {
       "mode": "single_item",
       "opportunity_type": "grant"
-    }
+    },
+    "allow_pdf_candidates": false
   },
   {
     "id": "waterways_heritage_biodiversity",
@@ -1656,8 +2228,22 @@
       "community",
       "environment",
       "energy",
-      "climate"
+      "climate",
+      "water",
+      "catchment",
+      "river",
+      "farmers",
+      "farm",
+      "advisory",
+      "restoration",
+      "habitat",
+      "riparian",
+      "wetlands",
+      "peatlands",
+      "tidy towns",
+      "local groups"
     ],
-    "harvest_enabled": true
+    "harvest_enabled": true,
+    "allow_pdf_candidates": false
   }
 ]
