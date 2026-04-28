@@ -4,7 +4,7 @@
     "generator": "grant-radar-discovery 1.0",
     "candidate_count": 230,
     "high_confidence_count": 14,
-    "pending_review_count": 68,
+    "pending_review_count": 67,
     "promoted_count": 11,
     "rejected_count": 0,
     "suppressed_existing_count": 18,
@@ -1002,13 +1002,13 @@
       "source_id_hint": "heritage_community_grant",
       "candidate_type": "call_page",
       "confidence": 0.6,
-      "promotion_signal": "amber",
-      "public_visible_state": "review_only",
+      "promotion_signal": "red",
+      "public_visible_state": "discovery_only",
       "promotion_reasons": [
         "application or call language detected",
         "good fit for practical/community use"
       ],
-      "status": "pending_review",
+      "status": "suppressed_existing",
       "suggested_purposes": [
         "biodiversity",
         "heritage",
@@ -1034,8 +1034,19 @@
       "page_hash": "sha256:3a5685ba86dc3c67e12552b33c44e02fe102f7e0b15cc5e200c62ba36299caa6",
       "notes": "",
       "seen_in_latest_run": true,
-      "already_trusted": false,
-      "trusted_registry_id": null
+      "already_trusted": true,
+      "trusted_registry_id": "heritage_community_grant",
+      "public_visibility": "discovery_only",
+      "promotion_requested": false,
+      "promotion_request_issue_number": null,
+      "promotion_request_issue_url": null,
+      "request_origin_status": null,
+      "cl_draft_ready": false,
+      "cl_draft_generated_at": null,
+      "cl_draft_json": null,
+      "cl_draft_html": null,
+      "admin_last_action": "promote_resolved_existing",
+      "admin_last_action_at": "2026-04-28T20:53:24+00:00"
     },
     {
       "id": "cand_heritage_community_grant_www_heritagecouncil_ie_advice_and_guidance_renewing_your_historic_town_or_village",
