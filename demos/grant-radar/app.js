@@ -494,6 +494,8 @@ function getFilteredOpportunities() {
     const programmeKind = effectiveProgrammeKind(item);
 
     const haystack = [
+      item.id,
+      item.source_id,
       item.title,
       item.summary,
       item.source_name,
