@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-29T08:34:57+00:00",
+  "generated_at": "2026-04-29T08:50:00+00:00",
   "generator": "grant-radar-discovery 1.2",
   "sources": [
     {
@@ -11,7 +11,7 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/campaigns/agri-climate-rural-environment-scheme-acres",
-          "page_hash": "sha256:7e56a853707465d209d326b02beac1d02099afbcf104019fbe28690254530986",
+          "page_hash": "sha256:bf853299ce680d3b7b4d09ba57f82e6c1481916c414bde50a58efee78b7330e0",
           "is_pdf": false,
           "is_binary": false
         }
@@ -74,7 +74,7 @@
       "fetched_pages": [
         {
           "url": "https://teagasc.ie/environment/water-quality/better-farming-for-water",
-          "page_hash": "sha256:ad0c676d2ed9879e48782d6dde50fc0e448e17b9ba316e4da3da0b9c99573894",
+          "page_hash": "sha256:5f09fefe198ff775a225bba5bdd90b7b0c5bf05529473d784ba2694887e37c26",
           "is_pdf": false,
           "is_binary": false
         }
@@ -112,7 +112,7 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/press-releases/minister-obrien-announces-new-funding-of-almost-35-million-to-underpin-climate-action-in-our-communities",
-          "page_hash": "sha256:5264c5479b4114e3cdea998e1ce238e501321a9adb022080c81fe035781c96ae",
+          "page_hash": "sha256:f2a7f4d044b9a65239daf3c1468694bff01d7757ebecdc04f9c47bacbd4f3597",
           "is_pdf": false,
           "is_binary": false
         }
@@ -135,7 +135,7 @@
       "fetched_pages": [
         {
           "url": "https://www.enterprise-ireland.com/en/supports/green-plus",
-          "page_hash": "sha256:52f5dbca1a705873dfbf46c43d588843cec8986942816f48b30f81c7951a8452",
+          "page_hash": "sha256:84630fed0c3f000d96bd16529bd62d64e49f61f7a750479764db71c5f153f03f",
           "is_pdf": false,
           "is_binary": false
         }
@@ -206,7 +206,7 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/ministers-mcconalogue-hackett-and-noonan-launch-60-million-farming-for-water-eip",
-          "page_hash": "sha256:76d60ea5d73faf5128fc46169f5c27429ec10a31142e8879278eccd09ebfa265",
+          "page_hash": "sha256:3e225e7a93765c49babcad81ae4deadb69cbcd408ace67d1234bf7112d5efbf1",
           "is_pdf": false,
           "is_binary": false
         }
@@ -226,7 +226,7 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme",
-          "page_hash": "sha256:b291be086d795a5e1323ab4c56ec8b0b0c25e5333e882c5369af6808793426bd",
+          "page_hash": "sha256:5d9edaf5f467aad388ce6cde82926984ac13404399905b1739dfa07ed4937982",
           "is_pdf": false,
           "is_binary": false
         }
@@ -248,7 +248,7 @@
       "fetched_pages": [
         {
           "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
-          "page_hash": "sha256:6fa3dbcbee0c421255a0af416d1b418d15c8c261e3c252779a8de1f41ad221be",
+          "page_hash": "sha256:23953ebaf52fd4e6108d36545fc67c27196bf351d460550d0ec9ffd0e17bf57a",
           "is_pdf": false,
           "is_binary": false
         }
@@ -353,12 +353,8 @@
       ],
       "errors": [
         {
-          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_cs",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_cs"
-        },
-        {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_et",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_et"
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=et"
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_fr",
@@ -381,12 +377,12 @@
           "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_lv"
         },
         {
-          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_hu",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_hu"
+          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_mt",
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_mt"
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_nl",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=nl"
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_nl"
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_pl",
@@ -395,6 +391,10 @@
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_pt",
           "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=pt"
+        },
+        {
+          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_ro",
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=ro"
         }
       ]
     },
@@ -639,7 +639,7 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development",
-          "page_hash": "sha256:1c3f458b517fd853934bfb84ccae82d1ba5c929aa00c680df887592d32774323",
+          "page_hash": "sha256:0847f804b071f6425c3f7b7d297960dedf17f65c0c652d16549a8d97e3eaba93",
           "is_pdf": false,
           "is_binary": false
         }
@@ -744,16 +744,8 @@
           "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_el"
         },
         {
-          "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_fr",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=fr"
-        },
-        {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_ga",
           "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_ga"
-        },
-        {
-          "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_hr",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=hr"
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_it",
@@ -769,7 +761,7 @@
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_hu",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=hu"
+          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_hu"
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_nl",
@@ -777,7 +769,7 @@
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_pl",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=pl"
+          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_pl"
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_pt",
@@ -821,7 +813,7 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects",
-          "page_hash": "sha256:f1def9898a814bdbb9d8099b7a2f262fd31cf7be37a4ff0e6c2c474bfd389a15",
+          "page_hash": "sha256:e59772733784747c1751f70cd591a81ff47df5ad800ba5857e15b0a6e1a69c00",
           "is_pdf": false,
           "is_binary": false
         }
