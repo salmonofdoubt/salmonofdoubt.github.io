@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-29T08:06:09+00:00",
-  "generator": "grant-radar-discovery 1.1",
+  "generated_at": "2026-04-29T08:34:57+00:00",
+  "generator": "grant-radar-discovery 1.2",
   "sources": [
     {
       "id": "acres_scheme",
@@ -11,8 +11,9 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/campaigns/agri-climate-rural-environment-scheme-acres",
-          "page_hash": "sha256:a1bba289ae193ddb46c4711801e5bab5ab7fb19c6172c3e4e11c38c4e561cbef",
-          "is_pdf": false
+          "page_hash": "sha256:7e56a853707465d209d326b02beac1d02099afbcf104019fbe28690254530986",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -35,8 +36,9 @@
       "fetched_pages": [
         {
           "url": "https://teagasc.ie/environment/water-quality/farming-for-water-quality-assap/assap-in-detail",
-          "page_hash": "sha256:0444c48c37cbb0692d12d432866f8b5f58ff252aa68eeb5f63436c2e270fe1e1",
-          "is_pdf": false
+          "page_hash": "sha256:099e58f81aac8ae83ebd33a5483eb9b856a61eb81f9dae05dad8e76868e84ab2",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -73,7 +75,8 @@
         {
           "url": "https://teagasc.ie/environment/water-quality/better-farming-for-water",
           "page_hash": "sha256:ad0c676d2ed9879e48782d6dde50fc0e448e17b9ba316e4da3da0b9c99573894",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -109,8 +112,9 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/press-releases/minister-obrien-announces-new-funding-of-almost-35-million-to-underpin-climate-action-in-our-communities",
-          "page_hash": "sha256:c2d52b8777cf86fb5fbc1526e5a53c92a8ccfb0a8abbd011612a0c3ec00a946c",
-          "is_pdf": false
+          "page_hash": "sha256:5264c5479b4114e3cdea998e1ce238e501321a9adb022080c81fe035781c96ae",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -131,8 +135,9 @@
       "fetched_pages": [
         {
           "url": "https://www.enterprise-ireland.com/en/supports/green-plus",
-          "page_hash": "sha256:74761c164bc9159be3edc3fce397a99c5affbcdc787e200daa5f2e10c1ceac3c",
-          "is_pdf": false
+          "page_hash": "sha256:52f5dbca1a705873dfbf46c43d588843cec8986942816f48b30f81c7951a8452",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -164,7 +169,8 @@
         {
           "url": "https://www.epa.ie/our-services/research/epa--research-funding/epa-research-call",
           "page_hash": "sha256:9e6cf403b09f14c70f09d91bc08b66c360fd3ec563eb874445e12c8c1140cf3b",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -200,8 +206,9 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/ministers-mcconalogue-hackett-and-noonan-launch-60-million-farming-for-water-eip",
-          "page_hash": "sha256:e5178e0d17a475f42dc24989166a8e8d41b888e1919d3814da606040d7677b16",
-          "is_pdf": false
+          "page_hash": "sha256:76d60ea5d73faf5128fc46169f5c27429ec10a31142e8879278eccd09ebfa265",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -219,31 +226,16 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme",
-          "page_hash": "sha256:5826a7816a9a546314236007292958e9506f390265909b0c792895350ff5c097",
-          "is_pdf": false
+          "page_hash": "sha256:b291be086d795a5e1323ab4c56ec8b0b0c25e5333e882c5369af6808793426bd",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
         "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme",
         "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/minister-heydon-launches-1-million-call-for-proposals-for-innovative-farm-health-safety-and-wellbeing-projects",
-        "https://assets.gov.ie/static/documents/project-application-form-stage-1-initial-submission.docx",
-        "https://assets.gov.ie/static/documents/call-5-farm-and-community-biodiversity-initiative-guideline-document.docx",
-        "https://assets.gov.ie/static/documents/call-5-farm-and-community-biodiversity-initiative-application-form.docx",
-        "https://assets.gov.ie/static/documents/water-eip-guidelines-document.pdf",
-        "https://assets.gov.ie/static/documents/breeding-waders-call-clarification-no-1.pdf",
-        "https://assets.gov.ie/static/documents/breeding-waders-eip-call-for-proposals-guidelines.pdf",
         "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/ministers-hackett-and-noonan-announce-a-25-million-call-for-proposals-for-a-european-innovation-partnership-on-breeding-waders",
-        "https://assets.gov.ie/static/documents/animal-health-and-welfare-eip-call-2-under-csp-guidelines.pdf",
-        "https://assets.gov.ie/static/documents/gender-balance-in-farming-eip-call-3-under-csp-guidelines.pdf",
-        "https://assets.gov.ie/static/documents/gender-balance-eip-call-3-eoi-form.docx",
-        "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/minister-hackett-announces-calls-for-proposals-for-european-innovation-partnerships",
-        "https://assets.gov.ie/static/documents/1c3fae74/Farm_Peat_EIP_Final_Report.pdf",
-        "https://assets.gov.ie/static/documents/biomass-to-biochar-for-farm-bioeconomy-final-report.pdf",
-        "https://assets.gov.ie/static/documents/blackstairs-farming-future_final_report.pdf",
-        "https://assets.gov.ie/static/documents/caomhnu-arann-managing-the-habitats-of-the-aran-island-final-report.pdf",
-        "https://assets.gov.ie/static/documents/inishowen-upland-farmers.pdf",
-        "https://assets.gov.ie/static/documents/farming-rathcroghan.pdf",
-        "https://assets.gov.ie/static/documents/protecting-farmland-pollinators-final-report.pdf"
+        "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/minister-hackett-announces-calls-for-proposals-for-european-innovation-partnerships"
       ],
       "errors": []
     },
@@ -256,8 +248,9 @@
       "fetched_pages": [
         {
           "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
-          "page_hash": "sha256:077db6ee67a87518e8b0d4f86208fc9fc5886923628ab9d3737193136a20abaa",
-          "is_pdf": false
+          "page_hash": "sha256:6fa3dbcbee0c421255a0af416d1b418d15c8c261e3c252779a8de1f41ad221be",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -294,7 +287,8 @@
         {
           "url": "https://www.heritagecouncil.ie/funding/community-heritage-grant-scheme-2",
           "page_hash": "sha256:31bfbf5ae5289601df57295b35333d8f2ae0564d1e5baedc599833e581356609",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -331,7 +325,8 @@
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en",
           "page_hash": "sha256:2cd63b3cd041cb79299e5cd79a815b3625298d63bd5c4edce3c3aa7ddb023296",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -359,11 +354,7 @@
       "errors": [
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_cs",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=cs"
-        },
-        {
-          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_de",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=de"
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_cs"
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_et",
@@ -371,7 +362,11 @@
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_fr",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_fr"
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=fr"
+        },
+        {
+          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_ga",
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_ga"
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_hr",
@@ -379,11 +374,11 @@
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_it",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_it"
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=it"
         },
         {
-          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_lt",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_lt"
+          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_lv",
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_lv"
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_hu",
@@ -391,7 +386,7 @@
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_nl",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_nl"
+          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=nl"
         },
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_pl",
@@ -400,10 +395,6 @@
         {
           "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_pt",
           "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en?prefLang=pt"
-        },
-        {
-          "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_ro",
-          "error": "429 Client Error: Too Many Requests for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_ro"
         }
       ]
     },
@@ -416,8 +407,9 @@
       "fetched_pages": [
         {
           "url": "https://www.fisheriesireland.ie/our-services/funding/habitats-conservation-funding-call-2026",
-          "page_hash": "sha256:0cdd1dea95d02eae5272270a6dd8284c2863c921982934eec7ab00ccb214470c",
-          "is_pdf": false
+          "page_hash": "sha256:66bda38f652c7d8980c0e3c6bdaaa8c44f91865ad07547257639549f0d1481f4",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -455,12 +447,14 @@
         {
           "url": "https://lawaters.ie/catchment-support-fund",
           "page_hash": "sha256:4013258b9019be6422dbdd34899f599491ff829e4538126e622f24c24aae3179",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://lawaters.ie/funding",
           "page_hash": "sha256:d724ccfc78fbd4dcb8846b6fb2ab03f8e6cc147bb9929229f179e06258c6c883",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -498,12 +492,14 @@
         {
           "url": "https://lawaters.ie/cwdf",
           "page_hash": "sha256:bcd4d2ce9f294f8f40ed0a26e3ae78fb2320124b7fe69a31515a2ffd04e83235",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://lawaters.ie/funding",
           "page_hash": "sha256:d724ccfc78fbd4dcb8846b6fb2ab03f8e6cc147bb9929229f179e06258c6c883",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -543,22 +539,26 @@
         {
           "url": "https://lawaters.ie/funding",
           "page_hash": "sha256:d724ccfc78fbd4dcb8846b6fb2ab03f8e6cc147bb9929229f179e06258c6c883",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://lawaters.ie/catchment-support-fund",
           "page_hash": "sha256:4013258b9019be6422dbdd34899f599491ff829e4538126e622f24c24aae3179",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://lawaters.ie/small-grants-and-events-scheme",
           "page_hash": "sha256:1e53baa08fd0b02994d3abba45231e23c6e9d587e951bba44c61ac028890df02",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://lawaters.ie/cwdf",
           "page_hash": "sha256:bcd4d2ce9f294f8f40ed0a26e3ae78fb2320124b7fe69a31515a2ffd04e83235",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -596,12 +596,14 @@
         {
           "url": "https://lawaters.ie/small-grants-and-events-scheme",
           "page_hash": "sha256:1e53baa08fd0b02994d3abba45231e23c6e9d587e951bba44c61ac028890df02",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://lawaters.ie/funding",
           "page_hash": "sha256:d724ccfc78fbd4dcb8846b6fb2ab03f8e6cc147bb9929229f179e06258c6c883",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -637,8 +639,9 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development",
-          "page_hash": "sha256:6ce5521cf3b408cdbc2876b2aecade80bd054d4db05882283731a9df9bf8d62f",
-          "is_pdf": false
+          "page_hash": "sha256:1c3f458b517fd853934bfb84ccae82d1ba5c929aa00c680df887592d32774323",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -648,9 +651,6 @@
         "https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/publications/leader-local-action-groups-approved-projects",
         "https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/services/leader-programme-for-rural-development",
         "https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/collections/leader-operating-rules-and-guidelines",
-        "https://assets.gov.ie/static/documents/circular-on-transitional-leader-programme-2021.pdf",
-        "https://assets.gov.ie/static/documents/guidelines-document-outline-of-transitional-leader-programme-2021.pdf",
-        "https://assets.gov.ie/static/documents/funding-allocations-for-each-lag.pdf",
         "https://www.agriculture.gov.ie/ruralenvironmentsustainability/ruraldevelopmentprogrammerdp2014-2020/preparatoryworkfortherdp2014-2020",
         "https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policies/rural-development"
       ],
@@ -665,8 +665,9 @@
       "fetched_pages": [
         {
           "url": "https://www.localenterprise.ie/green/new-green-images/how-to-apply.html",
-          "page_hash": "sha256:84b16b3a31b34385d27023a15ab9df1f6d4eb8a1bdb022248969f3edfa4510ac",
-          "is_pdf": false
+          "page_hash": "sha256:471491ffeabde878e6e92f8ad76d4de5fd1f65641223ffba3405f17fb5fbf92f",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -703,7 +704,8 @@
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_en",
           "page_hash": "sha256:367de46285c7983849f2281ceceaf166a8f6f7dbc54c660aec418906c14eb04e",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -730,10 +732,6 @@
       ],
       "errors": [
         {
-          "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_cs",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=cs"
-        },
-        {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_da",
           "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_da"
         },
@@ -754,6 +752,10 @@
           "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_ga"
         },
         {
+          "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_hr",
+          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=hr"
+        },
+        {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_it",
           "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_it"
         },
@@ -767,11 +769,7 @@
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_hu",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_hu"
-        },
-        {
-          "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_mt",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_mt"
+          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=hu"
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_nl",
@@ -779,7 +777,7 @@
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_pl",
-          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_pl"
+          "error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en?prefLang=pl"
         },
         {
           "url": "https://cinea.ec.europa.eu/life-calls-proposals-2026_pt",
@@ -801,14 +799,14 @@
         {
           "url": "https://www.npws.ie/legislation/national-biodiversity-action-plan/local-biodiversity-action-fund",
           "page_hash": "sha256:b0f5a0cff1406a4c6e694bb4d65ba2af192fbc802990eaa010fc7179d45715ee",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
         "https://www.npws.ie/legislation/national-biodiversity-action-plan/local-biodiversity-action-fund",
         "https://www.npws.ie/legislation/national-biodiversity-action-plan",
         "https://www.npws.ie/legislation/eu-regulation-restrictions-use-lead-gunshot-or-around-wetlands",
-        "https://www.npws.ie/sites/default/files/files/4th_National_Biodiversity_Action_Plan.pdf",
         "https://www.npws.ie/licencesandconsents/education-and-science",
         "https://www.npws.ie/research-projects"
       ],
@@ -823,8 +821,9 @@
       "fetched_pages": [
         {
           "url": "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects",
-          "page_hash": "sha256:8b9c912a0abd3c7ffceea62087ea549c2061a56137e9bcca1bb3c1cb0338d072",
-          "is_pdf": false
+          "page_hash": "sha256:f1def9898a814bdbb9d8099b7a2f262fd31cf7be37a4ff0e6c2c474bfd389a15",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -843,7 +842,8 @@
         {
           "url": "https://www.researchireland.ie/funding/government-ireland-postgraduate",
           "page_hash": "sha256:f61c1abc885975123c262cb4dffabdf2f7e9c41268634e8cd528d31b113e3054",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -924,8 +924,9 @@
       "fetched_pages": [
         {
           "url": "https://teagasc.ie/environment/climate-change-air-quality/signpost-programme",
-          "page_hash": "sha256:c06574ba8ba6e0ccaf8ccb1d558ae9685bb17cbef11f28cdfbb7a59d51a3004d",
-          "is_pdf": false
+          "page_hash": "sha256:3090dc0a94388d296d6c4e77b4a348ac6f798d7514854a6411abbd4e9a7848b4",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -962,13 +963,15 @@
       "fetched_pages": [
         {
           "url": "https://teagasc.ie/about/research-innovation/the-walsh-scholars-programme/walsh-scholars-opportunities",
-          "page_hash": "sha256:9bfc4b422e93dda8b83f3026b8b96633049cf0a64efa1369fa79d959dc2e7d2c",
-          "is_pdf": false
+          "page_hash": "sha256:eeff7c0234879d65733f39624abefa372c095f56eb3d09bc19663f612562ffa9",
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://teagasc.ie/environment/water-quality",
-          "page_hash": "sha256:eae1142e0141f10ae0a2b1106a116f0841476264c3d7d1571ba7e5cd526b5ef6",
-          "is_pdf": false
+          "page_hash": "sha256:ea7b545df8c3f85929d9760865eb10c99fc295efce8d9ae4e79a7fd9c88c5897",
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
@@ -1006,18 +1009,21 @@
       "fetched_pages": [
         {
           "url": "https://teagasc.ie/environment/water-quality",
-          "page_hash": "sha256:eae1142e0141f10ae0a2b1106a116f0841476264c3d7d1571ba7e5cd526b5ef6",
-          "is_pdf": false
+          "page_hash": "sha256:ea7b545df8c3f85929d9760865eb10c99fc295efce8d9ae4e79a7fd9c88c5897",
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://teagasc.ie/environment/water-quality/better-farming-for-water",
-          "page_hash": "sha256:ad0c676d2ed9879e48782d6dde50fc0e448e17b9ba316e4da3da0b9c99573894",
-          "is_pdf": false
+          "page_hash": "sha256:5f09fefe198ff775a225bba5bdd90b7b0c5bf05529473d784ba2694887e37c26",
+          "is_pdf": false,
+          "is_binary": false
         },
         {
           "url": "https://teagasc.ie/environment/water-quality/farming-for-water-quality-assap",
           "page_hash": "sha256:16ef18fac5d78eb62c3e043edccad0570bcc2d5e57665fbf34f0f37c4ca6d9c0",
-          "is_pdf": false
+          "is_pdf": false,
+          "is_binary": false
         }
       ],
       "child_urls": [
