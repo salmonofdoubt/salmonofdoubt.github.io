@@ -4,7 +4,7 @@
 States:
 - pending_review: genuinely new and actionable candidate
 - suppressed_existing: already covered by an existing trusted source
-- suppressed_non_actionable: stale, announcement, tender, PDF, contact/admin/publication, or weak noise
+- suppressed_non_actionable: stale, announcement, tender, PDF, office/binary file, contact/admin/publication, or weak noise
 - promoted: previously published
 - rejected: previously discarded
 """
@@ -30,7 +30,7 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/1.1 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/1.2 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
@@ -225,6 +225,40 @@ NOISE_LINE_SUBSTRINGS = [
     "gaeilge menu close",
     "news departments services search",
     "accessibility statement",
+]
+
+BINARY_EXTENSIONS = {
+    ".pdf",
+    ".doc",
+    ".docx",
+    ".xls",
+    ".xlsx",
+    ".ppt",
+    ".pptx",
+    ".odt",
+    ".ods",
+    ".odp",
+    ".rtf",
+    ".zip",
+    ".7z",
+    ".rar",
+}
+
+BINARY_CONTENT_TYPES = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.ms-excel",
+    "application/vnd.ms-powerpoint",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "application/vnd.oasis.opendocument.text",
+    "application/vnd.oasis.opendocument.spreadsheet",
+    "application/vnd.oasis.opendocument.presentation",
+    "application/rtf",
+    "application/zip",
+    "application/x-zip-compressed",
+    "application/octet-stream",
 ]
 
 PRACTICAL_PURPOSES = {
@@ -425,10 +459,17 @@ def is_denied_child_url(url: str) -> bool:
     return any(re.search(pattern, path) for pattern in DENYLIST_PATTERNS)
 
 
+def has_binary_extension(url: str) -> bool:
+    path = urlparse(url).path.lower()
+    return any(path.endswith(ext) for ext in BINARY_EXTENSIONS)
+
+
 def looks_like_candidate_link(url: str, label: str, watch_terms: list[str], trusted_domain: str) -> bool:
     if not same_or_child_domain(url, trusted_domain):
         return False
     if is_denied_child_url(url):
+        return False
+    if has_binary_extension(url):
         return False
 
     haystack = f"{url} {label}".lower()
@@ -463,6 +504,27 @@ def clean_extracted_text(raw_text: str) -> tuple[str, int]:
     return cleaned, dropped
 
 
+def is_binary_like_response(final_url: str, content_type: str, raw_bytes: bytes) -> tuple[bool, str]:
+    lowered_content_type = (content_type or "").lower()
+
+    for token in BINARY_CONTENT_TYPES:
+        if token in lowered_content_type:
+            if "application/octet-stream" == token and not has_binary_extension(final_url):
+                continue
+            return True, token
+
+    if has_binary_extension(final_url):
+        return True, "extension"
+
+    if raw_bytes.startswith(b"%PDF-"):
+        return True, "pdf_magic"
+
+    if raw_bytes.startswith(b"PK\x03\x04"):
+        return True, "zip_magic"
+
+    return False, ""
+
+
 def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     headers = {"User-Agent": USER_AGENT}
 
@@ -477,24 +539,22 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     raw_bytes = response.content or b""
     page_hash = "sha256:" + hashlib.sha256(raw_bytes).hexdigest()
 
-    is_pdf = (
-        "application/pdf" in content_type
-        or final_url.lower().endswith(".pdf")
-        or raw_bytes.startswith(b"%PDF-")
-    )
+    is_binary, binary_reason = is_binary_like_response(final_url, content_type, raw_bytes)
 
-    if is_pdf:
-        filename = Path(urlparse(final_url).path).name or "pdf-document"
-        stem = Path(filename).stem or "PDF document"
-        title = re.sub(r"[-_]+", " ", stem).strip() or "PDF document"
+    if is_binary:
+        filename = Path(urlparse(final_url).path).name or "binary-document"
+        stem = Path(filename).stem or "Binary document"
+        title = re.sub(r"[-_]+", " ", stem).strip() or "Binary document"
         return {
             "url": final_url,
             "title": title,
             "text": "",
-            "snippet": "PDF document detected. Binary preview suppressed.",
+            "snippet": "Binary or office document detected. Preview suppressed.",
             "links": [],
             "page_hash": page_hash,
-            "is_pdf": True,
+            "is_pdf": "pdf" in binary_reason,
+            "is_binary": True,
+            "binary_reason": binary_reason,
             "noise_lines_removed": 0,
         }, None
 
@@ -523,6 +583,8 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
         "links": links,
         "page_hash": page_hash,
         "is_pdf": False,
+        "is_binary": False,
+        "binary_reason": "",
         "noise_lines_removed": noise_lines_removed,
     }, None
 
@@ -561,6 +623,8 @@ def looks_directory_or_admin_page(title: str, url: str, snippet: str) -> bool:
 
 
 def candidate_type_from_page(page: dict[str, Any]) -> str:
+    if page.get("is_binary"):
+        return "binary_file_page"
     if page.get("is_pdf"):
         return "pdf_page"
 
@@ -722,13 +786,15 @@ def classify_candidate(
         reason_flags.append("already_covered_by_trusted_source")
         promotion_reasons = [f"Already covered by trusted source {duplicate['id']}"]
 
-    elif candidate_type in {"pdf_page", "directory_page", "tender_page", "news_page", "award_page"}:
+    elif candidate_type in {"binary_file_page", "pdf_page", "directory_page", "tender_page", "news_page", "award_page"}:
         status = "suppressed_non_actionable"
         public_visible_state = "discovery_only"
         promotion_signal = "red"
         reason_flags.append(candidate_type)
 
-        if candidate_type == "pdf_page":
+        if candidate_type == "binary_file_page":
+            promotion_reasons = ["Office or binary document file is not a review candidate"]
+        elif candidate_type == "pdf_page":
             promotion_reasons = ["PDF or binary content is not actionable for review"]
         elif candidate_type == "directory_page":
             promotion_reasons = ["Contact, publication, department, or directory-style page rather than a funding route"]
@@ -864,7 +930,7 @@ def update_meta_counts(payload: dict[str, Any]) -> None:
     meta = payload.setdefault("meta", {})
 
     meta["generated_at"] = now_iso()
-    meta["generator"] = "grant-radar-discovery 1.1"
+    meta["generator"] = "grant-radar-discovery 1.2"
     meta["candidate_count"] = len(candidates)
     meta["high_confidence_count"] = sum(
         1 for item in candidates
@@ -926,7 +992,8 @@ def main() -> None:
             source_memory["fetched_pages"].append({
                 "url": page["url"],
                 "page_hash": page["page_hash"],
-                "is_pdf": page["is_pdf"],
+                "is_pdf": page.get("is_pdf", False),
+                "is_binary": page.get("is_binary", False),
             })
 
             for link in page.get("links", []):
@@ -992,7 +1059,7 @@ def main() -> None:
 
     memory_payload = {
         "generated_at": seen_at,
-        "generator": "grant-radar-discovery 1.1",
+        "generator": "grant-radar-discovery 1.2",
         "sources": memory_sources,
     }
     save_json(MEMORY_PATH, memory_payload)
