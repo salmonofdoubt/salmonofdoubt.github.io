@@ -31,6 +31,7 @@ const el = {
   modeAllBtn: document.getElementById('mode-all-btn'),
   modeNdrtBtn: document.getElementById('mode-ndrt-btn'),
   modeResearchBtn: document.getElementById('mode-research-btn'),
+  modeFarmerBtn: document.getElementById('mode-farmer-btn'),
   modeNote: document.getElementById('mode-note'),
 };
 
@@ -83,39 +84,29 @@ const RESEARCH_PURPOSES = [
   'nature-based solutions',
   'water quality',
   'climate adaptation',
+  'research training',
 ];
 
-const NDRT_APPLICANT_TYPES = [
-  'community groups',
-  'local groups',
-  'NGOs',
-  'public bodies',
-  'voluntary groups',
-  'schools',
+const FARMER_WQ_PURPOSES = [
+  'water quality',
+  'catchment delivery',
+  'farm nutrient management',
+  'sediment control',
+  'riparian management',
+  'wetlands',
+  'habitat restoration',
+  'nature-based solutions',
+  'peatlands',
 ];
-
-const NDRT_ACCESS_ROUTES = [
-  'direct',
-  'via local authority',
-  'advisory support',
-  'via advisor',
-  'via local action group',
-];
-
-const NDRT_SCALES = ['local', 'support', 'medium'];
-
-const RESEARCH_APPLICANT_TYPES = ['researchers'];
-const RESEARCH_ACCESS_ROUTES = ['direct', 'consortium'];
-const RESEARCH_SCALES = ['major'];
 
 const PROGRAMME_KIND_VALUES = new Set([
+  'announcement_or_results',
+  'one_off_call',
   'recurring_programme',
   'rolling_support',
-  'one_off_call',
-  'announcement_or_results',
 ]);
 
-const PROGRAMME_STATE_VALUES = new Set(['open', 'upcoming', 'closed', 'archived']);
+const PROGRAMME_STATE_VALUES = new Set(['archived', 'closed', 'open', 'upcoming']);
 
 const fmtDate = (value) => {
   if (!value) return '—';
@@ -371,11 +362,22 @@ function setSearchValue(value = '') {
   }
 }
 
+function resetVisibleFilters() {
+  setSearchValue('');
+  setDateValue(el.deadlineFrom);
+  setDateValue(el.deadlineTo);
+  setSelectValue(el.statusSelect, 'all');
+  setSelectValue(el.changeSelect, 'all');
+  setSelectValue(el.accessSelect, 'all');
+  setSelectValue(el.scaleSelect, 'all');
+}
+
 function updateModeUi() {
   const modeMap = {
     all: el.modeAllBtn,
     ndrt: el.modeNdrtBtn,
     research: el.modeResearchBtn,
+    farmer: el.modeFarmerBtn,
   };
 
   Object.entries(modeMap).forEach(([key, button]) => {
@@ -386,45 +388,44 @@ function updateModeUi() {
   if (!el.modeNote) return;
 
   if (state.activeMode === 'ndrt') {
-    el.modeNote.textContent = 'River Trust mode now prefilters toward practical local and community routes: catchment, restoration, wetland, habitat, and citizen-science opportunities with river-trust-relevant applicant, access, and scale defaults.';
+    el.modeNote.textContent = 'River Trust mode is now only a visible preset: catchment, restoration, wetland, habitat, citizen-science, and community-delivery purposes are preselected, but there is no hidden narrowing underneath.';
     return;
   }
 
   if (state.activeMode === 'research') {
-    el.modeNote.textContent = 'Research mode now prefilters toward researcher-facing routes, especially major direct or consortium opportunities.';
+    el.modeNote.textContent = 'Research mode is now only a visible preset: research-facing purposes are preselected, but there is no hidden narrowing underneath.';
     return;
   }
 
-  el.modeNote.textContent = 'Showing the full public catalogue using the standard defaults.';
+  if (state.activeMode === 'farmer') {
+    el.modeNote.textContent = 'Farmer / water quality mode preselects practical on-farm water-protection purposes such as nutrient-pathway control, sediment reduction, riparian measures, wetlands, peatlands, and catchment delivery. It is not intended to surface generic livestock or cattle-management supports unless they clearly map to water-quality protection.';
+    return;
+  }
+
+  el.modeNote.textContent = 'Showing the full catalogue using the standard defaults. All opportunities mode now means exactly that: no hidden mode filtering.';
 }
 
 function applyMode(mode) {
   state.activeMode = mode;
 
-  setSearchValue('');
-  setDateValue(el.deadlineFrom);
-  setDateValue(el.deadlineTo);
-  setSelectValue(el.statusSelect, 'all');
-  setSelectValue(el.changeSelect, 'all');
+  resetVisibleFilters();
 
   if (mode === 'ndrt') {
     selectPurposes(NDRT_PURPOSES);
     setSelectValue(el.applicantSelect, 'all');
-    setSelectValue(el.accessSelect, 'all');
-    setSelectValue(el.scaleSelect, 'all');
     setSelectValue(el.changeWindowSelect, '365');
   } else if (mode === 'research') {
     selectPurposes(RESEARCH_PURPOSES);
-    setSelectValue(el.applicantSelect, 'all');
-    setSelectValue(el.accessSelect, 'all');
-    setSelectValue(el.scaleSelect, 'all');
+    setSelectValue(el.applicantSelect, 'researchers');
+    setSelectValue(el.changeWindowSelect, '365');
+  } else if (mode === 'farmer') {
+    selectPurposes(FARMER_WQ_PURPOSES);
+    setSelectValue(el.applicantSelect, 'farmers');
     setSelectValue(el.changeWindowSelect, '365');
   } else {
     clearSelectedPurposes();
     setSelectValue(el.applicantSelect, 'all');
-    setSelectValue(el.accessSelect, 'all');
-    setSelectValue(el.scaleSelect, 'all');
-    setSelectValue(el.changeWindowSelect, '30');
+    setSelectValue(el.changeWindowSelect, 'all');
   }
 
   updateModeUi();
@@ -435,44 +436,6 @@ function matchesPurpose(item) {
   if (state.selectedPurposes.size === 0) return true;
   const itemPurposes = new Set(item.purposes || []);
   return [...state.selectedPurposes].some((purpose) => itemPurposes.has(purpose));
-}
-
-function itemMatchesModeDefaults(item, selectedApplicantType, selectedAccessRoute, selectedScale) {
-  const applicantTypes = item.applicant_types || item.audience || [];
-  const accessRoute = item.access_route || '';
-  const scale = item.scale || '';
-
-  if (state.activeMode === 'ndrt') {
-    if (selectedApplicantType === 'all' && applicantTypes.length > 0) {
-      const applicantMatch = applicantTypes.some((value) => NDRT_APPLICANT_TYPES.includes(value));
-      if (!applicantMatch) return false;
-    }
-
-    if (selectedAccessRoute === 'all' && accessRoute) {
-      if (!NDRT_ACCESS_ROUTES.includes(accessRoute)) return false;
-    }
-
-    if (selectedScale === 'all' && scale) {
-      if (!NDRT_SCALES.includes(scale)) return false;
-    }
-  }
-
-  if (state.activeMode === 'research') {
-    if (selectedApplicantType === 'all' && applicantTypes.length > 0) {
-      const applicantMatch = applicantTypes.some((value) => RESEARCH_APPLICANT_TYPES.includes(value));
-      if (!applicantMatch) return false;
-    }
-
-    if (selectedAccessRoute === 'all' && accessRoute) {
-      if (!RESEARCH_ACCESS_ROUTES.includes(accessRoute)) return false;
-    }
-
-    if (selectedScale === 'all' && scale) {
-      if (!RESEARCH_SCALES.includes(scale)) return false;
-    }
-  }
-
-  return true;
 }
 
 function getFilteredOpportunities() {
@@ -518,7 +481,6 @@ function getFilteredOpportunities() {
     if (scale !== 'all' && (item.scale || '—') !== scale) return false;
     if (changeType !== 'all' && (item.change_type || 'none') !== changeType) return false;
     if (!matchesPurpose(item)) return false;
-    if (!itemMatchesModeDefaults(item, applicantType, accessRoute, scale)) return false;
 
     if (changeWindow !== 'all') {
       if (!item.changed_at) return false;
@@ -787,6 +749,10 @@ async function init() {
 
   if (el.modeResearchBtn) {
     el.modeResearchBtn.addEventListener('click', () => applyMode('research'));
+  }
+
+  if (el.modeFarmerBtn) {
+    el.modeFarmerBtn.addEventListener('click', () => applyMode('farmer'));
   }
 
   render();
