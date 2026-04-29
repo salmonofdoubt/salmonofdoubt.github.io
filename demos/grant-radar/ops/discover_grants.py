@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-"""Grant Radar discovery with actionable review queue only.
+"""Grant Radar discovery with an actionable review queue.
 
-Design:
+States:
 - pending_review: genuinely new and actionable candidate
 - suppressed_existing: already covered by an existing trusted source
-- suppressed_non_actionable: stale, announcement, tender, PDF, results, or weak noise
+- suppressed_non_actionable: stale, announcement, tender, PDF, contact/admin/publication, or weak noise
 - promoted: previously published
 - rejected: previously discarded
-
-The active review page should show only pending_review by default.
 """
 
 from __future__ import annotations
@@ -32,7 +30,7 @@ REGISTRY_PATH = DATA_DIR / "source-registry.json"
 DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/1.0 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+USER_AGENT = "GrantRadarDiscoverBot/1.1 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
 MAX_WATCH_URLS_PER_SOURCE = 8
@@ -43,12 +41,33 @@ LANGUAGE_SUFFIX_RE = re.compile(
     flags=re.IGNORECASE,
 )
 
+STRONG_FUNDING_TOKENS = [
+    "grant",
+    "grants",
+    "fund",
+    "funds",
+    "funding",
+    "scheme",
+    "schemes",
+    "call",
+    "calls",
+    "apply",
+    "application",
+    "applications",
+    "proposal",
+    "proposals",
+    "expression of interest",
+    "expressions of interest",
+    "eoi",
+]
+
 ACTIONABLE_PHRASES = [
     "apply now",
     "applications open",
     "application form",
     "application process",
     "how to apply",
+    "who can apply",
     "submit a proposal",
     "submit proposal",
     "open call",
@@ -58,6 +77,7 @@ ACTIONABLE_PHRASES = [
     "expressions of interest",
     "eligibility criteria",
     "eligible applicants",
+    "eligible organisations",
     "online grants system",
     "funding now available",
     "grant scheme",
@@ -65,8 +85,6 @@ ACTIONABLE_PHRASES = [
     "grant program",
     "funding programme",
     "funding program",
-    "support programme",
-    "support program",
     "scheme open",
     "applications close",
     "closing date",
@@ -167,6 +185,46 @@ DENYLIST_PATTERNS = [
     r"/events/?$",
     r"/event/?$",
     r"/privacy/?$",
+]
+
+ADMIN_PAGE_TOKENS = [
+    "contact details",
+    "contact",
+    "contacts",
+    "directory",
+    "directories",
+    "department",
+    "departments",
+    "service",
+    "services",
+    "publication",
+    "publications",
+    "news",
+    "about",
+    "privacy",
+    "cookie",
+    "cookies",
+    "terms and conditions",
+    "terms of use",
+]
+
+NOISE_LINE_SUBSTRINGS = [
+    "this website uses cookies",
+    "accept all cookies",
+    "necessary cookies only",
+    "manage cookies",
+    "cookie and privacy",
+    "cookie policy",
+    "privacy policy",
+    "skip to main content",
+    "skip to content",
+    "close menu",
+    "open menu",
+    "search search",
+    "search close",
+    "gaeilge menu close",
+    "news departments services search",
+    "accessibility statement",
 ]
 
 PRACTICAL_PURPOSES = {
@@ -377,6 +435,34 @@ def looks_like_candidate_link(url: str, label: str, watch_terms: list[str], trus
     return any(term.lower() in haystack for term in watch_terms)
 
 
+def clean_extracted_text(raw_text: str) -> tuple[str, int]:
+    cleaned_lines: list[str] = []
+    dropped = 0
+
+    for raw_line in raw_text.splitlines():
+        line = re.sub(r"\s+", " ", raw_line).strip()
+        if not line:
+            continue
+
+        lowered = line.lower()
+
+        if any(noise in lowered for noise in NOISE_LINE_SUBSTRINGS):
+            dropped += 1
+            continue
+
+        if re.fullmatch(r"(news|services|search|menu|close|open|home)(\s+\1){1,}", lowered):
+            dropped += 1
+            continue
+
+        cleaned_lines.append(line)
+
+    cleaned = "\n".join(cleaned_lines)
+    cleaned = re.sub(r"\b(search|close|menu|home)\b(?:\s+\1){2,}", " ", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\s+\.\s+", ". ", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+    return cleaned, dropped
+
+
 def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     headers = {"User-Agent": USER_AGENT}
 
@@ -409,6 +495,7 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
             "links": [],
             "page_hash": page_hash,
             "is_pdf": True,
+            "noise_lines_removed": 0,
         }, None
 
     soup = BeautifulSoup(response.text, "html.parser")
@@ -417,8 +504,9 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     if soup.title and soup.title.string:
         title = re.sub(r"\s+", " ", soup.title.string).strip()
 
-    text = soup.get_text("\n", strip=True)
-    snippet = re.sub(r"\s+", " ", text[:700]).strip()
+    raw_text = soup.get_text("\n", strip=True)
+    cleaned_text, noise_lines_removed = clean_extracted_text(raw_text)
+    snippet = re.sub(r"\s+", " ", cleaned_text[:700]).strip()
 
     links: list[dict[str, str]] = []
     for anchor in soup.find_all("a", href=True):
@@ -430,12 +518,46 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
     return {
         "url": final_url,
         "title": title,
-        "text": text,
+        "text": cleaned_text,
         "snippet": snippet,
         "links": links,
         "page_hash": page_hash,
         "is_pdf": False,
+        "noise_lines_removed": noise_lines_removed,
     }, None
+
+
+def has_strong_funding_token_in_title_or_url(title: str, url: str) -> bool:
+    haystack = f"{page_title_core(title)} {urlparse(url).path}".lower()
+    return any(token in haystack for token in STRONG_FUNDING_TOKENS)
+
+
+def has_strong_funding_language_anywhere(title: str, url: str, text: str, snippet: str) -> bool:
+    haystack = f"{title} {url} {text[:2500]} {snippet}".lower()
+    return any(token in haystack for token in STRONG_FUNDING_TOKENS)
+
+
+def looks_directory_or_admin_page(title: str, url: str, snippet: str) -> bool:
+    core = page_title_core(title).lower()
+    path = urlparse(url).path.lower()
+    combined = f"{core} {path} {snippet[:240]}".lower()
+
+    has_admin_term = any(token in combined for token in ADMIN_PAGE_TOKENS)
+    has_strong_funding = has_strong_funding_token_in_title_or_url(title, url)
+
+    if "contact details" in combined:
+        return True
+
+    if "/publications/" in path and not has_strong_funding:
+        return True
+
+    if "/departments/" in path and not has_strong_funding:
+        return True
+
+    if has_admin_term and not has_strong_funding:
+        return True
+
+    return False
 
 
 def candidate_type_from_page(page: dict[str, Any]) -> str:
@@ -447,6 +569,8 @@ def candidate_type_from_page(page: dict[str, Any]) -> str:
     snippet = page.get("snippet", "").lower()
     haystack = f"{title} {url} {snippet}"
 
+    if looks_directory_or_admin_page(page.get("title", ""), page.get("url", ""), page.get("snippet", "")):
+        return "directory_page"
     if "tender" in haystack or "procurement" in haystack:
         return "tender_page"
     if any(term in haystack for term in ["awarded", "award", "results"]):
@@ -526,18 +650,26 @@ def classify_candidate(
     purposes = dedupe_keep_order(source.get("purposes", []) or [])
     fit = practical_fit(source, applicant_types, access_route, scale)
 
+    actionable_hits = phrase_hit_count(combined, ACTIONABLE_PHRASES)
+    funding_in_title_or_url = has_strong_funding_token_in_title_or_url(title, page["url"])
+    funding_anywhere = has_strong_funding_language_anywhere(title, page["url"], text, snippet)
+    admin_or_directory = looks_directory_or_admin_page(title, page["url"], snippet)
+
     confidence = 0.0
     reason_flags: list[str] = []
     promotion_reasons: list[str] = []
 
-    confidence += 0.15
+    confidence += 0.12
     if same_or_child_domain(page["url"], source.get("trusted_domain") or canonical_domain(source["url"])):
         confidence += 0.12
         reason_flags.append("trusted_domain_child")
 
-    actionable_hits = phrase_hit_count(combined, ACTIONABLE_PHRASES)
+    if funding_in_title_or_url:
+        confidence += 0.18
+        reason_flags.append("funding_token_in_title_or_url")
+
     if actionable_hits:
-        confidence += min(0.28, 0.07 * actionable_hits)
+        confidence += min(0.24, 0.06 * actionable_hits)
         reason_flags.append("actionable_language")
         promotion_reasons.append("application or call language detected")
 
@@ -547,23 +679,31 @@ def classify_candidate(
         promotion_reasons.append("deadline language detected")
 
     if fit:
-        confidence += 0.12
+        confidence += 0.08
         reason_flags.append("practical_fit")
         promotion_reasons.append("good fit for practical/community use")
 
     if applicant_types:
-        confidence += 0.06
+        confidence += 0.05
         reason_flags.append("applicant_types_present")
     if access_route:
-        confidence += 0.04
+        confidence += 0.03
         reason_flags.append("access_route_present")
     if scale:
-        confidence += 0.04
+        confidence += 0.03
         reason_flags.append("scale_present")
 
-    if looks_generic_title(title) and not actionable_hits:
+    if looks_generic_title(title) and not funding_in_title_or_url:
         confidence -= 0.18
         reason_flags.append("generic_title")
+
+    if admin_or_directory:
+        confidence -= 0.28
+        reason_flags.append("admin_or_directory_page")
+
+    if page.get("noise_lines_removed", 0) >= 3:
+        confidence -= 0.06
+        reason_flags.append("cookie_or_nav_noise_removed")
 
     confidence = max(0.0, min(0.99, confidence))
 
@@ -582,13 +722,16 @@ def classify_candidate(
         reason_flags.append("already_covered_by_trusted_source")
         promotion_reasons = [f"Already covered by trusted source {duplicate['id']}"]
 
-    elif candidate_type in {"pdf_page", "tender_page", "news_page", "award_page"}:
+    elif candidate_type in {"pdf_page", "directory_page", "tender_page", "news_page", "award_page"}:
         status = "suppressed_non_actionable"
         public_visible_state = "discovery_only"
         promotion_signal = "red"
         reason_flags.append(candidate_type)
+
         if candidate_type == "pdf_page":
             promotion_reasons = ["PDF or binary content is not actionable for review"]
+        elif candidate_type == "directory_page":
+            promotion_reasons = ["Contact, publication, department, or directory-style page rather than a funding route"]
         elif candidate_type == "tender_page":
             promotion_reasons = ["Tender or procurement page, not a grant/support listing"]
         elif candidate_type == "news_page":
@@ -610,7 +753,21 @@ def classify_candidate(
         reason_flags.append("stale_time_bound_page")
         promotion_reasons = [f"Time-bound page appears stale for {latest_year}"]
 
-    elif actionable_hits or fit:
+    elif not funding_in_title_or_url:
+        status = "suppressed_non_actionable"
+        public_visible_state = "discovery_only"
+        promotion_signal = "red"
+        reason_flags.append("no_funding_token_in_title_or_url")
+        promotion_reasons = ["Title or URL does not look like a distinct grant, fund, scheme, or call page"]
+
+    elif not funding_anywhere:
+        status = "suppressed_non_actionable"
+        public_visible_state = "discovery_only"
+        promotion_signal = "red"
+        reason_flags.append("weak_funding_language")
+        promotion_reasons = ["Funding language is too weak for human review"]
+
+    elif actionable_hits or deadline_hint or applicant_types:
         status = "pending_review"
         public_visible_state = "review_only"
         promotion_signal = "green" if confidence >= 0.68 else "amber"
@@ -621,8 +778,8 @@ def classify_candidate(
         status = "suppressed_non_actionable"
         public_visible_state = "discovery_only"
         promotion_signal = "red"
-        reason_flags.append("weak_signal")
-        promotion_reasons = ["Signal too weak for human review"]
+        reason_flags.append("not_actionable_enough")
+        promotion_reasons = ["Looks related, but still lacks enough application or eligibility signal"]
 
     return {
         "id": candidate_id(source["id"], page["url"]),
@@ -707,7 +864,7 @@ def update_meta_counts(payload: dict[str, Any]) -> None:
     meta = payload.setdefault("meta", {})
 
     meta["generated_at"] = now_iso()
-    meta["generator"] = "grant-radar-discovery 1.0"
+    meta["generator"] = "grant-radar-discovery 1.1"
     meta["candidate_count"] = len(candidates)
     meta["high_confidence_count"] = sum(
         1 for item in candidates
@@ -803,7 +960,6 @@ def main() -> None:
 
     final_candidates = list(discovered_map.values())
 
-    # Keep previously completed items even if not seen this run, so history is not lost.
     for previous in previous_payload.get("candidates", []):
         if previous.get("status") not in {"promoted", "rejected"}:
             continue
@@ -836,7 +992,7 @@ def main() -> None:
 
     memory_payload = {
         "generated_at": seen_at,
-        "generator": "grant-radar-discovery 1.0",
+        "generator": "grant-radar-discovery 1.1",
         "sources": memory_sources,
     }
     save_json(MEMORY_PATH, memory_payload)
