@@ -1464,20 +1464,23 @@
       "title": "GOIPG | Research Ireland Government of Ireland Postgraduate Scholarship",
       "programme": "Government of Ireland Postgraduate Scholarship",
       "summary_hint": "GOIPG postgraduate scholarship route for research training, environmental research, water quality, biodiversity, and nature-based solutions.",
-      "status_hint": "open",
+      "status_hint": "closed",
+      "programme_kind": "recurring_programme",
+      "programme_state": "closed",
       "scale": "major",
       "access_route": "direct",
       "applicant_types": [
         "researchers"
       ],
       "mode": "single_item",
-      "opportunity_type": "research funding"
+      "opportunity_type": "research funding",
+      "expected_next_window": "Sep–Oct 2026"
     },
     "trusted_domain": "researchireland.ie",
     "source_class": "programme_page",
     "discovery_enabled": true,
-    "cadence": "unknown",
-    "usual_open_months": [],
+    "cadence": "annual",
+    "usual_open_months": [9, 10],
     "watch_paths": [],
     "watch_terms": [
       "environmental research",
