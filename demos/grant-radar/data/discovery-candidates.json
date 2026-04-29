@@ -4,7 +4,7 @@
     "generator": "grant-radar-discovery 1.1",
     "candidate_count": 231,
     "high_confidence_count": 13,
-    "pending_review_count": 14,
+    "pending_review_count": 13,
     "promoted_count": 11,
     "rejected_count": 1,
     "suppressed_existing_count": 14,
@@ -635,12 +635,12 @@
       "source_id_hint": "assap_programme",
       "candidate_type": "support_page",
       "confidence": 0.61,
-      "promotion_signal": "amber",
-      "public_visible_state": "review_only",
+      "promotion_signal": "red",
+      "public_visible_state": "discovery_only",
       "promotion_reasons": [
         "good fit for practical/community use"
       ],
-      "status": "pending_review",
+      "status": "suppressed_existing",
       "suggested_purposes": [
         "water quality",
         "catchment delivery",
@@ -665,8 +665,19 @@
       "page_hash": "sha256:0a0033ada4d0ba095562a3d86d8d2b9b0cb5537be9704a0466836e1388312cec",
       "notes": "",
       "seen_in_latest_run": true,
-      "already_trusted": false,
-      "trusted_registry_id": null
+      "already_trusted": true,
+      "trusted_registry_id": "assap_programme",
+      "public_visibility": "discovery_only",
+      "promotion_requested": false,
+      "promotion_request_issue_number": null,
+      "promotion_request_issue_url": null,
+      "request_origin_status": null,
+      "cl_draft_ready": false,
+      "cl_draft_generated_at": null,
+      "cl_draft_json": null,
+      "cl_draft_html": null,
+      "admin_last_action": "promote_resolved_existing",
+      "admin_last_action_at": "2026-04-29T08:29:56+00:00"
     },
     {
       "id": "cand_heritage_community_grant_www_heritagecouncil_ie_ga_funding_sc_c3_a9im_deontais_oidhreachta_pobail_2",
