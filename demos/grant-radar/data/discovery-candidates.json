@@ -4,8 +4,8 @@
     "generator": "grant-radar-discovery 1.2",
     "candidate_count": 216,
     "high_confidence_count": 0,
-    "pending_review_count": 1,
-    "promoted_count": 17,
+    "pending_review_count": 0,
+    "promoted_count": 18,
     "rejected_count": 4,
     "suppressed_existing_count": 14,
     "suppressed_non_actionable_count": 180,
@@ -27,9 +27,9 @@
       "researchireland.ie": 21,
       "teagasc.ie": 22
     },
-    "last_admin_action_at": "2026-04-30T17:31:07+00:00",
+    "last_admin_action_at": "2026-04-30T17:32:16+00:00",
     "last_admin_action": "promote",
-    "last_admin_candidate_id": "cand_acres_scheme_www_gov_ie_ga_an_roinn_talmha_c3_adochta_bia_agus_mara_feachtais_agri_climate_rural_environment_scheme_acres"
+    "last_admin_candidate_id": "cand_assap_programme_teagasc_ie_crops_forestry_grants"
   },
   "candidates": [
     {
@@ -356,12 +356,12 @@
       "source_id_hint": "assap_programme",
       "candidate_type": "support_page",
       "confidence": 0.61,
-      "promotion_signal": "amber",
-      "public_visible_state": "review_only",
+      "promotion_signal": "green",
+      "public_visible_state": "discovery_only",
       "promotion_reasons": [
-        "good fit for practical/community use"
+        "Already covered by trusted source assap_programme"
       ],
-      "status": "pending_review",
+      "status": "promoted",
       "suggested_purposes": [
         "water quality",
         "catchment delivery",
@@ -386,10 +386,11 @@
       "page_hash": "sha256:a95e01179c2b6da464af73c04bc9a669732d4da8ab1ea84aeb51cab812e39f21",
       "notes": "",
       "seen_in_latest_run": true,
-      "already_trusted": false,
-      "trusted_registry_id": null,
+      "already_trusted": true,
+      "trusted_registry_id": "assap_programme",
       "admin_last_action": "promote_resolved_existing",
-      "admin_last_action_at": "2026-04-30T08:37:44+00:00"
+      "admin_last_action_at": "2026-04-30T17:32:16+00:00",
+      "admin_note": ""
     },
     {
       "id": "cand_heritage_community_grant_www_heritagecouncil_ie_funding_community_heritage_grant_scheme_2",
