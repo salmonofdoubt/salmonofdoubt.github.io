@@ -2064,5 +2064,78 @@
       "opportunity_type": "grant"
     },
     "allow_pdf_candidates": false
+  },
+  {
+    "id": "heritage_funding_opportunities",
+    "name": "Heritage Funding Opportunities",
+    "url": "https://www.heritagecouncil.ie/funding/heritage-funding-opportunities",
+    "scope": "Ireland",
+    "purposes": [
+      "biodiversity",
+      "heritage",
+      "community nature",
+      "education",
+      "surveys"
+    ],
+    "discovery_method": "promoted from Grant Radar review queue",
+    "note": "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
+    "trusted_domain": "heritagecouncil.ie",
+    "source_class": "programme_page",
+    "harvest_enabled": true,
+    "discovery_enabled": true,
+    "cadence": "unknown",
+    "usual_open_months": [],
+    "watch_paths": [],
+    "watch_terms": [
+      "biodiversity",
+      "heritage",
+      "community nature",
+      "education",
+      "surveys",
+      "community groups",
+      "heritage NGOs",
+      "trusted_domain_child",
+      "funding_token_in_title_or_url",
+      "actionable_language",
+      "practical_fit",
+      "applicant_types_present",
+      "access_route_present",
+      "scale_present",
+      "Heritage Funding Opportunities",
+      "Heritage Council Community Heritage Grant Scheme",
+      "grant",
+      "grants",
+      "fund",
+      "funding",
+      "call",
+      "calls",
+      "scheme",
+      "schemes",
+      "application",
+      "applications",
+      "water",
+      "catchment",
+      "climate",
+      "community",
+      "farmers",
+      "restoration",
+      "wetlands",
+      "peatlands"
+    ],
+    "extract": {
+      "title": "Heritage Funding Opportunities",
+      "programme": "Heritage Council Community Heritage Grant Scheme",
+      "summary_hint": "Heritage Funding Opportunities | The Heritage Council As Gaeilge About News and Events Jobs and Opportunities Search Our Projects & Programmes Funding Our Work With Others Advice and Guidance Publications Search Our Projects & Programmes Funding Overview What We're Funding This Year Online Grants System Heritage Funding Opportunities Standard Terms and Cond…",
+      "status_hint": "open",
+      "scale": "medium",
+      "access_route": "direct",
+      "applicant_types": [
+        "community groups",
+        "heritage NGOs"
+      ],
+      "mode": "single_item",
+      "opportunity_type": "grant"
+    },
+    "allow_pdf_candidates": false
   }
 ]
