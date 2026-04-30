@@ -4,7 +4,7 @@
     "generator": "grant-radar-discovery 1.2",
     "candidate_count": 211,
     "high_confidence_count": 13,
-    "pending_review_count": 6,
+    "pending_review_count": 5,
     "promoted_count": 11,
     "rejected_count": 1,
     "suppressed_existing_count": 14,
@@ -287,13 +287,13 @@
       "source_id_hint": "heritage_community_grant",
       "candidate_type": "call_page",
       "confidence": 0.67,
-      "promotion_signal": "amber",
-      "public_visible_state": "review_only",
+      "promotion_signal": "red",
+      "public_visible_state": "discovery_only",
       "promotion_reasons": [
         "application or call language detected",
         "good fit for practical/community use"
       ],
-      "status": "pending_review",
+      "status": "rejected",
       "suggested_purposes": [
         "biodiversity",
         "heritage",
@@ -321,7 +321,18 @@
       "notes": "",
       "seen_in_latest_run": true,
       "already_trusted": false,
-      "trusted_registry_id": null
+      "trusted_registry_id": null,
+      "public_visibility": "discovery_only",
+      "promotion_requested": false,
+      "promotion_request_issue_number": null,
+      "promotion_request_issue_url": null,
+      "request_origin_status": null,
+      "cl_draft_ready": false,
+      "cl_draft_generated_at": null,
+      "cl_draft_json": null,
+      "cl_draft_html": null,
+      "admin_last_action": "reject",
+      "admin_last_action_at": "2026-04-30T08:21:14+00:00"
     },
     {
       "id": "cand_gsi_geoheritage_www_gsi_ie_ga_ie_programmes_and_projects_geoheritage_projects_pages_annual_geoheritage_grant_funding_aspx",
