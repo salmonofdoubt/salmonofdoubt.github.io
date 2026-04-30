@@ -4,8 +4,8 @@
     "generator": "grant-radar-discovery 1.2",
     "candidate_count": 216,
     "high_confidence_count": 0,
-    "pending_review_count": 7,
-    "promoted_count": 11,
+    "pending_review_count": 6,
+    "promoted_count": 12,
     "rejected_count": 4,
     "suppressed_existing_count": 14,
     "suppressed_non_actionable_count": 180,
@@ -26,7 +26,10 @@
       "rea.ec.europa.eu": 2,
       "researchireland.ie": 21,
       "teagasc.ie": 22
-    }
+    },
+    "last_admin_action_at": "2026-04-30T17:09:24+00:00",
+    "last_admin_action": "promote",
+    "last_admin_candidate_id": "cand_heritage_community_grant_www_heritagecouncil_ie_funding"
   },
   "candidates": [
     {
@@ -44,12 +47,11 @@
       "candidate_type": "call_page",
       "confidence": 0.73,
       "promotion_signal": "green",
-      "public_visible_state": "review_only",
+      "public_visible_state": "discovery_only",
       "promotion_reasons": [
-        "application or call language detected",
-        "good fit for practical/community use"
+        "Promoted to trusted source registry as funding"
       ],
-      "status": "pending_review",
+      "status": "promoted",
       "suggested_purposes": [
         "biodiversity",
         "heritage",
@@ -76,10 +78,11 @@
       "page_hash": "sha256:5ff81d280b9264958e4849b5dcfddccdd039479ab3539911954ff978ede48633",
       "notes": "",
       "seen_in_latest_run": true,
-      "already_trusted": false,
-      "trusted_registry_id": null,
-      "admin_last_action": "promote_resolved_existing",
-      "admin_last_action_at": "2026-04-30T08:00:23+00:00"
+      "already_trusted": true,
+      "trusted_registry_id": "funding",
+      "admin_last_action": "promote",
+      "admin_last_action_at": "2026-04-30T17:09:24+00:00",
+      "admin_note": ""
     },
     {
       "id": "cand_heritage_community_grant_www_heritagecouncil_ie_funding_heritage_funding_opportunities",
