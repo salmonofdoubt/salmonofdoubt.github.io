@@ -45,11 +45,269 @@ jobs:
           pip install -r demos/grant-radar/ops/requirements.txt
 
       - name: Apply admin action
+        env:
+          GRANT_RADAR_ACTION: ${{ inputs.action }}
+          GRANT_RADAR_CANDIDATE_ID: ${{ inputs.candidate_id }}
+          GRANT_RADAR_NOTE: ${{ inputs.note }}
         run: |
-          python demos/grant-radar/admin/admin_set_candidate_state.py \
-            --candidate-id "${{ inputs.candidate_id }}" \
-            --action "${{ inputs.action }}" \
-            --note "${{ inputs.note }}"
+          python - <<'PY'
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          import os
+          import re
+          import sys
+          from datetime import UTC, datetime
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          DATA_DIR = Path("demos/grant-radar/data")
+          DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
+          REGISTRY_PATH = DATA_DIR / "source-registry.json"
+
+          action = os.environ["GRANT_RADAR_ACTION"].strip().lower()
+          candidate_id = os.environ["GRANT_RADAR_CANDIDATE_ID"].strip()
+          note = os.environ.get("GRANT_RADAR_NOTE", "").strip()
+          now = datetime.now(UTC).replace(microsecond=0).isoformat()
+
+          if action not in {"promote", "reject"}:
+              raise SystemExit(f"Unsupported action: {action}")
+
+          def load_json(path: Path, default):
+              if not path.exists():
+                  return default
+              return json.loads(path.read_text(encoding="utf-8"))
+
+          def save_json(path: Path, data) -> None:
+              path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          def slugify(value: str) -> str:
+              value = value.lower()
+              value = re.sub(r"[^a-z0-9]+", "_", value)
+              return value.strip("_") or "grant_radar_item"
+
+          def clean_title(title: str) -> str:
+              title = re.sub(r"\s+", " ", title or "").strip()
+              title = re.split(r"\s+\|\s+", title, maxsplit=1)[0].strip()
+              return title or "Promoted Grant Radar candidate"
+
+          def canonical_family_key(url: str) -> str:
+              parsed = urlparse(url)
+              return f"{parsed.scheme.lower()}://{parsed.netloc.lower()}{parsed.path.rstrip('/')}"
+
+          def candidate_matches_registry(candidate: dict, registry: list[dict]) -> dict | None:
+              cand_url = (candidate.get("url") or "").rstrip("/")
+              cand_family = candidate.get("canonical_family_key") or canonical_family_key(cand_url)
+
+              for item in registry:
+                  if (item.get("url") or "").rstrip("/") == cand_url:
+                      return item
+                  if canonical_family_key(item.get("url", "")) == cand_family:
+                      return item
+              return None
+
+          def make_unique_source_id(base: str, registry: list[dict], url: str) -> str:
+              existing_ids = {item.get("id") for item in registry}
+              source_id = slugify(base)[:72]
+              if source_id not in existing_ids:
+                  return source_id
+
+              digest = hashlib.sha1(url.encode("utf-8")).hexdigest()[:8]
+              source_id = f"{source_id[:60]}_{digest}"
+              counter = 2
+              while source_id in existing_ids:
+                  source_id = f"{source_id[:55]}_{digest}_{counter}"
+                  counter += 1
+              return source_id
+
+          def dedupe(values) -> list[str]:
+              out = []
+              seen = set()
+              for value in values or []:
+                  clean = str(value).strip()
+                  if clean and clean.lower() not in seen:
+                      out.append(clean)
+                      seen.add(clean.lower())
+              return out
+
+          def compact_snippet(text: str, limit: int = 360) -> str:
+              text = re.sub(r"\s+", " ", text or "").strip()
+              if len(text) <= limit:
+                  return text
+              return text[: limit - 1].rstrip() + "…"
+
+          def default_status_hint(candidate: dict) -> str:
+              haystack = " ".join([
+                  str(candidate.get("title", "")),
+                  str(candidate.get("snippet", "")),
+                  str(candidate.get("deadline_hint", "")),
+              ]).lower()
+
+              if any(token in haystack for token in ["deadline", "apply", "applications", "open call", "call for proposals"]):
+                  return "open"
+              return "open"
+
+          discovery = load_json(DISCOVERY_PATH, {"meta": {}, "candidates": []})
+          registry = load_json(REGISTRY_PATH, [])
+
+          candidates = discovery.get("candidates", [])
+          candidate = next((item for item in candidates if item.get("id") == candidate_id), None)
+
+          if not candidate:
+              available = "\n".join(f"- {item.get('id')}" for item in candidates[:25])
+              raise SystemExit(
+                  f"Candidate not found: {candidate_id}\n"
+                  f"First available candidate IDs:\n{available}"
+              )
+
+          if action == "reject":
+              candidate["status"] = "rejected"
+              candidate["public_visible_state"] = "discovery_only"
+              candidate["promotion_signal"] = "red"
+              candidate["admin_last_action"] = "reject"
+              candidate["admin_last_action_at"] = now
+              candidate["admin_note"] = note
+              candidate["promotion_reasons"] = [f"Rejected by admin{': ' + note if note else ''}"]
+
+          if action == "promote":
+              existing = candidate_matches_registry(candidate, registry)
+
+              if existing:
+                  candidate["status"] = "promoted"
+                  candidate["public_visible_state"] = "discovery_only"
+                  candidate["promotion_signal"] = "green"
+                  candidate["already_trusted"] = True
+                  candidate["trusted_registry_id"] = existing.get("id")
+                  candidate["admin_last_action"] = "promote_resolved_existing"
+                  candidate["admin_last_action_at"] = now
+                  candidate["admin_note"] = note
+                  candidate["promotion_reasons"] = [
+                      f"Already covered by trusted source {existing.get('id')}"
+                  ]
+              else:
+                  title = clean_title(candidate.get("title", ""))
+                  url = candidate.get("url", "")
+                  domain = candidate.get("domain") or urlparse(url).netloc.lower().replace("www.", "")
+                  source_hint = candidate.get("source_hint") or title
+                  source_id_base = title or candidate_id.replace("cand_", "")
+                  source_id = make_unique_source_id(source_id_base, registry, url)
+
+                  purposes = dedupe(candidate.get("suggested_purposes", []))
+                  applicant_types = dedupe(candidate.get("suggested_applicant_types", []))
+                  access_route = candidate.get("suggested_access_route") or "direct"
+                  scale = candidate.get("suggested_scale") or "medium"
+                  reason_flags = dedupe(candidate.get("reason_flags", []))
+
+                  watch_terms = dedupe(
+                      purposes
+                      + applicant_types
+                      + reason_flags
+                      + [
+                          title,
+                          source_hint,
+                          "grant",
+                          "grants",
+                          "fund",
+                          "funding",
+                          "call",
+                          "calls",
+                          "scheme",
+                          "schemes",
+                          "application",
+                          "applications",
+                          "water",
+                          "catchment",
+                          "biodiversity",
+                          "climate",
+                          "community",
+                          "farmers",
+                          "restoration",
+                          "wetlands",
+                          "peatlands",
+                      ]
+                  )
+
+                  registry_entry = {
+                      "id": source_id,
+                      "name": title,
+                      "url": url,
+                      "scope": "Ireland" if domain.endswith(".ie") or domain in {"gov.ie", "lawaters.ie"} else "European Union",
+                      "purposes": purposes,
+                      "discovery_method": "promoted from Grant Radar review queue",
+                      "note": note or "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
+                      "trusted_domain": domain,
+                      "source_class": "programme_page",
+                      "harvest_enabled": True,
+                      "discovery_enabled": True,
+                      "cadence": "unknown",
+                      "usual_open_months": [],
+                      "watch_paths": [],
+                      "watch_terms": watch_terms,
+                      "extract": {
+                          "title": title,
+                          "programme": source_hint,
+                          "summary_hint": compact_snippet(candidate.get("snippet", "")),
+                          "status_hint": default_status_hint(candidate),
+                          "scale": scale,
+                          "access_route": access_route,
+                          "applicant_types": applicant_types,
+                          "mode": "single_item",
+                          "opportunity_type": "grant",
+                      },
+                      "allow_pdf_candidates": False,
+                  }
+
+                  registry.append(registry_entry)
+
+                  candidate["status"] = "promoted"
+                  candidate["public_visible_state"] = "discovery_only"
+                  candidate["promotion_signal"] = "green"
+                  candidate["already_trusted"] = True
+                  candidate["trusted_registry_id"] = source_id
+                  candidate["admin_last_action"] = "promote"
+                  candidate["admin_last_action_at"] = now
+                  candidate["admin_note"] = note
+                  candidate["promotion_reasons"] = [
+                      f"Promoted to trusted source registry as {source_id}"
+                  ]
+
+          counts = {
+              "candidate_count": len(candidates),
+              "pending_review_count": 0,
+              "promoted_count": 0,
+              "rejected_count": 0,
+              "suppressed_existing_count": 0,
+              "suppressed_non_actionable_count": 0,
+          }
+
+          for item in candidates:
+              status = item.get("status")
+              if status == "pending_review":
+                  counts["pending_review_count"] += 1
+              elif status == "promoted":
+                  counts["promoted_count"] += 1
+              elif status == "rejected":
+                  counts["rejected_count"] += 1
+              elif status == "suppressed_existing":
+                  counts["suppressed_existing_count"] += 1
+              elif status == "suppressed_non_actionable":
+                  counts["suppressed_non_actionable_count"] += 1
+
+          discovery.setdefault("meta", {})
+          discovery["meta"].update(counts)
+          discovery["meta"]["last_admin_action_at"] = now
+          discovery["meta"]["last_admin_action"] = action
+          discovery["meta"]["last_admin_candidate_id"] = candidate_id
+
+          save_json(DISCOVERY_PATH, discovery)
+          save_json(REGISTRY_PATH, registry)
+
+          print(f"Applied {action} to {candidate_id}")
+          PY
+
+      - name: Refresh trusted catalogue
+        run: python demos/grant-radar/ops/harvest_grants.py
 
       - name: Commit updated Grant Radar files
         run: |
