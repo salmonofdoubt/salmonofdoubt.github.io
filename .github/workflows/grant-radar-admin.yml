@@ -97,15 +97,32 @@ jobs:
               return f"{parsed.scheme.lower()}://{parsed.netloc.lower()}{parsed.path.rstrip('/')}"
 
           def candidate_matches_registry(candidate: dict, registry: list[dict]) -> dict | None:
-              cand_url = (candidate.get("url") or "").rstrip("/")
-              cand_family = candidate.get("canonical_family_key") or canonical_family_key(cand_url)
+            # First trust the discovery pipeline's own source hint.
+            # If a candidate came from a known source, promotion should normally resolve
+            # against that source rather than create a child-page duplicate.
+            source_id_hint = str(candidate.get("source_id_hint") or "").strip()
+            if source_id_hint:
+                for item in registry:
+                    if item.get("id") == source_id_hint:
+                        return item
 
-              for item in registry:
-                  if (item.get("url") or "").rstrip("/") == cand_url:
-                      return item
-                  if canonical_family_key(item.get("url", "")) == cand_family:
-                      return item
-              return None
+            source_hint = str(candidate.get("source_hint") or "").strip().lower()
+            if source_hint:
+                for item in registry:
+                    if str(item.get("name") or "").strip().lower() == source_hint:
+                        return item
+
+            cand_url = (candidate.get("url") or "").rstrip("/")
+            cand_family = candidate.get("canonical_family_key") or canonical_family_key(cand_url)
+
+            for item in registry:
+                if (item.get("url") or "").rstrip("/") == cand_url:
+                    return item
+                if canonical_family_key(item.get("url", "")) == cand_family:
+                    return item
+
+            return None
+            
 
           def make_unique_source_id(base: str, registry: list[dict], url: str) -> str:
               existing_ids = {item.get("id") for item in registry}
@@ -187,6 +204,35 @@ jobs:
                   ]
               else:
                   title = clean_title(candidate.get("title", ""))
+                  generic_titles = {
+                      "funding",
+                      "funding programmes",
+                      "funding opportunities",
+                      "heritage funding opportunities",
+                      "online grants system",
+                      "awards database",
+                      "success stories",
+                      "publications",
+                      "about us",
+                      "contact",
+                  }
+
+                  if title.lower() in generic_titles:
+                      candidate["status"] = "suppressed_existing"
+                      candidate["public_visible_state"] = "discovery_only"
+                      candidate["promotion_signal"] = "red"
+                      candidate["admin_last_action"] = "promote_blocked_generic_child_page"
+                      candidate["admin_last_action_at"] = now
+                      candidate["admin_note"] = note
+                      candidate["promotion_reasons"] = [
+                          f"Generic child/navigation page blocked from promotion: {title}"
+                      ]
+                      save_json(DISCOVERY_PATH, discovery)
+                      save_json(REGISTRY_PATH, registry)
+                      print(f"Blocked generic child page from promotion: {candidate_id}")
+                      raise SystemExit(0)
+                      
+                  
                   url = candidate.get("url", "")
                   domain = candidate.get("domain") or urlparse(url).netloc.lower().replace("www.", "")
                   source_hint = candidate.get("source_hint") or title
