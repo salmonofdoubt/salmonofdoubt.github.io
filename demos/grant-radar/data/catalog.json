@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Grant Radar",
-    "generated_at": "2026-05-01T16:00:51+00:00",
+    "generated_at": "2026-05-01T16:18:06+00:00",
     "generator": "grant-radar-demo 1.5.0",
     "available_purposes": [
       "advisory support",
@@ -82,9 +82,9 @@
       "public_visible"
     ],
     "public_visible_count": 27,
-    "discovery_only_count": 2,
-    "archived_count": 2,
-    "total_harvested_count": 29
+    "discovery_only_count": 3,
+    "archived_count": 3,
+    "total_harvested_count": 30
   },
   "sources": [
     {
@@ -100,10 +100,9 @@
         "farm payments"
       ],
       "note": "Ireland's flagship agri-environment climate scheme with major water-quality relevance through actions, NPIs and landscape measures.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official scheme page monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/campaigns/agri-climate-rural-environment-scheme-acres/"
+      "fetch_status": "ok"
     },
     {
       "id": "assap_programme",
@@ -118,7 +117,7 @@
         "advisory support"
       ],
       "note": "Free and confidential advisory service working with farmers in priority areas for action to improve water quality.",
-      "last_checked": "2026-05-01T15:10:21+00:00",
+      "last_checked": "2026-05-01T16:18:08+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -152,10 +151,9 @@
         "decarbonisation"
       ],
       "note": "START local-authority-led climate action scheme with community relevance.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official press release monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-climate-energy-and-the-environment/press-releases/minister-obrien-announces-new-funding-of-almost-35-million-to-underpin-climate-action-in-our-communities/"
+      "fetch_status": "ok"
     },
     {
       "id": "enterprise_ireland_greenplus",
@@ -169,7 +167,7 @@
         "climate action"
       ],
       "note": "Business sustainability support route.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -185,7 +183,7 @@
         "climate adaptation"
       ],
       "note": "Direct call page with explicit key dates.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -202,10 +200,9 @@
         "nature-based solutions"
       ],
       "note": "Targeted farm-delivery programme aimed at improving water quality at local, catchment and national levels.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official press release and programme monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/ministers-mcconalogue-hackett-and-noonan-launch-60-million-farming-for-water-eip/"
+      "fetch_status": "ok"
     },
     {
       "id": "farming_for_water_eip_gov_ie",
@@ -220,10 +217,9 @@
         "nature-based solutions"
       ],
       "note": "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "promoted from review queue",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme"
+      "fetch_status": "ok"
     },
     {
       "id": "gsi_geoheritage",
@@ -237,7 +233,7 @@
         "community nature"
       ],
       "note": "Community-based geoheritage grant stream.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -254,7 +250,7 @@
         "surveys"
       ],
       "note": "National community heritage and biodiversity grant stream.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -270,10 +266,9 @@
         "nature-based solutions"
       ],
       "note": "Biodiversity topic page with deadline markers.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en"
+      "fetch_status": "ok"
     },
     {
       "id": "ifi_habitats_conservation",
@@ -288,7 +283,7 @@
         "catchment delivery"
       ],
       "note": "Practical habitat and river-restoration funding route open to eligible third parties including clubs, local authorities and tidy towns groups.",
-      "last_checked": "2026-05-01T15:49:08+00:00",
+      "last_checked": "2026-05-01T16:18:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -305,9 +300,10 @@
         "capacity building"
       ],
       "note": "Capacity-building and core-cost support for catchment partnerships and local delivery bodies.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Read timed out. (read timeout=10)"
     },
     {
       "id": "lawpro_cwdf",
@@ -322,9 +318,10 @@
         "education"
       ],
       "note": "Community and voluntary funding route for local water-quality projects and awareness action.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Read timed out. (read timeout=10)"
     },
     {
       "id": "lawpro_small_grants",
@@ -339,9 +336,10 @@
         "education"
       ],
       "note": "Small-scale community water-awareness, survey, signage, education and event route.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Read timed out. (read timeout=10)"
     },
     {
       "id": "leader_programme",
@@ -356,10 +354,9 @@
         "renewable energy"
       ],
       "note": "Rolling rural development route that can support environmental, catchment and community actions through Local Action Groups.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official programme page monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development/"
+      "fetch_status": "ok"
     },
     {
       "id": "leo_energy_efficiency",
@@ -373,7 +370,7 @@
         "climate action"
       ],
       "note": "Local LEO green supports including Energy Efficiency Grant.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -390,10 +387,9 @@
         "wetlands"
       ],
       "note": "Seed page before topic-level portal extraction.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en"
+      "fetch_status": "ok"
     },
     {
       "id": "npws_local_biodiversity_action_fund",
@@ -407,7 +403,7 @@
         "community nature"
       ],
       "note": "Local-authority-led biodiversity route with practical habitat and partnership relevance for catchment and community delivery.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -423,10 +419,9 @@
         "conservation"
       ],
       "note": "Award update for the community conservation scheme.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official press release monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects/"
+      "fetch_status": "ok"
     },
     {
       "id": "research_ireland_goipg",
@@ -441,10 +436,9 @@
         "nature-based solutions"
       ],
       "note": "Recurring national postgraduate scholarship scheme.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T14:41:46+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/government-ireland-postgraduate/"
+      "fetch_status": "ok"
     },
     {
       "id": "seai_community_grant",
@@ -458,7 +452,7 @@
         "climate action"
       ],
       "note": "SEAI community capital-funding route managed via project coordinators.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/community-grants"
@@ -475,7 +469,7 @@
         "decarbonisation"
       ],
       "note": "National energy RD&D funding stream; 2026 call signalled as opening soon.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund"
@@ -492,7 +486,7 @@
         "decarbonisation"
       ],
       "note": "SEC network and Energy Master Plan support route.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community"
@@ -510,7 +504,7 @@
         "advisory support"
       ],
       "note": "Free advisory and demonstration-farm route with explicit water-quality and biodiversity co-benefits.",
-      "last_checked": "2026-05-01T15:10:40+00:00",
+      "last_checked": "2026-05-01T16:12:38+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -544,10 +538,10 @@
         "education"
       ],
       "note": "Waterway-focused small community grant.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T16:18:06+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))"
     },
     {
       "id": "research_ireland_discover",
@@ -563,10 +557,9 @@
         "environmental research"
       ],
       "note": "Public engagement and STEM awareness programme with relevance to climate action, sustainability, co-creation and community-facing research engagement.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T14:41:41+00:00",
       "discovery_method": "official Research Ireland programme page monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/discover/"
+      "fetch_status": "ok"
     },
     {
       "id": "research_ireland_discover_opportunistic",
@@ -582,10 +575,25 @@
         "environmental research"
       ],
       "note": "Open rolling public-engagement route listed by Research Ireland for STEM education and public engagement activity.",
-      "last_checked": "2026-05-01T16:00:51+00:00",
+      "last_checked": "2026-05-01T14:41:46+00:00",
       "discovery_method": "official Research Ireland funding index monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/"
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geoheritage_grant_funding",
+      "name": "Geoheritage Grant Funding",
+      "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/activities/geotourism/Pages/GSI-Geoheritage-Grant-Funding-.aspx",
+      "scope": "Ireland",
+      "purposes": [
+        "geoscience",
+        "heritage",
+        "education",
+        "community nature"
+      ],
+      "note": "Decision: promote State: closed Kind: recurring programme Visibility: public-visible NDRT relevance: maybe Research relevance: include Farmer mode: exclude",
+      "last_checked": "2026-05-01T16:18:06+00:00",
+      "discovery_method": "promoted from Grant Radar review queue",
+      "fetch_status": "ok"
     }
   ],
   "opportunities": [
@@ -634,7 +642,7 @@
       "programme_state": "closed",
       "expected_next_window": "Sep–Nov 2027",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -648,11 +656,11 @@
         "ndrt": "Farmer payment route, not a Trust delivery opportunity.",
         "farmer": "Direct farmer agri-environment scheme."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/campaigns/agri-climate-rural-environment-scheme-acres/",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "assap_programme_assap",
@@ -699,7 +707,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T15:10:21+00:00",
+      "last_verified_at": "2026-05-01T16:18:08+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -717,7 +725,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T15:10:21+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:08+00:00"
     },
     {
       "id": "better_farming_for_water_teagasc_better_farming_for_water",
@@ -834,7 +842,7 @@
       "programme_state": "upcoming",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -847,11 +855,11 @@
       "mode_reason": {
         "ndrt": "Community climate route that can support habitat, biodiversity, and local adaptation work where eligible."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-climate-energy-and-the-environment/press-releases/minister-obrien-announces-new-funding-of-almost-35-million-to-underpin-climate-action-in-our-communities/",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "enterprise_ireland_greenplus_enterprise_ireland_greenplus",
@@ -902,7 +910,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -919,7 +927,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "epa_research_call_epa_research_call_2026",
@@ -969,7 +977,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -987,7 +995,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "farming_for_water_eip_farming_for_water_eip",
@@ -1034,7 +1042,7 @@
       "programme_state": "open",
       "expected_next_window": "Feb–Apr 2026",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1048,11 +1056,11 @@
         "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
         "farmer": "Direct water-quality implementation route for farms."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/ministers-mcconalogue-hackett-and-noonan-launch-60-million-farming-for-water-eip/",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "farming_for_water_eip_gov_ie_european_innovation_partnership_scheme",
@@ -1099,7 +1107,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1113,11 +1121,11 @@
         "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
         "farmer": "Direct water-quality implementation route for farms."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "gsi_geoheritage_gsi_geoheritage_grant_scheme_watch",
@@ -1168,7 +1176,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1185,7 +1193,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "heritage_community_grant_heritage_council_community_heritage_grant_scheme",
@@ -1237,7 +1245,7 @@
       "programme_state": "closed",
       "expected_next_window": "Expected 2027 round",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1254,7 +1262,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "horizon_biodiv_horizon_cl6_2026_01_biodiv",
@@ -1304,7 +1312,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1318,11 +1326,11 @@
         "ndrt": "Research consortium route, not a direct Trust funding route.",
         "research": "Relevant to biodiversity and ecosystem-services research consortia."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "ifi_habitats_conservation_ifi_habitats_conservation_funding_call",
@@ -1378,7 +1386,7 @@
       "programme_state": "closed",
       "expected_next_window": "Oct–Dec 2026",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T15:49:08+00:00",
+      "last_verified_at": "2026-05-01T16:18:19+00:00",
       "last_open_year": 2025,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1395,7 +1403,7 @@
       "state_confidence": 0.82,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T15:49:08+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:19+00:00"
     },
     {
       "id": "lawpro_catchment_support_fund_lawpro_catchment_support_fund",
@@ -1464,10 +1472,10 @@
       "mode_reason": {
         "ndrt": "Directly relevant to catchment partnerships and community water-quality delivery."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Read timed out. (read timeout=10)",
       "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
     },
     {
@@ -1537,10 +1545,10 @@
       "mode_reason": {
         "ndrt": "Directly relevant to community-led water-quality projects, awareness, monitoring, and restoration."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Read timed out. (read timeout=10)",
       "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
     },
     {
@@ -1606,10 +1614,10 @@
       "mode_reason": {
         "ndrt": "Directly relevant to small community water events, citizen science, signage, surveys, and outreach."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Read timed out. (read timeout=10)",
       "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
     },
     {
@@ -1667,7 +1675,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1680,11 +1688,11 @@
       "mode_reason": {
         "ndrt": "Can support rural community, environmental, and catchment-related projects through Local Action Groups."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development/",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "leo_energy_efficiency_leo_energy_efficiency_grant",
@@ -1733,7 +1741,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1750,7 +1758,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "life_calls_life_calls_for_proposals_2026",
@@ -1805,7 +1813,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1819,11 +1827,11 @@
         "ndrt": "Large EU call route, not a normal small Trust delivery route.",
         "research": "Relevant to research and institutional consortia."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "npws_local_biodiversity_action_fund_local_biodiversity_action_fund",
@@ -1877,7 +1885,7 @@
       "programme_state": "closed",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1894,7 +1902,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T16:00:51+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "npws_peatlands_natura_scheme_peatlands_and_natura_community_engagement_scheme_2026_results",
@@ -1944,7 +1952,7 @@
       "programme_state": "archived",
       "expected_next_window": null,
       "public_visible_state": "discovery_only",
-      "last_verified_at": "2026-05-01T14:19:29+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "archived",
       "current_availability": "closed",
@@ -1957,11 +1965,11 @@
       "mode_reason": {
         "ndrt": "Community conservation route relevant where peatland, Natura, or habitat work overlaps with the catchment."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects/",
-      "last_successful_fetch_at": "2026-05-01T14:19:29+00:00"
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     },
     {
       "id": "research_ireland_goipg_goipg_research_ireland_government_of_ireland_postgraduate_scholarship",
@@ -2008,7 +2016,7 @@
       "programme_state": "upcoming",
       "expected_next_window": "Sep–Oct 2026",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T13:53:33+00:00",
+      "last_verified_at": "2026-05-01T14:41:46+00:00",
       "last_open_year": 2025,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2022,11 +2030,11 @@
         "ndrt": "Postgraduate scholarship route, not a Trust delivery opportunity.",
         "research": "Directly relevant to postgraduate researchers."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/government-ireland-postgraduate/",
-      "last_successful_fetch_at": "2026-05-01T13:53:33+00:00"
+      "state_source": "page_status_upcoming",
+      "state_confidence": 0.9,
+      "page_status": "upcoming",
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T14:41:46+00:00"
     },
     {
       "id": "seai_community_grant_seai_community_grant",
@@ -2083,7 +2091,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2152,7 +2160,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2224,7 +2232,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2288,7 +2296,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T15:10:40+00:00",
+      "last_verified_at": "2026-05-01T16:12:38+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2306,7 +2314,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-01T15:10:40+00:00"
+      "last_successful_fetch_at": "2026-05-01T16:12:38+00:00"
     },
     {
       "id": "teagasc_walsh_teagasc_walsh_scholars_2026_opportunities",
@@ -2426,7 +2434,7 @@
       "programme_state": "archived",
       "expected_next_window": null,
       "public_visible_state": "discovery_only",
-      "last_verified_at": "2026-05-01T16:00:51+00:00",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
       "last_open_year": null,
       "public_visibility": "archived",
       "current_availability": "closed",
@@ -2442,7 +2450,7 @@
       "state_source": "registry_fallback_after_fetch_error",
       "state_confidence": 0.35,
       "fetch_status": "error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
       "last_successful_fetch_at": null
     },
     {
@@ -2505,7 +2513,7 @@
       "programme_state": "open",
       "expected_next_window": "Open now, deadline 11 June 2026, 13:00 local Irish time",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T13:53:28+00:00",
+      "last_verified_at": "2026-05-01T14:41:41+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2519,11 +2527,11 @@
         "ndrt": "Potentially relevant for public engagement, citizen science, sustainability outreach, school engagement and community-facing catchment education.",
         "research": "Relevant to research engagement, public engagement and impact-oriented outreach."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/discover/",
-      "last_successful_fetch_at": "2026-05-01T13:53:28+00:00"
+      "state_source": "deadline_future",
+      "state_confidence": 0.9,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T14:41:41+00:00"
     },
     {
       "id": "research_ireland_discover_opportunistic_research_ireland_discover_programme_opportunistic_funding_mechanism",
@@ -2585,7 +2593,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T13:53:33+00:00",
+      "last_verified_at": "2026-05-01T14:41:46+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2599,11 +2607,62 @@
         "ndrt": "Potentially relevant for public engagement, citizen science, sustainability outreach, school engagement and community-facing catchment education.",
         "research": "Relevant to public engagement and impact-oriented research engagement."
       },
-      "state_source": "last_known_good",
-      "state_confidence": 0.7,
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/",
-      "last_successful_fetch_at": "2026-05-01T13:53:33+00:00"
+      "state_source": "page_status_open",
+      "state_confidence": 0.95,
+      "page_status": "open",
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T14:41:46+00:00"
+    },
+    {
+      "id": "geoheritage_grant_funding_geoheritage_grant_funding",
+      "source_id": "geoheritage_grant_funding",
+      "source_name": "Geoheritage Grant Funding",
+      "title": "Geoheritage Grant Funding",
+      "programme": "Geological Survey Ireland geoheritage watch",
+      "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/activities/geotourism/Pages/GSI-Geoheritage-Grant-Funding-.aspx",
+      "summary": "Geoheritage Grant Funding Expand Navigation Data and Maps Topics Programmes Research Education Publications Events More on Us Contact Us Twitter Search Submit Search You are here: Geological Survey Ireland Programmes & Projects Geoheritage Activities Geotourism Geoheritage Grant Funding Geoheritage Grant Funding Page Content ​​Geological Survey Ireland offe…",
+      "status": "closed",
+      "change_type": "new",
+      "changed_at": "2026-05-01T16:18:06+00:00",
+      "deadline_iso": "2025-09-24T00:00:00+00:00",
+      "deadline_text": "24th September 2025",
+      "region": "Ireland",
+      "audience": [],
+      "applicant_types": [],
+      "access_route": "direct",
+      "scale": "medium",
+      "purposes": [
+        "geoscience",
+        "heritage",
+        "education",
+        "community nature"
+      ],
+      "keywords": [
+        "community nature",
+        "education",
+        "geoheritage grant funding",
+        "geoscience",
+        "grant",
+        "heritage"
+      ],
+      "cta_label": "Open Geoheritage Grant Funding",
+      "opportunity_type": "grant",
+      "programme_kind": "one_off_call",
+      "programme_state": "archived",
+      "expected_next_window": null,
+      "public_visible_state": "discovery_only",
+      "last_verified_at": "2026-05-01T16:18:06+00:00",
+      "last_open_year": 2025,
+      "public_visibility": "archived",
+      "current_availability": "closed",
+      "recurrence_type": "one_off",
+      "mode_relevance": {},
+      "mode_reason": {},
+      "state_source": "deadline_past_one_off",
+      "state_confidence": 0.82,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00"
     }
   ]
 }

@@ -16,11 +16,11 @@
     "candidate_type": "recurring_programme",
     "confidence": 0.9,
     "promotion_signal": "green",
-    "public_visible_state": "review_only",
+    "public_visible_state": "discovery_only",
     "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
+      "Promoted to trusted source registry as geoheritage_grant_funding"
     ],
-    "status": "pending_review",
+    "status": "promoted",
     "suggested_purposes": [
       "geoscience",
       "heritage",
@@ -38,9 +38,12 @@
     "deadline_hint": "Deadline",
     "latest_year_hint": 2025,
     "page_hash": "sha256:5fe201001dcacfbed0d20c448b730676825bb19da1bd6bfde28a84535ef5b183",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
+    "already_trusted": true,
+    "trusted_registry_id": "geoheritage_grant_funding",
+    "notes": "",
+    "admin_last_action": "promote",
+    "admin_last_action_at": "2026-05-01T16:18:06+00:00",
+    "admin_note": "Decision: promote State: closed Kind: recurring programme Visibility: public-visible NDRT relevance: maybe Research relevance: include Farmer mode: exclude"
   },
   {
     "id": "cand_gsi_geoheritage_watch_www_gsi_ie_en_ie_programmes_and_projects_geoheritage_activities_pages_default_aspx",
