@@ -793,7 +793,7 @@ select:focus,
 }
 
 .meta-grid-opportunity {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .meta-grid dt {
@@ -832,6 +832,60 @@ select:focus,
 .opportunity-card .card-summary {
   max-width: 92ch;
 }
+
+.card-readout {
+  width: min(100%, 250px);
+  margin: 0.78rem 0 0.95rem;
+  padding: 0.62rem 0.72rem;
+  color: #172018;
+  background:
+    linear-gradient(180deg, rgba(255, 244, 162, 0.98), rgba(227, 195, 71, 0.96));
+  border: 1px solid rgba(57, 45, 9, 0.38);
+  border-radius: 7px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 10px 20px rgba(0, 0, 0, 0.16);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.card-readout-title {
+  margin: 0 0 0.42rem;
+  padding-bottom: 0.28rem;
+  border-bottom: 1px solid rgba(57, 45, 9, 0.22);
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+
+.readout-row {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 0.45rem;
+  margin-bottom: 0.18rem;
+  font-size: 0.72rem;
+  line-height: 1.23;
+}
+
+.readout-row:last-child {
+  margin-bottom: 0;
+}
+
+.readout-label {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.035em;
+  opacity: 0.72;
+}
+
+.readout-value {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 650;
+  opacity: 0.96;
+}
+
 
 .opportunity-card .purpose-tags {
   margin-top: 0.15rem;

@@ -269,6 +269,43 @@ function makeTag(text, className = '') {
   return span;
 }
 
+function compactList(values, fallback = '—', limit = 2) {
+  const clean = [...new Set((values || []).filter(Boolean).map((value) => titleCaseLabel(String(value))))];
+
+  if (clean.length === 0) return fallback;
+  if (clean.length <= limit) return clean.join(', ');
+
+  return `${clean.slice(0, limit).join(', ')} +${clean.length - limit}`;
+}
+
+function fitValueForMode(item) {
+  const relevance = item.mode_relevance || {};
+  const labelMap = {
+    ndrt: 'NDRT',
+    research: 'Research',
+    farmer: 'Farmer',
+  };
+  const valueMap = {
+    include: 'yes',
+    maybe: 'maybe',
+    exclude: 'no',
+  };
+
+  if (state.activeMode !== 'all') {
+    const value = relevance[state.activeMode] || 'exclude';
+    return `${labelMap[state.activeMode] || state.activeMode}: ${valueMap[value] || value}`;
+  }
+
+  const preferred = ['ndrt', 'research', 'farmer'];
+  const best = preferred.find((key) => relevance[key] === 'include')
+    || preferred.find((key) => relevance[key] === 'maybe')
+    || preferred.find((key) => relevance[key] === 'exclude');
+
+  if (!best) return '—';
+
+  return `${labelMap[best]}: ${valueMap[relevance[best]] || relevance[best]}`;
+}
+
 function syncPurposeChipStates() {
   state.purposeChipButtons.forEach((button, label) => {
     button.classList.toggle('active', state.selectedPurposes.has(label));
@@ -595,13 +632,9 @@ function renderOpportunities(opportunities) {
     const programmeState = effectiveProgrammeState(item);
     const programmeKind = effectiveProgrammeKind(item);
 
-    topTags.appendChild(makeTag(item.source_name));
-    if (item.opportunity_type) topTags.appendChild(makeTag(item.opportunity_type));
-    if (item.scale) topTags.appendChild(makeTag(item.scale, 'tag-scale'));
-    if (item.access_route) topTags.appendChild(makeTag(item.access_route, 'tag-access'));
-
-    topTags.appendChild(makeTag(programmeStateLabel(programmeState), programmeStateTagClass(programmeState)));
-    topTags.appendChild(makeTag(programmeKindLabel(programmeKind), 'tone-neutral'));
+    if (item.source_name) {
+      topTags.appendChild(makeTag(item.source_name));
+    }
 
     if (item.change_type && item.change_type !== 'none') {
       topTags.appendChild(makeTag(item.change_type.replaceAll('_', ' '), getChangeTagClass(item.change_type)));
@@ -616,11 +649,16 @@ function renderOpportunities(opportunities) {
     root.querySelector('.deadline').textContent = formatDeadlineText(item);
     root.querySelector('.changed').textContent = item.changed_at ? fmtDate(item.changed_at) : fmtDate(item.last_verified_at);
     root.querySelector('.region').textContent = item.region || '—';
-    root.querySelector('.applicant').textContent = (item.applicant_types || item.audience || []).map(titleCaseLabel).join(', ') || '—';
-    root.querySelector('.access').textContent = titleCaseLabel(item.access_route || '—');
-    root.querySelector('.scale').textContent = titleCaseLabel(item.scale || '—');
 
-    (item.purposes || []).forEach((purpose) => purposeTags.appendChild(makeTag(purpose)));
+    root.querySelector('.readout-who').textContent = compactList(item.applicant_types || item.audience || [], 'Not specified', 2);
+    root.querySelector('.readout-route').textContent = titleCaseLabel(item.access_route || 'Direct / check source');
+    root.querySelector('.readout-scale').textContent = titleCaseLabel(item.scale || 'Not specified');
+    root.querySelector('.readout-use').textContent = compactList(item.purposes || [], item.opportunity_type || 'General', 2);
+    root.querySelector('.readout-fit').textContent = fitValueForMode(item);
+
+    if (purposeTags) {
+      purposeTags.remove();
+    }
 
     const openLink = root.querySelector('.open-link');
     openLink.href = item.url;
