@@ -21,6 +21,7 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 concurrency:
   group: repo-master-writes
@@ -403,3 +404,10 @@ jobs:
             echo "Push failed on attempt $attempt, retrying in 5 seconds..."
             sleep 5
           done
+
+      - name: Request GitHub Pages rebuild
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/pages/builds"
