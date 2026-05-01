@@ -32,6 +32,7 @@ const el = {
   modeNdrtBtn: document.getElementById('mode-ndrt-btn'),
   modeResearchBtn: document.getElementById('mode-research-btn'),
   modeFarmerBtn: document.getElementById('mode-farmer-btn'),
+  modeClimateBtn: document.getElementById('mode-climate-btn'),
   modeNote: document.getElementById('mode-note'),
 };
 
@@ -97,6 +98,22 @@ const FARMER_WQ_PURPOSES = [
   'habitat restoration',
   'nature-based solutions',
   'peatlands',
+];
+
+const CLIMATE_ENTREPRENEUR_PURPOSES = [
+  'climate action',
+  'climate adaptation',
+  'decarbonisation',
+  'energy efficiency',
+  'community energy',
+  'bioeconomy',
+  'circular economy',
+  'sustainability',
+  'environmental research',
+  'nature-based solutions',
+  'biodiversity',
+  'water quality',
+  'capacity building',
 ];
 
 const PROGRAMME_KIND_VALUES = new Set([
@@ -327,6 +344,7 @@ function fitValueForMode(item) {
     ndrt: 'NDRT',
     research: 'Research',
     farmer: 'Farmer',
+    climate: 'Climate',
   };
   const valueMap = {
     include: 'yes',
@@ -458,6 +476,7 @@ function updateModeUi() {
     ndrt: el.modeNdrtBtn,
     research: el.modeResearchBtn,
     farmer: el.modeFarmerBtn,
+    climate: el.modeClimateBtn,
   };
 
   Object.entries(modeMap).forEach(([key, button]) => {
@@ -482,6 +501,11 @@ function updateModeUi() {
     return;
   }
 
+  if (state.activeMode === 'climate') {
+    el.modeNote.textContent = 'Climate Entrepreneur mode shows opportunities with enterprise, innovation, pilot, climate, energy, circular economy, bioeconomy, sustainability, or solution-development relevance.';
+    return;
+  }
+
   el.modeNote.textContent = 'Showing the full catalogue using the standard defaults. All opportunities mode now means exactly that: no hidden mode filtering.';
 }
 
@@ -502,6 +526,10 @@ function applyMode(mode) {
     selectPurposes(FARMER_WQ_PURPOSES);
     setSelectValue(el.applicantSelect, 'farmers');
     setSelectValue(el.changeWindowSelect, '365');
+  } else if (mode === 'climate') {
+    selectPurposes(CLIMATE_ENTREPRENEUR_PURPOSES);
+    setSelectValue(el.applicantSelect, 'all');
+    setSelectValue(el.changeWindowSelect, '365');
   } else {
     clearSelectedPurposes();
     setSelectValue(el.applicantSelect, 'all');
@@ -518,8 +546,99 @@ function matchesPurpose(item) {
   return [...state.selectedPurposes].some((purpose) => itemPurposes.has(purpose));
 }
 
+function isClimateEntrepreneurFit(item) {
+  const haystack = [
+    item.id,
+    item.source_id,
+    item.title,
+    item.summary,
+    item.source_name,
+    item.programme,
+    item.access_route,
+    item.scale,
+    item.opportunity_type,
+    item.expected_next_window,
+    ...(item.purposes || []),
+    ...(item.applicant_types || item.audience || []),
+    ...(item.keywords || []),
+  ].join(' ').toLowerCase();
+
+  const positiveTerms = [
+    'climate',
+    'adaptation',
+    'decarbonisation',
+    'decarbonization',
+    'energy',
+    'renewable',
+    'sustainable',
+    'sustainability',
+    'circular',
+    'bioeconomy',
+    'innovation',
+    'enterprise',
+    'entrepreneur',
+    'business',
+    'startup',
+    'start-up',
+    'commercialisation',
+    'commercialization',
+    'pilot',
+    'demonstration',
+    'prototype',
+    'technology',
+    'solution',
+    'nature-based',
+    'nature based',
+    'community energy',
+    'efficiency',
+    'transition',
+  ];
+
+  const applicantTerms = [
+    'businesses',
+    'enterprise',
+    'founder',
+    'startup',
+    'start-up',
+    'sme',
+    'micro-enterprise',
+    'social enterprise',
+    'researchers',
+    'local groups',
+    'public bodies',
+  ];
+
+  const hardExcludeTerms = [
+    'scholarship',
+    'postgraduate scholarship',
+    'student maintenance',
+    'alumni',
+    'faq',
+    'related news',
+    'related publications',
+    'county geological heritage audit',
+    'completed audits',
+  ];
+
+  const hasPositive = positiveTerms.some((term) => haystack.includes(term));
+  const hasApplicantFit = applicantTerms.some((term) => haystack.includes(term));
+  const hardExcluded = hardExcludeTerms.some((term) => haystack.includes(term));
+
+  if (hardExcluded) return false;
+
+  return hasPositive && hasApplicantFit;
+}
+
 function matchesActiveMode(item) {
   if (state.activeMode === 'all') return true;
+
+  if (state.activeMode === 'climate') {
+    const relevance = item.mode_relevance?.climate;
+    if (relevance === 'include') return true;
+    if (relevance === 'exclude') return false;
+    return isClimateEntrepreneurFit(item);
+  }
+
   const relevance = item.mode_relevance?.[state.activeMode] || 'exclude';
   return relevance === 'include';
 }
@@ -844,6 +963,10 @@ async function init() {
 
   if (el.modeFarmerBtn) {
     el.modeFarmerBtn.addEventListener('click', () => applyMode('farmer'));
+  }
+
+  if (el.modeClimateBtn) {
+    el.modeClimateBtn.addEventListener('click', () => applyMode('climate'));
   }
 
   render();
