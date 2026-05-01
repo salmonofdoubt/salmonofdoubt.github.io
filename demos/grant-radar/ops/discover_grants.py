@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
-"""Grant Radar discovery with an actionable review queue.
+"""Grant Radar discovery engine.
 
-States:
-- pending_review: genuinely new and actionable candidate
-- suppressed_existing: already covered by an existing trusted source
-- suppressed_non_actionable: stale, announcement, tender, PDF, office/binary file, contact/admin/publication, or weak noise
-- promoted: previously published
-- rejected: previously discarded
+Scans trusted funding hubs, classifies funding-looking links, suppresses stale/generic/noisy items,
+preserves manual review states, and writes discovery-candidates.json plus discovery-audit.json.
 """
 
 from __future__ import annotations
@@ -27,284 +23,128 @@ SITE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = SITE_DIR / "data"
 
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
-DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
+SEEDS_PATH = DATA_DIR / "discovery-seeds.json"
+CANDIDATES_PATH = DATA_DIR / "discovery-candidates.json"
+AUDIT_PATH = DATA_DIR / "discovery-audit.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
 
-USER_AGENT = "GrantRadarDiscoverBot/1.2 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
-TIMEOUT = (10, 30)
+USER_AGENT = "GrantRadarDiscoveryBot/2.0 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
+TIMEOUT = (12, 35)
+MAX_LINKS_PER_SEED = 80
+MAX_FETCHES = 300
+CURRENT_YEAR = datetime.now(UTC).year
 
-MAX_WATCH_URLS_PER_SOURCE = 8
-MAX_CHILD_LINKS_PER_SOURCE = 20
-
-LANGUAGE_SUFFIX_RE = re.compile(
-    r"_(bg|cs|da|de|el|en|es|et|fi|fr|ga|hr|hu|it|lt|lv|mt|nl|pl|pt|ro|sk|sl|sv)$",
-    flags=re.IGNORECASE,
-)
-
-STRONG_FUNDING_TOKENS = [
-    "grant",
-    "grants",
-    "fund",
-    "funds",
-    "funding",
-    "scheme",
-    "schemes",
-    "call",
-    "calls",
-    "apply",
-    "application",
-    "applications",
-    "proposal",
-    "proposals",
-    "expression of interest",
-    "expressions of interest",
-    "eoi",
-]
-
-ACTIONABLE_PHRASES = [
-    "apply now",
-    "applications open",
-    "application form",
-    "application process",
-    "how to apply",
-    "who can apply",
-    "submit a proposal",
-    "submit proposal",
-    "open call",
-    "call for proposals",
-    "call for applications",
-    "expression of interest",
-    "expressions of interest",
-    "eligibility criteria",
-    "eligible applicants",
-    "eligible organisations",
-    "online grants system",
-    "funding now available",
-    "grant scheme",
-    "grant programme",
-    "grant program",
-    "funding programme",
-    "funding program",
-    "scheme open",
-    "applications close",
-    "closing date",
-    "deadline",
-]
-
-NON_ACTIONABLE_PHRASES = [
-    "press release",
-    "minister announces",
-    "minister announced",
-    "announces over €",
-    "announces new funding",
-    "results announced",
-    "projects awarded",
-    "awarded funding",
-    "successful projects",
-    "deadline has passed",
-    "calls for tenders",
-    "call for tenders",
-    "tenders",
-    "procurement",
-]
-
-ANNOUNCEMENT_TERMS = [
-    "announce",
-    "announces",
-    "announced",
-    "press release",
-    "awarded",
-    "award",
-    "results",
-]
-
-GENERIC_TITLE_TERMS = {
-    "about",
-    "about us",
-    "our work",
-    "our services",
-    "who we are",
-    "what we do",
-    "contact us",
-    "contact",
-    "news",
-    "publications",
-    "publication",
-    "research",
-    "projects",
-    "education",
-    "funding",
-    "funding opportunities",
+HEADERS = {
+    "User-Agent": USER_AGENT,
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-IE,en;q=0.9",
 }
 
-LINK_HINT_TERMS = [
-    "grant",
-    "fund",
-    "funding",
-    "call",
-    "scheme",
-    "proposal",
-    "application",
-    "award",
-    "support",
-    "research",
-    "biodiversity",
-    "climate",
-    "energy",
-    "community",
-    "water",
-    "catchment",
-    "farm",
-    "farmer",
-    "river",
-    "restoration",
-    "wetland",
-    "riparian",
-    "citizen",
+FUNDING_TERMS = [
+    "funding", "fund", "funds", "grant", "grants", "scheme", "schemes",
+    "call", "calls", "programme", "program", "opportunity", "opportunities",
+    "support", "application", "apply", "proposal", "proposals", "deadline",
+    "scholarship", "fellowship", "expression of interest", "eoi"
 ]
 
-DENYLIST_PATTERNS = [
-    r"/about/?$",
-    r"/about-us/?$",
-    r"/contact/?$",
-    r"/contact-us/?$",
-    r"/careers/?$",
-    r"/career/?$",
-    r"/our-team/?$",
-    r"/team/?$",
-    r"/login/?$",
-    r"/log-in/?$",
-    r"/search/?$",
-    r"/board-members/?$",
-    r"/governance/?$",
-    r"/publications/?$",
-    r"/publication/?$",
-    r"/news/?$",
-    r"/jobs/?$",
-    r"/job/?$",
-    r"/events/?$",
-    r"/event/?$",
-    r"/privacy/?$",
+ACTION_TERMS = [
+    "apply now", "how to apply", "who can apply", "applications open",
+    "application form", "eligible applicants", "eligibility criteria",
+    "call for proposals", "call for applications", "deadline", "closing date",
+    "applications close", "submit a proposal", "funding available"
 ]
 
-ADMIN_PAGE_TOKENS = [
-    "contact details",
-    "contact",
-    "contacts",
-    "directory",
-    "directories",
-    "department",
-    "departments",
-    "service",
-    "services",
-    "publication",
-    "publications",
-    "news",
-    "about",
-    "privacy",
-    "cookie",
-    "cookies",
-    "terms and conditions",
-    "terms of use",
+NOISE_TERMS = [
+    "press release", "minister announces", "minister announced",
+    "results announced", "successful projects", "projects awarded",
+    "awarded funding", "awardees", "tender", "tenders", "procurement",
+    "case study", "newsletter"
 ]
 
-NOISE_LINE_SUBSTRINGS = [
-    "this website uses cookies",
-    "accept all cookies",
-    "necessary cookies only",
-    "manage cookies",
-    "cookie and privacy",
-    "cookie policy",
-    "privacy policy",
-    "skip to main content",
-    "skip to content",
-    "close menu",
-    "open menu",
-    "search search",
-    "search close",
-    "gaeilge menu close",
-    "news departments services search",
-    "accessibility statement",
+THEMATIC_RELEVANCE_TERMS = [
+    "water", "water quality", "catchment", "river", "wetland", "riparian",
+    "biodiversity", "habitat", "ecosystem", "ecology", "nature",
+    "nature-based", "nature based", "climate", "sustainability",
+    "environment", "environmental", "conservation", "peatland", "soil",
+    "public engagement", "citizen science", "community", "education",
+    "stem engagement", "outreach"
+]
+
+GENERIC_TITLES = {
+    "funding", "funding opportunities", "grants", "grant funding",
+    "research", "about", "about us", "contact", "contact us",
+    "news", "publications", "events", "our services", "services"
+}
+
+DENY_PATHS = [
+    r"/contact/?$", r"/contact-us/?$", r"/about/?$", r"/about-us/?$",
+    r"/privacy/?$", r"/cookies?/?$", r"/terms/?$", r"/login/?$",
+    r"/search/?$", r"/news/?$", r"/events/?$", r"/careers/?$",
+    r"/jobs/?$", r"/publications/?$"
 ]
 
 BINARY_EXTENSIONS = {
-    ".pdf",
-    ".doc",
-    ".docx",
-    ".xls",
-    ".xlsx",
-    ".ppt",
-    ".pptx",
-    ".odt",
-    ".ods",
-    ".odp",
-    ".rtf",
-    ".zip",
-    ".7z",
-    ".rar",
+    ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
+    ".zip", ".rar", ".7z", ".csv"
 }
 
-BINARY_CONTENT_TYPES = [
-    "application/pdf",
-    "application/msword",
-    "application/vnd.ms-excel",
-    "application/vnd.ms-powerpoint",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-    "application/vnd.oasis.opendocument.text",
-    "application/vnd.oasis.opendocument.spreadsheet",
-    "application/vnd.oasis.opendocument.presentation",
-    "application/rtf",
-    "application/zip",
-    "application/x-zip-compressed",
-    "application/octet-stream",
-]
-
-PRACTICAL_PURPOSES = {
-    "water quality",
-    "catchment delivery",
-    "community nature",
-    "restoration",
-    "citizen science",
-    "habitat restoration",
-    "riparian management",
-    "wetlands",
-    "education",
-    "capacity building",
-    "sediment control",
-    "conservation",
-    "peatlands",
-}
-
-PRACTICAL_ACCESS_ROUTES = {
-    "direct",
-    "advisory support",
-    "via advisor",
-    "via local authority",
-    "via local action group",
-    "via project coordinator",
-}
-
-PRACTICAL_SCALES = {
-    "local",
-    "support",
-    "medium",
-}
-
-COMMUNITY_APPLICANT_TYPES = {
-    "local groups",
-    "ngos",
-    "public bodies",
-    "schools",
-    "farmers",
-}
-
-PERSISTENT_FIELDS = [
-    "notes",
-    "admin_last_action",
-    "admin_last_action_at",
-    "admin_note",
+DEFAULT_SEEDS = [
+    {
+        "id": "research_ireland_funding_hub",
+        "name": "Research Ireland funding hub",
+        "url": "https://www.researchireland.ie/funding/",
+        "trusted_domain": "researchireland.ie",
+        "purposes": ["environmental research", "education", "climate action", "biodiversity", "public engagement"],
+        "watch_terms": ["discover", "public engagement", "research", "climate", "sustainability", "funding", "grant", "programme"]
+    },
+    {
+        "id": "lawpro_funding_hub",
+        "name": "LAWPRO funding hub",
+        "url": "https://lawaters.ie/funding/",
+        "trusted_domain": "lawaters.ie",
+        "purposes": ["water quality", "catchment delivery", "community nature", "citizen science", "restoration"],
+        "watch_terms": ["water", "catchment", "community", "grant", "funding", "development fund", "small grants"]
+    },
+    {
+        "id": "heritage_council_funding_hub",
+        "name": "Heritage Council funding hub",
+        "url": "https://www.heritagecouncil.ie/funding/",
+        "trusted_domain": "heritagecouncil.ie",
+        "purposes": ["heritage", "biodiversity", "community nature", "education", "surveys"],
+        "watch_terms": ["heritage", "biodiversity", "community", "grant", "scheme", "funding"]
+    },
+    {
+        "id": "epa_research_funding_hub",
+        "name": "EPA research funding hub",
+        "url": "https://www.epa.ie/our-services/research/epa--research-funding/",
+        "trusted_domain": "epa.ie",
+        "purposes": ["environmental research", "water quality", "climate action", "biodiversity"],
+        "watch_terms": ["research call", "funding", "grant", "environment", "climate", "water", "biodiversity"]
+    },
+    {
+        "id": "ifi_funding_hub",
+        "name": "Inland Fisheries Ireland funding hub",
+        "url": "https://www.fisheriesireland.ie/our-services/funding",
+        "trusted_domain": "fisheriesireland.ie",
+        "purposes": ["water quality", "habitat restoration", "riparian management", "fisheries", "catchment delivery"],
+        "watch_terms": ["funding", "habitat", "conservation", "river", "riparian", "grant"]
+    },
+    {
+        "id": "seai_grants_hub",
+        "name": "SEAI grants hub",
+        "url": "https://www.seai.ie/grants/",
+        "trusted_domain": "seai.ie",
+        "purposes": ["community energy", "energy efficiency", "climate action", "decarbonisation"],
+        "watch_terms": ["grant", "grants", "funding", "community", "energy", "research"]
+    },
+    {
+        "id": "life_calls_watch",
+        "name": "EU LIFE calls watch",
+        "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
+        "trusted_domain": "cinea.ec.europa.eu",
+        "purposes": ["biodiversity", "climate adaptation", "nature-based solutions", "wetlands"],
+        "watch_terms": ["call", "proposal", "funding", "life", "nature", "biodiversity", "climate"]
+    }
 ]
 
 
@@ -329,134 +169,47 @@ def canonical_domain(url: str) -> str:
 
 def canonical_url(url: str) -> str:
     parsed = urlparse(url)
-    cleaned_query = [
-        (k, v)
-        for k, v in parse_qsl(parsed.query, keep_blank_values=True)
+    query = [
+        (k, v) for k, v in parse_qsl(parsed.query, keep_blank_values=True)
         if not k.lower().startswith("utm_")
     ]
-    normalized = parsed._replace(
+    clean = parsed._replace(
         scheme=(parsed.scheme or "https").lower(),
         netloc=parsed.netloc.lower(),
         fragment="",
-        query=urlencode(cleaned_query, doseq=True),
+        query=urlencode(query, doseq=True),
     )
-    out = urlunparse(normalized)
-    if out.endswith("/") and parsed.path not in ("", "/"):
+    out = urlunparse(clean)
+    if out.endswith("/") and clean.path not in ("", "/"):
         out = out[:-1]
     return out
 
 
-def canonical_candidate_family_key(url: str) -> str:
+def family_key(url: str) -> str:
     parsed = urlparse(canonical_url(url))
-    path = LANGUAGE_SUFFIX_RE.sub("", parsed.path)
-    normalized = parsed._replace(path=path, query="", fragment="")
-    return urlunparse(normalized)
+    return urlunparse(parsed._replace(query="", fragment="", path=parsed.path.rstrip("/")))
 
 
 def slugify(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", value.lower()).strip("_")
 
 
-def dedupe_keep_order(values: list[str]) -> list[str]:
-    seen: set[str] = set()
-    out: list[str] = []
-    for value in values:
-        clean = str(value).strip()
-        if not clean or clean in seen:
-            continue
-        seen.add(clean)
-        out.append(clean)
-    return out
+def title_core(title: str) -> str:
+    title = re.sub(r"\s+", " ", title or "").strip()
+    return re.split(r"\s+[|–-]\s+", title, maxsplit=1)[0].strip()
 
 
-def same_or_child_domain(url: str, trusted_domain: str) -> bool:
-    domain = canonical_domain(url)
-    return domain == trusted_domain or domain.endswith(f".{trusted_domain}")
+def normalise_title(title: str) -> str:
+    value = title_core(title).lower()
+    value = re.sub(r"\b20\d{2}\b", "", value)
+    value = re.sub(r"[^a-z0-9]+", " ", value)
+    return re.sub(r"\s+", " ", value).strip()
 
 
-def text_has_any(text: str, phrases: list[str]) -> bool:
-    lowered = text.lower()
-    return any(phrase.lower() in lowered for phrase in phrases)
-
-
-def phrase_hit_count(text: str, phrases: list[str]) -> int:
-    lowered = text.lower()
-    return sum(1 for phrase in phrases if phrase.lower() in lowered)
-
-
-def detect_deadline_hint(text: str) -> str | None:
-    patterns = [
-        r"(deadline(?: for (?:applications|applicants|submissions))?[:\s]+[^\n\r]{0,120})",
-        r"(closing date[:\s]+[^\n\r]{0,120})",
-        r"(applications? close[^\n\r]{0,120})",
-        r"(submit(?:ted)? by[^\n\r]{0,120})",
-    ]
-    for pattern in patterns:
-        match = re.search(pattern, text, flags=re.IGNORECASE)
-        if match:
-            return re.sub(r"\s+", " ", match.group(1)).strip()
-    return None
-
-
-def page_title_core(title: str) -> str:
-    core = re.split(r"\s+[|\-–]\s+", title, maxsplit=1)[0]
-    return re.sub(r"\s+", " ", core).strip()
-
-
-def looks_generic_title(title: str) -> bool:
-    return page_title_core(title).lower() in GENERIC_TITLE_TERMS
-
-
-def extract_years(*parts: str) -> list[int]:
-    years: set[int] = set()
-    for part in parts:
-        if not part:
-            continue
-        for match in re.findall(r"\b(20\d{2})\b", part):
-            year = int(match)
-            if 2000 <= year <= 2100:
-                years.add(year)
-    return sorted(years)
-
-
-def latest_year_hint(*parts: str) -> int | None:
-    years = extract_years(*parts)
-    return max(years) if years else None
-
-
-def is_stale_non_actionable(latest_year: int | None, candidate_type: str) -> bool:
-    if latest_year is None:
-        return False
-    current_year = datetime.now(UTC).year
-    if latest_year >= current_year:
-        return False
-    if candidate_type in {"call_page", "news_page", "award_page", "tender_page"}:
-        return True
-    return latest_year <= current_year - 2
-
-
-def build_watch_urls(source: dict[str, Any]) -> list[str]:
-    urls = [canonical_url(source["url"])]
-    root = f"{urlparse(source['url']).scheme}://{urlparse(source['url']).netloc}"
-    for path in source.get("watch_paths", []):
-        urls.append(canonical_url(urljoin(root.rstrip("/") + "/", path.lstrip("/"))))
-    return dedupe_keep_order(urls)[:MAX_WATCH_URLS_PER_SOURCE]
-
-
-def source_watch_terms(source: dict[str, Any]) -> list[str]:
-    values = []
-    values.extend(source.get("watch_terms", []))
-    values.extend(source.get("purposes", []))
-    values.append(source.get("name", ""))
-    values.extend(LINK_HINT_TERMS)
-    return dedupe_keep_order(values)
-
-
-def is_denied_child_url(url: str) -> bool:
-    path = urlparse(url).path.lower().rstrip("/")
-    if not path:
-        return False
-    return any(re.search(pattern, path) for pattern in DENYLIST_PATTERNS)
+def same_or_child_domain(url: str, domain: str) -> bool:
+    got = canonical_domain(url)
+    expected = (domain or got).lower().replace("www.", "")
+    return got == expected or got.endswith("." + expected)
 
 
 def has_binary_extension(url: str) -> bool:
@@ -464,111 +217,96 @@ def has_binary_extension(url: str) -> bool:
     return any(path.endswith(ext) for ext in BINARY_EXTENSIONS)
 
 
-def looks_like_candidate_link(url: str, label: str, watch_terms: list[str], trusted_domain: str) -> bool:
-    if not same_or_child_domain(url, trusted_domain):
-        return False
-    if is_denied_child_url(url):
-        return False
-    if has_binary_extension(url):
-        return False
-
-    haystack = f"{url} {label}".lower()
-    return any(term.lower() in haystack for term in watch_terms)
+def denied_path(url: str) -> bool:
+    path = urlparse(url).path.lower().rstrip("/")
+    return any(re.search(pattern, path) for pattern in DENY_PATHS)
 
 
-def clean_extracted_text(raw_text: str) -> tuple[str, int]:
-    cleaned_lines: list[str] = []
-    dropped = 0
-
-    for raw_line in raw_text.splitlines():
-        line = re.sub(r"\s+", " ", raw_line).strip()
-        if not line:
-            continue
-
-        lowered = line.lower()
-
-        if any(noise in lowered for noise in NOISE_LINE_SUBSTRINGS):
-            dropped += 1
-            continue
-
-        if re.fullmatch(r"(news|services|search|menu|close|open|home)(\s+\1){1,}", lowered):
-            dropped += 1
-            continue
-
-        cleaned_lines.append(line)
-
-    cleaned = "\n".join(cleaned_lines)
-    cleaned = re.sub(r"\b(search|close|menu|home)\b(?:\s+\1){2,}", " ", cleaned, flags=re.IGNORECASE)
-    cleaned = re.sub(r"\s+\.\s+", ". ", cleaned)
-    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
-    return cleaned, dropped
+def contains_any(text: str, terms: list[str]) -> bool:
+    hay = text.lower()
+    return any(term.lower() in hay for term in terms)
 
 
-def is_binary_like_response(final_url: str, content_type: str, raw_bytes: bytes) -> tuple[bool, str]:
-    lowered_content_type = (content_type or "").lower()
+def hit_count(text: str, terms: list[str]) -> int:
+    hay = text.lower()
+    return sum(1 for term in terms if term.lower() in hay)
 
-    for token in BINARY_CONTENT_TYPES:
-        if token in lowered_content_type:
-            if "application/octet-stream" == token and not has_binary_extension(final_url):
-                continue
-            return True, token
 
-    if has_binary_extension(final_url):
-        return True, "extension"
+def extract_years(*parts: str) -> list[int]:
+    years = set()
+    for part in parts:
+        for match in re.findall(r"\b(20\d{2})\b", part or ""):
+            year = int(match)
+            if 2000 <= year <= 2100:
+                years.add(year)
+    return sorted(years)
 
-    if raw_bytes.startswith(b"%PDF-"):
-        return True, "pdf_magic"
 
-    if raw_bytes.startswith(b"PK\x03\x04"):
-        return True, "zip_magic"
+def latest_year(*parts: str) -> int | None:
+    years = extract_years(*parts)
+    return max(years) if years else None
 
-    return False, ""
+
+def deadline_hint(text: str) -> str | None:
+    patterns = [
+        r"(deadline[^.\n\r]{0,180})",
+        r"(closing date[^.\n\r]{0,180})",
+        r"(applications? close[^.\n\r]{0,180})",
+        r"(submit(?:ted)? by[^.\n\r]{0,180})",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text or "", flags=re.I)
+        if match:
+            return re.sub(r"\s+", " ", match.group(1)).strip(" .")
+    return None
 
 
 def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
-    headers = {"User-Agent": USER_AGENT}
-
     try:
-        response = requests.get(url, headers=headers, timeout=TIMEOUT)
+        response = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
         response.raise_for_status()
     except requests.exceptions.RequestException as exc:
         return None, str(exc)
 
     final_url = canonical_url(response.url or url)
-    content_type = (response.headers.get("Content-Type") or "").lower()
-    raw_bytes = response.content or b""
-    page_hash = "sha256:" + hashlib.sha256(raw_bytes).hexdigest()
+    raw = response.content or b""
+    page_hash = "sha256:" + hashlib.sha256(raw).hexdigest()
+    ctype = (response.headers.get("Content-Type") or "").lower()
 
-    is_binary, binary_reason = is_binary_like_response(final_url, content_type, raw_bytes)
-
-    if is_binary:
-        filename = Path(urlparse(final_url).path).name or "binary-document"
-        stem = Path(filename).stem or "Binary document"
-        title = re.sub(r"[-_]+", " ", stem).strip() or "Binary document"
+    if has_binary_extension(final_url) or "application/pdf" in ctype or raw.startswith(b"%PDF-"):
+        stem = Path(urlparse(final_url).path).stem or "Document"
         return {
             "url": final_url,
-            "title": title,
+            "title": re.sub(r"[-_]+", " ", stem).strip(),
             "text": "",
-            "snippet": "Binary or office document detected. Preview suppressed.",
+            "snippet": "Document or binary file detected.",
             "links": [],
             "page_hash": page_hash,
-            "is_pdf": "pdf" in binary_reason,
             "is_binary": True,
-            "binary_reason": binary_reason,
-            "noise_lines_removed": 0,
         }, None
 
     soup = BeautifulSoup(response.text, "html.parser")
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
 
     title = ""
     if soup.title and soup.title.string:
         title = re.sub(r"\s+", " ", soup.title.string).strip()
 
-    raw_text = soup.get_text("\n", strip=True)
-    cleaned_text, noise_lines_removed = clean_extracted_text(raw_text)
-    snippet = re.sub(r"\s+", " ", cleaned_text[:700]).strip()
+    lines = []
+    for raw_line in soup.get_text("\n", strip=True).splitlines():
+        line = re.sub(r"\s+", " ", raw_line).strip()
+        if not line:
+            continue
+        low = line.lower()
+        if any(x in low for x in ["cookie policy", "accept all cookies", "skip to main content", "accessibility statement"]):
+            continue
+        lines.append(line)
 
-    links: list[dict[str, str]] = []
+    text = "\n".join(lines)
+    snippet = re.sub(r"\s+", " ", text[:900]).strip()
+
+    links = []
     for anchor in soup.find_all("a", href=True):
         href = canonical_url(urljoin(final_url, anchor["href"]))
         label = re.sub(r"\s+", " ", anchor.get_text(" ", strip=True)).strip()
@@ -577,496 +315,399 @@ def fetch_page(url: str) -> tuple[dict[str, Any] | None, str | None]:
 
     return {
         "url": final_url,
-        "title": title,
-        "text": cleaned_text,
+        "title": title or title_core(urlparse(final_url).path.replace("/", " ")),
+        "text": text,
         "snippet": snippet,
         "links": links,
         "page_hash": page_hash,
-        "is_pdf": False,
         "is_binary": False,
-        "binary_reason": "",
-        "noise_lines_removed": noise_lines_removed,
     }, None
 
 
-def has_strong_funding_token_in_title_or_url(title: str, url: str) -> bool:
-    haystack = f"{page_title_core(title)} {urlparse(url).path}".lower()
-    return any(token in haystack for token in STRONG_FUNDING_TOKENS)
-
-
-def has_strong_funding_language_anywhere(title: str, url: str, text: str, snippet: str) -> bool:
-    haystack = f"{title} {url} {text[:2500]} {snippet}".lower()
-    return any(token in haystack for token in STRONG_FUNDING_TOKENS)
-
-
-def looks_directory_or_admin_page(title: str, url: str, snippet: str) -> bool:
-    core = page_title_core(title).lower()
-    path = urlparse(url).path.lower()
-    combined = f"{core} {path} {snippet[:240]}".lower()
-
-    has_admin_term = any(token in combined for token in ADMIN_PAGE_TOKENS)
-    has_strong_funding = has_strong_funding_token_in_title_or_url(title, url)
-
-    if "contact details" in combined:
-        return True
-
-    if "/publications/" in path and not has_strong_funding:
-        return True
-
-    if "/departments/" in path and not has_strong_funding:
-        return True
-
-    if has_admin_term and not has_strong_funding:
-        return True
-
-    return False
-
-
-def candidate_type_from_page(page: dict[str, Any]) -> str:
-    if page.get("is_binary"):
-        return "binary_file_page"
-    if page.get("is_pdf"):
-        return "pdf_page"
-
-    title = page_title_core(page.get("title", "")).lower()
-    url = page.get("url", "").lower()
-    snippet = page.get("snippet", "").lower()
-    haystack = f"{title} {url} {snippet}"
-
-    if looks_directory_or_admin_page(page.get("title", ""), page.get("url", ""), page.get("snippet", "")):
-        return "directory_page"
-    if "tender" in haystack or "procurement" in haystack:
-        return "tender_page"
-    if any(term in haystack for term in ["awarded", "award", "results"]):
-        return "award_page"
-    if any(term in haystack for term in ANNOUNCEMENT_TERMS):
-        return "news_page"
-    if any(term in haystack for term in ["support", "programme", "program", "hub"]) and not text_has_any(haystack, ACTIONABLE_PHRASES):
-        return "support_page"
-    return "call_page"
-
-
-def find_existing_registry_match(candidate_url: str, registry: list[dict[str, Any]]) -> dict[str, Any] | None:
-    target_url = canonical_url(candidate_url)
-    target_family = canonical_candidate_family_key(candidate_url)
-
+def registry_index(registry: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    index = {}
     for item in registry:
-        if canonical_url(item.get("url", "")) == target_url:
-            return {"kind": "url", "id": item.get("id"), "name": item.get("name")}
+        url = item.get("url", "")
+        if url:
+            index[canonical_url(url)] = item
+            index[family_key(url)] = item
+        for name in [
+            item.get("name", ""),
+            (item.get("extract") or {}).get("title", ""),
+            (item.get("extract") or {}).get("programme", ""),
+        ]:
+            norm = normalise_title(name)
+            if norm:
+                index[f"title:{norm}"] = item
+    return index
 
-    for item in registry:
-        if canonical_candidate_family_key(item.get("url", "")) == target_family:
-            return {"kind": "family", "id": item.get("id"), "name": item.get("name")}
 
+def existing_match(page: dict[str, Any], index: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
+    for key in [canonical_url(page["url"]), family_key(page["url"]), f"title:{normalise_title(page.get('title', ''))}"]:
+        if key in index:
+            item = index[key]
+            return {"id": item.get("id"), "name": item.get("name"), "kind": key.split(":")[0]}
     return None
 
 
-def candidate_id(source_id: str, url: str) -> str:
-    canonical = canonical_url(url)
-    parsed = urlparse(canonical)
-    compact = f"{parsed.netloc}{parsed.path}"
-    if parsed.query:
-        compact += f"?{parsed.query}"
-    return f"cand_{slugify(source_id)}_{slugify(compact)}"
+def link_score(url: str, label: str, seed: dict[str, Any]) -> float:
+    hay = f"{url} {label}".lower()
+    score = 0.0
+    score += hit_count(hay, FUNDING_TERMS)
+    score += 0.6 * hit_count(hay, [str(x) for x in seed.get("watch_terms", [])])
+    if any(x in url.lower() for x in ["/funding/", "/grant", "/grants", "/call", "/programme", "/program"]):
+        score += 2.0
+    return score
 
 
-def source_extract_defaults(source: dict[str, Any]) -> tuple[list[str], str | None, str | None]:
-    extract = source.get("extract", {}) or {}
-    applicant_types = dedupe_keep_order(extract.get("applicant_types", []) or [])
-    access_route = extract.get("access_route")
-    scale = extract.get("scale")
-    return applicant_types, access_route, scale
+def classify_type(page: dict[str, Any]) -> str:
+    if page.get("is_binary"):
+        return "document_file"
+
+    title = title_core(page.get("title", ""))
+    norm = normalise_title(title)
+    path = urlparse(page.get("url", "")).path.lower()
+    hay = f"{title} {path} {page.get('snippet', '')}".lower()
+
+    if norm in GENERIC_TITLES or path.rstrip("/") in {"/funding", "/grants", "/our-services/funding"}:
+        return "generic_funding_hub"
+    if "tender" in hay or "procurement" in hay:
+        return "tender"
+    if any(x in hay for x in ["results announced", "successful projects", "projects awarded", "awarded funding", "awardees"]):
+        return "award_result"
+    if "press release" in hay or "minister announces" in hay or "announces new funding" in hay:
+        return "press_release"
+    if any(x in hay for x in ["scholarship", "fellowship", "phd", "postgraduate"]):
+        return "scholarship"
+    if "rolling" in hay or "always open" in hay:
+        return "rolling_support"
+    if "programme" in hay or "program" in hay or "scheme" in hay:
+        return "recurring_programme"
+    return "funding_call"
 
 
-def practical_fit(source: dict[str, Any], applicant_types: list[str], access_route: str | None, scale: str | None) -> bool:
-    purposes = {str(value).lower() for value in source.get("purposes", [])}
-    applicants = {str(value).lower() for value in applicant_types}
-    route = str(access_route or "").lower()
-    scale_value = str(scale or "").lower()
+def infer_mode_relevance(candidate_type: str, seed: dict[str, Any]) -> dict[str, str]:
+    purposes = {str(p).lower() for p in seed.get("purposes", [])}
+    if candidate_type == "scholarship":
+        return {"ndrt": "exclude", "research": "include", "farmer": "exclude"}
+    out = {"ndrt": "maybe", "research": "maybe", "farmer": "exclude"}
+    if purposes & {"water quality", "catchment delivery", "citizen science", "community nature", "restoration", "heritage"}:
+        out["ndrt"] = "include"
+    if purposes & {"environmental research", "research training", "biodiversity"}:
+        out["research"] = "include"
+    if purposes & {"farmers", "farm sustainability", "farm payments", "farm nutrient management"}:
+        out["farmer"] = "include"
+    return out
 
-    return (
-        bool(purposes.intersection(PRACTICAL_PURPOSES))
-        or bool(applicants.intersection(COMMUNITY_APPLICANT_TYPES))
-        or route in PRACTICAL_ACCESS_ROUTES
-        or scale_value in PRACTICAL_SCALES
-    )
 
-
-def classify_candidate(
-    *,
-    page: dict[str, Any],
-    source: dict[str, Any],
-    registry: list[dict[str, Any]],
-    discovered_via: str,
-    seen_at: str,
-) -> dict[str, Any]:
-    title = page.get("title", "") or source.get("name", "Untitled candidate")
+def classify_candidate(page: dict[str, Any], seed: dict[str, Any], index: dict[str, dict[str, Any]], previous: dict[str, Any], seen_at: str) -> dict[str, Any]:
+    title = title_core(page.get("title") or seed.get("name", "Untitled"))
+    url = page["url"]
     text = page.get("text", "")
     snippet = page.get("snippet", "")
-    combined = f"{title}\n{snippet}\n{text[:5000]}".lower()
+    ctype = classify_type(page)
+    dline = deadline_hint(text)
+    year = latest_year(title, url, snippet, dline or "")
+    existing = existing_match(page, index)
 
-    candidate_type = candidate_type_from_page(page)
-    deadline_hint = detect_deadline_hint(text)
-    latest_year = latest_year_hint(title, page["url"], snippet, deadline_hint or "")
-    duplicate = find_existing_registry_match(page["url"], registry)
+    hay = f"{title} {url} {snippet} {text[:3500]}".lower()
+    seed_required_terms = [str(x).lower() for x in seed.get("require_any_terms_for_review", [])]
+    seed_required_hit = True if not seed_required_terms else contains_any(hay, seed_required_terms)
+    seed_suppressed_types = set(seed.get("suppress_candidate_types", []))
+    thematic_hit = contains_any(hay, THEMATIC_RELEVANCE_TERMS)
+    confidence = 0.20
+    if contains_any(f"{title} {url}", FUNDING_TERMS):
+        confidence += 0.25
+    if contains_any(hay, ACTION_TERMS):
+        confidence += 0.25
+    if dline:
+        confidence += 0.10
+    if ctype in {"funding_call", "recurring_programme", "rolling_support", "scholarship"}:
+        confidence += 0.10
+    if contains_any(hay, NOISE_TERMS):
+        confidence -= 0.25
+    if ctype in {"generic_funding_hub", "press_release", "award_result", "tender", "document_file"}:
+        confidence -= 0.30
+    confidence = round(max(0.0, min(0.99, confidence)), 3)
 
-    applicant_types, access_route, scale = source_extract_defaults(source)
-    purposes = dedupe_keep_order(source.get("purposes", []) or [])
-    fit = practical_fit(source, applicant_types, access_route, scale)
-
-    actionable_hits = phrase_hit_count(combined, ACTIONABLE_PHRASES)
-    funding_in_title_or_url = has_strong_funding_token_in_title_or_url(title, page["url"])
-    funding_anywhere = has_strong_funding_language_anywhere(title, page["url"], text, snippet)
-    admin_or_directory = looks_directory_or_admin_page(title, page["url"], snippet)
-
-    confidence = 0.0
-    reason_flags: list[str] = []
-    promotion_reasons: list[str] = []
-
-    confidence += 0.12
-    if same_or_child_domain(page["url"], source.get("trusted_domain") or canonical_domain(source["url"])):
-        confidence += 0.12
-        reason_flags.append("trusted_domain_child")
-
-    if funding_in_title_or_url:
-        confidence += 0.18
-        reason_flags.append("funding_token_in_title_or_url")
-
-    if actionable_hits:
-        confidence += min(0.24, 0.06 * actionable_hits)
-        reason_flags.append("actionable_language")
-        promotion_reasons.append("application or call language detected")
-
-    if deadline_hint:
-        confidence += 0.08
-        reason_flags.append("deadline_detected")
-        promotion_reasons.append("deadline language detected")
-
-    if fit:
-        confidence += 0.08
-        reason_flags.append("practical_fit")
-        promotion_reasons.append("good fit for practical/community use")
-
-    if applicant_types:
-        confidence += 0.05
-        reason_flags.append("applicant_types_present")
-    if access_route:
-        confidence += 0.03
-        reason_flags.append("access_route_present")
-    if scale:
-        confidence += 0.03
-        reason_flags.append("scale_present")
-
-    if looks_generic_title(title) and not funding_in_title_or_url:
-        confidence -= 0.18
-        reason_flags.append("generic_title")
-
-    if admin_or_directory:
-        confidence -= 0.28
-        reason_flags.append("admin_or_directory_page")
-
-    if page.get("noise_lines_removed", 0) >= 3:
-        confidence -= 0.06
-        reason_flags.append("cookie_or_nav_noise_removed")
-
-    confidence = max(0.0, min(0.99, confidence))
-
-    already_trusted = False
-    trusted_registry_id = None
     status = "suppressed_non_actionable"
-    public_visible_state = "discovery_only"
-    promotion_signal = "red"
+    public_state = "discovery_only"
+    reasons = []
 
-    if duplicate:
+    if existing:
         status = "suppressed_existing"
-        public_visible_state = "discovery_only"
-        promotion_signal = "red"
-        already_trusted = True
-        trusted_registry_id = duplicate["id"]
-        reason_flags.append("already_covered_by_trusted_source")
-        promotion_reasons = [f"Already covered by trusted source {duplicate['id']}"]
-
-    elif candidate_type in {"binary_file_page", "pdf_page", "directory_page", "tender_page", "news_page", "award_page"}:
+        reasons.append(f"Already covered by trusted source {existing.get('id')}")
+    elif ctype in seed_suppressed_types:
         status = "suppressed_non_actionable"
-        public_visible_state = "discovery_only"
-        promotion_signal = "red"
-        reason_flags.append(candidate_type)
-
-        if candidate_type == "binary_file_page":
-            promotion_reasons = ["Office or binary document file is not a review candidate"]
-        elif candidate_type == "pdf_page":
-            promotion_reasons = ["PDF or binary content is not actionable for review"]
-        elif candidate_type == "directory_page":
-            promotion_reasons = ["Contact, publication, department, or directory-style page rather than a funding route"]
-        elif candidate_type == "tender_page":
-            promotion_reasons = ["Tender or procurement page, not a grant/support listing"]
-        elif candidate_type == "news_page":
-            promotion_reasons = ["Announcement or press-style page, not a direct funding route"]
-        else:
-            promotion_reasons = ["Award/results page, not a live funding route"]
-
-    elif text_has_any(combined, NON_ACTIONABLE_PHRASES):
+        reasons.append(f"Candidate type {ctype} is suppressed for this discovery seed.")
+    elif not seed_required_hit:
         status = "suppressed_non_actionable"
-        public_visible_state = "discovery_only"
-        promotion_signal = "red"
-        reason_flags.append("non_actionable_phrase")
-        promotion_reasons = ["Contains announcement, results, tender, or passed-deadline language"]
-
-    elif is_stale_non_actionable(latest_year, candidate_type):
+        reasons.append("Suppressed by seed-level thematic gate: candidate lacks required relevance terms for this funding hub.")
+    elif ctype == "generic_funding_hub":
+        status = "suppressed_generic_page"
+        reasons.append("Generic funding hub, not a distinct opportunity.")
+    elif ctype in {"document_file", "press_release", "award_result", "tender"}:
         status = "suppressed_non_actionable"
-        public_visible_state = "discovery_only"
-        promotion_signal = "red"
-        reason_flags.append("stale_time_bound_page")
-        promotion_reasons = [f"Time-bound page appears stale for {latest_year}"]
-
-    elif not funding_in_title_or_url:
+        reasons.append(f"{ctype.replace('_', ' ')} detected.")
+    elif ctype == "scholarship" and not thematic_hit:
         status = "suppressed_non_actionable"
-        public_visible_state = "discovery_only"
-        promotion_signal = "red"
-        reason_flags.append("no_funding_token_in_title_or_url")
-        promotion_reasons = ["Title or URL does not look like a distinct grant, fund, scheme, or call page"]
-
-    elif not funding_anywhere:
+        reasons.append("Generic scholarship route without clear water, biodiversity, climate, sustainability, public-engagement, or community relevance.")
+    elif ctype == "scholarship" and confidence < 0.70:
         status = "suppressed_non_actionable"
-        public_visible_state = "discovery_only"
-        promotion_signal = "red"
-        reason_flags.append("weak_funding_language")
-        promotion_reasons = ["Funding language is too weak for human review"]
-
-    elif actionable_hits or deadline_hint or applicant_types:
+        reasons.append("Scholarship route has some thematic relevance but weak application or deadline signal.")
+    elif year and year < CURRENT_YEAR - 1:
+        status = "suppressed_stale"
+        reasons.append(f"Appears stale for {year}.")
+    elif year and year < CURRENT_YEAR and ctype == "funding_call":
+        status = "suppressed_stale"
+        reasons.append(f"One-off call appears stale for {year}.")
+    elif confidence >= 0.55:
         status = "pending_review"
-        public_visible_state = "review_only"
-        promotion_signal = "green" if confidence >= 0.68 else "amber"
-        if not promotion_reasons:
-            promotion_reasons = ["Looks actionable and not already covered"]
-
+        public_state = "review_only"
+        reasons.append("Funding-looking candidate on trusted hub, not already registered.")
     else:
-        status = "suppressed_non_actionable"
-        public_visible_state = "discovery_only"
-        promotion_signal = "red"
-        reason_flags.append("not_actionable_enough")
-        promotion_reasons = ["Looks related, but still lacks enough application or eligibility signal"]
+        reasons.append("Insufficient application/funding signal.")
+
+    cid = f"cand_{slugify(seed['id'])}_{slugify(urlparse(url).netloc + urlparse(url).path)}"
+    prev = previous.get(cid) or previous.get(family_key(url)) or {}
+
+    if prev.get("status") in {"promoted", "rejected"}:
+        status = prev["status"]
+        reasons.append(f"Manual state preserved: {status}.")
 
     return {
-        "id": candidate_id(source["id"], page["url"]),
-        "url": page["url"],
-        "canonical_family_key": canonical_candidate_family_key(page["url"]),
-        "domain": canonical_domain(page["url"]),
+        "id": cid,
+        "url": url,
+        "canonical_family_key": family_key(url),
+        "domain": canonical_domain(url),
         "title": title,
         "snippet": snippet,
-        "first_seen": seen_at,
+        "first_seen": prev.get("first_seen") or seen_at,
         "last_seen": seen_at,
-        "discovered_via": discovered_via,
-        "source_hint": source.get("name", ""),
-        "source_id_hint": source.get("id", ""),
-        "candidate_type": candidate_type,
-        "confidence": round(confidence, 3),
-        "promotion_signal": promotion_signal,
-        "public_visible_state": public_visible_state,
-        "promotion_reasons": promotion_reasons,
-        "status": status,
-        "suggested_purposes": purposes,
-        "suggested_applicant_types": applicant_types,
-        "suggested_access_route": access_route,
-        "suggested_scale": scale,
-        "reason_flags": dedupe_keep_order(reason_flags),
-        "deadline_hint": deadline_hint,
-        "page_hash": page.get("page_hash"),
-        "notes": "",
         "seen_in_latest_run": True,
-        "already_trusted": already_trusted,
-        "trusted_registry_id": trusted_registry_id,
+        "detected_from": seed.get("id"),
+        "discovered_via": seed.get("name"),
+        "source_hint": seed.get("name"),
+        "source_id_hint": seed.get("id"),
+        "candidate_type": ctype,
+        "confidence": confidence,
+        "promotion_signal": "green" if status == "pending_review" and confidence >= 0.70 else ("amber" if status == "pending_review" else "red"),
+        "public_visible_state": public_state,
+        "promotion_reasons": reasons,
+        "status": status,
+        "suggested_purposes": seed.get("purposes", []),
+        "suggested_applicant_types": [],
+        "suggested_access_route": "direct",
+        "suggested_scale": "medium",
+        "mode_relevance": infer_mode_relevance(ctype, seed),
+        "deadline_hint": dline,
+        "latest_year_hint": year,
+        "page_hash": page.get("page_hash"),
+        "already_trusted": bool(existing),
+        "trusted_registry_id": existing.get("id") if existing else None,
+        "notes": prev.get("notes", ""),
     }
 
 
-def choose_better(existing: dict[str, Any], candidate: dict[str, Any]) -> dict[str, Any]:
-    rank = {
-        "pending_review": 5,
-        "suppressed_existing": 4,
-        "suppressed_non_actionable": 3,
-        "promoted": 2,
-        "rejected": 1,
-    }
+def build_seed_list(registry: list[dict[str, Any]], configured: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Return only explicit discovery seeds.
 
-    existing_rank = rank.get(existing.get("status"), 0)
-    candidate_rank = rank.get(candidate.get("status"), 0)
+    Important: do not auto-turn curated registry opportunities into crawler seeds.
+    Programme pages such as Walsh Scholars or Research Ireland Discover can contain
+    internal pages, funded-project pages, alumni pages, and resources. Those are not
+    new grant routes.
+    """
+    seeds = configured or DEFAULT_SEEDS[:]
 
-    if candidate_rank > existing_rank:
-        return candidate
-    if existing_rank > candidate_rank:
-        return existing
+    deduped = {}
+    for seed in seeds:
+        if seed.get("url"):
+            deduped[canonical_url(seed["url"])] = seed
 
-    if float(candidate.get("confidence", 0)) > float(existing.get("confidence", 0)):
-        return candidate
-    return existing
-
-
-def preserve_previous_fields(candidate: dict[str, Any], previous: dict[str, Any] | None) -> dict[str, Any]:
-    if not previous:
-        return candidate
-
-    for field in PERSISTENT_FIELDS:
-        if previous.get(field):
-            candidate[field] = previous[field]
-
-    prev_status = str(previous.get("status") or "").strip()
-    if prev_status == "promoted":
-        candidate["status"] = "promoted"
-        candidate["public_visible_state"] = "public_visible"
-        candidate["promotion_signal"] = "green"
-        candidate["already_trusted"] = previous.get("already_trusted", False)
-        candidate["trusted_registry_id"] = previous.get("trusted_registry_id")
-    elif prev_status == "rejected":
-        candidate["status"] = "rejected"
-        candidate["public_visible_state"] = "discovery_only"
-        candidate["promotion_signal"] = "red"
-
-    candidate["first_seen"] = previous.get("first_seen", candidate["first_seen"])
-    return candidate
-
-
-def update_meta_counts(payload: dict[str, Any]) -> None:
-    candidates = payload.get("candidates", [])
-    meta = payload.setdefault("meta", {})
-
-    meta["generated_at"] = now_iso()
-    meta["generator"] = "grant-radar-discovery 1.2"
-    meta["candidate_count"] = len(candidates)
-    meta["high_confidence_count"] = sum(
-        1 for item in candidates
-        if item.get("status") == "pending_review" and float(item.get("confidence", 0)) >= 0.8
-    )
-    meta["pending_review_count"] = sum(1 for item in candidates if item.get("status") == "pending_review")
-    meta["promoted_count"] = sum(1 for item in candidates if item.get("status") == "promoted")
-    meta["rejected_count"] = sum(1 for item in candidates if item.get("status") == "rejected")
-    meta["suppressed_existing_count"] = sum(1 for item in candidates if item.get("status") == "suppressed_existing")
-    meta["suppressed_non_actionable_count"] = sum(
-        1 for item in candidates if item.get("status") == "suppressed_non_actionable"
-    )
-    meta["approved_count"] = 0
-    meta["cl_drafted_count"] = 0
-    meta["promotion_requested_count"] = sum(1 for item in candidates if item.get("promotion_requested"))
-
-    domains = Counter(item.get("domain") for item in candidates if item.get("domain"))
-    meta["domains_seen"] = dict(sorted(domains.items()))
+    return list(deduped.values())
 
 
 def main() -> None:
-    registry = load_json(REGISTRY_PATH, default=[])
-    previous_payload = load_json(DISCOVERY_PATH, default={"meta": {}, "candidates": []})
-    previous_candidates = {
-        item.get("id"): item
-        for item in previous_payload.get("candidates", [])
-        if item.get("id")
-    }
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    discovered_map: dict[str, dict[str, Any]] = {}
-    memory_sources: list[dict[str, Any]] = []
     seen_at = now_iso()
+    registry = load_json(REGISTRY_PATH, [])
+    configured_seeds = load_json(SEEDS_PATH, DEFAULT_SEEDS)
+    previous_candidates = load_json(CANDIDATES_PATH, [])
+    previous_memory = load_json(MEMORY_PATH, {})
 
-    for source in registry:
-        if not source.get("discovery_enabled", True):
-            continue
+    previous = {}
+    if isinstance(previous_memory, dict):
+        previous.update(previous_memory)
+    for item in previous_candidates:
+        if isinstance(item, dict):
+            previous[item.get("id", "")] = item
+            previous[item.get("canonical_family_key", "")] = item
 
-        trusted_domain = source.get("trusted_domain") or canonical_domain(source["url"])
-        watch_terms = source_watch_terms(source)
-        watch_urls = build_watch_urls(source)
+    index = registry_index(registry)
+    seeds = build_seed_list(registry, configured_seeds)
 
-        source_memory: dict[str, Any] = {
-            "id": source.get("id"),
-            "name": source.get("name"),
-            "watched_urls": watch_urls,
-            "fetched_pages": [],
-            "child_urls": [],
-            "errors": [],
+    counters = Counter()
+    audit_seeds = []
+    candidates_by_family = {}
+    fetches = 0
+
+    for seed in seeds:
+        seed_url = canonical_url(seed["url"])
+        counters["seed_pages_attempted"] += 1
+        page, error = fetch_page(seed_url)
+
+        seed_report = {
+            "id": seed.get("id"),
+            "name": seed.get("name"),
+            "url": seed_url,
+            "status": "ok" if page else "fetch_error",
+            "fetch_error": error,
+            "links_seen": 0,
+            "funding_like_links": 0,
+            "candidates_fetched": 0,
         }
 
-        child_urls: list[str] = []
-
-        for watch_url in watch_urls:
-            page, error = fetch_page(watch_url)
-            if error:
-                source_memory["errors"].append({"url": watch_url, "error": error})
-                continue
-
-            source_memory["fetched_pages"].append({
-                "url": page["url"],
-                "page_hash": page["page_hash"],
-                "is_pdf": page.get("is_pdf", False),
-                "is_binary": page.get("is_binary", False),
-            })
-
-            for link in page.get("links", []):
-                if looks_like_candidate_link(link["url"], link["label"], watch_terms, trusted_domain):
-                    child_urls.append(link["url"])
-
-        child_urls = dedupe_keep_order(child_urls)[:MAX_CHILD_LINKS_PER_SOURCE]
-        source_memory["child_urls"] = child_urls
-        memory_sources.append(source_memory)
-
-        for child_url in child_urls:
-            child_page, error = fetch_page(child_url)
-            if error:
-                source_memory["errors"].append({"url": child_url, "error": error})
-                continue
-
-            candidate = classify_candidate(
-                page=child_page,
-                source=source,
-                registry=registry,
-                discovered_via="child_link",
-                seen_at=seen_at,
-            )
-
-            previous = previous_candidates.get(candidate["id"])
-            candidate = preserve_previous_fields(candidate, previous)
-
-            identity = candidate["canonical_family_key"]
-            existing = discovered_map.get(identity)
-            discovered_map[identity] = choose_better(existing, candidate) if existing else candidate
-
-    final_candidates = list(discovered_map.values())
-
-    for previous in previous_payload.get("candidates", []):
-        if previous.get("status") not in {"promoted", "rejected"}:
+        if not page:
+            counters["seed_pages_failed"] += 1
+            audit_seeds.append(seed_report)
             continue
-        if any(item.get("id") == previous.get("id") for item in final_candidates):
+
+        raw_links = page.get("links", [])
+        seed_report["links_seen"] = len(raw_links)
+        counters["links_seen"] += len(raw_links)
+
+        kept = []
+        for link in raw_links:
+            url = canonical_url(link["url"])
+            label = link.get("label", "")
+            if not same_or_child_domain(url, seed.get("trusted_domain") or canonical_domain(seed_url)):
+                continue
+            if denied_path(url) or has_binary_extension(url):
+                continue
+            score = link_score(url, label, seed)
+            if score >= 2.0:
+                kept.append({"url": url, "label": label, "score": score})
+
+        kept = sorted(
+            {family_key(item["url"]): item for item in kept}.values(),
+            key=lambda x: x["score"],
+            reverse=True,
+        )[:MAX_LINKS_PER_SEED]
+
+        seed_report["funding_like_links"] = len(kept)
+        counters["funding_like_links"] += len(kept)
+
+        for link in kept:
+            if fetches >= MAX_FETCHES:
+                counters["candidate_fetch_limit_reached"] += 1
+                break
+
+            fetches += 1
+            seed_report["candidates_fetched"] += 1
+
+            cand_page, cand_error = fetch_page(link["url"])
+            if cand_page:
+                candidate = classify_candidate(cand_page, seed, index, previous, seen_at)
+            else:
+                cid = f"cand_{slugify(seed['id'])}_{slugify(urlparse(link['url']).netloc + urlparse(link['url']).path)}"
+                candidate = {
+                    "id": cid,
+                    "url": link["url"],
+                    "canonical_family_key": family_key(link["url"]),
+                    "domain": canonical_domain(link["url"]),
+                    "title": link.get("label") or link["url"],
+                    "snippet": "",
+                    "first_seen": seen_at,
+                    "last_seen": seen_at,
+                    "seen_in_latest_run": True,
+                    "detected_from": seed.get("id"),
+                    "discovered_via": seed.get("name"),
+                    "candidate_type": "unknown",
+                    "confidence": 0.0,
+                    "promotion_signal": "red",
+                    "public_visible_state": "discovery_only",
+                    "promotion_reasons": [f"Candidate fetch failed: {cand_error}"],
+                    "status": "suppressed_fetch_error",
+                    "suggested_purposes": seed.get("purposes", []),
+                    "mode_relevance": {"ndrt": "maybe", "research": "maybe", "farmer": "exclude"},
+                    "already_trusted": False,
+                    "trusted_registry_id": None,
+                    "fetch_error": cand_error,
+                }
+
+            key = candidate["canonical_family_key"]
+            old = candidates_by_family.get(key)
+            if not old or (candidate.get("status") == "pending_review", candidate.get("confidence", 0)) > (old.get("status") == "pending_review", old.get("confidence", 0)):
+                candidates_by_family[key] = candidate
+
+        audit_seeds.append(seed_report)
+
+    # Preserve manual decisions not seen this run.
+    # Do not preserve old pending-review noise after discovery rules improve.
+    for item in previous_candidates:
+        if not isinstance(item, dict):
             continue
-        carried = dict(previous)
-        carried["seen_in_latest_run"] = False
-        final_candidates.append(carried)
+        if item.get("status") in {"promoted", "rejected"}:
+            key = item.get("canonical_family_key") or item.get("id")
+            if key and key not in candidates_by_family:
+                retained = dict(item)
+                retained["seen_in_latest_run"] = False
+                candidates_by_family[key] = retained
 
-    final_candidates.sort(
-        key=lambda item: (
-            {
-                "pending_review": 0,
-                "suppressed_existing": 1,
-                "suppressed_non_actionable": 2,
-                "promoted": 3,
-                "rejected": 4,
-            }.get(item.get("status"), 9),
-            -float(item.get("confidence", 0)),
-            item.get("title", "").lower(),
-        )
-    )
+    candidates = list(candidates_by_family.values())
+    candidates.sort(key=lambda c: (
+        0 if c.get("status") == "pending_review" else 1,
+        -float(c.get("confidence", 0)),
+        str(c.get("title", "")).lower(),
+    ))
 
-    payload = {
-        "meta": {},
-        "candidates": final_candidates,
-    }
-    update_meta_counts(payload)
-    save_json(DISCOVERY_PATH, payload)
+    status_counts = Counter(c.get("status", "unknown") for c in candidates)
+    type_counts = Counter(c.get("candidate_type", "unknown") for c in candidates)
 
-    memory_payload = {
+    audit = {
         "generated_at": seen_at,
-        "generator": "grant-radar-discovery 1.2",
-        "sources": memory_sources,
+        "engine": "hub-discovery-2.0",
+        "seed_count": len(seeds),
+        "seed_pages_attempted": counters["seed_pages_attempted"],
+        "seed_pages_failed": counters["seed_pages_failed"],
+        "links_seen": counters["links_seen"],
+        "funding_like_links": counters["funding_like_links"],
+        "candidate_fetches": fetches,
+        "pending_review_count": status_counts.get("pending_review", 0),
+        "status_counts": dict(status_counts),
+        "candidate_type_counts": dict(type_counts),
+        "seeds": audit_seeds,
     }
-    save_json(MEMORY_PATH, memory_payload)
 
-    print(f"Wrote discovery queue: {DISCOVERY_PATH}")
-    print(f"Wrote discovery memory: {MEMORY_PATH}")
-    print(json.dumps(payload["meta"], indent=2, ensure_ascii=False))
+    memory = {
+        c["canonical_family_key"]: {
+            "id": c.get("id"),
+            "title": c.get("title"),
+            "url": c.get("url"),
+            "status": c.get("status"),
+            "first_seen": c.get("first_seen"),
+            "last_seen": c.get("last_seen"),
+            "page_hash": c.get("page_hash"),
+        }
+        for c in candidates
+        if c.get("canonical_family_key")
+    }
+
+    save_json(CANDIDATES_PATH, candidates)
+    save_json(AUDIT_PATH, audit)
+    save_json(MEMORY_PATH, memory)
+
+    print(f"Wrote {CANDIDATES_PATH}")
+    print(f"Wrote {AUDIT_PATH}")
+    print(json.dumps({
+        "seed_count": audit["seed_count"],
+        "funding_like_links": audit["funding_like_links"],
+        "pending_review": audit["pending_review_count"],
+        "status_counts": audit["status_counts"],
+        "candidate_type_counts": audit["candidate_type_counts"],
+        "seed_pages_failed": audit["seed_pages_failed"],
+    }, indent=2))
 
 
 if __name__ == "__main__":
