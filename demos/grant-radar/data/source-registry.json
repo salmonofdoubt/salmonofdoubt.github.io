@@ -597,9 +597,9 @@
     "discovery_method": "official page text extraction",
     "note": "National community heritage and biodiversity grant stream.",
     "extract": {
-      "title": "Community Heritage Grant Scheme 2026",
-      "programme": "Heritage Council community grant",
-      "summary_hint": "Community heritage scheme that also supports biodiversity outputs.",
+      "title": "Heritage Council Community Heritage Grant Scheme",
+      "programme": "Heritage Council Community Heritage Grant Scheme",
+      "summary_hint": "Recurring national community heritage and biodiversity grant stream.",
       "deadline_regex": "deadline was\\s*([0-9: ]+[APMapm]+ on [0-9]{1,2}\\s+[A-Za-z]+\\s+[0-9]{4})",
       "status_hint": "closed",
       "scale": "medium",
@@ -609,13 +609,21 @@
         "heritage NGOs"
       ],
       "mode": "single_item",
-      "opportunity_type": "grant"
+      "opportunity_type": "grant",
+      "programme_kind": "recurring_programme",
+      "programme_state": "closed",
+      "expected_next_window": "Expected 2027 round",
+      "public_visible_state": "public_visible"
     },
     "trusted_domain": "heritagecouncil.ie",
     "source_class": "programme_page",
     "discovery_enabled": true,
-    "cadence": "unknown",
-    "usual_open_months": [],
+    "cadence": "annual",
+    "usual_open_months": [
+      1,
+      2,
+      3
+    ],
     "watch_paths": [],
     "watch_terms": [
       "biodiversity",
