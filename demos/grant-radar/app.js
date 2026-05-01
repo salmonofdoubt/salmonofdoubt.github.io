@@ -278,6 +278,49 @@ function compactList(values, fallback = '—', limit = 2) {
   return `${clean.slice(0, limit).join(', ')} +${clean.length - limit}`;
 }
 
+function cleanCardSummary(value) {
+  let text = String(value || '').replace(/\s+/g, ' ').trim();
+
+  const hardStops = [
+    /\bA notice about cookies\b/i,
+    /\bThis website uses cookies\b/i,
+    /\bWe use cookies\b/i,
+    /\bCookie settings\b/i,
+    /\bAccept all cookies\b/i,
+    /\bManage cookie preferences\b/i,
+    /\bSkip to main content\b/i,
+    /\bSearch Submit Search\b/i,
+  ];
+
+  hardStops.forEach((pattern) => {
+    const match = text.search(pattern);
+    if (match > 80) {
+      text = text.slice(0, match).trim();
+    } else if (match >= 0) {
+      text = text.replace(pattern, '').trim();
+    }
+  });
+
+  text = text
+    .replace(/\bA notice about cookies\b.*$/i, '')
+    .replace(/\bThis website uses cookies\b.*$/i, '')
+    .replace(/\bMore details available in.*$/i, '')
+    .replace(/\bYou are here:\s*/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const sentences = text.match(/[^.!?]+[.!?]+/g);
+  if (sentences && sentences.length >= 2) {
+    text = sentences.slice(0, 2).join(' ').trim();
+  }
+
+  if (text.length > 360) {
+    text = text.slice(0, 357).trimEnd() + '…';
+  }
+
+  return text || 'Summary not yet extracted cleanly. Open the source page for details.';
+}
+
 function fitValueForMode(item) {
   const relevance = item.mode_relevance || {};
   const labelMap = {
@@ -645,7 +688,7 @@ function renderOpportunities(opportunities) {
 
     root.querySelector('.card-title').textContent = item.title;
     root.querySelector('.card-source').textContent = item.programme || item.source_name;
-    root.querySelector('.card-summary').textContent = item.summary;
+    root.querySelector('.card-summary').textContent = cleanCardSummary(item.summary);
     root.querySelector('.deadline').textContent = formatDeadlineText(item);
     root.querySelector('.changed').textContent = item.changed_at ? fmtDate(item.changed_at) : fmtDate(item.last_verified_at);
     root.querySelector('.region').textContent = item.region || '—';
