@@ -541,11 +541,14 @@ function getChangeTagClass(changeType = 'none') {
 
 function renderSummary(opportunities) {
   const publicItems = state.catalog.opportunities.filter((item) => effectivePublicVisibility(item) === 'public_visible');
-  const publicSources = new Set(publicItems.map((item) => item.source_id));
 
   el.generatedAt.textContent = fmtDateTime(state.catalog.meta.generated_at);
   el.matchCount.textContent = String(opportunities.length);
-  el.sourceCount.textContent = String(publicSources.size);
+
+  // This is labelled "Tracked sources", so count configured catalogue sources,
+  // not only sources that currently produced a public opportunity card.
+  el.sourceCount.textContent = String((state.catalog.sources || []).length);
+
   el.changeCount.textContent = String(publicItems.filter((item) => item.change_type && item.change_type !== 'none').length);
 }
 
