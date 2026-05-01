@@ -733,6 +733,75 @@ def harvest() -> dict[str, Any]:
 
         except requests.exceptions.RequestException as exc:
             print(f"[WARN] Failed to fetch {source['name']} ({source['url']}): {exc}")
+
+            # Keep curated registry entries visible even when the source website
+            # times out, blocks the bot, or has a transient SSL/content error.
+            # The source card records the fetch error, but the opportunity card
+            # is still generated from the trusted registry metadata.
+            programme_kind = infer_programme_kind(source, opportunity_type, access_route)
+            programme_state = infer_programme_state(source, status_hint, programme_kind)
+            last_open_year = infer_last_open_year(source, None, programme_state)
+            expected_next_window = infer_expected_next_window(
+                source,
+                programme_kind,
+                programme_state,
+                last_open_year,
+            )
+            public_visible_state = infer_public_visible_state(
+                source,
+                programme_kind,
+                programme_state,
+            )
+
+            legacy_recurrence_type = programme_kind_to_legacy_recurrence_type(programme_kind)
+            legacy_current_availability = programme_state_to_legacy_current_availability(
+                programme_kind,
+                programme_state,
+            )
+            legacy_public_visibility = new_public_visible_state_to_legacy_public_visibility(
+                public_visible_state,
+                programme_state,
+            )
+
+            public_status = programme_state if programme_state in {"open", "upcoming", "closed"} else "closed"
+
+            fallback_item = ExtractedItem(
+                source_id=source["id"],
+                source_name=source["name"],
+                title=extract.get("title", source["name"]),
+                programme=extract.get("programme", source["name"]),
+                url=source["url"],
+                summary=summary,
+                status=public_status,
+                change_type="none",
+                changed_at=None,
+                deadline_iso=None,
+                deadline_text=None,
+                region=source.get("scope", "—"),
+                audience=raw_applicant_types,
+                applicant_types=applicant_types,
+                access_route=access_route,
+                scale=scale,
+                purposes=source.get("purposes", []),
+                keywords=keywords,
+                cta_label=f"Open {source['name']}",
+                opportunity_type=opportunity_type,
+                programme_kind=programme_kind,
+                programme_state=programme_state,
+                expected_next_window=expected_next_window,
+                public_visible_state=public_visible_state,
+                last_verified_at=seen_at,
+                last_open_year=last_open_year,
+                public_visibility=legacy_public_visibility,
+                current_availability=legacy_current_availability,
+                recurrence_type=legacy_recurrence_type,
+                mode_relevance=dict(source.get("mode_relevance", {})),
+                mode_reason=dict(source.get("mode_reason", {})),
+            )
+
+            determine_change(fallback_item, previous_items, seen_at)
+            items_out.append(fallback_item.as_dict())
+
             sources_out.append(
                 {
                     "id": source["id"],
