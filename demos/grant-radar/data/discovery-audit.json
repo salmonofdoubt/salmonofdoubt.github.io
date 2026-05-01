@@ -1,22 +1,35 @@
 {
-  "generated_at": "2026-05-01T15:49:05+00:00",
+  "generated_at": "2026-05-01T15:55:30+00:00",
   "engine": "hub-discovery-2.0",
-  "seed_count": 3,
-  "seed_pages_attempted": 3,
-  "seed_pages_failed": 1,
-  "links_seen": 0,
-  "funding_like_links": 0,
-  "candidate_fetches": 0,
-  "pending_review_count": 0,
-  "status_counts": {},
-  "candidate_type_counts": {},
+  "discovery_degraded": false,
+  "coverage_warning": null,
+  "seed_count": 10,
+  "seed_pages_attempted": 10,
+  "seed_pages_failed": 5,
+  "links_seen": 622,
+  "funding_like_links": 76,
+  "candidate_fetches": 76,
+  "pending_review_count": 29,
+  "status_counts": {
+    "pending_review": 29,
+    "suppressed_stale": 10,
+    "suppressed_existing": 3,
+    "suppressed_non_actionable": 21,
+    "suppressed_generic_page": 3
+  },
+  "candidate_type_counts": {
+    "recurring_programme": 45,
+    "funding_call": 16,
+    "scholarship": 2,
+    "generic_funding_hub": 3
+  },
   "seeds": [
     {
       "id": "research_ireland_funding_hub",
       "name": "Research Ireland funding hub",
-      "url": "https://www.researchireland.ie/funding",
+      "url": "https://www.researchireland.ie/funding/",
       "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding",
+      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -24,7 +37,7 @@
     {
       "id": "heritage_council_funding_hub",
       "name": "Heritage Council funding hub",
-      "url": "https://www.heritagecouncil.ie/funding",
+      "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
       "links_seen": 0,
@@ -34,9 +47,79 @@
     {
       "id": "lawpro_funding_hub",
       "name": "LAWPRO funding hub",
-      "url": "https://lawaters.ie/funding",
+      "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "epa_research_funding_hub",
+      "name": "EPA research funding hub",
+      "url": "https://www.epa.ie/our-services/research/epa--research-funding/",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 286,
+      "funding_like_links": 17,
+      "candidates_fetched": 17
+    },
+    {
+      "id": "ifi_funding_hub",
+      "name": "Inland Fisheries Ireland funding hub",
+      "url": "https://www.fisheriesireland.ie/our-services/funding",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 173,
+      "funding_like_links": 6,
+      "candidates_fetched": 6
+    },
+    {
+      "id": "seai_grants_hub",
+      "name": "SEAI grants hub",
+      "url": "https://www.seai.ie/grants/",
+      "status": "fetch_error",
+      "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "gsi_geoheritage_watch",
+      "name": "Geological Survey Ireland geoheritage watch",
+      "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 163,
+      "funding_like_links": 53,
+      "candidates_fetched": 53
+    },
+    {
+      "id": "waterways_ireland_heritage_watch",
+      "name": "Waterways Ireland heritage watch",
+      "url": "https://www.waterwaysireland.org/about-us/heritage",
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "life_calls_watch",
+      "name": "EU LIFE calls watch",
+      "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
+      "status": "fetch_error",
+      "fetch_error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "horizon_cluster6_watch",
+      "name": "Horizon Europe Cluster 6 watch",
+      "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
+      "status": "fetch_error",
+      "fetch_error": "403 Client Error: Forbidden for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0

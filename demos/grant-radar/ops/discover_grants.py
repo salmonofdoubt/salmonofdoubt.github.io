@@ -567,7 +567,7 @@ def main() -> None:
     fetches = 0
 
     for seed in seeds:
-        seed_url = canonical_url(seed["url"])
+        seed_url = str(seed["url"]).strip()
         counters["seed_pages_attempted"] += 1
         page, error = fetch_page(seed_url)
 
@@ -669,6 +669,23 @@ def main() -> None:
                 retained["seen_in_latest_run"] = False
                 candidates_by_family[key] = retained
 
+    discovery_degraded = counters["funding_like_links"] == 0
+
+    # A degraded discovery run must not wipe the review queue.
+    # If all hub scans fail or return zero funding-like links, preserve the
+    # previous candidates and mark them stale rather than writing [].
+    if discovery_degraded and previous_candidates:
+        candidates_by_family = {}
+        for item in previous_candidates:
+            if not isinstance(item, dict):
+                continue
+            retained = dict(item)
+            retained["seen_in_latest_run"] = False
+            retained["stale_due_to_discovery_degraded"] = True
+            key = retained.get("canonical_family_key") or retained.get("id")
+            if key:
+                candidates_by_family[key] = retained
+
     candidates = list(candidates_by_family.values())
     candidates.sort(key=lambda c: (
         0 if c.get("status") == "pending_review" else 1,
@@ -682,6 +699,8 @@ def main() -> None:
     audit = {
         "generated_at": seen_at,
         "engine": "hub-discovery-2.0",
+        "discovery_degraded": counters["funding_like_links"] == 0,
+        "coverage_warning": "No funding-like links found; previous candidates preserved where available." if counters["funding_like_links"] == 0 else None,
         "seed_count": len(seeds),
         "seed_pages_attempted": counters["seed_pages_attempted"],
         "seed_pages_failed": counters["seed_pages_failed"],
