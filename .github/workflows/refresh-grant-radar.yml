@@ -36,6 +36,9 @@ jobs:
       - name: Refresh trusted catalogue
         run: python demos/grant-radar/ops/harvest_grants.py
 
+      - name: Run Grant Radar health check
+        run: python demos/grant-radar/ops/health_check.py
+
       - name: Commit updated Grant Radar files
         run: |
           git config user.name "github-actions[bot]"
@@ -43,7 +46,11 @@ jobs:
 
           git add demos/grant-radar/data/catalog.json
           git add demos/grant-radar/data/discovery-candidates.json
+          git add demos/grant-radar/data/discovery-audit.json
+          git add demos/grant-radar/data/discovery-seeds.json
           git add demos/grant-radar/data/source-memory.json
+          git add demos/grant-radar/data/harvest-memory.json
+          git add demos/grant-radar/data/harvest-audit.json
           git add demos/grant-radar/data/source-registry.json
 
           git diff --cached --quiet && exit 0
