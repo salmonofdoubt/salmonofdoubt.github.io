@@ -61,12 +61,12 @@
     "source_id_hint": "gsi_geoheritage_watch",
     "candidate_type": "recurring_programme",
     "confidence": 0.55,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
+    "promotion_signal": "red",
+    "public_visible_state": "discovery_only",
     "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
+      "Rejected by admin"
     ],
-    "status": "pending_review",
+    "status": "rejected",
     "suggested_purposes": [
       "geoscience",
       "heritage",
@@ -86,7 +86,10 @@
     "page_hash": "sha256:3ead716207d128038f131570c0c206f5d3fbc738ee53905ab6670205652c3864",
     "already_trusted": false,
     "trusted_registry_id": null,
-    "notes": ""
+    "notes": "",
+    "admin_last_action": "reject",
+    "admin_last_action_at": "2026-05-01T16:33:04+00:00",
+    "admin_note": ""
   },
   {
     "id": "cand_gsi_geoheritage_watch_www_gsi_ie_en_ie_programmes_and_projects_geoheritage_activities_county_geological_site_audits_pages_completed_audits_aspx",
