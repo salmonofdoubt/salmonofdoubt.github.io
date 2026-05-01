@@ -1660,7 +1660,9 @@
       9,
       10
     ],
-    "watch_paths": [],
+    "watch_paths": [
+      "/funding/"
+    ],
     "watch_terms": [
       "environmental research",
       "research training",
@@ -2227,5 +2229,147 @@
     "mode_reason": {
       "ndrt": "Waterway-focused community heritage and biodiversity route."
     }
+  },
+  {
+    "id": "research_ireland_discover",
+    "name": "Research Ireland Discover Programme",
+    "url": "https://www.researchireland.ie/funding/discover/",
+    "scope": "Ireland",
+    "purposes": [
+      "education",
+      "citizen science",
+      "community nature",
+      "climate action",
+      "capacity building",
+      "environmental research"
+    ],
+    "discovery_method": "official Research Ireland programme page monitoring",
+    "note": "Public engagement and STEM awareness programme with relevance to climate action, sustainability, co-creation and community-facing research engagement.",
+    "trusted_domain": "researchireland.ie",
+    "source_class": "programme_page",
+    "harvest_enabled": true,
+    "discovery_enabled": true,
+    "cadence": "annual",
+    "usual_open_months": [
+      4,
+      5,
+      6
+    ],
+    "watch_paths": [],
+    "watch_terms": [
+      "Discover Programme",
+      "public engagement",
+      "STEM education",
+      "climate action",
+      "sustainability",
+      "co-creation",
+      "community engagement",
+      "citizen science",
+      "Research Ireland Discover",
+      "funding",
+      "grant",
+      "application",
+      "deadline"
+    ],
+    "extract": {
+      "title": "Research Ireland Discover Programme",
+      "programme": "Research Ireland Discover Programme",
+      "summary_hint": "Public engagement and STEM awareness funding programme with potential relevance to climate, sustainability, citizen-science and community engagement projects.",
+      "deadline_regex": "Deadline\\s*([0-9]{1,2}(?:st|nd|rd|th)?\\s+[A-Za-z]+\\s+20[0-9]{2})",
+      "status_hint": "closed",
+      "programme_kind": "recurring_programme",
+      "programme_state": "closed",
+      "expected_next_window": "Next annual round to be announced",
+      "public_visible_state": "public_visible",
+      "scale": "medium",
+      "access_route": "direct",
+      "applicant_types": [
+        "community groups",
+        "public bodies",
+        "researchers",
+        "NGOs",
+        "schools"
+      ],
+      "mode": "single_item",
+      "opportunity_type": "grant"
+    },
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "include",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Potentially relevant for public engagement, citizen science, sustainability outreach, school engagement and community-facing catchment education.",
+      "research": "Relevant to research engagement, public engagement and impact-oriented outreach."
+    },
+    "allow_pdf_candidates": false
+  },
+  {
+    "id": "research_ireland_discover_opportunistic",
+    "name": "Research Ireland Discover Programme – Opportunistic Funding Mechanism",
+    "url": "https://www.researchireland.ie/funding/",
+    "scope": "Ireland",
+    "purposes": [
+      "education",
+      "citizen science",
+      "community nature",
+      "climate action",
+      "capacity building",
+      "environmental research"
+    ],
+    "discovery_method": "official Research Ireland funding index monitoring",
+    "note": "Open rolling public-engagement route listed by Research Ireland for STEM education and public engagement activity.",
+    "trusted_domain": "researchireland.ie",
+    "source_class": "programme_page",
+    "harvest_enabled": true,
+    "discovery_enabled": true,
+    "cadence": "ongoing",
+    "usual_open_months": [],
+    "watch_paths": [
+      "/funding/",
+      "/funding/discover/"
+    ],
+    "watch_terms": [
+      "Discover Programme – Opportunistic Funding Mechanism",
+      "Opportunistic Funding Mechanism",
+      "public engagement",
+      "STEM education",
+      "deadline rolling",
+      "Research Ireland Discover",
+      "funding",
+      "grant",
+      "application"
+    ],
+    "extract": {
+      "title": "Research Ireland Discover Programme – Opportunistic Funding Mechanism",
+      "programme": "Research Ireland Discover Programme",
+      "summary_hint": "Rolling public-engagement funding mechanism for STEM education and public engagement activity.",
+      "status_hint": "open",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "scale": "medium",
+      "access_route": "direct",
+      "applicant_types": [
+        "community groups",
+        "public bodies",
+        "researchers",
+        "NGOs",
+        "schools"
+      ],
+      "mode": "single_item",
+      "opportunity_type": "grant"
+    },
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "include",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Potentially relevant for public engagement, citizen science, sustainability outreach, school engagement and community-facing catchment education.",
+      "research": "Relevant to public engagement and impact-oriented research engagement."
+    },
+    "allow_pdf_candidates": false
   }
 ]
