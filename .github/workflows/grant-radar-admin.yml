@@ -165,11 +165,31 @@ jobs:
                   return "open"
               return "open"
 
-          discovery = load_json(DISCOVERY_PATH, {"meta": {}, "candidates": []})
+          discovery = load_json(DISCOVERY_PATH, [])
           registry = load_json(REGISTRY_PATH, [])
 
-          candidates = discovery.get("candidates", [])
-          candidate = next((item for item in candidates if item.get("id") == candidate_id), None)
+          discovery_is_list = isinstance(discovery, list)
+
+          if discovery_is_list:
+              candidates = discovery
+          elif isinstance(discovery, dict):
+              candidates = discovery.setdefault("candidates", [])
+          else:
+              raise SystemExit("discovery-candidates.json must be a list or an object with a candidates list")
+
+          def save_discovery() -> None:
+              if discovery_is_list:
+                  save_json(DISCOVERY_PATH, candidates)
+              else:
+                  save_discovery()
+
+          candidate = next(
+              (
+                  item for item in candidates
+                  if isinstance(item, dict) and item.get("id") == candidate_id
+              ),
+              None,
+          )
 
           if not candidate:
               available = "\n".join(f"- {item.get('id')}" for item in candidates[:25])
@@ -227,7 +247,7 @@ jobs:
                       candidate["promotion_reasons"] = [
                           f"Generic child/navigation page blocked from promotion: {title}"
                       ]
-                      save_json(DISCOVERY_PATH, discovery)
+                      save_discovery()
                       save_json(REGISTRY_PATH, registry)
                       print(f"Blocked generic child page from promotion: {candidate_id}")
                       raise SystemExit(0)
@@ -328,6 +348,9 @@ jobs:
           }
 
           for item in candidates:
+              if not isinstance(item, dict):
+                  continue
+
               status = item.get("status")
               if status == "pending_review":
                   counts["pending_review_count"] += 1
@@ -337,16 +360,22 @@ jobs:
                   counts["rejected_count"] += 1
               elif status == "suppressed_existing":
                   counts["suppressed_existing_count"] += 1
-              elif status == "suppressed_non_actionable":
+              elif status in {
+                  "suppressed_non_actionable",
+                  "suppressed_generic_page",
+                  "suppressed_stale",
+                  "suppressed_fetch_error",
+              }:
                   counts["suppressed_non_actionable_count"] += 1
 
-          discovery.setdefault("meta", {})
-          discovery["meta"].update(counts)
-          discovery["meta"]["last_admin_action_at"] = now
-          discovery["meta"]["last_admin_action"] = action
-          discovery["meta"]["last_admin_candidate_id"] = candidate_id
+          if not discovery_is_list:
+              discovery.setdefault("meta", {})
+              discovery["meta"].update(counts)
+              discovery["meta"]["last_admin_action_at"] = now
+              discovery["meta"]["last_admin_action"] = action
+              discovery["meta"]["last_admin_candidate_id"] = candidate_id
 
-          save_json(DISCOVERY_PATH, discovery)
+          save_discovery()
           save_json(REGISTRY_PATH, registry)
 
           print(f"Applied {action} to {candidate_id}")
