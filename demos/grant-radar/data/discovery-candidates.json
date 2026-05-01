@@ -4,8 +4,8 @@
     "generator": "grant-radar-discovery 1.2",
     "candidate_count": 217,
     "high_confidence_count": 0,
-    "pending_review_count": 1,
-    "promoted_count": 18,
+    "pending_review_count": 0,
+    "promoted_count": 19,
     "rejected_count": 4,
     "suppressed_existing_count": 14,
     "suppressed_non_actionable_count": 180,
@@ -26,7 +26,10 @@
       "rea.ec.europa.eu": 2,
       "researchireland.ie": 21,
       "teagasc.ie": 23
-    }
+    },
+    "last_admin_action_at": "2026-05-01T13:04:46+00:00",
+    "last_admin_action": "promote",
+    "last_admin_candidate_id": "cand_better_farming_for_water_teagasc_ie_crops_forestry_grants"
   },
   "candidates": [
     {
@@ -43,12 +46,12 @@
       "source_id_hint": "better_farming_for_water",
       "candidate_type": "support_page",
       "confidence": 0.61,
-      "promotion_signal": "amber",
-      "public_visible_state": "review_only",
+      "promotion_signal": "green",
+      "public_visible_state": "discovery_only",
       "promotion_reasons": [
-        "good fit for practical/community use"
+        "Already covered by trusted source better_farming_for_water"
       ],
-      "status": "pending_review",
+      "status": "promoted",
       "suggested_purposes": [
         "water quality",
         "catchment delivery",
@@ -73,8 +76,11 @@
       "page_hash": "sha256:c9c16b909a578e96aeef7499b26b0949ed3afd90cc4770c2427cf22e9d6d64fa",
       "notes": "",
       "seen_in_latest_run": true,
-      "already_trusted": false,
-      "trusted_registry_id": null
+      "already_trusted": true,
+      "trusted_registry_id": "better_farming_for_water",
+      "admin_last_action": "promote_resolved_existing",
+      "admin_last_action_at": "2026-05-01T13:04:46+00:00",
+      "admin_note": ""
     },
     {
       "id": "cand_heritage_community_grant_www_heritagecouncil_ie_funding_community_heritage_grant_scheme_2",
