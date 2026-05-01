@@ -1,4 +1,4 @@
-const state = { payload: null, ai: { candidates: {} } };
+const state = { payload: null };
 
 const el = {
   summaryGrid: document.getElementById('summary-grid'),
@@ -14,11 +14,6 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
-}
-
-function aiFor(item) {
-  if (!item || !item.id) return null;
-  return state.ai?.candidates?.[item.id] || null;
 }
 
 function summaryBox(label, value) {
@@ -77,12 +72,38 @@ function statusClass(status) {
   return 'badge-pending';
 }
 
-function displaySnippet(item) {
-  const ai = aiFor(item);
-  if (ai && ai.ai_status === 'ok' && ai.clean_summary) {
-    return ai.clean_summary;
+function cleanSnippet(value) {
+  let text = String(value || '').replace(/\s+/g, ' ').trim();
+
+  const hardStops = [
+    /\bA notice about cookies\b/i,
+    /\bThis website uses cookies\b/i,
+    /\bWe use cookies\b/i,
+    /\bCookie settings\b/i,
+    /\bAccept all cookies\b/i,
+    /\bManage cookie preferences\b/i,
+    /\bSkip to main content\b/i,
+    /\bSearch Submit Search\b/i,
+  ];
+
+  hardStops.forEach((pattern) => {
+    const match = text.search(pattern);
+    if (match > 80) {
+      text = text.slice(0, match).trim();
+    } else if (match >= 0) {
+      text = text.replace(pattern, '').trim();
+    }
+  });
+
+  if (text.length > 420) {
+    text = text.slice(0, 417).trimEnd() + '…';
   }
-  return item.snippet || 'No snippet available.';
+
+  return text || 'No snippet available.';
+}
+
+function displaySnippet(item) {
+  return cleanSnippet(item.snippet);
 }
 
 function shortWhy(item) {
@@ -100,58 +121,6 @@ function shortWhy(item) {
   return 'No concise reason text available.';
 }
 
-function renderAiPanel(ai) {
-  if (!ai) return '';
-
-  if (ai.ai_status === 'error') {
-    return `
-      <div class="ai-panel ai-panel-error">
-        <div class="ai-panel-title">AI review unavailable</div>
-        <p>${escapeHtml(ai.error || 'Unknown AI enrichment error.')}</p>
-      </div>
-    `;
-  }
-
-  if (ai.ai_status !== 'ok') return '';
-
-  const relevance = ai.mode_relevance || {};
-  const relevanceText = [
-    `NDRT: ${relevance.ndrt || '—'}`,
-    `Research: ${relevance.research || '—'}`,
-    `Farmer: ${relevance.farmer || '—'}`,
-    `Climate: ${relevance.climate || '—'}`,
-  ].join(' · ');
-
-  const risks = Array.isArray(ai.risk_flags) && ai.risk_flags.length
-    ? ai.risk_flags.join(', ')
-    : 'none flagged';
-
-  return `
-    <div class="ai-panel ai-${escapeHtml(ai.decision_hint || 'review')}">
-      <div class="ai-panel-title">AI review hint</div>
-      <div class="ai-grid">
-        <div>
-          <span class="ai-label">Hint</span>
-          <span class="ai-value">${escapeHtml(ai.decision_hint || 'review')} · ${escapeHtml(Number(ai.confidence || 0).toFixed(2))}</span>
-        </div>
-        <div>
-          <span class="ai-label">Type</span>
-          <span class="ai-value">${escapeHtml(ai.candidate_type || 'unknown')}</span>
-        </div>
-        <div>
-          <span class="ai-label">Modes</span>
-          <span class="ai-value">${escapeHtml(relevanceText)}</span>
-        </div>
-        <div>
-          <span class="ai-label">Risks</span>
-          <span class="ai-value">${escapeHtml(risks)}</span>
-        </div>
-      </div>
-      <p class="ai-reason">${escapeHtml(ai.decision_reason || 'No AI reason provided.')}</p>
-    </div>
-  `;
-}
-
 function detailRows(item) {
   const rows = [];
   const status = normalizeStatus(item);
@@ -160,6 +129,10 @@ function detailRows(item) {
 
   if (item.id) {
     rows.push({ label: 'Candidate ID', value: item.id });
+  }
+
+  if (item.url) {
+    rows.push({ label: 'URL', value: item.url });
   }
 
   if (item.trusted_registry_id) {
@@ -222,7 +195,6 @@ function filteredCandidates() {
 
   return (state.payload.candidates || []).filter((item) => {
     const status = normalizeStatus(item);
-    const ai = aiFor(item);
     const haystack = [
       item.id,
       item.title,
@@ -231,16 +203,11 @@ function filteredCandidates() {
       item.snippet,
       item.deadline_hint,
       item.trusted_registry_id,
+      item.url,
       ...(item.suggested_purposes || []),
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),
       ...(item.promotion_reasons || []),
-      ai?.decision_hint,
-      ai?.decision_reason,
-      ai?.clean_summary,
-      ai?.candidate_type,
-      ...(ai?.risk_flags || []),
-      ...Object.values(ai?.mode_relevance || {}),
     ]
       .join(' ')
       .toLowerCase();
@@ -277,12 +244,15 @@ function sortedCandidates(items) {
     pending_review: 0,
     suppressed_existing: 1,
     suppressed_non_actionable: 2,
+    suppressed_generic_page: 2,
+    suppressed_stale: 2,
+    suppressed_fetch_error: 2,
     promoted: 3,
     rejected: 4,
   };
 
   return [...items].sort((a, b) => {
-    const statusDiff = rank[normalizeStatus(a)] - rank[normalizeStatus(b)];
+    const statusDiff = (rank[normalizeStatus(a)] ?? 99) - (rank[normalizeStatus(b)] ?? 99);
     if (statusDiff !== 0) return statusDiff;
 
     const confidenceDiff = Number(b.confidence || 0) - Number(a.confidence || 0);
@@ -334,7 +304,6 @@ function renderCards() {
 
   el.cards.innerHTML = candidates.map((item) => {
     const status = normalizeStatus(item);
-    const ai = aiFor(item);
     const detailHtml = detailRows(item)
       .map((row) => `
         <div class="detail-item">
@@ -348,7 +317,6 @@ function renderCards() {
       <article class="candidate-card">
         <div class="badge-row">
           <span class="badge ${statusClass(status)}">${escapeHtml(statusLabel(status))}</span>
-          ${ai && ai.ai_status === 'ok' ? `<span class="badge badge-ai badge-ai-${escapeHtml(ai.decision_hint || 'review')}">AI: ${escapeHtml(ai.decision_hint || 'review')} ${escapeHtml(Number(ai.confidence || 0).toFixed(2))}</span>` : ''}
         </div>
 
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
@@ -365,8 +333,6 @@ function renderCards() {
         <p class="why">
           <strong>Why:</strong> ${escapeHtml(shortWhy(item))}
         </p>
-
-        ${renderAiPanel(ai)}
 
         <details>
           <summary>More detail</summary>
@@ -443,23 +409,7 @@ async function init() {
   const response = await fetch('./data/discovery-candidates.json', { cache: 'no-store' });
   const payload = await response.json();
 
-  // discovery-candidates.json is currently written as a plain array.
-  // Older review UI code expected { candidates: [...] }.
-  // Support both shapes so the review page does not silently render zero.
   state.payload = Array.isArray(payload) ? { candidates: payload } : payload;
-
-  try {
-    const aiResponse = await fetch('./data/ai-candidate-enrichment.json', { cache: 'no-store' });
-    if (aiResponse.ok) {
-      state.ai = await aiResponse.json();
-    }
-  } catch (error) {
-    console.warn('AI enrichment unavailable', error);
-  }
-
-  if (!state.ai || !state.ai.candidates) {
-    state.ai = { candidates: {} };
-  }
 
   bindCardActions();
   renderCards();
