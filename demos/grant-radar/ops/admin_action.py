@@ -135,7 +135,7 @@ def save_candidates(discovery, candidates, discovery_is_list: bool) -> None:
 
 def main() -> None:
     action = os.environ["GRANT_RADAR_ACTION"].strip().lower()
-    candidate_id = os.environ["GRANT_RADAR_CANDIDATE_ID"].strip()
+    candidate_input = os.environ["GRANT_RADAR_CANDIDATE_ID"].strip()
     note = os.environ.get("GRANT_RADAR_NOTE", "").strip()
     now = datetime.now(UTC).replace(microsecond=0).isoformat()
 
@@ -146,25 +146,44 @@ def main() -> None:
     registry = load_json(REGISTRY_PATH, [])
     decisions = load_json(DECISIONS_PATH, {})
 
-    candidate = next(
-        (
-            item for item in candidates
-            if isinstance(item, dict) and item.get("id") == candidate_id
-        ),
-        None,
-    )
+    def find_candidate(candidates: list, value: str) -> dict | None:
+        raw = (value or "").strip()
+        raw_family = canonical_family_key(raw) if raw.startswith(("http://", "https://")) else None
+        raw_url = raw.rstrip("/")
+
+        for item in candidates:
+            if not isinstance(item, dict):
+                continue
+
+            if item.get("id") == raw:
+                return item
+
+            item_url = str(item.get("url") or "").rstrip("/")
+            item_family = item.get("canonical_family_key") or canonical_family_key(item_url)
+
+            if raw_url and item_url == raw_url:
+                return item
+
+            if raw_family and item_family == raw_family:
+                return item
+
+        return None
+
+    candidate = find_candidate(candidates, candidate_input)
 
     if not candidate:
         available = "\n".join(
-            f"- {item.get('id')}"
+            f"- {item.get('id')}  |  {item.get('url')}"
             for item in candidates[:30]
             if isinstance(item, dict)
         )
         raise SystemExit(
-            f"Candidate not found: {candidate_id}\n"
-            f"First available candidate IDs:\n{available}"
+            f"Candidate not found from input: {candidate_input}\n"
+            f"Use either the exact candidate ID or candidate URL.\n"
+            f"First available candidates:\n{available}"
         )
 
+    candidate_id = candidate.get("id") or candidate_input
     decision_key = candidate.get("canonical_family_key") or canonical_family_key(candidate.get("url", ""))
 
     if action == "reject":

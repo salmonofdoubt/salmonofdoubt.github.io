@@ -11,7 +11,7 @@ on:
           - promote
           - reject
       candidate_id:
-        description: "Exact candidate ID from review page"
+        description: "Candidate ID or candidate URL from review page"
         required: true
         type: string
       note:
