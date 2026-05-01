@@ -244,6 +244,9 @@ def openai_enrich(candidate: dict[str, Any]) -> dict[str, Any]:
         json=body,
         timeout=TIMEOUT,
     )
+    if response.status_code >= 400:
+        print("[OPENAI ERROR STATUS]", response.status_code)
+        print("[OPENAI ERROR BODY]", response.text[:1200])
     response.raise_for_status()
     data = response.json()
 
