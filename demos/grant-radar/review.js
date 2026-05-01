@@ -36,6 +36,9 @@ function normalizeStatus(item) {
     status === 'pending_review' ||
     status === 'suppressed_existing' ||
     status === 'suppressed_non_actionable' ||
+    status === 'suppressed_generic_page' ||
+    status === 'suppressed_stale' ||
+    status === 'suppressed_fetch_error' ||
     status === 'promoted' ||
     status === 'rejected'
   ) {
@@ -49,6 +52,9 @@ function statusLabel(status) {
   if (status === 'pending_review') return 'Needs decision';
   if (status === 'suppressed_existing') return 'Already covered';
   if (status === 'suppressed_non_actionable') return 'Non-actionable';
+  if (status === 'suppressed_generic_page') return 'Generic page';
+  if (status === 'suppressed_stale') return 'Stale';
+  if (status === 'suppressed_fetch_error') return 'Fetch failed';
   if (status === 'promoted') return 'Promoted';
   if (status === 'rejected') return 'Rejected';
   return 'Needs decision';
@@ -58,6 +64,9 @@ function statusClass(status) {
   if (status === 'pending_review') return 'badge-pending';
   if (status === 'suppressed_existing') return 'badge-existing';
   if (status === 'suppressed_non_actionable') return 'badge-suppressed';
+  if (status === 'suppressed_generic_page') return 'badge-suppressed';
+  if (status === 'suppressed_stale') return 'badge-suppressed';
+  if (status === 'suppressed_fetch_error') return 'badge-suppressed';
   if (status === 'promoted') return 'badge-promoted';
   if (status === 'rejected') return 'badge-rejected';
   return 'badge-pending';
@@ -179,7 +188,12 @@ function filteredCandidates() {
     }
 
     if (view === 'suppressed_non_actionable') {
-      return status === 'suppressed_non_actionable';
+      return (
+        status === 'suppressed_non_actionable' ||
+        status === 'suppressed_generic_page' ||
+        status === 'suppressed_stale' ||
+        status === 'suppressed_fetch_error'
+      );
     }
 
     if (view === 'completed') {
@@ -222,7 +236,12 @@ function renderSummary(allCandidates) {
     const status = normalizeStatus(item);
     if (status === 'pending_review') counts.pending_review += 1;
     else if (status === 'suppressed_existing') counts.suppressed_existing += 1;
-    else if (status === 'suppressed_non_actionable') counts.suppressed_non_actionable += 1;
+    else if (
+      status === 'suppressed_non_actionable' ||
+      status === 'suppressed_generic_page' ||
+      status === 'suppressed_stale' ||
+      status === 'suppressed_fetch_error'
+    ) counts.suppressed_non_actionable += 1;
     else if (status === 'promoted' || status === 'rejected') counts.completed += 1;
   });
 
@@ -350,7 +369,12 @@ function bindCardActions() {
 
 async function init() {
   const response = await fetch('./data/discovery-candidates.json', { cache: 'no-store' });
-  state.payload = await response.json();
+  const payload = await response.json();
+
+  // discovery-candidates.json is currently written as a plain array.
+  // Older review UI code expected { candidates: [...] }.
+  // Support both shapes so the review page does not silently render zero.
+  state.payload = Array.isArray(payload) ? { candidates: payload } : payload;
 
   bindCardActions();
   renderCards();
