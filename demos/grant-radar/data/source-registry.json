@@ -2381,7 +2381,8 @@
       "geoscience",
       "heritage",
       "education",
-      "community nature"
+      "community nature",
+      "geotourism"
     ],
     "discovery_method": "promoted from Grant Radar review queue",
     "note": "Decision: promote State: closed Kind: recurring programme Visibility: public-visible NDRT relevance: maybe Research relevance: include Farmer mode: exclude",
@@ -2389,8 +2390,11 @@
     "source_class": "programme_page",
     "harvest_enabled": true,
     "discovery_enabled": true,
-    "cadence": "unknown",
-    "usual_open_months": [],
+    "cadence": "annual",
+    "usual_open_months": [
+      8,
+      9
+    ],
     "watch_paths": [],
     "watch_terms": [
       "geoscience",
@@ -2423,13 +2427,25 @@
       "title": "Geoheritage Grant Funding",
       "programme": "Geological Survey Ireland geoheritage watch",
       "summary_hint": "Geoheritage Grant Funding Expand Navigation Data and Maps Topics Programmes Research Education Publications Events More on Us Contact Us Twitter Search Submit Search You are here: Geological Survey Ireland Programmes & Projects Geoheritage Activities Geotourism Geoheritage Grant Funding Geoheritage Grant Funding Page Content ​​Geological Survey Ireland offe…",
-      "status_hint": "open",
-      "scale": "medium",
+      "status_hint": "closed",
+      "scale": "local",
       "access_route": "direct",
-      "applicant_types": [],
+      "applicant_types": [
+        "local groups",
+        "public bodies",
+        "NGOs",
+        "schools"
+      ],
       "mode": "single_item",
-      "opportunity_type": "grant"
+      "opportunity_type": "grant",
+      "programme_kind": "recurring_programme",
+      "programme_state": "closed",
+      "public_visible_state": "public_visible",
+      "expected_next_window": "Expected next annual round, likely 2026/27; check GSI page."
     },
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "programme_kind": "recurring_programme",
+    "programme_state": "closed",
+    "public_visible_state": "public_visible"
   }
 ]

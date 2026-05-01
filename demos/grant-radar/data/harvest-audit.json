@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T16:36:54+00:00",
+  "generated_at": "2026-05-01T16:46:52+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -9,25 +9,87 @@
       "page_state": "closed",
       "state_source": "deadline_past_recurring",
       "deadline_text": "December 11th 2025"
+    }
+  ],
+  "fetch_failures_using_last_known_good": [
+    {
+      "id": "acres_scheme",
+      "name": "ACRES",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/campaigns/agri-climate-rural-environment-scheme-acres/",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "climate_action_communities",
+      "name": "Climate Action in our Communities / START",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-climate-energy-and-the-environment/press-releases/minister-obrien-announces-new-funding-of-almost-35-million-to-underpin-climate-action-in-our-communities/",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "farming_for_water_eip",
+      "name": "Farming for Water EIP",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/ministers-mcconalogue-hackett-and-noonan-launch-60-million-farming-for-water-eip/",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "farming_for_water_eip_gov_ie",
+      "name": "European Innovation Partnership Scheme",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "horizon_biodiv",
+      "name": "Horizon Europe Cluster 6 Biodiversity",
+      "error": "403 Client Error: Forbidden for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "leader_programme",
+      "name": "LEADER Programme",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development/",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "life_calls",
+      "name": "EU LIFE Calls",
+      "error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "npws_peatlands_natura_scheme",
+      "name": "NPWS Peatlands and Natura Community Engagement Scheme",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects/",
+      "last_successful_fetch_at": "2026-05-01T16:18:06+00:00",
+      "programme_state": "archived"
     },
     {
       "id": "research_ireland_goipg",
       "name": "Research Ireland Government of Ireland Postgraduate Scholarship",
-      "registry_state": "closed",
-      "page_state": "upcoming",
-      "state_source": "page_status_upcoming",
-      "deadline_text": "23rd October 2025"
+      "error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/government-ireland-postgraduate/",
+      "last_successful_fetch_at": "2026-05-01T14:41:46+00:00",
+      "programme_state": "upcoming"
     },
     {
-      "id": "geoheritage_grant_funding",
-      "name": "Geoheritage Grant Funding",
-      "registry_state": "open",
-      "page_state": "archived",
-      "state_source": "deadline_past_one_off",
-      "deadline_text": "24th September 2025"
+      "id": "research_ireland_discover",
+      "name": "Research Ireland Discover Programme",
+      "error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/discover/",
+      "last_successful_fetch_at": "2026-05-01T14:41:41+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "research_ireland_discover_opportunistic",
+      "name": "Research Ireland Discover Programme – Opportunistic Funding Mechanism",
+      "error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/",
+      "last_successful_fetch_at": "2026-05-01T14:41:46+00:00",
+      "programme_state": "open"
     }
   ],
-  "fetch_failures_using_last_known_good": [],
   "fetch_failures_using_registry_fallback": [
     {
       "id": "seai_community_grant",
@@ -50,19 +112,17 @@
     {
       "id": "waterways_heritage_biodiversity",
       "name": "Waterways Ireland Community Heritage and Biodiversity Grant Programme",
-      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
       "programme_state": "archived"
     }
   ],
   "state_source_counts": {
-    "registry_fallback": 20,
-    "deadline_past_recurring": 1,
-    "page_status_upcoming": 1,
+    "last_known_good": 11,
+    "registry_fallback": 12,
+    "deadline_past_recurring": 2,
     "registry_fallback_after_fetch_error": 4,
-    "deadline_future": 2,
-    "page_status_open": 1,
-    "deadline_past_one_off": 1
+    "deadline_future": 1
   },
-  "public_visible_count": 27,
+  "public_visible_count": 28,
   "total_harvested_count": 30
 }
