@@ -15,12 +15,12 @@
     "source_id_hint": "epa_research_funding_hub",
     "candidate_type": "funding_call",
     "confidence": 0.55,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
+    "promotion_signal": "green",
+    "public_visible_state": "discovery_only",
     "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
+      "Promoted to trusted source registry as how_to_apply"
     ],
-    "status": "pending_review",
+    "status": "promoted",
     "suggested_purposes": [
       "environmental research",
       "water quality",
@@ -38,9 +38,12 @@
     "deadline_hint": null,
     "latest_year_hint": null,
     "page_hash": "sha256:4a457cd9cc7aff6de2ef7c76ecbe8f6bd4f1d94db0675baecf3c831b65276846",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
+    "already_trusted": true,
+    "trusted_registry_id": "how_to_apply",
+    "notes": "",
+    "admin_last_action": "promote",
+    "admin_last_action_at": "2026-05-01T16:56:23+00:00",
+    "admin_note": ""
   },
   {
     "id": "cand_gsi_geoheritage_watch_www_gsi_ie_en_ie_programmes_and_projects_geoheritage_activities_geotourism_pages_gsi_geoheritage_grant_funding_aspx",
