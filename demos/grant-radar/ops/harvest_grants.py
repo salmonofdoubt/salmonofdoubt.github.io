@@ -31,6 +31,8 @@ SITE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = SITE_DIR / "data"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 CATALOG_PATH = DATA_DIR / "catalog.json"
+HARVEST_MEMORY_PATH = DATA_DIR / "harvest-memory.json"
+HARVEST_AUDIT_PATH = DATA_DIR / "harvest-audit.json"
 USER_AGENT = "GrantRadarBot/1.5 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (10, 30)
 
@@ -167,8 +169,17 @@ def load_json(path: Path, default: Any) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def save_json(path: Path, data: Any) -> None:
+    path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
 def fetch_text(url: str) -> tuple[str, str | None]:
-    headers = {"User-Agent": USER_AGENT}
+    headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-IE,en;q=0.9",
+        "Cache-Control": "no-cache",
+    }
     response = requests.get(url, headers=headers, timeout=TIMEOUT)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
@@ -194,16 +205,24 @@ def regex_extract(pattern: str | None, text: str) -> str | None:
 def normalise_date(value: str | None) -> tuple[str | None, str | None]:
     if not value:
         return None, None
-    cleaned = re.sub(r"\b(st|nd|rd|th)\b", "", value)
+
+    display = re.sub(r"\s+", " ", str(value)).strip(" .")
+    cleaned = re.sub(r"(\d{1,2})(st|nd|rd|th)\b", r"\1", display, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\blocal Irish time\b", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bIrish time\b", "", cleaned, flags=re.IGNORECASE)
+    cleaned = re.sub(r"\bIST\b", "", cleaned, flags=re.IGNORECASE)
+    cleaned = cleaned.replace(".", ":")
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" ,.")
+
     try:
         dt = dateparser.parse(cleaned, dayfirst=True)
         if not dt:
-            return None, value
+            return None, display
         if not dt.tzinfo:
             dt = dt.replace(tzinfo=UTC)
-        return dt.astimezone(UTC).isoformat(), value
+        return dt.astimezone(UTC).isoformat(), display
     except Exception:
-        return None, value
+        return None, display
 
 
 def dedupe_keep_order(values: list[str]) -> list[str]:
@@ -583,6 +602,140 @@ def infer_public_visible_state(
     return "public_visible"
 
 
+def parse_iso_datetime(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00")).astimezone(UTC)
+    except Exception:
+        return None
+
+
+def generic_deadline_extract(text: str) -> str | None:
+    patterns = [
+        r"Deadline\s*#?\s*([0-9]{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s+20[0-9]{2}(?:,?\s*[0-9]{1,2}[:.][0-9]{2})?(?:\s*(?:local Irish time|Irish time|UTC|GMT|IST))?)",
+        r"(?:Application deadline|Submission deadline|Applicant submission deadline|Closing date)\s*#?\s*:?\s*([^\n\r]{0,160}?20[0-9]{2}(?:[^\n\r]{0,80})?)",
+        r"(?:Applications? close|Applications? must be submitted by|Submit(?:ted)? by)\s*:?\s*([^\n\r]{0,160}?20[0-9]{2}(?:[^\n\r]{0,80})?)",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text or "", flags=re.IGNORECASE | re.DOTALL)
+        if match:
+            return re.sub(r"\s+", " ", match.group(1)).strip(" .")
+    return None
+
+
+def explicit_page_status(text: str) -> str | None:
+    lines = [
+        re.sub(r"\s+", " ", line).strip()
+        for line in (text or "").splitlines()
+        if re.sub(r"\s+", " ", line).strip()
+    ]
+    lowered = [line.lower() for line in lines]
+
+    joined = "\n".join(lines)
+    match = re.search(
+        r"(?:Status|Programme status|Call status)\s*#?\s*(Open|Closed|Upcoming)",
+        joined,
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return match.group(1).lower()
+
+    for i, line in enumerate(lowered):
+        if line in {"status", "programme status", "call status"} and i + 1 < len(lowered):
+            nxt = lowered[i + 1]
+            if nxt in {"open", "closed", "upcoming"}:
+                return nxt
+
+        # Many funding pages use a compact card: "Open" followed shortly by "Deadline".
+        if line in {"open", "closed", "upcoming"}:
+            nearby = " ".join(lowered[i + 1:i + 6])
+            if "deadline" in nearby or "application" in nearby or "funding" in nearby:
+                return line
+
+    return None
+
+
+def resolve_dynamic_state(
+    *,
+    text: str,
+    source: dict[str, Any],
+    programme_kind: str,
+    registry_programme_state: str,
+    deadline_iso: str | None,
+    seen_at: str,
+) -> dict[str, Any]:
+    now_dt = parse_iso_datetime(seen_at) or datetime.now(UTC)
+    deadline_dt = parse_iso_datetime(deadline_iso)
+    page_status = explicit_page_status(text)
+
+    state = registry_programme_state
+    state_source = "registry_fallback"
+    confidence = 0.45
+
+    if deadline_dt:
+        if deadline_dt > now_dt:
+            state = "open"
+            state_source = "deadline_future"
+            confidence = 0.90
+        else:
+            if programme_kind in {"recurring_programme", "rolling_support"}:
+                state = "closed"
+                state_source = "deadline_past_recurring"
+                confidence = 0.82
+            else:
+                state = "archived"
+                state_source = "deadline_past_one_off"
+                confidence = 0.82
+
+    if page_status == "open":
+        state = "open"
+        state_source = "page_status_open"
+        confidence = 0.95
+    elif page_status == "upcoming" and state != "open":
+        state = "upcoming"
+        state_source = "page_status_upcoming"
+        confidence = 0.90
+    elif page_status == "closed" and not (deadline_dt and deadline_dt > now_dt):
+        if programme_kind in {"recurring_programme", "rolling_support"}:
+            state = "closed"
+        else:
+            state = "archived"
+        state_source = "page_status_closed"
+        confidence = 0.90
+
+    if state == "archived":
+        public_visible_state = "discovery_only"
+    else:
+        public_visible_state = infer_public_visible_state(source, programme_kind, state)
+
+    return {
+        "programme_state": state,
+        "public_visible_state": public_visible_state,
+        "state_source": state_source,
+        "state_confidence": confidence,
+        "page_status": page_status,
+    }
+
+
+def memory_entry_from_item(item: dict[str, Any], seen_at: str) -> dict[str, Any]:
+    return {
+        "source_id": item.get("source_id"),
+        "title": item.get("title"),
+        "url": item.get("url"),
+        "programme_state": item.get("programme_state"),
+        "programme_kind": item.get("programme_kind"),
+        "public_visible_state": item.get("public_visible_state"),
+        "deadline_iso": item.get("deadline_iso"),
+        "deadline_text": item.get("deadline_text"),
+        "expected_next_window": item.get("expected_next_window"),
+        "last_open_year": item.get("last_open_year"),
+        "last_successful_fetch_at": seen_at,
+        "state_source": item.get("state_source"),
+        "state_confidence": item.get("state_confidence"),
+    }
+
+
 def determine_change(item: ExtractedItem, previous_map: dict[str, dict[str, Any]], seen_at: str) -> None:
     key = slugify(f"{item.source_id}_{item.title}")
     old = previous_map.get(key)
@@ -612,8 +765,17 @@ def harvest() -> dict[str, Any]:
     registry = load_json(REGISTRY_PATH, default=[])
     previous_catalog = load_json(CATALOG_PATH, default={})
     previous_items = {item["id"]: item for item in previous_catalog.get("opportunities", [])}
+    harvest_memory = load_json(HARVEST_MEMORY_PATH, default={})
 
     seen_at = datetime.now(UTC).replace(microsecond=0).isoformat()
+    harvest_audit: dict[str, Any] = {
+        "generated_at": seen_at,
+        "engine": "dynamic-state-harvest-2.0",
+        "state_mismatches": [],
+        "fetch_failures_using_last_known_good": [],
+        "fetch_failures_using_registry_fallback": [],
+        "state_source_counts": {},
+    }
     sources_out: list[dict[str, Any]] = []
     items_out: list[dict[str, Any]] = []
 
@@ -653,12 +815,35 @@ def harvest() -> dict[str, Any]:
             text, checked_at = fetch_text(source["url"])
             verified_at = checked_at or seen_at
 
-            deadline_raw = regex_extract(extract.get("deadline_regex"), text)
+            deadline_raw = regex_extract(extract.get("deadline_regex"), text) or generic_deadline_extract(text)
             launch_raw = regex_extract(extract.get("launch_regex"), text) or regex_extract(extract.get("open_regex"), text)
             deadline_iso, deadline_text = normalise_date(deadline_raw)
 
             programme_kind = infer_programme_kind(source, opportunity_type, access_route)
-            programme_state = infer_programme_state(source, status_hint, programme_kind)
+            registry_programme_state = infer_programme_state(source, status_hint, programme_kind)
+            dynamic_state = resolve_dynamic_state(
+                text=text,
+                source=source,
+                programme_kind=programme_kind,
+                registry_programme_state=registry_programme_state,
+                deadline_iso=deadline_iso,
+                seen_at=seen_at,
+            )
+            programme_state = dynamic_state["programme_state"]
+            public_visible_state = dynamic_state["public_visible_state"]
+
+            if registry_programme_state != programme_state:
+                harvest_audit["state_mismatches"].append(
+                    {
+                        "id": source["id"],
+                        "name": source["name"],
+                        "registry_state": registry_programme_state,
+                        "page_state": programme_state,
+                        "state_source": dynamic_state["state_source"],
+                        "deadline_text": deadline_text,
+                    }
+                )
+
             last_open_year = infer_last_open_year(source, deadline_iso, programme_state)
             expected_next_window = infer_expected_next_window(
                 source,
@@ -666,7 +851,6 @@ def harvest() -> dict[str, Any]:
                 programme_state,
                 last_open_year,
             )
-            public_visible_state = infer_public_visible_state(source, programme_kind, programme_state)
 
             legacy_recurrence_type = programme_kind_to_legacy_recurrence_type(programme_kind)
             legacy_current_availability = programme_state_to_legacy_current_availability(
@@ -715,7 +899,18 @@ def harvest() -> dict[str, Any]:
             )
 
             determine_change(item, previous_items, seen_at)
-            items_out.append(item.as_dict())
+            item_dict = item.as_dict()
+            item_dict.update(
+                {
+                    "state_source": dynamic_state["state_source"],
+                    "state_confidence": dynamic_state["state_confidence"],
+                    "page_status": dynamic_state["page_status"],
+                    "fetch_status": "ok",
+                    "last_successful_fetch_at": verified_at,
+                }
+            )
+            items_out.append(item_dict)
+            harvest_memory[source["id"]] = memory_entry_from_item(item_dict, verified_at)
 
             sources_out.append(
                 {
@@ -739,19 +934,58 @@ def harvest() -> dict[str, Any]:
             # The source card records the fetch error, but the opportunity card
             # is still generated from the trusted registry metadata.
             programme_kind = infer_programme_kind(source, opportunity_type, access_route)
-            programme_state = infer_programme_state(source, status_hint, programme_kind)
-            last_open_year = infer_last_open_year(source, None, programme_state)
-            expected_next_window = infer_expected_next_window(
-                source,
-                programme_kind,
-                programme_state,
-                last_open_year,
-            )
-            public_visible_state = infer_public_visible_state(
-                source,
-                programme_kind,
-                programme_state,
-            )
+            memory_entry = harvest_memory.get(source["id"], {}) if isinstance(harvest_memory, dict) else {}
+
+            if memory_entry:
+                programme_state = memory_entry.get("programme_state") or infer_programme_state(source, status_hint, programme_kind)
+                public_visible_state = memory_entry.get("public_visible_state") or infer_public_visible_state(
+                    source,
+                    programme_kind,
+                    programme_state,
+                )
+                last_open_year = memory_entry.get("last_open_year")
+                expected_next_window = memory_entry.get("expected_next_window")
+                fallback_deadline_iso = memory_entry.get("deadline_iso")
+                fallback_deadline_text = memory_entry.get("deadline_text")
+                fallback_verified_at = memory_entry.get("last_successful_fetch_at") or seen_at
+                fallback_state_source = "last_known_good"
+                fallback_state_confidence = 0.70
+                harvest_audit["fetch_failures_using_last_known_good"].append(
+                    {
+                        "id": source["id"],
+                        "name": source["name"],
+                        "error": str(exc),
+                        "last_successful_fetch_at": fallback_verified_at,
+                        "programme_state": programme_state,
+                    }
+                )
+            else:
+                programme_state = infer_programme_state(source, status_hint, programme_kind)
+                last_open_year = infer_last_open_year(source, None, programme_state)
+                expected_next_window = infer_expected_next_window(
+                    source,
+                    programme_kind,
+                    programme_state,
+                    last_open_year,
+                )
+                public_visible_state = infer_public_visible_state(
+                    source,
+                    programme_kind,
+                    programme_state,
+                )
+                fallback_deadline_iso = None
+                fallback_deadline_text = None
+                fallback_verified_at = seen_at
+                fallback_state_source = "registry_fallback_after_fetch_error"
+                fallback_state_confidence = 0.35
+                harvest_audit["fetch_failures_using_registry_fallback"].append(
+                    {
+                        "id": source["id"],
+                        "name": source["name"],
+                        "error": str(exc),
+                        "programme_state": programme_state,
+                    }
+                )
 
             legacy_recurrence_type = programme_kind_to_legacy_recurrence_type(programme_kind)
             legacy_current_availability = programme_state_to_legacy_current_availability(
@@ -775,8 +1009,8 @@ def harvest() -> dict[str, Any]:
                 status=public_status,
                 change_type="none",
                 changed_at=None,
-                deadline_iso=None,
-                deadline_text=None,
+                deadline_iso=fallback_deadline_iso,
+                deadline_text=fallback_deadline_text,
                 region=source.get("scope", "—"),
                 audience=raw_applicant_types,
                 applicant_types=applicant_types,
@@ -790,7 +1024,7 @@ def harvest() -> dict[str, Any]:
                 programme_state=programme_state,
                 expected_next_window=expected_next_window,
                 public_visible_state=public_visible_state,
-                last_verified_at=seen_at,
+                last_verified_at=fallback_verified_at,
                 last_open_year=last_open_year,
                 public_visibility=legacy_public_visibility,
                 current_availability=legacy_current_availability,
@@ -800,7 +1034,17 @@ def harvest() -> dict[str, Any]:
             )
 
             determine_change(fallback_item, previous_items, seen_at)
-            items_out.append(fallback_item.as_dict())
+            fallback_dict = fallback_item.as_dict()
+            fallback_dict.update(
+                {
+                    "state_source": fallback_state_source,
+                    "state_confidence": fallback_state_confidence,
+                    "fetch_status": "error",
+                    "fetch_error": str(exc),
+                    "last_successful_fetch_at": fallback_verified_at if memory_entry else None,
+                }
+            )
+            items_out.append(fallback_dict)
 
             sources_out.append(
                 {
@@ -832,6 +1076,17 @@ def harvest() -> dict[str, Any]:
     public_items = [item for item in items_out if item.get("public_visible_state") == "public_visible"]
     discovery_only_items = [item for item in items_out if item.get("public_visible_state") == "discovery_only"]
     archived_items = [item for item in items_out if item.get("programme_state") == "archived"]
+
+    source_counts: dict[str, int] = {}
+    for item in items_out:
+        key = str(item.get("state_source") or "unknown")
+        source_counts[key] = source_counts.get(key, 0) + 1
+    harvest_audit["state_source_counts"] = source_counts
+    harvest_audit["public_visible_count"] = len(public_items)
+    harvest_audit["total_harvested_count"] = len(items_out)
+
+    save_json(HARVEST_MEMORY_PATH, harvest_memory)
+    save_json(HARVEST_AUDIT_PATH, harvest_audit)
 
     return {
         "meta": {

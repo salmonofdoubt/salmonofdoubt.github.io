@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-05-01T13:24:38+00:00",
+  "engine": "dynamic-state-harvest-2.0",
+  "state_mismatches": [
+    {
+      "id": "ifi_habitats_conservation",
+      "name": "IFI Habitats & Conservation Funding Call",
+      "registry_state": "open",
+      "page_state": "closed",
+      "state_source": "deadline_past_recurring",
+      "deadline_text": "December 11th 2025"
+    },
+    {
+      "id": "research_ireland_goipg",
+      "name": "Research Ireland Government of Ireland Postgraduate Scholarship",
+      "registry_state": "closed",
+      "page_state": "upcoming",
+      "state_source": "page_status_upcoming",
+      "deadline_text": "23rd October 2025"
+    }
+  ],
+  "fetch_failures_using_last_known_good": [],
+  "fetch_failures_using_registry_fallback": [
+    {
+      "id": "heritage_community_grant",
+      "name": "Heritage Council Community Heritage Grant Scheme",
+      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=10)",
+      "programme_state": "closed"
+    },
+    {
+      "id": "seai_community_grant",
+      "name": "SEAI Community Grant",
+      "error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/community-grants",
+      "programme_state": "open"
+    },
+    {
+      "id": "seai_rdd",
+      "name": "SEAI RD&D Funding",
+      "error": "403 Client Error: Forbidden for url: https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "seai_sec_network",
+      "name": "SEAI Sustainable Energy Communities",
+      "error": "403 Client Error: Forbidden for url: https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community",
+      "programme_state": "open"
+    },
+    {
+      "id": "waterways_heritage_biodiversity",
+      "name": "Waterways Ireland Community Heritage and Biodiversity Grant Programme",
+      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
+      "programme_state": "archived"
+    }
+  ],
+  "state_source_counts": {
+    "registry_fallback": 19,
+    "registry_fallback_after_fetch_error": 5,
+    "deadline_past_recurring": 1,
+    "page_status_upcoming": 1,
+    "deadline_future": 2,
+    "page_status_open": 1
+  },
+  "public_visible_count": 27,
+  "total_harvested_count": 29
+}
