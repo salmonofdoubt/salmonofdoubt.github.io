@@ -51,7 +51,16 @@
       "opportunity_type": "farm payment"
     },
     "watch_paths": [],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "maybe",
+      "farmer": "include"
+    },
+    "mode_reason": {
+      "ndrt": "Farmer payment route, not a Trust delivery opportunity.",
+      "farmer": "Direct farmer agri-environment scheme."
+    }
   },
   {
     "id": "assap_programme",
@@ -100,7 +109,16 @@
       "opportunity_type": "implementation support"
     },
     "watch_paths": [],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "maybe",
+      "research": "maybe",
+      "farmer": "include"
+    },
+    "mode_reason": {
+      "ndrt": "Useful context for catchment signposting, but primarily farmer-facing.",
+      "farmer": "Direct advisory route for farmers in water-quality priority areas."
+    }
   },
   {
     "id": "better_farming_for_water",
@@ -148,7 +166,16 @@
       "opportunity_type": "implementation support"
     },
     "watch_paths": [],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "maybe",
+      "research": "maybe",
+      "farmer": "include"
+    },
+    "mode_reason": {
+      "ndrt": "Useful for catchment signposting, but primarily farmer-facing.",
+      "farmer": "Practical on-farm water-quality support."
+    }
   },
   {
     "id": "climate_action_communities",
@@ -222,7 +249,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Community climate route that can support habitat, biodiversity, and local adaptation work where eligible."
+    }
   },
   {
     "id": "enterprise_ireland_greenplus",
@@ -296,7 +331,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "exclude",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Business sustainability support route, not a Trust delivery opportunity."
+    }
   },
   {
     "id": "epa_research_call",
@@ -371,7 +414,16 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "include",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Research funding route, not a direct Trust delivery opportunity.",
+      "research": "Directly relevant to environmental researchers and institutions."
+    }
   },
   {
     "id": "farming_for_water_eip",
@@ -425,7 +477,16 @@
       "opportunity_type": "farm payment"
     },
     "watch_paths": [],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "maybe",
+      "research": "maybe",
+      "farmer": "include"
+    },
+    "mode_reason": {
+      "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
+      "farmer": "Direct water-quality implementation route for farms."
+    }
   },
   {
     "id": "farming_for_water_eip_gov_ie",
@@ -506,7 +567,16 @@
       "mode": "single_item",
       "opportunity_type": "implementation support"
     },
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "maybe",
+      "research": "maybe",
+      "farmer": "include"
+    },
+    "mode_reason": {
+      "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
+      "farmer": "Direct water-quality implementation route for farms."
+    }
   },
   {
     "id": "gsi_geoheritage",
@@ -580,7 +650,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Geoheritage education route, not primarily a river Trust water-quality or catchment delivery opportunity."
+    }
   },
   {
     "id": "heritage_community_grant",
@@ -663,7 +741,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Community heritage and biodiversity route with potential relevance for river heritage, surveys, and outreach."
+    }
   },
   {
     "id": "horizon_biodiv",
@@ -738,7 +824,16 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "include",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Research consortium route, not a direct Trust funding route.",
+      "research": "Relevant to biodiversity and ecosystem-services research consortia."
+    }
   },
   {
     "id": "ifi_habitats_conservation",
@@ -796,7 +891,15 @@
       "opportunity_type": "community grant"
     },
     "watch_paths": [],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "maybe"
+    },
+    "mode_reason": {
+      "ndrt": "Practical river, riparian, and habitat restoration funding route."
+    }
   },
   {
     "id": "lawpro_catchment_support_fund",
@@ -855,7 +958,15 @@
       "mode": "single_item",
       "opportunity_type": "community grant"
     },
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Directly relevant to catchment partnerships and community water-quality delivery."
+    }
   },
   {
     "id": "lawpro_cwdf",
@@ -945,7 +1056,15 @@
       "tidy towns",
       "local groups"
     ],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Directly relevant to community-led water-quality projects, awareness, monitoring, and restoration."
+    }
   },
   {
     "id": "lawpro_funding_hub",
@@ -1082,7 +1201,15 @@
       "tidy towns",
       "local groups"
     ],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Directly relevant to small community water events, citizen science, signage, surveys, and outreach."
+    }
   },
   {
     "id": "leader_programme",
@@ -1158,7 +1285,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "maybe"
+    },
+    "mode_reason": {
+      "ndrt": "Can support rural community, environmental, and catchment-related projects through Local Action Groups."
+    }
   },
   {
     "id": "leo_energy_efficiency",
@@ -1232,7 +1367,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "exclude",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Business energy-efficiency support, not a river Trust water-quality route."
+    }
   },
   {
     "id": "life_calls",
@@ -1308,7 +1451,16 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "include",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Large EU call route, not a normal small Trust delivery route.",
+      "research": "Relevant to research and institutional consortia."
+    }
   },
   {
     "id": "npws_local_biodiversity_action_fund",
@@ -1381,7 +1533,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Biodiversity and habitat action route with potential community and catchment relevance."
+    }
   },
   {
     "id": "npws_peatlands_natura_scheme",
@@ -1452,7 +1612,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Community conservation route relevant where peatland, Natura, or habitat work overlaps with the catchment."
+    }
   },
   {
     "id": "research_ireland_goipg",
@@ -1531,7 +1699,16 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "include",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Postgraduate scholarship route, not a Trust delivery opportunity.",
+      "research": "Directly relevant to postgraduate researchers."
+    }
   },
   {
     "id": "seai_community_grant",
@@ -1606,7 +1783,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "exclude",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Community energy route, not primarily water-quality or catchment delivery."
+    }
   },
   {
     "id": "seai_rdd",
@@ -1681,7 +1866,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Energy research route, not a Trust delivery opportunity."
+    }
   },
   {
     "id": "seai_sec_network",
@@ -1756,7 +1949,15 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "exclude",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Energy-community support route, not a water-quality Trust route."
+    }
   },
   {
     "id": "signpost_programme",
@@ -1804,7 +2005,16 @@
       "opportunity_type": "implementation support"
     },
     "watch_paths": [],
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "maybe",
+      "research": "maybe",
+      "farmer": "include"
+    },
+    "mode_reason": {
+      "ndrt": "Useful for catchment signposting, but primarily farmer-facing.",
+      "farmer": "Directly relevant to farm sustainability, water quality, and biodiversity."
+    }
   },
   {
     "id": "teagasc_walsh",
@@ -1881,7 +2091,16 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "exclude",
+      "research": "include",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Postgraduate research scholarship route, not a practical Trust, community, or catchment-delivery funding opportunity.",
+      "research": "Relevant to postgraduate researchers and research institutions."
+    }
   },
   {
     "id": "teagasc_water_quality_hub",
@@ -1999,6 +2218,14 @@
       "local groups"
     ],
     "harvest_enabled": true,
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "include",
+      "research": "maybe",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "ndrt": "Waterway-focused community heritage and biodiversity route."
+    }
   }
 ]

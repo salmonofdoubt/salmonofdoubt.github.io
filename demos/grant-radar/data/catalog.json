@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Grant Radar",
-    "generated_at": "2026-05-01T10:48:03+00:00",
+    "generated_at": "2026-05-01T12:37:19+00:00",
     "generator": "grant-radar-demo 1.5.0",
     "available_purposes": [
       "advisory support",
@@ -81,10 +81,10 @@
       "discovery_only",
       "public_visible"
     ],
-    "public_visible_count": 22,
+    "public_visible_count": 18,
     "discovery_only_count": 1,
     "archived_count": 1,
-    "total_harvested_count": 23
+    "total_harvested_count": 19
   },
   "sources": [
     {
@@ -100,7 +100,7 @@
         "farm payments"
       ],
       "note": "Ireland's flagship agri-environment climate scheme with major water-quality relevance through actions, NPIs and landscape measures.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official scheme page monitoring",
       "fetch_status": "ok"
     },
@@ -117,7 +117,7 @@
         "advisory support"
       ],
       "note": "Free and confidential advisory service working with farmers in priority areas for action to improve water quality.",
-      "last_checked": "2026-05-01T10:24:54+00:00",
+      "last_checked": "2026-05-01T11:55:56+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -134,7 +134,7 @@
         "riparian management"
       ],
       "note": "Catchment-based Teagasc campaign built around practical actions for farmers to improve water quality.",
-      "last_checked": "2026-05-01T10:24:54+00:00",
+      "last_checked": "2026-05-01T12:19:37+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -151,7 +151,7 @@
         "decarbonisation"
       ],
       "note": "START local-authority-led climate action scheme with community relevance.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -167,7 +167,7 @@
         "climate action"
       ],
       "note": "Business sustainability support route.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -183,7 +183,7 @@
         "climate adaptation"
       ],
       "note": "Direct call page with explicit key dates.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -200,7 +200,7 @@
         "nature-based solutions"
       ],
       "note": "Targeted farm-delivery programme aimed at improving water quality at local, catchment and national levels.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official press release and programme monitoring",
       "fetch_status": "ok"
     },
@@ -217,7 +217,7 @@
         "nature-based solutions"
       ],
       "note": "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "promoted from review queue",
       "fetch_status": "ok"
     },
@@ -233,7 +233,7 @@
         "community nature"
       ],
       "note": "Community-based geoheritage grant stream.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -250,9 +250,10 @@
         "surveys"
       ],
       "note": "National community heritage and biodiversity grant stream.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=10)"
     },
     {
       "id": "horizon_biodiv",
@@ -266,7 +267,7 @@
         "nature-based solutions"
       ],
       "note": "Biodiversity topic page with deadline markers.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -283,7 +284,7 @@
         "catchment delivery"
       ],
       "note": "Practical habitat and river-restoration funding route open to eligible third parties including clubs, local authorities and tidy towns groups.",
-      "last_checked": "2026-05-01T10:48:08+00:00",
+      "last_checked": "2026-05-01T12:37:37+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -300,9 +301,10 @@
         "capacity building"
       ],
       "note": "Capacity-building and core-cost support for catchment partnerships and local delivery bodies.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "415 Client Error: Unsupported Media Type for url: https://lawaters.ie/catchment-support-fund/"
     },
     {
       "id": "lawpro_cwdf",
@@ -317,9 +319,10 @@
         "education"
       ],
       "note": "Community and voluntary funding route for local water-quality projects and awareness action.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "415 Client Error: Unsupported Media Type for url: https://lawaters.ie/cwdf/"
     },
     {
       "id": "lawpro_small_grants",
@@ -334,9 +337,10 @@
         "education"
       ],
       "note": "Small-scale community water-awareness, survey, signage, education and event route.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "415 Client Error: Unsupported Media Type for url: https://lawaters.ie/small-grants-and-events-scheme/"
     },
     {
       "id": "leader_programme",
@@ -351,7 +355,7 @@
         "renewable energy"
       ],
       "note": "Rolling rural development route that can support environmental, catchment and community actions through Local Action Groups.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -367,7 +371,7 @@
         "climate action"
       ],
       "note": "Local LEO green supports including Energy Efficiency Grant.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -384,7 +388,7 @@
         "wetlands"
       ],
       "note": "Seed page before topic-level portal extraction.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -400,7 +404,7 @@
         "community nature"
       ],
       "note": "Local-authority-led biodiversity route with practical habitat and partnership relevance for catchment and community delivery.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -416,7 +420,7 @@
         "conservation"
       ],
       "note": "Award update for the community conservation scheme.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -449,7 +453,7 @@
         "climate action"
       ],
       "note": "SEAI community capital-funding route managed via project coordinators.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/community-grants"
@@ -466,7 +470,7 @@
         "decarbonisation"
       ],
       "note": "National energy RD&D funding stream; 2026 call signalled as opening soon.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund"
@@ -483,7 +487,7 @@
         "decarbonisation"
       ],
       "note": "SEC network and Energy Master Plan support route.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community"
@@ -501,7 +505,7 @@
         "advisory support"
       ],
       "note": "Free advisory and demonstration-farm route with explicit water-quality and biodiversity co-benefits.",
-      "last_checked": "2026-05-01T10:25:05+00:00",
+      "last_checked": "2026-05-01T12:37:40+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -518,7 +522,7 @@
         "research training"
       ],
       "note": "Current Teagasc postgraduate opportunities page. Retained for research-facing users alongside practical farm-delivery routes.",
-      "last_checked": "2026-05-01T10:02:42+00:00",
+      "last_checked": "2026-05-01T12:16:34+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -535,7 +539,7 @@
         "education"
       ],
       "note": "Waterway-focused small community grant.",
-      "last_checked": "2026-05-01T10:48:03+00:00",
+      "last_checked": "2026-05-01T12:37:19+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"
@@ -587,11 +591,20 @@
       "programme_state": "closed",
       "expected_next_window": "Sep–Nov 2027",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
-      "recurrence_type": "recurring"
+      "recurrence_type": "recurring",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "maybe",
+        "farmer": "include"
+      },
+      "mode_reason": {
+        "ndrt": "Farmer payment route, not a Trust delivery opportunity.",
+        "farmer": "Direct farmer agri-environment scheme."
+      }
     },
     {
       "id": "assap_programme_assap",
@@ -638,11 +651,20 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:24:54+00:00",
+      "last_verified_at": "2026-05-01T11:55:56+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "rolling"
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "maybe",
+        "research": "maybe",
+        "farmer": "include"
+      },
+      "mode_reason": {
+        "ndrt": "Useful context for catchment signposting, but primarily farmer-facing.",
+        "farmer": "Direct advisory route for farmers in water-quality priority areas."
+      }
     },
     {
       "id": "better_farming_for_water_teagasc_better_farming_for_water",
@@ -689,11 +711,20 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:24:54+00:00",
+      "last_verified_at": "2026-05-01T12:19:37+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "rolling"
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "maybe",
+        "research": "maybe",
+        "farmer": "include"
+      },
+      "mode_reason": {
+        "ndrt": "Useful for catchment signposting, but primarily farmer-facing.",
+        "farmer": "Practical on-farm water-quality support."
+      }
     },
     {
       "id": "climate_action_communities_start_2026_climate_action_in_our_communities",
@@ -745,11 +776,19 @@
       "programme_state": "upcoming",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
-      "recurrence_type": "rolling"
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "include",
+        "research": "maybe",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Community climate route that can support habitat, biodiversity, and local adaptation work where eligible."
+      }
     },
     {
       "id": "enterprise_ireland_greenplus_enterprise_ireland_greenplus",
@@ -800,11 +839,19 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "one_off"
+      "recurrence_type": "one_off",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "exclude",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Business sustainability support route, not a Trust delivery opportunity."
+      }
     },
     {
       "id": "epa_research_call_epa_research_call_2026",
@@ -854,11 +901,20 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "one_off"
+      "recurrence_type": "one_off",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Research funding route, not a direct Trust delivery opportunity.",
+        "research": "Directly relevant to environmental researchers and institutions."
+      }
     },
     {
       "id": "farming_for_water_eip_farming_for_water_eip",
@@ -905,11 +961,20 @@
       "programme_state": "open",
       "expected_next_window": "Feb–Apr 2026",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "recurring"
+      "recurrence_type": "recurring",
+      "mode_relevance": {
+        "ndrt": "maybe",
+        "research": "maybe",
+        "farmer": "include"
+      },
+      "mode_reason": {
+        "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
+        "farmer": "Direct water-quality implementation route for farms."
+      }
     },
     {
       "id": "farming_for_water_eip_gov_ie_european_innovation_partnership_scheme",
@@ -956,11 +1021,20 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "rolling"
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "maybe",
+        "research": "maybe",
+        "farmer": "include"
+      },
+      "mode_reason": {
+        "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
+        "farmer": "Direct water-quality implementation route for farms."
+      }
     },
     {
       "id": "gsi_geoheritage_gsi_geoheritage_grant_scheme_watch",
@@ -1011,67 +1085,19 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
-      "recurrence_type": "recurring"
-    },
-    {
-      "id": "heritage_community_grant_heritage_council_community_heritage_grant_scheme",
-      "source_id": "heritage_community_grant",
-      "source_name": "Heritage Council Community Heritage Grant Scheme",
-      "title": "Heritage Council Community Heritage Grant Scheme",
-      "programme": "Heritage Council Community Heritage Grant Scheme",
-      "url": "https://www.heritagecouncil.ie/funding/community-heritage-grant-scheme-2",
-      "summary": "Recurring national community heritage and biodiversity grant stream.",
-      "status": "closed",
-      "change_type": "new",
-      "changed_at": "2026-05-01T10:48:03+00:00",
-      "deadline_iso": null,
-      "deadline_text": null,
-      "region": "Ireland",
-      "audience": [
-        "community groups",
-        "heritage NGOs"
-      ],
-      "applicant_types": [
-        "local groups",
-        "NGOs"
-      ],
-      "access_route": "direct",
-      "scale": "medium",
-      "purposes": [
-        "biodiversity",
-        "heritage",
-        "community nature",
-        "education",
-        "surveys"
-      ],
-      "keywords": [
-        "biodiversity",
-        "community groups",
-        "community nature",
-        "education",
-        "grant",
-        "heritage",
-        "heritage council community heritage grant scheme",
-        "heritage NGOs",
-        "local groups",
-        "NGOs",
-        "surveys"
-      ],
-      "cta_label": "Open Heritage Council Community Heritage Grant Scheme",
-      "opportunity_type": "grant",
-      "programme_kind": "recurring_programme",
-      "programme_state": "closed",
-      "expected_next_window": "Expected 2027 round",
-      "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
-      "last_open_year": null,
-      "public_visibility": "public_visible",
-      "current_availability": "closed_for_now",
-      "recurrence_type": "recurring"
+      "recurrence_type": "recurring",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "maybe",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Geoheritage education route, not primarily a river Trust water-quality or catchment delivery opportunity."
+      }
     },
     {
       "id": "horizon_biodiv_horizon_cl6_2026_01_biodiv",
@@ -1121,11 +1147,20 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
-      "recurrence_type": "one_off"
+      "recurrence_type": "one_off",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Research consortium route, not a direct Trust funding route.",
+        "research": "Relevant to biodiversity and ecosystem-services research consortia."
+      }
     },
     {
       "id": "ifi_habitats_conservation_ifi_habitats_conservation_funding_call",
@@ -1181,187 +1216,19 @@
       "programme_state": "open",
       "expected_next_window": "Oct–Dec 2026",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:08+00:00",
+      "last_verified_at": "2026-05-01T12:37:37+00:00",
       "last_open_year": 2025,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "recurring"
-    },
-    {
-      "id": "lawpro_catchment_support_fund_lawpro_catchment_support_fund",
-      "source_id": "lawpro_catchment_support_fund",
-      "source_name": "LAWPRO Catchment Support Fund",
-      "title": "LAWPRO Catchment Support Fund",
-      "programme": "LAWPRO Catchment Support Fund",
-      "url": "https://lawaters.ie/catchment-support-fund/",
-      "summary": "Support for catchment partnerships and community-led water-quality bodies through core and capacity costs.",
-      "status": "closed",
-      "change_type": "none",
-      "changed_at": "2026-04-28T09:47:02+00:00",
-      "deadline_iso": null,
-      "deadline_text": null,
-      "region": "Ireland",
-      "audience": [
-        "community groups",
-        "catchment partnerships",
-        "environmental NGOs",
-        "voluntary groups"
-      ],
-      "applicant_types": [
-        "local groups",
-        "NGOs"
-      ],
-      "access_route": "direct",
-      "scale": "local",
-      "purposes": [
-        "water quality",
-        "catchment delivery",
-        "community nature",
-        "restoration",
-        "capacity building"
-      ],
-      "keywords": [
-        "capacity building",
-        "catchment delivery",
-        "catchment partnerships",
-        "community grant",
-        "community groups",
-        "community nature",
-        "environmental NGOs",
-        "lawpro catchment support fund",
-        "local groups",
-        "NGOs",
-        "restoration",
-        "voluntary groups",
-        "water quality"
-      ],
-      "cta_label": "Open LAWPRO Catchment Support Fund",
-      "opportunity_type": "community grant",
-      "programme_kind": "recurring_programme",
-      "programme_state": "closed",
-      "expected_next_window": "Jan–Mar 2027",
-      "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
-      "last_open_year": null,
-      "public_visibility": "public_visible",
-      "current_availability": "closed_for_now",
-      "recurrence_type": "recurring"
-    },
-    {
-      "id": "lawpro_cwdf_lawpro_community_water_development_fund",
-      "source_id": "lawpro_cwdf",
-      "source_name": "LAWPRO Community Water Development Fund",
-      "title": "LAWPRO Community Water Development Fund",
-      "programme": "LAWPRO Community Water Development Fund",
-      "url": "https://lawaters.ie/cwdf/",
-      "summary": "Local and voluntary water-quality funding route for practical projects, awareness and community action.",
-      "status": "closed",
-      "change_type": "none",
-      "changed_at": "2026-04-28T09:47:02+00:00",
-      "deadline_iso": null,
-      "deadline_text": null,
-      "region": "Ireland",
-      "audience": [
-        "community groups",
-        "voluntary groups",
-        "environmental NGOs",
-        "tidy towns groups"
-      ],
-      "applicant_types": [
-        "local groups",
-        "NGOs"
-      ],
-      "access_route": "direct",
-      "scale": "local",
-      "purposes": [
-        "water quality",
-        "community nature",
-        "citizen science",
-        "restoration",
-        "education"
-      ],
-      "keywords": [
-        "citizen science",
-        "community groups",
-        "community nature",
-        "education",
-        "environmental NGOs",
-        "grant",
-        "lawpro community water development fund",
-        "local groups",
-        "NGOs",
-        "restoration",
-        "tidy towns groups",
-        "voluntary groups",
-        "water quality"
-      ],
-      "cta_label": "Open LAWPRO Community Water Development Fund",
-      "opportunity_type": "grant",
-      "programme_kind": "recurring_programme",
-      "programme_state": "closed",
-      "expected_next_window": "Jan–Mar 2027",
-      "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
-      "last_open_year": null,
-      "public_visibility": "public_visible",
-      "current_availability": "closed_for_now",
-      "recurrence_type": "recurring"
-    },
-    {
-      "id": "lawpro_small_grants_lawpro_small_grants_and_events_scheme",
-      "source_id": "lawpro_small_grants",
-      "source_name": "LAWPRO Small Grants and Events Scheme",
-      "title": "LAWPRO Small Grants and Events Scheme",
-      "programme": "LAWPRO Small Grants and Events Scheme",
-      "url": "https://lawaters.ie/small-grants-and-events-scheme/",
-      "summary": "Local community micro-grants for water-quality awareness, events, surveys, signage and small practical initiatives.",
-      "status": "closed",
-      "change_type": "none",
-      "changed_at": "2026-04-28T09:47:02+00:00",
-      "deadline_iso": null,
-      "deadline_text": null,
-      "region": "Ireland",
-      "audience": [
-        "community groups",
-        "voluntary groups",
-        "tidy towns groups"
-      ],
-      "applicant_types": [
-        "local groups"
-      ],
-      "access_route": "direct",
-      "scale": "local",
-      "purposes": [
-        "community nature",
-        "wetlands",
-        "water quality",
-        "citizen science",
-        "education"
-      ],
-      "keywords": [
-        "citizen science",
-        "community groups",
-        "community nature",
-        "education",
-        "grant",
-        "lawpro small grants and events scheme",
-        "local groups",
-        "tidy towns groups",
-        "voluntary groups",
-        "water quality",
-        "wetlands"
-      ],
-      "cta_label": "Open LAWPRO Small Grants and Events Scheme",
-      "opportunity_type": "grant",
-      "programme_kind": "recurring_programme",
-      "programme_state": "closed",
-      "expected_next_window": "Apr–Jun 2027",
-      "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
-      "last_open_year": null,
-      "public_visibility": "public_visible",
-      "current_availability": "closed_for_now",
-      "recurrence_type": "recurring"
+      "recurrence_type": "recurring",
+      "mode_relevance": {
+        "ndrt": "include",
+        "research": "maybe",
+        "farmer": "maybe"
+      },
+      "mode_reason": {
+        "ndrt": "Practical river, riparian, and habitat restoration funding route."
+      }
     },
     {
       "id": "leader_programme_leader_rural_environment_and_community_route",
@@ -1418,11 +1285,19 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "rolling"
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "include",
+        "research": "maybe",
+        "farmer": "maybe"
+      },
+      "mode_reason": {
+        "ndrt": "Can support rural community, environmental, and catchment-related projects through Local Action Groups."
+      }
     },
     {
       "id": "leo_energy_efficiency_leo_energy_efficiency_grant",
@@ -1471,11 +1346,19 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "one_off"
+      "recurrence_type": "one_off",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "exclude",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Business energy-efficiency support, not a river Trust water-quality route."
+      }
     },
     {
       "id": "life_calls_life_calls_for_proposals_2026",
@@ -1530,11 +1413,20 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
-      "recurrence_type": "one_off"
+      "recurrence_type": "one_off",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Large EU call route, not a normal small Trust delivery route.",
+        "research": "Relevant to research and institutional consortia."
+      }
     },
     {
       "id": "npws_local_biodiversity_action_fund_local_biodiversity_action_fund",
@@ -1588,11 +1480,19 @@
       "programme_state": "closed",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
-      "recurrence_type": "rolling"
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "include",
+        "research": "maybe",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Biodiversity and habitat action route with potential community and catchment relevance."
+      }
     },
     {
       "id": "npws_peatlands_natura_scheme_peatlands_and_natura_community_engagement_scheme_2026_results",
@@ -1642,11 +1542,19 @@
       "programme_state": "archived",
       "expected_next_window": null,
       "public_visible_state": "discovery_only",
-      "last_verified_at": "2026-05-01T10:48:03+00:00",
+      "last_verified_at": "2026-05-01T12:37:19+00:00",
       "last_open_year": null,
       "public_visibility": "archived",
       "current_availability": "closed",
-      "recurrence_type": "one_off"
+      "recurrence_type": "one_off",
+      "mode_relevance": {
+        "ndrt": "include",
+        "research": "maybe",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Community conservation route relevant where peatland, Natura, or habitat work overlaps with the catchment."
+      }
     },
     {
       "id": "research_ireland_goipg_goipg_research_ireland_government_of_ireland_postgraduate_scholarship",
@@ -1697,7 +1605,16 @@
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
-      "recurrence_type": "recurring"
+      "recurrence_type": "recurring",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Postgraduate scholarship route, not a Trust delivery opportunity.",
+        "research": "Directly relevant to postgraduate researchers."
+      }
     },
     {
       "id": "signpost_programme_teagasc_signpost_programme",
@@ -1744,11 +1661,20 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:25:05+00:00",
+      "last_verified_at": "2026-05-01T12:37:40+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "rolling"
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "maybe",
+        "research": "maybe",
+        "farmer": "include"
+      },
+      "mode_reason": {
+        "ndrt": "Useful for catchment signposting, but primarily farmer-facing.",
+        "farmer": "Directly relevant to farm sustainability, water quality, and biodiversity."
+      }
     },
     {
       "id": "teagasc_walsh_teagasc_walsh_scholars_2026_opportunities",
@@ -1800,11 +1726,20 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-01T10:02:42+00:00",
+      "last_verified_at": "2026-05-01T12:16:34+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
-      "recurrence_type": "one_off"
+      "recurrence_type": "one_off",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude"
+      },
+      "mode_reason": {
+        "ndrt": "Postgraduate research scholarship route, not a practical Trust, community, or catchment-delivery funding opportunity.",
+        "research": "Relevant to postgraduate researchers and research institutions."
+      }
     }
   ]
 }

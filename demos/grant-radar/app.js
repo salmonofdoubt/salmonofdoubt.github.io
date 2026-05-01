@@ -388,17 +388,17 @@ function updateModeUi() {
   if (!el.modeNote) return;
 
   if (state.activeMode === 'ndrt') {
-    el.modeNote.textContent = 'River Trust mode is now only a visible preset: catchment, restoration, wetland, habitat, citizen-science, and community-delivery purposes are preselected, but there is no hidden narrowing underneath.';
+    el.modeNote.textContent = 'River Trust mode now shows only opportunities explicitly curated as actionable for NDRT-style community, catchment, restoration, monitoring, habitat, wetland, or outreach delivery.';
     return;
   }
 
   if (state.activeMode === 'research') {
-    el.modeNote.textContent = 'Research mode is now only a visible preset: research-facing purposes are preselected, but there is no hidden narrowing underneath.';
+    el.modeNote.textContent = 'Research mode now shows opportunities explicitly curated for researchers, postgraduate routes, universities, institutes, or research consortia.';
     return;
   }
 
   if (state.activeMode === 'farmer') {
-    el.modeNote.textContent = 'Farmer / water quality mode preselects practical on-farm water-protection purposes such as nutrient-pathway control, sediment reduction, riparian measures, wetlands, peatlands, and catchment delivery. It is not intended to surface generic livestock or cattle-management supports unless they clearly map to water-quality protection.';
+    el.modeNote.textContent = 'Farmer / water quality mode now shows opportunities explicitly curated for farmers and practical on-farm water-protection routes.';
     return;
   }
 
@@ -438,6 +438,12 @@ function matchesPurpose(item) {
   return [...state.selectedPurposes].some((purpose) => itemPurposes.has(purpose));
 }
 
+function matchesActiveMode(item) {
+  if (state.activeMode === 'all') return true;
+  const relevance = item.mode_relevance?.[state.activeMode] || 'exclude';
+  return relevance === 'include';
+}
+
 function getFilteredOpportunities() {
   const query = el.searchInput.value.trim().toLowerCase();
   const status = el.statusSelect.value;
@@ -452,6 +458,7 @@ function getFilteredOpportunities() {
 
   return state.catalog.opportunities.filter((item) => {
     if (effectivePublicVisibility(item) !== 'public_visible') return false;
+    if (!matchesActiveMode(item)) return false;
 
     const programmeState = effectiveProgrammeState(item);
     const programmeKind = effectiveProgrammeKind(item);

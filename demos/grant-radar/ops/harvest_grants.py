@@ -117,6 +117,8 @@ class ExtractedItem:
     public_visibility: str
     current_availability: str
     recurrence_type: str
+    mode_relevance: dict[str, str]
+    mode_reason: dict[str, str]
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -150,6 +152,8 @@ class ExtractedItem:
             "public_visibility": self.public_visibility,
             "current_availability": self.current_availability,
             "recurrence_type": self.recurrence_type,
+            "mode_relevance": self.mode_relevance,
+            "mode_reason": self.mode_reason,
         }
 
 
@@ -706,6 +710,8 @@ def harvest() -> dict[str, Any]:
                 public_visibility=legacy_public_visibility,
                 current_availability=legacy_current_availability,
                 recurrence_type=legacy_recurrence_type,
+                mode_relevance=dict(source.get("mode_relevance", {})),
+                mode_reason=dict(source.get("mode_reason", {})),
             )
 
             determine_change(item, previous_items, seen_at)
