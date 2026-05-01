@@ -106,14 +106,9 @@ const CLIMATE_ENTREPRENEUR_PURPOSES = [
   'decarbonisation',
   'energy efficiency',
   'community energy',
+  'renewable energy',
   'bioeconomy',
-  'circular economy',
-  'sustainability',
-  'environmental research',
-  'nature-based solutions',
-  'biodiversity',
-  'water quality',
-  'capacity building',
+  'entrepreneurship',
 ];
 
 const PROGRAMME_KIND_VALUES = new Set([
@@ -588,8 +583,14 @@ function isClimateEntrepreneurFit(item) {
     'pilot',
     'prototype',
     'demonstration',
+    'rd&d',
+    'research development and demonstration',
     'accelerator',
     'incubator',
+    'feasibility',
+    'market',
+    'product',
+    'service',
   ];
 
   const climateTerms = [
@@ -605,21 +606,9 @@ function isClimateEntrepreneurFit(item) {
     'bioeconomy',
     'efficiency',
     'transition',
-    'nature-based',
-    'nature based',
-    'biodiversity',
-    'water quality',
     'carbon',
     'emissions',
-  ];
-
-  const communityDeliveryTerms = [
-    'local groups',
-    'community',
-    'communities',
-    'social enterprise',
-    'public engagement',
-    'capacity building',
+    'green',
   ];
 
   const hardExcludeTerms = [
@@ -633,6 +622,10 @@ function isClimateEntrepreneurFit(item) {
     'fellowship',
     'postdoctoral',
     'alumni',
+    'pure research',
+    'heritage',
+    'geoheritage',
+    'geoscience',
     'faq',
     'related news',
     'related publications',
@@ -642,15 +635,14 @@ function isClimateEntrepreneurFit(item) {
 
   const hasEnterprise = enterpriseTerms.some((term) => haystack.includes(term));
   const hasClimate = climateTerms.some((term) => haystack.includes(term));
-  const hasCommunityDelivery = communityDeliveryTerms.some((term) => haystack.includes(term));
   const hardExcluded = hardExcludeTerms.some((term) => haystack.includes(term));
 
   if (hardExcluded) return false;
 
-  // Climate Entrepreneur mode should prioritise enterprise, innovation,
-  // business support, pilots, demonstrators, or community climate delivery.
-  // Pure research/student routes should not pass merely because they mention climate.
-  return hasClimate && (hasEnterprise || hasCommunityDelivery);
+  // Climate Entrepreneur mode should require both:
+  // 1. climate / energy / sustainability relevance
+  // 2. enterprise / innovation / pilot / business / demonstrator relevance
+  return hasClimate && hasEnterprise;
 }
 
 function matchesActiveMode(item) {
