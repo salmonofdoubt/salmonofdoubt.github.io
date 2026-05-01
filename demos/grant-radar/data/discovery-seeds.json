@@ -4,81 +4,280 @@
     "name": "Research Ireland funding hub",
     "url": "https://www.researchireland.ie/funding/",
     "trusted_domain": "researchireland.ie",
-    "purposes": ["environmental research", "education", "climate action", "biodiversity", "public engagement"],
-    "watch_terms": ["funding", "grant", "programme", "program", "call", "apply", "deadline", "discover", "climate", "sustainability", "public engagement", "education", "research"],
-    "require_any_terms_for_review": ["discover", "public engagement", "stem education", "citizen science", "community", "climate", "sustainability", "environment", "environmental", "biodiversity", "water", "catchment", "river", "nature", "nature-based", "nature based", "conservation", "energy", "transition", "agriculture", "soil"],
-    "suppress_candidate_types": ["scholarship"]
+    "purposes": [
+      "environmental research",
+      "education",
+      "climate action",
+      "biodiversity",
+      "public engagement"
+    ],
+    "watch_terms": [
+      "funding",
+      "grant",
+      "programme",
+      "program",
+      "call",
+      "apply",
+      "deadline",
+      "discover",
+      "climate",
+      "sustainability",
+      "public engagement",
+      "education",
+      "research"
+    ],
+    "require_any_terms_for_review": [
+      "discover",
+      "public engagement",
+      "stem education",
+      "citizen science",
+      "community",
+      "climate",
+      "sustainability",
+      "environment",
+      "environmental",
+      "biodiversity",
+      "water",
+      "catchment",
+      "river",
+      "nature",
+      "nature-based",
+      "nature based",
+      "conservation",
+      "energy",
+      "transition",
+      "agriculture",
+      "soil"
+    ],
+    "suppress_candidate_types": [
+      "scholarship"
+    ]
   },
   {
     "id": "heritage_council_funding_hub",
     "name": "Heritage Council funding hub",
     "url": "https://www.heritagecouncil.ie/funding/",
     "trusted_domain": "heritagecouncil.ie",
-    "purposes": ["heritage", "biodiversity", "community nature", "education", "surveys"],
-    "watch_terms": ["funding", "grant", "scheme", "heritage", "biodiversity", "community", "conservation", "education"]
+    "purposes": [
+      "heritage",
+      "biodiversity",
+      "community nature",
+      "education",
+      "surveys"
+    ],
+    "watch_terms": [
+      "funding",
+      "grant",
+      "scheme",
+      "heritage",
+      "biodiversity",
+      "community",
+      "conservation",
+      "education"
+    ]
   },
   {
     "id": "lawpro_funding_hub",
     "name": "LAWPRO funding hub",
     "url": "https://lawaters.ie/funding/",
     "trusted_domain": "lawaters.ie",
-    "purposes": ["water quality", "catchment delivery", "community nature", "citizen science", "restoration"],
-    "watch_terms": ["funding", "grant", "water", "catchment", "community", "river", "citizen science", "development fund", "small grants"]
+    "purposes": [
+      "water quality",
+      "catchment delivery",
+      "community nature",
+      "citizen science",
+      "restoration"
+    ],
+    "watch_terms": [
+      "funding",
+      "grant",
+      "water",
+      "catchment",
+      "community",
+      "river",
+      "citizen science",
+      "development fund",
+      "small grants"
+    ]
   },
   {
     "id": "epa_research_funding_hub",
     "name": "EPA research funding hub",
     "url": "https://www.epa.ie/our-services/research/epa--research-funding/",
     "trusted_domain": "epa.ie",
-    "purposes": ["environmental research", "water quality", "climate action", "biodiversity"],
-    "watch_terms": ["funding", "research call", "grant", "application", "deadline", "water", "climate", "biodiversity", "environment"]
+    "purposes": [
+      "environmental research",
+      "water quality",
+      "climate action",
+      "biodiversity"
+    ],
+    "watch_terms": [
+      "funding",
+      "research call",
+      "grant",
+      "application",
+      "deadline",
+      "water",
+      "climate",
+      "biodiversity",
+      "environment"
+    ]
   },
   {
     "id": "ifi_funding_hub",
     "name": "Inland Fisheries Ireland funding hub",
     "url": "https://www.fisheriesireland.ie/our-services/funding",
     "trusted_domain": "fisheriesireland.ie",
-    "purposes": ["water quality", "habitat restoration", "riparian management", "fisheries", "catchment delivery"],
-    "watch_terms": ["funding", "grant", "habitat", "conservation", "river", "riparian", "fishery", "water"]
+    "purposes": [
+      "water quality",
+      "habitat restoration",
+      "riparian management",
+      "fisheries",
+      "catchment delivery"
+    ],
+    "watch_terms": [
+      "funding",
+      "grant",
+      "habitat",
+      "conservation",
+      "river",
+      "riparian",
+      "fishery",
+      "water"
+    ]
   },
   {
     "id": "seai_grants_hub",
     "name": "SEAI grants hub",
     "url": "https://www.seai.ie/grants/",
     "trusted_domain": "seai.ie",
-    "purposes": ["community energy", "energy efficiency", "climate action", "decarbonisation"],
-    "watch_terms": ["grant", "grants", "funding", "community", "energy", "research", "rd&d", "application"]
+    "purposes": [
+      "community energy",
+      "energy efficiency",
+      "climate action",
+      "decarbonisation"
+    ],
+    "watch_terms": [
+      "grant",
+      "grants",
+      "funding",
+      "community",
+      "energy",
+      "research",
+      "rd&d",
+      "application"
+    ]
   },
   {
     "id": "gsi_geoheritage_watch",
     "name": "Geological Survey Ireland geoheritage watch",
     "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
     "trusted_domain": "gsi.ie",
-    "purposes": ["geoscience", "heritage", "education", "community nature"],
-    "watch_terms": ["grant", "funding", "geoheritage", "education", "community", "application"]
+    "purposes": [
+      "geoscience",
+      "heritage",
+      "education",
+      "community nature"
+    ],
+    "watch_terms": [
+      "grant",
+      "funding",
+      "geoheritage",
+      "education",
+      "community",
+      "application"
+    ],
+    "allow_candidate_url_patterns": [
+      "grant",
+      "funding"
+    ],
+    "suppress_candidate_url_patterns": [
+      "/Pages/default\\.aspx$",
+      "related-news\\.aspx$",
+      "related-publications\\.aspx$",
+      "Completed-audits\\.aspx$",
+      "A-CGS-near-you\\.aspx$",
+      "Protection-of-County-Geological-Sites\\.aspx$",
+      "Themes\\.aspx$",
+      "Geopark-FAQs\\.aspx$",
+      "UGGp-Networks-and-Committees\\.aspx$",
+      "/past_projects/",
+      "/geohazards/",
+      "/geological-mapping/",
+      "/geoscience-ireland/",
+      "/geothermal/",
+      "/minerals/",
+      "/planning/",
+      "/tellus/",
+      "/urban-geology/",
+      "/information/",
+      "/how-and-where-we-work/"
+    ]
   },
   {
     "id": "waterways_ireland_heritage_watch",
     "name": "Waterways Ireland heritage watch",
     "url": "https://www.waterwaysireland.org/about-us/heritage",
     "trusted_domain": "waterwaysireland.org",
-    "purposes": ["heritage", "biodiversity", "community nature", "water quality"],
-    "watch_terms": ["grant", "funding", "heritage", "biodiversity", "community", "waterways"]
+    "purposes": [
+      "heritage",
+      "biodiversity",
+      "community nature",
+      "water quality"
+    ],
+    "watch_terms": [
+      "grant",
+      "funding",
+      "heritage",
+      "biodiversity",
+      "community",
+      "waterways"
+    ]
   },
   {
     "id": "life_calls_watch",
     "name": "EU LIFE calls watch",
     "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
     "trusted_domain": "cinea.ec.europa.eu",
-    "purposes": ["biodiversity", "climate adaptation", "nature-based solutions", "wetlands"],
-    "watch_terms": ["call", "calls", "proposal", "funding", "life", "nature", "biodiversity", "climate", "application"]
+    "purposes": [
+      "biodiversity",
+      "climate adaptation",
+      "nature-based solutions",
+      "wetlands"
+    ],
+    "watch_terms": [
+      "call",
+      "calls",
+      "proposal",
+      "funding",
+      "life",
+      "nature",
+      "biodiversity",
+      "climate",
+      "application"
+    ]
   },
   {
     "id": "horizon_cluster6_watch",
     "name": "Horizon Europe Cluster 6 watch",
     "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
     "trusted_domain": "rea.ec.europa.eu",
-    "purposes": ["biodiversity", "environmental research", "nature-based solutions", "ecology"],
-    "watch_terms": ["call", "calls", "proposal", "funding", "cluster 6", "biodiversity", "ecosystem", "environment", "application"]
+    "purposes": [
+      "biodiversity",
+      "environmental research",
+      "nature-based solutions",
+      "ecology"
+    ],
+    "watch_terms": [
+      "call",
+      "calls",
+      "proposal",
+      "funding",
+      "cluster 6",
+      "biodiversity",
+      "ecosystem",
+      "environment",
+      "application"
+    ]
   }
 ]

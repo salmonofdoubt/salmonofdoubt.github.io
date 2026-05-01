@@ -233,6 +233,11 @@ def hit_count(text: str, terms: list[str]) -> int:
     return sum(1 for term in terms if term.lower() in hay)
 
 
+def pattern_hit(patterns: list[str], *parts: str) -> bool:
+    hay = " ".join(str(part or "") for part in parts)
+    return any(re.search(pattern, hay, flags=re.IGNORECASE) for pattern in patterns)
+
+
 def extract_years(*parts: str) -> list[int]:
     years = set()
     for part in parts:
@@ -599,6 +604,16 @@ def main() -> None:
                 continue
             if denied_path(url) or has_binary_extension(url):
                 continue
+
+            suppress_patterns = seed.get("suppress_candidate_url_patterns") or []
+            allow_patterns = seed.get("allow_candidate_url_patterns") or []
+
+            if suppress_patterns and pattern_hit(suppress_patterns, url, label):
+                continue
+
+            if allow_patterns and not pattern_hit(allow_patterns, url, label):
+                continue
+
             score = link_score(url, label, seed)
             if score >= 2.0:
                 kept.append({"url": url, "label": label, "score": score})

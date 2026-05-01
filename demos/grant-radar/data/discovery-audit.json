@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T15:55:30+00:00",
+  "generated_at": "2026-05-01T16:53:13+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
@@ -7,21 +7,23 @@
   "seed_pages_attempted": 10,
   "seed_pages_failed": 5,
   "links_seen": 622,
-  "funding_like_links": 76,
-  "candidate_fetches": 76,
-  "pending_review_count": 29,
+  "funding_like_links": 28,
+  "candidate_fetches": 28,
+  "pending_review_count": 1,
   "status_counts": {
-    "pending_review": 29,
-    "suppressed_stale": 10,
+    "pending_review": 1,
+    "promoted": 1,
+    "rejected": 2,
     "suppressed_existing": 3,
-    "suppressed_non_actionable": 21,
-    "suppressed_generic_page": 3
+    "suppressed_stale": 5,
+    "suppressed_non_actionable": 16,
+    "suppressed_generic_page": 2
   },
   "candidate_type_counts": {
-    "recurring_programme": 45,
     "funding_call": 16,
+    "recurring_programme": 10,
     "scholarship": 2,
-    "generic_funding_hub": 3
+    "generic_funding_hub": 2
   },
   "seeds": [
     {
@@ -91,8 +93,8 @@
       "status": "ok",
       "fetch_error": null,
       "links_seen": 163,
-      "funding_like_links": 53,
-      "candidates_fetched": 53
+      "funding_like_links": 5,
+      "candidates_fetched": 5
     },
     {
       "id": "waterways_ireland_heritage_watch",
