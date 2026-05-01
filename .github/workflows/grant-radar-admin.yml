@@ -66,6 +66,7 @@ jobs:
           DATA_DIR = Path("demos/grant-radar/data")
           DISCOVERY_PATH = DATA_DIR / "discovery-candidates.json"
           REGISTRY_PATH = DATA_DIR / "source-registry.json"
+          DECISIONS_PATH = DATA_DIR / "discovery-decisions.json"
 
           action = os.environ["GRANT_RADAR_ACTION"].strip().lower()
           candidate_id = os.environ["GRANT_RADAR_CANDIDATE_ID"].strip()
@@ -168,6 +169,7 @@ jobs:
 
           discovery = load_json(DISCOVERY_PATH, [])
           registry = load_json(REGISTRY_PATH, [])
+          decisions = load_json(DECISIONS_PATH, {})
 
           discovery_is_list = isinstance(discovery, list)
 
@@ -207,6 +209,16 @@ jobs:
               candidate["admin_last_action_at"] = now
               candidate["admin_note"] = note
               candidate["promotion_reasons"] = [f"Rejected by admin{': ' + note if note else ''}"]
+
+              decision_key = candidate.get("canonical_family_key") or canonical_family_key(candidate.get("url", ""))
+              decisions[decision_key] = {
+                  "candidate_id": candidate_id,
+                  "url": candidate.get("url", ""),
+                  "status": "rejected",
+                  "decision": "reject",
+                  "decided_at": now,
+                  "note": note,
+              }
 
           if action == "promote":
               existing = candidate_matches_registry(candidate, registry)
@@ -250,6 +262,7 @@ jobs:
                       ]
                       save_discovery()
                       save_json(REGISTRY_PATH, registry)
+          save_json(DECISIONS_PATH, decisions)
                       print(f"Blocked generic child page from promotion: {candidate_id}")
                       raise SystemExit(0)
                       
@@ -339,6 +352,17 @@ jobs:
                       f"Promoted to trusted source registry as {source_id}"
                   ]
 
+                  decision_key = candidate.get("canonical_family_key") or canonical_family_key(candidate.get("url", ""))
+                  decisions[decision_key] = {
+                      "candidate_id": candidate_id,
+                      "url": candidate.get("url", ""),
+                      "status": "promoted",
+                      "decision": "promote",
+                      "trusted_registry_id": source_id,
+                      "decided_at": now,
+                      "note": note,
+                  }
+
           counts = {
               "candidate_count": len(candidates),
               "pending_review_count": 0,
@@ -378,6 +402,7 @@ jobs:
 
           save_discovery()
           save_json(REGISTRY_PATH, registry)
+          save_json(DECISIONS_PATH, decisions)
 
           print(f"Applied {action} to {candidate_id}")
           PY
@@ -392,6 +417,7 @@ jobs:
 
           git add demos/grant-radar/data/catalog.json
           git add demos/grant-radar/data/discovery-candidates.json
+          git add demos/grant-radar/data/discovery-decisions.json
           git add demos/grant-radar/data/source-memory.json
           git add demos/grant-radar/data/source-registry.json
 

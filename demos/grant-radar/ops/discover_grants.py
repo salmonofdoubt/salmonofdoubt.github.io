@@ -27,6 +27,7 @@ SEEDS_PATH = DATA_DIR / "discovery-seeds.json"
 CANDIDATES_PATH = DATA_DIR / "discovery-candidates.json"
 AUDIT_PATH = DATA_DIR / "discovery-audit.json"
 MEMORY_PATH = DATA_DIR / "source-memory.json"
+DECISIONS_PATH = DATA_DIR / "discovery-decisions.json"
 
 USER_AGENT = "GrantRadarDiscoveryBot/2.0 (+https://salmonofdoubt.github.io/demos/grant-radar/)"
 TIMEOUT = (12, 35)
@@ -469,10 +470,17 @@ def classify_candidate(page: dict[str, Any], seed: dict[str, Any], index: dict[s
         reasons.append("Insufficient application/funding signal.")
 
     cid = f"cand_{slugify(seed['id'])}_{slugify(urlparse(url).netloc + urlparse(url).path)}"
-    prev = previous.get(cid) or previous.get(family_key(url)) or {}
+    family = family_key(url)
+    durable_decision = previous.get(f"decision:{family}") or previous.get(family)
+    prev = previous.get(cid) or previous.get(family) or {}
 
-    if prev.get("status") in {"promoted", "rejected"}:
+    if isinstance(durable_decision, dict) and durable_decision.get("status") in {"promoted", "rejected"}:
+        status = durable_decision["status"]
+        public_state = "discovery_only"
+        reasons.append(f"Durable manual decision preserved: {status}.")
+    elif prev.get("status") in {"promoted", "rejected"}:
         status = prev["status"]
+        public_state = "discovery_only"
         reasons.append(f"Manual state preserved: {status}.")
 
     return {
@@ -535,10 +543,16 @@ def main() -> None:
     configured_seeds = load_json(SEEDS_PATH, DEFAULT_SEEDS)
     previous_candidates = load_json(CANDIDATES_PATH, [])
     previous_memory = load_json(MEMORY_PATH, {})
+    decisions = load_json(DECISIONS_PATH, {})
 
     previous = {}
     if isinstance(previous_memory, dict):
         previous.update(previous_memory)
+    if isinstance(decisions, dict):
+        for key, value in decisions.items():
+            if isinstance(value, dict):
+                previous[key] = value
+                previous[f"decision:{key}"] = value
     for item in previous_candidates:
         if isinstance(item, dict):
             previous[item.get("id", "")] = item
