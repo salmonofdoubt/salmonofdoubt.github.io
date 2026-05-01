@@ -1,4 +1,4 @@
-const state = { payload: null };
+const state = { payload: null, ai: { candidates: {} } };
 
 const el = {
   summaryGrid: document.getElementById('summary-grid'),
@@ -14,6 +14,11 @@ function escapeHtml(value) {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
+}
+
+function aiFor(item) {
+  if (!item || !item.id) return null;
+  return state.ai?.candidates?.[item.id] || null;
 }
 
 function summaryBox(label, value) {
@@ -73,6 +78,10 @@ function statusClass(status) {
 }
 
 function displaySnippet(item) {
+  const ai = aiFor(item);
+  if (ai && ai.ai_status === 'ok' && ai.clean_summary) {
+    return ai.clean_summary;
+  }
   return item.snippet || 'No snippet available.';
 }
 
@@ -89,6 +98,58 @@ function shortWhy(item) {
   }
 
   return 'No concise reason text available.';
+}
+
+function renderAiPanel(ai) {
+  if (!ai) return '';
+
+  if (ai.ai_status === 'error') {
+    return `
+      <div class="ai-panel ai-panel-error">
+        <div class="ai-panel-title">AI review unavailable</div>
+        <p>${escapeHtml(ai.error || 'Unknown AI enrichment error.')}</p>
+      </div>
+    `;
+  }
+
+  if (ai.ai_status !== 'ok') return '';
+
+  const relevance = ai.mode_relevance || {};
+  const relevanceText = [
+    `NDRT: ${relevance.ndrt || '—'}`,
+    `Research: ${relevance.research || '—'}`,
+    `Farmer: ${relevance.farmer || '—'}`,
+    `Climate: ${relevance.climate || '—'}`,
+  ].join(' · ');
+
+  const risks = Array.isArray(ai.risk_flags) && ai.risk_flags.length
+    ? ai.risk_flags.join(', ')
+    : 'none flagged';
+
+  return `
+    <div class="ai-panel ai-${escapeHtml(ai.decision_hint || 'review')}">
+      <div class="ai-panel-title">AI review hint</div>
+      <div class="ai-grid">
+        <div>
+          <span class="ai-label">Hint</span>
+          <span class="ai-value">${escapeHtml(ai.decision_hint || 'review')} · ${escapeHtml(Number(ai.confidence || 0).toFixed(2))}</span>
+        </div>
+        <div>
+          <span class="ai-label">Type</span>
+          <span class="ai-value">${escapeHtml(ai.candidate_type || 'unknown')}</span>
+        </div>
+        <div>
+          <span class="ai-label">Modes</span>
+          <span class="ai-value">${escapeHtml(relevanceText)}</span>
+        </div>
+        <div>
+          <span class="ai-label">Risks</span>
+          <span class="ai-value">${escapeHtml(risks)}</span>
+        </div>
+      </div>
+      <p class="ai-reason">${escapeHtml(ai.decision_reason || 'No AI reason provided.')}</p>
+    </div>
+  `;
 }
 
 function detailRows(item) {
@@ -161,6 +222,7 @@ function filteredCandidates() {
 
   return (state.payload.candidates || []).filter((item) => {
     const status = normalizeStatus(item);
+    const ai = aiFor(item);
     const haystack = [
       item.id,
       item.title,
@@ -173,6 +235,12 @@ function filteredCandidates() {
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),
       ...(item.promotion_reasons || []),
+      ai?.decision_hint,
+      ai?.decision_reason,
+      ai?.clean_summary,
+      ai?.candidate_type,
+      ...(ai?.risk_flags || []),
+      ...Object.values(ai?.mode_relevance || {}),
     ]
       .join(' ')
       .toLowerCase();
@@ -266,6 +334,7 @@ function renderCards() {
 
   el.cards.innerHTML = candidates.map((item) => {
     const status = normalizeStatus(item);
+    const ai = aiFor(item);
     const detailHtml = detailRows(item)
       .map((row) => `
         <div class="detail-item">
@@ -279,6 +348,7 @@ function renderCards() {
       <article class="candidate-card">
         <div class="badge-row">
           <span class="badge ${statusClass(status)}">${escapeHtml(statusLabel(status))}</span>
+          ${ai && ai.ai_status === 'ok' ? `<span class="badge badge-ai badge-ai-${escapeHtml(ai.decision_hint || 'review')}">AI: ${escapeHtml(ai.decision_hint || 'review')} ${escapeHtml(Number(ai.confidence || 0).toFixed(2))}</span>` : ''}
         </div>
 
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
@@ -295,6 +365,8 @@ function renderCards() {
         <p class="why">
           <strong>Why:</strong> ${escapeHtml(shortWhy(item))}
         </p>
+
+        ${renderAiPanel(ai)}
 
         <details>
           <summary>More detail</summary>
@@ -375,6 +447,19 @@ async function init() {
   // Older review UI code expected { candidates: [...] }.
   // Support both shapes so the review page does not silently render zero.
   state.payload = Array.isArray(payload) ? { candidates: payload } : payload;
+
+  try {
+    const aiResponse = await fetch('./data/ai-candidate-enrichment.json', { cache: 'no-store' });
+    if (aiResponse.ok) {
+      state.ai = await aiResponse.json();
+    }
+  } catch (error) {
+    console.warn('AI enrichment unavailable', error);
+  }
+
+  if (!state.ai || !state.ai.candidates) {
+    state.ai = { candidates: {} };
+  }
 
   bindCardActions();
   renderCards();

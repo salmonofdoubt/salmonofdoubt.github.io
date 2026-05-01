@@ -34,6 +34,11 @@ jobs:
       - name: Discover candidate grant pages
         run: python demos/grant-radar/ops/discover_grants.py
 
+      - name: Enrich discovery candidates with AI hints
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python demos/grant-radar/ops/ai_enrich_candidates.py
+
       - name: Refresh trusted catalogue
         run: python demos/grant-radar/ops/harvest_grants.py
 
@@ -47,6 +52,7 @@ jobs:
 
           git add demos/grant-radar/data/catalog.json
           git add demos/grant-radar/data/discovery-candidates.json
+          git add demos/grant-radar/data/ai-candidate-enrichment.json
           git add demos/grant-radar/data/discovery-audit.json
           git add demos/grant-radar/data/discovery-seeds.json
           git add demos/grant-radar/data/source-memory.json
