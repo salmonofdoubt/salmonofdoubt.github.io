@@ -352,6 +352,11 @@ function fitValueForMode(item) {
     exclude: 'no',
   };
 
+  if (state.activeMode === 'climate') {
+    const value = isClimateEntrepreneurFit(item) ? 'include' : 'exclude';
+    return `Climate: ${valueMap[value] || value}`;
+  }
+
   if (state.activeMode !== 'all') {
     const value = relevance[state.activeMode] || 'exclude';
     return `${labelMap[state.activeMode] || state.activeMode}: ${valueMap[value] || value}`;
@@ -563,7 +568,31 @@ function isClimateEntrepreneurFit(item) {
     ...(item.keywords || []),
   ].join(' ').toLowerCase();
 
-  const positiveTerms = [
+  const enterpriseTerms = [
+    'enterprise',
+    'entrepreneur',
+    'business',
+    'businesses',
+    'startup',
+    'start-up',
+    'sme',
+    'micro-enterprise',
+    'micro enterprise',
+    'social enterprise',
+    'commercialisation',
+    'commercialization',
+    'greenplus',
+    'green plus',
+    'innovation voucher',
+    'innovation',
+    'pilot',
+    'prototype',
+    'demonstration',
+    'accelerator',
+    'incubator',
+  ];
+
+  const climateTerms = [
     'climate',
     'adaptation',
     'decarbonisation',
@@ -574,44 +603,35 @@ function isClimateEntrepreneurFit(item) {
     'sustainability',
     'circular',
     'bioeconomy',
-    'innovation',
-    'enterprise',
-    'entrepreneur',
-    'business',
-    'startup',
-    'start-up',
-    'commercialisation',
-    'commercialization',
-    'pilot',
-    'demonstration',
-    'prototype',
-    'technology',
-    'solution',
-    'nature-based',
-    'nature based',
-    'community energy',
     'efficiency',
     'transition',
+    'nature-based',
+    'nature based',
+    'biodiversity',
+    'water quality',
+    'carbon',
+    'emissions',
   ];
 
-  const applicantTerms = [
-    'businesses',
-    'enterprise',
-    'founder',
-    'startup',
-    'start-up',
-    'sme',
-    'micro-enterprise',
-    'social enterprise',
-    'researchers',
+  const communityDeliveryTerms = [
     'local groups',
-    'public bodies',
+    'community',
+    'communities',
+    'social enterprise',
+    'public engagement',
+    'capacity building',
   ];
 
   const hardExcludeTerms = [
+    'scholar',
+    'scholars',
     'scholarship',
-    'postgraduate scholarship',
+    'postgraduate',
+    'phd',
+    'doctoral',
     'student maintenance',
+    'fellowship',
+    'postdoctoral',
     'alumni',
     'faq',
     'related news',
@@ -620,13 +640,17 @@ function isClimateEntrepreneurFit(item) {
     'completed audits',
   ];
 
-  const hasPositive = positiveTerms.some((term) => haystack.includes(term));
-  const hasApplicantFit = applicantTerms.some((term) => haystack.includes(term));
+  const hasEnterprise = enterpriseTerms.some((term) => haystack.includes(term));
+  const hasClimate = climateTerms.some((term) => haystack.includes(term));
+  const hasCommunityDelivery = communityDeliveryTerms.some((term) => haystack.includes(term));
   const hardExcluded = hardExcludeTerms.some((term) => haystack.includes(term));
 
   if (hardExcluded) return false;
 
-  return hasPositive && hasApplicantFit;
+  // Climate Entrepreneur mode should prioritise enterprise, innovation,
+  // business support, pilots, demonstrators, or community climate delivery.
+  // Pure research/student routes should not pass merely because they mention climate.
+  return hasClimate && (hasEnterprise || hasCommunityDelivery);
 }
 
 function matchesActiveMode(item) {
