@@ -1,40 +1,43 @@
 {
-  "generated_at": "2026-05-01T16:53:13+00:00",
+  "generated_at": "2026-05-01T20:53:26+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 10,
   "seed_pages_attempted": 10,
-  "seed_pages_failed": 5,
-  "links_seen": 622,
-  "funding_like_links": 28,
-  "candidate_fetches": 28,
-  "pending_review_count": 1,
+  "seed_pages_failed": 2,
+  "links_seen": 1157,
+  "funding_like_links": 178,
+  "candidate_fetches": 178,
+  "pending_review_count": 25,
   "status_counts": {
-    "pending_review": 1,
-    "promoted": 1,
-    "rejected": 2,
-    "suppressed_existing": 3,
+    "pending_review": 25,
+    "suppressed_non_actionable": 65,
+    "rejected": 3,
+    "promoted": 2,
+    "suppressed_existing": 12,
     "suppressed_stale": 5,
-    "suppressed_non_actionable": 16,
-    "suppressed_generic_page": 2
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 61
   },
   "candidate_type_counts": {
-    "funding_call": 16,
-    "recurring_programme": 10,
-    "scholarship": 2,
-    "generic_funding_hub": 2
+    "recurring_programme": 36,
+    "funding_call": 34,
+    "scholarship": 29,
+    "generic_funding_hub": 6,
+    "tender": 11,
+    "unknown": 61
   },
   "seeds": [
     {
       "id": "research_ireland_funding_hub",
       "name": "Research Ireland funding hub",
       "url": "https://www.researchireland.ie/funding/",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 89,
+      "funding_like_links": 33,
+      "candidates_fetched": 33
     },
     {
       "id": "heritage_council_funding_hub",
@@ -42,9 +45,9 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "links_seen": 82,
+      "funding_like_links": 13,
+      "candidates_fetched": 13
     },
     {
       "id": "lawpro_funding_hub",
@@ -52,9 +55,9 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "links_seen": 112,
+      "funding_like_links": 11,
+      "candidates_fetched": 11
     },
     {
       "id": "epa_research_funding_hub",
@@ -101,7 +104,7 @@
       "name": "Waterways Ireland heritage watch",
       "url": "https://www.waterwaysireland.org/about-us/heritage",
       "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -110,21 +113,21 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 120,
+      "funding_like_links": 48,
+      "candidates_fetched": 48
     },
     {
       "id": "horizon_cluster6_watch",
       "name": "Horizon Europe Cluster 6 watch",
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 132,
+      "funding_like_links": 45,
+      "candidates_fetched": 45
     }
   ]
 }

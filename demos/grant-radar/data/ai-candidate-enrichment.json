@@ -1,14 +1,215 @@
 {
   "meta": {
-    "generated_at": "2026-05-01T20:32:27+00:00",
-    "enabled": false,
-    "reason": "OPENAI_API_KEY not set; AI enrichment skipped.",
+    "generated_at": "2026-05-01T20:55:16+00:00",
+    "enabled": true,
     "model": "gpt-4o-mini",
     "source": "discovery-candidates.json",
-    "candidate_count": 0,
+    "candidate_count": 177,
     "enriched_count": 0,
     "reused_count": 0,
-    "error_count": 0
+    "error_count": 25,
+    "max_candidates": 40
   },
-  "candidates": {}
+  "candidates": {
+    "cand_research_ireland_funding_hub_www_researchireland_ie_funding_global_challenges": {
+      "ai_status": "error",
+      "candidate_id": "cand_research_ireland_funding_hub_www_researchireland_ie_funding_global_challenges",
+      "candidate_hash": "5ce8cc84e02c0fc3df81365b8a41fee7da51ce4d0b10a43cb541a993d2ac1f7c",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_research_ireland_funding_hub_www_researchireland_ie_funding_eup_ohamr": {
+      "ai_status": "error",
+      "candidate_id": "cand_research_ireland_funding_hub_www_researchireland_ie_funding_eup_ohamr",
+      "candidate_hash": "a438cc9d205a22785b8778f49b50777d610d5d9e206c0ecbc72891255fd3418d",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_research_ireland_funding_hub_www_researchireland_ie_funding_displaced_researchers": {
+      "ai_status": "error",
+      "candidate_id": "cand_research_ireland_funding_hub_www_researchireland_ie_funding_displaced_researchers",
+      "candidate_hash": "0750b79766c710a0572c76f1236ad161d4ec03e118d1b6dd43eff47b9efee3d3",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_standard_terms_and_conditions_of_grant_offers": {
+      "ai_status": "error",
+      "candidate_id": "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_standard_terms_and_conditions_of_grant_offers",
+      "candidate_hash": "5a63aa2aec3efaa9253c4e8f813608f01db3918b8621084e738c4d6385e186b1",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_research_ireland_funding_hub_www_researchireland_ie_funding_creative_economy": {
+      "ai_status": "error",
+      "candidate_id": "cand_research_ireland_funding_hub_www_researchireland_ie_funding_creative_economy",
+      "candidate_hash": "2b84fe8c11c379c267235e49433ce30aff694f0661f8f83cc877e74ac225c9e3",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_en",
+      "candidate_hash": "da50f4d8d63a733d165bbf4117c885c6d45aa05c5474397b9e2ff3cb8ee41ee3",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_en",
+      "candidate_hash": "0ef970ba9ef57542f91c2a2bba993149a5acc4dfa478f994b7e80c4a5c9c69b0",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_3_civil_security_society_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_3_civil_security_society_en",
+      "candidate_hash": "6ea537a4a80ae4cfec5bc7a594a46badcd170232e4385793dca216f4d2cfe6e2",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_marie_sklodowska_curie_actions_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_marie_sklodowska_curie_actions_en",
+      "candidate_hash": "6aaf692248874a9faa74d8508fd286256a1084ea81bdd3bc3590ef1c923cf6ca",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_research_infrastructures_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_research_infrastructures_en",
+      "candidate_hash": "6bbaa431b2dc474f091d233586d44bcee784d7433c1337869258013c1d609460",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_circular_economy_and_bioeconomy_sectors_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_circular_economy_and_bioeconomy_sectors_en",
+      "candidate_hash": "37b4e9ed49c1f847ef52e36ae57c2080b4fa3624c194817379d44416a92881e6",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_clean_environment_and_zero_pollution_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_clean_environment_and_zero_pollution_en",
+      "candidate_hash": "2cc97c763ded442e144406574d8b67e436c8c81270756a7b60f9714dc9a768fa",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_lawpro_funding_hub_lawaters_ie_funding_communications": {
+      "ai_status": "error",
+      "candidate_id": "cand_lawpro_funding_hub_lawaters_ie_funding_communications",
+      "candidate_hash": "6ea9bbf3764d6419b194eb916e958adaa04b7c15babd8992dacee258dfeca485",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_fair_healthy_and_environmentally_friendly_food_systems_primary_production_consumption_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_fair_healthy_and_environmentally_friendly_food_systems_primary_production_consumption_en",
+      "candidate_hash": "c8c52f816e12d75ea525ff49888e92e1c45a962e4037d83d2e6f1cbe0ab159e6",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_innovative_governance_environmental_observations_and_digital_solutions_support_green_deal_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_innovative_governance_environmental_observations_and_digital_solutions_support_green_deal_en",
+      "candidate_hash": "8d949d6769f1edccb5dbb8dd932a32d32883d061ab27f0f120c061256313bf7c",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_land_oceans_and_water_climate_action_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_land_oceans_and_water_climate_action_en",
+      "candidate_hash": "d61d75f62dcdc202cc738efde1b63b72ca5f0d6534c9f4f37fc4da506e3b059c",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_resilient_inclusive_healthy_and_green_rural_coastal_and_urban_communities_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_resilient_inclusive_healthy_and_green_rural_coastal_and_urban_communities_en",
+      "candidate_hash": "755be917c648d18991e509293bc8f12024311b33e066958738b1f48dcd0e16a3",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_soil_mission_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_6_food_bioeconomy_natural_resources_agriculture_and_environment_soil_mission_en",
+      "candidate_hash": "72cf84c31360befdc14fa73bf105ff61e18b793cfff0917ed68c9aa46731c5e0",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_acknowledging_our_funding": {
+      "ai_status": "error",
+      "candidate_id": "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_acknowledging_our_funding",
+      "candidate_hash": "d5ce367b4395a6afafef2bad1dd232cb73a569a0f6ea6f3653884378b098e022",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_funded_projects_featured_projects": {
+      "ai_status": "error",
+      "candidate_id": "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_funded_projects_featured_projects",
+      "candidate_hash": "97d07d6051092ce5025ea8d3bc9fb96066a7ad46fbed17c7416e09198c10cf6a",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_heritage_council_funding_hub_www_heritagecouncil_ie_ga_funding": {
+      "ai_status": "error",
+      "candidate_id": "cand_heritage_council_funding_hub_www_heritagecouncil_ie_ga_funding",
+      "candidate_hash": "723e409260ab85bf993faac565e246b6d6e214661f8e78e61ae7fedc43c82652",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_heritage_council_funding_hub_www_heritagecouncil_ie_projects": {
+      "ai_status": "error",
+      "candidate_id": "cand_heritage_council_funding_hub_www_heritagecouncil_ie_projects",
+      "candidate_hash": "08862e3561302daf7a9c19dda45f051163cbff1d0349c04c1b75cad3c3dbecf8",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_promotion_agricultural_products_0_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_promotion_agricultural_products_0_en",
+      "candidate_hash": "f0ccd6f53d47311731b0759589adfb5d92e32b8d46ce521b7988dd968fb0b626",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_research_fund_coal_and_steel_en": {
+      "ai_status": "error",
+      "candidate_id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_research_fund_coal_and_steel_en",
+      "candidate_hash": "5e1247ab2c095939b55c84705472dc4efd04fff285b497c93240a0855cef47ea",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    },
+    "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_the_appeals_process": {
+      "ai_status": "error",
+      "candidate_id": "cand_heritage_council_funding_hub_www_heritagecouncil_ie_funding_the_appeals_process",
+      "candidate_hash": "4668871b389e104b89dab9eff21f69de32352a5cce152f9edb3b099b5a3466a6",
+      "model": "gpt-4o-mini",
+      "enriched_at": "2026-05-01T20:55:16+00:00",
+      "error": "429 Client Error: Too Many Requests for url: https://api.openai.com/v1/responses"
+    }
+  }
 }
