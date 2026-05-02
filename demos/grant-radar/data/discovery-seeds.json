@@ -279,5 +279,222 @@
       "environment",
       "application"
     ]
+  },
+  {
+    "id": "farming_for_water_hub",
+    "name": "Farming for Water EIP hub",
+    "url": "https://farmingforwater.ie/",
+    "trusted_domain": "farmingforwater.ie",
+    "purposes": [
+      "water quality",
+      "water quality implementation",
+      "farm water protection",
+      "natural water retention",
+      "nature-based solutions",
+      "catchment delivery"
+    ],
+    "watch_terms": [
+      "funding",
+      "apply",
+      "eligible",
+      "priority area for action",
+      "measures",
+      "bespoke measures",
+      "natural water retention",
+      "nutrient management",
+      "phosphorus",
+      "nitrogen",
+      "sediment",
+      "pesticides",
+      "riparian",
+      "fencing",
+      "willow beds",
+      "sediment traps"
+    ],
+    "require_any_terms_for_review": [
+      "funding",
+      "apply",
+      "eligible",
+      "measure",
+      "measures",
+      "bespoke",
+      "priority area",
+      "advisor",
+      "water quality",
+      "natural water retention",
+      "riparian",
+      "sediment"
+    ],
+    "suppress_candidate_url_patterns": [
+      "/faqs/?$",
+      "/contact",
+      "/privacy",
+      "/cookie",
+      "/news/?$",
+      "/project-advisors/?$"
+    ]
+  },
+  {
+    "id": "farming_for_water_measures_watch",
+    "name": "Farming for Water measures watch",
+    "url": "https://farmingforwater.ie/measures/",
+    "trusted_domain": "farmingforwater.ie",
+    "purposes": [
+      "water quality implementation",
+      "natural water retention",
+      "farm water protection",
+      "sediment control",
+      "nature-based solutions"
+    ],
+    "watch_terms": [
+      "bespoke measures",
+      "sediment traps",
+      "bunded drain",
+      "willow beds",
+      "riparian buffer",
+      "fencing",
+      "watercourse crossing",
+      "nutrient management",
+      "rainwater management",
+      "natural water retention"
+    ],
+    "require_any_terms_for_review": [
+      "bespoke",
+      "measure",
+      "funding",
+      "eligible",
+      "apply",
+      "water quality benefit"
+    ],
+    "suppress_candidate_url_patterns": [
+      "/faqs/?$",
+      "/contact",
+      "/privacy",
+      "/cookie"
+    ]
+  },
+  {
+    "id": "gov_water_quality_nbs_watch",
+    "name": "Gov.ie water quality and urban NbS watch",
+    "url": "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-browne-announces-fourfold-increase-in-investment-in-water-quality-initiatives-in-2026/",
+    "trusted_domain": "gov.ie",
+    "purposes": [
+      "water quality",
+      "urban NbS",
+      "nature-based solutions",
+      "barrier mitigation",
+      "river restoration",
+      "catchment delivery"
+    ],
+    "watch_terms": [
+      "water quality capital programme",
+      "urban nature based solutions",
+      "urban nature-based solutions",
+      "surface water drainage",
+      "barrier mitigation",
+      "river habitats",
+      "farming for water",
+      "local authorities",
+      "nature restoration",
+      "water action plan"
+    ],
+    "require_any_terms_for_review": [
+      "funding",
+      "programme",
+      "water quality",
+      "nature based",
+      "nature-based",
+      "barrier",
+      "river",
+      "habitat",
+      "local authority"
+    ],
+    "suppress_candidate_url_patterns": [
+      "/speeches/",
+      "/consultations/",
+      "/publications/.*annual",
+      "/news/?$"
+    ]
+  },
+  {
+    "id": "npws_biodiversity_funding_watch",
+    "name": "NPWS biodiversity funding watch",
+    "url": "https://www.npws.ie/legislation/national-biodiversity-action-plan/local-biodiversity-action-fund",
+    "trusted_domain": "npws.ie",
+    "purposes": [
+      "biodiversity",
+      "habitat restoration",
+      "wetland creation",
+      "nature-based solutions",
+      "community nature"
+    ],
+    "watch_terms": [
+      "local biodiversity action fund",
+      "funding",
+      "grant",
+      "local authority",
+      "wetlands",
+      "habitat",
+      "invasive species",
+      "surveys",
+      "restoration",
+      "biodiversity"
+    ],
+    "require_any_terms_for_review": [
+      "funding",
+      "grant",
+      "application",
+      "local biodiversity action fund",
+      "habitat",
+      "wetland",
+      "restoration",
+      "biodiversity"
+    ],
+    "suppress_candidate_url_patterns": [
+      "/news/?$",
+      "/publications/?$",
+      "/maps"
+    ]
+  },
+  {
+    "id": "climate_action_communities_watch",
+    "name": "Climate Action in our Communities watch",
+    "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/campaigns/climate-action-in-our-communities/",
+    "trusted_domain": "gov.ie",
+    "purposes": [
+      "climate action",
+      "community energy",
+      "biodiversity",
+      "urban NbS",
+      "sustainability",
+      "climate adaptation"
+    ],
+    "watch_terms": [
+      "funding",
+      "community",
+      "local authorities",
+      "renewable energy",
+      "energy efficiency",
+      "biodiversity",
+      "sustainability",
+      "feasibility studies",
+      "climate action",
+      "decarbonising zones"
+    ],
+    "require_any_terms_for_review": [
+      "funding",
+      "community",
+      "local authority",
+      "biodiversity",
+      "renewable",
+      "energy efficiency",
+      "feasibility",
+      "climate"
+    ],
+    "suppress_candidate_url_patterns": [
+      "/speeches/",
+      "/consultations/",
+      "/statistics/"
+    ]
   }
 ]

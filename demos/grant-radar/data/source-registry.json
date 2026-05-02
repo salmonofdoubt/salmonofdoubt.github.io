@@ -180,30 +180,34 @@
   {
     "id": "climate_action_communities",
     "name": "Climate Action in our Communities / START",
-    "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/press-releases/minister-obrien-announces-new-funding-of-almost-35-million-to-underpin-climate-action-in-our-communities/",
+    "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/campaigns/climate-action-in-our-communities/",
     "scope": "Ireland",
     "purposes": [
       "climate action",
       "community energy",
       "habitat restoration",
       "biodiversity",
-      "decarbonisation"
+      "decarbonisation",
+      "climate adaptation",
+      "urban NbS",
+      "sustainability"
     ],
     "discovery_method": "official press release monitoring",
-    "note": "START local-authority-led climate action scheme with community relevance.",
+    "note": "Local-authority and community climate-action route covering renewable energy, energy efficiency, biodiversity, sustainable transport and feasibility studies.",
     "extract": {
       "title": "START 2026 climate action in our communities",
       "programme": "Climate Action in our Communities",
-      "summary_hint": "Infrastructure and feasibility strands.",
+      "summary_hint": "Local-authority and community climate-action route supporting renewable energy, energy efficiency, biodiversity, sustainable transport and feasibility studies.",
       "status_hint": "upcoming",
       "scale": "major",
       "access_route": "via local authority",
       "applicant_types": [
-        "local authorities",
-        "community partners"
+        "public bodies",
+        "local groups"
       ],
       "mode": "single_item",
-      "opportunity_type": "grant"
+      "opportunity_type": "grant",
+      "public_visible_state": "public_visible"
     },
     "trusted_domain": "gov.ie",
     "source_class": "programme_page",
@@ -251,9 +255,10 @@
     "harvest_enabled": true,
     "allow_pdf_candidates": false,
     "mode_relevance": {
-      "ndrt": "include",
+      "ndrt": "maybe",
       "research": "maybe",
-      "farmer": "exclude"
+      "farmer": "exclude",
+      "climate": "include"
     },
     "mode_reason": {
       "ndrt": "Community climate route that can support habitat, biodiversity, and local adaptation work where eligible."
@@ -428,45 +433,54 @@
   {
     "id": "farming_for_water_eip",
     "name": "Farming for Water EIP",
-    "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/press-releases/ministers-mcconalogue-hackett-and-noonan-launch-60-million-farming-for-water-eip/",
+    "url": "https://farmingforwater.ie/",
     "scope": "Ireland",
     "purposes": [
       "water quality",
+      "water quality implementation",
       "catchment delivery",
+      "farm water protection",
       "farm nutrient management",
       "sediment control",
-      "nature-based solutions"
+      "natural water retention",
+      "nature-based solutions",
+      "biodiversity",
+      "climate action"
     ],
-    "discovery_method": "official press release and programme monitoring",
-    "note": "Targeted farm-delivery programme aimed at improving water quality at local, catchment and national levels.",
-    "trusted_domain": "gov.ie",
+    "discovery_method": "official Farming for Water EIP site monitoring",
+    "note": "Official Farming for Water EIP route. Farmer-facing water-quality implementation programme using nutrient management, Natural Water Retention Measures, riparian buffers, hedgerows, fencing, sediment controls and other targeted measures.",
+    "trusted_domain": "farmingforwater.ie",
     "source_class": "implementation_programme",
     "harvest_enabled": true,
     "discovery_enabled": true,
     "cadence": "multiannual",
-    "usual_open_months": [
-      2,
-      3,
-      4
-    ],
+    "usual_open_months": [],
     "watch_terms": [
       "farming for water",
-      "eip",
-      "priority areas",
+      "water eip",
+      "priority area for action",
       "water quality",
-      "farmers invited",
-      "catchment",
-      "mitigation measures",
-      "catchment delivery",
-      "farm nutrient management",
-      "sediment control",
-      "nature-based solutions",
-      "Farming for Water EIP"
+      "phosphorus",
+      "nitrogen",
+      "sediment",
+      "pesticides",
+      "natural water retention",
+      "nutrient management",
+      "riparian buffer",
+      "hedge planting",
+      "tree planting",
+      "fencing",
+      "sediment traps",
+      "willow beds",
+      "bespoke measures",
+      "ASSAP",
+      "Dairy Industry Ireland",
+      "LAWPRO"
     ],
     "extract": {
       "title": "Farming for Water EIP",
-      "programme": "Farming for Water EIP",
-      "summary_hint": "Targeted farm-delivery programme to improve water quality through measures in priority areas.",
+      "programme": "Farming for Water European Innovation Partnership",
+      "summary_hint": "Official farmer-facing water-quality implementation route supporting targeted measures in Priority Areas for Action, including nutrient management, Natural Water Retention Measures, riparian buffers, fencing, sediment control and bespoke measures.",
       "status_hint": "open",
       "scale": "major",
       "access_route": "via advisor",
@@ -474,108 +488,24 @@
         "farmers"
       ],
       "mode": "single_item",
-      "opportunity_type": "farm payment"
+      "opportunity_type": "implementation support",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling through advisors in eligible Priority Areas for Action",
+      "public_visible_state": "public_visible"
     },
     "watch_paths": [],
     "allow_pdf_candidates": false,
     "mode_relevance": {
       "ndrt": "maybe",
       "research": "maybe",
-      "farmer": "include"
+      "farmer": "include",
+      "climate": "maybe"
     },
     "mode_reason": {
-      "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
-      "farmer": "Direct water-quality implementation route for farms."
-    }
-  },
-  {
-    "id": "farming_for_water_eip_gov_ie",
-    "name": "European Innovation Partnership Scheme",
-    "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/services/european-innovation-partnership-scheme",
-    "scope": "Ireland",
-    "purposes": [
-      "water quality",
-      "catchment delivery",
-      "farm nutrient management",
-      "sediment control",
-      "nature-based solutions"
-    ],
-    "discovery_method": "promoted from review queue",
-    "note": "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
-    "trusted_domain": "gov.ie",
-    "source_class": "implementation_programme",
-    "harvest_enabled": true,
-    "discovery_enabled": true,
-    "cadence": "unknown",
-    "usual_open_months": [],
-    "watch_paths": [],
-    "watch_terms": [
-      "water quality",
-      "catchment delivery",
-      "farm nutrient management",
-      "sediment control",
-      "nature-based solutions",
-      "farmers",
-      "trusted_domain",
-      "funding_or_support_phrase",
-      "deadline_detected",
-      "watch_term_overlap",
-      "cycle_window_match",
-      "child_page",
-      "Farming for Water EIP",
-      "European Innovation Partnership Scheme",
-      "funding",
-      "grant",
-      "call",
-      "applications",
-      "grants",
-      "fund",
-      "calls",
-      "scheme",
-      "schemes",
-      "proposals",
-      "application",
-      "research",
-      "community",
-      "biodiversity",
-      "environment",
-      "energy",
-      "climate",
-      "water",
-      "catchment",
-      "river",
-      "farm",
-      "advisory",
-      "restoration",
-      "habitat",
-      "riparian",
-      "wetlands",
-      "peatlands",
-      "tidy towns",
-      "local groups"
-    ],
-    "extract": {
-      "title": "European Innovation Partnership Scheme",
-      "programme": "Farming for Water EIP",
-      "summary_hint": "European Innovation Partnership Scheme A notice about cookies This website uses cookies to collect information about how you use this site. This information is used to make the website work as well as possible. More details available in...",
-      "status_hint": "open",
-      "scale": "major",
-      "access_route": "via advisor",
-      "applicant_types": [
-        "farmers"
-      ],
-      "mode": "single_item",
-      "opportunity_type": "implementation support"
-    },
-    "allow_pdf_candidates": false,
-    "mode_relevance": {
-      "ndrt": "maybe",
-      "research": "maybe",
-      "farmer": "include"
-    },
-    "mode_reason": {
-      "ndrt": "Relevant as catchment context, but farmer delivery is the main route.",
-      "farmer": "Direct water-quality implementation route for farms."
+      "ndrt": "Important catchment-delivery context, but the direct route is farmer-facing.",
+      "farmer": "Direct practical water-quality implementation route for eligible farmers.",
+      "climate": "Water-quality and biodiversity co-benefits with some climate adaptation relevance, but not an entrepreneur route."
     }
   },
   {
@@ -842,13 +772,17 @@
     "scope": "Ireland",
     "purposes": [
       "water quality",
+      "water quality implementation",
       "habitat restoration",
+      "river restoration",
       "riparian management",
+      "barrier mitigation",
       "fisheries",
-      "catchment delivery"
+      "catchment delivery",
+      "nature-based solutions"
     ],
     "discovery_method": "official page text extraction",
-    "note": "Practical habitat and river-restoration funding route open to eligible third parties including clubs, local authorities and tidy towns groups.",
+    "note": "Practical river, riparian, invasive-species, fish-passage, habitat and soft-engineering funding route for eligible third parties.",
     "trusted_domain": "fisheriesireland.ie",
     "source_class": "programme_page",
     "harvest_enabled": true,
@@ -895,7 +829,8 @@
     "mode_relevance": {
       "ndrt": "include",
       "research": "maybe",
-      "farmer": "maybe"
+      "farmer": "maybe",
+      "climate": "maybe"
     },
     "mode_reason": {
       "ndrt": "Practical river, riparian, and habitat restoration funding route."
@@ -908,10 +843,12 @@
     "scope": "Ireland",
     "purposes": [
       "water quality",
+      "water quality implementation",
       "catchment delivery",
       "community nature",
       "restoration",
-      "capacity building"
+      "capacity building",
+      "natural water retention"
     ],
     "discovery_method": "official page text extraction",
     "note": "Capacity-building and core-cost support for catchment partnerships and local delivery bodies.",
@@ -962,7 +899,8 @@
     "mode_relevance": {
       "ndrt": "include",
       "research": "maybe",
-      "farmer": "exclude"
+      "farmer": "exclude",
+      "climate": "maybe"
     },
     "mode_reason": {
       "ndrt": "Directly relevant to catchment partnerships and community water-quality delivery."
@@ -975,13 +913,17 @@
     "scope": "Ireland",
     "purposes": [
       "water quality",
+      "water quality implementation",
       "community nature",
       "citizen science",
       "restoration",
+      "wetland creation",
+      "natural water retention",
+      "urban NbS",
       "education"
     ],
     "discovery_method": "official page text extraction",
-    "note": "Community and voluntary funding route for local water-quality projects and awareness action.",
+    "note": "Community and voluntary funding route for local water-quality projects, awareness, citizen science and small practical restoration actions.",
     "extract": {
       "title": "LAWPRO Community Water Development Fund",
       "programme": "LAWPRO Community Water Development Fund",
@@ -1060,7 +1002,8 @@
     "mode_relevance": {
       "ndrt": "include",
       "research": "maybe",
-      "farmer": "exclude"
+      "farmer": "exclude",
+      "climate": "maybe"
     },
     "mode_reason": {
       "ndrt": "Directly relevant to community-led water-quality projects, awareness, monitoring, and restoration."
@@ -1471,10 +1414,14 @@
       "biodiversity",
       "habitat restoration",
       "surveys",
-      "community nature"
+      "community nature",
+      "wetland creation",
+      "nature-based solutions",
+      "urban NbS",
+      "water quality"
     ],
     "discovery_method": "official page text extraction",
-    "note": "Local-authority-led biodiversity route with practical habitat and partnership relevance for catchment and community delivery.",
+    "note": "Local-authority-led biodiversity route with practical habitat, wetland, invasive-species and partnership relevance. Usually not a direct community application route.",
     "extract": {
       "title": "Local Biodiversity Action Fund",
       "programme": "NPWS Local Biodiversity Action Fund",
@@ -1535,9 +1482,10 @@
     "harvest_enabled": true,
     "allow_pdf_candidates": false,
     "mode_relevance": {
-      "ndrt": "include",
+      "ndrt": "maybe",
       "research": "maybe",
-      "farmer": "exclude"
+      "farmer": "exclude",
+      "climate": "maybe"
     },
     "mode_reason": {
       "ndrt": "Biodiversity and habitat action route with potential community and catchment relevance."
@@ -2449,62 +2397,75 @@
     "public_visible_state": "public_visible"
   },
   {
-    "id": "how_to_apply",
-    "name": "How to apply?",
-    "url": "https://www.epa.ie/our-services/research/epa--research-funding/how-to-apply",
+    "id": "water_quality_capital_programme_2026",
+    "name": "Water Quality Capital Programme 2026",
+    "url": "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-browne-announces-fourfold-increase-in-investment-in-water-quality-initiatives-in-2026/",
     "scope": "Ireland",
     "purposes": [
-      "environmental research",
       "water quality",
-      "climate action",
+      "water quality implementation",
+      "urban NbS",
+      "nature-based solutions",
+      "natural water retention",
+      "river restoration",
+      "barrier mitigation",
+      "catchment delivery",
+      "climate adaptation",
       "biodiversity"
     ],
-    "discovery_method": "promoted from Grant Radar review queue",
-    "note": "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
-    "trusted_domain": "epa.ie",
-    "source_class": "programme_page",
+    "discovery_method": "official water-quality capital programme watch",
+    "note": "Watch signal for the 2026 water-quality capital programme supporting Farming for Water EIP, urban nature-based solutions and National Barrier Mitigation Programme activity. Not usually a direct community application route.",
+    "trusted_domain": "gov.ie",
+    "source_class": "funding_watch_signal",
     "harvest_enabled": true,
     "discovery_enabled": true,
-    "cadence": "unknown",
-    "usual_open_months": [],
+    "cadence": "annual",
+    "usual_open_months": [
+      10,
+      11
+    ],
     "watch_paths": [],
     "watch_terms": [
-      "environmental research",
-      "water quality",
-      "climate action",
-      "biodiversity",
-      "How to apply?",
-      "EPA research funding hub",
-      "grant",
-      "grants",
-      "fund",
-      "funding",
-      "call",
-      "calls",
-      "scheme",
-      "schemes",
-      "application",
-      "applications",
-      "water",
-      "catchment",
-      "climate",
-      "community",
-      "farmers",
-      "restoration",
-      "wetlands",
-      "peatlands"
+      "water quality capital programme",
+      "urban nature based solutions",
+      "urban nature-based solutions",
+      "surface water drainage",
+      "barrier mitigation",
+      "free-flowing rivers",
+      "river habitats",
+      "farming for water",
+      "nature restoration",
+      "local authorities",
+      "water action plan"
     ],
     "extract": {
-      "title": "How to apply?",
-      "programme": "EPA research funding hub",
-      "summary_hint": "How to apply? | Environmental Protection Agency Open mobile menu Close mobile menu Environment & You Skip to Our Services tab Air What's happening? What's being done? Latest reports FAQs Resources Climate change What's happening? What's being done? Latest reports FAQ's Resources Circular Economy What's happening? What's being done? Latest reports Resources…",
-      "status_hint": "open",
-      "scale": "medium",
-      "access_route": "direct",
-      "applicant_types": [],
+      "title": "Water Quality Capital Programme 2026",
+      "programme": "Department of Housing Water Quality Capital Programme",
+      "summary_hint": "Watch signal for 2026 capital funding covering Farming for Water EIP, urban nature-based solutions for surface-water management and national barrier mitigation for river habitat restoration.",
+      "status_hint": "upcoming",
+      "scale": "major",
+      "access_route": "via local authority",
+      "applicant_types": [
+        "public bodies"
+      ],
       "mode": "single_item",
-      "opportunity_type": "grant"
+      "opportunity_type": "watch signal",
+      "programme_kind": "rolling_support",
+      "programme_state": "upcoming",
+      "expected_next_window": "2026 delivery through public bodies and programme partners",
+      "public_visible_state": "public_visible"
     },
-    "allow_pdf_candidates": false
+    "allow_pdf_candidates": false,
+    "mode_relevance": {
+      "ndrt": "maybe",
+      "research": "maybe",
+      "farmer": "maybe",
+      "climate": "maybe"
+    },
+    "mode_reason": {
+      "ndrt": "Useful strategic signal for local authority partnership, urban NbS and river restoration work.",
+      "farmer": "Relevant through Farming for Water EIP rather than direct application from this page.",
+      "climate": "Strong climate-adaptation and urban NbS signal, but not a business/entrepreneur grant."
+    }
   }
 ]
