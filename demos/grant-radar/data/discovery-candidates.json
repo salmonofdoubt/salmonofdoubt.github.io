@@ -16,11 +16,11 @@
     "candidate_type": "recurring_programme",
     "confidence": 0.9,
     "promotion_signal": "green",
-    "public_visible_state": "review_only",
+    "public_visible_state": "discovery_only",
     "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
+      "Promoted to trusted source registry as international_joint_initiative_for_research_harnessing_disruptive_techno"
     ],
-    "status": "pending_review",
+    "status": "promoted",
     "suggested_purposes": [
       "environmental research",
       "education",
@@ -39,9 +39,12 @@
     "deadline_hint": "Deadline",
     "latest_year_hint": null,
     "page_hash": "sha256:b3e02bf1dc1df8a515f3a4ba856fa6b7ef66df51efefffeb39e7abafd882f1da",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
+    "already_trusted": true,
+    "trusted_registry_id": "international_joint_initiative_for_research_harnessing_disruptive_techno",
+    "notes": "",
+    "admin_last_action": "promote",
+    "admin_last_action_at": "2026-05-02T19:06:01+00:00",
+    "admin_note": ""
   },
   {
     "id": "cand_research_ireland_funding_hub_www_researchireland_ie_funding_eup_ohamr",
