@@ -25,24 +25,96 @@
           </p>
 
           <details class="hero-explainer">
-            <summary>About this radar</summary>
+            <summary>How it works</summary>
 
-            <div class="hero-explainer-body">
-              <p>
-                A focused funding intelligence tool for nature, biodiversity, ecology, environment, climate,
-                water, and energy. Filter by purpose first, then narrow by eligibility, access route, grant
-                scale, cycle status, recent movement, and deadline timing to identify the opportunities that
-                actually fit.
+            <div class="hero-explainer-body pipeline-explainer">
+              <p class="pipeline-lede">
+                Grant Radar is a static funding-intelligence console backed by generated JSON data, scheduled
+                GitHub Actions, curated source registries, and a separate review layer for newly discovered
+                candidate pages.
               </p>
 
-              <p>
-                The live site is deliberately static at the front end and powered by a generated JSON catalogue
-                behind the scenes, which keeps it fast, stable, and easy to deploy. Alongside that trusted
-                catalogue, Grant Radar now includes a discovery layer that scans selected sources for possible
-                new grant pages, places them into a separate review queue sorted by confidence, and only
-                promotes them into the main radar once they have been checked through an implementation CL.
-                This preserves reliability while steadily expanding coverage.
-              </p>
+              <div class="pipeline-grid" aria-label="Grant Radar technical pipeline">
+                <article class="pipeline-card">
+                  <span class="pipeline-step">01</span>
+                  <h3>Source registry</h3>
+                  <ul>
+                    <li>Trusted funding sources are defined in <code>source-registry.json</code>.</li>
+                    <li>Each source carries purpose tags, applicant fit, access route, scale, status hints, and mode relevance.</li>
+                    <li>Current packs include water quality, NbS, climate enterprise, farmer routes, research routes, and Geo / Earth Systems.</li>
+                  </ul>
+                </article>
+
+                <article class="pipeline-card">
+                  <span class="pipeline-step">02</span>
+                  <h3>Discovery layer</h3>
+                  <ul>
+                    <li><code>discover_grants.py</code> scans selected seed pages for new funding-like links.</li>
+                    <li>Generic pages, stale pages, parent pages, and already-covered sources are suppressed where possible.</li>
+                    <li>Potentially useful links go to <code>discovery-candidates.json</code>, not directly to the public catalogue.</li>
+                  </ul>
+                </article>
+
+                <article class="pipeline-card">
+                  <span class="pipeline-step">03</span>
+                  <h3>Review gate</h3>
+                  <ul>
+                    <li>The review page is an inspection layer for candidate IDs, source URLs, confidence, and suppression reasons.</li>
+                    <li>Promotion and rejection happen through the admin workflow, not by automatic publication.</li>
+                    <li>This keeps the public catalogue curated while still allowing the radar to discover new material.</li>
+                  </ul>
+                </article>
+
+                <article class="pipeline-card">
+                  <span class="pipeline-step">04</span>
+                  <h3>Harvest pipeline</h3>
+                  <ul>
+                    <li><code>harvest_grants.py</code> builds the trusted public catalogue from approved registry sources.</li>
+                    <li>It refreshes deadlines, programme state, visibility state, source metadata, and change flags.</li>
+                    <li>Fallback logic protects the public catalogue when official websites block or fail requests.</li>
+                  </ul>
+                </article>
+
+                <article class="pipeline-card">
+                  <span class="pipeline-step">05</span>
+                  <h3>Generated JSON front end</h3>
+                  <ul>
+                    <li>The site reads <code>catalog.json</code> directly in the browser.</li>
+                    <li>No database, server, login system, or paid API is required for the public site.</li>
+                    <li>GitHub Pages serves the interface as a fast static application.</li>
+                  </ul>
+                </article>
+
+                <article class="pipeline-card">
+                  <span class="pipeline-step">06</span>
+                  <h3>Mode-first filtering</h3>
+                  <ul>
+                    <li>Users start with curated modes: River Trust, Farming & water quality, Climate Entrepreneur, Research, or Geo / Earth Systems.</li>
+                    <li>Advanced purpose filters remain available, but they no longer dominate the interface.</li>
+                    <li>Mode relevance is encoded in the data layer, so the UI is not just a cosmetic mask.</li>
+                  </ul>
+                </article>
+
+                <article class="pipeline-card">
+                  <span class="pipeline-step">07</span>
+                  <h3>Audit trail</h3>
+                  <ul>
+                    <li><code>discovery-audit.json</code> records seed coverage, candidate counts, suppressions, and fetch failures.</li>
+                    <li><code>harvest-audit.json</code> records catalogue build state and source health.</li>
+                    <li><code>source-memory.json</code> and <code>harvest-memory.json</code> support change detection across runs.</li>
+                  </ul>
+                </article>
+
+                <article class="pipeline-card">
+                  <span class="pipeline-step">08</span>
+                  <h3>Automation boundary</h3>
+                  <ul>
+                    <li>Scheduled GitHub Actions refresh discovery, harvest the catalogue, run health checks, and commit generated data.</li>
+                    <li>The public site remains deterministic: no live scraping from the browser and no paid AI dependency.</li>
+                    <li>Human review remains the quality boundary between discovery and publication.</li>
+                  </ul>
+                </article>
+              </div>
             </div>
           </details>
         </div>
