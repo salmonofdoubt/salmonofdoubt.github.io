@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-05-03T19:25:59+00:00",
+  "generated_at": "2026-05-03T19:32:52+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 4,
-  "links_seen": 4506,
-  "funding_like_links": 456,
+  "seed_pages_failed": 2,
+  "links_seen": 4700,
+  "funding_like_links": 480,
   "candidate_fetches": 300,
-  "pending_review_count": 74,
+  "pending_review_count": 82,
   "status_counts": {
-    "pending_review": 74,
-    "suppressed_non_actionable": 55,
+    "pending_review": 82,
+    "suppressed_non_actionable": 68,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 11,
+    "suppressed_existing": 15,
     "suppressed_stale": 7,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 67
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 62
   },
   "candidate_type_counts": {
-    "recurring_programme": 80,
-    "funding_call": 33,
+    "recurring_programme": 98,
+    "funding_call": 37,
     "scholarship": 29,
-    "generic_funding_hub": 5,
-    "tender": 10,
-    "unknown": 67
+    "generic_funding_hub": 7,
+    "tender": 12,
+    "unknown": 62
   },
   "seeds": [
     {
@@ -43,21 +43,21 @@
       "id": "heritage_council_funding_hub",
       "name": "Heritage Council funding hub",
       "url": "https://www.heritagecouncil.ie/funding/",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x70e35bde6d80>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=12)'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 82,
+      "funding_like_links": 13,
+      "candidates_fetched": 13
     },
     {
       "id": "lawpro_funding_hub",
       "name": "LAWPRO funding hub",
       "url": "https://lawaters.ie/funding/",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x70e35bc7e0c0>, 'Connection to lawaters.ie timed out. (connect timeout=12)'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 112,
+      "funding_like_links": 11,
+      "candidates_fetched": 11
     },
     {
       "id": "epa_research_funding_hub",
@@ -104,7 +104,7 @@
       "name": "Waterways Ireland heritage watch",
       "url": "https://www.waterwaysireland.org/about-us/heritage",
       "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 594,
       "funding_like_links": 57,
-      "candidates_fetched": 26
+      "candidates_fetched": 2
     },
     {
       "id": "geo_dfg_heisenberg_watch",
