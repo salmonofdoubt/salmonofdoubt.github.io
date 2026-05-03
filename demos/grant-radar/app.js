@@ -1,3 +1,119 @@
+
+/* MODE ICONS */
+function getLeafRadarIcon(mode = "all") {
+  const palette = {
+    all: {
+      ring: "#79d7f2",
+      leaf: "#8fd9ff",
+      vein: "#a6ef8c",
+      sweep: "rgba(140, 220, 255, 0.18)",
+      dot: "#79d7f2"
+    },
+    ndrt: {
+      ring: "#79d7f2",
+      leaf: "#8fd9ff",
+      vein: "#9ee08c",
+      sweep: "rgba(120, 210, 255, 0.18)",
+      dot: "#79d7f2"
+    },
+    farmer: {
+      ring: "#9fdc7a",
+      leaf: "#b8ec8b",
+      vein: "#d4ff9f",
+      sweep: "rgba(185, 230, 120, 0.18)",
+      dot: "#a7e27b"
+    },
+    climate: {
+      ring: "#8ce6c1",
+      leaf: "#9df0cd",
+      vein: "#d8ff8d",
+      sweep: "rgba(130, 235, 190, 0.18)",
+      dot: "#8ce6c1"
+    },
+    research: {
+      ring: "#a7b7ff",
+      leaf: "#c2ccff",
+      vein: "#d7ff9d",
+      sweep: "rgba(160, 180, 255, 0.18)",
+      dot: "#b4c0ff"
+    },
+    geo: {
+      ring: "#8fd2c5",
+      leaf: "#a9e2d8",
+      vein: "#bde38a",
+      sweep: "rgba(110, 200, 190, 0.18)",
+      dot: "#8fd2c5"
+    }
+  };
+
+  const c = palette[mode] || palette.all;
+
+  return `
+    <svg class="mode-symbol" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="leafRadarGlow-${mode}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+          gradientTransform="translate(60 60) rotate(90) scale(52)">
+          <stop offset="0%" stop-color="rgba(120,255,210,0.18)"/>
+          <stop offset="100%" stop-color="rgba(120,255,210,0)"/>
+        </radialGradient>
+      </defs>
+
+      <circle cx="60" cy="60" r="52" stroke="${c.ring}" stroke-width="1.4" opacity="0.9"/>
+      <circle cx="60" cy="60" r="36" stroke="${c.ring}" stroke-width="1.2" opacity="0.28"/>
+      <circle cx="60" cy="60" r="22" stroke="${c.ring}" stroke-width="1.1" opacity="0.18"/>
+
+      <line x1="60" y1="8" x2="60" y2="112" stroke="${c.ring}" stroke-width="1" opacity="0.22"/>
+      <line x1="8" y1="60" x2="112" y2="60" stroke="${c.ring}" stroke-width="1" opacity="0.22"/>
+
+      <path d="M60 60 L99 43 A52 52 0 0 1 111 63 L60 60Z" fill="${c.sweep}"/>
+
+      <circle cx="60" cy="60" r="7" fill="${c.dot}"/>
+      <circle cx="83" cy="54" r="2.4" fill="${c.dot}" opacity="0.95"/>
+      <circle cx="38" cy="81" r="2.2" fill="${c.dot}" opacity="0.8"/>
+      <circle cx="84" cy="79" r="1.9" fill="${c.dot}" opacity="0.78"/>
+
+      <!-- left leaf -->
+      <path
+        d="M54 48
+           C45 33, 29 25, 15 28
+           C21 34, 30 41, 41 52
+           C45 56, 49 58, 54 48Z"
+        fill="${c.leaf}" fill-opacity="0.18" stroke="${c.leaf}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path
+        d="M60 60
+           C55 54, 49 48, 43 43
+           C34 36, 25 31, 18 29"
+        stroke="${c.vein}" stroke-width="1.8" stroke-linecap="round"/>
+      <path
+        d="M44 44 C41 43, 37 42, 33 41"
+        stroke="${c.vein}" stroke-width="1.1" stroke-linecap="round" opacity="0.75"/>
+      <path
+        d="M39 48 C35 48, 31 47, 27 46"
+        stroke="${c.vein}" stroke-width="1.0" stroke-linecap="round" opacity="0.6"/>
+
+      <!-- right leaf -->
+      <path
+        d="M66 48
+           C75 33, 91 25, 105 28
+           C99 34, 90 41, 79 52
+           C75 56, 71 58, 66 48Z"
+        fill="${c.leaf}" fill-opacity="0.18" stroke="${c.leaf}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path
+        d="M60 60
+           C65 54, 71 48, 77 43
+           C86 36, 95 31, 102 29"
+        stroke="${c.vein}" stroke-width="1.8" stroke-linecap="round"/>
+      <path
+        d="M76 44 C79 43, 83 42, 87 41"
+        stroke="${c.vein}" stroke-width="1.1" stroke-linecap="round" opacity="0.75"/>
+      <path
+        d="M81 48 C85 48, 89 47, 93 46"
+        stroke="${c.vein}" stroke-width="1.0" stroke-linecap="round" opacity="0.6"/>
+    </svg>
+  `;
+}
+
+
 const state = {
   catalog: null,
   selectedPurposes: new Set(),
