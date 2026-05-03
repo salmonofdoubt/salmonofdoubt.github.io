@@ -1325,3 +1325,134 @@ select:focus,
     width: fit-content;
   }
 }
+
+
+/* Mode-specific hero icon system */
+.hero-radar[data-mode-icon] {
+  color: #9ae6ff;
+  transition: color 180ms ease, transform 180ms ease, filter 180ms ease;
+}
+
+.hero-radar[data-mode-icon="ndrt"] {
+  color: #7fe7d4;
+}
+
+.hero-radar[data-mode-icon="farmer"] {
+  color: #a9ec8e;
+}
+
+.hero-radar[data-mode-icon="climate"] {
+  color: #f0df7f;
+}
+
+.hero-radar[data-mode-icon="research"] {
+  color: #b9c9ff;
+}
+
+.hero-radar[data-mode-icon="geo"] {
+  color: #d8c08c;
+}
+
+.mode-symbol {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.mode-symbol-disc {
+  fill: rgba(7, 42, 46, 0.78);
+  stroke: rgba(122, 230, 210, 0.16);
+  stroke-width: 2;
+}
+
+.mode-symbol-ring {
+  fill: none;
+  stroke: rgba(140, 246, 214, 0.2);
+  stroke-width: 2;
+}
+
+.mode-symbol-ring-strong {
+  stroke: color-mix(in srgb, currentColor 48%, transparent);
+}
+
+.mode-symbol-axis {
+  stroke: rgba(149, 221, 255, 0.16);
+  stroke-width: 2;
+}
+
+.mode-symbol-sweep {
+  fill: color-mix(in srgb, currentColor 32%, transparent);
+  opacity: 0.7;
+}
+
+.mode-symbol-line,
+.mode-symbol-contour {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, currentColor 36%, transparent));
+}
+
+.mode-symbol-line-main,
+.mode-symbol-contour-top {
+  stroke-width: 8;
+}
+
+.mode-symbol-line-soft,
+.mode-symbol-contour-soft {
+  opacity: 0.62;
+}
+
+.mode-symbol-stem {
+  fill: none;
+  stroke: rgba(197, 255, 170, 0.76);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.mode-symbol-leaf,
+.mode-symbol-leaf-large {
+  fill: color-mix(in srgb, currentColor 28%, transparent);
+  stroke: currentColor;
+  stroke-width: 5;
+  stroke-linejoin: round;
+}
+
+.mode-symbol-leaf-alt {
+  opacity: 0.82;
+}
+
+.mode-symbol-droplet,
+.mode-symbol-spark,
+.mode-symbol-seed {
+  fill: color-mix(in srgb, currentColor 22%, transparent);
+  stroke: currentColor;
+  stroke-width: 6;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, currentColor 34%, transparent));
+}
+
+.mode-symbol-node,
+.mode-symbol-node-main,
+.mode-symbol-centre,
+.mode-symbol-blip,
+.mode-symbol-blip-soft {
+  fill: currentColor;
+  filter: drop-shadow(0 0 12px color-mix(in srgb, currentColor 62%, transparent));
+}
+
+.mode-symbol-node-main {
+  opacity: 0.98;
+}
+
+.mode-symbol-node {
+  opacity: 0.88;
+}
+
+.mode-symbol-blip-soft {
+  opacity: 0.72;
+}
+

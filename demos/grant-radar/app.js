@@ -28,6 +28,7 @@ const el = {
   copyLinkBtn: document.getElementById('copy-link-btn'),
   nativeShareBtn: document.getElementById('native-share-btn'),
   qrImage: document.getElementById('qr-image'),
+  modeIcon: document.getElementById('hero-mode-icon'),
   modeAllBtn: document.getElementById('mode-all-btn'),
   modeNdrtBtn: document.getElementById('mode-ndrt-btn'),
   modeResearchBtn: document.getElementById('mode-research-btn'),
@@ -139,6 +140,110 @@ const GEO_PURPOSES = [
   'sustainability transitions',
   'wetland interfaces',
 ];
+
+
+const MODE_ICON_SVGS = {
+  all: `
+    <svg viewBox="0 0 320 320" class="mode-symbol mode-symbol-all" role="img" focusable="false" aria-label="All opportunities radar">
+      <circle cx="160" cy="160" r="130" class="mode-symbol-disc" />
+      <circle cx="160" cy="160" r="130" class="mode-symbol-ring mode-symbol-ring-strong" />
+      <circle cx="160" cy="160" r="96" class="mode-symbol-ring" />
+      <circle cx="160" cy="160" r="62" class="mode-symbol-ring" />
+      <path d="M160 160 L278 88 A130 130 0 0 1 284 166 Z" class="mode-symbol-sweep" />
+      <line x1="30" y1="160" x2="290" y2="160" class="mode-symbol-axis" />
+      <line x1="160" y1="30" x2="160" y2="290" class="mode-symbol-axis" />
+      <path d="M160 160 C122 118, 78 98, 55 70" class="mode-symbol-stem" />
+      <path d="M160 160 C188 120, 234 101, 267 76" class="mode-symbol-stem" />
+      <path d="M142 124 C112 90, 70 91, 52 68 C76 60, 120 64, 142 124 Z" class="mode-symbol-leaf" />
+      <path d="M180 118 C215 86, 258 84, 276 64 C248 58, 203 64, 180 118 Z" class="mode-symbol-leaf mode-symbol-leaf-alt" />
+      <circle cx="203" cy="118" r="6" class="mode-symbol-blip" />
+      <circle cx="102" cy="206" r="5" class="mode-symbol-blip-soft" />
+      <circle cx="226" cy="202" r="4" class="mode-symbol-blip-soft" />
+      <circle cx="160" cy="160" r="12" class="mode-symbol-centre" />
+    </svg>
+  `,
+
+  ndrt: `
+    <svg viewBox="0 0 320 320" class="mode-symbol mode-symbol-river" role="img" focusable="false" aria-label="River Trust mode">
+      <circle cx="160" cy="160" r="130" class="mode-symbol-disc" />
+      <circle cx="160" cy="160" r="130" class="mode-symbol-ring mode-symbol-ring-strong" />
+      <circle cx="160" cy="160" r="92" class="mode-symbol-ring" />
+      <circle cx="160" cy="160" r="56" class="mode-symbol-ring" />
+      <path d="M62 116 C92 86, 125 146, 158 116 S224 86, 258 116" class="mode-symbol-line mode-symbol-line-main" />
+      <path d="M58 160 C94 124, 124 196, 160 160 S226 124, 262 160" class="mode-symbol-line" />
+      <path d="M62 204 C94 174, 126 232, 160 204 S226 174, 258 204" class="mode-symbol-line mode-symbol-line-soft" />
+      <circle cx="160" cy="160" r="9" class="mode-symbol-centre" />
+    </svg>
+  `,
+
+  farmer: `
+    <svg viewBox="0 0 320 320" class="mode-symbol mode-symbol-farmer" role="img" focusable="false" aria-label="Farming and water quality mode">
+      <circle cx="160" cy="160" r="130" class="mode-symbol-disc" />
+      <circle cx="160" cy="160" r="130" class="mode-symbol-ring mode-symbol-ring-strong" />
+      <circle cx="160" cy="160" r="88" class="mode-symbol-ring" />
+      <path d="M150 230 C102 174, 112 94, 172 70 C174 142, 170 198, 150 230 Z" class="mode-symbol-leaf-large" />
+      <path d="M171 230 C220 174, 208 96, 151 70 C148 144, 151 199, 171 230 Z" class="mode-symbol-leaf-large mode-symbol-leaf-alt" />
+      <path d="M160 92 V242" class="mode-symbol-line mode-symbol-line-main" />
+      <path d="M230 72 C230 108, 198 126, 198 158 A32 32 0 0 0 262 158 C262 126, 230 108, 230 72 Z" class="mode-symbol-droplet" />
+      <circle cx="160" cy="160" r="9" class="mode-symbol-centre" />
+    </svg>
+  `,
+
+  climate: `
+    <svg viewBox="0 0 320 320" class="mode-symbol mode-symbol-climate" role="img" focusable="false" aria-label="Climate Entrepreneur mode">
+      <circle cx="160" cy="160" r="130" class="mode-symbol-disc" />
+      <circle cx="160" cy="160" r="130" class="mode-symbol-ring mode-symbol-ring-strong" />
+      <circle cx="160" cy="160" r="88" class="mode-symbol-ring" />
+      <path d="M160 54 L180 126 L246 150 L184 182 L160 252 L136 182 L74 150 L140 126 Z" class="mode-symbol-spark" />
+      <path d="M160 96 C132 124, 130 170, 160 202 C190 170, 188 124, 160 96 Z" class="mode-symbol-seed" />
+      <circle cx="160" cy="160" r="10" class="mode-symbol-centre" />
+    </svg>
+  `,
+
+  research: `
+    <svg viewBox="0 0 320 320" class="mode-symbol mode-symbol-research" role="img" focusable="false" aria-label="Research mode">
+      <circle cx="160" cy="160" r="130" class="mode-symbol-disc" />
+      <circle cx="160" cy="160" r="130" class="mode-symbol-ring mode-symbol-ring-strong" />
+      <circle cx="160" cy="160" r="92" class="mode-symbol-ring" />
+      <line x1="102" y1="92" x2="160" y2="160" class="mode-symbol-line" />
+      <line x1="224" y1="88" x2="160" y2="160" class="mode-symbol-line" />
+      <line x1="94" y1="222" x2="160" y2="160" class="mode-symbol-line" />
+      <line x1="232" y1="218" x2="160" y2="160" class="mode-symbol-line" />
+      <line x1="102" y1="92" x2="224" y2="88" class="mode-symbol-line mode-symbol-line-soft" />
+      <line x1="94" y1="222" x2="232" y2="218" class="mode-symbol-line mode-symbol-line-soft" />
+      <circle cx="160" cy="160" r="17" class="mode-symbol-node-main" />
+      <circle cx="102" cy="92" r="13" class="mode-symbol-node" />
+      <circle cx="224" cy="88" r="13" class="mode-symbol-node" />
+      <circle cx="94" cy="222" r="13" class="mode-symbol-node" />
+      <circle cx="232" cy="218" r="13" class="mode-symbol-node" />
+    </svg>
+  `,
+
+  geo: `
+    <svg viewBox="0 0 320 320" class="mode-symbol mode-symbol-geo" role="img" focusable="false" aria-label="Geo Earth Systems mode">
+      <circle cx="160" cy="160" r="130" class="mode-symbol-disc" />
+      <circle cx="160" cy="160" r="130" class="mode-symbol-ring mode-symbol-ring-strong" />
+      <circle cx="160" cy="160" r="92" class="mode-symbol-ring" />
+      <path d="M58 114 C92 88, 116 82, 160 98 C204 82, 230 88, 262 114" class="mode-symbol-contour mode-symbol-contour-top" />
+      <path d="M50 152 C92 124, 124 118, 160 134 C196 118, 230 124, 270 152" class="mode-symbol-contour" />
+      <path d="M58 190 C96 168, 124 164, 160 178 C196 164, 224 168, 262 190" class="mode-symbol-contour mode-symbol-contour-soft" />
+      <path d="M78 228 H242" class="mode-symbol-line mode-symbol-line-main" />
+      <path d="M116 228 V252 M160 228 V262 M204 228 V252" class="mode-symbol-line" />
+      <circle cx="160" cy="160" r="9" class="mode-symbol-centre" />
+    </svg>
+  `,
+};
+
+function renderModeIcon() {
+  if (!el.modeIcon) return;
+
+  const mode = state.activeMode || 'all';
+  const icon = MODE_ICON_SVGS[mode] || MODE_ICON_SVGS.all;
+
+  el.modeIcon.setAttribute('data-mode-icon', mode);
+  el.modeIcon.innerHTML = icon;
+}
+
 
 const PROGRAMME_KIND_VALUES = new Set([
   'announcement_or_results',
@@ -501,6 +606,7 @@ function resetVisibleFilters() {
 }
 
 function updateModeUi() {
+  renderModeIcon();
   const modeMap = {
     all: el.modeAllBtn,
     ndrt: el.modeNdrtBtn,
