@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-02T19:06:02+00:00",
+  "generated_at": "2026-05-03T07:28:06+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -19,22 +19,7 @@
       "deadline_text": "23rd October 2025"
     }
   ],
-  "fetch_failures_using_last_known_good": [
-    {
-      "id": "gsi_geoheritage",
-      "name": "Geological Survey Ireland Geoheritage Grant Scheme",
-      "error": "HTTPSConnectionPool(host='www.gsi.ie', port=443): Read timed out. (read timeout=10)",
-      "last_successful_fetch_at": "2026-05-02T18:54:44+00:00",
-      "programme_state": "upcoming"
-    },
-    {
-      "id": "geoheritage_grant_funding",
-      "name": "Geoheritage Grant Funding",
-      "error": "HTTPSConnectionPool(host='www.gsi.ie', port=443): Read timed out. (read timeout=10)",
-      "last_successful_fetch_at": "2026-05-02T18:54:44+00:00",
-      "programme_state": "closed"
-    }
-  ],
+  "fetch_failures_using_last_known_good": [],
   "fetch_failures_using_registry_fallback": [
     {
       "id": "seai_community_grant",
@@ -62,9 +47,8 @@
     }
   ],
   "state_source_counts": {
-    "registry_fallback": 19,
-    "last_known_good": 2,
-    "deadline_past_recurring": 1,
+    "registry_fallback": 20,
+    "deadline_past_recurring": 2,
     "page_status_upcoming": 1,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 3,

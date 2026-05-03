@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-05-02T19:01:47+00:00",
+  "generated_at": "2026-05-03T07:26:44+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 15,
   "seed_pages_attempted": 15,
-  "seed_pages_failed": 3,
-  "links_seen": 1346,
-  "funding_like_links": 174,
-  "candidate_fetches": 174,
-  "pending_review_count": 28,
+  "seed_pages_failed": 2,
+  "links_seen": 1509,
+  "funding_like_links": 179,
+  "candidate_fetches": 179,
+  "pending_review_count": 20,
   "status_counts": {
-    "pending_review": 28,
-    "suppressed_non_actionable": 67,
+    "pending_review": 20,
+    "suppressed_non_actionable": 64,
     "rejected": 3,
-    "promoted": 2,
-    "suppressed_existing": 12,
-    "suppressed_stale": 3,
+    "promoted": 3,
+    "suppressed_existing": 13,
+    "suppressed_stale": 5,
     "suppressed_generic_page": 3,
-    "suppressed_fetch_error": 52
+    "suppressed_fetch_error": 68
   },
   "candidate_type_counts": {
-    "recurring_programme": 33,
-    "funding_call": 38,
+    "recurring_programme": 36,
+    "funding_call": 31,
     "scholarship": 29,
     "generic_funding_hub": 5,
-    "tender": 13,
-    "unknown": 52
+    "tender": 10,
+    "unknown": 68
   },
   "seeds": [
     {
@@ -93,11 +93,11 @@
       "id": "gsi_geoheritage_watch",
       "name": "Geological Survey Ireland geoheritage watch",
       "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.gsi.ie', port=443): Read timed out. (read timeout=12)",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 163,
+      "funding_like_links": 5,
+      "candidates_fetched": 5
     },
     {
       "id": "waterways_ireland_heritage_watch",
