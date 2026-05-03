@@ -1877,3 +1877,33 @@ select:focus,
     border-radius: 20px !important;
   }
 }
+
+
+/* Clean no-icon mode header */
+.controls-panel .find-opportunities-top {
+  display: block !important;
+}
+
+.controls-panel .find-opportunities-icon-wrap,
+.mode-mini-icon,
+.find-opportunities-icon {
+  display: none !important;
+}
+
+.mode-wrap-priority {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 1.15rem;
+  padding-top: 1.15rem;
+}
+
+.mode-preset-row .chip-btn.active {
+  border-color: rgba(114, 235, 194, 0.58);
+  background: linear-gradient(180deg, rgba(114, 235, 194, 0.26), rgba(82, 196, 162, 0.16));
+  box-shadow: 0 0 0 1px rgba(114, 235, 194, 0.08), 0 10px 24px rgba(31, 160, 120, 0.12);
+}
+
+#mode-note {
+  max-width: 76ch;
+  padding-left: 0.85rem;
+  border-left: 3px solid rgba(114, 235, 194, 0.58);
+}
