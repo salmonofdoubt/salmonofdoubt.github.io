@@ -1735,3 +1735,145 @@ select:focus,
 .find-opportunities-icon .mode-symbol {
   filter: drop-shadow(0 8px 18px rgba(0,0,0,0.18));
 }
+
+
+/* Clean coloured mode mini-icons */
+.find-opportunities-icon.mode-mini-icon {
+  width: 132px !important;
+  height: 132px !important;
+  border-radius: 24px !important;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 22%, rgba(255,255,255,0.13), transparent 42%),
+    linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025));
+  border: 1px solid rgba(255,255,255,0.13);
+  box-shadow:
+    0 18px 36px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+}
+
+.mode-mini-icon[data-mode-icon="all"] {
+  --mode-main: #8edfff;
+  --mode-accent: #b7f58c;
+  --mode-soft: rgba(142, 223, 255, 0.17);
+}
+
+.mode-mini-icon[data-mode-icon="ndrt"] {
+  --mode-main: #66d9ff;
+  --mode-accent: #74f2d1;
+  --mode-soft: rgba(102, 217, 255, 0.18);
+}
+
+.mode-mini-icon[data-mode-icon="farmer"] {
+  --mode-main: #9ee66f;
+  --mode-accent: #daf58e;
+  --mode-soft: rgba(158, 230, 111, 0.18);
+}
+
+.mode-mini-icon[data-mode-icon="climate"] {
+  --mode-main: #ffd56a;
+  --mode-accent: #8df0c8;
+  --mode-soft: rgba(255, 213, 106, 0.18);
+}
+
+.mode-mini-icon[data-mode-icon="research"] {
+  --mode-main: #b8c4ff;
+  --mode-accent: #d7ff9b;
+  --mode-soft: rgba(184, 196, 255, 0.18);
+}
+
+.mode-mini-icon[data-mode-icon="geo"] {
+  --mode-main: #d7ba7d;
+  --mode-accent: #8ed6c7;
+  --mode-soft: rgba(215, 186, 125, 0.18);
+}
+
+.mode-mini-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  color: var(--mode-main);
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.2));
+}
+
+.mode-mini-svg .mini-ring {
+  fill: none;
+  stroke: var(--mode-main);
+  stroke-width: 1.8;
+}
+
+.mode-mini-svg .mini-ring-mid {
+  opacity: 0.34;
+}
+
+.mode-mini-svg .mini-ring-inner {
+  opacity: 0.23;
+}
+
+.mode-mini-svg .mini-axis {
+  stroke: var(--mode-main);
+  stroke-width: 1.2;
+  opacity: 0.22;
+}
+
+.mode-mini-svg .mini-sweep {
+  fill: var(--mode-soft);
+}
+
+.mode-mini-svg .mini-mark,
+.mode-mini-svg .mini-network,
+.mode-mini-svg .mini-field {
+  fill: none;
+  stroke: var(--mode-main);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mode-mini-svg .mini-mark.secondary {
+  opacity: 0.72;
+}
+
+.mode-mini-svg .mini-mark.tertiary {
+  opacity: 0.48;
+}
+
+.mode-mini-svg .mini-mark.filled {
+  fill: var(--mode-soft);
+}
+
+.mode-mini-svg .mini-vein {
+  fill: none;
+  stroke: var(--mode-accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mode-mini-svg .mini-vein.strong {
+  stroke-width: 3.1;
+}
+
+.mode-mini-svg .mini-network.faint {
+  opacity: 0.35;
+}
+
+.mode-mini-svg .mini-node,
+.mode-mini-svg .mini-core {
+  fill: var(--mode-main);
+  filter: drop-shadow(0 0 8px var(--mode-soft));
+}
+
+.mode-mini-svg .mini-core {
+  fill: var(--mode-accent);
+}
+
+@media (max-width: 980px) {
+  .find-opportunities-icon.mode-mini-icon {
+    width: 104px !important;
+    height: 104px !important;
+    border-radius: 20px !important;
+  }
+}

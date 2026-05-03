@@ -455,22 +455,7 @@ const MODE_ICON_SVGS = {
   `,
 };
 
-function renderModeIcon() {
-  if (typeof getLeafRadarIcon !== 'function') return;
 
-  // Main hero mark stays Grant Radar identity, but uses the refined leaf-radar style.
-  if (el.modeIcon) {
-    el.modeIcon.setAttribute('data-mode-icon', 'all');
-    el.modeIcon.innerHTML = getLeafRadarIcon('all');
-  }
-
-  // Smaller section mark changes with the selected mode.
-  if (el.modeMiniIcon) {
-    const mode = state.activeMode || 'all';
-    el.modeMiniIcon.setAttribute('data-mode-icon', mode);
-    el.modeMiniIcon.innerHTML = getLeafRadarIcon(mode);
-  }
-}
 
 
 
@@ -834,6 +819,102 @@ function resetVisibleFilters() {
   setSelectValue(el.accessSelect, 'all');
   setSelectValue(el.scaleSelect, 'all');
 }
+
+
+function getModeMiniIcon(mode = 'all') {
+  const commonFrame = `
+    <circle class="mini-ring mini-ring-outer" cx="48" cy="48" r="38" />
+    <circle class="mini-ring mini-ring-mid" cx="48" cy="48" r="25" />
+    <circle class="mini-ring mini-ring-inner" cx="48" cy="48" r="12" />
+    <line class="mini-axis" x1="48" y1="10" x2="48" y2="86" />
+    <line class="mini-axis" x1="10" y1="48" x2="86" y2="48" />
+  `;
+
+  const symbols = {
+    all: `
+      ${commonFrame}
+      <path class="mini-sweep" d="M48 48 L80 33 A38 38 0 0 1 86 51 Z" />
+      <path class="mini-mark mini-leaf-left" d="M44 38 C34 25 22 22 13 25 C20 32 29 38 41 45" />
+      <path class="mini-mark mini-leaf-right" d="M52 38 C62 25 74 22 83 25 C76 32 67 38 55 45" />
+      <path class="mini-vein" d="M48 48 C41 40 30 31 15 25" />
+      <path class="mini-vein" d="M48 48 C55 40 66 31 81 25" />
+      <circle class="mini-core" cx="48" cy="48" r="5" />
+    `,
+
+    ndrt: `
+      ${commonFrame}
+      <path class="mini-sweep" d="M48 48 L78 37 A38 38 0 0 1 85 53 Z" />
+      <path class="mini-mark" d="M16 38 C25 30 35 49 48 38 C61 27 70 45 80 36" />
+      <path class="mini-mark secondary" d="M16 50 C27 42 36 61 49 50 C62 39 71 57 82 48" />
+      <path class="mini-mark tertiary" d="M20 62 C31 56 39 70 50 62 C61 54 69 66 78 60" />
+      <circle class="mini-core" cx="48" cy="48" r="5" />
+    `,
+
+    farmer: `
+      ${commonFrame}
+      <path class="mini-sweep" d="M48 48 L78 36 A38 38 0 0 1 85 52 Z" />
+      <path class="mini-mark filled" d="M45 59 C30 47 28 28 47 20 C48 37 48 51 45 59 Z" />
+      <path class="mini-mark filled" d="M51 59 C66 47 68 28 49 20 C48 37 48 51 51 59 Z" />
+      <path class="mini-vein strong" d="M48 22 V70" />
+      <path class="mini-field" d="M23 72 H73" />
+      <path class="mini-field" d="M29 66 H67" />
+      <circle class="mini-core" cx="48" cy="48" r="5" />
+    `,
+
+    climate: `
+      ${commonFrame}
+      <path class="mini-sweep" d="M48 48 L80 33 A38 38 0 0 1 86 51 Z" />
+      <path class="mini-mark filled" d="M48 15 L55 38 L77 46 L56 56 L48 80 L40 56 L19 46 L41 38 Z" />
+      <path class="mini-vein strong" d="M48 70 C48 58 48 45 48 30" />
+      <path class="mini-vein" d="M48 54 C40 48 34 42 29 34" />
+      <path class="mini-vein" d="M48 54 C56 48 62 42 67 34" />
+      <circle class="mini-core" cx="48" cy="48" r="5" />
+    `,
+
+    research: `
+      ${commonFrame}
+      <path class="mini-sweep" d="M48 48 L78 36 A38 38 0 0 1 85 52 Z" />
+      <path class="mini-network" d="M28 27 L48 48 L67 25" />
+      <path class="mini-network" d="M28 69 L48 48 L70 68" />
+      <path class="mini-network faint" d="M28 27 L67 25" />
+      <path class="mini-network faint" d="M28 69 L70 68" />
+      <circle class="mini-node" cx="28" cy="27" r="4" />
+      <circle class="mini-node" cx="67" cy="25" r="4" />
+      <circle class="mini-node" cx="28" cy="69" r="4" />
+      <circle class="mini-node" cx="70" cy="68" r="4" />
+      <circle class="mini-core" cx="48" cy="48" r="6" />
+    `,
+
+    geo: `
+      ${commonFrame}
+      <path class="mini-sweep" d="M48 48 L80 34 A38 38 0 0 1 86 51 Z" />
+      <path class="mini-mark" d="M18 34 C30 24 39 24 48 30 C57 24 67 24 79 34" />
+      <path class="mini-mark secondary" d="M14 48 C29 38 39 38 48 43 C57 38 69 38 84 48" />
+      <path class="mini-mark tertiary" d="M18 62 C31 55 40 55 48 59 C56 55 66 55 78 62" />
+      <path class="mini-field" d="M27 74 H69" />
+      <path class="mini-field" d="M36 74 V82 M48 74 V86 M60 74 V82" />
+      <circle class="mini-core" cx="48" cy="48" r="5" />
+    `,
+  };
+
+  return `
+    <svg class="mode-mini-svg" viewBox="0 0 96 96" role="img" focusable="false" aria-hidden="true">
+      ${symbols[mode] || symbols.all}
+    </svg>
+  `;
+}
+
+function renderModeIcon() {
+  // Deliberately do not overwrite the large hero radar.
+  // It remains the stable Grant Radar identity mark from the HTML.
+
+  if (!el.modeMiniIcon) return;
+
+  const mode = state.activeMode || 'all';
+  el.modeMiniIcon.setAttribute('data-mode-icon', mode);
+  el.modeMiniIcon.innerHTML = getModeMiniIcon(mode);
+}
+
 
 function updateModeUi() {
   renderModeIcon();
