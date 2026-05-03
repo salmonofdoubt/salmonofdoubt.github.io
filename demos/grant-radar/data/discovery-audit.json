@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-05-03T07:26:44+00:00",
+  "generated_at": "2026-05-03T19:25:59+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
-  "seed_count": 15,
-  "seed_pages_attempted": 15,
-  "seed_pages_failed": 2,
-  "links_seen": 1509,
-  "funding_like_links": 179,
-  "candidate_fetches": 179,
-  "pending_review_count": 20,
+  "seed_count": 26,
+  "seed_pages_attempted": 26,
+  "seed_pages_failed": 4,
+  "links_seen": 4506,
+  "funding_like_links": 456,
+  "candidate_fetches": 300,
+  "pending_review_count": 74,
   "status_counts": {
-    "pending_review": 20,
-    "suppressed_non_actionable": 64,
+    "pending_review": 74,
+    "suppressed_non_actionable": 55,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 13,
-    "suppressed_stale": 5,
-    "suppressed_generic_page": 3,
-    "suppressed_fetch_error": 68
+    "suppressed_existing": 11,
+    "suppressed_stale": 7,
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 67
   },
   "candidate_type_counts": {
-    "recurring_programme": 36,
-    "funding_call": 31,
+    "recurring_programme": 80,
+    "funding_call": 33,
     "scholarship": 29,
     "generic_funding_hub": 5,
     "tender": 10,
-    "unknown": 68
+    "unknown": 67
   },
   "seeds": [
     {
@@ -43,21 +43,21 @@
       "id": "heritage_council_funding_hub",
       "name": "Heritage Council funding hub",
       "url": "https://www.heritagecouncil.ie/funding/",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 82,
-      "funding_like_links": 13,
-      "candidates_fetched": 13
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x70e35bde6d80>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "lawpro_funding_hub",
       "name": "LAWPRO funding hub",
       "url": "https://lawaters.ie/funding/",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 112,
-      "funding_like_links": 11,
-      "candidates_fetched": 11
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x70e35bc7e0c0>, 'Connection to lawaters.ie timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "epa_research_funding_hub",
@@ -104,7 +104,7 @@
       "name": "Waterways Ireland heritage watch",
       "url": "https://www.waterwaysireland.org/about-us/heritage",
       "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -176,6 +176,116 @@
       "status": "ok",
       "fetch_error": null,
       "links_seen": 32,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_dfg_research_grants_watch",
+      "name": "Geo watch: DFG Individual Research Grants",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/research-grants",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 611,
+      "funding_like_links": 62,
+      "candidates_fetched": 62
+    },
+    {
+      "id": "geo_dfg_scientific_networks_watch",
+      "name": "Geo watch: DFG Scientific Networks",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 592,
+      "funding_like_links": 57,
+      "candidates_fetched": 57
+    },
+    {
+      "id": "geo_dfg_reinhart_koselleck_watch",
+      "name": "Geo watch: DFG Reinhart Koselleck Projects",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/reinhart-koselleck-projects",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 594,
+      "funding_like_links": 57,
+      "candidates_fetched": 26
+    },
+    {
+      "id": "geo_dfg_heisenberg_watch",
+      "name": "Geo watch: DFG Heisenberg Programme",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/heisenberg",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 598,
+      "funding_like_links": 59,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_erc_advanced_watch",
+      "name": "Geo watch: ERC Advanced Grant",
+      "url": "https://erc.europa.eu/funding/advanced-grants",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 163,
+      "funding_like_links": 22,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_horizon_energy_supply_watch",
+      "name": "Geo watch: Horizon Europe Sustainable, Secure and Competitive Energy Supply",
+      "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 94,
+      "funding_like_links": 33,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_clean_hydrogen_partnership_watch",
+      "name": "Geo watch: Clean Hydrogen Partnership Call 2026",
+      "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 83,
+      "funding_like_links": 9,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_ptj_hydrogen_derivatives_watch",
+      "name": "Geo watch: PtJ Applied Energy Research: Hydrogen and Derivatives",
+      "url": "https://www.ptj.de/projekfoerderung/angewandte-energieforschung/8-efp/produktion-von-wasserstoff-und-derivaten-brennstoffzellen-wiederverstromung",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 102,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_rifs_klaus_toepfer_watch",
+      "name": "Geo watch: RIFS Klaus Töpfer Sustainability Fellowship",
+      "url": "https://www.rifs-potsdam.de/en/node/11996",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 44,
+      "funding_like_links": 2,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_gfz_jobs_board_watch",
+      "name": "Geo watch: GFZ Scientific Jobs Board",
+      "url": "https://www.gfz.de/karriere/stellenangebote",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 155,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
+    },
+    {
+      "id": "geo_gfz_klaus_toepfer_watch",
+      "name": "Geo watch: GFZ Klaus Töpfer Sustainability Fellowship",
+      "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 155,
       "funding_like_links": 0,
       "candidates_fetched": 0
     }

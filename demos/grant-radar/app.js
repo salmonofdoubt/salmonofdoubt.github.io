@@ -33,6 +33,7 @@ const el = {
   modeResearchBtn: document.getElementById('mode-research-btn'),
   modeFarmerBtn: document.getElementById('mode-farmer-btn'),
   modeClimateBtn: document.getElementById('mode-climate-btn'),
+  modeGeoBtn: document.getElementById('mode-geo-btn'),
   modeNote: document.getElementById('mode-note'),
 };
 
@@ -51,6 +52,18 @@ const APPLICANT_ORDER = [
   'NGOs',
   'schools',
   'households',
+  'experienced researchers',
+  'PIs',
+  'professors',
+  'senior researchers',
+  'established researchers',
+  'research consortia',
+  'research networks',
+  'institutes',
+  'universities',
+  'industry partners',
+  'mid-career professionals',
+  'sustainability leaders',
 ];
 
 const SCALE_ORDER = ['local', 'support', 'medium', 'major'];
@@ -109,6 +122,22 @@ const CLIMATE_ENTREPRENEUR_PURPOSES = [
   'renewable energy',
   'bioeconomy',
   'entrepreneurship',
+];
+
+const GEO_PURPOSES = [
+  'geoscience',
+  'geochemistry',
+  'geothermal',
+  'hydrogen',
+  'subsurface storage',
+  'gas analytics',
+  'energy systems',
+  'environmental research',
+  'frontier research',
+  'scientific networking',
+  'research career',
+  'sustainability transitions',
+  'wetland interfaces',
 ];
 
 const PROGRAMME_KIND_VALUES = new Set([
@@ -340,6 +369,7 @@ function fitValueForMode(item) {
     research: 'Research',
     farmer: 'Farmer',
     climate: 'Climate',
+    geo: 'Geo',
   };
   const valueMap = {
     include: 'yes',
@@ -357,7 +387,7 @@ function fitValueForMode(item) {
     return `${labelMap[state.activeMode] || state.activeMode}: ${valueMap[value] || value}`;
   }
 
-  const preferred = ['ndrt', 'research', 'farmer'];
+  const preferred = ['ndrt', 'research', 'farmer', 'climate', 'geo'];
   const best = preferred.find((key) => relevance[key] === 'include')
     || preferred.find((key) => relevance[key] === 'maybe')
     || preferred.find((key) => relevance[key] === 'exclude');
@@ -477,6 +507,7 @@ function updateModeUi() {
     research: el.modeResearchBtn,
     farmer: el.modeFarmerBtn,
     climate: el.modeClimateBtn,
+    geo: el.modeGeoBtn,
   };
 
   Object.entries(modeMap).forEach(([key, button]) => {
@@ -506,6 +537,11 @@ function updateModeUi() {
     return;
   }
 
+  if (state.activeMode === 'geo') {
+    el.modeNote.textContent = 'Geo / Earth Systems mode shows sources imported from Geo Radar: geoscience, geochemistry, hydrogen, geothermal, subsurface storage, GFZ/Potsdam, DFG/ERC/Horizon, and Earth-systems research routes.';
+    return;
+  }
+
   el.modeNote.textContent = 'Showing the full catalogue using the standard defaults. All opportunities mode now means exactly that: no hidden mode filtering.';
 }
 
@@ -528,6 +564,10 @@ function applyMode(mode) {
     setSelectValue(el.changeWindowSelect, '365');
   } else if (mode === 'climate') {
     selectPurposes(CLIMATE_ENTREPRENEUR_PURPOSES);
+    setSelectValue(el.applicantSelect, 'all');
+    setSelectValue(el.changeWindowSelect, '365');
+  } else if (mode === 'geo') {
+    selectPurposes(GEO_PURPOSES);
     setSelectValue(el.applicantSelect, 'all');
     setSelectValue(el.changeWindowSelect, '365');
   } else {
@@ -983,6 +1023,10 @@ async function init() {
 
   if (el.modeClimateBtn) {
     el.modeClimateBtn.addEventListener('click', () => applyMode('climate'));
+  }
+
+  if (el.modeGeoBtn) {
+    el.modeGeoBtn.addEventListener('click', () => applyMode('geo'));
   }
 
   render();

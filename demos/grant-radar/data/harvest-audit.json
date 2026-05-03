@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-03T07:28:06+00:00",
+  "generated_at": "2026-05-03T19:28:04+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -19,7 +19,36 @@
       "deadline_text": "23rd October 2025"
     }
   ],
-  "fetch_failures_using_last_known_good": [],
+  "fetch_failures_using_last_known_good": [
+    {
+      "id": "heritage_community_grant",
+      "name": "Heritage Council Community Heritage Grant Scheme",
+      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/community-heritage-grant-scheme-2 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7db704c097f0>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "lawpro_catchment_support_fund",
+      "name": "LAWPRO Catchment Support Fund",
+      "error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /catchment-support-fund/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db704c9a8d0>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "lawpro_cwdf",
+      "name": "LAWPRO Community Water Development Fund",
+      "error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /cwdf/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db70472a9f0>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "lawpro_small_grants",
+      "name": "LAWPRO Small Grants and Events Scheme",
+      "error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /small-grants-and-events-scheme/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db70472b350>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00",
+      "programme_state": "closed"
+    }
+  ],
   "fetch_failures_using_registry_fallback": [
     {
       "id": "seai_community_grant",
@@ -42,18 +71,20 @@
     {
       "id": "waterways_heritage_biodiversity",
       "name": "Waterways Ireland Community Heritage and Biodiversity Grant Programme",
-      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
       "programme_state": "archived"
     }
   ],
   "state_source_counts": {
-    "registry_fallback": 20,
+    "registry_fallback": 25,
+    "last_known_good": 4,
     "deadline_past_recurring": 2,
     "page_status_upcoming": 1,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 3,
-    "page_status_open": 1
+    "page_status_open": 2,
+    "page_status_closed": 1
   },
-  "public_visible_count": 29,
-  "total_harvested_count": 31
+  "public_visible_count": 40,
+  "total_harvested_count": 42
 }

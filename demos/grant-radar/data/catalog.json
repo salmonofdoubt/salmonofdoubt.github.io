@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Grant Radar",
-    "generated_at": "2026-05-03T07:28:06+00:00",
+    "generated_at": "2026-05-03T19:28:04+00:00",
     "generator": "grant-radar-demo 1.5.0",
     "available_purposes": [
       "advisory support",
@@ -20,6 +20,7 @@
       "ecology",
       "education",
       "energy efficiency",
+      "energy systems",
       "entrepreneurship",
       "environmental research",
       "farm nutrient management",
@@ -27,27 +28,37 @@
       "farm sustainability",
       "farm water protection",
       "fisheries",
+      "frontier research",
+      "gas analytics",
+      "geochemistry",
       "geoscience",
+      "geothermal",
       "geotourism",
       "habitat restoration",
       "heritage",
+      "hydrogen",
       "natural water retention",
       "nature-based solutions",
       "peatlands",
       "public engagement",
       "renewable energy",
+      "research career",
       "research training",
       "restoration",
       "riparian management",
       "river restoration",
       "rural development",
+      "scientific networking",
       "sediment control",
+      "subsurface storage",
       "surveys",
       "sustainability",
+      "sustainability transitions",
       "urban NbS",
       "water quality",
       "water quality implementation",
       "wetland creation",
+      "wetland interfaces",
       "wetlands"
     ],
     "available_applicant_types": [
@@ -67,7 +78,8 @@
       "via local authority",
       "via local action group",
       "via project coordinator",
-      "consortium"
+      "consortium",
+      "via host institution"
     ],
     "available_scales": [
       "local",
@@ -91,10 +103,10 @@
       "discovery_only",
       "public_visible"
     ],
-    "public_visible_count": 29,
+    "public_visible_count": 40,
     "discovery_only_count": 2,
     "archived_count": 2,
-    "total_harvested_count": 31
+    "total_harvested_count": 42
   },
   "sources": [
     {
@@ -110,7 +122,7 @@
         "farm payments"
       ],
       "note": "Ireland's flagship agri-environment climate scheme with major water-quality relevance through actions, NPIs and landscape measures.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official scheme page monitoring",
       "fetch_status": "ok"
     },
@@ -127,7 +139,7 @@
         "advisory support"
       ],
       "note": "Free and confidential advisory service working with farmers in priority areas for action to improve water quality.",
-      "last_checked": "2026-05-03T07:22:28+00:00",
+      "last_checked": "2026-05-03T19:28:05+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -144,7 +156,7 @@
         "riparian management"
       ],
       "note": "Catchment-based Teagasc campaign built around practical actions for farmers to improve water quality.",
-      "last_checked": "2026-05-03T07:05:35+00:00",
+      "last_checked": "2026-05-03T18:48:11+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -164,7 +176,7 @@
         "sustainability"
       ],
       "note": "Local-authority and community climate-action route covering renewable energy, energy efficiency, biodiversity, sustainable transport and feasibility studies.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -180,7 +192,7 @@
         "climate action"
       ],
       "note": "Business sustainability support route.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -196,7 +208,7 @@
         "climate adaptation"
       ],
       "note": "Direct call page with explicit key dates.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -218,7 +230,7 @@
         "climate action"
       ],
       "note": "Official Farming for Water EIP route. Farmer-facing water-quality implementation programme using nutrient management, Natural Water Retention Measures, riparian buffers, hedgerows, fencing, sediment controls and other targeted measures.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official Farming for Water EIP site monitoring",
       "fetch_status": "ok"
     },
@@ -234,7 +246,7 @@
         "community nature"
       ],
       "note": "Community-based geoheritage grant stream.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -251,9 +263,10 @@
         "surveys"
       ],
       "note": "National community heritage and biodiversity grant stream.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/community-heritage-grant-scheme-2 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7db704c097f0>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=10)'))"
     },
     {
       "id": "horizon_biodiv",
@@ -267,7 +280,7 @@
         "nature-based solutions"
       ],
       "note": "Biodiversity topic page with deadline markers.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -288,7 +301,7 @@
         "nature-based solutions"
       ],
       "note": "Practical river, riparian, invasive-species, fish-passage, habitat and soft-engineering funding route for eligible third parties.",
-      "last_checked": "2026-05-03T07:27:18+00:00",
+      "last_checked": "2026-05-03T19:26:38+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -307,9 +320,10 @@
         "natural water retention"
       ],
       "note": "Capacity-building and core-cost support for catchment partnerships and local delivery bodies.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /catchment-support-fund/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db704c9a8d0>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))"
     },
     {
       "id": "lawpro_cwdf",
@@ -328,9 +342,10 @@
         "education"
       ],
       "note": "Community and voluntary funding route for local water-quality projects, awareness, citizen science and small practical restoration actions.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /cwdf/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db70472a9f0>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))"
     },
     {
       "id": "lawpro_small_grants",
@@ -345,9 +360,10 @@
         "education"
       ],
       "note": "Small-scale community water-awareness, survey, signage, education and event route.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /small-grants-and-events-scheme/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db70472b350>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))"
     },
     {
       "id": "leader_programme",
@@ -362,7 +378,7 @@
         "renewable energy"
       ],
       "note": "Rolling rural development route that can support environmental, catchment and community actions through Local Action Groups.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -378,7 +394,7 @@
         "climate action"
       ],
       "note": "Local LEO green supports including Energy Efficiency Grant.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -395,7 +411,7 @@
         "wetlands"
       ],
       "note": "Seed page before topic-level portal extraction.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -415,7 +431,7 @@
         "water quality"
       ],
       "note": "Local-authority-led biodiversity route with practical habitat, wetland, invasive-species and partnership relevance. Usually not a direct community application route.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -431,7 +447,7 @@
         "conservation"
       ],
       "note": "Award update for the community conservation scheme.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -464,7 +480,7 @@
         "climate action"
       ],
       "note": "SEAI community capital-funding route managed via project coordinators.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/community-grants"
@@ -481,7 +497,7 @@
         "decarbonisation"
       ],
       "note": "National energy RD&D funding stream; 2026 call signalled as opening soon.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund"
@@ -498,7 +514,7 @@
         "decarbonisation"
       ],
       "note": "SEC network and Energy Master Plan support route.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community"
@@ -516,7 +532,7 @@
         "advisory support"
       ],
       "note": "Free advisory and demonstration-farm route with explicit water-quality and biodiversity co-benefits.",
-      "last_checked": "2026-05-03T07:28:21+00:00",
+      "last_checked": "2026-05-03T19:28:50+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -533,7 +549,7 @@
         "research training"
       ],
       "note": "Current Teagasc postgraduate opportunities page. Retained for research-facing users alongside practical farm-delivery routes.",
-      "last_checked": "2026-05-03T07:23:18+00:00",
+      "last_checked": "2026-05-03T19:21:44+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -550,10 +566,10 @@
         "education"
       ],
       "note": "Waterway-focused small community grant.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))"
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))"
     },
     {
       "id": "research_ireland_discover",
@@ -604,7 +620,7 @@
         "geotourism"
       ],
       "note": "Decision: promote State: closed Kind: recurring programme Visibility: public-visible NDRT relevance: maybe Research relevance: include Farmer mode: exclude",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "promoted from Grant Radar review queue",
       "fetch_status": "ok"
     },
@@ -626,7 +642,7 @@
         "biodiversity"
       ],
       "note": "Watch signal for the 2026 water-quality capital programme supporting Farming for Water EIP, urban nature-based solutions and National Barrier Mitigation Programme activity. Not usually a direct community application route.",
-      "last_checked": "2026-05-03T07:28:06+00:00",
+      "last_checked": "2026-05-03T19:28:04+00:00",
       "discovery_method": "official water-quality capital programme watch",
       "fetch_status": "ok"
     },
@@ -645,6 +661,190 @@
       "note": "Promoted from Grant Radar review queue. Generated as a starter registry entry and should be checked before long-term retention.",
       "last_checked": "2026-05-01T14:41:46+00:00",
       "discovery_method": "promoted from Grant Radar review queue",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_dfg_research_grants",
+      "name": "DFG Individual Research Grants",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/research-grants",
+      "scope": "Germany",
+      "purposes": [
+        "geoscience",
+        "environmental research",
+        "geochemistry",
+        "hydrogen",
+        "subsurface storage"
+      ],
+      "note": "Core German investigator-led funding route for doctorate-holding researchers with proposals accepted at any time.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official programme page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_dfg_scientific_networks",
+      "name": "DFG Scientific Networks",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks",
+      "scope": "Germany and international collaboration",
+      "purposes": [
+        "scientific networking",
+        "geoscience",
+        "environmental research",
+        "hydrogen",
+        "wetland interfaces"
+      ],
+      "note": "Network-building route for topic-focused collaboration across sites, including international members.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official programme page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_dfg_reinhart_koselleck",
+      "name": "DFG Reinhart Koselleck Projects",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/reinhart-koselleck-projects",
+      "scope": "Germany",
+      "purposes": [
+        "frontier research",
+        "geoscience",
+        "geochemistry",
+        "subsurface storage",
+        "hydrogen"
+      ],
+      "note": "Higher-risk route for outstanding researchers with a strong scientific track record.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official programme page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_dfg_heisenberg",
+      "name": "DFG Heisenberg Programme",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/heisenberg",
+      "scope": "Germany",
+      "purposes": [
+        "research career",
+        "frontier research",
+        "geoscience",
+        "environmental research"
+      ],
+      "note": "Career-advancement route for researchers already qualified for appointment to a permanent professorship.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official programme page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_erc_advanced",
+      "name": "ERC Advanced Grant",
+      "url": "https://erc.europa.eu/funding/advanced-grants",
+      "scope": "European Union and associated countries",
+      "purposes": [
+        "frontier research",
+        "geoscience",
+        "geochemistry",
+        "hydrogen",
+        "environmental research"
+      ],
+      "note": "Flagship frontier-funding route for established research leaders via annual ERC calls.",
+      "last_checked": "2026-04-30T23:45:09+00:00",
+      "discovery_method": "official programme page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_horizon_energy_supply",
+      "name": "Horizon Europe Sustainable, Secure and Competitive Energy Supply",
+      "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "scope": "European Union",
+      "purposes": [
+        "hydrogen",
+        "geothermal",
+        "subsurface storage",
+        "environmental research",
+        "energy systems"
+      ],
+      "note": "Cluster 5 energy call relevant to subsurface energy systems, hydrogen storage and infrastructure themes.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official call page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_clean_hydrogen_partnership",
+      "name": "Clean Hydrogen Partnership Call 2026",
+      "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
+      "scope": "European Union",
+      "purposes": [
+        "hydrogen",
+        "subsurface storage",
+        "gas analytics",
+        "environmental research",
+        "energy systems"
+      ],
+      "note": "Large consortium call covering hydrogen production, storage, distribution and demonstration.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official call page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_ptj_hydrogen_derivatives",
+      "name": "PtJ Applied Energy Research: Hydrogen and Derivatives",
+      "url": "https://www.ptj.de/projekfoerderung/angewandte-energieforschung/8-efp/produktion-von-wasserstoff-und-derivaten-brennstoffzellen-wiederverstromung",
+      "scope": "Germany",
+      "purposes": [
+        "hydrogen",
+        "geothermal",
+        "subsurface storage",
+        "energy systems",
+        "environmental research"
+      ],
+      "note": "Federal applied-energy-research route covering hydrogen production, derivatives, fuel cells and reconversion.",
+      "last_checked": "2026-05-03T19:28:53+00:00",
+      "discovery_method": "official funding priority page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_rifs_klaus_toepfer",
+      "name": "RIFS Klaus Töpfer Sustainability Fellowship",
+      "url": "https://www.rifs-potsdam.de/en/node/11996",
+      "scope": "Potsdam / Germany",
+      "purposes": [
+        "sustainability transitions",
+        "environmental research",
+        "scientific networking",
+        "wetland interfaces"
+      ],
+      "note": "Potsdam-based bridge fellowship for experienced sustainability actors with science-policy reach.",
+      "last_checked": "2026-05-03T19:28:53+00:00",
+      "discovery_method": "official fellowship page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_gfz_jobs_board",
+      "name": "GFZ Scientific Jobs Board",
+      "url": "https://www.gfz.de/karriere/stellenangebote",
+      "scope": "Potsdam, Germany",
+      "purposes": [
+        "geoscience",
+        "geochemistry",
+        "research career",
+        "geothermal",
+        "environmental research"
+      ],
+      "note": "Official GFZ vacancies board covering scientific positions, doctoral roles and fellow programmes in Potsdam.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official GFZ careers page monitoring",
+      "fetch_status": "ok"
+    },
+    {
+      "id": "geo_gfz_klaus_toepfer",
+      "name": "GFZ Klaus Töpfer Sustainability Fellowship",
+      "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
+      "scope": "Potsdam, Germany",
+      "purposes": [
+        "sustainability transitions",
+        "research career",
+        "geoscience",
+        "environmental research"
+      ],
+      "note": "GFZ-hosted RIFS fellowship page for the Klaus Töpfer Sustainability Fellowship.",
+      "last_checked": "2026-05-03T19:28:04+00:00",
+      "discovery_method": "official GFZ fellowship page monitoring",
       "fetch_status": "ok"
     }
   ],
@@ -694,7 +894,7 @@
       "programme_state": "closed",
       "expected_next_window": "Sep–Nov 2027",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -712,7 +912,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "assap_programme_assap",
@@ -759,7 +959,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:22:28+00:00",
+      "last_verified_at": "2026-05-03T19:28:05+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -777,7 +977,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:22:28+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:05+00:00"
     },
     {
       "id": "better_farming_for_water_teagasc_better_farming_for_water",
@@ -824,7 +1024,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:05:35+00:00",
+      "last_verified_at": "2026-05-03T18:48:11+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -842,7 +1042,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:05:35+00:00"
+      "last_successful_fetch_at": "2026-05-03T18:48:11+00:00"
     },
     {
       "id": "climate_action_communities_start_2026_climate_action_in_our_communities",
@@ -897,7 +1097,7 @@
       "programme_state": "upcoming",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -915,7 +1115,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "enterprise_ireland_greenplus_enterprise_ireland_greenplus",
@@ -966,7 +1166,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -983,7 +1183,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "epa_research_call_epa_research_call_2026",
@@ -1033,7 +1233,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1051,7 +1251,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "farming_for_water_eip_farming_for_water_eip",
@@ -1108,7 +1308,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling through advisors in eligible Priority Areas for Action",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1128,7 +1328,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "gsi_geoheritage_gsi_geoheritage_grant_scheme_watch",
@@ -1179,7 +1379,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1196,7 +1396,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "heritage_community_grant_heritage_council_community_heritage_grant_scheme",
@@ -1261,10 +1461,10 @@
       "mode_reason": {
         "ndrt": "Community heritage and biodiversity route with potential relevance for river heritage, surveys, and outreach."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/community-heritage-grant-scheme-2 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7db704c097f0>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=10)'))",
       "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
     },
     {
@@ -1315,7 +1515,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1333,7 +1533,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "ifi_habitats_conservation_ifi_habitats_conservation_funding_call",
@@ -1397,7 +1597,7 @@
       "programme_state": "closed",
       "expected_next_window": "Oct–Dec 2026",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:27:18+00:00",
+      "last_verified_at": "2026-05-03T19:26:38+00:00",
       "last_open_year": 2025,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1415,7 +1615,7 @@
       "state_confidence": 0.82,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:27:18+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:26:38+00:00"
     },
     {
       "id": "lawpro_catchment_support_fund_lawpro_catchment_support_fund",
@@ -1489,10 +1689,10 @@
       "mode_reason": {
         "ndrt": "Directly relevant to catchment partnerships and community water-quality delivery."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /catchment-support-fund/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db704c9a8d0>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
       "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
     },
     {
@@ -1571,10 +1771,10 @@
       "mode_reason": {
         "ndrt": "Directly relevant to community-led water-quality projects, awareness, monitoring, and restoration."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /cwdf/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db70472a9f0>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
       "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
     },
     {
@@ -1640,10 +1840,10 @@
       "mode_reason": {
         "ndrt": "Directly relevant to small community water events, citizen science, signage, surveys, and outreach."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /small-grants-and-events-scheme/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7db70472b350>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
       "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
     },
     {
@@ -1701,7 +1901,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1718,7 +1918,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "leo_energy_efficiency_leo_energy_efficiency_grant",
@@ -1767,7 +1967,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1784,7 +1984,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "life_calls_life_calls_for_proposals_2026",
@@ -1839,7 +2039,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1857,7 +2057,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "npws_local_biodiversity_action_fund_local_biodiversity_action_fund",
@@ -1919,7 +2119,7 @@
       "programme_state": "closed",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1937,7 +2137,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "npws_peatlands_natura_scheme_peatlands_and_natura_community_engagement_scheme_2026_results",
@@ -1987,7 +2187,7 @@
       "programme_state": "archived",
       "expected_next_window": null,
       "public_visible_state": "discovery_only",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "archived",
       "current_availability": "closed",
@@ -2004,7 +2204,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "research_ireland_goipg_goipg_research_ireland_government_of_ireland_postgraduate_scholarship",
@@ -2126,7 +2326,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2195,7 +2395,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2267,7 +2467,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2331,7 +2531,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:21+00:00",
+      "last_verified_at": "2026-05-03T19:28:50+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2349,7 +2549,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:21+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:50+00:00"
     },
     {
       "id": "teagasc_walsh_teagasc_walsh_scholars_2026_opportunities",
@@ -2401,7 +2601,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:23:18+00:00",
+      "last_verified_at": "2026-05-03T19:21:44+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2419,7 +2619,7 @@
       "state_confidence": 0.9,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:23:18+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:21:44+00:00"
     },
     {
       "id": "waterways_heritage_biodiversity_community_heritage_and_biodiversity_grant_programme_2026",
@@ -2469,7 +2669,7 @@
       "programme_state": "archived",
       "expected_next_window": null,
       "public_visible_state": "discovery_only",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "archived",
       "current_availability": "closed",
@@ -2485,7 +2685,7 @@
       "state_source": "registry_fallback_after_fetch_error",
       "state_confidence": 0.35,
       "fetch_status": "error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))",
       "last_successful_fetch_at": null
     },
     {
@@ -2701,7 +2901,7 @@
       "programme_state": "closed",
       "expected_next_window": "Expected next annual round, likely 2026/27; check GSI page.",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": 2025,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2712,7 +2912,7 @@
       "state_confidence": 0.82,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "water_quality_capital_programme_2026_water_quality_capital_programme_2026",
@@ -2769,7 +2969,7 @@
       "programme_state": "upcoming",
       "expected_next_window": "2026 delivery through public bodies and programme partners",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-05-03T07:28:06+00:00",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2789,7 +2989,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-05-03T07:28:06+00:00"
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     },
     {
       "id": "international_joint_initiative_for_research_harnessing_disruptive_techno_international_joint_initiative_for_research_harnessing_disruptive_technologies_to_address_global_challenges",
@@ -2843,6 +3043,851 @@
       "page_status": "upcoming",
       "fetch_status": "ok",
       "last_successful_fetch_at": "2026-05-01T14:41:46+00:00"
+    },
+    {
+      "id": "geo_dfg_research_grants_dfg_individual_research_grants",
+      "source_id": "geo_dfg_research_grants",
+      "source_name": "DFG Individual Research Grants",
+      "title": "DFG Individual Research Grants",
+      "programme": "DFG Individual Grants Programmes",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/research-grants",
+      "summary": "Investigator-led project funding for qualified researchers, usually doctorate holders, at German research institutions.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Germany",
+      "audience": [
+        "experienced researchers",
+        "PIs",
+        "universities",
+        "institutes"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "direct",
+      "scale": "major",
+      "purposes": [
+        "geoscience",
+        "environmental research",
+        "geochemistry",
+        "hydrogen",
+        "subsurface storage"
+      ],
+      "keywords": [
+        "dfg individual research grants",
+        "environmental research",
+        "experienced researchers",
+        "geochemistry",
+        "geoscience",
+        "hydrogen",
+        "institutes",
+        "PIs",
+        "research funding",
+        "researchers",
+        "subsurface storage",
+        "universities"
+      ],
+      "cta_label": "Open DFG Individual Research Grants",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": 2026,
+      "public_visibility": "public_visible",
+      "current_availability": "open_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
+    },
+    {
+      "id": "geo_dfg_scientific_networks_dfg_scientific_networks",
+      "source_id": "geo_dfg_scientific_networks",
+      "source_name": "DFG Scientific Networks",
+      "title": "DFG Scientific Networks",
+      "programme": "DFG Individual Grants Programmes",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks",
+      "summary": "Network funding for 10 to 20 researchers to build collaboration, publications, methods and follow-on proposals.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Germany and international collaboration",
+      "audience": [
+        "experienced researchers",
+        "PIs",
+        "universities",
+        "institutes",
+        "research networks"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "direct",
+      "scale": "medium",
+      "purposes": [
+        "scientific networking",
+        "geoscience",
+        "environmental research",
+        "hydrogen",
+        "wetland interfaces"
+      ],
+      "keywords": [
+        "dfg scientific networks",
+        "environmental research",
+        "experienced researchers",
+        "geoscience",
+        "hydrogen",
+        "institutes",
+        "PIs",
+        "research funding",
+        "research networks",
+        "researchers",
+        "scientific networking",
+        "universities",
+        "wetland interfaces"
+      ],
+      "cta_label": "Open DFG Scientific Networks",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": 2026,
+      "public_visibility": "public_visible",
+      "current_availability": "open_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
+    },
+    {
+      "id": "geo_dfg_reinhart_koselleck_dfg_reinhart_koselleck_projects",
+      "source_id": "geo_dfg_reinhart_koselleck",
+      "source_name": "DFG Reinhart Koselleck Projects",
+      "title": "DFG Reinhart Koselleck Projects",
+      "programme": "DFG Individual Grants Programmes",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/reinhart-koselleck-projects",
+      "summary": "Five-year funding for exceptionally innovative, higher-risk projects by outstanding researchers with strong track records.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Germany",
+      "audience": [
+        "professors",
+        "senior researchers",
+        "PIs",
+        "universities"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "direct",
+      "scale": "major",
+      "purposes": [
+        "frontier research",
+        "geoscience",
+        "geochemistry",
+        "subsurface storage",
+        "hydrogen"
+      ],
+      "keywords": [
+        "dfg reinhart koselleck projects",
+        "frontier research",
+        "geochemistry",
+        "geoscience",
+        "hydrogen",
+        "PIs",
+        "professors",
+        "research funding",
+        "researchers",
+        "senior researchers",
+        "subsurface storage",
+        "universities"
+      ],
+      "cta_label": "Open DFG Reinhart Koselleck Projects",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": 2026,
+      "public_visibility": "public_visible",
+      "current_availability": "open_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
+    },
+    {
+      "id": "geo_dfg_heisenberg_dfg_heisenberg_programme",
+      "source_id": "geo_dfg_heisenberg",
+      "source_name": "DFG Heisenberg Programme",
+      "title": "DFG Heisenberg Programme",
+      "programme": "DFG Individual Grants Programmes",
+      "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/heisenberg",
+      "summary": "Career-development route for researchers already meeting professorial appointment requirements and building senior academic independence.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Germany",
+      "audience": [
+        "senior researchers",
+        "professors",
+        "PIs",
+        "universities"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "direct",
+      "scale": "major",
+      "purposes": [
+        "research career",
+        "frontier research",
+        "geoscience",
+        "environmental research"
+      ],
+      "keywords": [
+        "dfg heisenberg programme",
+        "environmental research",
+        "frontier research",
+        "geoscience",
+        "PIs",
+        "professors",
+        "research career",
+        "research funding",
+        "researchers",
+        "senior researchers",
+        "universities"
+      ],
+      "cta_label": "Open DFG Heisenberg Programme",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": 2026,
+      "public_visibility": "public_visible",
+      "current_availability": "open_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "exclude",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
+    },
+    {
+      "id": "geo_erc_advanced_erc_advanced_grant_watch",
+      "source_id": "geo_erc_advanced",
+      "source_name": "ERC Advanced Grant",
+      "title": "ERC Advanced Grant watch",
+      "programme": "European Research Council",
+      "url": "https://erc.europa.eu/funding/advanced-grants",
+      "summary": "Bottom-up frontier research funding for established, leading principal investigators with significant research achievements.",
+      "status": "upcoming",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "European Union and associated countries",
+      "audience": [
+        "established researchers",
+        "PIs",
+        "universities",
+        "institutes"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "via host institution",
+      "scale": "major",
+      "purposes": [
+        "frontier research",
+        "geoscience",
+        "geochemistry",
+        "hydrogen",
+        "environmental research"
+      ],
+      "keywords": [
+        "environmental research",
+        "erc advanced grant",
+        "established researchers",
+        "frontier research",
+        "geochemistry",
+        "geoscience",
+        "hydrogen",
+        "institutes",
+        "PIs",
+        "research funding",
+        "researchers",
+        "universities"
+      ],
+      "cta_label": "Open ERC Advanced Grant",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "upcoming",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-04-30T23:45:09+00:00",
+      "last_open_year": null,
+      "public_visibility": "public_visible",
+      "current_availability": "closed_for_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-04-30T23:45:09+00:00"
+    },
+    {
+      "id": "geo_horizon_energy_supply_horizon_europe_energy_supply_call",
+      "source_id": "geo_horizon_energy_supply",
+      "source_name": "Horizon Europe Sustainable, Secure and Competitive Energy Supply",
+      "title": "Horizon Europe energy supply call",
+      "programme": "Horizon Europe Cluster 5",
+      "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "summary": "Two-stage energy call with relevance to hydrogen systems, storage, infrastructure and related subsurface or systems research.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "European Union",
+      "audience": [
+        "research consortia",
+        "universities",
+        "institutes",
+        "industry partners"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "consortium",
+      "scale": "major",
+      "purposes": [
+        "hydrogen",
+        "geothermal",
+        "subsurface storage",
+        "environmental research",
+        "energy systems"
+      ],
+      "keywords": [
+        "energy systems",
+        "environmental research",
+        "geothermal",
+        "horizon europe sustainable, secure and competitive energy supply",
+        "hydrogen",
+        "industry partners",
+        "institutes",
+        "research consortia",
+        "research funding",
+        "researchers",
+        "subsurface storage",
+        "universities"
+      ],
+      "cta_label": "Open Horizon Europe Sustainable, Secure and Competitive Energy Supply",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": 2026,
+      "public_visibility": "public_visible",
+      "current_availability": "open_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "page_status_open",
+      "state_confidence": 0.95,
+      "page_status": "open",
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
+    },
+    {
+      "id": "geo_clean_hydrogen_partnership_clean_hydrogen_partnership_call_2026",
+      "source_id": "geo_clean_hydrogen_partnership",
+      "source_name": "Clean Hydrogen Partnership Call 2026",
+      "title": "Clean Hydrogen Partnership Call 2026",
+      "programme": "Horizon Europe Clean Hydrogen Partnership",
+      "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
+      "summary": "Large-scale hydrogen call covering production, storage and distribution, transport, heat and power, and hydrogen valleys.",
+      "status": "closed",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": "15 April 2026, 17:00 (CEST)",
+      "region": "European Union",
+      "audience": [
+        "research consortia",
+        "universities",
+        "institutes",
+        "industry partners",
+        "public bodies"
+      ],
+      "applicant_types": [
+        "public bodies",
+        "researchers"
+      ],
+      "access_route": "consortium",
+      "scale": "major",
+      "purposes": [
+        "hydrogen",
+        "subsurface storage",
+        "gas analytics",
+        "environmental research",
+        "energy systems"
+      ],
+      "keywords": [
+        "clean hydrogen partnership call 2026",
+        "energy systems",
+        "environmental research",
+        "gas analytics",
+        "hydrogen",
+        "industry partners",
+        "institutes",
+        "public bodies",
+        "research consortia",
+        "research funding",
+        "researchers",
+        "subsurface storage",
+        "universities"
+      ],
+      "cta_label": "Open Clean Hydrogen Partnership Call 2026",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "closed",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": null,
+      "public_visibility": "public_visible",
+      "current_availability": "closed_for_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "page_status_closed",
+      "state_confidence": 0.9,
+      "page_status": "closed",
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
+    },
+    {
+      "id": "geo_ptj_hydrogen_derivatives_ptj_hydrogen_and_derivatives_funding_route",
+      "source_id": "geo_ptj_hydrogen_derivatives",
+      "source_name": "PtJ Applied Energy Research: Hydrogen and Derivatives",
+      "title": "PtJ hydrogen and derivatives funding route",
+      "programme": "German 8th Energy Research Programme",
+      "url": "https://www.ptj.de/projekfoerderung/angewandte-energieforschung/8-efp/produktion-von-wasserstoff-und-derivaten-brennstoffzellen-wiederverstromung",
+      "summary": "Federal applied-energy-research support for hydrogen production and derivatives, fuel cells and reconversion, with ongoing submission.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Germany",
+      "audience": [
+        "researchers",
+        "universities",
+        "institutes",
+        "businesses",
+        "research consortia"
+      ],
+      "applicant_types": [
+        "researchers",
+        "businesses"
+      ],
+      "access_route": "direct",
+      "scale": "major",
+      "purposes": [
+        "hydrogen",
+        "geothermal",
+        "subsurface storage",
+        "energy systems",
+        "environmental research"
+      ],
+      "keywords": [
+        "businesses",
+        "energy systems",
+        "environmental research",
+        "geothermal",
+        "hydrogen",
+        "institutes",
+        "ptj applied energy research: hydrogen and derivatives",
+        "research consortia",
+        "research funding",
+        "researchers",
+        "subsurface storage",
+        "universities"
+      ],
+      "cta_label": "Open PtJ Applied Energy Research: Hydrogen and Derivatives",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:53+00:00",
+      "last_open_year": 2026,
+      "public_visibility": "public_visible",
+      "current_availability": "open_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:53+00:00"
+    },
+    {
+      "id": "geo_rifs_klaus_toepfer_rifs_klaus_t_pfer_sustainability_fellowship_2027",
+      "source_id": "geo_rifs_klaus_toepfer",
+      "source_name": "RIFS Klaus Töpfer Sustainability Fellowship",
+      "title": "RIFS Klaus Töpfer Sustainability Fellowship 2027",
+      "programme": "RIFS Fellow Programme",
+      "url": "https://www.rifs-potsdam.de/en/node/11996",
+      "summary": "Potsdam-based bridge fellowship for highly talented mid-career professionals with at least ten years on sustainability issues.",
+      "status": "closed",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Potsdam / Germany",
+      "audience": [
+        "experienced researchers",
+        "mid-career professionals",
+        "sustainability leaders"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "direct",
+      "scale": "medium",
+      "purposes": [
+        "sustainability transitions",
+        "environmental research",
+        "scientific networking",
+        "wetland interfaces"
+      ],
+      "keywords": [
+        "environmental research",
+        "experienced researchers",
+        "mid-career professionals",
+        "research funding",
+        "researchers",
+        "rifs klaus töpfer sustainability fellowship",
+        "scientific networking",
+        "sustainability leaders",
+        "sustainability transitions",
+        "wetland interfaces"
+      ],
+      "cta_label": "Open RIFS Klaus Töpfer Sustainability Fellowship",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "closed",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:53+00:00",
+      "last_open_year": null,
+      "public_visibility": "public_visible",
+      "current_availability": "closed_for_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:53+00:00"
+    },
+    {
+      "id": "geo_gfz_jobs_board_gfz_scientific_vacancies_watch",
+      "source_id": "geo_gfz_jobs_board",
+      "source_name": "GFZ Scientific Jobs Board",
+      "title": "GFZ scientific vacancies watch",
+      "programme": "GFZ Helmholtz Centre for Geosciences careers",
+      "url": "https://www.gfz.de/karriere/stellenangebote",
+      "summary": "Official GFZ careers board for scientific, doctoral and fellowship opportunities relevant to an experienced Potsdam-based geoscience profile.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Potsdam, Germany",
+      "audience": [
+        "experienced researchers",
+        "researchers",
+        "institutes",
+        "universities"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "direct",
+      "scale": "medium",
+      "purposes": [
+        "geoscience",
+        "geochemistry",
+        "research career",
+        "geothermal",
+        "environmental research"
+      ],
+      "keywords": [
+        "environmental research",
+        "experienced researchers",
+        "geochemistry",
+        "geoscience",
+        "geothermal",
+        "gfz scientific jobs board",
+        "institutes",
+        "research career",
+        "research funding",
+        "researchers",
+        "universities"
+      ],
+      "cta_label": "Open GFZ Scientific Jobs Board",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "open",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": 2026,
+      "public_visibility": "public_visible",
+      "current_availability": "open_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
+    },
+    {
+      "id": "geo_gfz_klaus_toepfer_gfz_klaus_t_pfer_sustainability_fellowship_2027",
+      "source_id": "geo_gfz_klaus_toepfer",
+      "source_name": "GFZ Klaus Töpfer Sustainability Fellowship",
+      "title": "GFZ Klaus Töpfer Sustainability Fellowship 2027",
+      "programme": "RIFS at GFZ Fellow Programme",
+      "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
+      "summary": "Mid-career fellowship hosted within the GFZ environment via RIFS, suitable for sustainability-linked bridge work beyond a standard project grant.",
+      "status": "closed",
+      "change_type": "new",
+      "changed_at": "2026-05-03T19:28:04+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "Potsdam, Germany",
+      "audience": [
+        "mid-career professionals",
+        "experienced researchers",
+        "sustainability leaders",
+        "institutes"
+      ],
+      "applicant_types": [
+        "researchers"
+      ],
+      "access_route": "direct",
+      "scale": "medium",
+      "purposes": [
+        "sustainability transitions",
+        "research career",
+        "geoscience",
+        "environmental research"
+      ],
+      "keywords": [
+        "environmental research",
+        "experienced researchers",
+        "geoscience",
+        "gfz klaus töpfer sustainability fellowship",
+        "institutes",
+        "mid-career professionals",
+        "research career",
+        "research funding",
+        "researchers",
+        "sustainability leaders",
+        "sustainability transitions"
+      ],
+      "cta_label": "Open GFZ Klaus Töpfer Sustainability Fellowship",
+      "opportunity_type": "research funding",
+      "programme_kind": "rolling_support",
+      "programme_state": "closed",
+      "expected_next_window": "Rolling",
+      "public_visible_state": "public_visible",
+      "last_verified_at": "2026-05-03T19:28:04+00:00",
+      "last_open_year": null,
+      "public_visibility": "public_visible",
+      "current_availability": "closed_for_now",
+      "recurrence_type": "rolling",
+      "mode_relevance": {
+        "ndrt": "exclude",
+        "research": "include",
+        "farmer": "exclude",
+        "climate": "maybe",
+        "geo": "include"
+      },
+      "mode_reason": {
+        "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+        "research": "Research-facing route imported from the Geo Radar registry.",
+        "ndrt": "Not a river-trust/community delivery funding route.",
+        "farmer": "Not a farmer-facing implementation route.",
+        "climate": "Relevant only where the source has energy, hydrogen, geothermal, subsurface, or sustainability-transition relevance."
+      },
+      "state_source": "registry_fallback",
+      "state_confidence": 0.45,
+      "page_status": null,
+      "fetch_status": "ok",
+      "last_successful_fetch_at": "2026-05-03T19:28:04+00:00"
     }
   ]
 }
