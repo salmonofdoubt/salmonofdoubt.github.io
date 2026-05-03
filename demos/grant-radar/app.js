@@ -4,111 +4,215 @@ function getLeafRadarIcon(mode = "all") {
   const palette = {
     all: {
       ring: "#79d7f2",
-      leaf: "#8fd9ff",
-      vein: "#a6ef8c",
-      sweep: "rgba(140, 220, 255, 0.18)",
-      dot: "#79d7f2"
+      accent: "#a6ef8c",
+      fill: "#8fd9ff",
+      sweep: "rgba(140, 220, 255, 0.16)",
+      glow: "rgba(120,255,210,0.18)"
     },
     ndrt: {
       ring: "#79d7f2",
-      leaf: "#8fd9ff",
-      vein: "#9ee08c",
-      sweep: "rgba(120, 210, 255, 0.18)",
-      dot: "#79d7f2"
+      accent: "#9ee08c",
+      fill: "#8fd9ff",
+      sweep: "rgba(120,210,255,0.16)",
+      glow: "rgba(120,255,210,0.18)"
     },
     farmer: {
-      ring: "#9fdc7a",
-      leaf: "#b8ec8b",
-      vein: "#d4ff9f",
-      sweep: "rgba(185, 230, 120, 0.18)",
-      dot: "#a7e27b"
+      ring: "#a7df7c",
+      accent: "#dcf59a",
+      fill: "#bde98d",
+      sweep: "rgba(180, 230, 120, 0.16)",
+      glow: "rgba(190,255,160,0.18)"
     },
     climate: {
       ring: "#8ce6c1",
-      leaf: "#9df0cd",
-      vein: "#d8ff8d",
-      sweep: "rgba(130, 235, 190, 0.18)",
-      dot: "#8ce6c1"
+      accent: "#d7ff8b",
+      fill: "#9df0cd",
+      sweep: "rgba(120,235,190,0.16)",
+      glow: "rgba(120,255,210,0.18)"
     },
     research: {
-      ring: "#a7b7ff",
-      leaf: "#c2ccff",
-      vein: "#d7ff9d",
-      sweep: "rgba(160, 180, 255, 0.18)",
-      dot: "#b4c0ff"
+      ring: "#a8b8ff",
+      accent: "#d8ff9f",
+      fill: "#c7d1ff",
+      sweep: "rgba(170,190,255,0.16)",
+      glow: "rgba(170,190,255,0.18)"
     },
     geo: {
       ring: "#8fd2c5",
-      leaf: "#a9e2d8",
-      vein: "#bde38a",
-      sweep: "rgba(110, 200, 190, 0.18)",
-      dot: "#8fd2c5"
+      accent: "#bfe58e",
+      fill: "#a7e0d5",
+      sweep: "rgba(120,210,195,0.16)",
+      glow: "rgba(120,240,210,0.18)"
     }
   };
 
   const c = palette[mode] || palette.all;
 
-  return `
-    <svg class="mode-symbol" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  function frame() {
+    return `
       <defs>
         <radialGradient id="leafRadarGlow-${mode}" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
           gradientTransform="translate(60 60) rotate(90) scale(52)">
-          <stop offset="0%" stop-color="rgba(120,255,210,0.18)"/>
+          <stop offset="0%" stop-color="${c.glow}"/>
           <stop offset="100%" stop-color="rgba(120,255,210,0)"/>
         </radialGradient>
       </defs>
 
-      <circle cx="60" cy="60" r="52" stroke="${c.ring}" stroke-width="1.4" opacity="0.9"/>
-      <circle cx="60" cy="60" r="36" stroke="${c.ring}" stroke-width="1.2" opacity="0.28"/>
+      <circle cx="60" cy="60" r="52" stroke="${c.ring}" stroke-width="1.5" opacity="0.88"/>
+      <circle cx="60" cy="60" r="36" stroke="${c.ring}" stroke-width="1.2" opacity="0.26"/>
       <circle cx="60" cy="60" r="22" stroke="${c.ring}" stroke-width="1.1" opacity="0.18"/>
 
-      <line x1="60" y1="8" x2="60" y2="112" stroke="${c.ring}" stroke-width="1" opacity="0.22"/>
-      <line x1="8" y1="60" x2="112" y2="60" stroke="${c.ring}" stroke-width="1" opacity="0.22"/>
+      <line x1="60" y1="8" x2="60" y2="112" stroke="${c.ring}" stroke-width="1" opacity="0.18"/>
+      <line x1="8" y1="60" x2="112" y2="60" stroke="${c.ring}" stroke-width="1" opacity="0.18"/>
 
-      <path d="M60 60 L99 43 A52 52 0 0 1 111 63 L60 60Z" fill="${c.sweep}"/>
+      <path d="M60 60 L98 43 A52 52 0 0 1 111 63 L60 60Z" fill="${c.sweep}"/>
 
-      <circle cx="60" cy="60" r="7" fill="${c.dot}"/>
-      <circle cx="83" cy="54" r="2.4" fill="${c.dot}" opacity="0.95"/>
-      <circle cx="38" cy="81" r="2.2" fill="${c.dot}" opacity="0.8"/>
-      <circle cx="84" cy="79" r="1.9" fill="${c.dot}" opacity="0.78"/>
+      <circle cx="60" cy="60" r="7" fill="${c.ring}"/>
+      <circle cx="83" cy="54" r="2.5" fill="${c.ring}" opacity="0.96"/>
+      <circle cx="38" cy="81" r="2.2" fill="${c.ring}" opacity="0.76"/>
+      <circle cx="84" cy="79" r="1.9" fill="${c.ring}" opacity="0.72"/>
+    `;
+  }
 
-      <!-- left leaf -->
+  function genericLeafPair() {
+    return `
       <path
-        d="M54 48
-           C45 33, 29 25, 15 28
-           C21 34, 30 41, 41 52
-           C45 56, 49 58, 54 48Z"
-        fill="${c.leaf}" fill-opacity="0.18" stroke="${c.leaf}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        d="M54 48 C45 33, 29 25, 15 28 C21 34, 30 41, 41 52 C45 56, 49 58, 54 48Z"
+        fill="${c.fill}" fill-opacity="0.18" stroke="${c.fill}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       <path
-        d="M60 60
-           C55 54, 49 48, 43 43
-           C34 36, 25 31, 18 29"
-        stroke="${c.vein}" stroke-width="1.8" stroke-linecap="round"/>
-      <path
-        d="M44 44 C41 43, 37 42, 33 41"
-        stroke="${c.vein}" stroke-width="1.1" stroke-linecap="round" opacity="0.75"/>
-      <path
-        d="M39 48 C35 48, 31 47, 27 46"
-        stroke="${c.vein}" stroke-width="1.0" stroke-linecap="round" opacity="0.6"/>
+        d="M60 60 C55 54, 49 48, 43 43 C34 36, 25 31, 18 29"
+        stroke="${c.accent}" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M44 44 C41 43, 37 42, 33 41" stroke="${c.accent}" stroke-width="1.1" stroke-linecap="round" opacity="0.75"/>
+      <path d="M39 48 C35 48, 31 47, 27 46" stroke="${c.accent}" stroke-width="1.0" stroke-linecap="round" opacity="0.6"/>
 
-      <!-- right leaf -->
       <path
-        d="M66 48
-           C75 33, 91 25, 105 28
-           C99 34, 90 41, 79 52
-           C75 56, 71 58, 66 48Z"
-        fill="${c.leaf}" fill-opacity="0.18" stroke="${c.leaf}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        d="M66 48 C75 33, 91 25, 105 28 C99 34, 90 41, 79 52 C75 56, 71 58, 66 48Z"
+        fill="${c.fill}" fill-opacity="0.18" stroke="${c.fill}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
       <path
-        d="M60 60
-           C65 54, 71 48, 77 43
-           C86 36, 95 31, 102 29"
-        stroke="${c.vein}" stroke-width="1.8" stroke-linecap="round"/>
+        d="M60 60 C65 54, 71 48, 77 43 C86 36, 95 31, 102 29"
+        stroke="${c.accent}" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M76 44 C79 43, 83 42, 87 41" stroke="${c.accent}" stroke-width="1.1" stroke-linecap="round" opacity="0.75"/>
+      <path d="M81 48 C85 48, 89 47, 93 46" stroke="${c.accent}" stroke-width="1.0" stroke-linecap="round" opacity="0.6"/>
+    `;
+  }
+
+  function riverReeds() {
+    return `
       <path
-        d="M76 44 C79 43, 83 42, 87 41"
-        stroke="${c.vein}" stroke-width="1.1" stroke-linecap="round" opacity="0.75"/>
+        d="M48 54 C45 46, 39 35, 31 23"
+        stroke="${c.fill}" stroke-width="2.4" stroke-linecap="round"/>
       <path
-        d="M81 48 C85 48, 89 47, 93 46"
-        stroke="${c.vein}" stroke-width="1.0" stroke-linecap="round" opacity="0.6"/>
+        d="M52 52 C50 43, 46 31, 42 18"
+        stroke="${c.fill}" stroke-width="2.0" stroke-linecap="round" opacity="0.92"/>
+      <path
+        d="M72 52 C74 43, 78 31, 82 18"
+        stroke="${c.fill}" stroke-width="2.0" stroke-linecap="round" opacity="0.92"/>
+      <path
+        d="M76 54 C79 46, 85 35, 93 23"
+        stroke="${c.fill}" stroke-width="2.4" stroke-linecap="round"/>
+
+      <path
+        d="M31 23 C26 19, 23 18, 18 18 C21 23, 24 26, 30 28"
+        fill="${c.fill}" fill-opacity="0.2" stroke="${c.fill}" stroke-width="1.5" stroke-linejoin="round"/>
+      <path
+        d="M93 23 C98 19, 101 18, 106 18 C103 23, 100 26, 94 28"
+        fill="${c.fill}" fill-opacity="0.2" stroke="${c.fill}" stroke-width="1.5" stroke-linejoin="round"/>
+
+      <path d="M20 73 C31 66, 44 65, 58 68 C70 70, 83 69, 98 62"
+        stroke="${c.accent}" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+      <path d="M24 79 C37 74, 49 74, 60 76 C72 78, 83 77, 94 72"
+        stroke="${c.ring}" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+    `;
+  }
+
+  function farmingSprout() {
+    return `
+      <path d="M60 60 C58 53, 57 44, 57 33" stroke="${c.accent}" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M60 60 C62 53, 63 44, 63 33" stroke="${c.accent}" stroke-width="2.2" stroke-linecap="round"/>
+
+      <path
+        d="M57 39 C47 31, 37 28, 26 29 C33 37, 42 43, 54 47"
+        fill="${c.fill}" fill-opacity="0.18" stroke="${c.fill}" stroke-width="1.8" stroke-linejoin="round"/>
+      <path
+        d="M63 39 C73 31, 83 28, 94 29 C87 37, 78 43, 66 47"
+        fill="${c.fill}" fill-opacity="0.18" stroke="${c.fill}" stroke-width="1.8" stroke-linejoin="round"/>
+
+      <path d="M28 83 H92" stroke="${c.ring}" stroke-width="1.6" opacity="0.55"/>
+      <path d="M34 76 H86" stroke="${c.ring}" stroke-width="1.0" opacity="0.35"/>
+      <path d="M40 69 H80" stroke="${c.ring}" stroke-width="1.0" opacity="0.25"/>
+    `;
+  }
+
+  function climateSprout() {
+    return `
+      <path d="M60 60 C60 52, 60 43, 60 31" stroke="${c.accent}" stroke-width="2.5" stroke-linecap="round"/>
+      <path
+        d="M58 43 C47 33, 35 28, 22 30 C30 39, 41 47, 56 50"
+        fill="${c.fill}" fill-opacity="0.18" stroke="${c.fill}" stroke-width="1.8" stroke-linejoin="round"/>
+      <path
+        d="M62 43 C73 33, 85 28, 98 30 C90 39, 79 47, 64 50"
+        fill="${c.fill}" fill-opacity="0.18" stroke="${c.fill}" stroke-width="1.8" stroke-linejoin="round"/>
+
+      <path d="M60 60 C71 54, 79 48, 87 39" stroke="${c.accent}" stroke-width="1.7" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="87" cy="39" r="2.3" fill="${c.ring}"/>
+    `;
+  }
+
+  function researchSignal() {
+    return `
+      <path d="M32 82 L48 58 L64 66 L85 34" stroke="${c.accent}" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="32" cy="82" r="2.1" fill="${c.fill}"/>
+      <circle cx="48" cy="58" r="2.1" fill="${c.fill}"/>
+      <circle cx="64" cy="66" r="2.1" fill="${c.fill}"/>
+      <circle cx="85" cy="34" r="2.4" fill="${c.fill}"/>
+
+      <path
+        d="M52 49 C45 37, 34 29, 23 27 C29 35, 37 43, 49 50"
+        fill="${c.fill}" fill-opacity="0.12" stroke="${c.fill}" stroke-width="1.5" stroke-linejoin="round"/>
+      <path
+        d="M68 49 C75 37, 86 29, 97 27 C91 35, 83 43, 71 50"
+        fill="${c.fill}" fill-opacity="0.12" stroke="${c.fill}" stroke-width="1.5" stroke-linejoin="round"/>
+    `;
+  }
+
+  function geoStrata() {
+    return `
+      <path d="M26 77 C37 72, 48 70, 60 70 C71 70, 83 68, 95 63"
+        stroke="${c.accent}" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M24 84 C36 80, 49 79, 61 79 C74 79, 84 77, 96 72"
+        stroke="${c.fill}" stroke-width="1.5" stroke-linecap="round" opacity="0.82"/>
+      <path d="M28 91 C40 88, 51 88, 62 88 C74 88, 84 86, 93 82"
+        stroke="${c.ring}" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+
+      <path
+        d="M46 45 C39 34, 29 28, 19 27 C25 34, 33 41, 44 48"
+        fill="${c.fill}" fill-opacity="0.14" stroke="${c.fill}" stroke-width="1.5" stroke-linejoin="round"/>
+      <path
+        d="M74 45 C81 34, 91 28, 101 27 C95 34, 87 41, 76 48"
+        fill="${c.fill}" fill-opacity="0.14" stroke="${c.fill}" stroke-width="1.5" stroke-linejoin="round"/>
+    `;
+  }
+
+  let motif = "";
+  if (mode === "ndrt") {
+    motif = riverReeds();
+  } else if (mode === "farmer") {
+    motif = farmingSprout();
+  } else if (mode === "climate") {
+    motif = climateSprout();
+  } else if (mode === "research") {
+    motif = researchSignal();
+  } else if (mode === "geo") {
+    motif = geoStrata();
+  } else {
+    motif = genericLeafPair();
+  }
+
+  return `
+    <svg class="mode-symbol" viewBox="0 0 120 120" fill="none"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${frame()}
+      ${motif}
     </svg>
   `;
 }
