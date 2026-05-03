@@ -456,21 +456,22 @@ const MODE_ICON_SVGS = {
 };
 
 function renderModeIcon() {
-  if (typeof MODE_ICON_SVGS === 'undefined') return;
+  if (typeof getLeafRadarIcon !== 'function') return;
 
-  // Keep the large hero symbol stable. It is the Grant Radar identity mark.
+  // Main hero mark stays Grant Radar identity, but uses the refined leaf-radar style.
   if (el.modeIcon) {
     el.modeIcon.setAttribute('data-mode-icon', 'all');
-    el.modeIcon.innerHTML = MODE_ICON_SVGS.all;
+    el.modeIcon.innerHTML = getLeafRadarIcon('all');
   }
 
-  // Put the changing mode identity inside the Explore by mode card.
+  // Smaller section mark changes with the selected mode.
   if (el.modeMiniIcon) {
     const mode = state.activeMode || 'all';
     el.modeMiniIcon.setAttribute('data-mode-icon', mode);
-    el.modeMiniIcon.innerHTML = MODE_ICON_SVGS[mode] || MODE_ICON_SVGS.all;
+    el.modeMiniIcon.innerHTML = getLeafRadarIcon(mode);
   }
 }
+
 
 
 
