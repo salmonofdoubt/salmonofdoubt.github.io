@@ -29,6 +29,7 @@ const el = {
   nativeShareBtn: document.getElementById('native-share-btn'),
   qrImage: document.getElementById('qr-image'),
   modeIcon: document.getElementById('hero-mode-icon'),
+  modeMiniIcon: document.getElementById('mode-mini-icon'),
   modeAllBtn: document.getElementById('mode-all-btn'),
   modeNdrtBtn: document.getElementById('mode-ndrt-btn'),
   modeResearchBtn: document.getElementById('mode-research-btn'),
@@ -235,14 +236,22 @@ const MODE_ICON_SVGS = {
 };
 
 function renderModeIcon() {
-  if (!el.modeIcon) return;
+  if (typeof MODE_ICON_SVGS === 'undefined') return;
 
-  const mode = state.activeMode || 'all';
-  const icon = MODE_ICON_SVGS[mode] || MODE_ICON_SVGS.all;
+  // Keep the large hero symbol stable. It is the Grant Radar identity mark.
+  if (el.modeIcon) {
+    el.modeIcon.setAttribute('data-mode-icon', 'all');
+    el.modeIcon.innerHTML = MODE_ICON_SVGS.all;
+  }
 
-  el.modeIcon.setAttribute('data-mode-icon', mode);
-  el.modeIcon.innerHTML = icon;
+  // Put the changing mode identity inside the Explore by mode card.
+  if (el.modeMiniIcon) {
+    const mode = state.activeMode || 'all';
+    el.modeMiniIcon.setAttribute('data-mode-icon', mode);
+    el.modeMiniIcon.innerHTML = MODE_ICON_SVGS[mode] || MODE_ICON_SVGS.all;
+  }
 }
+
 
 
 const PROGRAMME_KIND_VALUES = new Set([
