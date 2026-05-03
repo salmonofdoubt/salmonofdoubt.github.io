@@ -192,9 +192,23 @@
 
     <main>
       <section class="panel controls-panel">
-        <div class="section-head">
-          <h2>Find opportunities</h2>
-          <p>Start with a curated mode, then refine by status, applicant type, access route, scale, deadline, or advanced purpose filters.</p>
+        <div class="find-opportunities-top">
+          <div class="find-opportunities-copy">
+            <h2>Find opportunities</h2>
+            <p class="purpose-intro">
+              Start with a curated mode, then refine by status, applicant type, access route, scale,
+              deadline, or advanced purpose filters.
+            </p>
+          </div>
+
+          <div class="find-opportunities-icon-wrap">
+            <div
+              class="mode-mini-icon find-opportunities-icon"
+              id="mode-mini-icon"
+              aria-hidden="true"
+              data-mode-icon="all"
+            ></div>
+          </div>
         </div>
 
         <div class="purpose-wrap mode-wrap-priority">
@@ -214,10 +228,10 @@
             <button id="mode-geo-btn" class="chip-btn" type="button">Geo / Earth Systems mode</button>
           </div>
 
-          <div class="mode-help-row">
-            <p id="mode-note" class="purpose-intro mode-help">Showing the full catalogue using the standard defaults.</p>
-            <div class="mode-mini-icon" id="mode-mini-icon" aria-hidden="true" data-mode-icon="all"></div>
-          </div>
+          <p id="mode-note" class="purpose-intro mode-help">
+            Showing the full catalogue using the standard defaults. All opportunities mode now means exactly that:
+            no hidden mode filtering.
+          </p>
         </div>
 
         <details class="purpose-wrap advanced-purpose-wrap">
@@ -237,6 +251,7 @@
               </div>
               <button id="clear-purpose-btn" class="ghost-btn" type="button">Clear purpose filters</button>
             </div>
+
             <div id="purpose-chips" class="chip-row" aria-label="Purpose filters"></div>
           </div>
         </details>
