@@ -7,7 +7,6 @@ const state = {
 
 const el = {
   purposeChips: document.getElementById('purpose-chips'),
-  themeChips: document.getElementById('theme-chips'),
   clearPurposeBtn: document.getElementById('clear-purpose-btn'),
   results: document.getElementById('results'),
   sources: document.getElementById('sources'),
@@ -139,85 +138,6 @@ const GEO_PURPOSES = [
   'research career',
   'sustainability transitions',
   'wetland interfaces',
-];
-
-const QUICK_THEMES = [
-  {
-    label: 'Water & catchments',
-    purposes: [
-      'water quality',
-      'water quality implementation',
-      'catchment delivery',
-      'river restoration',
-      'riparian management',
-      'sediment control',
-      'natural water retention',
-      'barrier mitigation',
-    ],
-  },
-  {
-    label: 'NbS & biodiversity',
-    purposes: [
-      'nature-based solutions',
-      'biodiversity',
-      'habitat restoration',
-      'wetland creation',
-      'peatlands',
-      'community nature',
-      'ecology',
-      'restoration',
-    ],
-  },
-  {
-    label: 'Farming',
-    purposes: [
-      'farm water protection',
-      'farm nutrient management',
-      'farm payments',
-      'farm sustainability',
-      'sediment control',
-      'riparian management',
-      'water quality',
-    ],
-  },
-  {
-    label: 'Climate & energy',
-    purposes: [
-      'climate action',
-      'climate adaptation',
-      'decarbonisation',
-      'energy efficiency',
-      'community energy',
-      'renewable energy',
-      'bioeconomy',
-      'energy systems',
-    ],
-  },
-  {
-    label: 'Research',
-    purposes: [
-      'environmental research',
-      'research training',
-      'frontier research',
-      'scientific networking',
-      'research career',
-      'ecology',
-      'biodiversity',
-    ],
-  },
-  {
-    label: 'Geo / Earth systems',
-    purposes: [
-      'geoscience',
-      'geochemistry',
-      'geothermal',
-      'hydrogen',
-      'subsurface storage',
-      'gas analytics',
-      'wetland interfaces',
-      'energy systems',
-    ],
-  },
 ];
 
 const PROGRAMME_KIND_VALUES = new Set([
@@ -534,37 +454,6 @@ function fillSelect(select, values, placeholder, preferred = []) {
     option.value = value;
     option.textContent = titleCaseLabel(value);
     select.appendChild(option);
-  });
-}
-
-function renderQuickThemeChips() {
-  if (!el.themeChips) return;
-
-  el.themeChips.innerHTML = '';
-
-  QUICK_THEMES.forEach((theme) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'chip-btn quick-theme-btn';
-    button.textContent = theme.label;
-
-    button.addEventListener('click', () => {
-      state.activeMode = 'all';
-      resetVisibleFilters();
-      state.selectedPurposes.clear();
-
-      theme.purposes.forEach((purpose) => {
-        if (state.purposeChipButtons.has(purpose)) {
-          state.selectedPurposes.add(purpose);
-        }
-      });
-
-      syncPurposeChipStates();
-      updateModeUi();
-      render();
-    });
-
-    el.themeChips.appendChild(button);
   });
 }
 
@@ -1095,7 +984,6 @@ async function init() {
   state.catalog = await response.json();
 
   renderPurposeChips();
-  renderQuickThemeChips();
   populateDynamicFilters();
   updateSharePanel();
   updateModeUi();

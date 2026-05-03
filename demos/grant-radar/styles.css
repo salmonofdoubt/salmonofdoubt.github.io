@@ -1231,13 +1231,6 @@ select:focus,
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.controls-panel .quick-theme-wrap {
-  order: 3;
-  margin-top: 0;
-  padding: 1rem 0 1.05rem;
-  border-top: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
 
 .controls-panel .advanced-purpose-wrap {
   order: 4;
@@ -1257,21 +1250,8 @@ select:focus,
   font-weight: 800;
 }
 
-.quick-theme-row {
-  margin-top: 0.65rem;
-}
 
-.quick-theme-btn {
-  padding: 0.58rem 0.9rem;
-  font-weight: 800;
-  background: linear-gradient(180deg, rgba(149, 221, 255, 0.13), rgba(114, 235, 194, 0.07));
-  border-color: rgba(149, 221, 255, 0.24);
-}
 
-.quick-theme-btn:hover {
-  background: linear-gradient(180deg, rgba(149, 221, 255, 0.2), rgba(114, 235, 194, 0.12));
-  border-color: rgba(149, 221, 255, 0.44);
-}
 
 .advanced-purpose-wrap summary {
   display: flex;
