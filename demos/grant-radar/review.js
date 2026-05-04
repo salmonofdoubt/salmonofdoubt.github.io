@@ -219,28 +219,22 @@ function isRealOpportunity(item) {
   const status = normalizeStatus(item);
   if (status !== 'pending_review') return false;
 
+  if (candidateHasExplicitNoPositiveFit(item)) return false;
+  if (titleLooksGeneric(item)) return false;
+  if (looksLikeNoise(item)) return false;
+  if (looksOffScope(item)) return false;
+
   const triage = String(item.triage_class || '').toLowerCase();
 
   if (triage === 'direct_apply' || triage === 'programme_watch') {
     return true;
   }
 
-  if (
-    triage === 'admin_guidance' ||
-    triage === 'generic_index' ||
-    triage === 'off_scope' ||
-    triage === 'weak_apply_signal' ||
-    triage === 'already_covered'
-  ) {
-    return false;
-  }
-
-  if (titleLooksGeneric(item)) return false;
-  if (looksLikeAdminOrArchive(item)) return false;
-  if (candidateHasExplicitNoPositiveFit(item)) return false;
-
   const type = String(item.candidate_type || '').toLowerCase();
   const confidence = Number(item.confidence || 0);
+  const title = String(item.title || '').toLowerCase();
+  const url = String(item.url || '').toLowerCase();
+  const deadline = String(item.deadline_hint || '').toLowerCase();
 
   const usefulType = [
     'funding_call',
@@ -249,29 +243,14 @@ function isRealOpportunity(item) {
     'scholarship',
   ].includes(type);
 
-  const applySignal =
-    Boolean(item.deadline_hint) ||
-    hasTextAny(item, [
-      'apply',
-      'how to apply',
-      'application',
-      'applications',
-      'call for proposals',
-      'call for applications',
-      'joint transnational call',
-      'deadline',
-      'closing date',
-      'eligibility',
-      'eligible',
-      'networking awards',
-      'supplemental grant',
-      'research grants',
-      'scientific networks',
-      'fellowship',
-    ]);
+  const strongApplySignal =
+    Boolean(deadline) ||
+    /joint transnational call|call for proposals|call for applications|funding call|research call|grant scheme|networking awards|supplemental grant|research grants|scientific networks|marie sk|erc advanced grant|life calls/i.test(title) ||
+    /\/funding\/[^/]+|\/grants?\/[^/]+|\/call|\/calls|\/programme|\/programmes|\/scheme|\/fellowship|\/research-grants|\/scientific-networks|\/advanced-grants|\/life-calls/i.test(url);
 
-  return usefulType && applySignal && confidence >= 0.55 && candidateHasPositiveModeFit(item);
+  return usefulType && strongApplySignal && confidence >= 0.65 && candidateHasPositiveModeFit(item);
 }
+
 
 function candidateMatchesMode(item, selectedMode) {
   if (!selectedMode || selectedMode === 'all') return true;
