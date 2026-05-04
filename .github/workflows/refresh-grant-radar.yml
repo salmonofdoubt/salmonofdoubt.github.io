@@ -37,6 +37,9 @@ jobs:
       - name: Focus review queue on real opportunities
         run: python demos/grant-radar/ops/focus_review_queue.py
 
+      - name: Deduplicate discovery candidates
+        run: python demos/grant-radar/ops/dedupe_discovery_candidates.py
+
       - name: Refresh trusted catalogue
         run: python demos/grant-radar/ops/harvest_grants.py
 

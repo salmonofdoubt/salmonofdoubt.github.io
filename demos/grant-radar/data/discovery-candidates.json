@@ -74,7 +74,10 @@
     "promotion_signal": "amber",
     "public_visible_state": "review_only",
     "promotion_reasons": [
-      "Imported from legacy Geo Radar for review inside Grant Radar Geo / Earth Systems mode."
+      "Imported from legacy Geo Radar for review inside Grant Radar Geo / Earth Systems mode.",
+      "Duplicate candidate collapsed from https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_es",
+      "Duplicate candidate collapsed from https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_el",
+      "Duplicate candidate collapsed from https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_fr"
     ],
     "status": "pending_review",
     "triage_class": "geo_import_review",
@@ -104,168 +107,6 @@
     "deadline_hint": "Deadline model",
     "latest_year_hint": null,
     "page_hash": "sha256:7eb4a8659259a3e64ddf2cd3056d85dc647274cbdbd132d87b538c502dd947b5",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": "Imported from legacy Geo Radar after Geo Radar was folded into Grant Radar."
-  },
-  {
-    "id": "cand_geo_import_cinea_ec_europa_eu_funding_opportunities_calls_proposals_horizon_europe_eu235_million_projects_supporting_sustainable_secure_and_",
-    "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_es",
-    "canonical_family_key": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_es",
-    "domain": "cinea.ec.europa.eu",
-    "title": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency",
-    "snippet": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency Skip to main content en Select your language Close bg български es español cs čeština da dansk de Deutsch et eesti el ελληνικά en English fr français ga Gaeilge hr hrvatski it italiano lv latviešu lt lietuvių hu magyar mt Malti nl Nederlands pl pol",
-    "first_seen": "2026-05-04T19:44:44+00:00",
-    "last_seen": "2026-05-04T19:44:44+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "geo_radar_legacy_import",
-    "discovered_via": "Geo Radar legacy import: discovery-candidates.json",
-    "source_hint": "Geo Radar legacy import",
-    "source_id_hint": "geo_radar_legacy_import",
-    "source_pack": "geo",
-    "candidate_type": "recurring_programme",
-    "confidence": 0.81,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
-    "promotion_reasons": [
-      "Imported from legacy Geo Radar for review inside Grant Radar Geo / Earth Systems mode."
-    ],
-    "status": "pending_review",
-    "triage_class": "geo_import_review",
-    "triage_reason": "Legacy Geo Radar candidate imported for manual review.",
-    "suggested_purposes": [
-      "hydrogen",
-      "geothermal",
-      "subsurface storage",
-      "environmental research",
-      "energy systems"
-    ],
-    "suggested_applicant_types": [
-      "research consortia",
-      "universities",
-      "institutes",
-      "industry partners"
-    ],
-    "suggested_access_route": "consortium",
-    "suggested_scale": "major",
-    "mode_relevance": {
-      "geo": "include",
-      "research": "include",
-      "ndrt": "exclude",
-      "farmer": "exclude",
-      "climate": "maybe"
-    },
-    "deadline_hint": "Deadline model",
-    "latest_year_hint": null,
-    "page_hash": "sha256:bdab95d91eae6ae9f6824529381da442dfec2e69a5e9d435619a608660e6dcb8",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": "Imported from legacy Geo Radar after Geo Radar was folded into Grant Radar."
-  },
-  {
-    "id": "cand_geo_import_cinea_ec_europa_eu_funding_opportunities_calls_proposals_horizon_europe_eu235_million_projects_supporting_sustainable_secure_and_",
-    "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_el",
-    "canonical_family_key": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_el",
-    "domain": "cinea.ec.europa.eu",
-    "title": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency",
-    "snippet": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency Skip to main content en Select your language Close bg български es español cs čeština da dansk de Deutsch et eesti el ελληνικά en English fr français ga Gaeilge hr hrvatski it italiano lv latviešu lt lietuvių hu magyar mt Malti nl Nederlands pl pol",
-    "first_seen": "2026-05-04T19:44:44+00:00",
-    "last_seen": "2026-05-04T19:44:44+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "geo_radar_legacy_import",
-    "discovered_via": "Geo Radar legacy import: discovery-candidates.json",
-    "source_hint": "Geo Radar legacy import",
-    "source_id_hint": "geo_radar_legacy_import",
-    "source_pack": "geo",
-    "candidate_type": "recurring_programme",
-    "confidence": 0.81,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
-    "promotion_reasons": [
-      "Imported from legacy Geo Radar for review inside Grant Radar Geo / Earth Systems mode."
-    ],
-    "status": "pending_review",
-    "triage_class": "geo_import_review",
-    "triage_reason": "Legacy Geo Radar candidate imported for manual review.",
-    "suggested_purposes": [
-      "hydrogen",
-      "geothermal",
-      "subsurface storage",
-      "environmental research",
-      "energy systems"
-    ],
-    "suggested_applicant_types": [
-      "research consortia",
-      "universities",
-      "institutes",
-      "industry partners"
-    ],
-    "suggested_access_route": "consortium",
-    "suggested_scale": "major",
-    "mode_relevance": {
-      "geo": "include",
-      "research": "include",
-      "ndrt": "exclude",
-      "farmer": "exclude",
-      "climate": "maybe"
-    },
-    "deadline_hint": "Deadline model",
-    "latest_year_hint": null,
-    "page_hash": "sha256:3df083bc8b0f5c8a033270c840a4cfea41176a81a469da99fd4089c5233595ad",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": "Imported from legacy Geo Radar after Geo Radar was folded into Grant Radar."
-  },
-  {
-    "id": "cand_geo_import_cinea_ec_europa_eu_funding_opportunities_calls_proposals_horizon_europe_eu235_million_projects_supporting_sustainable_secure_and_",
-    "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_fr",
-    "canonical_family_key": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_fr",
-    "domain": "cinea.ec.europa.eu",
-    "title": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency",
-    "snippet": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency Skip to main content en Select your language Close bg български es español cs čeština da dansk de Deutsch et eesti el ελληνικά en English fr français ga Gaeilge hr hrvatski it italiano lv latviešu lt lietuvių hu magyar mt Malti nl Nederlands pl pol",
-    "first_seen": "2026-05-04T19:44:44+00:00",
-    "last_seen": "2026-05-04T19:44:44+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "geo_radar_legacy_import",
-    "discovered_via": "Geo Radar legacy import: discovery-candidates.json",
-    "source_hint": "Geo Radar legacy import",
-    "source_id_hint": "geo_radar_legacy_import",
-    "source_pack": "geo",
-    "candidate_type": "recurring_programme",
-    "confidence": 0.81,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
-    "promotion_reasons": [
-      "Imported from legacy Geo Radar for review inside Grant Radar Geo / Earth Systems mode."
-    ],
-    "status": "pending_review",
-    "triage_class": "geo_import_review",
-    "triage_reason": "Legacy Geo Radar candidate imported for manual review.",
-    "suggested_purposes": [
-      "hydrogen",
-      "geothermal",
-      "subsurface storage",
-      "environmental research",
-      "energy systems"
-    ],
-    "suggested_applicant_types": [
-      "research consortia",
-      "universities",
-      "institutes",
-      "industry partners"
-    ],
-    "suggested_access_route": "consortium",
-    "suggested_scale": "major",
-    "mode_relevance": {
-      "geo": "include",
-      "research": "include",
-      "ndrt": "exclude",
-      "farmer": "exclude",
-      "climate": "maybe"
-    },
-    "deadline_hint": "Deadline model",
-    "latest_year_hint": null,
-    "page_hash": "sha256:ace4d54215291ea041e6add437e5e8ea3318c8dd1115b57a32f89836d73c51a9",
     "already_trusted": false,
     "trusted_registry_id": null,
     "notes": "Imported from legacy Geo Radar after Geo Radar was folded into Grant Radar."
@@ -3258,7 +3099,10 @@
     "promotion_signal": "green",
     "public_visible_state": "review_only",
     "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
+      "Funding-looking candidate on trusted hub, not already registered.",
+      "Duplicate candidate collapsed from https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-3-civil-security-society_en",
+      "Insufficient application/funding signal.",
+      "Duplicate candidate collapsed from https://rea.ec.europa.eu/horizon-europe-grants-reporting_en"
     ],
     "status": "pending_review",
     "suggested_purposes": [
@@ -3278,49 +3122,6 @@
     "deadline_hint": null,
     "latest_year_hint": null,
     "page_hash": "sha256:7be5909b42f9c7b083c6c59f17126f1fd62d6c7259b13558806b6e484c1a2f23",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
-  },
-  {
-    "id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_funding_and_grants_horizon_europe_cluster_3_civil_security_society_en",
-    "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-3-civil-security-society_en",
-    "canonical_family_key": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-3-civil-security-society_en",
-    "domain": "rea.ec.europa.eu",
-    "title": "Horizon Europe",
-    "snippet": "Horizon Europe - Cluster 3: “Civil security for society” - European Research Executive Agency en Select your language Close bg български es español cs čeština da dansk de Deutsch et eesti el ελληνικά en English fr français ga Gaeilge hr hrvatski it italiano lv latviešu lt lietuvių hu magyar mt Malti nl Nederlands pl polski pt português ro română sk slovenčina sl slovenščina fi suomi sv svenska Search Search European Research Executive Agency Menu Close Menu Back Previous items Next items Home Funding and grants EU Mission: A Soil Deal for Europe Horizon Europe - Cluster 2: “Culture, creativity and inclusive society” Horizon Europe - Cluster 3: “Civil security for society” Promotion of agricultural products Horizon Europe - Cluster 6: “Food, bioeconomy, natural resources, agriculture and environment” Horizon Europe: Widening participation and spreading excellence Horizon Europe: Reforming",
-    "first_seen": "2026-05-03T07:26:44+00:00",
-    "last_seen": "2026-05-04T15:32:12+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "horizon_cluster6_watch",
-    "discovered_via": "Horizon Europe Cluster 6 watch",
-    "source_hint": "Horizon Europe Cluster 6 watch",
-    "source_id_hint": "horizon_cluster6_watch",
-    "candidate_type": "funding_call",
-    "confidence": 0.8,
-    "promotion_signal": "green",
-    "public_visible_state": "review_only",
-    "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
-    ],
-    "status": "pending_review",
-    "suggested_purposes": [
-      "biodiversity",
-      "environmental research",
-      "nature-based solutions",
-      "ecology"
-    ],
-    "suggested_applicant_types": [],
-    "suggested_access_route": "direct",
-    "suggested_scale": "medium",
-    "mode_relevance": {
-      "ndrt": "maybe",
-      "research": "include",
-      "farmer": "exclude"
-    },
-    "deadline_hint": null,
-    "latest_year_hint": null,
-    "page_hash": "sha256:dd5d2de96c3fb38bdd4ba8c2ed0f19038c28e1106e340077d01a0be306d2cd8d",
     "already_trusted": false,
     "trusted_registry_id": null,
     "notes": ""
@@ -4655,7 +4456,8 @@
     "promotion_signal": "amber",
     "public_visible_state": "review_only",
     "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
+      "Funding-looking candidate on trusted hub, not already registered.",
+      "Duplicate candidate collapsed from https://gepris.dfg.de/gepris/programmlisten?language=en"
     ],
     "status": "pending_review",
     "suggested_purposes": [
@@ -4676,50 +4478,6 @@
     "deadline_hint": null,
     "latest_year_hint": null,
     "page_hash": "sha256:a164f711f98f2f0977e459f6feceee8cb6afd77f76b1b1dedc5a1fe89e8b0675",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
-  },
-  {
-    "id": "cand_geo_dfg_research_grants_watch_gepris_dfg_de_gepris_programmlisten",
-    "url": "https://gepris.dfg.de/gepris/programmlisten?language=en",
-    "canonical_family_key": "https://gepris.dfg.de/gepris/programmlisten",
-    "domain": "gepris.dfg.de",
-    "title": "DFG",
-    "snippet": "DFG - GEPRIS Go directly to content Go directly to font size and contrast Servicenavigation DFG Homepage Disclaimer / Copyright | Help | Data Monitor Deutsch Hauptnavigation Search Catalogue People Index Location Index About GEPRIS Current Projects and Programmes © 2026 DFG Disclaimer / Copyright / Privacy Policy Textvergrößerung und Kontrastanpassung",
-    "first_seen": "2026-05-03T19:25:59+00:00",
-    "last_seen": "2026-05-04T15:32:12+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "geo_dfg_research_grants_watch",
-    "discovered_via": "Geo watch: DFG Individual Research Grants",
-    "source_hint": "Geo watch: DFG Individual Research Grants",
-    "source_id_hint": "geo_dfg_research_grants_watch",
-    "candidate_type": "recurring_programme",
-    "confidence": 0.55,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
-    "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
-    ],
-    "status": "pending_review",
-    "suggested_purposes": [
-      "geoscience",
-      "environmental research",
-      "geochemistry",
-      "hydrogen",
-      "subsurface storage"
-    ],
-    "suggested_applicant_types": [],
-    "suggested_access_route": "direct",
-    "suggested_scale": "medium",
-    "mode_relevance": {
-      "ndrt": "maybe",
-      "research": "include",
-      "farmer": "exclude"
-    },
-    "deadline_hint": null,
-    "latest_year_hint": 2026,
-    "page_hash": "sha256:a1d255fbc6d07cfad22e2dafccc57d9776510e693032e42ab44ac29e290b5170",
     "already_trusted": false,
     "trusted_registry_id": null,
     "notes": ""
@@ -5007,7 +4765,9 @@
     "promotion_signal": "amber",
     "public_visible_state": "review_only",
     "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
+      "Funding-looking candidate on trusted hub, not already registered.",
+      "Duplicate candidate collapsed from https://www.dfg.de/en/research-funding/proposal-funding-process/forms-guidelines",
+      "Duplicate candidate collapsed from https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks/forms-guidelines"
     ],
     "status": "pending_review",
     "suggested_purposes": [
@@ -5028,94 +4788,6 @@
     "deadline_hint": null,
     "latest_year_hint": null,
     "page_hash": "sha256:e43e7096f3466dfd4da50b45fe318fcd1c97dd41bc1a3b69e4559f434e9dbd36",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
-  },
-  {
-    "id": "cand_geo_dfg_research_grants_watch_www_dfg_de_en_research_funding_proposal_funding_process_forms_guidelines",
-    "url": "https://www.dfg.de/en/research-funding/proposal-funding-process/forms-guidelines",
-    "canonical_family_key": "https://www.dfg.de/en/research-funding/proposal-funding-process/forms-guidelines",
-    "domain": "dfg.de",
-    "title": "Forms and Guidelines",
-    "snippet": "Forms and Guidelines | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close menu Back Statutory Bodies General Assembly Executive Committee Senate Joint Committee Review Boards Liaison Officers GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Head Office ﻿ Close menu Back Head Office Contacts A-Z Programme Contacts Berlin Office Career Executive Board GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube International Cooperation ﻿ Close menu Back International Cooperation International Activities Eur",
-    "first_seen": "2026-05-03T19:25:59+00:00",
-    "last_seen": "2026-05-04T15:32:12+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "geo_dfg_research_grants_watch",
-    "discovered_via": "Geo watch: DFG Individual Research Grants",
-    "source_hint": "Geo watch: DFG Individual Research Grants",
-    "source_id_hint": "geo_dfg_research_grants_watch",
-    "candidate_type": "recurring_programme",
-    "confidence": 0.55,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
-    "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
-    ],
-    "status": "pending_review",
-    "suggested_purposes": [
-      "geoscience",
-      "environmental research",
-      "geochemistry",
-      "hydrogen",
-      "subsurface storage"
-    ],
-    "suggested_applicant_types": [],
-    "suggested_access_route": "direct",
-    "suggested_scale": "medium",
-    "mode_relevance": {
-      "ndrt": "maybe",
-      "research": "include",
-      "farmer": "exclude"
-    },
-    "deadline_hint": null,
-    "latest_year_hint": null,
-    "page_hash": "sha256:3ad44c97a9b611f04b2d876ccbc5eb40c75da15b1aeb65e2e55faf0e8e51332c",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
-  },
-  {
-    "id": "cand_geo_dfg_scientific_networks_watch_www_dfg_de_en_research_funding_funding_opportunities_programmes_individual_scientific_networks_forms_guidelines",
-    "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks/forms-guidelines",
-    "canonical_family_key": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks/forms-guidelines",
-    "domain": "dfg.de",
-    "title": "Forms and Guidelines",
-    "snippet": "Forms and Guidelines | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close menu Back Statutory Bodies General Assembly Executive Committee Senate Joint Committee Review Boards Liaison Officers GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Head Office ﻿ Close menu Back Head Office Contacts A-Z Programme Contacts Berlin Office Career Executive Board GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube International Cooperation ﻿ Close menu Back International Cooperation International Activities Eur",
-    "first_seen": "2026-05-03T19:25:59+00:00",
-    "last_seen": "2026-05-04T15:32:12+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "geo_dfg_scientific_networks_watch",
-    "discovered_via": "Geo watch: DFG Scientific Networks",
-    "source_hint": "Geo watch: DFG Scientific Networks",
-    "source_id_hint": "geo_dfg_scientific_networks_watch",
-    "candidate_type": "recurring_programme",
-    "confidence": 0.55,
-    "promotion_signal": "amber",
-    "public_visible_state": "review_only",
-    "promotion_reasons": [
-      "Funding-looking candidate on trusted hub, not already registered."
-    ],
-    "status": "pending_review",
-    "suggested_purposes": [
-      "scientific networking",
-      "geoscience",
-      "environmental research",
-      "hydrogen",
-      "wetland interfaces"
-    ],
-    "suggested_applicant_types": [],
-    "suggested_access_route": "direct",
-    "suggested_scale": "medium",
-    "mode_relevance": {
-      "ndrt": "maybe",
-      "research": "include",
-      "farmer": "exclude"
-    },
-    "deadline_hint": null,
-    "latest_year_hint": null,
-    "page_hash": "sha256:d929d470cf10e7a3d67532a59287fd995699de3e437c7f0e77cf9dc251290f47",
     "already_trusted": false,
     "trusted_registry_id": null,
     "notes": ""
@@ -8101,7 +7773,9 @@
     "promotion_signal": "red",
     "public_visible_state": "discovery_only",
     "promotion_reasons": [
-      "Already covered by trusted source gsi_geoheritage"
+      "Already covered by trusted source gsi_geoheritage",
+      "Appears stale for 2022.",
+      "Duplicate candidate collapsed from https://www.gsi.ie/ga-ie/programmes-and-projects/geoheritage/projects/pages/annual-geoheritage-grant-funding.aspx"
     ],
     "status": "suppressed_existing",
     "suggested_purposes": [
@@ -8123,49 +7797,6 @@
     "page_hash": "sha256:6073fb7988053970a3d260ff29eafcd60e533a340b2de3aa1a2e02b47131444a",
     "already_trusted": true,
     "trusted_registry_id": "gsi_geoheritage",
-    "notes": ""
-  },
-  {
-    "id": "cand_gsi_geoheritage_watch_www_gsi_ie_ga_ie_programmes_and_projects_geoheritage_projects_pages_annual_geoheritage_grant_funding_aspx",
-    "url": "https://www.gsi.ie/ga-ie/programmes-and-projects/geoheritage/projects/pages/annual-geoheritage-grant-funding.aspx",
-    "canonical_family_key": "https://www.gsi.ie/ga-ie/programmes-and-projects/geoheritage/projects/pages/annual-geoheritage-grant-funding.aspx",
-    "domain": "gsi.ie",
-    "title": "Annual Geoheritage Grant Funding",
-    "snippet": "Annual Geoheritage Grant Funding Expand Navigation Sonraí & Mapaí Ábhair Chláir Taighde Oideachas Foilseacháin Nuacht & Imeachtaí Breis faoi SGE Déan Teagmháil Linn English Twitter Search Submit Search You are here: Geological Survey Ireland Programmes & Projects Geoheritage Projects Annual Geoheritage Grant Funding Annual Geoheritage Grant Funding Annual Geoheritage Grant Funding Page Content ​ Geological Survey Ireland offers a number of small grants each year to support the sustainable development, promotion and recognition of Ireland's geoheritage. These grants are aimed at local community-driven outreach and development initiatives with a geoheritage theme. The grants are made through an open competitive application process. In the 2022/23 round of grant funding, ​Geological Survey Ireland has awarded Geoheritage grants to six community-based projects around the country. These grant",
-    "first_seen": "2026-05-03T07:26:44+00:00",
-    "last_seen": "2026-05-04T15:32:12+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "gsi_geoheritage_watch",
-    "discovered_via": "Geological Survey Ireland geoheritage watch",
-    "source_hint": "Geological Survey Ireland geoheritage watch",
-    "source_id_hint": "gsi_geoheritage_watch",
-    "candidate_type": "recurring_programme",
-    "confidence": 0.55,
-    "promotion_signal": "red",
-    "public_visible_state": "discovery_only",
-    "promotion_reasons": [
-      "Appears stale for 2022."
-    ],
-    "status": "suppressed_stale",
-    "suggested_purposes": [
-      "geoscience",
-      "heritage",
-      "education",
-      "community nature"
-    ],
-    "suggested_applicant_types": [],
-    "suggested_access_route": "direct",
-    "suggested_scale": "medium",
-    "mode_relevance": {
-      "ndrt": "include",
-      "research": "maybe",
-      "farmer": "exclude"
-    },
-    "deadline_hint": null,
-    "latest_year_hint": 2022,
-    "page_hash": "sha256:5730c69fd31ff2234b079a15482b21cec85e2ab7629e76bb00916fbaa8dfb35b",
-    "already_trusted": false,
-    "trusted_registry_id": null,
     "notes": ""
   },
   {
@@ -9566,49 +9197,6 @@
     "notes": ""
   },
   {
-    "id": "cand_horizon_cluster6_watch_rea_ec_europa_eu_horizon_europe_grants_reporting_en",
-    "url": "https://rea.ec.europa.eu/horizon-europe-grants-reporting_en",
-    "canonical_family_key": "https://rea.ec.europa.eu/horizon-europe-grants-reporting_en",
-    "domain": "rea.ec.europa.eu",
-    "title": "Horizon Europe",
-    "snippet": "Horizon Europe – Grants & reporting - European Research Executive Agency en Select your language Close bg български es español cs čeština da dansk de Deutsch et eesti el ελληνικά en English fr français ga Gaeilge hr hrvatski it italiano lv latviešu lt lietuvių hu magyar mt Malti nl Nederlands pl polski pt português ro română sk slovenčina sl slovenščina fi suomi sv svenska Search Search European Research Executive Agency Menu Close Menu Back Previous items Next items Home Funding and grants EU Mission: A Soil Deal for Europe Horizon Europe - Cluster 2: “Culture, creativity and inclusive society” Horizon Europe - Cluster 3: “Civil security for society” Promotion of agricultural products Horizon Europe - Cluster 6: “Food, bioeconomy, natural resources, agriculture and environment” Horizon Europe: Widening participation and spreading excellence Horizon Europe: Reforming and enhancing the Eu",
-    "first_seen": "2026-05-01T20:53:26+00:00",
-    "last_seen": "2026-05-04T15:32:12+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "horizon_cluster6_watch",
-    "discovered_via": "Horizon Europe Cluster 6 watch",
-    "source_hint": "Horizon Europe Cluster 6 watch",
-    "source_id_hint": "horizon_cluster6_watch",
-    "candidate_type": "funding_call",
-    "confidence": 0.3,
-    "promotion_signal": "red",
-    "public_visible_state": "discovery_only",
-    "promotion_reasons": [
-      "Insufficient application/funding signal."
-    ],
-    "status": "suppressed_non_actionable",
-    "suggested_purposes": [
-      "biodiversity",
-      "environmental research",
-      "nature-based solutions",
-      "ecology"
-    ],
-    "suggested_applicant_types": [],
-    "suggested_access_route": "direct",
-    "suggested_scale": "medium",
-    "mode_relevance": {
-      "ndrt": "maybe",
-      "research": "include",
-      "farmer": "exclude"
-    },
-    "deadline_hint": null,
-    "latest_year_hint": null,
-    "page_hash": "sha256:7d7f641e6958edb77fdd05d7db9c1dfb1eec3510a20167e552513adcf0946549",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
-  },
-  {
     "id": "cand_epa_research_funding_hub_www_epa_ie_our_services_research_international_collaboration_and_funding",
     "url": "https://www.epa.ie/our-services/research/international-collaboration-and-funding",
     "canonical_family_key": "https://www.epa.ie/our-services/research/international-collaboration-and-funding",
@@ -10711,7 +10299,8 @@
     "promotion_signal": "red",
     "public_visible_state": "discovery_only",
     "promotion_reasons": [
-      "tender detected."
+      "tender detected.",
+      "Duplicate candidate collapsed from https://cinea.ec.europa.eu/programmes/life_en"
     ],
     "status": "suppressed_non_actionable",
     "suggested_purposes": [
@@ -10731,49 +10320,6 @@
     "deadline_hint": null,
     "latest_year_hint": 2023,
     "page_hash": "sha256:380b24b3451ba27371690eeaf493231c6442d1a9224e63291216649da3de3c96",
-    "already_trusted": false,
-    "trusted_registry_id": null,
-    "notes": ""
-  },
-  {
-    "id": "cand_life_calls_watch_cinea_ec_europa_eu_programmes_life_en",
-    "url": "https://cinea.ec.europa.eu/programmes/life_en",
-    "canonical_family_key": "https://cinea.ec.europa.eu/programmes/life_en",
-    "domain": "cinea.ec.europa.eu",
-    "title": "LIFE",
-    "snippet": "LIFE - European Climate, Infrastructure and Environment Executive Agency en Select your language Close bg български es español cs čeština da dansk de Deutsch et eesti el ελληνικά en English fr français ga Gaeilge hr hrvatski it italiano lv latviešu lt lietuvių hu magyar mt Malti nl Nederlands pl polski pt português ro română sk slovenčina sl slovenščina fi suomi sv svenska Search Search European Climate, Infrastructure and Environment Executive Agency Menu Close Menu Back Previous items Next items Home About us Structure Job Opportunities Data protection Key documents Transparency See all Programmes CEF EMFAF Horizon Europe Innovation Fund JTM LIFE RENEWFM Cross-programme See all Funding opportunities Calls for proposals Calls for tenders See all Advisory Support Beneficiaries' corner Communication and raising EU visibility Projects See all News & Events News Newsletters Events See all P",
-    "first_seen": "2026-05-01T20:53:26+00:00",
-    "last_seen": "2026-05-04T15:32:12+00:00",
-    "seen_in_latest_run": true,
-    "detected_from": "life_calls_watch",
-    "discovered_via": "EU LIFE calls watch",
-    "source_hint": "EU LIFE calls watch",
-    "source_id_hint": "life_calls_watch",
-    "candidate_type": "tender",
-    "confidence": 0.15,
-    "promotion_signal": "red",
-    "public_visible_state": "discovery_only",
-    "promotion_reasons": [
-      "tender detected."
-    ],
-    "status": "suppressed_non_actionable",
-    "suggested_purposes": [
-      "biodiversity",
-      "climate adaptation",
-      "nature-based solutions",
-      "wetlands"
-    ],
-    "suggested_applicant_types": [],
-    "suggested_access_route": "direct",
-    "suggested_scale": "medium",
-    "mode_relevance": {
-      "ndrt": "maybe",
-      "research": "include",
-      "farmer": "exclude"
-    },
-    "deadline_hint": null,
-    "latest_year_hint": null,
-    "page_hash": "sha256:3f9f55141b02f81cd6720930d4ec6430d5ec05a7d4e94447baf0ef37a14aaf4b",
     "already_trusted": false,
     "trusted_registry_id": null,
     "notes": ""
