@@ -599,6 +599,10 @@ function filteredCandidates() {
     if (!candidateMatchesMode(item, selectedMode)) return false;
 
     if (view === 'real') {
+      if (selectedMode && selectedMode !== 'all' && selectedMode !== 'unclassified') {
+        return status === 'pending_review' && candidateMatchesMode(item, selectedMode);
+      }
+
       return isRealOpportunity(item);
     }
 
