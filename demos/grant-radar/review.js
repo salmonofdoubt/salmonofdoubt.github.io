@@ -8,17 +8,6 @@ const el = {
   modeFilter: document.getElementById('mode-filter'),
 };
 
-function escapeHtml(value) {
-  return String(value ?? '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
-
-
 const MODE_LABELS = {
   ndrt: 'River Trust',
   farmer: 'Farming',
@@ -29,124 +18,14 @@ const MODE_LABELS = {
 
 const MODE_ORDER = ['ndrt', 'farmer', 'climate', 'research', 'geo'];
 
-function normalizeModeFit(value) {
-  const fit = String(value || '').trim().toLowerCase();
-  if (fit === 'include' || fit === 'maybe' || fit === 'exclude') return fit;
-  return 'unknown';
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
-
-function modeFitValue(item, mode) {
-  const relevance = item.mode_relevance || {};
-  return normalizeModeFit(relevance[mode]);
-}
-
-function candidateHasAnyModeData(item) {
-  const relevance = item.mode_relevance || {};
-  return MODE_ORDER.some((mode) => normalizeModeFit(relevance[mode]) !== 'unknown');
-}
-
-function candidateMatchesMode(item, selectedMode) {
-  if (!selectedMode || selectedMode === 'all') return true;
-
-  if (selectedMode === 'unclassified') {
-    return !candidateHasAnyModeData(item);
-  }
-
-  const fit = modeFitValue(item, selectedMode);
-  return fit === 'include' || fit === 'maybe';
-}
-
-function modeBadgeClass(fit) {
-  if (fit === 'include') return 'mode-include';
-  if (fit === 'maybe') return 'mode-maybe';
-  if (fit === 'exclude') return 'mode-exclude';
-  return 'mode-unknown';
-}
-
-function modeFitSummary(item) {
-  const relevance = item.mode_relevance || {};
-  const parts = [];
-
-  MODE_ORDER.forEach((mode) => {
-    const fit = normalizeModeFit(relevance[mode]);
-    if (fit === 'include' || fit === 'maybe') {
-      parts.push({ mode, fit });
-    }
-  });
-
-  return parts;
-}
-
-function modeFitSearchText(item) {
-  const relevance = item.mode_relevance || {};
-  return MODE_ORDER.map((mode) => {
-    const fit = normalizeModeFit(relevance[mode]);
-    return `${mode} ${MODE_LABELS[mode]} ${fit}`;
-  }).join(' ');
-}
-
-function modeFitDetailText(item) {
-  const relevance = item.mode_relevance || {};
-  return MODE_ORDER.map((mode) => {
-    const fit = normalizeModeFit(relevance[mode]);
-    return `${MODE_LABELS[mode]}: ${fit}`;
-  }).join(' | ');
-}
-
-function renderModeFitBadges(item) {
-  const positive = modeFitSummary(item);
-
-  if (positive.length === 0) {
-    if (!candidateHasAnyModeData(item)) {
-      return `
-        <div class="mode-fit-row">
-          <span class="mode-fit-label">Potential fit</span>
-          <span class="mode-badge mode-unknown">Unclassified</span>
-        </div>
-      `;
-    }
-
-    return `
-      <div class="mode-fit-row">
-        <span class="mode-fit-label">Potential fit</span>
-        <span class="mode-badge mode-exclude">No positive mode fit</span>
-      </div>
-    `;
-  }
-
-  return `
-    <div class="mode-fit-row">
-      <span class="mode-fit-label">Potential fit</span>
-      ${positive.map(({ mode, fit }) => `
-        <span class="mode-badge ${modeBadgeClass(fit)}">
-          ${escapeHtml(MODE_LABELS[mode])}: ${escapeHtml(fit)}
-        </span>
-      `).join('')}
-    </div>
-  `;
-}
-
-function confidenceValue(item) {
-  const raw = Number(item.confidence);
-  return Number.isFinite(raw) ? raw : null;
-}
-
-function confidenceClass(value) {
-  if (value === null) return 'confidence-low';
-  if (value >= 0.85) return 'confidence-high';
-  if (value >= 0.65) return 'confidence-medium';
-  return 'confidence-low';
-}
-
-function renderConfidenceBadge(item) {
-  const value = confidenceValue(item);
-  if (value === null) {
-    return '<span class="confidence-badge confidence-low">Confidence: unknown</span>';
-  }
-
-  return `<span class="confidence-badge ${confidenceClass(value)}">Confidence: ${value.toFixed(2)}</span>`;
-}
-
 
 function summaryBox(label, value) {
   return `
@@ -253,12 +132,249 @@ function shortWhy(item) {
   return 'No concise reason text available.';
 }
 
+function normalizeModeFit(value) {
+  const fit = String(value || '').trim().toLowerCase();
+  if (fit === 'include' || fit === 'maybe' || fit === 'exclude') return fit;
+  return 'unknown';
+}
+
+function modeFitValue(item, mode) {
+  const relevance = item.mode_relevance || {};
+  return normalizeModeFit(relevance[mode]);
+}
+
+function candidateHasAnyModeData(item) {
+  const relevance = item.mode_relevance || {};
+  return MODE_ORDER.some((mode) => normalizeModeFit(relevance[mode]) !== 'unknown');
+}
+
+function modeFitSummary(item) {
+  const relevance = item.mode_relevance || {};
+  const parts = [];
+
+  MODE_ORDER.forEach((mode) => {
+    const fit = normalizeModeFit(relevance[mode]);
+    if (fit === 'include' || fit === 'maybe') {
+      parts.push({ mode, fit });
+    }
+  });
+
+  return parts;
+}
+
+function candidateHasPositiveModeFit(item) {
+  return modeFitSummary(item).length > 0;
+}
+
+function candidateHasExplicitNoPositiveFit(item) {
+  return candidateHasAnyModeData(item) && !candidateHasPositiveModeFit(item);
+}
+
+function candidateMatchesMode(item, selectedMode) {
+  if (!selectedMode || selectedMode === 'all') return true;
+
+  if (selectedMode === 'unclassified') {
+    return !candidateHasAnyModeData(item);
+  }
+
+  const fit = modeFitValue(item, selectedMode);
+  return fit === 'include' || fit === 'maybe';
+}
+
+function modeBadgeClass(fit) {
+  if (fit === 'include') return 'mode-include';
+  if (fit === 'maybe') return 'mode-maybe';
+  if (fit === 'exclude') return 'mode-exclude';
+  return 'mode-unknown';
+}
+
+function modeFitSearchText(item) {
+  const relevance = item.mode_relevance || {};
+  return MODE_ORDER.map((mode) => {
+    const fit = normalizeModeFit(relevance[mode]);
+    return `${mode} ${MODE_LABELS[mode]} ${fit}`;
+  }).join(' ');
+}
+
+function modeFitDetailText(item) {
+  const relevance = item.mode_relevance || {};
+  return MODE_ORDER.map((mode) => {
+    const fit = normalizeModeFit(relevance[mode]);
+    return `${MODE_LABELS[mode]}: ${fit}`;
+  }).join(' | ');
+}
+
+function renderModeFitBadges(item) {
+  const positive = modeFitSummary(item);
+
+  if (positive.length === 0) {
+    if (!candidateHasAnyModeData(item)) {
+      return `
+        <div class="mode-fit-row">
+          <span class="mode-fit-label">Potential fit</span>
+          <span class="mode-badge mode-unknown">Unclassified</span>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="mode-fit-row">
+        <span class="mode-fit-label">Potential fit</span>
+        <span class="mode-badge mode-exclude">No positive mode fit</span>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="mode-fit-row">
+      <span class="mode-fit-label">Potential fit</span>
+      ${positive.map(({ mode, fit }) => `
+        <span class="mode-badge ${modeBadgeClass(fit)}">
+          ${escapeHtml(MODE_LABELS[mode])}: ${escapeHtml(fit)}
+        </span>
+      `).join('')}
+    </div>
+  `;
+}
+
+function confidenceValue(item) {
+  const raw = Number(item.confidence);
+  return Number.isFinite(raw) ? raw : null;
+}
+
+function confidenceClass(value) {
+  if (value === null) return 'confidence-low';
+  if (value >= 0.85) return 'confidence-high';
+  if (value >= 0.65) return 'confidence-medium';
+  return 'confidence-low';
+}
+
+function renderConfidenceBadge(item) {
+  const value = confidenceValue(item);
+  if (value === null) {
+    return '<span class="confidence-badge confidence-low">Confidence: unknown</span>';
+  }
+
+  return `<span class="confidence-badge ${confidenceClass(value)}">Confidence: ${value.toFixed(2)}</span>`;
+}
+
+function readableType(value) {
+  const text = String(value || 'candidate')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return text.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function inferSourcePack(item) {
+  const haystack = [
+    item.source_pack,
+    item.detected_from,
+    item.source_id_hint,
+    item.source_hint,
+    item.domain,
+    item.url,
+    item.title,
+    ...(item.suggested_purposes || []),
+  ].join(' ').toLowerCase();
+
+  if (
+    haystack.includes('geo_') ||
+    haystack.includes('geo radar') ||
+    haystack.includes('gfz') ||
+    haystack.includes('dfg') ||
+    haystack.includes('gsi') ||
+    haystack.includes('geoscience') ||
+    haystack.includes('geothermal') ||
+    haystack.includes('subsurface')
+  ) {
+    return { key: 'geo', label: 'Geo / Earth' };
+  }
+
+  if (
+    haystack.includes('lawpro') ||
+    haystack.includes('lawaters') ||
+    haystack.includes('fisheriesireland') ||
+    haystack.includes('farmingforwater') ||
+    haystack.includes('water quality') ||
+    haystack.includes('catchment') ||
+    haystack.includes('river restoration')
+  ) {
+    return { key: 'water', label: 'Water / NbS' };
+  }
+
+  if (
+    haystack.includes('enterprise-ireland') ||
+    haystack.includes('seai') ||
+    haystack.includes('climate') ||
+    haystack.includes('energy') ||
+    haystack.includes('decarbonisation')
+  ) {
+    return { key: 'climate', label: 'Climate' };
+  }
+
+  if (
+    haystack.includes('researchireland') ||
+    haystack.includes('research ireland') ||
+    haystack.includes('horizon') ||
+    haystack.includes('epa') ||
+    haystack.includes('research')
+  ) {
+    return { key: 'research', label: 'Research' };
+  }
+
+  if (haystack.includes('heritage')) {
+    return { key: 'heritage', label: 'Heritage' };
+  }
+
+  return { key: 'general', label: 'General' };
+}
+
+function renderSourcePackBadge(item) {
+  const pack = inferSourcePack(item);
+  return `<span class="triage-badge source-pack source-pack-${escapeHtml(pack.key)}">${escapeHtml(pack.label)}</span>`;
+}
+
+function renderTypeBadge(item) {
+  return `<span class="triage-badge candidate-type">${escapeHtml(readableType(item.candidate_type))}</span>`;
+}
+
+function renderSeenBadge(item) {
+  if (item.seen_in_latest_run === true) {
+    return '<span class="triage-badge seen-latest">Seen latest</span>';
+  }
+
+  if (item.seen_in_latest_run === false) {
+    return '<span class="triage-badge not-seen-latest">Not in latest run</span>';
+  }
+
+  return '<span class="triage-badge seen-unknown">Seen unknown</span>';
+}
+
+function renderTriageBadges(item) {
+  return `
+    <div class="triage-row">
+      ${renderConfidenceBadge(item)}
+      ${renderSourcePackBadge(item)}
+      ${renderTypeBadge(item)}
+      ${renderSeenBadge(item)}
+    </div>
+  `;
+}
+
 function detailRows(item) {
   const rows = [];
   const status = normalizeStatus(item);
+  const pack = inferSourcePack(item);
 
   rows.push({ label: 'Status', value: statusLabel(status) });
   rows.push({ label: 'Mode relevance', value: modeFitDetailText(item) });
+  rows.push({ label: 'Source pack', value: pack.label });
+
+  if (item.candidate_type) {
+    rows.push({ label: 'Candidate type', value: readableType(item.candidate_type) });
+  }
 
   if (item.url) {
     rows.push({ label: 'URL', value: item.url });
@@ -319,6 +435,22 @@ function detailRows(item) {
   return rows;
 }
 
+function lastSeenTime(item) {
+  const value = Date.parse(item.last_seen || item.first_seen || '');
+  return Number.isFinite(value) ? value : 0;
+}
+
+function modeRank(item) {
+  let rank = 0;
+
+  MODE_ORDER.forEach((mode) => {
+    const fit = modeFitValue(item, mode);
+    if (fit === 'include') rank = Math.max(rank, 2);
+    if (fit === 'maybe') rank = Math.max(rank, 1);
+  });
+
+  return rank;
+}
 
 function filteredCandidates() {
   const search = el.search.value.trim().toLowerCase();
@@ -327,6 +459,7 @@ function filteredCandidates() {
 
   return (state.payload.candidates || []).filter((item) => {
     const status = normalizeStatus(item);
+    const pack = inferSourcePack(item);
     const haystack = [
       item.id,
       item.title,
@@ -336,6 +469,8 @@ function filteredCandidates() {
       item.deadline_hint,
       item.trusted_registry_id,
       item.url,
+      item.candidate_type,
+      pack.label,
       modeFitSearchText(item),
       ...(item.suggested_purposes || []),
       ...(item.suggested_applicant_types || []),
@@ -347,6 +482,12 @@ function filteredCandidates() {
 
     if (search && !haystack.includes(search)) return false;
     if (!candidateMatchesMode(item, selectedMode)) return false;
+
+    // Keep "Everything" genuinely complete. For normal review views, suppress candidates
+    // explicitly marked as irrelevant to all modes.
+    if (view !== 'all' && selectedMode === 'all' && candidateHasExplicitNoPositiveFit(item)) {
+      return false;
+    }
 
     if (view === 'active') {
       return status === 'pending_review';
@@ -373,7 +514,6 @@ function filteredCandidates() {
   });
 }
 
-
 function sortedCandidates(items) {
   const rank = {
     pending_review: 0,
@@ -390,8 +530,17 @@ function sortedCandidates(items) {
     const statusDiff = (rank[normalizeStatus(a)] ?? 99) - (rank[normalizeStatus(b)] ?? 99);
     if (statusDiff !== 0) return statusDiff;
 
+    const modeDiff = modeRank(b) - modeRank(a);
+    if (modeDiff !== 0) return modeDiff;
+
     const confidenceDiff = Number(b.confidence || 0) - Number(a.confidence || 0);
     if (confidenceDiff !== 0) return confidenceDiff;
+
+    const latestDiff = Number(Boolean(b.seen_in_latest_run)) - Number(Boolean(a.seen_in_latest_run));
+    if (latestDiff !== 0) return latestDiff;
+
+    const dateDiff = lastSeenTime(b) - lastSeenTime(a);
+    if (dateDiff !== 0) return dateDiff;
 
     return (a.title || '').localeCompare(b.title || '');
   });
@@ -448,13 +597,15 @@ function renderCards() {
       `)
       .join('');
 
+    const copyValue = item.id || item.url || '';
+
     return `
       <article class="candidate-card">
         <div class="badge-row">
           <span class="badge ${statusClass(status)}">${escapeHtml(statusLabel(status))}</span>
-          ${renderConfidenceBadge(item)}
         </div>
 
+        ${renderTriageBadges(item)}
         ${renderModeFitBadges(item)}
 
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
@@ -481,14 +632,14 @@ function renderCards() {
         </details>
 
         <div class="actions">
-          ${item.id ? `
+          ${copyValue ? `
             <button
               type="button"
               class="copy-id-button"
-              data-copy-id="${escapeHtml(item.id)}"
-              title="Copy candidate ID for the admin workflow."
+              data-copy-value="${escapeHtml(copyValue)}"
+              title="Copy the exact value to use in the admin workflow."
             >
-              Copy candidate ID
+              Copy admin input
             </button>
           ` : ''}
 
@@ -506,23 +657,22 @@ function renderCards() {
   }).join('');
 }
 
-
 function bindCardActions() {
   el.cards.addEventListener('click', async (event) => {
     const button = event.target.closest('.copy-id-button');
     if (!button) return;
 
-    const candidateId = button.getAttribute('data-copy-id') || '';
-    if (!candidateId) return;
+    const copyValue = button.getAttribute('data-copy-value') || '';
+    if (!copyValue) return;
 
     const originalText = button.textContent;
 
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(candidateId);
+        await navigator.clipboard.writeText(copyValue);
       } else {
         const temp = document.createElement('textarea');
-        temp.value = candidateId;
+        temp.value = copyValue;
         document.body.appendChild(temp);
         temp.select();
         document.execCommand('copy');
