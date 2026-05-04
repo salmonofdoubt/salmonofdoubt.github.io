@@ -5,6 +5,7 @@ const el = {
   cards: document.getElementById('cards'),
   search: document.getElementById('search'),
   view: document.getElementById('view'),
+  modeFilter: document.getElementById('mode-filter'),
 };
 
 function escapeHtml(value) {
@@ -15,6 +16,119 @@ function escapeHtml(value) {
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
 }
+
+
+const MODE_LABELS = {
+  ndrt: 'River Trust',
+  farmer: 'Farming',
+  climate: 'Climate',
+  research: 'Research',
+  geo: 'Geo',
+};
+
+const MODE_ORDER = ['ndrt', 'farmer', 'climate', 'research', 'geo'];
+
+function normalizeModeFit(value) {
+  const fit = String(value || '').trim().toLowerCase();
+  if (fit === 'include' || fit === 'maybe' || fit === 'exclude') return fit;
+  return 'unknown';
+}
+
+function modeFitValue(item, mode) {
+  const relevance = item.mode_relevance || {};
+  return normalizeModeFit(relevance[mode]);
+}
+
+function candidateHasAnyModeData(item) {
+  const relevance = item.mode_relevance || {};
+  return MODE_ORDER.some((mode) => normalizeModeFit(relevance[mode]) !== 'unknown');
+}
+
+function candidateMatchesMode(item, selectedMode) {
+  if (!selectedMode || selectedMode === 'all') return true;
+
+  if (selectedMode === 'unclassified') {
+    return !candidateHasAnyModeData(item);
+  }
+
+  const fit = modeFitValue(item, selectedMode);
+
+  // "Potentially good" means definite include or reviewable maybe.
+  return fit === 'include' || fit === 'maybe';
+}
+
+function modeBadgeClass(fit) {
+  if (fit === 'include') return 'mode-include';
+  if (fit === 'maybe') return 'mode-maybe';
+  if (fit === 'exclude') return 'mode-exclude';
+  return 'mode-unknown';
+}
+
+function modeFitSummary(item) {
+  const relevance = item.mode_relevance || {};
+  const parts = [];
+
+  MODE_ORDER.forEach((mode) => {
+    const fit = normalizeModeFit(relevance[mode]);
+    if (fit === 'include' || fit === 'maybe') {
+      parts.push({ mode, fit });
+    }
+  });
+
+  return parts;
+}
+
+function modeFitSearchText(item) {
+  const relevance = item.mode_relevance || {};
+
+  return MODE_ORDER.map((mode) => {
+    const fit = normalizeModeFit(relevance[mode]);
+    return `${mode} ${MODE_LABELS[mode]} ${fit}`;
+  }).join(' ');
+}
+
+function renderModeFitBadges(item) {
+  const positive = modeFitSummary(item);
+
+  if (positive.length === 0) {
+    if (!candidateHasAnyModeData(item)) {
+      return `
+        <div class="mode-fit-row">
+          <span class="mode-fit-label">Mode fit</span>
+          <span class="mode-badge mode-unknown">Unclassified</span>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="mode-fit-row">
+        <span class="mode-fit-label">Mode fit</span>
+        <span class="mode-badge mode-exclude">No positive mode fit</span>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="mode-fit-row">
+      <span class="mode-fit-label">Mode fit</span>
+      ${positive.map(({ mode, fit }) => `
+        <span class="mode-badge ${modeBadgeClass(fit)}">
+          ${escapeHtml(MODE_LABELS[mode])}: ${escapeHtml(fit)}
+        </span>
+      `).join('')}
+    </div>
+  `;
+}
+
+function modeFitDetailText(item) {
+  const relevance = item.mode_relevance || {};
+
+  return MODE_ORDER.map((mode) => {
+    const fit = normalizeModeFit(relevance[mode]);
+    return `${MODE_LABELS[mode]}: ${fit}`;
+  }).join(' | ');
+}
+
 
 function summaryBox(label, value) {
   return `
@@ -143,6 +257,8 @@ function detailRows(item) {
     rows.push({ label: 'Deadline hint', value: item.deadline_hint });
   }
 
+  rows.push({ label: 'Mode relevance', value: modeFitDetailText(item) });
+
   if ((item.suggested_applicant_types || []).length > 0) {
     rows.push({
       label: 'Suggested applicant types',
@@ -192,6 +308,7 @@ function detailRows(item) {
 function filteredCandidates() {
   const search = el.search.value.trim().toLowerCase();
   const view = el.view.value;
+  const selectedMode = el.modeFilter ? el.modeFilter.value : 'all';
 
   return (state.payload.candidates || []).filter((item) => {
     const status = normalizeStatus(item);
@@ -414,7 +531,7 @@ async function init() {
   bindCardActions();
   renderCards();
 
-  [el.search, el.view].forEach((node) => {
+  [el.search, el.view, el.modeFilter].filter(Boolean).forEach((node) => {
     node.addEventListener('input', renderCards);
     node.addEventListener('change', renderCards);
   });
