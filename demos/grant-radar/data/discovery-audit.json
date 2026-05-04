@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-05-03T19:32:52+00:00",
+  "generated_at": "2026-05-04T08:03:26+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 2,
-  "links_seen": 4700,
+  "links_seen": 4696,
   "funding_like_links": 480,
   "candidate_fetches": 300,
-  "pending_review_count": 82,
+  "pending_review_count": 85,
   "status_counts": {
-    "pending_review": 82,
-    "suppressed_non_actionable": 68,
+    "pending_review": 85,
+    "suppressed_non_actionable": 76,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 15,
     "suppressed_stale": 7,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 62
+    "suppressed_generic_page": 6,
+    "suppressed_fetch_error": 49
   },
   "candidate_type_counts": {
     "recurring_programme": 98,
-    "funding_call": 37,
+    "funding_call": 40,
     "scholarship": 29,
-    "generic_funding_hub": 7,
-    "tender": 12,
-    "unknown": 62
+    "generic_funding_hub": 8,
+    "tender": 20,
+    "unknown": 49
   },
   "seeds": [
     {
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 155,
+      "links_seen": 153,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 155,
+      "links_seen": 153,
       "funding_like_links": 0,
       "candidates_fetched": 0
     }
