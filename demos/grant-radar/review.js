@@ -39,9 +39,7 @@ function summaryBox(label, value) {
 function normalizeStatus(item) {
   const status = String(item.status || '').trim();
 
-  if (status === 'approved' || status === 'cl_drafted') {
-    return 'pending_review';
-  }
+  if (status === 'approved' || status === 'cl_drafted') return 'pending_review';
 
   if (
     status === 'pending_review' ||
@@ -74,10 +72,12 @@ function statusLabel(status) {
 function statusClass(status) {
   if (status === 'pending_review') return 'badge-pending';
   if (status === 'suppressed_existing') return 'badge-existing';
-  if (status === 'suppressed_non_actionable') return 'badge-suppressed';
-  if (status === 'suppressed_generic_page') return 'badge-suppressed';
-  if (status === 'suppressed_stale') return 'badge-suppressed';
-  if (status === 'suppressed_fetch_error') return 'badge-suppressed';
+  if (
+    status === 'suppressed_non_actionable' ||
+    status === 'suppressed_generic_page' ||
+    status === 'suppressed_stale' ||
+    status === 'suppressed_fetch_error'
+  ) return 'badge-suppressed';
   if (status === 'promoted') return 'badge-promoted';
   if (status === 'rejected') return 'badge-rejected';
   return 'badge-pending';
@@ -106,10 +106,7 @@ function cleanSnippet(value) {
     }
   });
 
-  if (text.length > 420) {
-    text = text.slice(0, 417).trimEnd() + '…';
-  }
-
+  if (text.length > 420) text = text.slice(0, 417).trimEnd() + '…';
   return text || 'No snippet available.';
 }
 
@@ -121,14 +118,8 @@ function shortWhy(item) {
   const reasons = Array.isArray(item.promotion_reasons) ? item.promotion_reasons.filter(Boolean) : [];
   const flags = Array.isArray(item.reason_flags) ? item.reason_flags.filter(Boolean) : [];
 
-  if (reasons.length > 0) {
-    return reasons.slice(0, 3).join(', ');
-  }
-
-  if (flags.length > 0) {
-    return flags.slice(0, 3).join(', ');
-  }
-
+  if (reasons.length > 0) return reasons.slice(0, 3).join(', ');
+  if (flags.length > 0) return flags.slice(0, 3).join(', ');
   return 'No concise reason text available.';
 }
 
@@ -154,9 +145,7 @@ function modeFitSummary(item) {
 
   MODE_ORDER.forEach((mode) => {
     const fit = normalizeModeFit(relevance[mode]);
-    if (fit === 'include' || fit === 'maybe') {
-      parts.push({ mode, fit });
-    }
+    if (fit === 'include' || fit === 'maybe') parts.push({ mode, fit });
   });
 
   return parts;
@@ -172,11 +161,7 @@ function candidateHasExplicitNoPositiveFit(item) {
 
 function candidateMatchesMode(item, selectedMode) {
   if (!selectedMode || selectedMode === 'all') return true;
-
-  if (selectedMode === 'unclassified') {
-    return !candidateHasAnyModeData(item);
-  }
-
+  if (selectedMode === 'unclassified') return !candidateHasAnyModeData(item);
   const fit = modeFitValue(item, selectedMode);
   return fit === 'include' || fit === 'maybe';
 }
@@ -210,29 +195,35 @@ function renderModeFitBadges(item) {
   if (positive.length === 0) {
     if (!candidateHasAnyModeData(item)) {
       return `
-        <div class="mode-fit-row">
-          <span class="mode-fit-label">Potential fit</span>
-          <span class="mode-badge mode-unknown">Unclassified</span>
+        <div class="mode-fit-block">
+          <div class="mode-fit-caption">Potential fit</div>
+          <div class="mode-fit-row">
+            <span class="mode-badge mode-unknown">Unclassified</span>
+          </div>
         </div>
       `;
     }
 
     return `
-      <div class="mode-fit-row">
-        <span class="mode-fit-label">Potential fit</span>
-        <span class="mode-badge mode-exclude">No positive mode fit</span>
+      <div class="mode-fit-block">
+        <div class="mode-fit-caption">Potential fit</div>
+        <div class="mode-fit-row">
+          <span class="mode-badge mode-exclude">No positive mode fit</span>
+        </div>
       </div>
     `;
   }
 
   return `
-    <div class="mode-fit-row">
-      <span class="mode-fit-label">Potential fit</span>
-      ${positive.map(({ mode, fit }) => `
-        <span class="mode-badge ${modeBadgeClass(fit)}">
-          ${escapeHtml(MODE_LABELS[mode])}: ${escapeHtml(fit)}
-        </span>
-      `).join('')}
+    <div class="mode-fit-block">
+      <div class="mode-fit-caption">Potential fit</div>
+      <div class="mode-fit-row">
+        ${positive.map(({ mode, fit }) => `
+          <span class="mode-badge ${modeBadgeClass(fit)}">
+            ${escapeHtml(MODE_LABELS[mode])}: ${escapeHtml(fit)}
+          </span>
+        `).join('')}
+      </div>
     </div>
   `;
 }
@@ -254,7 +245,6 @@ function renderConfidenceBadge(item) {
   if (value === null) {
     return '<span class="confidence-badge confidence-low">Confidence: unknown</span>';
   }
-
   return `<span class="confidence-badge ${confidenceClass(value)}">Confidence: ${value.toFixed(2)}</span>`;
 }
 
@@ -288,9 +278,7 @@ function inferSourcePack(item) {
     haystack.includes('geoscience') ||
     haystack.includes('geothermal') ||
     haystack.includes('subsurface')
-  ) {
-    return { key: 'geo', label: 'Geo / Earth' };
-  }
+  ) return { key: 'geo', label: 'Geo / Earth' };
 
   if (
     haystack.includes('lawpro') ||
@@ -300,9 +288,7 @@ function inferSourcePack(item) {
     haystack.includes('water quality') ||
     haystack.includes('catchment') ||
     haystack.includes('river restoration')
-  ) {
-    return { key: 'water', label: 'Water / NbS' };
-  }
+  ) return { key: 'water', label: 'Water / NbS' };
 
   if (
     haystack.includes('enterprise-ireland') ||
@@ -310,9 +296,7 @@ function inferSourcePack(item) {
     haystack.includes('climate') ||
     haystack.includes('energy') ||
     haystack.includes('decarbonisation')
-  ) {
-    return { key: 'climate', label: 'Climate' };
-  }
+  ) return { key: 'climate', label: 'Climate' };
 
   if (
     haystack.includes('researchireland') ||
@@ -320,14 +304,9 @@ function inferSourcePack(item) {
     haystack.includes('horizon') ||
     haystack.includes('epa') ||
     haystack.includes('research')
-  ) {
-    return { key: 'research', label: 'Research' };
-  }
+  ) return { key: 'research', label: 'Research' };
 
-  if (haystack.includes('heritage')) {
-    return { key: 'heritage', label: 'Heritage' };
-  }
-
+  if (haystack.includes('heritage')) return { key: 'heritage', label: 'Heritage' };
   return { key: 'general', label: 'General' };
 }
 
@@ -344,18 +323,15 @@ function renderSeenBadge(item) {
   if (item.seen_in_latest_run === true) {
     return '<span class="triage-badge seen-latest">Seen latest</span>';
   }
-
   if (item.seen_in_latest_run === false) {
     return '<span class="triage-badge not-seen-latest">Not in latest run</span>';
   }
-
   return '<span class="triage-badge seen-unknown">Seen unknown</span>';
 }
 
 function renderTriageBadges(item) {
   return `
     <div class="triage-row">
-      ${renderConfidenceBadge(item)}
       ${renderSourcePackBadge(item)}
       ${renderTypeBadge(item)}
       ${renderSeenBadge(item)}
@@ -372,65 +348,32 @@ function detailRows(item) {
   rows.push({ label: 'Mode relevance', value: modeFitDetailText(item) });
   rows.push({ label: 'Source pack', value: pack.label });
 
-  if (item.candidate_type) {
-    rows.push({ label: 'Candidate type', value: readableType(item.candidate_type) });
-  }
-
-  if (item.url) {
-    rows.push({ label: 'URL', value: item.url });
-  }
-
-  if (item.trusted_registry_id) {
-    rows.push({ label: 'Trusted source id', value: item.trusted_registry_id });
-  }
-
-  if (item.deadline_hint) {
-    rows.push({ label: 'Deadline hint', value: item.deadline_hint });
-  }
+  if (item.candidate_type) rows.push({ label: 'Candidate type', value: readableType(item.candidate_type) });
+  if (item.url) rows.push({ label: 'URL', value: item.url });
+  if (item.trusted_registry_id) rows.push({ label: 'Trusted source id', value: item.trusted_registry_id });
+  if (item.deadline_hint) rows.push({ label: 'Deadline hint', value: item.deadline_hint });
 
   if ((item.suggested_applicant_types || []).length > 0) {
-    rows.push({
-      label: 'Suggested applicant types',
-      value: item.suggested_applicant_types.join(', '),
-    });
+    rows.push({ label: 'Suggested applicant types', value: item.suggested_applicant_types.join(', ') });
   }
 
-  if (item.suggested_access_route) {
-    rows.push({ label: 'Suggested access route', value: item.suggested_access_route });
-  }
-
-  if (item.suggested_scale) {
-    rows.push({ label: 'Suggested scale', value: item.suggested_scale });
-  }
+  if (item.suggested_access_route) rows.push({ label: 'Suggested access route', value: item.suggested_access_route });
+  if (item.suggested_scale) rows.push({ label: 'Suggested scale', value: item.suggested_scale });
 
   if ((item.suggested_purposes || []).length > 0) {
-    rows.push({
-      label: 'Suggested purposes',
-      value: item.suggested_purposes.join(', '),
-    });
+    rows.push({ label: 'Suggested purposes', value: item.suggested_purposes.join(', ') });
   }
 
   if ((item.reason_flags || []).length > 0) {
-    rows.push({
-      label: 'Reason flags',
-      value: item.reason_flags.join(', '),
-    });
+    rows.push({ label: 'Reason flags', value: item.reason_flags.join(', ') });
   }
 
   if (item.first_seen || item.last_seen) {
-    rows.push({
-      label: 'Seen',
-      value: `First: ${item.first_seen || '—'} | Last: ${item.last_seen || '—'}`,
-    });
+    rows.push({ label: 'Seen', value: `First: ${item.first_seen || '—'} | Last: ${item.last_seen || '—'}` });
   }
 
   const confidence = confidenceValue(item);
-  if (confidence !== null) {
-    rows.push({
-      label: 'Confidence',
-      value: confidence.toFixed(2),
-    });
-  }
+  if (confidence !== null) rows.push({ label: 'Confidence', value: confidence.toFixed(2) });
 
   return rows;
 }
@@ -442,13 +385,11 @@ function lastSeenTime(item) {
 
 function modeRank(item) {
   let rank = 0;
-
   MODE_ORDER.forEach((mode) => {
     const fit = modeFitValue(item, mode);
     if (fit === 'include') rank = Math.max(rank, 2);
     if (fit === 'maybe') rank = Math.max(rank, 1);
   });
-
   return rank;
 }
 
@@ -460,6 +401,7 @@ function filteredCandidates() {
   return (state.payload.candidates || []).filter((item) => {
     const status = normalizeStatus(item);
     const pack = inferSourcePack(item);
+
     const haystack = [
       item.id,
       item.title,
@@ -476,27 +418,17 @@ function filteredCandidates() {
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),
       ...(item.promotion_reasons || []),
-    ]
-      .join(' ')
-      .toLowerCase();
+    ].join(' ').toLowerCase();
 
     if (search && !haystack.includes(search)) return false;
     if (!candidateMatchesMode(item, selectedMode)) return false;
 
-    // Keep "Everything" genuinely complete. For normal review views, suppress candidates
-    // explicitly marked as irrelevant to all modes.
     if (view !== 'all' && selectedMode === 'all' && candidateHasExplicitNoPositiveFit(item)) {
       return false;
     }
 
-    if (view === 'active') {
-      return status === 'pending_review';
-    }
-
-    if (view === 'suppressed_existing') {
-      return status === 'suppressed_existing';
-    }
-
+    if (view === 'active') return status === 'pending_review';
+    if (view === 'suppressed_existing') return status === 'suppressed_existing';
     if (view === 'suppressed_non_actionable') {
       return (
         status === 'suppressed_non_actionable' ||
@@ -505,10 +437,7 @@ function filteredCandidates() {
         status === 'suppressed_fetch_error'
       );
     }
-
-    if (view === 'completed') {
-      return status === 'promoted' || status === 'rejected';
-    }
+    if (view === 'completed') return status === 'promoted' || status === 'rejected';
 
     return true;
   });
@@ -588,25 +517,22 @@ function renderCards() {
 
   el.cards.innerHTML = candidates.map((item) => {
     const status = normalizeStatus(item);
-    const detailHtml = detailRows(item)
-      .map((row) => `
-        <div class="detail-item">
-          <div class="detail-label">${escapeHtml(row.label)}</div>
-          <div class="detail-value">${escapeHtml(row.value)}</div>
-        </div>
-      `)
-      .join('');
+
+    const detailHtml = detailRows(item).map((row) => `
+      <div class="detail-item">
+        <div class="detail-label">${escapeHtml(row.label)}</div>
+        <div class="detail-value">${escapeHtml(row.value)}</div>
+      </div>
+    `).join('');
 
     const copyValue = item.id || item.url || '';
 
     return `
       <article class="candidate-card">
-        <div class="badge-row">
+        <div class="card-topline">
           <span class="badge ${statusClass(status)}">${escapeHtml(statusLabel(status))}</span>
+          ${renderConfidenceBadge(item)}
         </div>
-
-        ${renderTriageBadges(item)}
-        ${renderModeFitBadges(item)}
 
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
 
@@ -615,6 +541,9 @@ function renderCards() {
           ${item.source_hint ? ` · via ${escapeHtml(item.source_hint)}` : ''}
           ${item.trusted_registry_id ? `<br><strong>Covered by:</strong> ${escapeHtml(item.trusted_registry_id)}` : ''}
         </p>
+
+        ${renderTriageBadges(item)}
+        ${renderModeFitBadges(item)}
 
         <p class="snippet">${escapeHtml(displaySnippet(item))}</p>
 
@@ -680,15 +609,11 @@ function bindCardActions() {
       }
 
       button.textContent = 'Copied';
-      window.setTimeout(() => {
-        button.textContent = originalText;
-      }, 1200);
+      window.setTimeout(() => { button.textContent = originalText; }, 1200);
     } catch (error) {
       console.error('Copy failed', error);
       button.textContent = 'Copy failed';
-      window.setTimeout(() => {
-        button.textContent = originalText;
-      }, 1200);
+      window.setTimeout(() => { button.textContent = originalText; }, 1200);
     }
   });
 }

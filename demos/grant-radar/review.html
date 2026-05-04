@@ -466,6 +466,125 @@
     }
 
 
+
+    .candidate-card h3 {
+      margin: 0 0 0.45rem;
+      line-height: 1.2;
+    }
+
+    .card-topline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .triage-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      margin: 0 0 0.85rem;
+    }
+
+    .mode-fit-block {
+      margin: 0 0 0.95rem;
+    }
+
+    .mode-fit-caption {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .mode-fit-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .confidence-badge,
+    .triage-badge,
+    .mode-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.36rem 0.68rem;
+      font-size: 0.76rem;
+      font-weight: 850;
+      line-height: 1;
+      white-space: nowrap;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .confidence-high,
+    .mode-include,
+    .seen-latest {
+      background: rgba(114, 235, 194, 0.16);
+      border-color: rgba(114, 235, 194, 0.46);
+      color: #dbfff4;
+    }
+
+    .confidence-medium,
+    .mode-maybe {
+      background: rgba(255, 202, 87, 0.16);
+      border-color: rgba(255, 202, 87, 0.44);
+      color: #fff1c4;
+    }
+
+    .confidence-low,
+    .mode-exclude,
+    .not-seen-latest {
+      background: rgba(255, 128, 128, 0.12);
+      border-color: rgba(255, 128, 128, 0.28);
+      color: #ffdede;
+    }
+
+    .mode-unknown,
+    .seen-unknown,
+    .candidate-type,
+    .source-pack-general {
+      background: rgba(160, 175, 190, 0.12);
+      border-color: rgba(220, 230, 240, 0.18);
+      color: #edf5ff;
+    }
+
+    .source-pack-water {
+      background: rgba(102, 217, 255, 0.14);
+      border-color: rgba(102, 217, 255, 0.38);
+      color: #d8f6ff;
+    }
+
+    .source-pack-geo {
+      background: rgba(215, 186, 125, 0.16);
+      border-color: rgba(215, 186, 125, 0.42);
+      color: #fff0c9;
+    }
+
+    .source-pack-climate {
+      background: rgba(255, 213, 106, 0.15);
+      border-color: rgba(255, 213, 106, 0.42);
+      color: #fff3c8;
+    }
+
+    .source-pack-research {
+      background: rgba(184, 196, 255, 0.15);
+      border-color: rgba(184, 196, 255, 0.42);
+      color: #eef1ff;
+    }
+
+    .source-pack-heritage {
+      background: rgba(210, 170, 255, 0.14);
+      border-color: rgba(210, 170, 255, 0.36);
+      color: #f3e8ff;
+    }
+
     @media (max-width: 980px) {
       .summary-grid,
       .controls-grid,
@@ -533,7 +652,7 @@
       <div id="cards" class="cards-grid"></div>
     </section>
   </div>
-  <script src="./review.js?v=20260504-review-triage-console-1" defer></script>
+  <script src="./review.js?v=20260504-review-layout-fix-1" defer></script>
   <script
     defer
     src="https://static.cloudflareinsights.com/beacon.min.js"
