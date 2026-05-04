@@ -241,9 +241,6 @@ function detailRows(item) {
 
   rows.push({ label: 'Status', value: statusLabel(status) });
 
-  if (item.id) {
-    rows.push({ label: 'Candidate ID', value: item.id });
-  }
 
   if (item.url) {
     rows.push({ label: 'URL', value: item.url });
@@ -439,7 +436,6 @@ function renderCards() {
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
 
         <p class="meta">
-          <strong>ID:</strong> <code>${escapeHtml(item.id || '')}</code><br>
           ${escapeHtml(item.domain || 'unknown domain')}
           ${item.source_hint ? ` · via ${escapeHtml(item.source_hint)}` : ''}
           ${item.trusted_registry_id ? `<br><strong>Covered by:</strong> ${escapeHtml(item.trusted_registry_id)}` : ''}
