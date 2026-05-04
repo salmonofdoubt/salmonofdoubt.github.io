@@ -585,6 +585,15 @@
       color: #f3e8ff;
     }
 
+    .review-filter-note {
+      margin: 0.85rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+      border-left: 3px solid rgba(114, 235, 194, 0.5);
+      padding-left: 0.8rem;
+    }
+
     @media (max-width: 980px) {
       .summary-grid,
       .controls-grid,
@@ -622,13 +631,14 @@
         </div>
 
         <div>
-          <label for="view">View</label>
+          <label for="view">Queue view</label>
           <select id="view">
-            <option value="active" selected>Active queue</option>
+            <option value="real" selected>Real opportunities only</option>
+            <option value="active">Needs decision, raw queue</option>
             <option value="suppressed_existing">Suppressed: already covered</option>
             <option value="suppressed_non_actionable">Suppressed: non-actionable</option>
             <option value="completed">Completed</option>
-            <option value="all">Everything</option>
+            <option value="all">Everything / audit view</option>
           </select>
         </div>
 
@@ -645,6 +655,10 @@
           </select>
         </div>
       </div>
+      <p class="review-filter-note">
+        Default view shows only candidates that look like real apply-for funding routes. The full discovery audit remains available under
+        <strong>Everything / audit view</strong>.
+      </p>
     </section>
 
     <section class="panel">
@@ -652,7 +666,7 @@
       <div id="cards" class="cards-grid"></div>
     </section>
   </div>
-  <script src="./review.js?v=20260504-review-layout-fix-1" defer></script>
+  <script src="./review.js?v=20260504-real-opportunities-view-1" defer></script>
   <script
     defer
     src="https://static.cloudflareinsights.com/beacon.min.js"

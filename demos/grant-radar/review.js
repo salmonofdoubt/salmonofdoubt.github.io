@@ -159,6 +159,120 @@ function candidateHasExplicitNoPositiveFit(item) {
   return candidateHasAnyModeData(item) && !candidateHasPositiveModeFit(item);
 }
 
+
+function hasTextAny(item, terms) {
+  const haystack = [
+    item.title,
+    item.url,
+    item.domain,
+    item.source_hint,
+    item.source_id_hint,
+    item.detected_from,
+    item.snippet,
+    item.candidate_type,
+    item.deadline_hint,
+    item.triage_class,
+    item.triage_reason,
+    ...(item.suggested_purposes || []),
+    ...(item.promotion_reasons || []),
+  ].join(' ').toLowerCase();
+
+  return terms.some((term) => haystack.includes(term));
+}
+
+function titleLooksGeneric(item) {
+  const title = String(item.title || '').trim().toLowerCase();
+
+  return [
+    'funding',
+    'funding and grants',
+    'grants',
+    'grant funding',
+    'horizon europe',
+    'projects',
+    'funding opportunities',
+    'research',
+  ].includes(title);
+}
+
+function looksLikeAdminOrArchive(item) {
+  return hasTextAny(item, [
+    'terms and conditions',
+    'standard terms',
+    'acknowledging our funding',
+    'appeals process',
+    'funded projects',
+    'featured projects',
+    'successful projects',
+    'awardees',
+    'case study',
+    'privacy',
+    'cookie',
+    'contact',
+    'about us',
+    'related news',
+    'related publications',
+  ]);
+}
+
+function isRealOpportunity(item) {
+  const status = normalizeStatus(item);
+  if (status !== 'pending_review') return false;
+
+  const triage = String(item.triage_class || '').toLowerCase();
+
+  if (triage === 'direct_apply' || triage === 'programme_watch') {
+    return true;
+  }
+
+  if (
+    triage === 'admin_guidance' ||
+    triage === 'generic_index' ||
+    triage === 'off_scope' ||
+    triage === 'weak_apply_signal' ||
+    triage === 'already_covered'
+  ) {
+    return false;
+  }
+
+  if (titleLooksGeneric(item)) return false;
+  if (looksLikeAdminOrArchive(item)) return false;
+  if (candidateHasExplicitNoPositiveFit(item)) return false;
+
+  const type = String(item.candidate_type || '').toLowerCase();
+  const confidence = Number(item.confidence || 0);
+
+  const usefulType = [
+    'funding_call',
+    'recurring_programme',
+    'rolling_support',
+    'scholarship',
+  ].includes(type);
+
+  const applySignal =
+    Boolean(item.deadline_hint) ||
+    hasTextAny(item, [
+      'apply',
+      'how to apply',
+      'application',
+      'applications',
+      'call for proposals',
+      'call for applications',
+      'joint transnational call',
+      'deadline',
+      'closing date',
+      'eligibility',
+      'eligible',
+      'networking awards',
+      'supplemental grant',
+      'research grants',
+      'scientific networks',
+      'fellowship',
+    ]);
+
+  return usefulType && applySignal && confidence >= 0.55 && candidateHasPositiveModeFit(item);
+}
+
 function candidateMatchesMode(item, selectedMode) {
   if (!selectedMode || selectedMode === 'all') return true;
   if (selectedMode === 'unclassified') return !candidateHasAnyModeData(item);
@@ -395,7 +509,7 @@ function modeRank(item) {
 
 function filteredCandidates() {
   const search = el.search.value.trim().toLowerCase();
-  const view = el.view.value;
+  const view = el.view.value || 'real';
   const selectedMode = el.modeFilter ? el.modeFilter.value : 'all';
 
   return (state.payload.candidates || []).filter((item) => {
@@ -412,6 +526,8 @@ function filteredCandidates() {
       item.trusted_registry_id,
       item.url,
       item.candidate_type,
+      item.triage_class,
+      item.triage_reason,
       pack.label,
       modeFitSearchText(item),
       ...(item.suggested_purposes || []),
@@ -423,12 +539,18 @@ function filteredCandidates() {
     if (search && !haystack.includes(search)) return false;
     if (!candidateMatchesMode(item, selectedMode)) return false;
 
-    if (view !== 'all' && selectedMode === 'all' && candidateHasExplicitNoPositiveFit(item)) {
-      return false;
+    if (view === 'real') {
+      return isRealOpportunity(item);
     }
 
-    if (view === 'active') return status === 'pending_review';
-    if (view === 'suppressed_existing') return status === 'suppressed_existing';
+    if (view === 'active') {
+      return status === 'pending_review';
+    }
+
+    if (view === 'suppressed_existing') {
+      return status === 'suppressed_existing';
+    }
+
     if (view === 'suppressed_non_actionable') {
       return (
         status === 'suppressed_non_actionable' ||
@@ -437,11 +559,15 @@ function filteredCandidates() {
         status === 'suppressed_fetch_error'
       );
     }
-    if (view === 'completed') return status === 'promoted' || status === 'rejected';
+
+    if (view === 'completed') {
+      return status === 'promoted' || status === 'rejected';
+    }
 
     return true;
   });
 }
+
 
 function sortedCandidates(items) {
   const rank = {
@@ -511,7 +637,7 @@ function renderCards() {
   renderSummary(allCandidates);
 
   if (candidates.length === 0) {
-    el.cards.innerHTML = '<div class="empty-state">No candidates match the current filter.</div>';
+    el.cards.innerHTML = '<div class="empty-state">No candidates match the current filter. Switch Queue view to Everything / audit view to see the full discovery file.</div>';
     return;
   }
 
