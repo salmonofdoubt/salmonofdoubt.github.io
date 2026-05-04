@@ -247,26 +247,38 @@ function titleLooksGeneric(item) {
 }
 
 function looksLikeNoise(item) {
-  const text = candidateText(item);
+  /*
+    Important:
+    Do NOT scan the full snippet here. Official pages often include
+    navigation text such as Contact, About, Cookies, Publications, etc.
+    That was excluding genuine funding calls.
+  */
+  const title = String(item.title || '').toLowerCase();
+  const url = String(item.url || '').toLowerCase();
+  const compact = `${title} ${url}`;
 
-  return textHasAny(text, [
-    'terms and conditions',
-    'standard terms',
-    'acknowledging our funding',
-    'appeals process',
-    'funded projects',
-    'featured projects',
-    'successful projects',
-    'awardees',
-    'case study',
-    'related news',
-    'related publications',
-    'privacy',
-    'cookie',
-    'contact',
-    'about us',
-  ]);
+  return [
+    /terms? and conditions?/,
+    /standard terms/,
+    /acknowledg(e|ing)[-\s]?our[-\s]?funding/,
+    /appeals?[-\s]?process/,
+    /funded[-\s]?projects/,
+    /featured[-\s]?projects/,
+    /successful[-\s]?projects/,
+    /awardees?/,
+    /case[-\s]?stud(y|ies)/,
+    /privacy/,
+    /cookie/,
+    /\/contact\/?$/,
+    /\/about-us\/?$/,
+    /\/about\/?$/,
+    /\/publications?\/?$/,
+    /\/resources?\/?$/,
+    /\/guidance\/?$/,
+    /\/faq\/?$/,
+  ].some((pattern) => pattern.test(compact));
 }
+
 
 function looksOffScope(item) {
   const text = candidateText(item);
@@ -312,11 +324,12 @@ function isRealOpportunity(item) {
 
   const strongApplySignal =
     Boolean(deadline) ||
-    /joint transnational call|call for proposals|call for applications|funding call|research call|grant scheme|networking awards|supplemental grant|research grants|scientific networks|marie sk|erc advanced grant|life calls/i.test(title) ||
+    /joint transnational call|call for proposals|call for applications|funding call|research call|grant scheme|networking awards|supplemental grant|research grants|scientific networks|marie sk|erc advanced grant|life calls|fellowship|scholarship/i.test(title) ||
     /\/funding\/[^/]+|\/grants?\/[^/]+|\/call|\/calls|\/programme|\/programmes|\/scheme|\/fellowship|\/research-grants|\/scientific-networks|\/advanced-grants|\/life-calls/i.test(url);
 
-  return usefulType && strongApplySignal && confidence >= 0.65 && candidateHasPositiveModeFit(item);
+  return usefulType && strongApplySignal && confidence >= 0.55 && candidateHasPositiveModeFit(item);
 }
+
 
 
 function candidateMatchesMode(item, selectedMode) {
