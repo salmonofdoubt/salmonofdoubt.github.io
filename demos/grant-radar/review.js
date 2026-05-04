@@ -187,20 +187,6 @@ function hasTextAny(item, terms) {
   return terms.some((term) => haystack.includes(term));
 }
 
-function titleLooksGeneric(item) {
-  const title = String(item.title || '').trim().toLowerCase();
-
-  return [
-    'funding',
-    'funding and grants',
-    'grants',
-    'grant funding',
-    'horizon europe',
-    'projects',
-    'funding opportunities',
-    'research',
-  ].includes(title);
-}
 
 function looksLikeAdminOrArchive(item) {
   return hasTextAny(item, [
@@ -221,6 +207,80 @@ function looksLikeAdminOrArchive(item) {
     'related publications',
   ]);
 }
+
+
+function candidateText(item) {
+  return [
+    item.title,
+    item.url,
+    item.domain,
+    item.source_hint,
+    item.source_id_hint,
+    item.detected_from,
+    item.snippet,
+    item.candidate_type,
+    item.deadline_hint,
+    item.triage_class,
+    item.triage_reason,
+    ...asArray(item.suggested_purposes),
+    ...asArray(item.promotion_reasons),
+  ].join(' ').toLowerCase();
+}
+
+function textHasAny(text, terms) {
+  return terms.some((term) => text.includes(term));
+}
+
+function titleLooksGeneric(item) {
+  const title = String(item.title || '').trim().toLowerCase();
+
+  return [
+    'funding',
+    'funding and grants',
+    'grants',
+    'grant funding',
+    'horizon europe',
+    'projects',
+    'funding opportunities',
+    'research',
+  ].includes(title);
+}
+
+function looksLikeNoise(item) {
+  const text = candidateText(item);
+
+  return textHasAny(text, [
+    'terms and conditions',
+    'standard terms',
+    'acknowledging our funding',
+    'appeals process',
+    'funded projects',
+    'featured projects',
+    'successful projects',
+    'awardees',
+    'case study',
+    'related news',
+    'related publications',
+    'privacy',
+    'cookie',
+    'contact',
+    'about us',
+  ]);
+}
+
+function looksOffScope(item) {
+  const text = candidateText(item);
+
+  return textHasAny(text, [
+    'civil security',
+    'culture, creativity and inclusive society',
+    'promotion of agricultural products',
+    'coal and steel',
+    'reforming and enhancing the european r&i system',
+    'widening participation and spreading excellence',
+  ]);
+}
+
 
 function isRealOpportunity(item) {
   const status = normalizeStatus(item);
