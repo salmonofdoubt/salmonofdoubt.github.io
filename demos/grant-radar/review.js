@@ -27,6 +27,13 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;');
 }
 
+
+function asArray(value) {
+  if (Array.isArray(value)) return value;
+  if (value === null || value === undefined || value === '') return [];
+  return [value];
+}
+
 function summaryBox(label, value) {
   return `
     <div class="summary-box">
@@ -115,8 +122,8 @@ function displaySnippet(item) {
 }
 
 function shortWhy(item) {
-  const reasons = Array.isArray(item.promotion_reasons) ? item.promotion_reasons.filter(Boolean) : [];
-  const flags = Array.isArray(item.reason_flags) ? item.reason_flags.filter(Boolean) : [];
+  const reasons = asArray(item.promotion_reasons).filter(Boolean);
+  const flags = asArray(item.reason_flags).filter(Boolean);
 
   if (reasons.length > 0) return reasons.slice(0, 3).join(', ');
   if (flags.length > 0) return flags.slice(0, 3).join(', ');
@@ -173,8 +180,8 @@ function hasTextAny(item, terms) {
     item.deadline_hint,
     item.triage_class,
     item.triage_reason,
-    ...(item.suggested_purposes || []),
-    ...(item.promotion_reasons || []),
+    ...asArray(item.suggested_purposes),
+    ...asArray(item.promotion_reasons),
   ].join(' ').toLowerCase();
 
   return terms.some((term) => haystack.includes(term));
@@ -359,7 +366,7 @@ function inferSourcePack(item) {
     item.domain,
     item.url,
     item.title,
-    ...(item.suggested_purposes || []),
+    ...asArray(item.suggested_purposes),
   ].join(' ').toLowerCase();
 
   if (
@@ -446,19 +453,19 @@ function detailRows(item) {
   if (item.trusted_registry_id) rows.push({ label: 'Trusted source id', value: item.trusted_registry_id });
   if (item.deadline_hint) rows.push({ label: 'Deadline hint', value: item.deadline_hint });
 
-  if ((item.suggested_applicant_types || []).length > 0) {
-    rows.push({ label: 'Suggested applicant types', value: item.suggested_applicant_types.join(', ') });
+  if (asArray(item.suggested_applicant_types).length > 0) {
+    rows.push({ label: 'Suggested applicant types', value: asArray(item.suggested_applicant_types).join(', ') });
   }
 
   if (item.suggested_access_route) rows.push({ label: 'Suggested access route', value: item.suggested_access_route });
   if (item.suggested_scale) rows.push({ label: 'Suggested scale', value: item.suggested_scale });
 
-  if ((item.suggested_purposes || []).length > 0) {
-    rows.push({ label: 'Suggested purposes', value: item.suggested_purposes.join(', ') });
+  if (asArray(item.suggested_purposes).length > 0) {
+    rows.push({ label: 'Suggested purposes', value: asArray(item.suggested_purposes).join(', ') });
   }
 
-  if ((item.reason_flags || []).length > 0) {
-    rows.push({ label: 'Reason flags', value: item.reason_flags.join(', ') });
+  if (asArray(item.reason_flags).length > 0) {
+    rows.push({ label: 'Reason flags', value: asArray(item.reason_flags).join(', ') });
   }
 
   if (item.first_seen || item.last_seen) {
@@ -509,10 +516,10 @@ function filteredCandidates() {
       item.triage_reason,
       pack.label,
       modeFitSearchText(item),
-      ...(item.suggested_purposes || []),
-      ...(item.suggested_applicant_types || []),
-      ...(item.reason_flags || []),
-      ...(item.promotion_reasons || []),
+      ...asArray(item.suggested_purposes),
+      ...asArray(item.suggested_applicant_types),
+      ...asArray(item.reason_flags),
+      ...asArray(item.promotion_reasons),
     ].join(' ').toLowerCase();
 
     if (search && !haystack.includes(search)) return false;
@@ -725,6 +732,11 @@ function bindCardActions() {
 
 async function init() {
   const response = await fetch('./data/discovery-candidates.json', { cache: 'no-store' });
+
+  if (!response.ok) {
+    throw new Error(`Could not fetch discovery-candidates.json: HTTP ${response.status}`);
+  }
+
   const payload = await response.json();
 
   state.payload = Array.isArray(payload) ? { candidates: payload } : payload;
@@ -740,5 +752,6 @@ async function init() {
 
 init().catch((error) => {
   console.error(error);
-  el.cards.innerHTML = '<div class="empty-state">Review queue failed to load. Check that <code>data/discovery-candidates.json</code> exists.</div>';
+  const message = escapeHtml(error && error.message ? error.message : String(error));
+  el.cards.innerHTML = `<div class="empty-state">Review queue failed to load: <code>${message}</code></div>`;
 });
