@@ -212,6 +212,35 @@
       "/urban-geology/",
       "/information/",
       "/how-and-where-we-work/"
+    ],
+    "source_pack": "geo",
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    },
+    "require_any_terms_for_review": [
+      "call",
+      "career",
+      "dfg",
+      "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
+      "horizon",
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ]
   },
   {
@@ -359,11 +388,29 @@
       "natural water retention"
     ],
     "require_any_terms_for_review": [
-      "bespoke",
-      "measure",
-      "funding",
-      "eligible",
       "apply",
+      "bespoke",
+      "call",
+      "career",
+      "dfg",
+      "eligible",
+      "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
+      "horizon",
+      "hydrogen",
+      "measure",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy",
       "water quality benefit"
     ],
     "suppress_candidate_url_patterns": [
@@ -371,7 +418,15 @@
       "/contact",
       "/privacy",
       "/cookie"
-    ]
+    ],
+    "source_pack": "geo",
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "gov_water_quality_nbs_watch",
@@ -558,25 +613,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -587,7 +642,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_dfg_scientific_networks_watch",
@@ -650,25 +712,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -679,7 +741,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_dfg_reinhart_koselleck_watch",
@@ -741,25 +810,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -770,7 +839,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_dfg_heisenberg_watch",
@@ -832,25 +908,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -861,7 +937,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_erc_advanced_watch",
@@ -924,25 +1007,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -953,7 +1036,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_horizon_energy_supply_watch",
@@ -1017,25 +1107,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -1046,7 +1136,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_clean_hydrogen_partnership_watch",
@@ -1110,25 +1207,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -1139,7 +1236,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_ptj_hydrogen_derivatives_watch",
@@ -1203,25 +1307,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -1232,7 +1336,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_rifs_klaus_toepfer_watch",
@@ -1295,25 +1406,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -1324,7 +1435,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_gfz_jobs_board_watch",
@@ -1387,25 +1505,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -1416,7 +1534,14 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   },
   {
     "id": "geo_gfz_klaus_toepfer_watch",
@@ -1479,25 +1604,25 @@
       "wetland interfaces"
     ],
     "require_any_terms_for_review": [
-      "grant",
-      "funding",
       "call",
-      "proposal",
-      "programme",
-      "fellowship",
       "career",
-      "vacancy",
-      "research",
-      "geoscience",
-      "geochemistry",
-      "hydrogen",
-      "geothermal",
-      "subsurface",
-      "gfz",
       "dfg",
       "erc",
+      "fellowship",
+      "funding",
+      "geochemistry",
+      "geoscience",
+      "geothermal",
+      "gfz",
+      "grant",
       "horizon",
-      "potsdam"
+      "hydrogen",
+      "potsdam",
+      "programme",
+      "proposal",
+      "research",
+      "subsurface",
+      "vacancy"
     ],
     "suppress_candidate_url_patterns": [
       "/press/",
@@ -1508,6 +1633,13 @@
       "/imprint",
       "/kontakt",
       "/contact"
-    ]
+    ],
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    }
   }
 ]

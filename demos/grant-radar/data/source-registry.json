@@ -584,11 +584,16 @@
     "mode_relevance": {
       "ndrt": "exclude",
       "research": "maybe",
-      "farmer": "exclude"
+      "farmer": "exclude",
+      "geo": "include",
+      "climate": "maybe"
     },
     "mode_reason": {
-      "ndrt": "Geoheritage education route, not primarily a river Trust water-quality or catchment delivery opportunity."
-    }
+      "ndrt": "Geoheritage education route, not primarily a river Trust water-quality or catchment delivery opportunity.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
+      "research": "Research-facing route with possible institutional or PI relevance."
+    },
+    "source_pack": "geo"
   },
   {
     "id": "heritage_community_grant",
@@ -2394,7 +2399,19 @@
     "allow_pdf_candidates": false,
     "programme_kind": "recurring_programme",
     "programme_state": "closed",
-    "public_visible_state": "public_visible"
+    "public_visible_state": "public_visible",
+    "source_pack": "geo",
+    "mode_relevance": {
+      "geo": "include",
+      "research": "include",
+      "climate": "maybe",
+      "ndrt": "exclude",
+      "farmer": "exclude"
+    },
+    "mode_reason": {
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
+      "research": "Research-facing route with possible institutional or PI relevance."
+    }
   },
   {
     "id": "water_quality_capital_programme_2026",
@@ -2625,7 +2642,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -2729,7 +2746,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -2831,7 +2848,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -2933,7 +2950,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -3036,7 +3053,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -3140,7 +3157,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -3246,7 +3263,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -3351,7 +3368,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -3454,7 +3471,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -3557,7 +3574,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
@@ -3661,7 +3678,7 @@
       "geo": "include"
     },
     "mode_reason": {
-      "geo": "Imported from Geo Radar source pack; relevant to geoscience, Earth systems, GFZ/Potsdam, DFG/ERC/Horizon, hydrogen, geothermal, subsurface, or sustainability research.",
+      "geo": "Geo / Earth Systems source pack: geoscience, geochemistry, subsurface, hydrogen, geothermal, GFZ/Potsdam, DFG/ERC/Horizon, or related Earth-systems research route.",
       "research": "Research-facing route imported from the Geo Radar registry.",
       "ndrt": "Not a river-trust/community delivery funding route.",
       "farmer": "Not a farmer-facing implementation route.",
