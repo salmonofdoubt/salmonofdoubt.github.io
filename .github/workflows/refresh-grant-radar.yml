@@ -34,6 +34,9 @@ jobs:
       - name: Discover candidate grant pages
         run: python demos/grant-radar/ops/discover_grants.py
 
+      - name: Focus review queue on real opportunities
+        run: python demos/grant-radar/ops/focus_review_queue.py
+
       - name: Refresh trusted catalogue
         run: python demos/grant-radar/ops/harvest_grants.py
 
