@@ -4,11 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#173042" />
-  <title>Geo Radar | Germany and EU geoscience funding</title>
-  <meta
-    name="description"
-    content="Static GitHub Pages-ready radar for geoscience, geochemistry, subsurface processes, hydrogen storage, geothermal systems, fluid migration, instrumentation, fellowships, and research funding."
-  />
+  <title>Geo Radar moved | Use Grant Radar Geo mode</title>
+  <meta name="description" content="Geo Radar has moved into Grant Radar as Geo / Earth Systems mode. This legacy Geo Radar page is no longer developed here." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -27,12 +24,25 @@
             geochemistry, isotope and gas geochemistry, subsurface processes, hydrogen storage,
             geothermal systems, fluid migration, environmental monitoring, and research instrumentation.
           </p>
-          <p class="micro-note">
-            The live site is deliberately static at the front end and powered by a generated JSON catalogue,
-            which keeps it fast, stable, and easy to deploy. Alongside that trusted catalogue, Geo Radar
-            includes a discovery layer that scans selected German and EU sources for grants, fellowships,
-            networks, scientific vacancies, and research-opportunity pages, then places candidate items into
-            a separate review queue before any verified opportunities are promoted into the main radar.
+
+          <div class="migration-notice" role="status" aria-label="Geo Radar migration notice">
+            <div class="migration-copy">
+              <p class="migration-kicker">Moved into Grant Radar</p>
+              <h2>Geo Radar now lives in Grant Radar as Geo / Earth Systems mode.</h2>
+              <p>
+                This standalone Geo Radar page is preserved as a legacy demonstrator, but it is no longer
+                the maintained development path. Future source expansion, filtering, review, and catalogue
+                updates should happen in <strong>Grant Radar</strong> using <strong>Geo / Earth Systems mode</strong>.
+              </p>
+            </div>
+            <div class="migration-actions">
+              <a class="pill-link migration-primary" href="/demos/grant-radar/">Open Grant Radar</a>
+              <span class="migration-hint">Then select <strong>Geo / Earth Systems mode</strong>.</span>
+            </div>
+          </div>
+          <p class="micro-note legacy-note">
+            Legacy status: this page may remain available for reference, but the maintained version is now
+            Grant Radar with the Geo / Earth Systems mode selected.
           </p>
         </div>
 
@@ -68,6 +78,13 @@
         <div class="hero-card">
           <p class="hero-card-kicker">Quick links</p>
           <div class="top-links">
+            <a
+              class="pill-link migration-primary"
+              id="grant-radar-link"
+              href="/demos/grant-radar/"
+            >
+              Open Grant Radar Geo mode
+            </a>
             <a
               class="pill-link"
               id="support-link"
