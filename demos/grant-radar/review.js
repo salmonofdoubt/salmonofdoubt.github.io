@@ -18,6 +18,7 @@ function escapeHtml(value) {
 }
 
 
+
 const MODE_LABELS = {
   ndrt: 'River Trust',
   farmer: 'Farming',
@@ -52,8 +53,6 @@ function candidateMatchesMode(item, selectedMode) {
   }
 
   const fit = modeFitValue(item, selectedMode);
-
-  // "Potentially good" means definite include or reviewable maybe.
   return fit === 'include' || fit === 'maybe';
 }
 
@@ -80,11 +79,18 @@ function modeFitSummary(item) {
 
 function modeFitSearchText(item) {
   const relevance = item.mode_relevance || {};
-
   return MODE_ORDER.map((mode) => {
     const fit = normalizeModeFit(relevance[mode]);
     return `${mode} ${MODE_LABELS[mode]} ${fit}`;
   }).join(' ');
+}
+
+function modeFitDetailText(item) {
+  const relevance = item.mode_relevance || {};
+  return MODE_ORDER.map((mode) => {
+    const fit = normalizeModeFit(relevance[mode]);
+    return `${MODE_LABELS[mode]}: ${fit}`;
+  }).join(' | ');
 }
 
 function renderModeFitBadges(item) {
@@ -94,7 +100,7 @@ function renderModeFitBadges(item) {
     if (!candidateHasAnyModeData(item)) {
       return `
         <div class="mode-fit-row">
-          <span class="mode-fit-label">Mode fit</span>
+          <span class="mode-fit-label">Potential fit</span>
           <span class="mode-badge mode-unknown">Unclassified</span>
         </div>
       `;
@@ -102,7 +108,7 @@ function renderModeFitBadges(item) {
 
     return `
       <div class="mode-fit-row">
-        <span class="mode-fit-label">Mode fit</span>
+        <span class="mode-fit-label">Potential fit</span>
         <span class="mode-badge mode-exclude">No positive mode fit</span>
       </div>
     `;
@@ -110,7 +116,7 @@ function renderModeFitBadges(item) {
 
   return `
     <div class="mode-fit-row">
-      <span class="mode-fit-label">Mode fit</span>
+      <span class="mode-fit-label">Potential fit</span>
       ${positive.map(({ mode, fit }) => `
         <span class="mode-badge ${modeBadgeClass(fit)}">
           ${escapeHtml(MODE_LABELS[mode])}: ${escapeHtml(fit)}
@@ -120,13 +126,25 @@ function renderModeFitBadges(item) {
   `;
 }
 
-function modeFitDetailText(item) {
-  const relevance = item.mode_relevance || {};
+function confidenceValue(item) {
+  const raw = Number(item.confidence);
+  return Number.isFinite(raw) ? raw : null;
+}
 
-  return MODE_ORDER.map((mode) => {
-    const fit = normalizeModeFit(relevance[mode]);
-    return `${MODE_LABELS[mode]}: ${fit}`;
-  }).join(' | ');
+function confidenceClass(value) {
+  if (value === null) return 'confidence-low';
+  if (value >= 0.85) return 'confidence-high';
+  if (value >= 0.65) return 'confidence-medium';
+  return 'confidence-low';
+}
+
+function renderConfidenceBadge(item) {
+  const value = confidenceValue(item);
+  if (value === null) {
+    return '<span class="confidence-badge confidence-low">Confidence: unknown</span>';
+  }
+
+  return `<span class="confidence-badge ${confidenceClass(value)}">Confidence: ${value.toFixed(2)}</span>`;
 }
 
 
@@ -240,7 +258,7 @@ function detailRows(item) {
   const status = normalizeStatus(item);
 
   rows.push({ label: 'Status', value: statusLabel(status) });
-
+  rows.push({ label: 'Mode relevance', value: modeFitDetailText(item) });
 
   if (item.url) {
     rows.push({ label: 'URL', value: item.url });
@@ -253,8 +271,6 @@ function detailRows(item) {
   if (item.deadline_hint) {
     rows.push({ label: 'Deadline hint', value: item.deadline_hint });
   }
-
-  rows.push({ label: 'Mode relevance', value: modeFitDetailText(item) });
 
   if ((item.suggested_applicant_types || []).length > 0) {
     rows.push({
@@ -292,15 +308,17 @@ function detailRows(item) {
     });
   }
 
-  if (typeof item.confidence !== 'undefined') {
+  const confidence = confidenceValue(item);
+  if (confidence !== null) {
     rows.push({
       label: 'Confidence',
-      value: Number(item.confidence || 0).toFixed(2),
+      value: confidence.toFixed(2),
     });
   }
 
   return rows;
 }
+
 
 function filteredCandidates() {
   const search = el.search.value.trim().toLowerCase();
@@ -318,6 +336,7 @@ function filteredCandidates() {
       item.deadline_hint,
       item.trusted_registry_id,
       item.url,
+      modeFitSearchText(item),
       ...(item.suggested_purposes || []),
       ...(item.suggested_applicant_types || []),
       ...(item.reason_flags || []),
@@ -327,6 +346,7 @@ function filteredCandidates() {
       .toLowerCase();
 
     if (search && !haystack.includes(search)) return false;
+    if (!candidateMatchesMode(item, selectedMode)) return false;
 
     if (view === 'active') {
       return status === 'pending_review';
@@ -352,6 +372,7 @@ function filteredCandidates() {
     return true;
   });
 }
+
 
 function sortedCandidates(items) {
   const rank = {
@@ -431,7 +452,10 @@ function renderCards() {
       <article class="candidate-card">
         <div class="badge-row">
           <span class="badge ${statusClass(status)}">${escapeHtml(statusLabel(status))}</span>
+          ${renderConfidenceBadge(item)}
         </div>
+
+        ${renderModeFitBadges(item)}
 
         <h3>${escapeHtml(item.title || 'Untitled candidate')}</h3>
 
@@ -481,6 +505,7 @@ function renderCards() {
     `;
   }).join('');
 }
+
 
 function bindCardActions() {
   el.cards.addEventListener('click', async (event) => {
