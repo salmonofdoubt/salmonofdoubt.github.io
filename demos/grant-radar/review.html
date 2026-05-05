@@ -594,6 +594,23 @@
       padding-left: 0.8rem;
     }
 
+
+    .summary-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    @media (max-width: 1180px) {
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 980px) {
       .summary-grid,
       .controls-grid,
@@ -666,7 +683,7 @@
       <div id="cards" class="cards-grid"></div>
     </section>
   </div>
-  <script src="./review.js?v=20260504-helper-fix-1" defer></script>
+  <script src="./review.js?v=20260505-currently-displayed-1" defer></script>
   <script
     defer
     src="https://static.cloudflareinsights.com/beacon.min.js"

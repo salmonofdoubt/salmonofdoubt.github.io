@@ -664,7 +664,7 @@ function sortedCandidates(items) {
   });
 }
 
-function renderSummary(allCandidates) {
+function renderSummary(allCandidates, visibleCandidates = []) {
   const counts = {
     pending_review: 0,
     suppressed_existing: 0,
@@ -674,18 +674,25 @@ function renderSummary(allCandidates) {
 
   allCandidates.forEach((item) => {
     const status = normalizeStatus(item);
-    if (status === 'pending_review') counts.pending_review += 1;
-    else if (status === 'suppressed_existing') counts.suppressed_existing += 1;
-    else if (
+
+    if (status === 'pending_review') {
+      counts.pending_review += 1;
+    } else if (status === 'suppressed_existing') {
+      counts.suppressed_existing += 1;
+    } else if (
       status === 'suppressed_non_actionable' ||
       status === 'suppressed_generic_page' ||
       status === 'suppressed_stale' ||
       status === 'suppressed_fetch_error'
-    ) counts.suppressed_non_actionable += 1;
-    else if (status === 'promoted' || status === 'rejected') counts.completed += 1;
+    ) {
+      counts.suppressed_non_actionable += 1;
+    } else if (status === 'promoted' || status === 'rejected') {
+      counts.completed += 1;
+    }
   });
 
   el.summaryGrid.innerHTML = [
+    summaryBox('Currently displayed', visibleCandidates.length),
     summaryBox('Needs decision', counts.pending_review),
     summaryBox('Already covered', counts.suppressed_existing),
     summaryBox('Non-actionable', counts.suppressed_non_actionable),
@@ -697,7 +704,7 @@ function renderCards() {
   const allCandidates = state.payload.candidates || [];
   const candidates = sortedCandidates(filteredCandidates());
 
-  renderSummary(allCandidates);
+  renderSummary(allCandidates, candidates);
 
   if (candidates.length === 0) {
     el.cards.innerHTML = '<div class="empty-state">No candidates match the current filter. Switch Queue view to Everything / audit view to see the full discovery file.</div>';
