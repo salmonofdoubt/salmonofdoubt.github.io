@@ -455,12 +455,13 @@ function updateGlobalContextBubble(row) {
   if (!row || !row.country) return;
 
   const gap = clampScore(row.mature_technosphere_gap ?? 0);
+  const toneClass = readinessToneClass(row.maturity_state);
   const indicator = document.createElement("div");
   indicator.className = "bubble-country-indicator";
   indicator.innerHTML = `
-    <span class="bubble-country-label">${escapeHtml(row.country)} · ${gap.toFixed(0)}%</span>
+    <span class="bubble-country-label ${toneClass}">${escapeHtml(row.country)} · ${gap.toFixed(0)}%</span>
     <span class="bubble-country-bar">
-      <span class="bubble-country-fill" style="width:${gap}%"></span>
+      <span class="bubble-country-fill ${toneClass}" style="width:${gap}%"></span>
     </span>
   `;
   activeBubble.appendChild(indicator);

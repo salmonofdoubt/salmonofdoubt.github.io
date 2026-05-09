@@ -991,3 +991,42 @@
     0 0 0 4px rgba(94, 234, 212, 0.16),
     0 0 22px rgba(94, 234, 212, 0.56);
 }
+
+/* Subtle readiness colour matching inside the active global-context bubble.
+   Kept intentionally quiet: no extra glow, no extra labels. */
+
+.bubble-country-label.emerging-readiness {
+  border-color: rgba(139, 92, 246, 0.28);
+  color: #efe9ff;
+}
+
+.bubble-country-label.immature-readiness {
+  border-color: rgba(251, 191, 36, 0.28);
+  color: #fff4cc;
+}
+
+.bubble-country-label.transitioning-readiness {
+  border-color: rgba(110, 168, 255, 0.28);
+  color: #e7f1ff;
+}
+
+.bubble-country-label.mature-candidate-readiness {
+  border-color: rgba(94, 234, 212, 0.28);
+  color: #e7fffb;
+}
+
+.bubble-country-fill.emerging-readiness {
+  background: rgba(139, 92, 246, 0.88);
+}
+
+.bubble-country-fill.immature-readiness {
+  background: rgba(251, 191, 36, 0.88);
+}
+
+.bubble-country-fill.transitioning-readiness {
+  background: rgba(110, 168, 255, 0.88);
+}
+
+.bubble-country-fill.mature-candidate-readiness {
+  background: rgba(94, 234, 212, 0.88);
+}
