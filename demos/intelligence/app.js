@@ -804,15 +804,15 @@ function updateGlobalContextBubble(row) {
   if (!row || !row.country) return;
 
   const gap = clampScore(row.mature_technosphere_gap ?? 0);
-  const toneClass = readinessToneClass(row.maturity_state);
+
   const indicator = document.createElement("div");
   indicator.className = "bubble-country-indicator";
   indicator.innerHTML = `
-    <span class="bubble-country-label ${toneClass}">${escapeHtml(row.country)} · ${gap.toFixed(0)}%</span>
-    <span class="bubble-country-bar">
-      <span class="bubble-country-fill ${toneClass}" style="width:${gap}%"></span>
+    <span class="bubble-country-track" aria-hidden="true">
+      <span class="bubble-country-fill" style="width:${gap}%"></span>
     </span>
   `;
+
   activeBubble.appendChild(indicator);
   activeBubble.classList.add("has-country-indicator");
 }
@@ -850,11 +850,17 @@ function renderTransitionLean(row) {
 
   target.innerHTML = `
     <div class="transition-lean-current">
-<div class="current-stage-readiness">
-        <p class="current-stage-title">
-          <span>Country readiness inside the current global state</span>
-          <span class="current-stage-score ${toneClass}">${gap.toFixed(0)} / 100</span>
-        </p>
+      <div class="current-stage-header">
+        <div class="current-stage-heading-group">
+          <h4 class="current-stage-heading">Country readiness inside the current global state</h4>
+          <p class="current-stage-country-line">
+            <strong>${country}</strong> · ${stateLabel}
+          </p>
+        </div>
+        <span class="current-stage-score ${toneClass}">${gap.toFixed(0)} / 100</span>
+      </div>
+
+      <div class="current-stage-readiness">
         <div class="current-stage-track" aria-label="Country readiness inside immature technosphere">
           <span
             class="current-stage-marker ${toneClass}"
