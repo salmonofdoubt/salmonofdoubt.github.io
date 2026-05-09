@@ -680,6 +680,75 @@ function populateRegionFilter() {
     `<option value="All">All regions</option>` + regions.map(r => `<option value="${escapeHtml(r)}">${escapeHtml(r)}</option>`).join("");
 }
 
+
+// Selection and filter synchronisation.
+// Keeps the selected-country model aligned with the currently visible filtered data.
+function clearSelectedCountryAfterFilter() {
+  state.selectedRow = null;
+
+  if (typeof renderTransitionLean === "function") renderTransitionLean(null);
+  if (typeof updateGlobalContextBubble === "function") updateGlobalContextBubble(null);
+
+  const selectedCountry = document.getElementById("selectedCountry");
+  if (selectedCountry) {
+    selectedCountry.innerHTML = `
+      <p class="muted">Click a marker in the 3D plot to inspect details, source years, and score logic.</p>
+    `;
+  }
+
+  const selectedTheory = document.getElementById("selectedTheory");
+  if (selectedTheory) {
+    selectedTheory.innerHTML = `
+      <p class="muted">Click a country marker to view its maturity state, diagnostic bars, and mature-technosphere gap.</p>
+    `;
+  }
+}
+
+function syncSelectedCountryAfterFilter(searchText) {
+  const rows = state.filtered || [];
+  const query = String(searchText || "").trim().toLowerCase();
+
+  if (!rows.length) {
+    clearSelectedCountryAfterFilter();
+    return;
+  }
+
+  let next = null;
+
+  if (query) {
+    const exact = rows.find(row => String(row.country || "").toLowerCase() === query);
+    const starts = rows.filter(row => String(row.country || "").toLowerCase().startsWith(query));
+    const contains = rows.filter(row => String(row.country || "").toLowerCase().includes(query));
+
+    next =
+      exact ||
+      (starts.length === 1 ? starts[0] : null) ||
+      (contains.length === 1 ? contains[0] : null) ||
+      (rows.length === 1 ? rows[0] : null);
+  }
+
+  if (!next && state.selectedRow) {
+    next = rows.find(row => row.country === state.selectedRow.country) || null;
+  }
+
+  if (!next) {
+    clearSelectedCountryAfterFilter();
+    return;
+  }
+
+  const enriched = enrichTheoryFields(next);
+  const changed = !state.selectedRow || state.selectedRow.country !== enriched.country;
+  state.selectedRow = enriched;
+
+  if (changed && typeof renderSelected === "function") {
+    renderSelected(enriched);
+  } else {
+    if (typeof updateTheoryPanel === "function") updateTheoryPanel(enriched);
+    if (typeof renderTransitionLean === "function") renderTransitionLean(enriched);
+    if (typeof updateGlobalContextBubble === "function") updateGlobalContextBubble(enriched);
+  }
+}
+
 function applyFilters() {
   const region = document.getElementById("regionFilter").value;
   const search = document.getElementById("countrySearch").value.trim().toLowerCase();
@@ -694,13 +763,8 @@ function applyFilters() {
     return regionMatch && searchMatch && synergyMatch;
   });
 
-  if (state.selectedRow && !state.filteredRows.some(row => row.country === state.selectedRow.country)) {
-    state.selectedRow = null;
-  }
-
-  renderTransitionLean(state.selectedRow);
-  updateGlobalContextBubble(state.selectedRow);
-  updateSummary();
+  syncSelectedCountryAfterFilter(search);
+updateSummary();
   renderPlot();
   updateTheoryVisibility();
 }
@@ -766,16 +830,16 @@ function renderPlot() {
   }
 
   if (document.getElementById("showMaturityHalos")?.checked ?? false) {
-    traces.unshift(makeMaturityHaloTrace(rows));
+    traces.push(makeMaturityHaloTrace(rows));
   }
 
   if (document.getElementById("showLandingBars")?.checked ?? false) {
-    traces.unshift(makeDropLineTrace(rows));
+    traces.push(makeDropLineTrace(rows));
   }
 
   const selectedLocatorTrace = makeSelectedLocatorTrace(state.selectedRow);
   if (selectedLocatorTrace) {
-    traces.unshift(selectedLocatorTrace);
+    traces.push(selectedLocatorTrace);
   }
 
   const layout = {
