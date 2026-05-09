@@ -1291,6 +1291,302 @@ function flashExportStatus(message) {
   target.dataset.timer = timer;
 }
 
+
+function safePdfText(value) {
+  return String(value ?? "")
+    .replace(/[–—]/g, "-")
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'");
+}
+
+function pdfFilenameForCountry(country) {
+  const safeCountry = String(country || "country")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+  return `three-intelligences-${safeCountry || "country"}-report.pdf`;
+}
+
+function reportRowsForScores(row) {
+  return [
+    ["Readiness band", readinessStateLabel(row.maturity_state)],
+    ["Readiness score", `${row.mature_technosphere_gap.toFixed(1)} / 100`],
+    ["Individual intelligence", Number(row.individual_intelligence).toFixed(1)],
+    ["Collective intelligence", Number(row.collective_intelligence).toFixed(1)],
+    ["Planetary intelligence", Number(row.planetary_intelligence).toFixed(1)],
+    ["Overall synergy", Number(row.overall_synergy).toFixed(1)],
+    ["Ecological pressure", Number(row.ecological_pressure).toFixed(1)]
+  ];
+}
+
+function reportRowsForDiagnostics(row) {
+  return [
+    ["Emergence", Number(row.emergence_score).toFixed(1)],
+    ["Network information", Number(row.network_information_score).toFixed(1)],
+    ["Semantic feedback", Number(row.semantic_feedback_score).toFixed(1)],
+    ["Boundaries and signals", Number(row.boundary_signal_score).toFixed(1)],
+    ["Autopoiesis", Number(row.autopoiesis_score).toFixed(1)]
+  ];
+}
+
+function sourceRowsForPdf(row) {
+  const detail = Array.isArray(row.detail) ? row.detail : [];
+  if (!detail.length) {
+    return [["Fallback", "Aggregate profile", "n/a", "n/a", "No per-indicator detail"]];
+  }
+
+  return detail.map(d => [
+    d.layer || "n/a",
+    d.label || d.code || "Indicator",
+    d.code || "",
+    d.year || "n/a",
+    sourceIndicatorUsed(d) ? "Used" : "Missing"
+  ]);
+}
+
+function openPrintableCountryReport(row) {
+  row = enrichTheoryFields(row);
+  const text = selectedCountryProfileText(row)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+
+  const win = window.open("", "_blank", "noopener,noreferrer");
+  if (!win) {
+    flashExportStatus("Popup blocked. Try allowing popups or use .txt export.");
+    return;
+  }
+
+  win.document.write(`
+    <!doctype html>
+    <html>
+      <head>
+        <title>${safePdfText(row.country)} report</title>
+        <style>
+          body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; line-height: 1.5; padding: 2rem; }
+          pre { white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+          @media print { button { display: none; } }
+        </style>
+      </head>
+      <body>
+        <button onclick="window.print()">Print / save as PDF</button>
+        <pre>${text}</pre>
+      </body>
+    </html>
+  `);
+  win.document.close();
+  flashExportStatus("Opened printable report window.");
+}
+
+function downloadSelectedCountryPDF() {
+  if (!state.selectedRow || !state.selectedRow.country) return;
+
+  const row = enrichTheoryFields(state.selectedRow);
+  const jsPDFBundle = window.jspdf;
+
+  if (!jsPDFBundle || !jsPDFBundle.jsPDF) {
+    openPrintableCountryReport(row);
+    return;
+  }
+
+  const { jsPDF } = jsPDFBundle;
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+
+  const margin = 44;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const usableWidth = pageWidth - margin * 2;
+  let y = 44;
+
+  function ensureSpace(required = 80) {
+    if (y + required > pageHeight - margin) {
+      doc.addPage();
+      y = margin;
+    }
+  }
+
+  function addWrappedText(text, x, yStart, maxWidth, lineHeight = 12) {
+    const lines = doc.splitTextToSize(safePdfText(text), maxWidth);
+    doc.text(lines, x, yStart);
+    return yStart + lines.length * lineHeight;
+  }
+
+  function addSectionTitle(title) {
+    ensureSpace(34);
+    y += 14;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.text(safePdfText(title), margin, y);
+    y += 10;
+    doc.setDrawColor(190, 200, 215);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 18;
+  }
+
+  function addTable(head, body, options = {}) {
+    ensureSpace(100);
+
+    if (typeof doc.autoTable === "function") {
+      doc.autoTable({
+        startY: y,
+        head,
+        body: body.map(row => row.map(safePdfText)),
+        margin: { left: margin, right: margin },
+        styles: {
+          font: "helvetica",
+          fontSize: 8.5,
+          cellPadding: 4,
+          overflow: "linebreak"
+        },
+        headStyles: {
+          fillColor: [25, 42, 62],
+          textColor: [255, 255, 255]
+        },
+        alternateRowStyles: {
+          fillColor: [245, 247, 250]
+        },
+        ...options
+      });
+      y = doc.lastAutoTable.finalY + 12;
+    } else {
+      body.forEach(row => {
+        ensureSpace(24);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9);
+        y = addWrappedText(row.join(" | "), margin, y, usableWidth, 11) + 4;
+      });
+    }
+  }
+
+  // Header
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(19);
+  doc.text("Three Intelligences Explorer", margin, y);
+  y += 22;
+
+  doc.setFontSize(15);
+  doc.text(`Selected country report: ${safePdfText(row.country)}`, margin, y);
+  y += 18;
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  y = addWrappedText(
+    "Prototype systems-readiness report. This is not a national intelligence ranking. Earth is treated as an immature technosphere overall; countries are scored for relative readiness within that global condition.",
+    margin,
+    y,
+    usableWidth,
+    12
+  );
+  y += 6;
+
+  addSectionTitle("Profile summary");
+  addTable(
+    [["Field", "Value"]],
+    [
+      ["Country", row.country],
+      ["Region", row.region || "n/a"],
+      ["Data status", row.data_status || state.dataMode || "Unknown"],
+      ...reportRowsForScores(row)
+    ],
+    { columnStyles: { 0: { cellWidth: 170 }, 1: { cellWidth: usableWidth - 170 } } }
+  );
+
+  addSectionTitle("Planetary-intelligence diagnostics");
+  addTable(
+    [["Diagnostic", "Score"]],
+    reportRowsForDiagnostics(row),
+    { columnStyles: { 0: { cellWidth: 230 }, 1: { cellWidth: usableWidth - 230 } } }
+  );
+
+  addSectionTitle("Comparison context");
+  const displayedRows = (state.filtered || []).map(enrichTheoryFields).filter(r => Number.isFinite(r.overall_synergy));
+  const regionalRows = (state.scores || []).map(enrichTheoryFields).filter(r => r.region === row.region);
+  const topReadiness = [...(state.scores || []).map(enrichTheoryFields)]
+    .filter(r => Number.isFinite(r.mature_technosphere_gap))
+    .sort((a, b) => b.mature_technosphere_gap - a.mature_technosphere_gap)[0];
+
+  const displayedAvg = averageMetric(displayedRows, "mature_technosphere_gap");
+  const regionalAvg = averageMetric(regionalRows, "mature_technosphere_gap");
+
+  addTable(
+    [["Comparison", "Value"]],
+    [
+      ["Displayed average readiness", Number.isFinite(displayedAvg) ? displayedAvg.toFixed(1) : "n/a"],
+      [`${row.region || "Region"} average readiness`, Number.isFinite(regionalAvg) ? regionalAvg.toFixed(1) : "n/a"],
+      ["Top readiness in model", topReadiness ? `${topReadiness.country} (${topReadiness.mature_technosphere_gap.toFixed(1)})` : "n/a"]
+    ],
+    { columnStyles: { 0: { cellWidth: 230 }, 1: { cellWidth: usableWidth - 230 } } }
+  );
+
+  addSectionTitle("Interpretation");
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  y = addWrappedText(row.maturity_interpretation || "n/a", margin, y, usableWidth, 12);
+  y += 8;
+
+  addSectionTitle("Source transparency summary");
+  const detail = Array.isArray(row.detail) ? row.detail : [];
+  const used = detail.filter(sourceIndicatorUsed);
+  const missing = detail.length ? detail.length - used.length : "n/a";
+  const latestYear = used
+    .map(d => Number(d.year))
+    .filter(Number.isFinite)
+    .sort((a, b) => b - a)[0];
+
+  addTable(
+    [["Field", "Value"]],
+    [
+      ["Data mode", row.data_status || state.dataMode || "Unknown"],
+      ["Indicators used", detail.length ? `${used.length} / ${detail.length}` : "Aggregate fallback only"],
+      ["Missing indicators", String(missing)],
+      ["Latest source year", latestYear || "n/a"]
+    ],
+    { columnStyles: { 0: { cellWidth: 170 }, 1: { cellWidth: usableWidth - 170 } } }
+  );
+
+  addSectionTitle("Indicator status");
+  addTable(
+    [["Layer", "Indicator", "Code", "Year", "Status"]],
+    sourceRowsForPdf(row),
+    {
+      styles: { fontSize: 7.5, cellPadding: 3 },
+      columnStyles: {
+        0: { cellWidth: 68 },
+        1: { cellWidth: 215 },
+        2: { cellWidth: 72 },
+        3: { cellWidth: 45 },
+        4: { cellWidth: 60 }
+      }
+    }
+  );
+
+  addSectionTitle("Conceptual basis");
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9.5);
+  y = addWrappedText(
+    "Frank, A., Grinspoon, D., & Walker, S. I. (2022). Intelligence as a planetary scale process. International Journal of Astrobiology, 21, 47-61. https://doi.org/10.1017/S147355042100029X",
+    margin,
+    y,
+    usableWidth,
+    11
+  );
+
+  // Footer page numbers
+  const totalPages = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(110);
+    doc.text(`Three Intelligences Explorer - ${safePdfText(row.country)} - Page ${i} of ${totalPages}`, margin, pageHeight - 18);
+    doc.setTextColor(0);
+  }
+
+  doc.save(pdfFilenameForCountry(row.country));
+  flashExportStatus("Downloaded PDF report.");
+}
+
 function renderSelected(row) {
   row = enrichTheoryFields(row);
   state.selectedRow = row;
@@ -1311,6 +1607,7 @@ function renderSelected(row) {
     <div class="selected-export-row">
       <button type="button" class="mini-action-button" onclick="copySelectedCountryProfile()">Copy profile</button>
       <button type="button" class="mini-action-button" onclick="downloadSelectedCountryProfile()">Download .txt</button>
+      <button type="button" class="mini-action-button pdf-action-button" onclick="downloadSelectedCountryPDF()">Download PDF</button>
       <span id="exportStatus" class="export-status" aria-live="polite"></span>
     </div>
     <div class="profile-meta">

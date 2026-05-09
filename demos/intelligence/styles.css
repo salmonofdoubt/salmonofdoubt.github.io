@@ -1392,3 +1392,13 @@
 .export-status.is-visible {
   opacity: 1;
 }
+
+.pdf-action-button {
+  background: rgba(94, 234, 212, 0.10);
+  border-color: rgba(94, 234, 212, 0.24);
+}
+
+.pdf-action-button:hover {
+  background: rgba(94, 234, 212, 0.15);
+  border-color: rgba(94, 234, 212, 0.34);
+}
