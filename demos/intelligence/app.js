@@ -227,10 +227,216 @@ function parseCSVLine(line) {
   return cells;
 }
 
+
+function enrichTheoryFields(row) {
+  if (!row) return row;
+  const ecologicalPressure = estimateEcologicalPressure(row);
+  const diagnostics = deriveDiagnostics(row, ecologicalPressure);
+  const gap = matureTechnosphereGap(diagnostics, ecologicalPressure);
+  const enriched = {
+    ...row,
+    ecological_pressure: ecologicalPressure,
+    ...diagnostics,
+    mature_technosphere_gap: gap
+  };
+  enriched.maturity_state = classifyMaturity(enriched);
+  enriched.maturity_interpretation = maturityInterpretation(enriched);
+  return enriched;
+}
+
+function estimateEcologicalPressure(row) {
+  if (row.detail && row.detail.length) {
+    const pressureItems = row.detail
+      .filter(d => d.layer === "planetary" && d.direction === "negative" && Number.isFinite(d.score))
+      .map(d => ({ pressure: 100 - d.score, weight: Number(d.weight) || 1 }));
+
+    if (pressureItems.length) {
+      const wsum = pressureItems.reduce((sum, d) => sum + d.weight, 0);
+      return clampScore(pressureItems.reduce((sum, d) => sum + d.pressure * d.weight, 0) / wsum);
+    }
+  }
+
+  return clampScore(100 - Number(row.planetary_intelligence || 0));
+}
+
+function deriveDiagnostics(row, ecologicalPressure) {
+  const i = Number(row.individual_intelligence || 0);
+  const c = Number(row.collective_intelligence || 0);
+  const p = Number(row.planetary_intelligence || 0);
+  const safe = 100 - ecologicalPressure;
+
+  return {
+    emergence_score: clampScore((i * 0.35) + (c * 0.35) + (p * 0.30)),
+    network_information_score: clampScore((c * 0.60) + (i * 0.20) + (p * 0.20)),
+    semantic_feedback_score: clampScore((c * 0.35) + (p * 0.55) + (safe * 0.10)),
+    boundary_signal_score: clampScore((p * 0.60) + (c * 0.25) + (safe * 0.15)),
+    autopoiesis_score: clampScore((p * 0.55) + (c * 0.30) + (safe * 0.15))
+  };
+}
+
+function matureTechnosphereGap(diagnostics, ecologicalPressure) {
+  const avgDiagnostic = average([
+    diagnostics.emergence_score,
+    diagnostics.network_information_score,
+    diagnostics.semantic_feedback_score,
+    diagnostics.boundary_signal_score,
+    diagnostics.autopoiesis_score
+  ]);
+  return clampScore(avgDiagnostic - ecologicalPressure * 0.35);
+}
+
+function classifyMaturity(row) {
+  const i = Number(row.individual_intelligence || 0);
+  const c = Number(row.collective_intelligence || 0);
+  const p = Number(row.planetary_intelligence || 0);
+  const pressure = Number(row.ecological_pressure ?? (100 - p));
+
+  if (c >= 70 && p >= 70 && pressure <= 35) return "Mature technosphere candidate";
+  if (c >= 60 && p >= 50) return "Transitioning technosphere";
+  if (i >= 60 && c >= 55 && p < 50) return "Immature technosphere";
+  if (i >= 45 || c >= 45) return "Emerging technosphere";
+  return "Low-system-capacity state";
+}
+
+function maturityInterpretation(row) {
+  switch (row.maturity_state) {
+    case "Mature technosphere candidate":
+      return "High coordination and stewardship with comparatively lower ecological pressure. This is closest to the mature-technosphere ideal in this prototype.";
+    case "Transitioning technosphere":
+      return "Meaningful coordination and planetary stewardship are present, but the feedback system is not yet strong enough to be considered mature.";
+    case "Immature technosphere":
+      return "Capability and institutions are present, but planetary self-regulation is weak.";
+    case "Emerging technosphere":
+      return "Some system capacity is present, but planetary-scale feedback and stewardship remain early.";
+    default:
+      return "Low composite system capacity in this proxy model. Interpret cautiously where indicator completeness is limited.";
+  }
+}
+
+function maturityClassName(label) {
+  return String(label || "").toLowerCase().replaceAll(" ", "-").replaceAll("/", "-");
+}
+
+function clampScore(v) {
+  return Math.max(0, Math.min(100, Number(v) || 0));
+}
+
+function maturityColor(label, alpha = 0.26) {
+  switch (label) {
+    case "Mature technosphere candidate": return `rgba(94, 234, 212, ${alpha})`;
+    case "Transitioning technosphere": return `rgba(110, 168, 255, ${alpha})`;
+    case "Immature technosphere": return `rgba(251, 191, 36, ${alpha})`;
+    case "Emerging technosphere": return `rgba(139, 92, 246, ${alpha})`;
+    default: return `rgba(168, 180, 207, ${alpha})`;
+  }
+}
+
+function makeDropLineTrace(rows) {
+  const x = [];
+  const y = [];
+  const z = [];
+
+  rows.forEach(r => {
+    x.push(r.individual_intelligence, r.individual_intelligence, null);
+    y.push(r.collective_intelligence, r.collective_intelligence, null);
+    z.push(0, r.planetary_intelligence, null);
+  });
+
+  return {
+    type: "scatter3d",
+    mode: "lines",
+    name: "Landing bars",
+    x,
+    y,
+    z,
+    hoverinfo: "skip",
+    showlegend: true,
+    legendrank: 98,
+    line: { width: 2, color: "rgba(180, 210, 255, 0.25)" }
+  };
+}
+
+function makeMaturityHaloTrace(rows) {
+  return {
+    type: "scatter3d",
+    mode: "markers",
+    name: "Maturity halos",
+    x: rows.map(r => r.individual_intelligence),
+    y: rows.map(r => r.collective_intelligence),
+    z: rows.map(r => r.planetary_intelligence),
+    text: rows.map(r => r.country),
+    hoverinfo: "skip",
+    showlegend: true,
+    legendrank: 97,
+    marker: {
+      size: rows.map(r => Math.max(16, r.overall_synergy / 3.9)),
+      color: rows.map(r => maturityColor(r.maturity_state, 0.18)),
+      opacity: 0.55,
+      line: {
+        width: 2.5,
+        color: rows.map(r => maturityColor(r.maturity_state, 0.72))
+      }
+    }
+  };
+}
+
+function renderDiagnosticBars(row) {
+  const diagnostics = [
+    ["Emergence", row.emergence_score],
+    ["Network information", row.network_information_score],
+    ["Semantic feedback", row.semantic_feedback_score],
+    ["Boundaries and signals", row.boundary_signal_score],
+    ["Autopoiesis", row.autopoiesis_score]
+  ];
+
+  return `
+    <div class="diagnostic-bars">
+      ${diagnostics.map(([label, value]) => `
+        <div class="diagnostic-row">
+          <span class="diagnostic-label">${escapeHtml(label)}</span>
+          <span class="diagnostic-track"><span class="diagnostic-fill" style="width:${clampScore(value)}%"></span></span>
+          <span class="diagnostic-value">${clampScore(value).toFixed(0)}</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderTheoryBlock(row) {
+  const hidden = document.getElementById("showTheoryDiagnostics") && !document.getElementById("showTheoryDiagnostics").checked;
+  return `
+    <div class="theory-detail-block${hidden ? " is-hidden" : ""}">
+      <h4>Planetary-intelligence diagnostics</h4>
+      <span class="maturity-badge ${maturityClassName(row.maturity_state)}">${escapeHtml(row.maturity_state)}</span>
+      <div class="gap-strip">
+        <div class="gap-card"><span>Mature technosphere gap</span><strong>${row.mature_technosphere_gap.toFixed(1)}</strong></div>
+        <div class="gap-card"><span>Ecological pressure</span><strong>${row.ecological_pressure.toFixed(1)}</strong></div>
+      </div>
+      ${renderDiagnosticBars(row)}
+      <p class="muted small">${escapeHtml(row.maturity_interpretation)}</p>
+    </div>
+  `;
+}
+
+function updateTheoryPanel(row) {
+  const target = document.getElementById("selectedTheory");
+  if (!target || !row) return;
+  target.innerHTML = renderTheoryBlock(row);
+  updateTheoryVisibility();
+}
+
+function updateTheoryVisibility() {
+  const checked = document.getElementById("showTheoryDiagnostics")?.checked ?? true;
+  document.getElementById("theory-layer")?.classList.toggle("is-hidden", !checked);
+  document.querySelectorAll(".theory-detail-block").forEach(el => el.classList.toggle("is-hidden", !checked));
+}
+
 function bindControls() {
-  ["regionFilter", "countrySearch", "minSynergy", "colourMode"].forEach(id => {
-    document.getElementById(id).addEventListener("input", applyFilters);
-    document.getElementById(id).addEventListener("change", applyFilters);
+  ["regionFilter", "countrySearch", "minSynergy", "colourMode", "showLandingBars", "showMaturityHalos", "showTheoryDiagnostics"].forEach(id => {
+    const control = document.getElementById(id);
+    if (!control) return;
+    control.addEventListener("input", applyFilters);
+    control.addEventListener("change", applyFilters);
   });
 
   document.getElementById("minSynergy").addEventListener("input", e => {
@@ -243,6 +449,9 @@ function bindControls() {
     document.getElementById("minSynergy").value = 0;
     document.getElementById("minSynergyValue").textContent = "0";
     document.getElementById("colourMode").value = "archetype";
+    if (document.getElementById("showLandingBars")) document.getElementById("showLandingBars").checked = true;
+    if (document.getElementById("showMaturityHalos")) document.getElementById("showMaturityHalos").checked = true;
+    if (document.getElementById("showTheoryDiagnostics")) document.getElementById("showTheoryDiagnostics").checked = true;
     applyFilters();
   });
 
@@ -262,6 +471,8 @@ function applyFilters() {
   const search = document.getElementById("countrySearch").value.trim().toLowerCase();
   const minSynergy = Number(document.getElementById("minSynergy").value);
 
+  state.scores = state.scores.map(enrichTheoryFields);
+
   state.filtered = state.scores.filter(row => {
     const regionMatch = region === "All" || row.region === region;
     const searchMatch = !search || row.country.toLowerCase().includes(search);
@@ -271,6 +482,7 @@ function applyFilters() {
 
   updateSummary();
   renderPlot();
+  updateTheoryVisibility();
 }
 
 function updateSummary() {
@@ -333,6 +545,14 @@ function renderPlot() {
     });
   }
 
+  if (document.getElementById("showMaturityHalos")?.checked ?? true) {
+    traces.unshift(makeMaturityHaloTrace(rows));
+  }
+
+  if (document.getElementById("showLandingBars")?.checked ?? true) {
+    traces.unshift(makeDropLineTrace(rows));
+  }
+
   const layout = {
     margin: { l: 0, r: 0, t: 10, b: 0 },
     paper_bgcolor: "rgba(0,0,0,0)",
@@ -352,7 +572,7 @@ function renderPlot() {
     gd.removeAllListeners("plotly_click");
     gd.on("plotly_click", event => {
       const point = event.points && event.points[0];
-      if (point && point.customdata) renderSelected(point.customdata);
+      if (point && point.customdata && point.customdata.country) renderSelected(point.customdata);
     });
   });
 }
@@ -374,10 +594,13 @@ function hoverTemplate() {
     "Collective: %{y:.1f}<br>" +
     "Planetary: %{z:.1f}<br>" +
     "Synergy: %{customdata.overall_synergy:.1f}<br>" +
+    "Maturity: %{customdata.maturity_state}<br>" +
+    "Mature gap: %{customdata.mature_technosphere_gap:.1f}<br>" +
     "Archetype: %{customdata.archetype}<extra></extra>";
 }
 
 function renderSelected(row) {
+  row = enrichTheoryFields(row);
   const detailRows = row.detail && row.detail.length
     ? row.detail.map(d => `
         <tr>
@@ -403,12 +626,14 @@ function renderSelected(row) {
       <div class="score-card"><span>Planetary</span><strong>${row.planetary_intelligence.toFixed(1)}</strong></div>
       <div class="score-card"><span>Synergy</span><strong>${row.overall_synergy.toFixed(1)}</strong></div>
     </div>
+    ${renderTheoryBlock(row)}
     <h4>Indicator detail</h4>
     <table class="detail-table">
       <thead><tr><th>Layer</th><th>Indicator</th><th>Raw value</th><th>Score</th><th>Year</th></tr></thead>
       <tbody>${detailRows}</tbody>
     </table>
   `;
+  updateTheoryPanel(row);
 }
 
 function renderIndicatorTable() {
