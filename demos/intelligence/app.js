@@ -449,7 +449,7 @@ function bindControls() {
     document.getElementById("minSynergy").value = 0;
     document.getElementById("minSynergyValue").textContent = "0";
     document.getElementById("colourMode").value = "archetype";
-    if (document.getElementById("showLandingBars")) document.getElementById("showLandingBars").checked = true;
+    if (document.getElementById("showLandingBars")) document.getElementById("showLandingBars").checked = false;
     if (document.getElementById("showMaturityHalos")) document.getElementById("showMaturityHalos").checked = true;
     if (document.getElementById("showTheoryDiagnostics")) document.getElementById("showTheoryDiagnostics").checked = true;
     applyFilters();
@@ -549,7 +549,7 @@ function renderPlot() {
     traces.unshift(makeMaturityHaloTrace(rows));
   }
 
-  if (document.getElementById("showLandingBars")?.checked ?? true) {
+  if (document.getElementById("showLandingBars")?.checked ?? false) {
     traces.unshift(makeDropLineTrace(rows));
   }
 
