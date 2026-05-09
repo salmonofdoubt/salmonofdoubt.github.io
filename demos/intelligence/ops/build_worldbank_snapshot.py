@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Build a local World Bank snapshot for the Three Intelligences Explorer.
 
-This creates:
+Output:
   demos/intelligence/data/worldbank_snapshot.json
 
-The static GitHub Pages app can then load a stable local data file first,
-instead of making every visitor's browser fetch all World Bank indicators live.
+Load strategy:
+  1. WGI governance indicators are fetched through the WGI DataBank source route.
+  2. Standard WDI/ESG indicators are fetched through the normal World Bank indicator route.
+  3. Each indicator records whether it loaded or failed, so the front end can show a heatmap.
 """
 
 from __future__ import annotations
@@ -30,7 +32,12 @@ WB_BASE = "https://api.worldbank.org/v2"
 YEARS = "2010:2026"
 PER_PAGE = 20000
 SLEEP_BETWEEN_REQUESTS = 0.25
-TIMEOUT_SECONDS = 40
+TIMEOUT_SECONDS = 45
+
+# DataBank source id 1181 is the Worldwide Governance Indicators database.
+# The normal WDI endpoint may return metadata/error payloads for WGI codes unless source is supplied.
+WGI_SOURCE_ID = "1181"
+WGI_CODES = {"GE.EST", "RL.EST", "CC.EST", "VA.EST", "RQ.EST", "PV.EST"}
 
 
 def load_json(path: Path):
@@ -41,7 +48,7 @@ def fetch_json(url: str):
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "salmonofdoubt-intelligence-demo-snapshot/1.0",
+            "User-Agent": "salmonofdoubt-intelligence-demo-snapshot/1.1",
             "Accept": "application/json",
         },
     )
@@ -50,32 +57,55 @@ def fetch_json(url: str):
     return json.loads(raw)
 
 
-def main() -> int:
-    countries = load_json(COUNTRIES_PATH)
-    indicators = load_json(INDICATORS_PATH)
+def make_indicator_urls(country_codes: str, indicator_code: str) -> list[str]:
+    base_query = {
+        "format": "json",
+        "per_page": str(PER_PAGE),
+        "date": YEARS,
+    }
 
-    country_codes = ";".join(country["code"] for country in countries)
-    iso3_to_code = {country.get("iso3"): country["code"] for country in countries if country.get("iso3")}
+    urls = []
 
-    raw_values: dict[str, dict[str, dict]] = {}
-    loaded = []
-    failed = []
+    if indicator_code in WGI_CODES:
+        q = dict(base_query)
+        q["source"] = WGI_SOURCE_ID
+        urls.append(
+            f"{WB_BASE}/country/{country_codes}/indicator/{indicator_code}?{urllib.parse.urlencode(q)}"
+        )
 
-    for indicator in indicators:
-        code = indicator["code"]
-        query = urllib.parse.urlencode({
-            "format": "json",
-            "per_page": str(PER_PAGE),
-            "date": YEARS,
-        })
-        url = f"{WB_BASE}/country/{country_codes}/indicator/{code}?{query}"
+    urls.append(
+        f"{WB_BASE}/country/{country_codes}/indicator/{indicator_code}?{urllib.parse.urlencode(base_query)}"
+    )
 
+    return urls
+
+
+def extract_rows(payload):
+    if not isinstance(payload, list) or len(payload) < 2:
+        return None
+
+    rows = payload[1]
+
+    if not isinstance(rows, list):
+        return None
+
+    return rows
+
+
+def load_indicator(indicator: dict, country_codes: str, iso3_to_code: dict[str, str]) -> tuple[dict, dict | None]:
+    code = indicator["code"]
+    errors = []
+
+    for url in make_indicator_urls(country_codes, code):
         try:
             payload = fetch_json(url)
-            rows = payload[1] if isinstance(payload, list) and len(payload) > 1 else None
-            if not isinstance(rows, list):
-                raise RuntimeError("World Bank payload did not contain a data array")
+            rows = extract_rows(payload)
 
+            if rows is None:
+                errors.append(f"payload did not contain a data array for URL {url}")
+                continue
+
+            values_for_indicator: dict[str, dict] = {}
             usable_rows = 0
 
             for row in rows:
@@ -99,11 +129,10 @@ def main() -> int:
                 except (TypeError, ValueError):
                     continue
 
-                country_bucket = raw_values.setdefault(country_code, {})
-                current = country_bucket.get(code)
+                current = values_for_indicator.get(country_code)
 
                 if not current or year > int(current["year"]):
-                    country_bucket[code] = {
+                    values_for_indicator[country_code] = {
                         "value": value,
                         "year": year,
                         "indicator": code,
@@ -112,26 +141,59 @@ def main() -> int:
 
                 usable_rows += 1
 
-            if usable_rows == 0:
-                raise RuntimeError("No usable rows returned for selected countries")
+            if usable_rows == 0 or not values_for_indicator:
+                errors.append(f"no usable rows for URL {url}")
+                continue
 
-            loaded.append({
+            loaded_record = {
                 "code": code,
                 "label": indicator.get("label", code),
                 "layer": indicator.get("layer", "unknown"),
                 "usableRows": usable_rows,
-            })
+                "countryValues": len(values_for_indicator),
+                "sourceRoute": "WGI source 1181" if code in WGI_CODES and f"source={WGI_SOURCE_ID}" in url else "default World Bank API",
+            }
 
-            print(f"loaded {code}: {usable_rows} usable rows")
+            return values_for_indicator, loaded_record
 
         except Exception as exc:
-            failed.append({
-                "code": code,
-                "label": indicator.get("label", code),
-                "layer": indicator.get("layer", "unknown"),
-                "reason": str(exc),
-            })
-            print(f"failed {code}: {exc}")
+            errors.append(f"{type(exc).__name__}: {exc}")
+
+        time.sleep(SLEEP_BETWEEN_REQUESTS)
+
+    failed_record = {
+        "code": code,
+        "label": indicator.get("label", code),
+        "layer": indicator.get("layer", "unknown"),
+        "reason": " | ".join(errors[-3:]) if errors else "unknown error",
+    }
+
+    return {}, failed_record
+
+
+def main() -> int:
+    countries = load_json(COUNTRIES_PATH)
+    indicators = load_json(INDICATORS_PATH)
+
+    country_codes = ";".join(country["code"] for country in countries)
+    iso3_to_code = {country.get("iso3"): country["code"] for country in countries if country.get("iso3")}
+
+    raw_values: dict[str, dict[str, dict]] = {}
+    loaded = []
+    failed = []
+
+    for indicator in indicators:
+        code = indicator["code"]
+        values_for_indicator, record = load_indicator(indicator, country_codes, iso3_to_code)
+
+        if values_for_indicator:
+            for country_code, value_record in values_for_indicator.items():
+                raw_values.setdefault(country_code, {})[code] = value_record
+            loaded.append(record)
+            print(f"loaded {code}: {record['countryValues']} countries, {record['usableRows']} usable rows via {record['sourceRoute']}")
+        else:
+            failed.append(record)
+            print(f"failed {code}: {record['reason']}")
 
         time.sleep(SLEEP_BETWEEN_REQUESTS)
 
@@ -173,8 +235,10 @@ def main() -> int:
     print(f"values: {value_count}")
     print(f"countries with any value: {countries_with_any_value}")
 
-    if len(loaded) < max(3, len(indicators) // 3):
-        print("warning: snapshot built, but live indicator coverage is low")
+    if failed:
+        print("failed indicators:")
+        for item in failed:
+            print(f"  - {item['code']}: {item['reason']}")
 
     return 0
 

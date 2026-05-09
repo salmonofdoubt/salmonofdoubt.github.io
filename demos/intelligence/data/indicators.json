@@ -125,16 +125,16 @@
     "notes": "Land cover and ecological stock proxy; not a biodiversity-quality measure."
   },
   {
-    "code": "EN.ATM.CO2E.PC",
-    "label": "CO2 emissions per capita",
+    "code": "EN.GHG.CO2.PC.CE.AR5",
+    "label": "CO2 emissions excluding LULUCF per capita",
     "layer": "planetary",
     "weight": 0.22,
     "direction": "negative",
     "transform": "inverse_linear",
     "min": 0,
-    "max": 20,
-    "source": "World Bank WDI / Climate Watch",
-    "notes": "Lower per-capita emissions score better in this model."
+    "max": 25,
+    "source": "World Bank Sovereign ESG / EDGAR / JRC / IEA",
+    "notes": "Lower per-capita CO2 emissions excluding LULUCF score better in this model. Uses the newer World Bank ESG emissions series."
   },
   {
     "code": "EN.ATM.PM25.MC.M3",
