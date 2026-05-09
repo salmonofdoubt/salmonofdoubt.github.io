@@ -484,12 +484,7 @@ function renderTransitionLean(row) {
 
   target.innerHTML = `
     <div class="transition-lean-current">
-      <div class="transition-lean-head">
-        <span class="stage-lock">Global context fixed: Immature technosphere</span>
-        <span class="country-readiness-chip">${country}: ${gap.toFixed(0)} / 100</span>
-      </div>
-
-      <div class="current-stage-readiness">
+<div class="current-stage-readiness">
         <p class="current-stage-title">
           <span>Country readiness inside the current global state</span>
           <span class="current-stage-score">${gap.toFixed(0)} / 100</span>

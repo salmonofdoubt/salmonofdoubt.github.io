@@ -931,3 +931,9 @@
     max-width: 120px;
   }
 }
+
+
+/* Removed duplicate transition header row */
+.transition-lean-head {
+  display: none !important;
+}
