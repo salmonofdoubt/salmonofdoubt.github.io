@@ -428,6 +428,97 @@ function readinessStateLabel(label) {
   }
 }
 
+
+
+function updateGlobalContextBubble(row) {
+  const activeBubble = document.querySelector(".transition-step.active");
+  if (!activeBubble) return;
+
+  activeBubble.querySelectorAll(".bubble-country-indicator").forEach(el => el.remove());
+  activeBubble.classList.remove("has-country-indicator");
+
+  if (!row || !row.country) return;
+
+  const gap = clampScore(row.mature_technosphere_gap ?? 0);
+  const indicator = document.createElement("div");
+  indicator.className = "bubble-country-indicator";
+  indicator.innerHTML = `
+    <span class="bubble-country-label">${escapeHtml(row.country)} · ${gap.toFixed(0)}%</span>
+    <span class="bubble-country-bar">
+      <span class="bubble-country-fill" style="width:${gap}%"></span>
+    </span>
+  `;
+  activeBubble.appendChild(indicator);
+  activeBubble.classList.add("has-country-indicator");
+}
+
+function renderTransitionLean(row) {
+  const target = document.getElementById("transitionLean");
+  if (!target) return;
+
+  updateGlobalContextBubble(row);
+
+  if (!row || !row.country) {
+    target.innerHTML = `
+      <p class="transition-lean-note">
+        Click a country to see its readiness position inside the current global immature-technosphere context.
+      </p>
+    `;
+    return;
+  }
+
+  const gap = clampScore(row.mature_technosphere_gap ?? 0);
+  const country = escapeHtml(row.country);
+  const stateLabel = escapeHtml(readinessStateLabel(row.maturity_state));
+
+  let leaningText = "";
+  if (gap < 25) {
+    leaningText = "early readiness";
+  } else if (gap < 50) {
+    leaningText = "immature-readiness";
+  } else if (gap < 75) {
+    leaningText = "transition-leaning readiness";
+  } else {
+    leaningText = "mature-candidate readiness";
+  }
+
+  target.innerHTML = `
+    <div class="transition-lean-current">
+      <div class="transition-lean-head">
+        <span class="stage-lock">Global context fixed: Immature technosphere</span>
+        <span class="country-readiness-chip">${country}: ${gap.toFixed(0)} / 100</span>
+      </div>
+
+      <div class="current-stage-readiness">
+        <p class="current-stage-title">
+          <span>Country readiness inside the current global state</span>
+          <span class="current-stage-score">${gap.toFixed(0)} / 100</span>
+        </p>
+        <div class="current-stage-track" aria-label="Country readiness inside immature technosphere">
+          <span
+            class="current-stage-marker"
+            style="left:${gap}%"
+            title="${country}: ${gap.toFixed(1)} / 100">
+          </span>
+        </div>
+        <div class="current-stage-labels">
+          <span>Emerging</span>
+          <span>Immature</span>
+          <span>Transitioning</span>
+          <span>Mature-candidate</span>
+        </div>
+      </div>
+
+      <p class="transition-lean-warning">
+        <strong>${country}</strong> is not being placed in the biosphere stages.
+        It is a country-level subsystem inside Earth's current <strong>immature technosphere</strong>,
+        classified here as <strong>${stateLabel}</strong> and leaning through the
+        <strong>${escapeHtml(leaningText)}</strong> zone.
+      </p>
+    </div>
+  `;
+}
+
 function renderReadinessPathway(row) {
   const gap = clampScore(row.mature_technosphere_gap ?? 0);
   const country = escapeHtml(row.country || "Selected country");
@@ -532,7 +623,7 @@ function renderTheoryBlock(row) {
   return `
     <div class="theory-detail-block${hidden ? " is-hidden" : ""}">
       <h4>Planetary-intelligence diagnostics</h4>
-      <span class="maturity-badge ${maturityClassName(row.maturity_state)}">${escapeHtml(row.maturity_state)}</span>
+      <span class="maturity-badge ${maturityClassName(row.maturity_state)}">${escapeHtml(readinessStateLabel(row.maturity_state))}</span>
       <div class="gap-strip">
         <div class="gap-card"><span>Mature technosphere gap</span><strong>${row.mature_technosphere_gap.toFixed(1)}</strong></div>
         <div class="gap-card"><span>Ecological pressure</span><strong>${row.ecological_pressure.toFixed(1)}</strong></div>
@@ -572,6 +663,8 @@ function bindControls() {
     document.getElementById("regionFilter").value = "All";
     document.getElementById("countrySearch").value = "";
     state.selectedRow = null;
+    renderTransitionLean(null);
+    updateGlobalContextBubble(null);
     document.getElementById("minSynergy").value = 0;
     document.getElementById("minSynergyValue").textContent = "0";
     document.getElementById("colourMode").value = "archetype";
@@ -610,6 +703,8 @@ function applyFilters() {
     state.selectedRow = null;
   }
 
+  renderTransitionLean(state.selectedRow);
+  updateGlobalContextBubble(state.selectedRow);
   updateSummary();
   renderPlot();
   updateTheoryVisibility();
@@ -770,6 +865,7 @@ function renderSelected(row) {
     </table>
   `;
   updateTheoryPanel(row);
+  renderTransitionLean(row);
   renderPlot();
 }
 
