@@ -214,23 +214,6 @@
         </div>
       </div>
     </section>
-
-<section id="countryReportDownload" class="section country-report-download">
-  <div class="panel report-download-panel">
-    <div>
-      <span class="eyebrow">Country report</span>
-      <h2>Download selected-country PDF report</h2>
-      <p id="countryReportDownloadText" class="section-intro">
-        Select a country in the 3D plot to export the country profile, planetary-context interpretation,
-        diagnostics, comparison context, and source transparency as a PDF.
-      </p>
-    </div>
-    <button id="downloadCountryPdfReport" type="button" class="button primary" disabled>
-      Select a country first
-    </button>
-  </div>
-</section>
-
 <section class="section model-logic-cta">
   <div class="panel">
     <span class="eyebrow">Model Logic</span>
