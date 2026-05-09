@@ -630,6 +630,120 @@ function makeSelectedLocatorTrace(row) {
   };
 }
 
+
+function averageMetric(rows, key) {
+  const values = (rows || [])
+    .map(row => Number(row[key]))
+    .filter(Number.isFinite);
+
+  return values.length ? average(values) : NaN;
+}
+
+function formatDelta(value) {
+  if (!Number.isFinite(value)) return "n/a";
+  const sign = value > 0 ? "+" : "";
+  return `${sign}${value.toFixed(1)}`;
+}
+
+function comparisonClass(delta) {
+  if (!Number.isFinite(delta)) return "neutral";
+  if (delta >= 5) return "positive";
+  if (delta <= -5) return "negative";
+  return "neutral";
+}
+
+function comparisonMetricRow(label, selected, baseline) {
+  const delta = selected - baseline;
+  return `
+    <tr>
+      <td>${escapeHtml(label)}</td>
+      <td>${Number.isFinite(selected) ? selected.toFixed(1) : "n/a"}</td>
+      <td>${Number.isFinite(baseline) ? baseline.toFixed(1) : "n/a"}</td>
+      <td class="${comparisonClass(delta)}">${formatDelta(delta)}</td>
+    </tr>
+  `;
+}
+
+function renderComparisonCards(row) {
+  if (!row || !row.country) return "";
+
+  const allRows = (state.scores || [])
+    .map(enrichTheoryFields)
+    .filter(r => Number.isFinite(r.overall_synergy));
+
+  const displayedRows = (state.filtered || [])
+    .map(enrichTheoryFields)
+    .filter(r => Number.isFinite(r.overall_synergy));
+
+  const regionalRows = allRows.filter(r => r.region === row.region);
+  const topReadiness = [...allRows].sort((a, b) =>
+    Number(b.mature_technosphere_gap || 0) - Number(a.mature_technosphere_gap || 0)
+  )[0];
+
+  const displayedBaseline = {
+    mature_technosphere_gap: averageMetric(displayedRows, "mature_technosphere_gap"),
+    individual_intelligence: averageMetric(displayedRows, "individual_intelligence"),
+    collective_intelligence: averageMetric(displayedRows, "collective_intelligence"),
+    planetary_intelligence: averageMetric(displayedRows, "planetary_intelligence")
+  };
+
+  const regionalBaseline = {
+    mature_technosphere_gap: averageMetric(regionalRows, "mature_technosphere_gap"),
+    individual_intelligence: averageMetric(regionalRows, "individual_intelligence"),
+    collective_intelligence: averageMetric(regionalRows, "collective_intelligence"),
+    planetary_intelligence: averageMetric(regionalRows, "planetary_intelligence")
+  };
+
+  const topName = topReadiness ? escapeHtml(topReadiness.country) : "n/a";
+  const topGap = topReadiness ? Number(topReadiness.mature_technosphere_gap || 0) : NaN;
+  const topDelta = Number(row.mature_technosphere_gap || 0) - topGap;
+
+  return `
+    <div class="comparison-block">
+      <h4>Comparison context</h4>
+
+      <div class="comparison-summary-grid">
+        <div class="comparison-summary-card">
+          <span>Displayed average</span>
+          <strong>${Number.isFinite(displayedBaseline.mature_technosphere_gap) ? displayedBaseline.mature_technosphere_gap.toFixed(1) : "n/a"}</strong>
+        </div>
+        <div class="comparison-summary-card">
+          <span>${escapeHtml(row.region || "Region")} average</span>
+          <strong>${Number.isFinite(regionalBaseline.mature_technosphere_gap) ? regionalBaseline.mature_technosphere_gap.toFixed(1) : "n/a"}</strong>
+        </div>
+        <div class="comparison-summary-card">
+          <span>Top readiness</span>
+          <strong>${topName}</strong>
+        </div>
+      </div>
+
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>${escapeHtml(row.country)}</th>
+              <th>Displayed avg</th>
+              <th>Δ</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${comparisonMetricRow("Readiness", Number(row.mature_technosphere_gap), displayedBaseline.mature_technosphere_gap)}
+            ${comparisonMetricRow("Individual", Number(row.individual_intelligence), displayedBaseline.individual_intelligence)}
+            ${comparisonMetricRow("Collective", Number(row.collective_intelligence), displayedBaseline.collective_intelligence)}
+            ${comparisonMetricRow("Planetary", Number(row.planetary_intelligence), displayedBaseline.planetary_intelligence)}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="comparison-note">
+        Against the current top-readiness country, <strong>${escapeHtml(row.country)}</strong>
+        is <strong class="${comparisonClass(topDelta)}">${formatDelta(topDelta)}</strong> readiness points away.
+      </p>
+    </div>
+  `;
+}
+
 function renderTheoryBlock(row) {
   const hidden = document.getElementById("showTheoryDiagnostics") && !document.getElementById("showTheoryDiagnostics").checked;
   return `
@@ -641,6 +755,7 @@ function renderTheoryBlock(row) {
         <div class="gap-card"><span>Ecological pressure</span><strong>${row.ecological_pressure.toFixed(1)}</strong></div>
       </div>
       ${renderDiagnosticBars(row)}
+      ${renderComparisonCards(row)}
       <p class="muted small">${escapeHtml(row.maturity_interpretation)}</p>
     </div>
   `;
