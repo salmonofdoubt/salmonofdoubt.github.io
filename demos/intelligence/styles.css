@@ -680,3 +680,33 @@
     white-space: normal;
   }
 }
+
+
+/* Fix selected-country lean pointer spacing */
+.transition-lean-track {
+  position: relative;
+  height: 5.4rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.95rem;
+  padding: 0;
+}
+
+.transition-lean-scale {
+  position: absolute;
+  left: 0.2rem;
+  right: 0.2rem;
+  top: 3.45rem;
+  height: 2px;
+}
+
+.transition-lean-marker {
+  position: absolute;
+  top: 0.35rem;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.transition-lean-caption {
+  margin: 0.4rem 0 0;
+  line-height: 1.6;
+}
