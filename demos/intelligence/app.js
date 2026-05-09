@@ -13,6 +13,63 @@ const state = {
 
 document.addEventListener("DOMContentLoaded", init);
 
+async function fillMissingDimensionsFromFallback(sourceLabel) {
+  const rows = Array.isArray(state.scores) ? state.scores : [];
+  const needsRepair = rows.some(row =>
+    !Number.isFinite(Number(row.individual_intelligence)) ||
+    !Number.isFinite(Number(row.collective_intelligence)) ||
+    !Number.isFinite(Number(row.planetary_intelligence))
+  );
+
+  if (!needsRepair) return;
+
+  const fallbackRows = await loadFallbackScores();
+  const fallbackByCode = new Map(fallbackRows.map(row => [row.code, row]));
+
+  let repaired = 0;
+
+  state.scores = rows.map(row => {
+    const fallback = fallbackByCode.get(row.code);
+    if (!fallback) return row;
+
+    const out = { ...row };
+    let changed = false;
+
+    for (const key of [
+      "individual_intelligence",
+      "collective_intelligence",
+      "planetary_intelligence"
+    ]) {
+      if (!Number.isFinite(Number(out[key])) && Number.isFinite(Number(fallback[key]))) {
+        out[key] = Number(fallback[key]);
+        changed = true;
+      }
+    }
+
+    if (changed) {
+      repaired += 1;
+      out.overall_synergy = average([
+        Number(out.individual_intelligence),
+        Number(out.collective_intelligence),
+        Number(out.planetary_intelligence)
+      ]);
+      out.archetype = classifyArchetype(
+        Number(out.individual_intelligence),
+        Number(out.collective_intelligence),
+        Number(out.planetary_intelligence)
+      );
+      out.data_status = `${sourceLabel} with fallback-filled missing dimensions`;
+    }
+
+    return out;
+  });
+
+  if (repaired > 0) {
+    state.hybridFallback = true;
+    console.warn(`${sourceLabel}: fallback-filled missing dimensions for ${repaired} countries.`);
+  }
+}
+
 
 function assertUsableScores(sourceLabel) {
   const rows = Array.isArray(state.scores) ? state.scores : [];
@@ -61,6 +118,7 @@ async function init() {
         ? `Partial snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`
         : `Fresh snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`;
       state.scores = computeScores();
+      await fillMissingDimensionsFromFallback("World Bank snapshot");
       assertUsableScores("World Bank snapshot");
       renderSnapshotDataModeStatus(snapshotReport);
     } catch (snapshotError) {
@@ -73,6 +131,7 @@ async function init() {
           ? `Partial live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`
           : `Live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`;
         state.scores = computeScores();
+        await fillMissingDimensionsFromFallback("Browser live World Bank data");
         assertUsableScores("Browser live World Bank data");
         renderLiveDataModeStatus(liveReport);
       } catch (liveError) {
@@ -98,7 +157,7 @@ async function init() {
 
         const target = document.getElementById("dataMode");
         if (target) {
-          target.innerHTML = `<span class="status-pill">Fallback illustrative data</span>`;
+          target.innerHTML = `<span class="status-pill fallback-status">Fallback illustrative data</span>`;
         }
 
         refreshIndicatorHealthMap();
@@ -107,6 +166,7 @@ async function init() {
 
     applyFilters();
     refreshIndicatorHealthMap();
+    updateDataProvenanceFromCurrentState();
   } catch (error) {
     document.getElementById("plot").innerHTML = `<div class="warning-box">Could not initialise demo: ${escapeHtml(error.message)}</div>`;
   }
@@ -161,7 +221,18 @@ function renderSnapshotDataModeStatus(report) {
     ? new Date(report.generated_at).toISOString().slice(0, 10)
     : "unknown date";
 
-  const loadedText = `${report.loaded.length}/${report.total} indicators`;
+        const loadedText = `${report.loaded.length}/${report.total} indicators`;
+
+if (state.hybridFallback) {
+  target.innerHTML = `
+    <span
+      class="status-pill snapshot-status partial-status"
+      title="Snapshot date: ${escapeHtml(generated)} · Missing dimensions fallback-filled">
+      Hybrid snapshot data · ${loadedText} · ${escapeHtml(generated)}
+    </span>
+  `;
+  return;
+}
 
   if (report.failed.length) {
     const failedCodes = report.failed.map(d => d.code).join(", ");
@@ -1971,6 +2042,7 @@ function deriveIndicatorHealthReportFromState() {
 }
 
 function refreshIndicatorHealthMap() {
+  updateDataProvenanceFromCurrentState();
   const target = document.getElementById("liveIndicatorHeatmap");
   if (!target) return;
 
@@ -2052,4 +2124,39 @@ function renderIndicatorHealthMap(report, mode = "live") {
       <span><i class="fallback"></i>fallback</span>
     </div>
   `;
+}
+
+function formatDataDate(value) {
+  if (!value) return "Not available";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value).slice(0, 10);
+  return date.toISOString().slice(0, 10);
+}
+
+function updateDataProvenanceFromCurrentState() {
+  const updatedTarget = document.getElementById("dataUpdated");
+  const sourceTarget = document.getElementById("dataSourceRoute");
+
+  const report = state.liveReport || null;
+  const modeText = String(state.dataMode || "");
+  const isFallback = /fallback/i.test(modeText);
+  const isSnapshot = /snapshot/i.test(modeText) || /snapshot/i.test(String(report?.mode || ""));
+  const isLive = /live/i.test(modeText) || /live/i.test(String(report?.mode || ""));
+
+  let updated = "Not available";
+  let source = "World Bank API snapshot + fallback safety net";
+
+  if (isFallback) {
+    updated = "Not applicable";
+    source = "Illustrative fallback CSV";
+  } else if (isSnapshot) {
+    updated = formatDataDate(report?.generated_at || report?.generatedAt || report?.meta?.generated_at);
+    source = state.hybridFallback ? "World Bank API snapshot + fallback-filled missing dimensions" : "World Bank API snapshot";
+  } else if (isLive) {
+    updated = "Fetched in browser session";
+    source = state.hybridFallback ? "World Bank API live fetch + fallback-filled missing dimensions" : "World Bank API live fetch";
+  }
+
+  if (updatedTarget) updatedTarget.textContent = updated;
+  if (sourceTarget) sourceTarget.textContent = source;
 }
