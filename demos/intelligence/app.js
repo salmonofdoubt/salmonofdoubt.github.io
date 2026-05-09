@@ -287,30 +287,26 @@ function matureTechnosphereGap(diagnostics, ecologicalPressure) {
 }
 
 function classifyMaturity(row) {
-  const i = Number(row.individual_intelligence || 0);
-  const c = Number(row.collective_intelligence || 0);
-  const p = Number(row.planetary_intelligence || 0);
-  const pressure = Number(row.ecological_pressure ?? (100 - p));
+  const gap = clampScore(row.mature_technosphere_gap ?? 0);
 
-  if (c >= 70 && p >= 70 && pressure <= 35) return "Mature technosphere candidate";
-  if (c >= 60 && p >= 50) return "Transitioning technosphere";
-  if (i >= 60 && c >= 55 && p < 50) return "Immature technosphere";
-  if (i >= 45 || c >= 45) return "Emerging technosphere";
-  return "Low-system-capacity state";
+  if (gap >= 75) return "Mature-candidate readiness";
+  if (gap >= 50) return "Transitioning readiness";
+  if (gap >= 25) return "Immature readiness";
+  return "Emerging readiness";
 }
 
 function maturityInterpretation(row) {
   switch (row.maturity_state) {
-    case "Mature technosphere candidate":
-      return "High coordination and stewardship with comparatively lower ecological pressure. This is closest to the mature-technosphere ideal in this prototype.";
-    case "Transitioning technosphere":
-      return "Meaningful coordination and planetary stewardship are present, but the feedback system is not yet strong enough to be considered mature.";
-    case "Immature technosphere":
-      return "Capability and institutions are present, but planetary self-regulation is weak.";
-    case "Emerging technosphere":
-      return "Some system capacity is present, but planetary-scale feedback and stewardship remain early.";
+    case "Mature-candidate readiness":
+      return "This country is in the mature-candidate readiness band in this proxy model. It still sits within Earth's immature global technosphere, but shows comparatively strong readiness ingredients.";
+    case "Transitioning readiness":
+      return "This country is in the transitioning readiness band. It shows meaningful movement toward planetary self-regulation, but is not yet mature.";
+    case "Immature readiness":
+      return "This country is in the immature readiness band. Some capability is present, but planetary-scale feedback and self-regulation remain insufficient.";
+    case "Emerging readiness":
+      return "This country is in the emerging readiness band. Planetary-scale feedback and stewardship capacity remain early in this proxy model.";
     default:
-      return "Low composite system capacity in this proxy model. Interpret cautiously where indicator completeness is limited.";
+      return "Readiness could not be classified clearly. Interpret cautiously where indicator completeness is limited.";
   }
 }
 
@@ -324,11 +320,20 @@ function clampScore(v) {
 
 function maturityColor(label, alpha = 0.26) {
   switch (label) {
-    case "Mature technosphere candidate": return `rgba(94, 234, 212, ${alpha})`;
-    case "Transitioning technosphere": return `rgba(110, 168, 255, ${alpha})`;
-    case "Immature technosphere": return `rgba(251, 191, 36, ${alpha})`;
-    case "Emerging technosphere": return `rgba(139, 92, 246, ${alpha})`;
-    default: return `rgba(168, 180, 207, ${alpha})`;
+    case "Mature-candidate readiness":
+    case "Mature technosphere candidate":
+      return `rgba(94, 234, 212, ${alpha})`;
+    case "Transitioning readiness":
+    case "Transitioning technosphere":
+      return `rgba(110, 168, 255, ${alpha})`;
+    case "Immature readiness":
+    case "Immature technosphere":
+      return `rgba(251, 191, 36, ${alpha})`;
+    case "Emerging readiness":
+    case "Emerging technosphere":
+      return `rgba(139, 92, 246, ${alpha})`;
+    default:
+      return `rgba(168, 180, 207, ${alpha})`;
   }
 }
 
@@ -407,14 +412,24 @@ function renderDiagnosticBars(row) {
 function readinessLabel(row) {
   const gap = clampScore(row.mature_technosphere_gap ?? 0);
 
-  if (gap >= 75) return "Mature-candidate zone";
-  if (gap >= 50) return "Transitioning zone";
-  if (gap >= 25) return "Developing zone";
-  return "Emerging zone";
+  if (gap >= 75) return "mature-candidate readiness band";
+  if (gap >= 50) return "transitioning readiness band";
+  if (gap >= 25) return "immature readiness band";
+  return "emerging readiness band";
+}
+
+
+function readinessToneClass(label) {
+  return maturityClassName(readinessStateLabel(label));
 }
 
 function readinessStateLabel(label) {
   switch (label) {
+    case "Mature-candidate readiness":
+    case "Transitioning readiness":
+    case "Immature readiness":
+    case "Emerging readiness":
+      return label;
     case "Mature technosphere candidate":
       return "Mature-candidate readiness";
     case "Transitioning technosphere":
@@ -470,6 +485,7 @@ function renderTransitionLean(row) {
   const gap = clampScore(row.mature_technosphere_gap ?? 0);
   const country = escapeHtml(row.country);
   const stateLabel = escapeHtml(readinessStateLabel(row.maturity_state));
+  const toneClass = readinessToneClass(row.maturity_state);
 
   let leaningText = "";
   if (gap < 25) {
@@ -487,11 +503,11 @@ function renderTransitionLean(row) {
 <div class="current-stage-readiness">
         <p class="current-stage-title">
           <span>Country readiness inside the current global state</span>
-          <span class="current-stage-score">${gap.toFixed(0)} / 100</span>
+          <span class="current-stage-score ${toneClass}">${gap.toFixed(0)} / 100</span>
         </p>
         <div class="current-stage-track" aria-label="Country readiness inside immature technosphere">
           <span
-            class="current-stage-marker"
+            class="current-stage-marker ${toneClass}"
             style="left:${gap}%"
             title="${country}: ${gap.toFixed(1)} / 100">
           </span>
@@ -507,7 +523,7 @@ function renderTransitionLean(row) {
       <p class="transition-lean-warning">
         <strong>${country}</strong> is not being placed in the biosphere stages.
         It is a country-level subsystem inside Earth's current <strong>immature technosphere</strong>,
-        classified here as <strong>${stateLabel}</strong> and leaning through the
+        classified here as <strong>${stateLabel}</strong> and sitting in the
         <strong>${escapeHtml(leaningText)}</strong> zone.
       </p>
     </div>
@@ -618,7 +634,7 @@ function renderTheoryBlock(row) {
   return `
     <div class="theory-detail-block${hidden ? " is-hidden" : ""}">
       <h4>Planetary-intelligence diagnostics</h4>
-      <span class="maturity-badge ${maturityClassName(row.maturity_state)}">${escapeHtml(readinessStateLabel(row.maturity_state))}</span>
+      <span class="maturity-badge ${readinessToneClass(row.maturity_state)}">${escapeHtml(readinessStateLabel(row.maturity_state))}</span>
       <div class="gap-strip">
         <div class="gap-card"><span>Mature technosphere gap</span><strong>${row.mature_technosphere_gap.toFixed(1)}</strong></div>
         <div class="gap-card"><span>Ecological pressure</span><strong>${row.ecological_pressure.toFixed(1)}</strong></div>
@@ -883,7 +899,7 @@ function hoverTemplate() {
     "Collective: %{y:.1f}<br>" +
     "Planetary: %{z:.1f}<br>" +
     "Synergy: %{customdata.overall_synergy:.1f}<br>" +
-    "Maturity: %{customdata.maturity_state}<br>" +
+    "Readiness: %{customdata.maturity_state}<br>" +
     "Mature gap: %{customdata.mature_technosphere_gap:.1f}<br>" +
     "Archetype: %{customdata.archetype}<extra></extra>";
 }
