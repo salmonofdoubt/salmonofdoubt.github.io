@@ -13,6 +13,154 @@ const state = {
 
 document.addEventListener("DOMContentLoaded", init);
 
+function describeIndicatorHealthStatus(indicator, failed, mode) {
+  const code = String(indicator?.code || "");
+  const layer = String(indicator?.layer || "");
+  const reason = String(failed?.reason || "");
+
+  if (/fallback/i.test(String(mode || ""))) {
+    return "Fallback mode is active. This indicator is shown for transparency but is not fetched live in this run.";
+  }
+
+  if (["GE.EST", "RL.EST", "CC.EST", "VA.EST", "RQ.EST"].includes(code)) {
+    return "Governance indicator currently unavailable through the snapshot route. The collective dimension is fallback-filled and clearly labelled.";
+  }
+
+  if (code === "EN.GHG.CO2.PC.CE.AR5" || code === "EN.ATM.CO2E.PC") {
+    return "CO2 indicator was not returned by this data route. The model continues with available planetary indicators and marks any fallback-filled values.";
+  }
+
+  if (/payload|data array|api\.worldbank|URL|http/i.test(reason)) {
+    return "Skipped by the data snapshot fetcher. The demo continues with available indicators and labels the missing part transparently.";
+  }
+
+  if (layer === "collective") {
+    return "Collective indicator unavailable in this snapshot. The model uses fallback-filled collective values where needed.";
+  }
+
+  return reason || "Indicator unavailable in this data run.";
+}
+
+function installIndicatorDetailAutoCollapse() {
+  if (state.indicatorDetailAutoCollapseInstalled) return;
+  state.indicatorDetailAutoCollapseInstalled = true;
+
+  const observer = new MutationObserver(() => compactIndicatorDetailTables());
+  observer.observe(document.body, { childList: true, subtree: true });
+  compactIndicatorDetailTables();
+}
+
+function compactIndicatorDetailTables() {
+  const headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, strong"))
+    .filter(el => /indicator detail/i.test((el.textContent || "").trim()));
+
+  headings.forEach(heading => {
+    if (heading.closest(".indicator-detail-disclosure")) return;
+
+    const parent = heading.parentElement;
+    if (!parent) return;
+
+    const details = document.createElement("details");
+    details.className = "indicator-detail-disclosure";
+
+    const summary = document.createElement("summary");
+    summary.innerHTML = `
+      <span>Indicator detail</span>
+      <small>click to expand raw values, scores, and source years</small>
+    `;
+
+    const content = document.createElement("div");
+    content.className = "indicator-detail-content";
+
+    details.appendChild(summary);
+    details.appendChild(content);
+
+    parent.insertBefore(details, heading);
+    content.appendChild(heading);
+
+    let moved = 0;
+    let movedTable = false;
+
+    while (details.nextSibling && moved < 12) {
+      const node = details.nextSibling;
+
+      if (
+        movedTable &&
+        node.nodeType === 1 &&
+        /^(H2|H3|H4|H5)$/i.test(node.tagName || "")
+      ) {
+        break;
+      }
+
+      content.appendChild(node);
+      moved += 1;
+
+      if (
+        node.nodeType === 1 &&
+        (node.tagName === "TABLE" || node.querySelector?.("table"))
+      ) {
+        movedTable = true;
+        break;
+      }
+    }
+  });
+}
+
+function calculateDynamicAxisRange(rows, key) {
+  const values = (rows || [])
+    .map(row => Number(row[key]))
+    .filter(Number.isFinite);
+
+  if (!values.length) return [0, 100];
+
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const spread = Math.max(1, maxValue - minValue);
+  const pad = Math.max(6, spread * 0.18);
+
+  let low = Math.floor(Math.max(0, minValue - pad) / 5) * 5;
+  let high = Math.ceil(Math.min(100, maxValue + pad) / 5) * 5;
+
+  const minSpan = 25;
+  if (high - low < minSpan) {
+    const mid = (low + high) / 2;
+    low = Math.floor(Math.max(0, mid - minSpan / 2) / 5) * 5;
+    high = Math.ceil(Math.min(100, mid + minSpan / 2) / 5) * 5;
+  }
+
+  if (high <= low) return [0, 100];
+
+  return [low, high];
+}
+
+function calculateDynamicPlotRanges(rows) {
+  return {
+    x: calculateDynamicAxisRange(rows, "individual_intelligence"),
+    y: calculateDynamicAxisRange(rows, "collective_intelligence"),
+    z: calculateDynamicAxisRange(rows, "planetary_intelligence")
+  };
+}
+
+function getPlotAxisRanges() {
+  const rows = state.filtered && state.filtered.length ? state.filtered : state.scores;
+  return calculateDynamicPlotRanges(rows);
+}
+
+function getCurrentAxisRanges() {
+  if (state.axisRanges) return state.axisRanges;
+
+  if (typeof dynamicPlotRanges === "function") {
+    state.axisRanges = dynamicPlotRanges(state.filtered && state.filtered.length ? state.filtered : state.scores);
+    return state.axisRanges;
+  }
+
+  return {
+    x: [0, 100],
+    y: [0, 100],
+    z: [0, 100]
+  };
+}
+
 async function fillMissingDimensionsFromFallback(sourceLabel) {
   const rows = Array.isArray(state.scores) ? state.scores : [];
   const needsRepair = rows.some(row =>
@@ -167,6 +315,7 @@ async function init() {
     applyFilters();
     refreshIndicatorHealthMap();
     updateDataProvenanceFromCurrentState();
+    installIndicatorDetailAutoCollapse();
   } catch (error) {
     document.getElementById("plot").innerHTML = `<div class="warning-box">Could not initialise demo: ${escapeHtml(error.message)}</div>`;
   }
@@ -1234,7 +1383,42 @@ function updateSummary() {
 }
 
 
+function dynamicAxisRange(rows, key, options = {}) {
+  const values = (rows || [])
+    .map(row => Number(row[key]))
+    .filter(Number.isFinite);
+
+  if (!values.length) return [0, 100];
+
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const spread = Math.max(1, maxValue - minValue);
+  const pad = Math.max(options.minPad || 6, spread * (options.padFraction || 0.18));
+
+  let low = Math.floor(Math.max(0, minValue - pad) / 5) * 5;
+  let high = Math.ceil(Math.min(100, maxValue + pad) / 5) * 5;
+
+  if (high - low < (options.minSpan || 25)) {
+    const mid = (low + high) / 2;
+    low = Math.max(0, Math.floor((mid - (options.minSpan || 25) / 2) / 5) * 5);
+    high = Math.min(100, Math.ceil((mid + (options.minSpan || 25) / 2) / 5) * 5);
+  }
+
+  if (high <= low) return [0, 100];
+
+  return [low, high];
+}
+
+function dynamicPlotRanges(rows) {
+  return {
+    x: dynamicAxisRange(rows, "individual_intelligence"),
+    y: dynamicAxisRange(rows, "collective_intelligence"),
+    z: dynamicAxisRange(rows, "planetary_intelligence")
+  };
+}
+
 function renderPlot() {
+  
   const plotTarget = document.getElementById("plot");
   if (!plotTarget) return;
 
@@ -1344,7 +1528,7 @@ function renderPlot() {
 function axisStyle(title) {
   return {
     title,
-    range: [0, 100],
+    range: getPlotAxisRanges().x,
     color: "#edf3ff",
     gridcolor: "rgba(153,177,255,0.18)",
     zerolinecolor: "rgba(153,177,255,0.25)",
@@ -1928,7 +2112,7 @@ function renderIndicatorHealth(report, mode = "live") {
     } else if (failed) {
       status = "skipped";
       label = "Skipped";
-      detail = failed.reason || "No usable live data";
+      detail = describeIndicatorHealthStatus(indicator, failed, mode);
     }
 
     const layerInitial = String(indicator.layer || "?").slice(0, 1).toUpperCase();
@@ -2084,7 +2268,7 @@ function renderIndicatorHealthMap(report, mode = "live") {
     } else if (failed) {
       status = "skipped";
       label = "Skipped";
-      detail = failed.reason || "No usable live data";
+      detail = describeIndicatorHealthStatus(indicator, failed, mode);
     }
 
     const layerInitial = String(indicator.layer || "?").slice(0, 1).toUpperCase();

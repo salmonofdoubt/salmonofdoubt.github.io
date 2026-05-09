@@ -2001,3 +2001,65 @@
 .quick-facts #dataSourceRoute {
   color: var(--muted);
 }
+
+/* Collapsed country indicator detail */
+
+.indicator-detail-disclosure {
+  margin-top: 1rem;
+  border: 1px solid rgba(153, 177, 255, 0.16);
+  border-radius: 18px;
+  background: rgba(7, 11, 20, 0.34);
+  overflow: hidden;
+}
+
+.indicator-detail-disclosure > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.8rem 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  color: var(--text);
+  font-weight: 900;
+}
+
+.indicator-detail-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.indicator-detail-disclosure > summary::after {
+  content: "open";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.1rem;
+  padding: 0.18rem 0.45rem;
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(153, 177, 255, 0.10);
+  border: 1px solid rgba(153, 177, 255, 0.16);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.indicator-detail-disclosure[open] > summary::after {
+  content: "close";
+}
+
+.indicator-detail-disclosure > summary small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.indicator-detail-content {
+  padding: 0 0.95rem 0.95rem;
+}
+
+.indicator-detail-content h2,
+.indicator-detail-content h3,
+.indicator-detail-content h4,
+.indicator-detail-content h5 {
+  display: none;
+}
