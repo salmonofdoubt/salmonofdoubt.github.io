@@ -1,6 +1,7 @@
 
 const WB_BASE = "https://api.worldbank.org/v2";
 const state = {
+  selectedRow: null,
   countries: [],
   indicators: [],
   rawValues: {},
@@ -402,6 +403,130 @@ function renderDiagnosticBars(row) {
   `;
 }
 
+
+function readinessLabel(row) {
+  const gap = clampScore(row.mature_technosphere_gap ?? 0);
+
+  if (gap >= 75) return "Mature-candidate zone";
+  if (gap >= 50) return "Transitioning zone";
+  if (gap >= 25) return "Developing zone";
+  return "Emerging zone";
+}
+
+function readinessStateLabel(label) {
+  switch (label) {
+    case "Mature technosphere candidate":
+      return "Mature-candidate readiness";
+    case "Transitioning technosphere":
+      return "Transitioning readiness";
+    case "Immature technosphere":
+      return "Immature readiness";
+    case "Emerging technosphere":
+      return "Emerging readiness";
+    default:
+      return "Low readiness";
+  }
+}
+
+function renderReadinessPathway(row) {
+  const gap = clampScore(row.mature_technosphere_gap ?? 0);
+  const country = escapeHtml(row.country || "Selected country");
+  const zone = readinessLabel(row);
+  const stateLabel = readinessStateLabel(row.maturity_state);
+
+  return `
+    <div class="readiness-pathway">
+      <h5>Readiness pathway within the current immature global technosphere</h5>
+      <div class="readiness-track" aria-label="Readiness score from emerging to mature-candidate">
+        <span
+          class="readiness-marker"
+          style="left:${gap}%"
+          data-label="${gap.toFixed(0)} / 100"
+          title="${country}: ${gap.toFixed(1)} / 100">
+        </span>
+      </div>
+      <div class="readiness-labels">
+        <span>Emerging</span>
+        <span>Immature</span>
+        <span>Transitioning</span>
+        <span>Mature-candidate</span>
+      </div>
+      <p class="readiness-note">
+        <strong>${country}</strong> sits in the <strong>${escapeHtml(zone)}</strong>
+        and is classified as <strong>${escapeHtml(stateLabel)}</strong> in this proxy model.
+      </p>
+    </div>
+  `;
+}
+
+function makeSelectedLocatorTrace(row) {
+  if (!row || !row.country) return null;
+
+  const x = Number(row.individual_intelligence || 0);
+  const y = Number(row.collective_intelligence || 0);
+  const z = Number(row.planetary_intelligence || 0);
+
+  return {
+    type: "scatter3d",
+    mode: "lines+markers",
+    name: "Selected locator",
+    x: [
+      x, x, null,   // vertical to floor (z = 0)
+      x, x, null,   // to back wall (y = 0)
+      0, x, null,   // to side wall (x = 0)
+      x             // selected point marker
+    ],
+    y: [
+      y, y, null,
+      0, y, null,
+      y, y, null,
+      y
+    ],
+    z: [
+      0, z, null,
+      z, z, null,
+      z, z, null,
+      z
+    ],
+    text: [
+      null, null, null,
+      null, null, null,
+      null, null, null,
+      row.country
+    ],
+    hovertemplate: [
+      null, null, null,
+      null, null, null,
+      null, null, null,
+      "<b>%{text}</b><br>Selected country locator<extra></extra>"
+    ],
+    showlegend: false,
+    line: {
+      width: 2,
+      color: "rgba(255,255,255,0.92)"
+    },
+    marker: {
+      size: [0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+      color: [
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(0,0,0,0)",
+        "rgba(255,255,255,1)"
+      ],
+      line: {
+        width: 1.5,
+        color: "rgba(255,255,255,1)"
+      }
+    }
+  };
+}
+
 function renderTheoryBlock(row) {
   const hidden = document.getElementById("showTheoryDiagnostics") && !document.getElementById("showTheoryDiagnostics").checked;
   return `
@@ -446,6 +571,7 @@ function bindControls() {
   document.getElementById("clearFilters").addEventListener("click", () => {
     document.getElementById("regionFilter").value = "All";
     document.getElementById("countrySearch").value = "";
+    state.selectedRow = null;
     document.getElementById("minSynergy").value = 0;
     document.getElementById("minSynergyValue").textContent = "0";
     document.getElementById("colourMode").value = "archetype";
@@ -479,6 +605,10 @@ function applyFilters() {
     const synergyMatch = row.overall_synergy >= minSynergy;
     return regionMatch && searchMatch && synergyMatch;
   });
+
+  if (state.selectedRow && !state.filteredRows.some(row => row.country === state.selectedRow.country)) {
+    state.selectedRow = null;
+  }
 
   updateSummary();
   renderPlot();
@@ -553,6 +683,11 @@ function renderPlot() {
     traces.unshift(makeDropLineTrace(rows));
   }
 
+  const selectedLocatorTrace = makeSelectedLocatorTrace(state.selectedRow);
+  if (selectedLocatorTrace) {
+    traces.unshift(selectedLocatorTrace);
+  }
+
   const layout = {
     margin: { l: 0, r: 0, t: 10, b: 0 },
     paper_bgcolor: "rgba(0,0,0,0)",
@@ -601,6 +736,7 @@ function hoverTemplate() {
 
 function renderSelected(row) {
   row = enrichTheoryFields(row);
+  state.selectedRow = row;
   const detailRows = row.detail && row.detail.length
     ? row.detail.map(d => `
         <tr>
@@ -614,7 +750,7 @@ function renderSelected(row) {
     : `<tr><td colspan="5">Fallback mode has no live source-year detail.</td></tr>`;
 
   document.getElementById("selectedCountry").innerHTML = `
-    <h3>${escapeHtml(row.country)}</h3>
+    <h3>${escapeHtml(row.country)}</h3>\n    <span class="locator-chip">Selected locator active in 3D plot</span>
     <div class="profile-meta">
       <span>${escapeHtml(row.region)}</span>
       <span>${escapeHtml(row.archetype)}</span>
@@ -634,6 +770,7 @@ function renderSelected(row) {
     </table>
   `;
   updateTheoryPanel(row);
+  renderPlot();
 }
 
 function renderIndicatorTable() {
