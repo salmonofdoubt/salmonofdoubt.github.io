@@ -18,3 +18,13 @@ Then open:
 
 http://localhost:8010/demos/intelligence/
 http://localhost:8010/demos/intelligence/model.html
+
+## Data route
+
+The public demo uses this data route:
+
+1. Local World Bank snapshot: `data/worldbank_snapshot.json`
+2. Browser live fetch from the World Bank API, only if the snapshot is unavailable
+3. Illustrative fallback CSV, only if neither snapshot nor live fetch is usable
+
+The homepage displays data mode, update date, indicator source, and a small indicator health map. The full explanation is in `model.html`.

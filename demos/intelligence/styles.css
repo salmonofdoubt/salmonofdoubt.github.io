@@ -1988,3 +1988,16 @@
   border-color: rgba(94, 234, 212, 0.30);
   color: #e7fffb;
 }
+
+/* Data provenance display */
+
+.status-pill.fallback-status {
+  background: rgba(168, 180, 207, 0.14);
+  border-color: rgba(168, 180, 207, 0.28);
+  color: #dbe4f4;
+}
+
+.quick-facts #dataUpdated,
+.quick-facts #dataSourceRoute {
+  color: var(--muted);
+}

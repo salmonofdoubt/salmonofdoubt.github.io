@@ -292,6 +292,55 @@
           </div>
         </section>
 
+        <section id="data-route">
+  <h2>Data route and freshness</h2>
+  <p>
+    The public-facing data route is intentionally simple: the demo first tries to load a periodically refreshed
+    local snapshot of World Bank API results. This is the preferred route because it is stable, fast, and does
+    not require every visitor’s browser to make a large set of live API requests.
+  </p>
+  <table class="model-table">
+    <thead>
+      <tr>
+        <th>Mode shown on page</th>
+        <th>Meaning</th>
+        <th>User interpretation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Fresh snapshot data</td>
+        <td>A local <code>worldbank_snapshot.json</code> file was loaded successfully.</td>
+        <td>Use this as the normal public data mode.</td>
+      </tr>
+      <tr>
+        <td>Partial snapshot data</td>
+        <td>The snapshot loaded, but one or more indicators were unavailable or skipped.</td>
+        <td>Usable, but inspect the heatmap and source transparency.</td>
+      </tr>
+      <tr>
+        <td>Live browser data</td>
+        <td>The browser fetched World Bank data directly because the snapshot was unavailable.</td>
+        <td>Backup route only; useful but more fragile.</td>
+      </tr>
+      <tr>
+        <td>Partial live browser data</td>
+        <td>The browser fetched some indicators, but at least one failed.</td>
+        <td>Usable with caution; inspect the heatmap.</td>
+      </tr>
+      <tr>
+        <td>Fallback illustrative data</td>
+        <td>The app loaded the fallback CSV because snapshot and live fetch were not usable.</td>
+        <td>Interface demonstration only, not empirical evidence.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    The homepage therefore shows <strong>Data updated</strong>, <strong>Indicator source</strong>, and a small
+    indicator heatmap. The user needs provenance and freshness, not the internal plumbing.
+  </p>
+</section>
+
         <section id="indicators">
           <h2>8. Indicator framework</h2>
           <p>
