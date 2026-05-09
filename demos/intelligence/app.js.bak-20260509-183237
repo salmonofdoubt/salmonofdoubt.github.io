@@ -13,33 +13,6 @@ const state = {
 
 document.addEventListener("DOMContentLoaded", init);
 
-
-function assertUsableScores(sourceLabel) {
-  const rows = Array.isArray(state.scores) ? state.scores : [];
-
-  const plottable = rows.filter(row =>
-    Number.isFinite(Number(row.individual_intelligence)) &&
-    Number.isFinite(Number(row.collective_intelligence)) &&
-    Number.isFinite(Number(row.planetary_intelligence)) &&
-    Number.isFinite(Number(row.overall_synergy))
-  );
-
-  if (!plottable.length) {
-    state.scores = [];
-    throw new Error(`${sourceLabel} produced no plottable 3D country scores.`);
-  }
-
-  if (plottable.length !== rows.length) {
-    console.warn(
-      `${sourceLabel}: removed ${rows.length - plottable.length} non-plottable rows from ${rows.length} total rows.`
-    );
-    state.scores = plottable;
-  }
-
-  console.info(`${sourceLabel}: ${plottable.length} plottable countries.`);
-}
-
-
 async function init() {
   try {
     const [countries, indicators] = await Promise.all([
@@ -61,7 +34,6 @@ async function init() {
         ? `Partial snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`
         : `Fresh snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`;
       state.scores = computeScores();
-      assertUsableScores("World Bank snapshot");
       renderSnapshotDataModeStatus(snapshotReport);
     } catch (snapshotError) {
       console.warn("World Bank snapshot unavailable; trying browser live fetch.", snapshotError);
@@ -73,7 +45,6 @@ async function init() {
           ? `Partial live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`
           : `Live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`;
         state.scores = computeScores();
-        assertUsableScores("Browser live World Bank data");
         renderLiveDataModeStatus(liveReport);
       } catch (liveError) {
         console.warn("World Bank API failed below usable threshold; using fallback dataset.", liveError);
@@ -81,7 +52,6 @@ async function init() {
         state.rawValues = {};
         state.dataMode = "Fallback illustrative data";
         state.scores = await loadFallbackScores();
-        assertUsableScores("Fallback CSV");
         state.liveReport = {
           mode: "fallback",
           total: state.indicators.length,
@@ -1162,21 +1132,7 @@ function updateSummary() {
   document.getElementById("avgCompleteness").textContent = rows.length ? `${Math.round(average(rows.map(r => r.completeness)) * 100)}%` : "0%";
 }
 
-
 function renderPlot() {
-  const plotTarget = document.getElementById("plot");
-  if (!plotTarget) return;
-
-  if (!state.filtered || !state.filtered.length) {
-    plotTarget.innerHTML = `
-      <div class="warning-box">
-        No plottable country rows are available for the current data source or filters.
-        Try clearing filters. If this persists, the app should fall back to the fallback CSV.
-      </div>
-    `;
-    return;
-  }
-
   const mode = document.getElementById("colourMode").value;
   const rows = state.filtered;
   let traces;

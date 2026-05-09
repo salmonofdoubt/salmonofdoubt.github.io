@@ -13,100 +13,31 @@ const state = {
 
 document.addEventListener("DOMContentLoaded", init);
 
-
-function assertUsableScores(sourceLabel) {
-  const rows = Array.isArray(state.scores) ? state.scores : [];
-
-  const plottable = rows.filter(row =>
-    Number.isFinite(Number(row.individual_intelligence)) &&
-    Number.isFinite(Number(row.collective_intelligence)) &&
-    Number.isFinite(Number(row.planetary_intelligence)) &&
-    Number.isFinite(Number(row.overall_synergy))
-  );
-
-  if (!plottable.length) {
-    state.scores = [];
-    throw new Error(`${sourceLabel} produced no plottable 3D country scores.`);
-  }
-
-  if (plottable.length !== rows.length) {
-    console.warn(
-      `${sourceLabel}: removed ${rows.length - plottable.length} non-plottable rows from ${rows.length} total rows.`
-    );
-    state.scores = plottable;
-  }
-
-  console.info(`${sourceLabel}: ${plottable.length} plottable countries.`);
-}
-
-
 async function init() {
   try {
     const [countries, indicators] = await Promise.all([
       fetchJSON("data/countries.json"),
       fetchJSON("data/indicators.json")
     ]);
-
     state.countries = countries;
     state.indicators = indicators;
-
     renderIndicatorTable();
     bindControls();
     populateRegionFilter();
 
     try {
-      const snapshotReport = await loadSnapshotData();
-      state.liveReport = snapshotReport;
-      state.dataMode = snapshotReport.failed.length
-        ? `Partial snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`
-        : `Fresh snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`;
+      await loadWorldBankData();
       state.scores = computeScores();
-      assertUsableScores("World Bank snapshot");
-      renderSnapshotDataModeStatus(snapshotReport);
-    } catch (snapshotError) {
-      console.warn("World Bank snapshot unavailable; trying browser live fetch.", snapshotError);
-
-      try {
-        const liveReport = await loadWorldBankData();
-        state.liveReport = liveReport;
-        state.dataMode = liveReport.failed.length
-          ? `Partial live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`
-          : `Live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`;
-        state.scores = computeScores();
-        assertUsableScores("Browser live World Bank data");
-        renderLiveDataModeStatus(liveReport);
-      } catch (liveError) {
-        console.warn("World Bank API failed below usable threshold; using fallback dataset.", liveError);
-
-        state.rawValues = {};
-        state.dataMode = "Fallback illustrative data";
-        state.scores = await loadFallbackScores();
-        assertUsableScores("Fallback CSV");
-        state.liveReport = {
-          mode: "fallback",
-          total: state.indicators.length,
-          loaded: [],
-          failed: state.indicators.map(indicator => ({
-            code: indicator.code,
-            label: indicator.label,
-            layer: indicator.layer,
-            reason: "Fallback mode active"
-          })),
-          values: 0,
-          countriesWithAnyValue: 0
-        };
-
-        const target = document.getElementById("dataMode");
-        if (target) {
-          target.innerHTML = `<span class="status-pill">Fallback illustrative data</span>`;
-        }
-
-        refreshIndicatorHealthMap();
-      }
+      state.dataMode = "Live World Bank API";
+      document.getElementById("dataMode").innerHTML = `<span class="status-pill">Live public indicators</span>`;
+    } catch (error) {
+      console.warn("World Bank API failed; using fallback dataset.", error);
+      state.scores = await loadFallbackScores();
+      state.dataMode = "Fallback";
+      document.getElementById("dataMode").innerHTML = `<span class="status-pill">Fallback illustrative data</span>`;
     }
 
     applyFilters();
-    refreshIndicatorHealthMap();
   } catch (error) {
     document.getElementById("plot").innerHTML = `<div class="warning-box">Could not initialise demo: ${escapeHtml(error.message)}</div>`;
   }
@@ -122,66 +53,6 @@ async function fetchText(url) {
   const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) throw new Error(`Failed to fetch ${url}`);
   return response.text();
-}
-
-async function loadSnapshotData() {
-  const snapshot = await fetchJSON("data/worldbank_snapshot.json");
-
-  if (!snapshot || !snapshot.rawValues || !snapshot.report) {
-    throw new Error("Snapshot file is missing rawValues or report.");
-  }
-
-  const report = {
-    ...snapshot.report,
-    mode: snapshot.report.failed && snapshot.report.failed.length ? "partial-snapshot" : "snapshot",
-    sourceLabel: snapshot.report.failed && snapshot.report.failed.length ? "Partial snapshot" : "Fresh snapshot",
-    generated_at: snapshot.meta?.generated_at || snapshot.report.generated_at || null
-  };
-
-  const minimumIndicators = Math.max(3, Math.ceil(state.indicators.length * 0.35));
-  const minimumValues = Math.max(state.countries.length * 2, 12);
-
-  if ((report.loaded || []).length < minimumIndicators || Number(report.values || 0) < minimumValues) {
-    throw new Error(
-      `Snapshot below usable threshold: ${(report.loaded || []).length}/${report.total} indicators, ` +
-      `${report.values || 0} values`
-    );
-  }
-
-  state.rawValues = snapshot.rawValues;
-  console.info("World Bank snapshot report", report);
-  return report;
-}
-
-function renderSnapshotDataModeStatus(report) {
-  const target = document.getElementById("dataMode");
-  if (!target) return;
-
-  const generated = report.generated_at
-    ? new Date(report.generated_at).toISOString().slice(0, 10)
-    : "unknown date";
-
-  const loadedText = `${report.loaded.length}/${report.total} indicators`;
-
-  if (report.failed.length) {
-    const failedCodes = report.failed.map(d => d.code).join(", ");
-    target.innerHTML = `
-      <span
-        class="status-pill snapshot-status partial-status"
-        title="Snapshot date: ${escapeHtml(generated)} · Skipped indicators: ${escapeHtml(failedCodes)}">
-        Partial snapshot data · ${loadedText} · ${escapeHtml(generated)}
-      </span>
-    `;
-    return;
-  }
-
-  target.innerHTML = `
-    <span
-      class="status-pill snapshot-status live-status"
-      title="Snapshot date: ${escapeHtml(generated)}">
-      Fresh snapshot data · ${loadedText} · ${escapeHtml(generated)}
-    </span>
-  `;
 }
 
 async function loadWorldBankData() {
@@ -1162,21 +1033,7 @@ function updateSummary() {
   document.getElementById("avgCompleteness").textContent = rows.length ? `${Math.round(average(rows.map(r => r.completeness)) * 100)}%` : "0%";
 }
 
-
 function renderPlot() {
-  const plotTarget = document.getElementById("plot");
-  if (!plotTarget) return;
-
-  if (!state.filtered || !state.filtered.length) {
-    plotTarget.innerHTML = `
-      <div class="warning-box">
-        No plottable country rows are available for the current data source or filters.
-        Try clearing filters. If this persists, the app should fall back to the fallback CSV.
-      </div>
-    `;
-    return;
-  }
-
   const mode = document.getElementById("colourMode").value;
   const rows = state.filtered;
   let traces;
@@ -1823,233 +1680,4 @@ function escapeHtml(str) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
-}
-
-function renderIndicatorHealth(report, mode = "live") {
-  const target = document.getElementById("liveIndicatorHeatmap");
-  if (!target) return;
-
-  const indicators = state.indicators || [];
-  const loadedMap = new Map((report?.loaded || []).map(d => [d.code, d]));
-  const failedMap = new Map((report?.failed || []).map(d => [d.code, d]));
-
-  if (!indicators.length) {
-    target.innerHTML = `<span class="muted small">Indicator list not loaded.</span>`;
-    return;
-  }
-
-  const cells = indicators.map(indicator => {
-    const loaded = loadedMap.get(indicator.code);
-    const failed = failedMap.get(indicator.code);
-
-    let status = "unknown";
-    let label = "Not reported";
-    let detail = "";
-
-    if (mode === "fallback") {
-      status = "fallback";
-      label = "Fallback";
-      detail = "Fallback mode active";
-    } else if (loaded) {
-      status = "live";
-      label = "Live";
-      detail = `${loaded.usableRows || 0} usable rows`;
-    } else if (failed) {
-      status = "skipped";
-      label = "Skipped";
-      detail = failed.reason || "No usable live data";
-    }
-
-    const layerInitial = String(indicator.layer || "?").slice(0, 1).toUpperCase();
-    const title = `${indicator.code} · ${indicator.label || "Indicator"} · ${label} · ${detail}`;
-
-    return `
-      <span
-        class="indicator-health-cell ${status}"
-        title="${escapeHtml(title)}"
-        aria-label="${escapeHtml(title)}">
-        ${escapeHtml(layerInitial)}
-      </span>
-    `;
-  }).join("");
-
-  const loadedCount = report?.loaded?.length || 0;
-  const total = report?.total || indicators.length;
-  const failedCount = report?.failed?.length || 0;
-  const valueCount = report?.values || 0;
-  const countryCount = report?.countriesWithAnyValue || 0;
-
-  let summary = "";
-        const sourceLabel = report && report.sourceLabel ? report.sourceLabel : null;
-
-if (mode === "fallback") {
-  summary = "Fallback mode · live indicators not used";
-} else if (sourceLabel) {
-  summary = `${sourceLabel} · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-} else if (failedCount) {
-  summary = `Partial live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-} else {
-  summary = `Live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-}
-
-  target.innerHTML = `
-    <div class="indicator-health-summary">${escapeHtml(summary)}</div>
-    <div class="indicator-health-grid">${cells}</div>
-    <div class="indicator-health-legend" aria-label="Indicator health legend">
-      <span><i class="live"></i>live</span>
-      <span><i class="skipped"></i>skipped</span>
-      <span><i class="fallback"></i>fallback</span>
-    </div>
-  `;
-}
-
-function deriveIndicatorHealthReportFromState() {
-  const indicators = state.indicators || [];
-  const rawValues = state.rawValues || {};
-  const isFallback = /fallback/i.test(String(state.dataMode || ""));
-
-  if (isFallback) {
-    return {
-      mode: "fallback",
-      total: indicators.length,
-      loaded: [],
-      failed: indicators.map(indicator => ({
-        code: indicator.code,
-        label: indicator.label,
-        layer: indicator.layer,
-        reason: "Fallback mode active"
-      })),
-      values: 0,
-      countriesWithAnyValue: 0
-    };
-  }
-
-  const loaded = [];
-  const failed = [];
-
-  for (const indicator of indicators) {
-    let usableValues = 0;
-
-    for (const countryValues of Object.values(rawValues)) {
-      if (countryValues && countryValues[indicator.code]) {
-        usableValues += 1;
-      }
-    }
-
-    if (usableValues > 0) {
-      loaded.push({
-        code: indicator.code,
-        label: indicator.label,
-        layer: indicator.layer,
-        usableRows: usableValues
-      });
-    } else {
-      failed.push({
-        code: indicator.code,
-        label: indicator.label,
-        layer: indicator.layer,
-        reason: "No usable value in current live state"
-      });
-    }
-  }
-
-  const values = Object.values(rawValues)
-    .reduce((sum, countryValues) => sum + Object.keys(countryValues || {}).length, 0);
-
-  const countriesWithAnyValue = Object.values(rawValues)
-    .filter(countryValues => Object.keys(countryValues || {}).length > 0)
-    .length;
-
-  return {
-    mode: failed.length ? "partial" : "live",
-    total: indicators.length,
-    loaded,
-    failed,
-    values,
-    countriesWithAnyValue
-  };
-}
-
-function refreshIndicatorHealthMap() {
-  const target = document.getElementById("liveIndicatorHeatmap");
-  if (!target) return;
-
-  const report = state.liveReport || deriveIndicatorHealthReportFromState();
-  const mode = report.mode || (/fallback/i.test(String(state.dataMode || "")) ? "fallback" : (report.failed && report.failed.length ? "partial" : "live"));
-
-  renderIndicatorHealthMap(report, mode);
-}
-
-function renderIndicatorHealthMap(report, mode = "live") {
-  const target = document.getElementById("liveIndicatorHeatmap");
-  if (!target) return;
-
-  const indicators = state.indicators || [];
-  const loadedMap = new Map((report && report.loaded ? report.loaded : []).map(d => [d.code, d]));
-  const failedMap = new Map((report && report.failed ? report.failed : []).map(d => [d.code, d]));
-
-  if (!indicators.length) {
-    target.innerHTML = `<span class="muted small">Indicator list not loaded.</span>`;
-    return;
-  }
-
-  const cells = indicators.map(indicator => {
-    const loaded = loadedMap.get(indicator.code);
-    const failed = failedMap.get(indicator.code);
-
-    let status = "unknown";
-    let label = "Not reported";
-    let detail = "";
-
-    if (mode === "fallback") {
-      status = "fallback";
-      label = "Fallback";
-      detail = "Fallback mode active";
-    } else if (loaded) {
-      status = "live";
-      label = "Live";
-      detail = `${loaded.usableRows || 0} usable values`;
-    } else if (failed) {
-      status = "skipped";
-      label = "Skipped";
-      detail = failed.reason || "No usable live data";
-    }
-
-    const layerInitial = String(indicator.layer || "?").slice(0, 1).toUpperCase();
-    const title = `${indicator.code} · ${indicator.label || "Indicator"} · ${label} · ${detail}`;
-
-    return `
-      <span
-        class="indicator-health-cell ${status}"
-        title="${escapeHtml(title)}"
-        aria-label="${escapeHtml(title)}">
-        ${escapeHtml(layerInitial)}
-      </span>
-    `;
-  }).join("");
-
-  const loadedCount = report && report.loaded ? report.loaded.length : 0;
-  const total = report && report.total ? report.total : indicators.length;
-  const failedCount = report && report.failed ? report.failed.length : 0;
-  const valueCount = report && report.values ? report.values : 0;
-  const countryCount = report && report.countriesWithAnyValue ? report.countriesWithAnyValue : 0;
-
-  let summary = "";
-  if (mode === "fallback") {
-    summary = "Fallback mode · live indicators not used";
-  } else if (failedCount) {
-    summary = `Partial live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-  } else {
-    summary = `Live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-  }
-
-  target.innerHTML = `
-    <div class="indicator-health-summary">${escapeHtml(summary)}</div>
-    <div class="indicator-health-grid">${cells}</div>
-    <div class="indicator-health-legend" aria-label="Indicator health legend">
-      <span><i class="live"></i>live</span>
-      <span><i class="skipped"></i>skipped</span>
-      <span><i class="fallback"></i>fallback</span>
-    </div>
-  `;
 }

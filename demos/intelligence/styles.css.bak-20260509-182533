@@ -1980,11 +1980,3 @@
 .indicator-health-legend i.fallback {
   background: rgba(168, 180, 207, 0.55);
 }
-
-/* Snapshot data status */
-
-.status-pill.snapshot-status {
-  background: rgba(94, 234, 212, 0.12);
-  border-color: rgba(94, 234, 212, 0.30);
-  color: #e7fffb;
-}
