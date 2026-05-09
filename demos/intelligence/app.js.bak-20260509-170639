@@ -744,127 +744,6 @@ function renderComparisonCards(row) {
   `;
 }
 
-
-function formatSourceNumber(value) {
-  if (value === null || value === undefined || value === "") return "missing";
-
-  const n = Number(value);
-  if (Number.isFinite(n)) {
-    return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
-  }
-
-  return escapeHtml(String(value));
-}
-
-function formatSourceScore(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n.toFixed(1) : "n/a";
-}
-
-function sourceIndicatorUsed(detailRow) {
-  return (
-    detailRow &&
-    detailRow.raw !== null &&
-    detailRow.raw !== undefined &&
-    detailRow.raw !== "" &&
-    Number.isFinite(Number(detailRow.score))
-  );
-}
-
-function renderSourceTransparency(row) {
-  if (!row || !row.country) return "";
-
-  const detail = Array.isArray(row.detail) ? row.detail : [];
-  const mode = escapeHtml(row.data_status || state.dataMode || "Unknown");
-
-  if (!detail.length) {
-    return `
-      <details class="source-transparency">
-        <summary>
-          <span>Source transparency</span>
-          <strong>aggregate fallback only</strong>
-        </summary>
-        <div class="source-empty">
-          <p>
-            This selected country currently has aggregate scores only. Per-indicator source years are not available
-            in fallback mode, so these values should be read as interface-testing data rather than empirical results.
-          </p>
-          <div class="source-summary-grid">
-            <div class="source-mini-card"><span>Data mode</span><strong>${mode}</strong></div>
-            <div class="source-mini-card"><span>Indicator detail</span><strong>Not available</strong></div>
-          </div>
-        </div>
-      </details>
-    `;
-  }
-
-  const used = detail.filter(sourceIndicatorUsed);
-  const missing = detail.length - used.length;
-  const latestYear = used
-    .map(d => Number(d.year))
-    .filter(Number.isFinite)
-    .sort((a, b) => b - a)[0];
-
-  const sorted = [...detail].sort((a, b) => {
-    const left = `${a.layer || ""} ${a.label || a.code || ""}`;
-    const right = `${b.layer || ""} ${b.label || b.code || ""}`;
-    return left.localeCompare(right);
-  });
-
-  return `
-    <details class="source-transparency">
-      <summary>
-        <span>Source transparency</span>
-        <strong>${used.length} / ${detail.length} indicators used</strong>
-      </summary>
-
-      <div class="source-summary-grid">
-        <div class="source-mini-card"><span>Data mode</span><strong>${mode}</strong></div>
-        <div class="source-mini-card"><span>Used indicators</span><strong>${used.length}</strong></div>
-        <div class="source-mini-card"><span>Missing indicators</span><strong>${missing}</strong></div>
-        <div class="source-mini-card"><span>Latest year</span><strong>${latestYear || "n/a"}</strong></div>
-      </div>
-
-      <div class="source-table-wrap">
-        <table class="source-table">
-          <thead>
-            <tr>
-              <th>Layer</th>
-              <th>Indicator</th>
-              <th>Code</th>
-              <th>Year</th>
-              <th>Raw</th>
-              <th>Score</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${sorted.map(d => {
-              const usedFlag = sourceIndicatorUsed(d);
-              return `
-                <tr>
-                  <td>${escapeHtml(d.layer || "n/a")}</td>
-                  <td>${escapeHtml(d.label || d.code || "Indicator")}</td>
-                  <td><code>${escapeHtml(d.code || "")}</code></td>
-                  <td>${d.year || "n/a"}</td>
-                  <td>${formatSourceNumber(d.raw)}</td>
-                  <td>${formatSourceScore(d.score)}</td>
-                  <td><span class="source-status ${usedFlag ? "used" : "missing"}">${usedFlag ? "Used" : "Missing"}</span></td>
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        </table>
-      </div>
-
-      <p class="source-note">
-        Source transparency shows what the selected-country profile is built from. Missing indicators are not imputed here;
-        the composite uses the available scored indicators for each layer.
-      </p>
-    </details>
-  `;
-}
-
 function renderTheoryBlock(row) {
   const hidden = document.getElementById("showTheoryDiagnostics") && !document.getElementById("showTheoryDiagnostics").checked;
   return `
@@ -877,7 +756,6 @@ function renderTheoryBlock(row) {
       </div>
       ${renderDiagnosticBars(row)}
       ${renderComparisonCards(row)}
-      ${renderSourceTransparency(row)}
       <p class="muted small">${escapeHtml(row.maturity_interpretation)}</p>
     </div>
   `;
@@ -1095,13 +973,6 @@ function renderPlot() {
   if (selectedLocatorTrace) {
     traces.push(selectedLocatorTrace);
   }
-
-  const showLandingBars = document.getElementById("showLandingBars")?.checked ?? true;
-  if (showLandingBars) {
-    traces.unshift(makeDropLineTrace(data));
-  }
-
-
 
   const layout = {
     margin: { l: 0, r: 0, t: 10, b: 0 },
