@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Three Intelligences Explorer | André Baumann</title>
+  <meta
+    name="description"
+    content="Interactive 3D demo exploring individual, collective, and planetary intelligence using transparent public-indicator proxies."
+  />
+  <link rel="stylesheet" href="../../assets/css/site.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container topbar">
+      <a class="brand" href="../../index.html">André Baumann</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="../../index.html">Home</a>
+        <a href="../../art/">Art</a>
+        <a href="../../music/">Music</a>
+        <a href="../index.html" aria-current="page">Demos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container intelligence-demo">
+    <section class="hero intelligence-hero">
+      <div class="panel">
+        <span class="eyebrow">Experimental systems intelligence</span>
+        <h1>Three Intelligences Explorer</h1>
+        <p class="lead">
+          A 3D, browser-native model for exploring the relationship between individual capability,
+          collective coordination, and planetary stewardship.
+        </p>
+        <p>
+          The demo loads public World Bank indicator proxies where possible, then computes transparent
+          composite scores. It is a reasoning instrument, not a definitive ranking. That distinction is
+          small but, as humans say, rather important.
+        </p>
+        <div class="button-row">
+          <a class="button" href="../index.html">Back to Demos</a>
+          <a class="button primary" href="#explorer">Open Explorer</a>
+          <a class="button" href="#model">Model Logic</a>
+        </div>
+      </div>
+
+      <aside class="panel quick-facts">
+        <div>
+          <strong>Mode</strong>
+          <span id="dataMode">Loading empirical indicators…</span>
+        </div>
+        <div>
+          <strong>Displayed countries</strong>
+          <span id="displayedCount">0</span>
+        </div>
+        <div>
+          <strong>Indicator source</strong>
+          <span>World Bank API + transparent fallback</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="explorer" class="section explorer-shell">
+      <div class="panel controls-panel">
+        <h2>Controls</h2>
+        <p class="muted small">Filter the system. Click a point to inspect the country profile.</p>
+
+        <label for="regionFilter">Region</label>
+        <select id="regionFilter"></select>
+
+        <label for="countrySearch">Search country</label>
+        <input id="countrySearch" type="text" placeholder="Ireland, Italy, Singapore…" />
+
+        <label for="minSynergy">Minimum synergy: <span id="minSynergyValue">0</span></label>
+        <input id="minSynergy" type="range" min="0" max="100" step="1" value="0" />
+
+        <label for="colourMode">Colour points by</label>
+        <select id="colourMode">
+          <option value="archetype">Archetype</option>
+          <option value="region">Region</option>
+          <option value="synergy">Overall synergy</option>
+        </select>
+
+        <div class="button-row control-buttons">
+          <button id="resetCamera" type="button" class="button">Reset view</button>
+          <button id="clearFilters" type="button" class="button">Clear filters</button>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric-card"><span>Avg individual</span><strong id="avgIndividual">0</strong></div>
+          <div class="metric-card"><span>Avg collective</span><strong id="avgCollective">0</strong></div>
+          <div class="metric-card"><span>Avg planetary</span><strong id="avgPlanetary">0</strong></div>
+          <div class="metric-card"><span>Completeness</span><strong id="avgCompleteness">0%</strong></div>
+        </div>
+      </div>
+
+      <div class="plot-stack">
+        <div id="plot" class="panel plot-panel" aria-label="Interactive 3D intelligence plot"></div>
+        <div class="panel selected-panel">
+          <h2>Selected country</h2>
+          <div id="selectedCountry" class="selected-country">
+            <p class="muted">Click a marker in the 3D plot to inspect details, source years, and score logic.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="model" class="section grid two">
+      <article class="demo-card">
+        <h3>What the axes mean</h3>
+        <p class="muted">
+          <strong>Individual intelligence</strong> is modelled as human-capital and digital-access capability.
+          <strong>Collective intelligence</strong> is modelled through governance and coordination indicators.
+          <strong>Planetary intelligence</strong> is modelled as stewardship capacity and reduced ecological pressure.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Human capital</span>
+          <span class="tag">Governance</span>
+          <span class="tag">Planetary stewardship</span>
+        </div>
+      </article>
+
+      <article class="demo-card">
+        <h3>Why this is not a league table</h3>
+        <p class="muted">
+          The aim is to make assumptions visible. Each score is a transparent composite of public proxy indicators,
+          not a claim that one country is inherently smarter than another. The useful signal is the pattern: capability,
+          coordination, and stewardship can diverge.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Transparent weights</span>
+          <span class="tag">Proxy indicators</span>
+          <span class="tag">Scenario logic</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2>Indicator logic</h2>
+      <div id="indicatorTable" class="panel indicator-table-wrap">Loading indicator model…</div>
+    </section>
+
+    <section class="section">
+      <h2>References and source notes</h2>
+      <div class="grid two">
+        <article class="demo-card">
+          <h3>Data sources</h3>
+          <ul class="list-clean muted">
+            <li><strong>World Bank HCI:</strong> education-health human capability proxy.</li>
+            <li><strong>World Bank WGI:</strong> governance and institutional coordination proxy.</li>
+            <li><strong>World Bank WDI:</strong> digital access, education, health, emissions, renewables, protected areas, forest area, and air pollution.</li>
+          </ul>
+        </article>
+        <article class="demo-card">
+          <h3>Conceptual sources</h3>
+          <ul class="list-clean muted">
+            <li>Woolley et al. on collective intelligence in groups.</li>
+            <li>Frank, Grinspoon, and Walker on intelligence as a planetary-scale process.</li>
+            <li>Model logic and weightings are explicitly experimental.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© André Baumann · Three Intelligences Explorer</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'>
+  </script>
+</body>
+</html>
