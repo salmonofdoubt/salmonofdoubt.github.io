@@ -349,6 +349,7 @@
 }
 
 .diagnostic-fill {
+  display: block;
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, rgba(110,168,255,0.88), rgba(94,234,212,0.92));
