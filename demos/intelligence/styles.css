@@ -1348,3 +1348,47 @@
     flex-direction: column;
   }
 }
+
+/* Selected-country export controls */
+
+.selected-export-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.mini-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0.46rem 0.72rem;
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(110, 168, 255, 0.09);
+  border: 1px solid rgba(110, 168, 255, 0.22);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 850;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.mini-action-button:hover {
+  transform: translateY(-1px);
+  background: rgba(110, 168, 255, 0.14);
+  border-color: rgba(110, 168, 255, 0.34);
+}
+
+.export-status {
+  color: var(--muted);
+  font-size: 0.82rem;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+}
+
+.export-status.is-visible {
+  opacity: 1;
+}

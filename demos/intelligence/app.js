@@ -1149,6 +1149,148 @@ function hoverTemplate() {
     "Archetype: %{customdata.archetype}<extra></extra>";
 }
 
+
+function sourceSummaryForExport(row) {
+  const detail = Array.isArray(row.detail) ? row.detail : [];
+  if (!detail.length) {
+    return [
+      `Data mode: ${row.data_status || state.dataMode || "Unknown"}`,
+      "Indicator detail: aggregate fallback only",
+      "Note: per-indicator source years are not available for this selected profile."
+    ].join("\n");
+  }
+
+  const used = detail.filter(sourceIndicatorUsed);
+  const missing = detail.length - used.length;
+  const latestYear = used
+    .map(d => Number(d.year))
+    .filter(Number.isFinite)
+    .sort((a, b) => b - a)[0];
+
+  return [
+    `Data mode: ${row.data_status || state.dataMode || "Unknown"}`,
+    `Indicators used: ${used.length} / ${detail.length}`,
+    `Missing indicators: ${missing}`,
+    `Latest source year: ${latestYear || "n/a"}`
+  ].join("\n");
+}
+
+function comparisonSummaryForExport(row) {
+  const displayedRows = (state.filtered || [])
+    .map(enrichTheoryFields)
+    .filter(r => Number.isFinite(r.overall_synergy));
+
+  const regionalRows = (state.scores || [])
+    .map(enrichTheoryFields)
+    .filter(r => r.region === row.region);
+
+  const topReadiness = [...(state.scores || []).map(enrichTheoryFields)]
+    .filter(r => Number.isFinite(r.mature_technosphere_gap))
+    .sort((a, b) => b.mature_technosphere_gap - a.mature_technosphere_gap)[0];
+
+  const displayedAvg = averageMetric(displayedRows, "mature_technosphere_gap");
+  const regionalAvg = averageMetric(regionalRows, "mature_technosphere_gap");
+
+  return [
+    `Displayed average readiness: ${Number.isFinite(displayedAvg) ? displayedAvg.toFixed(1) : "n/a"}`,
+    `${row.region || "Region"} average readiness: ${Number.isFinite(regionalAvg) ? regionalAvg.toFixed(1) : "n/a"}`,
+    `Top readiness in model: ${topReadiness ? `${topReadiness.country} (${topReadiness.mature_technosphere_gap.toFixed(1)})` : "n/a"}`
+  ].join("\n");
+}
+
+function selectedCountryProfileText(row) {
+  row = enrichTheoryFields(row);
+
+  return [
+    `Three Intelligences Explorer`,
+    `Selected country profile`,
+    ``,
+    `Country: ${row.country}`,
+    `Region: ${row.region || "n/a"}`,
+    `Readiness band: ${readinessStateLabel(row.maturity_state)}`,
+    `Readiness score: ${row.mature_technosphere_gap.toFixed(1)} / 100`,
+    ``,
+    `Core scores`,
+    `Individual intelligence: ${Number(row.individual_intelligence).toFixed(1)}`,
+    `Collective intelligence: ${Number(row.collective_intelligence).toFixed(1)}`,
+    `Planetary intelligence: ${Number(row.planetary_intelligence).toFixed(1)}`,
+    `Overall synergy: ${Number(row.overall_synergy).toFixed(1)}`,
+    `Ecological pressure: ${Number(row.ecological_pressure).toFixed(1)}`,
+    ``,
+    `Planetary-intelligence diagnostics`,
+    `Emergence: ${Number(row.emergence_score).toFixed(1)}`,
+    `Network information: ${Number(row.network_information_score).toFixed(1)}`,
+    `Semantic feedback: ${Number(row.semantic_feedback_score).toFixed(1)}`,
+    `Boundaries and signals: ${Number(row.boundary_signal_score).toFixed(1)}`,
+    `Autopoiesis: ${Number(row.autopoiesis_score).toFixed(1)}`,
+    ``,
+    `Comparison context`,
+    comparisonSummaryForExport(row),
+    ``,
+    `Source transparency`,
+    sourceSummaryForExport(row),
+    ``,
+    `Interpretation`,
+    row.maturity_interpretation || "n/a",
+    ``,
+    `Important note`,
+    `This is a prototype systems-readiness model using public proxy indicators. It is not a national intelligence ranking.`,
+    `Earth is treated as an immature technosphere overall; countries are scored for relative readiness within that global condition.`,
+    ``,
+    `Conceptual basis`,
+    `Frank, A., Grinspoon, D., & Walker, S. I. (2022). Intelligence as a planetary scale process. International Journal of Astrobiology, 21, 47–61. https://doi.org/10.1017/S147355042100029X`
+  ].join("\n");
+}
+
+async function copySelectedCountryProfile() {
+  if (!state.selectedRow || !state.selectedRow.country) return;
+  const text = selectedCountryProfileText(state.selectedRow);
+
+  try {
+    await navigator.clipboard.writeText(text);
+    flashExportStatus("Copied selected-country profile.");
+  } catch (error) {
+    console.warn("Clipboard copy failed", error);
+    flashExportStatus("Copy failed. Try download instead.");
+  }
+}
+
+function downloadSelectedCountryProfile() {
+  if (!state.selectedRow || !state.selectedRow.country) return;
+
+  const text = selectedCountryProfileText(state.selectedRow);
+  const safeCountry = String(state.selectedRow.country)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
+  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `three-intelligences-${safeCountry || "country"}-profile.txt`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+
+  flashExportStatus("Downloaded selected-country profile.");
+}
+
+function flashExportStatus(message) {
+  const target = document.getElementById("exportStatus");
+  if (!target) return;
+
+  target.textContent = message;
+  target.classList.add("is-visible");
+
+  window.clearTimeout(target.dataset.timer);
+  const timer = window.setTimeout(() => {
+    target.classList.remove("is-visible");
+  }, 2200);
+  target.dataset.timer = timer;
+}
+
 function renderSelected(row) {
   row = enrichTheoryFields(row);
   state.selectedRow = row;
@@ -1166,6 +1308,11 @@ function renderSelected(row) {
 
   document.getElementById("selectedCountry").innerHTML = `
     <h3>${escapeHtml(row.country)}</h3>\n    <span class="locator-chip">Selected locator active in 3D plot</span>
+    <div class="selected-export-row">
+      <button type="button" class="mini-action-button" onclick="copySelectedCountryProfile()">Copy profile</button>
+      <button type="button" class="mini-action-button" onclick="downloadSelectedCountryProfile()">Download .txt</button>
+      <span id="exportStatus" class="export-status" aria-live="polite"></span>
+    </div>
     <div class="profile-meta">
       <span>${escapeHtml(row.region)}</span>
       <span>${escapeHtml(row.archetype)}</span>
