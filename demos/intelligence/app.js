@@ -1634,6 +1634,8 @@ function renderSelected(row) {
 }
 
 function renderIndicatorTable() {
+  const indicatorTarget = document.getElementById("indicatorTable");
+  if (!indicatorTarget) return;
   const rows = state.indicators.map(i => `
     <tr>
       <td>${escapeHtml(i.layer)}</td>
@@ -1645,7 +1647,7 @@ function renderIndicatorTable() {
     </tr>
   `).join("");
 
-  document.getElementById("indicatorTable").innerHTML = `
+  indicatorTarget.innerHTML = `
     <table class="indicator-table">
       <thead>
         <tr><th>Layer</th><th>Indicator</th><th>Direction</th><th>Weight</th><th>Transform</th><th>Note</th></tr>
