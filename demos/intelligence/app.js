@@ -360,13 +360,13 @@ function makeMaturityHaloTrace(rows) {
   return {
     type: "scatter3d",
     mode: "markers",
-    name: "Maturity halos",
+    name: "Maturity rings",
     x: rows.map(r => r.individual_intelligence),
     y: rows.map(r => r.collective_intelligence),
     z: rows.map(r => r.planetary_intelligence),
     text: rows.map(r => r.country),
     hoverinfo: "skip",
-    showlegend: true,
+    showlegend: false,
     legendrank: 97,
     marker: {
       size: rows.map(r => Math.max(16, r.overall_synergy / 3.9)),
@@ -450,7 +450,7 @@ function bindControls() {
     document.getElementById("minSynergyValue").textContent = "0";
     document.getElementById("colourMode").value = "archetype";
     if (document.getElementById("showLandingBars")) document.getElementById("showLandingBars").checked = false;
-    if (document.getElementById("showMaturityHalos")) document.getElementById("showMaturityHalos").checked = true;
+    if (document.getElementById("showMaturityHalos")) document.getElementById("showMaturityHalos").checked = false;
     if (document.getElementById("showTheoryDiagnostics")) document.getElementById("showTheoryDiagnostics").checked = true;
     applyFilters();
   });
@@ -545,7 +545,7 @@ function renderPlot() {
     });
   }
 
-  if (document.getElementById("showMaturityHalos")?.checked ?? true) {
+  if (document.getElementById("showMaturityHalos")?.checked ?? false) {
     traces.unshift(makeMaturityHaloTrace(rows));
   }
 
