@@ -6,9 +6,10 @@
   <title>Nanny Watch | Citizen Science and River Action</title>
   <meta
     name="description"
-    content="Demo citizen science page for the Nanny-Delvin Rivers Trust, covering nature-based solutions, Spartina stewardship, CSSI, and reporting."
+    content="Demo citizen science page for the Nanny-Delvin Rivers Trust, covering nature-based solutions, Spartina stewardship, CSSI, seasonal sampling safety, and reporting."
   />
   <link rel="stylesheet" href="assets/css/ndrt.css" />
+  <link rel="stylesheet" href="assets/css/sampling-safety.css" />
 </head>
 <body>
   <header class="site-header">
@@ -27,6 +28,7 @@
         <a href="#nbs">NbS</a>
         <a href="#spartina">Spartina</a>
         <a href="#cssi">CSSI</a>
+        <a href="#sampling-safety">Sampling Safety</a>
         <a href="#report" class="cta-nav">Report</a>
       </nav>
     </div>
@@ -75,9 +77,9 @@
         </article>
 
         <article class="card action-card highlight-card">
-          <h3>Report a Field Update</h3>
-          <p>Submit a structured observation on a visit, a site condition, or a measure that needs attention.</p>
-          <a class="button-link" href="#report">Open reporting section →</a>
+          <h3>Sampling Safety Calendar</h3>
+          <p>Check when kick sampling should be avoided because spawning beds, eggs, fry, or lamprey redds may be vulnerable.</p>
+          <a class="button-link" href="#sampling-safety">Open safety section →</a>
         </article>
       </div>
     </section>
@@ -243,6 +245,70 @@
         </article>
       </div>
 
+      <div id="sampling-safety" class="sampling-safety-panel" aria-labelledby="sampling-safety-title">
+        <div class="sampling-safety-header">
+          <div>
+            <h3 id="sampling-safety-title">Traffic-light calendar for kick sampling</h3>
+            <p>
+              Use this as a precautionary guide for CSSI-style sampling in shallow stony riffles:
+              shallow, gravelly or cobbly, fast-flowing stream sections. Local observations always override the calendar.
+            </p>
+          </div>
+          <div class="status-pill status-amber" data-current-sampling-status>Current month: checking status</div>
+        </div>
+
+        <div class="traffic-grid" aria-label="Traffic light meaning">
+          <article class="traffic-card traffic-card-red">
+            <strong>Red: do not kick sample</strong>
+            <p>Avoid gravelly or stony fast-flowing areas when lamprey, salmonid redds, eggs, fry, or spawning signs may be present.</p>
+          </article>
+          <article class="traffic-card traffic-card-amber">
+            <strong>Amber: trained judgement only</strong>
+            <p>Use visual checks first. Sample only if the reach is safe, non-sensitive, and no spawning signs are present.</p>
+          </article>
+          <article class="traffic-card traffic-card-green">
+            <strong>Green: preferred window</strong>
+            <p>Best general period for community CSSI checks, subject to flow, safety, land access, and local ecological conditions.</p>
+          </article>
+        </div>
+
+        <ol class="month-calendar" aria-label="Monthly kick-sampling guidance">
+          <li class="month-amber" data-sampling-month data-month-index="0" data-status="amber" data-status-label="Amber"><strong>Jan</strong><span>Amber</span></li>
+          <li class="month-amber" data-sampling-month data-month-index="1" data-status="amber" data-status-label="Amber"><strong>Feb</strong><span>Amber</span></li>
+          <li class="month-red" data-sampling-month data-month-index="2" data-status="red" data-status-label="Red"><strong>Mar</strong><span>Red</span></li>
+          <li class="month-red" data-sampling-month data-month-index="3" data-status="red" data-status-label="Red"><strong>Apr</strong><span>Red</span></li>
+          <li class="month-red" data-sampling-month data-month-index="4" data-status="red" data-status-label="Red"><strong>May</strong><span>Red</span></li>
+          <li class="month-amber" data-sampling-month data-month-index="5" data-status="amber" data-status-label="Amber"><strong>Jun</strong><span>Amber</span></li>
+          <li class="month-green" data-sampling-month data-month-index="6" data-status="green" data-status-label="Green"><strong>Jul</strong><span>Green</span></li>
+          <li class="month-green" data-sampling-month data-month-index="7" data-status="green" data-status-label="Green"><strong>Aug</strong><span>Green</span></li>
+          <li class="month-green" data-sampling-month data-month-index="8" data-status="green" data-status-label="Green"><strong>Sep</strong><span>Green</span></li>
+          <li class="month-amber" data-sampling-month data-month-index="9" data-status="amber" data-status-label="Amber"><strong>Oct</strong><span>Amber</span></li>
+          <li class="month-red" data-sampling-month data-month-index="10" data-status="red" data-status-label="Red"><strong>Nov</strong><span>Red</span></li>
+          <li class="month-red" data-sampling-month data-month-index="11" data-status="red" data-status-label="Red"><strong>Dec</strong><span>Red</span></li>
+        </ol>
+
+        <div class="no-kick-rule">
+          <strong>!</strong>
+          <div>
+            <h4>No-kick rule</h4>
+            <p>
+              If you see freshened gravel, nest-like depressions, adult lampreys, spawning fish, eggs, fry,
+              or unusual fish activity, do not kick sample. Record the observation with photos and move the activity to visual survey only.
+            </p>
+          </div>
+        </div>
+
+        <ul class="safety-notes">
+          <li>Visual-only alternatives include photos, habitat notes, algae cover, fine sediment, cattle access, outfalls, bank damage, flow observations, and basic water-quality readings where trained.</li>
+          <li>This is a community precaution guide, not a licence to enter private land, disturb protected habitat, or work in unsafe water conditions.</li>
+          <li>For formal Q-value assessment or sensitive sites, defer to EPA, LAWPRO, Inland Fisheries Ireland, NPWS, landowner, and trained-coordinator guidance.</li>
+        </ul>
+
+        <p class="sampling-sources">
+          Sources: CSSI field recording guidance from LAWPRO/UCC; Inland Fisheries Ireland lamprey species notes; Fisheries (Consolidation) Act 1959, section 173.
+        </p>
+      </div>
+
       <div class="timeline">
         <article class="timeline-step">
           <strong>01</strong>
@@ -263,13 +329,21 @@
         <article class="timeline-step">
           <strong>03</strong>
           <div>
+            <h3>Check the No-kick Rule</h3>
+            <p>Before any kick sample, check for redds, freshened gravel, lamprey activity, eggs, fry, or spawning fish. If present, record visually only.</p>
+          </div>
+        </article>
+
+        <article class="timeline-step">
+          <strong>04</strong>
+          <div>
             <h3>Observe Stream Life</h3>
             <p>Use the training guide to recognise broad groups rather than forcing false precision.</p>
           </div>
         </article>
 
         <article class="timeline-step">
-          <strong>04</strong>
+          <strong>05</strong>
           <div>
             <h3>Score Consistently</h3>
             <p>Apply the same simple observation logic each time so results remain comparable across visits and hubs.</p>
@@ -277,7 +351,7 @@
         </article>
 
         <article class="timeline-step">
-          <strong>05</strong>
+          <strong>06</strong>
           <div>
             <h3>Submit Photos and Notes</h3>
             <p>Photos can be as valuable as numeric entries because they support review, interpretation, and follow-up.</p>
@@ -308,6 +382,8 @@
               <option>NbS measure check</option>
               <option>Spartina sighting</option>
               <option>General site observation</option>
+              <option>Visual-only spawning or redd observation</option>
+              <option>Sampling deferred for ecological safety</option>
             </select>
           </div>
 
@@ -320,6 +396,8 @@
               <option>Hedgerow or Corridor Planting</option>
               <option>Fencing and Stock Exclusion</option>
               <option>Spartina Concern</option>
+              <option>Possible spawning habitat or redd</option>
+              <option>Fine sediment or habitat pressure</option>
             </select>
           </div>
 
@@ -330,6 +408,8 @@
               <option>Maintenance required</option>
               <option>Under review</option>
               <option>Potential concern</option>
+              <option>No-kick rule triggered</option>
+              <option>Visual-only record submitted</option>
             </select>
           </div>
 
@@ -366,12 +446,12 @@
 
         <article class="card">
           <h3>Downloadable Guides</h3>
-          <p>Later add printable CSSI sheets, NbS checklists, and Spartina photo guidance.</p>
+          <p>Later add printable CSSI sheets, NbS checklists, Spartina photo guidance, and the no-kick seasonal protocol.</p>
         </article>
 
         <article class="card warning-card">
           <h3>Safety First</h3>
-          <p>Every field activity should begin with access, weather, water, and tidal safety awareness.</p>
+          <p>Every field activity should begin with access, weather, water, ecological sensitivity, and tidal safety awareness.</p>
         </article>
       </div>
     </section>
@@ -391,11 +471,13 @@
         <p><strong>Quick Links</strong></p>
         <p><a href="index.html">Back to Trust homepage</a></p>
         <p><a href="#cssi">CSSI</a></p>
+        <p><a href="#sampling-safety">Sampling Safety</a></p>
         <p><a href="#spartina">Spartina</a></p>
         <p><a href="#report">Reporting</a></p>
       </div>
     </div>
   </footer>
+  <script src="assets/js/sampling-safety.js" defer></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
   <!-- End Cloudflare Web Analytics -->
