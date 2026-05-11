@@ -90,6 +90,51 @@ function reportFileName(country) {
     .replace(/^-|-$/g, "")}-report.pdf`;
 }
 
+function formatReportNumber(value, digits = 1) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n.toFixed(digits) : "n/a";
+}
+
+function strongestWeakestDimension(row) {
+  const dims = [
+    ["individual capability", Number(row.individual_intelligence)],
+    ["collective coordination", Number(row.collective_intelligence)],
+    ["planetary stewardship", Number(row.planetary_intelligence)]
+  ].filter(([, value]) => Number.isFinite(value));
+
+  if (!dims.length) return { strongest: "n/a", weakest: "n/a" };
+
+  dims.sort((a, b) => b[1] - a[1]);
+
+  return {
+    strongest: dims[0][0],
+    strongestValue: dims[0][1],
+    weakest: dims[dims.length - 1][0],
+    weakestValue: dims[dims.length - 1][1]
+  };
+}
+
+function buildCountryReportInterpretation(row, comparison) {
+  const dim = strongestWeakestDimension(row);
+  const country = row.country || "The selected country";
+  const band = readinessStateLabel(row.maturity_state);
+  const readiness = formatReportNumber(row.mature_technosphere_gap);
+  const pressure = formatReportNumber(row.ecological_pressure);
+  const topDelta = Number(comparison.topDelta);
+
+  const topSentence = Number.isFinite(topDelta)
+    ? `${country} is ${Math.abs(topDelta).toFixed(1)} readiness points ${topDelta >= 0 ? "above" : "below"} the current top-readiness country in the displayed dataset.`
+    : "Distance from the current top-readiness country could not be calculated.";
+
+  return [
+    `${country} is classified as ${band} with a readiness score of ${readiness}/100 in this proxy model.`,
+    `Its strongest dimension is ${dim.strongest} (${formatReportNumber(dim.strongestValue)}/100), while its weakest dimension is ${dim.weakest} (${formatReportNumber(dim.weakestValue)}/100).`,
+    `The ecological-pressure estimate is ${pressure}/100, which moderates the mature-technosphere readiness score.`,
+    topSentence,
+    "Interpret this as a systems-readiness profile, not as a national intelligence ranking."
+  ].join(" ");
+}
+
 function downloadSelectedCountryPdfReport() {
   const row = state.selectedRow ? enrichTheoryFields(state.selectedRow) : null;
 
@@ -106,133 +151,296 @@ function downloadSelectedCountryPdfReport() {
   }
 
   const doc = new jsPDFCtor({ orientation: "portrait", unit: "mm", format: "a4" });
-  const margin = 14;
+
+  const margin = 15;
   const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
   const usableWidth = pageWidth - margin * 2;
+
+  const colours = {
+    navy: [11, 18, 32],
+    panel: [20, 32, 52],
+    line: [60, 84, 120],
+    teal: [94, 234, 212],
+    blue: [80, 140, 255],
+    red: [255, 90, 95],
+    muted: [96, 108, 132],
+    text: [28, 36, 52],
+    pale: [244, 248, 252],
+    amber: [245, 180, 48]
+  };
+
   let y = 16;
 
-  const addTitle = text => {
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(18);
-    doc.text(text, margin, y);
-    y += 9;
-  };
-
-  const addHeading = text => {
-    if (y > 265) {
-      doc.addPage();
-      y = 16;
-    }
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(12);
-    doc.text(text, margin, y);
-    y += 6;
-  };
-
-  const addPara = text => {
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(9.5);
-    const lines = doc.splitTextToSize(String(text), usableWidth);
-    lines.forEach(line => {
-      if (y > 282) {
-        doc.addPage();
-        y = 16;
-      }
-      doc.text(line, margin, y);
-      y += 4.6;
-    });
-    y += 2;
-  };
-
   const comparison = selectedReportComparison(row);
+  const interpretation = buildCountryReportInterpretation(row, comparison);
+  const generatedDate = new Date().toISOString().slice(0, 10);
   const dataUpdated = document.getElementById("dataUpdated")?.textContent || "n/a";
   const sourceRoute = document.getElementById("dataSourceRoute")?.textContent || state.dataMode || "n/a";
+  const doi = "10.5281/zenodo.19633908";
 
-  addTitle(`Three Intelligences Explorer: ${row.country}`);
+  function addPageIfNeeded(height = 24) {
+    if (y + height > pageHeight - 20) {
+      doc.addPage();
+      y = 18;
+    }
+  }
 
-  addPara(`Generated from the public prototype demo. Data mode: ${state.dataMode || "n/a"}. Data updated: ${dataUpdated}. Indicator source: ${sourceRoute}. This is a reasoning instrument, not a definitive ranking.`);
+  function addSectionTitle(title, subtitle = "") {
+    addPageIfNeeded(20);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.setTextColor(...colours.navy);
+    doc.text(title, margin, y);
+    y += 5.5;
 
-  addHeading("1. Country profile");
-  doc.autoTable({
+    if (subtitle) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(...colours.muted);
+      const lines = doc.splitTextToSize(subtitle, usableWidth);
+      doc.text(lines, margin, y);
+      y += lines.length * 4.2 + 2;
+    }
+
+    doc.setDrawColor(...colours.line);
+    doc.setLineWidth(0.25);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 6;
+  }
+
+  function addParagraph(text, options = {}) {
+    addPageIfNeeded(14);
+    doc.setFont("helvetica", options.bold ? "bold" : "normal");
+    doc.setFontSize(options.size || 9.2);
+    doc.setTextColor(...(options.colour || colours.text));
+
+    const lines = doc.splitTextToSize(String(text), usableWidth);
+    for (const line of lines) {
+      addPageIfNeeded(5);
+      doc.text(line, margin, y);
+      y += 4.5;
+    }
+    y += options.after || 2;
+  }
+
+  function addCallout(title, text) {
+    const lines = doc.splitTextToSize(String(text), usableWidth - 10);
+    const boxHeight = 11 + lines.length * 4.2;
+
+    addPageIfNeeded(boxHeight + 5);
+
+    doc.setFillColor(...colours.pale);
+    doc.setDrawColor(210, 222, 238);
+    doc.roundedRect(margin, y, usableWidth, boxHeight, 3, 3, "FD");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.4);
+    doc.setTextColor(...colours.navy);
+    doc.text(title, margin + 5, y + 6);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    doc.setTextColor(...colours.text);
+    doc.text(lines, margin + 5, y + 11);
+
+    y += boxHeight + 7;
+  }
+
+  function addFooterToAllPages() {
+    const pages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pages; i += 1) {
+      doc.setPage(i);
+      doc.setDrawColor(220, 228, 240);
+      doc.line(margin, pageHeight - 13, pageWidth - margin, pageHeight - 13);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7);
+      doc.setTextColor(...colours.muted);
+      doc.text("Three Intelligences Explorer · Prototype model · Not a ranking", margin, pageHeight - 8);
+      doc.text(`Page ${i} of ${pages}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+    }
+  }
+
+  function autoTable(options) {
+    doc.autoTable({
+      margin: { left: margin, right: margin },
+      styles: {
+        font: "helvetica",
+        fontSize: 8,
+        cellPadding: 2.2,
+        lineColor: [225, 231, 240],
+        lineWidth: 0.1,
+        textColor: colours.text
+      },
+      headStyles: {
+        fillColor: colours.panel,
+        textColor: [255, 255, 255],
+        fontStyle: "bold"
+      },
+      alternateRowStyles: {
+        fillColor: [248, 251, 255]
+      },
+      ...options
+    });
+    y = doc.lastAutoTable.finalY + 8;
+  }
+
+  // Cover header
+  doc.setFillColor(...colours.navy);
+  doc.rect(0, 0, pageWidth, 48, "F");
+  doc.setFillColor(...colours.teal);
+  doc.rect(0, 47, pageWidth, 1.2, "F");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(...colours.teal);
+  doc.text("EXPERIMENTAL SYSTEMS INTELLIGENCE", margin, 14);
+
+  doc.setFontSize(21);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Three Intelligences Explorer", margin, 25);
+
+  doc.setFontSize(15);
+  doc.setTextColor(...colours.red);
+  doc.text(`${row.country} country report`, margin, 36);
+
+  y = 58;
+
+  addCallout(
+    "Executive interpretation",
+    interpretation
+  );
+
+  addSectionTitle("1. Score summary", "Core scores for the selected country. All scores are interpreted on a 0-100 proxy scale.");
+
+  autoTable({
     startY: y,
-    margin: { left: margin, right: margin },
-    head: [["Metric", row.country]],
+    head: [["Metric", "Score / value", "Meaning"]],
     body: [
-      ["Region", row.region || "n/a"],
-      ["Individual intelligence", Number(row.individual_intelligence).toFixed(1)],
-      ["Collective intelligence", Number(row.collective_intelligence).toFixed(1)],
-      ["Planetary intelligence", Number(row.planetary_intelligence).toFixed(1)],
-      ["Overall synergy", Number(row.overall_synergy).toFixed(1)],
-      ["Readiness score", Number(row.mature_technosphere_gap).toFixed(1)],
-      ["Readiness band", readinessStateLabel(row.maturity_state)],
-      ["Ecological pressure", Number(row.ecological_pressure).toFixed(1)]
+      ["Readiness score", `${formatReportNumber(row.mature_technosphere_gap)} / 100`, "Mature-technosphere readiness proxy"],
+      ["Readiness band", readinessStateLabel(row.maturity_state), "Position inside the current immature global technosphere"],
+      ["Individual intelligence", `${formatReportNumber(row.individual_intelligence)} / 100`, "Human capability, education, health, and knowledge access"],
+      ["Collective intelligence", `${formatReportNumber(row.collective_intelligence)} / 100`, "Institutional coordination, governance, accountability, and system learning"],
+      ["Planetary intelligence", `${formatReportNumber(row.planetary_intelligence)} / 100`, "Stewardship, ecological pressure reduction, and Earth-system feedback capacity"],
+      ["Overall synergy", `${formatReportNumber(row.overall_synergy)} / 100`, "Average of individual, collective, and planetary dimensions"],
+      ["Ecological pressure", `${formatReportNumber(row.ecological_pressure)} / 100`, "Penalty pressure derived from negative planetary indicators where available"]
     ],
-    styles: { fontSize: 8 },
-    headStyles: { fillColor: [20, 38, 64] }
+    columnStyles: {
+      0: { cellWidth: 48 },
+      1: { cellWidth: 42 },
+      2: { cellWidth: usableWidth - 90 }
+    }
   });
-  y = doc.lastAutoTable.finalY + 8;
 
-  addHeading("2. Planetary-context interpretation");
-  addPara(`Earth is treated here as an immature technosphere overall: humanity has planetary-scale effects, but not yet mature planetary self-regulation. ${row.country} is not being placed in the biosphere stages. It is treated as a country-level subsystem inside the current immature global technosphere.`);
-  addPara(row.maturity_interpretation || "No maturity interpretation available.");
+  addSectionTitle("2. Planetary-context interpretation", "The country is interpreted as a subsystem inside the current global immature technosphere.");
 
-  addHeading("3. Planetary-intelligence diagnostics");
-  doc.autoTable({
+  addParagraph(
+    "Earth is treated here as an immature technosphere overall: humanity has planetary-scale technological effects, but not yet mature planetary self-regulation. Countries are not being placed into geosphere or biosphere stages. They are scored for relative readiness within the present immature global technosphere."
+  );
+
+  addParagraph(row.maturity_interpretation || "No maturity interpretation available.");
+
+  addCallout(
+    "Important interpretation rule",
+    `${row.country} is not ranked as a “smart country”. The profile estimates how individual capability, collective coordination, and planetary stewardship combine under the assumptions of this prototype model.`
+  );
+
+  addSectionTitle("3. Planetary-intelligence diagnostics", "Five diagnostic properties derived from the planetary-intelligence framing.");
+
+  autoTable({
     startY: y,
-    margin: { left: margin, right: margin },
-    head: [["Diagnostic", "Score"]],
+    head: [["Diagnostic", "Score", "Interpretation"]],
     body: [
-      ["Emergence", Number(row.emergence_score).toFixed(1)],
-      ["Network information", Number(row.network_information_score).toFixed(1)],
-      ["Semantic feedback", Number(row.semantic_feedback_score).toFixed(1)],
-      ["Boundaries and signals", Number(row.boundary_signal_score).toFixed(1)],
-      ["Autopoiesis", Number(row.autopoiesis_score).toFixed(1)]
+      ["Emergence", formatReportNumber(row.emergence_score), "Capability arising above individual actors"],
+      ["Network information", formatReportNumber(row.network_information_score), "Institutional and informational connectivity"],
+      ["Semantic feedback", formatReportNumber(row.semantic_feedback_score), "Environmental signals becoming meaningful for action"],
+      ["Boundaries and signals", formatReportNumber(row.boundary_signal_score), "Planetary limits are detected and acted upon"],
+      ["Autopoiesis", formatReportNumber(row.autopoiesis_score), "Capacity to maintain long-term conditions of existence"]
     ],
-    styles: { fontSize: 8 },
-    headStyles: { fillColor: [20, 38, 64] }
+    columnStyles: {
+      0: { cellWidth: 42 },
+      1: { cellWidth: 22 },
+      2: { cellWidth: usableWidth - 64 }
+    }
   });
-  y = doc.lastAutoTable.finalY + 8;
 
-  addHeading("4. Comparison context");
-  doc.autoTable({
+  addSectionTitle("4. Comparison context", "The selected country is compared with the displayed dataset, its region, and the current top-readiness country.");
+
+  autoTable({
     startY: y,
-    margin: { left: margin, right: margin },
     head: [["Context", "Value"]],
     body: [
-      ["Displayed average readiness", Number(comparison.displayedAverage).toFixed(1)],
-      [`${row.region || "Region"} average readiness`, Number(comparison.regionAverage).toFixed(1)],
-      ["Top readiness country", comparison.topCountry],
-      ["Selected-country distance from top", Number.isFinite(comparison.topDelta) ? comparison.topDelta.toFixed(1) : "n/a"]
+      ["Displayed average readiness", formatReportNumber(comparison.displayedAverage)],
+      [`${row.region || "Region"} average readiness`, formatReportNumber(comparison.regionAverage)],
+      ["Top readiness country", comparison.topCountry || "n/a"],
+      ["Top readiness score", formatReportNumber(comparison.topScore)],
+      ["Distance from top", Number.isFinite(Number(comparison.topDelta)) ? `${formatReportNumber(comparison.topDelta)} readiness points` : "n/a"]
     ],
-    styles: { fontSize: 8 },
-    headStyles: { fillColor: [20, 38, 64] }
+    columnStyles: {
+      0: { cellWidth: 72 },
+      1: { cellWidth: usableWidth - 72 }
+    }
   });
-  y = doc.lastAutoTable.finalY + 8;
 
-  addHeading("5. Source transparency");
+  addSectionTitle("5. Data provenance and source transparency", "Indicator values used for this selected-country profile.");
+
+  addParagraph(
+    `Data mode: ${state.dataMode || "n/a"}. Data updated: ${dataUpdated}. Indicator source: ${sourceRoute}. Archived release DOI: ${doi}.`
+  );
+
   const indicatorRows = (row.detail || []).map(d => [
     d.layer || "n/a",
     d.label || d.code || "n/a",
-    d.raw === null || d.raw === undefined ? "missing" : Number(d.raw).toFixed(3),
-    d.score === null || d.score === undefined ? "missing" : Number(d.score).toFixed(1),
+    d.raw === null || d.raw === undefined ? "missing" : formatReportNumber(d.raw, 3),
+    d.score === null || d.score === undefined ? "missing" : formatReportNumber(d.score),
     d.year || "n/a"
   ]);
 
-  doc.autoTable({
+  autoTable({
     startY: y,
-    margin: { left: margin, right: margin },
-    head: [["Layer", "Indicator", "Raw", "Score", "Year"]],
-    body: indicatorRows.length ? indicatorRows : [["n/a", "Fallback dataset does not include per-indicator source detail", "n/a", "n/a", "n/a"]],
+    head: [["Layer", "Indicator", "Raw value", "Score", "Year"]],
+    body: indicatorRows.length
+      ? indicatorRows
+      : [["n/a", "Fallback dataset does not include per-indicator source detail", "n/a", "n/a", "n/a"]],
     styles: { fontSize: 7 },
-    headStyles: { fillColor: [20, 38, 64] },
     columnStyles: {
-      1: { cellWidth: 70 }
+      0: { cellWidth: 23 },
+      1: { cellWidth: 74 },
+      2: { cellWidth: 28 },
+      3: { cellWidth: 22 },
+      4: { cellWidth: 18 }
     }
   });
 
+addSectionTitle("6. Authorship, citation and reuse", "Academic reuse is welcome with attribution. Please cite this prototype using APA 7.");
+
+addParagraph(
+  "This report was generated from the Three Intelligences Explorer prototype by André Baumann. The model logic, indicator choices, interpretation text, and report structure should be cited when reused, adapted, or discussed."
+);
+
+addParagraph(
+  "Suggested APA 7 citation: Baumann, A. (2026). Three Intelligences Explorer [Interactive prototype]. Zenodo. https://doi.org/10.5281/zenodo.19633908"
+);
+
+addParagraph(
+  "Please do not present this report, the model design, or its explanatory text as your own unpublished work. The report is intended for transparent discussion, teaching, review, and critique."
+);
+
+addSectionTitle("7. Model limitations", "Use this report as a transparent prototype output, not as a final empirical index.");
+
+
+  addParagraph(
+    "The model uses public proxy indicators. Proxy indicators are imperfect: forest area is not biodiversity quality, protected-area share is not effective conservation, and country-level scores hide internal variation. Some indicators may be snapshot-derived while missing dimensions may be fallback-filled and labelled. Changing indicators, weights, thresholds, or transformations will change the results."
+  );
+
+  addParagraph(
+    "The purpose of the report is to support interpretation, discussion, and model critique. It should not be used as a definitive ranking of countries or as a measure of innate intelligence."
+  );
+
+  addFooterToAllPages();
+
   doc.save(reportFileName(row.country));
 }
-
 function openPrintableCountryReport(row) {
   const enriched = enrichTheoryFields(row);
   const comparison = selectedReportComparison(enriched);
@@ -278,6 +486,21 @@ function openPrintableCountryReport(row) {
         <p>${escapeHtml(enriched.maturity_interpretation || "")}</p>
         <h2>Comparison context</h2>
         <p>Displayed average readiness: ${Number(comparison.displayedAverage).toFixed(1)}. Top readiness country: ${escapeHtml(comparison.topCountry)}.</p>
+<h2>Authorship, citation and reuse</h2>
+<p>
+  This report was generated from the <em>Three Intelligences Explorer</em> prototype by André Baumann.
+  The model logic, indicator choices, interpretation text, and report structure should be cited when reused,
+  adapted, or discussed.
+</p>
+<p>
+  <strong>Suggested APA 7 citation:</strong><br>
+  Baumann, A. (2026). <em>Three Intelligences Explorer</em> [Interactive prototype].
+  Zenodo. https://doi.org/10.5281/zenodo.19633908
+</p>
+<p>
+  Please do not present this report, the model design, or its explanatory text as your own unpublished work.
+</p>
+
         <h2>Source transparency</h2>
         <table>
           <tr><th>Layer</th><th>Indicator</th><th>Raw</th><th>Score</th><th>Year</th></tr>
@@ -1328,7 +1551,7 @@ function renderTransitionLean(row) {
         <div class="current-stage-heading-group">
           <h4 class="current-stage-heading">Country readiness inside the current global state</h4>
           <p class="current-stage-country-line">
-            <strong>${country}</strong> · ${stateLabel}
+            <strong class="country-mention-highlight">${country}</strong> · ${stateLabel}
           </p>
         </div>
         <span class="current-stage-score ${toneClass}">${gap.toFixed(0)} / 100</span>
@@ -2823,4 +3046,167 @@ function updateDataProvenanceFromCurrentState() {
 
   if (updatedTarget) updatedTarget.textContent = updated;
   if (sourceTarget) sourceTarget.textContent = source;
+}
+
+/* No-op country highlighter overrides.
+   The previous observer-based text highlighter caused visible flicker by repeatedly
+   rewriting DOM text nodes. Country names are now highlighted only where templates
+   explicitly add .country-mention-highlight. */
+function installCountryMentionHighlighter() {}
+function observeCountryMentionChanges() {}
+function scheduleCountryMentionHighlight() {}
+function highlightSelectedCountryMentions() {}
+
+/* Country-search UX override.
+   Search is treated as a country lookup, not as an extra AND filter.
+   Example: Region = South America + search = USA should still find United States. */
+
+function normaliseCountryQuery(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function countrySearchAliases(row) {
+  const name = normaliseCountryQuery(row.country || "");
+  const code = normaliseCountryQuery(row.code || "");
+  const iso3 = normaliseCountryQuery(row.iso3 || "");
+
+  const aliases = new Set([name, code, iso3]);
+
+  if (row.code === "US" || row.iso3 === "USA") {
+    [
+      "usa",
+      "us",
+      "u s",
+      "u s a",
+      "united states",
+      "united states of america",
+      "america"
+    ].forEach(v => aliases.add(normaliseCountryQuery(v)));
+  }
+
+  if (row.code === "GB" || row.iso3 === "GBR") {
+    [
+      "uk",
+      "u k",
+      "britain",
+      "great britain",
+      "united kingdom",
+      "england"
+    ].forEach(v => aliases.add(normaliseCountryQuery(v)));
+  }
+
+  if (row.code === "KR" || row.iso3 === "KOR") {
+    [
+      "korea",
+      "south korea",
+      "republic of korea",
+      "korea rep"
+    ].forEach(v => aliases.add(normaliseCountryQuery(v)));
+  }
+
+  return Array.from(aliases).filter(Boolean);
+}
+
+function countryMatchesSearch(row, query) {
+  const q = normaliseCountryQuery(query);
+  if (!q) return true;
+
+  return countrySearchAliases(row).some(alias =>
+    alias === q || alias.includes(q) || q.includes(alias)
+  );
+}
+
+function exactCountrySearchMatch(rows, query) {
+  const q = normaliseCountryQuery(query);
+  if (!q) return null;
+
+  return rows.find(row => countrySearchAliases(row).some(alias => alias === q)) ||
+    rows.find(row => countrySearchAliases(row).some(alias => alias.startsWith(q))) ||
+    rows.find(row => countryMatchesSearch(row, q)) ||
+    null;
+}
+
+function updateExplorerSummaryFromFilteredRows(rows) {
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+
+  setText("displayedCount", String(rows.length));
+
+  const avg = key => {
+    const values = rows.map(row => Number(row[key])).filter(Number.isFinite);
+    if (!values.length) return "0";
+    return (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);
+  };
+
+  setText("avgIndividual", avg("individual_intelligence"));
+  setText("avgCollective", avg("collective_intelligence"));
+  setText("avgPlanetary", avg("planetary_intelligence"));
+
+  const completenessValues = rows.map(row => Number(row.completeness)).filter(Number.isFinite);
+  const completeness = completenessValues.length
+    ? Math.round((completenessValues.reduce((a, b) => a + b, 0) / completenessValues.length) * 100)
+    : 0;
+
+  setText("avgCompleteness", `${completeness}%`);
+}
+
+function selectCountryFromSearch(row) {
+  if (!row || !row.country) return;
+
+  const enriched = typeof enrichTheoryFields === "function" ? enrichTheoryFields(row) : row;
+  state.selectedRow = enriched;
+
+  if (typeof renderSelectedCountry === "function") renderSelectedCountry(enriched);
+  if (typeof renderSelectedProfile === "function") renderSelectedProfile(enriched);
+  if (typeof renderSelectedCountryProfile === "function") renderSelectedCountryProfile(enriched);
+  if (typeof renderSelectedTheory === "function") renderSelectedTheory(enriched);
+  if (typeof renderTransitionLean === "function") renderTransitionLean(enriched);
+  if (typeof updateBottomReportDownloadCta === "function") updateBottomReportDownloadCta();
+}
+
+function applyFilters() {
+  const region = document.getElementById("regionFilter")?.value || "All regions";
+  const search = document.getElementById("countrySearch")?.value || "";
+  const minSynergy = Number(document.getElementById("minSynergy")?.value || 0);
+  const minSynergyValue = document.getElementById("minSynergyValue");
+
+  if (minSynergyValue) minSynergyValue.textContent = String(minSynergy);
+
+  const allRows = (state.scores || []).map(row =>
+    typeof enrichTheoryFields === "function" ? enrichTheoryFields(row) : row
+  );
+
+  const hasSearch = normaliseCountryQuery(search).length > 0;
+
+  let rows;
+
+  if (hasSearch) {
+    rows = allRows.filter(row => countryMatchesSearch(row, search));
+  } else {
+    rows = allRows.filter(row => {
+      const regionOk = !region || region === "All regions" || row.region === region;
+      const synergyOk = Number(row.overall_synergy || 0) >= minSynergy;
+      return regionOk && synergyOk;
+    });
+  }
+
+  state.filtered = rows;
+  updateExplorerSummaryFromFilteredRows(rows);
+
+  if (typeof renderPlot === "function") renderPlot();
+
+  if (hasSearch) {
+    const exact = exactCountrySearchMatch(rows, search);
+    if (exact) selectCountryFromSearch(exact);
+  } else if (state.selectedRow && !rows.some(row => row.code === state.selectedRow.code)) {
+    state.selectedRow = null;
+    if (typeof renderTransitionLean === "function") renderTransitionLean(null);
+    if (typeof updateBottomReportDownloadCta === "function") updateBottomReportDownloadCta();
+  }
 }

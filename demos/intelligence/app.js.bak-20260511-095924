@@ -13,6 +13,700 @@ const state = {
 
 document.addEventListener("DOMContentLoaded", init);
 
+function installBottomReportDownload() {
+  if (state.bottomReportDownloadInstalled) return;
+  state.bottomReportDownloadInstalled = true;
+
+  const button = document.getElementById("downloadCountryPdfReport");
+  if (button) {
+    button.addEventListener("click", () => downloadSelectedCountryPdfReport());
+  }
+
+  const observer = new MutationObserver(() => {
+    if (state.bottomReportUpdateScheduled) return;
+    state.bottomReportUpdateScheduled = true;
+    requestAnimationFrame(() => {
+      state.bottomReportUpdateScheduled = false;
+      updateBottomReportDownloadCta();
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+  state.bottomReportDownloadObserver = observer;
+
+  updateBottomReportDownloadCta();
+}
+
+function updateBottomReportDownloadCta() {
+  document.querySelectorAll(".selected-panel .profile-bottom-actions").forEach(el => el.remove());
+
+  const text = document.getElementById("countryReportDownloadText");
+  const button = document.getElementById("downloadCountryPdfReport");
+
+  if (!text || !button) return;
+
+  const row = state.selectedRow ? enrichTheoryFields(state.selectedRow) : null;
+
+  if (!row || !row.country) {
+    text.textContent = "Select a country in the 3D plot to export the country profile, planetary-context interpretation, diagnostics, comparison context, and source transparency as a PDF.";
+    button.textContent = "Select a country first";
+    button.disabled = true;
+    return;
+  }
+
+  text.innerHTML = `
+    Export the report for <strong class="country-mention-highlight">${escapeHtml(row.country)}</strong>.
+    The PDF includes the country profile, readiness interpretation, planetary context, diagnostics,
+    comparison context, and indicator source transparency.
+  `;
+  button.textContent = `Download ${row.country} PDF report`;
+  button.disabled = false;
+}
+
+function selectedReportComparison(row) {
+  const rows = (state.filtered && state.filtered.length ? state.filtered : state.scores)
+    .map(r => enrichTheoryFields(r));
+
+  const displayedAverage = average(rows.map(r => Number(r.mature_technosphere_gap)));
+  const regionRows = rows.filter(r => r.region === row.region);
+  const regionAverage = average(regionRows.map(r => Number(r.mature_technosphere_gap)));
+  const top = rows
+    .filter(r => Number.isFinite(Number(r.mature_technosphere_gap)))
+    .sort((a, b) => Number(b.mature_technosphere_gap) - Number(a.mature_technosphere_gap))[0];
+
+  return {
+    displayedAverage,
+    regionAverage,
+    topCountry: top ? top.country : "n/a",
+    topScore: top ? Number(top.mature_technosphere_gap) : NaN,
+    topDelta: top ? Number(row.mature_technosphere_gap) - Number(top.mature_technosphere_gap) : NaN
+  };
+}
+
+function reportFileName(country) {
+  return `three-intelligences-${String(country || "country")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")}-report.pdf`;
+}
+
+function formatReportNumber(value, digits = 1) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n.toFixed(digits) : "n/a";
+}
+
+function strongestWeakestDimension(row) {
+  const dims = [
+    ["individual capability", Number(row.individual_intelligence)],
+    ["collective coordination", Number(row.collective_intelligence)],
+    ["planetary stewardship", Number(row.planetary_intelligence)]
+  ].filter(([, value]) => Number.isFinite(value));
+
+  if (!dims.length) return { strongest: "n/a", weakest: "n/a" };
+
+  dims.sort((a, b) => b[1] - a[1]);
+
+  return {
+    strongest: dims[0][0],
+    strongestValue: dims[0][1],
+    weakest: dims[dims.length - 1][0],
+    weakestValue: dims[dims.length - 1][1]
+  };
+}
+
+function buildCountryReportInterpretation(row, comparison) {
+  const dim = strongestWeakestDimension(row);
+  const country = row.country || "The selected country";
+  const band = readinessStateLabel(row.maturity_state);
+  const readiness = formatReportNumber(row.mature_technosphere_gap);
+  const pressure = formatReportNumber(row.ecological_pressure);
+  const topDelta = Number(comparison.topDelta);
+
+  const topSentence = Number.isFinite(topDelta)
+    ? `${country} is ${Math.abs(topDelta).toFixed(1)} readiness points ${topDelta >= 0 ? "above" : "below"} the current top-readiness country in the displayed dataset.`
+    : "Distance from the current top-readiness country could not be calculated.";
+
+  return [
+    `${country} is classified as ${band} with a readiness score of ${readiness}/100 in this proxy model.`,
+    `Its strongest dimension is ${dim.strongest} (${formatReportNumber(dim.strongestValue)}/100), while its weakest dimension is ${dim.weakest} (${formatReportNumber(dim.weakestValue)}/100).`,
+    `The ecological-pressure estimate is ${pressure}/100, which moderates the mature-technosphere readiness score.`,
+    topSentence,
+    "Interpret this as a systems-readiness profile, not as a national intelligence ranking."
+  ].join(" ");
+}
+
+function downloadSelectedCountryPdfReport() {
+  const row = state.selectedRow ? enrichTheoryFields(state.selectedRow) : null;
+
+  if (!row || !row.country) {
+    alert("Select a country first.");
+    return;
+  }
+
+  const jsPDFCtor = window.jspdf && window.jspdf.jsPDF ? window.jspdf.jsPDF : null;
+
+  if (!jsPDFCtor) {
+    openPrintableCountryReport(row);
+    return;
+  }
+
+  const doc = new jsPDFCtor({ orientation: "portrait", unit: "mm", format: "a4" });
+
+  const margin = 15;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const usableWidth = pageWidth - margin * 2;
+
+  const colours = {
+    navy: [11, 18, 32],
+    panel: [20, 32, 52],
+    line: [60, 84, 120],
+    teal: [94, 234, 212],
+    blue: [80, 140, 255],
+    red: [255, 90, 95],
+    muted: [96, 108, 132],
+    text: [28, 36, 52],
+    pale: [244, 248, 252],
+    amber: [245, 180, 48]
+  };
+
+  let y = 16;
+
+  const comparison = selectedReportComparison(row);
+  const interpretation = buildCountryReportInterpretation(row, comparison);
+  const generatedDate = new Date().toISOString().slice(0, 10);
+  const dataUpdated = document.getElementById("dataUpdated")?.textContent || "n/a";
+  const sourceRoute = document.getElementById("dataSourceRoute")?.textContent || state.dataMode || "n/a";
+  const doi = "10.5281/zenodo.19633908";
+
+  function addPageIfNeeded(height = 24) {
+    if (y + height > pageHeight - 20) {
+      doc.addPage();
+      y = 18;
+    }
+  }
+
+  function addSectionTitle(title, subtitle = "") {
+    addPageIfNeeded(20);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.setTextColor(...colours.navy);
+    doc.text(title, margin, y);
+    y += 5.5;
+
+    if (subtitle) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(...colours.muted);
+      const lines = doc.splitTextToSize(subtitle, usableWidth);
+      doc.text(lines, margin, y);
+      y += lines.length * 4.2 + 2;
+    }
+
+    doc.setDrawColor(...colours.line);
+    doc.setLineWidth(0.25);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 6;
+  }
+
+  function addParagraph(text, options = {}) {
+    addPageIfNeeded(14);
+    doc.setFont("helvetica", options.bold ? "bold" : "normal");
+    doc.setFontSize(options.size || 9.2);
+    doc.setTextColor(...(options.colour || colours.text));
+
+    const lines = doc.splitTextToSize(String(text), usableWidth);
+    for (const line of lines) {
+      addPageIfNeeded(5);
+      doc.text(line, margin, y);
+      y += 4.5;
+    }
+    y += options.after || 2;
+  }
+
+  function addCallout(title, text) {
+    const lines = doc.splitTextToSize(String(text), usableWidth - 10);
+    const boxHeight = 11 + lines.length * 4.2;
+
+    addPageIfNeeded(boxHeight + 5);
+
+    doc.setFillColor(...colours.pale);
+    doc.setDrawColor(210, 222, 238);
+    doc.roundedRect(margin, y, usableWidth, boxHeight, 3, 3, "FD");
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.4);
+    doc.setTextColor(...colours.navy);
+    doc.text(title, margin + 5, y + 6);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.5);
+    doc.setTextColor(...colours.text);
+    doc.text(lines, margin + 5, y + 11);
+
+    y += boxHeight + 7;
+  }
+
+  function addFooterToAllPages() {
+    const pages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pages; i += 1) {
+      doc.setPage(i);
+      doc.setDrawColor(220, 228, 240);
+      doc.line(margin, pageHeight - 13, pageWidth - margin, pageHeight - 13);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(7);
+      doc.setTextColor(...colours.muted);
+      doc.text("Three Intelligences Explorer · Prototype model · Not a ranking", margin, pageHeight - 8);
+      doc.text(`Page ${i} of ${pages}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+    }
+  }
+
+  function autoTable(options) {
+    doc.autoTable({
+      margin: { left: margin, right: margin },
+      styles: {
+        font: "helvetica",
+        fontSize: 8,
+        cellPadding: 2.2,
+        lineColor: [225, 231, 240],
+        lineWidth: 0.1,
+        textColor: colours.text
+      },
+      headStyles: {
+        fillColor: colours.panel,
+        textColor: [255, 255, 255],
+        fontStyle: "bold"
+      },
+      alternateRowStyles: {
+        fillColor: [248, 251, 255]
+      },
+      ...options
+    });
+    y = doc.lastAutoTable.finalY + 8;
+  }
+
+  // Cover header
+  doc.setFillColor(...colours.navy);
+  doc.rect(0, 0, pageWidth, 48, "F");
+  doc.setFillColor(...colours.teal);
+  doc.rect(0, 47, pageWidth, 1.2, "F");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(...colours.teal);
+  doc.text("EXPERIMENTAL SYSTEMS INTELLIGENCE", margin, 14);
+
+  doc.setFontSize(21);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Three Intelligences Explorer", margin, 25);
+
+  doc.setFontSize(15);
+  doc.setTextColor(...colours.red);
+  doc.text(`${row.country} country report`, margin, 36);
+
+  y = 58;
+
+  addCallout(
+    "Executive interpretation",
+    interpretation
+  );
+
+  addSectionTitle("1. Score summary", "Core scores for the selected country. All scores are interpreted on a 0-100 proxy scale.");
+
+  autoTable({
+    startY: y,
+    head: [["Metric", "Score / value", "Meaning"]],
+    body: [
+      ["Readiness score", `${formatReportNumber(row.mature_technosphere_gap)} / 100`, "Mature-technosphere readiness proxy"],
+      ["Readiness band", readinessStateLabel(row.maturity_state), "Position inside the current immature global technosphere"],
+      ["Individual intelligence", `${formatReportNumber(row.individual_intelligence)} / 100`, "Human capability, education, health, and knowledge access"],
+      ["Collective intelligence", `${formatReportNumber(row.collective_intelligence)} / 100`, "Institutional coordination, governance, accountability, and system learning"],
+      ["Planetary intelligence", `${formatReportNumber(row.planetary_intelligence)} / 100`, "Stewardship, ecological pressure reduction, and Earth-system feedback capacity"],
+      ["Overall synergy", `${formatReportNumber(row.overall_synergy)} / 100`, "Average of individual, collective, and planetary dimensions"],
+      ["Ecological pressure", `${formatReportNumber(row.ecological_pressure)} / 100`, "Penalty pressure derived from negative planetary indicators where available"]
+    ],
+    columnStyles: {
+      0: { cellWidth: 48 },
+      1: { cellWidth: 42 },
+      2: { cellWidth: usableWidth - 90 }
+    }
+  });
+
+  addSectionTitle("2. Planetary-context interpretation", "The country is interpreted as a subsystem inside the current global immature technosphere.");
+
+  addParagraph(
+    "Earth is treated here as an immature technosphere overall: humanity has planetary-scale technological effects, but not yet mature planetary self-regulation. Countries are not being placed into geosphere or biosphere stages. They are scored for relative readiness within the present immature global technosphere."
+  );
+
+  addParagraph(row.maturity_interpretation || "No maturity interpretation available.");
+
+  addCallout(
+    "Important interpretation rule",
+    `${row.country} is not ranked as a “smart country”. The profile estimates how individual capability, collective coordination, and planetary stewardship combine under the assumptions of this prototype model.`
+  );
+
+  addSectionTitle("3. Planetary-intelligence diagnostics", "Five diagnostic properties derived from the planetary-intelligence framing.");
+
+  autoTable({
+    startY: y,
+    head: [["Diagnostic", "Score", "Interpretation"]],
+    body: [
+      ["Emergence", formatReportNumber(row.emergence_score), "Capability arising above individual actors"],
+      ["Network information", formatReportNumber(row.network_information_score), "Institutional and informational connectivity"],
+      ["Semantic feedback", formatReportNumber(row.semantic_feedback_score), "Environmental signals becoming meaningful for action"],
+      ["Boundaries and signals", formatReportNumber(row.boundary_signal_score), "Planetary limits are detected and acted upon"],
+      ["Autopoiesis", formatReportNumber(row.autopoiesis_score), "Capacity to maintain long-term conditions of existence"]
+    ],
+    columnStyles: {
+      0: { cellWidth: 42 },
+      1: { cellWidth: 22 },
+      2: { cellWidth: usableWidth - 64 }
+    }
+  });
+
+  addSectionTitle("4. Comparison context", "The selected country is compared with the displayed dataset, its region, and the current top-readiness country.");
+
+  autoTable({
+    startY: y,
+    head: [["Context", "Value"]],
+    body: [
+      ["Displayed average readiness", formatReportNumber(comparison.displayedAverage)],
+      [`${row.region || "Region"} average readiness`, formatReportNumber(comparison.regionAverage)],
+      ["Top readiness country", comparison.topCountry || "n/a"],
+      ["Top readiness score", formatReportNumber(comparison.topScore)],
+      ["Distance from top", Number.isFinite(Number(comparison.topDelta)) ? `${formatReportNumber(comparison.topDelta)} readiness points` : "n/a"]
+    ],
+    columnStyles: {
+      0: { cellWidth: 72 },
+      1: { cellWidth: usableWidth - 72 }
+    }
+  });
+
+  addSectionTitle("5. Data provenance and source transparency", "Indicator values used for this selected-country profile.");
+
+  addParagraph(
+    `Data mode: ${state.dataMode || "n/a"}. Data updated: ${dataUpdated}. Indicator source: ${sourceRoute}. Archived release DOI: ${doi}.`
+  );
+
+  const indicatorRows = (row.detail || []).map(d => [
+    d.layer || "n/a",
+    d.label || d.code || "n/a",
+    d.raw === null || d.raw === undefined ? "missing" : formatReportNumber(d.raw, 3),
+    d.score === null || d.score === undefined ? "missing" : formatReportNumber(d.score),
+    d.year || "n/a"
+  ]);
+
+  autoTable({
+    startY: y,
+    head: [["Layer", "Indicator", "Raw value", "Score", "Year"]],
+    body: indicatorRows.length
+      ? indicatorRows
+      : [["n/a", "Fallback dataset does not include per-indicator source detail", "n/a", "n/a", "n/a"]],
+    styles: { fontSize: 7 },
+    columnStyles: {
+      0: { cellWidth: 23 },
+      1: { cellWidth: 74 },
+      2: { cellWidth: 28 },
+      3: { cellWidth: 22 },
+      4: { cellWidth: 18 }
+    }
+  });
+
+addSectionTitle("6. Authorship, citation and reuse", "Academic reuse is welcome with attribution. Please cite this prototype using APA 7.");
+
+addParagraph(
+  "This report was generated from the Three Intelligences Explorer prototype by André Baumann. The model logic, indicator choices, interpretation text, and report structure should be cited when reused, adapted, or discussed."
+);
+
+addParagraph(
+  "Suggested APA 7 citation: Baumann, A. (2026). Three Intelligences Explorer [Interactive prototype]. Zenodo. https://doi.org/10.5281/zenodo.19633908"
+);
+
+addParagraph(
+  "Please do not present this report, the model design, or its explanatory text as your own unpublished work. The report is intended for transparent discussion, teaching, review, and critique."
+);
+
+addSectionTitle("7. Model limitations", "Use this report as a transparent prototype output, not as a final empirical index.");
+
+
+  addParagraph(
+    "The model uses public proxy indicators. Proxy indicators are imperfect: forest area is not biodiversity quality, protected-area share is not effective conservation, and country-level scores hide internal variation. Some indicators may be snapshot-derived while missing dimensions may be fallback-filled and labelled. Changing indicators, weights, thresholds, or transformations will change the results."
+  );
+
+  addParagraph(
+    "The purpose of the report is to support interpretation, discussion, and model critique. It should not be used as a definitive ranking of countries or as a measure of innate intelligence."
+  );
+
+  addFooterToAllPages();
+
+  doc.save(reportFileName(row.country));
+}
+function openPrintableCountryReport(row) {
+  const enriched = enrichTheoryFields(row);
+  const comparison = selectedReportComparison(enriched);
+  const indicatorRows = (enriched.detail || []).map(d => `
+    <tr>
+      <td>${escapeHtml(d.layer || "n/a")}</td>
+      <td>${escapeHtml(d.label || d.code || "n/a")}</td>
+      <td>${d.raw === null || d.raw === undefined ? "missing" : escapeHtml(Number(d.raw).toFixed(3))}</td>
+      <td>${d.score === null || d.score === undefined ? "missing" : escapeHtml(Number(d.score).toFixed(1))}</td>
+      <td>${escapeHtml(d.year || "n/a")}</td>
+    </tr>
+  `).join("");
+
+  const win = window.open("", "_blank");
+  if (!win) return;
+
+  win.document.write(`
+    <!doctype html>
+    <html>
+      <head>
+        <title>${escapeHtml(enriched.country)} report</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.5; }
+          table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+          th, td { border-bottom: 1px solid #ddd; padding: 0.4rem; text-align: left; }
+          th { background: #f2f2f2; }
+        </style>
+      </head>
+      <body>
+        <h1>Three Intelligences Explorer: ${escapeHtml(enriched.country)}</h1>
+        <p>This is a reasoning instrument, not a definitive ranking.</p>
+        <h2>Country profile</h2>
+        <table>
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>Region</td><td>${escapeHtml(enriched.region || "n/a")}</td></tr>
+          <tr><td>Individual</td><td>${Number(enriched.individual_intelligence).toFixed(1)}</td></tr>
+          <tr><td>Collective</td><td>${Number(enriched.collective_intelligence).toFixed(1)}</td></tr>
+          <tr><td>Planetary</td><td>${Number(enriched.planetary_intelligence).toFixed(1)}</td></tr>
+          <tr><td>Readiness</td><td>${Number(enriched.mature_technosphere_gap).toFixed(1)}</td></tr>
+          <tr><td>Readiness band</td><td>${escapeHtml(readinessStateLabel(enriched.maturity_state))}</td></tr>
+        </table>
+        <h2>Planetary-context interpretation</h2>
+        <p>${escapeHtml(enriched.maturity_interpretation || "")}</p>
+        <h2>Comparison context</h2>
+        <p>Displayed average readiness: ${Number(comparison.displayedAverage).toFixed(1)}. Top readiness country: ${escapeHtml(comparison.topCountry)}.</p>
+<h2>Authorship, citation and reuse</h2>
+<p>
+  This report was generated from the <em>Three Intelligences Explorer</em> prototype by André Baumann.
+  The model logic, indicator choices, interpretation text, and report structure should be cited when reused,
+  adapted, or discussed.
+</p>
+<p>
+  <strong>Suggested APA 7 citation:</strong><br>
+  Baumann, A. (2026). <em>Three Intelligences Explorer</em> [Interactive prototype].
+  Zenodo. https://doi.org/10.5281/zenodo.19633908
+</p>
+<p>
+  Please do not present this report, the model design, or its explanatory text as your own unpublished work.
+</p>
+
+        <h2>Source transparency</h2>
+        <table>
+          <tr><th>Layer</th><th>Indicator</th><th>Raw</th><th>Score</th><th>Year</th></tr>
+          ${indicatorRows}
+        </table>
+        <script>window.print();</script>
+      </body>
+    </html>
+  `);
+  win.document.close();
+}
+
+function installProfileActionStreamliner() {
+  if (state.profileActionStreamlinerInstalled) return;
+  state.profileActionStreamlinerInstalled = true;
+
+  const run = () => streamlineSelectedProfileActions();
+  state.profileActionObserver = new MutationObserver(() => {
+    if (state.profileActionStreamlineScheduled) return;
+    state.profileActionStreamlineScheduled = true;
+    requestAnimationFrame(() => {
+      state.profileActionStreamlineScheduled = false;
+      run();
+    });
+  });
+
+  state.profileActionObserver.observe(document.body, { childList: true, subtree: true });
+  run();
+}
+
+function findSelectedCountryPanel() {
+  return Array.from(document.querySelectorAll(".panel"))
+    .find(panel => {
+      const text = panel.textContent || "";
+      return /Selected country/i.test(text) &&
+        /Planetary-intelligence diagnostics|Comparison context|Source transparency/i.test(text);
+    }) || null;
+}
+
+function streamlineSelectedProfileActions() {
+  const panel = findSelectedCountryPanel();
+  if (!panel) return;
+
+  if (state.profileActionObserver) state.profileActionObserver.disconnect();
+
+  const buttons = Array.from(panel.querySelectorAll("button, a.button, a.pill-link, .button"))
+    .filter(el => !el.closest(".profile-bottom-actions"));
+
+  const textOf = el => (el.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+
+  buttons.forEach(el => {
+    const label = textOf(el);
+    if (
+      label.includes("copy profile") ||
+      label.includes("download .txt") ||
+      label.includes("download txt") ||
+      label.includes("download text")
+    ) {
+      el.remove();
+    }
+  });
+
+  let pdfButton = Array.from(panel.querySelectorAll("button, a.button, a.pill-link, .button"))
+    .find(el => textOf(el).includes("download pdf"));
+
+  if (pdfButton) {
+    let bottom = panel.querySelector(".profile-bottom-actions");
+
+    if (!bottom) {
+      bottom = document.createElement("div");
+      bottom.className = "profile-bottom-actions";
+      bottom.innerHTML = `
+        <div class="profile-bottom-actions-copy">
+          <strong>Download country report</strong>
+          <p>Export the selected-country profile, diagnostics, comparison context, and source notes as a PDF.</p>
+        </div>
+        <div class="profile-bottom-actions-slot"></div>
+      `;
+      panel.appendChild(bottom);
+    }
+
+    const slot = bottom.querySelector(".profile-bottom-actions-slot");
+    pdfButton.classList.add("profile-pdf-report-button");
+    pdfButton.textContent = "Download PDF report";
+    slot.appendChild(pdfButton);
+  }
+
+  if (state.profileActionObserver) {
+    state.profileActionObserver.observe(document.body, { childList: true, subtree: true });
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => setTimeout(installProfileActionStreamliner, 0));
+
+function installCountryMentionHighlighter() {
+  if (state.countryMentionHighlighterInstalled) return;
+  state.countryMentionHighlighterInstalled = true;
+
+  state.countryMentionObserver = new MutationObserver(() => {
+    scheduleCountryMentionHighlight();
+  });
+
+  observeCountryMentionChanges();
+  scheduleCountryMentionHighlight();
+}
+
+function observeCountryMentionChanges() {
+  if (!state.countryMentionObserver) return;
+  state.countryMentionObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+    characterData: true
+  });
+}
+
+function scheduleCountryMentionHighlight() {
+  if (state.countryMentionHighlightScheduled) return;
+
+  state.countryMentionHighlightScheduled = true;
+
+  requestAnimationFrame(() => {
+    state.countryMentionHighlightScheduled = false;
+    highlightSelectedCountryMentions();
+  });
+}
+
+function highlightSelectedCountryMentions() {
+  const country = state.selectedRow && state.selectedRow.country
+    ? String(state.selectedRow.country)
+    : "";
+
+  const root = document.querySelector("main") || document.body;
+  if (!root) return;
+
+  if (state.countryMentionObserver) {
+    state.countryMentionObserver.disconnect();
+  }
+
+  root.querySelectorAll(".country-mention-highlight").forEach(span => {
+    span.replaceWith(document.createTextNode(span.textContent || ""));
+  });
+
+  if (!country || country.length < 2) {
+    observeCountryMentionChanges();
+    return;
+  }
+
+  const cards = Array.from(root.querySelectorAll(".panel"))
+    .filter(card => !card.closest("#plot, .js-plotly-plot"));
+
+  cards.forEach(card => {
+    const candidates = Array.from(card.querySelectorAll(
+      "h1, h2, h3, h4, h5, .current-stage-country-line, .selected-country-name, .country-title"
+    )).filter(el =>
+      !el.closest(
+        "table, .indicator-detail-disclosure, .diagnostic-bars, .source-transparency, .comparison-context, .transition-lean-warning, .readiness-note, #plot, .js-plotly-plot"
+      )
+    );
+
+    const target = candidates.find(el => (el.textContent || "").includes(country));
+    if (!target) return;
+
+    const walker = document.createTreeWalker(
+      target,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode(node) {
+          const text = node.nodeValue || "";
+          const parent = node.parentElement;
+
+          if (!parent || !text.includes(country)) return NodeFilter.FILTER_REJECT;
+          if (parent.closest(".country-mention-highlight")) return NodeFilter.FILTER_REJECT;
+
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+
+    const textNode = walker.nextNode();
+    if (!textNode) return;
+
+    const text = textNode.nodeValue || "";
+    const index = text.indexOf(country);
+    if (index === -1) return;
+
+    const fragment = document.createDocumentFragment();
+
+    if (index > 0) {
+      fragment.appendChild(document.createTextNode(text.slice(0, index)));
+    }
+
+    const span = document.createElement("span");
+    span.className = "country-mention-highlight";
+    span.textContent = country;
+    fragment.appendChild(span);
+
+    const after = text.slice(index + country.length);
+    if (after) {
+      fragment.appendChild(document.createTextNode(after));
+    }
+
+    textNode.replaceWith(fragment);
+  });
+
+  observeCountryMentionChanges();
+}
 function describeIndicatorHealthStatus(indicator, failed, mode) {
   const code = String(indicator?.code || "");
   const layer = String(indicator?.layer || "");
@@ -315,6 +1009,8 @@ async function init() {
     applyFilters();
     refreshIndicatorHealthMap();
     updateDataProvenanceFromCurrentState();
+    installBottomReportDownload();
+    installCountryMentionHighlighter();
     installIndicatorDetailAutoCollapse();
   } catch (error) {
     document.getElementById("plot").innerHTML = `<div class="warning-box">Could not initialise demo: ${escapeHtml(error.message)}</div>`;
@@ -822,6 +1518,7 @@ function renderTransitionLean(row) {
   if (!target) return;
 
   updateGlobalContextBubble(row);
+  scheduleCountryMentionHighlight();
 
   if (!row || !row.country) {
     target.innerHTML = `
@@ -854,7 +1551,7 @@ function renderTransitionLean(row) {
         <div class="current-stage-heading-group">
           <h4 class="current-stage-heading">Country readiness inside the current global state</h4>
           <p class="current-stage-country-line">
-            <strong>${country}</strong> · ${stateLabel}
+            <strong class="country-mention-highlight">${country}</strong> · ${stateLabel}
           </p>
         </div>
         <span class="current-stage-score ${toneClass}">${gap.toFixed(0)} / 100</span>
@@ -2350,3 +3047,607 @@ function updateDataProvenanceFromCurrentState() {
   if (updatedTarget) updatedTarget.textContent = updated;
   if (sourceTarget) sourceTarget.textContent = source;
 }
+
+/* No-op country highlighter overrides.
+   The previous observer-based text highlighter caused visible flicker by repeatedly
+   rewriting DOM text nodes. Country names are now highlighted only where templates
+   explicitly add .country-mention-highlight. */
+function installCountryMentionHighlighter() {}
+function observeCountryMentionChanges() {}
+function scheduleCountryMentionHighlight() {}
+function highlightSelectedCountryMentions() {}
+
+/* Robust country-search and filter override.
+   Search behaves as country lookup, not as an AND filter with region.
+   Empty/all region states always mean no region restriction. */
+
+function normaliseCountryQuery(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function isAllRegionValue(value) {
+  const v = normaliseCountryQuery(value);
+  return !v || v === "all" || v === "all regions" || v === "any" || v === "*";
+}
+
+function countrySearchAliases(row) {
+  const aliases = new Set([
+    normaliseCountryQuery(row.country || ""),
+    normaliseCountryQuery(row.code || ""),
+    normaliseCountryQuery(row.iso3 || "")
+  ]);
+
+  if (row.code === "US" || row.iso3 === "USA" || /united states/i.test(row.country || "")) {
+    [
+      "usa",
+      "us",
+      "u s",
+      "u s a",
+      "america",
+      "united states",
+      "united states of america"
+    ].forEach(v => aliases.add(normaliseCountryQuery(v)));
+  }
+
+  if (row.code === "GB" || row.iso3 === "GBR" || /united kingdom/i.test(row.country || "")) {
+    [
+      "uk",
+      "u k",
+      "britain",
+      "great britain",
+      "united kingdom",
+      "england"
+    ].forEach(v => aliases.add(normaliseCountryQuery(v)));
+  }
+
+  if (row.code === "KR" || row.iso3 === "KOR" || /korea/i.test(row.country || "")) {
+    [
+      "korea",
+      "south korea",
+      "republic of korea",
+      "korea rep"
+    ].forEach(v => aliases.add(normaliseCountryQuery(v)));
+  }
+
+  return Array.from(aliases).filter(Boolean);
+}
+
+function countryMatchesSearch(row, query) {
+  const q = normaliseCountryQuery(query);
+  if (!q) return true;
+
+  return countrySearchAliases(row).some(alias =>
+    alias === q || alias.includes(q) || q.includes(alias)
+  );
+}
+
+function bestCountrySearchMatch(rows, query) {
+  const q = normaliseCountryQuery(query);
+  if (!q) return null;
+
+  return rows.find(row => countrySearchAliases(row).some(alias => alias === q)) ||
+    rows.find(row => countrySearchAliases(row).some(alias => alias.startsWith(q))) ||
+    rows.find(row => countryMatchesSearch(row, q)) ||
+    null;
+}
+
+function updateExplorerSummaryFromFilteredRows(rows) {
+  const safeRows = Array.isArray(rows) ? rows : [];
+
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+
+  setText("displayedCount", String(safeRows.length));
+
+  const avg = key => {
+    const values = safeRows.map(row => Number(row[key])).filter(Number.isFinite);
+    if (!values.length) return "0";
+    return (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);
+  };
+
+  setText("avgIndividual", avg("individual_intelligence"));
+  setText("avgCollective", avg("collective_intelligence"));
+  setText("avgPlanetary", avg("planetary_intelligence"));
+
+  const completenessValues = safeRows.map(row => Number(row.completeness)).filter(Number.isFinite);
+  const completeness = completenessValues.length
+    ? Math.round((completenessValues.reduce((a, b) => a + b, 0) / completenessValues.length) * 100)
+    : 0;
+
+  setText("avgCompleteness", `${completeness}%`);
+}
+
+function selectCountryFromSearch(row) {
+  if (!row || !row.country) return;
+
+  const enriched = typeof enrichTheoryFields === "function" ? enrichTheoryFields(row) : row;
+  state.selectedRow = enriched;
+
+  if (typeof renderSelectedCountry === "function") renderSelectedCountry(enriched);
+  if (typeof renderSelectedProfile === "function") renderSelectedProfile(enriched);
+  if (typeof renderSelectedCountryProfile === "function") renderSelectedCountryProfile(enriched);
+  if (typeof renderSelectedTheory === "function") renderSelectedTheory(enriched);
+  if (typeof renderTransitionLean === "function") renderTransitionLean(enriched);
+  if (typeof updateBottomReportDownloadCta === "function") updateBottomReportDownloadCta();
+}
+
+function applyFilters() {
+  const regionValue = document.getElementById("regionFilter")?.value || "";
+  const searchValue = document.getElementById("countrySearch")?.value || "";
+  const minSynergy = Number(document.getElementById("minSynergy")?.value || 0);
+  const minSynergyValue = document.getElementById("minSynergyValue");
+
+  if (minSynergyValue) minSynergyValue.textContent = String(minSynergy);
+
+  const allRows = (state.scores || [])
+    .map(row => typeof enrichTheoryFields === "function" ? enrichTheoryFields(row) : row)
+    .filter(row =>
+      row &&
+      Number.isFinite(Number(row.individual_intelligence)) &&
+      Number.isFinite(Number(row.collective_intelligence)) &&
+      Number.isFinite(Number(row.planetary_intelligence))
+    );
+
+  const hasSearch = normaliseCountryQuery(searchValue).length > 0;
+  const hasRegionFilter = !isAllRegionValue(regionValue);
+  const hasSynergyFilter = Number.isFinite(minSynergy) && minSynergy > 0;
+
+  let rows = [];
+
+  if (hasSearch) {
+    rows = allRows.filter(row => countryMatchesSearch(row, searchValue));
+  } else {
+    rows = allRows.filter(row => {
+      const regionOk = !hasRegionFilter || row.region === regionValue;
+      const synergyOk = !hasSynergyFilter || Number(row.overall_synergy || 0) >= minSynergy;
+      return regionOk && synergyOk;
+    });
+  }
+
+  if (!rows.length && !hasSearch && !hasRegionFilter && !hasSynergyFilter && allRows.length) {
+    console.warn("Filter fail-safe restored all rows because no active filter should have produced zero rows.");
+    rows = allRows;
+  }
+
+  state.filtered = rows;
+  updateExplorerSummaryFromFilteredRows(rows);
+
+  if (typeof renderPlot === "function") renderPlot();
+
+  if (hasSearch) {
+    const match = bestCountrySearchMatch(rows, searchValue);
+    if (match) selectCountryFromSearch(match);
+  } else if (state.selectedRow && !rows.some(row => row.code === state.selectedRow.code)) {
+    state.selectedRow = null;
+    if (typeof renderTransitionLean === "function") renderTransitionLean(null);
+    if (typeof updateBottomReportDownloadCta === "function") updateBottomReportDownloadCta();
+  }
+}
+
+/* -------------------------------------------------------------------------
+   STABLE EXPLORER OVERRIDE v1
+   Purpose:
+   - Make filters predictable.
+   - Make country search behave as lookup, not as an AND-filter.
+   - Make the 3D plot derive traces and axis ranges from the same filtered rows.
+   - Prevent empty-looking regional plots such as North America.
+   ------------------------------------------------------------------------- */
+
+function stableNumber(value, fallback = 0) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+function stableClamp(value, min = 0, max = 100) {
+  return Math.max(min, Math.min(max, stableNumber(value)));
+}
+
+function stableNormalise(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function stableIsAllRegion(value) {
+  const v = stableNormalise(value);
+  return !v || v === "all" || v === "all regions" || v === "any" || v === "*";
+}
+
+function stableCountryAliases(row) {
+  const aliases = new Set([
+    stableNormalise(row.country),
+    stableNormalise(row.code),
+    stableNormalise(row.iso3)
+  ]);
+
+  if (row.code === "US" || row.iso3 === "USA" || /united states/i.test(row.country || "")) {
+    [
+      "usa",
+      "us",
+      "u s",
+      "u s a",
+      "america",
+      "united states",
+      "united states of america"
+    ].forEach(v => aliases.add(stableNormalise(v)));
+  }
+
+  if (row.code === "GB" || row.iso3 === "GBR" || /united kingdom/i.test(row.country || "")) {
+    [
+      "uk",
+      "u k",
+      "britain",
+      "great britain",
+      "united kingdom",
+      "england"
+    ].forEach(v => aliases.add(stableNormalise(v)));
+  }
+
+  if (row.code === "KR" || row.iso3 === "KOR" || /korea/i.test(row.country || "")) {
+    [
+      "korea",
+      "south korea",
+      "republic of korea",
+      "korea rep"
+    ].forEach(v => aliases.add(stableNormalise(v)));
+  }
+
+  return Array.from(aliases).filter(Boolean);
+}
+
+function stableCountryMatches(row, query) {
+  const q = stableNormalise(query);
+  if (!q) return true;
+
+  return stableCountryAliases(row).some(alias =>
+    alias === q || alias.startsWith(q) || alias.includes(q) || q.includes(alias)
+  );
+}
+
+function stableBestCountryMatch(rows, query) {
+  const q = stableNormalise(query);
+  if (!q) return null;
+
+  return rows.find(row => stableCountryAliases(row).some(alias => alias === q)) ||
+    rows.find(row => stableCountryAliases(row).some(alias => alias.startsWith(q))) ||
+    rows.find(row => stableCountryMatches(row, q)) ||
+    null;
+}
+
+function stablePlottableRows(rows) {
+  return (Array.isArray(rows) ? rows : [])
+    .map(row => typeof enrichTheoryFields === "function" ? enrichTheoryFields(row) : row)
+    .filter(row =>
+      row &&
+      Number.isFinite(Number(row.individual_intelligence)) &&
+      Number.isFinite(Number(row.collective_intelligence)) &&
+      Number.isFinite(Number(row.planetary_intelligence))
+    );
+}
+
+function stableAxisRange(rows, key) {
+  const values = stablePlottableRows(rows)
+    .map(row => Number(row[key]))
+    .filter(Number.isFinite);
+
+  if (!values.length) return [0, 100];
+
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const spread = Math.max(1, maxValue - minValue);
+  const pad = Math.max(4, spread * 0.22);
+
+  let low = Math.floor(Math.max(0, minValue - pad) / 5) * 5;
+  let high = Math.ceil(Math.min(100, maxValue + pad) / 5) * 5;
+
+  const minSpan = 20;
+  if (high - low < minSpan) {
+    const mid = (low + high) / 2;
+    low = Math.floor(Math.max(0, mid - minSpan / 2) / 5) * 5;
+    high = Math.ceil(Math.min(100, mid + minSpan / 2) / 5) * 5;
+  }
+
+  if (high <= low) return [0, 100];
+
+  return [low, high];
+}
+
+function stablePlotRanges(rows) {
+  return {
+    x: stableAxisRange(rows, "individual_intelligence"),
+    y: stableAxisRange(rows, "collective_intelligence"),
+    z: stableAxisRange(rows, "planetary_intelligence")
+  };
+}
+
+function stablePaletteValue(key, index = 0) {
+  const palette = [
+    "#38bdf8",
+    "#f97316",
+    "#22c55e",
+    "#ef4444",
+    "#a78bfa",
+    "#f59e0b",
+    "#14b8a6",
+    "#e879f9",
+    "#94a3b8"
+  ];
+
+  const fixed = {
+    "High integration": "#38bdf8",
+    "Individual-rich, coordination-limited": "#f97316",
+    "Institutionally strong, planetary lag": "#22c55e",
+    "Planet-aware, governance-limited": "#8b5cf6",
+    "Low composite capacity": "#ef4444",
+    "Mixed transition": "#a78bfa",
+    "Europe": "#ef4444",
+    "North America": "#a78bfa",
+    "South America": "#22c55e",
+    "Asia": "#f97316",
+    "Africa": "#f59e0b",
+    "Oceania": "#8d6e63"
+  };
+
+  return fixed[key] || palette[index % palette.length];
+}
+
+function stableGroupRows(rows, colourMode) {
+  const groups = new Map();
+
+  rows.forEach(row => {
+    let key;
+    if (colourMode === "region") {
+      key = row.region || "Unknown region";
+    } else if (colourMode === "synergy") {
+      key = "Overall synergy";
+    } else {
+      key = row.archetype || "Unclassified";
+    }
+
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(row);
+  });
+
+  return groups;
+}
+
+function stableHoverTemplate(row) {
+  return [
+    `<b>${row.country}</b>`,
+    `Individual: ${stableNumber(row.individual_intelligence).toFixed(1)}`,
+    `Collective: ${stableNumber(row.collective_intelligence).toFixed(1)}`,
+    `Planetary: ${stableNumber(row.planetary_intelligence).toFixed(1)}`,
+    `Synergy: ${stableNumber(row.overall_synergy).toFixed(1)}`,
+    `Readiness: ${stableNumber(row.mature_technosphere_gap).toFixed(1)}`,
+    `Archetype: ${row.archetype || "n/a"}`
+  ].join("<br>") + "<extra></extra>";
+}
+
+function stableSelectCountry(row) {
+  if (!row || !row.country) return;
+
+  const enriched = typeof enrichTheoryFields === "function" ? enrichTheoryFields(row) : row;
+  state.selectedRow = enriched;
+
+  if (typeof renderSelectedCountry === "function") renderSelectedCountry(enriched);
+  if (typeof renderSelectedProfile === "function") renderSelectedProfile(enriched);
+  if (typeof renderSelectedCountryProfile === "function") renderSelectedCountryProfile(enriched);
+  if (typeof renderSelectedTheory === "function") renderSelectedTheory(enriched);
+  if (typeof renderTransitionLean === "function") renderTransitionLean(enriched);
+  if (typeof updateBottomReportDownloadCta === "function") updateBottomReportDownloadCta();
+}
+
+function stableUpdateSummary(rows) {
+  const safeRows = stablePlottableRows(rows);
+
+  const setText = (id, value) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  };
+
+  const avg = key => {
+    const values = safeRows.map(row => Number(row[key])).filter(Number.isFinite);
+    return values.length ? (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1) : "0";
+  };
+
+  setText("displayedCount", String(safeRows.length));
+  setText("avgIndividual", avg("individual_intelligence"));
+  setText("avgCollective", avg("collective_intelligence"));
+  setText("avgPlanetary", avg("planetary_intelligence"));
+
+  const completenessValues = safeRows.map(row => Number(row.completeness)).filter(Number.isFinite);
+  const completeness = completenessValues.length
+    ? Math.round((completenessValues.reduce((a, b) => a + b, 0) / completenessValues.length) * 100)
+    : 0;
+
+  setText("avgCompleteness", `${completeness}%`);
+}
+
+function applyFilters() {
+  const regionValue = document.getElementById("regionFilter")?.value || "";
+  const searchValue = document.getElementById("countrySearch")?.value || "";
+  const minSynergy = stableNumber(document.getElementById("minSynergy")?.value || 0);
+
+  const minSynergyValue = document.getElementById("minSynergyValue");
+  if (minSynergyValue) minSynergyValue.textContent = String(minSynergy);
+
+  const allRows = stablePlottableRows(state.scores || []);
+  const hasSearch = stableNormalise(searchValue).length > 0;
+  const hasRegionFilter = !stableIsAllRegion(regionValue);
+  const hasSynergyFilter = minSynergy > 0;
+
+  let rows;
+
+  if (hasSearch) {
+    rows = allRows.filter(row => stableCountryMatches(row, searchValue));
+  } else {
+    rows = allRows.filter(row => {
+      const regionOk = !hasRegionFilter || row.region === regionValue;
+      const synergyOk = !hasSynergyFilter || stableNumber(row.overall_synergy) >= minSynergy;
+      return regionOk && synergyOk;
+    });
+  }
+
+  if (!rows.length && !hasSearch && !hasRegionFilter && !hasSynergyFilter && allRows.length) {
+    rows = allRows;
+  }
+
+  state.filtered = rows;
+  stableUpdateSummary(rows);
+  renderPlot();
+
+  if (hasSearch) {
+    const match = stableBestCountryMatch(rows, searchValue);
+    if (match) stableSelectCountry(match);
+  } else if (state.selectedRow && !rows.some(row => row.code === state.selectedRow.code)) {
+    state.selectedRow = null;
+    if (typeof renderTransitionLean === "function") renderTransitionLean(null);
+    if (typeof updateBottomReportDownloadCta === "function") updateBottomReportDownloadCta();
+  }
+}
+
+function renderPlot() {
+  const plotTarget = document.getElementById("plot");
+  if (!plotTarget) return;
+
+  const rows = stablePlottableRows(state.filtered && state.filtered.length ? state.filtered : []);
+  const allRows = stablePlottableRows(state.scores || []);
+
+  if (!rows.length) {
+    plotTarget.innerHTML = `
+      <div class="warning-box">
+        No countries match the current filters. Clear the search or choose “All regions”.
+      </div>
+    `;
+    return;
+  }
+
+  const colourMode = document.getElementById("colourMode")?.value || "archetype";
+  const ranges = stablePlotRanges(rows);
+  const groups = stableGroupRows(rows, colourMode);
+
+  const traces = [];
+  let groupIndex = 0;
+
+  for (const [groupName, groupRows] of groups.entries()) {
+    const colour = stablePaletteValue(groupName, groupIndex);
+
+    traces.push({
+      type: "scatter3d",
+      mode: "markers",
+      name: groupName,
+      x: groupRows.map(row => stableNumber(row.individual_intelligence)),
+      y: groupRows.map(row => stableNumber(row.collective_intelligence)),
+      z: groupRows.map(row => stableNumber(row.planetary_intelligence)),
+      text: groupRows.map(row => row.country),
+      customdata: groupRows.map(row => row.code),
+      hovertemplate: groupRows.map(row => stableHoverTemplate(row)),
+      marker: {
+        size: groupRows.map(row => Math.max(6, stableNumber(row.overall_synergy) / 9)),
+        color: colourMode === "synergy"
+          ? groupRows.map(row => stableNumber(row.overall_synergy))
+          : colour,
+        colorscale: colourMode === "synergy" ? "Viridis" : undefined,
+        showscale: colourMode === "synergy",
+        opacity: 0.9,
+        line: {
+          width: 0.8,
+          color: "rgba(255,255,255,0.38)"
+        }
+      }
+    });
+
+    groupIndex += 1;
+  }
+
+  const selected = state.selectedRow && rows.find(row => row.code === state.selectedRow.code);
+  if (selected && typeof makeSelectedLocatorTrace === "function") {
+    const locator = makeSelectedLocatorTrace(selected);
+    if (locator) traces.push(locator);
+  }
+
+  if (document.getElementById("showLandingBars")?.checked && typeof makeDropLineTrace === "function") {
+    traces.push(makeDropLineTrace(rows));
+  }
+
+  if (document.getElementById("showMaturityHalos")?.checked && typeof makeMaturityHaloTrace === "function") {
+    traces.unshift(makeMaturityHaloTrace(rows));
+  }
+
+  const layout = {
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    margin: { l: 0, r: 0, t: 10, b: 0 },
+    showlegend: true,
+    legend: {
+      orientation: "h",
+      x: 0,
+      y: 1.04,
+      font: { color: "#e5eefc", size: 12 },
+      bgcolor: "rgba(0,0,0,0)"
+    },
+    scene: {
+      bgcolor: "rgba(0,0,0,0)",
+      camera: state.camera || { eye: { x: 1.55, y: 1.45, z: 1.2 } },
+      xaxis: {
+        title: "Individual intelligence",
+        range: ranges.x,
+        gridcolor: "rgba(153, 177, 255, 0.45)",
+        zerolinecolor: "rgba(153, 177, 255, 0.22)",
+        color: "#e5eefc"
+      },
+      yaxis: {
+        title: "Collective intelligence",
+        range: ranges.y,
+        gridcolor: "rgba(153, 177, 255, 0.45)",
+        zerolinecolor: "rgba(153, 177, 255, 0.22)",
+        color: "#e5eefc"
+      },
+      zaxis: {
+        title: "Planetary intelligence",
+        range: ranges.z,
+        gridcolor: "rgba(153, 177, 255, 0.45)",
+        zerolinecolor: "rgba(153, 177, 255, 0.22)",
+        color: "#e5eefc"
+      }
+    }
+  };
+
+  const config = {
+    responsive: true,
+    displaylogo: false
+  };
+
+  Plotly.react(plotTarget, traces, layout, config).then(() => {
+    plotTarget.removeAllListeners?.("plotly_click");
+    plotTarget.on?.("plotly_click", event => {
+      const point = event?.points?.[0];
+      const code = point?.customdata;
+      if (!code) return;
+
+      const row = allRows.find(item => item.code === code);
+      if (row) stableSelectCountry(row);
+    });
+
+    plotTarget.removeAllListeners?.("plotly_relayout");
+    plotTarget.on?.("plotly_relayout", event => {
+      if (event && event["scene.camera"]) {
+        state.camera = event["scene.camera"];
+      }
+    });
+  });
+}
+
+/* Disable older observer highlighter; explicit template spans handle red country names. */
+function installCountryMentionHighlighter() {}
+function observeCountryMentionChanges() {}
+function scheduleCountryMentionHighlight() {}
+function highlightSelectedCountryMentions() {}
