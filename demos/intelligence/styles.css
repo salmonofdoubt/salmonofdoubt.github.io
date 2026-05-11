@@ -2264,3 +2264,82 @@
 .report-download-panel .country-mention-highlight {
   display: inline;
 }
+
+/* Clean app.js reset support */
+
+.country-mention-highlight {
+  color: #ff5a5f;
+  font-weight: 950;
+  text-shadow: none;
+}
+
+.selected-country-name {
+  margin-top: 0;
+}
+
+.selected-country-card .model-status-strip.compact {
+  margin: 0.75rem 0 1rem;
+}
+
+.selected-metrics,
+.compact-metrics {
+  margin-top: 0.75rem;
+}
+
+.selected-diagnostics {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(153, 177, 255, 0.16);
+  background: rgba(7, 11, 20, 0.34);
+}
+
+.maturity-interpretation {
+  margin-top: 1rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.country-report-download {
+  margin-top: 1.5rem;
+}
+
+.report-download-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.report-download-panel .section-intro {
+  margin-bottom: 0;
+  max-width: 760px;
+}
+
+#downloadCountryPdfReport:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.bubble-country-track {
+  display: block;
+  width: 100%;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: rgba(140, 190, 255, 0.28);
+  overflow: hidden;
+}
+
+.bubble-country-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(123, 176, 255, 0.95), rgba(122, 224, 255, 0.95));
+}
+
+@media (max-width: 760px) {
+  .report-download-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

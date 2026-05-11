@@ -1,892 +1,405 @@
 
 const WB_BASE = "https://api.worldbank.org/v2";
+
+const DEFAULT_CAMERA = { eye: { x: 1.55, y: 1.45, z: 1.2 } };
+
 const state = {
-  selectedRow: null,
   countries: [],
   indicators: [],
   rawValues: {},
+  fallbackRows: [],
   scores: [],
   filtered: [],
+  selectedRow: null,
+  report: null,
   dataMode: "loading",
-  camera: { eye: { x: 1.55, y: 1.45, z: 1.2 } }
+  hybridFallback: false,
+  camera: DEFAULT_CAMERA
 };
 
 document.addEventListener("DOMContentLoaded", init);
 
-function installBottomReportDownload() {
-  if (state.bottomReportDownloadInstalled) return;
-  state.bottomReportDownloadInstalled = true;
+async function init() {
+  try {
+    const [countries, indicators] = await Promise.all([
+      fetchJSON("data/countries.json"),
+      fetchJSON("data/indicators.json")
+    ]);
 
-  const button = document.getElementById("downloadCountryPdfReport");
-  if (button) {
-    button.addEventListener("click", () => downloadSelectedCountryPdfReport());
+    state.countries = countries;
+    state.indicators = indicators;
+    state.fallbackRows = await loadFallbackScores();
+
+    bindControls();
+    populateRegionFilter();
+
+    await loadBestAvailableData();
+
+    applyFilters();
+    renderTransitionLean(null);
+    renderSelectedCountry(null);
+    renderSelectedTheory(null);
+    renderIndicatorHealthMap();
+    updateDataProvenance();
+    updateReportCta();
+  } catch (error) {
+    const target = document.getElementById("plot");
+    if (target) {
+      target.innerHTML = `<div class="warning-box">Could not initialise demo: ${escapeHtml(error.message)}</div>`;
+    }
+    console.error(error);
+  }
+}
+
+async function fetchJSON(url) {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Failed to fetch ${url}`);
+  return response.json();
+}
+
+async function fetchText(url) {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Failed to fetch ${url}`);
+  return response.text();
+}
+
+function bindControls() {
+  const controlIds = [
+    "regionFilter",
+    "countrySearch",
+    "minSynergy",
+    "colourMode",
+    "showLandingBars",
+    "showMaturityHalos",
+    "showTheoryDiagnostics"
+  ];
+
+  controlIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const eventName = el.tagName === "INPUT" && el.type === "text" ? "input" : "change";
+    el.addEventListener(eventName, () => applyFilters());
+  });
+
+  const minSynergy = document.getElementById("minSynergy");
+  if (minSynergy) {
+    minSynergy.addEventListener("input", () => applyFilters());
   }
 
-  const observer = new MutationObserver(() => {
-    if (state.bottomReportUpdateScheduled) return;
-    state.bottomReportUpdateScheduled = true;
-    requestAnimationFrame(() => {
-      state.bottomReportUpdateScheduled = false;
-      updateBottomReportDownloadCta();
+  const reset = document.getElementById("resetCamera");
+  if (reset) {
+    reset.addEventListener("click", () => {
+      state.camera = DEFAULT_CAMERA;
+      renderPlot();
     });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-  state.bottomReportDownloadObserver = observer;
-
-  updateBottomReportDownloadCta();
-}
-
-function updateBottomReportDownloadCta() {
-  document.querySelectorAll(".selected-panel .profile-bottom-actions").forEach(el => el.remove());
-
-  const text = document.getElementById("countryReportDownloadText");
-  const button = document.getElementById("downloadCountryPdfReport");
-
-  if (!text || !button) return;
-
-  const row = state.selectedRow ? enrichTheoryFields(state.selectedRow) : null;
-
-  if (!row || !row.country) {
-    text.textContent = "Select a country in the 3D plot to export the country profile, planetary-context interpretation, diagnostics, comparison context, and source transparency as a PDF.";
-    button.textContent = "Select a country first";
-    button.disabled = true;
-    return;
   }
 
-  text.innerHTML = `
-    Export the report for <strong class="country-mention-highlight">${escapeHtml(row.country)}</strong>.
-    The PDF includes the country profile, readiness interpretation, planetary context, diagnostics,
-    comparison context, and indicator source transparency.
-  `;
-  button.textContent = `Download ${row.country} PDF report`;
-  button.disabled = false;
-}
+  const clear = document.getElementById("clearFilters");
+  if (clear) {
+    clear.addEventListener("click", () => {
+      const region = document.getElementById("regionFilter");
+      const search = document.getElementById("countrySearch");
+      const synergy = document.getElementById("minSynergy");
+      const colour = document.getElementById("colourMode");
 
-function selectedReportComparison(row) {
-  const rows = (state.filtered && state.filtered.length ? state.filtered : state.scores)
-    .map(r => enrichTheoryFields(r));
+      if (region) region.value = "All regions";
+      if (search) search.value = "";
+      if (synergy) synergy.value = "0";
+      if (colour) colour.value = "archetype";
 
-  const displayedAverage = average(rows.map(r => Number(r.mature_technosphere_gap)));
-  const regionRows = rows.filter(r => r.region === row.region);
-  const regionAverage = average(regionRows.map(r => Number(r.mature_technosphere_gap)));
-  const top = rows
-    .filter(r => Number.isFinite(Number(r.mature_technosphere_gap)))
-    .sort((a, b) => Number(b.mature_technosphere_gap) - Number(a.mature_technosphere_gap))[0];
-
-  return {
-    displayedAverage,
-    regionAverage,
-    topCountry: top ? top.country : "n/a",
-    topScore: top ? Number(top.mature_technosphere_gap) : NaN,
-    topDelta: top ? Number(row.mature_technosphere_gap) - Number(top.mature_technosphere_gap) : NaN
-  };
-}
-
-function reportFileName(country) {
-  return `three-intelligences-${String(country || "country")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")}-report.pdf`;
-}
-
-function formatReportNumber(value, digits = 1) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n.toFixed(digits) : "n/a";
-}
-
-function strongestWeakestDimension(row) {
-  const dims = [
-    ["individual capability", Number(row.individual_intelligence)],
-    ["collective coordination", Number(row.collective_intelligence)],
-    ["planetary stewardship", Number(row.planetary_intelligence)]
-  ].filter(([, value]) => Number.isFinite(value));
-
-  if (!dims.length) return { strongest: "n/a", weakest: "n/a" };
-
-  dims.sort((a, b) => b[1] - a[1]);
-
-  return {
-    strongest: dims[0][0],
-    strongestValue: dims[0][1],
-    weakest: dims[dims.length - 1][0],
-    weakestValue: dims[dims.length - 1][1]
-  };
-}
-
-function buildCountryReportInterpretation(row, comparison) {
-  const dim = strongestWeakestDimension(row);
-  const country = row.country || "The selected country";
-  const band = readinessStateLabel(row.maturity_state);
-  const readiness = formatReportNumber(row.mature_technosphere_gap);
-  const pressure = formatReportNumber(row.ecological_pressure);
-  const topDelta = Number(comparison.topDelta);
-
-  const topSentence = Number.isFinite(topDelta)
-    ? `${country} is ${Math.abs(topDelta).toFixed(1)} readiness points ${topDelta >= 0 ? "above" : "below"} the current top-readiness country in the displayed dataset.`
-    : "Distance from the current top-readiness country could not be calculated.";
-
-  return [
-    `${country} is classified as ${band} with a readiness score of ${readiness}/100 in this proxy model.`,
-    `Its strongest dimension is ${dim.strongest} (${formatReportNumber(dim.strongestValue)}/100), while its weakest dimension is ${dim.weakest} (${formatReportNumber(dim.weakestValue)}/100).`,
-    `The ecological-pressure estimate is ${pressure}/100, which moderates the mature-technosphere readiness score.`,
-    topSentence,
-    "Interpret this as a systems-readiness profile, not as a national intelligence ranking."
-  ].join(" ");
-}
-
-function downloadSelectedCountryPdfReport() {
-  const row = state.selectedRow ? enrichTheoryFields(state.selectedRow) : null;
-
-  if (!row || !row.country) {
-    alert("Select a country first.");
-    return;
-  }
-
-  const jsPDFCtor = window.jspdf && window.jspdf.jsPDF ? window.jspdf.jsPDF : null;
-
-  if (!jsPDFCtor) {
-    openPrintableCountryReport(row);
-    return;
-  }
-
-  const doc = new jsPDFCtor({ orientation: "portrait", unit: "mm", format: "a4" });
-
-  const margin = 15;
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const usableWidth = pageWidth - margin * 2;
-
-  const colours = {
-    navy: [11, 18, 32],
-    panel: [20, 32, 52],
-    line: [60, 84, 120],
-    teal: [94, 234, 212],
-    blue: [80, 140, 255],
-    red: [255, 90, 95],
-    muted: [96, 108, 132],
-    text: [28, 36, 52],
-    pale: [244, 248, 252],
-    amber: [245, 180, 48]
-  };
-
-  let y = 16;
-
-  const comparison = selectedReportComparison(row);
-  const interpretation = buildCountryReportInterpretation(row, comparison);
-  const generatedDate = new Date().toISOString().slice(0, 10);
-  const dataUpdated = document.getElementById("dataUpdated")?.textContent || "n/a";
-  const sourceRoute = document.getElementById("dataSourceRoute")?.textContent || state.dataMode || "n/a";
-  const doi = "10.5281/zenodo.19633908";
-
-  function addPageIfNeeded(height = 24) {
-    if (y + height > pageHeight - 20) {
-      doc.addPage();
-      y = 18;
-    }
-  }
-
-  function addSectionTitle(title, subtitle = "") {
-    addPageIfNeeded(20);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.setTextColor(...colours.navy);
-    doc.text(title, margin, y);
-    y += 5.5;
-
-    if (subtitle) {
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(8.5);
-      doc.setTextColor(...colours.muted);
-      const lines = doc.splitTextToSize(subtitle, usableWidth);
-      doc.text(lines, margin, y);
-      y += lines.length * 4.2 + 2;
-    }
-
-    doc.setDrawColor(...colours.line);
-    doc.setLineWidth(0.25);
-    doc.line(margin, y, pageWidth - margin, y);
-    y += 6;
-  }
-
-  function addParagraph(text, options = {}) {
-    addPageIfNeeded(14);
-    doc.setFont("helvetica", options.bold ? "bold" : "normal");
-    doc.setFontSize(options.size || 9.2);
-    doc.setTextColor(...(options.colour || colours.text));
-
-    const lines = doc.splitTextToSize(String(text), usableWidth);
-    for (const line of lines) {
-      addPageIfNeeded(5);
-      doc.text(line, margin, y);
-      y += 4.5;
-    }
-    y += options.after || 2;
-  }
-
-  function addCallout(title, text) {
-    const lines = doc.splitTextToSize(String(text), usableWidth - 10);
-    const boxHeight = 11 + lines.length * 4.2;
-
-    addPageIfNeeded(boxHeight + 5);
-
-    doc.setFillColor(...colours.pale);
-    doc.setDrawColor(210, 222, 238);
-    doc.roundedRect(margin, y, usableWidth, boxHeight, 3, 3, "FD");
-
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(9.4);
-    doc.setTextColor(...colours.navy);
-    doc.text(title, margin + 5, y + 6);
-
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8.5);
-    doc.setTextColor(...colours.text);
-    doc.text(lines, margin + 5, y + 11);
-
-    y += boxHeight + 7;
-  }
-
-  function addFooterToAllPages() {
-    const pages = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= pages; i += 1) {
-      doc.setPage(i);
-      doc.setDrawColor(220, 228, 240);
-      doc.line(margin, pageHeight - 13, pageWidth - margin, pageHeight - 13);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(7);
-      doc.setTextColor(...colours.muted);
-      doc.text("Three Intelligences Explorer · Prototype model · Not a ranking", margin, pageHeight - 8);
-      doc.text(`Page ${i} of ${pages}`, pageWidth - margin, pageHeight - 8, { align: "right" });
-    }
-  }
-
-  function autoTable(options) {
-    doc.autoTable({
-      margin: { left: margin, right: margin },
-      styles: {
-        font: "helvetica",
-        fontSize: 8,
-        cellPadding: 2.2,
-        lineColor: [225, 231, 240],
-        lineWidth: 0.1,
-        textColor: colours.text
-      },
-      headStyles: {
-        fillColor: colours.panel,
-        textColor: [255, 255, 255],
-        fontStyle: "bold"
-      },
-      alternateRowStyles: {
-        fillColor: [248, 251, 255]
-      },
-      ...options
+      state.selectedRow = null;
+      applyFilters();
+      renderSelectedCountry(null);
+      renderSelectedTheory(null);
+      renderTransitionLean(null);
+      updateReportCta();
     });
-    y = doc.lastAutoTable.finalY + 8;
   }
 
-  // Cover header
-  doc.setFillColor(...colours.navy);
-  doc.rect(0, 0, pageWidth, 48, "F");
-  doc.setFillColor(...colours.teal);
-  doc.rect(0, 47, pageWidth, 1.2, "F");
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(9);
-  doc.setTextColor(...colours.teal);
-  doc.text("EXPERIMENTAL SYSTEMS INTELLIGENCE", margin, 14);
-
-  doc.setFontSize(21);
-  doc.setTextColor(255, 255, 255);
-  doc.text("Three Intelligences Explorer", margin, 25);
-
-  doc.setFontSize(15);
-  doc.setTextColor(...colours.red);
-  doc.text(`${row.country} country report`, margin, 36);
-
-  y = 58;
-
-  addCallout(
-    "Executive interpretation",
-    interpretation
-  );
-
-  addSectionTitle("1. Score summary", "Core scores for the selected country. All scores are interpreted on a 0-100 proxy scale.");
-
-  autoTable({
-    startY: y,
-    head: [["Metric", "Score / value", "Meaning"]],
-    body: [
-      ["Readiness score", `${formatReportNumber(row.mature_technosphere_gap)} / 100`, "Mature-technosphere readiness proxy"],
-      ["Readiness band", readinessStateLabel(row.maturity_state), "Position inside the current immature global technosphere"],
-      ["Individual intelligence", `${formatReportNumber(row.individual_intelligence)} / 100`, "Human capability, education, health, and knowledge access"],
-      ["Collective intelligence", `${formatReportNumber(row.collective_intelligence)} / 100`, "Institutional coordination, governance, accountability, and system learning"],
-      ["Planetary intelligence", `${formatReportNumber(row.planetary_intelligence)} / 100`, "Stewardship, ecological pressure reduction, and Earth-system feedback capacity"],
-      ["Overall synergy", `${formatReportNumber(row.overall_synergy)} / 100`, "Average of individual, collective, and planetary dimensions"],
-      ["Ecological pressure", `${formatReportNumber(row.ecological_pressure)} / 100`, "Penalty pressure derived from negative planetary indicators where available"]
-    ],
-    columnStyles: {
-      0: { cellWidth: 48 },
-      1: { cellWidth: 42 },
-      2: { cellWidth: usableWidth - 90 }
-    }
-  });
-
-  addSectionTitle("2. Planetary-context interpretation", "The country is interpreted as a subsystem inside the current global immature technosphere.");
-
-  addParagraph(
-    "Earth is treated here as an immature technosphere overall: humanity has planetary-scale technological effects, but not yet mature planetary self-regulation. Countries are not being placed into geosphere or biosphere stages. They are scored for relative readiness within the present immature global technosphere."
-  );
-
-  addParagraph(row.maturity_interpretation || "No maturity interpretation available.");
-
-  addCallout(
-    "Important interpretation rule",
-    `${row.country} is not ranked as a “smart country”. The profile estimates how individual capability, collective coordination, and planetary stewardship combine under the assumptions of this prototype model.`
-  );
-
-  addSectionTitle("3. Planetary-intelligence diagnostics", "Five diagnostic properties derived from the planetary-intelligence framing.");
-
-  autoTable({
-    startY: y,
-    head: [["Diagnostic", "Score", "Interpretation"]],
-    body: [
-      ["Emergence", formatReportNumber(row.emergence_score), "Capability arising above individual actors"],
-      ["Network information", formatReportNumber(row.network_information_score), "Institutional and informational connectivity"],
-      ["Semantic feedback", formatReportNumber(row.semantic_feedback_score), "Environmental signals becoming meaningful for action"],
-      ["Boundaries and signals", formatReportNumber(row.boundary_signal_score), "Planetary limits are detected and acted upon"],
-      ["Autopoiesis", formatReportNumber(row.autopoiesis_score), "Capacity to maintain long-term conditions of existence"]
-    ],
-    columnStyles: {
-      0: { cellWidth: 42 },
-      1: { cellWidth: 22 },
-      2: { cellWidth: usableWidth - 64 }
-    }
-  });
-
-  addSectionTitle("4. Comparison context", "The selected country is compared with the displayed dataset, its region, and the current top-readiness country.");
-
-  autoTable({
-    startY: y,
-    head: [["Context", "Value"]],
-    body: [
-      ["Displayed average readiness", formatReportNumber(comparison.displayedAverage)],
-      [`${row.region || "Region"} average readiness`, formatReportNumber(comparison.regionAverage)],
-      ["Top readiness country", comparison.topCountry || "n/a"],
-      ["Top readiness score", formatReportNumber(comparison.topScore)],
-      ["Distance from top", Number.isFinite(Number(comparison.topDelta)) ? `${formatReportNumber(comparison.topDelta)} readiness points` : "n/a"]
-    ],
-    columnStyles: {
-      0: { cellWidth: 72 },
-      1: { cellWidth: usableWidth - 72 }
-    }
-  });
-
-  addSectionTitle("5. Data provenance and source transparency", "Indicator values used for this selected-country profile.");
-
-  addParagraph(
-    `Data mode: ${state.dataMode || "n/a"}. Data updated: ${dataUpdated}. Indicator source: ${sourceRoute}. Archived release DOI: ${doi}.`
-  );
-
-  const indicatorRows = (row.detail || []).map(d => [
-    d.layer || "n/a",
-    d.label || d.code || "n/a",
-    d.raw === null || d.raw === undefined ? "missing" : formatReportNumber(d.raw, 3),
-    d.score === null || d.score === undefined ? "missing" : formatReportNumber(d.score),
-    d.year || "n/a"
-  ]);
-
-  autoTable({
-    startY: y,
-    head: [["Layer", "Indicator", "Raw value", "Score", "Year"]],
-    body: indicatorRows.length
-      ? indicatorRows
-      : [["n/a", "Fallback dataset does not include per-indicator source detail", "n/a", "n/a", "n/a"]],
-    styles: { fontSize: 7 },
-    columnStyles: {
-      0: { cellWidth: 23 },
-      1: { cellWidth: 74 },
-      2: { cellWidth: 28 },
-      3: { cellWidth: 22 },
-      4: { cellWidth: 18 }
-    }
-  });
-
-addSectionTitle("6. Authorship, citation and reuse", "Academic reuse is welcome with attribution. Please cite this prototype using APA 7.");
-
-addParagraph(
-  "This report was generated from the Three Intelligences Explorer prototype by André Baumann. The model logic, indicator choices, interpretation text, and report structure should be cited when reused, adapted, or discussed."
-);
-
-addParagraph(
-  "Suggested APA 7 citation: Baumann, A. (2026). Three Intelligences Explorer [Interactive prototype]. Zenodo. https://doi.org/10.5281/zenodo.19633908"
-);
-
-addParagraph(
-  "Please do not present this report, the model design, or its explanatory text as your own unpublished work. The report is intended for transparent discussion, teaching, review, and critique."
-);
-
-addSectionTitle("7. Model limitations", "Use this report as a transparent prototype output, not as a final empirical index.");
-
-
-  addParagraph(
-    "The model uses public proxy indicators. Proxy indicators are imperfect: forest area is not biodiversity quality, protected-area share is not effective conservation, and country-level scores hide internal variation. Some indicators may be snapshot-derived while missing dimensions may be fallback-filled and labelled. Changing indicators, weights, thresholds, or transformations will change the results."
-  );
-
-  addParagraph(
-    "The purpose of the report is to support interpretation, discussion, and model critique. It should not be used as a definitive ranking of countries or as a measure of innate intelligence."
-  );
-
-  addFooterToAllPages();
-
-  doc.save(reportFileName(row.country));
-}
-function openPrintableCountryReport(row) {
-  const enriched = enrichTheoryFields(row);
-  const comparison = selectedReportComparison(enriched);
-  const indicatorRows = (enriched.detail || []).map(d => `
-    <tr>
-      <td>${escapeHtml(d.layer || "n/a")}</td>
-      <td>${escapeHtml(d.label || d.code || "n/a")}</td>
-      <td>${d.raw === null || d.raw === undefined ? "missing" : escapeHtml(Number(d.raw).toFixed(3))}</td>
-      <td>${d.score === null || d.score === undefined ? "missing" : escapeHtml(Number(d.score).toFixed(1))}</td>
-      <td>${escapeHtml(d.year || "n/a")}</td>
-    </tr>
-  `).join("");
-
-  const win = window.open("", "_blank");
-  if (!win) return;
-
-  win.document.write(`
-    <!doctype html>
-    <html>
-      <head>
-        <title>${escapeHtml(enriched.country)} report</title>
-        <style>
-          body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.5; }
-          table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-          th, td { border-bottom: 1px solid #ddd; padding: 0.4rem; text-align: left; }
-          th { background: #f2f2f2; }
-        </style>
-      </head>
-      <body>
-        <h1>Three Intelligences Explorer: ${escapeHtml(enriched.country)}</h1>
-        <p>This is a reasoning instrument, not a definitive ranking.</p>
-        <h2>Country profile</h2>
-        <table>
-          <tr><th>Metric</th><th>Value</th></tr>
-          <tr><td>Region</td><td>${escapeHtml(enriched.region || "n/a")}</td></tr>
-          <tr><td>Individual</td><td>${Number(enriched.individual_intelligence).toFixed(1)}</td></tr>
-          <tr><td>Collective</td><td>${Number(enriched.collective_intelligence).toFixed(1)}</td></tr>
-          <tr><td>Planetary</td><td>${Number(enriched.planetary_intelligence).toFixed(1)}</td></tr>
-          <tr><td>Readiness</td><td>${Number(enriched.mature_technosphere_gap).toFixed(1)}</td></tr>
-          <tr><td>Readiness band</td><td>${escapeHtml(readinessStateLabel(enriched.maturity_state))}</td></tr>
-        </table>
-        <h2>Planetary-context interpretation</h2>
-        <p>${escapeHtml(enriched.maturity_interpretation || "")}</p>
-        <h2>Comparison context</h2>
-        <p>Displayed average readiness: ${Number(comparison.displayedAverage).toFixed(1)}. Top readiness country: ${escapeHtml(comparison.topCountry)}.</p>
-<h2>Authorship, citation and reuse</h2>
-<p>
-  This report was generated from the <em>Three Intelligences Explorer</em> prototype by André Baumann.
-  The model logic, indicator choices, interpretation text, and report structure should be cited when reused,
-  adapted, or discussed.
-</p>
-<p>
-  <strong>Suggested APA 7 citation:</strong><br>
-  Baumann, A. (2026). <em>Three Intelligences Explorer</em> [Interactive prototype].
-  Zenodo. https://doi.org/10.5281/zenodo.19633908
-</p>
-<p>
-  Please do not present this report, the model design, or its explanatory text as your own unpublished work.
-</p>
-
-        <h2>Source transparency</h2>
-        <table>
-          <tr><th>Layer</th><th>Indicator</th><th>Raw</th><th>Score</th><th>Year</th></tr>
-          ${indicatorRows}
-        </table>
-        <script>window.print();</script>
-      </body>
-    </html>
-  `);
-  win.document.close();
-}
-
-function installProfileActionStreamliner() {
-  if (state.profileActionStreamlinerInstalled) return;
-  state.profileActionStreamlinerInstalled = true;
-
-  const run = () => streamlineSelectedProfileActions();
-  state.profileActionObserver = new MutationObserver(() => {
-    if (state.profileActionStreamlineScheduled) return;
-    state.profileActionStreamlineScheduled = true;
-    requestAnimationFrame(() => {
-      state.profileActionStreamlineScheduled = false;
-      run();
-    });
-  });
-
-  state.profileActionObserver.observe(document.body, { childList: true, subtree: true });
-  run();
-}
-
-function findSelectedCountryPanel() {
-  return Array.from(document.querySelectorAll(".panel"))
-    .find(panel => {
-      const text = panel.textContent || "";
-      return /Selected country/i.test(text) &&
-        /Planetary-intelligence diagnostics|Comparison context|Source transparency/i.test(text);
-    }) || null;
-}
-
-function streamlineSelectedProfileActions() {
-  const panel = findSelectedCountryPanel();
-  if (!panel) return;
-
-  if (state.profileActionObserver) state.profileActionObserver.disconnect();
-
-  const buttons = Array.from(panel.querySelectorAll("button, a.button, a.pill-link, .button"))
-    .filter(el => !el.closest(".profile-bottom-actions"));
-
-  const textOf = el => (el.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
-
-  buttons.forEach(el => {
-    const label = textOf(el);
-    if (
-      label.includes("copy profile") ||
-      label.includes("download .txt") ||
-      label.includes("download txt") ||
-      label.includes("download text")
-    ) {
-      el.remove();
-    }
-  });
-
-  let pdfButton = Array.from(panel.querySelectorAll("button, a.button, a.pill-link, .button"))
-    .find(el => textOf(el).includes("download pdf"));
-
-  if (pdfButton) {
-    let bottom = panel.querySelector(".profile-bottom-actions");
-
-    if (!bottom) {
-      bottom = document.createElement("div");
-      bottom.className = "profile-bottom-actions";
-      bottom.innerHTML = `
-        <div class="profile-bottom-actions-copy">
-          <strong>Download country report</strong>
-          <p>Export the selected-country profile, diagnostics, comparison context, and source notes as a PDF.</p>
-        </div>
-        <div class="profile-bottom-actions-slot"></div>
-      `;
-      panel.appendChild(bottom);
-    }
-
-    const slot = bottom.querySelector(".profile-bottom-actions-slot");
-    pdfButton.classList.add("profile-pdf-report-button");
-    pdfButton.textContent = "Download PDF report";
-    slot.appendChild(pdfButton);
-  }
-
-  if (state.profileActionObserver) {
-    state.profileActionObserver.observe(document.body, { childList: true, subtree: true });
+  const pdf = document.getElementById("downloadCountryPdfReport");
+  if (pdf) {
+    pdf.addEventListener("click", downloadSelectedCountryPdfReport);
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => setTimeout(installProfileActionStreamliner, 0));
+function populateRegionFilter() {
+  const select = document.getElementById("regionFilter");
+  if (!select) return;
 
-function installCountryMentionHighlighter() {
-  if (state.countryMentionHighlighterInstalled) return;
-  state.countryMentionHighlighterInstalled = true;
+  const regions = Array.from(new Set(state.countries.map(c => c.region).filter(Boolean))).sort();
 
-  state.countryMentionObserver = new MutationObserver(() => {
-    scheduleCountryMentionHighlight();
-  });
-
-  observeCountryMentionChanges();
-  scheduleCountryMentionHighlight();
+  select.innerHTML = [
+    `<option value="All regions">All regions</option>`,
+    ...regions.map(region => `<option value="${escapeHtml(region)}">${escapeHtml(region)}</option>`)
+  ].join("");
 }
 
-function observeCountryMentionChanges() {
-  if (!state.countryMentionObserver) return;
-  state.countryMentionObserver.observe(document.body, {
-    childList: true,
-    subtree: true,
-    characterData: true
-  });
-}
+async function loadBestAvailableData() {
+  try {
+    const snapshot = await fetchJSON("data/worldbank_snapshot.json");
+    if (!snapshot || !snapshot.rawValues || !snapshot.report) {
+      throw new Error("Snapshot file does not contain rawValues/report.");
+    }
 
-function scheduleCountryMentionHighlight() {
-  if (state.countryMentionHighlightScheduled) return;
+    state.rawValues = snapshot.rawValues;
+    state.report = {
+      ...snapshot.report,
+      mode: snapshot.report.failed && snapshot.report.failed.length ? "partial-snapshot" : "snapshot",
+      generated_at: snapshot.meta?.generated_at || snapshot.report.generated_at || null
+    };
 
-  state.countryMentionHighlightScheduled = true;
+    const loadedCount = state.report.loaded?.length || 0;
+    const valueCount = Number(state.report.values || 0);
 
-  requestAnimationFrame(() => {
-    state.countryMentionHighlightScheduled = false;
-    highlightSelectedCountryMentions();
-  });
-}
+    if (loadedCount < 3 || valueCount < 10) {
+      throw new Error("Snapshot below usable threshold.");
+    }
 
-function highlightSelectedCountryMentions() {
-  const country = state.selectedRow && state.selectedRow.country
-    ? String(state.selectedRow.country)
-    : "";
+    state.scores = computeScores();
+    fillMissingDimensionsFromFallback("World Bank snapshot");
 
-  const root = document.querySelector("main") || document.body;
-  if (!root) return;
+    state.dataMode = state.hybridFallback
+      ? `Hybrid snapshot data · ${loadedCount}/${state.report.total} indicators`
+      : state.report.failed?.length
+        ? `Partial snapshot data · ${loadedCount}/${state.report.total} indicators`
+        : `Fresh snapshot data · ${loadedCount}/${state.report.total} indicators`;
 
-  if (state.countryMentionObserver) {
-    state.countryMentionObserver.disconnect();
-  }
-
-  root.querySelectorAll(".country-mention-highlight").forEach(span => {
-    span.replaceWith(document.createTextNode(span.textContent || ""));
-  });
-
-  if (!country || country.length < 2) {
-    observeCountryMentionChanges();
+    renderDataMode();
     return;
+  } catch (snapshotError) {
+    console.warn("Snapshot route failed. Trying browser fetch.", snapshotError);
   }
 
-  const cards = Array.from(root.querySelectorAll(".panel"))
-    .filter(card => !card.closest("#plot, .js-plotly-plot"));
+  try {
+    const liveReport = await loadWorldBankData();
+    state.report = liveReport;
+    state.scores = computeScores();
+    fillMissingDimensionsFromFallback("Browser live World Bank data");
 
-  cards.forEach(card => {
-    const candidates = Array.from(card.querySelectorAll(
-      "h1, h2, h3, h4, h5, .current-stage-country-line, .selected-country-name, .country-title"
-    )).filter(el =>
-      !el.closest(
-        "table, .indicator-detail-disclosure, .diagnostic-bars, .source-transparency, .comparison-context, .transition-lean-warning, .readiness-note, #plot, .js-plotly-plot"
-      )
-    );
+    state.dataMode = state.hybridFallback
+      ? `Hybrid live browser data · ${liveReport.loaded.length}/${liveReport.total} indicators`
+      : liveReport.failed.length
+        ? `Partial live browser data · ${liveReport.loaded.length}/${liveReport.total} indicators`
+        : `Live browser data · ${liveReport.loaded.length}/${liveReport.total} indicators`;
 
-    const target = candidates.find(el => (el.textContent || "").includes(country));
-    if (!target) return;
+    renderDataMode();
+    return;
+  } catch (liveError) {
+    console.warn("Live route failed. Using fallback CSV.", liveError);
+  }
 
-    const walker = document.createTreeWalker(
-      target,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode(node) {
-          const text = node.nodeValue || "";
-          const parent = node.parentElement;
+  state.rawValues = {};
+  state.report = {
+    mode: "fallback",
+    total: state.indicators.length,
+    loaded: [],
+    failed: state.indicators.map(indicator => ({
+      code: indicator.code,
+      label: indicator.label,
+      layer: indicator.layer,
+      reason: "Fallback mode active"
+    })),
+    values: 0,
+    countriesWithAnyValue: 0,
+    generated_at: null
+  };
 
-          if (!parent || !text.includes(country)) return NodeFilter.FILTER_REJECT;
-          if (parent.closest(".country-mention-highlight")) return NodeFilter.FILTER_REJECT;
+  state.dataMode = "Fallback illustrative data";
+  state.scores = state.fallbackRows.map(row => ({ ...row, data_status: state.dataMode }));
+  renderDataMode();
+}
 
-          return NodeFilter.FILTER_ACCEPT;
+async function loadWorldBankData() {
+  const countryCodes = state.countries.map(c => c.code).join(";");
+  const years = "2010:2026";
+  state.rawValues = {};
+
+  const loaded = [];
+  const failed = [];
+
+  for (const indicator of state.indicators) {
+    try {
+      const url = `${WB_BASE}/country/${countryCodes}/indicator/${indicator.code}?format=json&per_page=20000&date=${years}`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const payload = await response.json();
+      const rows = Array.isArray(payload) ? payload[1] : null;
+      if (!Array.isArray(rows)) throw new Error("No data array returned.");
+
+      let usable = 0;
+
+      rows.forEach(item => {
+        if (!item || item.value === null || item.value === undefined || !item.countryiso3code) return;
+
+        const country = state.countries.find(c => c.iso3 === item.countryiso3code);
+        if (!country) return;
+
+        const year = Number(item.date);
+        const value = Number(item.value);
+        if (!Number.isFinite(year) || !Number.isFinite(value)) return;
+
+        const existing = state.rawValues[country.code]?.[indicator.code];
+
+        if (!existing || year > existing.year) {
+          if (!state.rawValues[country.code]) state.rawValues[country.code] = {};
+          state.rawValues[country.code][indicator.code] = {
+            value,
+            year,
+            indicator: indicator.code,
+            label: indicator.label
+          };
         }
+
+        usable += 1;
+      });
+
+      if (usable > 0) {
+        loaded.push({
+          code: indicator.code,
+          label: indicator.label,
+          layer: indicator.layer,
+          usableRows: usable
+        });
+      } else {
+        failed.push({
+          code: indicator.code,
+          label: indicator.label,
+          layer: indicator.layer,
+          reason: "No usable rows returned."
+        });
       }
-    );
-
-    const textNode = walker.nextNode();
-    if (!textNode) return;
-
-    const text = textNode.nodeValue || "";
-    const index = text.indexOf(country);
-    if (index === -1) return;
-
-    const fragment = document.createDocumentFragment();
-
-    if (index > 0) {
-      fragment.appendChild(document.createTextNode(text.slice(0, index)));
+    } catch (error) {
+      failed.push({
+        code: indicator.code,
+        label: indicator.label,
+        layer: indicator.layer,
+        reason: error.message
+      });
     }
-
-    const span = document.createElement("span");
-    span.className = "country-mention-highlight";
-    span.textContent = country;
-    fragment.appendChild(span);
-
-    const after = text.slice(index + country.length);
-    if (after) {
-      fragment.appendChild(document.createTextNode(after));
-    }
-
-    textNode.replaceWith(fragment);
-  });
-
-  observeCountryMentionChanges();
-}
-function describeIndicatorHealthStatus(indicator, failed, mode) {
-  const code = String(indicator?.code || "");
-  const layer = String(indicator?.layer || "");
-  const reason = String(failed?.reason || "");
-
-  if (/fallback/i.test(String(mode || ""))) {
-    return "Fallback mode is active. This indicator is shown for transparency but is not fetched live in this run.";
   }
 
-  if (["GE.EST", "RL.EST", "CC.EST", "VA.EST", "RQ.EST"].includes(code)) {
-    return "Governance indicator currently unavailable through the snapshot route. The collective dimension is fallback-filled and clearly labelled.";
-  }
+  const values = Object.values(state.rawValues).reduce((sum, countryValues) => {
+    return sum + Object.keys(countryValues || {}).length;
+  }, 0);
 
-  if (code === "EN.GHG.CO2.PC.CE.AR5" || code === "EN.ATM.CO2E.PC") {
-    return "CO2 indicator was not returned by this data route. The model continues with available planetary indicators and marks any fallback-filled values.";
-  }
-
-  if (/payload|data array|api\.worldbank|URL|http/i.test(reason)) {
-    return "Skipped by the data snapshot fetcher. The demo continues with available indicators and labels the missing part transparently.";
-  }
-
-  if (layer === "collective") {
-    return "Collective indicator unavailable in this snapshot. The model uses fallback-filled collective values where needed.";
-  }
-
-  return reason || "Indicator unavailable in this data run.";
-}
-
-function installIndicatorDetailAutoCollapse() {
-  if (state.indicatorDetailAutoCollapseInstalled) return;
-  state.indicatorDetailAutoCollapseInstalled = true;
-
-  const observer = new MutationObserver(() => compactIndicatorDetailTables());
-  observer.observe(document.body, { childList: true, subtree: true });
-  compactIndicatorDetailTables();
-}
-
-function compactIndicatorDetailTables() {
-  const headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, strong"))
-    .filter(el => /indicator detail/i.test((el.textContent || "").trim()));
-
-  headings.forEach(heading => {
-    if (heading.closest(".indicator-detail-disclosure")) return;
-
-    const parent = heading.parentElement;
-    if (!parent) return;
-
-    const details = document.createElement("details");
-    details.className = "indicator-detail-disclosure";
-
-    const summary = document.createElement("summary");
-    summary.innerHTML = `
-      <span>Indicator detail</span>
-      <small>click to expand raw values, scores, and source years</small>
-    `;
-
-    const content = document.createElement("div");
-    content.className = "indicator-detail-content";
-
-    details.appendChild(summary);
-    details.appendChild(content);
-
-    parent.insertBefore(details, heading);
-    content.appendChild(heading);
-
-    let moved = 0;
-    let movedTable = false;
-
-    while (details.nextSibling && moved < 12) {
-      const node = details.nextSibling;
-
-      if (
-        movedTable &&
-        node.nodeType === 1 &&
-        /^(H2|H3|H4|H5)$/i.test(node.tagName || "")
-      ) {
-        break;
-      }
-
-      content.appendChild(node);
-      moved += 1;
-
-      if (
-        node.nodeType === 1 &&
-        (node.tagName === "TABLE" || node.querySelector?.("table"))
-      ) {
-        movedTable = true;
-        break;
-      }
-    }
-  });
-}
-
-function calculateDynamicAxisRange(rows, key) {
-  const values = (rows || [])
-    .map(row => Number(row[key]))
-    .filter(Number.isFinite);
-
-  if (!values.length) return [0, 100];
-
-  const minValue = Math.min(...values);
-  const maxValue = Math.max(...values);
-  const spread = Math.max(1, maxValue - minValue);
-  const pad = Math.max(6, spread * 0.18);
-
-  let low = Math.floor(Math.max(0, minValue - pad) / 5) * 5;
-  let high = Math.ceil(Math.min(100, maxValue + pad) / 5) * 5;
-
-  const minSpan = 25;
-  if (high - low < minSpan) {
-    const mid = (low + high) / 2;
-    low = Math.floor(Math.max(0, mid - minSpan / 2) / 5) * 5;
-    high = Math.ceil(Math.min(100, mid + minSpan / 2) / 5) * 5;
-  }
-
-  if (high <= low) return [0, 100];
-
-  return [low, high];
-}
-
-function calculateDynamicPlotRanges(rows) {
-  return {
-    x: calculateDynamicAxisRange(rows, "individual_intelligence"),
-    y: calculateDynamicAxisRange(rows, "collective_intelligence"),
-    z: calculateDynamicAxisRange(rows, "planetary_intelligence")
-  };
-}
-
-function getPlotAxisRanges() {
-  const rows = state.filtered && state.filtered.length ? state.filtered : state.scores;
-  return calculateDynamicPlotRanges(rows);
-}
-
-function getCurrentAxisRanges() {
-  if (state.axisRanges) return state.axisRanges;
-
-  if (typeof dynamicPlotRanges === "function") {
-    state.axisRanges = dynamicPlotRanges(state.filtered && state.filtered.length ? state.filtered : state.scores);
-    return state.axisRanges;
+  if (values < state.countries.length * 2) {
+    throw new Error("Too few usable live values.");
   }
 
   return {
-    x: [0, 100],
-    y: [0, 100],
-    z: [0, 100]
+    mode: failed.length ? "partial-live" : "live",
+    total: state.indicators.length,
+    loaded,
+    failed,
+    values,
+    countriesWithAnyValue: Object.keys(state.rawValues).length,
+    generated_at: new Date().toISOString()
   };
 }
 
-async function fillMissingDimensionsFromFallback(sourceLabel) {
-  const rows = Array.isArray(state.scores) ? state.scores : [];
-  const needsRepair = rows.some(row =>
-    !Number.isFinite(Number(row.individual_intelligence)) ||
-    !Number.isFinite(Number(row.collective_intelligence)) ||
-    !Number.isFinite(Number(row.planetary_intelligence))
-  );
+function renderDataMode() {
+  const target = document.getElementById("dataMode");
+  if (!target) return;
 
-  if (!needsRepair) return;
+  const className = /fallback/i.test(state.dataMode)
+    ? "fallback-status"
+    : /hybrid|partial/i.test(state.dataMode)
+      ? "partial-status snapshot-status"
+      : "snapshot-status live-status";
 
-  const fallbackRows = await loadFallbackScores();
-  const fallbackByCode = new Map(fallbackRows.map(row => [row.code, row]));
+  target.innerHTML = `<span class="status-pill ${className}">${escapeHtml(state.dataMode)}</span>`;
+}
 
+function updateDataProvenance() {
+  const source = document.getElementById("dataSourceRoute");
+  const updated = document.getElementById("dataUpdated");
+
+  if (source) {
+    if (/fallback/i.test(state.dataMode)) {
+      source.textContent = "Illustrative fallback CSV";
+    } else if (/hybrid/i.test(state.dataMode)) {
+      source.textContent = "World Bank API snapshot + fallback-filled missing dimensions";
+    } else if (/snapshot/i.test(state.dataMode)) {
+      source.textContent = "World Bank API snapshot";
+    } else {
+      source.textContent = "World Bank API live fetch";
+    }
+  }
+
+  if (updated) {
+    const value = state.report?.generated_at;
+    updated.textContent = value ? new Date(value).toISOString().slice(0, 10) : "Not applicable";
+  }
+}
+
+function computeScores() {
+  return state.countries.map(country => {
+    const layerScores = { individual: [], collective: [], planetary: [] };
+    const detail = [];
+
+    state.indicators.forEach(indicator => {
+      const raw = state.rawValues?.[country.code]?.[indicator.code];
+
+      if (!raw) {
+        detail.push({ ...indicator, raw: null, score: null, year: null });
+        return;
+      }
+
+      const score = transformValue(Number(raw.value), indicator);
+      layerScores[indicator.layer]?.push({ score, weight: Number(indicator.weight) || 1 });
+
+      detail.push({
+        ...indicator,
+        raw: Number(raw.value),
+        score,
+        year: raw.year
+      });
+    });
+
+    const individual = weightedAverage(layerScores.individual);
+    const collective = weightedAverage(layerScores.collective);
+    const planetary = weightedAverage(layerScores.planetary);
+    const overall = average([individual, collective, planetary]);
+    const completeness = state.indicators.length
+      ? detail.filter(d => d.raw !== null && d.raw !== undefined).length / state.indicators.length
+      : 0;
+
+    return {
+      country: country.name,
+      code: country.code,
+      iso3: country.iso3,
+      region: country.region,
+      individual_intelligence: individual,
+      collective_intelligence: collective,
+      planetary_intelligence: planetary,
+      overall_synergy: overall,
+      completeness,
+      archetype: classifyArchetype(individual, collective, planetary),
+      data_status: state.dataMode,
+      detail
+    };
+  });
+}
+
+function fillMissingDimensionsFromFallback(sourceLabel) {
+  const fallbackByCode = new Map(state.fallbackRows.map(row => [row.code, row]));
   let repaired = 0;
 
-  state.scores = rows.map(row => {
+  state.scores = state.scores.map(row => {
     const fallback = fallbackByCode.get(row.code);
     if (!fallback) return row;
 
     const out = { ...row };
     let changed = false;
 
-    for (const key of [
-      "individual_intelligence",
-      "collective_intelligence",
-      "planetary_intelligence"
-    ]) {
+    ["individual_intelligence", "collective_intelligence", "planetary_intelligence"].forEach(key => {
       if (!Number.isFinite(Number(out[key])) && Number.isFinite(Number(fallback[key]))) {
         out[key] = Number(fallback[key]);
         changed = true;
       }
-    }
+    });
 
     if (changed) {
       repaired += 1;
@@ -906,276 +419,72 @@ async function fillMissingDimensionsFromFallback(sourceLabel) {
     return out;
   });
 
-  if (repaired > 0) {
-    state.hybridFallback = true;
-    console.warn(`${sourceLabel}: fallback-filled missing dimensions for ${repaired} countries.`);
-  }
+  state.hybridFallback = repaired > 0;
 }
 
+async function loadFallbackScores() {
+  const text = await fetchText("data/country_scores_fallback.csv");
+  const rows = parseCSV(text);
 
-function assertUsableScores(sourceLabel) {
-  const rows = Array.isArray(state.scores) ? state.scores : [];
-
-  const plottable = rows.filter(row =>
-    Number.isFinite(Number(row.individual_intelligence)) &&
-    Number.isFinite(Number(row.collective_intelligence)) &&
-    Number.isFinite(Number(row.planetary_intelligence)) &&
-    Number.isFinite(Number(row.overall_synergy))
-  );
-
-  if (!plottable.length) {
-    state.scores = [];
-    throw new Error(`${sourceLabel} produced no plottable 3D country scores.`);
-  }
-
-  if (plottable.length !== rows.length) {
-    console.warn(
-      `${sourceLabel}: removed ${rows.length - plottable.length} non-plottable rows from ${rows.length} total rows.`
-    );
-    state.scores = plottable;
-  }
-
-  console.info(`${sourceLabel}: ${plottable.length} plottable countries.`);
+  return rows.map(row => ({
+    country: row.country,
+    code: row.code,
+    iso3: row.iso3 || "",
+    region: row.region,
+    individual_intelligence: Number(row.individual_intelligence),
+    collective_intelligence: Number(row.collective_intelligence),
+    planetary_intelligence: Number(row.planetary_intelligence),
+    overall_synergy: Number(row.overall_synergy),
+    completeness: 0,
+    archetype: classifyArchetype(
+      Number(row.individual_intelligence),
+      Number(row.collective_intelligence),
+      Number(row.planetary_intelligence)
+    ),
+    data_status: row.data_status || "Fallback illustrative data",
+    detail: []
+  }));
 }
 
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = parseCSVLine(lines.shift());
 
-async function init() {
-  try {
-    const [countries, indicators] = await Promise.all([
-      fetchJSON("data/countries.json"),
-      fetchJSON("data/indicators.json")
-    ]);
-
-    state.countries = countries;
-    state.indicators = indicators;
-
-    renderIndicatorTable();
-    bindControls();
-    populateRegionFilter();
-
-    try {
-      const snapshotReport = await loadSnapshotData();
-      state.liveReport = snapshotReport;
-      state.dataMode = snapshotReport.failed.length
-        ? `Partial snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`
-        : `Fresh snapshot data (${snapshotReport.loaded.length}/${snapshotReport.total} indicators)`;
-      state.scores = computeScores();
-      await fillMissingDimensionsFromFallback("World Bank snapshot");
-      assertUsableScores("World Bank snapshot");
-      renderSnapshotDataModeStatus(snapshotReport);
-    } catch (snapshotError) {
-      console.warn("World Bank snapshot unavailable; trying browser live fetch.", snapshotError);
-
-      try {
-        const liveReport = await loadWorldBankData();
-        state.liveReport = liveReport;
-        state.dataMode = liveReport.failed.length
-          ? `Partial live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`
-          : `Live World Bank API (${liveReport.loaded.length}/${liveReport.total} indicators)`;
-        state.scores = computeScores();
-        await fillMissingDimensionsFromFallback("Browser live World Bank data");
-        assertUsableScores("Browser live World Bank data");
-        renderLiveDataModeStatus(liveReport);
-      } catch (liveError) {
-        console.warn("World Bank API failed below usable threshold; using fallback dataset.", liveError);
-
-        state.rawValues = {};
-        state.dataMode = "Fallback illustrative data";
-        state.scores = await loadFallbackScores();
-        assertUsableScores("Fallback CSV");
-        state.liveReport = {
-          mode: "fallback",
-          total: state.indicators.length,
-          loaded: [],
-          failed: state.indicators.map(indicator => ({
-            code: indicator.code,
-            label: indicator.label,
-            layer: indicator.layer,
-            reason: "Fallback mode active"
-          })),
-          values: 0,
-          countriesWithAnyValue: 0
-        };
-
-        const target = document.getElementById("dataMode");
-        if (target) {
-          target.innerHTML = `<span class="status-pill fallback-status">Fallback illustrative data</span>`;
-        }
-
-        refreshIndicatorHealthMap();
-      }
-    }
-
-    applyFilters();
-    refreshIndicatorHealthMap();
-    updateDataProvenanceFromCurrentState();
-    installBottomReportDownload();
-    installCountryMentionHighlighter();
-    installIndicatorDetailAutoCollapse();
-  } catch (error) {
-    document.getElementById("plot").innerHTML = `<div class="warning-box">Could not initialise demo: ${escapeHtml(error.message)}</div>`;
-  }
+  return lines.map(line => {
+    const cells = parseCSVLine(line);
+    return Object.fromEntries(headers.map((h, i) => [h, cells[i] || ""]));
+  });
 }
 
-async function fetchJSON(url) {
-  const response = await fetch(url, { cache: "no-store" });
-  if (!response.ok) throw new Error(`Failed to fetch ${url}`);
-  return response.json();
-}
+function parseCSVLine(line) {
+  const cells = [];
+  let current = "";
+  let inQuotes = false;
 
-async function fetchText(url) {
-  const response = await fetch(url, { cache: "no-store" });
-  if (!response.ok) throw new Error(`Failed to fetch ${url}`);
-  return response.text();
-}
+  for (let i = 0; i < line.length; i += 1) {
+    const char = line[i];
+    const next = line[i + 1];
 
-async function loadSnapshotData() {
-  const snapshot = await fetchJSON("data/worldbank_snapshot.json");
-
-  if (!snapshot || !snapshot.rawValues || !snapshot.report) {
-    throw new Error("Snapshot file is missing rawValues or report.");
-  }
-
-  const report = {
-    ...snapshot.report,
-    mode: snapshot.report.failed && snapshot.report.failed.length ? "partial-snapshot" : "snapshot",
-    sourceLabel: snapshot.report.failed && snapshot.report.failed.length ? "Partial snapshot" : "Fresh snapshot",
-    generated_at: snapshot.meta?.generated_at || snapshot.report.generated_at || null
-  };
-
-  const minimumIndicators = Math.max(3, Math.ceil(state.indicators.length * 0.35));
-  const minimumValues = Math.max(state.countries.length * 2, 12);
-
-  if ((report.loaded || []).length < minimumIndicators || Number(report.values || 0) < minimumValues) {
-    throw new Error(
-      `Snapshot below usable threshold: ${(report.loaded || []).length}/${report.total} indicators, ` +
-      `${report.values || 0} values`
-    );
-  }
-
-  state.rawValues = snapshot.rawValues;
-  console.info("World Bank snapshot report", report);
-  return report;
-}
-
-function renderSnapshotDataModeStatus(report) {
-  const target = document.getElementById("dataMode");
-  if (!target) return;
-
-  const generated = report.generated_at
-    ? new Date(report.generated_at).toISOString().slice(0, 10)
-    : "unknown date";
-
-        const loadedText = `${report.loaded.length}/${report.total} indicators`;
-
-if (state.hybridFallback) {
-  target.innerHTML = `
-    <span
-      class="status-pill snapshot-status partial-status"
-      title="Snapshot date: ${escapeHtml(generated)} · Missing dimensions fallback-filled">
-      Hybrid snapshot data · ${loadedText} · ${escapeHtml(generated)}
-    </span>
-  `;
-  return;
-}
-
-  if (report.failed.length) {
-    const failedCodes = report.failed.map(d => d.code).join(", ");
-    target.innerHTML = `
-      <span
-        class="status-pill snapshot-status partial-status"
-        title="Snapshot date: ${escapeHtml(generated)} · Skipped indicators: ${escapeHtml(failedCodes)}">
-        Partial snapshot data · ${loadedText} · ${escapeHtml(generated)}
-      </span>
-    `;
-    return;
-  }
-
-  target.innerHTML = `
-    <span
-      class="status-pill snapshot-status live-status"
-      title="Snapshot date: ${escapeHtml(generated)}">
-      Fresh snapshot data · ${loadedText} · ${escapeHtml(generated)}
-    </span>
-  `;
-}
-
-async function loadWorldBankData() {
-  const countryCodes = state.countries.map(c => c.code).join(";");
-  const years = "2010:2026";
-
-  for (const indicator of state.indicators) {
-    const url = `${WB_BASE}/country/${countryCodes}/indicator/${indicator.code}?format=json&per_page=20000&date=${years}`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`World Bank request failed for ${indicator.code}`);
-    const payload = await response.json();
-    const rows = payload[1];
-    if (!Array.isArray(rows)) throw new Error(`World Bank payload empty for ${indicator.code}`);
-
-    for (const row of rows) {
-      if (!row || row.value === null || row.value === undefined || !row.countryiso3code) continue;
-      const country = state.countries.find(c => c.iso3 === row.countryiso3code);
-      if (!country) continue;
-      const current = getNestedValue(state.rawValues, [country.code, indicator.code]);
-      const year = Number(row.date);
-      if (!current || year > current.year) {
-        setNestedValue(state.rawValues, [country.code, indicator.code], {
-          value: Number(row.value),
-          year,
-          indicator: indicator.code,
-          label: indicator.label
-        });
-      }
+    if (char === '"' && inQuotes && next === '"') {
+      current += '"';
+      i += 1;
+    } else if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === "," && !inQuotes) {
+      cells.push(current);
+      current = "";
+    } else {
+      current += char;
     }
   }
 
-  const valueCount = Object.values(state.rawValues).reduce((sum, countryValues) => sum + Object.keys(countryValues).length, 0);
-  if (valueCount < state.countries.length * 3) {
-    throw new Error("Too few World Bank values returned for a meaningful live view.");
-  }
-}
-
-function computeScores() {
-  return state.countries.map(country => {
-    const layerScores = { individual: [], collective: [], planetary: [] };
-    const detail = [];
-
-    for (const indicator of state.indicators) {
-      const raw = getNestedValue(state.rawValues, [country.code, indicator.code]);
-      if (!raw) {
-        detail.push({ ...indicator, raw: null, score: null, year: null });
-        continue;
-      }
-      const score = transformValue(raw.value, indicator);
-      layerScores[indicator.layer].push({ score, weight: Number(indicator.weight) });
-      detail.push({ ...indicator, raw: raw.value, score, year: raw.year });
-    }
-
-    const individual = weightedAverage(layerScores.individual);
-    const collective = weightedAverage(layerScores.collective);
-    const planetary = weightedAverage(layerScores.planetary);
-    const completeness = state.indicators.length ? detail.filter(d => d.raw !== null).length / state.indicators.length : 0;
-    const overall = average([individual, collective, planetary]);
-
-    return {
-      country: country.name,
-      code: country.code,
-      iso3: country.iso3,
-      region: country.region,
-      individual_intelligence: individual,
-      collective_intelligence: collective,
-      planetary_intelligence: planetary,
-      overall_synergy: overall,
-      completeness,
-      archetype: classifyArchetype(individual, collective, planetary),
-      data_status: state.dataMode,
-      detail
-    };
-  }).filter(d => Number.isFinite(d.overall_synergy));
+  cells.push(current);
+  return cells;
 }
 
 function transformValue(value, indicator) {
   let score;
+
   switch (indicator.transform) {
     case "scale_0_1":
       score = value * 100;
@@ -1184,25 +493,26 @@ function transformValue(value, indicator) {
       score = value;
       break;
     case "capped_percent":
-      score = (Math.min(value, indicator.cap || 100) / (indicator.cap || 100)) * 100;
+      score = (Math.min(value, Number(indicator.cap) || 100) / (Number(indicator.cap) || 100)) * 100;
       break;
     case "wgi_estimate":
       score = ((value + 2.5) / 5) * 100;
       break;
     case "linear":
-      score = ((value - indicator.min) / (indicator.max - indicator.min)) * 100;
+      score = ((value - Number(indicator.min)) / (Number(indicator.max) - Number(indicator.min))) * 100;
       break;
     case "inverse_linear":
-      score = 100 - ((value - indicator.min) / (indicator.max - indicator.min)) * 100;
+      score = 100 - ((value - Number(indicator.min)) / (Number(indicator.max) - Number(indicator.min))) * 100;
       break;
     default:
       score = value;
   }
+
   return clamp(score, 0, 100);
 }
 
 function weightedAverage(items) {
-  const valid = items.filter(d => Number.isFinite(d.score) && Number.isFinite(d.weight));
+  const valid = (items || []).filter(d => Number.isFinite(d.score) && Number.isFinite(d.weight));
   const wsum = valid.reduce((sum, d) => sum + d.weight, 0);
   if (!valid.length || wsum === 0) return NaN;
   return valid.reduce((sum, d) => sum + d.score * d.weight, 0) / wsum;
@@ -1214,6 +524,12 @@ function average(values) {
   return valid.reduce((a, b) => a + b, 0) / valid.length;
 }
 
+function clamp(value, min = 0, max = 100) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return min;
+  return Math.max(min, Math.min(max, n));
+}
+
 function classifyArchetype(i, c, p) {
   if (i >= 70 && c >= 70 && p >= 65) return "High integration";
   if (i >= 70 && c < 65) return "Individual-rich, coordination-limited";
@@ -1223,59 +539,9 @@ function classifyArchetype(i, c, p) {
   return "Mixed transition";
 }
 
-async function loadFallbackScores() {
-  const text = await fetchText("data/country_scores_fallback.csv");
-  const rows = parseCSV(text);
-  return rows.map(row => ({
-    country: row.country,
-    code: row.code,
-    region: row.region,
-    individual_intelligence: Number(row.individual_intelligence),
-    collective_intelligence: Number(row.collective_intelligence),
-    planetary_intelligence: Number(row.planetary_intelligence),
-    overall_synergy: Number(row.overall_synergy),
-    completeness: 0,
-    archetype: classifyArchetype(Number(row.individual_intelligence), Number(row.collective_intelligence), Number(row.planetary_intelligence)),
-    data_status: row.data_status,
-    detail: []
-  }));
-}
-
-function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/);
-  const headers = parseCSVLine(lines.shift());
-  return lines.map(line => {
-    const cells = parseCSVLine(line);
-    return Object.fromEntries(headers.map((h, i) => [h, cells[i] || ""]));
-  });
-}
-
-function parseCSVLine(line) {
-  const cells = [];
-  let current = "";
-  let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const char = line[i];
-    const next = line[i + 1];
-    if (char === '"' && inQuotes && next === '"') {
-      current += '"';
-      i++;
-    } else if (char === '"') {
-      inQuotes = !inQuotes;
-    } else if (char === "," && !inQuotes) {
-      cells.push(current);
-      current = "";
-    } else {
-      current += char;
-    }
-  }
-  cells.push(current);
-  return cells;
-}
-
-
 function enrichTheoryFields(row) {
-  if (!row) return row;
+  if (!row) return null;
+
   const ecologicalPressure = estimateEcologicalPressure(row);
   const diagnostics = deriveDiagnostics(row, ecologicalPressure);
   const gap = matureTechnosphereGap(diagnostics, ecologicalPressure);
@@ -1285,24 +551,23 @@ function enrichTheoryFields(row) {
     ...diagnostics,
     mature_technosphere_gap: gap
   };
+
   enriched.maturity_state = classifyMaturity(enriched);
   enriched.maturity_interpretation = maturityInterpretation(enriched);
   return enriched;
 }
 
 function estimateEcologicalPressure(row) {
-  if (row.detail && row.detail.length) {
-    const pressureItems = row.detail
-      .filter(d => d.layer === "planetary" && d.direction === "negative" && Number.isFinite(d.score))
-      .map(d => ({ pressure: 100 - d.score, weight: Number(d.weight) || 1 }));
+  const detailPressure = (row.detail || [])
+    .filter(d => d.layer === "planetary" && d.direction === "negative" && Number.isFinite(Number(d.score)))
+    .map(d => ({ pressure: 100 - Number(d.score), weight: Number(d.weight) || 1 }));
 
-    if (pressureItems.length) {
-      const wsum = pressureItems.reduce((sum, d) => sum + d.weight, 0);
-      return clampScore(pressureItems.reduce((sum, d) => sum + d.pressure * d.weight, 0) / wsum);
-    }
+  if (detailPressure.length) {
+    const wsum = detailPressure.reduce((sum, d) => sum + d.weight, 0);
+    return clamp(detailPressure.reduce((sum, d) => sum + d.pressure * d.weight, 0) / wsum);
   }
 
-  return clampScore(100 - Number(row.planetary_intelligence || 0));
+  return clamp(100 - Number(row.planetary_intelligence || 0));
 }
 
 function deriveDiagnostics(row, ecologicalPressure) {
@@ -1312,11 +577,11 @@ function deriveDiagnostics(row, ecologicalPressure) {
   const safe = 100 - ecologicalPressure;
 
   return {
-    emergence_score: clampScore((i * 0.35) + (c * 0.35) + (p * 0.30)),
-    network_information_score: clampScore((c * 0.60) + (i * 0.20) + (p * 0.20)),
-    semantic_feedback_score: clampScore((c * 0.35) + (p * 0.55) + (safe * 0.10)),
-    boundary_signal_score: clampScore((p * 0.60) + (c * 0.25) + (safe * 0.15)),
-    autopoiesis_score: clampScore((p * 0.55) + (c * 0.30) + (safe * 0.15))
+    emergence_score: clamp((i * 0.35) + (c * 0.35) + (p * 0.30)),
+    network_information_score: clamp((c * 0.60) + (i * 0.20) + (p * 0.20)),
+    semantic_feedback_score: clamp((c * 0.35) + (p * 0.55) + (safe * 0.10)),
+    boundary_signal_score: clamp((p * 0.60) + (c * 0.25) + (safe * 0.15)),
+    autopoiesis_score: clamp((p * 0.55) + (c * 0.30) + (safe * 0.15))
   };
 }
 
@@ -1328,12 +593,12 @@ function matureTechnosphereGap(diagnostics, ecologicalPressure) {
     diagnostics.boundary_signal_score,
     diagnostics.autopoiesis_score
   ]);
-  return clampScore(avgDiagnostic - ecologicalPressure * 0.35);
+
+  return clamp(avgDiagnostic - ecologicalPressure * 0.35);
 }
 
 function classifyMaturity(row) {
-  const gap = clampScore(row.mature_technosphere_gap ?? 0);
-
+  const gap = clamp(row.mature_technosphere_gap ?? 0);
   if (gap >= 75) return "Mature-candidate readiness";
   if (gap >= 50) return "Transitioning readiness";
   if (gap >= 25) return "Immature readiness";
@@ -1355,42 +620,361 @@ function maturityInterpretation(row) {
   }
 }
 
-function maturityClassName(label) {
-  return String(label || "").toLowerCase().replaceAll(" ", "-").replaceAll("/", "-");
+function normaliseSearch(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 }
 
-function clampScore(v) {
-  return Math.max(0, Math.min(100, Number(v) || 0));
+function isAllRegion(value) {
+  const v = normaliseSearch(value);
+  return !v || v === "all" || v === "all regions" || v === "any" || v === "*";
 }
 
-function maturityColor(label, alpha = 0.26) {
-  switch (label) {
-    case "Mature-candidate readiness":
-    case "Mature technosphere candidate":
-      return `rgba(94, 234, 212, ${alpha})`;
-    case "Transitioning readiness":
-    case "Transitioning technosphere":
-      return `rgba(110, 168, 255, ${alpha})`;
-    case "Immature readiness":
-    case "Immature technosphere":
-      return `rgba(251, 191, 36, ${alpha})`;
-    case "Emerging readiness":
-    case "Emerging technosphere":
-      return `rgba(139, 92, 246, ${alpha})`;
-    default:
-      return `rgba(168, 180, 207, ${alpha})`;
+function countryAliases(row) {
+  const aliases = new Set([
+    normaliseSearch(row.country),
+    normaliseSearch(row.code),
+    normaliseSearch(row.iso3)
+  ]);
+
+  if (row.code === "US" || row.iso3 === "USA" || /united states/i.test(row.country || "")) {
+    ["usa", "us", "u s", "u s a", "america", "united states", "united states of america"].forEach(v => aliases.add(normaliseSearch(v)));
+  }
+
+  if (row.code === "GB" || row.iso3 === "GBR" || /united kingdom/i.test(row.country || "")) {
+    ["uk", "u k", "britain", "great britain", "united kingdom", "england"].forEach(v => aliases.add(normaliseSearch(v)));
+  }
+
+  if (row.code === "KR" || row.iso3 === "KOR" || /korea/i.test(row.country || "")) {
+    ["korea", "south korea", "republic of korea", "korea rep"].forEach(v => aliases.add(normaliseSearch(v)));
+  }
+
+  return Array.from(aliases).filter(Boolean);
+}
+
+function countryMatches(row, query) {
+  const q = normaliseSearch(query);
+  if (!q) return true;
+
+  return countryAliases(row).some(alias =>
+    alias === q || alias.startsWith(q) || alias.includes(q) || q.includes(alias)
+  );
+}
+
+function bestCountryMatch(rows, query) {
+  const q = normaliseSearch(query);
+  if (!q) return null;
+
+  return rows.find(row => countryAliases(row).some(alias => alias === q)) ||
+    rows.find(row => countryAliases(row).some(alias => alias.startsWith(q))) ||
+    rows.find(row => countryMatches(row, q)) ||
+    null;
+}
+
+function plottableRows(rows) {
+  return (Array.isArray(rows) ? rows : [])
+    .map(row => enrichTheoryFields(row))
+    .filter(row =>
+      row &&
+      Number.isFinite(Number(row.individual_intelligence)) &&
+      Number.isFinite(Number(row.collective_intelligence)) &&
+      Number.isFinite(Number(row.planetary_intelligence))
+    );
+}
+
+function applyFilters() {
+  const regionValue = document.getElementById("regionFilter")?.value || "";
+  const searchValue = document.getElementById("countrySearch")?.value || "";
+  const minSynergy = Number(document.getElementById("minSynergy")?.value || 0);
+  const minSynergyValue = document.getElementById("minSynergyValue");
+
+  if (minSynergyValue) minSynergyValue.textContent = String(minSynergy);
+
+  const allRows = plottableRows(state.scores);
+  const hasSearch = normaliseSearch(searchValue).length > 0;
+  const hasRegion = !isAllRegion(regionValue);
+  const hasSynergy = Number.isFinite(minSynergy) && minSynergy > 0;
+
+  let rows;
+
+  if (hasSearch) {
+    rows = allRows.filter(row => countryMatches(row, searchValue));
+  } else {
+    rows = allRows.filter(row => {
+      const regionOk = !hasRegion || row.region === regionValue;
+      const synergyOk = !hasSynergy || Number(row.overall_synergy || 0) >= minSynergy;
+      return regionOk && synergyOk;
+    });
+  }
+
+  state.filtered = rows;
+
+  updateSummary(rows);
+  renderPlot();
+
+  if (hasSearch) {
+    const match = bestCountryMatch(rows, searchValue);
+    if (match) selectRow(match);
+  } else if (state.selectedRow && !rows.some(row => row.code === state.selectedRow.code)) {
+    state.selectedRow = null;
+    renderSelectedCountry(null);
+    renderSelectedTheory(null);
+    renderTransitionLean(null);
+    updateReportCta();
   }
 }
 
-function makeDropLineTrace(rows) {
+function updateSummary(rows) {
+  const safeRows = plottableRows(rows);
+
+  setText("displayedCount", String(safeRows.length));
+  setText("avgIndividual", averageMetric(safeRows, "individual_intelligence"));
+  setText("avgCollective", averageMetric(safeRows, "collective_intelligence"));
+  setText("avgPlanetary", averageMetric(safeRows, "planetary_intelligence"));
+
+  const completenessValues = safeRows.map(row => Number(row.completeness)).filter(Number.isFinite);
+  const completeness = completenessValues.length
+    ? Math.round((completenessValues.reduce((a, b) => a + b, 0) / completenessValues.length) * 100)
+    : 0;
+
+  setText("avgCompleteness", `${completeness}%`);
+}
+
+function setText(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function averageMetric(rows, key) {
+  const values = rows.map(row => Number(row[key])).filter(Number.isFinite);
+  return values.length ? (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1) : "0";
+}
+
+function axisRange(rows, key) {
+  const values = rows.map(row => Number(row[key])).filter(Number.isFinite);
+  if (!values.length) return [0, 100];
+
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const spread = Math.max(1, maxValue - minValue);
+  const pad = Math.max(4, spread * 0.22);
+
+  let low = Math.floor(Math.max(0, minValue - pad) / 5) * 5;
+  let high = Math.ceil(Math.min(100, maxValue + pad) / 5) * 5;
+
+  if (high - low < 20) {
+    const mid = (high + low) / 2;
+    low = Math.floor(Math.max(0, mid - 10) / 5) * 5;
+    high = Math.ceil(Math.min(100, mid + 10) / 5) * 5;
+  }
+
+  return high > low ? [low, high] : [0, 100];
+}
+
+function plotRanges(rows) {
+  return {
+    x: axisRange(rows, "individual_intelligence"),
+    y: axisRange(rows, "collective_intelligence"),
+    z: axisRange(rows, "planetary_intelligence")
+  };
+}
+
+function renderPlot() {
+  const target = document.getElementById("plot");
+  if (!target) return;
+
+  const rows = plottableRows(state.filtered);
+
+  if (!rows.length) {
+    target.innerHTML = `<div class="warning-box">No countries match the current filters. Clear the search or choose “All regions”.</div>`;
+    return;
+  }
+
+  const colourMode = document.getElementById("colourMode")?.value || "archetype";
+  const ranges = plotRanges(rows);
+  const traces = buildPlotTraces(rows, colourMode);
+
+  const selected = state.selectedRow && rows.find(row => row.code === state.selectedRow.code);
+  if (selected) traces.push(makeSelectedLocatorTrace(selected));
+
+  if (document.getElementById("showMaturityHalos")?.checked) traces.unshift(makeMaturityHaloTrace(rows));
+  if (document.getElementById("showLandingBars")?.checked) traces.push(makeLandingBarsTrace(rows));
+
+  const layout = {
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    margin: { l: 0, r: 0, t: 10, b: 0 },
+    showlegend: true,
+    legend: {
+      orientation: "h",
+      x: 0,
+      y: 1.04,
+      font: { color: "#e5eefc", size: 12 },
+      bgcolor: "rgba(0,0,0,0)"
+    },
+    scene: {
+      bgcolor: "rgba(0,0,0,0)",
+      camera: state.camera,
+      xaxis: axisConfig("Individual intelligence", ranges.x),
+      yaxis: axisConfig("Collective intelligence", ranges.y),
+      zaxis: axisConfig("Planetary intelligence", ranges.z)
+    }
+  };
+
+  const config = {
+    responsive: true,
+    displaylogo: false
+  };
+
+  Plotly.react(target, traces, layout, config).then(() => {
+    if (target.removeAllListeners) {
+      target.removeAllListeners("plotly_click");
+      target.removeAllListeners("plotly_relayout");
+    }
+
+    if (target.on) {
+      target.on("plotly_click", event => {
+        const code = event?.points?.[0]?.customdata;
+        const row = plottableRows(state.scores).find(item => item.code === code);
+        if (row) selectRow(row);
+      });
+
+      target.on("plotly_relayout", event => {
+        if (event && event["scene.camera"]) {
+          state.camera = event["scene.camera"];
+        }
+      });
+    }
+  });
+}
+
+function axisConfig(title, range) {
+  return {
+    title,
+    range,
+    gridcolor: "rgba(153, 177, 255, 0.45)",
+    zerolinecolor: "rgba(153, 177, 255, 0.22)",
+    color: "#e5eefc"
+  };
+}
+
+function buildPlotTraces(rows, colourMode) {
+  if (colourMode === "synergy") {
+    return [{
+      type: "scatter3d",
+      mode: "markers",
+      name: "Overall synergy",
+      x: rows.map(row => row.individual_intelligence),
+      y: rows.map(row => row.collective_intelligence),
+      z: rows.map(row => row.planetary_intelligence),
+      customdata: rows.map(row => row.code),
+      hovertemplate: rows.map(row => hoverTemplate(row)),
+      marker: {
+        size: rows.map(row => Math.max(6, Number(row.overall_synergy) / 9)),
+        color: rows.map(row => Number(row.overall_synergy)),
+        colorscale: "Viridis",
+        showscale: true,
+        opacity: 0.9,
+        line: { width: 0.8, color: "rgba(255,255,255,0.38)" }
+      }
+    }];
+  }
+
+  const groups = new Map();
+
+  rows.forEach(row => {
+    const key = colourMode === "region" ? row.region || "Unknown region" : row.archetype || "Unclassified";
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(row);
+  });
+
+  return Array.from(groups.entries()).map(([name, groupRows], index) => ({
+    type: "scatter3d",
+    mode: "markers",
+    name,
+    x: groupRows.map(row => row.individual_intelligence),
+    y: groupRows.map(row => row.collective_intelligence),
+    z: groupRows.map(row => row.planetary_intelligence),
+    customdata: groupRows.map(row => row.code),
+    hovertemplate: groupRows.map(row => hoverTemplate(row)),
+    marker: {
+      size: groupRows.map(row => Math.max(6, Number(row.overall_synergy) / 9)),
+      color: colourFor(name, index),
+      opacity: 0.9,
+      line: { width: 0.8, color: "rgba(255,255,255,0.38)" }
+    }
+  }));
+}
+
+function colourFor(name, index = 0) {
+  const fixed = {
+    "High integration": "#38bdf8",
+    "Individual-rich, coordination-limited": "#f97316",
+    "Institutionally strong, planetary lag": "#22c55e",
+    "Planet-aware, governance-limited": "#8b5cf6",
+    "Low composite capacity": "#ef4444",
+    "Mixed transition": "#a78bfa",
+    "Europe": "#ef4444",
+    "North America": "#a78bfa",
+    "South America": "#22c55e",
+    "Asia": "#f97316",
+    "Africa": "#f59e0b",
+    "Oceania": "#8d6e63"
+  };
+
+  const palette = ["#38bdf8", "#f97316", "#22c55e", "#ef4444", "#a78bfa", "#f59e0b", "#14b8a6"];
+  return fixed[name] || palette[index % palette.length];
+}
+
+function hoverTemplate(row) {
+  return [
+    `<b>${escapeHtml(row.country)}</b>`,
+    `Individual: ${Number(row.individual_intelligence).toFixed(1)}`,
+    `Collective: ${Number(row.collective_intelligence).toFixed(1)}`,
+    `Planetary: ${Number(row.planetary_intelligence).toFixed(1)}`,
+    `Synergy: ${Number(row.overall_synergy).toFixed(1)}`,
+    `Readiness: ${Number(row.mature_technosphere_gap).toFixed(1)}`,
+    `Archetype: ${escapeHtml(row.archetype || "n/a")}`
+  ].join("<br>") + "<extra></extra>";
+}
+
+function makeSelectedLocatorTrace(row) {
+  const x = Number(row.individual_intelligence);
+  const y = Number(row.collective_intelligence);
+  const z = Number(row.planetary_intelligence);
+
+  return {
+    type: "scatter3d",
+    mode: "lines+markers",
+    name: "Selected locator",
+    x: [x, x, null, x, x, null, 0, x, null, x],
+    y: [y, y, null, 0, y, null, y, y, null, y],
+    z: [0, z, null, z, z, null, z, z, null, z],
+    customdata: [null, null, null, null, null, null, null, null, null, row.code],
+    hovertemplate: "<b>%{text}</b><br>Selected country locator<extra></extra>",
+    text: [null, null, null, null, null, null, null, null, null, row.country],
+    showlegend: false,
+    line: { width: 2, color: "rgba(255,255,255,0.9)" },
+    marker: {
+      size: [0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
+      color: "rgba(255,255,255,1)",
+      line: { width: 1.5, color: "rgba(255,255,255,1)" }
+    }
+  };
+}
+
+function makeLandingBarsTrace(rows) {
   const x = [];
   const y = [];
   const z = [];
 
-  rows.forEach(r => {
-    x.push(r.individual_intelligence, r.individual_intelligence, null);
-    y.push(r.collective_intelligence, r.collective_intelligence, null);
-    z.push(0, r.planetary_intelligence, null);
+  rows.forEach(row => {
+    x.push(row.individual_intelligence, row.individual_intelligence, null);
+    y.push(row.collective_intelligence, row.collective_intelligence, null);
+    z.push(0, row.planetary_intelligence, null);
   });
 
   return {
@@ -1401,8 +985,6 @@ function makeDropLineTrace(rows) {
     y,
     z,
     hoverinfo: "skip",
-    showlegend: true,
-    legendrank: 98,
     line: { width: 2, color: "rgba(180, 210, 255, 0.25)" }
   };
 }
@@ -1412,23 +994,107 @@ function makeMaturityHaloTrace(rows) {
     type: "scatter3d",
     mode: "markers",
     name: "Maturity rings",
-    x: rows.map(r => r.individual_intelligence),
-    y: rows.map(r => r.collective_intelligence),
-    z: rows.map(r => r.planetary_intelligence),
-    text: rows.map(r => r.country),
+    x: rows.map(row => row.individual_intelligence),
+    y: rows.map(row => row.collective_intelligence),
+    z: rows.map(row => row.planetary_intelligence),
     hoverinfo: "skip",
     showlegend: false,
-    legendrank: 97,
     marker: {
-      size: rows.map(r => Math.max(16, r.overall_synergy / 3.9)),
-      color: rows.map(r => maturityColor(r.maturity_state, 0.18)),
+      size: rows.map(row => Math.max(16, row.overall_synergy / 3.9)),
+      color: rows.map(row => maturityColour(row.maturity_state, 0.18)),
       opacity: 0.55,
-      line: {
-        width: 2.5,
-        color: rows.map(r => maturityColor(r.maturity_state, 0.72))
-      }
+      line: { width: 2.5, color: rows.map(row => maturityColour(row.maturity_state, 0.72)) }
     }
   };
+}
+
+function maturityColour(label, alpha = 0.26) {
+  switch (label) {
+    case "Mature-candidate readiness":
+      return `rgba(94, 234, 212, ${alpha})`;
+    case "Transitioning readiness":
+      return `rgba(110, 168, 255, ${alpha})`;
+    case "Immature readiness":
+      return `rgba(251, 191, 36, ${alpha})`;
+    case "Emerging readiness":
+      return `rgba(139, 92, 246, ${alpha})`;
+    default:
+      return `rgba(168, 180, 207, ${alpha})`;
+  }
+}
+
+function selectRow(row) {
+  const enriched = enrichTheoryFields(row);
+  state.selectedRow = enriched;
+
+  renderSelectedCountry(enriched);
+  renderSelectedTheory(enriched);
+  renderTransitionLean(enriched);
+  updateReportCta();
+  renderPlot();
+}
+
+function renderSelectedCountry(row) {
+  const target = document.getElementById("selectedCountry");
+  if (!target) return;
+
+  if (!row) {
+    target.innerHTML = `<p class="muted">Click a marker in the 3D plot to inspect details, source years, and score logic.</p>`;
+    return;
+  }
+
+  const used = (row.detail || []).filter(d => d.raw !== null && d.raw !== undefined).length;
+  const total = state.indicators.length || (row.detail || []).length || 0;
+
+  target.innerHTML = `
+    <div class="selected-country-card">
+      <h3 class="selected-country-name"><span class="country-mention-highlight">${escapeHtml(row.country)}</span></h3>
+
+      <div class="model-status-strip compact">
+        <span class="model-status-pill">${escapeHtml(row.region || "Unknown region")}</span>
+        <span class="model-status-pill">${escapeHtml(row.archetype || "Unclassified")}</span>
+        <span class="model-status-pill">${escapeHtml(row.data_status || state.dataMode)}</span>
+      </div>
+
+      <div class="metric-grid selected-metrics">
+        ${metricCard("Individual", row.individual_intelligence)}
+        ${metricCard("Collective", row.collective_intelligence)}
+        ${metricCard("Planetary", row.planetary_intelligence)}
+        ${metricCard("Synergy", row.overall_synergy)}
+      </div>
+
+      <div class="selected-diagnostics">
+        <h4>Planetary-intelligence diagnostics</h4>
+        <span class="status-pill ${maturityClass(row.maturity_state)}">${escapeHtml(row.maturity_state)}</span>
+        <div class="metric-grid compact-metrics">
+          ${metricCard("Mature technosphere gap", row.mature_technosphere_gap)}
+          ${metricCard("Ecological pressure", row.ecological_pressure)}
+        </div>
+        ${renderDiagnosticBars(row)}
+      </div>
+
+      ${renderComparisonContext(row)}
+
+      <details class="indicator-detail-disclosure source-transparency">
+        <summary>
+          <span>Source transparency</span>
+          <small>${used} / ${total} indicators used</small>
+        </summary>
+        ${renderIndicatorDetailTable(row)}
+      </details>
+
+      <p class="maturity-interpretation">${escapeHtml(row.maturity_interpretation)}</p>
+    </div>
+  `;
+}
+
+function metricCard(label, value) {
+  return `
+    <div class="metric-card">
+      <span>${escapeHtml(label)}</span>
+      <strong>${formatNumber(value)}</strong>
+    </div>
+  `;
 }
 
 function renderDiagnosticBars(row) {
@@ -1445,105 +1111,136 @@ function renderDiagnosticBars(row) {
       ${diagnostics.map(([label, value]) => `
         <div class="diagnostic-row">
           <span class="diagnostic-label">${escapeHtml(label)}</span>
-          <span class="diagnostic-track"><span class="diagnostic-fill" style="width:${clampScore(value)}%"></span></span>
-          <span class="diagnostic-value">${clampScore(value).toFixed(0)}</span>
+          <span class="diagnostic-track"><span class="diagnostic-fill" style="width:${clamp(value)}%"></span></span>
+          <span class="diagnostic-value">${formatNumber(value, 0)}</span>
         </div>
       `).join("")}
     </div>
   `;
 }
 
+function renderComparisonContext(row) {
+  const rows = plottableRows(state.filtered.length > 1 ? state.filtered : state.scores);
+  const displayedAverage = average(rows.map(r => Number(r.mature_technosphere_gap)));
+  const regionRows = rows.filter(r => r.region === row.region);
+  const regionAverage = average(regionRows.map(r => Number(r.mature_technosphere_gap)));
+  const top = rows.slice().sort((a, b) => Number(b.mature_technosphere_gap) - Number(a.mature_technosphere_gap))[0];
+  const topDelta = top ? Number(row.mature_technosphere_gap) - Number(top.mature_technosphere_gap) : NaN;
 
-function readinessLabel(row) {
-  const gap = clampScore(row.mature_technosphere_gap ?? 0);
-
-  if (gap >= 75) return "mature-candidate readiness band";
-  if (gap >= 50) return "transitioning readiness band";
-  if (gap >= 25) return "immature readiness band";
-  return "emerging readiness band";
-}
-
-
-function readinessToneClass(label) {
-  return maturityClassName(readinessStateLabel(label));
-}
-
-function readinessStateLabel(label) {
-  switch (label) {
-    case "Mature-candidate readiness":
-    case "Transitioning readiness":
-    case "Immature readiness":
-    case "Emerging readiness":
-      return label;
-    case "Mature technosphere candidate":
-      return "Mature-candidate readiness";
-    case "Transitioning technosphere":
-      return "Transitioning readiness";
-    case "Immature technosphere":
-      return "Immature readiness";
-    case "Emerging technosphere":
-      return "Emerging readiness";
-    default:
-      return "Low readiness";
-  }
-}
-
-
-
-function updateGlobalContextBubble(row) {
-  const activeBubble = document.querySelector(".transition-step.active");
-  if (!activeBubble) return;
-
-  activeBubble.querySelectorAll(".bubble-country-indicator").forEach(el => el.remove());
-  activeBubble.classList.remove("has-country-indicator");
-
-  if (!row || !row.country) return;
-
-  const gap = clampScore(row.mature_technosphere_gap ?? 0);
-
-  const indicator = document.createElement("div");
-  indicator.className = "bubble-country-indicator";
-  indicator.innerHTML = `
-    <span class="bubble-country-track" aria-hidden="true">
-      <span class="bubble-country-fill" style="width:${gap}%"></span>
-    </span>
+  return `
+    <div class="comparison-context">
+      <h4>Comparison context</h4>
+      <div class="metric-grid compact-metrics">
+        ${metricCard("Displayed average", displayedAverage)}
+        ${metricCard(`${row.region || "Region"} average`, regionAverage)}
+        <div class="metric-card"><span>Top readiness</span><strong>${escapeHtml(top?.country || "n/a")}</strong></div>
+      </div>
+      <table>
+        <thead><tr><th>Metric</th><th>${escapeHtml(row.country)}</th><th>Displayed avg</th><th>Δ</th></tr></thead>
+        <tbody>
+          ${comparisonRow("Readiness", row.mature_technosphere_gap, displayedAverage)}
+          ${comparisonRow("Individual", row.individual_intelligence, average(rows.map(r => Number(r.individual_intelligence))))}
+          ${comparisonRow("Collective", row.collective_intelligence, average(rows.map(r => Number(r.collective_intelligence))))}
+          ${comparisonRow("Planetary", row.planetary_intelligence, average(rows.map(r => Number(r.planetary_intelligence))))}
+        </tbody>
+      </table>
+      <p class="muted small">Against the current top-readiness country, <strong>${escapeHtml(row.country)}</strong> is ${formatSigned(topDelta)} readiness points away.</p>
+    </div>
   `;
+}
 
-  activeBubble.appendChild(indicator);
-  activeBubble.classList.add("has-country-indicator");
+function comparisonRow(label, value, avgValue) {
+  const delta = Number(value) - Number(avgValue);
+  return `
+    <tr>
+      <td>${escapeHtml(label)}</td>
+      <td>${formatNumber(value)}</td>
+      <td>${formatNumber(avgValue)}</td>
+      <td>${formatSigned(delta)}</td>
+    </tr>
+  `;
+}
+
+function renderIndicatorDetailTable(row) {
+  const detail = row.detail || [];
+
+  if (!detail.length) {
+    return `<p class="muted small">Fallback dataset does not include per-indicator source detail.</p>`;
+  }
+
+  return `
+    <div class="indicator-detail-content">
+      <table class="indicator-detail-table">
+        <thead>
+          <tr>
+            <th>Layer</th>
+            <th>Indicator</th>
+            <th>Raw value</th>
+            <th>Score</th>
+            <th>Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${detail.map(d => `
+            <tr>
+              <td>${escapeHtml(d.layer || "n/a")}</td>
+              <td>${escapeHtml(d.label || d.code || "n/a")}</td>
+              <td>${d.raw === null || d.raw === undefined ? "missing" : formatNumber(d.raw, 3)}</td>
+              <td>${d.score === null || d.score === undefined ? "missing" : formatNumber(d.score)}</td>
+              <td>${escapeHtml(d.year || "n/a")}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderSelectedTheory(row) {
+  const target = document.getElementById("selectedTheory");
+  if (!target) return;
+
+  if (!row) {
+    target.innerHTML = `<p class="muted">Click a country marker to view its maturity state, diagnostic bars, and mature-technosphere gap.</p>`;
+    return;
+  }
+
+  const show = document.getElementById("showTheoryDiagnostics")?.checked;
+  if (!show) {
+    target.innerHTML = `<p class="muted">Theory diagnostics are hidden. Enable “Show theory diagnostics” in the controls.</p>`;
+    return;
+  }
+
+  target.innerHTML = `
+    <div class="selected-theory-profile">
+      <h4>Planetary-intelligence diagnostics</h4>
+      <span class="status-pill ${maturityClass(row.maturity_state)}">${escapeHtml(row.maturity_state)}</span>
+      <div class="metric-grid compact-metrics">
+        ${metricCard("Mature technosphere gap", row.mature_technosphere_gap)}
+        ${metricCard("Ecological pressure", row.ecological_pressure)}
+      </div>
+      ${renderDiagnosticBars(row)}
+      <p class="muted">${escapeHtml(row.maturity_interpretation)}</p>
+    </div>
+  `;
 }
 
 function renderTransitionLean(row) {
   const target = document.getElementById("transitionLean");
+  updateGlobalContextBubble(row);
+
   if (!target) return;
 
-  updateGlobalContextBubble(row);
-  scheduleCountryMentionHighlight();
-
-  if (!row || !row.country) {
-    target.innerHTML = `
-      <p class="transition-lean-note">
-        Click a country to see its readiness position inside the current global immature-technosphere context.
-      </p>
-    `;
+  if (!row) {
+    target.innerHTML = `<p class="transition-lean-note">Click a country to see its readiness position inside the current global immature-technosphere context.</p>`;
     return;
   }
 
-  const gap = clampScore(row.mature_technosphere_gap ?? 0);
-  const country = escapeHtml(row.country);
-  const stateLabel = escapeHtml(readinessStateLabel(row.maturity_state));
-  const toneClass = readinessToneClass(row.maturity_state);
-
-  let leaningText = "";
-  if (gap < 25) {
-    leaningText = "early readiness";
-  } else if (gap < 50) {
-    leaningText = "immature-readiness";
-  } else if (gap < 75) {
-    leaningText = "transition-leaning readiness";
-  } else {
-    leaningText = "mature-candidate readiness";
-  }
+  const gap = clamp(row.mature_technosphere_gap);
+  let zone = "early readiness";
+  if (gap >= 75) zone = "mature-candidate readiness";
+  else if (gap >= 50) zone = "transition-leaning readiness";
+  else if (gap >= 25) zone = "immature-readiness";
 
   target.innerHTML = `
     <div class="transition-lean-current">
@@ -1551,19 +1248,15 @@ function renderTransitionLean(row) {
         <div class="current-stage-heading-group">
           <h4 class="current-stage-heading">Country readiness inside the current global state</h4>
           <p class="current-stage-country-line">
-            <strong class="country-mention-highlight">${country}</strong> · ${stateLabel}
+            <strong class="country-mention-highlight">${escapeHtml(row.country)}</strong> · ${escapeHtml(row.maturity_state)}
           </p>
         </div>
-        <span class="current-stage-score ${toneClass}">${gap.toFixed(0)} / 100</span>
+        <span class="current-stage-score ${maturityClass(row.maturity_state)}">${formatNumber(gap, 0)} / 100</span>
       </div>
 
       <div class="current-stage-readiness">
-        <div class="current-stage-track" aria-label="Country readiness inside immature technosphere">
-          <span
-            class="current-stage-marker ${toneClass}"
-            style="left:${gap}%"
-            title="${country}: ${gap.toFixed(1)} / 100">
-          </span>
+        <div class="current-stage-track">
+          <span class="current-stage-marker ${maturityClass(row.maturity_state)}" style="left:${gap}%"></span>
         </div>
         <div class="current-stage-labels">
           <span>Emerging</span>
@@ -1574,1485 +1267,351 @@ function renderTransitionLean(row) {
       </div>
 
       <p class="transition-lean-warning">
-        <strong>${country}</strong> is not being placed in the biosphere stages.
+        <strong>${escapeHtml(row.country)}</strong> is not being placed in the biosphere stages.
         It is a country-level subsystem inside Earth's current <strong>immature technosphere</strong>,
-        classified here as <strong>${stateLabel}</strong> and sitting in the
-        <strong>${escapeHtml(leaningText)}</strong> zone.
+        classified here as <strong>${escapeHtml(row.maturity_state)}</strong> and sitting in the
+        <strong>${escapeHtml(zone)}</strong> zone.
       </p>
     </div>
   `;
 }
 
-function renderReadinessPathway(row) {
-  const gap = clampScore(row.mature_technosphere_gap ?? 0);
-  const country = escapeHtml(row.country || "Selected country");
-  const zone = readinessLabel(row);
-  const stateLabel = readinessStateLabel(row.maturity_state);
+function updateGlobalContextBubble(row) {
+  const active = document.querySelector(".transition-step.active");
+  if (!active) return;
 
-  return `
-    <div class="readiness-pathway">
-      <h5>Readiness pathway within the current immature global technosphere</h5>
-      <div class="readiness-track" aria-label="Readiness score from emerging to mature-candidate">
-        <span
-          class="readiness-marker"
-          style="left:${gap}%"
-          data-label="${gap.toFixed(0)} / 100"
-          title="${country}: ${gap.toFixed(1)} / 100">
-        </span>
-      </div>
-      <div class="readiness-labels">
-        <span>Emerging</span>
-        <span>Immature</span>
-        <span>Transitioning</span>
-        <span>Mature-candidate</span>
-      </div>
-      <p class="readiness-note">
-        <strong>${country}</strong> sits in the <strong>${escapeHtml(zone)}</strong>
-        and is classified as <strong>${escapeHtml(stateLabel)}</strong> in this proxy model.
-      </p>
-    </div>
+  active.querySelectorAll(".bubble-country-indicator").forEach(el => el.remove());
+  active.classList.remove("has-country-indicator");
+
+  if (!row) return;
+
+  const gap = clamp(row.mature_technosphere_gap);
+  const indicator = document.createElement("div");
+  indicator.className = "bubble-country-indicator";
+  indicator.innerHTML = `
+    <span class="bubble-country-track">
+      <span class="bubble-country-fill" style="width:${gap}%"></span>
+    </span>
   `;
+
+  active.appendChild(indicator);
+  active.classList.add("has-country-indicator");
 }
 
-function makeSelectedLocatorTrace(row) {
-  if (!row || !row.country) return null;
+function updateReportCta() {
+  const text = document.getElementById("countryReportDownloadText");
+  const button = document.getElementById("downloadCountryPdfReport");
+  const row = state.selectedRow;
 
-  const x = Number(row.individual_intelligence || 0);
-  const y = Number(row.collective_intelligence || 0);
-  const z = Number(row.planetary_intelligence || 0);
+  if (!text || !button) return;
 
-  return {
-    type: "scatter3d",
-    mode: "lines+markers",
-    name: "Selected locator",
-    x: [
-      x, x, null,   // vertical to floor (z = 0)
-      x, x, null,   // to back wall (y = 0)
-      0, x, null,   // to side wall (x = 0)
-      x             // selected point marker
-    ],
-    y: [
-      y, y, null,
-      0, y, null,
-      y, y, null,
-      y
-    ],
-    z: [
-      0, z, null,
-      z, z, null,
-      z, z, null,
-      z
-    ],
-    text: [
-      null, null, null,
-      null, null, null,
-      null, null, null,
-      row.country
-    ],
-    hovertemplate: [
-      null, null, null,
-      null, null, null,
-      null, null, null,
-      "<b>%{text}</b><br>Selected country locator<extra></extra>"
-    ],
-    showlegend: false,
-    line: {
-      width: 2,
-      color: "rgba(255,255,255,0.92)"
-    },
-    marker: {
-      size: [0, 0, 0, 0, 0, 0, 0, 0, 0, 8],
-      color: [
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(0,0,0,0)",
-        "rgba(255,255,255,1)"
-      ],
-      line: {
-        width: 1.5,
-        color: "rgba(255,255,255,1)"
-      }
-    }
-  };
-}
-
-
-function averageMetric(rows, key) {
-  const values = (rows || [])
-    .map(row => Number(row[key]))
-    .filter(Number.isFinite);
-
-  return values.length ? average(values) : NaN;
-}
-
-function formatDelta(value) {
-  if (!Number.isFinite(value)) return "n/a";
-  const sign = value > 0 ? "+" : "";
-  return `${sign}${value.toFixed(1)}`;
-}
-
-function comparisonClass(delta) {
-  if (!Number.isFinite(delta)) return "neutral";
-  if (delta >= 5) return "positive";
-  if (delta <= -5) return "negative";
-  return "neutral";
-}
-
-function comparisonMetricRow(label, selected, baseline) {
-  const delta = selected - baseline;
-  return `
-    <tr>
-      <td>${escapeHtml(label)}</td>
-      <td>${Number.isFinite(selected) ? selected.toFixed(1) : "n/a"}</td>
-      <td>${Number.isFinite(baseline) ? baseline.toFixed(1) : "n/a"}</td>
-      <td class="${comparisonClass(delta)}">${formatDelta(delta)}</td>
-    </tr>
-  `;
-}
-
-function renderComparisonCards(row) {
-  if (!row || !row.country) return "";
-
-  const allRows = (state.scores || [])
-    .map(enrichTheoryFields)
-    .filter(r => Number.isFinite(r.overall_synergy));
-
-  const displayedRows = (state.filtered || [])
-    .map(enrichTheoryFields)
-    .filter(r => Number.isFinite(r.overall_synergy));
-
-  const regionalRows = allRows.filter(r => r.region === row.region);
-  const topReadiness = [...allRows].sort((a, b) =>
-    Number(b.mature_technosphere_gap || 0) - Number(a.mature_technosphere_gap || 0)
-  )[0];
-
-  const displayedBaseline = {
-    mature_technosphere_gap: averageMetric(displayedRows, "mature_technosphere_gap"),
-    individual_intelligence: averageMetric(displayedRows, "individual_intelligence"),
-    collective_intelligence: averageMetric(displayedRows, "collective_intelligence"),
-    planetary_intelligence: averageMetric(displayedRows, "planetary_intelligence")
-  };
-
-  const regionalBaseline = {
-    mature_technosphere_gap: averageMetric(regionalRows, "mature_technosphere_gap"),
-    individual_intelligence: averageMetric(regionalRows, "individual_intelligence"),
-    collective_intelligence: averageMetric(regionalRows, "collective_intelligence"),
-    planetary_intelligence: averageMetric(regionalRows, "planetary_intelligence")
-  };
-
-  const topName = topReadiness ? escapeHtml(topReadiness.country) : "n/a";
-  const topGap = topReadiness ? Number(topReadiness.mature_technosphere_gap || 0) : NaN;
-  const topDelta = Number(row.mature_technosphere_gap || 0) - topGap;
-
-  return `
-    <div class="comparison-block">
-      <h4>Comparison context</h4>
-
-      <div class="comparison-summary-grid">
-        <div class="comparison-summary-card">
-          <span>Displayed average</span>
-          <strong>${Number.isFinite(displayedBaseline.mature_technosphere_gap) ? displayedBaseline.mature_technosphere_gap.toFixed(1) : "n/a"}</strong>
-        </div>
-        <div class="comparison-summary-card">
-          <span>${escapeHtml(row.region || "Region")} average</span>
-          <strong>${Number.isFinite(regionalBaseline.mature_technosphere_gap) ? regionalBaseline.mature_technosphere_gap.toFixed(1) : "n/a"}</strong>
-        </div>
-        <div class="comparison-summary-card">
-          <span>Top readiness</span>
-          <strong>${topName}</strong>
-        </div>
-      </div>
-
-      <div class="comparison-table-wrap">
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>${escapeHtml(row.country)}</th>
-              <th>Displayed avg</th>
-              <th>Δ</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${comparisonMetricRow("Readiness", Number(row.mature_technosphere_gap), displayedBaseline.mature_technosphere_gap)}
-            ${comparisonMetricRow("Individual", Number(row.individual_intelligence), displayedBaseline.individual_intelligence)}
-            ${comparisonMetricRow("Collective", Number(row.collective_intelligence), displayedBaseline.collective_intelligence)}
-            ${comparisonMetricRow("Planetary", Number(row.planetary_intelligence), displayedBaseline.planetary_intelligence)}
-          </tbody>
-        </table>
-      </div>
-
-      <p class="comparison-note">
-        Against the current top-readiness country, <strong>${escapeHtml(row.country)}</strong>
-        is <strong class="${comparisonClass(topDelta)}">${formatDelta(topDelta)}</strong> readiness points away.
-      </p>
-    </div>
-  `;
-}
-
-
-function formatSourceNumber(value) {
-  if (value === null || value === undefined || value === "") return "missing";
-
-  const n = Number(value);
-  if (Number.isFinite(n)) {
-    return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
-  }
-
-  return escapeHtml(String(value));
-}
-
-function formatSourceScore(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n.toFixed(1) : "n/a";
-}
-
-function sourceIndicatorUsed(detailRow) {
-  return (
-    detailRow &&
-    detailRow.raw !== null &&
-    detailRow.raw !== undefined &&
-    detailRow.raw !== "" &&
-    Number.isFinite(Number(detailRow.score))
-  );
-}
-
-function renderSourceTransparency(row) {
-  if (!row || !row.country) return "";
-
-  const detail = Array.isArray(row.detail) ? row.detail : [];
-  const mode = escapeHtml(row.data_status || state.dataMode || "Unknown");
-
-  if (!detail.length) {
-    return `
-      <details class="source-transparency">
-        <summary>
-          <span>Source transparency</span>
-          <strong>aggregate fallback only</strong>
-        </summary>
-        <div class="source-empty">
-          <p>
-            This selected country currently has aggregate scores only. Per-indicator source years are not available
-            in fallback mode, so these values should be read as interface-testing data rather than empirical results.
-          </p>
-          <div class="source-summary-grid">
-            <div class="source-mini-card"><span>Data mode</span><strong>${mode}</strong></div>
-            <div class="source-mini-card"><span>Indicator detail</span><strong>Not available</strong></div>
-          </div>
-        </div>
-      </details>
-    `;
-  }
-
-  const used = detail.filter(sourceIndicatorUsed);
-  const missing = detail.length - used.length;
-  const latestYear = used
-    .map(d => Number(d.year))
-    .filter(Number.isFinite)
-    .sort((a, b) => b - a)[0];
-
-  const sorted = [...detail].sort((a, b) => {
-    const left = `${a.layer || ""} ${a.label || a.code || ""}`;
-    const right = `${b.layer || ""} ${b.label || b.code || ""}`;
-    return left.localeCompare(right);
-  });
-
-  return `
-    <details class="source-transparency">
-      <summary>
-        <span>Source transparency</span>
-        <strong>${used.length} / ${detail.length} indicators used</strong>
-      </summary>
-
-      <div class="source-summary-grid">
-        <div class="source-mini-card"><span>Data mode</span><strong>${mode}</strong></div>
-        <div class="source-mini-card"><span>Used indicators</span><strong>${used.length}</strong></div>
-        <div class="source-mini-card"><span>Missing indicators</span><strong>${missing}</strong></div>
-        <div class="source-mini-card"><span>Latest year</span><strong>${latestYear || "n/a"}</strong></div>
-      </div>
-
-      <div class="source-table-wrap">
-        <table class="source-table">
-          <thead>
-            <tr>
-              <th>Layer</th>
-              <th>Indicator</th>
-              <th>Code</th>
-              <th>Year</th>
-              <th>Raw</th>
-              <th>Score</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${sorted.map(d => {
-              const usedFlag = sourceIndicatorUsed(d);
-              return `
-                <tr>
-                  <td>${escapeHtml(d.layer || "n/a")}</td>
-                  <td>${escapeHtml(d.label || d.code || "Indicator")}</td>
-                  <td><code>${escapeHtml(d.code || "")}</code></td>
-                  <td>${d.year || "n/a"}</td>
-                  <td>${formatSourceNumber(d.raw)}</td>
-                  <td>${formatSourceScore(d.score)}</td>
-                  <td><span class="source-status ${usedFlag ? "used" : "missing"}">${usedFlag ? "Used" : "Missing"}</span></td>
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        </table>
-      </div>
-
-      <p class="source-note">
-        Source transparency shows what the selected-country profile is built from. Missing indicators are not imputed here;
-        the composite uses the available scored indicators for each layer.
-      </p>
-    </details>
-  `;
-}
-
-function renderTheoryBlock(row) {
-  const hidden = document.getElementById("showTheoryDiagnostics") && !document.getElementById("showTheoryDiagnostics").checked;
-  return `
-    <div class="theory-detail-block${hidden ? " is-hidden" : ""}">
-      <h4>Planetary-intelligence diagnostics</h4>
-      <span class="maturity-badge ${readinessToneClass(row.maturity_state)}">${escapeHtml(readinessStateLabel(row.maturity_state))}</span>
-      <div class="gap-strip">
-        <div class="gap-card"><span>Mature technosphere gap</span><strong>${row.mature_technosphere_gap.toFixed(1)}</strong></div>
-        <div class="gap-card"><span>Ecological pressure</span><strong>${row.ecological_pressure.toFixed(1)}</strong></div>
-      </div>
-      ${renderDiagnosticBars(row)}
-      ${renderComparisonCards(row)}
-      ${renderSourceTransparency(row)}
-      <p class="muted small">${escapeHtml(row.maturity_interpretation)}</p>
-    </div>
-  `;
-}
-
-function updateTheoryPanel(row) {
-  const target = document.getElementById("selectedTheory");
-  if (!target || !row) return;
-  target.innerHTML = renderTheoryBlock(row);
-  updateTheoryVisibility();
-}
-
-function updateTheoryVisibility() {
-  const checked = document.getElementById("showTheoryDiagnostics")?.checked ?? true;
-  document.getElementById("theory-layer")?.classList.toggle("is-hidden", !checked);
-  document.querySelectorAll(".theory-detail-block").forEach(el => el.classList.toggle("is-hidden", !checked));
-}
-
-function bindControls() {
-  ["regionFilter", "countrySearch", "minSynergy", "colourMode", "showLandingBars", "showMaturityHalos", "showTheoryDiagnostics"].forEach(id => {
-    const control = document.getElementById(id);
-    if (!control) return;
-    control.addEventListener("input", applyFilters);
-    control.addEventListener("change", applyFilters);
-  });
-
-  document.getElementById("minSynergy").addEventListener("input", e => {
-    document.getElementById("minSynergyValue").textContent = e.target.value;
-  });
-
-  document.getElementById("clearFilters").addEventListener("click", () => {
-    document.getElementById("regionFilter").value = "All";
-    document.getElementById("countrySearch").value = "";
-    state.selectedRow = null;
-    renderTransitionLean(null);
-    updateGlobalContextBubble(null);
-    document.getElementById("minSynergy").value = 0;
-    document.getElementById("minSynergyValue").textContent = "0";
-    document.getElementById("colourMode").value = "archetype";
-    if (document.getElementById("showLandingBars")) document.getElementById("showLandingBars").checked = false;
-    if (document.getElementById("showMaturityHalos")) document.getElementById("showMaturityHalos").checked = false;
-    if (document.getElementById("showTheoryDiagnostics")) document.getElementById("showTheoryDiagnostics").checked = true;
-    applyFilters();
-  });
-
-  document.getElementById("resetCamera").addEventListener("click", () => {
-    Plotly.relayout("plot", { "scene.camera": state.camera });
-  });
-}
-
-function populateRegionFilter() {
-  const regions = [...new Set(state.countries.map(c => c.region))].sort();
-  document.getElementById("regionFilter").innerHTML =
-    `<option value="All">All regions</option>` + regions.map(r => `<option value="${escapeHtml(r)}">${escapeHtml(r)}</option>`).join("");
-}
-
-
-// Selection and filter synchronisation.
-// Keeps the selected-country model aligned with the currently visible filtered data.
-function clearSelectedCountryAfterFilter() {
-  state.selectedRow = null;
-
-  if (typeof renderTransitionLean === "function") renderTransitionLean(null);
-  if (typeof updateGlobalContextBubble === "function") updateGlobalContextBubble(null);
-
-  const selectedCountry = document.getElementById("selectedCountry");
-  if (selectedCountry) {
-    selectedCountry.innerHTML = `
-      <p class="muted">Click a marker in the 3D plot to inspect details, source years, and score logic.</p>
-    `;
-  }
-
-  const selectedTheory = document.getElementById("selectedTheory");
-  if (selectedTheory) {
-    selectedTheory.innerHTML = `
-      <p class="muted">Click a country marker to view its maturity state, diagnostic bars, and mature-technosphere gap.</p>
-    `;
-  }
-}
-
-function syncSelectedCountryAfterFilter(searchText) {
-  const rows = state.filtered || [];
-  const query = String(searchText || "").trim().toLowerCase();
-
-  if (!rows.length) {
-    clearSelectedCountryAfterFilter();
+  if (!row) {
+    text.textContent = "Select a country in the 3D plot to export the country profile, planetary-context interpretation, diagnostics, comparison context, indicator source transparency, limitations, and APA 7 reuse note.";
+    button.textContent = "Select a country first";
+    button.disabled = true;
     return;
   }
 
-  let next = null;
-
-  if (query) {
-    const exact = rows.find(row => String(row.country || "").toLowerCase() === query);
-    const starts = rows.filter(row => String(row.country || "").toLowerCase().startsWith(query));
-    const contains = rows.filter(row => String(row.country || "").toLowerCase().includes(query));
-
-    next =
-      exact ||
-      (starts.length === 1 ? starts[0] : null) ||
-      (contains.length === 1 ? contains[0] : null) ||
-      (rows.length === 1 ? rows[0] : null);
-  }
-
-  if (!next && state.selectedRow) {
-    next = rows.find(row => row.country === state.selectedRow.country) || null;
-  }
-
-  if (!next) {
-    clearSelectedCountryAfterFilter();
-    return;
-  }
-
-  const enriched = enrichTheoryFields(next);
-  const changed = !state.selectedRow || state.selectedRow.country !== enriched.country;
-  state.selectedRow = enriched;
-
-  if (changed && typeof renderSelected === "function") {
-    renderSelected(enriched);
-  } else {
-    if (typeof updateTheoryPanel === "function") updateTheoryPanel(enriched);
-    if (typeof renderTransitionLean === "function") renderTransitionLean(enriched);
-    if (typeof updateGlobalContextBubble === "function") updateGlobalContextBubble(enriched);
-  }
+  text.innerHTML = `
+    Export the report for <strong class="country-mention-highlight">${escapeHtml(row.country)}</strong>.
+    The PDF includes the country profile, readiness interpretation, planetary context, diagnostics,
+    comparison context, indicator source transparency, limitations, and APA 7 reuse note.
+  `;
+  button.textContent = `Download ${row.country} PDF report`;
+  button.disabled = false;
 }
 
-function applyFilters() {
-  const region = document.getElementById("regionFilter").value;
-  const search = document.getElementById("countrySearch").value.trim().toLowerCase();
-  const minSynergy = Number(document.getElementById("minSynergy").value);
-
-  state.scores = state.scores.map(enrichTheoryFields);
-
-  state.filtered = state.scores.filter(row => {
-    const regionMatch = region === "All" || row.region === region;
-    const searchMatch = !search || row.country.toLowerCase().includes(search);
-    const synergyMatch = row.overall_synergy >= minSynergy;
-    return regionMatch && searchMatch && synergyMatch;
-  });
-
-  syncSelectedCountryAfterFilter(search);
-updateSummary();
-  renderPlot();
-  updateTheoryVisibility();
-}
-
-function updateSummary() {
-  const rows = state.filtered;
-  const avg = key => rows.length ? average(rows.map(r => r[key])).toFixed(1) : "0.0";
-  document.getElementById("displayedCount").textContent = rows.length;
-  document.getElementById("avgIndividual").textContent = avg("individual_intelligence");
-  document.getElementById("avgCollective").textContent = avg("collective_intelligence");
-  document.getElementById("avgPlanetary").textContent = avg("planetary_intelligence");
-  document.getElementById("avgCompleteness").textContent = rows.length ? `${Math.round(average(rows.map(r => r.completeness)) * 100)}%` : "0%";
-}
-
-
-function dynamicAxisRange(rows, key, options = {}) {
-  const values = (rows || [])
-    .map(row => Number(row[key]))
-    .filter(Number.isFinite);
-
-  if (!values.length) return [0, 100];
-
-  const minValue = Math.min(...values);
-  const maxValue = Math.max(...values);
-  const spread = Math.max(1, maxValue - minValue);
-  const pad = Math.max(options.minPad || 6, spread * (options.padFraction || 0.18));
-
-  let low = Math.floor(Math.max(0, minValue - pad) / 5) * 5;
-  let high = Math.ceil(Math.min(100, maxValue + pad) / 5) * 5;
-
-  if (high - low < (options.minSpan || 25)) {
-    const mid = (low + high) / 2;
-    low = Math.max(0, Math.floor((mid - (options.minSpan || 25) / 2) / 5) * 5);
-    high = Math.min(100, Math.ceil((mid + (options.minSpan || 25) / 2) / 5) * 5);
-  }
-
-  if (high <= low) return [0, 100];
-
-  return [low, high];
-}
-
-function dynamicPlotRanges(rows) {
-  return {
-    x: dynamicAxisRange(rows, "individual_intelligence"),
-    y: dynamicAxisRange(rows, "collective_intelligence"),
-    z: dynamicAxisRange(rows, "planetary_intelligence")
-  };
-}
-
-function renderPlot() {
-  
-  const plotTarget = document.getElementById("plot");
-  if (!plotTarget) return;
-
-  if (!state.filtered || !state.filtered.length) {
-    plotTarget.innerHTML = `
-      <div class="warning-box">
-        No plottable country rows are available for the current data source or filters.
-        Try clearing filters. If this persists, the app should fall back to the fallback CSV.
-      </div>
-    `;
-    return;
-  }
-
-  const mode = document.getElementById("colourMode").value;
-  const rows = state.filtered;
-  let traces;
-
-  if (mode === "synergy") {
-    traces = [{
-      type: "scatter3d",
-      mode: "markers",
-      name: "Countries",
-      x: rows.map(r => r.individual_intelligence),
-      y: rows.map(r => r.collective_intelligence),
-      z: rows.map(r => r.planetary_intelligence),
-      text: rows.map(r => r.country),
-      customdata: rows,
-      marker: {
-        size: rows.map(r => Math.max(7, r.overall_synergy / 5.8)),
-        color: rows.map(r => r.overall_synergy),
-        colorscale: "Viridis",
-        showscale: true,
-        opacity: 0.9,
-        colorbar: { title: "Synergy" },
-        line: { width: 0.45, color: "#edf3ff" }
-      },
-      hovertemplate: hoverTemplate()
-    }];
-  } else {
-    const groupKey = mode === "region" ? "region" : "archetype";
-    const groups = [...new Set(rows.map(r => r[groupKey]))].sort();
-    traces = groups.map(group => {
-      const subset = rows.filter(r => r[groupKey] === group);
-      return {
-        type: "scatter3d",
-        mode: "markers",
-        name: group,
-        x: subset.map(r => r.individual_intelligence),
-        y: subset.map(r => r.collective_intelligence),
-        z: subset.map(r => r.planetary_intelligence),
-        text: subset.map(r => r.country),
-        customdata: subset,
-        marker: {
-          size: subset.map(r => Math.max(7, r.overall_synergy / 5.8)),
-          opacity: 0.9,
-          line: { width: 0.45, color: "#edf3ff" }
-        },
-        hovertemplate: hoverTemplate()
-      };
-    });
-  }
-
-  if (document.getElementById("showMaturityHalos")?.checked ?? false) {
-    traces.push(makeMaturityHaloTrace(rows));
-  }
-
-  if (document.getElementById("showLandingBars")?.checked ?? false) {
-    traces.push(makeDropLineTrace(rows));
-  }
-
-  const selectedLocatorTrace = makeSelectedLocatorTrace(state.selectedRow);
-  if (selectedLocatorTrace) {
-    traces.push(selectedLocatorTrace);
-  }
-
-  const showLandingBars = document.getElementById("showLandingBars")?.checked ?? true;
-  if (showLandingBars) {
-    traces.unshift(makeDropLineTrace(data));
-  }
-
-
-
-  const layout = {
-    margin: { l: 0, r: 0, t: 10, b: 0 },
-    paper_bgcolor: "rgba(0,0,0,0)",
-    plot_bgcolor: "rgba(0,0,0,0)",
-    legend: { font: { color: "#edf3ff" }, orientation: "h", x: 0.02, y: 0.98 },
-    scene: {
-      camera: state.camera,
-      xaxis: axisStyle("Individual intelligence"),
-      yaxis: axisStyle("Collective intelligence"),
-      zaxis: axisStyle("Planetary intelligence")
-    }
-  };
-
-  const config = { responsive: true, displaylogo: false };
-
-  Plotly.newPlot("plot", traces, layout, config).then(gd => {
-    gd.removeAllListeners("plotly_click");
-    gd.on("plotly_click", event => {
-      const point = event.points && event.points[0];
-      if (point && point.customdata && point.customdata.country) renderSelected(point.customdata);
-    });
-  });
-}
-
-function axisStyle(title) {
-  return {
-    title,
-    range: getPlotAxisRanges().x,
-    color: "#edf3ff",
-    gridcolor: "rgba(153,177,255,0.18)",
-    zerolinecolor: "rgba(153,177,255,0.25)",
-    backgroundcolor: "rgba(17,24,42,0.45)"
-  };
-}
-
-function hoverTemplate() {
-  return "<b>%{text}</b><br>" +
-    "Individual: %{x:.1f}<br>" +
-    "Collective: %{y:.1f}<br>" +
-    "Planetary: %{z:.1f}<br>" +
-    "Synergy: %{customdata.overall_synergy:.1f}<br>" +
-    "Readiness: %{customdata.maturity_state}<br>" +
-    "Mature gap: %{customdata.mature_technosphere_gap:.1f}<br>" +
-    "Archetype: %{customdata.archetype}<extra></extra>";
-}
-
-
-function sourceSummaryForExport(row) {
-  const detail = Array.isArray(row.detail) ? row.detail : [];
-  if (!detail.length) {
-    return [
-      `Data mode: ${row.data_status || state.dataMode || "Unknown"}`,
-      "Indicator detail: aggregate fallback only",
-      "Note: per-indicator source years are not available for this selected profile."
-    ].join("\n");
-  }
-
-  const used = detail.filter(sourceIndicatorUsed);
-  const missing = detail.length - used.length;
-  const latestYear = used
-    .map(d => Number(d.year))
-    .filter(Number.isFinite)
-    .sort((a, b) => b - a)[0];
-
-  return [
-    `Data mode: ${row.data_status || state.dataMode || "Unknown"}`,
-    `Indicators used: ${used.length} / ${detail.length}`,
-    `Missing indicators: ${missing}`,
-    `Latest source year: ${latestYear || "n/a"}`
-  ].join("\n");
-}
-
-function comparisonSummaryForExport(row) {
-  const displayedRows = (state.filtered || [])
-    .map(enrichTheoryFields)
-    .filter(r => Number.isFinite(r.overall_synergy));
-
-  const regionalRows = (state.scores || [])
-    .map(enrichTheoryFields)
-    .filter(r => r.region === row.region);
-
-  const topReadiness = [...(state.scores || []).map(enrichTheoryFields)]
-    .filter(r => Number.isFinite(r.mature_technosphere_gap))
-    .sort((a, b) => b.mature_technosphere_gap - a.mature_technosphere_gap)[0];
-
-  const displayedAvg = averageMetric(displayedRows, "mature_technosphere_gap");
-  const regionalAvg = averageMetric(regionalRows, "mature_technosphere_gap");
-
-  return [
-    `Displayed average readiness: ${Number.isFinite(displayedAvg) ? displayedAvg.toFixed(1) : "n/a"}`,
-    `${row.region || "Region"} average readiness: ${Number.isFinite(regionalAvg) ? regionalAvg.toFixed(1) : "n/a"}`,
-    `Top readiness in model: ${topReadiness ? `${topReadiness.country} (${topReadiness.mature_technosphere_gap.toFixed(1)})` : "n/a"}`
-  ].join("\n");
-}
-
-function selectedCountryProfileText(row) {
-  row = enrichTheoryFields(row);
-
-  return [
-    `Three Intelligences Explorer`,
-    `Selected country profile`,
-    ``,
-    `Country: ${row.country}`,
-    `Region: ${row.region || "n/a"}`,
-    `Readiness band: ${readinessStateLabel(row.maturity_state)}`,
-    `Readiness score: ${row.mature_technosphere_gap.toFixed(1)} / 100`,
-    ``,
-    `Core scores`,
-    `Individual intelligence: ${Number(row.individual_intelligence).toFixed(1)}`,
-    `Collective intelligence: ${Number(row.collective_intelligence).toFixed(1)}`,
-    `Planetary intelligence: ${Number(row.planetary_intelligence).toFixed(1)}`,
-    `Overall synergy: ${Number(row.overall_synergy).toFixed(1)}`,
-    `Ecological pressure: ${Number(row.ecological_pressure).toFixed(1)}`,
-    ``,
-    `Planetary-intelligence diagnostics`,
-    `Emergence: ${Number(row.emergence_score).toFixed(1)}`,
-    `Network information: ${Number(row.network_information_score).toFixed(1)}`,
-    `Semantic feedback: ${Number(row.semantic_feedback_score).toFixed(1)}`,
-    `Boundaries and signals: ${Number(row.boundary_signal_score).toFixed(1)}`,
-    `Autopoiesis: ${Number(row.autopoiesis_score).toFixed(1)}`,
-    ``,
-    `Comparison context`,
-    comparisonSummaryForExport(row),
-    ``,
-    `Source transparency`,
-    sourceSummaryForExport(row),
-    ``,
-    `Interpretation`,
-    row.maturity_interpretation || "n/a",
-    ``,
-    `Important note`,
-    `This is a prototype systems-readiness model using public proxy indicators. It is not a national intelligence ranking.`,
-    `Earth is treated as an immature technosphere overall; countries are scored for relative readiness within that global condition.`,
-    ``,
-    `Conceptual basis`,
-    `Frank, A., Grinspoon, D., & Walker, S. I. (2022). Intelligence as a planetary scale process. International Journal of Astrobiology, 21, 47–61. https://doi.org/10.1017/S147355042100029X`
-  ].join("\n");
-}
-
-async function copySelectedCountryProfile() {
-  if (!state.selectedRow || !state.selectedRow.country) return;
-  const text = selectedCountryProfileText(state.selectedRow);
-
-  try {
-    await navigator.clipboard.writeText(text);
-    flashExportStatus("Copied selected-country profile.");
-  } catch (error) {
-    console.warn("Clipboard copy failed", error);
-    flashExportStatus("Copy failed. Try download instead.");
-  }
-}
-
-function downloadSelectedCountryProfile() {
-  if (!state.selectedRow || !state.selectedRow.country) return;
-
-  const text = selectedCountryProfileText(state.selectedRow);
-  const safeCountry = String(state.selectedRow.country)
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
-  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = `three-intelligences-${safeCountry || "country"}-profile.txt`;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-
-  flashExportStatus("Downloaded selected-country profile.");
-}
-
-function flashExportStatus(message) {
-  const target = document.getElementById("exportStatus");
+function renderIndicatorHealthMap() {
+  const target = document.getElementById("liveIndicatorHeatmap");
   if (!target) return;
 
-  target.textContent = message;
-  target.classList.add("is-visible");
+  const loaded = new Map((state.report?.loaded || []).map(d => [d.code, d]));
+  const failed = new Map((state.report?.failed || []).map(d => [d.code, d]));
+  const isFallback = /fallback/i.test(state.dataMode);
 
-  window.clearTimeout(target.dataset.timer);
-  const timer = window.setTimeout(() => {
-    target.classList.remove("is-visible");
-  }, 2200);
-  target.dataset.timer = timer;
+  const cells = state.indicators.map(indicator => {
+    let status = "fallback";
+    let title = "Fallback mode active.";
+
+    if (!isFallback && loaded.has(indicator.code)) {
+      status = "live";
+      title = `${indicator.label}: available in current data snapshot.`;
+    } else if (!isFallback && failed.has(indicator.code)) {
+      status = "skipped";
+      title = describeIndicatorProblem(indicator);
+    }
+
+    return `<span class="indicator-health-cell ${status}" title="${escapeHtml(title)}">${escapeHtml((indicator.layer || "?").slice(0, 1).toUpperCase())}</span>`;
+  }).join("");
+
+  const summary = `${escapeHtml(state.dataMode)} · ${state.report?.values || 0} values · ${state.report?.countriesWithAnyValue || state.countries.length} countries`;
+
+  target.innerHTML = `
+    <div class="indicator-health-summary">${summary}</div>
+    <div class="indicator-health-grid">${cells}</div>
+    <div class="indicator-health-legend">
+      <span><i class="live"></i>live/snapshot</span>
+      <span><i class="skipped"></i>skipped</span>
+      <span><i class="fallback"></i>fallback</span>
+    </div>
+  `;
 }
 
-
-function safePdfText(value) {
-  return String(value ?? "")
-    .replace(/[–—]/g, "-")
-    .replace(/[“”]/g, '"')
-    .replace(/[‘’]/g, "'");
-}
-
-function pdfFilenameForCountry(country) {
-  const safeCountry = String(country || "country")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-
-  return `three-intelligences-${safeCountry || "country"}-report.pdf`;
-}
-
-function reportRowsForScores(row) {
-  return [
-    ["Readiness band", readinessStateLabel(row.maturity_state)],
-    ["Readiness score", `${row.mature_technosphere_gap.toFixed(1)} / 100`],
-    ["Individual intelligence", Number(row.individual_intelligence).toFixed(1)],
-    ["Collective intelligence", Number(row.collective_intelligence).toFixed(1)],
-    ["Planetary intelligence", Number(row.planetary_intelligence).toFixed(1)],
-    ["Overall synergy", Number(row.overall_synergy).toFixed(1)],
-    ["Ecological pressure", Number(row.ecological_pressure).toFixed(1)]
-  ];
-}
-
-function reportRowsForDiagnostics(row) {
-  return [
-    ["Emergence", Number(row.emergence_score).toFixed(1)],
-    ["Network information", Number(row.network_information_score).toFixed(1)],
-    ["Semantic feedback", Number(row.semantic_feedback_score).toFixed(1)],
-    ["Boundaries and signals", Number(row.boundary_signal_score).toFixed(1)],
-    ["Autopoiesis", Number(row.autopoiesis_score).toFixed(1)]
-  ];
-}
-
-function sourceRowsForPdf(row) {
-  const detail = Array.isArray(row.detail) ? row.detail : [];
-  if (!detail.length) {
-    return [["Fallback", "Aggregate profile", "n/a", "n/a", "No per-indicator detail"]];
+function describeIndicatorProblem(indicator) {
+  if (["GE.EST", "RL.EST", "CC.EST", "VA.EST", "RQ.EST"].includes(indicator.code)) {
+    return "Governance indicator unavailable in this snapshot route. The collective dimension is fallback-filled where needed and labelled.";
   }
 
-  return detail.map(d => [
-    d.layer || "n/a",
-    d.label || d.code || "Indicator",
-    d.code || "",
-    d.year || "n/a",
-    sourceIndicatorUsed(d) ? "Used" : "Missing"
-  ]);
+  return "Indicator unavailable in this data run. The model continues with available indicators and labels missing or fallback-filled parts.";
+}
+
+function downloadSelectedCountryPdfReport() {
+  const row = state.selectedRow ? enrichTheoryFields(state.selectedRow) : null;
+  if (!row) {
+    alert("Select a country first.");
+    return;
+  }
+
+  const jsPDFCtor = window.jspdf?.jsPDF;
+  if (!jsPDFCtor) {
+    openPrintableCountryReport(row);
+    return;
+  }
+
+  const doc = new jsPDFCtor({ orientation: "portrait", unit: "mm", format: "a4" });
+  const margin = 15;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const usableWidth = pageWidth - margin * 2;
+  let y = 16;
+
+  const colours = {
+    navy: [11, 18, 32],
+    panel: [20, 32, 52],
+    teal: [94, 234, 212],
+    red: [255, 90, 95],
+    muted: [96, 108, 132],
+    text: [28, 36, 52],
+    pale: [244, 248, 252]
+  };
+
+  const addPageIfNeeded = height => {
+    if (y + height > pageHeight - 20) {
+      doc.addPage();
+      y = 18;
+    }
+  };
+
+  const addSection = (title, subtitle = "") => {
+    addPageIfNeeded(20);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(13);
+    doc.setTextColor(...colours.navy);
+    doc.text(title, margin, y);
+    y += 5.5;
+
+    if (subtitle) {
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(8.5);
+      doc.setTextColor(...colours.muted);
+      const lines = doc.splitTextToSize(subtitle, usableWidth);
+      doc.text(lines, margin, y);
+      y += lines.length * 4.2 + 2;
+    }
+
+    doc.setDrawColor(60, 84, 120);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 6;
+  };
+
+  const addPara = text => {
+    addPageIfNeeded(14);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9.2);
+    doc.setTextColor(...colours.text);
+    const lines = doc.splitTextToSize(String(text), usableWidth);
+
+    lines.forEach(line => {
+      addPageIfNeeded(5);
+      doc.text(line, margin, y);
+      y += 4.5;
+    });
+
+    y += 2;
+  };
+
+  const addTable = options => {
+    doc.autoTable({
+      margin: { left: margin, right: margin },
+      styles: { font: "helvetica", fontSize: 8, cellPadding: 2.2 },
+      headStyles: { fillColor: colours.panel, textColor: [255, 255, 255], fontStyle: "bold" },
+      alternateRowStyles: { fillColor: [248, 251, 255] },
+      ...options
+    });
+    y = doc.lastAutoTable.finalY + 8;
+  };
+
+  const comparisonRows = plottableRows(state.filtered.length > 1 ? state.filtered : state.scores);
+  const displayedAverage = average(comparisonRows.map(r => Number(r.mature_technosphere_gap)));
+  const top = comparisonRows.slice().sort((a, b) => Number(b.mature_technosphere_gap) - Number(a.mature_technosphere_gap))[0];
+
+  doc.setFillColor(...colours.navy);
+  doc.rect(0, 0, pageWidth, 48, "F");
+  doc.setFillColor(...colours.teal);
+  doc.rect(0, 47, pageWidth, 1.2, "F");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(9);
+  doc.setTextColor(...colours.teal);
+  doc.text("EXPERIMENTAL SYSTEMS INTELLIGENCE", margin, 14);
+
+  doc.setFontSize(21);
+  doc.setTextColor(255, 255, 255);
+  doc.text("Three Intelligences Explorer", margin, 25);
+
+  doc.setFontSize(15);
+  doc.setTextColor(...colours.red);
+  doc.text(`${row.country} country report`, margin, 36);
+
+  y = 58;
+
+  addSection("Executive interpretation");
+  addPara(`${row.country} is classified as ${row.maturity_state} with a readiness score of ${formatNumber(row.mature_technosphere_gap)}/100 in this proxy model. This is a systems-readiness profile, not a national intelligence ranking.`);
+
+  addSection("1. Score summary", "Core scores for the selected country. All scores use a 0 to 100 proxy scale.");
+  addTable({
+    startY: y,
+    head: [["Metric", "Value", "Meaning"]],
+    body: [
+      ["Readiness score", `${formatNumber(row.mature_technosphere_gap)} / 100`, "Mature-technosphere readiness proxy"],
+      ["Readiness band", row.maturity_state, "Position inside the current immature global technosphere"],
+      ["Individual intelligence", `${formatNumber(row.individual_intelligence)} / 100`, "Human capability, education, health, and knowledge access"],
+      ["Collective intelligence", `${formatNumber(row.collective_intelligence)} / 100`, "Institutional coordination and governance"],
+      ["Planetary intelligence", `${formatNumber(row.planetary_intelligence)} / 100`, "Stewardship and Earth-system feedback capacity"],
+      ["Ecological pressure", `${formatNumber(row.ecological_pressure)} / 100`, "Pressure derived from negative planetary indicators where available"]
+    ]
+  });
+
+  addSection("2. Planetary-context interpretation");
+  addPara("Earth is treated here as an immature technosphere overall: humanity has planetary-scale technological effects, but not yet mature planetary self-regulation. Countries are scored as subsystems inside that condition.");
+  addPara(row.maturity_interpretation);
+
+  addSection("3. Diagnostics");
+  addTable({
+    startY: y,
+    head: [["Diagnostic", "Score", "Interpretation"]],
+    body: [
+      ["Emergence", formatNumber(row.emergence_score), "Capability arising above individual actors"],
+      ["Network information", formatNumber(row.network_information_score), "Institutional and informational connectivity"],
+      ["Semantic feedback", formatNumber(row.semantic_feedback_score), "Environmental signals becoming meaningful for action"],
+      ["Boundaries and signals", formatNumber(row.boundary_signal_score), "Planetary limits are detected and acted upon"],
+      ["Autopoiesis", formatNumber(row.autopoiesis_score), "Capacity to maintain long-term conditions of existence"]
+    ]
+  });
+
+  addSection("4. Comparison context");
+  addTable({
+    startY: y,
+    head: [["Context", "Value"]],
+    body: [
+      ["Displayed average readiness", formatNumber(displayedAverage)],
+      ["Top readiness country", top?.country || "n/a"],
+      ["Top readiness score", top ? formatNumber(top.mature_technosphere_gap) : "n/a"]
+    ]
+  });
+
+  addSection("5. Source transparency");
+  addPara(`Data mode: ${state.dataMode}. Indicator source: ${document.getElementById("dataSourceRoute")?.textContent || "n/a"}. Archived release DOI: 10.5281/zenodo.19633908.`);
+
+  addTable({
+    startY: y,
+    head: [["Layer", "Indicator", "Raw", "Score", "Year"]],
+    body: (row.detail || []).length
+      ? row.detail.map(d => [
+          d.layer || "n/a",
+          d.label || d.code || "n/a",
+          d.raw === null || d.raw === undefined ? "missing" : formatNumber(d.raw, 3),
+          d.score === null || d.score === undefined ? "missing" : formatNumber(d.score),
+          d.year || "n/a"
+        ])
+      : [["n/a", "Fallback dataset does not include per-indicator detail", "n/a", "n/a", "n/a"]],
+    styles: { fontSize: 7 }
+  });
+
+  addSection("6. Authorship, citation and reuse", "Academic reuse is welcome with attribution. Please cite this prototype using APA 7.");
+  addPara("This report was generated from the Three Intelligences Explorer prototype by André Baumann. The model logic, indicator choices, interpretation text, and report structure should be cited when reused, adapted, or discussed.");
+  addPara("Suggested APA 7 citation: Baumann, A. (2026). Three Intelligences Explorer [Interactive prototype]. Zenodo. https://doi.org/10.5281/zenodo.19633908");
+  addPara("Please do not present this report, the model design, or its explanatory text as your own unpublished work.");
+
+  addSection("7. Model limitations");
+  addPara("The model uses public proxy indicators. Proxy indicators are imperfect, country-level scores hide internal variation, and fallback-filled dimensions should be interpreted cautiously. Changing indicators, weights, thresholds, or transformations will change the results.");
+
+  const pages = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pages; i += 1) {
+    doc.setPage(i);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(7);
+    doc.setTextColor(...colours.muted);
+    doc.text("Three Intelligences Explorer · Prototype model · Not a ranking", margin, pageHeight - 8);
+    doc.text(`Page ${i} of ${pages}`, pageWidth - margin, pageHeight - 8, { align: "right" });
+  }
+
+  doc.save(reportFileName(row.country));
 }
 
 function openPrintableCountryReport(row) {
-  row = enrichTheoryFields(row);
-  const text = selectedCountryProfileText(row)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;");
-
-  const win = window.open("", "_blank", "noopener,noreferrer");
-  if (!win) {
-    flashExportStatus("Popup blocked. Try allowing popups or use .txt export.");
-    return;
-  }
+  const win = window.open("", "_blank");
+  if (!win) return;
 
   win.document.write(`
     <!doctype html>
     <html>
       <head>
-        <title>${safePdfText(row.country)} report</title>
+        <title>${escapeHtml(row.country)} report</title>
         <style>
-          body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; line-height: 1.5; padding: 2rem; }
-          pre { white-space: pre-wrap; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-          @media print { button { display: none; } }
+          body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.5; }
+          table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+          th, td { border-bottom: 1px solid #ddd; padding: 0.4rem; text-align: left; }
+          th { background: #f2f2f2; }
         </style>
       </head>
       <body>
-        <button onclick="window.print()">Print / save as PDF</button>
-        <pre>${text}</pre>
+        <h1>Three Intelligences Explorer: ${escapeHtml(row.country)}</h1>
+        <p>This is a reasoning instrument, not a definitive ranking.</p>
+        <p>${escapeHtml(row.maturity_interpretation || "")}</p>
+        <h2>Suggested APA 7 citation</h2>
+        <p>Baumann, A. (2026). <em>Three Intelligences Explorer</em> [Interactive prototype]. Zenodo. https://doi.org/10.5281/zenodo.19633908</p>
+        <script>window.print();</script>
       </body>
     </html>
   `);
   win.document.close();
-  flashExportStatus("Opened printable report window.");
 }
 
-function downloadSelectedCountryPDF() {
-  if (!state.selectedRow || !state.selectedRow.country) return;
-
-  const row = enrichTheoryFields(state.selectedRow);
-  const jsPDFBundle = window.jspdf;
-
-  if (!jsPDFBundle || !jsPDFBundle.jsPDF) {
-    openPrintableCountryReport(row);
-    return;
-  }
-
-  const { jsPDF } = jsPDFBundle;
-  const doc = new jsPDF({ unit: "pt", format: "a4" });
-
-  const margin = 44;
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-  const usableWidth = pageWidth - margin * 2;
-  let y = 44;
-
-  function ensureSpace(required = 80) {
-    if (y + required > pageHeight - margin) {
-      doc.addPage();
-      y = margin;
-    }
-  }
-
-  function addWrappedText(text, x, yStart, maxWidth, lineHeight = 12) {
-    const lines = doc.splitTextToSize(safePdfText(text), maxWidth);
-    doc.text(lines, x, yStart);
-    return yStart + lines.length * lineHeight;
-  }
-
-  function addSectionTitle(title) {
-    ensureSpace(34);
-    y += 14;
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(13);
-    doc.text(safePdfText(title), margin, y);
-    y += 10;
-    doc.setDrawColor(190, 200, 215);
-    doc.line(margin, y, pageWidth - margin, y);
-    y += 18;
-  }
-
-  function addTable(head, body, options = {}) {
-    ensureSpace(100);
-
-    if (typeof doc.autoTable === "function") {
-      doc.autoTable({
-        startY: y,
-        head,
-        body: body.map(row => row.map(safePdfText)),
-        margin: { left: margin, right: margin },
-        styles: {
-          font: "helvetica",
-          fontSize: 8.5,
-          cellPadding: 4,
-          overflow: "linebreak"
-        },
-        headStyles: {
-          fillColor: [25, 42, 62],
-          textColor: [255, 255, 255]
-        },
-        alternateRowStyles: {
-          fillColor: [245, 247, 250]
-        },
-        ...options
-      });
-      y = doc.lastAutoTable.finalY + 12;
-    } else {
-      body.forEach(row => {
-        ensureSpace(24);
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(9);
-        y = addWrappedText(row.join(" | "), margin, y, usableWidth, 11) + 4;
-      });
-    }
-  }
-
-  // Header
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(19);
-  doc.text("Three Intelligences Explorer", margin, y);
-  y += 22;
-
-  doc.setFontSize(15);
-  doc.text(`Selected country report: ${safePdfText(row.country)}`, margin, y);
-  y += 18;
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  y = addWrappedText(
-    "Prototype systems-readiness report. This is not a national intelligence ranking. Earth is treated as an immature technosphere overall; countries are scored for relative readiness within that global condition.",
-    margin,
-    y,
-    usableWidth,
-    12
-  );
-  y += 6;
-
-  addSectionTitle("Profile summary");
-  addTable(
-    [["Field", "Value"]],
-    [
-      ["Country", row.country],
-      ["Region", row.region || "n/a"],
-      ["Data status", row.data_status || state.dataMode || "Unknown"],
-      ...reportRowsForScores(row)
-    ],
-    { columnStyles: { 0: { cellWidth: 170 }, 1: { cellWidth: usableWidth - 170 } } }
-  );
-
-  addSectionTitle("Planetary-intelligence diagnostics");
-  addTable(
-    [["Diagnostic", "Score"]],
-    reportRowsForDiagnostics(row),
-    { columnStyles: { 0: { cellWidth: 230 }, 1: { cellWidth: usableWidth - 230 } } }
-  );
-
-  addSectionTitle("Comparison context");
-  const displayedRows = (state.filtered || []).map(enrichTheoryFields).filter(r => Number.isFinite(r.overall_synergy));
-  const regionalRows = (state.scores || []).map(enrichTheoryFields).filter(r => r.region === row.region);
-  const topReadiness = [...(state.scores || []).map(enrichTheoryFields)]
-    .filter(r => Number.isFinite(r.mature_technosphere_gap))
-    .sort((a, b) => b.mature_technosphere_gap - a.mature_technosphere_gap)[0];
-
-  const displayedAvg = averageMetric(displayedRows, "mature_technosphere_gap");
-  const regionalAvg = averageMetric(regionalRows, "mature_technosphere_gap");
-
-  addTable(
-    [["Comparison", "Value"]],
-    [
-      ["Displayed average readiness", Number.isFinite(displayedAvg) ? displayedAvg.toFixed(1) : "n/a"],
-      [`${row.region || "Region"} average readiness`, Number.isFinite(regionalAvg) ? regionalAvg.toFixed(1) : "n/a"],
-      ["Top readiness in model", topReadiness ? `${topReadiness.country} (${topReadiness.mature_technosphere_gap.toFixed(1)})` : "n/a"]
-    ],
-    { columnStyles: { 0: { cellWidth: 230 }, 1: { cellWidth: usableWidth - 230 } } }
-  );
-
-  addSectionTitle("Interpretation");
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  y = addWrappedText(row.maturity_interpretation || "n/a", margin, y, usableWidth, 12);
-  y += 8;
-
-  addSectionTitle("Source transparency summary");
-  const detail = Array.isArray(row.detail) ? row.detail : [];
-  const used = detail.filter(sourceIndicatorUsed);
-  const missing = detail.length ? detail.length - used.length : "n/a";
-  const latestYear = used
-    .map(d => Number(d.year))
-    .filter(Number.isFinite)
-    .sort((a, b) => b - a)[0];
-
-  addTable(
-    [["Field", "Value"]],
-    [
-      ["Data mode", row.data_status || state.dataMode || "Unknown"],
-      ["Indicators used", detail.length ? `${used.length} / ${detail.length}` : "Aggregate fallback only"],
-      ["Missing indicators", String(missing)],
-      ["Latest source year", latestYear || "n/a"]
-    ],
-    { columnStyles: { 0: { cellWidth: 170 }, 1: { cellWidth: usableWidth - 170 } } }
-  );
-
-  addSectionTitle("Indicator status");
-  addTable(
-    [["Layer", "Indicator", "Code", "Year", "Status"]],
-    sourceRowsForPdf(row),
-    {
-      styles: { fontSize: 7.5, cellPadding: 3 },
-      columnStyles: {
-        0: { cellWidth: 68 },
-        1: { cellWidth: 215 },
-        2: { cellWidth: 72 },
-        3: { cellWidth: 45 },
-        4: { cellWidth: 60 }
-      }
-    }
-  );
-
-  addSectionTitle("Conceptual basis");
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9.5);
-  y = addWrappedText(
-    "Frank, A., Grinspoon, D., & Walker, S. I. (2022). Intelligence as a planetary scale process. International Journal of Astrobiology, 21, 47-61. https://doi.org/10.1017/S147355042100029X",
-    margin,
-    y,
-    usableWidth,
-    11
-  );
-
-  // Footer page numbers
-  const totalPages = doc.internal.getNumberOfPages();
-  for (let i = 1; i <= totalPages; i++) {
-    doc.setPage(i);
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(8);
-    doc.setTextColor(110);
-    doc.text(`Three Intelligences Explorer - ${safePdfText(row.country)} - Page ${i} of ${totalPages}`, margin, pageHeight - 18);
-    doc.setTextColor(0);
-  }
-
-  doc.save(pdfFilenameForCountry(row.country));
-  flashExportStatus("Downloaded PDF report.");
+function reportFileName(country) {
+  return `three-intelligences-${String(country || "country").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}-report.pdf`;
 }
 
-function renderSelected(row) {
-  row = enrichTheoryFields(row);
-  state.selectedRow = row;
-  const detailRows = row.detail && row.detail.length
-    ? row.detail.map(d => `
-        <tr>
-          <td>${escapeHtml(d.layer)}</td>
-          <td>${escapeHtml(d.label)}</td>
-          <td>${d.raw === null ? "missing" : formatValue(d.raw)}</td>
-          <td>${d.score === null ? "missing" : d.score.toFixed(1)}</td>
-          <td>${d.year || "n/a"}</td>
-        </tr>
-      `).join("")
-    : `<tr><td colspan="5">Fallback mode has no live source-year detail.</td></tr>`;
-
-  document.getElementById("selectedCountry").innerHTML = `
-    <h3>${escapeHtml(row.country)}</h3>\n    <span class="locator-chip">Selected locator active in 3D plot</span>
-    <div class="selected-export-row">
-      <button type="button" class="mini-action-button" onclick="copySelectedCountryProfile()">Copy profile</button>
-      <button type="button" class="mini-action-button" onclick="downloadSelectedCountryProfile()">Download .txt</button>
-      <button type="button" class="mini-action-button pdf-action-button" onclick="downloadSelectedCountryPDF()">Download PDF</button>
-      <span id="exportStatus" class="export-status" aria-live="polite"></span>
-    </div>
-    <div class="profile-meta">
-      <span>${escapeHtml(row.region)}</span>
-      <span>${escapeHtml(row.archetype)}</span>
-      <span>${escapeHtml(row.data_status || state.dataMode)}</span>
-    </div>
-    <div class="score-grid">
-      <div class="score-card"><span>Individual</span><strong>${row.individual_intelligence.toFixed(1)}</strong></div>
-      <div class="score-card"><span>Collective</span><strong>${row.collective_intelligence.toFixed(1)}</strong></div>
-      <div class="score-card"><span>Planetary</span><strong>${row.planetary_intelligence.toFixed(1)}</strong></div>
-      <div class="score-card"><span>Synergy</span><strong>${row.overall_synergy.toFixed(1)}</strong></div>
-    </div>
-    ${renderTheoryBlock(row)}
-    <h4>Indicator detail</h4>
-    <table class="detail-table">
-      <thead><tr><th>Layer</th><th>Indicator</th><th>Raw value</th><th>Score</th><th>Year</th></tr></thead>
-      <tbody>${detailRows}</tbody>
-    </table>
-  `;
-  updateTheoryPanel(row);
-  renderTransitionLean(row);
-  renderPlot();
+function formatNumber(value, digits = 1) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n.toFixed(digits) : "n/a";
 }
 
-function renderIndicatorTable() {
-  const indicatorTarget = document.getElementById("indicatorTable");
-  if (!indicatorTarget) return;
-  const rows = state.indicators.map(i => `
-    <tr>
-      <td>${escapeHtml(i.layer)}</td>
-      <td><strong>${escapeHtml(i.label)}</strong><br><span class="muted small">${escapeHtml(i.code)}</span></td>
-      <td>${escapeHtml(i.direction)}</td>
-      <td>${Number(i.weight).toFixed(2)}</td>
-      <td>${escapeHtml(i.transform)}</td>
-      <td>${escapeHtml(i.notes)}</td>
-    </tr>
-  `).join("");
-
-  indicatorTarget.innerHTML = `
-    <table class="indicator-table">
-      <thead>
-        <tr><th>Layer</th><th>Indicator</th><th>Direction</th><th>Weight</th><th>Transform</th><th>Note</th></tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
+function formatSigned(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "n/a";
+  return n >= 0 ? `+${n.toFixed(1)}` : n.toFixed(1);
 }
 
-function formatValue(value) {
-  if (!Number.isFinite(value)) return "missing";
-  if (Math.abs(value) < 3) return value.toFixed(3);
-  return value.toFixed(2);
+function maturityClass(label) {
+  return String(label || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-function getNestedValue(obj, keys) { return keys.reduce((o, k) => o && o[k] !== undefined ? o[k] : undefined, obj); }
-function setNestedValue(obj, keys, value) {
-  let cursor = obj;
-  keys.slice(0, -1).forEach(k => {
-    if (!cursor[k]) cursor[k] = {};
-    cursor = cursor[k];
-  });
-  cursor[keys[keys.length - 1]] = value;
-}
-function escapeHtml(str) {
-  return String(str)
+function escapeHtml(value) {
+  return String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
-
-function renderIndicatorHealth(report, mode = "live") {
-  const target = document.getElementById("liveIndicatorHeatmap");
-  if (!target) return;
-
-  const indicators = state.indicators || [];
-  const loadedMap = new Map((report?.loaded || []).map(d => [d.code, d]));
-  const failedMap = new Map((report?.failed || []).map(d => [d.code, d]));
-
-  if (!indicators.length) {
-    target.innerHTML = `<span class="muted small">Indicator list not loaded.</span>`;
-    return;
-  }
-
-  const cells = indicators.map(indicator => {
-    const loaded = loadedMap.get(indicator.code);
-    const failed = failedMap.get(indicator.code);
-
-    let status = "unknown";
-    let label = "Not reported";
-    let detail = "";
-
-    if (mode === "fallback") {
-      status = "fallback";
-      label = "Fallback";
-      detail = "Fallback mode active";
-    } else if (loaded) {
-      status = "live";
-      label = "Live";
-      detail = `${loaded.usableRows || 0} usable rows`;
-    } else if (failed) {
-      status = "skipped";
-      label = "Skipped";
-      detail = describeIndicatorHealthStatus(indicator, failed, mode);
-    }
-
-    const layerInitial = String(indicator.layer || "?").slice(0, 1).toUpperCase();
-    const title = `${indicator.code} · ${indicator.label || "Indicator"} · ${label} · ${detail}`;
-
-    return `
-      <span
-        class="indicator-health-cell ${status}"
-        title="${escapeHtml(title)}"
-        aria-label="${escapeHtml(title)}">
-        ${escapeHtml(layerInitial)}
-      </span>
-    `;
-  }).join("");
-
-  const loadedCount = report?.loaded?.length || 0;
-  const total = report?.total || indicators.length;
-  const failedCount = report?.failed?.length || 0;
-  const valueCount = report?.values || 0;
-  const countryCount = report?.countriesWithAnyValue || 0;
-
-  let summary = "";
-        const sourceLabel = report && report.sourceLabel ? report.sourceLabel : null;
-
-if (mode === "fallback") {
-  summary = "Fallback mode · live indicators not used";
-} else if (sourceLabel) {
-  summary = `${sourceLabel} · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-} else if (failedCount) {
-  summary = `Partial live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-} else {
-  summary = `Live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-}
-
-  target.innerHTML = `
-    <div class="indicator-health-summary">${escapeHtml(summary)}</div>
-    <div class="indicator-health-grid">${cells}</div>
-    <div class="indicator-health-legend" aria-label="Indicator health legend">
-      <span><i class="live"></i>live</span>
-      <span><i class="skipped"></i>skipped</span>
-      <span><i class="fallback"></i>fallback</span>
-    </div>
-  `;
-}
-
-function deriveIndicatorHealthReportFromState() {
-  const indicators = state.indicators || [];
-  const rawValues = state.rawValues || {};
-  const isFallback = /fallback/i.test(String(state.dataMode || ""));
-
-  if (isFallback) {
-    return {
-      mode: "fallback",
-      total: indicators.length,
-      loaded: [],
-      failed: indicators.map(indicator => ({
-        code: indicator.code,
-        label: indicator.label,
-        layer: indicator.layer,
-        reason: "Fallback mode active"
-      })),
-      values: 0,
-      countriesWithAnyValue: 0
-    };
-  }
-
-  const loaded = [];
-  const failed = [];
-
-  for (const indicator of indicators) {
-    let usableValues = 0;
-
-    for (const countryValues of Object.values(rawValues)) {
-      if (countryValues && countryValues[indicator.code]) {
-        usableValues += 1;
-      }
-    }
-
-    if (usableValues > 0) {
-      loaded.push({
-        code: indicator.code,
-        label: indicator.label,
-        layer: indicator.layer,
-        usableRows: usableValues
-      });
-    } else {
-      failed.push({
-        code: indicator.code,
-        label: indicator.label,
-        layer: indicator.layer,
-        reason: "No usable value in current live state"
-      });
-    }
-  }
-
-  const values = Object.values(rawValues)
-    .reduce((sum, countryValues) => sum + Object.keys(countryValues || {}).length, 0);
-
-  const countriesWithAnyValue = Object.values(rawValues)
-    .filter(countryValues => Object.keys(countryValues || {}).length > 0)
-    .length;
-
-  return {
-    mode: failed.length ? "partial" : "live",
-    total: indicators.length,
-    loaded,
-    failed,
-    values,
-    countriesWithAnyValue
-  };
-}
-
-function refreshIndicatorHealthMap() {
-  updateDataProvenanceFromCurrentState();
-  const target = document.getElementById("liveIndicatorHeatmap");
-  if (!target) return;
-
-  const report = state.liveReport || deriveIndicatorHealthReportFromState();
-  const mode = report.mode || (/fallback/i.test(String(state.dataMode || "")) ? "fallback" : (report.failed && report.failed.length ? "partial" : "live"));
-
-  renderIndicatorHealthMap(report, mode);
-}
-
-function renderIndicatorHealthMap(report, mode = "live") {
-  const target = document.getElementById("liveIndicatorHeatmap");
-  if (!target) return;
-
-  const indicators = state.indicators || [];
-  const loadedMap = new Map((report && report.loaded ? report.loaded : []).map(d => [d.code, d]));
-  const failedMap = new Map((report && report.failed ? report.failed : []).map(d => [d.code, d]));
-
-  if (!indicators.length) {
-    target.innerHTML = `<span class="muted small">Indicator list not loaded.</span>`;
-    return;
-  }
-
-  const cells = indicators.map(indicator => {
-    const loaded = loadedMap.get(indicator.code);
-    const failed = failedMap.get(indicator.code);
-
-    let status = "unknown";
-    let label = "Not reported";
-    let detail = "";
-
-    if (mode === "fallback") {
-      status = "fallback";
-      label = "Fallback";
-      detail = "Fallback mode active";
-    } else if (loaded) {
-      status = "live";
-      label = "Live";
-      detail = `${loaded.usableRows || 0} usable values`;
-    } else if (failed) {
-      status = "skipped";
-      label = "Skipped";
-      detail = describeIndicatorHealthStatus(indicator, failed, mode);
-    }
-
-    const layerInitial = String(indicator.layer || "?").slice(0, 1).toUpperCase();
-    const title = `${indicator.code} · ${indicator.label || "Indicator"} · ${label} · ${detail}`;
-
-    return `
-      <span
-        class="indicator-health-cell ${status}"
-        title="${escapeHtml(title)}"
-        aria-label="${escapeHtml(title)}">
-        ${escapeHtml(layerInitial)}
-      </span>
-    `;
-  }).join("");
-
-  const loadedCount = report && report.loaded ? report.loaded.length : 0;
-  const total = report && report.total ? report.total : indicators.length;
-  const failedCount = report && report.failed ? report.failed.length : 0;
-  const valueCount = report && report.values ? report.values : 0;
-  const countryCount = report && report.countriesWithAnyValue ? report.countriesWithAnyValue : 0;
-
-  let summary = "";
-  if (mode === "fallback") {
-    summary = "Fallback mode · live indicators not used";
-  } else if (failedCount) {
-    summary = `Partial live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-  } else {
-    summary = `Live · ${loadedCount}/${total} indicators · ${valueCount} values · ${countryCount} countries`;
-  }
-
-  target.innerHTML = `
-    <div class="indicator-health-summary">${escapeHtml(summary)}</div>
-    <div class="indicator-health-grid">${cells}</div>
-    <div class="indicator-health-legend" aria-label="Indicator health legend">
-      <span><i class="live"></i>live</span>
-      <span><i class="skipped"></i>skipped</span>
-      <span><i class="fallback"></i>fallback</span>
-    </div>
-  `;
-}
-
-function formatDataDate(value) {
-  if (!value) return "Not available";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return String(value).slice(0, 10);
-  return date.toISOString().slice(0, 10);
-}
-
-function updateDataProvenanceFromCurrentState() {
-  const updatedTarget = document.getElementById("dataUpdated");
-  const sourceTarget = document.getElementById("dataSourceRoute");
-
-  const report = state.liveReport || null;
-  const modeText = String(state.dataMode || "");
-  const isFallback = /fallback/i.test(modeText);
-  const isSnapshot = /snapshot/i.test(modeText) || /snapshot/i.test(String(report?.mode || ""));
-  const isLive = /live/i.test(modeText) || /live/i.test(String(report?.mode || ""));
-
-  let updated = "Not available";
-  let source = "World Bank API snapshot + fallback safety net";
-
-  if (isFallback) {
-    updated = "Not applicable";
-    source = "Illustrative fallback CSV";
-  } else if (isSnapshot) {
-    updated = formatDataDate(report?.generated_at || report?.generatedAt || report?.meta?.generated_at);
-    source = state.hybridFallback ? "World Bank API snapshot + fallback-filled missing dimensions" : "World Bank API snapshot";
-  } else if (isLive) {
-    updated = "Fetched in browser session";
-    source = state.hybridFallback ? "World Bank API live fetch + fallback-filled missing dimensions" : "World Bank API live fetch";
-  }
-
-  if (updatedTarget) updatedTarget.textContent = updated;
-  if (sourceTarget) sourceTarget.textContent = source;
-}
-
-/* No-op country highlighter overrides.
-   The previous observer-based text highlighter caused visible flicker by repeatedly
-   rewriting DOM text nodes. Country names are now highlighted only where templates
-   explicitly add .country-mention-highlight. */
-function installCountryMentionHighlighter() {}
-function observeCountryMentionChanges() {}
-function scheduleCountryMentionHighlight() {}
-function highlightSelectedCountryMentions() {}
