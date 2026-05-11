@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-05-10T07:34:55+00:00",
+  "generated_at": "2026-05-11T08:36:43+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 2,
-  "links_seen": 4699,
+  "links_seen": 4700,
   "funding_like_links": 482,
   "candidate_fetches": 300,
   "pending_review_count": 82,
   "status_counts": {
     "pending_review": 82,
-    "suppressed_non_actionable": 68,
+    "suppressed_non_actionable": 67,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 15,
     "suppressed_stale": 7,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 61
+    "suppressed_generic_page": 6,
+    "suppressed_fetch_error": 56
   },
   "candidate_type_counts": {
-    "recurring_programme": 97,
-    "funding_call": 38,
+    "recurring_programme": 98,
+    "funding_call": 36,
     "scholarship": 29,
-    "generic_funding_hub": 7,
+    "generic_funding_hub": 8,
     "tender": 12,
-    "unknown": 61
+    "unknown": 56
   },
   "seeds": [
     {
@@ -125,7 +125,7 @@
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 133,
+      "links_seen": 134,
       "funding_like_links": 45,
       "candidates_fetched": 45
     },
