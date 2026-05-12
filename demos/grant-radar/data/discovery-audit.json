@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-05-11T08:36:43+00:00",
+  "generated_at": "2026-05-12T08:05:01+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 2,
-  "links_seen": 4700,
+  "links_seen": 4704,
   "funding_like_links": 482,
   "candidate_fetches": 300,
-  "pending_review_count": 82,
+  "pending_review_count": 84,
   "status_counts": {
-    "pending_review": 82,
-    "suppressed_non_actionable": 67,
+    "pending_review": 84,
+    "suppressed_non_actionable": 68,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 15,
     "suppressed_stale": 7,
     "suppressed_generic_page": 6,
-    "suppressed_fetch_error": 56
+    "suppressed_fetch_error": 45
   },
   "candidate_type_counts": {
     "recurring_programme": 98,
-    "funding_call": 36,
+    "funding_call": 39,
     "scholarship": 29,
     "generic_funding_hub": 8,
     "tender": 12,
-    "unknown": 56
+    "unknown": 45
   },
   "seeds": [
     {
@@ -115,7 +115,7 @@
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 120,
+      "links_seen": 121,
       "funding_like_links": 48,
       "candidates_fetched": 48
     },
@@ -235,7 +235,7 @@
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 94,
+      "links_seen": 95,
       "funding_like_links": 33,
       "candidates_fetched": 0
     },
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 154,
+      "links_seen": 155,
       "funding_like_links": 1,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 154,
+      "links_seen": 155,
       "funding_like_links": 1,
       "candidates_fetched": 0
     }
