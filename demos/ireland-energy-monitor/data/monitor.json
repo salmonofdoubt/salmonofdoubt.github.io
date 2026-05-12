@@ -1,7 +1,7 @@
 {
   "meta": {
     "project": "Ireland Energy Monitor",
-    "generated_at": "2026-05-12T14:31:25+00:00",
+    "generated_at": "2026-05-12T14:33:40+00:00",
     "timezone": "Europe/Dublin",
     "mode": "Generated static dataset with EirGrid harvester",
     "confidence": "Medium",
@@ -223,7 +223,7 @@
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-12T14:31:24+00:00",
+    "harvested_at": "2026-05-12T14:33:36+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -270,7 +270,7 @@
   "county_hosting": {
     "title": "County Hosting Index",
     "mode": "schematic-scaffold",
-    "generated_at": "2026-05-12T14:31:25+00:00",
+    "generated_at": "2026-05-12T14:33:40+00:00",
     "source": "SEAI Renewable Electricity County Dashboard",
     "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
     "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km\u00b2 and population-density normalisation.",
