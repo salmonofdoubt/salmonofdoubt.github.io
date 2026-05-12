@@ -173,11 +173,11 @@ function renderPrices(data) {
   `).join("");
 }
 
-function renderGas(data) {
-  text("gasSignal", data.gas.signal);
-  text("gasNarrative", data.gas.narrative);
+function renderResidual(data) {
+  text("residualSignal", data.gas.signal);
+  text("residualNarrative", data.gas.narrative);
 
-  const gauge = document.getElementById("gasGauge");
+  const gauge = document.getElementById("residualGauge");
   if (gauge) {
     gauge.style.setProperty("--value", `${Math.max(0, Math.min(100, data.gas.share_percent))}%`);
   }
@@ -224,7 +224,7 @@ async function init() {
     renderTruthMeter(data);
     renderTrajectory(data);
     renderPrices(data);
-    renderGas(data);
+    renderResidual(data);
     renderCounties(data);
   } catch (error) {
     console.error(error);

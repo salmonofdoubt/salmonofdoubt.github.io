@@ -1,7 +1,7 @@
 {
   "meta": {
     "project": "Ireland Energy Monitor",
-    "generated_at": "2026-05-12T13:49:27+00:00",
+    "generated_at": "2026-05-12T13:53:44+00:00",
     "timezone": "Europe/Dublin",
     "mode": "Generated static dataset with EirGrid harvester",
     "confidence": "Medium",
@@ -70,11 +70,11 @@
       "note": "Current renewable share is material, but the pathway to an 80% renewable electricity system by 2030 remains steep."
     },
     {
-      "name": "Gas dependency",
+      "name": "Residual supply",
       "status": "off",
-      "status_label": "Off track",
-      "value": "42%",
-      "note": "Gas remains structurally important in the electricity system, especially when wind output is low."
+      "status_label": "Unclassified",
+      "value": "High",
+      "note": "This is the unclassified remainder after detected wind, solar and imports. It should not be read as measured gas until a true fuel-mix source is wired."
     },
     {
       "name": "Grid carbon intensity",
@@ -167,7 +167,7 @@
   "gas": {
     "share_percent": 40.3,
     "signal": "Residual supply estimate",
-    "narrative": "Residual supply is currently calculated as demand not covered by detected wind, solar and net imports. A later fuel-mix harvester should split this into gas, hydro, storage, coal/oil and other sources."
+    "narrative": "Residual supply is calculated as demand not covered by detected wind, solar and mapped net imports. It is not measured gas. A later fuel-mix harvester should split this into gas, hydro, storage, coal/oil and other sources."
   },
   "counties": [
     {

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#06281f" />
   <title>Ireland Energy Monitor | Open transition truth meter</title>
-  <meta name="description" content="An open civic dashboard tracking Ireland's electricity mix, energy pressure, gas dependency, renewable build-out, and 2030 transition trajectory." />
+  <meta name="description" content="An open civic dashboard tracking Ireland's electricity mix, energy pressure, residual supply, renewable build-out, and 2030 transition trajectory." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -29,7 +29,7 @@
         </p>
         <p class="hero-copy">
           This is a prototype for a ZEIT-style Irish energy transition monitor. It does not merely show a grid mix.
-          It turns fragmented public data into a daily civic signal: electricity, carbon, prices, gas dependency,
+          It turns fragmented public data into a daily civic signal: electricity, carbon, prices, residual supply,
           renewable build-out, counties, and 2030 target drift.
         </p>
         <div class="hero-actions">
@@ -228,11 +228,11 @@
 
         <article class="panel">
           <div class="panel-head">
-            <h3>Gas dependency signal</h3>
-            <span class="pill danger" id="gasSignal">—</span>
+            <h3>Residual supply signal</h3>
+            <span class="pill danger" id="residualSignal">—</span>
           </div>
-          <p id="gasNarrative">—</p>
-          <div class="gauge" id="gasGauge"></div>
+          <p id="residualNarrative">—</p>
+          <div class="gauge" id="residualGauge"></div>
         </article>
       </div>
     </section>

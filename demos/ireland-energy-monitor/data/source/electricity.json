@@ -45,7 +45,7 @@
   "gas": {
     "share_percent": 40.3,
     "signal": "Residual supply estimate",
-    "narrative": "Residual supply is currently calculated as demand not covered by detected wind, solar and net imports. A later fuel-mix harvester should split this into gas, hydro, storage, coal/oil and other sources."
+    "narrative": "Residual supply is calculated as demand not covered by detected wind, solar and mapped net imports. It is not measured gas. A later fuel-mix harvester should split this into gas, hydro, storage, coal/oil and other sources."
   },
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",

@@ -8,11 +8,11 @@
       "note": "Current renewable share is material, but the pathway to an 80% renewable electricity system by 2030 remains steep."
     },
     {
-      "name": "Gas dependency",
+      "name": "Residual supply",
       "status": "off",
-      "status_label": "Off track",
-      "value": "42%",
-      "note": "Gas remains structurally important in the electricity system, especially when wind output is low."
+      "status_label": "Unclassified",
+      "value": "High",
+      "note": "This is the unclassified remainder after detected wind, solar and imports. It should not be read as measured gas until a true fuel-mix source is wired."
     },
     {
       "name": "Grid carbon intensity",
