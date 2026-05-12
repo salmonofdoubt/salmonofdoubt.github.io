@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#06281f" />
+  <title>Ireland Energy Monitor | Open transition truth meter</title>
+  <meta name="description" content="An open civic dashboard tracking Ireland's electricity mix, energy pressure, gas dependency, renewable build-out, and 2030 transition trajectory." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="back-link" href="../">← Back to Demos</a>
+
+  <header class="hero">
+    <nav class="topbar" aria-label="Project navigation">
+      <a href="#today">Today</a>
+      <a href="#truth-meter">Truth meter</a>
+      <a href="#prices">Prices</a>
+      <a href="#counties">Counties</a>
+      <a href="#method">Method</a>
+    </nav>
+
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">Ireland · Open data · Daily accountability</p>
+        <h1>Ireland Energy Monitor</h1>
+        <p class="lead">
+          What powers Ireland, what it costs, and whether the transition is moving fast enough.
+        </p>
+        <p class="hero-copy">
+          This is a prototype for a ZEIT-style Irish energy transition monitor. It does not merely show a grid mix.
+          It turns fragmented public data into a daily civic signal: electricity, carbon, prices, gas dependency,
+          renewable build-out, counties, and 2030 target drift.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#truth-meter">Open the truth meter</a>
+          <a class="button" href="#method">Inspect method</a>
+        </div>
+      </section>
+
+      <aside class="status-card">
+        <span class="status-label">Current prototype status</span>
+        <strong id="projectStatus">Loading data model</strong>
+        <p id="projectStatusText">Reading local static JSON. Live harvesters can replace this data layer without redesigning the site.</p>
+        <dl class="mini-meta">
+          <div><dt>Mode</dt><dd id="dataMode">Prototype</dd></div>
+          <div><dt>Updated</dt><dd id="updatedAt">—</dd></div>
+          <div><dt>Confidence</dt><dd id="confidence">—</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="today" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Electricity now</p>
+        <h2>What powered Ireland today?</h2>
+        <p>
+          A compact public readout of the grid: renewables, gas, interconnection and carbon intensity.
+          Values in this prototype are illustrative placeholders wired through a real data model.
+        </p>
+      </div>
+
+      <div class="metric-grid" id="metricGrid" aria-live="polite"></div>
+
+      <div class="dashboard-grid">
+        <article class="panel wide">
+          <div class="panel-head">
+            <h3>Last 24 hours fuel mix</h3>
+            <span class="pill" id="dominantFuel">—</span>
+          </div>
+          <div class="stacked-bars" id="mixBars"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h3>Daily interpretation</h3>
+            <span class="pill accent">Plain English</span>
+          </div>
+          <p class="big-quote" id="dailyHeadline">—</p>
+          <p id="dailyInterpretation">—</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="truth-meter" class="section truth-section">
+      <div class="section-head">
+        <p class="eyebrow">Novel layer</p>
+        <h2>Transition truth meter</h2>
+        <p>
+          The distinctive feature: each module compares present movement with the direction Ireland needs,
+          then labels the signal as on track, at risk, or off track. No vibes, just explicit logic.
+        </p>
+      </div>
+
+      <div class="truth-grid" id="truthGrid"></div>
+    </section>
+
+    <section class="section">
+      <div class="dashboard-grid">
+        <article class="panel wide">
+          <div class="panel-head">
+            <h3>2030 renewable electricity trajectory</h3>
+            <span class="pill warning" id="targetGap">—</span>
+          </div>
+          <div class="trajectory" id="trajectoryChart" role="img" aria-label="Renewable electricity trajectory chart"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h3>Gas dependency signal</h3>
+            <span class="pill danger" id="gasSignal">—</span>
+          </div>
+          <p id="gasNarrative">—</p>
+          <div class="gauge" id="gasGauge"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="prices" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Household pressure</p>
+        <h2>What does energy cost?</h2>
+        <p>
+          A civic affordability lens: electricity, gas and liquid fuels should sit beside grid data, because the
+          transition succeeds only if households can live through it.
+        </p>
+      </div>
+
+      <div class="price-grid" id="priceGrid"></div>
+    </section>
+
+    <section id="counties" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Spatial justice</p>
+        <h2>Who hosts the renewable transition?</h2>
+        <p>
+          County-level renewable production can expose an Irish transition geography: where infrastructure is hosted,
+          where production is concentrated, and where the public conversation should be more honest.
+        </p>
+      </div>
+
+      <div class="county-layout">
+        <article class="panel">
+          <h3>County renewable signal</h3>
+          <div class="county-list" id="countyList"></div>
+        </article>
+        <article class="panel wide">
+          <h3>Why this is novel</h3>
+          <p>
+            Official dashboards usually report sectors separately. This monitor joins the dots: live system conditions,
+            price pressure, 2030 target drift and county hosting of renewable production. That creates accountability,
+            not just visualisation.
+          </p>
+          <div class="novelty-list">
+            <div><strong>Daily story</strong><span>Automatic public interpretation.</span></div>
+            <div><strong>Target drift</strong><span>Current path versus 2030 requirement.</span></div>
+            <div><strong>Energy pressure</strong><span>Prices shown beside transition metrics.</span></div>
+            <div><strong>Spatial fairness</strong><span>County production and hosting lens.</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="method" class="section method-section">
+      <div class="section-head">
+        <p class="eyebrow">Transparent by design</p>
+        <h2>Data pipeline and caveats</h2>
+        <p>
+          Version 0.1 uses local static JSON to prove the product. The intended production version harvests
+          EirGrid, SEAI, CSO and Gas Networks Ireland data through GitHub Actions, normalises them to stable JSON,
+          and publishes the result as a fast static site.
+        </p>
+      </div>
+
+      <div class="method-grid">
+        <article class="panel">
+          <h3>Planned sources</h3>
+          <ul>
+            <li>EirGrid real-time system information and system reports</li>
+            <li>SEAI energy statistics, prices and renewable electricity data</li>
+            <li>CSO transport and household indicators</li>
+            <li>Gas Networks Ireland demand and gas-system reporting</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Publication logic</h3>
+          <ul>
+            <li>GitHub Actions harvests and validates source data</li>
+            <li>Static JSON is committed with timestamped metadata</li>
+            <li>The browser reads only local files for speed and resilience</li>
+            <li>Every status label has explicit threshold logic</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Important caveat</h3>
+          <p>
+            Real-time electricity data are provisional and can omit small embedded generation. The site must always
+            distinguish measured grid generation from the whole Irish energy system.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Ireland Energy Monitor · open civic prototype · built for GitHub Pages</p>
+    <p class="small">Not another grid chart. A daily truth meter for Ireland’s energy transition.</p>
+  </footer>
+
+  <script src="app.js" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
+</body>
+</html>
