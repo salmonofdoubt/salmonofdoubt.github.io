@@ -30,36 +30,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r demos/ireland-energy-monitor/ops/requirements.txt
 
-      - name: Harvest EirGrid data
+      - name: Run Energy Monitor pipeline
         run: |
           cd demos/ireland-energy-monitor
-          python ops/harvest_eirgrid.py
-
-      - name: Harvest EirGrid CO2 intensity
-        run: |
-          cd demos/ireland-energy-monitor
-          python ops/harvest_eirgrid_co2.py
-
-      - name: Harvest SEAI price data
-        run: |
-          cd demos/ireland-energy-monitor
-          python ops/harvest_seai_prices.py
-
-      - name: Build target tracker
-        run: |
-          cd demos/ireland-energy-monitor
-          python ops/build_target_tracker.py
-
-      - name: Build or import county hosting index
-        run: |
-          cd demos/ireland-energy-monitor
-          python ops/harvest_seai_county_dashboard.py
-
-      - name: Build and validate monitor JSON
-        run: |
-          cd demos/ireland-energy-monitor
-          python ops/build_monitor.py
-          python ops/validate_monitor.py
+          python ops/run_pipeline.py
 
       - name: Commit generated monitor data
         run: |
