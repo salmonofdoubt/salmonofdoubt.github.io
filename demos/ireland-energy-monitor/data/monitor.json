@@ -1,7 +1,7 @@
 {
   "meta": {
     "project": "Ireland Energy Monitor",
-    "generated_at": "2026-05-12T14:03:34+00:00",
+    "generated_at": "2026-05-12T14:12:27+00:00",
     "timezone": "Europe/Dublin",
     "mode": "Generated static dataset with EirGrid harvester",
     "confidence": "Medium",
@@ -11,7 +11,9 @@
       "SEAI energy statistics and prices, planned",
       "SEAI renewable electricity county dashboard, planned",
       "CSO transport indicators, planned",
-      "Gas Networks Ireland gas demand reporting, planned"
+      "Gas Networks Ireland gas demand reporting, planned",
+      "SEAI Energy Price Trends page",
+      "SEAI official fallback price snapshot"
     ],
     "build": {
       "builder": "ops/build_monitor.py",
@@ -150,18 +152,34 @@
   "prices": [
     {
       "label": "Household electricity",
-      "value": "High",
-      "detail": "Track cents per kWh, EU comparison, and change from pre-crisis baseline."
+      "value": "31.72 c/kWh",
+      "detail": "Latest SEAI period 2025S1; up 1.13 c/kWh from previous period; 2.38 c/kWh above EU-27.",
+      "status": "mapped",
+      "period": "2025S1",
+      "ireland_c_per_kwh": 31.72,
+      "eu27_c_per_kwh": 29.34,
+      "change_c_per_kwh": 1.129999999999999,
+      "unit": "Euro cent/kWh",
+      "source": "SEAI Energy Price Trends"
     },
     {
       "label": "Household gas",
-      "value": "High",
-      "detail": "Track cents per kWh and seasonal pressure."
+      "value": "12.33 c/kWh",
+      "detail": "Latest SEAI period 2025S1; down 1.35 c/kWh from previous period; 0.65 c/kWh above EU-27.",
+      "status": "mapped",
+      "period": "2025S1",
+      "ireland_c_per_kwh": 12.33,
+      "eu27_c_per_kwh": 11.68,
+      "change_c_per_kwh": -1.3499999999999996,
+      "unit": "Euro cent/kWh",
+      "source": "SEAI Energy Price Trends"
     },
     {
       "label": "Transport fuels",
-      "value": "Volatile",
-      "detail": "Track petrol, diesel and the implied pressure on household mobility."
+      "value": "pending",
+      "detail": "Transport-fuel price layer not yet wired. Planned after electricity and gas.",
+      "status": "planned",
+      "source": "SEAI fuel price comparisons, planned"
     }
   ],
   "gas": {

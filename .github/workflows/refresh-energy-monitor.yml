@@ -35,6 +35,11 @@ jobs:
           cd demos/ireland-energy-monitor
           python ops/harvest_eirgrid.py
 
+      - name: Harvest SEAI price data
+        run: |
+          cd demos/ireland-energy-monitor
+          python ops/harvest_seai_prices.py
+
       - name: Build and validate monitor JSON
         run: |
           cd demos/ireland-energy-monitor
