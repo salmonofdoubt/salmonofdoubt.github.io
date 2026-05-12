@@ -1911,3 +1911,216 @@ main > .section:first-child {
     border-bottom: 0;
   }
 }
+
+/* v0.7 Editorial Pulse Layout: ZEIT-inspired, not copied */
+:root {
+  --editorial-bg: #070d0b;
+  --editorial-panel: rgba(255,255,255,0.018);
+  --editorial-line: rgba(255,255,255,0.16);
+  --editorial-muted: rgba(232,244,238,0.62);
+  --editorial-soft: rgba(232,244,238,0.82);
+}
+
+/* Global softening */
+body {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(69, 209, 125, 0.055), transparent 26rem),
+    var(--editorial-bg) !important;
+}
+
+.section {
+  margin-top: clamp(2.2rem, 5vw, 4.8rem);
+}
+
+/* Daily pulse becomes the real dashboard front */
+.pulse-section {
+  margin-top: 1.8rem !important;
+}
+
+.pulse-head {
+  max-width: 58rem;
+}
+
+.pulse-head h2 {
+  font-size: clamp(1.8rem, 4vw, 3.1rem);
+  letter-spacing: -0.055em;
+}
+
+.pulse-head p {
+  max-width: 44rem;
+  color: var(--editorial-muted);
+}
+
+/* Fine-line panel system */
+.pulse-grid {
+  margin-top: 1.2rem;
+  background: transparent !important;
+  border-top: 1px solid var(--editorial-line) !important;
+  border-bottom: 1px solid var(--editorial-line) !important;
+}
+
+.pulse-card {
+  border-right: 1px solid var(--editorial-line) !important;
+  background: transparent !important;
+  min-height: 12.2rem !important;
+  padding: 1.05rem 1.05rem 1rem !important;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.pulse-card:hover {
+  background: rgba(255,255,255,0.025) !important;
+  transform: translateY(-1px);
+}
+
+.pulse-card-top span {
+  color: var(--editorial-soft) !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.085em !important;
+  font-weight: 800 !important;
+}
+
+.pulse-card-top strong {
+  font-size: clamp(1.55rem, 2.2vw, 2.05rem) !important;
+  font-weight: 720 !important;
+  letter-spacing: -0.045em !important;
+  color: #e9f6ef !important;
+}
+
+.pulse-card-top strong small {
+  color: var(--editorial-muted) !important;
+  font-weight: 650 !important;
+}
+
+.pulse-card p {
+  color: var(--editorial-muted) !important;
+  font-size: 0.8rem !important;
+  line-height: 1.42 !important;
+}
+
+.pulse-sparkline polyline {
+  stroke-width: 1.75 !important;
+}
+
+.pulse-sparkline line {
+  stroke: rgba(255,255,255,0.11) !important;
+}
+
+/* Demote the old large card readout */
+#today .section-head h2 {
+  font-size: clamp(1.45rem, 2.6vw, 2.1rem) !important;
+}
+
+#today .section-head p {
+  max-width: 50rem;
+  color: var(--editorial-muted);
+}
+
+.metric-grid {
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  border-top: 1px solid var(--editorial-line);
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.metric-card {
+  border: 0 !important;
+  border-right: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  min-height: 8.8rem !important;
+  padding: 0.9rem 0.95rem !important;
+}
+
+.metric-card:last-child {
+  border-right: 0 !important;
+}
+
+.metric-card > span:first-child {
+  font-size: 0.66rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+.metric-card strong {
+  margin: 0.45rem 0 0.45rem !important;
+}
+
+.metric-number {
+  font-size: clamp(1.55rem, 2.2vw, 2.15rem) !important;
+  font-weight: 720 !important;
+}
+
+.metric-unit {
+  font-size: 0.82rem !important;
+}
+
+.metric-card small {
+  font-size: 0.74rem !important;
+  line-height: 1.34 !important;
+}
+
+/* Make heavy panels calmer */
+.panel {
+  background: rgba(255,255,255,0.025) !important;
+  border-color: rgba(255,255,255,0.13) !important;
+  box-shadow: none !important;
+}
+
+/* Target drift: less tombstone, more analytical */
+.target-drift-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  border-top: 1px solid var(--editorial-line);
+  border-bottom: 1px solid var(--editorial-line);
+  gap: 0 !important;
+}
+
+.target-drift-card {
+  border: 0 !important;
+  border-right: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0.95rem !important;
+}
+
+.target-drift-card:last-child {
+  border-right: 0 !important;
+}
+
+.target-drift-card::before {
+  display: none !important;
+}
+
+.target-number {
+  font-size: clamp(1.35rem, 2vw, 1.9rem) !important;
+}
+
+.target-unit {
+  font-size: 0.72rem !important;
+}
+
+/* Responsive repair */
+@media (max-width: 1180px) {
+  .metric-grid,
+  .target-drift-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .metric-card,
+  .target-drift-card {
+    border-bottom: 1px solid var(--editorial-line) !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .metric-grid,
+  .target-drift-grid,
+  .pulse-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .metric-card,
+  .target-drift-card,
+  .pulse-card {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--editorial-line) !important;
+  }
+}
