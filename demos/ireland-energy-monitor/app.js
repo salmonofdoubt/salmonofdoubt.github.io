@@ -15,9 +15,9 @@ function percent(value) {
   return `${Number(value).toFixed(0)}%`;
 }
 
-function metricCard(label, value, note) {
+function metricCard(label, value, note, className = "") {
   return `
-    <article class="metric-card">
+    <article class="metric-card ${className}">
       <span>${label}</span>
       <strong>${value}</strong>
       <small>${note}</small>
@@ -25,18 +25,35 @@ function metricCard(label, value, note) {
   `;
 }
 
+function isNumber(value) {
+  return Number.isFinite(Number(value));
+}
+
+function percentOrNA(value, available = true) {
+  if (!available || !isNumber(value)) return "n/a";
+  return `${Number(value).toFixed(0)}%`;
+}
+
+function co2OrNA(value, available = true) {
+  if (!available || !isNumber(value) || Number(value) <= 0) return "n/a";
+  return `${Number(value).toFixed(0)} g/kWh`;
+}
+
 function renderMetrics(data) {
-  const e = data.electricity_now;
+  const e = data.electricity_now || {};
   const target = document.getElementById("metricGrid");
   if (!target) return;
 
+  const importsAvailable = e.imports_available !== false;
+  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
+
   target.innerHTML = [
-    metricCard("Demand now", `${e.demand_mw.toLocaleString()} MW`, "Prototype current system demand"),
-    metricCard("Renewables", percent(e.renewables_percent), "Wind, solar, hydro and renewable share"),
-    metricCard("Wind", percent(e.wind_percent), "Main renewable electricity source"),
-    metricCard("Gas", percent(e.gas_percent), "Balancing and generation dependency"),
-    metricCard("Imports", percent(e.imports_percent), "Interconnector contribution"),
-    metricCard("CO₂ intensity", `${e.co2_g_per_kwh} g/kWh`, "Prototype carbon intensity")
+    metricCard("Demand now", `${Number(e.demand_mw || 0).toLocaleString()} MW`, "Latest mapped system demand"),
+    metricCard("Renewables", percentOrNA(e.renewables_percent), "Detected wind and solar share"),
+    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation"),
+    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remaining supply"),
+    metricCard("Imports", percentOrNA(e.imports_percent, importsAvailable), importsAvailable ? "Mapped interconnector contribution" : "Not mapped in current source", importsAvailable ? "" : "missing"),
+    metricCard("CO₂ intensity", co2OrNA(e.co2_g_per_kwh, co2Available), co2Available ? "Mapped carbon intensity" : "Not mapped in current source", co2Available ? "" : "missing")
   ].join("");
 }
 
@@ -44,18 +61,27 @@ function renderMix(data) {
   const target = document.getElementById("mixBars");
   if (!target) return;
 
-  const dominant = [...data.fuel_mix_24h].sort((a, b) => b.percent - a.percent)[0];
-  text("dominantFuel", dominant ? `${dominant.label} dominant` : "No data");
+  const rows = data.fuel_mix_24h || [];
+  const availableRows = rows.filter(item => item.available !== false);
+  const dominant = [...availableRows].sort((a, b) => b.percent - a.percent)[0];
 
-  target.innerHTML = data.fuel_mix_24h.map(item => `
-    <div class="mix-row ${item.class}">
-      <label>${item.label}</label>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:${Math.max(0, Math.min(100, item.percent))}%"></div>
+  text("dominantFuel", dominant ? `${dominant.label} dominant` : "No mapped data");
+
+  target.innerHTML = rows.map(item => {
+    const available = item.available !== false;
+    const width = available ? Math.max(0, Math.min(100, Number(item.percent || 0))) : 0;
+    const value = available ? percent(item.percent) : "n/a";
+
+    return `
+      <div class="mix-row ${item.class} ${available ? "" : "unavailable"}">
+        <label>${item.label}</label>
+        <div class="bar-track">
+          <div class="bar-fill" style="width:${width}%"></div>
+        </div>
+        <strong>${value}</strong>
       </div>
-      <strong>${percent(item.percent)}</strong>
-    </div>
-  `).join("");
+    `;
+  }).join("");
 }
 
 function truthClass(status) {

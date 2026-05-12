@@ -207,6 +207,17 @@ def extract_rows(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
             or choose_col(headers, ["import"], prefer=["net", "roi", "ireland"])
         )
 
+        # Some EirGrid sheets expose interconnectors as separate EWIC/Moyle/Greenlink columns
+        # rather than a single net-import column. Treat positive values as imports for now.
+        interconnector_component_cols = []
+        if import_col is None:
+            for idx, header in enumerate(headers):
+                h = norm(header)
+                if any(term in h for term in ("ewic", "moyle", "greenlink")) and not any(
+                    bad in h for bad in ("availability", "capacity", "forecast")
+                ):
+                    interconnector_component_cols.append(idx)
+
         if demand_col is None and wind_col is None and solar_col is None:
             continue
 
@@ -235,6 +246,18 @@ def extract_rows(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
             co2 = to_float(get(co2_col))
             imports = to_float(get(import_col))
 
+            if imports is None and interconnector_component_cols:
+                component_values = [
+                    to_float(get(idx))
+                    for idx in interconnector_component_cols
+                ]
+                positive_imports = [
+                    value for value in component_values
+                    if value is not None and value > 0
+                ]
+                if positive_imports:
+                    imports = sum(positive_imports)
+
             if demand is None and wind is None and solar is None:
                 continue
 
@@ -260,6 +283,10 @@ def extract_rows(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]]:
                     "solar": headers[solar_col] if solar_col is not None and solar_col < len(headers) else None,
                     "co2": headers[co2_col] if co2_col is not None and co2_col < len(headers) else None,
                     "imports": headers[import_col] if import_col is not None and import_col < len(headers) else None,
+                    "interconnector_components": [
+                        headers[idx] for idx in interconnector_component_cols
+                        if idx < len(headers)
+                    ],
                 },
                 "header_sample": headers[:20],
                 "row_count": len(rows),
@@ -292,18 +319,37 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
     demand_now = latest.get("demand_mw") or average([r.get("demand_mw") for r in window]) or 0
     wind_now = latest.get("wind_mw") or 0
     solar_now = latest.get("solar_mw") or 0
+    co2_values = [
+        r.get("co2_g_per_kwh")
+        for r in window
+        if r.get("co2_g_per_kwh") is not None
+    ]
+    imports_values = [
+        r.get("imports_mw")
+        for r in window
+        if r.get("imports_mw") is not None
+    ]
+
+    co2_available = bool(co2_values)
+    imports_available = bool(imports_values)
+
     co2_now = latest.get("co2_g_per_kwh")
-    imports_now = latest.get("imports_mw") or 0
+    if co2_now is None and co2_available:
+        co2_now = average(co2_values)
+
+    imports_now = latest.get("imports_mw")
+    if imports_now is None:
+        imports_now = 0
 
     wind_pct_now = pct(wind_now, demand_now)
     solar_pct_now = pct(solar_now, demand_now)
-    imports_pct_now = pct(max(imports_now, 0), demand_now)
+    imports_pct_now = pct(max(imports_now, 0), demand_now) if imports_available else 0
     renewables_pct_now = max(0, min(100, wind_pct_now + solar_pct_now))
 
     avg_demand = average([r.get("demand_mw") for r in window]) or demand_now
     avg_wind = average([r.get("wind_mw") for r in window]) or wind_now
     avg_solar = average([r.get("solar_mw") for r in window]) or solar_now
-    avg_imports = average([max(r.get("imports_mw") or 0, 0) for r in window]) or max(imports_now, 0)
+    avg_imports = average([max(v, 0) for v in imports_values]) if imports_available else 0
 
     wind_pct_24h = pct(avg_wind, avg_demand)
     solar_pct_24h = pct(avg_solar, avg_demand)
@@ -314,10 +360,10 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
     residual_pct_now = max(0, min(100, 100 - wind_pct_now - solar_pct_now - imports_pct_now))
 
     fuel_mix = [
-        {"label": "Wind", "class": "wind", "percent": round(wind_pct_24h, 1)},
-        {"label": "Solar", "class": "solar", "percent": round(solar_pct_24h, 1)},
-        {"label": "Imports", "class": "imports", "percent": round(imports_pct_24h, 1)},
-        {"label": "Residual", "class": "other", "percent": round(residual_pct_24h, 1)},
+        {"label": "Wind", "class": "wind", "percent": round(wind_pct_24h, 1), "available": True},
+        {"label": "Solar", "class": "solar", "percent": round(solar_pct_24h, 1), "available": True},
+        {"label": "Imports", "class": "imports", "percent": round(imports_pct_24h, 1), "available": imports_available},
+        {"label": "Residual", "class": "other", "percent": round(residual_pct_24h, 1), "available": True},
     ]
 
     # Correct small rounding drift to keep validator happy.
@@ -343,8 +389,12 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
             "wind_percent": round(wind_pct_now, 1),
             "solar_percent": round(solar_pct_now, 1),
             "gas_percent": round(residual_pct_now, 1),
+            "residual_percent": round(residual_pct_now, 1),
             "imports_percent": round(imports_pct_now, 1),
-            "co2_g_per_kwh": round(co2_now, 1) if co2_now is not None else 0,
+            "imports_available": imports_available,
+            "co2_g_per_kwh": round(co2_now, 1) if co2_available and co2_now is not None else None,
+            "co2_available": co2_available,
+            "gas_is_residual_proxy": True,
         },
         "fuel_mix_24h": fuel_mix,
         "daily_story": {

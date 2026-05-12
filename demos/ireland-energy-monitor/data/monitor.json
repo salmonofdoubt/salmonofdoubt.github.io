@@ -1,7 +1,7 @@
 {
   "meta": {
     "project": "Ireland Energy Monitor",
-    "generated_at": "2026-05-12T13:16:12+00:00",
+    "generated_at": "2026-05-12T13:44:37+00:00",
     "timezone": "Europe/Dublin",
     "mode": "Generated static dataset with EirGrid harvester",
     "confidence": "Medium",
@@ -23,30 +23,38 @@
     "renewables_percent": 27.6,
     "wind_percent": 27.6,
     "solar_percent": 0.0,
-    "gas_percent": 72.4,
-    "imports_percent": 0.0,
-    "co2_g_per_kwh": 0
+    "gas_percent": 40.3,
+    "residual_percent": 40.3,
+    "imports_percent": 32.0,
+    "imports_available": true,
+    "co2_g_per_kwh": null,
+    "co2_available": false,
+    "gas_is_residual_proxy": true
   },
   "fuel_mix_24h": [
     {
       "label": "Wind",
       "class": "wind",
-      "percent": 29.2
+      "percent": 29.2,
+      "available": true
     },
     {
       "label": "Solar",
       "class": "solar",
-      "percent": 3.5
+      "percent": 3.5,
+      "available": true
     },
     {
       "label": "Imports",
       "class": "imports",
-      "percent": 0.0
+      "percent": 24.3,
+      "available": true
     },
     {
       "label": "Residual",
       "class": "other",
-      "percent": 67.3
+      "percent": 43.0,
+      "available": true
     }
   ],
   "daily_story": {
@@ -157,7 +165,7 @@
     }
   ],
   "gas": {
-    "share_percent": 72.4,
+    "share_percent": 40.3,
     "signal": "Residual supply estimate",
     "narrative": "Residual supply is currently calculated as demand not covered by detected wind, solar and net imports. A later fuel-mix harvester should split this into gas, hydro, storage, coal/oil and other sources."
   },

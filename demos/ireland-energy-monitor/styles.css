@@ -1061,3 +1061,31 @@ main > .section:first-child {
     width: 100% !important;
   }
 }
+
+/* Data completeness repair */
+.metric-card.missing {
+  border-style: dashed;
+  opacity: 0.82;
+}
+
+.metric-card.missing strong {
+  color: var(--muted);
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+}
+
+.mix-row.unavailable {
+  opacity: 0.68;
+}
+
+.mix-row.unavailable .bar-track {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px dashed rgba(255,255,255,0.18);
+}
+
+.mix-row.unavailable .bar-fill {
+  width: 0 !important;
+}
+
+.mix-row.unavailable strong {
+  color: var(--muted);
+}
