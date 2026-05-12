@@ -3279,3 +3279,236 @@ h3 {
     font-size: 1.18rem;
   }
 }
+
+/* v0.12 Trajectory chart and KPI readability upgrade */
+.trajectory {
+  min-height: 300px !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.trajectory-svg-v2 {
+  width: 100%;
+  height: 300px;
+  display: block;
+  overflow: visible;
+}
+
+.trajectory-plot-bg {
+  fill: rgba(255,255,255,0.008);
+}
+
+.trajectory-grid-h,
+.trajectory-grid-v {
+  stroke: rgba(255,255,255,0.09);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.trajectory-grid-v {
+  stroke: rgba(255,255,255,0.055);
+}
+
+.trajectory-tick {
+  stroke: rgba(255,255,255,0.26);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.trajectory-axis-text,
+.trajectory-legend-text {
+  fill: rgba(237,247,241,0.7);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.trajectory-legend-text {
+  fill: rgba(237,247,241,0.74);
+}
+
+.trajectory-line-required,
+.trajectory-line-observed {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.trajectory-line-required {
+  stroke: var(--lime);
+  stroke-width: 2.35;
+  stroke-dasharray: 6 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trajectory-line-observed {
+  stroke: var(--blue);
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trajectory-dot {
+  vector-effect: non-scaling-stroke;
+}
+
+.target-dot {
+  fill: var(--lime);
+  stroke: #050908;
+  stroke-width: 1.4;
+}
+
+.actual-dot {
+  fill: var(--blue);
+  stroke: #050908;
+  stroke-width: 1.6;
+}
+
+/* KPI strip below trajectory */
+.trajectory-metrics {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  margin-top: 0.75rem;
+}
+
+.trajectory-metric {
+  min-height: 6.7rem;
+  padding: 0.85rem 0.75rem 0.9rem;
+  border-right: 1px solid rgba(255,255,255,0.13);
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  align-content: start;
+  background: transparent;
+}
+
+.trajectory-metric:last-child {
+  border-right: 0;
+}
+
+.trajectory-metric-label {
+  display: block;
+  color: rgba(237,247,241,0.72);
+  font-size: 0.61rem;
+  line-height: 1.12;
+  letter-spacing: 0.095em;
+  text-transform: uppercase;
+  font-weight: 860;
+  margin-bottom: 0.45rem;
+}
+
+.trajectory-metric-value {
+  color: #ffffff;
+  font-size: clamp(1.38rem, 2.2vw, 1.95rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  font-weight: 780;
+  margin-bottom: 0.35rem;
+  white-space: nowrap;
+}
+
+.trajectory-metric-value small {
+  margin-left: 0.18rem;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.58em;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-weight: 730;
+}
+
+.trajectory-metric-note {
+  color: rgba(237,247,241,0.66);
+  font-size: 0.73rem;
+  line-height: 1.25;
+  font-style: normal;
+}
+
+.trajectory-status-value {
+  color: #ffffff;
+  font-size: clamp(1.65rem, 2.6vw, 2.35rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  font-weight: 820;
+  margin-bottom: 0.35rem;
+}
+
+.trajectory-metric.off {
+  box-shadow: inset 3px 0 0 rgba(255,107,107,0.95);
+}
+
+.trajectory-metric.risk {
+  box-shadow: inset 3px 0 0 rgba(247,201,72,0.95);
+}
+
+.trajectory-metric.on {
+  box-shadow: inset 3px 0 0 rgba(73,209,125,0.95);
+}
+
+/* Keep older target-card rules from overpowering the new trajectory strip */
+.trajectory-metrics .target-drift-card,
+.trajectory-metrics .target-status-card {
+  all: unset;
+}
+
+@media (max-width: 1100px) {
+  .trajectory-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .trajectory-metric {
+    border-bottom: 1px solid rgba(255,255,255,0.13);
+  }
+
+  .trajectory-metric:nth-child(3n) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .trajectory {
+    min-height: 230px !important;
+  }
+
+  .trajectory-svg-v2 {
+    height: 230px;
+  }
+
+  .trajectory-axis-text,
+  .trajectory-legend-text {
+    font-size: 9px;
+  }
+
+  .trajectory-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .trajectory-metric {
+    min-height: 5.6rem;
+    padding: 0.68rem 0.62rem;
+  }
+
+  .trajectory-metric:nth-child(3n) {
+    border-right: 1px solid rgba(255,255,255,0.13);
+  }
+
+  .trajectory-metric:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .trajectory-metric-label {
+    font-size: 0.55rem;
+  }
+
+  .trajectory-metric-value {
+    font-size: 1.22rem;
+  }
+
+  .trajectory-status-value {
+    font-size: 1.45rem;
+  }
+
+  .trajectory-metric-note {
+    font-size: 0.64rem;
+  }
+}

@@ -1068,3 +1068,180 @@ function iemFeatureCentroid(feature, project) {
     (minY + maxY) / 2
   ]);
 }
+
+/* v0.12 trajectory chart and KPI readability upgrade */
+function iemFmt(value, digits = 1) {
+  if (!isNumber(value)) return "n/a";
+  return Number(value).toFixed(digits);
+}
+
+function iemTrajectoryMetric(label, value, unit, note, tone = "") {
+  return `
+    <article class="trajectory-metric ${tone}">
+      <span class="trajectory-metric-label">${escapeHtml(label)}</span>
+      <strong class="trajectory-metric-value">
+        ${escapeHtml(value)}${unit ? `<small>${escapeHtml(unit)}</small>` : ""}
+      </strong>
+      <em class="trajectory-metric-note">${escapeHtml(note || "")}</em>
+    </article>
+  `;
+}
+
+function renderTrajectory(data) {
+  const target = document.getElementById("trajectoryChart");
+  if (!target) return;
+
+  const rows = data.target_trajectory || [];
+  if (!rows.length) return;
+
+  const width = 920;
+  const height = 330;
+  const plotLeft = 56;
+  const plotRight = 26;
+  const plotTop = 26;
+  const plotBottom = 42;
+  const plotWidth = width - plotLeft - plotRight;
+  const plotHeight = height - plotTop - plotBottom;
+
+  const startYear = Math.min(...rows.map(d => Number(d.year)).filter(isNumber));
+  const endYear = Math.max(...rows.map(d => Number(d.year)).filter(isNumber));
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+
+  const yMin = 20;
+  const yMax = 85;
+  const yTicks = [20, 35, 50, 65, 80];
+
+  const x = year => plotLeft + ((Number(year) - startYear) / (endYear - startYear)) * plotWidth;
+  const y = value => plotTop + (1 - ((Number(value) - yMin) / (yMax - yMin))) * plotHeight;
+
+  const pathFrom = (items, key) => items
+    .filter(d => d[key] !== null && isNumber(d[key]))
+    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
+    .join(" ");
+
+  const targetPath = pathFrom(rows, "target");
+  const actualRows = rows.filter(d => d.actual !== null && isNumber(d.actual));
+  const actualPath = pathFrom(actualRows, "actual");
+
+  const latest = actualRows[actualRows.length - 1];
+  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
+  const gap = sameYear && isNumber(sameYear.target) && isNumber(latest.actual)
+    ? Number(sameYear.target) - Number(latest.actual)
+    : null;
+
+  if (isNumber(gap)) {
+    text("targetGap", `${gap.toFixed(0)} point gap`);
+  }
+
+  const verticalGrid = years.map(year => {
+    const xx = x(year);
+    const label = year % 2 === 0 || year === startYear || year === endYear;
+    return `
+      <line class="trajectory-grid-v" x1="${xx}" y1="${plotTop}" x2="${xx}" y2="${plotTop + plotHeight}"></line>
+      <line class="trajectory-tick" x1="${xx}" y1="${plotTop + plotHeight}" x2="${xx}" y2="${plotTop + plotHeight + 5}"></line>
+      ${label ? `<text class="trajectory-axis-text" x="${xx}" y="${plotTop + plotHeight + 23}" text-anchor="middle">${year}</text>` : ""}
+    `;
+  }).join("");
+
+  const horizontalGrid = yTicks.map(tick => {
+    const yy = y(tick);
+    return `
+      <line class="trajectory-grid-h" x1="${plotLeft}" y1="${yy}" x2="${plotLeft + plotWidth}" y2="${yy}"></line>
+      <text class="trajectory-axis-text" x="${plotLeft - 12}" y="${yy + 4}" text-anchor="end">${tick}%</text>
+    `;
+  }).join("");
+
+  const targetDots = rows
+    .filter(d => d.target !== null && isNumber(d.target))
+    .map(d => `<circle class="trajectory-dot target-dot" cx="${x(d.year)}" cy="${y(d.target)}" r="3"></circle>`)
+    .join("");
+
+  const actualDots = actualRows
+    .map(d => `<circle class="trajectory-dot actual-dot" cx="${x(d.year)}" cy="${y(d.actual)}" r="4"></circle>`)
+    .join("");
+
+  target.innerHTML = `
+    <svg class="trajectory-svg-v2" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+      <rect class="trajectory-plot-bg" x="${plotLeft}" y="${plotTop}" width="${plotWidth}" height="${plotHeight}"></rect>
+
+      <g class="trajectory-grid">
+        ${horizontalGrid}
+        ${verticalGrid}
+      </g>
+
+      <path class="trajectory-line-required" d="${targetPath}"></path>
+      <path class="trajectory-line-observed" d="${actualPath}"></path>
+
+      <g>${targetDots}</g>
+      <g>${actualDots}</g>
+
+      <text class="trajectory-legend-text" x="${width - 235}" y="32">Dashed: required path</text>
+      <text class="trajectory-legend-text" x="${width - 235}" y="50">Solid: observed path</text>
+    </svg>
+  `;
+}
+
+function renderTargetDrift(data) {
+  const target = document.getElementById("targetDriftGrid");
+  if (!target) return;
+
+  const drift = data.target_drift || {};
+  if (!Object.keys(drift).length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  target.className = "trajectory-metrics";
+
+  const status = String(drift.status_label || "Unknown");
+  const statusTone = drift.status === "off" ? "off" : drift.status === "on" ? "on" : "risk";
+
+  target.innerHTML = `
+    ${iemTrajectoryMetric(
+      "Latest official RES-E",
+      iemFmt(drift.latest_value, 1),
+      "%",
+      String(drift.latest_year || "")
+    )}
+
+    ${iemTrajectoryMetric(
+      "2030 benchmark",
+      iemFmt(drift.target_value, 0),
+      "%",
+      "Renewable electricity"
+    )}
+
+    ${iemTrajectoryMetric(
+      "Gap to target",
+      iemFmt(drift.gap_to_target_pp, 1),
+      "pp",
+      `${drift.years_remaining || "—"} years remaining`,
+      statusTone
+    )}
+
+    ${iemTrajectoryMetric(
+      "Required gain",
+      iemFmt(drift.required_annual_gain_pp, 2),
+      "pp/yr",
+      `From ${drift.latest_year || "latest"} to ${drift.target_year || 2030}`,
+      statusTone
+    )}
+
+    ${iemTrajectoryMetric(
+      "Recent gain",
+      iemFmt(drift.recent_two_year_gain_pp_per_year, 2),
+      "pp/yr",
+      "Two-year average",
+      statusTone
+    )}
+
+    <article class="trajectory-metric trajectory-status ${statusTone}">
+      <span class="trajectory-metric-label">Status</span>
+      <strong class="trajectory-status-value">${escapeHtml(status)}</strong>
+      <em class="trajectory-metric-note">${escapeHtml(drift.caveat || "")}</em>
+    </article>
+  `;
+}
