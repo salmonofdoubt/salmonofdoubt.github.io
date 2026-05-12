@@ -689,3 +689,244 @@ function initShareTools() {
 }
 
 document.addEventListener("DOMContentLoaded", initShareTools);
+
+/* v0.9 override: real Ireland county boundary heatmap */
+const IEM_COUNTY_CANONICAL = [
+  "Carlow", "Cavan", "Clare", "Cork", "Donegal", "Dublin", "Galway", "Kerry",
+  "Kildare", "Kilkenny", "Laois", "Leitrim", "Limerick", "Longford", "Louth",
+  "Mayo", "Meath", "Monaghan", "Offaly", "Roscommon", "Sligo", "Tipperary",
+  "Waterford", "Westmeath", "Wexford", "Wicklow"
+];
+
+function iemNormCountyName(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/^county\s+/, "")
+    .replace(/^co\.\s*/, "")
+    .replace(/[^\p{L}\p{N}]+/gu, "")
+    .trim();
+}
+
+function iemDetectCountyName(properties = {}) {
+  const values = Object.values(properties).map(v => String(v || ""));
+
+  for (const county of IEM_COUNTY_CANONICAL) {
+    const needle = iemNormCountyName(county);
+    if (values.some(v => iemNormCountyName(v).includes(needle))) return county;
+  }
+
+  return "";
+}
+
+function iemCollectGeoCoords(input, out = []) {
+  if (!Array.isArray(input)) return out;
+
+  if (typeof input[0] === "number" && typeof input[1] === "number") {
+    out.push([Number(input[0]), Number(input[1])]);
+    return out;
+  }
+
+  input.forEach(item => iemCollectGeoCoords(item, out));
+  return out;
+}
+
+function iemGeoBounds(features) {
+  const coords = [];
+  features.forEach(feature => iemCollectGeoCoords(feature.geometry?.coordinates, coords));
+
+  const xs = coords.map(c => c[0]).filter(isNumber);
+  const ys = coords.map(c => c[1]).filter(isNumber);
+
+  return {
+    minX: Math.min(...xs),
+    maxX: Math.max(...xs),
+    minY: Math.min(...ys),
+    maxY: Math.max(...ys)
+  };
+}
+
+function iemMakeProjector(bounds, width, height, pad) {
+  const scale = Math.min(
+    (width - pad * 2) / (bounds.maxX - bounds.minX || 1),
+    (height - pad * 2) / (bounds.maxY - bounds.minY || 1)
+  );
+
+  const mapW = (bounds.maxX - bounds.minX) * scale;
+  const mapH = (bounds.maxY - bounds.minY) * scale;
+  const xOffset = (width - mapW) / 2;
+  const yOffset = (height - mapH) / 2;
+
+  return ([x, y]) => [
+    xOffset + (x - bounds.minX) * scale,
+    yOffset + (bounds.maxY - y) * scale
+  ];
+}
+
+function iemRingPath(ring, project) {
+  return ring.map((coord, i) => {
+    const [x, y] = project(coord);
+    return `${i === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`;
+  }).join(" ") + " Z";
+}
+
+function iemGeometryPath(geometry, project) {
+  if (!geometry) return "";
+
+  if (geometry.type === "Polygon") {
+    return geometry.coordinates.map(ring => iemRingPath(ring, project)).join(" ");
+  }
+
+  if (geometry.type === "MultiPolygon") {
+    return geometry.coordinates
+      .flatMap(poly => poly.map(ring => iemRingPath(ring, project)))
+      .join(" ");
+  }
+
+  return "";
+}
+
+function iemFeatureCentroid(feature, project) {
+  const coords = iemCollectGeoCoords(feature.geometry?.coordinates, []);
+  if (!coords.length) return [0, 0];
+
+  const xs = coords.map(c => c[0]);
+  const ys = coords.map(c => c[1]);
+
+  return project([
+    (Math.min(...xs) + Math.max(...xs)) / 2,
+    (Math.min(...ys) + Math.max(...ys)) / 2
+  ]);
+}
+
+function iemRenderCountyTileFallback(heatmap, counties) {
+  heatmap.classList.remove("ireland-boundary-map");
+
+  heatmap.innerHTML = counties.map(county => {
+    const row = Number(county.row || 1);
+    const col = Number(county.col || 1);
+    const score = Number(county.hosting_score ?? county.score ?? 0);
+    const cls = heatClass(county.heat_bucket);
+
+    return `
+      <button
+        class="county-tile ${cls}"
+        style="grid-row:${row}; grid-column:${col};"
+        type="button"
+        title="${localEscapeHtml(county.name)}: ${score}/100 · ${localEscapeHtml(county.note)}"
+        aria-label="${localEscapeHtml(county.name)} hosting score ${score} out of 100"
+      >
+        <strong>${localEscapeHtml(county.code)}</strong>
+        <span>${score}</span>
+      </button>
+    `;
+  }).join("");
+}
+
+async function renderCountyHosting(data) {
+  const heatmap = document.getElementById("countyHeatmap");
+  const summaryTarget = document.getElementById("countySummaryCards");
+  if (!heatmap && !summaryTarget) return;
+
+  const hosting = data.county_hosting || {};
+  const counties = data.counties || [];
+  const byName = new Map(counties.map(c => [iemNormCountyName(c.name), c]));
+
+  if (heatmap) {
+    try {
+      const response = await fetch("data/source/ireland_counties.geojson", { cache: "force-cache" });
+      if (!response.ok) throw new Error(`GeoJSON load failed: ${response.status}`);
+
+      const geojson = await response.json();
+
+      const features = (geojson.features || [])
+        .map(feature => ({
+          ...feature,
+          countyName: iemDetectCountyName(feature.properties || {})
+        }))
+        .filter(feature => byName.has(iemNormCountyName(feature.countyName)));
+
+      if (!features.length) throw new Error("No matching county features found.");
+
+      const width = 720;
+      const height = 760;
+      const pad = 34;
+      const bounds = iemGeoBounds(features);
+      const project = iemMakeProjector(bounds, width, height, pad);
+
+      const paths = features.map(feature => {
+        const county = byName.get(iemNormCountyName(feature.countyName));
+        const score = Number(county.hosting_score ?? county.score ?? 0);
+        const cls = heatClass(county.heat_bucket);
+        const d = iemGeometryPath(feature.geometry, project);
+
+        return `
+          <path
+            class="county-boundary ${cls}"
+            d="${d}"
+            tabindex="0"
+            role="img"
+            aria-label="${localEscapeHtml(county.name)} hosting score ${score} out of 100"
+          >
+            <title>${localEscapeHtml(county.name)}: ${score}/100 · ${localEscapeHtml(county.note)}</title>
+          </path>
+        `;
+      }).join("");
+
+      const labels = features.map(feature => {
+        const county = byName.get(iemNormCountyName(feature.countyName));
+        const score = Number(county.hosting_score ?? county.score ?? 0);
+        const [x, y] = iemFeatureCentroid(feature, project);
+        const code = localEscapeHtml(county.code || county.name.slice(0, 2).toUpperCase());
+
+        return `
+          <g class="county-map-label" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})">
+            <text class="county-map-code" text-anchor="middle" y="-2">${code}</text>
+            <text class="county-map-score" text-anchor="middle" y="15">${score}</text>
+          </g>
+        `;
+      }).join("");
+
+      heatmap.classList.add("ireland-boundary-map");
+      heatmap.innerHTML = `
+        <svg class="county-map-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Ireland county hosting heatmap using official county geometry">
+          <g class="county-map-glow">${paths}</g>
+          <g class="county-map-counties">${paths}</g>
+          <g class="county-map-labels">${labels}</g>
+        </svg>
+      `;
+    } catch (error) {
+      console.warn(error);
+      iemRenderCountyTileFallback(heatmap, counties);
+    }
+  }
+
+  if (summaryTarget) {
+    const sorted = [...counties].sort((a, b) => Number(b.hosting_score || 0) - Number(a.hosting_score || 0));
+    const top = sorted.slice(0, 5);
+    const low = sorted.slice(-5).reverse();
+
+    const list = rows => rows.map(c => `
+      <li>
+        <strong>${localEscapeHtml(c.name)}</strong>
+        <span>${Number(c.hosting_score || 0)}/100 · ${localEscapeHtml(c.dominant_technology || "Mixed")}</span>
+      </li>
+    `).join("");
+
+    summaryTarget.innerHTML = `
+      <article class="county-summary-card high">
+        <h4>High hosting signal</h4>
+        <ul>${list(top)}</ul>
+      </article>
+
+      <article class="county-summary-card low">
+        <h4>Low-host / demand-adjacent signal</h4>
+        <ul>${list(low)}</ul>
+      </article>
+
+      <article class="county-summary-card caveat">
+        <h4>Method caveat</h4>
+        <p>${localEscapeHtml(hosting.caveat || "County hosting index scaffold. SEAI integration pending.")}</p>
+      </article>
+    `;
+  }
+}

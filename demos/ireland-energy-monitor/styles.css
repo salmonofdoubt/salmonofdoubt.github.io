@@ -2501,3 +2501,91 @@ h3 {
     margin-top: 0.35rem;
   }
 }
+
+/* v0.9 Real Ireland county boundary heatmap */
+.ireland-boundary-map {
+  display: block !important;
+  min-height: 34rem;
+  padding: 0.8rem;
+  border-radius: 1.05rem;
+  background:
+    radial-gradient(circle at 42% 44%, rgba(73, 209, 125, 0.08), transparent 18rem),
+    rgba(255,255,255,0.015);
+}
+
+.county-map-svg {
+  width: 100%;
+  max-width: 46rem;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.county-boundary {
+  stroke: rgba(238, 248, 243, 0.48);
+  stroke-width: 1.15;
+  vector-effect: non-scaling-stroke;
+  transition: filter 140ms ease, opacity 140ms ease, stroke 140ms ease;
+}
+
+.county-map-glow .county-boundary {
+  stroke: none;
+  opacity: 0.22;
+  filter: blur(10px);
+}
+
+.county-map-counties .county-boundary:hover,
+.county-map-counties .county-boundary:focus {
+  stroke: #eafff2;
+  filter: drop-shadow(0 0 8px rgba(184, 240, 106, 0.28));
+  outline: none;
+}
+
+.county-boundary.heat-very-low { fill: #d7e2dd; }
+.county-boundary.heat-low { fill: #b8d88c; }
+.county-boundary.heat-medium { fill: #f0cf62; }
+.county-boundary.heat-high { fill: #71d67a; }
+.county-boundary.heat-very-high { fill: #18a863; }
+
+.county-map-label {
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: rgba(232, 244, 238, 0.52);
+  stroke-width: 2.8px;
+  stroke-linejoin: round;
+}
+
+.county-map-code,
+.county-map-score {
+  fill: #06130f;
+  font-weight: 850;
+  letter-spacing: -0.03em;
+}
+
+.county-map-code {
+  font-size: 19px;
+}
+
+.county-map-score {
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.heatmap-panel .panel-head .pill {
+  color: var(--lime);
+}
+
+@media (max-width: 720px) {
+  .ireland-boundary-map {
+    min-height: 26rem;
+    padding: 0.25rem;
+  }
+
+  .county-map-code {
+    font-size: 15px;
+  }
+
+  .county-map-score {
+    font-size: 11px;
+  }
+}
