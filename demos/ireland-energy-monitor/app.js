@@ -36,7 +36,7 @@ function percentOrNA(value, available = true) {
 
 function co2OrNA(value, available = true) {
   if (!available || !isNumber(value) || Number(value) <= 0) return "n/a";
-  return `${Number(value).toFixed(0)} g/kWh`;
+  return `<span class="co2-value">${Number(value).toFixed(0)}</span><span class="co2-unit">g/kWh</span>`;
 }
 
 function renderMetrics(data) {
@@ -54,7 +54,7 @@ function renderMetrics(data) {
     metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
     metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remaining supply"),
     metricCard("Imports", percentOrNA(e.imports_percent, importsAvailable), importsAvailable ? "Mapped interconnector contribution" : "Not mapped in current source", importsAvailable ? "" : "missing"),
-    metricCard("CO₂ intensity", co2OrNA(e.co2_g_per_kwh, co2Available), co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source", co2Available ? "" : "missing")
+    metricCard("CO₂ intensity", co2OrNA(e.co2_g_per_kwh, co2Available), co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source", co2Available ? "co2-card" : "missing co2-card")
   ].join("");
 }
 

@@ -1543,3 +1543,39 @@ main > .section:first-child {
     grid-template-columns: 1fr;
   }
 }
+
+/* CO2 metric typography repair */
+.metric-card.co2-card strong {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  line-height: 0.95;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.metric-card.co2-card .co2-value {
+  font-size: clamp(2.35rem, 4.1vw, 3.35rem);
+  line-height: 0.95;
+}
+
+.metric-card.co2-card .co2-unit {
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0.92;
+}
+
+.metric-card.co2-card small {
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 760px) {
+  .metric-card.co2-card strong {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+}
