@@ -40,6 +40,13 @@ jobs:
           cd demos/ireland-energy-monitor
           python ops/harvest_seai_prices.py
 
+      - name: Harvest carbon intensity
+        env:
+          ELECTRICITYMAPS_API_KEY: ${{ secrets.ELECTRICITYMAPS_API_KEY }}
+        run: |
+          cd demos/ireland-energy-monitor
+          python ops/harvest_carbon_intensity.py
+
       - name: Build target tracker
         run: |
           cd demos/ireland-energy-monitor

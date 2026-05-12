@@ -92,6 +92,12 @@
       ],
       "row_count": 8636
     },
-    "caveat": "Best-effort parser. Residual is not pure gas."
+    "caveat": "Best-effort parser. Residual is not pure gas.",
+    "carbon_intensity": {
+      "source": "Electricity Maps",
+      "mode": "not-configured",
+      "harvested_at": "2026-05-12T15:05:31+00:00",
+      "caveat": "Set ELECTRICITYMAPS_API_KEY as a GitHub Actions secret to enable CO2 intensity."
+    }
   }
 }
