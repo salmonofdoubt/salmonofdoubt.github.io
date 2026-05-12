@@ -930,3 +930,18 @@ async function renderCountyHosting(data) {
     `;
   }
 }
+
+/* Force county boundary redraw after normal app init */
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const response = await fetch("data/monitor.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const data = await response.json();
+
+    if (typeof renderCountyHosting === "function") {
+      await renderCountyHosting(data);
+    }
+  } catch (error) {
+    console.warn("County boundary redraw failed", error);
+  }
+});
