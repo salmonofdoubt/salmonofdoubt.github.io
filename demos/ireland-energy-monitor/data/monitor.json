@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "project": "Ireland Energy Monitor",
+    "generated_at": "2026-05-12T11:30:00Z",
+    "timezone": "Europe/Dublin",
+    "mode": "Prototype static dataset",
+    "confidence": "Medium",
+    "status": "MVP wired; live harvesters pending"
+  },
+  "electricity_now": {
+    "demand_mw": 4860,
+    "renewables_percent": 47,
+    "wind_percent": 38,
+    "solar_percent": 4,
+    "gas_percent": 42,
+    "imports_percent": 7,
+    "co2_g_per_kwh": 258
+  },
+  "fuel_mix_24h": [
+    { "label": "Wind", "class": "wind", "percent": 38 },
+    { "label": "Gas", "class": "gas", "percent": 42 },
+    { "label": "Solar", "class": "solar", "percent": 4 },
+    { "label": "Hydro", "class": "hydro", "percent": 2 },
+    { "label": "Imports", "class": "imports", "percent": 7 },
+    { "label": "Other", "class": "other", "percent": 7 }
+  ],
+  "daily_story": {
+    "headline": "Ireland is wind-led at times, but still gas-backed.",
+    "interpretation": "The prototype signal shows a familiar Irish transition pattern: strong wind contribution, visible renewable progress, but continuing gas dependency for balancing and security of supply."
+  },
+  "truth_meter": [
+    {
+      "name": "Renewable electricity",
+      "status": "risk",
+      "status_label": "At risk",
+      "value": "47%",
+      "note": "Current renewable share is material, but the pathway to an 80% renewable electricity system by 2030 remains steep."
+    },
+    {
+      "name": "Gas dependency",
+      "status": "off",
+      "status_label": "Off track",
+      "value": "42%",
+      "note": "Gas remains structurally important in the electricity system, especially when wind output is low."
+    },
+    {
+      "name": "Grid carbon intensity",
+      "status": "risk",
+      "status_label": "At risk",
+      "value": "258 g/kWh",
+      "note": "Carbon intensity improves when wind is high, but the system remains sensitive to gas generation."
+    },
+    {
+      "name": "Energy affordability",
+      "status": "risk",
+      "status_label": "Pressured",
+      "value": "High",
+      "note": "Household electricity and gas costs remain a social constraint on transition legitimacy."
+    },
+    {
+      "name": "EV transition",
+      "status": "on",
+      "status_label": "Improving",
+      "value": "Rising",
+      "note": "New electric vehicle uptake is improving, but fleet turnover remains slower than headline sales suggest."
+    },
+    {
+      "name": "Heat transition",
+      "status": "risk",
+      "status_label": "Too slow",
+      "value": "Lagging",
+      "note": "Home heating is harder to decarbonise than electricity and needs separate public tracking."
+    }
+  ],
+  "target_trajectory": [
+    { "year": 2020, "actual": 42, "target": 42 },
+    { "year": 2021, "actual": 39, "target": 47 },
+    { "year": 2022, "actual": 43, "target": 52 },
+    { "year": 2023, "actual": 40, "target": 58 },
+    { "year": 2024, "actual": 45, "target": 64 },
+    { "year": 2025, "actual": 47, "target": 70 },
+    { "year": 2026, "actual": 49, "target": 74 },
+    { "year": 2030, "actual": null, "target": 80 }
+  ],
+  "prices": [
+    {
+      "label": "Household electricity",
+      "value": "High",
+      "detail": "Track cents per kWh, EU comparison, and change from pre-crisis baseline."
+    },
+    {
+      "label": "Household gas",
+      "value": "High",
+      "detail": "Track cents per kWh and seasonal pressure."
+    },
+    {
+      "label": "Transport fuels",
+      "value": "Volatile",
+      "detail": "Track petrol, diesel and the implied pressure on household mobility."
+    }
+  ],
+  "gas": {
+    "share_percent": 42,
+    "signal": "High dependency",
+    "narrative": "Gas remains the shock absorber of the Irish electricity system. A serious monitor should show when gas is acting as backup, when it is dominant, and whether dependency is structurally declining."
+  },
+  "counties": [
+    { "name": "Kerry", "score": 92, "note": "Strong renewable hosting signal" },
+    { "name": "Cork", "score": 86, "note": "Large system role" },
+    { "name": "Galway", "score": 78, "note": "Western wind contribution" },
+    { "name": "Mayo", "score": 73, "note": "High renewable potential" },
+    { "name": "Meath", "score": 58, "note": "Demand and infrastructure tension" },
+    { "name": "Dublin", "score": 34, "note": "High demand, lower local generation" }
+  ]
+}
