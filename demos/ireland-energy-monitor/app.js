@@ -85,27 +85,74 @@ function renderMix(data) {
   }).join("");
 }
 
+
 function truthClass(status) {
   if (status === "on") return "on";
   if (status === "off") return "off";
   return "risk";
 }
 
+function truthSignalLabel(status) {
+  if (status === "on") return "On track";
+  if (status === "off") return "Off track";
+  return "At risk";
+}
+
+function truthContextLabel(item) {
+  const signal = truthSignalLabel(item.status);
+  const context = item.status_label || "";
+  if (!context || context.toLowerCase() === signal.toLowerCase()) return "";
+  return context;
+}
+
 function renderTruthMeter(data) {
   const target = document.getElementById("truthGrid");
   if (!target) return;
 
-  target.innerHTML = data.truth_meter.map(item => `
-    <article class="truth-card ${truthClass(item.status)}">
+  const scale = `
+    <article class="truth-card truth-scale-card">
       <div class="truth-top">
-        <h3>${item.name}</h3>
-        <span class="truth-status">${item.status_label}</span>
+        <h3>Signal scale</h3>
+        <span class="truth-status truth-status-scale">Fixed labels</span>
       </div>
-      <span class="truth-value">${item.value}</span>
-      <p>${item.note}</p>
+      <div class="truth-scale-row" aria-label="Truth meter signal scale">
+        <span class="truth-scale-pill on">On track</span>
+        <span class="truth-scale-pill risk">At risk</span>
+        <span class="truth-scale-pill off">Off track</span>
+      </div>
+      <p>
+        Every module receives exactly one transition signal. Descriptive terms such as
+        “Improving”, “Pressured” or “Unclassified” are readings, not final labels.
+      </p>
     </article>
-  `).join("");
+  `;
+
+  const cards = (data.truth_meter || []).map(item => {
+    const cls = truthClass(item.status);
+    const signal = truthSignalLabel(item.status);
+    const context = truthContextLabel(item);
+
+    return `
+      <article class="truth-card ${cls}">
+        <div class="truth-top">
+          <h3>${escapeHtml(item.name)}</h3>
+          <span class="truth-status truth-status-${cls}">Signal: ${escapeHtml(signal)}</span>
+        </div>
+
+        <div class="truth-reading">
+          <span>Current reading</span>
+          <strong>${escapeHtml(item.value)}</strong>
+          ${context ? `<small>${escapeHtml(context)}</small>` : ""}
+        </div>
+
+        <p class="truth-logic"><strong>Logic:</strong> ${escapeHtml(item.note)}</p>
+      </article>
+    `;
+  }).join("");
+
+  target.innerHTML = scale + cards;
 }
+
 
 function renderTrajectory(data) {
   const target = document.getElementById("trajectoryChart");

@@ -3151,3 +3151,131 @@ h3 {
     font-size: 0.72rem !important;
   }
 }
+
+/* v0.11 Truth meter clarity: fixed signal labels vs readings */
+.truth-scale-card {
+  grid-column: 1 / -1 !important;
+  min-height: 0 !important;
+  padding: 0.85rem !important;
+  border-top: 1px solid var(--zeit-line, rgba(238,248,243,0.135)) !important;
+  border-bottom: 1px solid var(--zeit-line, rgba(238,248,243,0.135)) !important;
+  background: rgba(255,255,255,0.018) !important;
+}
+
+.truth-scale-card::before {
+  display: none !important;
+}
+
+.truth-scale-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.55rem 0 0.55rem;
+}
+
+.truth-scale-pill,
+.truth-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 0.25rem 0.48rem;
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.truth-scale-pill.on,
+.truth-status-on {
+  color: var(--green);
+  background: rgba(73, 209, 125, 0.09);
+  border-color: rgba(73, 209, 125, 0.24);
+}
+
+.truth-scale-pill.risk,
+.truth-status-risk {
+  color: var(--amber);
+  background: rgba(247, 201, 72, 0.09);
+  border-color: rgba(247, 201, 72, 0.26);
+}
+
+.truth-scale-pill.off,
+.truth-status-off {
+  color: var(--red);
+  background: rgba(255, 107, 107, 0.09);
+  border-color: rgba(255, 107, 107, 0.26);
+}
+
+.truth-status-scale {
+  color: var(--muted);
+}
+
+.truth-reading {
+  display: grid;
+  gap: 0.18rem;
+  margin: 0.55rem 0 0.45rem;
+}
+
+.truth-reading span {
+  color: var(--zeit-muted, rgba(237,247,241,0.62));
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.62rem;
+  font-weight: 850;
+}
+
+.truth-reading strong {
+  color: var(--text);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.truth-reading small {
+  color: var(--zeit-muted, rgba(237,247,241,0.62));
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+
+.truth-logic {
+  margin: 0;
+}
+
+.truth-logic strong {
+  color: var(--text);
+  font-weight: 850;
+}
+
+.truth-card.on::before {
+  background: var(--green) !important;
+}
+
+.truth-card.risk::before {
+  background: var(--amber) !important;
+}
+
+.truth-card.off::before {
+  background: var(--red) !important;
+}
+
+@media (max-width: 760px) {
+  .truth-scale-card {
+    padding: 0.7rem 0 !important;
+  }
+
+  .truth-scale-row {
+    gap: 0.35rem;
+  }
+
+  .truth-status,
+  .truth-scale-pill {
+    font-size: 0.62rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .truth-reading strong {
+    font-size: 1.18rem;
+  }
+}
