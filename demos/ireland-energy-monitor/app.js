@@ -208,3 +208,50 @@ async function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+function initShareTools() {
+  const siteUrl = "https://salmonofdoubt.github.io/demos/ireland-energy-monitor/";
+  const title = "Ireland Energy Monitor";
+
+  const openLink = document.getElementById("share-open-link");
+  if (openLink) openLink.href = siteUrl;
+
+  const copyBtn = document.getElementById("copy-link-btn");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(siteUrl);
+        copyBtn.textContent = "✓ Copied";
+        setTimeout(() => {
+          copyBtn.textContent = "⧉ Copy link";
+        }, 1600);
+      } catch {
+        copyBtn.textContent = "Copy failed";
+        setTimeout(() => {
+          copyBtn.textContent = "⧉ Copy link";
+        }, 1600);
+      }
+    });
+  }
+
+  const nativeBtn = document.getElementById("native-share-btn");
+  if (nativeBtn) {
+    if (!navigator.share) {
+      nativeBtn.style.display = "none";
+    } else {
+      nativeBtn.addEventListener("click", async () => {
+        try {
+          await navigator.share({
+            title,
+            text: "Open civic prototype tracking Ireland's energy transition.",
+            url: siteUrl
+          });
+        } catch {
+          /* User cancelled or platform blocked share. No action needed. */
+        }
+      });
+    }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", initShareTools);
