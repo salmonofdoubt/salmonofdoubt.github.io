@@ -35,18 +35,15 @@ jobs:
           cd demos/ireland-energy-monitor
           python ops/harvest_eirgrid.py
 
+      - name: Harvest EirGrid CO2 intensity
+        run: |
+          cd demos/ireland-energy-monitor
+          python ops/harvest_eirgrid_co2.py
+
       - name: Harvest SEAI price data
         run: |
           cd demos/ireland-energy-monitor
           python ops/harvest_seai_prices.py
-
-      - name: Harvest carbon intensity
-        env:
-          ELECTRICITYMAPS_API_KEY: ${{ secrets.ELECTRICITYMAPS_API_KEY }}
-          ELECTRICITYMAPS_KEY_MODE: sandbox
-        run: |
-          cd demos/ireland-energy-monitor
-          python ops/harvest_carbon_intensity.py
 
       - name: Build target tracker
         run: |
