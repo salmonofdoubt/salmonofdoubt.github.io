@@ -945,3 +945,69 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("County boundary redraw failed", error);
   }
 });
+
+/* v0.9.1 fix: avoid spread-call stack overflow on large GeoJSON coordinate arrays */
+function iemMinMax(values) {
+  let min = Infinity;
+  let max = -Infinity;
+
+  for (const value of values) {
+    const number = Number(value);
+    if (!Number.isFinite(number)) continue;
+    if (number < min) min = number;
+    if (number > max) max = number;
+  }
+
+  return { min, max };
+}
+
+function iemGeoBounds(features) {
+  const coords = [];
+  features.forEach(feature => iemCollectGeoCoords(feature.geometry?.coordinates, coords));
+
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+
+  for (const [xRaw, yRaw] of coords) {
+    const x = Number(xRaw);
+    const y = Number(yRaw);
+
+    if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
+  }
+
+  return { minX, maxX, minY, maxY };
+}
+
+function iemFeatureCentroid(feature, project) {
+  const coords = iemCollectGeoCoords(feature.geometry?.coordinates, []);
+  if (!coords.length) return [0, 0];
+
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+
+  for (const [xRaw, yRaw] of coords) {
+    const x = Number(xRaw);
+    const y = Number(yRaw);
+
+    if (!Number.isFinite(x) || !Number.isFinite(y)) continue;
+
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (y < minY) minY = y;
+    if (y > maxY) maxY = y;
+  }
+
+  return project([
+    (minX + maxX) / 2,
+    (minY + maxY) / 2
+  ]);
+}
