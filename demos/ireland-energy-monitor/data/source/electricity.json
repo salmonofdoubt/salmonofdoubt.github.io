@@ -1,0 +1,52 @@
+{
+  "electricity_now": {
+    "demand_mw": 4860,
+    "renewables_percent": 47,
+    "wind_percent": 38,
+    "solar_percent": 4,
+    "gas_percent": 42,
+    "imports_percent": 7,
+    "co2_g_per_kwh": 258
+  },
+  "fuel_mix_24h": [
+    {
+      "label": "Wind",
+      "class": "wind",
+      "percent": 38
+    },
+    {
+      "label": "Gas",
+      "class": "gas",
+      "percent": 42
+    },
+    {
+      "label": "Solar",
+      "class": "solar",
+      "percent": 4
+    },
+    {
+      "label": "Hydro",
+      "class": "hydro",
+      "percent": 2
+    },
+    {
+      "label": "Imports",
+      "class": "imports",
+      "percent": 7
+    },
+    {
+      "label": "Other",
+      "class": "other",
+      "percent": 7
+    }
+  ],
+  "daily_story": {
+    "headline": "Ireland is wind-led at times, but still gas-backed.",
+    "interpretation": "The prototype signal shows a familiar Irish transition pattern: strong wind contribution, visible renewable progress, but continuing gas dependency for balancing and security of supply."
+  },
+  "gas": {
+    "share_percent": 42,
+    "signal": "High dependency",
+    "narrative": "Gas remains the shock absorber of the Irish electricity system. A serious monitor should show when gas is acting as backup, when it is dominant, and whether dependency is structurally declining."
+  }
+}

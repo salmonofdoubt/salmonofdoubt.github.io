@@ -1,0 +1,46 @@
+name: Refresh Ireland Energy Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 6 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ireland-energy-monitor-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build monitor JSON
+        run: |
+          cd demos/ireland-energy-monitor
+          python ops/build_monitor.py
+          python ops/validate_monitor.py
+
+      - name: Commit generated monitor data
+        run: |
+          if git diff --quiet -- demos/ireland-energy-monitor/data/monitor.json; then
+            echo "No monitor data changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add demos/ireland-energy-monitor/data/monitor.json
+          git commit -m "Refresh Ireland Energy Monitor data"
+          git push

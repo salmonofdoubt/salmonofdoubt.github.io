@@ -1,0 +1,88 @@
+{
+  "truth_meter": [
+    {
+      "name": "Renewable electricity",
+      "status": "risk",
+      "status_label": "At risk",
+      "value": "47%",
+      "note": "Current renewable share is material, but the pathway to an 80% renewable electricity system by 2030 remains steep."
+    },
+    {
+      "name": "Gas dependency",
+      "status": "off",
+      "status_label": "Off track",
+      "value": "42%",
+      "note": "Gas remains structurally important in the electricity system, especially when wind output is low."
+    },
+    {
+      "name": "Grid carbon intensity",
+      "status": "risk",
+      "status_label": "At risk",
+      "value": "258 g/kWh",
+      "note": "Carbon intensity improves when wind is high, but the system remains sensitive to gas generation."
+    },
+    {
+      "name": "Energy affordability",
+      "status": "risk",
+      "status_label": "Pressured",
+      "value": "High",
+      "note": "Household electricity and gas costs remain a social constraint on transition legitimacy."
+    },
+    {
+      "name": "EV transition",
+      "status": "on",
+      "status_label": "Improving",
+      "value": "Rising",
+      "note": "New electric vehicle uptake is improving, but fleet turnover remains slower than headline sales suggest."
+    },
+    {
+      "name": "Heat transition",
+      "status": "risk",
+      "status_label": "Too slow",
+      "value": "Lagging",
+      "note": "Home heating is harder to decarbonise than electricity and needs separate public tracking."
+    }
+  ],
+  "target_trajectory": [
+    {
+      "year": 2020,
+      "actual": 42,
+      "target": 42
+    },
+    {
+      "year": 2021,
+      "actual": 39,
+      "target": 47
+    },
+    {
+      "year": 2022,
+      "actual": 43,
+      "target": 52
+    },
+    {
+      "year": 2023,
+      "actual": 40,
+      "target": 58
+    },
+    {
+      "year": 2024,
+      "actual": 45,
+      "target": 64
+    },
+    {
+      "year": 2025,
+      "actual": 47,
+      "target": 70
+    },
+    {
+      "year": 2026,
+      "actual": 49,
+      "target": 74
+    },
+    {
+      "year": 2030,
+      "actual": null,
+      "target": 80
+    }
+  ]
+}
