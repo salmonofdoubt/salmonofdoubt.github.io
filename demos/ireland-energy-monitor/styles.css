@@ -1775,3 +1775,139 @@ main > .section:first-child {
     grid-column: span 1 !important;
   }
 }
+
+/* v0.6 Daily Pulse Engine: fine-line briefing panels */
+.pulse-section {
+  padding-top: 1.4rem;
+}
+
+.pulse-head {
+  margin-bottom: 1rem;
+}
+
+.pulse-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(255,255,255,0.13);
+  border-bottom: 1px solid rgba(255,255,255,0.13);
+}
+
+.pulse-card {
+  min-height: 13rem;
+  padding: 1rem 1.05rem 0.95rem;
+  border-right: 1px solid rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.018);
+  display: grid;
+  grid-template-rows: auto 3.1rem 1fr;
+  gap: 0.75rem;
+}
+
+.pulse-card:nth-child(4n) {
+  border-right: 0;
+}
+
+.pulse-card-top span {
+  display: block;
+  color: rgba(232, 244, 238, 0.74);
+  font-size: 0.76rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.pulse-card-top strong {
+  display: flex;
+  align-items: baseline;
+  gap: 0.38rem;
+  color: var(--text);
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-weight: 760;
+}
+
+.pulse-card-top strong small {
+  color: rgba(232, 244, 238, 0.74);
+  font-size: 0.88rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.pulse-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.4;
+  max-width: 14rem;
+}
+
+.pulse-sparkline {
+  width: 100%;
+  height: 3.1rem;
+  overflow: visible;
+}
+
+.pulse-sparkline line {
+  stroke: rgba(255,255,255,0.12);
+  stroke-width: 1;
+}
+
+.pulse-sparkline polyline {
+  fill: none;
+  stroke: rgba(114, 214, 255, 0.92);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pulse-card.good .pulse-sparkline polyline {
+  stroke: rgba(73, 209, 125, 0.95);
+}
+
+.pulse-card.caution .pulse-sparkline polyline {
+  stroke: rgba(247, 201, 72, 0.95);
+}
+
+.pulse-card.risk .pulse-sparkline polyline {
+  stroke: rgba(255, 107, 107, 0.95);
+}
+
+.pulse-card.muted {
+  opacity: 0.72;
+}
+
+.pulse-sparkline.empty line {
+  stroke-dasharray: 3 4;
+}
+
+@media (max-width: 1100px) {
+  .pulse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pulse-card:nth-child(4n) {
+    border-right: 1px solid rgba(255,255,255,0.13);
+  }
+
+  .pulse-card:nth-child(2n) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .pulse-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pulse-card,
+  .pulse-card:nth-child(2n),
+  .pulse-card:nth-child(4n) {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.13);
+  }
+
+  .pulse-card:last-child {
+    border-bottom: 0;
+  }
+}

@@ -22,6 +22,8 @@ STEPS = [
     ("Build target tracker", ["python3", "ops/build_target_tracker.py"]),
     ("Build/import county hosting", ["python3", "ops/harvest_seai_county_dashboard.py"]),
     ("Build monitor JSON", ["python3", "ops/build_monitor.py"]),
+    ("Update daily history", ["python3", "ops/update_daily_history.py"]),
+    ("Rebuild monitor JSON with history", ["python3", "ops/build_monitor.py"]),
     ("Validate monitor JSON", ["python3", "ops/validate_monitor.py"]),
 ]
 

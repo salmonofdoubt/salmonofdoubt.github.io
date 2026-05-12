@@ -18,6 +18,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "data" / "source"
+HISTORY_DIR = ROOT / "data" / "history"
 OUT = ROOT / "data" / "monitor.json"
 
 
@@ -36,6 +37,7 @@ def main() -> None:
     target_tracker = read_json(SOURCE_DIR / "target_tracker.json", {})
     county_hosting = read_json(SOURCE_DIR / "county_hosting.json", {})
     metadata = read_json(SOURCE_DIR / "metadata.json", {})
+    daily_history = read_json(HISTORY_DIR / "daily.json", {})
 
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
@@ -60,6 +62,8 @@ def main() -> None:
 
     monitor = {
         "source_registry": source_registry,
+        "daily_history": daily_history.get("daily", []),
+        "daily_history_meta": daily_history.get("meta", {}),
         "meta": {
             "project": metadata.get("project", "Ireland Energy Monitor"),
             "generated_at": generated_at,

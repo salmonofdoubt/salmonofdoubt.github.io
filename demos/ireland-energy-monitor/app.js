@@ -370,6 +370,162 @@ function renderSourceConsole(data) {
   }).join("");
 }
 
+
+function pulseNumber(value, digits = 0) {
+  if (!isNumber(value)) return "n/a";
+  return Number(value).toLocaleString(undefined, {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits
+  });
+}
+
+function pulseLast(history, key) {
+  const rows = [...(history || [])].reverse();
+  for (const row of rows) {
+    if (isNumber(row[key])) return Number(row[key]);
+  }
+  return null;
+}
+
+function pulseSeries(history, key, limit = 30) {
+  return (history || [])
+    .slice(-limit)
+    .map(row => isNumber(row[key]) ? Number(row[key]) : null);
+}
+
+function sparkline(series) {
+  const values = series.filter(v => isNumber(v));
+  if (values.length < 2) {
+    return `<svg class="pulse-sparkline empty" viewBox="0 0 100 34" aria-hidden="true">
+      <line x1="0" y1="24" x2="100" y2="24"></line>
+    </svg>`;
+  }
+
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const span = max - min || 1;
+
+  const points = [];
+  series.forEach((v, i) => {
+    if (!isNumber(v)) return;
+    const x = series.length === 1 ? 100 : (i / (series.length - 1)) * 100;
+    const y = 30 - ((Number(v) - min) / span) * 24;
+    points.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+  });
+
+  return `<svg class="pulse-sparkline" viewBox="0 0 100 34" aria-hidden="true">
+    <line x1="0" y1="30" x2="100" y2="30"></line>
+    <polyline points="${points.join(" ")}"></polyline>
+  </svg>`;
+}
+
+function pulseCard({label, value, unit, note, key, history, tone = ""}) {
+  return `
+    <article class="pulse-card ${tone}">
+      <div class="pulse-card-top">
+        <span>${escapeHtml(label)}</span>
+        <strong>${value}<small>${escapeHtml(unit || "")}</small></strong>
+      </div>
+      ${sparkline(pulseSeries(history, key))}
+      <p>${escapeHtml(note)}</p>
+    </article>
+  `;
+}
+
+function renderDailyPulse(data) {
+  const target = document.getElementById("dailyPulseGrid");
+  if (!target) return;
+
+  const history = data.daily_history || [];
+  const e = data.electricity_now || {};
+  const drift = data.target_drift || {};
+  const prices = data.prices || [];
+
+  const electricityPrice = prices.find(p => p.label === "Household electricity");
+  const gasPrice = prices.find(p => p.label === "Household gas");
+
+  const demandGw = pulseLast(history, "demand_gw") ?? (isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : null);
+  const renewables = pulseLast(history, "renewables_percent") ?? e.renewables_percent;
+  const co2 = pulseLast(history, "co2_g_per_kwh") ?? e.co2_g_per_kwh;
+  const imports = pulseLast(history, "imports_percent") ?? e.imports_percent;
+  const residual = pulseLast(history, "residual_percent") ?? e.residual_percent ?? e.gas_percent;
+  const gap = pulseLast(history, "target_gap_pp") ?? drift.gap_to_target_pp;
+
+  const electricityPriceValue = pulseLast(history, "household_electricity_c_per_kwh") ?? electricityPrice?.ireland_c_per_kwh;
+  const gasPriceValue = pulseLast(history, "household_gas_c_per_kwh") ?? gasPrice?.ireland_c_per_kwh;
+
+  target.innerHTML = [
+    pulseCard({
+      label: "Electricity demand",
+      value: pulseNumber(demandGw, 2),
+      unit: "GW",
+      note: "Latest mapped system demand.",
+      key: "demand_gw",
+      history
+    }),
+    pulseCard({
+      label: "Renewables now",
+      value: pulseNumber(renewables, 0),
+      unit: "%",
+      note: "Wind and solar in the latest mapped interval.",
+      key: "renewables_percent",
+      history,
+      tone: "good"
+    }),
+    pulseCard({
+      label: "CO₂ intensity",
+      value: pulseNumber(co2, 0),
+      unit: "g/kWh",
+      note: co2 ? "Smart Grid Dashboard carbon signal." : "Not available in this build.",
+      key: "co2_g_per_kwh",
+      history,
+      tone: co2 ? "" : "muted"
+    }),
+    pulseCard({
+      label: "Imports",
+      value: pulseNumber(imports, 0),
+      unit: "%",
+      note: "Mapped interconnector contribution.",
+      key: "imports_percent",
+      history
+    }),
+    pulseCard({
+      label: "Residual supply",
+      value: pulseNumber(residual, 0),
+      unit: "%",
+      note: "Computed remainder, not measured gas.",
+      key: "residual_percent",
+      history,
+      tone: "caution"
+    }),
+    pulseCard({
+      label: "2030 gap",
+      value: pulseNumber(gap, 1),
+      unit: "pp",
+      note: "Percentage-point gap to 80% renewable electricity.",
+      key: "target_gap_pp",
+      history,
+      tone: "risk"
+    }),
+    pulseCard({
+      label: "Electricity price",
+      value: pulseNumber(electricityPriceValue, 2),
+      unit: "c/kWh",
+      note: "Latest official SEAI semester, not a live tariff.",
+      key: "household_electricity_c_per_kwh",
+      history
+    }),
+    pulseCard({
+      label: "Gas price",
+      value: pulseNumber(gasPriceValue, 2),
+      unit: "c/kWh",
+      note: "Latest official SEAI semester, not a live tariff.",
+      key: "household_gas_c_per_kwh",
+      history
+    })
+  ].join("");
+}
+
 function renderMeta(data) {
   const generated = new Date(data.meta.generated_at);
 
@@ -465,6 +621,7 @@ async function init() {
   try {
     const data = await loadMonitor();
     renderMeta(data);
+    renderDailyPulse(data);
     renderMetrics(data);
     renderMix(data);
     renderStory(data);
