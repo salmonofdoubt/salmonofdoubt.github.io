@@ -39,7 +39,27 @@ def main() -> None:
 
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
+    source_registry = [
+        {
+            "name": "EirGrid electricity",
+            "status": electricity.get("source_status", {}),
+        },
+        {
+            "name": "SEAI prices",
+            "status": prices.get("source_status", {}),
+        },
+        {
+            "name": "Target drift",
+            "status": target_tracker.get("source_status", {}),
+        },
+        {
+            "name": "County hosting",
+            "status": county_hosting.get("source_status", {}),
+        },
+    ]
+
     monitor = {
+        "source_registry": source_registry,
         "meta": {
             "project": metadata.get("project", "Ireland Energy Monitor"),
             "generated_at": generated_at,

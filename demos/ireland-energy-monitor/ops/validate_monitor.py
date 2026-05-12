@@ -15,6 +15,7 @@ MONITOR = ROOT / "data" / "monitor.json"
 
 
 REQUIRED_TOP_LEVEL = [
+    "source_registry",
     "meta",
     "electricity_now",
     "fuel_mix_24h",
@@ -59,6 +60,9 @@ def main() -> None:
     for key in REQUIRED_TOP_LEVEL:
         if key not in data:
             fail(f"missing top-level key: {key}")
+
+    if not isinstance(data["source_registry"], list) or not data["source_registry"]:
+        fail("source_registry must be a non-empty list")
 
     meta = data["meta"]
     if not meta.get("generated_at"):

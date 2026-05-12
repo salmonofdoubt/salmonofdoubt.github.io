@@ -333,6 +333,39 @@ function renderCountyHosting(data) {
   }
 }
 
+
+function renderSourceConsole(data) {
+  const target = document.getElementById("sourceConsole");
+  if (!target) return;
+
+  const registry = data.source_registry || [];
+
+  target.innerHTML = registry.map(entry => {
+    const status = entry.status || {};
+    const mode = status.mode || status.parser?.sheet || "not reported";
+    const caveat = status.caveat || "No caveat recorded.";
+    const harvested = status.harvested_at || status.generated_at || "not reported";
+    const source = status.source || entry.name || "Unknown source";
+    const url = status.source_url || null;
+
+    return `
+      <article class="source-console-card">
+        <div class="source-console-top">
+          <h4>${escapeHtml(entry.name || "Source")}</h4>
+          <span>${escapeHtml(mode)}</span>
+        </div>
+        <p><strong>Source:</strong> ${
+          url
+            ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source)}</a>`
+            : escapeHtml(source)
+        }</p>
+        <p><strong>Updated:</strong> ${escapeHtml(harvested)}</p>
+        <p class="source-console-caveat">${escapeHtml(caveat)}</p>
+      </article>
+    `;
+  }).join("");
+}
+
 function renderMeta(data) {
   const generated = new Date(data.meta.generated_at);
 
@@ -439,6 +472,7 @@ async function init() {
     renderCounties(data);
     renderDataQuality(data);
     renderCountyHosting(data);
+    renderSourceConsole(data);
   } catch (error) {
     console.error(error);
     text("projectStatus", "Data load failed");
