@@ -54,7 +54,7 @@
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-12T20:03:27+00:00",
+    "harvested_at": "2026-05-12T20:08:16+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -101,7 +101,7 @@
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=12-May-2026+00%3A00&dateTo=12-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-05-12T20:03:27+00:00",
+      "harvested_at": "2026-05-12T20:08:16+00:00",
       "region": "ROI",
       "parser": {
         "row_count": 88,

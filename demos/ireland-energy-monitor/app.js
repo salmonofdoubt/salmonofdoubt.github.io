@@ -444,15 +444,25 @@ function renderDailyPulse(data) {
   const electricityPrice = prices.find(p => p.label === "Household electricity");
   const gasPrice = prices.find(p => p.label === "Household gas");
 
-  const demandGw = pulseLast(history, "demand_gw") ?? (isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : null);
-  const renewables = pulseLast(history, "renewables_percent") ?? e.renewables_percent;
-  const co2 = pulseLast(history, "co2_g_per_kwh") ?? e.co2_g_per_kwh;
-  const imports = pulseLast(history, "imports_percent") ?? e.imports_percent;
-  const residual = pulseLast(history, "residual_percent") ?? e.residual_percent ?? e.gas_percent;
-  const gap = pulseLast(history, "target_gap_pp") ?? drift.gap_to_target_pp;
+  // Current display values should come from electricity_now / current monitor first.
+  // History is for sparklines and fallback only.
+  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
+  const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
+  const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
+  const imports = isNumber(e.imports_percent) ? e.imports_percent : pulseLast(history, "imports_percent");
+  const residual = isNumber(e.residual_percent ?? e.gas_percent)
+    ? (e.residual_percent ?? e.gas_percent)
+    : pulseLast(history, "residual_percent");
 
-  const electricityPriceValue = pulseLast(history, "household_electricity_c_per_kwh") ?? electricityPrice?.ireland_c_per_kwh;
-  const gasPriceValue = pulseLast(history, "household_gas_c_per_kwh") ?? gasPrice?.ireland_c_per_kwh;
+  const gap = isNumber(drift.gap_to_target_pp) ? drift.gap_to_target_pp : pulseLast(history, "target_gap_pp");
+
+  const electricityPriceValue = isNumber(electricityPrice?.ireland_c_per_kwh)
+    ? electricityPrice.ireland_c_per_kwh
+    : pulseLast(history, "household_electricity_c_per_kwh");
+
+  const gasPriceValue = isNumber(gasPrice?.ireland_c_per_kwh)
+    ? gasPrice.ireland_c_per_kwh
+    : pulseLast(history, "household_gas_c_per_kwh");
 
   target.innerHTML = [
     pulseCard({
@@ -473,10 +483,10 @@ function renderDailyPulse(data) {
       tone: "good"
     }),
     pulseCard({
-      label: "CO₂ intensity",
+      label: "CO₂ now",
       value: pulseNumber(co2, 0),
       unit: "g/kWh",
-      note: co2 ? "Smart Grid Dashboard carbon signal." : "Not available in this build.",
+      note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
       key: "co2_g_per_kwh",
       history,
       tone: co2 ? "" : "muted"
