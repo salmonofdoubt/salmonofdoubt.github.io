@@ -201,6 +201,18 @@
           <p id="dailyInterpretation">—</p>
         </article>
       </div>
+
+      <article class="panel data-quality-panel" aria-labelledby="data-quality-title">
+        <div class="panel-head">
+          <h3 id="data-quality-title">Data quality</h3>
+          <span class="pill accent">Mapped · computed · missing</span>
+        </div>
+        <p class="quality-intro">
+          This panel prevents false precision. It shows which values are directly mapped from the EirGrid workbook,
+          which are calculated, and which still require another source.
+        </p>
+        <div class="quality-grid" id="dataQualityList"></div>
+      </article>
     </section>
 
     <section id="truth-meter" class="section truth-section">

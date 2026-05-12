@@ -1098,3 +1098,88 @@ main > .section:first-child {
 .metric-card strong {
   overflow-wrap: anywhere;
 }
+
+/* Data quality panel */
+.data-quality-panel {
+  margin-top: 1rem;
+}
+
+.quality-intro {
+  max-width: 900px;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.quality-item {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 0.85rem;
+  background: rgba(255,255,255,0.045);
+  min-height: 8rem;
+}
+
+.quality-item strong,
+.quality-item small {
+  display: block;
+}
+
+.quality-item strong {
+  margin: 0.55rem 0 0.35rem;
+}
+
+.quality-item small {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.quality-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.22rem 0.48rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.quality-item.mapped .quality-badge {
+  color: #dfffee;
+  background: rgba(73, 209, 125, 0.16);
+  border: 1px solid rgba(73, 209, 125, 0.38);
+}
+
+.quality-item.computed .quality-badge {
+  color: #fff4d5;
+  background: rgba(247, 201, 72, 0.16);
+  border: 1px solid rgba(247, 201, 72, 0.38);
+}
+
+.quality-item.missing .quality-badge {
+  color: #e6eef0;
+  background: rgba(255,255,255,0.08);
+  border: 1px dashed rgba(255,255,255,0.28);
+}
+
+.quality-item.missing {
+  opacity: 0.78;
+  border-style: dashed;
+}
+
+@media (max-width: 980px) {
+  .quality-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .quality-grid {
+    grid-template-columns: 1fr;
+  }
+}

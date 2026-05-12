@@ -215,6 +215,82 @@ function renderStory(data) {
   text("dailyInterpretation", data.daily_story.interpretation);
 }
 
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function qualityItem(label, status, detail) {
+  return `
+    <div class="quality-item ${status}">
+      <span class="quality-badge">${status}</span>
+      <strong>${escapeHtml(label)}</strong>
+      <small>${escapeHtml(detail)}</small>
+    </div>
+  `;
+}
+
+function renderDataQuality(data) {
+  const target = document.getElementById("dataQualityList");
+  if (!target) return;
+
+  const e = data.electricity_now || {};
+  const source = data.source_status || {};
+  const parser = source.parser || {};
+  const columns = parser.columns || {};
+  const components = columns.interconnector_components || [];
+
+  const importsMapped = e.imports_available !== false && (
+    columns.imports || components.length
+  );
+
+  const co2Mapped = e.co2_available !== false &&
+    Number.isFinite(Number(e.co2_g_per_kwh)) &&
+    Number(e.co2_g_per_kwh) > 0;
+
+  const rows = [
+    qualityItem(
+      "Demand",
+      columns.demand ? "mapped" : "missing",
+      columns.demand || "No demand column detected"
+    ),
+    qualityItem(
+      "Wind",
+      columns.wind ? "mapped" : "missing",
+      columns.wind || "No wind-generation column detected"
+    ),
+    qualityItem(
+      "Solar",
+      columns.solar ? "mapped" : "missing",
+      columns.solar || "No solar-generation column detected"
+    ),
+    qualityItem(
+      "Imports",
+      importsMapped ? "mapped" : "missing",
+      importsMapped
+        ? (columns.imports || components.join(" + "))
+        : "No net interconnector column mapped"
+    ),
+    qualityItem(
+      "Residual",
+      "computed",
+      "Demand minus detected wind, solar and mapped positive imports. Not measured gas."
+    ),
+    qualityItem(
+      "CO₂ intensity",
+      co2Mapped ? "mapped" : "missing",
+      co2Mapped ? (columns.co2 || "Mapped CO₂ column") : "No CO₂ / carbon-intensity column found in current workbook"
+    )
+  ];
+
+  target.innerHTML = rows.join("");
+}
+
 async function init() {
   try {
     const data = await loadMonitor();
@@ -227,6 +303,7 @@ async function init() {
     renderPrices(data);
     renderResidual(data);
     renderCounties(data);
+    renderDataQuality(data);
   } catch (error) {
     console.error(error);
     text("projectStatus", "Data load failed");

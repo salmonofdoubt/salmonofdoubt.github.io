@@ -61,6 +61,7 @@ def main() -> None:
         "target_trajectory": truth.get("target_trajectory", []),
         "prices": prices.get("prices", []),
         "gas": electricity.get("gas", {}),
+        "source_status": electricity.get("source_status", {}),
         "counties": counties.get("counties", [])
     }
 
