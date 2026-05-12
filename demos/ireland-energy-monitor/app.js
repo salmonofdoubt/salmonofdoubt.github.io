@@ -49,8 +49,9 @@ function renderMetrics(data) {
 
   target.innerHTML = [
     metricCard("Demand now", `${Number(e.demand_mw || 0).toLocaleString()} MW`, "Latest mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), "Detected wind and solar share"),
-    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation"),
+    metricCard("Renewables", percentOrNA(e.renewables_percent), "Wind + solar in latest mapped interval"),
+    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation now"),
+    metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
     metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remaining supply"),
     metricCard("Imports", percentOrNA(e.imports_percent, importsAvailable), importsAvailable ? "Mapped interconnector contribution" : "Not mapped in current source", importsAvailable ? "" : "missing"),
     metricCard("CO₂ intensity", co2OrNA(e.co2_g_per_kwh, co2Available), co2Available ? "Mapped carbon intensity" : "Not mapped in current source", co2Available ? "" : "missing")

@@ -1089,3 +1089,12 @@ main > .section:first-child {
 .mix-row.unavailable strong {
   color: var(--muted);
 }
+
+/* Energy-now card layout: allow Demand/Renewables/Wind/Solar/Residual/Imports/CO2 */
+.metric-grid {
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)) !important;
+}
+
+.metric-card strong {
+  overflow-wrap: anywhere;
+}
