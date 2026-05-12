@@ -179,7 +179,7 @@ def price_card(label: str, latest: dict[str, Any] | None, source_label: str) -> 
     return {
         "label": label,
         "value": f"{value:.2f} c/kWh",
-        "detail": f"Latest SEAI period {period}; {change_text}{eu_text}.",
+        "detail": f"Latest official SEAI semester: {period}; {change_text}{eu_text}. Not a live supplier tariff.",
         "status": "mapped",
         "period": period,
         "ireland_c_per_kwh": value,

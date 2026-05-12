@@ -1183,3 +1183,17 @@ main > .section:first-child {
     grid-template-columns: 1fr;
   }
 }
+
+/* Price-source badge */
+.source-note-pill {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 0.65rem;
+  padding: 0.44rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(247, 201, 72, 0.36);
+  background: rgba(247, 201, 72, 0.13);
+  color: #fff4d5;
+  font-size: 0.88rem;
+  font-weight: 850;
+}
