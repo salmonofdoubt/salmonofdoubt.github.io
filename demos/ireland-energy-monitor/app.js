@@ -168,6 +168,10 @@ function driftStatusClass(status) {
   return "risk";
 }
 
+function targetMetricValue(value, unit = "") {
+  return `<span class="target-number">${escapeHtml(value)}</span>${unit ? `<span class="target-unit">${escapeHtml(unit)}</span>` : ""}`;
+}
+
 function renderTargetDrift(data) {
   const target = document.getElementById("targetDriftGrid");
   if (!target) return;
@@ -183,35 +187,35 @@ function renderTargetDrift(data) {
   target.innerHTML = `
     <article class="target-drift-card ${statusClass}">
       <span>Latest official RES-E</span>
-      <strong>${Number(drift.latest_value).toFixed(1)}%</strong>
+      <strong>${targetMetricValue(Number(drift.latest_value).toFixed(1), "%")}</strong>
       <small>${drift.latest_year}</small>
     </article>
 
     <article class="target-drift-card">
       <span>2030 benchmark</span>
-      <strong>${Number(drift.target_value).toFixed(0)}%</strong>
+      <strong>${targetMetricValue(Number(drift.target_value).toFixed(0), "%")}</strong>
       <small>Renewable electricity</small>
     </article>
 
     <article class="target-drift-card ${statusClass}">
       <span>Gap to target</span>
-      <strong>${Number(drift.gap_to_target_pp).toFixed(1)} pp</strong>
+      <strong>${targetMetricValue(Number(drift.gap_to_target_pp).toFixed(1), "pp")}</strong>
       <small>${drift.years_remaining} years remaining</small>
     </article>
 
     <article class="target-drift-card ${statusClass}">
       <span>Required gain</span>
-      <strong>${Number(drift.required_annual_gain_pp).toFixed(2)} pp/yr</strong>
+      <strong>${targetMetricValue(Number(drift.required_annual_gain_pp).toFixed(2), "pp/yr")}</strong>
       <small>From ${drift.latest_year} to ${drift.target_year}</small>
     </article>
 
     <article class="target-drift-card ${statusClass}">
       <span>Recent gain</span>
-      <strong>${Number(drift.recent_two_year_gain_pp_per_year).toFixed(2)} pp/yr</strong>
+      <strong>${targetMetricValue(Number(drift.recent_two_year_gain_pp_per_year).toFixed(2), "pp/yr")}</strong>
       <small>Two-year average</small>
     </article>
 
-    <article class="target-drift-card ${statusClass}">
+    <article class="target-drift-card target-status-card ${statusClass}">
       <span>Status</span>
       <strong>${escapeHtml(drift.status_label)}</strong>
       <small>${escapeHtml(drift.caveat || "")}</small>
