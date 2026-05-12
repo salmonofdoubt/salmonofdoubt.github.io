@@ -1,35 +1,27 @@
 #!/usr/bin/env python3
 """
-Free EirGrid Smart Grid Dashboard CO2 harvester.
+Free EirGrid / Smart Grid Dashboard CO2 harvester.
 
-This tries to extract latest CO2 intensity from the public EirGrid Smart Grid
-Dashboard CO2 page. If the value is not exposed in static HTML, it does not fail;
-it leaves CO2 as unavailable.
+Uses the public Smart Grid Dashboard chart API discovered from the deployed Next.js bundle:
 
-No paid API. No Electricity Maps sandbox data.
+  /api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=DD-Mon-YYYY 00:00&dateTo=DD-Mon-YYYY 23:59&areas=co2intensity,co2intensityforecast
+
+No paid API. No sandbox data.
 """
 
 from __future__ import annotations
 
-import html
 import json
-import re
+import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 ELECTRICITY = ROOT / "data" / "source" / "electricity.json"
 
-CO2_URLS = [
-    # Ireland-only view first
-    "https://www.smartgriddashboard.com/roi/co2/?intensityduration=day&emissionsduration=day",
-    "https://www.smartgriddashboard.com/roi/co2/",
-    # All-island fallback, clearly labelled if used
-    "https://www.smartgriddashboard.com/all/co2/?intensityduration=day&emissionsduration=day",
-    "https://www.smartgriddashboard.com/all/co2/",
-]
+API_ENDPOINT = "https://www.smartgriddashboard.com/api/chart/"
 
 
 def now_iso() -> str:
@@ -46,61 +38,87 @@ def save_json(path: Path, data: dict) -> None:
     path.write_text(json.dumps(data, indent=2) + "\n")
 
 
-def fetch_text(url: str) -> str:
+def dashboard_date(dt: datetime) -> str:
+    return dt.strftime("%d-%b-%Y")
+
+
+def build_url(region: str, day: datetime) -> str:
+    params = {
+        "region": region.upper(),
+        "chartType": "co2",
+        "dateRange": "day",
+        "dateFrom": f"{dashboard_date(day)} 00:00",
+        "dateTo": f"{dashboard_date(day)} 23:59",
+        "areas": "co2intensity,co2intensityforecast",
+    }
+    return f"{API_ENDPOINT}?{urllib.parse.urlencode(params)}"
+
+
+def fetch_json(url: str) -> dict:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "Mozilla/5.0 IrelandEnergyMonitor/0.5",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            "Accept-Language": "en-IE,en;q=0.9",
+            "User-Agent": "Mozilla/5.0 IrelandEnergyMonitor/0.7",
+            "Accept": "application/json,text/plain,*/*",
+            "Referer": "https://www.smartgriddashboard.com/roi/co2/",
         },
     )
 
     with urllib.request.urlopen(req, timeout=60) as response:
-        return response.read().decode("utf-8", errors="replace")
+        return json.loads(response.read().decode("utf-8", errors="replace"))
 
 
-def strip_html(raw: str) -> str:
-    text = re.sub(r"<script\b.*?</script>", " ", raw, flags=re.I | re.S)
-    text = re.sub(r"<style\b.*?</style>", " ", text, flags=re.I | re.S)
-    text = re.sub(r"<[^>]+>", "\n", text)
-    text = html.unescape(text)
-    text = text.replace("CO₂", "CO2").replace("CO_{2}", "CO2")
-    text = re.sub(r"[ \t]+", " ", text)
-    text = re.sub(r"\n\s*\n+", "\n", text)
-    return text.strip()
+def normalise_field(value) -> str:
+    return "".join(ch.lower() for ch in str(value or "") if ch.isalnum())
 
 
-def extract_latest_intensity(text: str) -> float | None:
-    """
-    Finds value after 'Latest CO2 intensity' and before 'gCO2/kWh'.
-    Avoids today's low and emissions values.
-    """
-    normal = text.replace("\r", "\n")
+def parse_latest_intensity(payload: dict) -> tuple[float | None, dict]:
+    rows = payload.get("Rows") or payload.get("rows") or []
+    if not isinstance(rows, list) or not rows:
+        return None, {"reason": "No Rows array found", "keys": list(payload.keys())}
 
-    patterns = [
-        r"Latest\s+CO2\s+intensity\s+([0-9][0-9,]*(?:\.[0-9]+)?)\s*gCO2\s*/\s*kWh",
-        r"Latest\s+CO\s*2\s+intensity\s+([0-9][0-9,]*(?:\.[0-9]+)?)\s*gCO\s*2\s*/\s*kWh",
-        r"Latest\s+CO2\s+intensity\s*\n\s*([0-9][0-9,]*(?:\.[0-9]+)?)\s*gCO2\s*/\s*kWh",
-    ]
+    candidates = []
 
-    for pattern in patterns:
-        m = re.search(pattern, normal, flags=re.I | re.S)
-        if m:
-            return float(m.group(1).replace(",", ""))
+    for row in rows:
+        field = normalise_field(row.get("FieldName") or row.get("fieldName") or row.get("field"))
+        value = row.get("Value")
+        time = row.get("EffectiveTime") or row.get("effectiveTime") or row.get("time")
 
-    # More tolerant fallback: small window after the latest-intensity heading.
-    m = re.search(r"Latest\s+CO2\s+intensity(.{0,250})", normal, flags=re.I | re.S)
-    if m:
-        window = m.group(1)
-        n = re.search(r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*gCO2\s*/\s*kWh", window, flags=re.I)
-        if n:
-            return float(n.group(1).replace(",", ""))
+        if field not in {"co2intensity", "co2_intensity"}:
+            continue
 
-    return None
+        if value is None:
+            continue
+
+        try:
+            numeric = float(value)
+        except (TypeError, ValueError):
+            continue
+
+        candidates.append({
+            "value": numeric,
+            "time": time,
+            "field": row.get("FieldName") or row.get("fieldName") or row.get("field"),
+        })
+
+    if not candidates:
+        return None, {
+            "reason": "Rows found, but no non-null CO2 intensity values",
+            "row_count": len(rows),
+            "sample": rows[:3],
+        }
+
+    latest = candidates[-1]
+
+    return latest["value"], {
+        "row_count": len(rows),
+        "candidate_count": len(candidates),
+        "latest_time": latest.get("time"),
+        "latest_field": latest.get("field"),
+    }
 
 
-def set_unavailable(data: dict, mode: str, caveat: str) -> dict:
+def set_unavailable(data: dict, errors: list[str]) -> dict:
     e = data.setdefault("electricity_now", {})
     e["co2_g_per_kwh"] = None
     e["co2_available"] = False
@@ -109,11 +127,12 @@ def set_unavailable(data: dict, mode: str, caveat: str) -> dict:
 
     source_status = data.setdefault("source_status", {})
     source_status["carbon_intensity"] = {
-        "source": "EirGrid Smart Grid Dashboard CO2 page",
-        "source_url": CO2_URLS[0],
-        "mode": mode,
+        "source": "Smart Grid Dashboard chart API",
+        "source_url": API_ENDPOINT,
+        "mode": "api-not-parsed",
         "harvested_at": now_iso(),
-        "caveat": caveat,
+        "caveat": "Chart API was tried, but no CO2 intensity value was parsed. CO2 remains n/a.",
+        "errors": errors[:10],
     }
     return data
 
@@ -121,54 +140,70 @@ def set_unavailable(data: dict, mode: str, caveat: str) -> dict:
 def main() -> int:
     data = load_json(ELECTRICITY)
 
-    errors = []
-    for url in CO2_URLS:
-        try:
-            raw = fetch_text(url)
-            text = strip_html(raw)
-            value = extract_latest_intensity(text)
+    days = [
+        datetime.now(timezone.utc),
+        datetime.now(timezone.utc) - timedelta(days=1),
+    ]
 
-            if value is None:
-                errors.append(f"{url}: no static latest-intensity value found")
-                continue
+    attempts = []
 
-            region = "Ireland" if "/roi/" in url else "All island"
+    for day in days:
+        for region in ["ROI", "ALL"]:
+            url = build_url(region, day)
 
-            e = data.setdefault("electricity_now", {})
-            e["co2_g_per_kwh"] = round(value, 1)
-            e["co2_available"] = True
-            e["co2_source"] = f"EirGrid Smart Grid Dashboard, {region}"
-            e["co2_unit"] = "gCO2/kWh"
-            e["co2_region"] = region
+            try:
+                payload = fetch_json(url)
+                value, info = parse_latest_intensity(payload)
 
-            source_status = data.setdefault("source_status", {})
-            source_status["carbon_intensity"] = {
-                "source": "EirGrid Smart Grid Dashboard CO2 page",
-                "source_url": url,
-                "mode": "public-html-parse",
-                "harvested_at": now_iso(),
-                "region": region,
-                "caveat": (
-                    "Parsed from public Smart Grid Dashboard HTML. If Ireland-only value is not exposed, "
-                    "all-island fallback may be used and is labelled."
-                ),
-            }
+                attempts.append({
+                    "url": url,
+                    "value": value,
+                    "info": info,
+                })
 
-            save_json(ELECTRICITY, data)
-            print(f"Wrote CO2 intensity: {value} gCO2/kWh from {region}")
-            return 0
+                if value is None:
+                    continue
 
-        except Exception as exc:
-            errors.append(f"{url}: {exc}")
+                e = data.setdefault("electricity_now", {})
+                e["co2_g_per_kwh"] = round(value, 1)
+                e["co2_available"] = True
+                e["co2_source"] = f"EirGrid Smart Grid Dashboard, {region}"
+                e["co2_unit"] = "gCO2/kWh"
+                e["co2_region"] = region
+                e["co2_datetime"] = info.get("latest_time")
 
-    data = set_unavailable(
-        data,
-        "not-exposed-in-static-html",
-        "EirGrid CO2 page was reachable or attempted, but no latest static CO2 intensity value was parsed. "
-        "CO2 remains n/a rather than using sandbox or estimated data. Errors: " + " | ".join(errors[:4])
-    )
+                source_status = data.setdefault("source_status", {})
+                source_status["carbon_intensity"] = {
+                    "source": "Smart Grid Dashboard chart API",
+                    "source_url": url,
+                    "mode": "api-chart",
+                    "harvested_at": now_iso(),
+                    "region": region,
+                    "parser": info,
+                    "caveat": (
+                        "Parsed from Smart Grid Dashboard chart API. ROI is preferred; "
+                        "ALL is used only as fallback and labelled."
+                    ),
+                }
+
+                save_json(ELECTRICITY, data)
+                print(f"Wrote CO2 intensity: {value} gCO2/kWh from {region}")
+                return 0
+
+            except Exception as exc:
+                attempts.append({
+                    "url": url,
+                    "error": str(exc),
+                })
+
+    errors = [
+        f"{a.get('url')}: {a.get('error') or a.get('info')}"
+        for a in attempts
+    ]
+
+    data = set_unavailable(data, errors)
     save_json(ELECTRICITY, data)
-    print("No EirGrid static CO2 value parsed; CO2 remains n/a.")
+    print("No CO2 intensity parsed from Smart Grid Dashboard chart API; CO2 remains n/a.")
     return 0
 
 
