@@ -40,6 +40,11 @@ jobs:
           cd demos/ireland-energy-monitor
           python ops/harvest_seai_prices.py
 
+      - name: Build target tracker
+        run: |
+          cd demos/ireland-energy-monitor
+          python ops/build_target_tracker.py
+
       - name: Build and validate monitor JSON
         run: |
           cd demos/ireland-energy-monitor

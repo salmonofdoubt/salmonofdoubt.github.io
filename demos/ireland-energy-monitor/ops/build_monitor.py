@@ -33,6 +33,7 @@ def main() -> None:
     truth = read_json(SOURCE_DIR / "truth_meter.json", {})
     prices = read_json(SOURCE_DIR / "prices.json", {})
     counties = read_json(SOURCE_DIR / "counties.json", {})
+    target_tracker = read_json(SOURCE_DIR / "target_tracker.json", {})
     metadata = read_json(SOURCE_DIR / "metadata.json", {})
 
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
@@ -58,7 +59,8 @@ def main() -> None:
         "fuel_mix_24h": electricity.get("fuel_mix_24h", []),
         "daily_story": electricity.get("daily_story", {}),
         "truth_meter": truth.get("truth_meter", []),
-        "target_trajectory": truth.get("target_trajectory", []),
+        "target_drift": target_tracker.get("target_drift", {}),
+        "target_trajectory": target_tracker.get("target_trajectory", truth.get("target_trajectory", [])),
         "prices": prices.get("prices", []),
         "gas": electricity.get("gas", {}),
         "source_status": electricity.get("source_status", {}),

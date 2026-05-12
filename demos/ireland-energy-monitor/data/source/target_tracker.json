@@ -1,0 +1,84 @@
+{
+  "target_drift": {
+    "metric": "Renewable electricity share",
+    "latest_year": 2024,
+    "latest_value": 41.3,
+    "target_year": 2030,
+    "target_value": 80.0,
+    "gap_to_target_pp": 38.7,
+    "years_remaining": 6,
+    "required_annual_gain_pp": 6.45,
+    "recent_annual_gain_pp": 0.9,
+    "recent_two_year_gain_pp_per_year": 1.95,
+    "status": "off",
+    "status_label": "Off track",
+    "interpretation": "Ireland reached 41.3% renewable electricity in 2024. To reach 80% by 2030, the remaining gap is 38.7 percentage points, requiring about 6.45 percentage points per year from 2024.",
+    "source": "SEAI Renewables statistics",
+    "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/renewables",
+    "caveat": "This is an annual official RES-E indicator. It is not the same as the live quarter-hourly electricity mix shown in the Energy Now section."
+  },
+  "target_trajectory": [
+    {
+      "year": 2020,
+      "actual": 39.1,
+      "target": 39.1
+    },
+    {
+      "year": 2021,
+      "actual": 37.7,
+      "target": 43.2
+    },
+    {
+      "year": 2022,
+      "actual": 37.4,
+      "target": 47.3
+    },
+    {
+      "year": 2023,
+      "actual": 40.4,
+      "target": 51.4
+    },
+    {
+      "year": 2024,
+      "actual": 41.3,
+      "target": 55.5
+    },
+    {
+      "year": 2025,
+      "actual": null,
+      "target": 59.5
+    },
+    {
+      "year": 2026,
+      "actual": null,
+      "target": 63.6
+    },
+    {
+      "year": 2027,
+      "actual": null,
+      "target": 67.7
+    },
+    {
+      "year": 2028,
+      "actual": null,
+      "target": 71.8
+    },
+    {
+      "year": 2029,
+      "actual": null,
+      "target": 75.9
+    },
+    {
+      "year": 2030,
+      "actual": null,
+      "target": 80.0
+    }
+  ],
+  "source_status": {
+    "source": "SEAI Renewables statistics",
+    "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/renewables",
+    "harvested_at": "2026-05-12T14:22:13+00:00",
+    "mode": "official-static-snapshot",
+    "caveat": "Embedded official annual values; automate extraction later if source format remains stable."
+  }
+}

@@ -161,6 +161,64 @@ function renderTrajectory(data) {
   `;
 }
 
+
+function driftStatusClass(status) {
+  if (status === "on") return "on";
+  if (status === "off") return "off";
+  return "risk";
+}
+
+function renderTargetDrift(data) {
+  const target = document.getElementById("targetDriftGrid");
+  if (!target) return;
+
+  const drift = data.target_drift || {};
+  if (!Object.keys(drift).length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const statusClass = driftStatusClass(drift.status);
+
+  target.innerHTML = `
+    <article class="target-drift-card ${statusClass}">
+      <span>Latest official RES-E</span>
+      <strong>${Number(drift.latest_value).toFixed(1)}%</strong>
+      <small>${drift.latest_year}</small>
+    </article>
+
+    <article class="target-drift-card">
+      <span>2030 benchmark</span>
+      <strong>${Number(drift.target_value).toFixed(0)}%</strong>
+      <small>Renewable electricity</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Gap to target</span>
+      <strong>${Number(drift.gap_to_target_pp).toFixed(1)} pp</strong>
+      <small>${drift.years_remaining} years remaining</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Required gain</span>
+      <strong>${Number(drift.required_annual_gain_pp).toFixed(2)} pp/yr</strong>
+      <small>From ${drift.latest_year} to ${drift.target_year}</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Recent gain</span>
+      <strong>${Number(drift.recent_two_year_gain_pp_per_year).toFixed(2)} pp/yr</strong>
+      <small>Two-year average</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Status</span>
+      <strong>${escapeHtml(drift.status_label)}</strong>
+      <small>${escapeHtml(drift.caveat || "")}</small>
+    </article>
+  `;
+}
+
 function renderPrices(data) {
   const target = document.getElementById("priceGrid");
   if (!target) return;
@@ -300,6 +358,7 @@ async function init() {
     renderStory(data);
     renderTruthMeter(data);
     renderTrajectory(data);
+    renderTargetDrift(data);
     renderPrices(data);
     renderResidual(data);
     renderCounties(data);

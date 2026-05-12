@@ -20,6 +20,7 @@ REQUIRED_TOP_LEVEL = [
     "fuel_mix_24h",
     "daily_story",
     "truth_meter",
+    "target_drift",
     "target_trajectory",
     "prices",
     "gas",
@@ -88,6 +89,23 @@ def main() -> None:
     for item in data["truth_meter"]:
         if item.get("status") not in allowed_status:
             fail(f"invalid truth_meter status: {item.get('status')}")
+
+    if not isinstance(data["target_drift"], dict) or not data["target_drift"]:
+        fail("target_drift must be a non-empty object")
+
+    required_drift = [
+        "latest_year",
+        "latest_value",
+        "target_year",
+        "target_value",
+        "gap_to_target_pp",
+        "required_annual_gain_pp",
+        "status",
+        "status_label"
+    ]
+    for key in required_drift:
+        if key not in data["target_drift"]:
+            fail(f"target_drift.{key} missing")
 
     if not isinstance(data["target_trajectory"], list) or len(data["target_trajectory"]) < 2:
         fail("target_trajectory must contain at least two points")
