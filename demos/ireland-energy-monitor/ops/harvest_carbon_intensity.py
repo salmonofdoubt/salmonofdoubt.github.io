@@ -68,6 +68,23 @@ def main() -> int:
     source_status = data.setdefault("source_status", {})
 
     api_key = os.getenv("ELECTRICITYMAPS_API_KEY")
+    key_mode = os.getenv("ELECTRICITYMAPS_KEY_MODE", "sandbox").strip().lower()
+
+    # Safety guard:
+    # Electricity Maps sandbox keys return sample/randomised data.
+    # Do not publish sandbox values as public CO2 intensity.
+    if api_key and key_mode != "live":
+        e["co2_g_per_kwh"] = None
+        e["co2_available"] = False
+        source_status["carbon_intensity"] = {
+            "source": "Electricity Maps",
+            "mode": f"{key_mode}-disabled",
+            "harvested_at": now_iso(),
+            "caveat": "Electricity Maps key is present but not marked live. Sandbox/sample CO2 data are intentionally not published."
+        }
+        save_json(ELECTRICITY, data)
+        print("Electricity Maps key present, but mode is not live; CO2 remains n/a.")
+        return 0
 
     if not api_key:
         e["co2_g_per_kwh"] = None

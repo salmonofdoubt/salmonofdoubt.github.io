@@ -43,6 +43,7 @@ jobs:
       - name: Harvest carbon intensity
         env:
           ELECTRICITYMAPS_API_KEY: ${{ secrets.ELECTRICITYMAPS_API_KEY }}
+          ELECTRICITYMAPS_KEY_MODE: sandbox
         run: |
           cd demos/ireland-energy-monitor
           python ops/harvest_carbon_intensity.py
