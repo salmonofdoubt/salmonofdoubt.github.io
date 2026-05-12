@@ -2124,3 +2124,380 @@ body {
     border-bottom: 1px solid var(--editorial-line) !important;
   }
 }
+
+/* v0.8 ZEIT-like compact rhythm and fine-line reading layer */
+:root {
+  --zeit-bg: #050908;
+  --zeit-line: rgba(238, 248, 243, 0.135);
+  --zeit-line-soft: rgba(238, 248, 243, 0.085);
+  --zeit-text: #edf7f1;
+  --zeit-muted: rgba(237, 247, 241, 0.62);
+  --zeit-dim: rgba(237, 247, 241, 0.42);
+}
+
+/* Kill the magazine-sized vertical gaps */
+.hero {
+  min-height: auto !important;
+  padding-top: clamp(3.7rem, 6vw, 5.6rem) !important;
+  padding-bottom: clamp(1.4rem, 3vw, 2.4rem) !important;
+}
+
+.section {
+  padding-top: clamp(1.35rem, 2.6vw, 2.35rem) !important;
+  padding-bottom: clamp(1.35rem, 2.6vw, 2.35rem) !important;
+}
+
+.section + .section {
+  margin-top: 0 !important;
+}
+
+.section-head {
+  margin-bottom: clamp(0.85rem, 1.8vw, 1.25rem) !important;
+}
+
+.section-head p:not(.eyebrow) {
+  margin-bottom: 0 !important;
+}
+
+/* Overall editorial restraint */
+h1 {
+  letter-spacing: -0.072em !important;
+}
+
+h2 {
+  font-weight: 760 !important;
+  letter-spacing: -0.055em !important;
+}
+
+h3 {
+  font-weight: 760 !important;
+}
+
+.panel,
+.status-card,
+.metric-card,
+.truth-card,
+.price-card {
+  box-shadow: none !important;
+}
+
+/* ZEIT-like question strip */
+.question-strip-section {
+  padding-top: 0.9rem !important;
+  padding-bottom: 1.1rem !important;
+}
+
+.question-strip-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--zeit-line);
+  padding-top: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.question-strip-head h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.1vw, 1.85rem);
+}
+
+.question-strip-head p {
+  margin: 0;
+  color: var(--zeit-muted);
+  font-size: 0.86rem;
+}
+
+.question-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid var(--zeit-line);
+  border-bottom: 1px solid var(--zeit-line);
+}
+
+.question-link {
+  min-height: 7.4rem;
+  padding: 0.95rem 0.9rem;
+  border-right: 1px solid var(--zeit-line);
+  text-decoration: none;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0.55rem;
+  background: transparent;
+}
+
+.question-link:last-child {
+  border-right: 0;
+}
+
+.question-link:hover {
+  background: rgba(255,255,255,0.026);
+}
+
+.question-icon {
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid var(--zeit-line);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--lime);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.question-link strong {
+  color: var(--zeit-text);
+  font-size: 0.94rem;
+  line-height: 1.2;
+  font-weight: 720;
+  max-width: 11rem;
+}
+
+.question-link small {
+  color: var(--zeit-muted);
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+
+/* Daily pulse should feel like the main ZEIT dashboard */
+.pulse-section {
+  padding-top: 1.1rem !important;
+  padding-bottom: 1.2rem !important;
+}
+
+.pulse-head {
+  margin-bottom: 0.7rem !important;
+}
+
+.pulse-head h2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.65rem) !important;
+  margin-bottom: 0.35rem !important;
+}
+
+.pulse-grid {
+  margin-top: 0.75rem !important;
+}
+
+.pulse-card {
+  min-height: 10.6rem !important;
+  padding: 0.9rem 0.9rem 0.85rem !important;
+  gap: 0.58rem !important;
+  grid-template-rows: auto 2.55rem 1fr !important;
+}
+
+.pulse-card-top span {
+  font-size: 0.68rem !important;
+  letter-spacing: 0.075em !important;
+}
+
+.pulse-card-top strong {
+  font-size: clamp(1.32rem, 2vw, 1.85rem) !important;
+  font-weight: 690 !important;
+}
+
+.pulse-card-top strong small {
+  font-size: 0.76rem !important;
+  font-weight: 620 !important;
+}
+
+.pulse-sparkline {
+  height: 2.55rem !important;
+}
+
+.pulse-sparkline polyline {
+  stroke-width: 1.55 !important;
+}
+
+.pulse-card p {
+  font-size: 0.76rem !important;
+  line-height: 1.33 !important;
+}
+
+/* Demote old large metric cards into a technical readout */
+#today {
+  padding-top: 1rem !important;
+}
+
+#today .section-head {
+  margin-bottom: 0.65rem !important;
+}
+
+#today .section-head h2 {
+  font-size: clamp(1.35rem, 2.4vw, 2rem) !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.metric-grid {
+  margin-bottom: 0.75rem !important;
+}
+
+.metric-card {
+  min-height: 7rem !important;
+  padding: 0.75rem 0.78rem !important;
+}
+
+.metric-card > span:first-child {
+  font-size: 0.61rem !important;
+}
+
+.metric-number {
+  font-size: clamp(1.25rem, 1.75vw, 1.75rem) !important;
+  font-weight: 680 !important;
+}
+
+.metric-unit {
+  font-size: 0.68rem !important;
+}
+
+.metric-card small {
+  font-size: 0.68rem !important;
+  line-height: 1.28 !important;
+}
+
+/* Reduce huge panel feel in dashboard rows */
+.dashboard-grid,
+.county-layout,
+.method-grid {
+  gap: 0.8rem !important;
+}
+
+.panel {
+  border-radius: 1.05rem !important;
+  padding: 1rem !important;
+}
+
+.panel-head {
+  margin-bottom: 0.6rem !important;
+}
+
+.panel p {
+  font-size: 0.9rem !important;
+  line-height: 1.45 !important;
+}
+
+/* Target section: less vertical bulk */
+.trajectory {
+  min-height: 220px !important;
+  margin-bottom: 0.55rem !important;
+}
+
+.trajectory svg {
+  height: 220px !important;
+}
+
+.target-drift-grid {
+  margin-top: 0.6rem !important;
+}
+
+.target-drift-card {
+  padding: 0.75rem !important;
+}
+
+.target-drift-card span:first-child {
+  font-size: 0.6rem !important;
+}
+
+.target-number {
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem) !important;
+}
+
+.target-unit {
+  font-size: 0.62rem !important;
+}
+
+.target-drift-card small {
+  font-size: 0.68rem !important;
+  line-height: 1.24 !important;
+}
+
+/* Reduce excess emptiness around cards such as residual signal */
+.gauge {
+  margin-top: 0.75rem !important;
+  height: 0.72rem !important;
+}
+
+.big-quote {
+  font-size: 1.18rem !important;
+  line-height: 1.18 !important;
+  font-weight: 720 !important;
+}
+
+/* Truth / prices: less startup-card, more thin monitor */
+.truth-grid,
+.price-grid {
+  gap: 0 !important;
+  border-top: 1px solid var(--zeit-line);
+  border-bottom: 1px solid var(--zeit-line);
+}
+
+.truth-card,
+.price-card {
+  border: 0 !important;
+  border-right: 1px solid var(--zeit-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  min-height: 8.5rem;
+  padding: 0.85rem !important;
+}
+
+.truth-card:last-child,
+.price-card:last-child {
+  border-right: 0 !important;
+}
+
+.truth-value,
+.price-value {
+  font-size: clamp(1.35rem, 2vw, 1.85rem) !important;
+  font-weight: 700 !important;
+}
+
+.truth-card p,
+.price-card p {
+  font-size: 0.78rem !important;
+  line-height: 1.35 !important;
+}
+
+/* tighter mobile/tablet rhythm */
+@media (max-width: 980px) {
+  .question-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .question-link:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .metric-grid,
+  .target-drift-grid,
+  .truth-grid,
+  .price-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .question-strip,
+  .metric-grid,
+  .target-drift-grid,
+  .truth-grid,
+  .price-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .question-link,
+  .truth-card,
+  .price-card {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--zeit-line) !important;
+  }
+
+  .question-strip-head {
+    display: block;
+  }
+
+  .question-strip-head p {
+    margin-top: 0.35rem;
+  }
+}
