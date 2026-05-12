@@ -45,6 +45,11 @@ jobs:
           cd demos/ireland-energy-monitor
           python ops/build_target_tracker.py
 
+      - name: Build county hosting index
+        run: |
+          cd demos/ireland-energy-monitor
+          python ops/build_county_hosting.py
+
       - name: Build and validate monitor JSON
         run: |
           cd demos/ireland-energy-monitor

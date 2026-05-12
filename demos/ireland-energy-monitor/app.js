@@ -258,6 +258,81 @@ function renderCounties(data) {
   `).join("");
 }
 
+
+function localEscapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function heatClass(bucket) {
+  return `heat-${bucket || "medium"}`;
+}
+
+function renderCountyHosting(data) {
+  const heatmap = document.getElementById("countyHeatmap");
+  const summaryTarget = document.getElementById("countySummaryCards");
+  if (!heatmap && !summaryTarget) return;
+
+  const hosting = data.county_hosting || {};
+  const counties = data.counties || [];
+
+  if (heatmap) {
+    heatmap.innerHTML = counties.map(county => {
+      const row = Number(county.row || 1);
+      const col = Number(county.col || 1);
+      const score = Number(county.hosting_score ?? county.score ?? 0);
+      const cls = heatClass(county.heat_bucket);
+
+      return `
+        <button
+          class="county-tile ${cls}"
+          style="grid-row:${row}; grid-column:${col};"
+          type="button"
+          title="${localEscapeHtml(county.name)}: ${score}/100 · ${localEscapeHtml(county.note)}"
+          aria-label="${localEscapeHtml(county.name)} hosting score ${score} out of 100"
+        >
+          <strong>${localEscapeHtml(county.code)}</strong>
+          <span>${score}</span>
+        </button>
+      `;
+    }).join("");
+  }
+
+  if (summaryTarget) {
+    const sorted = [...counties].sort((a, b) => Number(b.hosting_score || 0) - Number(a.hosting_score || 0));
+    const top = sorted.slice(0, 5);
+    const low = sorted.slice(-5).reverse();
+
+    const list = rows => rows.map(c => `
+      <li>
+        <strong>${localEscapeHtml(c.name)}</strong>
+        <span>${Number(c.hosting_score || 0)}/100 · ${localEscapeHtml(c.dominant_technology || "Mixed")}</span>
+      </li>
+    `).join("");
+
+    summaryTarget.innerHTML = `
+      <article class="county-summary-card high">
+        <h4>High hosting signal</h4>
+        <ul>${list(top)}</ul>
+      </article>
+
+      <article class="county-summary-card low">
+        <h4>Low-host / demand-adjacent signal</h4>
+        <ul>${list(low)}</ul>
+      </article>
+
+      <article class="county-summary-card caveat">
+        <h4>Method caveat</h4>
+        <p>${localEscapeHtml(hosting.caveat || "County hosting index scaffold. SEAI integration pending.")}</p>
+      </article>
+    `;
+  }
+}
+
 function renderMeta(data) {
   const generated = new Date(data.meta.generated_at);
 
@@ -363,6 +438,7 @@ async function init() {
     renderResidual(data);
     renderCounties(data);
     renderDataQuality(data);
+    renderCountyHosting(data);
   } catch (error) {
     console.error(error);
     text("projectStatus", "Data load failed");

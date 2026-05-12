@@ -272,31 +272,50 @@
         <h2>Who hosts the renewable transition?</h2>
         <p>
           County-level renewable production can expose an Irish transition geography: where infrastructure is hosted,
-          where production is concentrated, and where the public conversation should be more honest.
+          where production is concentrated, and where electricity demand is spatially uneven.
+        </p>
+        <p class="source-note-pill">
+          Schematic heatmap scaffold. SEAI county-dashboard integration pending.
         </p>
       </div>
 
-      <div class="county-layout">
-        <article class="panel">
-          <h3>County renewable signal</h3>
-          <div class="county-list" id="countyList"></div>
-        </article>
-        <article class="panel wide">
-          <h3>Why this is novel</h3>
-          <p>
-            Official dashboards usually report sectors separately. This monitor joins the dots: live system conditions,
-            price pressure, 2030 target drift and county hosting of renewable production. That creates accountability,
-            not just visualisation.
-          </p>
-          <div class="novelty-list">
-            <div><strong>Daily story</strong><span>Automatic public interpretation.</span></div>
-            <div><strong>Target drift</strong><span>Current path versus 2030 requirement.</span></div>
-            <div><strong>Energy pressure</strong><span>Prices shown beside transition metrics.</span></div>
-            <div><strong>Spatial fairness</strong><span>County production and hosting lens.</span></div>
+      <div class="county-hosting-layout">
+        <article class="panel heatmap-panel">
+          <div class="panel-head">
+            <h3>Ireland county hosting heatmap</h3>
+            <span class="pill accent">Tile map · not boundaries</span>
+          </div>
+          <div class="ireland-heatmap" id="countyHeatmap" aria-label="Schematic county hosting heatmap"></div>
+          <div class="heatmap-legend" aria-label="Heatmap legend">
+            <span>Low</span>
+            <i class="legend-swatch heat-very-low"></i>
+            <i class="legend-swatch heat-low"></i>
+            <i class="legend-swatch heat-medium"></i>
+            <i class="legend-swatch heat-high"></i>
+            <i class="legend-swatch heat-very-high"></i>
+            <span>High</span>
           </div>
         </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h3>Hosting readout</h3>
+            <span class="pill warning">Index scaffold</span>
+          </div>
+          <div class="county-summary-grid" id="countySummaryCards"></div>
+        </article>
       </div>
+
+      <article class="panel county-method-panel">
+        <h3>Why this matters</h3>
+        <p>
+          A national transition target can hide local geography. A county hosting index asks a sharper question:
+          which counties host renewable infrastructure, which counties mainly consume electricity, and where should
+          benefit-sharing and planning conversations be more visible?
+        </p>
+      </article>
     </section>
+
 
     <section id="method" class="section method-section">
       <div class="section-head">

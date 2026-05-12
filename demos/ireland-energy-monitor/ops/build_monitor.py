@@ -34,6 +34,7 @@ def main() -> None:
     prices = read_json(SOURCE_DIR / "prices.json", {})
     counties = read_json(SOURCE_DIR / "counties.json", {})
     target_tracker = read_json(SOURCE_DIR / "target_tracker.json", {})
+    county_hosting = read_json(SOURCE_DIR / "county_hosting.json", {})
     metadata = read_json(SOURCE_DIR / "metadata.json", {})
 
     generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
@@ -64,7 +65,8 @@ def main() -> None:
         "prices": prices.get("prices", []),
         "gas": electricity.get("gas", {}),
         "source_status": electricity.get("source_status", {}),
-        "counties": counties.get("counties", [])
+        "county_hosting": county_hosting.get("county_hosting", {}),
+        "counties": county_hosting.get("counties", counties.get("counties", []))
     }
 
     OUT.write_text(json.dumps(monitor, indent=2) + "\n")
