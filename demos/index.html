@@ -7,10 +7,185 @@
   <title>Demos | André Baumann</title>
   <meta
     name="description"
-    content="Interactive demos and prototypes by André Baumann, including Grant Radar, SDSS, NDRT, UrbanForest, Colour Lab, Tax-trigger, and the Three Intelligences Explorer."
+    content="Interactive demos and prototypes by André Baumann, including Ireland Energy Monitor, Grant Radar, SDSS, NDRT, UrbanForest, Colour Lab, and the Three Intelligences Explorer."
   />
   <link rel="stylesheet" href="../assets/css/site.css" />
+
+  <style>
+    .demos-hero {
+      margin-top: 1.5rem;
+    }
+
+    .demos-hero .panel {
+      padding: clamp(1.2rem, 3vw, 2rem);
+    }
+
+    .demo-kicker {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.28rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: var(--muted, #b8d9d1);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+
+    .demos-hero h1 {
+      margin-bottom: 0.7rem;
+    }
+
+    .demos-hero .lead {
+      max-width: 850px;
+      margin-bottom: 0.8rem;
+    }
+
+    .demo-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 1rem;
+    }
+
+    .demo-section {
+      margin-top: 1.4rem;
+    }
+
+    .demo-section h2 {
+      margin-bottom: 0.55rem;
+    }
+
+    .demo-section-intro {
+      max-width: 860px;
+      color: var(--muted, #b8d9d1);
+      margin-bottom: 1rem;
+    }
+
+    .demo-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 0.85rem;
+      align-items: stretch;
+    }
+
+    .demo-card {
+      padding: 0.95rem !important;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .demo-card h3 {
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.2;
+    }
+
+    .demo-card p {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.43;
+    }
+
+    .demo-card .tag-row {
+      margin-top: auto;
+      gap: 0.35rem;
+    }
+
+    .demo-card .tag {
+      padding: 0.25rem 0.48rem;
+      font-size: 0.72rem;
+      border-radius: 999px;
+    }
+
+    .demo-card .button-row {
+      margin-top: 0.2rem;
+    }
+
+    .demo-card .button {
+      min-height: 2.2rem;
+      padding: 0.48rem 0.72rem;
+      font-size: 0.86rem;
+    }
+
+    .demo-card.featured {
+      border-color: rgba(120, 255, 202, 0.34);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(120, 255, 202, 0.12), transparent 30%),
+        rgba(255,255,255,0.055);
+    }
+
+    .demo-card.energy {
+      border-color: rgba(183, 240, 106, 0.42);
+      background:
+        radial-gradient(circle at 8% 14%, rgba(183, 240, 106, 0.14), transparent 32%),
+        radial-gradient(circle at 85% 18%, rgba(114, 214, 255, 0.10), transparent 28%),
+        rgba(255,255,255,0.055);
+    }
+
+    .demo-card.blue {
+      border-color: rgba(114, 214, 255, 0.28);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(114, 214, 255, 0.12), transparent 30%),
+        rgba(255,255,255,0.05);
+    }
+
+    .demo-card.green {
+      border-color: rgba(114, 235, 194, 0.28);
+    }
+
+    .demo-card.status-prototype::before,
+    .demo-card.status-live::before,
+    .demo-card.status-concept::before {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.22rem 0.46rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .demo-card.status-live::before {
+      content: "Live";
+      background: rgba(73, 209, 125, 0.15);
+      border: 1px solid rgba(73, 209, 125, 0.38);
+      color: #dfffee;
+    }
+
+    .demo-card.status-prototype::before {
+      content: "Prototype";
+      background: rgba(247, 201, 72, 0.15);
+      border: 1px solid rgba(247, 201, 72, 0.38);
+      color: #fff4d5;
+    }
+
+    .demo-card.status-concept::before {
+      content: "Concept";
+      background: rgba(114, 214, 255, 0.14);
+      border: 1px solid rgba(114, 214, 255, 0.35);
+      color: #e1f6ff;
+    }
+
+    .small-note {
+      color: var(--muted, #b8d9d1);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 700px) {
+      .demo-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header class="site-header">
     <div class="container topbar">
@@ -25,169 +200,242 @@
   </header>
 
   <main class="container">
-    <section class="hero">
+    <section class="hero demos-hero">
       <div class="panel">
-        <span class="eyebrow">Demos and Prototypes</span>
+        <span class="demo-kicker">Demos · prototypes · civic data tools</span>
         <h1>Demos</h1>
+
         <p class="lead">
-          This page is the launchpad for interactive demos, concept sites, and technical prototypes.
-        </p>
-        <p>
-          Each lives in its own directory and can evolve independently. This page maps the territory and now includes Grant Radar, a funding intelligence demo for nature, ecology, biodiversity, climate, water, and energy opportunities.
+          Interactive public prototypes, concept sites, and small decision-support tools. Each demo lives in its
+          own folder so it can mature independently or later split into a standalone repository.
         </p>
 
-        <div class="button-row">
-          <a class="button" href="../index.html">Back Home</a>
-          <a class="button primary" href="sdss-concept/">Open Featured Demo</a>
+        <p class="small-note">
+          The emphasis is practical: transparent logic, inspectable data, and public-facing interfaces that explain
+          the idea without hiding the machinery.
+        </p>
+
+        <div class="demo-toolbar">
+          <a class="button primary" href="ireland-energy-monitor/">Open Ireland Energy Monitor</a>
           <a class="button" href="grant-radar/">Open Grant Radar</a>
+          <a class="button" href="sdss-concept/">Open SDSS Concept</a>
+          <a class="button" href="../index.html">Back Home</a>
         </div>
       </div>
-
-      <aside class="panel">
-        <h3>How this section works</h3>
-        <ul class="list-clean muted">
-          <li><strong>Demos page:</strong> overview and navigation</li>
-          <li><strong>Standalone folders:</strong> actual demo implementations</li>
-          <li><strong>Scalable:</strong> add one card per new demo</li>
-          <li><strong>Portable:</strong> each demo can later split into its own repository if needed</li>
-        </ul>
-      </aside>
     </section>
 
-    <section class="section">
-      <h2>Featured demo</h2>
-      <div class="grid">
-        <article class="demo-card">
-          <h3>Stability-Aware SDSS</h3>
-          <p class="muted">
-            Interactive concept site for stability-aware prioritisation of nature-based solutions, with architecture, ranking logic, uncertainty framing, and verification design.
-          </p>
-
-          <div class="tag-row">
-            <span class="tag">SDSS</span>
-            <span class="tag">NbS</span>
-            <span class="tag">Water Quality</span>
-            <span class="tag">Decision Logic</span>
-          </div>
-
-          <div class="button-row">
-            <a class="button primary" href="sdss-concept/">Launch Demo</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>All demos</h2>
-      <p class="audio-note">
-        Each card links directly to a standalone prototype or concept page.
+    <section class="section demo-section">
+      <h2>Featured</h2>
+      <p class="demo-section-intro">
+        Larger strategic demos with public-interest value, reusable data architecture, or policy-relevant framing.
       </p>
 
-      <div class="grid">
-        <article class="demo-card featured-blue">
-          <h3>GRANT Radar</h3>
+      <div class="demo-list">
+        <article class="demo-card energy status-prototype">
+          <h3>Ireland Energy Monitor</h3>
           <p class="muted">
-            Funding radar for grants and calls in the nature, ecology, biodiversity, environmental, climate, water, and energy space, with filtering by purpose, applicant type, access route, grant scale, and deadline timing.
+            Open civic dashboard for Ireland’s electricity mix, energy prices, gas dependency, county renewable
+            build-out, and 2030 transition truth meter.
           </p>
+          <div class="tag-row">
+            <span class="tag">Energy</span>
+            <span class="tag">Ireland</span>
+            <span class="tag">Open Data</span>
+            <span class="tag">2030</span>
+          </div>
+          <div class="button-row">
+            <a class="button primary" href="ireland-energy-monitor/">Open</a>
+          </div>
+        </article>
 
+        <article class="demo-card blue status-live">
+          <h3>Grant Radar</h3>
+          <p class="muted">
+            Funding radar for nature, biodiversity, climate, water, energy and environmental opportunities, with
+            mode-first filtering and review workflow.
+          </p>
           <div class="tag-row">
             <span class="tag">Funding</span>
             <span class="tag">Environment</span>
             <span class="tag">Climate</span>
-            <span class="tag">Energy</span>
+            <span class="tag">Water</span>
           </div>
-
           <div class="button-row">
             <a class="button primary" href="grant-radar/">Open</a>
           </div>
         </article>
 
-        <article class="demo-card featured-blue">
-          <h3>GEO Radar</h3>
-          <p class="muted">
-            Funding radar for Geo related grants and calls
-          </p>
-
-          <div class="tag-row">
-            <span class="tag">Funding</span>
-            <span class="tag">Geo-Sciences</span>
-            <span class="tag">Climate</span>
-            <span class="tag">Energy</span>
-          </div>
-
-          <div class="button-row">
-            <a class="button primary" href="geo-radar/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card featured-blue">
-          <h3>Three Intelligences Explorer</h3>
-          <p class="muted">
-            Interactive 3D model exploring individual capability, collective coordination, and planetary stewardship using transparent public-indicator proxies and live World Bank API data where available.
-          </p>
-
-          <div class="tag-row">
-            <span class="tag">Systems</span>
-            <span class="tag">3D Model</span>
-            <span class="tag">Governance</span>
-            <span class="tag">Planetary</span>
-          </div>
-
-          <div class="button-row">
-            <a class="button primary" href="intelligence/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card">
+        <article class="demo-card featured status-concept">
           <h3>Stability-Aware SDSS</h3>
           <p class="muted">
-            A transparent spatial decision support concept for ranking nature-based solutions under uncertainty.
+            Spatial decision-support concept for prioritising nature-based solutions under uncertainty, with
+            transparent ranking and stability logic.
           </p>
+          <div class="tag-row">
+            <span class="tag">SDSS</span>
+            <span class="tag">NbS</span>
+            <span class="tag">Water Quality</span>
+            <span class="tag">Uncertainty</span>
+          </div>
+          <div class="button-row">
+            <a class="button primary" href="sdss-concept/">Open</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
+    <section class="section demo-section">
+      <h2>All demos</h2>
+      <p class="demo-section-intro">
+        Compact index of the current demo portfolio.
+      </p>
+
+      <div class="demo-list">
+        <article class="demo-card energy status-prototype">
+          <h3>Ireland Energy Monitor</h3>
+          <p class="muted">
+            Daily open-data truth meter for Ireland’s energy transition.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Energy</span>
+            <span class="tag">Data</span>
+            <span class="tag">Policy</span>
+          </div>
+          <div class="button-row">
+            <a class="button" href="ireland-energy-monitor/">Open</a>
+          </div>
+        </article>
+
+        <article class="demo-card blue status-live">
+          <h3>Grant Radar</h3>
+          <p class="muted">
+            Grant and call tracker for environmental, climate, water and energy opportunities.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Funding</span>
+            <span class="tag">Radar</span>
+            <span class="tag">Automation</span>
+          </div>
+          <div class="button-row">
+            <a class="button" href="grant-radar/">Open</a>
+          </div>
+        </article>
+
+        <article class="demo-card blue status-prototype">
+          <h3>Geo Radar</h3>
+          <p class="muted">
+            Funding radar spin-off for geoscience, Earth systems and climate-related opportunities.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Geo</span>
+            <span class="tag">Funding</span>
+            <span class="tag">Earth Systems</span>
+          </div>
+          <div class="button-row">
+            <a class="button" href="geo-radar/">Open</a>
+          </div>
+        </article>
+
+        <article class="demo-card status-concept">
+          <h3>Three Intelligences Explorer</h3>
+          <p class="muted">
+            3D model of individual capability, collective coordination and planetary stewardship.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Systems</span>
+            <span class="tag">3D</span>
+            <span class="tag">Governance</span>
+          </div>
+          <div class="button-row">
+            <a class="button" href="intelligence/">Open</a>
+          </div>
+        </article>
+
+        <article class="demo-card green status-concept">
+          <h3>Stability-Aware SDSS</h3>
+          <p class="muted">
+            Transparent NbS prioritisation concept with uncertainty and ranking-stability framing.
+          </p>
+          <div class="tag-row">
+            <span class="tag">SDSS</span>
+            <span class="tag">NbS</span>
+            <span class="tag">Water</span>
+          </div>
           <div class="button-row">
             <a class="button" href="sdss-concept/">Open</a>
           </div>
         </article>
 
-        <article class="demo-card">
-          <h3>Nanny-Devlin River Trust</h3>
+        <article class="demo-card green status-prototype">
+          <h3>Nanny-Delvin River Trust</h3>
           <p class="muted">
-            A demo for a public-facing trust website.
+            Public-facing river trust demo with monitoring, restoration and citizen-science framing.
           </p>
-
+          <div class="tag-row">
+            <span class="tag">Rivers</span>
+            <span class="tag">Citizen Science</span>
+            <span class="tag">NDRT</span>
+          </div>
           <div class="button-row">
             <a class="button" href="ndrt/">Open</a>
           </div>
         </article>
 
-        <article class="demo-card">
+        <article class="demo-card green status-live">
           <h3>UrbanForest</h3>
           <p class="muted">
-            A documented Trinity campus Miyawaki extension: site selection, ground preparation, species mix, milestones, visual evidence, references, and the bridge to Cradle-Based Syntrophic Miyawaki.
+            Trinity campus Miyawaki extension case study with species mix, milestones and carbon scenario.
           </p>
-
+          <div class="tag-row">
+            <span class="tag">Urban Forest</span>
+            <span class="tag">Miyawaki</span>
+            <span class="tag">TCD</span>
+          </div>
           <div class="button-row">
             <a class="button" href="urbanforest/">Open</a>
           </div>
         </article>
 
-        <article class="demo-card">
+        <article class="demo-card status-prototype">
+          <h3>Dublin Representative Finder</h3>
+          <p class="muted">
+            Civic lookup prototype for Dublin constituencies, local electoral areas, TDs and councillors.
+          </p>
+          <div class="tag-row">
+            <span class="tag">Civic</span>
+            <span class="tag">Dublin</span>
+            <span class="tag">Lookup</span>
+          </div>
+          <div class="button-row">
+            <a class="button" href="td-lookup/">Open</a>
+          </div>
+        </article>
+
+        <article class="demo-card status-prototype">
           <h3>Colour Lab</h3>
           <p class="muted">
-            Interactive demo for RGB light on a white screen and approximate paint mixing under white light.
+            Interactive RGB light and approximate paint-mixing explainer.
           </p>
-
+          <div class="tag-row">
+            <span class="tag">Colour</span>
+            <span class="tag">Learning</span>
+            <span class="tag">Interactive</span>
+          </div>
           <div class="button-row">
             <a class="button" href="colour-lab/">Open</a>
           </div>
         </article>
 
-        <article class="demo-card">
+        <article class="demo-card status-concept">
           <h3>Tax-trigger Demo</h3>
           <p class="muted">
             Prototype exploring tax-trigger logic and decision framing.
           </p>
-
+          <div class="tag-row">
+            <span class="tag">Finance</span>
+            <span class="tag">Logic</span>
+            <span class="tag">Prototype</span>
+          </div>
           <div class="button-row">
             <a class="button" href="tax-trigger/">Open</a>
           </div>
@@ -201,7 +449,7 @@
       <p>© André Baumann · Demos page</p>
     </div>
   </footer>
-  <script src="./review.js?v=20260429-review-restore1" defer></script>
+
   <script
     defer
     src="https://static.cloudflareinsights.com/beacon.min.js"
