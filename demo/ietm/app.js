@@ -4470,158 +4470,48 @@ function iemPowerForLiveCards(value, options = {}) {
 })();
 // IETM generation-basis live metric renderer: END
 
-// IETM live visible SmartGrid net import display: BEGIN
+// IETM post-render interconnection arrow: BEGIN
 (function () {
-  const previousRenderMetrics = renderMetrics;
+  function patchInterconnectionArrow() {
+    const cards = document.querySelectorAll("#metricGrid .metric-card");
 
-  renderMetrics = function renderMetricsWithLiveVisibleNetImport(data) {
-    previousRenderMetrics(data);
+    for (const card of cards) {
+      const label = card.querySelector("span");
+      const note = card.querySelector("small");
 
-    const e = data.electricity_now || {};
-    const grid = document.getElementById("metricGrid");
-    if (!grid) return;
+      if (!label || !note) continue;
+      if (label.textContent.trim().toLowerCase() !== "interconnection") continue;
 
-    const generationMw = Number(e.generation_mw || e.demand_mw || 0);
-    const pct = Number(e.net_import_percent ?? e.interconnection_percent);
+      let text = note.textContent
+        .replace(/[↗↘•]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 
-    if (!Number.isFinite(generationMw) || generationMw <= 0 || !Number.isFinite(pct)) {
-      return;
-    }
+      if (!text) text = "Net export";
 
-    const derivedMw = generationMw * pct / 100.0;
-    const absMw = Math.abs(derivedMw);
+      const lower = text.toLowerCase();
+      const arrow = lower.includes("export")
+        ? "↗"
+        : lower.includes("import")
+          ? "↘"
+          : "•";
 
-    const valueText = absMw >= 1000
-      ? `${(absMw / 1000).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        })} GW`
-      : `${absMw.toLocaleString(undefined, {
-          maximumFractionDigits: 0
-        })} MW`;
-
-    const arrow = pct < -0.005 ? "↗" : pct > 0.005 ? "↘" : "•";
-    const label =
-      pct < -0.005 ? "Net export" :
-      pct > 0.005 ? "Net import" :
-      "Near balanced";
-
-    const noteText = Math.abs(pct) > 0.005
-      ? `${label} · ${Math.abs(pct).toFixed(2)}%`
-      : label;
-
-    let card = null;
-
-    for (const candidate of Array.from(grid.querySelectorAll(".metric-card"))) {
-      const labelEl = candidate.querySelector("span");
-      if (labelEl && labelEl.textContent.trim().toLowerCase() === "interconnection") {
-        card = candidate;
-        break;
-      }
-    }
-
-    if (!card) {
-      card = document.createElement("article");
-      card.className = "metric-card";
-      grid.appendChild(card);
-    }
-
-    card.setAttribute("data-accent", "interconnection");
-
-    card.innerHTML = `
-      <span>Interconnection</span>
-      <strong>${valueText}</strong>
-      <small class="interconnection-note">
-        <span class="interconnection-arrow" aria-hidden="true">${arrow}</span>
-        <span>${noteText}</span>
-      </small>
-    `;
-  };
-})();
-// IETM live visible SmartGrid net import display: END
-
-// IETM live visible SmartGrid net import display: BEGIN
-(function () {
-  const previousRenderMetrics = renderMetrics;
-
-  renderMetrics = function renderMetricsWithVisibleSmartGridNetImport(data) {
-    previousRenderMetrics(data);
-
-    const e = data.electricity_now || {};
-    const grid = document.getElementById("metricGrid");
-    if (!grid) return;
-
-    const basis = String(e.interconnection_basis || "");
-    const generationMw = Number(e.generation_mw || e.demand_mw || 0);
-    const pct = Number(e.net_import_percent ?? e.interconnection_percent);
-
-    let card = null;
-
-    for (const candidate of Array.from(grid.querySelectorAll(".metric-card"))) {
-      const label = candidate.querySelector("span");
-      if (label && label.textContent.trim().toLowerCase() === "interconnection") {
-        card = candidate;
-        break;
-      }
-    }
-
-    if (!card) {
-      card = document.createElement("article");
-      card.className = "metric-card";
+      note.textContent = `${arrow} ${text}`;
+      note.style.whiteSpace = "nowrap";
+      note.style.color = "var(--green)";
+      note.style.fontWeight = "850";
       card.setAttribute("data-accent", "interconnection");
-      grid.appendChild(card);
+      break;
     }
+  }
 
-    card.setAttribute("data-accent", "interconnection");
-
-    // Only the visible SmartGrid overview percentage is allowed to drive this card.
-    // This prevents INTER_NET MW from overwriting the top KPI.
-    if (
-      !basis.includes("visible_generation_overview") ||
-      !Number.isFinite(generationMw) ||
-      generationMw <= 0 ||
-      !Number.isFinite(pct)
-    ) {
-      card.innerHTML = `
-        <span>Interconnection</span>
-        <strong>n/a</strong>
-        <small class="interconnection-note">
-          <span>Net import % not mapped</span>
-        </small>
-      `;
-      return;
-    }
-
-    const derivedMw = generationMw * pct / 100.0;
-    const absMw = Math.abs(derivedMw);
-
-    const valueText = absMw >= 1000
-      ? `${(absMw / 1000).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        })} GW`
-      : `${absMw.toLocaleString(undefined, {
-          maximumFractionDigits: 0
-        })} MW`;
-
-    const arrow = pct < -0.005 ? "↗" : pct > 0.005 ? "↘" : "•";
-    const label =
-      pct < -0.005 ? "Net export" :
-      pct > 0.005 ? "Net import" :
-      "Near balanced";
-
-    const noteText = Math.abs(pct) > 0.005
-      ? `${label} · ${Math.abs(pct).toFixed(2)}%`
-      : label;
-
-    card.innerHTML = `
-      <span>Interconnection</span>
-      <strong>${valueText}</strong>
-      <small class="interconnection-note">
-        <span class="interconnection-arrow" aria-hidden="true">${arrow}</span>
-        <span>${noteText}</span>
-      </small>
-    `;
-  };
+  document.addEventListener("DOMContentLoaded", () => {
+    patchInterconnectionArrow();
+    requestAnimationFrame(patchInterconnectionArrow);
+    setTimeout(patchInterconnectionArrow, 50);
+    setTimeout(patchInterconnectionArrow, 250);
+    setTimeout(patchInterconnectionArrow, 750);
+    setTimeout(patchInterconnectionArrow, 1500);
+  });
 })();
-// IETM live visible SmartGrid net import display: END
+// IETM post-render interconnection arrow: END

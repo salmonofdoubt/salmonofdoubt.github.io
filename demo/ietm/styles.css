@@ -7702,28 +7702,46 @@ h3 {
 
 /* IETM demand pressure unit hierarchy: END */
 
-/* IETM interconnection arrow note: BEGIN */
+/* IETM interconnection inline note: BEGIN */
 
 #metricGrid .metric-card[data-accent="interconnection"] .interconnection-note {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 0.28rem !important;
+  gap: 0.32rem !important;
   white-space: nowrap !important;
   color: var(--green) !important;
   font-weight: 850 !important;
 }
 
 #metricGrid .metric-card[data-accent="interconnection"] .interconnection-arrow {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  line-height: 1 !important;
-  flex: 0 0 auto !important;
+  width: 0.95rem !important;
+  height: 0.95rem !important;
+  flex: 0 0 0.95rem !important;
+  display: inline-block !important;
+  stroke: currentColor !important;
+  fill: none !important;
+  stroke-width: 2.1 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
 }
 
-/* IETM interconnection arrow note: END */
+#metricGrid .metric-card[data-accent="interconnection"] .interconnection-arrow circle {
+  fill: currentColor !important;
+  stroke: none !important;
+}
 
-/* IETM interconnection inline note: BEGIN */
+/* IETM interconnection inline note: END */
+
+/* IETM simple interconnection note: BEGIN */
+
+#metricGrid .metric-card[data-accent="interconnection"] small,
+#metricGrid .metric-card small.interconnection-note {
+  white-space: nowrap !important;
+}
+
+/* IETM simple interconnection note: END */
+
+/* IETM final interconnection CSS arrow: BEGIN */
 
 #metricGrid .metric-card[data-accent="interconnection"] .interconnection-note {
   display: inline-flex !important;
@@ -7734,12 +7752,33 @@ h3 {
   font-weight: 850 !important;
 }
 
-#metricGrid .metric-card[data-accent="interconnection"] .interconnection-arrow {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+#metricGrid .metric-card[data-accent="interconnection"] .interconnection-note::before {
+  display: inline-block !important;
   flex: 0 0 auto !important;
   line-height: 1 !important;
+  font-weight: 900 !important;
 }
 
-/* IETM interconnection inline note: END */
+#metricGrid .metric-card[data-accent="interconnection"][data-flow="export"] .interconnection-note::before {
+  content: "↗" !important;
+}
+
+#metricGrid .metric-card[data-accent="interconnection"][data-flow="import"] .interconnection-note::before {
+  content: "↘" !important;
+}
+
+#metricGrid .metric-card[data-accent="interconnection"][data-flow="balanced"] .interconnection-note::before {
+  content: "•" !important;
+}
+
+/* IETM final interconnection CSS arrow: END */
+
+/* IETM interconnection note colour: BEGIN */
+
+#metricGrid .metric-card[data-accent="interconnection"] small {
+  color: var(--green) !important;
+  font-weight: 850 !important;
+  white-space: nowrap !important;
+}
+
+/* IETM interconnection note colour: END */
