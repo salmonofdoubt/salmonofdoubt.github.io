@@ -1245,3 +1245,69 @@ function renderTargetDrift(data) {
     </article>
   `;
 }
+
+/* v0.16 Daily market price layer */
+async function loadMarketPrices() {
+  try {
+    const response = await fetch("data/source/market_prices.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`market_prices.json ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn("Daily market price layer unavailable", error);
+    return null;
+  }
+}
+
+function marketStatusClass(status) {
+  if (status === "mapped") return "mapped";
+  if (status === "not-parsed") return "risk";
+  return "missing";
+}
+
+function renderMarketPriceCard(item) {
+  const cls = marketStatusClass(item.status);
+  const stats = item.stats || {};
+  const avg = isNumber(stats.daily_average_eur_per_mwh)
+    ? `<small>Daily average: ${Number(stats.daily_average_eur_per_mwh).toFixed(2)} €/MWh</small>`
+    : "";
+
+  return `
+    <article class="market-price-card ${cls}">
+      <div class="market-price-top">
+        <h3>${escapeHtml(item.label)}</h3>
+        <span>${escapeHtml(item.status || "unknown")}</span>
+      </div>
+      <strong>${escapeHtml(item.value || "n/a")}</strong>
+      ${avg}
+      <p>${escapeHtml(item.detail || "")}</p>
+      <a href="${escapeHtml(item.source_url || "#")}" target="_blank" rel="noopener noreferrer">
+        ${escapeHtml(item.source || "Source")}
+      </a>
+    </article>
+  `;
+}
+
+async function renderMarketPrices() {
+  const target = document.getElementById("marketPriceGrid");
+  if (!target) return;
+
+  const data = await loadMarketPrices();
+
+  if (!data || !Array.isArray(data.market_prices)) {
+    target.innerHTML = `
+      <article class="market-price-card missing">
+        <div class="market-price-top">
+          <h3>Daily market prices</h3>
+          <span>missing</span>
+        </div>
+        <strong>n/a</strong>
+        <p>market_prices.json was not available in this build.</p>
+      </article>
+    `;
+    return;
+  }
+
+  target.innerHTML = data.market_prices.map(renderMarketPriceCard).join("");
+}
+
+document.addEventListener("DOMContentLoaded", renderMarketPrices);

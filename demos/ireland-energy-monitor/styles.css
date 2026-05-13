@@ -3808,3 +3808,130 @@ h3 {
     background: rgba(255,107,107,0.08) !important;
   }
 }
+
+/* v0.16 Daily market price layer */
+.market-price-section {
+  padding-top: clamp(1.2rem, 2.4vw, 2rem) !important;
+}
+
+.market-price-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid rgba(238,248,243,0.135);
+  border-bottom: 1px solid rgba(238,248,243,0.135);
+}
+
+.market-price-card {
+  min-height: 10rem;
+  padding: 0.95rem;
+  border-right: 1px solid rgba(238,248,243,0.135);
+  background: transparent;
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+}
+
+.market-price-card:last-child {
+  border-right: 0;
+}
+
+.market-price-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.market-price-top h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.15;
+}
+
+.market-price-top span {
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  padding: 0.2rem 0.45rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+}
+
+.market-price-card strong {
+  color: #fff;
+  font-size: clamp(1.55rem, 2.4vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.market-price-card small {
+  color: rgba(237,247,241,0.66);
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+
+.market-price-card p {
+  margin: 0;
+  color: rgba(237,247,241,0.7);
+  font-size: 0.82rem;
+  line-height: 1.38;
+}
+
+.market-price-card a {
+  color: var(--lime);
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.market-price-card.mapped {
+  box-shadow: inset 3px 0 0 rgba(73,209,125,0.95);
+}
+
+.market-price-card.risk {
+  box-shadow: inset 3px 0 0 rgba(247,201,72,0.95);
+}
+
+.market-price-card.missing {
+  box-shadow: inset 3px 0 0 rgba(255,107,107,0.95);
+}
+
+.market-price-card.mapped .market-price-top span {
+  color: var(--green);
+  background: rgba(73,209,125,0.08);
+  border-color: rgba(73,209,125,0.26);
+}
+
+.market-price-card.risk .market-price-top span {
+  color: var(--amber);
+  background: rgba(247,201,72,0.08);
+  border-color: rgba(247,201,72,0.26);
+}
+
+@media (max-width: 760px) {
+  .market-price-grid {
+    display: block;
+  }
+
+  .market-price-card {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(238,248,243,0.135);
+    padding: 0.78rem 0.85rem;
+  }
+
+  .market-price-card:last-child {
+    border-bottom: 0;
+  }
+
+  .market-price-card strong {
+    font-size: 1.45rem;
+  }
+
+  .market-price-card p {
+    font-size: 0.74rem;
+    line-height: 1.3;
+  }
+}

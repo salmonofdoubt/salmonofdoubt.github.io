@@ -19,6 +19,7 @@ STEPS = [
     ("Harvest EirGrid electricity", ["python3", "ops/harvest_eirgrid.py"]),
     ("Harvest EirGrid CO2", ["python3", "ops/harvest_eirgrid_co2.py"]),
     ("Harvest SEAI prices", ["python3", "ops/harvest_seai_prices.py"]),
+    ("Harvest daily market prices", ["python3", "ops/harvest_daily_market_prices.py"]),
     ("Build target tracker", ["python3", "ops/build_target_tracker.py"]),
     ("Build/import county hosting", ["python3", "ops/harvest_seai_county_dashboard.py"]),
     ("Build monitor JSON", ["python3", "ops/build_monitor.py"]),
