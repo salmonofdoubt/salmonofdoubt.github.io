@@ -296,7 +296,7 @@ def build_live_fuel_mix(
             "percent": round(imports_pct, 1),
             "available": bool(interconnection_available),
         },
-        {"label": "Uncovered", "class": "other", "percent": round(residual, 1), "available": True},
+        {"label": "Uncovered", "class": "residual", "percent": round(residual, 1), "available": True},
     ]
 
 def main() -> int:

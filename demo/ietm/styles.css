@@ -7307,3 +7307,218 @@ h3 {
   background: linear-gradient(90deg, #8c6bff 0%, #b69cff 100%) !important;
 }
 
+
+/* v0.81 Make wind/solar subset cards visually subordinate to renewable total */
+#metricGrid .metric-card.wind-child-card strong,
+#metricGrid .metric-card.solar-child-card strong {
+  font-size: clamp(1.65rem, 3.2vw, 2.45rem) !important;
+  letter-spacing: -0.045em !important;
+  line-height: 0.95 !important;
+  opacity: 0.92;
+}
+
+#metricGrid .metric-card.renewable-parent-card strong {
+  font-size: clamp(2.05rem, 4.2vw, 3.3rem) !important;
+  letter-spacing: -0.055em !important;
+  line-height: 0.92 !important;
+}
+
+/* Tone down the component chips so they do not compete with the numbers */
+#metricGrid .metric-card.renewable-child-card::after {
+  font-size: 0.46rem !important;
+  padding: 0.12rem 0.32rem !important;
+  opacity: 0.62 !important;
+}
+
+@media (max-width: 760px) {
+  #metricGrid .metric-card.wind-child-card strong,
+  #metricGrid .metric-card.solar-child-card strong {
+    font-size: 1.85rem !important;
+  }
+
+  #metricGrid .metric-card.renewable-parent-card strong {
+    font-size: 2.35rem !important;
+  }
+}
+
+/* v0.82 Only reduce wind/solar subset metric numbers; keep renewable total normal */
+#metricGrid .metric-card.renewable-parent-card strong {
+  font-size: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
+}
+
+#metricGrid .metric-card.wind-child-card strong,
+#metricGrid .metric-card.solar-child-card strong {
+  font-size: clamp(1.55rem, 2.6vw, 2.05rem) !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1 !important;
+  opacity: 0.9 !important;
+}
+
+@media (max-width: 760px) {
+  #metricGrid .metric-card.renewable-parent-card strong {
+    font-size: inherit !important;
+  }
+
+  #metricGrid .metric-card.wind-child-card strong,
+  #metricGrid .metric-card.solar-child-card strong {
+    font-size: 1.55rem !important;
+  }
+}
+
+/* v0.82 Only reduce wind/solar subset metric numbers; keep renewable total normal */
+#metricGrid .metric-card.renewable-parent-card strong {
+  font-size: inherit !important;
+  letter-spacing: inherit !important;
+  line-height: inherit !important;
+}
+
+#metricGrid .metric-card.wind-child-card strong,
+#metricGrid .metric-card.solar-child-card strong {
+  font-size: clamp(1.55rem, 2.6vw, 2.05rem) !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1 !important;
+  opacity: 0.9 !important;
+}
+
+@media (max-width: 760px) {
+  #metricGrid .metric-card.renewable-parent-card strong {
+    font-size: inherit !important;
+  }
+
+  #metricGrid .metric-card.wind-child-card strong,
+  #metricGrid .metric-card.solar-child-card strong {
+    font-size: 1.55rem !important;
+  }
+}
+
+/* v0.84 Clean metric hierarchy: renewable is parent, wind/solar are smaller components */
+
+/* Remove noisy TOTAL / COMPONENT chips */
+#metricGrid .metric-card.renewable-parent-card::after,
+#metricGrid .metric-card.renewable-child-card::after,
+#metricGrid .metric-card.wind-child-card::after,
+#metricGrid .metric-card.solar-child-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Restore Renewable cover as a primary metric */
+#metricGrid .metric-card.renewable-parent-card strong,
+#metricGrid .metric-card.renewable-parent-card .metric-value,
+#metricGrid .metric-card.renewable-parent-card h2,
+#metricGrid .metric-card.renewable-parent-card h3 {
+  font-size: clamp(2.15rem, 4vw, 3rem) !important;
+  line-height: 0.92 !important;
+  letter-spacing: -0.055em !important;
+  font-weight: 950 !important;
+  opacity: 1 !important;
+}
+
+/* Make Wind and Solar visibly subordinate */
+#metricGrid .metric-card.wind-child-card strong,
+#metricGrid .metric-card.solar-child-card strong,
+#metricGrid .metric-card.wind-child-card .metric-value,
+#metricGrid .metric-card.solar-child-card .metric-value,
+#metricGrid .metric-card.wind-child-card h2,
+#metricGrid .metric-card.solar-child-card h2,
+#metricGrid .metric-card.wind-child-card h3,
+#metricGrid .metric-card.solar-child-card h3 {
+  font-size: clamp(1.45rem, 2.4vw, 1.95rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.03em !important;
+  font-weight: 850 !important;
+  opacity: 0.88 !important;
+}
+
+/* Keep Uncovered as a sibling metric, slightly stronger than components */
+#metricGrid .metric-card.is-uncovered strong,
+#metricGrid .metric-card.is-uncovered .metric-value,
+#metricGrid .metric-card:has(span:first-child:is(:not(.flow-indicator))) strong {
+  font-weight: 900;
+}
+
+@media (max-width: 760px) {
+  #metricGrid .metric-card.renewable-parent-card strong,
+  #metricGrid .metric-card.renewable-parent-card .metric-value,
+  #metricGrid .metric-card.renewable-parent-card h2,
+  #metricGrid .metric-card.renewable-parent-card h3 {
+    font-size: 2.2rem !important;
+  }
+
+  #metricGrid .metric-card.wind-child-card strong,
+  #metricGrid .metric-card.solar-child-card strong,
+  #metricGrid .metric-card.wind-child-card .metric-value,
+  #metricGrid .metric-card.solar-child-card .metric-value,
+  #metricGrid .metric-card.wind-child-card h2,
+  #metricGrid .metric-card.solar-child-card h2,
+  #metricGrid .metric-card.wind-child-card h3,
+  #metricGrid .metric-card.solar-child-card h3 {
+    font-size: 1.5rem !important;
+  }
+}
+
+/* v0.85 Metric hierarchy: parent/sibling cards equal, wind+solar slightly smaller */
+
+/* remove noisy semantic chips if still present */
+#metricGrid .metric-card.renewable-parent-card::after,
+#metricGrid .metric-card.wind-child-card::after,
+#metricGrid .metric-card.solar-child-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* MAIN tier: Demand, Renewable, Uncovered, Interconnection */
+#metricGrid .metric-card.metric-demand strong,
+#metricGrid .metric-card.metric-demand .metric-value,
+#metricGrid .metric-card.renewable-parent-card strong,
+#metricGrid .metric-card.renewable-parent-card .metric-value,
+#metricGrid .metric-card.is-uncovered strong,
+#metricGrid .metric-card.is-uncovered .metric-value,
+#metricGrid .metric-card.metric-interconnection strong,
+#metricGrid .metric-card.metric-interconnection .metric-value {
+  font-size: clamp(2.15rem, 4vw, 3rem) !important;
+  line-height: 0.92 !important;
+  letter-spacing: -0.055em !important;
+  font-weight: 950 !important;
+}
+
+/* COMPONENT tier: Wind and Solar */
+#metricGrid .metric-card.wind-child-card strong,
+#metricGrid .metric-card.wind-child-card .metric-value,
+#metricGrid .metric-card.solar-child-card strong,
+#metricGrid .metric-card.solar-child-card .metric-value {
+  font-size: clamp(1.7rem, 2.9vw, 2.2rem) !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.04em !important;
+  font-weight: 900 !important;
+}
+
+/* keep labels visually calm */
+#metricGrid .metric-card .metric-label,
+#metricGrid .metric-card .eyebrow,
+#metricGrid .metric-card small {
+  letter-spacing: 0.12em;
+}
+
+/* mobile tuning */
+@media (max-width: 760px) {
+  #metricGrid .metric-card.metric-demand strong,
+  #metricGrid .metric-card.metric-demand .metric-value,
+  #metricGrid .metric-card.renewable-parent-card strong,
+  #metricGrid .metric-card.renewable-parent-card .metric-value,
+  #metricGrid .metric-card.is-uncovered strong,
+  #metricGrid .metric-card.is-uncovered .metric-value,
+  #metricGrid .metric-card.metric-interconnection strong,
+  #metricGrid .metric-card.metric-interconnection .metric-value {
+    font-size: 2.15rem !important;
+  }
+
+  #metricGrid .metric-card.wind-child-card strong,
+  #metricGrid .metric-card.wind-child-card .metric-value,
+  #metricGrid .metric-card.solar-child-card strong,
+  #metricGrid .metric-card.solar-child-card .metric-value {
+    font-size: 1.65rem !important;
+  }
+}
