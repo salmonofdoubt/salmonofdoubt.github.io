@@ -52,7 +52,7 @@ def main() -> int:
     path.write_text("".join(out))
     print(f"Wrote {path.relative_to(ROOT)}")
     print("Next:")
-    print("grep -niE 'api|json|csv|xlsx|auction|market|results|download' demos/ireland-energy-monitor/ops/debug/semopx_market_results_probe.txt | head -200")
+    print("grep -niE 'api|json|csv|xlsx|auction|market|results|download' demo/ietm/ops/debug/semopx_market_results_probe.txt | head -200")
     return 0
 
 if __name__ == "__main__":

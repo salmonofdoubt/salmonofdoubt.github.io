@@ -53,7 +53,7 @@ def fetch_text(url: str) -> str:
         headers={
             "User-Agent": (
                 "Mozilla/5.0 IrelandEnergyMonitor/0.3 "
-                "(+https://salmonofdoubt.github.io/demos/ireland-energy-monitor/)"
+                "(+https://salmonofdoubt.github.io/demo/ietm/)"
             ),
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "Accept-Language": "en-IE,en;q=0.9",

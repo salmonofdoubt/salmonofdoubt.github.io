@@ -1,4 +1,4 @@
-name: Refresh Ireland Energy Monitor
+name: Refresh Ireland Energy Transition Monitor
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: ireland-energy-monitor-refresh
+  group: ietm-refresh
   cancel-in-progress: false
 
 jobs:
@@ -28,16 +28,16 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r demos/ireland-energy-monitor/ops/requirements.txt
+          pip install -r demo/ietm/ops/requirements.txt
 
       - name: Run Energy Monitor pipeline
         run: |
-          cd demos/ireland-energy-monitor
+          cd demo/ietm
           python ops/run_pipeline.py
 
       - name: Commit generated monitor data
         run: |
-          if git diff --quiet -- demos/ireland-energy-monitor/data; then
+          if git diff --quiet -- demo/ietm/data; then
             echo "No monitor data changes to commit."
             exit 0
           fi
@@ -45,6 +45,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add demos/ireland-energy-monitor/data
-          git commit -m "Refresh Ireland Energy Monitor data"
+          git add demo/ietm/data
+          git commit -m "Refresh Ireland Energy Transition Monitor data"
           git push

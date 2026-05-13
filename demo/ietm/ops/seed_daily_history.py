@@ -59,7 +59,7 @@ def seeded_variation(base: float, date_key: str, amplitude: float, lo: float, hi
     """
     Deterministic variation by date. Not random each run.
     """
-    rnd = random.Random(f"ireland-energy-monitor::{date_key}::{base}::{phase}")
+    rnd = random.Random(f"ietm::{date_key}::{base}::{phase}")
     day_num = datetime.fromisoformat(date_key).timetuple().tm_yday
     seasonal = math.sin((day_num / 365.25) * math.tau + phase)
     weekly = math.sin((day_num / 7.0) * math.tau + phase / 2)

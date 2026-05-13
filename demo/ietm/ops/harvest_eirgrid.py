@@ -97,7 +97,7 @@ def download(url: str, dest: Path) -> None:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyMonitor/0.2 (+https://salmonofdoubt.github.io/demos/ireland-energy-monitor/)"
+            "User-Agent": "IrelandEnergyTransitionMonitor/0.2 (+https://salmonofdoubt.github.io/demo/ietm/)"
         },
     )
     with urllib.request.urlopen(req, timeout=60) as response:

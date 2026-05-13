@@ -1,4 +1,4 @@
-# Ireland Energy Monitor
+# Ireland Energy Transition Monitor
 
 Open civic prototype for tracking Ireland's energy transition.
 
