@@ -4424,3 +4424,69 @@ h3 {
     max-height: 68px !important;
   }
 }
+
+/* v0.33 final mobile market-card inset repair */
+@media (max-width: 760px) {
+  #market-prices .market-price-grid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  #market-prices .market-price-grid > .market-price-card {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    padding: 0.92rem 1rem 0.95rem 1.35rem !important;
+    margin: 0 !important;
+    border-left: 0 !important;
+    position: relative !important;
+  }
+
+  #market-prices .market-price-grid > .market-price-card::before {
+    left: 0.18rem !important;
+    top: 0.85rem !important;
+    bottom: 0.85rem !important;
+    width: 0.14rem !important;
+  }
+
+  #market-prices .market-price-top,
+  #market-prices .market-price-value-wrap,
+  #market-prices .market-price-card p,
+  #market-prices .market-price-card a,
+  #market-prices .market-price-subnote {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    max-width: 100% !important;
+  }
+
+  #market-prices .market-price-value-wrap {
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 0.42rem !important;
+    margin-top: 0.48rem !important;
+    margin-bottom: 0.42rem !important;
+  }
+
+  #market-prices .market-price-value-wrap strong {
+    display: inline-block !important;
+    min-width: 2.7rem !important;
+    font-size: 1.75rem !important;
+    line-height: 0.95 !important;
+  }
+
+  #market-prices .market-price-value-wrap small {
+    font-size: 0.7rem !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  #market-prices .market-price-card p {
+    font-size: 0.72rem !important;
+    line-height: 1.34 !important;
+    max-width: 17rem !important;
+  }
+
+  #market-prices .market-price-card a {
+    font-size: 0.68rem !important;
+    line-height: 1.2 !important;
+  }
+}
