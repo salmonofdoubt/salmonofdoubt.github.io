@@ -1444,3 +1444,96 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(hideEmptyPanelShells, 120);
   setTimeout(hideEmptyPanelShells, 600);
 });
+
+/* v0.31 compact mobile polish for quick links + share */
+(function () {
+  function byHeadingText(label) {
+    const wanted = String(label || "").trim().toLowerCase();
+    const candidates = Array.from(document.querySelectorAll("article, section, .panel, .card, .module, .box, div"));
+    return candidates.find(el => {
+      const heading = el.querySelector("h1, h2, h3, h4, .panel-title, .section-kicker, .eyebrow");
+      return heading && heading.textContent.trim().toLowerCase().includes(wanted);
+    });
+  }
+
+  function makeQuickLinksCompact() {
+    const panel = byHeadingText("quick links");
+    if (!panel || panel.dataset.quickLinksPolished === "1") return;
+    panel.dataset.quickLinksPolished = "1";
+    panel.classList.add("quick-links-polished");
+
+    const clickable = Array.from(panel.querySelectorAll("a, button"))
+      .filter(el => {
+        const t = (el.textContent || "").trim().toLowerCase();
+        return t && !t.includes("github") && !t.includes("code") && !t.includes("issues") && !t.includes("discussions");
+      });
+
+    const buy = clickable.find(el => /buy me a coffee/i.test(el.textContent || ""));
+    const feedback = clickable.find(el => /send feedback|feedback/i.test(el.textContent || ""));
+
+    if (buy && feedback && !panel.querySelector(".quick-links-duo")) {
+      const duo = document.createElement("div");
+      duo.className = "quick-links-duo";
+      buy.parentNode.insertBefore(duo, buy);
+      duo.appendChild(buy);
+      duo.appendChild(feedback);
+    }
+
+    const doiHost = Array.from(panel.querySelectorAll("*")).find(el => {
+      const t = (el.textContent || "").trim().toLowerCase();
+      return t.includes("archived release") || t.includes("zenodo") || t.includes("doi");
+    });
+
+    if (doiHost) {
+      const strip = doiHost.closest(".doi-strip, .zenodo-strip, .badge-strip, .meta-strip, .panel, div") || doiHost;
+      strip.classList.add("zenodo-strip-compact");
+    }
+  }
+
+  function makeShareCompact() {
+    const panel = byHeadingText("share");
+    if (!panel || panel.dataset.sharePolished === "1") return;
+    panel.dataset.sharePolished = "1";
+    panel.classList.add("share-polished");
+
+    const qr = panel.querySelector("img, canvas, svg");
+    const actions = Array.from(panel.querySelectorAll("a, button"))
+      .filter(el => !qr || !qr.contains(el));
+
+    if (!panel.querySelector(".share-layout")) {
+      const layout = document.createElement("div");
+      layout.className = "share-layout";
+
+      const left = document.createElement("div");
+      left.className = "share-actions";
+
+      const right = document.createElement("div");
+      right.className = "share-qr-box";
+
+      const firstButton = actions[0];
+      if (firstButton) {
+        firstButton.parentNode.insertBefore(layout, firstButton);
+      } else if (qr) {
+        qr.parentNode.insertBefore(layout, qr);
+      } else {
+        panel.appendChild(layout);
+      }
+
+      actions.forEach(el => left.appendChild(el));
+      if (qr) right.appendChild(qr);
+
+      layout.appendChild(left);
+      layout.appendChild(right);
+    }
+  }
+
+  function polishSecondaryPanels() {
+    makeQuickLinksCompact();
+    makeShareCompact();
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(polishSecondaryPanels, 80);
+    setTimeout(polishSecondaryPanels, 500);
+  });
+})();

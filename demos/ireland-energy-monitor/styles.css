@@ -4094,3 +4094,120 @@ h3 {
     border: 0 !important;
   }
 }
+
+/* v0.31 compact polish: quick links + share */
+
+.quick-links-polished .quick-links-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin: 0.6rem 0 0.8rem;
+}
+
+.quick-links-polished .quick-links-duo > a,
+.quick-links-polished .quick-links-duo > button {
+  width: 100%;
+  min-width: 0;
+}
+
+.quick-links-polished .zenodo-strip-compact {
+  padding: 0.55rem 0.8rem !important;
+  border-radius: 14px !important;
+  min-height: unset !important;
+}
+
+.quick-links-polished .zenodo-strip-compact * {
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quick-links-polished .zenodo-strip-compact a,
+.quick-links-polished .zenodo-strip-compact .doi,
+.quick-links-polished .zenodo-strip-compact .doi-badge {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  font-size: 0.88rem;
+  line-height: 1.15;
+}
+
+.share-polished .share-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px;
+  gap: 0.8rem;
+  align-items: start;
+  margin-top: 0.6rem;
+}
+
+.share-polished .share-actions {
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.share-polished .share-actions > a,
+.share-polished .share-actions > button {
+  width: 100%;
+}
+
+.share-polished .share-qr-box {
+  width: 96px;
+  height: 96px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 0.35rem;
+}
+
+.share-polished .share-qr-box img,
+.share-polished .share-qr-box canvas,
+.share-polished .share-qr-box svg {
+  width: 82px !important;
+  height: 82px !important;
+  max-width: 82px !important;
+  max-height: 82px !important;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 760px) {
+  .quick-links-polished .quick-links-duo {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.55rem;
+  }
+
+  .quick-links-polished .zenodo-strip-compact {
+    padding: 0.48rem 0.7rem !important;
+  }
+
+  .quick-links-polished .zenodo-strip-compact a,
+  .quick-links-polished .zenodo-strip-compact .doi,
+  .quick-links-polished .zenodo-strip-compact .doi-badge {
+    font-size: 0.8rem;
+  }
+
+  .share-polished .share-layout {
+    grid-template-columns: minmax(0, 1fr) 88px;
+    gap: 0.6rem;
+  }
+
+  .share-polished .share-qr-box {
+    width: 88px;
+    height: 88px;
+    border-radius: 12px;
+    padding: 0.25rem;
+  }
+
+  .share-polished .share-qr-box img,
+  .share-polished .share-qr-box canvas,
+  .share-polished .share-qr-box svg {
+    width: 76px !important;
+    height: 76px !important;
+    max-width: 76px !important;
+    max-height: 76px !important;
+  }
+}
