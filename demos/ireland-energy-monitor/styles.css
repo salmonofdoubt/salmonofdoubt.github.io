@@ -3512,3 +3512,80 @@ h3 {
     font-size: 0.64rem;
   }
 }
+
+/* v0.13 Mobile truth meter left-padding repair */
+@media (max-width: 760px) {
+  #truth-meter {
+    padding-left: 0.95rem !important;
+    padding-right: 0.95rem !important;
+  }
+
+  #truth-meter .truth-grid {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  #truth-meter .truth-card {
+    position: relative;
+    padding: 0.82rem 0.85rem 0.85rem 1.15rem !important;
+    margin: 0 !important;
+    border-bottom: 1px solid var(--mobile-line, rgba(238,248,243,0.13)) !important;
+    overflow: hidden;
+  }
+
+  #truth-meter .truth-card::before {
+    left: 0 !important;
+    width: 0.18rem !important;
+  }
+
+  #truth-meter .truth-scale-card {
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+
+  #truth-meter .truth-top {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 0.55rem !important;
+  }
+
+  #truth-meter .truth-top h3 {
+    margin: 0 !important;
+    font-size: 0.9rem !important;
+    line-height: 1.15 !important;
+  }
+
+  #truth-meter .truth-status {
+    flex: 0 0 auto;
+    max-width: 7.2rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  #truth-meter .truth-reading {
+    margin-top: 0.55rem !important;
+  }
+
+  #truth-meter .truth-reading span {
+    font-size: 0.58rem !important;
+    letter-spacing: 0.075em !important;
+  }
+
+  #truth-meter .truth-reading strong {
+    font-size: 1.25rem !important;
+    line-height: 1 !important;
+  }
+
+  #truth-meter .truth-reading small {
+    font-size: 0.68rem !important;
+    line-height: 1.25 !important;
+  }
+
+  #truth-meter .truth-logic {
+    margin-top: 0.45rem !important;
+    font-size: 0.72rem !important;
+    line-height: 1.32 !important;
+  }
+}
