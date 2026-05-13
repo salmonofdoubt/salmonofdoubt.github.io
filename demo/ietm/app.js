@@ -3333,3 +3333,197 @@ window.addEventListener("resize", () => {
     }
   }, 180);
 });
+
+/* v0.58 Market price interpretation layer */
+function marketSignalElectricity(eurPerMwh) {
+  const n = Number(eurPerMwh);
+  if (!Number.isFinite(n)) return { label: "Unavailable", cls: "missing", meaning: "No trustworthy live value parsed." };
+
+  if (n < 0) {
+    return {
+      label: "Negative",
+      cls: "good",
+      meaning: "Very high supply or low demand can push the system price below zero."
+    };
+  }
+
+  if (n < 75) {
+    return {
+      label: "Low",
+      cls: "good",
+      meaning: "Low system price signal. Usually easier conditions for electricity buyers."
+    };
+  }
+
+  if (n < 150) {
+    return {
+      label: "Moderate",
+      cls: "watch",
+      meaning: "Ordinary to moderate system price signal."
+    };
+  }
+
+  if (n < 250) {
+    return {
+      label: "Elevated",
+      cls: "risk",
+      meaning: "Elevated system price signal. This suggests tighter or more expensive system conditions."
+    };
+  }
+
+  return {
+    label: "Stressed",
+    cls: "off",
+    meaning: "High system price signal. This usually indicates material market/system pressure."
+  };
+}
+
+function marketSignalGas(cPerKwh) {
+  const n = Number(cPerKwh);
+  if (!Number.isFinite(n)) return { label: "Unavailable", cls: "missing", meaning: "No trustworthy GNI SAP value parsed." };
+
+  if (n < 2.5) {
+    return {
+      label: "Low",
+      cls: "good",
+      meaning: "Low gas balancing signal."
+    };
+  }
+
+  if (n < 6) {
+    return {
+      label: "Moderate",
+      cls: "watch",
+      meaning: "Moderate gas balancing signal. Not a household tariff."
+    };
+  }
+
+  if (n < 10) {
+    return {
+      label: "Elevated",
+      cls: "risk",
+      meaning: "Elevated gas balancing signal. System gas cost pressure is visible."
+    };
+  }
+
+  return {
+    label: "Stressed",
+    cls: "off",
+    meaning: "High gas balancing signal. This points to material gas-system price pressure."
+  };
+}
+
+function marketObservedRows(history, key) {
+  return (history || [])
+    .filter(row => !row.estimated_backfill && Number.isFinite(Number(row[key])))
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+}
+
+function marketDelta(history, key, unit, goodWhen = "down") {
+  const rows = marketObservedRows(history, key);
+  if (rows.length < 2) {
+    return {
+      html: `<span class="market-trend neutral">Trend building · needs another observed day</span>`,
+      value: null
+    };
+  }
+
+  const prev = Number(rows[rows.length - 2][key]);
+  const curr = Number(rows[rows.length - 1][key]);
+  const diff = curr - prev;
+
+  const sign = diff > 0 ? "+" : "";
+  const tone = Math.abs(diff) < 0.005
+    ? "neutral"
+    : goodWhen === "down"
+      ? (diff < 0 ? "good" : "bad")
+      : (diff > 0 ? "good" : "bad");
+
+  return {
+    value: diff,
+    html: `<span class="market-trend ${tone}">Δ ${sign}${diff.toFixed(2)} ${unit} vs prior observed day</span>`
+  };
+}
+
+function marketItem(data, labelRegex) {
+  return (data.market_prices || []).find(item => labelRegex.test(item.label || "")) || null;
+}
+
+function renderMarketPrices(data) {
+  const target = document.getElementById("marketPriceGrid");
+  if (!target) return;
+
+  const history = data.daily_history || [];
+  const electricity = marketItem(data, /electricity/i);
+  const gas = marketItem(data, /gas/i);
+
+  const eValue = Number(electricity?.numeric_value);
+  const eSignal = marketSignalElectricity(eValue);
+  const eDelta = marketDelta(history, "electricity_system_price_eur_per_mwh", "€/MWh", "down");
+
+  const gasValue = Number(gas?.numeric_value);
+  const gasSignal = marketSignalGas(gasValue);
+  const gasDelta = marketDelta(history, "gas_balancing_price_c_per_kwh", "c/kWh", "down");
+
+  const electricityEquivalent = electricity?.equivalent_value
+    ? `<span class="market-equivalent">${escapeHtml(electricity.equivalent_value)} equivalent</span>`
+    : "";
+
+  target.innerHTML = `
+    <article class="market-price-card interpreted ${escapeHtml(eSignal.cls)}">
+      <div class="market-card-head">
+        <h3>${escapeHtml(electricity?.label || "Electricity system price")}</h3>
+        <span class="market-signal ${escapeHtml(eSignal.cls)}">${escapeHtml(eSignal.label)}</span>
+      </div>
+
+      <div class="market-value-line">
+        <strong>${escapeHtml(electricity?.value || "n/a")}</strong>
+        ${electricityEquivalent}
+      </div>
+
+      ${eDelta.html}
+
+      <p class="market-meaning">${escapeHtml(eSignal.meaning)}</p>
+
+      <p class="market-detail">
+        ${escapeHtml(electricity?.detail || "System price signal, not a household tariff.")}
+      </p>
+
+      <a href="${escapeHtml(electricity?.source_url || "#")}" target="_blank" rel="noopener noreferrer">
+        ${escapeHtml(electricity?.source || "Electricity market source")}
+      </a>
+    </article>
+
+    <article class="market-price-card interpreted ${escapeHtml(gasSignal.cls)}">
+      <div class="market-card-head">
+        <h3>${escapeHtml(gas?.label || "Gas balancing price")}</h3>
+        <span class="market-signal ${escapeHtml(gasSignal.cls)}">${escapeHtml(gasSignal.label)}</span>
+      </div>
+
+      <div class="market-value-line">
+        <strong>${escapeHtml(gas?.value || "n/a")}</strong>
+      </div>
+
+      ${gasDelta.html}
+
+      <p class="market-meaning">${escapeHtml(gasSignal.meaning)}</p>
+
+      <p class="market-detail">
+        ${escapeHtml(gas?.detail || "Gas-system balancing signal, not a household tariff.")}
+      </p>
+
+      <a href="${escapeHtml(gas?.source_url || "#")}" target="_blank" rel="noopener noreferrer">
+        ${escapeHtml(gas?.source || "Gas balancing source")}
+      </a>
+    </article>
+  `;
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await loadMonitor();
+    renderMarketPrices(data);
+  } catch (error) {
+    console.warn("v0.58 market interpretation render failed", error);
+  }
+});

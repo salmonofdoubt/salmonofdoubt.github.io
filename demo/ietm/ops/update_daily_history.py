@@ -55,6 +55,20 @@ def first_price_value(prices: list[dict], label: str) -> float | None:
     return None
 
 
+
+def first_market_price_value(market_prices: list[dict], label_contains: str, key: str = "numeric_value") -> float | None:
+    label_contains = label_contains.lower()
+    for item in market_prices:
+        if label_contains in str(item.get("label", "")).lower():
+            try:
+                value = item.get(key)
+                if value is None:
+                    return None
+                return float(value)
+            except (TypeError, ValueError):
+                return None
+    return None
+
 def round_or_none(value: Any, digits: int = 2) -> float | None:
     try:
         if value is None:
@@ -68,6 +82,7 @@ def build_snapshot(monitor: dict) -> dict:
     e = monitor.get("electricity_now", {}) or {}
     drift = monitor.get("target_drift", {}) or {}
     prices = monitor.get("prices", []) or []
+    market_prices = monitor.get("market_prices", []) or []
 
     demand_mw = round_or_none(e.get("demand_mw"), 0)
     demand_gw = round_or_none((demand_mw or 0) / 1000, 2) if demand_mw is not None else None
@@ -93,6 +108,10 @@ def build_snapshot(monitor: dict) -> dict:
 
         "household_electricity_c_per_kwh": first_price_value(prices, "Household electricity"),
         "household_gas_c_per_kwh": first_price_value(prices, "Household gas"),
+
+        "electricity_system_price_eur_per_mwh": first_market_price_value(market_prices, "electricity", "numeric_value"),
+        "electricity_system_price_c_per_kwh_equiv": first_market_price_value(market_prices, "electricity", "numeric_value_c_per_kwh"),
+        "gas_balancing_price_c_per_kwh": first_market_price_value(market_prices, "gas", "numeric_value"),
     }
 
 
