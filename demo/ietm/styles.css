@@ -5773,3 +5773,17 @@ h3 {
   outline: 1px solid rgba(114,214,255,0.42);
   outline-offset: 0.35rem;
 }
+
+/* v0.47 Reliable section anchors for question strip */
+.scroll-anchor {
+  position: relative;
+  top: -5.5rem;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+#target-jump:target + .target-section .panel.wide {
+  outline: 1px solid rgba(114,214,255,0.42);
+  outline-offset: 0.35rem;
+}

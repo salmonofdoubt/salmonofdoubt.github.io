@@ -2418,3 +2418,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+/* v0.47 Question-strip click fallback */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".question-link[href^='#']").forEach(link => {
+    link.addEventListener("click", event => {
+      const id = link.getAttribute("href")?.slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+
+      event.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.replaceState(null, "", `#${id}`);
+    });
+  });
+});
