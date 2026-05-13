@@ -4120,3 +4120,75 @@ function ietmDecorateInterconnectionCard(data) {
     </span>
   `;
 }
+
+/* v0.76 Make Renewable cover visibly parent of Wind + Solar */
+function ietmFindMetricCard(labelText) {
+  const cards = Array.from(document.querySelectorAll(".metric-card"));
+  const needle = String(labelText || "").toLowerCase();
+
+  return cards.find(card => {
+    const firstLabel = card.querySelector("span, .metric-label");
+    const text = firstLabel ? firstLabel.textContent : card.textContent;
+    return String(text || "").toLowerCase().includes(needle);
+  });
+}
+
+function ietmDecorateRenewableHierarchy(data) {
+  const e = data?.electricity_now || {};
+
+  const renewableCard = ietmFindMetricCard("renewable cover");
+  const windCard = ietmFindMetricCard("wind cover");
+  const solarCard = ietmFindMetricCard("solar cover");
+
+  if (!renewableCard || !windCard || !solarCard) return;
+
+  renewableCard.classList.add("renewable-parent-card");
+  windCard.classList.add("renewable-child-card", "wind-child-card");
+  solarCard.classList.add("renewable-child-card", "solar-child-card");
+
+  const wind = Number(e.wind_percent || 0);
+  const solar = Number(e.solar_percent || 0);
+  const total = Number(e.renewables_percent || 0);
+
+  const windShareOfRenewable = total > 0 ? Math.max(0, Math.min(100, wind / total * 100)) : 0;
+  const solarShareOfRenewable = total > 0 ? Math.max(0, Math.min(100, solar / total * 100)) : 0;
+
+  let component = renewableCard.querySelector(".renewable-components");
+  if (!component) {
+    component = document.createElement("div");
+    component.className = "renewable-components";
+    renewableCard.appendChild(component);
+  }
+
+  component.innerHTML = `
+    <div class="renewable-components-label">Wind + solar cover</div>
+    <div class="renewable-component-bar" aria-hidden="true">
+      <span class="wind-part" style="width:${windShareOfRenewable}%"></span>
+      <span class="solar-part" style="width:${solarShareOfRenewable}%"></span>
+    </div>
+    <div class="renewable-component-values">
+      <span><b>Wind</b> ${Math.round(wind)}%</span>
+      <span><b>Solar</b> ${Math.round(solar)}%</span>
+    </div>
+  `;
+}
+
+if (typeof renderMetrics === "function" && !window.__ietmRenewableHierarchy76) {
+  window.__ietmRenewableHierarchy76 = true;
+  const previousRenderMetrics76 = renderMetrics;
+
+  renderMetrics = function patchedRenewableHierarchyRender(data) {
+    previousRenderMetrics76(data);
+    setTimeout(() => ietmDecorateRenewableHierarchy(data), 0);
+  };
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await loadMonitor();
+    setTimeout(() => ietmDecorateRenewableHierarchy(data), 200);
+    setTimeout(() => ietmDecorateRenewableHierarchy(data), 900);
+  } catch {
+    /* no action */
+  }
+});

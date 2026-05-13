@@ -7183,3 +7183,127 @@ h3 {
     display: block;
   }
 }
+
+/* v0.79 Simplify renewable card and colour uncovered demand consistently */
+.renewable-components {
+  display: none !important;
+}
+
+/* Lower demand-cover card: Uncovered / residual should be purple, not grey */
+.fuel-mix-row .fill.other,
+.fuel-mix-row .mix-fill.other,
+.fuel-mix-row .bar-fill.other,
+.mix-row .fill.other,
+.mix-row .mix-fill.other,
+.mix-row .bar-fill.other,
+.fuel-mix-row[data-class="other"] .fill,
+.fuel-mix-row[data-class="other"] .mix-fill,
+.fuel-mix-row[data-class="other"] .bar-fill,
+.mix-row[data-class="other"] .fill,
+.mix-row[data-class="other"] .mix-fill,
+.mix-row[data-class="other"] .bar-fill {
+  background: linear-gradient(90deg, #8e6bff 0%, #b38cff 100%) !important;
+}
+
+/* Fallback for the actual class names used in the demand-cover renderer */
+.fuel-mix .other,
+.fuel-mix-list .other,
+.fuel-mix-bars .other,
+.demand-cover .other {
+  background-color: #8e6bff !important;
+}
+
+/* v0.79b Residual / uncovered demand-cover bar */
+.fuel-mix-row .fill.residual,
+.fuel-mix-row .mix-fill.residual,
+.fuel-mix-row .bar-fill.residual,
+.mix-row .fill.residual,
+.mix-row .mix-fill.residual,
+.mix-row .bar-fill.residual,
+.fuel-mix .residual,
+.fuel-mix-list .residual,
+.fuel-mix-bars .residual,
+.demand-cover .residual {
+  background: linear-gradient(90deg, #8e6bff 0%, #b38cff 100%) !important;
+}
+
+/* v0.80 Demand-cover card: semantic bar colours
+   Wind = blue, Solar = yellow, Uncovered = purple
+*/
+
+/* Wind */
+.fuel-mix-row[data-class="wind"] .fill,
+.fuel-mix-row[data-class="wind"] .mix-fill,
+.fuel-mix-row[data-class="wind"] .bar-fill,
+.mix-row[data-class="wind"] .fill,
+.mix-row[data-class="wind"] .mix-fill,
+.mix-row[data-class="wind"] .bar-fill,
+.fuel-mix-row.wind .fill,
+.fuel-mix-row.wind .mix-fill,
+.fuel-mix-row.wind .bar-fill,
+.mix-row.wind .fill,
+.mix-row.wind .mix-fill,
+.mix-row.wind .bar-fill {
+  background: linear-gradient(90deg, #59d4ff 0%, #8be8ff 100%) !important;
+}
+
+/* Solar */
+.fuel-mix-row[data-class="solar"] .fill,
+.fuel-mix-row[data-class="solar"] .mix-fill,
+.fuel-mix-row[data-class="solar"] .bar-fill,
+.mix-row[data-class="solar"] .fill,
+.mix-row[data-class="solar"] .mix-fill,
+.mix-row[data-class="solar"] .bar-fill,
+.fuel-mix-row.solar .fill,
+.fuel-mix-row.solar .mix-fill,
+.fuel-mix-row.solar .bar-fill,
+.mix-row.solar .fill,
+.mix-row.solar .mix-fill,
+.mix-row.solar .bar-fill {
+  background: linear-gradient(90deg, #ffd24d 0%, #ffe680 100%) !important;
+}
+
+/* Imports */
+.fuel-mix-row[data-class="imports"] .fill,
+.fuel-mix-row[data-class="imports"] .mix-fill,
+.fuel-mix-row[data-class="imports"] .bar-fill,
+.mix-row[data-class="imports"] .fill,
+.mix-row[data-class="imports"] .mix-fill,
+.mix-row[data-class="imports"] .bar-fill,
+.fuel-mix-row.imports .fill,
+.fuel-mix-row.imports .mix-fill,
+.fuel-mix-row.imports .bar-fill,
+.mix-row.imports .fill,
+.mix-row.imports .mix-fill,
+.mix-row.imports .bar-fill {
+  background: linear-gradient(90deg, #9aa7b0 0%, #c3ccd2 100%) !important;
+}
+
+/* Uncovered / residual */
+.fuel-mix-row[data-class="uncovered"] .fill,
+.fuel-mix-row[data-class="uncovered"] .mix-fill,
+.fuel-mix-row[data-class="uncovered"] .bar-fill,
+.mix-row[data-class="uncovered"] .fill,
+.mix-row[data-class="uncovered"] .mix-fill,
+.mix-row[data-class="uncovered"] .bar-fill,
+.fuel-mix-row[data-class="residual"] .fill,
+.fuel-mix-row[data-class="residual"] .mix-fill,
+.fuel-mix-row[data-class="residual"] .bar-fill,
+.mix-row[data-class="residual"] .fill,
+.mix-row[data-class="residual"] .mix-fill,
+.mix-row[data-class="residual"] .bar-fill,
+.fuel-mix-row.uncovered .fill,
+.fuel-mix-row.uncovered .mix-fill,
+.fuel-mix-row.uncovered .bar-fill,
+.mix-row.uncovered .fill,
+.mix-row.uncovered .mix-fill,
+.mix-row.uncovered .bar-fill,
+.fuel-mix-row.residual .fill,
+.fuel-mix-row.residual .mix-fill,
+.fuel-mix-row.residual .bar-fill,
+.mix-row.residual .fill,
+.mix-row.residual .mix-fill,
+.mix-row.residual .bar-fill {
+  background: linear-gradient(90deg, #8c6bff 0%, #b69cff 100%) !important;
+}
+
