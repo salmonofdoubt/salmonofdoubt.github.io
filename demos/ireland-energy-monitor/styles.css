@@ -4817,3 +4817,28 @@ h3 {
     font-size: 0.62rem;
   }
 }
+
+/* v0.37 Daily pulse history-note */
+.history-note-pill {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 0.65rem;
+  padding: 0.36rem 0.58rem;
+  border-radius: 999px;
+  border: 1px solid rgba(247, 201, 72, 0.26);
+  background: rgba(247, 201, 72, 0.075);
+  color: rgba(247, 201, 72, 0.95);
+  font-size: 0.72rem;
+  line-height: 1.15;
+  font-weight: 820;
+}
+
+@media (max-width: 760px) {
+  .history-note-pill {
+    margin-top: 0.45rem;
+    padding: 0.3rem 0.48rem;
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+}

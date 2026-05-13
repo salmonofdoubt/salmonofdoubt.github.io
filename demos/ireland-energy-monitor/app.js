@@ -1661,3 +1661,43 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(renderElectricityLiveBadge, 120);
   setTimeout(renderElectricityLiveBadge, 700);
 });
+
+/* v0.37 Daily pulse history-note */
+async function renderDailyHistoryNote() {
+  try {
+    const response = await fetch("data/history/daily.json", { cache: "no-store" });
+    if (!response.ok) return;
+
+    const history = await response.json();
+    const rows = Array.isArray(history.daily) ? history.daily : [];
+    const last30 = rows.slice(-30);
+    const estimated = last30.filter(row => row.estimated_backfill).length;
+    const observed = last30.length - estimated;
+
+    const pulse = document.getElementById("pulse");
+    const head = pulse?.querySelector(".section-head");
+    if (!head || head.querySelector(".history-note-pill")) return;
+
+    const pill = document.createElement("p");
+    pill.className = "history-note-pill";
+
+    if (last30.length >= 30 && estimated > 0) {
+      pill.textContent = `30-day sparkline · ${observed} observed · ${estimated} estimated warm-start`;
+    } else if (last30.length >= 30) {
+      pill.textContent = "30-day sparkline · observed daily snapshots";
+    } else {
+      pill.textContent = `Building 30-day sparkline · ${last30.length} daily snapshots`;
+    }
+
+    const p = head.querySelector("p:not(.eyebrow)");
+    if (p) p.insertAdjacentElement("afterend", pill);
+    else head.appendChild(pill);
+  } catch (error) {
+    console.warn("Daily history note failed", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(renderDailyHistoryNote, 120);
+  setTimeout(renderDailyHistoryNote, 700);
+});
