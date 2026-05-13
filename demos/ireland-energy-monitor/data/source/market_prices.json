@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-13T07:58:20+00:00",
+    "generated_at": "2026-05-13T08:16:12+00:00",
     "mode": "daily-market-price-layer",
     "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
     "sources": [
@@ -32,20 +32,19 @@
       ]
     },
     {
-      "label": "Gas imbalance price",
-      "value": "2026.00 c/kWh",
-      "numeric_value": 2026.0,
+      "label": "Gas balancing price",
+      "value": "n/a",
+      "numeric_value": null,
       "unit": "c/kWh",
-      "status": "mapped",
+      "status": "not-parsed",
       "period": "2026-05-13",
       "source": "Gas Networks Ireland imbalance prices",
       "source_url": "https://www.gasnetworks.ie/about/data-transparency/balancing-actions-and-prices/imbalance-prices",
-      "detail": "Daily gas-system imbalance price signal. This is not a household gas tariff.",
-      "stats": {
-        "sap_cent_per_kwh": 2026.0,
-        "smp_buy_cent_per_kwh": 2026.0,
-        "smp_sell_cent_per_kwh": 2026.0
-      }
+      "detail": "Daily gas balancing-price layer is installed, but no plausible SAP c/kWh value was parsed in this run. Do not substitute SEAI household gas prices here.",
+      "errors": [
+        "GNI parser found SAP-like value 2026.0, but rejected it as implausible for c/kWh. Likely a date/year or unrelated page number.",
+        "GNI page fetched, but no plausible SAP c/kWh value was visible in static HTML."
+      ]
     }
   ]
 }

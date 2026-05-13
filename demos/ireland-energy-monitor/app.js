@@ -1311,3 +1311,87 @@ async function renderMarketPrices() {
 }
 
 document.addEventListener("DOMContentLoaded", renderMarketPrices);
+
+/* v0.17 clearer market/system price rendering */
+function iemMarketNumberParts(item) {
+  const raw = item?.numeric_value;
+
+  if (!isNumber(raw)) {
+    return {
+      value: "n/a",
+      unit: item?.unit || "",
+      unavailable: true
+    };
+  }
+
+  const unit = item?.unit || "";
+  const digits = unit.includes("MWh") ? 2 : 2;
+
+  return {
+    value: Number(raw).toLocaleString("en-IE", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits
+    }),
+    unit,
+    unavailable: false
+  };
+}
+
+function iemMarketPlainStatus(item) {
+  if (item.status === "mapped") return "System signal";
+  if (item.status === "not-parsed") return "Unavailable";
+  if (item.status === "planned") return "Planned";
+  if (item.status === "missing") return "Unavailable";
+  return item.status || "Unknown";
+}
+
+function iemMarketCardTitle(item) {
+  if ((item.label || "").toLowerCase().includes("gas")) return "Gas balancing price";
+  if ((item.label || "").toLowerCase().includes("electricity")) return "Electricity market price";
+  return item.label || "Market signal";
+}
+
+function renderMarketPriceCard(item) {
+  const cls = marketStatusClass(item.status);
+  const parts = iemMarketNumberParts(item);
+  const status = iemMarketPlainStatus(item);
+  const title = iemMarketCardTitle(item);
+
+  const avg = item?.stats && isNumber(item.stats.daily_average_eur_per_mwh)
+    ? `<small class="market-price-subnote">Daily average: ${Number(item.stats.daily_average_eur_per_mwh).toFixed(2)} €/MWh</small>`
+    : "";
+
+  const source = item?.source || "Source";
+  const sourceUrl = item?.source_url || "#";
+
+  const explanation = parts.unavailable
+    ? "Installed but not yet producing a trustworthy public value. The monitor shows n/a rather than turning dates, labels or page noise into fake prices."
+    : (item.detail || "Short-term market/system signal. Not a household tariff.");
+
+  return `
+    <article class="market-price-card ${cls}">
+      <div class="market-price-top">
+        <h3>${escapeHtml(title)}</h3>
+        <span>${escapeHtml(status)}</span>
+      </div>
+
+      <div class="market-price-value-wrap">
+        <strong>${escapeHtml(parts.value)}</strong>
+        ${parts.unit ? `<small>${escapeHtml(parts.unit)}</small>` : ""}
+      </div>
+
+      ${avg}
+
+      <p>${escapeHtml(explanation)}</p>
+
+      <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">
+        ${escapeHtml(source)}
+      </a>
+    </article>
+  `;
+}
+
+/* Re-render after the earlier market renderer, so the clearer card wins. */
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(renderMarketPrices, 0);
+});
