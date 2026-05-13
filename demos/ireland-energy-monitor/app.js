@@ -184,7 +184,7 @@ function renderTrajectory(data) {
   const sameYear = rows.find(d => d.year === latest.year);
   const gap = sameYear ? sameYear.target - latest.actual : 0;
 
-  text("targetGap", `${gap.toFixed(0)} point gap`);
+  text("targetGap", `${gap.toFixed(0)} pp path gap`);
 
   target.innerHTML = `
     <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
@@ -245,7 +245,7 @@ function renderTargetDrift(data) {
     </article>
 
     <article class="target-drift-card ${statusClass}">
-      <span>Gap to target</span>
+      <span>2030 target gap</span>
       <strong>${targetMetricValue(Number(drift.gap_to_target_pp).toFixed(1), "pp")}</strong>
       <small>${drift.years_remaining} years remaining</small>
     </article>
@@ -556,7 +556,7 @@ function renderDailyPulse(data) {
       tone: "caution"
     }),
     pulseCard({
-      label: "2030 gap",
+      label: "2030 target gap",
       value: pulseNumber(gap, 1),
       unit: "pp",
       note: "Percentage-point gap to 80% renewable electricity.",
@@ -1133,7 +1133,7 @@ function renderTrajectory(data) {
     : null;
 
   if (isNumber(gap)) {
-    text("targetGap", `${gap.toFixed(0)} point gap`);
+    text("targetGap", `${gap.toFixed(0)} pp path gap`);
   }
 
   const verticalGrid = years.map(year => {
@@ -1862,3 +1862,184 @@ function renderTruthMeter(data) {
 
   target.innerHTML = summaryCard + legend + cards;
 }
+
+/* v0.40 observed-only pulse deltas and clearer target-gap labelling */
+function iemObservedRows(history) {
+  return (history || []).filter(row => !row.estimated_backfill);
+}
+
+function iemCleanNumber(value, digits = 0) {
+  if (!isNumber(value)) return null;
+  let n = Number(value);
+  if (Math.abs(n) < Math.pow(10, -digits) / 2) n = 0;
+  return n;
+}
+
+function iemDelta(history, key, options = {}) {
+  const {
+    digits = 0,
+    unit = "",
+    goodWhen = "up",
+    label = "vs prior observed"
+  } = options;
+
+  const rows = iemObservedRows(history).filter(row => isNumber(row[key]));
+  if (rows.length < 2) return "";
+
+  const previous = Number(rows[rows.length - 2][key]);
+  const current = Number(rows[rows.length - 1][key]);
+  let diff = current - previous;
+
+  if (Math.abs(diff) < Math.pow(10, -digits) / 2) diff = 0;
+
+  const sign = diff > 0 ? "+" : "";
+  const value = `${sign}${diff.toLocaleString(undefined, {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits
+  })}${unit ? ` ${unit}` : ""}`;
+
+  let tone = "flat";
+  if (diff !== 0) {
+    if (goodWhen === "down") tone = diff < 0 ? "good" : "bad";
+    else if (goodWhen === "neutral") tone = "neutral";
+    else tone = diff > 0 ? "good" : "bad";
+  }
+
+  return `<small class="pulse-delta ${tone}">Δ ${value} ${escapeHtml(label)}</small>`;
+}
+
+function pulseCard({label, value, unit, note, key, history, tone = "", delta = ""}) {
+  return `
+    <article class="pulse-card ${tone}">
+      <div class="pulse-card-top">
+        <span>${escapeHtml(label)}</span>
+        <strong>${value}<small>${escapeHtml(unit || "")}</small></strong>
+      </div>
+      ${sparkline(pulseSeries(history, key))}
+      <p>${escapeHtml(note)}</p>
+      ${delta || ""}
+    </article>
+  `;
+}
+
+function renderDailyPulse(data) {
+  const target = document.getElementById("dailyPulseGrid");
+  if (!target) return;
+
+  const history = data.daily_history || [];
+  const e = data.electricity_now || {};
+  const drift = data.target_drift || {};
+  const prices = data.prices || [];
+
+  const electricityPrice = prices.find(p => p.label === "Household electricity");
+  const gasPrice = prices.find(p => p.label === "Household gas");
+
+  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
+  const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
+  const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
+
+  const importsRaw = isNumber(e.imports_percent) ? Number(e.imports_percent) : pulseLast(history, "imports_percent");
+  const imports = iemCleanNumber(Math.max(0, Number(importsRaw || 0)), 0);
+
+  const residual = isNumber(e.residual_percent ?? e.gas_percent)
+    ? (e.residual_percent ?? e.gas_percent)
+    : pulseLast(history, "residual_percent");
+
+  const gap = isNumber(drift.gap_to_target_pp) ? drift.gap_to_target_pp : pulseLast(history, "target_gap_pp");
+
+  const electricityPriceValue = isNumber(electricityPrice?.ireland_c_per_kwh)
+    ? electricityPrice.ireland_c_per_kwh
+    : pulseLast(history, "household_electricity_c_per_kwh");
+
+  const gasPriceValue = isNumber(gasPrice?.ireland_c_per_kwh)
+    ? gasPrice.ireland_c_per_kwh
+    : pulseLast(history, "household_gas_c_per_kwh");
+
+  target.innerHTML = [
+    pulseCard({
+      label: "Electricity demand",
+      value: pulseNumber(demandGw, 2),
+      unit: "GW",
+      note: "Latest mapped system demand.",
+      key: "demand_gw",
+      history,
+      delta: iemDelta(history, "demand_gw", { digits: 2, unit: "GW", goodWhen: "neutral" })
+    }),
+    pulseCard({
+      label: "Renewables now",
+      value: pulseNumber(renewables, 0),
+      unit: "%",
+      note: "Wind and solar in the latest mapped interval.",
+      key: "renewables_percent",
+      history,
+      tone: "good",
+      delta: iemDelta(history, "renewables_percent", { digits: 1, unit: "pp", goodWhen: "up" })
+    }),
+    pulseCard({
+      label: "CO₂ now",
+      value: pulseNumber(co2, 0),
+      unit: "g/kWh",
+      note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
+      key: "co2_g_per_kwh",
+      history,
+      tone: co2 ? "" : "muted",
+      delta: iemDelta(history, "co2_g_per_kwh", { digits: 0, unit: "g/kWh", goodWhen: "down" })
+    }),
+    pulseCard({
+      label: "Imports",
+      value: pulseNumber(imports, 0),
+      unit: "%",
+      note: "Mapped interconnector import contribution. Exports are not negative imports.",
+      key: "imports_percent",
+      history,
+      delta: iemDelta(history, "imports_percent", { digits: 1, unit: "pp", goodWhen: "neutral" })
+    }),
+    pulseCard({
+      label: "Residual supply",
+      value: pulseNumber(residual, 0),
+      unit: "%",
+      note: "Computed remainder, not measured gas.",
+      key: "residual_percent",
+      history,
+      tone: "caution",
+      delta: iemDelta(history, "residual_percent", { digits: 1, unit: "pp", goodWhen: "down" })
+    }),
+    pulseCard({
+      label: "2030 target gap",
+      value: pulseNumber(gap, 1),
+      unit: "pp",
+      note: "Official annual gap to 80% renewable electricity, not a live 30-day signal.",
+      key: "target_gap_pp",
+      history,
+      tone: "risk"
+    }),
+    pulseCard({
+      label: "Electricity price",
+      value: pulseNumber(electricityPriceValue, 2),
+      unit: "c/kWh",
+      note: "Latest official SEAI semester, not a live tariff.",
+      key: "household_electricity_c_per_kwh",
+      history
+    }),
+    pulseCard({
+      label: "Gas price",
+      value: pulseNumber(gasPriceValue, 2),
+      unit: "c/kWh",
+      note: "Latest official SEAI semester, not a live tariff.",
+      key: "household_gas_c_per_kwh",
+      history
+    })
+  ].join("");
+}
+
+function iemClarifyGapPills() {
+  const targetGap = document.getElementById("targetGap");
+  if (targetGap) {
+    targetGap.title = "Indicative path gap inside the trajectory chart, not the official 2030 target gap.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(iemClarifyGapPills, 200);
+  setTimeout(iemClarifyGapPills, 900);
+});

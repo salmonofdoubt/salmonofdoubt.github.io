@@ -5183,3 +5183,48 @@ h3 {
     padding: 0.22rem 0.34rem;
   }
 }
+
+/* v0.40 observed-only pulse deltas */
+.pulse-delta {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 0.22rem;
+  padding: 0.18rem 0.38rem;
+  border-radius: 999px;
+  border: 1px solid rgba(237,247,241,0.12);
+  background: rgba(255,255,255,0.018);
+  color: rgba(237,247,241,0.58);
+  font-size: 0.58rem;
+  line-height: 1;
+  font-weight: 780;
+}
+
+.pulse-delta.good {
+  color: var(--green);
+  border-color: rgba(73,209,125,0.22);
+  background: rgba(73,209,125,0.06);
+}
+
+.pulse-delta.bad {
+  color: var(--red);
+  border-color: rgba(255,107,107,0.22);
+  background: rgba(255,107,107,0.06);
+}
+
+.pulse-delta.neutral {
+  color: var(--blue);
+  border-color: rgba(114,214,255,0.2);
+  background: rgba(114,214,255,0.055);
+}
+
+.pulse-delta.flat {
+  color: rgba(237,247,241,0.5);
+}
+
+@media (max-width: 760px) {
+  .pulse-delta {
+    font-size: 0.52rem;
+    padding: 0.16rem 0.32rem;
+    margin-top: 0.18rem;
+  }
+}
