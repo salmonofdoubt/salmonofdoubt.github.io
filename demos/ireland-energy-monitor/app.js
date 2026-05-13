@@ -2043,3 +2043,105 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(iemClarifyGapPills, 200);
   setTimeout(iemClarifyGapPills, 900);
 });
+
+/* v0.41 Trajectory status sidecar: move Off track out of numeric silos */
+function renderTargetDrift(data) {
+  const target = document.getElementById("targetDriftGrid");
+  if (!target) return;
+
+  const drift = data.target_drift || {};
+  if (!Object.keys(drift).length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const statusClass = driftStatusClass(drift.status);
+  const latestValue = Number(drift.latest_value);
+  const targetValue = Number(drift.target_value);
+  const gapValue = Number(drift.gap_to_target_pp);
+  const requiredGain = Number(drift.required_annual_gain_pp);
+  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
+
+  target.innerHTML = `
+    <article class="target-drift-card">
+      <span>Latest official RES-E</span>
+      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
+      <small>${escapeHtml(drift.latest_year)}</small>
+    </article>
+
+    <article class="target-drift-card">
+      <span>2030 benchmark</span>
+      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
+      <small>Renewable electricity</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>2030 target gap</span>
+      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
+      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Required gain</span>
+      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
+      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Recent gain</span>
+      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
+      <small>Two-year average</small>
+    </article>
+  `;
+
+  renderTargetStatusSidecar(drift);
+}
+
+function renderTargetStatusSidecar(drift) {
+  const residualSignal = document.getElementById("residualSignal");
+  const panel = residualSignal?.closest(".panel");
+  if (!panel) return;
+
+  const existing = panel.querySelector(".target-status-sidecar");
+  if (existing) existing.remove();
+
+  const statusClass = driftStatusClass(drift.status);
+  const requiredGain = Number(drift.required_annual_gain_pp);
+  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
+  const gapValue = Number(drift.gap_to_target_pp);
+
+  const sidecar = document.createElement("article");
+  sidecar.className = `target-status-sidecar ${statusClass}`;
+  sidecar.innerHTML = `
+    <div class="target-status-sidecar-top">
+      <span>2030 trajectory status</span>
+      <strong>${escapeHtml(drift.status_label || "Status")}</strong>
+    </div>
+
+    <p>
+      Ireland is <strong>${gapValue.toFixed(1)} percentage points</strong> below the
+      2030 renewable-electricity benchmark. Recent progress is
+      <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required path is
+      <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
+    </p>
+
+    <div class="target-status-mini-grid">
+      <div>
+        <span>Gap</span>
+        <strong>${gapValue.toFixed(1)} pp</strong>
+      </div>
+      <div>
+        <span>Speed needed</span>
+        <strong>${requiredGain.toFixed(2)} pp/yr</strong>
+      </div>
+      <div>
+        <span>Recent speed</span>
+        <strong>${recentGain.toFixed(2)} pp/yr</strong>
+      </div>
+    </div>
+
+    <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not live quarter-hourly electricity mix.")}</small>
+  `;
+
+  panel.appendChild(sidecar);
+}

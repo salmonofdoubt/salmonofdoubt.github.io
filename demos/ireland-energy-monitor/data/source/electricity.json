@@ -1,26 +1,26 @@
 {
   "electricity_now": {
     "demand_mw": 4189,
-    "renewables_percent": 33.5,
+    "renewables_percent": 62.7,
     "wind_percent": 52.4,
     "solar_percent": 10.3,
-    "gas_percent": 33.5,
-    "residual_percent": 33.5,
-    "imports_percent": 0.1,
+    "gas_percent": 37.3,
+    "residual_percent": 37.3,
+    "imports_percent": 0.0,
     "imports_available": true,
     "co2_g_per_kwh": 154.0,
     "co2_available": true,
     "gas_is_residual_proxy": true,
-    "generation_mw": 4006,
+    "generation_mw": null,
     "wind_mw": 2197,
     "solar_mw": 431,
     "imports_mw": 0,
-    "electricity_datetime": "2026-05-13T10:02:46+00:00",
+    "electricity_datetime": "2026-05-13T10:14:32+00:00",
     "data_age_hours": 0,
     "source_freshness": "current",
     "source_label": "EirGrid Smart Grid Dashboard public pages",
     "smartgrid_live_available": true,
-    "smartgrid_live_harvested_at": "2026-05-13T10:02:46+00:00",
+    "smartgrid_live_harvested_at": "2026-05-13T10:14:32+00:00",
     "smartgrid_html_parser": true,
     "co2_source": "EirGrid Smart Grid Dashboard, ROI",
     "co2_unit": "gCO2/kWh",
@@ -65,7 +65,7 @@
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-13T10:02:43+00:00",
+    "harvested_at": "2026-05-13T10:14:30+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -111,7 +111,7 @@
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
-      "harvested_at": "2026-05-13T10:02:46+00:00",
+      "harvested_at": "2026-05-13T10:14:32+00:00",
       "mode": "visible-html-parser",
       "caveat": "Latest values are parsed from public Smart Grid Dashboard pages. Demand and generation are current dashboard readouts; renewable/thermal/import percentages use the dashboard generation fuel-mix readout where available.",
       "probe_file": "ops/debug/smartgrid_live_probe.json",
@@ -121,30 +121,6 @@
           "line": "4,189",
           "line_index": 46,
           "label_index": 35
-        },
-        "generation_mw": {
-          "value": 4006.0,
-          "line": "4,006",
-          "line_index": 54,
-          "label_index": 49
-        },
-        "thermal_percent": {
-          "value": 33.51,
-          "line": "33.51",
-          "line_index": 58,
-          "label_index": 53
-        },
-        "renewable_percent": {
-          "value": 33.51,
-          "line": "33.51",
-          "line_index": 58,
-          "label_index": 47
-        },
-        "net_import_percent": {
-          "value": 0.06,
-          "line": "0.06",
-          "line_index": 66,
-          "label_index": 62
         },
         "wind_mw": {
           "value": 2197.0,
@@ -170,7 +146,7 @@
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-05-13T10:02:47+00:00",
+      "harvested_at": "2026-05-13T10:14:32+00:00",
       "region": "ROI",
       "parser": {
         "row_count": 68,
