@@ -4842,3 +4842,28 @@ h3 {
     line-height: 1.2;
   }
 }
+
+/* v0.38 visible 30-day sparkline note */
+.history-note-pill {
+  display: inline-flex !important;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0.42rem 0 0.7rem;
+  padding: 0.3rem 0.52rem;
+  border-radius: 999px;
+  border: 1px solid rgba(247, 201, 72, 0.28);
+  background: rgba(247, 201, 72, 0.075);
+  color: rgba(247, 201, 72, 0.95);
+  font-size: 0.68rem;
+  line-height: 1.15;
+  font-weight: 820;
+}
+
+@media (max-width: 760px) {
+  .history-note-pill {
+    margin: 0.32rem 0 0.55rem !important;
+    padding: 0.26rem 0.44rem !important;
+    font-size: 0.58rem !important;
+    line-height: 1.18 !important;
+  }
+}

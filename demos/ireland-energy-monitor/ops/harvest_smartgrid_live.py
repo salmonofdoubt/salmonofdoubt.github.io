@@ -306,6 +306,10 @@ def main() -> int:
         else pct(imports_mw, demand_value)
     )
 
+    # Public display should never show negative import shares.
+    # Negative interconnection means export, not “minus imports”.
+    imports_percent = max(0.0, min(100.0, imports_percent))
+
     residual_percent = (
         float(thermal_pct["value"])
         if thermal_pct and is_number(thermal_pct.get("value"))

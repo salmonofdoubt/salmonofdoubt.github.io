@@ -1701,3 +1701,70 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(renderDailyHistoryNote, 120);
   setTimeout(renderDailyHistoryNote, 700);
 });
+
+/* v0.38 pulse display guard: no negative zero, no negative percentages */
+function pulseNumber(value, digits = 0) {
+  if (!isNumber(value)) return "n/a";
+
+  let n = Number(value);
+
+  // Avoid -0, especially for percentages rounded to 0 decimals.
+  if (Math.abs(n) < Math.pow(10, -digits) / 2) {
+    n = 0;
+  }
+
+  return n.toLocaleString(undefined, {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits
+  });
+}
+
+/* v0.38 robust daily history note for 30-day warm-start */
+async function renderDailyHistoryNote() {
+  try {
+    const response = await fetch("data/history/daily.json", { cache: "no-store" });
+    if (!response.ok) return;
+
+    const history = await response.json();
+    const rows = Array.isArray(history.daily) ? history.daily : [];
+    const last30 = rows.slice(-30);
+    const estimated = last30.filter(row => row.estimated_backfill).length;
+    const observed = last30.length - estimated;
+
+    const pulse = document.getElementById("pulse") || document.querySelector(".pulse-section") || document.querySelector("#dailyPulseGrid")?.closest("section");
+    if (!pulse) return;
+
+    let anchor =
+      pulse.querySelector(".section-head") ||
+      pulse.querySelector("h2")?.parentElement ||
+      pulse;
+
+    let pill = pulse.querySelector(".history-note-pill");
+    if (!pill) {
+      pill = document.createElement("p");
+      pill.className = "history-note-pill";
+    }
+
+    if (last30.length >= 30 && estimated > 0) {
+      pill.textContent = `30-day sparkline · ${observed} observed · ${estimated} estimated warm-start`;
+    } else if (last30.length >= 30) {
+      pill.textContent = "30-day sparkline · observed daily snapshots";
+    } else {
+      pill.textContent = `Building 30-day sparkline · ${last30.length} daily snapshots`;
+    }
+
+    const h = anchor.querySelector("h2, h3");
+    if (h && !pill.isConnected) {
+      h.insertAdjacentElement("afterend", pill);
+    } else if (!pill.isConnected) {
+      anchor.prepend(pill);
+    }
+  } catch (error) {
+    console.warn("Daily history note failed", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(renderDailyHistoryNote, 180);
+  setTimeout(renderDailyHistoryNote, 900);
+});
