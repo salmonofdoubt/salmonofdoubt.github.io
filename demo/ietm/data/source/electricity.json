@@ -1,42 +1,45 @@
 {
   "electricity_now": {
-    "demand_mw": 4454,
-    "renewables_percent": 0.6,
-    "renewables_output_percent": 0.6,
+    "demand_mw": 4630,
+    "renewables_percent": 70.5,
+    "renewables_output_percent": 70.5,
     "renewable_surplus_percent": 0.0,
-    "renewables_coverage_percent": 0.6,
+    "renewables_coverage_percent": 70.5,
     "renewables_normalised": false,
-    "renewables_model": "smartgrid_api_live_chart",
-    "renewables_definition": "Wind plus solar cover of current demand from Smart Grid Dashboard API.",
-    "wind_percent": 0.3,
-    "solar_percent": 0.3,
-    "gas_percent": 99.4,
-    "residual_percent": 99.4,
+    "renewables_model": "smartgrid_api_latest_non_null_actual",
+    "renewables_definition": "Latest non-null Smart Grid Dashboard API wind plus solar cover of current demand.",
+    "wind_percent": 58.6,
+    "solar_percent": 12.0,
+    "gas_percent": 29.5,
+    "residual_percent": 29.5,
     "imports_percent": 0.0,
     "imports_available": true,
-    "co2_g_per_kwh": 156.0,
+    "co2_g_per_kwh": 161.0,
     "co2_available": true,
     "gas_is_residual_proxy": true,
-    "electricity_datetime": "13-May-2026 23:45:00",
+    "electricity_datetime": "2026-05-13T16:15:00+01:00",
     "source_label": "Smart Grid Dashboard API",
     "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=13-May-2026&dateTo=13-May-2026&areas=demandactual",
-    "source_freshness": "live chart API",
+    "source_freshness": "live chart API latest non-null actual",
     "data_age_hours": 0,
-    "generation_mw": 4937,
-    "wind_mw": 13,
-    "solar_mw": 13,
-    "interconnection_mw": 0,
-    "interconnection_direction": "near balanced",
-    "imports_mw": 0,
-    "exports_mw": 0,
-    "exports_percent": 0.0,
-    "smartgrid_live_available": true,
-    "smartgrid_api_live": true,
-    "consistency_warnings": [],
     "co2_source": "EirGrid Smart Grid Dashboard, ROI",
     "co2_unit": "gCO2/kWh",
     "co2_region": "ROI",
-    "co2_datetime": "13-May-2026 14:15:00"
+    "co2_datetime": "13-May-2026 14:45:00",
+    "generation_mw": 4937,
+    "wind_mw": 2712,
+    "solar_mw": 554,
+    "interconnection_mw": null,
+    "interconnection_direction": "not mapped",
+    "imports_mw": 0.0,
+    "exports_mw": 0.0,
+    "exports_percent": 0.0,
+    "smartgrid_live_available": true,
+    "smartgrid_api_live": true,
+    "interconnection_available": false,
+    "consistency_warnings": [
+      "Interconnection not yet mapped from Smart Grid API; imports shown as 0 until endpoint is wired."
+    ]
   },
   "fuel_mix_24h": [
     {
@@ -76,7 +79,7 @@
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-13T14:59:45+00:00",
+    "harvested_at": "2026-05-13T15:21:48+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -122,32 +125,32 @@
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
-      "harvested_at": "2026-05-13T14:59:46+00:00",
+      "harvested_at": "2026-05-13T15:21:49+00:00",
       "mode": "diagnostic-only",
       "caveat": "Smart Grid visible-page parser is disabled for demand, wind and solar because visible-page scraping can confuse actual, forecast and chart values. Core grid quantities use the official EirGrid quarter-hourly workbook instead.",
       "probe_file": "ops/debug/smartgrid_live_probe.json"
-    },
-    "smartgrid_api_live": {
-      "source": "Smart Grid Dashboard API",
-      "source_url": "https://www.smartgriddashboard.com/",
-      "harvested_at": "2026-05-13T14:59:48+00:00",
-      "mode": "direct-api-live-chart",
-      "region": "ALL",
-      "caveat": "Direct API calls derived from Smart Grid Dashboard chart requests."
     },
     "carbon_intensity": {
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-05-13T14:59:48+00:00",
+      "harvested_at": "2026-05-13T15:21:49+00:00",
       "region": "ROI",
       "parser": {
-        "row_count": 77,
-        "candidate_count": 58,
-        "latest_time": "13-May-2026 14:15:00",
+        "row_count": 78,
+        "candidate_count": 60,
+        "latest_time": "13-May-2026 14:45:00",
         "latest_field": "CO2_INTENSITY"
       },
       "caveat": "Parsed from Smart Grid Dashboard chart API. ROI is preferred; ALL is used only as fallback and labelled."
+    },
+    "smartgrid_api_live": {
+      "source": "Smart Grid Dashboard API",
+      "source_url": "https://www.smartgriddashboard.com/",
+      "harvested_at": "2026-05-13T15:21:50+00:00",
+      "mode": "direct-api-latest-non-null-actual",
+      "region": "ALL",
+      "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected."
     }
   }
 }

@@ -18,11 +18,10 @@ ROOT = Path(__file__).resolve().parents[1]
 STEPS = [
     ("Harvest EirGrid electricity", ["python3", "ops/harvest_eirgrid.py"]),
     ("Harvest Smart Grid live electricity", ["python3", "ops/harvest_smartgrid_live.py"]),
-    ("Harvest Smart Grid API live electricity", ["python3", "ops/harvest_smartgrid_api_live.py"]),
     ("Harvest EirGrid CO2", ["python3", "ops/harvest_eirgrid_co2.py"]),
+    ("Harvest Smart Grid API live electricity", ["python3", "ops/harvest_smartgrid_api_live.py"]),
     ("Harvest SEAI prices", ["python3", "ops/harvest_seai_prices.py"]),
     ("Harvest daily market prices", ["python3", "ops/harvest_daily_market_prices.py"]),
-    ("Harvest Smart Grid captured live endpoint", ["python3", "ops/harvest_smartgrid_curl_live.py"]),
     ("Build source model and freshness gates", ["python3", "ops/write_source_model.py"]),
     ("Build target tracker", ["python3", "ops/build_target_tracker.py"]),
     ("Build/import county hosting", ["python3", "ops/harvest_seai_county_dashboard.py"]),
