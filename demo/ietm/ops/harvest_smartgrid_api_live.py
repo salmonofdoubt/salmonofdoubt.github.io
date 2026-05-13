@@ -57,6 +57,12 @@ SERIES = {
         "field": "SOLAR_ACTUAL",
         "range": (-100, 2500),
     },
+    "interconnection_mw": {
+        "chartType": "interconnection",
+        "area": "interconnection",
+        "field": None,
+        "range": (-2500, 2500),
+    },
 }
 
 
@@ -175,7 +181,7 @@ def latest_valid_row(metric: str, rows: list[dict[str, Any]], spec: dict[str, An
     }
 
     for row in rows:
-        if str(row.get("FieldName", "")).upper() != expected_field:
+        if expected_field and str(row.get("FieldName", "")).upper() != expected_field:
             rejected["wrong_field"] += 1
             continue
 
@@ -332,13 +338,30 @@ def main() -> int:
     solar_pct_raw = pct(solar, demand)
     cover = normalise_cover(wind_pct_raw, solar_pct_raw)
 
-    # Interconnection API endpoint still needs separate mapping. Do not fake live imports.
-    interconnection = None
-    imports_mw = 0.0
-    exports_mw = 0.0
-    imports_pct = 0.0
-    exports_pct = 0.0
-    direction = "not mapped"
+    # Interconnection: positive = importing, negative = exporting.
+    interconnection = values.get("interconnection_mw")
+
+    if interconnection is None:
+        imports_mw = 0.0
+        exports_mw = 0.0
+        imports_pct = 0.0
+        exports_pct = 0.0
+        direction = "not mapped"
+        interconnection_available = False
+    else:
+        imports_mw = max(float(interconnection), 0.0)
+        exports_mw = max(-float(interconnection), 0.0)
+        imports_pct = pct(imports_mw, demand)
+        exports_pct = pct(exports_mw, demand)
+
+        if abs(float(interconnection)) < 1:
+            direction = "near balanced"
+        elif float(interconnection) > 0:
+            direction = "importing"
+        else:
+            direction = "exporting"
+
+        interconnection_available = True
 
     residual = max(0.0, 100.0 - min(100.0, float(cover["renewables"]) + imports_pct))
     latest_time = max(times) if times else now_iso()
@@ -349,10 +372,10 @@ def main() -> int:
         "generation_mw": round(generation) if generation is not None else electricity_now.get("generation_mw"),
         "wind_mw": round(wind),
         "solar_mw": round(solar),
-        "interconnection_mw": interconnection,
+        "interconnection_mw": round(interconnection) if interconnection is not None else None,
         "interconnection_direction": direction,
-        "imports_mw": imports_mw,
-        "exports_mw": exports_mw,
+        "imports_mw": round(imports_mw),
+        "exports_mw": round(exports_mw),
         "imports_percent": round(imports_pct, 1),
         "exports_percent": round(exports_pct, 1),
         "wind_percent": round(float(cover["wind"]), 1),
@@ -374,9 +397,9 @@ def main() -> int:
         "data_age_hours": 0,
         "smartgrid_live_available": True,
         "smartgrid_api_live": True,
-        "interconnection_available": False,
-        "consistency_warnings": [
-            "Interconnection not yet mapped from Smart Grid API; imports shown as 0 until endpoint is wired."
+        "interconnection_available": interconnection_available,
+        "consistency_warnings": [] if interconnection_available else [
+            "Interconnection API endpoint did not return a valid latest value; imports shown as 0."
         ],
     })
 
