@@ -293,12 +293,21 @@ def main() -> int:
     if ireland_interconnection_mw and is_number(ireland_interconnection_mw.get("value")):
         imports_mw = max(float(ireland_interconnection_mw["value"]), 0.0)
 
-    # Prefer Smart Grid generation page percentages where available.
-    renewables_percent = (
-        float(renewable_pct["value"])
-        if renewable_pct and is_number(renewable_pct.get("value"))
-        else pct((wind_value or 0) + (solar_value or 0), demand_value)
-    )
+    # For the public "Electricity now" section, use one denominator consistently:
+    # wind and solar as share of current system demand.
+    # Do not mix this with the Smart Grid generation-page renewable percentage,
+    # which may use a different denominator or fuel-mix convention.
+    wind_percent_calc = pct(wind_value, demand_value) if wind_value is not None else None
+    solar_percent_calc = pct(solar_value, demand_value) if solar_value is not None else None
+
+    if wind_percent_calc is not None or solar_percent_calc is not None:
+        renewables_percent = max(0.0, min(100.0, (wind_percent_calc or 0.0) + (solar_percent_calc or 0.0)))
+    else:
+        renewables_percent = (
+            float(renewable_pct["value"])
+            if renewable_pct and is_number(renewable_pct.get("value"))
+            else pct((wind_value or 0) + (solar_value or 0), demand_value)
+        )
 
     imports_percent = (
         float(net_import_pct["value"])
@@ -316,8 +325,8 @@ def main() -> int:
         else max(0.0, min(100.0, 100.0 - renewables_percent - imports_percent))
     )
 
-    wind_percent = pct(wind_value, demand_value) if wind_value is not None else electricity_now.get("wind_percent")
-    solar_percent = pct(solar_value, demand_value) if solar_value is not None else electricity_now.get("solar_percent")
+    wind_percent = wind_percent_calc if wind_percent_calc is not None else electricity_now.get("wind_percent")
+    solar_percent = solar_percent_calc if solar_percent_calc is not None else electricity_now.get("solar_percent")
 
     electricity_now.update({
         "demand_mw": round(demand_value),
@@ -335,6 +344,7 @@ def main() -> int:
         "data_age_hours": 0,
         "source_freshness": "current",
         "source_label": "EirGrid Smart Grid Dashboard public pages",
+        "renewables_definition": "Wind plus solar as share of current system demand",
         "smartgrid_live_available": True,
         "smartgrid_live_harvested_at": now_iso(),
         "smartgrid_html_parser": True,
