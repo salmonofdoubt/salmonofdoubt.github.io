@@ -4490,3 +4490,176 @@ h3 {
     line-height: 1.2 !important;
   }
 }
+
+/* v0.35 hard-target mobile utility panel polish */
+
+/* Quick links: force Buy + Feedback beside each other */
+#project-tools .action-card .top-row-links {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.55rem !important;
+  width: 100% !important;
+}
+
+#project-tools .action-card .top-row-links .pill-link {
+  width: 100% !important;
+  min-width: 0 !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* GitHub blob tighter */
+#project-tools .github-blob {
+  margin-top: 0.55rem !important;
+  padding: 0.48rem 0.65rem !important;
+  border-radius: 0.75rem !important;
+  line-height: 1 !important;
+}
+
+/* DOI strip: one compact line */
+#project-tools .hero-doi-row {
+  margin-top: 0.55rem !important;
+}
+
+#project-tools .doi-strip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.42rem !important;
+  flex-wrap: nowrap !important;
+  min-height: 2rem !important;
+  padding: 0.42rem 0.6rem !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden !important;
+}
+
+#project-tools .doi-strip-label,
+#project-tools .doi-strip-badge,
+#project-tools .doi-strip-link {
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+
+#project-tools .doi-strip-label {
+  font-size: 0.58rem !important;
+  letter-spacing: 0.075em !important;
+}
+
+#project-tools .doi-strip-badge {
+  font-size: 0.55rem !important;
+  padding: 0.18rem 0.34rem !important;
+}
+
+#project-tools .doi-strip-link {
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: 0.72rem !important;
+}
+
+/* Share panel: keep QR contained in its square */
+#project-tools .share-card .share-main-row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 82px !important;
+  gap: 0.6rem !important;
+  align-items: start !important;
+}
+
+#project-tools .share-card .share-actions-wrap,
+#project-tools .share-card .share-actions {
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+#project-tools .share-card .share-actions {
+  display: grid !important;
+  gap: 0.42rem !important;
+}
+
+#project-tools .share-card .share-actions .pill-link {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 1.95rem !important;
+  padding: 0.38rem 0.52rem !important;
+  font-size: 0.68rem !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+#project-tools .share-card .share-qr-wrap {
+  width: 82px !important;
+  height: 82px !important;
+  min-width: 82px !important;
+  max-width: 82px !important;
+  border-radius: 0.7rem !important;
+  padding: 0.24rem !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+  box-sizing: border-box !important;
+}
+
+#project-tools .share-card .qr-image {
+  width: 72px !important;
+  height: 72px !important;
+  max-width: 72px !important;
+  max-height: 72px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Mobile-specific final clamp */
+@media (max-width: 760px) {
+  #project-tools {
+    gap: 0.65rem !important;
+  }
+
+  #project-tools .hero-card {
+    padding: 0.72rem !important;
+  }
+
+  #project-tools .action-card .top-row-links {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.45rem !important;
+  }
+
+  #project-tools .action-card .top-row-links .pill-link {
+    min-height: 1.9rem !important;
+    padding: 0.34rem 0.42rem !important;
+    font-size: 0.64rem !important;
+  }
+
+  #project-tools .doi-strip {
+    min-height: 1.85rem !important;
+    padding: 0.36rem 0.52rem !important;
+    gap: 0.34rem !important;
+  }
+
+  #project-tools .doi-strip-label {
+    max-width: 5.4rem !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  #project-tools .doi-strip-link {
+    font-size: 0.66rem !important;
+  }
+
+  #project-tools .share-card .share-main-row {
+    grid-template-columns: minmax(0, 1fr) 78px !important;
+    gap: 0.52rem !important;
+  }
+
+  #project-tools .share-card .share-qr-wrap {
+    width: 78px !important;
+    height: 78px !important;
+    min-width: 78px !important;
+    max-width: 78px !important;
+  }
+
+  #project-tools .share-card .qr-image {
+    width: 68px !important;
+    height: 68px !important;
+    max-width: 68px !important;
+    max-height: 68px !important;
+  }
+}
