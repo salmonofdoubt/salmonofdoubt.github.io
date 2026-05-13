@@ -1537,3 +1537,65 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(polishSecondaryPanels, 500);
   });
 })();
+
+/* v0.36 Live electricity source badge */
+async function renderElectricityLiveBadge() {
+  try {
+    const response = await fetch("data/monitor.json", { cache: "no-store" });
+    if (!response.ok) return;
+
+    const data = await response.json();
+    const e = data.electricity_now || {};
+
+    const todaySection = document.getElementById("today");
+    const head = todaySection?.querySelector(".section-head");
+    if (!head || head.querySelector(".electricity-live-badge-row")) return;
+
+    const live = e.smartgrid_live_available === true;
+    const source = e.source_label || "Electricity source";
+    const when = e.smartgrid_live_harvested_at || e.electricity_datetime || "";
+
+    let timeText = "";
+    if (when) {
+      try {
+        const d = new Date(when);
+        if (!Number.isNaN(d.getTime())) {
+          timeText = d.toLocaleString("en-IE", {
+            day: "2-digit",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+        }
+      } catch {
+        timeText = "";
+      }
+    }
+
+    const row = document.createElement("div");
+    row.className = "electricity-live-badge-row";
+    row.innerHTML = `
+      <span class="electricity-live-badge ${live ? "is-live" : "is-fallback"}">
+        <i aria-hidden="true"></i>
+        ${live ? "Live from Smart Grid Dashboard" : "Fallback electricity source"}
+      </span>
+      <span class="electricity-live-meta">
+        ${escapeHtml(source)}${timeText ? ` · ${escapeHtml(timeText)}` : ""}
+      </span>
+    `;
+
+    const paragraph = head.querySelector("p:not(.eyebrow)");
+    if (paragraph) {
+      paragraph.insertAdjacentElement("afterend", row);
+    } else {
+      head.appendChild(row);
+    }
+  } catch (error) {
+    console.warn("Electricity live badge failed", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(renderElectricityLiveBadge, 120);
+  setTimeout(renderElectricityLiveBadge, 700);
+});

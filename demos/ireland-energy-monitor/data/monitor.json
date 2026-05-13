@@ -5,7 +5,7 @@
       "status": {
         "source": "EirGrid System Data Qtr Hourly spreadsheet",
         "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-        "harvested_at": "2026-05-13T09:05:29+00:00",
+        "harvested_at": "2026-05-13T09:16:05+00:00",
         "parser": {
           "sheet": "System Data",
           "header_row": 1,
@@ -51,7 +51,7 @@
         "smartgrid_live": {
           "source": "EirGrid Smart Grid Dashboard public pages",
           "source_url": "https://www.smartgriddashboard.com",
-          "harvested_at": "2026-05-13T09:05:30+00:00",
+          "harvested_at": "2026-05-13T09:16:06+00:00",
           "mode": "visible-html-parser",
           "caveat": "Latest values are parsed from public Smart Grid Dashboard pages. Demand and generation are current dashboard readouts; renewable/thermal/import percentages use the dashboard generation fuel-mix readout where available.",
           "probe_file": "ops/debug/smartgrid_live_probe.json",
@@ -65,26 +65,26 @@
             "generation_mw": {
               "value": 4246.0,
               "line": "4,246",
-              "line_index": 44,
-              "label_index": 35
+              "line_index": 54,
+              "label_index": 49
             },
             "thermal_percent": {
               "value": 32.34,
               "line": "32.34",
-              "line_index": 48,
-              "label_index": 43
+              "line_index": 58,
+              "label_index": 53
             },
             "renewable_percent": {
-              "value": 67.45,
-              "line": "67.45",
-              "line_index": 52,
-              "label_index": 48
+              "value": 32.34,
+              "line": "32.34",
+              "line_index": 58,
+              "label_index": 47
             },
             "net_import_percent": {
               "value": 0.21,
               "line": "0.21",
-              "line_index": 56,
-              "label_index": 52
+              "line_index": 66,
+              "label_index": 62
             },
             "wind_mw": {
               "value": 2339.0,
@@ -99,8 +99,8 @@
               "label_index": 35
             },
             "ireland_interconnection_mw": {
-              "value": -99.0,
-              "line": "-99",
+              "value": -98.0,
+              "line": "-98",
               "line_index": 44,
               "label_index": 35
             }
@@ -110,7 +110,7 @@
           "source": "Smart Grid Dashboard chart API",
           "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
           "mode": "api-chart",
-          "harvested_at": "2026-05-13T09:05:30+00:00",
+          "harvested_at": "2026-05-13T09:16:06+00:00",
           "region": "ROI",
           "parser": {
             "row_count": 66,
@@ -127,7 +127,7 @@
       "status": {
         "source": "SEAI Energy Price Trends",
         "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/prices",
-        "harvested_at": "2026-05-13T09:05:30+00:00",
+        "harvested_at": "2026-05-13T09:16:06+00:00",
         "mode": "official-fallback-snapshot",
         "electricity_household_rows": 2,
         "gas_household_rows": 2,
@@ -139,7 +139,7 @@
       "status": {
         "source": "SEAI Renewables statistics",
         "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/renewables",
-        "harvested_at": "2026-05-13T09:05:33+00:00",
+        "harvested_at": "2026-05-13T09:16:08+00:00",
         "mode": "official-static-snapshot",
         "caveat": "Embedded official annual values; automate extraction later if source format remains stable."
       }
@@ -149,7 +149,7 @@
       "status": {
         "source": "SEAI Renewable Electricity County Dashboard",
         "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
-        "harvested_at": "2026-05-13T09:05:33+00:00",
+        "harvested_at": "2026-05-13T09:16:09+00:00",
         "mode": "scaffold",
         "caveat": "SEAI beta dashboard integration pending."
       }
@@ -175,10 +175,10 @@
     },
     {
       "date": "2026-05-13",
-      "captured_at": "2026-05-13T09:05:33+00:00",
+      "captured_at": "2026-05-13T09:16:09+00:00",
       "demand_mw": 4189.0,
       "demand_gw": 4.19,
-      "renewables_percent": 67.5,
+      "renewables_percent": 32.3,
       "wind_percent": 55.8,
       "solar_percent": 9.7,
       "imports_percent": 0.2,
@@ -192,14 +192,14 @@
     }
   ],
   "daily_history_meta": {
-    "generated_at": "2026-05-13T09:05:33+00:00",
+    "generated_at": "2026-05-13T09:16:09+00:00",
     "row_count": 2,
     "mode": "daily-snapshot-history",
     "caveat": "History begins when this project started recording daily snapshots. No fake backfill is created."
   },
   "meta": {
     "project": "Ireland Energy Monitor",
-    "generated_at": "2026-05-13T09:05:33+00:00",
+    "generated_at": "2026-05-13T09:16:09+00:00",
     "timezone": "Europe/Dublin",
     "mode": "Generated static dataset with EirGrid harvester",
     "confidence": "Medium",
@@ -220,7 +220,7 @@
   },
   "electricity_now": {
     "demand_mw": 4189,
-    "renewables_percent": 67.5,
+    "renewables_percent": 32.3,
     "wind_percent": 55.8,
     "solar_percent": 9.7,
     "gas_percent": 32.3,
@@ -234,12 +234,12 @@
     "wind_mw": 2339,
     "solar_mw": 406,
     "imports_mw": 0,
-    "electricity_datetime": "2026-05-13T09:05:30+00:00",
+    "electricity_datetime": "2026-05-13T09:16:06+00:00",
     "data_age_hours": 0,
     "source_freshness": "current",
     "source_label": "EirGrid Smart Grid Dashboard public pages",
     "smartgrid_live_available": true,
-    "smartgrid_live_harvested_at": "2026-05-13T09:05:30+00:00",
+    "smartgrid_live_harvested_at": "2026-05-13T09:16:06+00:00",
     "smartgrid_html_parser": true,
     "co2_source": "EirGrid Smart Grid Dashboard, ROI",
     "co2_unit": "gCO2/kWh",
@@ -436,7 +436,7 @@
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-13T09:05:29+00:00",
+    "harvested_at": "2026-05-13T09:16:05+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -482,7 +482,7 @@
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
-      "harvested_at": "2026-05-13T09:05:30+00:00",
+      "harvested_at": "2026-05-13T09:16:06+00:00",
       "mode": "visible-html-parser",
       "caveat": "Latest values are parsed from public Smart Grid Dashboard pages. Demand and generation are current dashboard readouts; renewable/thermal/import percentages use the dashboard generation fuel-mix readout where available.",
       "probe_file": "ops/debug/smartgrid_live_probe.json",
@@ -496,26 +496,26 @@
         "generation_mw": {
           "value": 4246.0,
           "line": "4,246",
-          "line_index": 44,
-          "label_index": 35
+          "line_index": 54,
+          "label_index": 49
         },
         "thermal_percent": {
           "value": 32.34,
           "line": "32.34",
-          "line_index": 48,
-          "label_index": 43
+          "line_index": 58,
+          "label_index": 53
         },
         "renewable_percent": {
-          "value": 67.45,
-          "line": "67.45",
-          "line_index": 52,
-          "label_index": 48
+          "value": 32.34,
+          "line": "32.34",
+          "line_index": 58,
+          "label_index": 47
         },
         "net_import_percent": {
           "value": 0.21,
           "line": "0.21",
-          "line_index": 56,
-          "label_index": 52
+          "line_index": 66,
+          "label_index": 62
         },
         "wind_mw": {
           "value": 2339.0,
@@ -530,8 +530,8 @@
           "label_index": 35
         },
         "ireland_interconnection_mw": {
-          "value": -99.0,
-          "line": "-99",
+          "value": -98.0,
+          "line": "-98",
           "line_index": 44,
           "label_index": 35
         }
@@ -541,7 +541,7 @@
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-05-13T09:05:30+00:00",
+      "harvested_at": "2026-05-13T09:16:06+00:00",
       "region": "ROI",
       "parser": {
         "row_count": 66,
@@ -555,7 +555,7 @@
   "county_hosting": {
     "title": "County Hosting Index",
     "mode": "schematic-scaffold",
-    "generated_at": "2026-05-13T09:05:33+00:00",
+    "generated_at": "2026-05-13T09:16:09+00:00",
     "source": "SEAI Renewable Electricity County Dashboard",
     "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
     "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km\u00b2 and population-density normalisation.",
