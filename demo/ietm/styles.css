@@ -6975,3 +6975,211 @@ h3 {
   text-transform: none !important;
   letter-spacing: normal !important;
 }
+
+/* v0.76 Renewable parent/subcomponent hierarchy */
+.metric-card.renewable-parent-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(73,209,125,0.075), rgba(73,209,125,0.018)),
+    rgba(255,255,255,0.012);
+}
+
+.metric-card.renewable-parent-card::after {
+  content: "total";
+  position: absolute;
+  top: 0.62rem;
+  right: 0.7rem;
+  padding: 0.15rem 0.42rem;
+  border-radius: 999px;
+  border: 1px solid rgba(73,209,125,0.26);
+  color: rgba(73,209,125,0.92);
+  background: rgba(73,209,125,0.055);
+  font-size: 0.58rem;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.metric-card.renewable-child-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.006)),
+    rgba(255,255,255,0.006);
+}
+
+.metric-card.renewable-child-card::after {
+  content: "component";
+  position: absolute;
+  top: 0.62rem;
+  right: 0.7rem;
+  padding: 0.15rem 0.42rem;
+  border-radius: 999px;
+  border: 1px solid rgba(237,247,241,0.14);
+  color: rgba(237,247,241,0.56);
+  background: rgba(255,255,255,0.025);
+  font-size: 0.54rem;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.metric-card.wind-child-card {
+  box-shadow: inset 0 3px 0 rgba(114,214,255,0.95);
+}
+
+.metric-card.solar-child-card {
+  box-shadow: inset 0 3px 0 rgba(247,201,72,0.95);
+}
+
+.renewable-components {
+  margin-top: 0.68rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(237,247,241,0.09);
+}
+
+.renewable-components-label {
+  margin-bottom: 0.34rem;
+  color: rgba(237,247,241,0.62);
+  font-size: 0.62rem;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.renewable-component-bar {
+  display: flex;
+  width: 100%;
+  height: 0.48rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.renewable-component-bar .wind-part {
+  display: block;
+  background: rgba(114,214,255,0.95);
+}
+
+.renewable-component-bar .solar-part {
+  display: block;
+  background: rgba(247,201,72,0.95);
+}
+
+.renewable-component-values {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+  margin-top: 0.34rem;
+  color: rgba(237,247,241,0.74);
+  font-size: 0.68rem;
+  line-height: 1.15;
+}
+
+.renewable-component-values b {
+  color: rgba(237,247,241,0.9);
+  font-weight: 850;
+}
+
+@media (max-width: 760px) {
+  .metric-card.renewable-parent-card::after,
+  .metric-card.renewable-child-card::after {
+    top: 0.48rem;
+    right: 0.5rem;
+    font-size: 0.48rem;
+  }
+
+  .renewable-components {
+    margin-top: 0.5rem;
+    padding-top: 0.45rem;
+  }
+
+  .renewable-components-label {
+    font-size: 0.54rem;
+  }
+
+  .renewable-component-values {
+    font-size: 0.6rem;
+  }
+}
+
+/* v0.77 Mobile: remove decorative metric strips so only real percentage bars remain */
+@media (max-width: 760px) {
+  /*
+    On mobile, full-width accent strips look like data bars.
+    Hide decorative card accents in the electricity pulse.
+  */
+  #metricGrid .metric-card::before,
+  #metricGrid .metric-card::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  #metricGrid .metric-card,
+  #metricGrid .metric-card[data-accent],
+  #metricGrid .metric-card.renewable-parent-card,
+  #metricGrid .metric-card.renewable-child-card,
+  #metricGrid .metric-card.wind-child-card,
+  #metricGrid .metric-card.solar-child-card {
+    box-shadow: none !important;
+    border-top: 1px solid rgba(237,247,241,0.10) !important;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.006)),
+      rgba(255,255,255,0.006) !important;
+  }
+
+  /*
+    Keep only genuine quantitative bars.
+    This is the real Wind + Solar composition bar inside Renewable cover.
+  */
+  #metricGrid .renewable-component-bar {
+    display: flex !important;
+    height: 0.5rem !important;
+    margin-top: 0.28rem !important;
+    background: rgba(255,255,255,0.10) !important;
+  }
+
+  #metricGrid .renewable-component-bar .wind-part,
+  #metricGrid .renewable-component-bar .solar-part {
+    display: block !important;
+  }
+
+  /*
+    Replace lost visual hierarchy with small text chips, not bars.
+  */
+  #metricGrid .renewable-parent-card {
+    border-left: 3px solid rgba(73,209,125,0.85) !important;
+  }
+
+  #metricGrid .wind-child-card {
+    border-left: 3px solid rgba(114,214,255,0.85) !important;
+  }
+
+  #metricGrid .solar-child-card {
+    border-left: 3px solid rgba(247,201,72,0.85) !important;
+  }
+
+  /*
+    Keep the interconnection badge as an icon/text signal, not a bar.
+  */
+  #metricGrid .flow-indicator {
+    font-size: 0.72rem !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+  }
+
+  /*
+    The lower demand-cover card contains real percentage bars. Keep them.
+  */
+  .fuel-mix-row .bar,
+  .fuel-mix-row .fill,
+  .mix-bar,
+  .mix-fill,
+  .demand-cover-bar,
+  .demand-cover-fill {
+    display: block;
+  }
+}
