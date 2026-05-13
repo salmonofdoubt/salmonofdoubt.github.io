@@ -6751,3 +6751,227 @@ h3 {
     padding: 0.46rem 0.58rem;
   }
 }
+
+/* v0.73 Interconnection direction arrow badge */
+.flow-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.flow-indicator-arrow {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  border: 1px solid currentColor;
+  background: rgba(255,255,255,0.035);
+  flex: 0 0 auto;
+}
+
+.flow-indicator.export {
+  color: #4ade80;
+}
+
+.flow-indicator.import {
+  color: #f87171;
+}
+
+.flow-indicator.balanced {
+  color: #cbd5e1;
+}
+
+.flow-indicator.unknown {
+  color: #94a3b8;
+}
+
+.metric-card small .flow-indicator {
+  margin-top: 0.08rem;
+}
+
+/* v0.74 Interconnection arrow badge rendered as DOM */
+.flow-note {
+  display: block;
+}
+
+.flow-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.flow-indicator-arrow {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  border: 1px solid currentColor;
+  background: rgba(255,255,255,0.035);
+  flex: 0 0 auto;
+}
+
+.flow-indicator.export {
+  color: #4ade80;
+}
+
+.flow-indicator.import {
+  color: #f87171;
+}
+
+.flow-indicator.balanced {
+  color: #cbd5e1;
+}
+
+.flow-indicator.unknown {
+  color: #94a3b8;
+}
+
+/* v0.75 Normalise interconnection badge typography and colour */
+.metric-card small.flow-note,
+.metric-card .flow-note {
+  display: block !important;
+  margin-top: 0.42rem !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 0.78rem !important;
+  line-height: 1.2 !important;
+  font-weight: 650 !important;
+}
+
+.metric-card small.flow-note .flow-indicator,
+.metric-card .flow-note .flow-indicator,
+.metric-card .flow-indicator {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.42rem !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 0.78rem !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.metric-card small.flow-note .flow-indicator-arrow,
+.metric-card .flow-note .flow-indicator-arrow,
+.metric-card .flow-indicator-arrow {
+  width: 1rem !important;
+  height: 1rem !important;
+  min-width: 1rem !important;
+  border-radius: 999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.68rem !important;
+  line-height: 1 !important;
+  border: 1px solid currentColor !important;
+  background: rgba(255,255,255,0.035) !important;
+  color: inherit !important;
+}
+
+.metric-card .flow-indicator.export,
+.metric-card small.flow-note .flow-indicator.export {
+  color: #4ade80 !important;
+}
+
+.metric-card .flow-indicator.import,
+.metric-card small.flow-note .flow-indicator.import {
+  color: #f87171 !important;
+}
+
+.metric-card .flow-indicator.balanced,
+.metric-card small.flow-note .flow-indicator.balanced {
+  color: #cbd5e1 !important;
+}
+
+.metric-card .flow-indicator.unknown,
+.metric-card small.flow-note .flow-indicator.unknown {
+  color: #94a3b8 !important;
+}
+
+.metric-card .flow-indicator span:last-child {
+  color: inherit !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+/* v0.75 Normalise interconnection badge typography and colour */
+.metric-card small.flow-note,
+.metric-card .flow-note {
+  display: block !important;
+  margin-top: 0.42rem !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 0.78rem !important;
+  line-height: 1.2 !important;
+  font-weight: 650 !important;
+}
+
+.metric-card small.flow-note .flow-indicator,
+.metric-card .flow-note .flow-indicator,
+.metric-card .flow-indicator {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.42rem !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 0.78rem !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.metric-card small.flow-note .flow-indicator-arrow,
+.metric-card .flow-note .flow-indicator-arrow,
+.metric-card .flow-indicator-arrow {
+  width: 1rem !important;
+  height: 1rem !important;
+  min-width: 1rem !important;
+  border-radius: 999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.68rem !important;
+  line-height: 1 !important;
+  border: 1px solid currentColor !important;
+  background: rgba(255,255,255,0.035) !important;
+  color: inherit !important;
+}
+
+.metric-card .flow-indicator.export,
+.metric-card small.flow-note .flow-indicator.export {
+  color: #4ade80 !important;
+}
+
+.metric-card .flow-indicator.import,
+.metric-card small.flow-note .flow-indicator.import {
+  color: #f87171 !important;
+}
+
+.metric-card .flow-indicator.balanced,
+.metric-card small.flow-note .flow-indicator.balanced {
+  color: #cbd5e1 !important;
+}
+
+.metric-card .flow-indicator.unknown,
+.metric-card small.flow-note .flow-indicator.unknown {
+  color: #94a3b8 !important;
+}
+
+.metric-card .flow-indicator span:last-child {
+  color: inherit !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}

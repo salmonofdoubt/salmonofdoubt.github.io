@@ -3881,3 +3881,242 @@ function iemInterconnectionDisplay(e) {
     note: "Exporting electricity"
   };
 }
+
+/* v0.73 Interconnection direction arrow badge */
+function ietmFlowMeta(direction) {
+  const d = String(direction || "").toLowerCase();
+
+  if (d.includes("export")) {
+    return {
+      cls: "export",
+      arrow: "↗",
+      text: "Exporting electricity"
+    };
+  }
+
+  if (d.includes("import")) {
+    return {
+      cls: "import",
+      arrow: "↘",
+      text: "Importing electricity"
+    };
+  }
+
+  if (d.includes("balanc")) {
+    return {
+      cls: "balanced",
+      arrow: "↔",
+      text: "Near balanced"
+    };
+  }
+
+  return {
+    cls: "unknown",
+    arrow: "•",
+    text: "Not mapped"
+  };
+}
+
+function ietmFlowBadge(direction) {
+  const meta = ietmFlowMeta(direction);
+  return `
+    <span class="flow-indicator ${meta.cls}">
+      <span class="flow-indicator-arrow" aria-hidden="true">${meta.arrow}</span>
+      <span>${meta.text}</span>
+    </span>
+  `;
+}
+
+/*
+  Override the interconnection display helper.
+  Existing renderMetrics() already calls iemInterconnectionDisplay(e),
+  so this is enough to upgrade the card note everywhere.
+*/
+function iemInterconnectionDisplay(e) {
+  if (e && e.interconnection_available === false) {
+    return {
+      value: "Not mapped",
+      note: ietmFlowBadge("unknown")
+    };
+  }
+
+  const mw = Number(e?.interconnection_mw);
+  const direction = String(e?.interconnection_direction || "");
+
+  if (!Number.isFinite(mw)) {
+    return {
+      value: "Not mapped",
+      note: ietmFlowBadge("unknown")
+    };
+  }
+
+  if (Math.abs(mw) < 1) {
+    return {
+      value: "Near balanced",
+      note: ietmFlowBadge("near balanced")
+    };
+  }
+
+  if (mw > 0) {
+    return {
+      value: `${iemValue(mw, 0)} MW`,
+      note: ietmFlowBadge("importing")
+    };
+  }
+
+  return {
+    value: `${iemValue(Math.abs(mw), 0)} MW`,
+    note: ietmFlowBadge("exporting")
+  };
+}
+
+/* v0.74 Render interconnection arrow badge safely after metric cards render */
+function ietmPlainFlowMeta(direction) {
+  const d = String(direction || "").toLowerCase();
+
+  if (d.includes("export")) {
+    return { cls: "export", arrow: "↗", text: "Exporting electricity" };
+  }
+
+  if (d.includes("import")) {
+    return { cls: "import", arrow: "↘", text: "Importing electricity" };
+  }
+
+  if (d.includes("balanc")) {
+    return { cls: "balanced", arrow: "↔", text: "Near balanced" };
+  }
+
+  return { cls: "unknown", arrow: "•", text: "Not mapped" };
+}
+
+/* Override again: metricCard note is plain text, not HTML. */
+function iemInterconnectionDisplay(e) {
+  if (e && e.interconnection_available === false) {
+    const meta = ietmPlainFlowMeta("unknown");
+    return {
+      value: "Not mapped",
+      note: `${meta.arrow} ${meta.text}`
+    };
+  }
+
+  const mw = Number(e?.interconnection_mw);
+
+  if (!Number.isFinite(mw)) {
+    const meta = ietmPlainFlowMeta("unknown");
+    return {
+      value: "Not mapped",
+      note: `${meta.arrow} ${meta.text}`
+    };
+  }
+
+  if (Math.abs(mw) < 1) {
+    const meta = ietmPlainFlowMeta("near balanced");
+    return {
+      value: "Near balanced",
+      note: `${meta.arrow} ${meta.text}`
+    };
+  }
+
+  if (mw > 0) {
+    const meta = ietmPlainFlowMeta("importing");
+    return {
+      value: `${iemValue(mw, 0)} MW`,
+      note: `${meta.arrow} ${meta.text}`
+    };
+  }
+
+  const meta = ietmPlainFlowMeta("exporting");
+  return {
+    value: `${iemValue(Math.abs(mw), 0)} MW`,
+    note: `${meta.arrow} ${meta.text}`
+  };
+}
+
+function ietmDecorateInterconnectionCard(data) {
+  const e = data?.electricity_now || {};
+  const meta = ietmPlainFlowMeta(e.interconnection_direction);
+
+  const cards = Array.from(document.querySelectorAll(".metric-card"));
+  const card = cards.find(el =>
+    String(el.textContent || "").toLowerCase().includes("interconnection")
+  );
+
+  if (!card) return;
+
+  const note = card.querySelector("small");
+  if (!note) return;
+
+  note.classList.add("flow-note");
+  note.innerHTML = `
+    <span class="flow-indicator ${meta.cls}">
+      <span class="flow-indicator-arrow" aria-hidden="true">${meta.arrow}</span>
+      <span>${meta.text}</span>
+    </span>
+  `;
+}
+
+/*
+  Wrap the current renderMetrics so the normal card is rendered first,
+  then the interconnection note is upgraded into a real DOM badge.
+*/
+if (typeof renderMetrics === "function" && !window.__ietmFlowPatch74) {
+  window.__ietmFlowPatch74 = true;
+  const previousRenderMetrics = renderMetrics;
+
+  renderMetrics = function patchedRenderMetrics(data) {
+    previousRenderMetrics(data);
+    setTimeout(() => ietmDecorateInterconnectionCard(data), 0);
+  };
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await loadMonitor();
+    setTimeout(() => ietmDecorateInterconnectionCard(data), 150);
+    setTimeout(() => ietmDecorateInterconnectionCard(data), 700);
+  } catch {
+    /* no action */
+  }
+});
+
+/* v0.75 Force clean interconnection badge labels */
+function ietmPlainFlowMeta(direction) {
+  const d = String(direction || "").toLowerCase();
+
+  if (d.includes("export")) {
+    return { cls: "export", arrow: "↗", text: "Exporting electricity" };
+  }
+
+  if (d.includes("import")) {
+    return { cls: "import", arrow: "↘", text: "Importing electricity" };
+  }
+
+  if (d.includes("balanc")) {
+    return { cls: "balanced", arrow: "↔", text: "Near balanced" };
+  }
+
+  return { cls: "unknown", arrow: "•", text: "Not mapped" };
+}
+
+function ietmDecorateInterconnectionCard(data) {
+  const e = data?.electricity_now || {};
+  const meta = ietmPlainFlowMeta(e.interconnection_direction);
+
+  const cards = Array.from(document.querySelectorAll(".metric-card"));
+  const card = cards.find(el =>
+    String(el.textContent || "").toLowerCase().includes("interconnection")
+  );
+
+  if (!card) return;
+
+  const note = card.querySelector("small");
+  if (!note) return;
+
+  note.className = "flow-note";
+  note.innerHTML = `
+    <span class="flow-indicator ${meta.cls}">
+      <span class="flow-indicator-arrow" aria-hidden="true">${meta.arrow}</span>
+      <span>${meta.text}</span>
+    </span>
+  `;
+}
