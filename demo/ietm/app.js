@@ -41,6 +41,7 @@ function metricAccentKey(label) {
   if (key.includes("renewable")) return "renewables";
   if (key.includes("wind")) return "wind";
   if (key.includes("solar")) return "solar";
+  if (key.includes("generation")) return "demand";
   if (key.includes("residual")) return "residual";
   if (key.includes("import")) return "imports";
   if (key.includes("demand")) return "demand";
@@ -2233,6 +2234,7 @@ function iemMetricAccent(label) {
   if (key.includes("renewable")) return "renewables";
   if (key.includes("wind")) return "wind";
   if (key.includes("solar")) return "solar";
+  if (key.includes("generation")) return "demand";
   if (key.includes("residual")) return "residual";
   if (key.includes("interconnection")) return "imports";
   if (key.includes("demand")) return "demand";
@@ -3663,6 +3665,7 @@ function iemMetricAccent(label) {
   if (key.includes("renewable")) return "renewables";
   if (key.includes("wind")) return "wind";
   if (key.includes("solar")) return "solar";
+  if (key.includes("generation")) return "demand";
   if (key.includes("residual") || key.includes("uncovered")) return "residual";
   if (key.includes("interconnection")) return "imports";
   if (key.includes("demand")) return "demand";
@@ -3690,7 +3693,7 @@ function renderElectricityCoverageNote(data) {
 
   if (normalised) {
     note.innerHTML = `
-      <strong>Coverage view, not full fuel mix.</strong>
+      <strong>Generation view, not full fuel mix.</strong>
       Wind + solar output is estimated at <b>${pulseNumber(output, 0)}%</b> of current demand.
       The public cover cards are capped at 100% because domestic demand cannot be more than fully covered.
       Surplus/output above demand is shown separately and may coincide with exports, curtailment or model uncertainty.
@@ -3698,9 +3701,9 @@ function renderElectricityCoverageNote(data) {
     `;
   } else {
     note.innerHTML = `
-      <strong>Coverage view.</strong>
-      Percentages estimate how much current demand is covered by wind, solar and net imports.
-      The uncovered card is a computed remainder, not measured gas or a complete fuel mix.
+      <strong>Generation view.</strong>
+      Percentages estimate the current generation split between renewable generation, thermal/other generation and interconnection.
+      The thermal/other card is a computed remainder, not measured gas or a complete fuel mix.
     `;
   }
 }
@@ -4369,3 +4372,382 @@ function iemFormatPowerMw(value, options = {}) {
   };
 })();
 // IETM demand-now GW override: END
+
+// IETM generation-basis live metric renderer: BEGIN
+function iemPowerForLiveCards(value, options = {}) {
+  const mw = Number(value);
+  if (!Number.isFinite(mw)) return "n/a";
+
+  const forceGw = options.forceGw === true;
+  const absMw = Math.abs(mw);
+
+  if (forceGw || absMw >= 1000) {
+    return `${(mw / 1000).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })} GW`;
+  }
+
+  return `${mw.toLocaleString(undefined, {
+    maximumFractionDigits: 0
+  })} MW`;
+}
+
+(function () {
+  renderMetrics = function renderGenerationBasedMetrics(data) {
+    const e = data.electricity_now || {};
+    const target = document.getElementById("metricGrid");
+    if (!target) return;
+
+    const generationMw = (
+      isNumber(e.generation_mw)
+        ? Number(e.generation_mw)
+        : Number(e.demand_mw || 0)
+    );
+
+    const interconnectionMw = isNumber(e.interconnection_mw)
+      ? Number(e.interconnection_mw)
+      : (
+          isNumber(e.exports_mw) && Number(e.exports_mw) > 0
+            ? -Number(e.exports_mw)
+            : Number(e.imports_mw || 0)
+        );
+
+    const interconnectionDirection = String(e.interconnection_direction || "").toLowerCase();
+    const isExporting = interconnectionMw < 0 || interconnectionDirection.includes("export");
+    const isImporting = interconnectionMw > 0 || interconnectionDirection.includes("import");
+
+    const interconnectionNote = isExporting
+      ? "↗ Exporting electricity"
+      : isImporting
+        ? "↘ Importing electricity"
+        : "Near balanced";
+
+    const co2Available =
+      e.co2_available !== false &&
+      isNumber(e.co2_g_per_kwh) &&
+      Number(e.co2_g_per_kwh) > 0;
+
+    target.innerHTML = [
+      metricCard(
+        "Generation now",
+        iemPowerForLiveCards(generationMw, { forceGw: true }),
+        isNumber(e.generation_mw)
+          ? "Latest mapped system generation"
+          : "Fallback: mapped system demand"
+      ),
+      metricCard(
+        "Renewable generation",
+        percentOrNA(e.renewables_percent),
+        "Estimated wind + solar share of generation"
+      ),
+      metricCard(
+        "Wind generation",
+        percentOrNA(e.wind_percent),
+        "Wind share of current generation"
+      ),
+      metricCard(
+        "Solar generation",
+        percentOrNA(e.solar_percent),
+        "Solar share of current generation"
+      ),
+      metricCard(
+        "Thermal/other",
+        percentOrNA(e.residual_percent ?? e.gas_percent),
+        "Computed remainder; not a full fuel mix"
+      ),
+      metricCard(
+        "Interconnection",
+        iemPowerForLiveCards(Math.abs(interconnectionMw)),
+        interconnectionNote
+      ),
+      metricCard(
+        "CO₂ intensity",
+        co2OrNA(e.co2_g_per_kwh, co2Available),
+        co2Available
+          ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}`
+          : "Not mapped in current source",
+        co2Available ? "co2-card" : "missing co2-card"
+      )
+    ].join("");
+  };
+})();
+// IETM generation-basis live metric renderer: END
+
+// IETM final interconnection display fix: BEGIN
+function iemFormatSignedInterconnectionMw(mw) {
+  const absMw = Math.abs(Number(mw));
+
+  if (!Number.isFinite(absMw)) return "n/a";
+
+  if (absMw >= 1000) {
+    return `${(absMw / 1000).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })} GW`;
+  }
+
+  return `${absMw.toLocaleString(undefined, {
+    maximumFractionDigits: 0
+  })} MW`;
+}
+
+(function () {
+  const previousRenderMetrics = renderMetrics;
+
+  renderMetrics = function renderMetricsWithFinalInterconnectionFix(data) {
+    previousRenderMetrics(data);
+
+    const e = data.electricity_now || {};
+    const basisMw = Number(e.generation_mw || e.demand_mw || 0);
+
+    let mw = Number(e.interconnection_mw);
+    let pct = Number(e.net_import_percent ?? e.interconnection_percent);
+
+    if (
+      basisMw > 0 &&
+      Number.isFinite(pct) &&
+      (!Number.isFinite(mw) || Math.abs(mw) < 0.5) &&
+      Math.abs(pct) > 0.005
+    ) {
+      mw = basisMw * pct / 100;
+    }
+
+    if (
+      basisMw > 0 &&
+      Number.isFinite(mw) &&
+      !Number.isFinite(pct)
+    ) {
+      pct = mw / basisMw * 100;
+    }
+
+    const direction =
+      mw < -0.5 || pct < -0.005
+        ? "↗ Exporting electricity"
+        : mw > 0.5 || pct > 0.005
+          ? "↘ Importing electricity"
+          : "Near balanced";
+
+    const pctText = Number.isFinite(pct) && Math.abs(pct) > 0.005
+      ? ` · ${Math.abs(pct).toFixed(2)}%`
+      : "";
+
+    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
+      const label = card.querySelector("span");
+      const value = card.querySelector("strong");
+      const note = card.querySelector("small");
+
+      if (
+        label &&
+        value &&
+        label.textContent.trim().toLowerCase() === "interconnection"
+      ) {
+        value.textContent = Number.isFinite(mw)
+          ? iemFormatSignedInterconnectionMw(mw)
+          : "n/a";
+
+        if (note) {
+          note.textContent = `${direction}${pctText}`;
+        }
+
+        break;
+      }
+    }
+  };
+})();
+// IETM final interconnection display fix: END
+
+// IETM authoritative net-import display: BEGIN
+function iemAuthoritativeInterconnectionPercent(e) {
+  const direct = Number(e.net_import_percent ?? e.interconnection_percent);
+  if (Number.isFinite(direct)) return direct;
+
+  const exportsPct = Number(e.exports_percent);
+  if (Number.isFinite(exportsPct) && exportsPct > 0) return -Math.abs(exportsPct);
+
+  const importsPct = Number(e.imports_percent);
+  if (Number.isFinite(importsPct) && importsPct > 0) return Math.abs(importsPct);
+
+  return NaN;
+}
+
+function iemInterconnectionDisplayValue(mw) {
+  const absMw = Math.abs(Number(mw));
+  if (!Number.isFinite(absMw)) return "n/a";
+
+  if (absMw >= 1000) {
+    return `${(absMw / 1000).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })} GW`;
+  }
+
+  return `${absMw.toLocaleString(undefined, {
+    maximumFractionDigits: 0
+  })} MW`;
+}
+
+(function () {
+  const previousRenderMetrics = renderMetrics;
+
+  renderMetrics = function renderMetricsWithAuthoritativeNetImport(data) {
+    previousRenderMetrics(data);
+
+    const e = data.electricity_now || {};
+    const basisMw = Number(e.generation_mw || e.demand_mw || 0);
+    const pct = iemAuthoritativeInterconnectionPercent(e);
+
+    let mw = Number(e.interconnection_mw);
+
+    // Net Import percentage is authoritative. It overrides stale direct MW values.
+    if (basisMw > 0 && Number.isFinite(pct)) {
+      mw = basisMw * pct / 100;
+    }
+
+    const direction =
+      mw < -0.5 || pct < -0.005
+        ? "↗ Exporting electricity"
+        : mw > 0.5 || pct > 0.005
+          ? "↘ Importing electricity"
+          : "Near balanced";
+
+    const pctText = Number.isFinite(pct) && Math.abs(pct) > 0.005
+      ? ` · ${Math.abs(pct).toFixed(2)}%`
+      : "";
+
+    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
+      const label = card.querySelector("span");
+      const value = card.querySelector("strong");
+      const note = card.querySelector("small");
+
+      if (
+        label &&
+        value &&
+        label.textContent.trim().toLowerCase() === "interconnection"
+      ) {
+        value.textContent = Number.isFinite(mw)
+          ? iemInterconnectionDisplayValue(mw)
+          : "n/a";
+
+        if (note) note.textContent = `${direction}${pctText}`;
+        break;
+      }
+    }
+  };
+})();
+// IETM authoritative net-import display: END
+
+// IETM safe verified interconnection display: BEGIN
+(function () {
+  const previousRenderMetrics = renderMetrics;
+
+  renderMetrics = function renderMetricsWithVerifiedInterconnectionOnly(data) {
+    previousRenderMetrics(data);
+
+    const e = data.electricity_now || {};
+    const basis = String(e.interconnection_basis || "");
+    const pct = Number(e.net_import_percent ?? e.interconnection_percent);
+    const mw = Number(e.interconnection_mw);
+    const generationMw = Number(e.generation_mw || e.demand_mw || 0);
+
+    let displayValue = "n/a";
+    let displayNote = "Net import not safely mapped";
+
+    if (
+      basis.includes("net_import_percent") &&
+      Number.isFinite(pct) &&
+      Math.abs(pct) > 0.005
+    ) {
+      const derivedMw = generationMw > 0 ? generationMw * pct / 100 : NaN;
+
+      if (Number.isFinite(derivedMw)) {
+        displayValue = `${Math.abs(derivedMw).toLocaleString(undefined, {
+          maximumFractionDigits: 0
+        })} MW`;
+      } else {
+        displayValue = `${Math.abs(pct).toFixed(2)}%`;
+      }
+
+      displayNote = pct < 0
+        ? `↗ Exporting electricity · ${Math.abs(pct).toFixed(2)}%`
+        : `↘ Importing electricity · ${Math.abs(pct).toFixed(2)}%`;
+    } else if (
+      basis.includes("direct_mw") &&
+      Number.isFinite(mw)
+    ) {
+      displayValue = `${Math.abs(mw).toLocaleString(undefined, {
+        maximumFractionDigits: 0
+      })} MW`;
+
+      displayNote = mw < 0
+        ? "↗ Exporting electricity · direct MW"
+        : mw > 0
+          ? "↘ Importing electricity · direct MW"
+          : "Near balanced · direct MW";
+    }
+
+    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
+      const label = card.querySelector("span");
+      const value = card.querySelector("strong");
+      const note = card.querySelector("small");
+
+      if (
+        label &&
+        value &&
+        label.textContent.trim().toLowerCase() === "interconnection"
+      ) {
+        value.textContent = displayValue;
+        if (note) note.textContent = displayNote;
+        break;
+      }
+    }
+  };
+})();
+// IETM safe verified interconnection display: END
+
+// IETM final INTER_NET card display: BEGIN
+(function () {
+  const previousRenderMetrics = renderMetrics;
+
+  renderMetrics = function renderMetricsWithInterNetDisplay(data) {
+    previousRenderMetrics(data);
+
+    const e = data.electricity_now || {};
+    const mw = Number(e.interconnection_mw);
+    const basis = String(e.interconnection_basis || "");
+
+    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
+      const label = card.querySelector("span");
+      const value = card.querySelector("strong");
+      const note = card.querySelector("small");
+
+      if (!label || !value || label.textContent.trim().toLowerCase() !== "interconnection") {
+        continue;
+      }
+
+      if (basis === "smartgrid_inter_net_mw" && Number.isFinite(mw)) {
+        const absMw = Math.abs(mw);
+
+        value.textContent = absMw >= 1000
+          ? `${(absMw / 1000).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            })} GW`
+          : `${absMw.toLocaleString(undefined, {
+              maximumFractionDigits: 0
+            })} MW`;
+
+        const direction = mw < -0.5
+          ? "Net export"
+          : mw > 0.5
+            ? "Net import"
+            : "Near balanced";
+
+        if (note) note.textContent = direction;
+      }
+
+      break;
+    }
+  };
+})();
+// IETM final INTER_NET card display: END

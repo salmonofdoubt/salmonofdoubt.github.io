@@ -60,7 +60,7 @@ SERIES = {
     "interconnection_mw": {
         "chartType": "interconnection",
         "area": "interconnection",
-        "field": None,
+        "field": "INTER_NET",
         "range": (-2500, 2500),
     },
 }
@@ -299,6 +299,76 @@ def build_live_fuel_mix(
         {"label": "Uncovered", "class": "residual", "percent": round(residual, 1), "available": True},
     ]
 
+def latest_net_import_percent_row(rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict | None:
+    """
+    Prefer the SmartGrid Net Import percentage row.
+
+    The public card shows Net Import as a percentage, for example -0.24%.
+    That value must not be interpreted as MW.
+    """
+    cutoff = now_local() + timedelta(minutes=20)
+
+    valid = []
+    rejected = {
+        "not_net_import": 0,
+        "null_value": 0,
+        "future": 0,
+        "implausible": 0,
+        "bad_time": 0,
+    }
+
+    for row in rows:
+        blob = " ".join(str(v or "") for v in row.values()).lower()
+
+        if not ("net" in blob and "import" in blob):
+            rejected["not_net_import"] += 1
+            continue
+
+        value = parse_number(row.get("Value"))
+        if value is None:
+            rejected["null_value"] += 1
+            continue
+
+        dt = parse_smartgrid_time(row.get("EffectiveTime"))
+        if dt is None:
+            rejected["bad_time"] += 1
+            continue
+
+        if dt > cutoff:
+            rejected["future"] += 1
+            continue
+
+        # Net import percentage should be small. Allow wide range for safety.
+        if not (-100 <= value <= 100):
+            rejected["implausible"] += 1
+            continue
+
+        valid.append({
+            "value": value,
+            "time_local": dt.isoformat(),
+            "effective_time": row.get("EffectiveTime"),
+            "row": row,
+            "unit": "percent",
+        })
+
+    if valid:
+        latest = max(valid, key=lambda item: item["time_local"])
+        return {
+            "ok": True,
+            "metric": "interconnection_mw",
+            "valid_count": len(valid),
+            "rejected": rejected,
+            "latest": latest,
+            "unit": "percent",
+        }
+
+    # Fallback: old behaviour, but mark it as not the preferred Net Import %.
+    fallback = latest_valid_row("interconnection_mw", rows, spec)
+    if fallback:
+        fallback["unit"] = "unknown_fallback"
+    return fallback
+
+
 def main() -> int:
     SOURCE.mkdir(parents=True, exist_ok=True)
     DEBUG.mkdir(parents=True, exist_ok=True)
@@ -318,7 +388,10 @@ def main() -> int:
 
     for metric, spec in SERIES.items():
         url, rows, preview = fetch_rows(spec["chartType"], spec["area"])
-        selected = latest_valid_row(metric, rows, spec)
+        if metric == "interconnection_mw":
+            selected = latest_net_import_percent_row(rows, spec)
+        else:
+            selected = latest_valid_row(metric, rows, spec)
 
         debug["series"][metric] = {
             "url": url,
@@ -355,9 +428,16 @@ def main() -> int:
     cover = normalise_cover(wind_pct_raw, solar_pct_raw)
 
     # Interconnection: positive = importing, negative = exporting.
-    interconnection = values.get("interconnection_mw")
+    #
+    # For SmartGrid, the visible card is "Net Import" as a percentage.
+    # Example: -0.24 means -0.24%, not -0.24 MW.
+    raw_interconnection = values.get("interconnection_mw")
+    basis_mw = generation if generation is not None and generation > 0 else demand
 
-    if interconnection is None:
+    if raw_interconnection is None:
+        interconnection_mw = None
+        interconnection_percent = None
+        interconnection_basis = "not mapped"
         imports_mw = 0.0
         exports_mw = 0.0
         imports_pct = 0.0
@@ -365,17 +445,39 @@ def main() -> int:
         direction = "not mapped"
         interconnection_available = False
     else:
-        imports_mw = max(float(interconnection), 0.0)
-        exports_mw = max(-float(interconnection), 0.0)
-        imports_pct = pct(imports_mw, demand)
-        exports_pct = pct(exports_mw, demand)
+        raw = float(raw_interconnection)
 
-        if abs(float(interconnection)) < 1:
-            direction = "near balanced"
-        elif float(interconnection) > 0:
+        if basis_mw and abs(raw) <= 10:
+            # Treat as Net Import percentage and convert to MW.
+            interconnection_percent = raw
+            interconnection_mw = basis_mw * interconnection_percent / 100.0
+            interconnection_basis = "smartgrid_net_import_percent_converted_to_mw"
+        else:
+            # Treat as direct MW fallback.
+            interconnection_mw = raw
+            interconnection_percent = (
+                interconnection_mw / basis_mw * 100.0
+                if basis_mw and basis_mw > 0
+                else None
+            )
+            interconnection_basis = "smartgrid_direct_mw_fallback"
+
+        imports_mw = max(interconnection_mw, 0.0)
+        exports_mw = max(-interconnection_mw, 0.0)
+
+        if interconnection_percent is not None:
+            imports_pct = max(interconnection_percent, 0.0)
+            exports_pct = max(-interconnection_percent, 0.0)
+        else:
+            imports_pct = pct(imports_mw, basis_mw)
+            exports_pct = pct(exports_mw, basis_mw)
+
+        if interconnection_mw < -0.5:
+            direction = "exporting"
+        elif interconnection_mw > 0.5:
             direction = "importing"
         else:
-            direction = "exporting"
+            direction = "near balanced"
 
         interconnection_available = True
 
@@ -388,7 +490,10 @@ def main() -> int:
         "generation_mw": round(generation) if generation is not None else electricity_now.get("generation_mw"),
         "wind_mw": round(wind),
         "solar_mw": round(solar),
-        "interconnection_mw": round(interconnection) if interconnection is not None else None,
+        "interconnection_mw": round(interconnection_mw) if interconnection_mw is not None else None,
+        "interconnection_percent": round(interconnection_percent, 2) if interconnection_percent is not None else None,
+        "net_import_percent": round(interconnection_percent, 2) if interconnection_percent is not None else None,
+        "interconnection_basis": interconnection_basis,
         "interconnection_direction": direction,
         "imports_mw": round(imports_mw),
         "exports_mw": round(exports_mw),
@@ -418,6 +523,68 @@ def main() -> int:
             "Interconnection API endpoint did not return a valid latest value; imports shown as 0."
         ],
     })
+
+
+        # IETM interconnection percent fix: BEGIN
+    raw_net_import = values.get("interconnection_mw")
+    basis_mw = generation if generation is not None and generation > 0 else demand
+
+    if raw_net_import is not None and basis_mw and abs(float(raw_net_import)) <= 10:
+        # SmartGrid net import is a percent here, e.g. -0.24 means -0.24%.
+        net_import_percent = float(raw_net_import)
+        fixed_interconnection_mw = basis_mw * net_import_percent / 100.0
+
+        electricity_now.update({
+            "interconnection_mw": round(fixed_interconnection_mw),
+            "interconnection_percent": round(net_import_percent, 2),
+            "net_import_percent": round(net_import_percent, 2),
+            "interconnection_basis": "smartgrid_net_import_percent_converted_to_mw",
+            "imports_mw": round(max(fixed_interconnection_mw, 0.0)),
+            "exports_mw": round(max(-fixed_interconnection_mw, 0.0)),
+            "imports_percent": round(max(net_import_percent, 0.0), 2),
+            "exports_percent": round(max(-net_import_percent, 0.0), 2),
+            "interconnection_direction": (
+                "exporting" if fixed_interconnection_mw < -0.5
+                else "importing" if fixed_interconnection_mw > 0.5
+                else "near balanced"
+            ),
+        })
+    # IETM interconnection percent fix: END
+
+
+    # IETM authoritative INTER_NET fix: BEGIN
+    inter_latest = (
+        debug.get("series", {})
+        .get("interconnection_mw", {})
+        .get("selected", {})
+        .get("latest", {})
+    )
+
+    inter_row = inter_latest.get("row", {}) if isinstance(inter_latest, dict) else {}
+    inter_field = str(inter_row.get("FieldName", "")).upper()
+
+    if inter_field == "INTER_NET":
+        net_mw = float(inter_latest["value"])
+        basis_mw = generation if generation is not None and generation > 0 else demand
+        net_pct = (net_mw / basis_mw * 100.0) if basis_mw and basis_mw > 0 else None
+
+        electricity_now.update({
+            "interconnection_mw": round(net_mw),
+            "interconnection_percent": round(net_pct, 2) if net_pct is not None else None,
+            "net_import_percent": round(net_pct, 2) if net_pct is not None else None,
+            "interconnection_basis": "smartgrid_inter_net_mw",
+            "interconnection_direction": (
+                "exporting" if net_mw < -0.5
+                else "importing" if net_mw > 0.5
+                else "near balanced"
+            ),
+            "imports_mw": round(max(net_mw, 0.0)),
+            "exports_mw": round(max(-net_mw, 0.0)),
+            "imports_percent": round(max(net_pct or 0.0, 0.0), 2),
+            "exports_percent": round(max(-(net_pct or 0.0), 0.0), 2),
+            "interconnection_available": True,
+        })
+    # IETM authoritative INTER_NET fix: END
 
     existing["electricity_now"] = electricity_now
 
