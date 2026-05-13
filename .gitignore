@@ -6,3 +6,6 @@ __pycache__/
 # Python cache files
 __pycache__/
 *.py[cod]
+
+# Local browser-captured Smart Grid requests may contain cookies/session headers.
+demo/ietm/ops/live_requests/*.curl

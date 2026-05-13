@@ -344,7 +344,9 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
     wind_pct_now = pct(wind_now, demand_now)
     solar_pct_now = pct(solar_now, demand_now)
     imports_pct_now = pct(max(imports_now, 0), demand_now) if imports_available else 0
-    renewables_pct_now = max(0, min(100, wind_pct_now + solar_pct_now))
+    renewables_pct_raw_now = max(0, wind_pct_now + solar_pct_now)
+    renewables_pct_now = max(0, min(100, renewables_pct_raw_now))
+    renewable_surplus_pct_now = max(0, renewables_pct_raw_now - 100)
 
     avg_demand = average([r.get("demand_mw") for r in window]) or demand_now
     avg_wind = average([r.get("wind_mw") for r in window]) or wind_now
@@ -386,6 +388,12 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
         "electricity_now": {
             "demand_mw": round(demand_now),
             "renewables_percent": round(renewables_pct_now, 1),
+            "renewables_output_percent": round(renewables_pct_raw_now, 1),
+            "renewable_surplus_percent": round(renewable_surplus_pct_now, 1),
+            "renewables_coverage_percent": round(renewables_pct_now, 1),
+            "renewables_normalised": bool(renewable_surplus_pct_now > 0),
+            "renewables_model": "eirgrid_workbook_wind_solar_cover_of_demand",
+            "renewables_definition": "Wind plus solar as share of current demand from the EirGrid quarter-hourly workbook.",
             "wind_percent": round(wind_pct_now, 1),
             "solar_percent": round(solar_pct_now, 1),
             "gas_percent": round(residual_pct_now, 1),
@@ -395,6 +403,11 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
             "co2_g_per_kwh": round(co2_now, 1) if co2_available and co2_now is not None else None,
             "co2_available": co2_available,
             "gas_is_residual_proxy": True,
+            "electricity_datetime": latest.get("datetime"),
+            "source_label": "EirGrid quarter-hourly workbook",
+            "source_url": EIRGRID_QTR_HOURLY_URL,
+            "source_freshness": "latest mapped workbook interval",
+            "data_age_hours": None,
         },
         "fuel_mix_24h": fuel_mix,
         "daily_story": {
@@ -428,7 +441,7 @@ def update_metadata(success: bool, message: str) -> None:
             existing = {}
 
     existing.update({
-        "project": "Ireland Energy Monitor",
+        "project": "Ireland Energy Transition Monitor",
         "timezone": "Europe/Dublin",
         "mode": "Generated static dataset with EirGrid harvester",
         "confidence": "Medium" if success else "Low",

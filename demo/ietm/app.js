@@ -3691,3 +3691,162 @@ function renderMetrics(data) {
 
   renderElectricityCoverageNote(data);
 }
+
+/* v0.64 Honest source badge for workbook-derived core grid values */
+function renderElectricitySourceBadge(data) {
+  const e = data.electricity_now || {};
+  const sourceLabel = e.source_label || "EirGrid mapped source";
+  const stamp = e.electricity_datetime || e.smartgrid_live_harvested_at || data.meta?.generated_at || "";
+
+  const candidates = [
+    document.getElementById("sourceBadge"),
+    document.querySelector(".source-badge"),
+    document.querySelector(".live-badge"),
+    document.querySelector(".status-pill"),
+    document.querySelector(".hero .pill")
+  ].filter(Boolean);
+
+  const badge = candidates[0];
+  if (!badge) return;
+
+  const isWorkbook = /workbook|quarter-hourly/i.test(sourceLabel);
+
+  badge.classList.toggle("workbook-source", isWorkbook);
+  badge.classList.toggle("live-source", !isWorkbook);
+
+  badge.textContent = isWorkbook
+    ? "Mapped from EirGrid workbook"
+    : "Live from Smart Grid Dashboard";
+
+  const sourceLine = document.querySelector(".source-line, .data-source-line, .hero-source-line");
+  if (sourceLine) {
+    sourceLine.textContent = `${sourceLabel}${stamp ? " · latest mapped interval " + stamp : ""}`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await loadMonitor();
+    renderElectricitySourceBadge(data);
+  } catch (error) {
+    console.warn("v0.64 source badge render failed", error);
+  }
+});
+
+/* v0.65 Source-model governance and freshness gates */
+function ietmSourceGate(data) {
+  const gate = data.electricity_source_model || data.source_model?.electricity || {};
+  return {
+    status: gate.status || "unknown",
+    valuesAreLive: Boolean(gate.values_are_live),
+    valuesAreCurrent: Boolean(gate.values_are_current),
+    publicBadge: gate.public_badge || "Source status unknown",
+    publicTitle: gate.public_title || "Mapped electricity signal",
+    publicCaveat: gate.public_caveat || "Source freshness could not be verified.",
+    ageHours: gate.age_hours,
+    latestInterval: gate.latest_interval,
+    selectedSource: gate.selected_source || "Mapped electricity source"
+  };
+}
+
+function renderSourceGovernance(data) {
+  const gate = ietmSourceGate(data);
+
+  const today = document.getElementById("today") || document.querySelector(".today-section");
+  const title = today?.querySelector("h1, h2");
+  const eyebrow = today?.querySelector(".eyebrow");
+
+  if (title) title.textContent = gate.publicTitle;
+  if (eyebrow) eyebrow.textContent = gate.valuesAreLive ? "Electricity now" : "Electricity snapshot";
+
+  const badge =
+    document.getElementById("sourceBadge") ||
+    document.querySelector(".source-badge") ||
+    document.querySelector(".live-badge") ||
+    document.querySelector("#today .pill");
+
+  if (badge) {
+    badge.textContent = gate.publicBadge;
+    badge.classList.toggle("live-source", gate.valuesAreLive);
+    badge.classList.toggle("workbook-source", !gate.valuesAreLive);
+  }
+
+  const sourceText =
+    document.querySelector(".source-line") ||
+    document.querySelector(".data-source-line") ||
+    document.querySelector("#today .source-meta") ||
+    document.querySelector("#today .micro-note");
+
+  if (sourceText) {
+    const age = Number.isFinite(Number(gate.ageHours))
+      ? ` · age ${Number(gate.ageHours).toFixed(1)} h`
+      : "";
+    const interval = gate.latestInterval ? ` · latest interval ${gate.latestInterval}` : "";
+    sourceText.textContent = `${gate.selectedSource}${interval}${age}`;
+  }
+
+  const grid = document.getElementById("metricGrid");
+  if (grid) {
+    let note = document.getElementById("sourceFreshnessNote");
+    if (!note) {
+      note = document.createElement("div");
+      note.id = "sourceFreshnessNote";
+      note.className = "source-freshness-note";
+      grid.insertAdjacentElement("beforebegin", note);
+    }
+
+    note.innerHTML = `
+      <strong>${escapeHtml(gate.publicBadge)}.</strong>
+      ${escapeHtml(gate.publicCaveat)}
+    `;
+  }
+}
+
+function renderMetrics(data) {
+  const e = data.electricity_now || {};
+  const target = document.getElementById("metricGrid");
+  if (!target) return;
+
+  const gate = ietmSourceGate(data);
+  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
+  const inter = iemInterconnectionDisplay(e);
+
+  const demandLabel = gate.valuesAreLive ? "Demand now" : "Demand snapshot";
+  const renewableLabel = "Renewable cover";
+  const uncoveredLabel = "Uncovered";
+
+  const normalised = Boolean(e.renewables_normalised);
+  const surplus = Number(e.renewable_surplus_percent || 0);
+
+  const renewableNote = normalised
+    ? `Capped domestic cover; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
+    : "Estimated wind + solar cover of demand";
+
+  target.innerHTML = [
+    metricCard(demandLabel, `${iemValue(e.demand_mw, 0)} MW`, gate.valuesAreLive ? "Current mapped system demand" : "Latest fallback interval"),
+    metricCard(renewableLabel, percentOrNA(e.renewables_percent), renewableNote),
+    metricCard("Wind cover", percentOrNA(e.wind_percent), "Wind cover of current demand"),
+    metricCard("Solar cover", percentOrNA(e.solar_percent), "Solar cover of current demand"),
+    metricCard(uncoveredLabel, percentOrNA(e.residual_percent ?? e.gas_percent), "Computed remainder; not measured gas"),
+    metricCard("Interconnection", inter.value, inter.note),
+    metricCard(
+      "CO₂ intensity",
+      co2OrNA(e.co2_g_per_kwh, co2Available),
+      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
+      co2Available ? "co2-card" : "missing co2-card"
+    )
+  ].join("");
+
+  renderSourceGovernance(data);
+  renderElectricityCoverageNote(data);
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await loadMonitor();
+    renderSourceGovernance(data);
+    renderMetrics(data);
+  } catch (error) {
+    console.warn("v0.65 source governance render failed", error);
+  }
+});

@@ -31,6 +31,8 @@ ELECTRICITY_OUT = SOURCE / "electricity.json"
 PROBE_OUT = DEBUG / "smartgrid_live_probe.json"
 
 BASE = "https://www.smartgriddashboard.com"
+SMARTGRID_LIVE_GRID_OVERWRITE = False
+
 PAGES = {
     "demand": f"{BASE}/roi/demand/",
     "generation": f"{BASE}/roi/generation/",
@@ -300,6 +302,25 @@ def main() -> int:
 
     probe["selected"] = selected
     write_json(PROBE_OUT, probe)
+
+    if not SMARTGRID_LIVE_GRID_OVERWRITE:
+        existing.setdefault("source_status", {})
+        existing["source_status"]["smartgrid_live"] = {
+            "source": "EirGrid Smart Grid Dashboard public pages",
+            "source_url": BASE,
+            "harvested_at": now_iso(),
+            "mode": "diagnostic-only",
+            "caveat": (
+                "Smart Grid visible-page parser is disabled for demand, wind and solar because "
+                "visible-page scraping can confuse actual, forecast and chart values. "
+                "Core grid quantities use the official EirGrid quarter-hourly workbook instead."
+            ),
+            "probe_file": str(PROBE_OUT.relative_to(ROOT)),
+        }
+        write_json(ELECTRICITY_OUT, existing)
+        print("SmartGrid visible-page grid overwrite disabled. Keeping official EirGrid workbook values.")
+        print(f"Probe written: {PROBE_OUT.relative_to(ROOT)}")
+        return 0
 
     if not demand or not is_number(demand.get("value")):
         existing.setdefault("source_status", {})

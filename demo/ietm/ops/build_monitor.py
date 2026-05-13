@@ -417,6 +417,7 @@ def build_method_model(electricity: dict, target_tracker: dict, prices_source: d
 
 def main() -> None:
     electricity = read_json(SOURCE_DIR / "electricity.json", {})
+    source_model = read_json(SOURCE_DIR / "source_model.json", {})
     truth = read_json(SOURCE_DIR / "truth_meter.json", {})
     prices = read_json(SOURCE_DIR / "prices.json", {})
     market_prices = read_json(SOURCE_DIR / "market_prices.json", {})
@@ -474,6 +475,8 @@ def main() -> None:
                 "schema_version": "0.2.0"
             }
         },
+        "source_model": source_model,
+        "electricity_source_model": source_model.get("electricity", {}),
         "electricity_now": electricity.get("electricity_now", {}),
         "fuel_mix_24h": electricity.get("fuel_mix_24h", []),
         "daily_story": electricity.get("daily_story", {}),
