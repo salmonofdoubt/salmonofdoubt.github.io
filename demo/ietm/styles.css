@@ -5401,3 +5401,54 @@ h3 {
     font-size: 0.64rem;
   }
 }
+
+/* v0.43 Electricity Now metric accent strips */
+#metricGrid .metric-card {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+#metricGrid .metric-card::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(237,247,241,0.14);
+  z-index: 2;
+}
+
+#metricGrid .metric-card[data-accent="renewables"]::before {
+  background: linear-gradient(90deg, #49d17d, #a8f27a);
+}
+
+#metricGrid .metric-card[data-accent="wind"]::before {
+  background: linear-gradient(90deg, #49c6ff, #8be2ff);
+}
+
+#metricGrid .metric-card[data-accent="solar"]::before {
+  background: linear-gradient(90deg, #f2c94c, #ffe27a);
+}
+
+#metricGrid .metric-card[data-accent="residual"]::before {
+  background: linear-gradient(90deg, #4b3a78, #7b62c4);
+}
+
+#metricGrid .metric-card[data-accent="imports"]::before {
+  background: linear-gradient(90deg, #ff9f43, #ffc36b);
+}
+
+#metricGrid .metric-card[data-accent="demand"]::before {
+  background: rgba(237,247,241,0.22);
+}
+
+#metricGrid .metric-card[data-accent="co2"]::before {
+  background: linear-gradient(90deg, #9aa8a3, #d7e3dc);
+}
+
+@media (max-width: 760px) {
+  #metricGrid .metric-card::before {
+    height: 3px;
+  }
+}

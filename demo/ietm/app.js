@@ -15,9 +15,26 @@ function percent(value) {
   return `${Number(value).toFixed(0)}%`;
 }
 
+
+function metricAccentKey(label) {
+  const key = String(label || "").toLowerCase();
+
+  if (key.includes("renewable")) return "renewables";
+  if (key.includes("wind")) return "wind";
+  if (key.includes("solar")) return "solar";
+  if (key.includes("residual")) return "residual";
+  if (key.includes("import")) return "imports";
+  if (key.includes("demand")) return "demand";
+  if (key.includes("co₂") || key.includes("co2") || key.includes("carbon")) return "co2";
+
+  return "neutral";
+}
+
 function metricCard(label, value, note, className = "") {
+  const accent = metricAccentKey(label);
+
   return `
-    <article class="metric-card ${className}">
+    <article class="metric-card ${className}" data-accent="${accent}">
       <span>${label}</span>
       <strong>${value}</strong>
       <small>${note}</small>
