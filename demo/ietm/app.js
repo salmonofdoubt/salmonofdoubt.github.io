@@ -15,6 +15,25 @@ function percent(value) {
   return `${Number(value).toFixed(0)}%`;
 }
 
+function formatPowerMw(value, options = {}) {
+  const mw = Number(value);
+  if (!Number.isFinite(mw)) return "n/a";
+
+  const forceGw = options.forceGw === true;
+  const absMw = Math.abs(mw);
+
+  if (forceGw || absMw >= 1000) {
+    return `${(mw / 1000).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })} GW`;
+  }
+
+  return `${mw.toLocaleString(undefined, {
+    maximumFractionDigits: 0
+  })} MW`;
+}
+
 
 function metricAccentKey(label) {
   const key = String(label || "").toLowerCase();
@@ -65,7 +84,7 @@ function renderMetrics(data) {
   const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
 
   target.innerHTML = [
-    metricCard("Demand now", `${Number(e.demand_mw || 0).toLocaleString()} MW`, "Latest mapped system demand"),
+    metricCard("Demand now", formatPowerMw(e.demand_mw || 0, { forceGw: true }), "Current mapped system demand"),
     metricCard("Renewables", percentOrNA(e.renewables_percent), "Wind + solar in latest mapped interval"),
     metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation now"),
     metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
@@ -716,7 +735,11 @@ function renderDemandPressure(data) {
 
   const note = document.getElementById("demandPressureNote");
   if (note) {
-    note.textContent = pressure.caveat || "";
+    note.innerHTML = `
+      <strong>How to read this:</strong> ${escapeHtml(pressure.unit_note || "")}
+      <br>
+      <strong>Caveat:</strong> ${escapeHtml(pressure.caveat || "")}
+    `;
   }
 }
 // IETM demand pressure renderer: END
@@ -4300,3 +4323,49 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 })();
 // IETM trajectory fit label override: END
+
+// IETM demand-now GW override: BEGIN
+function iemFormatPowerMw(value, options = {}) {
+  const mw = Number(value);
+  if (!Number.isFinite(mw)) return "n/a";
+
+  const forceGw = options.forceGw === true;
+  const absMw = Math.abs(mw);
+
+  if (forceGw || absMw >= 1000) {
+    return `${(mw / 1000).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })} GW`;
+  }
+
+  return `${mw.toLocaleString(undefined, {
+    maximumFractionDigits: 0
+  })} MW`;
+}
+
+(function () {
+  const previousRenderMetrics = renderMetrics;
+
+  renderMetrics = function renderMetricsWithDemandGw(data) {
+    previousRenderMetrics(data);
+
+    const demandMw = data?.electricity_now?.demand_mw;
+    const cards = document.querySelectorAll("#metricGrid .metric-card");
+
+    for (const card of cards) {
+      const label = card.querySelector("span");
+      const value = card.querySelector("strong");
+
+      if (
+        label &&
+        value &&
+        label.textContent.trim().toLowerCase() === "demand now"
+      ) {
+        value.textContent = iemFormatPowerMw(demandMw, { forceGw: true });
+        break;
+      }
+    }
+  };
+})();
+// IETM demand-now GW override: END

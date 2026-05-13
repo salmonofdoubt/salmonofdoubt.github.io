@@ -7676,3 +7676,28 @@ h3 {
 }
 
 /* IETM demand pressure panel: END */
+
+/* IETM demand pressure unit hierarchy: BEGIN */
+
+.demand-pressure-card strong {
+  font-size: clamp(1.9rem, 2.6vw, 2.45rem) !important;
+}
+
+.demand-pressure-card small {
+  color: #eafff2 !important;
+  font-weight: 900 !important;
+}
+
+.demand-pressure-card p {
+  margin-top: 0.65rem !important;
+}
+
+.demand-pressure-note-panel p {
+  line-height: 1.65 !important;
+}
+
+.demand-pressure-note-panel p strong {
+  color: #eafff2 !important;
+}
+
+/* IETM demand pressure unit hierarchy: END */
