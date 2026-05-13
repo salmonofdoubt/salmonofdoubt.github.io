@@ -2162,3 +2162,244 @@ function renderTargetStatusSidecar(drift) {
 
   panel.appendChild(sidecar);
 }
+
+/* v0.45 Structural governance: canonical metrics, interconnection and method section */
+function iemValue(value, digits = 0) {
+  if (!isNumber(value)) return "n/a";
+  let n = Number(value);
+  if (Math.abs(n) < Math.pow(10, -digits) / 2) n = 0;
+  return n.toLocaleString(undefined, {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits
+  });
+}
+
+function iemMetricAccent(label) {
+  const key = String(label || "").toLowerCase();
+  if (key.includes("renewable")) return "renewables";
+  if (key.includes("wind")) return "wind";
+  if (key.includes("solar")) return "solar";
+  if (key.includes("residual")) return "residual";
+  if (key.includes("interconnection")) return "imports";
+  if (key.includes("demand")) return "demand";
+  if (key.includes("co₂") || key.includes("co2")) return "co2";
+  return "neutral";
+}
+
+function iemInterconnectionDisplay(e) {
+  const signed = Number(e.interconnection_mw ?? e.imports_mw ?? 0);
+  if (!isNumber(signed) || Math.abs(signed) < 1) {
+    return { value: "Near balanced", note: "Interconnector flow close to zero" };
+  }
+  if (signed > 0) {
+    return { value: `${iemValue(signed, 0)} MW`, note: "Importing electricity" };
+  }
+  return { value: `${iemValue(Math.abs(signed), 0)} MW`, note: "Exporting electricity" };
+}
+
+function metricCard(label, value, note, className = "") {
+  const accent = iemMetricAccent(label);
+  return `
+    <article class="metric-card ${className}" data-accent="${accent}">
+      <span>${escapeHtml(label)}</span>
+      <strong>${value}</strong>
+      <small>${escapeHtml(note)}</small>
+    </article>
+  `;
+}
+
+function renderMetrics(data) {
+  const e = data.electricity_now || {};
+  const target = document.getElementById("metricGrid");
+  if (!target) return;
+
+  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
+  const inter = iemInterconnectionDisplay(e);
+
+  target.innerHTML = [
+    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
+    metricCard("Renewables", percentOrNA(e.renewables_percent), "Wind + solar as share of demand"),
+    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation now"),
+    metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
+    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remainder"),
+    metricCard("Interconnection", inter.value, inter.note),
+    metricCard(
+      "CO₂ intensity",
+      co2OrNA(e.co2_g_per_kwh, co2Available),
+      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
+      co2Available ? "co2-card" : "missing co2-card"
+    )
+  ].join("");
+}
+
+function renderDailyPulse(data) {
+  const target = document.getElementById("dailyPulseGrid");
+  if (!target) return;
+
+  const history = data.daily_history || [];
+  const e = data.electricity_now || {};
+  const drift = data.target_drift || {};
+  const prices = data.prices || [];
+
+  const electricityPrice = prices.find(p => p.label === "Household electricity");
+  const gasPrice = prices.find(p => p.label === "Household gas");
+
+  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
+  const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
+  const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
+  const residual = isNumber(e.residual_percent ?? e.gas_percent)
+    ? (e.residual_percent ?? e.gas_percent)
+    : pulseLast(history, "residual_percent");
+
+  const signedInterconnection = isNumber(e.interconnection_mw) ? Number(e.interconnection_mw) : Number(e.imports_mw || 0);
+  const interValue = Math.abs(signedInterconnection) < 1
+    ? "0"
+    : iemValue(Math.abs(signedInterconnection), 0);
+  const interUnit = Math.abs(signedInterconnection) < 1 ? "MW" : "MW";
+  const interNote = Math.abs(signedInterconnection) < 1
+    ? "Near-balanced interconnector flow."
+    : signedInterconnection > 0
+      ? "Importing electricity."
+      : "Exporting electricity.";
+
+  const gap = isNumber(drift.gap_to_target_pp) ? drift.gap_to_target_pp : pulseLast(history, "target_gap_pp");
+
+  const electricityPriceValue = isNumber(electricityPrice?.ireland_c_per_kwh)
+    ? electricityPrice.ireland_c_per_kwh
+    : pulseLast(history, "household_electricity_c_per_kwh");
+
+  const gasPriceValue = isNumber(gasPrice?.ireland_c_per_kwh)
+    ? gasPrice.ireland_c_per_kwh
+    : pulseLast(history, "household_gas_c_per_kwh");
+
+  target.innerHTML = [
+    pulseCard({
+      label: "Electricity demand",
+      value: pulseNumber(demandGw, 2),
+      unit: "GW",
+      note: "Latest mapped system demand.",
+      key: "demand_gw",
+      history
+    }),
+    pulseCard({
+      label: "Renewables now",
+      value: pulseNumber(renewables, 0),
+      unit: "%",
+      note: "Wind and solar as share of demand.",
+      key: "renewables_percent",
+      history,
+      tone: "good"
+    }),
+    pulseCard({
+      label: "CO₂ now",
+      value: pulseNumber(co2, 0),
+      unit: "g/kWh",
+      note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
+      key: "co2_g_per_kwh",
+      history,
+      tone: co2 ? "" : "muted"
+    }),
+    pulseCard({
+      label: "Interconnection",
+      value: interValue,
+      unit: interUnit,
+      note: interNote,
+      key: "imports_percent",
+      history
+    }),
+    pulseCard({
+      label: "Residual supply",
+      value: pulseNumber(residual, 0),
+      unit: "%",
+      note: "Computed remainder, not measured gas.",
+      key: "residual_percent",
+      history,
+      tone: "caution"
+    }),
+    pulseCard({
+      label: "2030 target gap",
+      value: pulseNumber(gap, 1),
+      unit: "pp",
+      note: "Official annual gap to 80% renewable electricity.",
+      key: "target_gap_pp",
+      history,
+      tone: "risk"
+    }),
+    pulseCard({
+      label: "Electricity price",
+      value: pulseNumber(electricityPriceValue, 2),
+      unit: "c/kWh",
+      note: "Latest official SEAI semester, not a live tariff.",
+      key: "household_electricity_c_per_kwh",
+      history
+    }),
+    pulseCard({
+      label: "Gas price",
+      value: pulseNumber(gasPriceValue, 2),
+      unit: "c/kWh",
+      note: "Latest official SEAI semester, not a live tariff.",
+      key: "household_gas_c_per_kwh",
+      history
+    })
+  ].join("");
+}
+
+function renderMethodDefinitions(data) {
+  const target = document.getElementById("methodDefinitions");
+  if (!target) return;
+
+  const method = data.method || {};
+  const metrics = method.metrics || [];
+  const sections = method.sections || [];
+  const vocabulary = method.vocabulary || {};
+
+  const metricCards = metrics.map(m => `
+    <article class="method-card" data-accent="${escapeHtml(m.accent || "neutral")}">
+      <div class="method-card-top">
+        <h3>${escapeHtml(m.label)}</h3>
+        <span>${escapeHtml(m.evidence_basis)}</span>
+      </div>
+      <p>${escapeHtml(m.definition)}</p>
+      <dl>
+        <div><dt>Unit</dt><dd>${escapeHtml(m.unit)}</dd></div>
+        <div><dt>Denominator</dt><dd>${escapeHtml(m.denominator)}</dd></div>
+        <div><dt>Confidence</dt><dd>${escapeHtml(m.confidence)}</dd></div>
+      </dl>
+      <small>${escapeHtml(m.caveat)}</small>
+    </article>
+  `).join("");
+
+  const vocab = Object.entries(vocabulary).map(([k, v]) => `
+    <li><strong>${escapeHtml(k.replaceAll("_", " "))}</strong><span>${escapeHtml(v)}</span></li>
+  `).join("");
+
+  const sectionRows = sections.map(s => `
+    <li><strong>${escapeHtml(s.section)}</strong><span>${escapeHtml(s.method_note)}</span></li>
+  `).join("");
+
+  target.innerHTML = `
+    <div class="method-subgrid">
+      ${metricCards}
+    </div>
+    <article class="method-wide-card">
+      <h3>Controlled vocabulary</h3>
+      <ul>${vocab}</ul>
+    </article>
+    <article class="method-wide-card">
+      <h3>Section logic</h3>
+      <ul>${sectionRows}</ul>
+    </article>
+  `;
+}
+
+/* Call again after the original init has loaded data. */
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await loadMonitor();
+    renderMetrics(data);
+    renderDailyPulse(data);
+    renderMethodDefinitions(data);
+  } catch (error) {
+    console.warn("v0.45 governance render failed", error);
+  }
+});

@@ -5474,3 +5474,183 @@ h3 {
     height: 10px !important;
   }
 }
+
+/* v0.45 Methodological governance and interconnection polish */
+.method-section {
+  margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.method-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.method-subgrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(237,247,241,0.13);
+  border-left: 1px solid rgba(237,247,241,0.08);
+}
+
+.method-card {
+  position: relative;
+  min-height: 13rem;
+  padding: 1rem;
+  border-right: 1px solid rgba(237,247,241,0.08);
+  border-bottom: 1px solid rgba(237,247,241,0.1);
+  background: rgba(255,255,255,0.012);
+}
+
+.method-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(237,247,241,0.14);
+}
+
+.method-card[data-accent="green"]::before { background: linear-gradient(90deg, #49d17d, #a8f27a); }
+.method-card[data-accent="blue"]::before { background: linear-gradient(90deg, #49c6ff, #8be2ff); }
+.method-card[data-accent="yellow"]::before { background: linear-gradient(90deg, #f2c94c, #ffe27a); }
+.method-card[data-accent="purple"]::before { background: linear-gradient(90deg, #4b3a78, #7b62c4); }
+.method-card[data-accent="orange"]::before { background: linear-gradient(90deg, #ff9f43, #ffc36b); }
+.method-card[data-accent="grey"]::before { background: linear-gradient(90deg, #9aa8a3, #d7e3dc); }
+.method-card[data-accent="red"]::before { background: linear-gradient(90deg, #ff6b6b, #ff9f9f); }
+
+.method-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.method-card h3,
+.method-wide-card h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 0.98rem;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.method-card-top span {
+  flex: 0 0 auto;
+  border: 1px solid rgba(237,247,241,0.13);
+  border-radius: 999px;
+  padding: 0.22rem 0.42rem;
+  color: rgba(237,247,241,0.72);
+  font-size: 0.56rem;
+  line-height: 1;
+  font-weight: 820;
+}
+
+.method-card p {
+  margin: 0.75rem 0;
+  color: rgba(237,247,241,0.74);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.method-card dl {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.method-card dl div {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  gap: 0.5rem;
+  padding-top: 0.32rem;
+  border-top: 1px solid rgba(237,247,241,0.07);
+}
+
+.method-card dt {
+  color: rgba(237,247,241,0.45);
+  font-size: 0.6rem;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.method-card dd {
+  margin: 0;
+  color: rgba(237,247,241,0.76);
+  font-size: 0.68rem;
+  line-height: 1.25;
+}
+
+.method-card small {
+  display: block;
+  margin-top: 0.75rem;
+  color: rgba(237,247,241,0.48);
+  font-size: 0.66rem;
+  line-height: 1.28;
+}
+
+.method-wide-card {
+  padding: 1rem;
+  border: 1px solid rgba(237,247,241,0.1);
+  background: rgba(255,255,255,0.012);
+}
+
+.method-wide-card ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.method-wide-card li {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 0.75rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid rgba(237,247,241,0.07);
+}
+
+.method-wide-card strong {
+  color: rgba(237,247,241,0.9);
+  font-size: 0.72rem;
+  text-transform: capitalize;
+}
+
+.method-wide-card span {
+  color: rgba(237,247,241,0.66);
+  font-size: 0.72rem;
+  line-height: 1.32;
+}
+
+@media (max-width: 1100px) {
+  .method-subgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .method-subgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .method-card {
+    min-height: auto;
+    padding: 0.85rem;
+  }
+
+  .method-card dl div,
+  .method-wide-card li {
+    grid-template-columns: 1fr;
+    gap: 0.18rem;
+  }
+
+  .method-card p,
+  .method-card dd,
+  .method-card small,
+  .method-wide-card strong,
+  .method-wide-card span {
+    font-size: 0.66rem;
+  }
+}

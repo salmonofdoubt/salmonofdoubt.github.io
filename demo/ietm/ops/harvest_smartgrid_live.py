@@ -288,10 +288,15 @@ def main() -> int:
     wind_value = float(wind_mw["value"]) if wind_mw and is_number(wind_mw.get("value")) else None
     solar_value = float(solar_mw["value"]) if solar_mw and is_number(solar_mw.get("value")) else None
 
-    # Interconnection page convention: positive = import, negative = export.
+    # Interconnection page convention: positive = importing, negative = exporting.
+    interconnection_mw = None
     imports_mw = None
+    exports_mw = None
+
     if ireland_interconnection_mw and is_number(ireland_interconnection_mw.get("value")):
-        imports_mw = max(float(ireland_interconnection_mw["value"]), 0.0)
+        interconnection_mw = float(ireland_interconnection_mw["value"])
+        imports_mw = max(interconnection_mw, 0.0)
+        exports_mw = max(-interconnection_mw, 0.0)
 
     # For the public "Electricity now" section, use one denominator consistently:
     # wind and solar as share of current system demand.
@@ -318,6 +323,14 @@ def main() -> int:
     # Public display should never show negative import shares.
     # Negative interconnection means export, not “minus imports”.
     imports_percent = max(0.0, min(100.0, imports_percent))
+    exports_percent = pct(exports_mw, demand_value) if exports_mw is not None else 0.0
+
+    if interconnection_mw is None or abs(interconnection_mw) < 1:
+        interconnection_direction = "near balanced"
+    elif interconnection_mw > 0:
+        interconnection_direction = "importing"
+    else:
+        interconnection_direction = "exporting"
 
     residual_percent = (
         float(thermal_pct["value"])
@@ -333,7 +346,11 @@ def main() -> int:
         "generation_mw": round(generation_value) if generation_value is not None else electricity_now.get("generation_mw"),
         "wind_mw": round(wind_value) if wind_value is not None else electricity_now.get("wind_mw"),
         "solar_mw": round(solar_value) if solar_value is not None else electricity_now.get("solar_mw"),
+        "interconnection_mw": round(interconnection_mw) if interconnection_mw is not None else electricity_now.get("interconnection_mw"),
+        "interconnection_direction": interconnection_direction,
         "imports_mw": round(imports_mw) if imports_mw is not None else electricity_now.get("imports_mw"),
+        "exports_mw": round(exports_mw) if exports_mw is not None else electricity_now.get("exports_mw"),
+        "exports_percent": round(exports_percent, 1),
         "renewables_percent": round(renewables_percent, 1),
         "wind_percent": round(float(wind_percent), 1) if is_number(wind_percent) else electricity_now.get("wind_percent"),
         "solar_percent": round(float(solar_percent), 1) if is_number(solar_percent) else electricity_now.get("solar_percent"),

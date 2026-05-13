@@ -249,6 +249,172 @@ def build_truth_meter(
 
 
 
+def build_method_model(electricity: dict, target_tracker: dict, prices_source: dict, county_hosting: dict) -> dict:
+    e = electricity.get("electricity_now", {}) or {}
+    drift = target_tracker.get("target_drift", {}) or {}
+
+    interconnection_mw = as_float(e.get("interconnection_mw"))
+    if interconnection_mw is None:
+        interconnection_mw = as_float(e.get("imports_mw"), 0)
+
+    if interconnection_mw is None or abs(interconnection_mw) < 1:
+        direction = "near balanced"
+    elif interconnection_mw > 0:
+        direction = "importing"
+    else:
+        direction = "exporting"
+
+    metrics = [
+        {
+            "key": "demand",
+            "label": "Demand",
+            "definition": "Current electricity system demand.",
+            "value_key": "demand_mw",
+            "unit": "MW",
+            "denominator": "Not a percentage.",
+            "evidence_basis": "Live",
+            "confidence": "Medium",
+            "caveat": "Parsed from public Smart Grid Dashboard pages where available; spreadsheet fallback otherwise.",
+            "accent": "neutral"
+        },
+        {
+            "key": "renewables",
+            "label": "Renewables",
+            "definition": "Wind plus solar as a share of current demand.",
+            "value_key": "renewables_percent",
+            "unit": "%",
+            "denominator": "Current electricity demand.",
+            "evidence_basis": "Computed live proxy",
+            "confidence": "Medium",
+            "caveat": "This is an operational wind+solar signal, not the official annual RES-E indicator.",
+            "accent": "green"
+        },
+        {
+            "key": "wind",
+            "label": "Wind",
+            "definition": "Wind generation as a share of current demand.",
+            "value_key": "wind_percent",
+            "unit": "%",
+            "denominator": "Current electricity demand.",
+            "evidence_basis": "Computed live proxy",
+            "confidence": "Medium",
+            "caveat": "Weather-driven operational signal; not a policy-progress indicator on its own.",
+            "accent": "blue"
+        },
+        {
+            "key": "solar",
+            "label": "Solar",
+            "definition": "Solar generation as a share of current demand.",
+            "value_key": "solar_percent",
+            "unit": "%",
+            "denominator": "Current electricity demand.",
+            "evidence_basis": "Computed live proxy",
+            "confidence": "Medium",
+            "caveat": "Strongly time-of-day and season dependent.",
+            "accent": "yellow"
+        },
+        {
+            "key": "residual",
+            "label": "Residual supply",
+            "definition": "Demand not covered by detected wind, solar and net imports.",
+            "value_key": "residual_percent",
+            "unit": "%",
+            "denominator": "Current electricity demand.",
+            "evidence_basis": "Computed",
+            "confidence": "Medium",
+            "caveat": "Residual is not measured gas. It may include gas, hydro, storage, coal/oil or unidentified supply.",
+            "accent": "purple"
+        },
+        {
+            "key": "interconnection",
+            "label": "Interconnection",
+            "definition": "Signed electricity exchange with neighbouring systems.",
+            "value_key": "interconnection_mw",
+            "unit": "MW",
+            "denominator": "Signed MW, not a percentage.",
+            "evidence_basis": "Live",
+            "confidence": "Medium",
+            "caveat": "Positive means importing; negative means exporting. The public card reports direction rather than negative imports.",
+            "accent": "orange",
+            "direction": direction
+        },
+        {
+            "key": "co2",
+            "label": "CO₂ intensity",
+            "definition": "Carbon intensity of electricity generation/use signal.",
+            "value_key": "co2_g_per_kwh",
+            "unit": "g/kWh",
+            "denominator": "Electricity consumed/generated per kWh basis.",
+            "evidence_basis": "Live",
+            "confidence": "Medium",
+            "caveat": "Public Smart Grid Dashboard CO₂ signal; method depends on EirGrid published model.",
+            "accent": "grey"
+        },
+        {
+            "key": "target_gap",
+            "label": "2030 target gap",
+            "definition": "Gap between latest official annual RES-E value and the 80% 2030 benchmark.",
+            "value_key": "gap_to_target_pp",
+            "unit": "pp",
+            "denominator": "Percentage-point difference from 80% target.",
+            "evidence_basis": "Official annual",
+            "confidence": "High",
+            "caveat": "Not a live grid value. It changes when official annual RES-E data update.",
+            "accent": "red"
+        }
+    ]
+
+    vocabulary = {
+        "reading": "The displayed value or condition.",
+        "signal": "A short interpretation of a reading.",
+        "verdict": "Formal On track / At risk / Off track judgement. Used only in the Truth Meter.",
+        "diagnostic": "Supporting explanation outside the Truth Meter.",
+        "evidence_basis": "How current or authoritative the value is: Live, Official annual, Official semi-annual, Computed, Proxy, Placeholder or Unavailable.",
+        "gap": "Always qualified: 2030 target gap, path gap, price gap or data gap.",
+        "residual_supply": "Unclassified remainder after wind, solar and net imports. Not measured gas.",
+        "interconnection": "Positive = importing, negative = exporting, near zero = near balanced."
+    }
+
+    sections = [
+        {
+            "section": "Today at a glance",
+            "purpose": "Operational pulse: what the electricity system is doing now.",
+            "method_note": "Uses live and computed operational signals. Thirty-day lines are daily snapshots; estimated warm-start rows are visual scaffolding only."
+        },
+        {
+            "section": "Transition Truth Meter",
+            "purpose": "Formal interpretation layer.",
+            "method_note": "Only this section uses formal verdicts: On track, At risk and Off track."
+        },
+        {
+            "section": "2030 trajectory",
+            "purpose": "Official annual policy path.",
+            "method_note": "Uses annual RES-E progress against the 80% renewable-electricity benchmark."
+        },
+        {
+            "section": "Market and household prices",
+            "purpose": "Distinguishes system market signals from household affordability.",
+            "method_note": "SEAI household prices are semi-annual official indicators, not live tariffs."
+        },
+        {
+            "section": "County hosting",
+            "purpose": "Spatial hosting and transition-justice scaffold.",
+            "method_note": county_hosting.get("county_hosting", {}).get("caveat", "County hosting method still being wired.")
+        }
+    ]
+
+    return {
+        "title": "Method and definitions",
+        "vocabulary": vocabulary,
+        "metrics": metrics,
+        "sections": sections,
+        "interconnection_direction": direction,
+        "interconnection_mw": interconnection_mw,
+        "target_gap_pp": as_float(drift.get("gap_to_target_pp"))
+    }
+
+
+
 def main() -> None:
     electricity = read_json(SOURCE_DIR / "electricity.json", {})
     truth = read_json(SOURCE_DIR / "truth_meter.json", {})
@@ -281,13 +447,14 @@ def main() -> None:
     ]
 
     truth_model = build_truth_meter(electricity, target_tracker, prices, truth)
+    method_model = build_method_model(electricity, target_tracker, prices, county_hosting)
 
     monitor = {
         "source_registry": source_registry,
         "daily_history": daily_history.get("daily", []),
         "daily_history_meta": daily_history.get("meta", {}),
         "meta": {
-            "project": metadata.get("project", "Ireland Energy Monitor"),
+            "project": metadata.get("project", "Ireland Energy Transition Monitor"),
             "generated_at": generated_at,
             "timezone": metadata.get("timezone", "Europe/Dublin"),
             "mode": metadata.get("mode", "Generated static dataset"),
@@ -307,6 +474,8 @@ def main() -> None:
         "daily_story": electricity.get("daily_story", {}),
         "truth_meter": truth_model.get("items", []),
         "truth_summary": truth_model.get("summary", {}),
+        "method": method_model,
+        "electricity_metrics": method_model.get("metrics", []),
         "target_drift": target_tracker.get("target_drift", {}),
         "target_trajectory": target_tracker.get("target_trajectory", truth.get("target_trajectory", [])),
         "prices": prices.get("prices", []),
