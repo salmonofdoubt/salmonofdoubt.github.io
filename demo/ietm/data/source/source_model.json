@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "generated_at": "2026-05-13T14:59:49+00:00",
+    "mode": "source-model-and-freshness-gate",
+    "project": "Ireland Energy Transition Monitor"
+  },
+  "electricity": {
+    "role": "core_grid_values",
+    "selected_source": "Smart Grid Dashboard API",
+    "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=13-May-2026&dateTo=13-May-2026&areas=demandactual",
+    "status": "unknown_age",
+    "values_are_live": false,
+    "values_are_current": false,
+    "latest_interval": null,
+    "age_hours": null,
+    "public_badge": "Source age unknown",
+    "public_title": "Mapped electricity signal",
+    "public_caveat": "The source timestamp could not be parsed, so the values are not labelled as live.",
+    "display_rules": {
+      "may_use_now_wording": false,
+      "may_use_live_badge": false,
+      "must_show_fallback_caveat": true,
+      "stale_after_hours": 2,
+      "fallback_after_hours": 24
+    },
+    "recommended_next_source": {
+      "name": "Smart Grid Dashboard chart/API endpoint",
+      "reason": "Needed for reliable live demand, wind, solar, generation, interconnection and fuel-mix values without visible-page scraping."
+    },
+    "robust_api_fallback": {
+      "name": "ENTSO-E Transparency Platform",
+      "items": [
+        "Actual total load",
+        "Actual generation per production type",
+        "Cross-border physical flows"
+      ],
+      "note": "Requires API token and correct Irish bidding-zone/control-area mapping."
+    }
+  },
+  "market": {
+    "role": "system_market_prices",
+    "items": [
+      {
+        "label": "Electricity system price",
+        "status": "mapped",
+        "source": "EirGrid Smart Grid Dashboard imbalance settlement price",
+        "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
+        "period": "2026-05-13",
+        "freshness": "latest settlement period visible on Smart Grid Dashboard",
+        "is_household_tariff": false,
+        "public_caveat": "System/market signal, not a household tariff."
+      },
+      {
+        "label": "Gas balancing price",
+        "status": "mapped",
+        "source": "Gas Networks Ireland imbalance prices",
+        "source_url": "https://www.gasnetworks.ie/about/data-transparency/balancing-actions-and-prices/imbalance-prices",
+        "period": "2026-05-13",
+        "freshness": "manually entered from Gas Networks Ireland table/export",
+        "is_household_tariff": false,
+        "public_caveat": "System/market signal, not a household tariff."
+      }
+    ],
+    "household_prices_are_separate": true
+  },
+  "source_policy": {
+    "live_grid_target": "Smart Grid Dashboard chart/API endpoint",
+    "structured_fallback": "EirGrid quarter-hourly workbook",
+    "machine_readable_fallback": "ENTSO-E Transparency Platform",
+    "do_not_do": [
+      "Do not call stale workbook values live.",
+      "Do not mix dashboard percentages with workbook MW values without explicit denominator notes.",
+      "Do not treat residual supply as measured gas.",
+      "Do not substitute household tariffs for market/system prices."
+    ]
+  }
+}
