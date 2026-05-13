@@ -4192,3 +4192,80 @@ document.addEventListener("DOMContentLoaded", async () => {
     /* no action */
   }
 });
+
+// IETM trajectory fit label override: BEGIN
+(function () {
+  const previousRenderTrajectory = renderTrajectory;
+
+  renderTrajectory = function refinedRenderTrajectory(data) {
+    previousRenderTrajectory(data);
+
+    const target = document.getElementById("trajectoryChart");
+    if (!target) return;
+
+    const rows = (data.target_trajectory || [])
+      .filter(row => row.actual !== null && row.actual !== undefined && Number.isFinite(Number(row.actual)));
+
+    if (rows.length < 2) return;
+
+    const xs = rows.map(row => Number(row.year));
+    const ys = rows.map(row => Number(row.actual));
+
+    const n = rows.length;
+    const xMean = xs.reduce((a, b) => a + b, 0) / n;
+    const yMean = ys.reduce((a, b) => a + b, 0) / n;
+
+    const ssX = xs.reduce((sum, x) => sum + Math.pow(x - xMean, 2), 0);
+    if (!ssX) return;
+
+    const slope = xs.reduce((sum, x, i) => sum + ((x - xMean) * (ys[i] - yMean)), 0) / ssX;
+    const intercept = yMean - slope * xMean;
+
+    const fitted = xs.map(x => intercept + slope * x);
+    const ssRes = ys.reduce((sum, y, i) => sum + Math.pow(y - fitted[i], 2), 0);
+    const ssTot = ys.reduce((sum, y) => sum + Math.pow(y - yMean, 2), 0);
+    const r2 = ssTot ? 1 - (ssRes / ssTot) : 0;
+
+    const fitStrength =
+      n < 6 ? "weak" :
+      r2 >= 0.70 ? "strong" :
+      r2 >= 0.50 ? "moderate" :
+      "weak";
+
+    const slopeText = `${slope >= 0 ? "+" : "−"}${Math.abs(slope).toFixed(1)}`;
+
+    const svg = target.querySelector("svg");
+    if (!svg) return;
+
+    const trendText = Array.from(svg.querySelectorAll("text"))
+      .find(el => el.textContent && el.textContent.includes("Observed trend"));
+
+    if (!trendText) return;
+
+    const x = trendText.getAttribute("x") || "0";
+    const y = trendText.getAttribute("y") || "0";
+
+    trendText.textContent = "";
+
+    const ns = "http://www.w3.org/2000/svg";
+
+    const line1 = document.createElementNS(ns, "tspan");
+    line1.setAttribute("x", x);
+    line1.setAttribute("y", y);
+    line1.textContent = `Observed trend: ${slopeText} percentage points/year`;
+
+    const line2 = document.createElementNS(ns, "tspan");
+    line2.setAttribute("x", x);
+    line2.setAttribute("dy", "14");
+    line2.textContent = `Fit: ${fitStrength}, based on ${n} annual points`;
+
+    trendText.appendChild(line1);
+    trendText.appendChild(line2);
+
+    target.setAttribute(
+      "aria-label",
+      `Renewable electricity trajectory. Observed trend ${slopeText} percentage points per year. Fit ${fitStrength}, based on ${n} annual points.`
+    );
+  };
+})();
+// IETM trajectory fit label override: END
