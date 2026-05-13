@@ -1,35 +1,36 @@
 {
   "meta": {
-    "generated_at": "2026-05-13T11:14:49+00:00",
-    "mode": "daily-market-price-layer",
+    "generated_at": "2026-05-13T12:57:56+00:00",
+    "mode": "system-market-price-layer",
     "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
     "sources": [
-      "EirGrid Smart Grid Dashboard market pricing",
+      "EirGrid Smart Grid Dashboard imbalance settlement price",
       "SEMOpx market results",
       "Gas Networks Ireland imbalance prices"
     ]
   },
   "market_prices": [
     {
-      "label": "Electricity market price",
-      "value": "n/a",
-      "numeric_value": null,
+      "label": "Electricity system price",
+      "value": "169.38 \u20ac/MWh",
+      "numeric_value": 169.38,
       "unit": "\u20ac/MWh",
-      "status": "not-parsed",
+      "equivalent_value": "16.94 c/kWh",
+      "numeric_value_c_per_kwh": 16.94,
+      "status": "mapped",
       "period": "2026-05-13",
-      "source": "EirGrid Smart Grid Dashboard / SEMOpx market data",
-      "source_url": "https://www.semopx.com/market-data/market-results",
-      "detail": "Daily electricity market price layer is installed, but no value was parsed in this run. Do not substitute SEAI household prices here.",
-      "errors": [
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=market-pricing&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=imbalance-price-volume: no price rows parsed",
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=market-pricing&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=pricing2: no price rows parsed",
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=marketpricing&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=imbalance-price-volume: no price rows parsed",
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=market-pricing&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=imbalancepricevolume: no price rows parsed",
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=market-pricing&dateRange=day&dateFrom=12-May-2026+00%3A00&dateTo=12-May-2026+23%3A59&areas=imbalance-price-volume: no price rows parsed",
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=market-pricing&dateRange=day&dateFrom=12-May-2026+00%3A00&dateTo=12-May-2026+23%3A59&areas=pricing2: no price rows parsed",
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=marketpricing&dateRange=day&dateFrom=12-May-2026+00%3A00&dateTo=12-May-2026+23%3A59&areas=imbalance-price-volume: no price rows parsed",
-        "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=market-pricing&dateRange=day&dateFrom=12-May-2026+00%3A00&dateTo=12-May-2026+23%3A59&areas=imbalancepricevolume: no price rows parsed"
-      ]
+      "freshness": "latest settlement period visible on Smart Grid Dashboard",
+      "source": "EirGrid Smart Grid Dashboard imbalance settlement price",
+      "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
+      "detail": "Latest electricity imbalance settlement price. This is a system/market signal, not a household electricity tariff.",
+      "stats": {
+        "latest_eur_per_mwh": 169.38,
+        "latest_c_per_kwh_equivalent": 16.94,
+        "dashboard_date": "13/05/2026",
+        "latest_line": "169.38",
+        "daily_min_eur_per_mwh": 37.18,
+        "daily_max_eur_per_mwh": 236.93
+      }
     },
     {
       "label": "Gas balancing price",
@@ -38,12 +39,13 @@
       "unit": "c/kWh",
       "status": "not-parsed",
       "period": "2026-05-13",
+      "freshness": "unavailable in current run",
       "source": "Gas Networks Ireland imbalance prices",
       "source_url": "https://www.gasnetworks.ie/about/data-transparency/balancing-actions-and-prices/imbalance-prices",
-      "detail": "Daily gas balancing-price layer is installed, but no plausible SAP c/kWh value was parsed in this run. Do not substitute SEAI household gas prices here.",
+      "detail": "Daily gas balancing-price layer is installed, but no plausible SAP c/kWh value was visible in the fetched static HTML. Do not substitute SEAI household gas prices here.",
       "errors": [
-        "GNI parser found SAP-like value 2026.0, but rejected it as implausible for c/kWh. Likely a date/year or unrelated page number.",
-        "GNI page fetched, but no plausible SAP c/kWh value was visible in static HTML."
+        "https://www.gasnetworks.ie/about/data-transparency/balancing-actions-and-prices/imbalance-prices: no plausible SAP c/kWh value visible in static HTML",
+        "https://www.gasnetworks.ie/corporate/gas-regulation/transparency-and-publicat/dashboard-reporting/balancing-actions-and-prices/imbalance-prices: no plausible SAP c/kWh value visible in static HTML"
       ]
     }
   ]

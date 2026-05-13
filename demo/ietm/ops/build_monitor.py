@@ -419,6 +419,7 @@ def main() -> None:
     electricity = read_json(SOURCE_DIR / "electricity.json", {})
     truth = read_json(SOURCE_DIR / "truth_meter.json", {})
     prices = read_json(SOURCE_DIR / "prices.json", {})
+    market_prices = read_json(SOURCE_DIR / "market_prices.json", {})
     counties = read_json(SOURCE_DIR / "counties.json", {})
     target_tracker = read_json(SOURCE_DIR / "target_tracker.json", {})
     county_hosting = read_json(SOURCE_DIR / "county_hosting.json", {})
@@ -435,6 +436,10 @@ def main() -> None:
         {
             "name": "SEAI prices",
             "status": prices.get("source_status", {}),
+        },
+        {
+            "name": "Market prices",
+            "status": market_prices.get("meta", {}),
         },
         {
             "name": "Target drift",
@@ -479,6 +484,8 @@ def main() -> None:
         "target_drift": target_tracker.get("target_drift", {}),
         "target_trajectory": target_tracker.get("target_trajectory", truth.get("target_trajectory", [])),
         "prices": prices.get("prices", []),
+        "market_prices": market_prices.get("market_prices", []),
+        "market_price_meta": market_prices.get("meta", {}),
         "gas": electricity.get("gas", {}),
         "source_status": electricity.get("source_status", {}),
         "county_hosting": county_hosting.get("county_hosting", {}),
