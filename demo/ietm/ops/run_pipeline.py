@@ -29,6 +29,7 @@ STEPS = [
     ("Update daily history", ["python3", "ops/update_daily_history.py"]),
     ("Seed 30-day daily history warm start", ["python3", "ops/seed_daily_history.py"]),
     ("Rebuild monitor JSON with history", ["python3", "ops/build_monitor.py"]),
+    ("Update visible SmartGrid overview", ["python3", "ops/update_smartgrid_visible_overview.py"]),
     ("Validate monitor JSON", ["python3", "ops/validate_monitor.py"]),
 ]
 
