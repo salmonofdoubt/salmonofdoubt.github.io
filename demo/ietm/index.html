@@ -15,6 +15,7 @@
     <nav class="topbar" aria-label="Project navigation">
       <a href="#pulse">Daily pulse</a>
       <a href="#today">Today</a>
+      <a href="#demand-pressure">Pressure</a>
       <a href="#truth-meter">Truth meter</a>
       <a href="#market-prices">Market</a>
       <a href="#prices">Prices</a>
@@ -264,6 +265,33 @@
           which are calculated, and which still require another source.
         </p>
         <div class="quality-grid" id="dataQualityList"></div>
+      </article>
+    </section>
+
+
+    <section id="demand-pressure" class="section demand-pressure-section">
+      <div class="section-head">
+        <p class="eyebrow">Emerging demand pressure</p>
+        <h2>What new electricity demand is arriving?</h2>
+        <p>
+          Data centres and transport electrification affect the transition differently. This panel separates
+          measured data, forecast demand, and modelled EV demand so the dashboard does not pretend that every
+          number is live-metered.
+        </p>
+        <p class="source-note-pill">
+          Current proxy layer · forecast, measured and modelled values are labelled separately.
+        </p>
+      </div>
+
+      <div class="demand-pressure-grid" id="demandPressureGrid" aria-label="Emerging electricity demand pressure cards"></div>
+
+      <article class="panel demand-pressure-note-panel">
+        <div class="panel-head">
+          <h3>Interpretation</h3>
+          <span class="pill warning">Not live metered</span>
+        </div>
+        <p id="demandPressureContrast">—</p>
+        <p id="demandPressureNote">—</p>
       </article>
     </section>
 

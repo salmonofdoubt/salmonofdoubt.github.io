@@ -124,6 +124,21 @@
         "mode": "scaffold",
         "caveat": "SEAI beta dashboard integration pending."
       }
+    },
+    {
+      "name": "Emerging demand pressure",
+      "status": {
+        "source": "CRU, CSO, ZEVI and Department of Transport",
+        "mode": "current-proxy-layer",
+        "generated_at": "2026-05-13",
+        "caveat": "Data-centre value is a 2025 forecast. Large energy users and standalone EV charging are latest measured CSO 2024 values. EV fleet electricity is modelled, not metered.",
+        "sources": [
+          "CRU / EirGrid forecast: data-centre demand projected at 9.4 TWh in 2025",
+          "CSO Data Centres Metered Electricity Consumption 2024",
+          "CSO Metered Electricity Consumption 2024",
+          "ZEVI / Department of Transport: 196,000 EVs on Irish roads"
+        ]
+      }
     }
   ],
   "daily_history": [
@@ -957,7 +972,7 @@
       "status_label": "At risk",
       "reading": "Unclassified remainder",
       "value": "31%",
-      "rule": "On track \u226420%; at risk 20\u201335%; off track >35%.",
+      "rule": "On track ≤20%; at risk 20–35%; off track >35%.",
       "why": "High residual supply means the system still depends on non-wind, non-solar and unidentified supply.",
       "basis": "Computed live proxy",
       "confidence": "Medium",
@@ -970,7 +985,7 @@
       "status_label": "At risk",
       "reading": "Latest carbon signal",
       "value": "158 g/kWh",
-      "rule": "On track \u2264100 g/kWh; at risk 100\u2013250; off track >250.",
+      "rule": "On track ≤100 g/kWh; at risk 100–250; off track >250.",
       "why": "Carbon intensity indicates how clean the electricity actually is at the point of use.",
       "basis": "Live public dashboard",
       "confidence": "Medium",
@@ -1118,14 +1133,14 @@
       },
       {
         "key": "co2",
-        "label": "CO\u2082 intensity",
+        "label": "CO₂ intensity",
         "definition": "Carbon intensity of electricity generation/use signal.",
         "value_key": "co2_g_per_kwh",
         "unit": "g/kWh",
         "denominator": "Electricity consumed/generated per kWh basis.",
         "evidence_basis": "Live",
         "confidence": "Medium",
-        "caveat": "Public Smart Grid Dashboard CO\u2082 signal; method depends on EirGrid published model.",
+        "caveat": "Public Smart Grid Dashboard CO₂ signal; method depends on EirGrid published model.",
         "accent": "grey"
       },
       {
@@ -1165,7 +1180,7 @@
       {
         "section": "County hosting",
         "purpose": "Spatial hosting and transition-justice scaffold.",
-        "method_note": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km\u00b2 and population-density normalisation."
+        "method_note": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km² and population-density normalisation."
       }
     ],
     "interconnection_direction": "exporting",
@@ -1248,14 +1263,14 @@
     },
     {
       "key": "co2",
-      "label": "CO\u2082 intensity",
+      "label": "CO₂ intensity",
       "definition": "Carbon intensity of electricity generation/use signal.",
       "value_key": "co2_g_per_kwh",
       "unit": "g/kWh",
       "denominator": "Electricity consumed/generated per kWh basis.",
       "evidence_basis": "Live",
       "confidence": "Medium",
-      "caveat": "Public Smart Grid Dashboard CO\u2082 signal; method depends on EirGrid published model.",
+      "caveat": "Public Smart Grid Dashboard CO₂ signal; method depends on EirGrid published model.",
       "accent": "grey"
     },
     {
@@ -1382,9 +1397,9 @@
   "market_prices": [
     {
       "label": "Electricity system price",
-      "value": "34.11 \u20ac/MWh",
+      "value": "34.11 €/MWh",
       "numeric_value": 34.11,
-      "unit": "\u20ac/MWh",
+      "unit": "€/MWh",
       "equivalent_value": "3.41 c/kWh",
       "numeric_value_c_per_kwh": 3.41,
       "status": "mapped",
@@ -1520,7 +1535,7 @@
     "generated_at": "2026-05-13T16:41:47+00:00",
     "source": "SEAI Renewable Electricity County Dashboard",
     "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
-    "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km\u00b2 and population-density normalisation.",
+    "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km² and population-density normalisation.",
     "method": {
       "index": "0 to 100 illustrative hosting score",
       "display": "Schematic tile heatmap, not boundary-accurate geography",
@@ -1883,5 +1898,45 @@
       "note": "South-east coastal hosting signal.",
       "interpretation": "Scaffold index for display only. Replace with SEAI county production metrics."
     }
-  ]
+  ],
+  "demand_pressure": {
+    "title": "Emerging demand pressure",
+    "generated_at": "2026-05-13",
+    "caveat": "No public live national feed currently separates data-centre electricity demand or total EV charging demand. This layer therefore combines current forecast, latest measured CSO data, and a transparent EV fleet estimate.",
+    "contrast": "Data centres are already grid-scale electricity demand. EVs are growing, but current EV electricity demand is still much smaller than data-centre demand.",
+    "cards": [
+      {
+        "label": "Data centres",
+        "value": "~9.4 TWh/yr",
+        "subtitle": "~1.07 GW average load",
+        "detail": "2025 EirGrid forecast referenced by CRU. Forecast demand, not live metered consumption.",
+        "source": "CRU / EirGrid",
+        "tone": "pressure"
+      },
+      {
+        "label": "Large energy users",
+        "value": "9.9 TWh",
+        "subtitle": "31% of metered electricity",
+        "detail": "CSO 2024 measured category including major data centres and other very large industrial users.",
+        "source": "CSO",
+        "tone": "measured"
+      },
+      {
+        "label": "EV fleet electricity",
+        "value": "~0.45 TWh/yr",
+        "subtitle": "~51 MW average load",
+        "detail": "Modelled from 196,000 EVs × 13,500 km/year × 0.17 kWh/km. Not directly metered.",
+        "source": "ZEVI / Department of Transport + transparent model",
+        "tone": "modelled"
+      },
+      {
+        "label": "Standalone EV charging",
+        "value": "33 GWh",
+        "subtitle": "Public/standalone meters only",
+        "detail": "CSO 2024 measured stand-alone EV charge-point electricity. This is not total EV charging.",
+        "source": "CSO",
+        "tone": "measured"
+      }
+    ]
+  }
 }

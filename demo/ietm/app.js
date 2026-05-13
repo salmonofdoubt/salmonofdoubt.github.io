@@ -691,6 +691,36 @@ function renderDataQuality(data) {
   target.innerHTML = rows.join("");
 }
 
+// IETM demand pressure renderer: BEGIN
+function renderDemandPressure(data) {
+  const target = document.getElementById("demandPressureGrid");
+  if (!target) return;
+
+  const pressure = data.demand_pressure || {};
+  const cards = pressure.cards || [];
+
+  target.innerHTML = cards.map(card => `
+    <article class="demand-pressure-card ${escapeHtml(card.tone || "")}">
+      <span>${escapeHtml(card.label)}</span>
+      <strong>${escapeHtml(card.value)}</strong>
+      <small>${escapeHtml(card.subtitle || "")}</small>
+      <p>${escapeHtml(card.detail || "")}</p>
+      <em>${escapeHtml(card.source || "")}</em>
+    </article>
+  `).join("");
+
+  const contrast = document.getElementById("demandPressureContrast");
+  if (contrast) {
+    contrast.textContent = pressure.contrast || "";
+  }
+
+  const note = document.getElementById("demandPressureNote");
+  if (note) {
+    note.textContent = pressure.caveat || "";
+  }
+}
+// IETM demand pressure renderer: END
+
 async function init() {
   try {
     const data = await loadMonitor();
@@ -706,6 +736,7 @@ async function init() {
     renderResidual(data);
     renderCounties(data);
     renderDataQuality(data);
+    renderDemandPressure(data);
     renderCountyHosting(data);
     renderSourceConsole(data);
   } catch (error) {
