@@ -2918,3 +2918,418 @@ function renderTrajectory(data) {
     </svg>
   `;
 }
+
+/* v0.54 RES-E trajectory trendline + escalating catch-up burden note */
+
+function ietmLinearRegression(points) {
+  const clean = (points || []).filter(p =>
+    Number.isFinite(Number(p.x)) && Number.isFinite(Number(p.y))
+  );
+
+  const n = clean.length;
+  if (n < 2) return null;
+
+  const xs = clean.map(p => Number(p.x));
+  const ys = clean.map(p => Number(p.y));
+
+  const meanX = xs.reduce((a, b) => a + b, 0) / n;
+  const meanY = ys.reduce((a, b) => a + b, 0) / n;
+
+  let numerator = 0;
+  let denominator = 0;
+
+  for (let i = 0; i < n; i++) {
+    numerator += (xs[i] - meanX) * (ys[i] - meanY);
+    denominator += (xs[i] - meanX) ** 2;
+  }
+
+  if (denominator === 0) return null;
+
+  const m = numerator / denominator;
+  const a = meanY - m * meanX;
+
+  let ssRes = 0;
+  let ssTot = 0;
+
+  for (let i = 0; i < n; i++) {
+    const yHat = m * xs[i] + a;
+    ssRes += (ys[i] - yHat) ** 2;
+    ssTot += (ys[i] - meanY) ** 2;
+  }
+
+  const r2 = ssTot === 0 ? 1 : 1 - ssRes / ssTot;
+
+  return { m, a, r2, n };
+}
+
+function ietmAddSystemsNote() {
+  const panel = document.getElementById("trajectoryChart")?.closest(".panel");
+  if (!panel) return;
+
+  panel.querySelectorAll(".systems-note").forEach(el => el.remove());
+
+  const note = document.createElement("p");
+  note.className = "systems-note";
+  note.innerHTML = `
+    <strong>System reading: escalating catch-up burden.</strong>
+    At the current pace, the 2030 gap does not close fast enough, so every slow year raises the annual gain Ireland must deliver later.
+  `;
+
+  const explainer = panel.querySelector(".target-explainer-note");
+  const chart = panel.querySelector("#trajectoryChart");
+
+  if (explainer) {
+    explainer.insertAdjacentElement("afterend", note);
+  } else if (chart) {
+    chart.insertAdjacentElement("beforebegin", note);
+  }
+}
+
+function renderTrajectory(data) {
+  const target = document.getElementById("trajectoryChart");
+  if (!target) return;
+
+  const rows = data.target_trajectory || [];
+  if (!rows.length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const width = 1280;
+  const height = 520;
+
+  const padLeft = 68;
+  const padRight = 44;
+  const padTop = 42;
+  const padBottom = 58;
+
+  const years = rows.map(d => Number(d.year)).filter(Number.isFinite);
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+
+  const minY = 20;
+  const maxY = 85;
+
+  const plotWidth = width - padLeft - padRight;
+  const plotHeight = height - padTop - padBottom;
+
+  const x = year => padLeft + ((Number(year) - minYear) / (maxYear - minYear)) * plotWidth;
+  const y = value => padTop + ((maxY - Number(value)) / (maxY - minY)) * plotHeight;
+
+  const targetRows = rows.filter(d => d.target !== null && d.target !== undefined);
+  const actualRows = rows.filter(d => d.actual !== null && d.actual !== undefined);
+
+  const pathFrom = (series, key) => series
+    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
+    .join(" ");
+
+  const targetPath = pathFrom(targetRows, "target");
+  const actualPath = pathFrom(actualRows, "actual");
+
+  const latest = actualRows[actualRows.length - 1];
+  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
+  const gap = sameYear ? Number(sameYear.target) - Number(latest.actual) : 0;
+
+  const targetGap = document.getElementById("targetGap");
+  if (targetGap) targetGap.textContent = `${gap.toFixed(0)} pp path gap`;
+
+  /*
+    Regression convention:
+    t = years since first observed year.
+    y = m t + a.
+    This avoids a useless large negative intercept from raw calendar years.
+  */
+  const trendOriginYear = actualRows.length ? Number(actualRows[0].year) : minYear;
+  const observedTrendInput = actualRows.map(d => ({
+    x: Number(d.year) - trendOriginYear,
+    y: Number(d.actual)
+  }));
+
+  const regression = ietmLinearRegression(observedTrendInput);
+
+  let trendLine = "";
+  let trendLabel = "";
+  let trendEndpointLabel = "";
+
+  if (regression) {
+    const trendStartYear = minYear;
+    const trendEndYear = maxYear;
+
+    const trendStartValue = regression.m * (trendStartYear - trendOriginYear) + regression.a;
+    const trendEndValue = regression.m * (trendEndYear - trendOriginYear) + regression.a;
+
+    const clippedStartValue = Math.max(minY, Math.min(maxY, trendStartValue));
+    const clippedEndValue = Math.max(minY, Math.min(maxY, trendEndValue));
+
+    const x1 = x(trendStartYear);
+    const y1 = y(clippedStartValue);
+    const x2 = x(trendEndYear);
+    const y2 = y(clippedEndValue);
+
+    const signA = regression.a >= 0 ? "+" : "−";
+    const absA = Math.abs(regression.a).toFixed(1);
+
+    trendLabel = `Observed trend: y = ${regression.m.toFixed(2)}t ${signA} ${absA}; R² = ${regression.r2.toFixed(2)}`;
+    trendEndpointLabel = `Recent-pace 2030: ${trendEndValue.toFixed(0)}%`;
+
+    trendLine = `
+      <line
+        class="line-trend"
+        x1="${x1.toFixed(2)}"
+        y1="${y1.toFixed(2)}"
+        x2="${x2.toFixed(2)}"
+        y2="${y2.toFixed(2)}"
+      ></line>
+
+      <text
+        class="trendline-label"
+        x="${Math.max(padLeft + 220, x2 - 420).toFixed(2)}"
+        y="${Math.max(padTop + 74, y2 - 18).toFixed(2)}"
+      >${trendLabel}</text>
+
+      <text
+        class="trendline-label trendline-endpoint"
+        x="${(x2 - 8).toFixed(2)}"
+        y="${(y2 + 22).toFixed(2)}"
+        text-anchor="end"
+      >${trendEndpointLabel}</text>
+    `;
+  }
+
+  const gridValues = [80, 65, 50, 35, 20];
+  const yearTicks = [];
+  for (let yr = minYear; yr <= maxYear; yr += 2) yearTicks.push(yr);
+
+  target.innerHTML = `
+    <svg class="trajectory-svg trajectory-svg-large"
+      viewBox="0 0 ${width} ${height}"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label="2030 renewable electricity trajectory with observed trendline"
+    >
+      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
+
+      ${gridValues.map(v => `
+        <line class="grid-line" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
+        <text class="axis-text y-axis-label" x="${padLeft - 14}" y="${y(v) + 4}" text-anchor="end">${v}%</text>
+      `).join("")}
+
+      ${yearTicks.map(yr => `
+        <line class="grid-line vertical" x1="${x(yr)}" y1="${padTop}" x2="${x(yr)}" y2="${height - padBottom}"></line>
+        <text class="axis-text" x="${x(yr)}" y="${height - 18}" text-anchor="middle">${yr}</text>
+      `).join("")}
+
+      <path class="line-target" d="${targetPath}"></path>
+      ${trendLine}
+      <path class="line-actual" d="${actualPath}"></path>
+
+      ${actualRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.actual)}" r="5" fill="var(--blue)"></circle>
+      `).join("")}
+
+      ${targetRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.target)}" r="3.8" fill="var(--lime)"></circle>
+      `).join("")}
+
+      <text class="axis-text chart-key" x="${width - 355}" y="${padTop + 8}">Dashed green: required path</text>
+      <text class="axis-text chart-key" x="${width - 355}" y="${padTop + 29}">Blue: observed path</text>
+      <text class="axis-text chart-key" x="${width - 355}" y="${padTop + 50}">Thin white: observed trend</text>
+    </svg>
+  `;
+
+  ietmAddSystemsNote();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(ietmAddSystemsNote, 300);
+  setTimeout(ietmAddSystemsNote, 1100);
+});
+
+/* v0.56 Mobile solution: scrollable plot area, readable labels, formula outside SVG */
+function renderTrajectory(data) {
+  const target = document.getElementById("trajectoryChart");
+  if (!target) return;
+
+  const rows = data.target_trajectory || [];
+  if (!rows.length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const isMobile = window.matchMedia("(max-width: 760px)").matches;
+
+  /*
+    Mobile principle:
+    Do not squeeze the plot into the phone width.
+    Give the SVG a readable minimum width and let the user pan horizontally.
+  */
+  const width = isMobile ? 980 : 1280;
+  const height = isMobile ? 520 : 520;
+
+  const padLeft = isMobile ? 78 : 68;
+  const padRight = isMobile ? 48 : 44;
+  const padTop = isMobile ? 48 : 42;
+  const padBottom = isMobile ? 70 : 58;
+
+  const years = rows.map(d => Number(d.year)).filter(Number.isFinite);
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+
+  const minY = 20;
+  const maxY = 85;
+
+  const plotWidth = width - padLeft - padRight;
+  const plotHeight = height - padTop - padBottom;
+
+  const x = year => padLeft + ((Number(year) - minYear) / (maxYear - minYear)) * plotWidth;
+  const y = value => padTop + ((maxY - Number(value)) / (maxY - minY)) * plotHeight;
+
+  const targetRows = rows.filter(d => d.target !== null && d.target !== undefined);
+  const actualRows = rows.filter(d => d.actual !== null && d.actual !== undefined);
+
+  const pathFrom = (series, key) => series
+    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
+    .join(" ");
+
+  const targetPath = pathFrom(targetRows, "target");
+  const actualPath = pathFrom(actualRows, "actual");
+
+  const latest = actualRows[actualRows.length - 1];
+  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
+  const gap = sameYear ? Number(sameYear.target) - Number(latest.actual) : 0;
+
+  const targetGap = document.getElementById("targetGap");
+  if (targetGap) targetGap.textContent = `${gap.toFixed(0)} pp path gap`;
+
+  const trendOriginYear = actualRows.length ? Number(actualRows[0].year) : minYear;
+  const observedTrendInput = actualRows.map(d => ({
+    x: Number(d.year) - trendOriginYear,
+    y: Number(d.actual)
+  }));
+
+  const regression = ietmLinearRegression(observedTrendInput);
+
+  let trendLine = "";
+  let formulaText = "";
+  let endpointText = "";
+
+  if (regression) {
+    const trendStartYear = minYear;
+    const trendEndYear = maxYear;
+
+    const trendStartValue = regression.m * (trendStartYear - trendOriginYear) + regression.a;
+    const trendEndValue = regression.m * (trendEndYear - trendOriginYear) + regression.a;
+
+    const clippedStartValue = Math.max(minY, Math.min(maxY, trendStartValue));
+    const clippedEndValue = Math.max(minY, Math.min(maxY, trendEndValue));
+
+    const x1 = x(trendStartYear);
+    const y1 = y(clippedStartValue);
+    const x2 = x(trendEndYear);
+    const y2 = y(clippedEndValue);
+
+    const signA = regression.a >= 0 ? "+" : "−";
+    const absA = Math.abs(regression.a).toFixed(1);
+
+    formulaText = `Observed trend: y = ${regression.m.toFixed(2)}t ${signA} ${absA}; R² = ${regression.r2.toFixed(2)}`;
+    endpointText = `Recent-pace 2030: ${trendEndValue.toFixed(0)}%`;
+
+    trendLine = `
+      <line
+        class="line-trend"
+        x1="${x1.toFixed(2)}"
+        y1="${y1.toFixed(2)}"
+        x2="${x2.toFixed(2)}"
+        y2="${y2.toFixed(2)}"
+      ></line>
+
+      ${!isMobile ? `
+        <text
+          class="trendline-label"
+          x="${Math.max(padLeft + 220, x2 - 420).toFixed(2)}"
+          y="${Math.max(padTop + 74, y2 - 18).toFixed(2)}"
+        >${escapeHtml(formulaText)}</text>
+
+        <text
+          class="trendline-label trendline-endpoint"
+          x="${(x2 - 8).toFixed(2)}"
+          y="${(y2 + 22).toFixed(2)}"
+          text-anchor="end"
+        >${escapeHtml(endpointText)}</text>
+      ` : ""}
+    `;
+  }
+
+  const gridValues = isMobile ? [80, 65, 50, 35, 20] : [80, 65, 50, 35, 20];
+  const yearTicks = isMobile
+    ? [2020, 2022, 2024, 2026, 2028, 2030]
+    : [2020, 2022, 2024, 2026, 2028, 2030];
+
+  const svg = `
+    <svg class="trajectory-svg trajectory-svg-large ${isMobile ? "trajectory-mobile-scroll-svg" : "trajectory-desktop-svg"}"
+      viewBox="0 0 ${width} ${height}"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label="2030 renewable electricity trajectory with observed trendline"
+    >
+      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
+
+      ${gridValues.map(v => `
+        <line class="grid-line" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
+        <text class="axis-text y-axis-label" x="${padLeft - 16}" y="${y(v) + 6}" text-anchor="end">${v}%</text>
+      `).join("")}
+
+      ${yearTicks.map(yr => `
+        <line class="grid-line vertical" x1="${x(yr)}" y1="${padTop}" x2="${x(yr)}" y2="${height - padBottom}"></line>
+        <text class="axis-text x-axis-label" x="${x(yr)}" y="${height - 24}" text-anchor="middle">${yr}</text>
+      `).join("")}
+
+      <path class="line-target" d="${targetPath}"></path>
+      ${trendLine}
+      <path class="line-actual" d="${actualPath}"></path>
+
+      ${actualRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.actual)}" r="${isMobile ? 6.5 : 5}" fill="var(--blue)"></circle>
+      `).join("")}
+
+      ${targetRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.target)}" r="${isMobile ? 4.8 : 3.8}" fill="var(--lime)"></circle>
+      `).join("")}
+
+      <text class="axis-text chart-key" x="${width - 360}" y="${padTop + 8}">Dashed green: required path</text>
+      <text class="axis-text chart-key" x="${width - 360}" y="${padTop + 31}">Blue: observed · white: trend</text>
+    </svg>
+  `;
+
+  target.innerHTML = `
+    <div class="trajectory-scroll-wrap" tabindex="0" aria-label="Scrollable trajectory chart">
+      ${svg}
+    </div>
+
+    <div class="trajectory-mobile-readout" aria-label="Trendline formula and interpretation">
+      <span>${escapeHtml(formulaText || "Observed trend unavailable")}</span>
+      <strong>${escapeHtml(endpointText || "")}</strong>
+      <em>Swipe chart sideways to inspect years.</em>
+    </div>
+  `;
+
+  const scrollWrap = target.querySelector(".trajectory-scroll-wrap");
+  if (scrollWrap && isMobile) {
+    scrollWrap.scrollLeft = 0;
+  }
+
+  ietmAddSystemsNote();
+}
+
+let ietmTrajectoryResizeTimerV56 = null;
+window.addEventListener("resize", () => {
+  clearTimeout(ietmTrajectoryResizeTimerV56);
+  ietmTrajectoryResizeTimerV56 = setTimeout(async () => {
+    try {
+      const data = await loadMonitor();
+      renderTrajectory(data);
+    } catch {
+      /* no action */
+    }
+  }, 180);
+});

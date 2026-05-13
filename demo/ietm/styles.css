@@ -6214,3 +6214,300 @@ h3 {
     height: 20rem !important;
   }
 }
+
+/* v0.54 RES-E trendline and escalating catch-up burden note */
+#trajectoryChart .line-trend,
+.target-explainer-panel .line-trend {
+  stroke: rgba(237,247,241,0.58);
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+#trajectoryChart .trendline-label,
+.target-explainer-panel .trendline-label {
+  fill: rgba(237,247,241,0.72);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+#trajectoryChart .trendline-endpoint,
+.target-explainer-panel .trendline-endpoint {
+  fill: rgba(247,201,72,0.88);
+  font-weight: 780;
+}
+
+.systems-note {
+  margin: 0.55rem 0 0.9rem;
+  padding: 0.62rem 0.78rem;
+  border-left: 3px solid rgba(247,201,72,0.88);
+  background: rgba(247,201,72,0.045);
+  color: rgba(237,247,241,0.78);
+  font-size: 0.9rem;
+  line-height: 1.38;
+}
+
+.systems-note strong {
+  color: rgba(247,201,72,0.96);
+}
+
+@media (max-width: 760px) {
+  #trajectoryChart .trendline-label,
+  .target-explainer-panel .trendline-label {
+    font-size: 10px;
+  }
+
+  .systems-note {
+    margin: 0.42rem 0 0.7rem;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.68rem;
+    line-height: 1.32;
+  }
+}
+
+/* v0.54 RES-E trendline and escalating catch-up burden note */
+#trajectoryChart .line-trend,
+.target-explainer-panel .line-trend {
+  stroke: rgba(237,247,241,0.58);
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+#trajectoryChart .trendline-label,
+.target-explainer-panel .trendline-label {
+  fill: rgba(237,247,241,0.72);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+#trajectoryChart .trendline-endpoint,
+.target-explainer-panel .trendline-endpoint {
+  fill: rgba(247,201,72,0.88);
+  font-weight: 780;
+}
+
+.systems-note {
+  margin: 0.55rem 0 0.9rem;
+  padding: 0.62rem 0.78rem;
+  border-left: 3px solid rgba(247,201,72,0.88);
+  background: rgba(247,201,72,0.045);
+  color: rgba(237,247,241,0.78);
+  font-size: 0.9rem;
+  line-height: 1.38;
+}
+
+.systems-note strong {
+  color: rgba(247,201,72,0.96);
+}
+
+@media (max-width: 760px) {
+  #trajectoryChart .trendline-label,
+  .target-explainer-panel .trendline-label {
+    font-size: 10px;
+  }
+
+  .systems-note {
+    margin: 0.42rem 0 0.7rem;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.68rem;
+    line-height: 1.32;
+  }
+}
+
+/* v0.55 Mobile-readable trajectory axis and chart labels */
+#trajectoryChart .trajectory-mobile-svg .axis-text {
+  font-size: 21px !important;
+  font-weight: 760 !important;
+  fill: rgba(237,247,241,0.82) !important;
+}
+
+#trajectoryChart .trajectory-mobile-svg .y-axis-label,
+#trajectoryChart .trajectory-mobile-svg .x-axis-label {
+  font-size: 22px !important;
+  font-weight: 820 !important;
+}
+
+#trajectoryChart .trajectory-mobile-svg .trendline-label {
+  font-size: 20px !important;
+  font-weight: 760 !important;
+  fill: rgba(237,247,241,0.84) !important;
+}
+
+#trajectoryChart .trajectory-mobile-svg .trendline-endpoint {
+  fill: rgba(247,201,72,0.96) !important;
+}
+
+#trajectoryChart .trajectory-mobile-svg .chart-key {
+  font-size: 18px !important;
+  font-weight: 760 !important;
+  fill: rgba(237,247,241,0.72) !important;
+}
+
+#trajectoryChart .trajectory-mobile-svg .line-target,
+#trajectoryChart .trajectory-mobile-svg .line-actual {
+  stroke-width: 3.2 !important;
+}
+
+#trajectoryChart .trajectory-mobile-svg .line-trend {
+  stroke-width: 2.2 !important;
+}
+
+@media (max-width: 760px) {
+  .target-explainer-panel .trajectory,
+  #trajectoryChart.trajectory {
+    min-height: 23rem !important;
+    height: 23rem !important;
+  }
+}
+
+/* v0.56 Mobile trajectory solution: scrollable plot, not squeezed SVG */
+#trajectoryChart.trajectory {
+  width: 100% !important;
+  min-height: auto !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.trajectory-scroll-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  border-top: 1px solid rgba(237,247,241,0.06);
+  border-bottom: 1px solid rgba(237,247,241,0.06);
+  scrollbar-color: rgba(114,214,255,0.38) rgba(255,255,255,0.04);
+}
+
+.trajectory-scroll-wrap::-webkit-scrollbar {
+  height: 0.45rem;
+}
+
+.trajectory-scroll-wrap::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.04);
+  border-radius: 999px;
+}
+
+.trajectory-scroll-wrap::-webkit-scrollbar-thumb {
+  background: rgba(114,214,255,0.35);
+  border-radius: 999px;
+}
+
+.trajectory-svg-large {
+  display: block !important;
+  height: auto !important;
+  max-width: none !important;
+}
+
+.trajectory-mobile-readout {
+  display: none;
+}
+
+@media (min-width: 761px) {
+  .trajectory-scroll-wrap {
+    overflow: visible;
+    border-top: 0;
+    border-bottom: 0;
+  }
+
+  .trajectory-svg-large {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 760px) {
+  #trajectoryChart.trajectory {
+    margin-top: 0.65rem;
+  }
+
+  .trajectory-scroll-wrap {
+    position: relative;
+    margin: 0.4rem -0.15rem 0;
+    padding-bottom: 0.35rem;
+  }
+
+  .trajectory-scroll-wrap::after {
+    content: "Swipe chart →";
+    position: sticky;
+    left: calc(100% - 7.4rem);
+    bottom: 0.55rem;
+    display: inline-flex;
+    margin-left: 0.6rem;
+    padding: 0.24rem 0.46rem;
+    border-radius: 999px;
+    border: 1px solid rgba(114,214,255,0.22);
+    background: rgba(3,18,14,0.92);
+    color: rgba(114,214,255,0.9);
+    font-size: 0.62rem;
+    line-height: 1;
+    font-weight: 850;
+    pointer-events: none;
+  }
+
+  .trajectory-mobile-scroll-svg {
+    width: 980px !important;
+    min-width: 980px !important;
+    height: 520px !important;
+  }
+
+  #trajectoryChart .trajectory-mobile-scroll-svg .axis-text {
+    font-size: 20px !important;
+    font-weight: 820 !important;
+    fill: rgba(237,247,241,0.82) !important;
+  }
+
+  #trajectoryChart .trajectory-mobile-scroll-svg .y-axis-label,
+  #trajectoryChart .trajectory-mobile-scroll-svg .x-axis-label {
+    font-size: 22px !important;
+    font-weight: 860 !important;
+  }
+
+  #trajectoryChart .trajectory-mobile-scroll-svg .chart-key {
+    font-size: 18px !important;
+    font-weight: 760 !important;
+    fill: rgba(237,247,241,0.76) !important;
+  }
+
+  #trajectoryChart .trajectory-mobile-scroll-svg .line-target,
+  #trajectoryChart .trajectory-mobile-scroll-svg .line-actual {
+    stroke-width: 3.2 !important;
+  }
+
+  #trajectoryChart .trajectory-mobile-scroll-svg .line-trend {
+    stroke-width: 2.2 !important;
+  }
+
+  .trajectory-mobile-readout {
+    display: grid;
+    gap: 0.22rem;
+    margin: 0.55rem 0 0;
+    padding: 0.55rem 0.65rem;
+    border-left: 3px solid rgba(114,214,255,0.55);
+    background: rgba(114,214,255,0.045);
+  }
+
+  .trajectory-mobile-readout span {
+    color: rgba(237,247,241,0.86);
+    font-size: 0.68rem;
+    line-height: 1.25;
+    font-weight: 750;
+  }
+
+  .trajectory-mobile-readout strong {
+    color: rgba(247,201,72,0.95);
+    font-size: 0.72rem;
+    line-height: 1.2;
+  }
+
+  .trajectory-mobile-readout em {
+    color: rgba(237,247,241,0.52);
+    font-size: 0.6rem;
+    line-height: 1.2;
+    font-style: normal;
+  }
+}
