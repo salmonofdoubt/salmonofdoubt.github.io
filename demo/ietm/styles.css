@@ -7701,3 +7701,45 @@ h3 {
 }
 
 /* IETM demand pressure unit hierarchy: END */
+
+/* IETM interconnection arrow note: BEGIN */
+
+#metricGrid .metric-card[data-accent="interconnection"] .interconnection-note {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.28rem !important;
+  white-space: nowrap !important;
+  color: var(--green) !important;
+  font-weight: 850 !important;
+}
+
+#metricGrid .metric-card[data-accent="interconnection"] .interconnection-arrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  flex: 0 0 auto !important;
+}
+
+/* IETM interconnection arrow note: END */
+
+/* IETM interconnection inline note: BEGIN */
+
+#metricGrid .metric-card[data-accent="interconnection"] .interconnection-note {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.3rem !important;
+  white-space: nowrap !important;
+  color: var(--green) !important;
+  font-weight: 850 !important;
+}
+
+#metricGrid .metric-card[data-accent="interconnection"] .interconnection-arrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  line-height: 1 !important;
+}
+
+/* IETM interconnection inline note: END */

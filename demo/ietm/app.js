@@ -2248,9 +2248,9 @@ function iemInterconnectionDisplay(e) {
     return { value: "Near balanced", note: "Interconnector flow close to zero" };
   }
   if (signed > 0) {
-    return { value: `${iemValue(signed, 0)} MW`, note: "Importing electricity" };
+    return { value: `${iemValue(signed, 0)} MW`, note: "Net import" };
   }
-  return { value: `${iemValue(Math.abs(signed), 0)} MW`, note: "Exporting electricity" };
+  return { value: `${iemValue(Math.abs(signed), 0)} MW`, note: "Net export" };
 }
 
 function metricCard(label, value, note, className = "") {
@@ -2315,8 +2315,8 @@ function renderDailyPulse(data) {
   const interNote = Math.abs(signedInterconnection) < 1
     ? "Near-balanced interconnector flow."
     : signedInterconnection > 0
-      ? "Importing electricity."
-      : "Exporting electricity.";
+      ? "Net import."
+      : "Net export.";
 
   const gap = isNumber(drift.gap_to_target_pp) ? drift.gap_to_target_pp : pulseLast(history, "target_gap_pp");
 
@@ -3929,13 +3929,13 @@ function iemInterconnectionDisplay(e) {
   if (mw > 0) {
     return {
       value: `${iemValue(mw, 0)} MW`,
-      note: "Importing electricity"
+      note: "Net import"
     };
   }
 
   return {
     value: `${iemValue(Math.abs(mw), 0)} MW`,
-    note: "Exporting electricity"
+    note: "Net export"
   };
 }
 
@@ -3946,16 +3946,16 @@ function ietmFlowMeta(direction) {
   if (d.includes("export")) {
     return {
       cls: "export",
-      arrow: "↗",
-      text: "Exporting electricity"
+      arrow: "",
+      text: "Net export"
     };
   }
 
   if (d.includes("import")) {
     return {
       cls: "import",
-      arrow: "↘",
-      text: "Importing electricity"
+      arrow: "",
+      text: "Net import"
     };
   }
 
@@ -4032,11 +4032,11 @@ function ietmPlainFlowMeta(direction) {
   const d = String(direction || "").toLowerCase();
 
   if (d.includes("export")) {
-    return { cls: "export", arrow: "↗", text: "Exporting electricity" };
+    return { cls: "export", arrow: "", text: "Net export" };
   }
 
   if (d.includes("import")) {
-    return { cls: "import", arrow: "↘", text: "Importing electricity" };
+    return { cls: "import", arrow: "", text: "Net import" };
   }
 
   if (d.includes("balanc")) {
@@ -4141,11 +4141,11 @@ function ietmPlainFlowMeta(direction) {
   const d = String(direction || "").toLowerCase();
 
   if (d.includes("export")) {
-    return { cls: "export", arrow: "↗", text: "Exporting electricity" };
+    return { cls: "export", arrow: "", text: "Net export" };
   }
 
   if (d.includes("import")) {
-    return { cls: "import", arrow: "↘", text: "Importing electricity" };
+    return { cls: "import", arrow: "", text: "Net import" };
   }
 
   if (d.includes("balanc")) {
@@ -4417,11 +4417,7 @@ function iemPowerForLiveCards(value, options = {}) {
     const isExporting = interconnectionMw < 0 || interconnectionDirection.includes("export");
     const isImporting = interconnectionMw > 0 || interconnectionDirection.includes("import");
 
-    const interconnectionNote = isExporting
-      ? "↗ Exporting electricity"
-      : isImporting
-        ? "↘ Importing electricity"
-        : "Near balanced";
+    const interconnectionNote = isExporting ? "Net export" : isImporting ? "Net import" : "Near balanced";
 
     const co2Available =
       e.co2_available !== false &&
@@ -4474,280 +4470,158 @@ function iemPowerForLiveCards(value, options = {}) {
 })();
 // IETM generation-basis live metric renderer: END
 
-// IETM final interconnection display fix: BEGIN
-function iemFormatSignedInterconnectionMw(mw) {
-  const absMw = Math.abs(Number(mw));
-
-  if (!Number.isFinite(absMw)) return "n/a";
-
-  if (absMw >= 1000) {
-    return `${(absMw / 1000).toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })} GW`;
-  }
-
-  return `${absMw.toLocaleString(undefined, {
-    maximumFractionDigits: 0
-  })} MW`;
-}
-
+// IETM live visible SmartGrid net import display: BEGIN
 (function () {
   const previousRenderMetrics = renderMetrics;
 
-  renderMetrics = function renderMetricsWithFinalInterconnectionFix(data) {
+  renderMetrics = function renderMetricsWithLiveVisibleNetImport(data) {
     previousRenderMetrics(data);
 
     const e = data.electricity_now || {};
-    const basisMw = Number(e.generation_mw || e.demand_mw || 0);
+    const grid = document.getElementById("metricGrid");
+    if (!grid) return;
 
-    let mw = Number(e.interconnection_mw);
-    let pct = Number(e.net_import_percent ?? e.interconnection_percent);
-
-    if (
-      basisMw > 0 &&
-      Number.isFinite(pct) &&
-      (!Number.isFinite(mw) || Math.abs(mw) < 0.5) &&
-      Math.abs(pct) > 0.005
-    ) {
-      mw = basisMw * pct / 100;
-    }
-
-    if (
-      basisMw > 0 &&
-      Number.isFinite(mw) &&
-      !Number.isFinite(pct)
-    ) {
-      pct = mw / basisMw * 100;
-    }
-
-    const direction =
-      mw < -0.5 || pct < -0.005
-        ? "↗ Exporting electricity"
-        : mw > 0.5 || pct > 0.005
-          ? "↘ Importing electricity"
-          : "Near balanced";
-
-    const pctText = Number.isFinite(pct) && Math.abs(pct) > 0.005
-      ? ` · ${Math.abs(pct).toFixed(2)}%`
-      : "";
-
-    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
-      const label = card.querySelector("span");
-      const value = card.querySelector("strong");
-      const note = card.querySelector("small");
-
-      if (
-        label &&
-        value &&
-        label.textContent.trim().toLowerCase() === "interconnection"
-      ) {
-        value.textContent = Number.isFinite(mw)
-          ? iemFormatSignedInterconnectionMw(mw)
-          : "n/a";
-
-        if (note) {
-          note.textContent = `${direction}${pctText}`;
-        }
-
-        break;
-      }
-    }
-  };
-})();
-// IETM final interconnection display fix: END
-
-// IETM authoritative net-import display: BEGIN
-function iemAuthoritativeInterconnectionPercent(e) {
-  const direct = Number(e.net_import_percent ?? e.interconnection_percent);
-  if (Number.isFinite(direct)) return direct;
-
-  const exportsPct = Number(e.exports_percent);
-  if (Number.isFinite(exportsPct) && exportsPct > 0) return -Math.abs(exportsPct);
-
-  const importsPct = Number(e.imports_percent);
-  if (Number.isFinite(importsPct) && importsPct > 0) return Math.abs(importsPct);
-
-  return NaN;
-}
-
-function iemInterconnectionDisplayValue(mw) {
-  const absMw = Math.abs(Number(mw));
-  if (!Number.isFinite(absMw)) return "n/a";
-
-  if (absMw >= 1000) {
-    return `${(absMw / 1000).toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })} GW`;
-  }
-
-  return `${absMw.toLocaleString(undefined, {
-    maximumFractionDigits: 0
-  })} MW`;
-}
-
-(function () {
-  const previousRenderMetrics = renderMetrics;
-
-  renderMetrics = function renderMetricsWithAuthoritativeNetImport(data) {
-    previousRenderMetrics(data);
-
-    const e = data.electricity_now || {};
-    const basisMw = Number(e.generation_mw || e.demand_mw || 0);
-    const pct = iemAuthoritativeInterconnectionPercent(e);
-
-    let mw = Number(e.interconnection_mw);
-
-    // Net Import percentage is authoritative. It overrides stale direct MW values.
-    if (basisMw > 0 && Number.isFinite(pct)) {
-      mw = basisMw * pct / 100;
-    }
-
-    const direction =
-      mw < -0.5 || pct < -0.005
-        ? "↗ Exporting electricity"
-        : mw > 0.5 || pct > 0.005
-          ? "↘ Importing electricity"
-          : "Near balanced";
-
-    const pctText = Number.isFinite(pct) && Math.abs(pct) > 0.005
-      ? ` · ${Math.abs(pct).toFixed(2)}%`
-      : "";
-
-    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
-      const label = card.querySelector("span");
-      const value = card.querySelector("strong");
-      const note = card.querySelector("small");
-
-      if (
-        label &&
-        value &&
-        label.textContent.trim().toLowerCase() === "interconnection"
-      ) {
-        value.textContent = Number.isFinite(mw)
-          ? iemInterconnectionDisplayValue(mw)
-          : "n/a";
-
-        if (note) note.textContent = `${direction}${pctText}`;
-        break;
-      }
-    }
-  };
-})();
-// IETM authoritative net-import display: END
-
-// IETM safe verified interconnection display: BEGIN
-(function () {
-  const previousRenderMetrics = renderMetrics;
-
-  renderMetrics = function renderMetricsWithVerifiedInterconnectionOnly(data) {
-    previousRenderMetrics(data);
-
-    const e = data.electricity_now || {};
-    const basis = String(e.interconnection_basis || "");
-    const pct = Number(e.net_import_percent ?? e.interconnection_percent);
-    const mw = Number(e.interconnection_mw);
     const generationMw = Number(e.generation_mw || e.demand_mw || 0);
+    const pct = Number(e.net_import_percent ?? e.interconnection_percent);
 
-    let displayValue = "n/a";
-    let displayNote = "Net import not safely mapped";
+    if (!Number.isFinite(generationMw) || generationMw <= 0 || !Number.isFinite(pct)) {
+      return;
+    }
 
-    if (
-      basis.includes("net_import_percent") &&
-      Number.isFinite(pct) &&
-      Math.abs(pct) > 0.005
-    ) {
-      const derivedMw = generationMw > 0 ? generationMw * pct / 100 : NaN;
+    const derivedMw = generationMw * pct / 100.0;
+    const absMw = Math.abs(derivedMw);
 
-      if (Number.isFinite(derivedMw)) {
-        displayValue = `${Math.abs(derivedMw).toLocaleString(undefined, {
+    const valueText = absMw >= 1000
+      ? `${(absMw / 1000).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })} GW`
+      : `${absMw.toLocaleString(undefined, {
           maximumFractionDigits: 0
         })} MW`;
-      } else {
-        displayValue = `${Math.abs(pct).toFixed(2)}%`;
-      }
 
-      displayNote = pct < 0
-        ? `↗ Exporting electricity · ${Math.abs(pct).toFixed(2)}%`
-        : `↘ Importing electricity · ${Math.abs(pct).toFixed(2)}%`;
-    } else if (
-      basis.includes("direct_mw") &&
-      Number.isFinite(mw)
-    ) {
-      displayValue = `${Math.abs(mw).toLocaleString(undefined, {
-        maximumFractionDigits: 0
-      })} MW`;
+    const arrow = pct < -0.005 ? "↗" : pct > 0.005 ? "↘" : "•";
+    const label =
+      pct < -0.005 ? "Net export" :
+      pct > 0.005 ? "Net import" :
+      "Near balanced";
 
-      displayNote = mw < 0
-        ? "↗ Exporting electricity · direct MW"
-        : mw > 0
-          ? "↘ Importing electricity · direct MW"
-          : "Near balanced · direct MW";
-    }
+    const noteText = Math.abs(pct) > 0.005
+      ? `${label} · ${Math.abs(pct).toFixed(2)}%`
+      : label;
 
-    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
-      const label = card.querySelector("span");
-      const value = card.querySelector("strong");
-      const note = card.querySelector("small");
+    let card = null;
 
-      if (
-        label &&
-        value &&
-        label.textContent.trim().toLowerCase() === "interconnection"
-      ) {
-        value.textContent = displayValue;
-        if (note) note.textContent = displayNote;
+    for (const candidate of Array.from(grid.querySelectorAll(".metric-card"))) {
+      const labelEl = candidate.querySelector("span");
+      if (labelEl && labelEl.textContent.trim().toLowerCase() === "interconnection") {
+        card = candidate;
         break;
       }
     }
+
+    if (!card) {
+      card = document.createElement("article");
+      card.className = "metric-card";
+      grid.appendChild(card);
+    }
+
+    card.setAttribute("data-accent", "interconnection");
+
+    card.innerHTML = `
+      <span>Interconnection</span>
+      <strong>${valueText}</strong>
+      <small class="interconnection-note">
+        <span class="interconnection-arrow" aria-hidden="true">${arrow}</span>
+        <span>${noteText}</span>
+      </small>
+    `;
   };
 })();
-// IETM safe verified interconnection display: END
+// IETM live visible SmartGrid net import display: END
 
-// IETM final INTER_NET card display: BEGIN
+// IETM live visible SmartGrid net import display: BEGIN
 (function () {
   const previousRenderMetrics = renderMetrics;
 
-  renderMetrics = function renderMetricsWithInterNetDisplay(data) {
+  renderMetrics = function renderMetricsWithVisibleSmartGridNetImport(data) {
     previousRenderMetrics(data);
 
     const e = data.electricity_now || {};
-    const mw = Number(e.interconnection_mw);
+    const grid = document.getElementById("metricGrid");
+    if (!grid) return;
+
     const basis = String(e.interconnection_basis || "");
+    const generationMw = Number(e.generation_mw || e.demand_mw || 0);
+    const pct = Number(e.net_import_percent ?? e.interconnection_percent);
 
-    for (const card of document.querySelectorAll("#metricGrid .metric-card")) {
-      const label = card.querySelector("span");
-      const value = card.querySelector("strong");
-      const note = card.querySelector("small");
+    let card = null;
 
-      if (!label || !value || label.textContent.trim().toLowerCase() !== "interconnection") {
-        continue;
+    for (const candidate of Array.from(grid.querySelectorAll(".metric-card"))) {
+      const label = candidate.querySelector("span");
+      if (label && label.textContent.trim().toLowerCase() === "interconnection") {
+        card = candidate;
+        break;
       }
-
-      if (basis === "smartgrid_inter_net_mw" && Number.isFinite(mw)) {
-        const absMw = Math.abs(mw);
-
-        value.textContent = absMw >= 1000
-          ? `${(absMw / 1000).toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2
-            })} GW`
-          : `${absMw.toLocaleString(undefined, {
-              maximumFractionDigits: 0
-            })} MW`;
-
-        const direction = mw < -0.5
-          ? "Net export"
-          : mw > 0.5
-            ? "Net import"
-            : "Near balanced";
-
-        if (note) note.textContent = direction;
-      }
-
-      break;
     }
+
+    if (!card) {
+      card = document.createElement("article");
+      card.className = "metric-card";
+      card.setAttribute("data-accent", "interconnection");
+      grid.appendChild(card);
+    }
+
+    card.setAttribute("data-accent", "interconnection");
+
+    // Only the visible SmartGrid overview percentage is allowed to drive this card.
+    // This prevents INTER_NET MW from overwriting the top KPI.
+    if (
+      !basis.includes("visible_generation_overview") ||
+      !Number.isFinite(generationMw) ||
+      generationMw <= 0 ||
+      !Number.isFinite(pct)
+    ) {
+      card.innerHTML = `
+        <span>Interconnection</span>
+        <strong>n/a</strong>
+        <small class="interconnection-note">
+          <span>Net import % not mapped</span>
+        </small>
+      `;
+      return;
+    }
+
+    const derivedMw = generationMw * pct / 100.0;
+    const absMw = Math.abs(derivedMw);
+
+    const valueText = absMw >= 1000
+      ? `${(absMw / 1000).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })} GW`
+      : `${absMw.toLocaleString(undefined, {
+          maximumFractionDigits: 0
+        })} MW`;
+
+    const arrow = pct < -0.005 ? "↗" : pct > 0.005 ? "↘" : "•";
+    const label =
+      pct < -0.005 ? "Net export" :
+      pct > 0.005 ? "Net import" :
+      "Near balanced";
+
+    const noteText = Math.abs(pct) > 0.005
+      ? `${label} · ${Math.abs(pct).toFixed(2)}%`
+      : label;
+
+    card.innerHTML = `
+      <span>Interconnection</span>
+      <strong>${valueText}</strong>
+      <small class="interconnection-note">
+        <span class="interconnection-arrow" aria-hidden="true">${arrow}</span>
+        <span>${noteText}</span>
+      </small>
+    `;
   };
 })();
-// IETM final INTER_NET card display: END
+// IETM live visible SmartGrid net import display: END
