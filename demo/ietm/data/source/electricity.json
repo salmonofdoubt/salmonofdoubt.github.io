@@ -26,7 +26,7 @@
     "co2_unit": "gCO2/kWh",
     "co2_region": "ROI",
     "co2_datetime": "13-May-2026 14:45:00",
-    "generation_mw": 4937,
+    "generation_mw": 4998,
     "wind_mw": 2712,
     "solar_mw": 554,
     "interconnection_mw": null,
@@ -45,41 +45,43 @@
     {
       "label": "Wind",
       "class": "wind",
-      "percent": 29.2,
+      "percent": 58.6,
       "available": true
     },
     {
       "label": "Solar",
       "class": "solar",
-      "percent": 3.5,
+      "percent": 12.0,
       "available": true
     },
     {
       "label": "Imports",
       "class": "imports",
-      "percent": 24.3,
-      "available": true
+      "percent": 0.0,
+      "available": false
     },
     {
-      "label": "Residual",
+      "label": "Uncovered",
       "class": "other",
-      "percent": 43.0,
+      "percent": 29.5,
       "available": true
     }
   ],
   "daily_story": {
-    "headline": "Ireland remains residual-backed in this quarter-hour signal.",
-    "interpretation": "This first live-linked module uses EirGrid quarter-hourly system data where column mapping is possible. Wind and solar are measured directly where available. Residual supply is calculated as everything not identified here as wind, solar or net imports, so it should not yet be read as pure gas."
+    "headline": "Ireland is renewable-led in the latest live grid pulse.",
+    "interpretation": "This panel now uses Smart Grid Dashboard API live values for demand, wind and solar. The uncovered share is a computed remainder. It is not measured gas and does not yet split hydro, storage, fossil generation or imports because interconnection and full fuel mix are not yet mapped.",
+    "source_mode": "Smart Grid Dashboard API",
+    "period": "latest non-null actual interval"
   },
   "gas": {
-    "share_percent": 40.3,
-    "signal": "Residual supply estimate",
-    "narrative": "Residual supply is currently calculated as demand not covered by detected wind, solar and net imports. A later fuel-mix harvester should split this into gas, hydro, storage, coal/oil and other sources."
+    "share_percent": 29.5,
+    "signal": "Uncovered demand estimate",
+    "narrative": "Uncovered demand is calculated from live demand minus mapped wind and solar cover. It is not measured gas. A later fuel-mix endpoint should split this into gas, hydro, storage, imports and other sources."
   },
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-13T15:21:48+00:00",
+    "harvested_at": "2026-05-13T15:25:06+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -125,7 +127,7 @@
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
-      "harvested_at": "2026-05-13T15:21:49+00:00",
+      "harvested_at": "2026-05-13T15:25:07+00:00",
       "mode": "diagnostic-only",
       "caveat": "Smart Grid visible-page parser is disabled for demand, wind and solar because visible-page scraping can confuse actual, forecast and chart values. Core grid quantities use the official EirGrid quarter-hourly workbook instead.",
       "probe_file": "ops/debug/smartgrid_live_probe.json"
@@ -134,7 +136,7 @@
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=13-May-2026+00%3A00&dateTo=13-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-05-13T15:21:49+00:00",
+      "harvested_at": "2026-05-13T15:25:08+00:00",
       "region": "ROI",
       "parser": {
         "row_count": 78,
@@ -147,7 +149,7 @@
     "smartgrid_api_live": {
       "source": "Smart Grid Dashboard API",
       "source_url": "https://www.smartgriddashboard.com/",
-      "harvested_at": "2026-05-13T15:21:50+00:00",
+      "harvested_at": "2026-05-13T15:25:09+00:00",
       "mode": "direct-api-latest-non-null-actual",
       "region": "ALL",
       "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected."

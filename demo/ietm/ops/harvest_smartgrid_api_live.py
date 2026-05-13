@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """
-Direct Smart Grid Dashboard API live harvester for IETM.
+IETM Smart Grid Dashboard API live harvester.
 
-Uses discovered endpoint pattern:
-https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=13-May-2026&dateTo=13-May-2026&areas=generationactual
-
-No cookies. No browser headers. No stale workbook pretending to be live.
+Strict rule:
+- use Smart Grid API Rows only
+- use explicit Value only
+- reject future/null rows
+- select latest non-null actual value at or before local Ireland time
 """
 
 from __future__ import annotations
@@ -15,9 +16,10 @@ import math
 import re
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,59 +30,46 @@ DEBUG_OUT = DEBUG / "smartgrid_api_live_debug.json"
 
 API = "https://www.smartgriddashboard.com/api/chart/"
 REGION = "ALL"
+DUBLIN = ZoneInfo("Europe/Dublin")
 
-
-CANDIDATES = {
-    "demand_mw": [
-        ("generation", "demandactual"),
-        ("generation", "systemdemand"),
-        ("generation", "systemdemandactual"),
-        ("demand", "demandactual"),
-    ],
-    "generation_mw": [
-        ("generation", "generationactual"),
-        ("generation", "systemgeneration"),
-        ("generation", "systemgenerationactual"),
-    ],
-    "wind_mw": [
-        ("generation", "windactual"),
-        ("generation", "windgenerationactual"),
-        ("wind", "windactual"),
-        ("wind", "generationactual"),
-    ],
-    "solar_mw": [
-        ("generation", "solaractual"),
-        ("generation", "solargenerationactual"),
-        ("solar", "solaractual"),
-        ("solar", "generationactual"),
-    ],
-    "interconnection_mw": [
-        ("interconnection", "interconnectionactual"),
-        ("interconnection", "netinterconnection"),
-        ("interconnection", "netinterconnectionactual"),
-    ],
+SERIES = {
+    "demand_mw": {
+        "chartType": "generation",
+        "area": "demandactual",
+        "field": "SYSTEM_DEMAND",
+        "range": (1000, 12000),
+    },
+    "generation_mw": {
+        "chartType": "generation",
+        "area": "generationactual",
+        "field": "GEN_EXP",
+        "range": (500, 14000),
+    },
+    "wind_mw": {
+        "chartType": "generation",
+        "area": "windactual",
+        "field": "WIND_ACTUAL",
+        "range": (0, 7000),
+    },
+    "solar_mw": {
+        "chartType": "generation",
+        "area": "solaractual",
+        "field": "SOLAR_ACTUAL",
+        "range": (-100, 2500),
+    },
 }
 
 
-RANGES = {
-    "demand_mw": (1000, 12000),
-    "generation_mw": (500, 14000),
-    "wind_mw": (0, 7000),
-    "solar_mw": (0, 2500),
-    "interconnection_mw": (-2500, 2500),
-}
-
-
-def now_utc() -> datetime:
-    return datetime.now(timezone.utc).replace(microsecond=0)
+def now_local() -> datetime:
+    return datetime.now(DUBLIN).replace(microsecond=0)
 
 
 def now_iso() -> str:
-    return now_utc().isoformat()
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
 def day_label() -> str:
-    return now_utc().strftime("%d-%b-%Y")
+    return now_local().strftime("%d-%b-%Y")
 
 
 def read_json(path: Path, fallback: Any) -> Any:
@@ -102,19 +91,31 @@ def parse_number(value: Any) -> float | None:
         return None
     if isinstance(value, (int, float)) and math.isfinite(value):
         return float(value)
-
     text = str(value).replace(",", "").strip()
     if not text:
         return None
-
     m = re.search(r"[-+]?\d+(?:\.\d+)?", text)
     if not m:
         return None
-
     try:
         return float(m.group(0))
     except Exception:
         return None
+
+
+def parse_smartgrid_time(value: Any) -> datetime | None:
+    if not value:
+        return None
+
+    text = str(value).strip()
+    for fmt in ("%d-%b-%Y %H:%M:%S", "%d-%b-%Y %H:%M", "%Y-%m-%dT%H:%M:%S"):
+        try:
+            dt = datetime.strptime(text, fmt)
+            return dt.replace(tzinfo=DUBLIN)
+        except ValueError:
+            pass
+
+    return None
 
 
 def pct(part: float | None, whole: float | None) -> float:
@@ -136,11 +137,12 @@ def api_url(chart_type: str, area: str) -> str:
     return f"{API}?{urllib.parse.urlencode(params)}"
 
 
-def fetch_json(url: str) -> Any:
+def fetch_rows(chart_type: str, area: str) -> tuple[str, list[dict[str, Any]], str]:
+    url = api_url(chart_type, area)
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyTransitionMonitor/0.68 (+https://salmonofdoubt.github.io/demo/ietm/)",
+            "User-Agent": "IrelandEnergyTransitionMonitor/0.70 (+https://salmonofdoubt.github.io/demo/ietm/)",
             "Accept": "application/json,text/plain,*/*",
             "Accept-Language": "en-IE,en;q=0.9",
             "eirgrid-content-request": "Nextjs",
@@ -149,161 +151,83 @@ def fetch_json(url: str) -> Any:
     )
     with urllib.request.urlopen(req, timeout=45) as r:
         raw = r.read().decode("utf-8", errors="replace")
-        return json.loads(raw)
+
+    payload = json.loads(raw)
+    rows = payload.get("Rows", []) if isinstance(payload, dict) else []
+    if not isinstance(rows, list):
+        rows = []
+
+    return url, rows, raw[:1000]
 
 
-def flatten_rows(obj: Any) -> list[dict[str, Any]]:
-    rows: list[dict[str, Any]] = []
+def latest_valid_row(metric: str, rows: list[dict[str, Any]], spec: dict[str, Any]) -> dict | None:
+    low, high = spec["range"]
+    expected_field = spec["field"]
+    cutoff = now_local() + timedelta(minutes=20)
 
-    def walk(value: Any, context: dict[str, Any] | None = None) -> None:
-        context = dict(context or {})
+    valid = []
+    rejected = {
+        "null_value": 0,
+        "future": 0,
+        "wrong_field": 0,
+        "implausible": 0,
+        "bad_time": 0,
+    }
 
-        if isinstance(value, list):
-            if (
-                len(value) >= 2
-                and not isinstance(value[0], (dict, list))
-                and not isinstance(value[1], (dict, list))
-            ):
-                y = parse_number(value[1])
-                if y is not None:
-                    rows.append({**context, "x": value[0], "y": y})
-                    return
-
-            for item in value:
-                walk(item, context)
-            return
-
-        if isinstance(value, dict):
-            label = (
-                value.get("name")
-                or value.get("label")
-                or value.get("FieldName")
-                or value.get("fieldName")
-                or value.get("title")
-                or value.get("area")
-                or value.get("Area")
-            )
-
-            next_context = dict(context)
-            if label:
-                next_context["series"] = str(label)
-
-            scalar_values = {
-                k: v for k, v in value.items()
-                if not isinstance(v, (dict, list))
-            }
-
-            if len(scalar_values) >= 2:
-                rows.append({**context, **scalar_values})
-
-            for child in value.values():
-                if isinstance(child, (dict, list)):
-                    walk(child, next_context)
-
-    walk(obj)
-    return rows
-
-
-def row_value(row: dict[str, Any]) -> float | None:
-    for key in ("Value", "value", "Y", "y", "actual", "Actual", "MW", "mw", "data"):
-        if key in row:
-            n = parse_number(row[key])
-            if n is not None:
-                return n
-
-    nums = []
-    for key, value in row.items():
-        if key.lower() in {"x", "time", "datetime", "date", "timestamp"}:
-            continue
-        n = parse_number(value)
-        if n is not None:
-            nums.append(n)
-
-    return nums[-1] if nums else None
-
-
-def row_time(row: dict[str, Any]) -> str:
-    for key in ("DateTime", "datetime", "dateTime", "EffectiveTime", "effectiveTime", "time", "Time", "x", "timestamp"):
-        if row.get(key):
-            return str(row[key])
-    return ""
-
-
-def plausible(metric: str, value: float | None) -> bool:
-    if value is None:
-        return False
-    low, high = RANGES[metric]
-    return low <= float(value) <= high
-
-
-def latest_value_from_rows(metric: str, rows: list[dict[str, Any]]) -> dict | None:
-    values = []
     for row in rows:
-        n = row_value(row)
-        if n is None:
+        if str(row.get("FieldName", "")).upper() != expected_field:
+            rejected["wrong_field"] += 1
             continue
-        if not plausible(metric, n):
+
+        value = parse_number(row.get("Value"))
+        if value is None:
+            rejected["null_value"] += 1
             continue
-        values.append({
-            "value": float(n),
-            "time": row_time(row),
+
+        dt = parse_smartgrid_time(row.get("EffectiveTime"))
+        if dt is None:
+            rejected["bad_time"] += 1
+            continue
+
+        if dt > cutoff:
+            rejected["future"] += 1
+            continue
+
+        if not (low <= value <= high):
+            rejected["implausible"] += 1
+            continue
+
+        valid.append({
+            "value": value,
+            "time_local": dt.isoformat(),
+            "effective_time": row.get("EffectiveTime"),
             "row": row,
         })
 
-    if not values:
-        return None
+    if not valid:
+        return {
+            "ok": False,
+            "metric": metric,
+            "valid_count": 0,
+            "rejected": rejected,
+            "latest": None,
+        }
 
-    return values[-1]
-
-
-def fetch_metric(metric: str) -> dict:
-    attempts = []
-
-    for chart_type, area in CANDIDATES[metric]:
-        url = api_url(chart_type, area)
-        try:
-            payload = fetch_json(url)
-            rows = flatten_rows(payload)
-            latest = latest_value_from_rows(metric, rows)
-
-            attempts.append({
-                "chart_type": chart_type,
-                "area": area,
-                "url": url,
-                "row_count": len(rows),
-                "sample_rows": rows[:4],
-                "latest": latest,
-            })
-
-            if latest:
-                return {
-                    "ok": True,
-                    "metric": metric,
-                    "chart_type": chart_type,
-                    "area": area,
-                    "url": url,
-                    "value": latest["value"],
-                    "time": latest.get("time") or "",
-                    "row": latest.get("row"),
-                    "attempts": attempts,
-                }
-        except Exception as exc:
-            attempts.append({
-                "chart_type": chart_type,
-                "area": area,
-                "url": url,
-                "error": str(exc),
-            })
+    latest = max(valid, key=lambda item: item["time_local"])
 
     return {
-        "ok": False,
+        "ok": True,
         "metric": metric,
-        "attempts": attempts,
+        "valid_count": len(valid),
+        "rejected": rejected,
+        "latest": latest,
     }
 
 
-def normalise_renewable_cover(wind_pct_raw: float, solar_pct_raw: float) -> dict[str, float | bool]:
-    total = max(0.0, wind_pct_raw) + max(0.0, solar_pct_raw)
+def normalise_cover(wind_pct_raw: float, solar_pct_raw: float) -> dict[str, Any]:
+    solar_pct_raw = max(0.0, solar_pct_raw)
+    wind_pct_raw = max(0.0, wind_pct_raw)
+    total = wind_pct_raw + solar_pct_raw
 
     if total <= 100:
         return {
@@ -326,6 +250,33 @@ def normalise_renewable_cover(wind_pct_raw: float, solar_pct_raw: float) -> dict
     }
 
 
+
+def average_valid_values(metric: str, debug: dict) -> float | None:
+    block = debug.get("series", {}).get(metric, {})
+    selected = block.get("selected", {})
+    latest = selected.get("latest")
+    if not latest:
+        return None
+
+    # Reconstruct from valid rows by using the raw API rows kept in debug last_6 only is not enough,
+    # so this function is intentionally conservative for now.
+    return float(latest["value"])
+
+
+def build_live_fuel_mix(demand: float, wind: float, solar: float, residual: float) -> list[dict[str, object]]:
+    wind_pct = pct(wind, demand)
+    solar_pct = pct(max(0.0, solar), demand)
+
+    # Until the interconnection endpoint is mapped, do not pretend imports are known.
+    imports_pct = 0.0
+
+    return [
+        {"label": "Wind", "class": "wind", "percent": round(wind_pct, 1), "available": True},
+        {"label": "Solar", "class": "solar", "percent": round(solar_pct, 1), "available": True},
+        {"label": "Imports", "class": "imports", "percent": 0.0, "available": False},
+        {"label": "Uncovered", "class": "other", "percent": round(residual, 1), "available": True},
+    ]
+
 def main() -> int:
     SOURCE.mkdir(parents=True, exist_ok=True)
     DEBUG.mkdir(parents=True, exist_ok=True)
@@ -333,56 +284,64 @@ def main() -> int:
     existing = read_json(OUT, {})
     debug = {
         "generated_at": now_iso(),
+        "local_now": now_local().isoformat(),
         "region": REGION,
         "day": day_label(),
-        "metrics": {},
+        "series": {},
         "errors": [],
     }
 
-    results = {}
-    for metric in CANDIDATES:
-        result = fetch_metric(metric)
-        debug["metrics"][metric] = result
-        if result.get("ok"):
-            results[metric] = float(result["value"])
+    values = {}
+    times = []
 
-    if "demand_mw" not in results or "wind_mw" not in results:
-        debug["errors"].append("Live API did not prove demand_mw and wind_mw. Electricity data unchanged.")
+    for metric, spec in SERIES.items():
+        url, rows, preview = fetch_rows(spec["chartType"], spec["area"])
+        selected = latest_valid_row(metric, rows, spec)
+
+        debug["series"][metric] = {
+            "url": url,
+            "chartType": spec["chartType"],
+            "area": spec["area"],
+            "expected_field": spec["field"],
+            "row_count": len(rows),
+            "response_preview": preview,
+            "selected": selected,
+            "last_6_rows": rows[-6:],
+        }
+
+        if selected.get("ok"):
+            latest = selected["latest"]
+            values[metric] = float(latest["value"])
+            times.append(latest["time_local"])
+        else:
+            debug["errors"].append(f"{metric}: no valid non-null row at or before now")
+
+    if "demand_mw" not in values or "wind_mw" not in values:
         write_json(DEBUG_OUT, debug)
         print("Smart Grid API live values not proven. Electricity data unchanged.")
+        print(json.dumps(debug["errors"], indent=2))
         print(f"Debug written: {DEBUG_OUT.relative_to(ROOT)}")
         return 0
 
-    demand = results["demand_mw"]
-    wind = results.get("wind_mw", 0.0)
-    solar = results.get("solar_mw", 0.0)
-    generation = results.get("generation_mw")
-    interconnection = results.get("interconnection_mw", 0.0)
+    demand = values["demand_mw"]
+    generation = values.get("generation_mw")
+    wind = values["wind_mw"]
+    solar = max(0.0, values.get("solar_mw", 0.0))
 
     wind_pct_raw = pct(wind, demand)
     solar_pct_raw = pct(solar, demand)
-    cover = normalise_renewable_cover(wind_pct_raw, solar_pct_raw)
+    cover = normalise_cover(wind_pct_raw, solar_pct_raw)
 
-    imports_mw = max(interconnection, 0.0)
-    exports_mw = max(-interconnection, 0.0)
-    imports_pct = pct(imports_mw, demand)
-    exports_pct = pct(exports_mw, demand)
+    # Interconnection API endpoint still needs separate mapping. Do not fake live imports.
+    interconnection = None
+    imports_mw = 0.0
+    exports_mw = 0.0
+    imports_pct = 0.0
+    exports_pct = 0.0
+    direction = "not mapped"
 
     residual = max(0.0, 100.0 - min(100.0, float(cover["renewables"]) + imports_pct))
-
-    if abs(interconnection) < 1:
-        direction = "near balanced"
-    elif interconnection > 0:
-        direction = "importing"
-    else:
-        direction = "exporting"
-
-    times = [
-        debug["metrics"][m].get("time")
-        for m in ("demand_mw", "generation_mw", "wind_mw", "solar_mw", "interconnection_mw")
-        if debug["metrics"].get(m, {}).get("ok")
-    ]
-    latest_time = next((t for t in reversed(times) if t), now_iso())
+    latest_time = max(times) if times else now_iso()
 
     electricity_now = existing.get("electricity_now", {}) or {}
     electricity_now.update({
@@ -390,10 +349,10 @@ def main() -> int:
         "generation_mw": round(generation) if generation is not None else electricity_now.get("generation_mw"),
         "wind_mw": round(wind),
         "solar_mw": round(solar),
-        "interconnection_mw": round(interconnection),
+        "interconnection_mw": interconnection,
         "interconnection_direction": direction,
-        "imports_mw": round(imports_mw),
-        "exports_mw": round(exports_mw),
+        "imports_mw": imports_mw,
+        "exports_mw": exports_mw,
         "imports_percent": round(imports_pct, 1),
         "exports_percent": round(exports_pct, 1),
         "wind_percent": round(float(cover["wind"]), 1),
@@ -403,30 +362,60 @@ def main() -> int:
         "renewable_surplus_percent": round(float(cover["surplus"]), 1),
         "renewables_coverage_percent": round(float(cover["renewables"]), 1),
         "renewables_normalised": bool(cover["normalised"]),
-        "renewables_model": "smartgrid_api_live_chart",
-        "renewables_definition": "Wind plus solar cover of current demand from Smart Grid Dashboard API.",
+        "renewables_model": "smartgrid_api_latest_non_null_actual",
+        "renewables_definition": "Latest non-null Smart Grid Dashboard API wind plus solar cover of current demand.",
         "residual_percent": round(residual, 1),
         "gas_percent": round(residual, 1),
         "gas_is_residual_proxy": True,
         "electricity_datetime": latest_time,
         "source_label": "Smart Grid Dashboard API",
-        "source_url": debug["metrics"]["demand_mw"].get("url") or debug["metrics"]["generation_mw"].get("url"),
-        "source_freshness": "live chart API",
+        "source_url": debug["series"]["demand_mw"]["url"],
+        "source_freshness": "live chart API latest non-null actual",
         "data_age_hours": 0,
         "smartgrid_live_available": True,
         "smartgrid_api_live": True,
-        "consistency_warnings": [],
+        "interconnection_available": False,
+        "consistency_warnings": [
+            "Interconnection not yet mapped from Smart Grid API; imports shown as 0 until endpoint is wired."
+        ],
     })
 
     existing["electricity_now"] = electricity_now
+
+    existing["fuel_mix_24h"] = build_live_fuel_mix(demand, wind, solar, residual)
+
+    existing["daily_story"] = {
+        "headline": (
+            "Ireland is renewable-led in the latest live grid pulse."
+            if float(cover["renewables"]) >= residual
+            else "Ireland remains residual-backed in the latest live grid pulse."
+        ),
+        "interpretation": (
+            "This panel now uses Smart Grid Dashboard API live values for demand, wind and solar. "
+            "The uncovered share is a computed remainder. It is not measured gas and does not yet split "
+            "hydro, storage, fossil generation or imports because interconnection and full fuel mix are not yet mapped."
+        ),
+        "source_mode": "Smart Grid Dashboard API",
+        "period": "latest non-null actual interval",
+    }
+
+    existing["gas"] = {
+        "share_percent": round(residual, 1),
+        "signal": "Uncovered demand estimate",
+        "narrative": (
+            "Uncovered demand is calculated from live demand minus mapped wind and solar cover. "
+            "It is not measured gas. A later fuel-mix endpoint should split this into gas, hydro, storage, imports and other sources."
+        ),
+    }
+
     existing.setdefault("source_status", {})
     existing["source_status"]["smartgrid_api_live"] = {
         "source": "Smart Grid Dashboard API",
         "source_url": "https://www.smartgriddashboard.com/",
         "harvested_at": now_iso(),
-        "mode": "direct-api-live-chart",
+        "mode": "direct-api-latest-non-null-actual",
         "region": REGION,
-        "caveat": "Direct API calls derived from Smart Grid Dashboard chart requests.",
+        "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected.",
     }
 
     write_json(OUT, existing)
@@ -434,11 +423,11 @@ def main() -> int:
 
     print("Wrote Smart Grid API live electricity values.")
     print(json.dumps({
+        "local_now": debug["local_now"],
         "demand_mw": electricity_now.get("demand_mw"),
         "generation_mw": electricity_now.get("generation_mw"),
         "wind_mw": electricity_now.get("wind_mw"),
         "solar_mw": electricity_now.get("solar_mw"),
-        "interconnection_mw": electricity_now.get("interconnection_mw"),
         "wind_percent": electricity_now.get("wind_percent"),
         "solar_percent": electricity_now.get("solar_percent"),
         "renewables_percent": electricity_now.get("renewables_percent"),

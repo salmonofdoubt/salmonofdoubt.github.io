@@ -3850,3 +3850,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("v0.65 source governance render failed", error);
   }
 });
+
+/* v0.71 Do not pretend interconnection is mapped when API endpoint is absent */
+function iemInterconnectionDisplay(e) {
+  if (e && e.interconnection_available === false) {
+    return {
+      value: "Not mapped",
+      note: "Interconnection API endpoint pending"
+    };
+  }
+
+  const mw = Number(e?.interconnection_mw);
+
+  if (!Number.isFinite(mw) || Math.abs(mw) < 1) {
+    return {
+      value: "Near balanced",
+      note: "Interconnector flow close to zero"
+    };
+  }
+
+  if (mw > 0) {
+    return {
+      value: `${iemValue(mw, 0)} MW`,
+      note: "Importing electricity"
+    };
+  }
+
+  return {
+    value: `${iemValue(Math.abs(mw), 0)} MW`,
+    note: "Exporting electricity"
+  };
+}
