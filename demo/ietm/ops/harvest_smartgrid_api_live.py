@@ -269,17 +269,33 @@ def average_valid_values(metric: str, debug: dict) -> float | None:
     return float(latest["value"])
 
 
-def build_live_fuel_mix(demand: float, wind: float, solar: float, residual: float) -> list[dict[str, object]]:
+def build_live_fuel_mix(
+    demand: float,
+    wind: float,
+    solar: float,
+    residual: float,
+    imports_pct: float = 0.0,
+    interconnection_available: bool = False,
+) -> list[dict[str, object]]:
+    """
+    Demand-cover summary, not full fuel mix.
+
+    Wind, solar and imports show the share of current demand covered by each.
+    Uncovered is the computed remainder. It is not measured gas and not a full
+    technology split.
+    """
     wind_pct = pct(wind, demand)
     solar_pct = pct(max(0.0, solar), demand)
-
-    # Until the interconnection endpoint is mapped, do not pretend imports are known.
-    imports_pct = 0.0
 
     return [
         {"label": "Wind", "class": "wind", "percent": round(wind_pct, 1), "available": True},
         {"label": "Solar", "class": "solar", "percent": round(solar_pct, 1), "available": True},
-        {"label": "Imports", "class": "imports", "percent": 0.0, "available": False},
+        {
+            "label": "Imports",
+            "class": "imports",
+            "percent": round(imports_pct, 1),
+            "available": bool(interconnection_available),
+        },
         {"label": "Uncovered", "class": "other", "percent": round(residual, 1), "available": True},
     ]
 
@@ -405,7 +421,14 @@ def main() -> int:
 
     existing["electricity_now"] = electricity_now
 
-    existing["fuel_mix_24h"] = build_live_fuel_mix(demand, wind, solar, residual)
+    existing["fuel_mix_24h"] = build_live_fuel_mix(
+        demand,
+        wind,
+        solar,
+        residual,
+        imports_pct=imports_pct,
+        interconnection_available=interconnection_available,
+    )
 
     existing["daily_story"] = {
         "headline": (
