@@ -4515,3 +4515,92 @@ function iemPowerForLiveCards(value, options = {}) {
   });
 })();
 // IETM post-render interconnection arrow: END
+
+// IETM demand pressure fallback renderer: BEGIN
+const IEM_DEMAND_PRESSURE_FALLBACK = {
+  title: "Emerging demand pressure",
+  unit_note:
+    "The live grid cards show instantaneous MW/GW. This panel converts annual demand into average load equivalents so the scale is comparable. Rule of thumb: 1 TWh/yr ≈ 114 MW continuous average demand.",
+  caveat:
+    "Data-centre demand is a current forecast layer. Large energy users and standalone EV charging are latest measured annual CSO layers. EV fleet electricity is modelled, not directly metered.",
+  contrast:
+    "Data centres are already roughly gigawatt-scale average demand. EV electricity is growing, but from a much smaller base. Read this as load pressure, not live dispatch.",
+  cards: [
+    {
+      label: "Data centres",
+      value: "~1.07 GW",
+      subtitle: "Average load equivalent",
+      detail: "9.4 TWh/yr forecast annual electricity use for 2025. Forecast demand, not live metered consumption.",
+      source: "CRU / EirGrid",
+      tone: "pressure",
+      acceleration: "Fast growth: 6.97 TWh measured in 2024 to ~9.4 TWh forecast in 2025"
+    },
+    {
+      label: "Large energy users",
+      value: "~1.13 GW",
+      subtitle: "Average load equivalent",
+      detail: "9.9 TWh/yr measured in 2024, equal to 31% of metered electricity. Includes major data centres and other very large users.",
+      source: "CSO",
+      tone: "measured",
+      acceleration: "Measured annual grid-pressure proxy"
+    },
+    {
+      label: "EV fleet electricity",
+      value: "~51 MW",
+      subtitle: "Average load equivalent",
+      detail: "~0.45 TWh/yr modelled from 196,000 EVs × 13,500 km/year × 0.17 kWh/km. Not a metered national EV feed.",
+      source: "ZEVI / Department of Transport + transparent model",
+      tone: "modelled",
+      acceleration: "Growing fleet, still much smaller than data-centre load"
+    },
+    {
+      label: "Standalone EV charging",
+      value: "~3.8 MW",
+      subtitle: "Average load equivalent",
+      detail: "33 GWh/yr measured at standalone EV charge-point meters in 2024. Excludes home, workplace and depot charging.",
+      source: "CSO",
+      tone: "measured",
+      acceleration: "+43% from 2023 to 2024, partial coverage only"
+    }
+  ]
+};
+
+(function () {
+  renderDemandPressure = function renderDemandPressureWithFallback(data) {
+    const target = document.getElementById("demandPressureGrid");
+    if (!target) return;
+
+    const supplied = data && data.demand_pressure ? data.demand_pressure : {};
+    const pressure = Array.isArray(supplied.cards) && supplied.cards.length
+      ? supplied
+      : IEM_DEMAND_PRESSURE_FALLBACK;
+
+    const cards = pressure.cards || [];
+
+    target.innerHTML = cards.map(card => `
+      <article class="demand-pressure-card ${escapeHtml(card.tone || "")}">
+        <span>${escapeHtml(card.label)}</span>
+        <strong>${escapeHtml(card.value)}</strong>
+        <small>${escapeHtml(card.subtitle || "")}</small>
+        <p>${escapeHtml(card.detail || "")}</p>
+        ${card.acceleration ? `<b class="demand-acceleration">${escapeHtml(card.acceleration)}</b>` : ""}
+        <em>${escapeHtml(card.source || "")}</em>
+      </article>
+    `).join("");
+
+    const contrast = document.getElementById("demandPressureContrast");
+    if (contrast) {
+      contrast.textContent = pressure.contrast || IEM_DEMAND_PRESSURE_FALLBACK.contrast;
+    }
+
+    const note = document.getElementById("demandPressureNote");
+    if (note) {
+      note.innerHTML = `
+        <strong>How to read this:</strong> ${escapeHtml(pressure.unit_note || IEM_DEMAND_PRESSURE_FALLBACK.unit_note)}
+        <br>
+        <strong>Caveat:</strong> ${escapeHtml(pressure.caveat || IEM_DEMAND_PRESSURE_FALLBACK.caveat)}
+      `;
+    }
+  };
+})();
+// IETM demand pressure fallback renderer: END
