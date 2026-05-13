@@ -166,7 +166,41 @@ def page_last_updated(lines: list[str]) -> str | None:
 def pct(part: float | None, whole: float | None) -> float:
     if part is None or whole is None or whole <= 0:
         return 0.0
-    return max(0.0, min(100.0, part / whole * 100.0))
+    return max(0.0, part / whole * 100.0)
+
+
+def normalise_renewable_contribution(wind_pct_raw: float | None, solar_pct_raw: float | None) -> dict:
+    """
+    Convert raw wind/solar output as % of demand into a domestic contribution model.
+
+    Raw output may exceed 100% of demand during export/curtailment conditions.
+    Public contribution cards must not exceed 100% because they describe what
+    powered Irish demand, not total renewable output produced.
+    """
+    wind_raw = max(0.0, float(wind_pct_raw or 0.0))
+    solar_raw = max(0.0, float(solar_pct_raw or 0.0))
+    total_raw = wind_raw + solar_raw
+
+    if total_raw <= 100.0:
+        return {
+            "wind_contribution": wind_raw,
+            "solar_contribution": solar_raw,
+            "renewable_contribution": total_raw,
+            "renewable_output": total_raw,
+            "renewable_surplus": 0.0,
+            "normalised": False,
+        }
+
+    scale = 100.0 / total_raw
+
+    return {
+        "wind_contribution": wind_raw * scale,
+        "solar_contribution": solar_raw * scale,
+        "renewable_contribution": 100.0,
+        "renewable_output": total_raw,
+        "renewable_surplus": total_raw - 100.0,
+        "normalised": True,
+    }
 
 
 def main() -> int:
@@ -298,21 +332,35 @@ def main() -> int:
         imports_mw = max(interconnection_mw, 0.0)
         exports_mw = max(-interconnection_mw, 0.0)
 
-    # For the public "Electricity now" section, use one denominator consistently:
-    # wind and solar as share of current system demand.
-    # Do not mix this with the Smart Grid generation-page renewable percentage,
-    # which may use a different denominator or fuel-mix convention.
-    wind_percent_calc = pct(wind_value, demand_value) if wind_value is not None else None
-    solar_percent_calc = pct(solar_value, demand_value) if solar_value is not None else None
+    # Public "Electricity now" model:
+    # top cards show estimated contribution to Irish demand, never >100%.
+    # Raw output-vs-demand is still stored separately because it may exceed 100%
+    # during export/curtailment conditions.
+    wind_percent_raw = pct(wind_value, demand_value) if wind_value is not None else None
+    solar_percent_raw = pct(solar_value, demand_value) if solar_value is not None else None
 
-    if wind_percent_calc is not None or solar_percent_calc is not None:
-        renewables_percent = max(0.0, min(100.0, (wind_percent_calc or 0.0) + (solar_percent_calc or 0.0)))
+    if wind_percent_raw is not None or solar_percent_raw is not None:
+        renewable_model = normalise_renewable_contribution(wind_percent_raw, solar_percent_raw)
+
+        wind_percent_calc = renewable_model["wind_contribution"]
+        solar_percent_calc = renewable_model["solar_contribution"]
+        renewables_percent = renewable_model["renewable_contribution"]
+        renewables_output_percent = renewable_model["renewable_output"]
+        renewable_surplus_percent = renewable_model["renewable_surplus"]
+        renewables_normalised = renewable_model["normalised"]
+        renewables_model = "normalised_domestic_contribution_from_wind_solar_output"
     else:
         renewables_percent = (
             float(renewable_pct["value"])
             if renewable_pct and is_number(renewable_pct.get("value"))
-            else pct((wind_value or 0) + (solar_value or 0), demand_value)
+            else min(100.0, pct((wind_value or 0) + (solar_value or 0), demand_value))
         )
+        wind_percent_calc = electricity_now.get("wind_percent")
+        solar_percent_calc = electricity_now.get("solar_percent")
+        renewables_output_percent = renewables_percent
+        renewable_surplus_percent = 0.0
+        renewables_normalised = False
+        renewables_model = "dashboard_renewable_percent_fallback"
 
     imports_percent = (
         float(net_import_pct["value"])
@@ -332,14 +380,40 @@ def main() -> int:
     else:
         interconnection_direction = "exporting"
 
-    residual_percent = (
+    # Residual is a computed remainder, not measured gas and not the dashboard
+    # thermal percentage.
+    domestic_supply_known = min(100.0, renewables_percent + imports_percent)
+    residual_percent = max(0.0, 100.0 - domestic_supply_known)
+
+    dashboard_thermal_percent = (
         float(thermal_pct["value"])
         if thermal_pct and is_number(thermal_pct.get("value"))
-        else max(0.0, min(100.0, 100.0 - renewables_percent - imports_percent))
+        else None
+    )
+    dashboard_renewable_percent = (
+        float(renewable_pct["value"])
+        if renewable_pct and is_number(renewable_pct.get("value"))
+        else None
     )
 
     wind_percent = wind_percent_calc if wind_percent_calc is not None else electricity_now.get("wind_percent")
     solar_percent = solar_percent_calc if solar_percent_calc is not None else electricity_now.get("solar_percent")
+
+    consistency_warnings = []
+
+    if is_number(wind_percent_raw) and is_number(solar_percent_raw):
+        raw_total = float(wind_percent_raw or 0) + float(solar_percent_raw or 0)
+        if raw_total > 105 and (exports_mw or 0) <= 0:
+            consistency_warnings.append(
+                "Wind+solar output exceeds demand but no export was parsed. Check Smart Grid parsing."
+            )
+
+    if is_number(renewables_percent) and is_number(residual_percent):
+        total_known = float(renewables_percent) + float(imports_percent or 0) + float(residual_percent)
+        if abs(total_known - 100.0) > 2.0:
+            consistency_warnings.append(
+                f"Displayed contribution stack does not sum to 100: {total_known:.1f}%."
+            )
 
     electricity_now.update({
         "demand_mw": round(demand_value),
@@ -352,6 +426,13 @@ def main() -> int:
         "exports_mw": round(exports_mw) if exports_mw is not None else electricity_now.get("exports_mw"),
         "exports_percent": round(exports_percent, 1),
         "renewables_percent": round(renewables_percent, 1),
+        "renewables_output_percent": round(renewables_output_percent, 1),
+        "renewable_surplus_percent": round(renewable_surplus_percent, 1),
+        "renewables_coverage_percent": round(renewables_percent, 1),
+        "renewables_normalised": bool(renewables_normalised),
+        "renewables_model": renewables_model,
+        "dashboard_thermal_percent": round(dashboard_thermal_percent, 1) if dashboard_thermal_percent is not None else None,
+        "dashboard_renewable_percent": round(dashboard_renewable_percent, 1) if dashboard_renewable_percent is not None else None,
         "wind_percent": round(float(wind_percent), 1) if is_number(wind_percent) else electricity_now.get("wind_percent"),
         "solar_percent": round(float(solar_percent), 1) if is_number(solar_percent) else electricity_now.get("solar_percent"),
         "imports_percent": round(imports_percent, 1),
@@ -361,10 +442,11 @@ def main() -> int:
         "data_age_hours": 0,
         "source_freshness": "current",
         "source_label": "EirGrid Smart Grid Dashboard public pages",
-        "renewables_definition": "Wind plus solar as share of current system demand",
+        "renewables_definition": "Estimated wind plus solar contribution to Irish demand, capped at 100%; raw output is stored separately.",
         "smartgrid_live_available": True,
         "smartgrid_live_harvested_at": now_iso(),
         "smartgrid_html_parser": True,
+        "consistency_warnings": consistency_warnings,
     })
 
     existing["electricity_now"] = electricity_now
