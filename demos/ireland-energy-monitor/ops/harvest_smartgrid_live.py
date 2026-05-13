@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
 """
-Ireland Energy Monitor: Smart Grid Dashboard live electricity harvester.
+Ireland Energy Monitor: Smart Grid Dashboard live-ish HTML harvester.
 
-Purpose:
-- Use EirGrid Smart Grid Dashboard chart API as the preferred current operational source.
-- Keep the older EirGrid quarterly spreadsheet as fallback.
-- Never fabricate values. If no live row is parsed, leave existing electricity.json intact.
+Why this exists:
+- The Smart Grid chart API is currently not returning usable demand rows in the
+  scripted probe.
+- The public dashboard pages themselves expose the latest server-rendered values.
+- This script parses those visible values and overwrites the stale spreadsheet
+  fallback only when it can prove a real value.
 
-This script is deliberately exploratory but safe. It writes a debug probe so we can see
-which chartType/areas combinations returned data.
+It remains conservative: no parsed value, no overwrite.
 """
 
 from __future__ import annotations
 
+import html
 import json
 import math
-import statistics
-import urllib.parse
+import re
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -29,7 +30,14 @@ DEBUG = ROOT / "ops" / "debug"
 ELECTRICITY_OUT = SOURCE / "electricity.json"
 PROBE_OUT = DEBUG / "smartgrid_live_probe.json"
 
-API = "https://www.smartgriddashboard.com/api/chart/"
+BASE = "https://www.smartgriddashboard.com"
+PAGES = {
+    "demand": f"{BASE}/roi/demand/",
+    "generation": f"{BASE}/roi/generation/",
+    "wind": f"{BASE}/roi/wind/",
+    "solar": f"{BASE}/roi/solar/",
+    "interconnection": f"{BASE}/roi/interconnection/",
+}
 
 
 def now_iso() -> str:
@@ -41,15 +49,6 @@ def is_number(value: Any) -> bool:
         return value is not None and math.isfinite(float(value))
     except Exception:
         return False
-
-
-def to_float(value: Any) -> float | None:
-    if value is None:
-        return None
-    try:
-        return float(str(value).replace(",", "."))
-    except Exception:
-        return None
 
 
 def read_json(path: Path, fallback: dict) -> dict:
@@ -66,107 +65,102 @@ def write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2) + "\n")
 
 
-def fetch_json(url: str, timeout: int = 30) -> Any:
+def fetch_html(url: str) -> str:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyMonitor/0.34 (+https://salmonofdoubt.github.io/demos/ireland-energy-monitor/)",
-            "Accept": "application/json,text/plain,*/*",
+            "User-Agent": "IrelandEnergyMonitor/0.37 (+https://salmonofdoubt.github.io/demos/ireland-energy-monitor/)",
+            "Accept": "text/html,*/*",
         },
     )
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.loads(r.read().decode("utf-8", errors="replace"))
+    with urllib.request.urlopen(req, timeout=40) as r:
+        return r.read().decode("utf-8", errors="replace")
 
 
-def chart_url(day: datetime, chart_type: str, areas: str) -> str:
-    date = day.strftime("%d-%b-%Y")
-    params = {
-        "region": "ROI",
-        "chartType": chart_type,
-        "dateRange": "day",
-        "dateFrom": f"{date} 00:00",
-        "dateTo": f"{date} 23:59",
-        "areas": areas,
-    }
-    return f"{API}?{urllib.parse.urlencode(params)}"
+def visible_lines(raw_html: str) -> list[str]:
+    # Remove noisy script/style content, then turn tags into line breaks.
+    s = re.sub(r"<script\b[^>]*>.*?</script>", "\n", raw_html, flags=re.I | re.S)
+    s = re.sub(r"<style\b[^>]*>.*?</style>", "\n", s, flags=re.I | re.S)
+    s = re.sub(r"<[^>]+>", "\n", s)
+    s = html.unescape(s)
+
+    lines = []
+    for line in s.splitlines():
+        line = re.sub(r"\s+", " ", line).strip()
+        if line:
+            lines.append(line)
+
+    return lines
 
 
-def extract_rows(payload: Any) -> list[dict]:
-    if isinstance(payload, dict):
-        rows = payload.get("Rows") or payload.get("rows") or []
-    elif isinstance(payload, list):
-        rows = payload
-    else:
-        rows = []
-
-    out = []
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-
-        field = str(
-            row.get("FieldName")
-            or row.get("fieldName")
-            or row.get("field")
-            or row.get("name")
-            or ""
-        ).upper()
-
-        value = (
-            row.get("Value")
-            if "Value" in row
-            else row.get("value")
-            if "value" in row
-            else row.get("Y")
-            if "Y" in row
-            else None
-        )
-
-        n = to_float(value)
-        if n is None:
-            continue
-
-        time = (
-            row.get("EffectiveTime")
-            or row.get("effectiveTime")
-            or row.get("time")
-            or row.get("DateTime")
-            or row.get("dateTime")
-            or ""
-        )
-
-        out.append({
-            "field": field,
-            "value": n,
-            "time": str(time),
-        })
-
-    return out
-
-
-def latest_by_field(rows: list[dict]) -> dict[str, dict]:
-    latest: dict[str, dict] = {}
-    for row in rows:
-        field = row.get("field") or ""
-        if not field:
-            continue
-        latest[field] = row
-    return latest
-
-
-def find_value(latest: dict[str, dict], required_terms: list[str], avoid_terms: list[str] | None = None) -> dict | None:
-    avoid_terms = avoid_terms or []
-
-    candidates = []
-    for field, row in latest.items():
-        f = field.upper()
-        if all(term.upper() in f for term in required_terms) and not any(term.upper() in f for term in avoid_terms):
-            candidates.append(row)
-
-    if not candidates:
+def parse_number(text: str) -> float | None:
+    m = re.search(r"[-+]?\d{1,3}(?:,\d{3})*(?:\.\d+)?|[-+]?\d+(?:\.\d+)?", text)
+    if not m:
+        return None
+    try:
+        return float(m.group(0).replace(",", ""))
+    except Exception:
         return None
 
-    return candidates[-1]
+
+def norm(text: str) -> str:
+    return re.sub(r"[^A-Z0-9]+", "", text.upper())
+
+
+def find_value_after(
+    lines: list[str],
+    required_tokens: list[str],
+    unit_hint: str | None = None,
+    max_ahead: int = 12,
+    reject_years: bool = True,
+) -> dict | None:
+    """
+    Find first numeric value after a label window.
+    Handles labels split across lines, e.g.:
+      LATEST SYSTEM
+      GENERATION
+      2,820 MW
+    """
+    required = [norm(t) for t in required_tokens]
+
+    for i in range(len(lines)):
+        label_window = " ".join(lines[i:i + 4])
+        label_norm = norm(label_window)
+
+        if not all(t in label_norm for t in required):
+            continue
+
+        for j in range(i + 1, min(len(lines), i + max_ahead)):
+            line = lines[j]
+            neighbour = " ".join(lines[j:j + 2])
+
+            if unit_hint and unit_hint.upper() not in neighbour.upper():
+                # Allow split number/unit only if next line contains unit.
+                continue
+
+            value = parse_number(line)
+            if value is None:
+                continue
+
+            if reject_years and 1900 <= value <= 2100 and unit_hint != "%":
+                continue
+
+            return {
+                "value": value,
+                "line": line,
+                "line_index": j,
+                "label_index": i,
+            }
+
+    return None
+
+
+def page_last_updated(lines: list[str]) -> str | None:
+    for line in lines:
+        m = re.search(r"Last updated:\s*([0-9]{2}/[0-9]{2}/[0-9]{4})", line, flags=re.I)
+        if m:
+            return m.group(1)
+    return None
 
 
 def pct(part: float | None, whole: float | None) -> float:
@@ -175,217 +169,208 @@ def pct(part: float | None, whole: float | None) -> float:
     return max(0.0, min(100.0, part / whole * 100.0))
 
 
-def try_chart(day: datetime, chart_type: str, areas: str) -> dict:
-    url = chart_url(day, chart_type, areas)
-    try:
-        payload = fetch_json(url)
-        rows = extract_rows(payload)
-        fields = sorted({r["field"] for r in rows if r.get("field")})
-        return {
-            "ok": True,
-            "url": url,
-            "chart_type": chart_type,
-            "areas": areas,
-            "row_count": len(rows),
-            "fields": fields,
-            "rows": rows[-20:],
-        }
-    except Exception as exc:
-        return {
-            "ok": False,
-            "url": url,
-            "chart_type": chart_type,
-            "areas": areas,
-            "error": str(exc),
-            "row_count": 0,
-            "fields": [],
-            "rows": [],
-        }
-
-
-def collect_live_rows() -> tuple[list[dict], list[dict]]:
-    today = datetime.now(timezone.utc)
-    days = [today, today - timedelta(days=1)]
-
-    candidates = [
-        # Demand
-        ("demand", "systemdemandactual,systemdemandforecast"),
-        ("demand", "systemdemand,systemdemandforecast"),
-        ("demand", "demand,demandforecast"),
-        ("demand", "system-demand-actual,system-demand-forecast"),
-        ("demand", "demand"),
-
-        # Generation
-        ("generation", "systemgenerationactual,systemgenerationforecast"),
-        ("generation", "systemgeneration,systemgenerationforecast"),
-        ("generation", "generation,generationforecast"),
-        ("generation", "generation"),
-
-        # Wind
-        ("wind", "windactual,windforecast"),
-        ("wind", "windgenerationactual,windgenerationforecast"),
-        ("wind", "wind"),
-
-        # Solar
-        ("solar", "solaractual,solarforecast"),
-        ("solar", "solargenerationactual,solargenerationforecast"),
-        ("solar", "solar"),
-
-        # Interconnection
-        ("interconnection", "netinterconnection,ewicinterconnection,greenlinkinterconnection,moyleinterconnection"),
-        ("interconnection", "interconnection"),
-        ("interconnection", "netinterconnection"),
-    ]
-
-    probe = []
-    rows_all = []
-
-    for day in days:
-        for chart_type, areas in candidates:
-            result = try_chart(day, chart_type, areas)
-            probe.append({k: v for k, v in result.items() if k != "rows"})
-            if result["row_count"]:
-                rows_all.extend(result["rows"])
-
-    DEBUG.mkdir(parents=True, exist_ok=True)
-    write_json(PROBE_OUT, {
-        "generated_at": now_iso(),
-        "note": "Last 20 rows per successful query only. Used to discover Smart Grid Dashboard API fields.",
-        "queries": probe,
-    })
-
-    return rows_all, probe
-
-
 def main() -> int:
+    SOURCE.mkdir(parents=True, exist_ok=True)
+    DEBUG.mkdir(parents=True, exist_ok=True)
+
     existing = read_json(ELECTRICITY_OUT, {})
     electricity_now = existing.get("electricity_now", {})
 
-    rows, probe = collect_live_rows()
-    latest = latest_by_field(rows)
+    pages = {}
+    probe = {
+        "generated_at": now_iso(),
+        "mode": "smartgrid-visible-html-parser",
+        "pages": {},
+        "selected": {},
+    }
 
-    demand_row = (
-        find_value(latest, ["SYSTEM", "DEMAND"], ["FORECAST"])
-        or find_value(latest, ["DEMAND"], ["FORECAST"])
+    for key, url in PAGES.items():
+        try:
+            raw = fetch_html(url)
+            lines = visible_lines(raw)
+            pages[key] = lines
+            probe["pages"][key] = {
+                "url": url,
+                "line_count": len(lines),
+                "last_updated": page_last_updated(lines),
+                "sample": lines[:90],
+            }
+        except Exception as exc:
+            pages[key] = []
+            probe["pages"][key] = {
+                "url": url,
+                "error": str(exc),
+            }
+
+    demand = find_value_after(
+        pages["demand"],
+        ["system", "demand", "latest"],
+        unit_hint="MW",
     )
 
-    generation_row = (
-        find_value(latest, ["ACTUAL", "SYSTEM", "GENERATION"], ["FORECAST"])
-        or find_value(latest, ["SYSTEM", "GENERATION"], ["FORECAST"])
-        or find_value(latest, ["GENERATION"], ["FORECAST"])
+    generation = find_value_after(
+        pages["generation"],
+        ["latest", "system", "generation"],
+        unit_hint="MW",
     )
 
-    wind_row = (
-        find_value(latest, ["WIND", "ACTUAL"], ["FORECAST"])
-        or find_value(latest, ["WIND"], ["FORECAST"])
+    thermal_pct = find_value_after(
+        pages["generation"],
+        ["thermal", "generation"],
+        unit_hint="%",
+        reject_years=False,
     )
 
-    solar_row = (
-        find_value(latest, ["SOLAR", "ACTUAL"], ["FORECAST"])
-        or find_value(latest, ["SOLAR"], ["FORECAST"])
+    renewable_pct = find_value_after(
+        pages["generation"],
+        ["renewable", "generation"],
+        unit_hint="%",
+        reject_years=False,
     )
 
-    inter_net_row = (
-        find_value(latest, ["INTER", "NET", "ROI"])
-        or find_value(latest, ["INTER", "NET"])
-        or find_value(latest, ["NET", "INTER"])
+    net_import_pct = find_value_after(
+        pages["generation"],
+        ["net", "import"],
+        unit_hint="%",
+        reject_years=False,
     )
 
-    inter_component_rows = [
-        row for field, row in latest.items()
-        if any(term in field.upper() for term in ["INTER_EWIC", "INTER_GRNLK", "INTER_GREENLINK", "INTER_MOYLE", "EWIC", "GREENLINK", "MOYLE"])
-    ]
+    wind_mw = find_value_after(
+        pages["wind"],
+        ["latest", "wind", "generation"],
+        unit_hint="MW",
+    )
 
-    demand = demand_row["value"] if demand_row else None
-    generation = generation_row["value"] if generation_row else None
-    wind = wind_row["value"] if wind_row else None
-    solar = solar_row["value"] if solar_row else None
+    solar_mw = find_value_after(
+        pages["solar"],
+        ["latest", "solar", "generation"],
+        unit_hint="MW",
+    )
 
-    imports = None
-    if inter_net_row:
-        imports = max(float(inter_net_row["value"]), 0.0)
-    elif inter_component_rows:
-        positives = [float(r["value"]) for r in inter_component_rows if is_number(r.get("value")) and float(r["value"]) > 0]
-        imports = sum(positives) if positives else None
+    ireland_interconnection_mw = find_value_after(
+        pages["interconnection"],
+        ["latest", "ireland"],
+        unit_hint="MW",
+    )
 
-    # Only overwrite when we have a proven live demand row.
-    if not is_number(demand):
+    selected = {
+        "demand_mw": demand,
+        "generation_mw": generation,
+        "thermal_percent": thermal_pct,
+        "renewable_percent": renewable_pct,
+        "net_import_percent": net_import_pct,
+        "wind_mw": wind_mw,
+        "solar_mw": solar_mw,
+        "ireland_interconnection_mw": ireland_interconnection_mw,
+    }
+
+    probe["selected"] = selected
+    write_json(PROBE_OUT, probe)
+
+    if not demand or not is_number(demand.get("value")):
         existing.setdefault("source_status", {})
         existing["source_status"]["smartgrid_live"] = {
-            "source": "EirGrid Smart Grid Dashboard chart API",
+            "source": "EirGrid Smart Grid Dashboard public pages",
+            "source_url": PAGES["demand"],
             "harvested_at": now_iso(),
             "mode": "not-parsed",
-            "caveat": "No live demand row was parsed. Spreadsheet fallback remains in use.",
+            "caveat": "Could not parse visible latest demand value. Spreadsheet fallback remains in use.",
             "probe_file": str(PROBE_OUT.relative_to(ROOT)),
-            "successful_query_count": sum(1 for q in probe if q.get("row_count", 0) > 0),
         }
         write_json(ELECTRICITY_OUT, existing)
-        print("SmartGrid live demand not parsed. Kept spreadsheet fallback.")
-        print(f"Wrote {PROBE_OUT.relative_to(ROOT)}")
+        print("SmartGrid visible demand not parsed. Spreadsheet fallback remains.")
+        print(f"Probe written: {PROBE_OUT.relative_to(ROOT)}")
         return 0
 
-    demand = float(demand)
-    wind = float(wind) if is_number(wind) else float(electricity_now.get("wind_mw") or 0)
-    solar = float(solar) if is_number(solar) else float(electricity_now.get("solar_mw") or 0)
-    imports = float(imports) if is_number(imports) else float(electricity_now.get("imports_mw") or 0)
+    demand_value = float(demand["value"])
+    generation_value = float(generation["value"]) if generation and is_number(generation.get("value")) else None
 
-    wind_pct = pct(wind, demand)
-    solar_pct = pct(solar, demand)
-    imports_pct = pct(imports, demand)
-    residual_pct = max(0.0, min(100.0, 100.0 - wind_pct - solar_pct - imports_pct))
-    renewables_pct = max(0.0, min(100.0, wind_pct + solar_pct))
+    wind_value = float(wind_mw["value"]) if wind_mw and is_number(wind_mw.get("value")) else None
+    solar_value = float(solar_mw["value"]) if solar_mw and is_number(solar_mw.get("value")) else None
 
-    source_time = demand_row.get("time") or now_iso()
+    # Interconnection page convention: positive = import, negative = export.
+    imports_mw = None
+    if ireland_interconnection_mw and is_number(ireland_interconnection_mw.get("value")):
+        imports_mw = max(float(ireland_interconnection_mw["value"]), 0.0)
+
+    # Prefer Smart Grid generation page percentages where available.
+    renewables_percent = (
+        float(renewable_pct["value"])
+        if renewable_pct and is_number(renewable_pct.get("value"))
+        else pct((wind_value or 0) + (solar_value or 0), demand_value)
+    )
+
+    imports_percent = (
+        float(net_import_pct["value"])
+        if net_import_pct and is_number(net_import_pct.get("value"))
+        else pct(imports_mw, demand_value)
+    )
+
+    residual_percent = (
+        float(thermal_pct["value"])
+        if thermal_pct and is_number(thermal_pct.get("value"))
+        else max(0.0, min(100.0, 100.0 - renewables_percent - imports_percent))
+    )
+
+    wind_percent = pct(wind_value, demand_value) if wind_value is not None else electricity_now.get("wind_percent")
+    solar_percent = pct(solar_value, demand_value) if solar_value is not None else electricity_now.get("solar_percent")
 
     electricity_now.update({
-        "demand_mw": round(demand),
-        "generation_mw": round(generation) if is_number(generation) else electricity_now.get("generation_mw"),
-        "wind_mw": round(wind),
-        "solar_mw": round(solar),
-        "imports_mw": round(imports),
-        "renewables_percent": round(renewables_pct, 1),
-        "wind_percent": round(wind_pct, 1),
-        "solar_percent": round(solar_pct, 1),
-        "imports_percent": round(imports_pct, 1),
-        "residual_percent": round(residual_pct, 1),
-        "gas_percent": round(residual_pct, 1),
-        "electricity_datetime": source_time,
+        "demand_mw": round(demand_value),
+        "generation_mw": round(generation_value) if generation_value is not None else electricity_now.get("generation_mw"),
+        "wind_mw": round(wind_value) if wind_value is not None else electricity_now.get("wind_mw"),
+        "solar_mw": round(solar_value) if solar_value is not None else electricity_now.get("solar_mw"),
+        "imports_mw": round(imports_mw) if imports_mw is not None else electricity_now.get("imports_mw"),
+        "renewables_percent": round(renewables_percent, 1),
+        "wind_percent": round(float(wind_percent), 1) if is_number(wind_percent) else electricity_now.get("wind_percent"),
+        "solar_percent": round(float(solar_percent), 1) if is_number(solar_percent) else electricity_now.get("solar_percent"),
+        "imports_percent": round(imports_percent, 1),
+        "residual_percent": round(residual_percent, 1),
+        "gas_percent": round(residual_percent, 1),
+        "electricity_datetime": now_iso(),
         "data_age_hours": 0,
         "source_freshness": "current",
-        "source_label": "EirGrid Smart Grid Dashboard chart API",
+        "source_label": "EirGrid Smart Grid Dashboard public pages",
         "smartgrid_live_available": True,
         "smartgrid_live_harvested_at": now_iso(),
+        "smartgrid_html_parser": True,
     })
 
     existing["electricity_now"] = electricity_now
     existing.setdefault("source_status", {})
     existing["source_status"]["smartgrid_live"] = {
-        "source": "EirGrid Smart Grid Dashboard chart API",
-        "source_url": API,
+        "source": "EirGrid Smart Grid Dashboard public pages",
+        "source_url": BASE,
         "harvested_at": now_iso(),
-        "mode": "api-chart",
-        "caveat": "Live chart API used for current demand/generation values where rows are parsed. Spreadsheet remains fallback.",
+        "mode": "visible-html-parser",
+        "caveat": (
+            "Latest values are parsed from public Smart Grid Dashboard pages. "
+            "Demand and generation are current dashboard readouts; renewable/thermal/import percentages use the dashboard generation fuel-mix readout where available."
+        ),
         "probe_file": str(PROBE_OUT.relative_to(ROOT)),
-        "parsed_fields": sorted(latest.keys()),
-        "demand_field": demand_row.get("field") if demand_row else None,
-        "wind_field": wind_row.get("field") if wind_row else None,
-        "solar_field": solar_row.get("field") if solar_row else None,
-        "interconnection_field": inter_net_row.get("field") if inter_net_row else "components" if inter_component_rows else None,
+        "selected": {
+            k: v for k, v in selected.items()
+            if isinstance(v, dict)
+        },
     }
 
     write_json(ELECTRICITY_OUT, existing)
 
-    print("Wrote SmartGrid live electricity values")
+    print("Wrote SmartGrid visible-page electricity values")
     print(json.dumps({
         "demand_mw": electricity_now.get("demand_mw"),
+        "generation_mw": electricity_now.get("generation_mw"),
+        "wind_mw": electricity_now.get("wind_mw"),
+        "solar_mw": electricity_now.get("solar_mw"),
+        "imports_mw": electricity_now.get("imports_mw"),
+        "renewables_percent": electricity_now.get("renewables_percent"),
         "wind_percent": electricity_now.get("wind_percent"),
         "solar_percent": electricity_now.get("solar_percent"),
         "imports_percent": electricity_now.get("imports_percent"),
         "residual_percent": electricity_now.get("residual_percent"),
-        "source_time": source_time,
-        "parsed_fields": sorted(latest.keys())[:40],
+        "source_label": electricity_now.get("source_label"),
     }, indent=2))
-    print(f"Probe: {PROBE_OUT.relative_to(ROOT)}")
+    print(f"Probe written: {PROBE_OUT.relative_to(ROOT)}")
     return 0
 
 
