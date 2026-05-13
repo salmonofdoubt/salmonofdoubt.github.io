@@ -5452,3 +5452,14 @@ h3 {
     height: 3px;
   }
 }
+
+/* v0.44 Slightly thicker Electricity Now accent strips */
+#metricGrid .metric-card::before {
+  height: 6px !important;
+}
+
+@media (max-width: 760px) {
+  #metricGrid .metric-card::before {
+    height: 5px !important;
+  }
+}
