@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-13T08:25:16+00:00",
+    "generated_at": "2026-05-13T08:43:30+00:00",
     "row_count": 2,
     "mode": "daily-snapshot-history",
     "caveat": "History begins when this project started recording daily snapshots. No fake backfill is created."
@@ -25,7 +25,7 @@
     },
     {
       "date": "2026-05-13",
-      "captured_at": "2026-05-13T08:25:16+00:00",
+      "captured_at": "2026-05-13T08:43:30+00:00",
       "demand_mw": 4553.0,
       "demand_gw": 4.55,
       "renewables_percent": 27.6,
@@ -33,7 +33,7 @@
       "solar_percent": 0.0,
       "imports_percent": 32.0,
       "residual_percent": 40.3,
-      "co2_g_per_kwh": 158.0,
+      "co2_g_per_kwh": 151.0,
       "co2_available": true,
       "target_gap_pp": 38.7,
       "target_status": "Off track",
