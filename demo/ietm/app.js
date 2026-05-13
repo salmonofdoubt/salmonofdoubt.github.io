@@ -3527,3 +3527,167 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("v0.58 market interpretation render failed", error);
   }
 });
+
+/* v0.59 Electricity Now consistency: renewables output can exceed demand */
+function renderMetrics(data) {
+  const e = data.electricity_now || {};
+  const target = document.getElementById("metricGrid");
+  if (!target) return;
+
+  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
+  const inter = iemInterconnectionDisplay(e);
+
+  const renewableNote = Number(e.renewables_percent) > 100
+    ? "Wind + solar output exceeds current demand"
+    : "Wind + solar output vs demand";
+
+  const residualNote = Number(e.renewables_percent) > 100
+    ? "Computed residual is zero when renewables exceed demand"
+    : "Computed after wind, solar and net imports";
+
+  target.innerHTML = [
+    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
+    metricCard("Renewables", percentOrNA(e.renewables_percent), renewableNote),
+    metricCard("Wind", percentOrNA(e.wind_percent), "Wind output vs demand"),
+    metricCard("Solar", percentOrNA(e.solar_percent), "Solar output vs demand"),
+    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), residualNote),
+    metricCard("Interconnection", inter.value, inter.note),
+    metricCard(
+      "CO₂ intensity",
+      co2OrNA(e.co2_g_per_kwh, co2Available),
+      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
+      co2Available ? "co2-card" : "missing co2-card"
+    )
+  ].join("");
+}
+
+/* v0.60 Correct public renewable wording: contribution, not raw output */
+function renderMetrics(data) {
+  const e = data.electricity_now || {};
+  const target = document.getElementById("metricGrid");
+  if (!target) return;
+
+  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
+  const inter = iemInterconnectionDisplay(e);
+
+  const normalised = Boolean(e.renewables_normalised);
+  const surplus = Number(e.renewable_surplus_percent || 0);
+
+  const renewableNote = normalised
+    ? `Domestic contribution capped; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
+    : "Estimated wind + solar contribution to demand";
+
+  const windNote = normalised
+    ? "Normalised contribution to Irish demand"
+    : "Wind contribution to Irish demand";
+
+  const solarNote = normalised
+    ? "Normalised contribution to Irish demand"
+    : "Solar contribution to Irish demand";
+
+  const residualNote = "Computed remainder after renewables and net imports";
+
+  target.innerHTML = [
+    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
+    metricCard("Renewables", percentOrNA(e.renewables_percent), renewableNote),
+    metricCard("Wind", percentOrNA(e.wind_percent), windNote),
+    metricCard("Solar", percentOrNA(e.solar_percent), solarNote),
+    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), residualNote),
+    metricCard("Interconnection", inter.value, inter.note),
+    metricCard(
+      "CO₂ intensity",
+      co2OrNA(e.co2_g_per_kwh, co2Available),
+      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
+      co2Available ? "co2-card" : "missing co2-card"
+    )
+  ].join("");
+}
+
+/* v0.62 Rename top-row renewables to renewable cover, not total system mix */
+function iemMetricAccent(label) {
+  const key = String(label || "").toLowerCase();
+  if (key.includes("renewable")) return "renewables";
+  if (key.includes("wind")) return "wind";
+  if (key.includes("solar")) return "solar";
+  if (key.includes("residual") || key.includes("uncovered")) return "residual";
+  if (key.includes("interconnection")) return "imports";
+  if (key.includes("demand")) return "demand";
+  if (key.includes("co₂") || key.includes("co2")) return "co2";
+  return "neutral";
+}
+
+function renderElectricityCoverageNote(data) {
+  const grid = document.getElementById("metricGrid");
+  if (!grid) return;
+
+  let note = document.getElementById("electricityCoverageNote");
+  if (!note) {
+    note = document.createElement("div");
+    note.id = "electricityCoverageNote";
+    note.className = "electricity-coverage-note";
+    grid.insertAdjacentElement("afterend", note);
+  }
+
+  const e = data.electricity_now || {};
+  const normalised = Boolean(e.renewables_normalised);
+  const surplus = Number(e.renewable_surplus_percent || 0);
+  const output = Number(e.renewables_output_percent || e.renewables_percent || 0);
+  const inter = iemInterconnectionDisplay(e);
+
+  if (normalised) {
+    note.innerHTML = `
+      <strong>Coverage view, not full fuel mix.</strong>
+      Wind + solar output is estimated at <b>${pulseNumber(output, 0)}%</b> of current demand.
+      The public cover cards are capped at 100% because domestic demand cannot be more than fully covered.
+      Surplus/output above demand is shown separately and may coincide with exports, curtailment or model uncertainty.
+      Current interconnection signal: <b>${escapeHtml(inter.note.toLowerCase())}</b>.
+    `;
+  } else {
+    note.innerHTML = `
+      <strong>Coverage view.</strong>
+      Percentages estimate how much current demand is covered by wind, solar and net imports.
+      The uncovered card is a computed remainder, not measured gas or a complete fuel mix.
+    `;
+  }
+}
+
+function renderMetrics(data) {
+  const e = data.electricity_now || {};
+  const target = document.getElementById("metricGrid");
+  if (!target) return;
+
+  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
+  const inter = iemInterconnectionDisplay(e);
+
+  const normalised = Boolean(e.renewables_normalised);
+  const surplus = Number(e.renewable_surplus_percent || 0);
+
+  const renewableNote = normalised
+    ? `Capped domestic cover; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
+    : "Estimated wind + solar cover of demand";
+
+  const windNote = normalised
+    ? "Normalised share of domestic renewable cover"
+    : "Wind cover of current demand";
+
+  const solarNote = normalised
+    ? "Normalised share of domestic renewable cover"
+    : "Solar cover of current demand";
+
+  target.innerHTML = [
+    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
+    metricCard("Renewable cover", percentOrNA(e.renewables_percent), renewableNote),
+    metricCard("Wind cover", percentOrNA(e.wind_percent), windNote),
+    metricCard("Solar cover", percentOrNA(e.solar_percent), solarNote),
+    metricCard("Uncovered", percentOrNA(e.residual_percent ?? e.gas_percent), "Computed remainder; not measured gas"),
+    metricCard("Interconnection", inter.value, inter.note),
+    metricCard(
+      "CO₂ intensity",
+      co2OrNA(e.co2_g_per_kwh, co2Available),
+      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
+      co2Available ? "co2-card" : "missing co2-card"
+    )
+  ].join("");
+
+  renderElectricityCoverageNote(data);
+}

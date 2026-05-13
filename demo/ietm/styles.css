@@ -6676,3 +6676,30 @@ h3 {
     font-size: 0.56rem;
   }
 }
+
+/* v0.62 Electricity Now coverage note */
+.electricity-coverage-note {
+  margin: 0.65rem 0 0;
+  padding: 0.55rem 0.75rem;
+  border-left: 3px solid rgba(114,214,255,0.68);
+  background: rgba(114,214,255,0.045);
+  color: rgba(237,247,241,0.72);
+  font-size: 0.78rem;
+  line-height: 1.38;
+}
+
+.electricity-coverage-note strong {
+  color: rgba(114,214,255,0.95);
+}
+
+.electricity-coverage-note b {
+  color: rgba(237,247,241,0.94);
+}
+
+@media (max-width: 760px) {
+  .electricity-coverage-note {
+    font-size: 0.66rem;
+    line-height: 1.32;
+    padding: 0.48rem 0.6rem;
+  }
+}
