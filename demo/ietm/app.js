@@ -2433,3 +2433,488 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+/* v0.48 Put RES-E verdict back inside the 2030 trajectory card */
+function renderTargetStatusSidecar() {
+  // Retired in v0.48.
+  // The RES-E verdict belongs inside the 2030 trajectory panel because it explains
+  // the Truth Meter's "Renewable electricity" signal.
+  document.querySelectorAll(".target-status-sidecar").forEach(el => el.remove());
+}
+
+function decorateTargetTrajectoryPanel() {
+  const target = document.getElementById("targetDriftGrid");
+  const panel = target?.closest(".panel");
+  const head = panel?.querySelector(".panel-head");
+  const h3 = head?.querySelector("h3");
+  if (!panel || !head || !h3) return;
+
+  panel.classList.add("target-explainer-panel");
+
+  if (!head.querySelector(".target-explains-pill")) {
+    const pill = document.createElement("span");
+    pill.className = "pill target-explains-pill";
+    pill.textContent = "Explains Truth Meter · Renewable electricity";
+    h3.insertAdjacentElement("afterend", pill);
+  }
+
+  if (!panel.querySelector(".target-explainer-note")) {
+    const note = document.createElement("p");
+    note.className = "target-explainer-note";
+    note.textContent = "This panel explains the Renewable electricity box in the Truth Meter: the verdict comes from official annual RES-E progress against the 80% 2030 benchmark.";
+    const chart = panel.querySelector("#trajectoryChart");
+    if (chart) chart.insertAdjacentElement("beforebegin", note);
+  }
+}
+
+function renderTargetDrift(data) {
+  const target = document.getElementById("targetDriftGrid");
+  if (!target) return;
+
+  const drift = data.target_drift || {};
+  if (!Object.keys(drift).length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const statusClass = driftStatusClass(drift.status);
+  const statusLabel = drift.status_label || truthSignalLabel(drift.status);
+
+  const latestValue = Number(drift.latest_value);
+  const targetValue = Number(drift.target_value);
+  const gapValue = Number(drift.gap_to_target_pp);
+  const requiredGain = Number(drift.required_annual_gain_pp);
+  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
+
+  target.innerHTML = `
+    <article class="target-drift-card">
+      <span>Latest official RES-E</span>
+      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
+      <small>${escapeHtml(drift.latest_year)}</small>
+    </article>
+
+    <article class="target-drift-card">
+      <span>2030 benchmark</span>
+      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
+      <small>Renewable electricity</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>2030 target gap</span>
+      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
+      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Required gain</span>
+      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
+      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Recent gain</span>
+      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
+      <small>Two-year average</small>
+    </article>
+
+    <article class="target-verdict-card ${statusClass}">
+      <div>
+        <span>Same verdict as Truth Meter</span>
+        <strong>${escapeHtml(statusLabel)}</strong>
+      </div>
+      <p>
+        Renewable electricity is <strong>${gapValue.toFixed(1)} percentage points</strong>
+        below the 2030 benchmark. Recent progress is
+        <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required pace is
+        <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
+      </p>
+      <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not the live quarter-hourly electricity mix.")}</small>
+    </article>
+  `;
+
+  decorateTargetTrajectoryPanel();
+  renderTargetStatusSidecar();
+}
+
+function decorateRenewableTruthCard() {
+  const cards = document.querySelectorAll("#truthGrid .truth-card");
+  for (const card of cards) {
+    const heading = card.querySelector("h3");
+    if (!heading) continue;
+    if (!/renewable electricity/i.test(heading.textContent || "")) continue;
+    if (card.querySelector(".truth-explainer-link")) continue;
+
+    const link = document.createElement("a");
+    link.className = "truth-explainer-link";
+    link.href = "#target-jump";
+    link.textContent = "See 2030 trajectory explanation ↓";
+    card.appendChild(link);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(decorateTargetTrajectoryPanel, 250);
+  setTimeout(decorateRenewableTruthCard, 350);
+  setTimeout(renderTargetStatusSidecar, 450);
+  setTimeout(decorateTargetTrajectoryPanel, 1000);
+  setTimeout(decorateRenewableTruthCard, 1100);
+  setTimeout(renderTargetStatusSidecar, 1200);
+});
+
+/* v0.49 Full-width residual explainer and consistent formal signal pills */
+function signalPillClass(status) {
+  const cls = truthClass(status);
+  return `pill panel-signal-pill signal-${cls}`;
+}
+
+function setSignalPill(el, status) {
+  if (!el) return;
+  const cls = truthClass(status);
+  el.className = signalPillClass(status);
+  el.textContent = truthSignalLabel(status);
+}
+
+function truthItemByName(data, pattern) {
+  return (data.truth_meter || []).find(item => pattern.test(item.name || ""));
+}
+
+function renderResidual(data) {
+  const residualTruth = truthItemByName(data, /residual/i);
+  const status = residualTruth?.status || truth_status_from_residual_frontend(data);
+  const pill = document.getElementById("residualSignal");
+
+  setSignalPill(pill, status);
+
+  const narrative = document.getElementById("residualNarrative");
+  if (narrative) {
+    narrative.innerHTML = `
+      <strong>${escapeHtml(residualTruth?.value || data.gas?.signal || "Residual supply")}</strong>
+      is the unclassified remainder after detected wind, solar and net imports.
+      It is not measured gas. A later fuel-mix harvester should split this into gas,
+      hydro, storage, coal/oil and other sources.
+    `;
+  }
+
+  const gauge = document.getElementById("residualGauge");
+  if (gauge) {
+    const value = Number(
+      data.electricity_now?.residual_percent ??
+      data.electricity_now?.gas_percent ??
+      data.gas?.share_percent ??
+      0
+    );
+    gauge.style.setProperty("--value", `${Math.max(0, Math.min(100, value))}%`);
+  }
+}
+
+function truth_status_from_residual_frontend(data) {
+  const value = Number(data.electricity_now?.residual_percent ?? data.electricity_now?.gas_percent);
+  if (!Number.isFinite(value)) return "risk";
+  if (value <= 20) return "on";
+  if (value <= 35) return "risk";
+  return "off";
+}
+
+function decorateTargetTrajectoryPanelWithSignal(data) {
+  const drift = data.target_drift || {};
+  const panel = document.querySelector(".target-explainer-panel") || document.getElementById("targetDriftGrid")?.closest(".panel");
+  const head = panel?.querySelector(".panel-head");
+  if (!panel || !head) return;
+
+  let pill = head.querySelector(".target-signal-pill");
+  if (!pill) {
+    pill = document.createElement("span");
+    pill.className = "pill panel-signal-pill target-signal-pill";
+    head.appendChild(pill);
+  }
+
+  setSignalPill(pill, drift.status || "risk");
+}
+
+function renderTargetDrift(data) {
+  const target = document.getElementById("targetDriftGrid");
+  if (!target) return;
+
+  const drift = data.target_drift || {};
+  if (!Object.keys(drift).length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const statusClass = driftStatusClass(drift.status);
+  const statusLabel = drift.status_label || truthSignalLabel(drift.status);
+
+  const latestValue = Number(drift.latest_value);
+  const targetValue = Number(drift.target_value);
+  const gapValue = Number(drift.gap_to_target_pp);
+  const requiredGain = Number(drift.required_annual_gain_pp);
+  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
+
+  target.innerHTML = `
+    <article class="target-drift-card">
+      <span>Latest official RES-E</span>
+      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
+      <small>${escapeHtml(drift.latest_year)}</small>
+    </article>
+
+    <article class="target-drift-card">
+      <span>2030 benchmark</span>
+      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
+      <small>Renewable electricity</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>2030 target gap</span>
+      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
+      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Required gain</span>
+      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
+      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Recent gain</span>
+      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
+      <small>Two-year average</small>
+    </article>
+
+    <article class="target-verdict-card ${statusClass}">
+      <div>
+        <span>Same signal as Truth Meter</span>
+        <strong>${escapeHtml(statusLabel)}</strong>
+      </div>
+      <p>
+        Renewable electricity is <strong>${gapValue.toFixed(1)} percentage points</strong>
+        below the 2030 benchmark. Recent progress is
+        <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required pace is
+        <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
+      </p>
+      <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not the live quarter-hourly electricity mix.")}</small>
+    </article>
+  `;
+
+  decorateTargetTrajectoryPanel();
+  decorateTargetTrajectoryPanelWithSignal(data);
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const data = await loadMonitor();
+    decorateTargetTrajectoryPanelWithSignal(data);
+    renderResidual(data);
+  } catch (error) {
+    console.warn("v0.49 signal consistency render failed", error);
+  }
+});
+
+/* v0.50 Remove duplicate trajectory signal pills */
+function dedupeTargetSignalPills() {
+  const panel = document.getElementById("targetDriftGrid")?.closest(".panel");
+  const head = panel?.querySelector(".panel-head");
+  if (!head) return;
+
+  const pills = [...head.querySelectorAll(".target-signal-pill, .panel-signal-pill")]
+    .filter(el => /on track|at risk|off track/i.test(el.textContent || ""));
+
+  pills.forEach((pill, index) => {
+    if (index > 0) pill.remove();
+  });
+}
+
+function decorateTargetTrajectoryPanelWithSignal(data) {
+  const drift = data.target_drift || {};
+  const panel = document.querySelector(".target-explainer-panel") || document.getElementById("targetDriftGrid")?.closest(".panel");
+  const head = panel?.querySelector(".panel-head");
+  if (!panel || !head) return;
+
+  [...head.querySelectorAll(".target-signal-pill, .panel-signal-pill")]
+    .filter(el => /on track|at risk|off track/i.test(el.textContent || ""))
+    .forEach(el => el.remove());
+
+  const pill = document.createElement("span");
+  pill.className = "pill panel-signal-pill target-signal-pill";
+  setSignalPill(pill, drift.status || "risk");
+  head.appendChild(pill);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(dedupeTargetSignalPills, 250);
+  setTimeout(dedupeTargetSignalPills, 900);
+  setTimeout(dedupeTargetSignalPills, 1500);
+});
+
+/* v0.52 Taller RES-E trajectory chart: larger real SVG coordinate system, not stretched */
+function renderTrajectory(data) {
+  const target = document.getElementById("trajectoryChart");
+  if (!target) return;
+
+  const rows = data.target_trajectory || [];
+  if (!rows.length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const width = 980;
+  const height = 420;
+
+  const padLeft = 54;
+  const padRight = 34;
+  const padTop = 34;
+  const padBottom = 48;
+
+  const years = rows.map(d => Number(d.year)).filter(Number.isFinite);
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+
+  // Use a fixed policy-relevant y-domain rather than auto-zooming.
+  // This avoids exaggerating small annual movements.
+  const minY = 20;
+  const maxY = 85;
+
+  const plotWidth = width - padLeft - padRight;
+  const plotHeight = height - padTop - padBottom;
+
+  const x = year => padLeft + ((Number(year) - minYear) / (maxYear - minYear)) * plotWidth;
+  const y = value => padTop + ((maxY - Number(value)) / (maxY - minY)) * plotHeight;
+
+  const targetRows = rows.filter(d => d.target !== null && d.target !== undefined);
+  const actualRows = rows.filter(d => d.actual !== null && d.actual !== undefined);
+
+  const pathFrom = (series, key) => series
+    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
+    .join(" ");
+
+  const targetPath = pathFrom(targetRows, "target");
+  const actualPath = pathFrom(actualRows, "actual");
+
+  const latest = actualRows[actualRows.length - 1];
+  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
+  const gap = sameYear ? Number(sameYear.target) - Number(latest.actual) : 0;
+
+  text("targetGap", `${gap.toFixed(0)} pp path gap`);
+
+  const gridValues = [80, 65, 50, 35, 20];
+  const yearTicks = [];
+  for (let yr = minYear; yr <= maxYear; yr += 2) yearTicks.push(yr);
+
+  target.innerHTML = `
+    <svg class="trajectory-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">
+      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
+
+      ${gridValues.map(v => `
+        <line class="grid-line" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
+        <text class="axis-text y-axis-label" x="${padLeft - 12}" y="${y(v) + 4}" text-anchor="end">${v}%</text>
+      `).join("")}
+
+      ${yearTicks.map(yr => `
+        <line class="grid-line vertical" x1="${x(yr)}" y1="${padTop}" x2="${x(yr)}" y2="${height - padBottom}"></line>
+        <text class="axis-text" x="${x(yr)}" y="${height - 15}" text-anchor="middle">${yr}</text>
+      `).join("")}
+
+      <path class="line-target" d="${targetPath}"></path>
+      <path class="line-actual" d="${actualPath}"></path>
+
+      ${actualRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.actual)}" r="4.2" fill="var(--blue)"></circle>
+      `).join("")}
+
+      ${targetRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.target)}" r="3.2" fill="var(--lime)"></circle>
+      `).join("")}
+
+      <text class="axis-text chart-key" x="${width - 255}" y="${padTop + 8}">Dashed: required path</text>
+      <text class="axis-text chart-key" x="${width - 255}" y="${padTop + 27}">Solid: observed path</text>
+    </svg>
+  `;
+}
+
+/* v0.53 RES-E trajectory: full-width plot, not miniature, not CSS-stretched */
+function renderTrajectory(data) {
+  const target = document.getElementById("trajectoryChart");
+  if (!target) return;
+
+  const rows = data.target_trajectory || [];
+  if (!rows.length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const width = 1280;
+  const height = 520;
+
+  const padLeft = 68;
+  const padRight = 44;
+  const padTop = 42;
+  const padBottom = 58;
+
+  const years = rows.map(d => Number(d.year)).filter(Number.isFinite);
+  const minYear = Math.min(...years);
+  const maxYear = Math.max(...years);
+
+  const minY = 20;
+  const maxY = 85;
+
+  const plotWidth = width - padLeft - padRight;
+  const plotHeight = height - padTop - padBottom;
+
+  const x = year => padLeft + ((Number(year) - minYear) / (maxYear - minYear)) * plotWidth;
+  const y = value => padTop + ((maxY - Number(value)) / (maxY - minY)) * plotHeight;
+
+  const targetRows = rows.filter(d => d.target !== null && d.target !== undefined);
+  const actualRows = rows.filter(d => d.actual !== null && d.actual !== undefined);
+
+  const pathFrom = (series, key) => series
+    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
+    .join(" ");
+
+  const targetPath = pathFrom(targetRows, "target");
+  const actualPath = pathFrom(actualRows, "actual");
+
+  const latest = actualRows[actualRows.length - 1];
+  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
+  const gap = sameYear ? Number(sameYear.target) - Number(latest.actual) : 0;
+
+  text("targetGap", `${gap.toFixed(0)} pp path gap`);
+
+  const gridValues = [80, 65, 50, 35, 20];
+  const yearTicks = [];
+  for (let yr = minYear; yr <= maxYear; yr += 2) yearTicks.push(yr);
+
+  target.innerHTML = `
+    <svg class="trajectory-svg trajectory-svg-large"
+      viewBox="0 0 ${width} ${height}"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label="2030 renewable electricity trajectory"
+    >
+      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
+
+      ${gridValues.map(v => `
+        <line class="grid-line" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
+        <text class="axis-text y-axis-label" x="${padLeft - 14}" y="${y(v) + 4}" text-anchor="end">${v}%</text>
+      `).join("")}
+
+      ${yearTicks.map(yr => `
+        <line class="grid-line vertical" x1="${x(yr)}" y1="${padTop}" x2="${x(yr)}" y2="${height - padBottom}"></line>
+        <text class="axis-text" x="${x(yr)}" y="${height - 18}" text-anchor="middle">${yr}</text>
+      `).join("")}
+
+      <path class="line-target" d="${targetPath}"></path>
+      <path class="line-actual" d="${actualPath}"></path>
+
+      ${actualRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.actual)}" r="5" fill="var(--blue)"></circle>
+      `).join("")}
+
+      ${targetRows.map(d => `
+        <circle cx="${x(d.year)}" cy="${y(d.target)}" r="3.8" fill="var(--lime)"></circle>
+      `).join("")}
+
+      <text class="axis-text chart-key" x="${width - 330}" y="${padTop + 8}">Dashed: required path</text>
+      <text class="axis-text chart-key" x="${width - 330}" y="${padTop + 29}">Solid: observed path</text>
+    </svg>
+  `;
+}

@@ -5787,3 +5787,430 @@ h3 {
   outline: 1px solid rgba(114,214,255,0.42);
   outline-offset: 0.35rem;
 }
+
+/* v0.48 RES-E trajectory explains the Renewable electricity Truth Meter verdict */
+.target-explainer-panel {
+  position: relative;
+}
+
+.target-explains-pill {
+  color: var(--blue) !important;
+  border-color: rgba(114,214,255,0.26) !important;
+  background: rgba(114,214,255,0.06) !important;
+}
+
+.target-explainer-note {
+  max-width: 58rem;
+  margin: 0.15rem 0 0.75rem;
+  color: rgba(237,247,241,0.62);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.target-drift-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+.target-verdict-card {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1fr) minmax(12rem, 0.55fr);
+  gap: 1rem;
+  align-items: center;
+  position: relative;
+  padding: 0.95rem 0 0.95rem 1rem;
+  border-top: 1px solid rgba(237,247,241,0.13);
+  border-bottom: 1px solid rgba(237,247,241,0.13);
+}
+
+.target-verdict-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.9rem;
+  bottom: 0.9rem;
+  width: 0.2rem;
+  border-radius: 999px;
+}
+
+.target-verdict-card.on::before {
+  background: var(--green);
+}
+
+.target-verdict-card.risk::before {
+  background: var(--amber);
+}
+
+.target-verdict-card.off::before {
+  background: var(--red);
+}
+
+.target-verdict-card span {
+  display: block;
+  color: rgba(237,247,241,0.58);
+  font-size: 0.62rem;
+  line-height: 1;
+  font-weight: 860;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.target-verdict-card strong {
+  color: #fff;
+}
+
+.target-verdict-card > div > strong {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: clamp(1.65rem, 2.6vw, 2.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.target-verdict-card p {
+  margin: 0;
+  color: rgba(237,247,241,0.78);
+  font-size: 0.86rem;
+  line-height: 1.38;
+}
+
+.target-verdict-card small {
+  color: rgba(237,247,241,0.52);
+  font-size: 0.72rem;
+  line-height: 1.28;
+}
+
+.truth-explainer-link {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 0.55rem;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(114,214,255,0.24);
+  background: rgba(114,214,255,0.055);
+  color: var(--blue);
+  font-size: 0.64rem;
+  line-height: 1;
+  font-weight: 820;
+  text-decoration: none;
+}
+
+.truth-explainer-link:hover,
+.truth-explainer-link:focus {
+  border-color: rgba(114,214,255,0.48);
+  background: rgba(114,214,255,0.1);
+}
+
+#residualSignal + .target-status-sidecar,
+.target-status-sidecar {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .target-drift-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .target-verdict-card {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .target-explainer-note {
+    margin: 0.05rem 0 0.55rem;
+    font-size: 0.66rem;
+    line-height: 1.3;
+  }
+
+  .target-verdict-card {
+    padding: 0.8rem 0 0.85rem 0.85rem;
+  }
+
+  .target-verdict-card::before {
+    top: 0.8rem;
+    bottom: 0.8rem;
+    width: 0.15rem;
+  }
+
+  .target-verdict-card > div > strong {
+    font-size: 2rem;
+  }
+
+  .target-verdict-card p,
+  .target-verdict-card small {
+    font-size: 0.66rem;
+    line-height: 1.3;
+  }
+
+  .target-explains-pill {
+    width: fit-content;
+    margin-top: 0.35rem;
+  }
+}
+
+/* v0.49 Full-width residual explainer and consistent signal colours */
+.target-section .dashboard-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1.05rem !important;
+}
+
+.target-section .dashboard-grid > .panel,
+.target-section .dashboard-grid > .panel.wide {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+}
+
+.residual-explainer-panel {
+  display: grid;
+  gap: 0.85rem;
+  position: relative;
+}
+
+.residual-explainer-panel .panel-head {
+  align-items: start;
+}
+
+.panel-subtitle {
+  margin: 0.24rem 0 0;
+  color: rgba(237,247,241,0.58);
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+
+.panel-signal-pill {
+  border-radius: 999px !important;
+  padding: 0.42rem 0.68rem !important;
+  font-size: 0.68rem !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.01em !important;
+  white-space: nowrap;
+}
+
+.panel-signal-pill.signal-on {
+  color: var(--green) !important;
+  border-color: rgba(73,209,125,0.30) !important;
+  background: rgba(73,209,125,0.08) !important;
+}
+
+.panel-signal-pill.signal-risk {
+  color: var(--amber) !important;
+  border-color: rgba(247,201,72,0.32) !important;
+  background: rgba(247,201,72,0.08) !important;
+}
+
+.panel-signal-pill.signal-off {
+  color: var(--red) !important;
+  border-color: rgba(255,107,107,0.32) !important;
+  background: rgba(255,107,107,0.08) !important;
+}
+
+.target-signal-pill {
+  margin-left: auto;
+}
+
+.residual-explainer-panel #residualNarrative {
+  max-width: 70rem;
+  color: rgba(237,247,241,0.76);
+  font-size: 0.92rem;
+  line-height: 1.42;
+}
+
+.residual-explainer-panel .gauge {
+  max-width: 42rem;
+}
+
+@media (max-width: 760px) {
+  .target-section .dashboard-grid {
+    gap: 0.8rem !important;
+  }
+
+  .panel-signal-pill {
+    padding: 0.32rem 0.52rem !important;
+    font-size: 0.58rem !important;
+  }
+
+  .target-signal-pill {
+    margin-left: 0;
+    margin-top: 0.35rem;
+    width: fit-content;
+  }
+
+  .residual-explainer-panel .panel-head {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .panel-subtitle {
+    font-size: 0.62rem;
+  }
+
+  .residual-explainer-panel #residualNarrative {
+    font-size: 0.7rem;
+    line-height: 1.33;
+  }
+}
+
+/* v0.50 Tighten Truth Meter to trajectory rhythm */
+#truth-meter {
+  margin-bottom: clamp(1.1rem, 2.4vw, 2rem) !important;
+}
+
+#target,
+.target-section {
+  margin-top: clamp(1rem, 2.2vw, 1.8rem) !important;
+}
+
+.target-section .panel-head {
+  gap: 0.65rem;
+}
+
+.target-section .target-signal-pill + .target-signal-pill {
+  display: none !important;
+}
+
+/* v0.51 Tight Truth Meter → RES-E trajectory spacing */
+#truth-meter.truth-section,
+#truth-meter {
+  margin-bottom: 0.35rem !important;
+  padding-bottom: 0 !important;
+}
+
+#truthGrid,
+.truth-grid {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+#truthGrid > .truth-card:last-child,
+.truth-grid > .truth-card:last-child {
+  margin-bottom: 0 !important;
+}
+
+#target-jump {
+  top: -4.75rem !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#target.target-section,
+.target-section {
+  margin-top: 0.45rem !important;
+  padding-top: 0 !important;
+}
+
+#target.target-section .dashboard-grid,
+.target-section .dashboard-grid {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+#target.target-section .panel,
+.target-section .panel {
+  margin-top: 0 !important;
+}
+
+/* If the anchor sits directly between truth meter and target, collapse that run. */
+#truth-meter + #target-jump + #target,
+#truth-meter + .scroll-anchor + .target-section {
+  margin-top: 0.35rem !important;
+}
+
+@media (max-width: 760px) {
+  #truth-meter.truth-section,
+  #truth-meter {
+    margin-bottom: 0.2rem !important;
+  }
+
+  #target.target-section,
+  .target-section {
+    margin-top: 0.25rem !important;
+  }
+}
+
+/* v0.52 Taller trajectory chart without stretching */
+.trajectory {
+  min-height: 25rem !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.trajectory-svg {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 980 / 420;
+  display: block;
+}
+
+.trajectory .grid-line.vertical {
+  opacity: 0.38;
+}
+
+.trajectory .y-axis-label {
+  fill: rgba(237,247,241,0.64);
+}
+
+.trajectory .chart-key {
+  fill: rgba(237,247,241,0.72);
+  font-weight: 760;
+}
+
+@media (max-width: 760px) {
+  .trajectory {
+    min-height: 18rem !important;
+  }
+
+  .trajectory-svg {
+    aspect-ratio: 980 / 460;
+  }
+}
+
+/* v0.53 Fix miniature trajectory chart: fill available panel, keep SVG proportions */
+.target-explainer-panel .trajectory,
+#trajectoryChart.trajectory {
+  width: 100% !important;
+  min-height: 29rem !important;
+  height: 29rem !important;
+  display: block !important;
+  align-items: unset !important;
+  justify-content: unset !important;
+  overflow: visible !important;
+}
+
+.target-explainer-panel .trajectory svg,
+#trajectoryChart svg,
+.trajectory-svg-large {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+.target-explainer-panel .trajectory .line-target,
+#trajectoryChart .line-target {
+  vector-effect: non-scaling-stroke;
+}
+
+.target-explainer-panel .trajectory .line-actual,
+#trajectoryChart .line-actual {
+  vector-effect: non-scaling-stroke;
+}
+
+.target-explainer-panel .trajectory .grid-line,
+#trajectoryChart .grid-line {
+  vector-effect: non-scaling-stroke;
+}
+
+@media (max-width: 760px) {
+  .target-explainer-panel .trajectory,
+  #trajectoryChart.trajectory {
+    min-height: 20rem !important;
+    height: 20rem !important;
+  }
+}
