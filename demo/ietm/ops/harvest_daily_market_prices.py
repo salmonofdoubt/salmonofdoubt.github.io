@@ -28,6 +28,7 @@ SOURCE = ROOT / "data" / "source"
 DEBUG = ROOT / "ops" / "debug"
 OUT = SOURCE / "market_prices.json"
 PROBE = DEBUG / "market_price_probe.json"
+GNI_MANUAL = SOURCE / "gni_imbalance_manual.json"
 
 EIRGRID_MARKET_PAGES = [
     "https://www.smartgriddashboard.com/roi/market-pricing/",
@@ -278,7 +279,55 @@ def parse_gni_page(raw_html: str) -> dict[str, Any]:
     return out
 
 
+
+def read_gni_manual_fallback() -> dict | None:
+    if not GNI_MANUAL.exists():
+        return None
+
+    try:
+        data = json.loads(GNI_MANUAL.read_text())
+    except Exception:
+        return None
+
+    if not data.get("enabled"):
+        return None
+
+    sap = number_or_none(data.get("sap_cent_per_kwh"))
+    if not plausible_gas_cent_per_kwh(sap):
+        return None
+
+    date = str(data.get("date") or today_key())
+    source_url = data.get("source_url") or GNI_IMBALANCE_PAGES[0]
+
+    return {
+        "label": "Gas balancing price",
+        "value": f"{sap:.2f} c/kWh",
+        "numeric_value": round(sap, 2),
+        "unit": "c/kWh",
+        "status": "mapped",
+        "mode": "manual-official-source",
+        "period": date,
+        "freshness": "manually entered from Gas Networks Ireland table/export",
+        "source": "Gas Networks Ireland imbalance prices",
+        "source_url": source_url,
+        "detail": (
+            "Gas Networks Ireland System Average Price / imbalance price. "
+            "This is a gas-system balancing signal, not a household gas tariff. "
+            "Value entered from official GNI table/export while the hidden endpoint is being wired."
+        ),
+        "stats": {
+            "sap_cent_per_kwh": round(sap, 4),
+            "smp_buy_cent_per_kwh": number_or_none(data.get("smp_buy_cent_per_kwh")),
+            "smp_sell_cent_per_kwh": number_or_none(data.get("smp_sell_cent_per_kwh")),
+            "manual_note": data.get("note", ""),
+        },
+    }
+
 def harvest_gas_balancing_price() -> dict:
+    manual = read_gni_manual_fallback()
+    if manual:
+        return manual
+
     errors: list[str] = []
     probes: list[dict] = []
 

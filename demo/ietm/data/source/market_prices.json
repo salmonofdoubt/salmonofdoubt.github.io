@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-13T12:57:56+00:00",
+    "generated_at": "2026-05-13T13:09:14+00:00",
     "mode": "system-market-price-layer",
     "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
     "sources": [
@@ -12,11 +12,11 @@
   "market_prices": [
     {
       "label": "Electricity system price",
-      "value": "169.38 \u20ac/MWh",
-      "numeric_value": 169.38,
+      "value": "173.64 \u20ac/MWh",
+      "numeric_value": 173.64,
       "unit": "\u20ac/MWh",
-      "equivalent_value": "16.94 c/kWh",
-      "numeric_value_c_per_kwh": 16.94,
+      "equivalent_value": "17.36 c/kWh",
+      "numeric_value_c_per_kwh": 17.36,
       "status": "mapped",
       "period": "2026-05-13",
       "freshness": "latest settlement period visible on Smart Grid Dashboard",
@@ -24,29 +24,32 @@
       "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
       "detail": "Latest electricity imbalance settlement price. This is a system/market signal, not a household electricity tariff.",
       "stats": {
-        "latest_eur_per_mwh": 169.38,
-        "latest_c_per_kwh_equivalent": 16.94,
+        "latest_eur_per_mwh": 173.64,
+        "latest_c_per_kwh_equivalent": 17.36,
         "dashboard_date": "13/05/2026",
-        "latest_line": "169.38",
+        "latest_line": "173.64",
         "daily_min_eur_per_mwh": 37.18,
         "daily_max_eur_per_mwh": 236.93
       }
     },
     {
       "label": "Gas balancing price",
-      "value": "n/a",
-      "numeric_value": null,
+      "value": "3.84 c/kWh",
+      "numeric_value": 3.84,
       "unit": "c/kWh",
-      "status": "not-parsed",
+      "status": "mapped",
+      "mode": "manual-official-source",
       "period": "2026-05-13",
-      "freshness": "unavailable in current run",
+      "freshness": "manually entered from Gas Networks Ireland table/export",
       "source": "Gas Networks Ireland imbalance prices",
       "source_url": "https://www.gasnetworks.ie/about/data-transparency/balancing-actions-and-prices/imbalance-prices",
-      "detail": "Daily gas balancing-price layer is installed, but no plausible SAP c/kWh value was visible in the fetched static HTML. Do not substitute SEAI household gas prices here.",
-      "errors": [
-        "https://www.gasnetworks.ie/about/data-transparency/balancing-actions-and-prices/imbalance-prices: no plausible SAP c/kWh value visible in static HTML",
-        "https://www.gasnetworks.ie/corporate/gas-regulation/transparency-and-publicat/dashboard-reporting/balancing-actions-and-prices/imbalance-prices: no plausible SAP c/kWh value visible in static HTML"
-      ]
+      "detail": "Gas Networks Ireland System Average Price / imbalance price. This is a gas-system balancing signal, not a household gas tariff. Value entered from official GNI table/export while the hidden endpoint is being wired.",
+      "stats": {
+        "sap_cent_per_kwh": 3.84,
+        "smp_buy_cent_per_kwh": null,
+        "smp_sell_cent_per_kwh": null,
+        "manual_note": "Read from GNI imbalance prices table/export on 2026-05-13."
+      }
     }
   ]
 }
