@@ -5654,3 +5654,122 @@ h3 {
     font-size: 0.66rem;
   }
 }
+
+/* v0.46 Question strip anchor and mobile slider affordance */
+#target,
+#today,
+#truth-meter,
+#prices,
+#counties,
+#method {
+  scroll-margin-top: 5rem;
+}
+
+.question-strip-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.question-strip-cue {
+  display: none;
+  flex: 0 0 auto;
+  color: rgba(237,247,241,0.58);
+  font-size: 0.72rem;
+  font-weight: 820;
+  letter-spacing: 0.02em;
+}
+
+.question-strip {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.question-link {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.target-section:target .panel.wide {
+  outline: 1px solid rgba(114,214,255,0.42);
+  outline-offset: 0.35rem;
+}
+
+@media (max-width: 760px) {
+  .question-strip-section {
+    position: relative;
+  }
+
+  .question-strip-head {
+    align-items: start;
+    margin-bottom: 0.5rem;
+  }
+
+  .question-strip-head h2 {
+    margin-bottom: 0.2rem;
+  }
+
+  .question-strip-cue {
+    display: inline-flex;
+    padding: 0.24rem 0.48rem;
+    border: 1px solid rgba(237,247,241,0.14);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.018);
+    white-space: nowrap;
+  }
+
+  .question-strip {
+    display: flex;
+    gap: 0.65rem;
+    overflow-x: auto;
+    padding: 0.15rem 1.35rem 0.65rem 0;
+    border-top: 1px solid rgba(237,247,241,0.1);
+    border-bottom: 1px solid rgba(237,247,241,0.1);
+  }
+
+  .question-strip::after {
+    content: "";
+    flex: 0 0 0.5rem;
+  }
+
+  .question-link {
+    flex: 0 0 78%;
+    min-width: 14.5rem;
+    border: 1px solid rgba(237,247,241,0.12);
+    border-radius: 0.85rem;
+    padding: 0.85rem;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.028), rgba(255,255,255,0.008));
+  }
+
+  .question-link:focus,
+  .question-link:hover {
+    border-color: rgba(114,214,255,0.45);
+  }
+
+  .question-strip-section::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0.65rem;
+    width: 2.3rem;
+    height: 6.6rem;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(3,18,14,0), rgba(3,18,14,0.96));
+  }
+}
+
+/* v0.47 Reliable section anchors for question strip */
+.scroll-anchor {
+  position: relative;
+  top: -5.5rem;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+#target-jump:target + .target-section .panel.wide {
+  outline: 1px solid rgba(114,214,255,0.42);
+  outline-offset: 0.35rem;
+}

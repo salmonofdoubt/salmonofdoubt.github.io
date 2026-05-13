@@ -187,8 +187,11 @@
 
     <section id="transition-questions" class="section question-strip-section">
       <div class="question-strip-head">
-        <h2>Questions for Ireland’s energy transition</h2>
-        <p>Small signals to read the monitor correctly.</p>
+        <div>
+          <h2>Questions for Ireland’s energy transition</h2>
+          <p>Small signals to read the monitor correctly.</p>
+        </div>
+        <span class="question-strip-cue" aria-hidden="true">Swipe questions →</span>
       </div>
 
       <div class="question-strip" aria-label="Energy transition question navigation">
@@ -197,7 +200,7 @@
           <strong>What powers Ireland now?</strong>
           <small>Live grid mix</small>
         </a>
-        <a href="#target" class="question-link">
+        <a href="#target-jump" class="question-link">
           <span class="question-icon">↗</span>
           <strong>Are we moving fast enough?</strong>
           <small>2030 RES-E path</small>
@@ -277,7 +280,8 @@
       <div class="truth-grid" id="truthGrid"></div>
     </section>
 
-    <section class="section">
+    <div id="target-jump" class="scroll-anchor" aria-hidden="true"></div>
+    <section id="target" class="section target-section">
       <div class="dashboard-grid">
         <article class="panel wide">
           <div class="panel-head">
