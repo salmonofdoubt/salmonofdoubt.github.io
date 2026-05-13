@@ -4867,3 +4867,319 @@ h3 {
     line-height: 1.18 !important;
   }
 }
+
+/* v0.39 Transition Truth Meter flagship redesign */
+#truthGrid {
+  gap: 0 !important;
+}
+
+.truth-summary-card {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) auto minmax(14rem, 1fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(237,247,241,0.14);
+  border-bottom: 1px solid rgba(237,247,241,0.14);
+  background: transparent !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.truth-summary-main span,
+.truth-legend-strip span,
+.truth-rule-box span {
+  display: block;
+  color: rgba(237,247,241,0.58);
+  font-size: 0.64rem;
+  line-height: 1;
+  font-weight: 860;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.truth-summary-main strong {
+  display: block;
+  margin-top: 0.28rem;
+  color: #fff;
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.truth-summary-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+}
+
+.truth-summary-counts span,
+.truth-legend-strip b,
+.truth-evidence-row span {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(237,247,241,0.14);
+  padding: 0.28rem 0.48rem;
+  font-size: 0.66rem;
+  line-height: 1;
+  font-weight: 850;
+}
+
+.truth-summary-counts .on,
+.truth-legend-strip .on {
+  color: var(--green);
+  border-color: rgba(73,209,125,0.26);
+  background: rgba(73,209,125,0.07);
+}
+
+.truth-summary-counts .risk,
+.truth-legend-strip .risk {
+  color: var(--amber);
+  border-color: rgba(247,201,72,0.28);
+  background: rgba(247,201,72,0.07);
+}
+
+.truth-summary-counts .off,
+.truth-legend-strip .off {
+  color: var(--red);
+  border-color: rgba(255,107,107,0.28);
+  background: rgba(255,107,107,0.07);
+}
+
+.truth-summary-card p {
+  margin: 0;
+  color: rgba(237,247,241,0.74);
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.truth-legend-strip {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.72rem 0;
+  border-bottom: 1px solid rgba(237,247,241,0.1);
+}
+
+.truth-instrument-card {
+  display: grid;
+  grid-template-rows: auto auto auto auto 1fr;
+  gap: 0.72rem;
+  padding: 1rem 0.9rem 1.05rem 1rem !important;
+  min-height: 0 !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(237,247,241,0.105) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  position: relative;
+}
+
+.truth-instrument-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  bottom: 1rem;
+  width: 0.16rem;
+  border-radius: 999px;
+}
+
+.truth-instrument-card.on::before {
+  background: var(--green);
+}
+
+.truth-instrument-card.risk::before {
+  background: var(--amber);
+}
+
+.truth-instrument-card.off::before {
+  background: var(--red);
+}
+
+.truth-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+
+.truth-card-head h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.truth-value-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 0.65rem;
+}
+
+.truth-value-row strong {
+  color: #fff;
+  font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.truth-value-row span {
+  color: rgba(237,247,241,0.62);
+  font-size: 0.74rem;
+  line-height: 1.16;
+  padding-bottom: 0.08rem;
+}
+
+.truth-rule-box {
+  padding: 0.62rem 0.68rem;
+  border: 1px solid rgba(237,247,241,0.1);
+  border-radius: 0.72rem;
+  background: rgba(255,255,255,0.018);
+}
+
+.truth-rule-box p {
+  margin: 0.28rem 0 0;
+  color: rgba(237,247,241,0.84);
+  font-size: 0.78rem;
+  line-height: 1.28;
+}
+
+.truth-evidence-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+}
+
+.truth-evidence.live {
+  color: var(--green);
+  border-color: rgba(73,209,125,0.24);
+  background: rgba(73,209,125,0.07);
+}
+
+.truth-evidence.official {
+  color: var(--blue);
+  border-color: rgba(114,214,255,0.24);
+  background: rgba(114,214,255,0.07);
+}
+
+.truth-evidence.computed,
+.truth-evidence.proxy {
+  color: var(--amber);
+  border-color: rgba(247,201,72,0.24);
+  background: rgba(247,201,72,0.07);
+}
+
+.truth-confidence {
+  color: rgba(237,247,241,0.66);
+  background: rgba(255,255,255,0.018);
+}
+
+.truth-why,
+.truth-instrument-card .truth-logic {
+  margin: 0;
+  color: rgba(237,247,241,0.68);
+  font-size: 0.76rem;
+  line-height: 1.34;
+}
+
+.truth-instrument-card .truth-logic {
+  color: rgba(237,247,241,0.58);
+}
+
+@media (max-width: 760px) {
+  .truth-summary-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    padding: 0.78rem 0 !important;
+  }
+
+  .truth-summary-main strong {
+    font-size: 2rem;
+  }
+
+  .truth-summary-counts {
+    justify-content: flex-start;
+  }
+
+  .truth-summary-card p {
+    font-size: 0.72rem;
+    line-height: 1.32;
+  }
+
+  .truth-legend-strip {
+    padding: 0.58rem 0;
+    gap: 0.32rem;
+    overflow-x: auto;
+  }
+
+  .truth-legend-strip span {
+    flex: 0 0 auto;
+    font-size: 0.54rem;
+  }
+
+  .truth-legend-strip b {
+    flex: 0 0 auto;
+    padding: 0.23rem 0.38rem;
+    font-size: 0.56rem;
+  }
+
+  .truth-instrument-card {
+    padding: 0.82rem 0.15rem 0.86rem 0.82rem !important;
+    gap: 0.58rem;
+  }
+
+  .truth-instrument-card::before {
+    top: 0.82rem;
+    bottom: 0.82rem;
+    width: 0.14rem;
+  }
+
+  .truth-card-head h3 {
+    font-size: 0.92rem;
+  }
+
+  .truth-status {
+    font-size: 0.56rem !important;
+    padding: 0.2rem 0.38rem !important;
+  }
+
+  .truth-value-row {
+    grid-template-columns: 1fr;
+    gap: 0.18rem;
+  }
+
+  .truth-value-row strong {
+    font-size: 1.78rem;
+  }
+
+  .truth-value-row span {
+    font-size: 0.66rem;
+  }
+
+  .truth-rule-box {
+    padding: 0.5rem 0.56rem;
+    border-radius: 0.62rem;
+  }
+
+  .truth-rule-box p,
+  .truth-why,
+  .truth-instrument-card .truth-logic {
+    font-size: 0.67rem;
+    line-height: 1.28;
+  }
+
+  .truth-evidence-row span {
+    font-size: 0.54rem;
+    padding: 0.22rem 0.34rem;
+  }
+}

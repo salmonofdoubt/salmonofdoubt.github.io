@@ -29,6 +29,226 @@ def read_json(path: Path, default: Any) -> Any:
     return json.loads(path.read_text())
 
 
+def as_float(value: Any, default: float | None = None) -> float | None:
+    try:
+        if value is None:
+            return default
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def fmt_num(value: Any, digits: int = 0, suffix: str = "") -> str:
+    n = as_float(value)
+    if n is None:
+        return "n/a"
+    return f"{n:.{digits}f}{suffix}"
+
+
+def truth_status_from_residual(value: float | None) -> str:
+    if value is None:
+        return "risk"
+    if value <= 20:
+        return "on"
+    if value <= 35:
+        return "risk"
+    return "off"
+
+
+def truth_status_from_co2(value: float | None) -> str:
+    if value is None:
+        return "risk"
+    if value <= 100:
+        return "on"
+    if value <= 250:
+        return "risk"
+    return "off"
+
+
+def truth_status_from_affordability(elec_c: float | None, gas_c: float | None) -> str:
+    if elec_c is None and gas_c is None:
+        return "risk"
+    if (elec_c is not None and elec_c > 35) or (gas_c is not None and gas_c > 14):
+        return "off"
+    if (elec_c is not None and elec_c > 28) or (gas_c is not None and gas_c > 10):
+        return "risk"
+    return "on"
+
+
+def status_label(status: str) -> str:
+    return {
+        "on": "On track",
+        "risk": "At risk",
+        "off": "Off track",
+    }.get(status, "At risk")
+
+
+def first_price_value(prices: list[dict], label: str) -> float | None:
+    for item in prices:
+        if item.get("label") == label:
+            return as_float(item.get("ireland_c_per_kwh"))
+    return None
+
+
+def build_truth_meter(
+    electricity: dict,
+    target_tracker: dict,
+    prices_source: dict,
+    static_truth: dict,
+) -> dict:
+    e = electricity.get("electricity_now", {}) or {}
+    drift = target_tracker.get("target_drift", {}) or {}
+    prices = prices_source.get("prices", []) or []
+    static_items = static_truth.get("truth_meter", []) or []
+
+    latest_res_e = as_float(drift.get("latest_value"))
+    target_res_e = as_float(drift.get("target_value"), 80)
+    gap_pp = as_float(drift.get("gap_to_target_pp"))
+    required_gain = as_float(drift.get("required_annual_gain_pp"))
+    recent_gain = as_float(drift.get("recent_two_year_gain_pp_per_year"))
+    drift_status = drift.get("status") or "risk"
+
+    residual = as_float(e.get("residual_percent", e.get("gas_percent")))
+    co2 = as_float(e.get("co2_g_per_kwh"))
+    co2_available = bool(e.get("co2_available")) and co2 is not None and co2 > 0
+
+    elec_price = first_price_value(prices, "Household electricity")
+    gas_price = first_price_value(prices, "Household gas")
+
+    residual_status = truth_status_from_residual(residual)
+    co2_status = truth_status_from_co2(co2 if co2_available else None)
+    affordability_status = truth_status_from_affordability(elec_price, gas_price)
+
+    static_by_name = {item.get("name"): item for item in static_items}
+
+    items = [
+        {
+            "name": "Renewable electricity",
+            "status": drift_status,
+            "status_label": status_label(drift_status),
+            "reading": "Official RES-E share",
+            "value": fmt_num(latest_res_e, 1, "%"),
+            "rule": (
+                f"2030 benchmark is {fmt_num(target_res_e, 0, '%')}; "
+                f"current gap is {fmt_num(gap_pp, 1, ' pp')}."
+            ),
+            "why": "This is the core 2030 electricity-transition indicator.",
+            "basis": "Official annual",
+            "confidence": "High",
+            "direction": "too slow" if drift_status == "off" else "watch",
+            "logic": (
+                f"Recent gain is {fmt_num(recent_gain, 2, ' pp/yr')} versus "
+                f"{fmt_num(required_gain, 2, ' pp/yr')} required to 2030."
+            ),
+        },
+        {
+            "name": "Residual supply",
+            "status": residual_status,
+            "status_label": status_label(residual_status),
+            "reading": "Unclassified remainder",
+            "value": fmt_num(residual, 0, "%"),
+            "rule": "On track ≤20%; at risk 20–35%; off track >35%.",
+            "why": "High residual supply means the system still depends on non-wind, non-solar and unidentified supply.",
+            "basis": "Computed live proxy",
+            "confidence": "Medium",
+            "direction": "needs classification",
+            "logic": "Calculated as demand not covered by detected wind, solar and net imports. It is not measured gas.",
+        },
+        {
+            "name": "Grid carbon intensity",
+            "status": co2_status,
+            "status_label": status_label(co2_status),
+            "reading": "Latest carbon signal",
+            "value": fmt_num(co2, 0, " g/kWh") if co2_available else "n/a",
+            "rule": "On track ≤100 g/kWh; at risk 100–250; off track >250.",
+            "why": "Carbon intensity indicates how clean the electricity actually is at the point of use.",
+            "basis": "Live public dashboard",
+            "confidence": "Medium",
+            "direction": "variable",
+            "logic": "Lower values usually reflect stronger renewable output and/or lower fossil generation.",
+        },
+        {
+            "name": "Energy affordability",
+            "status": affordability_status,
+            "status_label": status_label(affordability_status),
+            "reading": "Household pressure",
+            "value": (
+                f"{fmt_num(elec_price, 1, ' c/kWh')} elec"
+                if elec_price is not None else "n/a"
+            ),
+            "rule": "At risk if electricity >28 c/kWh or gas >10 c/kWh; off track if materially higher.",
+            "why": "The transition remains politically fragile if households experience it mainly as cost pressure.",
+            "basis": "Official semi-annual",
+            "confidence": "High",
+            "direction": "pressured",
+            "logic": (
+                f"Current household signals: electricity {fmt_num(elec_price, 2, ' c/kWh')}; "
+                f"gas {fmt_num(gas_price, 2, ' c/kWh')}."
+            ),
+        },
+        {
+            "name": "EV transition",
+            "status": static_by_name.get("EV transition", {}).get("status", "on"),
+            "status_label": status_label(static_by_name.get("EV transition", {}).get("status", "on")),
+            "reading": static_by_name.get("EV transition", {}).get("value", "Rising"),
+            "value": static_by_name.get("EV transition", {}).get("value", "Rising"),
+            "rule": "On track only if uptake and fleet turnover continue to accelerate.",
+            "why": "Transport electrification determines whether clean electricity can displace oil demand.",
+            "basis": "Placeholder proxy",
+            "confidence": "Low",
+            "direction": "improving",
+            "logic": static_by_name.get("EV transition", {}).get(
+                "note",
+                "EV signal is currently qualitative until a live transport dataset is wired."
+            ),
+        },
+        {
+            "name": "Heat transition",
+            "status": static_by_name.get("Heat transition", {}).get("status", "risk"),
+            "status_label": status_label(static_by_name.get("Heat transition", {}).get("status", "risk")),
+            "reading": static_by_name.get("Heat transition", {}).get("value", "Lagging"),
+            "value": static_by_name.get("Heat transition", {}).get("value", "Lagging"),
+            "rule": "At risk until heat-pump, retrofit and fossil-heating displacement signals are wired.",
+            "why": "Heat is harder to decarbonise than electricity and needs its own evidence stream.",
+            "basis": "Placeholder proxy",
+            "confidence": "Low",
+            "direction": "too slow",
+            "logic": static_by_name.get("Heat transition", {}).get(
+                "note",
+                "Heat transition signal is qualitative until a live heat dataset is wired."
+            ),
+        },
+    ]
+
+    counts = {"on": 0, "risk": 0, "off": 0}
+    for item in items:
+        counts[item["status"]] = counts.get(item["status"], 0) + 1
+
+    if counts["off"] >= 2:
+        overall = "off"
+    elif counts["off"] >= 1 or counts["risk"] >= 3:
+        overall = "risk"
+    else:
+        overall = "on"
+
+    main_drag = next((item["name"] for item in items if item["status"] == "off"), "None")
+    best_signal = next((item["name"] for item in items if item["status"] == "on"), "None")
+
+    return {
+        "summary": {
+            "overall_status": overall,
+            "overall_label": status_label(overall),
+            "counts": counts,
+            "main_drag": main_drag,
+            "best_signal": best_signal,
+            "method": "Fixed three-label transition signal: on track, at risk, off track.",
+            "caveat": "Signals combine live values, official annual indicators, computed proxies and labelled placeholders. Evidence basis is shown per module."
+        },
+        "items": items,
+    }
+
+
+
 def main() -> None:
     electricity = read_json(SOURCE_DIR / "electricity.json", {})
     truth = read_json(SOURCE_DIR / "truth_meter.json", {})
@@ -60,6 +280,8 @@ def main() -> None:
         },
     ]
 
+    truth_model = build_truth_meter(electricity, target_tracker, prices, truth)
+
     monitor = {
         "source_registry": source_registry,
         "daily_history": daily_history.get("daily", []),
@@ -83,7 +305,8 @@ def main() -> None:
         "electricity_now": electricity.get("electricity_now", {}),
         "fuel_mix_24h": electricity.get("fuel_mix_24h", []),
         "daily_story": electricity.get("daily_story", {}),
-        "truth_meter": truth.get("truth_meter", []),
+        "truth_meter": truth_model.get("items", []),
+        "truth_summary": truth_model.get("summary", {}),
         "target_drift": target_tracker.get("target_drift", {}),
         "target_trajectory": target_tracker.get("target_trajectory", truth.get("target_trajectory", [])),
         "prices": prices.get("prices", []),

@@ -1768,3 +1768,97 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(renderDailyHistoryNote, 180);
   setTimeout(renderDailyHistoryNote, 900);
 });
+
+/* v0.39 Truth Meter flagship renderer */
+function truthSignalWord(status) {
+  if (status === "on") return "On track";
+  if (status === "off") return "Off track";
+  return "At risk";
+}
+
+function truthBasisClass(basis) {
+  const b = String(basis || "").toLowerCase();
+  if (b.includes("live")) return "live";
+  if (b.includes("official")) return "official";
+  if (b.includes("computed")) return "computed";
+  if (b.includes("placeholder") || b.includes("proxy")) return "proxy";
+  return "unknown";
+}
+
+function renderTruthMeter(data) {
+  const target = document.getElementById("truthGrid");
+  if (!target) return;
+
+  const items = data.truth_meter || [];
+  const summary = data.truth_summary || {};
+
+  const counts = summary.counts || items.reduce((acc, item) => {
+    acc[item.status || "risk"] = (acc[item.status || "risk"] || 0) + 1;
+    return acc;
+  }, { on: 0, risk: 0, off: 0 });
+
+  const overall = summary.overall_status || (
+    (counts.off || 0) > 0 ? "risk" : (counts.risk || 0) > 0 ? "risk" : "on"
+  );
+
+  const summaryCard = `
+    <article class="truth-summary-card ${truthClass(overall)}">
+      <div class="truth-summary-main">
+        <span>Overall transition signal</span>
+        <strong>${escapeHtml(summary.overall_label || truthSignalWord(overall))}</strong>
+      </div>
+      <div class="truth-summary-counts" aria-label="Truth meter signal counts">
+        <span class="on">${counts.on || 0} on track</span>
+        <span class="risk">${counts.risk || 0} at risk</span>
+        <span class="off">${counts.off || 0} off track</span>
+      </div>
+      <p>
+        Main drag: <strong>${escapeHtml(summary.main_drag || "None")}</strong>.
+        Best signal: <strong>${escapeHtml(summary.best_signal || "None")}</strong>.
+      </p>
+    </article>
+  `;
+
+  const legend = `
+    <div class="truth-legend-strip" aria-label="Signal scale">
+      <span>Signal scale</span>
+      <b class="on">On track</b>
+      <b class="risk">At risk</b>
+      <b class="off">Off track</b>
+    </div>
+  `;
+
+  const cards = items.map(item => {
+    const cls = truthClass(item.status);
+    const basisCls = truthBasisClass(item.basis);
+
+    return `
+      <article class="truth-card truth-instrument-card ${cls}">
+        <div class="truth-card-head">
+          <h3>${escapeHtml(item.name)}</h3>
+          <span class="truth-status truth-status-${cls}">${escapeHtml(truthSignalWord(item.status))}</span>
+        </div>
+
+        <div class="truth-value-row">
+          <strong>${escapeHtml(item.value)}</strong>
+          <span>${escapeHtml(item.reading || "Current reading")}</span>
+        </div>
+
+        <div class="truth-rule-box">
+          <span>Rule</span>
+          <p>${escapeHtml(item.rule || item.note || "")}</p>
+        </div>
+
+        <div class="truth-evidence-row">
+          <span class="truth-evidence ${basisCls}">${escapeHtml(item.basis || "Evidence")}</span>
+          <span class="truth-confidence">Confidence: ${escapeHtml(item.confidence || "Medium")}</span>
+        </div>
+
+        <p class="truth-why"><strong>Why:</strong> ${escapeHtml(item.why || item.note || "")}</p>
+        <p class="truth-logic"><strong>Logic:</strong> ${escapeHtml(item.logic || item.note || "")}</p>
+      </article>
+    `;
+  }).join("");
+
+  target.innerHTML = summaryCard + legend + cards;
+}
