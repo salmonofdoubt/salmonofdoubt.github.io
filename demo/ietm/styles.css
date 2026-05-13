@@ -7522,3 +7522,50 @@ h3 {
     font-size: 1.65rem !important;
   }
 }
+
+/* IETM metric number hierarchy: BEGIN */
+
+/* Main KPI numbers: demand, renewable cover, uncovered, interconnection, CO2 */
+#metricGrid.metric-grid .metric-card strong,
+#metricGrid.metric-grid .metric-card[data-accent="demand"] strong,
+#metricGrid.metric-grid .metric-card[data-accent="renewables"] strong,
+#metricGrid.metric-grid .metric-card[data-accent="residual"] strong,
+#metricGrid.metric-grid .metric-card[data-accent="imports"] strong,
+#metricGrid.metric-grid .metric-card[data-accent="co2"] strong {
+  display: block !important;
+  font-size: clamp(1.85rem, 2.15vw, 2.25rem) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.035em !important;
+  font-weight: 850 !important;
+  margin: 0.52rem 0 0.45rem !important;
+}
+
+/* Wind and solar are subsets of renewable cover, so keep only these smaller */
+#metricGrid.metric-grid .metric-card[data-accent="wind"] strong,
+#metricGrid.metric-grid .metric-card[data-accent="solar"] strong {
+  font-size: clamp(1.45rem, 1.65vw, 1.75rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.025em !important;
+  font-weight: 850 !important;
+}
+
+/* Keep the CO2 number visually aligned with the other main KPIs */
+#metricGrid.metric-grid .metric-card .co2-value {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  letter-spacing: inherit !important;
+  font-weight: inherit !important;
+}
+
+/* CO2 unit stays smaller */
+#metricGrid.metric-grid .metric-card .co2-unit {
+  display: block !important;
+  font-size: 0.48em !important;
+  line-height: 1.05 !important;
+  letter-spacing: 0.04em !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  margin-top: 0.16rem !important;
+}
+
+/* IETM metric number hierarchy: END */
