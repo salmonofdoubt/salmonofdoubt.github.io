@@ -207,6 +207,23 @@ def harvest_electricity_market_price() -> dict:
     }
 
 
+def plausible_gas_cent_per_kwh(value: float | None) -> bool:
+    """
+    Reject obvious parser mistakes.
+
+    Gas imbalance prices are c/kWh system prices. A parsed value like 2026 is
+    almost certainly a year/date captured from the page, not a real c/kWh price.
+    This monitor prefers n/a over false precision.
+    """
+    if value is None:
+        return False
+    try:
+        n = float(value)
+    except (TypeError, ValueError):
+        return False
+    return 0 < n < 100
+
+
 def parse_gni_numbers_from_html(html: str) -> dict[str, float]:
     """
     Best-effort parser. The GNI page is interactive and may not expose the data
@@ -240,32 +257,39 @@ def harvest_gas_imbalance_price() -> dict:
 
         if parsed.get("sap") is not None:
             sap = parsed["sap"]
-            return {
-                "label": "Gas imbalance price",
-                "value": f"{sap:.2f} c/kWh",
-                "numeric_value": round(sap, 2),
-                "unit": "c/kWh",
-                "status": "mapped",
-                "period": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
-                "source": "Gas Networks Ireland imbalance prices",
-                "source_url": GNI_IMBALANCE,
-                "detail": (
-                    "Daily gas-system imbalance price signal. "
-                    "This is not a household gas tariff."
-                ),
-                "stats": {
-                    "sap_cent_per_kwh": parsed.get("sap"),
-                    "smp_buy_cent_per_kwh": parsed.get("smp_buy"),
-                    "smp_sell_cent_per_kwh": parsed.get("smp_sell"),
-                },
-            }
 
-        errors.append("GNI page fetched, but SAP value was not visible in static HTML.")
+            if not plausible_gas_cent_per_kwh(sap):
+                errors.append(
+                    f"GNI parser found SAP-like value {sap}, but rejected it as implausible for c/kWh. "
+                    "Likely a date/year or unrelated page number."
+                )
+            else:
+                return {
+                    "label": "Gas balancing price",
+                    "value": f"{sap:.2f} c/kWh",
+                    "numeric_value": round(sap, 2),
+                    "unit": "c/kWh",
+                    "status": "mapped",
+                    "period": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                    "source": "Gas Networks Ireland imbalance prices",
+                    "source_url": GNI_IMBALANCE,
+                    "detail": (
+                        "Daily gas balancing-market reference from Gas Networks Ireland. "
+                        "This is a system stress signal, not a household gas tariff."
+                    ),
+                    "stats": {
+                        "sap_cent_per_kwh": parsed.get("sap"),
+                        "smp_buy_cent_per_kwh": parsed.get("smp_buy"),
+                        "smp_sell_cent_per_kwh": parsed.get("smp_sell"),
+                    },
+                }
+
+        errors.append("GNI page fetched, but no plausible SAP c/kWh value was visible in static HTML.")
     except Exception as exc:
         errors.append(str(exc))
 
     return {
-        "label": "Gas imbalance price",
+        "label": "Gas balancing price",
         "value": "n/a",
         "numeric_value": None,
         "unit": "c/kWh",
@@ -274,7 +298,7 @@ def harvest_gas_imbalance_price() -> dict:
         "source": "Gas Networks Ireland imbalance prices",
         "source_url": GNI_IMBALANCE,
         "detail": (
-            "Daily gas imbalance price layer is installed, but no SAP value was parsed in this run. "
+            "Daily gas balancing-price layer is installed, but no plausible SAP c/kWh value was parsed in this run. "
             "Do not substitute SEAI household gas prices here."
         ),
         "errors": errors,
