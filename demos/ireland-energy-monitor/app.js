@@ -1425,3 +1425,22 @@ function iemMarketNumberParts(item) {
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(renderMarketPrices, 80);
 });
+
+/* v0.20 hide empty rendered panel shells */
+function hideEmptyPanelShells() {
+  document.querySelectorAll(".panel, .status-card, .truth-card, .price-card, .market-price-card").forEach(panel => {
+    const text = (panel.textContent || "").replace(/\s+/g, " ").trim();
+    const hasVisual = panel.querySelector("svg, canvas, img, button, a, input, select, textarea");
+    const hasImportantContainer = panel.querySelector("#countyHeatmap, #trajectoryChart, #fuelMixBars, #truthGrid, #marketPriceGrid");
+
+    if (!text && !hasVisual && !hasImportantContainer) {
+      panel.classList.add("hidden-empty-panel");
+      panel.setAttribute("aria-hidden", "true");
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(hideEmptyPanelShells, 120);
+  setTimeout(hideEmptyPanelShells, 600);
+});

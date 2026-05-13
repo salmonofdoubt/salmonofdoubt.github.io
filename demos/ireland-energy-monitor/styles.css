@@ -4078,3 +4078,19 @@ h3 {
 .market-price-card.missing a {
   color: rgba(184,243,106,0.78) !important;
 }
+
+/* v0.20 remove empty panel shells */
+.hidden-empty-panel {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .hidden-empty-panel {
+    display: none !important;
+    min-height: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+}
