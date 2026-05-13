@@ -1395,3 +1395,33 @@ function renderMarketPriceCard(item) {
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(renderMarketPrices, 0);
 });
+
+/* v0.19 market price null handling: null is n/a, not 0.00 */
+function iemMarketNumberParts(item) {
+  const raw = item?.numeric_value;
+
+  if (raw === null || raw === undefined || raw === "" || !Number.isFinite(Number(raw))) {
+    return {
+      value: "n/a",
+      unit: item?.unit || "",
+      unavailable: true
+    };
+  }
+
+  const unit = item?.unit || "";
+  const digits = unit.includes("MWh") ? 2 : 2;
+
+  return {
+    value: Number(raw).toLocaleString("en-IE", {
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits
+    }),
+    unit,
+    unavailable: false
+  };
+}
+
+/* force final market re-render after all overrides */
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(renderMarketPrices, 80);
+});
