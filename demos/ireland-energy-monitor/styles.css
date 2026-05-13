@@ -4211,3 +4211,216 @@ h3 {
     max-height: 76px !important;
   }
 }
+
+/* v0.32 Die Zeit refinement: quiet secondary panels */
+:root {
+  --zeit-hairline: rgba(237, 247, 241, 0.105);
+  --zeit-hairline-strong: rgba(237, 247, 241, 0.155);
+  --zeit-panel-soft: rgba(255, 255, 255, 0.012);
+  --zeit-panel-hover: rgba(255, 255, 255, 0.025);
+}
+
+/* Quieter panels generally */
+.hero-card,
+.panel,
+.status-card,
+.market-price-card,
+.truth-card,
+.price-card,
+.source-console-card,
+.county-summary-card,
+.quality-item {
+  box-shadow: none !important;
+  border-color: var(--zeit-hairline) !important;
+}
+
+/* Refine Quick Links */
+.quick-links-polished {
+  border-radius: 1rem !important;
+  background: var(--zeit-panel-soft) !important;
+  border: 1px solid var(--zeit-hairline) !important;
+  padding: 0.9rem !important;
+}
+
+.quick-links-polished .eyebrow,
+.quick-links-polished h3,
+.quick-links-polished h4 {
+  letter-spacing: 0.11em !important;
+}
+
+.quick-links-polished a,
+.quick-links-polished button {
+  border-radius: 999px !important;
+  min-height: 2.15rem !important;
+  padding: 0.48rem 0.72rem !important;
+  font-size: 0.76rem !important;
+  font-weight: 760 !important;
+  box-shadow: none !important;
+  border-width: 1px !important;
+}
+
+.quick-links-polished a:hover,
+.quick-links-polished button:hover {
+  transform: translateY(-1px);
+  background: var(--zeit-panel-hover) !important;
+}
+
+.quick-links-polished .quick-links-duo {
+  margin: 0.55rem 0 0.65rem !important;
+}
+
+.quick-links-polished .github-blob,
+.quick-links-polished [class*="github"] {
+  border-radius: 0.8rem !important;
+  border: 1px solid var(--zeit-hairline) !important;
+  background: rgba(255,255,255,0.018) !important;
+  padding: 0.45rem 0.6rem !important;
+}
+
+/* Compact DOI / Zenodo strip */
+.quick-links-polished .zenodo-strip-compact {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  min-height: 2.15rem !important;
+  padding: 0.45rem 0.65rem !important;
+  border-radius: 0.8rem !important;
+  background: rgba(35, 168, 142, 0.12) !important;
+  border: 1px solid rgba(114, 214, 255, 0.18) !important;
+}
+
+.quick-links-polished .zenodo-strip-compact::before {
+  content: "DOI";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.25rem;
+  padding: 0 0.42rem;
+  border-radius: 999px;
+  background: rgba(114, 214, 255, 0.15);
+  color: rgba(237,247,241,0.88);
+  font-size: 0.58rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  flex: 0 0 auto;
+}
+
+.quick-links-polished .zenodo-strip-compact * {
+  font-size: 0.78rem !important;
+  line-height: 1 !important;
+}
+
+/* Refine Share panel */
+.share-polished {
+  border-radius: 1rem !important;
+  background: var(--zeit-panel-soft) !important;
+  border: 1px solid var(--zeit-hairline) !important;
+  padding: 0.9rem !important;
+}
+
+.share-polished .share-layout {
+  grid-template-columns: minmax(0, 1fr) 88px !important;
+  gap: 0.72rem !important;
+  align-items: start !important;
+}
+
+.share-polished .share-actions {
+  gap: 0.42rem !important;
+}
+
+.share-polished .share-actions > a,
+.share-polished .share-actions > button {
+  min-height: 2.05rem !important;
+  border-radius: 999px !important;
+  padding: 0.42rem 0.66rem !important;
+  font-size: 0.72rem !important;
+  font-weight: 760 !important;
+  border: 1px solid var(--zeit-hairline-strong) !important;
+  background: rgba(255,255,255,0.015) !important;
+  box-shadow: none !important;
+}
+
+.share-polished .share-actions > a:hover,
+.share-polished .share-actions > button:hover {
+  background: var(--zeit-panel-hover) !important;
+  transform: translateY(-1px);
+}
+
+.share-polished .share-qr-box {
+  width: 88px !important;
+  height: 88px !important;
+  border-radius: 0.72rem !important;
+  background: rgba(255,255,255,0.026) !important;
+  border: 1px solid var(--zeit-hairline-strong) !important;
+  padding: 0.28rem !important;
+  box-shadow: none !important;
+}
+
+.share-polished .share-qr-box img,
+.share-polished .share-qr-box canvas,
+.share-polished .share-qr-box svg {
+  width: 76px !important;
+  height: 76px !important;
+  max-width: 76px !important;
+  max-height: 76px !important;
+}
+
+/* Mobile second pass */
+@media (max-width: 760px) {
+  .quick-links-polished,
+  .share-polished {
+    padding: 0.72rem !important;
+    border-radius: 0.85rem !important;
+  }
+
+  .quick-links-polished .quick-links-duo {
+    gap: 0.45rem !important;
+    margin: 0.45rem 0 0.55rem !important;
+  }
+
+  .quick-links-polished a,
+  .quick-links-polished button,
+  .share-polished .share-actions > a,
+  .share-polished .share-actions > button {
+    min-height: 1.95rem !important;
+    padding: 0.38rem 0.52rem !important;
+    font-size: 0.66rem !important;
+  }
+
+  .quick-links-polished .zenodo-strip-compact {
+    min-height: 1.95rem !important;
+    padding: 0.38rem 0.55rem !important;
+    gap: 0.42rem !important;
+  }
+
+  .quick-links-polished .zenodo-strip-compact::before {
+    height: 1.08rem;
+    font-size: 0.52rem;
+    padding: 0 0.34rem;
+  }
+
+  .quick-links-polished .zenodo-strip-compact * {
+    font-size: 0.68rem !important;
+  }
+
+  .share-polished .share-layout {
+    grid-template-columns: minmax(0, 1fr) 78px !important;
+    gap: 0.55rem !important;
+  }
+
+  .share-polished .share-qr-box {
+    width: 78px !important;
+    height: 78px !important;
+    border-radius: 0.62rem !important;
+    padding: 0.22rem !important;
+  }
+
+  .share-polished .share-qr-box img,
+  .share-polished .share-qr-box canvas,
+  .share-polished .share-qr-box svg {
+    width: 68px !important;
+    height: 68px !important;
+    max-width: 68px !important;
+    max-height: 68px !important;
+  }
+}
