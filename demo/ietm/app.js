@@ -3819,45 +3819,6 @@ function renderSourceGovernance(data) {
   }
 }
 
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const gate = ietmSourceGate(data);
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const demandLabel = gate.valuesAreLive ? "Demand now" : "Demand snapshot";
-  const renewableLabel = "Renewable cover";
-  const uncoveredLabel = "Uncovered";
-
-  const normalised = Boolean(e.renewables_normalised);
-  const surplus = Number(e.renewable_surplus_percent || 0);
-
-  const renewableNote = normalised
-    ? `Capped domestic cover; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
-    : "Estimated wind + solar cover of demand";
-
-  target.innerHTML = [
-    metricCard(demandLabel, `${iemValue(e.demand_mw, 0)} MW`, gate.valuesAreLive ? "Current mapped system demand" : "Latest fallback interval"),
-    metricCard(renewableLabel, percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind cover", percentOrNA(e.wind_percent), "Wind cover of current demand"),
-    metricCard("Solar cover", percentOrNA(e.solar_percent), "Solar cover of current demand"),
-    metricCard(uncoveredLabel, percentOrNA(e.residual_percent ?? e.gas_percent), "Computed remainder; not measured gas"),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-
-  renderSourceGovernance(data);
-  renderElectricityCoverageNote(data);
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const data = await loadMonitor();
