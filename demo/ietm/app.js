@@ -532,7 +532,7 @@ function renderDailyPulse(data) {
 
   // Current display values should come from electricity_now / current monitor first.
   // History is for sparklines and fallback only.
-  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
+  const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
   const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
   const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
   const imports = isNumber(e.imports_percent) ? e.imports_percent : pulseLast(history, "imports_percent");
@@ -552,12 +552,12 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
-      key: "demand",
-      label: "System demand",
-      value: pulseNumber(demandGw, 2),
+      key: "generation",
+      label: "Generation now",
+      value: pulseNumber(generationGw, 2),
       unit: "GW",
-      note: "Current load, not generation.",
-      key: "demand_gw",
+      note: "Current production-side signal.",
+      key: "generation_gw",
       history
     }),
     pulseCard({
@@ -2017,7 +2017,7 @@ function renderDailyPulse(data) {
   const electricityPrice = prices.find(p => p.label === "Household electricity");
   const gasPrice = prices.find(p => p.label === "Household gas");
 
-  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
+  const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
   const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
   const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
 
@@ -2041,10 +2041,10 @@ function renderDailyPulse(data) {
   target.innerHTML = [
     pulseCard({
       key: "demand",
-      label: "System demand",
+      label: "Generation now",
       value: pulseNumber(demandGw, 2),
       unit: "GW",
-      note: "Current load, not generation.",
+      note: "Current production-side signal.",
       key: "demand_gw",
       history,
       delta: iemDelta(history, "demand_gw", { digits: 2, unit: "GW", goodWhen: "neutral" })
@@ -2319,7 +2319,7 @@ function renderDailyPulse(data) {
   const electricityPrice = prices.find(p => p.label === "Household electricity");
   const gasPrice = prices.find(p => p.label === "Household gas");
 
-  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
+  const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
   const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
   const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
   const residual = isNumber(e.residual_percent ?? e.gas_percent)
@@ -2349,12 +2349,12 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
-      key: "demand",
-      label: "System demand",
-      value: pulseNumber(demandGw, 2),
+      key: "generation",
+      label: "Generation now",
+      value: pulseNumber(generationGw, 2),
       unit: "GW",
-      note: "Current load, not generation.",
-      key: "demand_gw",
+      note: "Current production-side signal.",
+      key: "generation_gw",
       history
     }),
     pulseCard({
