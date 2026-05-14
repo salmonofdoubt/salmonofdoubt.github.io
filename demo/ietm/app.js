@@ -176,54 +176,6 @@ function truthContextLabel(item) {
   return context;
 }
 
-function renderTruthMeter(data) {
-  const target = document.getElementById("truthGrid");
-  if (!target) return;
-
-  const scale = `
-    <article class="truth-card truth-scale-card">
-      <div class="truth-top">
-        <h3>Signal scale</h3>
-        <span class="truth-status truth-status-scale">Fixed labels</span>
-      </div>
-      <div class="truth-scale-row" aria-label="Truth meter signal scale">
-        <span class="truth-scale-pill on">On track</span>
-        <span class="truth-scale-pill risk">At risk</span>
-        <span class="truth-scale-pill off">Off track</span>
-      </div>
-      <p>
-        Every module receives exactly one transition signal. Descriptive terms such as
-        “Improving”, “Pressured” or “Unclassified” are readings, not final labels.
-      </p>
-    </article>
-  `;
-
-  const cards = (data.truth_meter || []).map(item => {
-    const cls = truthClass(item.status);
-    const signal = truthSignalLabel(item.status);
-    const context = truthContextLabel(item);
-
-    return `
-      <article class="truth-card ${cls}">
-        <div class="truth-top">
-          <h3>${escapeHtml(item.name)}</h3>
-          <span class="truth-status truth-status-${cls}">Signal: ${escapeHtml(signal)}</span>
-        </div>
-
-        <div class="truth-reading">
-          <span>Current reading</span>
-          <strong>${escapeHtml(item.value)}</strong>
-          ${context ? `<small>${escapeHtml(context)}</small>` : ""}
-        </div>
-
-        <p class="truth-logic"><strong>Logic:</strong> ${escapeHtml(item.note)}</p>
-      </article>
-    `;
-  }).join("");
-
-  target.innerHTML = scale + cards;
-}
-
 function driftStatusClass(status) {
   if (status === "on") return "on";
   if (status === "off") return "off";
@@ -232,57 +184,6 @@ function driftStatusClass(status) {
 
 function targetMetricValue(value, unit = "") {
   return `<span class="target-number">${escapeHtml(value)}</span>${unit ? `<span class="target-unit">${escapeHtml(unit)}</span>` : ""}`;
-}
-
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const statusClass = driftStatusClass(drift.status);
-
-  target.innerHTML = `
-    <article class="target-drift-card ${statusClass}">
-      <span>Latest official RES-E</span>
-      <strong>${targetMetricValue(Number(drift.latest_value).toFixed(1), "%")}</strong>
-      <small>${drift.latest_year}</small>
-    </article>
-
-    <article class="target-drift-card">
-      <span>2030 benchmark</span>
-      <strong>${targetMetricValue(Number(drift.target_value).toFixed(0), "%")}</strong>
-      <small>Renewable electricity</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>2030 target gap</span>
-      <strong>${targetMetricValue(Number(drift.gap_to_target_pp).toFixed(1), "pp")}</strong>
-      <small>${drift.years_remaining} years remaining</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Required gain</span>
-      <strong>${targetMetricValue(Number(drift.required_annual_gain_pp).toFixed(2), "pp/yr")}</strong>
-      <small>From ${drift.latest_year} to ${drift.target_year}</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Recent gain</span>
-      <strong>${targetMetricValue(Number(drift.recent_two_year_gain_pp_per_year).toFixed(2), "pp/yr")}</strong>
-      <small>Two-year average</small>
-    </article>
-
-    <article class="target-drift-card target-status-card ${statusClass}">
-      <span>Status</span>
-      <strong>${escapeHtml(drift.status_label)}</strong>
-      <small>${escapeHtml(drift.caveat || "")}</small>
-    </article>
-  `;
 }
 
 function renderPrices(data) {
@@ -296,16 +197,6 @@ function renderPrices(data) {
       <p>${item.detail}</p>
     </article>
   `).join("");
-}
-
-function renderResidual(data) {
-  text("residualSignal", data.gas.signal);
-  text("residualNarrative", data.gas.narrative);
-
-  const gauge = document.getElementById("residualGauge");
-  if (gauge) {
-    gauge.style.setProperty("--value", `${Math.max(0, Math.min(100, data.gas.share_percent))}%`);
-  }
 }
 
 function renderCounties(data) {
@@ -1014,68 +905,6 @@ function iemTrajectoryMetric(label, value, unit, note, tone = "") {
   `;
 }
 
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  target.className = "trajectory-metrics";
-
-  const status = String(drift.status_label || "Unknown");
-  const statusTone = drift.status === "off" ? "off" : drift.status === "on" ? "on" : "risk";
-
-  target.innerHTML = `
-    ${iemTrajectoryMetric(
-      "Latest official RES-E",
-      iemFmt(drift.latest_value, 1),
-      "%",
-      String(drift.latest_year || "")
-    )}
-
-    ${iemTrajectoryMetric(
-      "2030 benchmark",
-      iemFmt(drift.target_value, 0),
-      "%",
-      "Renewable electricity"
-    )}
-
-    ${iemTrajectoryMetric(
-      "Gap to target",
-      iemFmt(drift.gap_to_target_pp, 1),
-      "pp",
-      `${drift.years_remaining || "—"} years remaining`,
-      statusTone
-    )}
-
-    ${iemTrajectoryMetric(
-      "Required gain",
-      iemFmt(drift.required_annual_gain_pp, 2),
-      "pp/yr",
-      `From ${drift.latest_year || "latest"} to ${drift.target_year || 2030}`,
-      statusTone
-    )}
-
-    ${iemTrajectoryMetric(
-      "Recent gain",
-      iemFmt(drift.recent_two_year_gain_pp_per_year, 2),
-      "pp/yr",
-      "Two-year average",
-      statusTone
-    )}
-
-    <article class="trajectory-metric trajectory-status ${statusTone}">
-      <span class="trajectory-metric-label">Status</span>
-      <strong class="trajectory-status-value">${escapeHtml(status)}</strong>
-      <em class="trajectory-metric-note">${escapeHtml(drift.caveat || "")}</em>
-    </article>
-  `;
-}
-
 /* v0.16 Daily market price layer */
 async function loadMarketPrices() {
   try {
@@ -1719,106 +1548,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* v0.41 Trajectory status sidecar: move Off track out of numeric silos */
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const statusClass = driftStatusClass(drift.status);
-  const latestValue = Number(drift.latest_value);
-  const targetValue = Number(drift.target_value);
-  const gapValue = Number(drift.gap_to_target_pp);
-  const requiredGain = Number(drift.required_annual_gain_pp);
-  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
-
-  target.innerHTML = `
-    <article class="target-drift-card">
-      <span>Latest official RES-E</span>
-      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
-      <small>${escapeHtml(drift.latest_year)}</small>
-    </article>
-
-    <article class="target-drift-card">
-      <span>2030 benchmark</span>
-      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
-      <small>Renewable electricity</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>2030 target gap</span>
-      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
-      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Required gain</span>
-      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
-      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Recent gain</span>
-      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
-      <small>Two-year average</small>
-    </article>
-  `;
-
-  renderTargetStatusSidecar(drift);
-}
-
-function renderTargetStatusSidecar(drift) {
-  const residualSignal = document.getElementById("residualSignal");
-  const panel = residualSignal?.closest(".panel");
-  if (!panel) return;
-
-  const existing = panel.querySelector(".target-status-sidecar");
-  if (existing) existing.remove();
-
-  const statusClass = driftStatusClass(drift.status);
-  const requiredGain = Number(drift.required_annual_gain_pp);
-  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
-  const gapValue = Number(drift.gap_to_target_pp);
-
-  const sidecar = document.createElement("article");
-  sidecar.className = `target-status-sidecar ${statusClass}`;
-  sidecar.innerHTML = `
-    <div class="target-status-sidecar-top">
-      <span>2030 trajectory status</span>
-      <strong>${escapeHtml(drift.status_label || "Status")}</strong>
-    </div>
-
-    <p>
-      Ireland is <strong>${gapValue.toFixed(1)} percentage points</strong> below the
-      2030 renewable-electricity benchmark. Recent progress is
-      <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required path is
-      <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
-    </p>
-
-    <div class="target-status-mini-grid">
-      <div>
-        <span>Gap</span>
-        <strong>${gapValue.toFixed(1)} pp</strong>
-      </div>
-      <div>
-        <span>Speed needed</span>
-        <strong>${requiredGain.toFixed(2)} pp/yr</strong>
-      </div>
-      <div>
-        <span>Recent speed</span>
-        <strong>${recentGain.toFixed(2)} pp/yr</strong>
-      </div>
-    </div>
-
-    <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not live quarter-hourly electricity mix.")}</small>
-  `;
-
-  panel.appendChild(sidecar);
-}
 
 /* v0.45 Structural governance: canonical metrics, interconnection and method section */
 function iemValue(value, digits = 0) {
@@ -2122,75 +1851,6 @@ function decorateTargetTrajectoryPanel() {
   }
 }
 
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const statusClass = driftStatusClass(drift.status);
-  const statusLabel = drift.status_label || truthSignalLabel(drift.status);
-
-  const latestValue = Number(drift.latest_value);
-  const targetValue = Number(drift.target_value);
-  const gapValue = Number(drift.gap_to_target_pp);
-  const requiredGain = Number(drift.required_annual_gain_pp);
-  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
-
-  target.innerHTML = `
-    <article class="target-drift-card">
-      <span>Latest official RES-E</span>
-      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
-      <small>${escapeHtml(drift.latest_year)}</small>
-    </article>
-
-    <article class="target-drift-card">
-      <span>2030 benchmark</span>
-      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
-      <small>Renewable electricity</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>2030 target gap</span>
-      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
-      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Required gain</span>
-      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
-      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Recent gain</span>
-      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
-      <small>Two-year average</small>
-    </article>
-
-    <article class="target-verdict-card ${statusClass}">
-      <div>
-        <span>Same verdict as Truth Meter</span>
-        <strong>${escapeHtml(statusLabel)}</strong>
-      </div>
-      <p>
-        Renewable electricity is <strong>${gapValue.toFixed(1)} percentage points</strong>
-        below the 2030 benchmark. Recent progress is
-        <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required pace is
-        <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
-      </p>
-      <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not the live quarter-hourly electricity mix.")}</small>
-    </article>
-  `;
-
-  decorateTargetTrajectoryPanel();
-  renderTargetStatusSidecar();
-}
-
 function decorateRenewableTruthCard() {
   const cards = document.querySelectorAll("#truthGrid .truth-card");
   for (const card of cards) {
@@ -2268,22 +1928,6 @@ function truth_status_from_residual_frontend(data) {
   if (value <= 20) return "on";
   if (value <= 35) return "risk";
   return "off";
-}
-
-function decorateTargetTrajectoryPanelWithSignal(data) {
-  const drift = data.target_drift || {};
-  const panel = document.querySelector(".target-explainer-panel") || document.getElementById("targetDriftGrid")?.closest(".panel");
-  const head = panel?.querySelector(".panel-head");
-  if (!panel || !head) return;
-
-  let pill = head.querySelector(".target-signal-pill");
-  if (!pill) {
-    pill = document.createElement("span");
-    pill.className = "pill panel-signal-pill target-signal-pill";
-    head.appendChild(pill);
-  }
-
-  setSignalPill(pill, drift.status || "risk");
 }
 
 function renderTargetDrift(data) {
