@@ -10,6 +10,16 @@ YEARS = list(range(2024, 2031))
 TARGET_SHARE = 0.80
 TWH_PER_YEAR_TO_MW_AVG = 114.08
 
+# Transparent denominator estimate for translating extra renewable TWh into
+# an equivalent percentage-point burden on the 2030 RES-E catch-up task.
+# 2024 total demand is inferred from data-centre demand and its approximate
+# share of metered electricity.
+DC_SHARE_2024_OF_TOTAL_DEMAND = 0.22
+DC_2024_TWH = 6.97
+EV_2024_TWH = 0.45
+TOTAL_ELECTRICITY_DEMAND_2024_TWH = DC_2024_TWH / DC_SHARE_2024_OF_TOTAL_DEMAND
+NON_DC_EV_BASELINE_DEMAND_TWH = TOTAL_ELECTRICITY_DEMAND_2024_TWH - DC_2024_TWH - EV_2024_TWH
+
 # Scenario philosophy:
 # - 2024 is the baseline year.
 # - 2025 data-centre value is treated as near-term forecast / known shock.
@@ -134,14 +144,18 @@ for year in YEARS:
         extra_demand_twh = max(0.0, combined_twh - baseline[scenario])
         extra_renewable_twh = extra_demand_twh * TARGET_SHARE
         extra_renewable_mw = renewable_burden_mw(extra_demand_twh)
+        total_system_demand_twh = NON_DC_EV_BASELINE_DEMAND_TWH + dc_twh + ev_twh
+        burden_pp = (extra_renewable_twh / total_system_demand_twh) * 100 if total_system_demand_twh else 0.0
 
         derived_by_year[y][scenario] = {
             "data_centres_twh_per_year": round(dc_twh, 3),
             "evs_twh_per_year": round(ev_twh, 3),
             "combined_demand_twh_per_year": round(combined_twh, 3),
+            "total_system_demand_twh_per_year": round(total_system_demand_twh, 3),
             "extra_demand_since_2024_twh_per_year": round(extra_demand_twh, 3),
             "extra_renewable_required_twh_per_year": round(extra_renewable_twh, 3),
-            "extra_renewable_required_mw_average": round(extra_renewable_mw)
+            "extra_renewable_required_mw_average": round(extra_renewable_mw),
+            "demand_adjusted_burden_pp": round(burden_pp, 1)
         }
 
 forecast = {
@@ -155,6 +169,14 @@ forecast = {
         "conversion": {
             "twh_per_year_to_mw_average": TWH_PER_YEAR_TO_MW_AVG,
             "formula": "extra_renewable_required_mw_average = extra_demand_since_2024_twh_per_year * target_share * 114.08"
+        },
+        "demand_denominator": {
+            "method": "2024 total demand inferred from data-centre demand divided by approximate data-centre share of metered electricity.",
+            "data_centres_2024_twh": DC_2024_TWH,
+            "data_centres_2024_share_of_total": DC_SHARE_2024_OF_TOTAL_DEMAND,
+            "estimated_total_electricity_demand_2024_twh": round(TOTAL_ELECTRICITY_DEMAND_2024_TWH, 3),
+            "non_dc_ev_baseline_demand_twh": round(NON_DC_EV_BASELINE_DEMAND_TWH, 3),
+            "burden_pp_formula": "demand_adjusted_burden_pp = extra_renewable_required_twh_per_year / total_system_demand_twh_per_year * 100"
         },
         "confidence_method": "Scenario envelope. These are not statistical confidence intervals and not official forecasts.",
         "important_note": "Demand growth does not change the official 80% RES-E target. It increases the renewable electricity required to reach that target.",

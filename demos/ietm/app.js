@@ -529,39 +529,28 @@ function renderDataQuality(data) {
 // IETM demand pressure scenario chart: BEGIN
 async function loadDemandPressureScenarios() {
   try {
-    const response = await fetch("data/source/demand_pressure_scenarios.json", { cache: "no-store" });
-    if (!response.ok) throw new Error(`Demand scenario fetch failed: ${response.status}`);
+    const response = await fetch("data/source/demand_pressure_forecast.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`Demand pressure forecast fetch failed: ${response.status}`);
     return await response.json();
   } catch (error) {
-    console.warn("Demand pressure scenarios unavailable", error);
+    console.warn("Demand pressure forecast unavailable", error);
     return null;
   }
 }
 
-function iemScenarioNum(value) {
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
-}
-
-function iemScenarioMwFromTwh(twh, targetShare, factor) {
-  return (iemScenarioNum(twh) || 0) * targetShare * factor;
-}
-
-function renderDemandPressureScenarioChart(data, scenarioData) {
+function renderDemandPressureScenarioChart(data, forecast) {
   const chart = document.getElementById("trajectoryChart");
-  if (!chart || !scenarioData) return;
+  if (!chart || !forecast?.derived?.by_year) return;
 
   document.querySelectorAll("#demandPressureScenarioChart").forEach(el => el.remove());
-  document.querySelectorAll("#targetBurdenCallout").forEach(el => el.remove());
 
-  const meta = scenarioData.meta || {};
-  const years = (scenarioData.years || []).map(Number).filter(Number.isFinite);
-  const dc = scenarioData.drivers?.data_centres?.scenarios || {};
-  const ev = scenarioData.drivers?.evs?.scenarios || {};
+  const years = (forecast.years || []).map(Number).filter(Number.isFinite);
+  const byYear = forecast.derived.by_year || {};
+  const meta = forecast.meta || {};
   const targetShare = Number(meta.target_share || 0.8);
   const factor = Number(meta.conversion?.twh_per_year_to_mw_average || 114.08);
 
-  if (!years.length || !dc.central || !ev.central) return;
+  if (!years.length) return;
 
   const scenarioKeys = ["low", "central", "high"];
   const scenarioLabels = {
@@ -573,33 +562,26 @@ function renderDemandPressureScenarioChart(data, scenarioData) {
   const startYear = Math.min(...years);
   const endYear = Math.max(...years);
 
-  const baselineDc = Number(dc.central.values[String(startYear)] ?? 0);
-  const baselineEv = Number(ev.central.values[String(startYear)] ?? 0);
+  const series = scenarioKeys.map(key => ({
+    key,
+    label: scenarioLabels[key],
+    points: years.map(year => {
+      const row = byYear[String(year)]?.[key] || {};
+      return {
+        year,
+        extraDemandTwh: Number(row.extra_demand_since_2024_twh_per_year || 0),
+        renewableTwh: Number(row.extra_renewable_required_twh_per_year || 0),
+        renewableMw: Number(row.extra_renewable_required_mw_average || 0),
+        burdenPp: Number(row.demand_adjusted_burden_pp || 0)
+      };
+    })
+  }));
 
-  const series = scenarioKeys.map(key => {
-    const dcValues = dc[key]?.values || {};
-    const evValues = ev[key]?.values || {};
+  const maxY = Math.max(
+    100,
+    Math.ceil(Math.max(...series.flatMap(item => item.points.map(point => point.renewableMw))) / 100) * 100
+  );
 
-    return {
-      key,
-      label: scenarioLabels[key],
-      description: `${dc[key]?.label || key} + ${ev[key]?.label || key}`,
-      points: years.map(year => {
-        const dcTwh = Number(dcValues[String(year)] ?? baselineDc);
-        const evTwh = Number(evValues[String(year)] ?? baselineEv);
-        const extraDemandTwh = Math.max(0, (dcTwh - baselineDc) + (evTwh - baselineEv));
-        const renewableMw = iemScenarioMwFromTwh(extraDemandTwh, targetShare, factor);
-
-        return {
-          year,
-          extraDemandTwh,
-          renewableMw
-        };
-      })
-    };
-  });
-
-  const maxY = Math.max(100, Math.ceil(Math.max(...series.flatMap(s => s.points.map(p => p.renewableMw))) / 100) * 100);
   const width = 960;
   const height = 310;
   const padLeft = 62;
@@ -615,28 +597,7 @@ function renderDemandPressureScenarioChart(data, scenarioData) {
   ).join(" ");
 
   const ticks = [0, 0.25, 0.5, 0.75, 1].map(v => Math.round(maxY * v));
-
-  const finalBurden = Object.fromEntries(
-    series.map(item => {
-      const finalPoint = item.points[item.points.length - 1];
-      return [item.key, Math.round(finalPoint.renewableMw)];
-    })
-  );
-
-  const callout = document.createElement("aside");
-  callout.id = "targetBurdenCallout";
-  callout.className = "target-burden-callout";
-  callout.innerHTML = `
-    <span>2030 target burden</span>
-    <strong>80% RES-E gets heavier</strong>
-    <dl>
-      <div><dt>Low</dt><dd>+${escapeHtml(String(finalBurden.low || 0))} MW avg</dd></div>
-      <div><dt>Central</dt><dd>+${escapeHtml(String(finalBurden.central || 0))} MW avg</dd></div>
-      <div><dt>High</dt><dd>+${escapeHtml(String(finalBurden.high || 0))} MW avg</dd></div>
-    </dl>
-    <p>Demand does not move the 80% mark. It raises the renewable output needed to reach it.</p>
-  `;
-  chart.appendChild(callout);
+  const summary2030 = forecast.derived.summary_2030 || {};
 
   const panel = document.createElement("section");
   panel.id = "demandPressureScenarioChart";
@@ -652,12 +613,12 @@ function renderDemandPressureScenarioChart(data, scenarioData) {
           new demand makes the renewable build requirement larger.
         </p>
       </div>
-      <span class="demand-scenario-pill">Scenario model · not official forecast</span>
+      <span class="demand-scenario-pill">Scenario envelope · not official forecast</span>
     </div>
 
     <div class="demand-scenario-chart-wrap" tabindex="0">
       <svg class="demand-scenario-svg" viewBox="0 0 ${width} ${height}" role="img"
-        aria-label="Low, central and high demand-pressure scenarios showing extra renewable average output needed">
+        aria-label="Low, central and high demand-pressure forecast scenarios showing extra renewable average output needed">
         ${ticks.map(tick => `
           <line class="demand-scenario-grid" x1="${padLeft}" y1="${y(tick)}" x2="${width - padRight}" y2="${y(tick)}"></line>
           <text class="demand-scenario-axis" x="${padLeft - 12}" y="${y(tick) + 4}" text-anchor="end">${tick} MW</text>
@@ -674,9 +635,10 @@ function renderDemandPressureScenarioChart(data, scenarioData) {
             <circle class="demand-scenario-dot scenario-${escapeHtml(item.key)}" cx="${x(point.year)}" cy="${y(point.renewableMw)}" r="${item.key === "central" ? 4.2 : 3.4}"></circle>
           `).join("")}
           <text class="demand-scenario-end-label scenario-${escapeHtml(item.key)}"
-            x="${x(endYear) - 8}" y="${y(item.points[item.points.length - 1].renewableMw) - (item.key === "high" ? 12 : item.key === "central" ? 0 : -14)}"
+            x="${x(endYear) - 8}"
+            y="${y(item.points[item.points.length - 1].renewableMw) - (item.key === "high" ? 12 : item.key === "central" ? 0 : -14)}"
             text-anchor="end">
-            ${escapeHtml(item.label)} ~${Math.round(item.points[item.points.length - 1].renewableMw)} MW
+            ${escapeHtml(item.label)} ~${Math.round(item.points[item.points.length - 1].renewableMw)} MW · +${escapeHtml(item.points[item.points.length - 1].burdenPp.toFixed(1))} pp
           </text>
         `).join("")}
       </svg>
@@ -689,8 +651,11 @@ function renderDemandPressureScenarioChart(data, scenarioData) {
     </div>
 
     <p class="demand-scenario-note">
-      Calculation: extra renewable MW average = extra demand TWh/year × ${escapeHtml(String(targetShare))} ×
-      ${escapeHtml(String(factor))}. Baseline is 2024; 2025 data-centre value is a forecast; later years are transparent scenarios.
+      2030 envelope:
+      low <strong>${escapeHtml(String(summary2030.low?.extra_renewable_required_mw_average || "—"))} MW / +${escapeHtml(String(summary2030.low?.demand_adjusted_burden_pp || "—"))} pp</strong>,
+      central <strong>${escapeHtml(String(summary2030.central?.extra_renewable_required_mw_average || "—"))} MW / +${escapeHtml(String(summary2030.central?.demand_adjusted_burden_pp || "—"))} pp</strong>,
+      high <strong>${escapeHtml(String(summary2030.high?.extra_renewable_required_mw_average || "—"))} MW / +${escapeHtml(String(summary2030.high?.demand_adjusted_burden_pp || "—"))} pp</strong>.
+      Calculation: extra renewable MW average = extra demand since 2024 × ${escapeHtml(String(targetShare))} × ${escapeHtml(String(factor))}. Percentage-point burden = extra renewable TWh/year ÷ total scenario demand TWh/year × 100.
     </p>
   `;
 
