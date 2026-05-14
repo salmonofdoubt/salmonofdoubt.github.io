@@ -357,7 +357,7 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
     solar_pct_24h = pct(avg_solar, avg_demand)
     imports_pct_24h = pct(avg_imports, avg_demand)
 
-    # Residual is not pure gas. It is all non-wind, non-solar, non-import supply.
+    # Thermal/other is not pure gas. It is all non-wind, non-solar, non-import supply.
     residual_pct_24h = max(0, min(100, 100 - wind_pct_24h - solar_pct_24h - imports_pct_24h))
     residual_pct_now = max(0, min(100, 100 - wind_pct_now - solar_pct_now - imports_pct_now))
 
@@ -375,12 +375,12 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
     headline = (
         "Ireland is renewable-led in this quarter-hour signal."
         if renewables_pct_now >= residual_pct_now
-        else "Ireland remains residual-backed in this quarter-hour signal."
+        else "Ireland remains thermal/other-backed in this quarter-hour signal."
     )
 
     interpretation = (
         "This first live-linked module uses EirGrid quarter-hourly system data where column mapping is possible. "
-        "Wind and solar are measured directly where available. Residual supply is calculated as everything not "
+        "Wind and solar are measured directly where available. Thermal/other is calculated as everything not "
         "identified here as wind, solar or net imports, so it should not yet be read as pure gas."
     )
 
@@ -416,9 +416,9 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
         },
         "gas": {
             "share_percent": round(residual_pct_now, 1),
-            "signal": "Residual supply estimate",
+            "signal": "Thermal/other estimate",
             "narrative": (
-                "Residual supply is currently calculated as demand not covered by detected wind, solar and net imports. "
+                "Thermal/other is currently calculated as demand not covered by detected wind, solar and net imports. "
                 "A later fuel-mix harvester should split this into gas, hydro, storage, coal/oil and other sources."
             ),
         },
@@ -427,7 +427,7 @@ def build_electricity(rows: list[dict[str, Any]], info: dict[str, Any]) -> dict[
             "source_url": EIRGRID_QTR_HOURLY_URL,
             "harvested_at": now_iso(),
             "parser": info,
-            "caveat": "Best-effort parser. Residual is not pure gas."
+            "caveat": "Best-effort parser. Thermal/other is not pure gas."
         }
     }
 

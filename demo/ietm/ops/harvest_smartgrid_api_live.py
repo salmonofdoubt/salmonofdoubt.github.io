@@ -601,7 +601,7 @@ def main() -> int:
         "headline": (
             "Ireland is renewable-led in the latest live grid pulse."
             if float(cover["renewables"]) >= residual
-            else "Ireland remains residual-backed in the latest live grid pulse."
+            else "Ireland remains thermal/other-backed in the latest live grid pulse."
         ),
         "interpretation": (
             "This panel now uses Smart Grid Dashboard API live values for demand, wind and solar. "

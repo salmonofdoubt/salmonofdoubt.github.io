@@ -196,7 +196,7 @@ def main() -> int:
             "do_not_do": [
                 "Do not call stale workbook values live.",
                 "Do not mix dashboard percentages with workbook MW values without explicit denominator notes.",
-                "Do not treat residual supply as measured gas.",
+                "Do not treat thermal/other as measured gas.",
                 "Do not substitute household tariffs for market/system prices."
             ]
         }

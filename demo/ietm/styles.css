@@ -1731,7 +1731,7 @@ main > .section:first-child {
   background: linear-gradient(180deg, rgba(255,107,107,0.95), rgba(255,107,107,0.35)) !important;
 }
 
-/* Compact residual supply panel */
+/* Compact thermal/other panel */
 #residualGauge {
   margin-top: 1rem !important;
 }
@@ -8203,7 +8203,7 @@ h3 {
      2 Renewables now
      3 CO2 now
      4 Interconnection
-     5 Residual supply
+     5 Thermal/other
      6 2030 target gap
      7 Electricity price
      8 Gas price
@@ -8228,13 +8228,13 @@ h3 {
    2 Renewables now
    3 CO2 now
    4 Interconnection
-   5 Residual supply
+   5 Thermal/other
    6 2030 target gap
    7 Electricity price
    8 Gas price
 
    Desired visual order:
-   System demand | Renewables now | Residual supply | CO2 now
+   System demand | Renewables now | Thermal/other | CO2 now
    Interconnection | 2030 target gap | Electricity price | Gas price
 */
 

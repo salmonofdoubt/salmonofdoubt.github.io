@@ -1661,7 +1661,7 @@ function renderDailyPulse(data) {
     }),
     pulseCard({
       key: "residual",
-      label: "Residual supply",
+      label: "Thermal/other",
       value: pulseNumber(residual, 0),
       unit: "%",
       note: "Non-renewable generation remainder.",
@@ -1875,7 +1875,7 @@ function renderResidual(data) {
   const narrative = document.getElementById("residualNarrative");
   if (narrative) {
     narrative.innerHTML = `
-      <strong>${escapeHtml(residualTruth?.value || data.gas?.signal || "Residual supply")}</strong>
+      <strong>${escapeHtml(residualTruth?.value || data.gas?.signal || "Thermal/other")}</strong>
       is the unclassified remainder after detected wind, solar and net imports.
       It is not measured gas. A later fuel-mix harvester should split this into gas,
       hydro, storage, coal/oil and other sources.

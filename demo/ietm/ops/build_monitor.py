@@ -142,13 +142,13 @@ def build_truth_meter(
             ),
         },
         {
-            "name": "Residual supply",
+            "name": "Thermal/other",
             "status": residual_status,
             "status_label": status_label(residual_status),
             "reading": "Unclassified remainder",
             "value": fmt_num(residual, 0, "%"),
             "rule": "On track ≤20%; at risk 20–35%; off track >35%.",
-            "why": "High residual supply means the system still depends on non-wind, non-solar and unidentified supply.",
+            "why": "High thermal/other means the system still depends on non-wind, non-solar and unidentified supply.",
             "basis": "Computed live proxy",
             "confidence": "Medium",
             "direction": "needs classification",
@@ -315,14 +315,14 @@ def build_method_model(electricity: dict, target_tracker: dict, prices_source: d
         },
         {
             "key": "residual",
-            "label": "Residual supply",
+            "label": "Thermal/other",
             "definition": "Demand not covered by detected wind, solar and net imports.",
             "value_key": "residual_percent",
             "unit": "%",
             "denominator": "Current electricity demand.",
             "evidence_basis": "Computed",
             "confidence": "Medium",
-            "caveat": "Residual is not measured gas. It may include gas, hydro, storage, coal/oil or unidentified supply.",
+            "caveat": "Thermal/other is computed, not measured gas. It may include gas, hydro, storage, coal/oil or unidentified supply.",
             "accent": "purple"
         },
         {

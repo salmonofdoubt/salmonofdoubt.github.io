@@ -70,7 +70,7 @@ required_functions = {
     "Trajectory chart renderer": "renderTrajectory",
     "Trajectory trend label helper": "renderTrajectoryTrendLabel",
     "Truth Meter renderer": "renderTruthMeter",
-    "Residual supply renderer": "renderResidual",
+    "Thermal/other renderer": "renderResidual",
     "2030 target / trajectory status renderer": "renderTargetDrift",
     "Target status sidecar renderer": "renderTargetStatusSidecar",
     "Target trajectory signal decoration": "decorateTargetTrajectoryPanelWithSignal",
