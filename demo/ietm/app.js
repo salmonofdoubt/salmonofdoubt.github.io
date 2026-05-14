@@ -68,6 +68,9 @@ function formatPowerMw(value, options = {}) {
 function metricAccentKey(label) {
   const key = String(label || "").toLowerCase();
 
+  if (key.includes("thermal")) return "thermal";
+  if (key.includes("others")) return "others-calculated";
+
   if (key.includes("others")) return "other-renewables";
 
   if (key.includes("thermal")) return "thermal";
@@ -2322,6 +2325,9 @@ function iemValue(value, digits = 0) {
 
 function iemMetricAccent(label) {
   const key = String(label || "").toLowerCase();
+
+  if (key.includes("thermal")) return "thermal";
+  if (key.includes("others")) return "others-calculated";
   if (key.includes("renewable")) return "renewables";
   if (key.includes("wind")) return "wind";
   if (key.includes("solar")) return "solar";
@@ -4491,12 +4497,14 @@ function iemPowerForLiveCards(value, options = {}) {
       metricCard(
         "Others (calculated)",
         percentOrNA(iemGenerationMixParts(e).otherRenewables),
-        "Renewable total minus reported wind and solar"
+        "Renewable total minus reported wind and solar",
+        "others-calculated-card"
       ),
       metricCard(
         "Thermal/other",
         percentOrNA(iemGenerationMixParts(e).thermalOther),
-        "Non-renewable generation remainder"
+        "Non-renewable generation remainder",
+        "thermal-other-card"
       ),
       metricCard(
         "Interconnection",
