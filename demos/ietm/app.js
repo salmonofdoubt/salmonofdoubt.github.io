@@ -587,7 +587,7 @@ async function init() {
 document.addEventListener("DOMContentLoaded", init);
 
 function initShareTools() {
-  const siteUrl = "https://salmonofdoubt.github.io/demo/ietm/";
+  const siteUrl = "https://salmonofdoubt.github.io/demos/ietm/";
   const title = "Ireland Energy Transition Monitor";
 
   const openLink = document.getElementById("share-open-link");

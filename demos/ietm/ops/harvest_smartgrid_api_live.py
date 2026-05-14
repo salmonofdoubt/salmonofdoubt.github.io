@@ -148,7 +148,7 @@ def fetch_rows(chart_type: str, area: str) -> tuple[str, list[dict[str, Any]], s
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyTransitionMonitor/0.70 (+https://salmonofdoubt.github.io/demo/ietm/)",
+            "User-Agent": "IrelandEnergyTransitionMonitor/0.70 (+https://salmonofdoubt.github.io/demos/ietm/)",
             "Accept": "application/json,text/plain,*/*",
             "Accept-Language": "en-IE,en;q=0.9",
             "eirgrid-content-request": "Nextjs",

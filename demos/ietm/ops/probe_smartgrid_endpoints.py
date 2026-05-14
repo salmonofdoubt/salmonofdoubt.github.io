@@ -100,7 +100,7 @@ def fetch(url: str, timeout: int = 40) -> tuple[int, str, str]:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyTransitionMonitor/0.65 (+https://salmonofdoubt.github.io/demo/ietm/)",
+            "User-Agent": "IrelandEnergyTransitionMonitor/0.65 (+https://salmonofdoubt.github.io/demos/ietm/)",
             "Accept": "text/html,application/json,application/javascript,text/plain,*/*",
             "Accept-Language": "en-IE,en;q=0.9",
         },
@@ -286,7 +286,7 @@ def main() -> int:
     print("Wrote ops/debug/smartgrid_endpoint_probe.txt")
     print()
     print("Inspect:")
-    print("grep -niE 'status=200|json|api|chart|table|demand|wind|solar|generation|interconnection' demo/ietm/ops/debug/smartgrid_endpoint_probe.txt | head -260")
+    print("grep -niE 'status=200|json|api|chart|table|demand|wind|solar|generation|interconnection' demos/ietm/ops/debug/smartgrid_endpoint_probe.txt | head -260")
     return 0
 
 

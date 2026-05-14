@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#06281f" />
+  <title>Ireland Energy Transition Monitor | Open transition truth meter</title>
+  <meta name="description" content="An open civic dashboard tracking Ireland's electricity mix, energy pressure, thermal/other, renewable build-out, and 2030 transition trajectory." />
+  <link rel="stylesheet" href="styles.css?v=forced-kpi-accents-20260514114500" />
+</head>
+<body>
+  <a class="back-link" href="/demos/">← Back to Demos</a>
+
+  <header class="hero">
+    <nav class="topbar" aria-label="Project navigation">
+      <a href="#pulse">Daily pulse</a>
+      <a href="#today">Today</a>
+      <a href="#demand-pressure">Pressure</a>
+      <a href="#truth-meter">Truth meter</a>
+      <a href="#market-prices">Market</a>
+      <a href="#prices">Prices</a>
+      <a href="#counties">Counties</a>
+      <a href="#method">Method</a>
+    </nav>
+
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">Ireland · Open data · Daily accountability</p>
+        <h1>Ireland Energy Transition Monitor</h1>
+        <p class="lead">
+          What powers Ireland, what it costs, and whether the transition is moving fast enough.
+        </p>
+        <p class="hero-copy">
+          This is a prototype for an Irish energy transition monitor. It does not merely show a grid mix: It turns fragmented public data into a daily civic signal for electricity, carbon, prices, thermal/other, renewable build-out, counties, and 2030 target drift.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#truth-meter">Open the truth meter</a>
+          <a class="button" href="#method">Inspect method</a>
+        </div>
+      </section>
+
+      <aside class="status-card">
+        <span class="status-label">Current prototype status</span>
+        <strong id="projectStatus">Loading data model</strong>
+        <p id="projectStatusText">Reading local static JSON. Live harvesters can replace this data layer without redesigning the site.</p>
+        <dl class="mini-meta">
+          <div><dt>Mode</dt><dd id="dataMode">Prototype</dd></div>
+          <div><dt>Updated</dt><dd id="updatedAt">—</dd></div>
+          <div><dt>Confidence</dt><dd id="confidence">—</dd></div>
+        </dl>
+      </aside>
+    </div>
+
+      <div class="hero-meta-grid" id="project-tools">
+        <div class="hero-card action-card">
+          <p class="hero-card-kicker">Quick links</p>
+
+          <div class="top-links grant-links">
+            <div class="top-row-links">
+              <a
+                class="pill-link support-link"
+                href="https://buymeacoffee.com/andrecbaum1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Buy me a coffee
+              </a>
+
+              <a
+                class="pill-link email-link"
+                href="mailto:qiquantum42@gmail.com?subject=Ireland%20Energy%20Monitor%20feedback"
+              >
+                Send feedback
+              </a>
+            </div>
+
+            <div class="github-blob" aria-label="Ireland Energy Transition Monitor GitHub links">
+              <span class="github-label">GitHub</span>
+
+              <a
+                class="github-inline-link"
+                href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/ietm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Code
+              </a>
+
+              <span class="github-sep">|</span>
+
+              <a
+                class="github-inline-link"
+                href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/new/choose"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Issues
+              </a>
+
+              <span class="github-sep">|</span>
+
+              <a
+                class="github-inline-link"
+                href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/discussions"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Discussions
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-doi-row">
+            <div class="doi-strip" aria-label="Archived release DOI">
+              <span class="doi-strip-label">Archived release</span>
+              <span class="doi-strip-badge">DOI</span>
+              <a
+                class="doi-strip-link"
+                href="https://doi.org/10.5281/zenodo.0000XXXX"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                10.5281/zenodo.0000XXXX
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-card share-card">
+          <div class="share-header">
+            <div>
+              <p class="share-kicker">Share</p>
+              <p class="share-copy">Copy the link, use native share on mobile, or scan the QR code.</p>
+            </div>
+          </div>
+
+          <div class="share-main-row">
+            <div class="share-actions-wrap">
+              <div class="share-actions">
+                <a
+                  class="pill-link share-open-link"
+                  id="share-open-link"
+                  href="https://salmonofdoubt.github.io/demos/ietm/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ↗ Open link
+                </a>
+
+                <button class="pill-link share-copy-btn" id="copy-link-btn" type="button">
+                  ⧉ Copy link
+                </button>
+
+                <button class="pill-link share-native-btn" id="native-share-btn" type="button">
+                  ⤴ Share
+                </button>
+              </div>
+            </div>
+
+            <div class="share-qr-wrap">
+              <img
+                id="qr-image"
+                class="qr-image"
+                src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=10&data=https%3A%2F%2Fsalmonofdoubt.github.io%2Fdemo%2Fietm%2F"
+                alt="QR code linking to the Ireland Energy Transition Monitor page"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </header>
+
+  <main>
+    <section id="pulse" class="section pulse-section">
+      <div class="section-head pulse-head">
+        <p class="eyebrow">Daily civic briefing</p>
+        <h2>Today at a glance</h2>
+        <p>
+          Fine-line signals from the latest monitor build. Sparklines begin once daily history accumulates.
+        </p>
+      </div>
+
+      <div class="pulse-grid" id="dailyPulseGrid" aria-label="Daily energy pulse cards"></div>
+    </section>
+
+    <section id="transition-questions" class="section question-strip-section">
+      <div class="question-strip-head">
+        <div>
+          <h2>Questions for Ireland’s energy transition</h2>
+          <p>Small signals to read the monitor correctly.</p>
+        </div>
+        <span class="question-strip-cue" aria-hidden="true">Swipe questions →</span>
+      </div>
+
+      <div class="question-strip" aria-label="Energy transition question navigation">
+        <a href="#today" class="question-link">
+          <span class="question-icon">⚡</span>
+          <strong>What powers Ireland now?</strong>
+          <small>Live grid mix</small>
+        </a>
+        <a href="#target-jump" class="question-link">
+          <span class="question-icon">↗</span>
+          <strong>Are we moving fast enough?</strong>
+          <small>2030 RES-E path</small>
+        </a>
+        <a href="#prices" class="question-link">
+          <span class="question-icon">€</span>
+          <strong>What does it cost?</strong>
+          <small>SEAI price signal</small>
+        </a>
+        <a href="#counties" class="question-link">
+          <span class="question-icon">◎</span>
+          <strong>Who hosts the transition?</strong>
+          <small>County signal</small>
+        </a>
+        <a href="#method" class="question-link">
+          <span class="question-icon">?</span>
+          <strong>Can I trust this?</strong>
+          <small>Source console</small>
+        </a>
+      </div>
+    </section>
+
+    <section id="today" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Electricity now</p>
+        <h2>What is Ireland generating now?</h2>
+        <p>
+          A compact public readout of system generation, renewable generation, thermal/other generation, interconnection and carbon intensity.
+          Current electricity values are harvested from EirGrid Smart Grid Dashboard public pages where available, with spreadsheet fallback.
+        </p>
+      </div>
+
+      <div class="metric-grid" id="metricGrid" aria-live="polite"></div>
+
+      <div class="dashboard-grid">
+        <article class="panel wide">
+          <div class="panel-head">
+            <h3>Latest generation mix</h3>
+            <span class="pill" id="dominantFuel">—</span>
+          </div>
+          <div class="stacked-bars" id="mixBars"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h3>Daily interpretation</h3>
+            <span class="pill accent">Plain English</span>
+          </div>
+          <p class="big-quote" id="dailyHeadline">—</p>
+          <p id="dailyInterpretation">—</p>
+        </article>
+      </div>
+
+      <article class="panel data-quality-panel" aria-labelledby="data-quality-title">
+        <div class="panel-head">
+          <h3 id="data-quality-title">Data quality</h3>
+          <span class="pill accent">Mapped · computed · missing</span>
+        </div>
+        <p class="quality-intro">
+          This panel prevents false precision. It shows which values are directly mapped from the EirGrid workbook,
+          which are calculated, and which still require another source.
+        </p>
+        <div class="quality-grid" id="dataQualityList"></div>
+      </article>
+    </section>
+
+
+    <section id="demand-pressure" class="section demand-pressure-section">
+      <div class="section-head">
+        <p class="eyebrow">Emerging demand pressure</p>
+        <h2>What new electricity demand is arriving?</h2>
+        <p>
+          Data centres and transport electrification affect the transition differently. This panel separates
+          measured data, forecast demand, and modelled EV demand so the dashboard does not pretend that every
+          number is live-metered.
+        </p>
+        <p class="source-note-pill">
+          Current proxy layer · forecast, measured and modelled values are labelled separately.
+        </p>
+      </div>
+
+      <div class="demand-pressure-grid" id="demandPressureGrid" aria-label="Emerging electricity demand pressure cards"></div>
+
+      <article class="panel demand-pressure-note-panel">
+        <div class="panel-head">
+          <h3>Interpretation</h3>
+          <span class="pill warning">Not live metered</span>
+        </div>
+        <p id="demandPressureContrast">—</p>
+        <p id="demandPressureNote">—</p>
+      </article>
+    </section>
+
+    <section id="truth-meter" class="section truth-section">
+      <div class="section-head">
+        <p class="eyebrow">Novel layer</p>
+        <h2>Transition truth meter</h2>
+        <p>
+          The distinctive feature: each module compares present movement with the direction Ireland needs,
+          then assigns exactly one fixed signal: on track, at risk, or off track. Descriptive readings are shown separately. No vibes, just explicit logic.
+        </p>
+      </div>
+
+      <div class="truth-grid" id="truthGrid"></div>
+    </section>
+    <div id="target-jump" class="scroll-anchor" aria-hidden="true"></div>
+    <section id="target" class="section target-section">
+      <div class="dashboard-grid">
+        <article class="panel wide">
+          <div class="panel-head">
+            <h3>2030 renewable electricity trajectory</h3>
+            <span class="pill warning" id="targetGap">—</span>
+          </div>
+          <div class="trajectory" id="trajectoryChart" role="img" aria-label="Renewable electricity trajectory chart"></div>
+          <div class="target-drift-grid" id="targetDriftGrid"></div>
+        </article>
+
+        <article class="panel residual-explainer-panel">
+          <div class="panel-head">
+            <div>
+              <h3>Thermal/other explanation</h3>
+              <p class="panel-subtitle">
+                Explains the Truth Meter · Thermal/other
+              </p>
+            </div>
+            <span class="pill panel-signal-pill" id="residualSignal">—</span>
+          </div>
+          <p id="residualNarrative">—</p>
+          <div class="gauge" id="residualGauge"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="market-prices" class="section market-price-section">
+      <div class="section-head">
+        <p class="eyebrow">Daily market pressure</p>
+        <h2>What did the energy system signal today?</h2>
+        <p>
+          Short-term market and system indicators. These are not retail tariffs and should not be read as what households pay.
+        </p>
+        <p class="source-note-pill">
+          System signals only · household prices are shown separately below.
+        </p>
+      </div>
+
+      <div class="market-price-grid" id="marketPriceGrid" aria-label="Daily electricity and gas market prices"></div>
+    </section>
+
+    <section id="prices" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Household pressure</p>
+        <h2>What does energy cost at home?</h2>
+        <p>
+          Official household electricity and gas prices from SEAI. These are affordability indicators, not live supplier quotes.
+        </p>
+        <p class="source-note-pill">
+          Official SEAI household prices · updated semi-annually.
+        </p>
+      </div>
+
+      <div class="price-grid" id="priceGrid"></div>
+    </section>
+
+    <section id="counties" class="section">
+      <div class="section-head">
+        <p class="eyebrow">Spatial justice</p>
+        <h2>Who hosts the renewable transition?</h2>
+        <p>
+          County-level renewable production can expose an Irish transition geography: where infrastructure is hosted,
+          where production is concentrated, and where electricity demand is spatially uneven.
+        </p>
+        <p class="source-note-pill">
+          Official Tailte Éireann county geometry. Hosting scores remain an index scaffold pending deeper SEAI integration.
+        </p>
+      </div>
+
+      <div class="county-hosting-layout">
+        <article class="panel heatmap-panel">
+          <div class="panel-head">
+            <h3>Ireland county hosting heatmap</h3>
+            <span class="pill accent">Official county boundaries</span>
+          </div>
+          <div class="ireland-heatmap ireland-boundary-map" id="countyHeatmap" aria-label="Ireland county hosting boundary heatmap"></div>
+          <div class="heatmap-legend" aria-label="Heatmap legend">
+            <span>Low</span>
+            <i class="legend-swatch heat-very-low"></i>
+            <i class="legend-swatch heat-low"></i>
+            <i class="legend-swatch heat-medium"></i>
+            <i class="legend-swatch heat-high"></i>
+            <i class="legend-swatch heat-very-high"></i>
+            <span>High</span>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h3>Hosting readout</h3>
+            <span class="pill warning">Index scaffold</span>
+          </div>
+          <div class="county-summary-grid" id="countySummaryCards"></div>
+        </article>
+      </div>
+
+      <article class="panel county-method-panel">
+        <h3>Why this matters</h3>
+        <p>
+          A national transition target can hide local geography. A county hosting index asks a sharper question:
+          which counties host renewable infrastructure, which counties mainly consume electricity, and where should
+          benefit-sharing and planning conversations be more visible?
+        </p>
+      </article>
+    </section>
+
+
+    <section id="method" class="section method-section">
+      <div class="section-head">
+        <p class="eyebrow">Transparent by design</p>
+        <h2>Data pipeline and caveats</h2>
+        <p>
+          Version 0.1 uses local static JSON to prove the product. The intended production version harvests
+          EirGrid, SEAI, CSO and Gas Networks Ireland data through GitHub Actions, normalises them to stable JSON,
+          and publishes the result as a fast static site.
+        </p>
+      </div>
+
+      <article class="panel source-console-panel">
+        <div class="panel-head">
+          <h3>Source status console</h3>
+          <span class="pill accent">Audit layer</span>
+        </div>
+        <p>
+          This console shows which parts of the monitor are live-linked, fallback-based, scaffolded, or manually curated.
+        </p>
+        <div class="source-console-grid" id="sourceConsole"></div>
+      </article>
+
+      <div class="method-grid">
+        <article class="panel">
+          <h3>Planned sources</h3>
+          <ul>
+            <li>EirGrid real-time system information and system reports</li>
+            <li>SEAI energy statistics, prices and renewable electricity data</li>
+            <li>CSO transport and household indicators</li>
+            <li>Gas Networks Ireland demand and gas-system reporting</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Publication logic</h3>
+          <ul>
+            <li>GitHub Actions harvests and validates source data</li>
+            <li>Static JSON is committed with timestamped metadata</li>
+            <li>The browser reads only local files for speed and resilience</li>
+            <li>Every status label has explicit threshold logic</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Important caveat</h3>
+          <p>
+            Real-time electricity data are provisional and can omit small embedded generation. The site must always
+            distinguish measured grid generation from the whole Irish energy system.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Ireland Energy Transition Monitor · open civic prototype · built for GitHub Pages</p>
+    <p class="small">Not another grid chart. A daily truth meter for Ireland’s energy transition.</p>
+  </footer>
+
+  <script src="app.js?v=forced-kpi-accents-20260514114500" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
+</body>
+</html>

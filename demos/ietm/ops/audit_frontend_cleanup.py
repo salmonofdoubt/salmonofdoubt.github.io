@@ -4,9 +4,9 @@ from collections import Counter
 import re
 import sys
 
-ROOT = Path(__file__).resolve().parents[3]
-APP = ROOT / "demo" / "ietm" / "app.js"
-CSS = ROOT / "demo" / "ietm" / "styles.css"
+APP_ROOT = Path(__file__).resolve().parents[1]
+APP = APP_ROOT / "app.js"
+CSS = APP_ROOT / "styles.css"
 
 app = APP.read_text()
 css = CSS.read_text()
