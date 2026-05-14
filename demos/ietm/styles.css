@@ -8629,3 +8629,15 @@ main > .pulse-section:first-child {
   font-weight: 850 !important;
 }
 /* IETM Today interconnection direction signal: END */
+
+/* IETM: make "Others (calculated)" read as a smaller helper label */
+#metricGrid .metric-card[data-accent="other-renewables"] .metric-label,
+#metricGrid .metric-card[data-accent="other-renewables"] .metric-kicker,
+#metricGrid .metric-card[data-accent="other-renewables"] .metric-eyebrow,
+#metricGrid .metric-card.other-renewables .metric-label,
+#metricGrid .metric-card.other-renewables .metric-kicker,
+#metricGrid .metric-card.other-renewables .metric-eyebrow {
+  font-size: 0.62rem !important;
+  line-height: 1.1 !important;
+  letter-spacing: 0.12em !important;
+}
