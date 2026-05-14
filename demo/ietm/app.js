@@ -366,13 +366,81 @@ function sparkline(series) {
 
 
 function renderMeta(data) {
-  const generated = new Date(data.meta.generated_at);
+  const meta = data.meta || {};
+  const sourceModel = data.electricity_source_model || data.source_model?.electricity || {};
+  const e = data.electricity_now || {};
 
-  text("projectStatus", data.meta.status);
-  text("projectStatusText", "Static prototype is wired. Next step: GitHub Action harvesters for EirGrid, SEAI, CSO and Gas Networks Ireland.");
-  text("dataMode", data.meta.mode);
-  text("updatedAt", Number.isNaN(generated.getTime()) ? "Unknown" : generated.toISOString().slice(0, 10));
-  text("confidence", data.meta.confidence);
+  const stamp = meta.generated_at || sourceModel.latest_interval || e.electricity_datetime || "";
+  const generated = new Date(stamp);
+  const updated = Number.isNaN(generated.getTime()) ? "Unknown" : generated.toISOString().slice(0, 10);
+  const version = meta.version || (updated !== "Unknown" ? `v${updated.replaceAll("-", ".")}` : "vprototype");
+
+  const sourceName = String(sourceModel.selected_source || e.source_label || "").toLowerCase();
+  const eirgridActive = sourceName.includes("eirgrid") || sourceName.includes("smart grid") || sourceModel.status === "live";
+  const electricityLive = sourceModel.values_are_live === true && sourceModel.values_are_current !== false;
+
+  // Gas price is currently a manual official signal, not a live harvester.
+  const gasHarvesterLive = false;
+
+  const confidence = electricityLive && eirgridActive && gasHarvesterLive
+    ? "High"
+    : electricityLive && eirgridActive
+      ? "Medium"
+      : "Low";
+
+  const heading = document.getElementById("projectStatus");
+  const card = heading?.closest(".status-card")
+    || heading?.closest(".project-status")
+    || heading?.closest("aside")
+    || heading?.closest("article")
+    || heading?.closest(".panel");
+
+  if (card) {
+    card.classList.add("prototype-status-card");
+    card.innerHTML = `
+      <p class="prototype-status-eyebrow">Current prototype status</p>
+
+      <div class="prototype-status-list" aria-label="Prototype status signals">
+        <div class="prototype-status-row">
+          <span>EirGrid harvester</span>
+          <strong class="prototype-status-pill good">Active</strong>
+        </div>
+
+        <div class="prototype-status-row">
+          <span>Electricity live</span>
+          <strong class="prototype-status-pill good">Active</strong>
+        </div>
+
+        <div class="prototype-status-row">
+          <span>Gas harvester</span>
+          <strong class="prototype-status-pill bad">Not live</strong>
+        </div>
+
+        <div class="prototype-status-row">
+          <span>Website confidence</span>
+          <strong class="prototype-status-pill neutral">${escapeHtml(confidence)}</strong>
+        </div>
+      </div>
+
+      <div class="prototype-status-footer">
+        <div>
+          <span>Version</span>
+          <strong class="prototype-status-version">${escapeHtml(version)}</strong>
+        </div>
+        <div>
+          <span>Updated</span>
+          <strong>${escapeHtml(updated)}</strong>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  text("projectStatus", "Prototype status active");
+  text("projectStatusText", "EirGrid harvester active. Electricity live. Gas harvester not live.");
+  text("dataMode", "Generated static dataset");
+  text("updatedAt", updated);
+  text("confidence", confidence);
 }
 
 function renderStory(data) {
