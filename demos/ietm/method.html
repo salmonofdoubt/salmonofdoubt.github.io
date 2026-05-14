@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Method in plain English · Ireland Energy Transition Monitor</title>
+  <link rel="stylesheet" href="styles.css?v=method-plain-english">
+  <style>
+    .method-wrap {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .method-kicker {
+      color: var(--lime);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .method-wrap h1 {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.02;
+      margin: 0 0 0.8rem;
+      max-width: 12ch;
+    }
+
+    .method-lede {
+      max-width: 76ch;
+      color: rgba(235,245,242,0.82);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      margin-bottom: 1.2rem;
+    }
+
+    .method-card {
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 1.1rem;
+      padding: 1.05rem 1.15rem;
+      background: rgba(9,18,17,0.64);
+      margin: 1rem 0;
+    }
+
+    .method-card h2 {
+      margin: 0 0 0.45rem;
+      font-size: 1.15rem;
+    }
+
+    .method-card p,
+    .method-card li {
+      color: rgba(235,245,242,0.80);
+      line-height: 1.55;
+    }
+
+    .method-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .method-mini {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 0.9rem;
+      padding: 0.85rem;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .method-mini strong {
+      display: block;
+      color: rgba(244,255,248,0.95);
+      margin-bottom: 0.25rem;
+    }
+
+    .method-callout {
+      border-left: 4px solid var(--lime);
+      background: rgba(126,240,164,0.06);
+      border-radius: 0.8rem;
+      padding: 0.85rem 1rem;
+      margin: 1rem 0;
+      color: rgba(235,245,242,0.86);
+      line-height: 1.5;
+    }
+
+    .method-flow {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      white-space: pre-wrap;
+      color: rgba(126,240,164,0.92);
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 0.9rem;
+      padding: 0.9rem;
+      line-height: 1.55;
+      overflow-x: auto;
+    }
+
+    .method-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.65rem;
+      font-size: 0.92rem;
+    }
+
+    .method-table th,
+    .method-table td {
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0.55rem 0.45rem;
+      color: rgba(235,245,242,0.78);
+    }
+
+    .method-table th {
+      color: rgba(244,255,248,0.94);
+      font-weight: 850;
+    }
+
+    .method-footer {
+      margin-top: 2rem;
+      color: rgba(235,245,242,0.62);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 760px) {
+      .method-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .method-wrap {
+        padding-top: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="method-wrap">
+    <p><a class="pill-link" href="./">← Back to monitor</a></p>
+
+    <div class="method-kicker">Method in plain English</div>
+    <h1>How this monitor works</h1>
+
+    <p class="method-lede">
+      The Ireland Energy Transition Monitor is a public-interest dashboard. It gathers public electricity data,
+      turns it into local JSON files, checks whether the numbers are coherent, and presents the result as a
+      readable story about Ireland’s electricity transition.
+    </p>
+
+    <div class="method-callout">
+      <strong>The shortest useful explanation:</strong>
+      the dashboard does not claim to know the future. It shows where Ireland is now, how far the 2030 renewable-electricity
+      target is away, and how extra electricity demand could widen the gap if it is not matched by additional renewable electricity.
+    </div>
+
+    <section class="method-card">
+      <h2>1. What question is the monitor asking?</h2>
+      <p>
+        The monitor asks whether Ireland is moving fast enough toward the 2030 renewable-electricity benchmark.
+        It also asks how new electricity demand, especially from data centres and electric vehicles, could make the
+        catch-up task harder.
+      </p>
+      <p>
+        The key idea is simple: the target is about a share, not just a fixed amount of electricity.
+      </p>
+      <div class="method-flow">RES-E share = renewable electricity / total electricity demand</div>
+      <p>
+        If total demand grows, Ireland needs more renewable electricity just to hold the same percentage.
+      </p>
+    </section>
+
+    <section class="method-card">
+      <h2>2. Why live grid data and annual RES-E data are not the same thing</h2>
+      <div class="method-grid">
+        <div class="method-mini">
+          <strong>Live grid pulse</strong>
+          <p>
+            Shows what is happening now or recently: generation, wind, solar, interconnection,
+            thermal/other generation, and CO₂ intensity where available.
+          </p>
+        </div>
+        <div class="method-mini">
+          <strong>Annual RES-E trajectory</strong>
+          <p>
+            Shows annual renewable-electricity progress against the 2030 benchmark. This is slower,
+            policy-facing, and better for accountability.
+          </p>
+        </div>
+      </div>
+      <p>
+        A windy hour can look excellent while the annual transition remains off track. That is why the dashboard keeps
+        live electricity conditions and annual target progress separate.
+      </p>
+    </section>
+
+    <section class="method-card">
+      <h2>3. How the data pipeline works</h2>
+      <p>
+        The browser does not scrape public websites directly. Instead, Python scripts harvest or build data files first.
+        The webpage reads local JSON.
+      </p>
+      <div class="method-flow">public sources
+      ↓
+Python harvesters and builders
+      ↓
+data/source/*.json
+      ↓
+build_monitor.py
+      ↓
+data/monitor.json
+      ↓
+static dashboard</div>
+      <p>
+        This makes the dashboard easier to archive, inspect, and reproduce. It also means the dashboard can keep working
+        even when a public source needs a fallback or caveat.
+      </p>
+    </section>
+
+    <section class="method-card">
+      <h2>4. What the scrapers do</h2>
+      <p>
+        The scripts in <code>ops/</code> collect, normalise, or generate data. Some scripts harvest current electricity
+        values. Others build derived layers such as the target tracker, demand-pressure scenarios, daily history, or source metadata.
+      </p>
+      <p>
+        The scraper layer is deliberately separate from the display layer. The public page reads prepared JSON rather than
+        scraping live sources in the user’s browser.
+      </p>
+    </section>
+
+    <section class="method-card">
+      <h2>5. Why some numbers are withheld or caveated</h2>
+      <p>
+        Energy data can be incomplete, delayed, or internally inconsistent. If a number looks precise but does not reconcile,
+        the responsible choice is to withhold or label it.
+      </p>
+      <table class="method-table">
+        <thead>
+          <tr>
+            <th>Case</th>
+            <th>Dashboard response</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Generation mix does not add up coherently</td>
+            <td>Fail validation or withhold affected output</td>
+          </tr>
+          <tr>
+            <td>Solar is zero at night</td>
+            <td>Do not fail; this can be normal</td>
+          </tr>
+          <tr>
+            <td>Demand does not balance with generation and interconnection</td>
+            <td>Withhold demand card and show caveat</td>
+          </tr>
+          <tr>
+            <td>Other renewables remainder is unusually high</td>
+            <td>Warn; likely component/source uncertainty</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="method-card">
+      <h2>6. What the demand-pressure scenarios mean</h2>
+      <p>
+        Data centres and electric vehicles can increase electricity demand. That does not move the official 80% RES-E target.
+        It changes how much renewable electricity is needed to reach that target.
+      </p>
+      <p>
+        The model asks: if extra demand arrives, and if that demand is not neutralised by additional renewable generation,
+        how much wider could the visible gap to 80% become?
+      </p>
+      <div class="method-flow">extra renewable burden = extra demand × 0.80
+
+1 TWh/year ≈ 114.08 MW average</div>
+      <p>
+        The low, central, and high pathways are scenario assumptions. They are not official forecasts.
+      </p>
+    </section>
+
+    <section class="method-card">
+      <h2>7. How to read the final gap-widening chart</h2>
+      <p>
+        The final chart keeps the y-axis as RES-E percentage. The green target line stays fixed. The projected trend line
+        moves lower if unneutralised demand pressure is added.
+      </p>
+      <div class="method-flow">fixed 80% target
+        ↑
+visible gap
+        ↓
+recent observed trend
+        ↓
+lower line if demand is not matched by renewables</div>
+      <p>
+        Higher demand pressure therefore means a wider visible gap, not a moving target.
+      </p>
+    </section>
+
+    <section class="method-card">
+      <h2>8. Measured, forecast, modelled, scenario, fallback</h2>
+      <table class="method-table">
+        <thead>
+          <tr>
+            <th>Label</th>
+            <th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Measured</td>
+            <td>Observed or reported historical value.</td>
+          </tr>
+          <tr>
+            <td>Forecast</td>
+            <td>Near-term published or source-based expectation.</td>
+          </tr>
+          <tr>
+            <td>Modelled</td>
+            <td>Calculated from transparent assumptions.</td>
+          </tr>
+          <tr>
+            <td>Scenario</td>
+            <td>Conditional pathway used to stress-test a possible future.</td>
+          </tr>
+          <tr>
+            <td>Fallback</td>
+            <td>Placeholder or schematic value used when primary data are unavailable.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="method-card">
+      <h2>9. State of the art</h2>
+      <p>
+        Most live grid dashboards show the present. Official annual statistics show retrospective progress.
+        Scenario studies examine possible futures. This monitor connects those layers in one static civic dashboard:
+        current conditions, annual accountability, caveats, and demand-pressure stress testing.
+      </p>
+    </section>
+
+    <section class="method-card">
+      <h2>10. Intended further work</h2>
+      <ul>
+        <li>Add stronger source provenance to generated JSON values.</li>
+        <li>Replace scenario assumptions with official or traceable projections where available.</li>
+        <li>Document each harvester and fallback pathway.</li>
+        <li>Add tests for generated files and validation rules.</li>
+        <li>Prepare a clean archival release with citation metadata for Zenodo.</li>
+      </ul>
+    </section>
+
+    <section class="method-card">
+      <h2>11. Where the deeper documentation lives</h2>
+      <p>
+        The public explainer is this page. The Zenodo-facing technical overview is the project README:
+      </p>
+      <div class="method-flow">demos/ietm/README.md</div>
+    </section>
+
+    <p class="method-footer">
+      Ireland Energy Transition Monitor · independent civic prototype · built as a static GitHub Pages data product.
+    </p>
+
+    <p><a class="pill-link" href="./">← Back to monitor</a></p>
+  </main>
+
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
+</body>
+</html>
