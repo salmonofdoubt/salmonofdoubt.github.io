@@ -71,7 +71,7 @@ def fetch_html(url: str) -> str:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyTransitionMonitor/0.37 (+https://salmonofdoubt.github.io/demo/ietm/)",
+            "User-Agent": "IrelandEnergyTransitionMonitor/0.37 (+https://salmonofdoubt.github.io/demos/ietm/)",
             "Accept": "text/html,*/*",
         },
     )

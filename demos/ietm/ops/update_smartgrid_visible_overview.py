@@ -36,7 +36,7 @@ def fetch_visible_generation_page() -> tuple[str, str]:
     req = urllib.request.Request(
         URL,
         headers={
-            "User-Agent": "IrelandEnergyTransitionMonitor/1.1 (+https://salmonofdoubt.github.io/demo/ietm/)",
+            "User-Agent": "IrelandEnergyTransitionMonitor/1.1 (+https://salmonofdoubt.github.io/demos/ietm/)",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
             "Accept-Language": "en-IE,en;q=0.9",
         },

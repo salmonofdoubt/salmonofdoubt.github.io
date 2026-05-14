@@ -33,7 +33,7 @@ def fetch(url: str, timeout: int = 40) -> str:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyTransitionMonitor/0.58 (+https://salmonofdoubt.github.io/demo/ietm/)",
+            "User-Agent": "IrelandEnergyTransitionMonitor/0.58 (+https://salmonofdoubt.github.io/demos/ietm/)",
             "Accept": "text/html,application/javascript,application/json,text/plain,*/*",
             "Accept-Language": "en-IE,en;q=0.9",
         },
@@ -192,7 +192,7 @@ def main() -> int:
     print("Wrote ops/debug/gni_imbalance_probe.txt")
     print()
     print("Useful next command:")
-    print("grep -niE 'api|ajax|export|csv|xlsx|download|imbalance|sap|price|table' demo/ietm/ops/debug/gni_imbalance_probe.txt | head -220")
+    print("grep -niE 'api|ajax|export|csv|xlsx|download|imbalance|sap|price|table' demos/ietm/ops/debug/gni_imbalance_probe.txt | head -220")
     return 0
 
 

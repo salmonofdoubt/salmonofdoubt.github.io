@@ -28,16 +28,16 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r demo/ietm/ops/requirements.txt
+          pip install -r demos/ietm/ops/requirements.txt
 
       - name: Run Energy Monitor pipeline
         run: |
-          cd demo/ietm
+          cd demos/ietm
           python ops/run_pipeline.py
 
       - name: Commit generated monitor data
         run: |
-          if git diff --quiet -- demo/ietm/data; then
+          if git diff --quiet -- demos/ietm/data; then
             echo "No monitor data changes to commit."
             exit 0
           fi
@@ -45,6 +45,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add demo/ietm/data
+          git add demos/ietm/data
           git commit -m "Refresh Ireland Energy Transition Monitor data"
           git push

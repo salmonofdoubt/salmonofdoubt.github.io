@@ -57,7 +57,7 @@ def fetch_text(url: str, timeout: int = 40) -> str:
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "IrelandEnergyTransitionMonitor/0.57 (+https://salmonofdoubt.github.io/demo/ietm/)",
+            "User-Agent": "IrelandEnergyTransitionMonitor/0.57 (+https://salmonofdoubt.github.io/demos/ietm/)",
             "Accept": "text/html,application/json,text/plain,*/*",
             "Accept-Language": "en-IE,en;q=0.9",
         },
