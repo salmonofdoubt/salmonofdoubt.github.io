@@ -8768,3 +8768,58 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="interconnecti
     border-top-color: rgba(224, 236, 229, 0.55) !important;
   }
 }
+
+/* IETM Current grid pulse: neutral grey accent for non-fuel grid/system metrics */
+:root {
+  --ietm-neutral-grid-accent: rgba(224, 236, 229, 0.55);
+}
+
+/* Generation now: first Current grid pulse metric card */
+html body #metricGrid.metric-grid article.metric-card:first-child,
+html body #metricGrid.metric-grid article.metric-card[data-accent="generation"],
+html body #metricGrid.metric-grid article.metric-card[data-accent="demand"] {
+  border-top-color: var(--ietm-neutral-grid-accent) !important;
+}
+
+html body #metricGrid.metric-grid article.metric-card:first-child::before,
+html body #metricGrid.metric-grid article.metric-card[data-accent="generation"]::before,
+html body #metricGrid.metric-grid article.metric-card[data-accent="demand"]::before {
+  background: var(--ietm-neutral-grid-accent) !important;
+}
+
+/* Interconnection */
+html body #metricGrid.metric-grid article.metric-card.interconnection-card,
+html body #metricGrid.metric-grid article.metric-card[data-accent="imports"],
+html body #metricGrid.metric-grid article.metric-card[data-accent="interconnection"] {
+  border-top-color: var(--ietm-neutral-grid-accent) !important;
+}
+
+html body #metricGrid.metric-grid article.metric-card.interconnection-card::before,
+html body #metricGrid.metric-grid article.metric-card[data-accent="imports"]::before,
+html body #metricGrid.metric-grid article.metric-card[data-accent="interconnection"]::before {
+  background: var(--ietm-neutral-grid-accent) !important;
+}
+
+/* CO₂ intensity */
+html body #metricGrid.metric-grid article.metric-card[data-accent="co2"],
+html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"] {
+  border-top-color: var(--ietm-neutral-grid-accent) !important;
+}
+
+html body #metricGrid.metric-grid article.metric-card[data-accent="co2"]::before,
+html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::before {
+  background: var(--ietm-neutral-grid-accent) !important;
+}
+
+@media (max-width: 760px) {
+  html body #metricGrid.metric-grid article.metric-card:first-child,
+  html body #metricGrid.metric-grid article.metric-card[data-accent="generation"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="demand"],
+  html body #metricGrid.metric-grid article.metric-card.interconnection-card,
+  html body #metricGrid.metric-grid article.metric-card[data-accent="imports"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="interconnection"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="co2"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"] {
+    border-top-color: var(--ietm-neutral-grid-accent) !important;
+  }
+}
