@@ -2342,30 +2342,6 @@ function metricCard(label, value, note, className = "") {
   `;
 }
 
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), "Wind + solar as share of demand"),
-    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation now"),
-    metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remainder"),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-}
-
 function renderDailyPulse(data) {
   const target = document.getElementById("dailyPulseGrid");
   if (!target) return;
