@@ -549,18 +549,7 @@ function sparkline(series) {
   </svg>`;
 }
 
-function pulseCard({key = "", label, value, unit, note, history, tone = ""}) {
-  return `
-    <article class="pulse-card ${tone}" data-kpi="${escapeHtml(key || "")}">
-      <div class="pulse-card-top">
-        <span>${escapeHtml(label)}</span>
-        <strong>${value}<small>${escapeHtml(unit || "")}</small></strong>
-      </div>
-      ${sparkline(pulseSeries(history, key))}
-      <p>${escapeHtml(note)}</p>
-    </article>
-  `;
-}
+
 
 function renderMeta(data) {
   const generated = new Date(data.meta.generated_at);
