@@ -38,6 +38,8 @@ function formatPowerMw(value, options = {}) {
 function metricAccentKey(label) {
   const key = String(label || "").toLowerCase();
 
+  if (key.includes("thermal")) return "thermal";
+
   if (key.includes("renewable")) return "renewables";
   if (key.includes("wind")) return "wind";
   if (key.includes("solar")) return "solar";
@@ -503,9 +505,9 @@ function sparkline(series) {
   </svg>`;
 }
 
-function pulseCard({label, value, unit, note, key, history, tone = ""}) {
+function pulseCard({key = "", label, value, unit, note, history, tone = ""}) {
   return `
-    <article class="pulse-card ${tone}">
+    <article class="pulse-card ${tone}" data-kpi="${escapeHtml(key || "")}">
       <div class="pulse-card-top">
         <span>${escapeHtml(label)}</span>
         <strong>${value}<small>${escapeHtml(unit || "")}</small></strong>
@@ -550,6 +552,7 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
+      key: "demand",
       label: "System demand",
       value: pulseNumber(demandGw, 2),
       unit: "GW",
@@ -558,6 +561,7 @@ function renderDailyPulse(data) {
       history
     }),
     pulseCard({
+      key: "renewables",
       label: "Renewables now",
       value: pulseNumber(renewables, 0),
       unit: "%",
@@ -567,23 +571,7 @@ function renderDailyPulse(data) {
       tone: "good"
     }),
     pulseCard({
-      label: "CO₂ now",
-      value: pulseNumber(co2, 0),
-      unit: "g/kWh",
-      note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
-      key: "co2_g_per_kwh",
-      history,
-      tone: co2 ? "" : "muted"
-    }),
-    pulseCard({
-      label: "Imports",
-      value: pulseNumber(imports, 0),
-      unit: "%",
-      note: "Mapped interconnector contribution.",
-      key: "imports_percent",
-      history
-    }),
-    pulseCard({
+      key: "residual",
       label: "Residual supply",
       value: pulseNumber(residual, 0),
       unit: "%",
@@ -593,6 +581,26 @@ function renderDailyPulse(data) {
       tone: "caution"
     }),
     pulseCard({
+      key: "co2",
+      label: "CO₂ now",
+      value: pulseNumber(co2, 0),
+      unit: "g/kWh",
+      note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
+      key: "co2_g_per_kwh",
+      history,
+      tone: co2 ? "" : "muted"
+    }),
+    pulseCard({
+      key: "interconnection",
+      label: "Imports",
+      value: pulseNumber(imports, 0),
+      unit: "%",
+      note: "Mapped interconnector contribution.",
+      key: "imports_percent",
+      history
+    }),
+    pulseCard({
+      key: "target-gap",
       label: "2030 target gap",
       value: pulseNumber(gap, 1),
       unit: "pp",
@@ -602,6 +610,7 @@ function renderDailyPulse(data) {
       tone: "risk"
     }),
     pulseCard({
+      key: "electricity-price",
       label: "Electricity price",
       value: pulseNumber(electricityPriceValue, 2),
       unit: "c/kWh",
@@ -610,6 +619,7 @@ function renderDailyPulse(data) {
       history
     }),
     pulseCard({
+      key: "gas-price",
       label: "Gas price",
       value: pulseNumber(gasPriceValue, 2),
       unit: "c/kWh",
@@ -617,6 +627,7 @@ function renderDailyPulse(data) {
       key: "household_gas_c_per_kwh",
       history
     })
+
   ].join("");
 }
 
@@ -1982,7 +1993,7 @@ function iemDelta(history, key, options = {}) {
 
 function pulseCard({label, value, unit, note, key, history, tone = "", delta = ""}) {
   return `
-    <article class="pulse-card ${tone}">
+    <article class="pulse-card ${tone}" data-kpi="${escapeHtml(key || "")}">
       <div class="pulse-card-top">
         <span>${escapeHtml(label)}</span>
         <strong>${value}<small>${escapeHtml(unit || "")}</small></strong>
@@ -2029,6 +2040,7 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
+      key: "demand",
       label: "System demand",
       value: pulseNumber(demandGw, 2),
       unit: "GW",
@@ -2038,6 +2050,7 @@ function renderDailyPulse(data) {
       delta: iemDelta(history, "demand_gw", { digits: 2, unit: "GW", goodWhen: "neutral" })
     }),
     pulseCard({
+      key: "renewables",
       label: "Renewables now",
       value: pulseNumber(renewables, 0),
       unit: "%",
@@ -2048,6 +2061,7 @@ function renderDailyPulse(data) {
       delta: iemDelta(history, "renewables_percent", { digits: 1, unit: "pp", goodWhen: "up" })
     }),
     pulseCard({
+      key: "co2",
       label: "CO₂ now",
       value: pulseNumber(co2, 0),
       unit: "g/kWh",
@@ -2058,6 +2072,7 @@ function renderDailyPulse(data) {
       delta: iemDelta(history, "co2_g_per_kwh", { digits: 0, unit: "g/kWh", goodWhen: "down" })
     }),
     pulseCard({
+      key: "interconnection",
       label: "Imports",
       value: pulseNumber(imports, 0),
       unit: "%",
@@ -2067,6 +2082,7 @@ function renderDailyPulse(data) {
       delta: iemDelta(history, "imports_percent", { digits: 1, unit: "pp", goodWhen: "neutral" })
     }),
     pulseCard({
+      key: "residual",
       label: "Residual supply",
       value: pulseNumber(residual, 0),
       unit: "%",
@@ -2077,6 +2093,7 @@ function renderDailyPulse(data) {
       delta: iemDelta(history, "residual_percent", { digits: 1, unit: "pp", goodWhen: "down" })
     }),
     pulseCard({
+      key: "target-gap",
       label: "2030 target gap",
       value: pulseNumber(gap, 1),
       unit: "pp",
@@ -2086,6 +2103,7 @@ function renderDailyPulse(data) {
       tone: "risk"
     }),
     pulseCard({
+      key: "electricity-price",
       label: "Electricity price",
       value: pulseNumber(electricityPriceValue, 2),
       unit: "c/kWh",
@@ -2094,6 +2112,7 @@ function renderDailyPulse(data) {
       history
     }),
     pulseCard({
+      key: "gas-price",
       label: "Gas price",
       value: pulseNumber(gasPriceValue, 2),
       unit: "c/kWh",
@@ -2330,6 +2349,7 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
+      key: "demand",
       label: "System demand",
       value: pulseNumber(demandGw, 2),
       unit: "GW",
@@ -2338,6 +2358,7 @@ function renderDailyPulse(data) {
       history
     }),
     pulseCard({
+      key: "renewables",
       label: "Renewables now",
       value: pulseNumber(renewables, 0),
       unit: "%",
@@ -2347,6 +2368,7 @@ function renderDailyPulse(data) {
       tone: "good"
     }),
     pulseCard({
+      key: "co2",
       label: "CO₂ now",
       value: pulseNumber(co2, 0),
       unit: "g/kWh",
@@ -2356,6 +2378,7 @@ function renderDailyPulse(data) {
       tone: co2 ? "" : "muted"
     }),
     pulseCard({
+      key: "interconnection",
       label: "Interconnection",
       value: interValue,
       unit: interUnit,
@@ -2364,6 +2387,7 @@ function renderDailyPulse(data) {
       history
     }),
     pulseCard({
+      key: "residual",
       label: "Residual supply",
       value: pulseNumber(residual, 0),
       unit: "%",
@@ -2373,6 +2397,7 @@ function renderDailyPulse(data) {
       tone: "caution"
     }),
     pulseCard({
+      key: "target-gap",
       label: "2030 target gap",
       value: pulseNumber(gap, 1),
       unit: "pp",
@@ -2382,6 +2407,7 @@ function renderDailyPulse(data) {
       tone: "risk"
     }),
     pulseCard({
+      key: "electricity-price",
       label: "Electricity price",
       value: pulseNumber(electricityPriceValue, 2),
       unit: "c/kWh",
@@ -2390,6 +2416,7 @@ function renderDailyPulse(data) {
       history
     }),
     pulseCard({
+      key: "gas-price",
       label: "Gas price",
       value: pulseNumber(gasPriceValue, 2),
       unit: "c/kWh",
@@ -4604,3 +4631,126 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
   };
 })();
 // IETM demand pressure fallback renderer: END
+
+// IETM live mix bars from electricity_now: BEGIN
+(function () {
+  renderMix = function renderLiveGenerationMixFromElectricityNow(data) {
+    const target = document.getElementById("mixBars");
+    if (!target) return;
+
+    const e = data.electricity_now || {};
+
+    const windRaw = isNumber(e.wind_percent) ? Number(e.wind_percent) : 0;
+    const solarRaw = isNumber(e.solar_percent) ? Number(e.solar_percent) : 0;
+
+    // Generation mix rows must sum to 100%.
+    // Cross-border flow is shown separately and is not a generation source.
+    const wind = Math.max(0, Math.min(100, Math.round(windRaw)));
+    const solar = Math.max(0, Math.min(100, Math.round(solarRaw)));
+    const thermalOther = Math.max(0, 100 - wind - solar);
+
+    const generationRows = [
+      { label: "Wind", class: "wind", percent: wind, available: true },
+      { label: "Solar", class: "solar", percent: solar, available: true },
+      { label: "Thermal/other", class: "thermal", percent: thermalOther, available: true }
+    ];
+
+    const dominant = [...generationRows].sort((a, b) => Number(b.percent || 0) - Number(a.percent || 0))[0];
+    text("dominantFuel", dominant ? `${dominant.label} dominant` : "No mapped data");
+
+    const generationHtml = generationRows.map(item => {
+      const width = Math.max(0, Math.min(100, Number(item.percent || 0)));
+      const value = percent(item.percent);
+
+      return `
+        <div class="mix-row ${item.class}">
+          <label>${item.label}</label>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:${width}%"></div>
+          </div>
+          <strong>${value}</strong>
+        </div>
+      `;
+    }).join("");
+
+    const netPct = Number(e.net_import_percent ?? e.interconnection_percent);
+    const interconnectionMw = Number(e.interconnection_mw);
+    const exportsMw = Number(e.exports_mw);
+    const importsMw = Number(e.imports_mw);
+
+    let flowMw = Number.isFinite(interconnectionMw)
+      ? interconnectionMw
+      : Number.isFinite(exportsMw) && exportsMw > 0
+        ? -exportsMw
+        : Number.isFinite(importsMw) && importsMw > 0
+          ? importsMw
+          : 0;
+
+    const isExport = flowMw < -0.5 || (Number.isFinite(netPct) && netPct < -0.005);
+    const isImport = flowMw > 0.5 || (Number.isFinite(netPct) && netPct > 0.005);
+
+    const flowPct = Number.isFinite(netPct)
+      ? netPct
+      : 0;
+
+    const scaleMax = 30;
+    const clampedPct = Math.max(-scaleMax, Math.min(scaleMax, flowPct));
+    const scaledWidth = Math.abs(clampedPct) / scaleMax * 50;
+    const flowLeft = clampedPct < 0 ? 50 - scaledWidth : 50;
+    const flowClass = isExport ? "export" : isImport ? "import" : "balanced";
+
+    const flowLabel = isExport
+      ? "↗ Net export"
+      : isImport
+        ? "↘ Net import"
+        : "Near balanced";
+
+    const absFlowMw = Math.abs(flowMw);
+    const flowValue = absFlowMw >= 1000
+      ? `${(absFlowMw / 1000).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })} GW`
+      : `${absFlowMw.toLocaleString(undefined, {
+          maximumFractionDigits: 0
+        })} MW`;
+
+    const pctText = Number.isFinite(netPct) && Math.abs(netPct) > 0.005
+      ? `${Math.abs(netPct).toFixed(2)}% visible net-flow signal`
+      : "Live net-flow signal";
+
+    const flowHtml = `
+      <div class="mix-flow-separator" role="presentation"></div>
+
+      <div class="mix-flow-card ${flowClass}">
+        <div class="mix-flow-copy">
+          <span>Cross-border flow</span>
+          <strong>${flowLabel}</strong>
+          <small>${pctText}</small>
+        </div>
+
+        <div class="mix-flow-meter">
+          <b>${flowValue}</b>
+
+          <div class="mix-flow-scale" aria-label="Cross-border flow scale from 30 percent export to 30 percent import">
+            <div class="mix-flow-axis"></div>
+            <div class="mix-flow-zero"></div>
+            <div
+              class="mix-flow-fill ${flowClass}"
+              style="left:${flowLeft}%; width:${scaledWidth}%"
+            ></div>
+          </div>
+
+          <div class="mix-flow-scale-labels" aria-hidden="true">
+            <span>-30% export</span>
+            <span>0</span>
+            <span>+30% import</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    target.innerHTML = generationHtml + flowHtml;
+  };
+})();
+// IETM live mix bars from electricity_now: END
