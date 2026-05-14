@@ -8747,3 +8747,24 @@ html body #metricGrid.metric-grid article.metric-card.others-calculated-card > s
     border-top-color: rgba(224, 236, 229, 0.55) !important;
   }
 }
+
+/* IETM Current grid pulse: Interconnection is a neutral grid-flow metric, not a fuel source */
+html body #metricGrid.metric-grid article.metric-card.interconnection-card,
+html body #metricGrid.metric-grid article.metric-card[data-accent="imports"],
+html body #metricGrid.metric-grid article.metric-card[data-accent="interconnection"] {
+  border-top-color: rgba(224, 236, 229, 0.55) !important;
+}
+
+html body #metricGrid.metric-grid article.metric-card.interconnection-card::before,
+html body #metricGrid.metric-grid article.metric-card[data-accent="imports"]::before,
+html body #metricGrid.metric-grid article.metric-card[data-accent="interconnection"]::before {
+  background: rgba(224, 236, 229, 0.55) !important;
+}
+
+@media (max-width: 760px) {
+  html body #metricGrid.metric-grid article.metric-card.interconnection-card,
+  html body #metricGrid.metric-grid article.metric-card[data-accent="imports"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="interconnection"] {
+    border-top-color: rgba(224, 236, 229, 0.55) !important;
+  }
+}
