@@ -552,6 +552,7 @@ function renderDemandPressureScenarioChart(data, scenarioData) {
   if (!chart || !scenarioData) return;
 
   document.querySelectorAll("#demandPressureScenarioChart").forEach(el => el.remove());
+  document.querySelectorAll("#targetBurdenCallout").forEach(el => el.remove());
 
   const meta = scenarioData.meta || {};
   const years = (scenarioData.years || []).map(Number).filter(Number.isFinite);
@@ -614,6 +615,28 @@ function renderDemandPressureScenarioChart(data, scenarioData) {
   ).join(" ");
 
   const ticks = [0, 0.25, 0.5, 0.75, 1].map(v => Math.round(maxY * v));
+
+  const finalBurden = Object.fromEntries(
+    series.map(item => {
+      const finalPoint = item.points[item.points.length - 1];
+      return [item.key, Math.round(finalPoint.renewableMw)];
+    })
+  );
+
+  const callout = document.createElement("aside");
+  callout.id = "targetBurdenCallout";
+  callout.className = "target-burden-callout";
+  callout.innerHTML = `
+    <span>2030 target burden</span>
+    <strong>80% RES-E gets heavier</strong>
+    <dl>
+      <div><dt>Low</dt><dd>+${escapeHtml(String(finalBurden.low || 0))} MW avg</dd></div>
+      <div><dt>Central</dt><dd>+${escapeHtml(String(finalBurden.central || 0))} MW avg</dd></div>
+      <div><dt>High</dt><dd>+${escapeHtml(String(finalBurden.high || 0))} MW avg</dd></div>
+    </dl>
+    <p>Demand does not move the 80% mark. It raises the renewable output needed to reach it.</p>
+  `;
+  chart.appendChild(callout);
 
   const panel = document.createElement("section");
   panel.id = "demandPressureScenarioChart";

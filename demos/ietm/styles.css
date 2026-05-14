@@ -9052,3 +9052,86 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   }
 }
 /* IETM demand pressure scenario chart: END */
+
+/* IETM 2030 target burden callout: BEGIN */
+#trajectoryChart {
+  position: relative;
+}
+
+.target-burden-callout {
+  position: static;
+  width: auto;
+  margin: 0.75rem 1rem 0;
+  padding: 0.72rem 0.85rem;
+  border-radius: 0.95rem;
+  border: 1px solid rgba(224, 236, 229, 0.14);
+  background: rgba(224, 236, 229, 0.035);
+}
+
+.target-burden-callout span {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: rgba(224, 236, 229, 0.66);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.target-burden-callout > strong {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: rgba(244, 255, 248, 0.96);
+  font-size: 0.84rem;
+  line-height: 1.15;
+}
+
+.target-burden-callout dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.target-burden-callout dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.45rem;
+  padding: 0.35rem 0.45rem;
+  border-radius: 0.7rem;
+  background: rgba(224, 236, 229, 0.035);
+}
+
+.target-burden-callout dt,
+.target-burden-callout dd {
+  margin: 0;
+  font-size: 0.68rem;
+  line-height: 1.2;
+}
+
+.target-burden-callout dt {
+  color: rgba(224, 236, 229, 0.68);
+}
+
+.target-burden-callout dd {
+  color: rgba(244, 255, 248, 0.92);
+  font-weight: 850;
+}
+
+.target-burden-callout p {
+  margin: 0.5rem 0 0;
+  color: rgba(224, 236, 229, 0.62);
+  font-size: 0.66rem;
+  line-height: 1.28;
+}
+
+@media (max-width: 760px) {
+  .target-burden-callout {
+    margin: 0.65rem 0 0;
+  }
+
+  .target-burden-callout dl {
+    grid-template-columns: 1fr;
+  }
+}
+/* IETM 2030 target burden callout: END */
