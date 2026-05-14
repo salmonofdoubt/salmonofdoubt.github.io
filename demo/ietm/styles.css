@@ -8569,3 +8569,25 @@ h3 {
   }
 }
 /* IETM hero wide text layout: END */
+
+/* IETM reduce gap before Today at a glance: BEGIN */
+.pulse-section,
+section:has(#dailyPulseGrid) {
+  margin-top: clamp(1.25rem, 3vw, 2.25rem) !important;
+}
+
+.share-panel,
+.support-panel,
+.share-strip,
+.demo-links-panel {
+  margin-bottom: 0 !important;
+}
+
+.share-panel + .pulse-section,
+.support-panel + .pulse-section,
+.share-strip + .pulse-section,
+.demo-links-panel + .pulse-section,
+section:has(+ .pulse-section) {
+  margin-bottom: clamp(0.75rem, 2vw, 1.25rem) !important;
+}
+/* IETM reduce gap before Today at a glance: END */
