@@ -8591,3 +8591,24 @@ section:has(+ .pulse-section) {
   margin-bottom: clamp(0.75rem, 2vw, 1.25rem) !important;
 }
 /* IETM reduce gap before Today at a glance: END */
+
+/* IETM tighten first Today section spacing: BEGIN */
+/* Today at a glance is the first section in <main>, so its own desktop
+   margin/padding creates the apparent gap below the hero/status area. */
+main > .pulse-section:first-child {
+  margin-top: 0 !important;
+  padding-top: 1rem !important;
+}
+
+@media (min-width: 900px) {
+  main > .pulse-section:first-child {
+    margin-top: 0 !important;
+    padding-top: 0.85rem !important;
+  }
+
+  header.hero.panel,
+  .hero.panel {
+    margin-bottom: 0 !important;
+  }
+}
+/* IETM tighten first Today section spacing: END */
