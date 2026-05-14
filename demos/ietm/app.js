@@ -526,6 +526,154 @@ function renderDataQuality(data) {
 
 // IETM demand pressure renderer defined in canonical fallback-aware block below.
 
+// IETM demand pressure scenario chart: BEGIN
+async function loadDemandPressureScenarios() {
+  try {
+    const response = await fetch("data/source/demand_pressure_scenarios.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`Demand scenario fetch failed: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.warn("Demand pressure scenarios unavailable", error);
+    return null;
+  }
+}
+
+function iemScenarioNum(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function iemScenarioMwFromTwh(twh, targetShare, factor) {
+  return (iemScenarioNum(twh) || 0) * targetShare * factor;
+}
+
+function renderDemandPressureScenarioChart(data, scenarioData) {
+  const chart = document.getElementById("trajectoryChart");
+  if (!chart || !scenarioData) return;
+
+  document.querySelectorAll("#demandPressureScenarioChart").forEach(el => el.remove());
+
+  const meta = scenarioData.meta || {};
+  const years = (scenarioData.years || []).map(Number).filter(Number.isFinite);
+  const dc = scenarioData.drivers?.data_centres?.scenarios || {};
+  const ev = scenarioData.drivers?.evs?.scenarios || {};
+  const targetShare = Number(meta.target_share || 0.8);
+  const factor = Number(meta.conversion?.twh_per_year_to_mw_average || 114.08);
+
+  if (!years.length || !dc.central || !ev.central) return;
+
+  const scenarioKeys = ["low", "central", "high"];
+  const scenarioLabels = {
+    low: "Low",
+    central: "Central",
+    high: "High"
+  };
+
+  const startYear = Math.min(...years);
+  const endYear = Math.max(...years);
+
+  const baselineDc = Number(dc.central.values[String(startYear)] ?? 0);
+  const baselineEv = Number(ev.central.values[String(startYear)] ?? 0);
+
+  const series = scenarioKeys.map(key => {
+    const dcValues = dc[key]?.values || {};
+    const evValues = ev[key]?.values || {};
+
+    return {
+      key,
+      label: scenarioLabels[key],
+      description: `${dc[key]?.label || key} + ${ev[key]?.label || key}`,
+      points: years.map(year => {
+        const dcTwh = Number(dcValues[String(year)] ?? baselineDc);
+        const evTwh = Number(evValues[String(year)] ?? baselineEv);
+        const extraDemandTwh = Math.max(0, (dcTwh - baselineDc) + (evTwh - baselineEv));
+        const renewableMw = iemScenarioMwFromTwh(extraDemandTwh, targetShare, factor);
+
+        return {
+          year,
+          extraDemandTwh,
+          renewableMw
+        };
+      })
+    };
+  });
+
+  const maxY = Math.max(100, Math.ceil(Math.max(...series.flatMap(s => s.points.map(p => p.renewableMw))) / 100) * 100);
+  const width = 960;
+  const height = 310;
+  const padLeft = 62;
+  const padRight = 32;
+  const padTop = 24;
+  const padBottom = 42;
+
+  const x = year => padLeft + ((year - startYear) / (endYear - startYear || 1)) * (width - padLeft - padRight);
+  const y = value => height - padBottom - (value / maxY) * (height - padTop - padBottom);
+
+  const pathFor = points => points.map((point, index) =>
+    `${index === 0 ? "M" : "L"} ${x(point.year).toFixed(1)} ${y(point.renewableMw).toFixed(1)}`
+  ).join(" ");
+
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(v => Math.round(maxY * v));
+
+  const panel = document.createElement("section");
+  panel.id = "demandPressureScenarioChart";
+  panel.className = "demand-scenario-panel";
+
+  panel.innerHTML = `
+    <div class="demand-scenario-head">
+      <div>
+        <h4>How demand pressure widens the catch-up burden</h4>
+        <p>
+          Scenario envelope for extra renewable average output needed by 2030.
+          The official ${escapeHtml(String(Math.round(targetShare * 100)))}% RES-E target stays fixed;
+          new demand makes the renewable build requirement larger.
+        </p>
+      </div>
+      <span class="demand-scenario-pill">Scenario model · not official forecast</span>
+    </div>
+
+    <div class="demand-scenario-chart-wrap" tabindex="0">
+      <svg class="demand-scenario-svg" viewBox="0 0 ${width} ${height}" role="img"
+        aria-label="Low, central and high demand-pressure scenarios showing extra renewable average output needed">
+        ${ticks.map(tick => `
+          <line class="demand-scenario-grid" x1="${padLeft}" y1="${y(tick)}" x2="${width - padRight}" y2="${y(tick)}"></line>
+          <text class="demand-scenario-axis" x="${padLeft - 12}" y="${y(tick) + 4}" text-anchor="end">${tick} MW</text>
+        `).join("")}
+
+        ${years.map(year => `
+          <line class="demand-scenario-grid vertical" x1="${x(year)}" y1="${padTop}" x2="${x(year)}" y2="${height - padBottom}"></line>
+          <text class="demand-scenario-axis" x="${x(year)}" y="${height - 16}" text-anchor="middle">${year}</text>
+        `).join("")}
+
+        ${series.map(item => `
+          <path class="demand-scenario-line scenario-${escapeHtml(item.key)}" d="${pathFor(item.points)}"></path>
+          ${item.points.map(point => `
+            <circle class="demand-scenario-dot scenario-${escapeHtml(item.key)}" cx="${x(point.year)}" cy="${y(point.renewableMw)}" r="${item.key === "central" ? 4.2 : 3.4}"></circle>
+          `).join("")}
+          <text class="demand-scenario-end-label scenario-${escapeHtml(item.key)}"
+            x="${x(endYear) - 8}" y="${y(item.points[item.points.length - 1].renewableMw) - (item.key === "high" ? 12 : item.key === "central" ? 0 : -14)}"
+            text-anchor="end">
+            ${escapeHtml(item.label)} ~${Math.round(item.points[item.points.length - 1].renewableMw)} MW
+          </text>
+        `).join("")}
+      </svg>
+    </div>
+
+    <div class="demand-scenario-legend">
+      <span class="scenario-low"><i></i> Low / constrained</span>
+      <span class="scenario-central"><i></i> Central / managed</span>
+      <span class="scenario-high"><i></i> High / AI + accelerated EV pressure</span>
+    </div>
+
+    <p class="demand-scenario-note">
+      Calculation: extra renewable MW average = extra demand TWh/year × ${escapeHtml(String(targetShare))} ×
+      ${escapeHtml(String(factor))}. Baseline is 2024; 2025 data-centre value is a forecast; later years are transparent scenarios.
+    </p>
+  `;
+
+  chart.insertAdjacentElement("afterend", panel);
+}
+// IETM demand pressure scenario chart: END
 
 async function init() {
   try {
@@ -539,6 +687,7 @@ async function init() {
     renderTrajectory(data);
     renderTrajectoryTrendLabel(data);
     renderTargetDrift(data);
+    renderDemandPressureScenarioChart(data, await loadDemandPressureScenarios());
     renderPrices(data);
     renderResidual(data);
     renderCounties(data);

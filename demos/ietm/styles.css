@@ -8894,3 +8894,161 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   color: #62d8ff;
 }
 /* IETM demand pressure trend sparklines: END */
+
+/* IETM demand pressure scenario chart: BEGIN */
+.demand-scenario-panel {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(224, 236, 229, 0.12);
+  background: rgba(224, 236, 229, 0.025);
+}
+
+.demand-scenario-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.demand-scenario-head h4 {
+  margin: 0 0 0.3rem;
+  font-size: 1rem;
+}
+
+.demand-scenario-head p {
+  margin: 0;
+  max-width: 64rem;
+  color: rgba(224, 236, 229, 0.76);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.demand-scenario-pill {
+  flex: 0 0 auto;
+  border: 1px solid rgba(224, 236, 229, 0.14);
+  border-radius: 999px;
+  padding: 0.32rem 0.55rem;
+  color: rgba(224, 236, 229, 0.72);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+
+.demand-scenario-chart-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.demand-scenario-svg {
+  display: block;
+  min-width: 920px;
+  width: 100%;
+  height: auto;
+}
+
+.demand-scenario-grid {
+  stroke: rgba(224, 236, 229, 0.10);
+  stroke-width: 1;
+}
+
+.demand-scenario-grid.vertical {
+  stroke: rgba(224, 236, 229, 0.055);
+}
+
+.demand-scenario-axis {
+  fill: rgba(224, 236, 229, 0.58);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.demand-scenario-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.demand-scenario-line.scenario-low,
+.demand-scenario-dot.scenario-low,
+.demand-scenario-end-label.scenario-low,
+.demand-scenario-legend .scenario-low i {
+  stroke: #72f0a0;
+  fill: #72f0a0;
+  color: #72f0a0;
+  background: #72f0a0;
+}
+
+.demand-scenario-line.scenario-central,
+.demand-scenario-dot.scenario-central,
+.demand-scenario-end-label.scenario-central,
+.demand-scenario-legend .scenario-central i {
+  stroke: #ffd166;
+  fill: #ffd166;
+  color: #ffd166;
+  background: #ffd166;
+}
+
+.demand-scenario-line.scenario-high,
+.demand-scenario-dot.scenario-high,
+.demand-scenario-end-label.scenario-high,
+.demand-scenario-legend .scenario-high i {
+  stroke: #ff7b7b;
+  fill: #ff7b7b;
+  color: #ff7b7b;
+  background: #ff7b7b;
+}
+
+.demand-scenario-end-label {
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.demand-scenario-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  margin-top: 0.65rem;
+}
+
+.demand-scenario-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: rgba(224, 236, 229, 0.84);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.demand-scenario-legend i {
+  width: 0.68rem;
+  height: 0.68rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.demand-scenario-note {
+  margin: 0.7rem 0 0;
+  color: rgba(224, 236, 229, 0.62);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 760px) {
+  .demand-scenario-panel {
+    padding: 0.85rem;
+  }
+
+  .demand-scenario-head {
+    flex-direction: column;
+  }
+
+  .demand-scenario-pill {
+    white-space: normal;
+  }
+
+  .demand-scenario-svg {
+    min-width: 960px;
+  }
+}
+/* IETM demand pressure scenario chart: END */
