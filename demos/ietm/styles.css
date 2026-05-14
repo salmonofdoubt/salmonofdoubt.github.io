@@ -8706,3 +8706,44 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="solar"] > str
 html body #metricGrid.metric-grid article.metric-card.others-calculated-card > strong {
   color: rgba(224, 236, 229, 0.78) !important;
 }
+
+/* IETM mobile Current grid pulse: force visible accent strips on every metric card */
+@media (max-width: 760px) {
+  html body #metricGrid.metric-grid article.metric-card {
+    border-top: 3px solid rgba(224, 236, 229, 0.35) !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card[data-accent="renewables"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="renewable"] {
+    border-top-color: var(--green) !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card[data-accent="wind"] {
+    border-top-color: #62d8ff !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card[data-accent="solar"] {
+    border-top-color: #ffe36e !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card.others-calculated-card,
+  html body #metricGrid.metric-grid article.metric-card[data-accent="other-renewables"] {
+    border-top-color: #46e3c5 !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card.thermal-other-card,
+  html body #metricGrid.metric-grid article.metric-card[data-accent="thermal"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="thermal-other"] {
+    border-top-color: #8b5cf6 !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card.interconnection-card,
+  html body #metricGrid.metric-grid article.metric-card[data-accent="imports"],
+  html body #metricGrid.metric-grid article.metric-card[data-accent="interconnection"] {
+    border-top-color: #ffb25f !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card[data-accent="co2"] {
+    border-top-color: rgba(224, 236, 229, 0.55) !important;
+  }
+}
