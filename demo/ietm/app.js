@@ -3709,47 +3709,6 @@ function renderElectricityCoverageNote(data) {
   }
 }
 
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const normalised = Boolean(e.renewables_normalised);
-  const surplus = Number(e.renewable_surplus_percent || 0);
-
-  const renewableNote = normalised
-    ? `Capped domestic cover; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
-    : "Estimated wind + solar cover of demand";
-
-  const windNote = normalised
-    ? "Normalised share of domestic renewable cover"
-    : "Wind cover of current demand";
-
-  const solarNote = normalised
-    ? "Normalised share of domestic renewable cover"
-    : "Solar cover of current demand";
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewable cover", percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind cover", percentOrNA(e.wind_percent), windNote),
-    metricCard("Solar cover", percentOrNA(e.solar_percent), solarNote),
-    metricCard("Uncovered", percentOrNA(e.residual_percent ?? e.gas_percent), "Computed remainder; not measured gas"),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-
-  renderElectricityCoverageNote(data);
-}
-
 /* v0.64 Honest source badge for workbook-derived core grid values */
 function renderElectricitySourceBadge(data) {
   const e = data.electricity_now || {};
