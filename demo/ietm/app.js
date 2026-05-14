@@ -1493,14 +1493,14 @@ function iemDelta(history, key, options = {}) {
   return `<small class="pulse-delta ${tone}">Δ ${value} ${escapeHtml(label)}</small>`;
 }
 
-function pulseCard({label, value, unit, note, key, history, tone = "", delta = ""}) {
+function pulseCard({label, value, unit, note, key, historyKey = key, history, tone = "", delta = ""}) {
   return `
     <article class="pulse-card ${tone}" data-kpi="${escapeHtml(key || "")}">
       <div class="pulse-card-top">
         <span>${escapeHtml(label)}</span>
         <strong>${value}<small>${escapeHtml(unit || "")}</small></strong>
       </div>
-      ${sparkline(pulseSeries(history, key))}
+      ${sparkline(pulseSeries(history, historyKey))}
       <p>${escapeHtml(note)}</p>
       ${delta || ""}
     </article>
@@ -1618,7 +1618,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(generationGw, 2),
       unit: "GW",
       note: "Current production-side signal.",
-      key: "generation_gw",
+      historyKey: "generation_gw",
       history
     }),
     ...(demandPassesBalanceCheck(e) ? [pulseCard({
@@ -1627,7 +1627,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(demandGw, 2),
       unit: "GW",
       note: "Current load-side signal.",
-      key: "demand_gw",
+      historyKey: "demand_gw",
       history
     })] : []),
     pulseCard({
@@ -1636,7 +1636,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(renewables, 0),
       unit: "%",
       note: "Wind and solar reported; others calculated from renewable total.",
-      key: "renewables_percent",
+      historyKey: "renewables_percent",
       history,
       tone: "good"
     }),
@@ -1646,7 +1646,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(co2, 0),
       unit: "g/kWh",
       note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
-      key: "co2_g_per_kwh",
+      historyKey: "co2_g_per_kwh",
       history,
       tone: co2 ? "" : "muted"
     }),
@@ -1656,7 +1656,7 @@ function renderDailyPulse(data) {
       value: interValue,
       unit: interUnit,
       note: interNote,
-      key: "imports_percent",
+      historyKey: "imports_percent",
       history
     }),
     pulseCard({
@@ -1665,7 +1665,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(residual, 0),
       unit: "%",
       note: "Non-renewable generation remainder.",
-      key: "residual_percent",
+      historyKey: "residual_percent",
       history,
       tone: "thermal"
     }),
@@ -1675,7 +1675,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(gap, 1),
       unit: "pp",
       note: "Official annual gap to 80% renewable electricity.",
-      key: "target_gap_pp",
+      historyKey: "target_gap_pp",
       history,
       tone: "risk"
     }),
@@ -1685,7 +1685,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(electricityPriceValue, 2),
       unit: "c/kWh",
       note: "Latest official SEAI semester, not a live tariff.",
-      key: "household_electricity_c_per_kwh",
+      historyKey: "household_electricity_c_per_kwh",
       history
     }),
     pulseCard({
@@ -1694,7 +1694,7 @@ function renderDailyPulse(data) {
       value: pulseNumber(gasPriceValue, 2),
       unit: "c/kWh",
       note: "Latest official SEAI semester, not a live tariff.",
-      key: "household_gas_c_per_kwh",
+      historyKey: "household_gas_c_per_kwh",
       history
     })
   ].join("");
