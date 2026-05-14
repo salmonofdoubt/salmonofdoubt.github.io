@@ -7904,3 +7904,354 @@ h3 {
 }
 
 /* IETM demand pressure fallback polish: END */
+
+/* IETM generation mix flow split: BEGIN */
+
+.mix-flow-separator {
+  height: 1px;
+  margin: 0.85rem 0 0.75rem;
+  background: var(--line);
+}
+
+.mix-flow-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.mix-flow-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 850;
+}
+
+.mix-flow-card strong {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--green);
+  font-size: 0.95rem;
+  line-height: 1.1;
+}
+
+.mix-flow-card small {
+  display: block;
+  margin-top: 0.18rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.mix-flow-card b {
+  color: var(--text);
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+.mix-flow-card.import strong {
+  color: var(--blue);
+}
+
+.mix-flow-card.balanced strong {
+  color: var(--muted);
+}
+
+/* IETM generation mix flow split: END */
+
+/* IETM flow scale and thermal accent: BEGIN */
+
+:root {
+  --thermal-purple: #5b3a96;
+  --thermal-purple-soft: rgba(91, 58, 150, 0.78);
+  --flow-export: var(--green);
+  --flow-import: #ff5d5d;
+}
+
+/* Top KPI stripe: Thermal/other */
+#metricGrid .metric-card[data-accent="thermal"] {
+  border-top-color: var(--thermal-purple) !important;
+}
+
+#metricGrid .metric-card[data-accent="thermal"]::before {
+  background: var(--thermal-purple) !important;
+}
+
+/* Generation-mix bar: Thermal/other */
+.mix-row.thermal .bar-fill,
+.mix-row.residual .bar-fill {
+  background: var(--thermal-purple-soft) !important;
+}
+
+.mix-flow-separator {
+  height: 1px;
+  margin: 0.85rem 0 0.75rem;
+  background: var(--line);
+}
+
+.mix-flow-card {
+  display: grid;
+  gap: 0.62rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.mix-flow-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mix-flow-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 850;
+}
+
+.mix-flow-card strong {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--flow-export);
+  font-size: 0.95rem;
+  line-height: 1.1;
+}
+
+.mix-flow-card.import strong {
+  color: var(--flow-import);
+}
+
+.mix-flow-card.balanced strong {
+  color: var(--muted);
+}
+
+.mix-flow-card small {
+  display: block;
+  margin-top: 0.18rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.mix-flow-card b {
+  color: var(--text);
+  font-size: 1.25rem;
+  white-space: nowrap;
+}
+
+.mix-flow-scale {
+  position: relative;
+  height: 0.72rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.mix-flow-axis {
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.mix-flow-zero {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-1px);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.mix-flow-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+}
+
+.mix-flow-fill.export {
+  background: var(--flow-export);
+}
+
+.mix-flow-fill.import {
+  background: var(--flow-import);
+}
+
+.mix-flow-fill.balanced {
+  background: var(--muted);
+}
+
+.mix-flow-scale-labels {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.5rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1;
+}
+
+.mix-flow-scale-labels span:nth-child(1) {
+  text-align: left;
+}
+
+.mix-flow-scale-labels span:nth-child(2) {
+  text-align: center;
+}
+
+.mix-flow-scale-labels span:nth-child(3) {
+  text-align: right;
+}
+
+/* IETM flow scale and thermal accent: END */
+
+/* IETM cross-border flow desktop meter layout: BEGIN */
+
+.mix-flow-card {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 42%) !important;
+  align-items: center !important;
+  gap: 1.1rem !important;
+}
+
+.mix-flow-copy {
+  min-width: 0 !important;
+}
+
+.mix-flow-meter {
+  display: grid !important;
+  gap: 0.42rem !important;
+  min-width: 220px !important;
+}
+
+.mix-flow-meter b {
+  justify-self: end !important;
+  color: var(--text) !important;
+  font-size: 1.25rem !important;
+  white-space: nowrap !important;
+}
+
+.mix-flow-card-top {
+  display: contents !important;
+}
+
+@media (max-width: 700px) {
+  .mix-flow-card {
+    grid-template-columns: 1fr !important;
+    align-items: stretch !important;
+  }
+
+  .mix-flow-meter {
+    min-width: 0 !important;
+  }
+
+  .mix-flow-meter b {
+    justify-self: start !important;
+  }
+}
+
+/* IETM cross-border flow desktop meter layout: END */
+
+/* IETM mobile reorder for Today at a glance */
+@media (max-width: 700px) {
+  .pulse-card[data-kpi="demand"] { order: 1; }
+  .pulse-card[data-kpi="renewables"] { order: 2; }
+  .pulse-card[data-kpi="residual"] { order: 3; }
+  .pulse-card[data-kpi="co2"] { order: 4; }
+  .pulse-card[data-kpi="interconnection"] { order: 5; }
+  .pulse-card[data-kpi="target-gap"] { order: 6; }
+  .pulse-card[data-kpi="electricity-price"] { order: 7; }
+  .pulse-card[data-kpi="gas-price"] { order: 8; }
+}
+
+/* IETM mobile reorder for Today at a glance: BEGIN */
+
+@media (max-width: 700px) {
+  #dailyPulseGrid .pulse-card[data-kpi="demand"] { order: 1 !important; }
+  #dailyPulseGrid .pulse-card[data-kpi="renewables"] { order: 2 !important; }
+  #dailyPulseGrid .pulse-card[data-kpi="residual"] { order: 3 !important; }
+  #dailyPulseGrid .pulse-card[data-kpi="co2"] { order: 4 !important; }
+  #dailyPulseGrid .pulse-card[data-kpi="interconnection"] { order: 5 !important; }
+  #dailyPulseGrid .pulse-card[data-kpi="target-gap"] { order: 6 !important; }
+  #dailyPulseGrid .pulse-card[data-kpi="electricity-price"] { order: 7 !important; }
+  #dailyPulseGrid .pulse-card[data-kpi="gas-price"] { order: 8 !important; }
+}
+
+/* IETM mobile reorder for Today at a glance: END */
+
+/* IETM mobile Today-at-a-glance order: BEGIN */
+
+@media (max-width: 700px) {
+  /* Force mobile stack so order is honoured regardless of earlier grid rules */
+  #dailyPulseGrid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Current DOM order:
+     1 System demand
+     2 Renewables now
+     3 CO2 now
+     4 Interconnection
+     5 Residual supply
+     6 2030 target gap
+     7 Electricity price
+     8 Gas price
+  */
+
+  #dailyPulseGrid .pulse-card:nth-child(1) { order: 1 !important; }
+  #dailyPulseGrid .pulse-card:nth-child(2) { order: 2 !important; }
+  #dailyPulseGrid .pulse-card:nth-child(5) { order: 3 !important; }
+  #dailyPulseGrid .pulse-card:nth-child(3) { order: 4 !important; }
+  #dailyPulseGrid .pulse-card:nth-child(4) { order: 5 !important; }
+  #dailyPulseGrid .pulse-card:nth-child(6) { order: 6 !important; }
+  #dailyPulseGrid .pulse-card:nth-child(7) { order: 7 !important; }
+  #dailyPulseGrid .pulse-card:nth-child(8) { order: 8 !important; }
+}
+
+/* IETM mobile Today-at-a-glance order: END */
+
+/* IETM Today-at-a-glance canonical card order: BEGIN */
+
+/* Current rendered order:
+   1 System demand
+   2 Renewables now
+   3 CO2 now
+   4 Interconnection
+   5 Residual supply
+   6 2030 target gap
+   7 Electricity price
+   8 Gas price
+
+   Desired visual order:
+   System demand | Renewables now | Residual supply | CO2 now
+   Interconnection | 2030 target gap | Electricity price | Gas price
+*/
+
+#dailyPulseGrid .pulse-card:nth-child(1) { order: 1 !important; }
+#dailyPulseGrid .pulse-card:nth-child(2) { order: 2 !important; }
+#dailyPulseGrid .pulse-card:nth-child(5) { order: 3 !important; }
+#dailyPulseGrid .pulse-card:nth-child(3) { order: 4 !important; }
+#dailyPulseGrid .pulse-card:nth-child(4) { order: 5 !important; }
+#dailyPulseGrid .pulse-card:nth-child(6) { order: 6 !important; }
+#dailyPulseGrid .pulse-card:nth-child(7) { order: 7 !important; }
+#dailyPulseGrid .pulse-card:nth-child(8) { order: 8 !important; }
+
+@media (max-width: 700px) {
+  #dailyPulseGrid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+/* IETM Today-at-a-glance canonical card order: END */
