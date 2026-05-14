@@ -8456,3 +8456,15 @@ h3 {
 }
 /* IETM compact prototype status card: END */
 
+/* IETM hero status desktop alignment: BEGIN */
+@media (min-width: 900px) {
+  .hero {
+    align-items: start !important;
+  }
+
+  .hero .prototype-status-card {
+    align-self: start !important;
+    margin-top: 0 !important;
+  }
+}
+/* IETM hero status desktop alignment: END */
