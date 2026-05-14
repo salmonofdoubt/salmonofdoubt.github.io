@@ -8630,14 +8630,47 @@ main > .pulse-section:first-child {
 }
 /* IETM Today interconnection direction signal: END */
 
-/* IETM: make "Others (calculated)" read as a smaller helper label */
-#metricGrid .metric-card[data-accent="other-renewables"] .metric-label,
-#metricGrid .metric-card[data-accent="other-renewables"] .metric-kicker,
-#metricGrid .metric-card[data-accent="other-renewables"] .metric-eyebrow,
-#metricGrid .metric-card.other-renewables .metric-label,
-#metricGrid .metric-card.other-renewables .metric-kicker,
-#metricGrid .metric-card.other-renewables .metric-eyebrow {
+
+
+
+#metricGrid .metric-card.others-calculated-card > span:first-child,
+#metricGrid .metric-card[data-accent="other-renewables"] > span:first-child {
+  font-size: 0.58rem !important;
+  line-height: 1.05 !important;
+  letter-spacing: 0.13em !important;
+}
+
+/* IETM Current grid pulse: Others calculated matches Wind/Solar child metric sizing */
+#metricGrid.metric-grid article.metric-card.others-calculated-card > span:first-child {
   font-size: 0.62rem !important;
   line-height: 1.1 !important;
   letter-spacing: 0.12em !important;
+}
+
+#metricGrid.metric-grid article.metric-card.others-calculated-card > strong {
+  font-size: clamp(1.45rem, 2.1vw, 1.9rem) !important;
+  line-height: 0.98 !important;
+  font-weight: 900 !important;
+}
+
+#metricGrid.metric-grid article.metric-card.others-calculated-card > small {
+  font-size: 0.66rem !important;
+  line-height: 1.45 !important;
+}
+
+/* IETM exact match: Current grid pulse Others (calculated) = Wind/Solar sizing */
+html body #metricGrid.metric-grid article.metric-card.others-calculated-card > span:first-child {
+  font-size: 9.76px !important;
+  line-height: 15.128px !important;
+}
+
+html body #metricGrid.metric-grid article.metric-card.others-calculated-card > strong {
+  font-size: 23.2px !important;
+  line-height: 23.2px !important;
+  font-weight: 850 !important;
+}
+
+html body #metricGrid.metric-grid article.metric-card.others-calculated-card > small {
+  font-size: 10.88px !important;
+  line-height: 13.9264px !important;
 }
