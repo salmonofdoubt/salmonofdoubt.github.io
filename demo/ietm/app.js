@@ -4219,30 +4219,6 @@ function ietmDecorateInterconnectionCard(data) {
   `;
 }
 
-/*
-  Wrap the current renderMetrics so the normal card is rendered first,
-  then the interconnection note is upgraded into a real DOM badge.
-*/
-if (typeof renderMetrics === "function" && !window.__ietmFlowPatch74) {
-  window.__ietmFlowPatch74 = true;
-  const previousRenderMetrics = renderMetrics;
-
-  renderMetrics = function patchedRenderMetrics(data) {
-    previousRenderMetrics(data);
-    setTimeout(() => ietmDecorateInterconnectionCard(data), 0);
-  };
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const data = await loadMonitor();
-    setTimeout(() => ietmDecorateInterconnectionCard(data), 150);
-    setTimeout(() => ietmDecorateInterconnectionCard(data), 700);
-  } catch {
-    /* no action */
-  }
-});
-
 /* v0.75 Force clean interconnection badge labels */
 function ietmPlainFlowMeta(direction) {
   const d = String(direction || "").toLowerCase();
@@ -4336,26 +4312,6 @@ function ietmDecorateRenewableHierarchy(data) {
     </div>
   `;
 }
-
-if (typeof renderMetrics === "function" && !window.__ietmRenewableHierarchy76) {
-  window.__ietmRenewableHierarchy76 = true;
-  const previousRenderMetrics76 = renderMetrics;
-
-  renderMetrics = function patchedRenewableHierarchyRender(data) {
-    previousRenderMetrics76(data);
-    setTimeout(() => ietmDecorateRenewableHierarchy(data), 0);
-  };
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const data = await loadMonitor();
-    setTimeout(() => ietmDecorateRenewableHierarchy(data), 200);
-    setTimeout(() => ietmDecorateRenewableHierarchy(data), 900);
-  } catch {
-    /* no action */
-  }
-});
 
 // IETM trajectory fit label override: BEGIN
 (function () {
@@ -4454,30 +4410,6 @@ function iemFormatPowerMw(value, options = {}) {
   })} MW`;
 }
 
-(function () {
-  const previousRenderMetrics = renderMetrics;
-
-  renderMetrics = function renderMetricsWithDemandGw(data) {
-    previousRenderMetrics(data);
-
-    const demandMw = data?.electricity_now?.demand_mw;
-    const cards = document.querySelectorAll("#metricGrid .metric-card");
-
-    for (const card of cards) {
-      const label = card.querySelector("span");
-      const value = card.querySelector("strong");
-
-      if (
-        label &&
-        value &&
-        label.textContent.trim().toLowerCase() === "demand now"
-      ) {
-        value.textContent = iemFormatPowerMw(demandMw, { forceGw: true });
-        break;
-      }
-    }
-  };
-})();
 // IETM demand-now GW override: END
 
 // IETM generation-basis live metric renderer: BEGIN
