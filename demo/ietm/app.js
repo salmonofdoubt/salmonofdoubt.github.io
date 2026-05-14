@@ -4246,8 +4246,7 @@ function iemPowerForLiveCards(value, options = {}) {
   })} MW`;
 }
 
-(function () {
-  renderMetrics = function renderGenerationBasedMetrics(data) {
+function renderMetrics(data) {
     const e = data.electricity_now || {};
     const target = document.getElementById("metricGrid");
     if (!target) return;
@@ -4326,8 +4325,8 @@ function iemPowerForLiveCards(value, options = {}) {
         co2Available ? "co2-card" : "missing co2-card"
       )
     ].join("");
-  };
-})();
+  }
+
 // IETM generation-basis live metric renderer: END
 
 // IETM post-render interconnection arrow: BEGIN
