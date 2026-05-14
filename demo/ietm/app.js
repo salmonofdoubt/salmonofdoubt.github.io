@@ -4015,7 +4015,12 @@ function renderMetrics(data) {
     const isExporting = interconnectionMw < 0 || interconnectionDirection.includes("export");
     const isImporting = interconnectionMw > 0 || interconnectionDirection.includes("import");
 
-    const interconnectionNote = isExporting ? "Net export" : isImporting ? "Net import" : "Near balanced";
+    const interconnectionNote = isExporting ? "↗ Net export" : isImporting ? "↘ Net import" : "• Near balanced";
+    const interconnectionClass = isExporting
+      ? "interconnection-card export"
+      : isImporting
+        ? "interconnection-card import"
+        : "interconnection-card balanced";
 
     const co2Available =
       e.co2_available !== false &&
@@ -4060,7 +4065,8 @@ function renderMetrics(data) {
       metricCard(
         "Interconnection",
         iemPowerForLiveCards(Math.abs(interconnectionMw)),
-        interconnectionNote
+        interconnectionNote,
+        interconnectionClass
       ),
       metricCard(
         "CO₂ intensity",
@@ -4074,52 +4080,6 @@ function renderMetrics(data) {
   }
 
 // IETM generation-basis live metric renderer: END
-
-// IETM post-render interconnection arrow: BEGIN
-(function () {
-  function patchInterconnectionArrow() {
-    const cards = document.querySelectorAll("#metricGrid .metric-card");
-
-    for (const card of cards) {
-      const label = card.querySelector("span");
-      const note = card.querySelector("small");
-
-      if (!label || !note) continue;
-      if (label.textContent.trim().toLowerCase() !== "interconnection") continue;
-
-      let text = note.textContent
-        .replace(/[↗↘•]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-
-      if (!text) text = "Net export";
-
-      const lower = text.toLowerCase();
-      const arrow = lower.includes("export")
-        ? "↗"
-        : lower.includes("import")
-          ? "↘"
-          : "•";
-
-      note.textContent = `${arrow} ${text}`;
-      note.style.whiteSpace = "nowrap";
-      note.style.color = "var(--green)";
-      note.style.fontWeight = "850";
-      card.setAttribute("data-accent", "interconnection");
-      break;
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    patchInterconnectionArrow();
-    requestAnimationFrame(patchInterconnectionArrow);
-    setTimeout(patchInterconnectionArrow, 50);
-    setTimeout(patchInterconnectionArrow, 250);
-    setTimeout(patchInterconnectionArrow, 750);
-    setTimeout(patchInterconnectionArrow, 1500);
-  });
-})();
-// IETM post-render interconnection arrow: END
 
 // IETM demand pressure fallback renderer: BEGIN
 const IEM_DEMAND_PRESSURE_FALLBACK = {

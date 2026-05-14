@@ -8388,3 +8388,21 @@ h3 {
   color: var(--thermal-purple, #5b3a96) !important;
 }
 
+/* IETM canonical interconnection KPI note */
+#metricGrid .metric-card.interconnection-card small {
+  white-space: nowrap;
+  font-weight: 850;
+}
+
+#metricGrid .metric-card.interconnection-card.export small {
+  color: var(--green) !important;
+}
+
+#metricGrid .metric-card.interconnection-card.import small {
+  color: #ff5d5d !important;
+}
+
+#metricGrid .metric-card.interconnection-card.balanced small {
+  color: var(--muted) !important;
+}
+
