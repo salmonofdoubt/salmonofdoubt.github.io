@@ -1661,6 +1661,22 @@ function renderDailyPulse(data) {
       : (pulseLast(history, "thermal_other_percent") ?? pulseLast(history, "residual_percent"));
 
   const signedInterconnection = isNumber(e.interconnection_mw) ? Number(e.interconnection_mw) : Number(e.imports_mw || 0);
+  const pulseInterconnectionDirection = String(e.interconnection_direction || "").toLowerCase();
+  const pulseIsExporting = signedInterconnection < 0 || pulseInterconnectionDirection.includes("export");
+  const pulseIsImporting = signedInterconnection > 0 || pulseInterconnectionDirection.includes("import");
+
+  const pulseInterconnectionNote = pulseIsExporting
+    ? "↗ Net export"
+    : pulseIsImporting
+      ? "↘ Net import"
+      : "• Near balanced";
+
+  const pulseInterconnectionTone = pulseIsExporting
+    ? "interconnection-export"
+    : pulseIsImporting
+      ? "interconnection-import"
+      : "interconnection-balanced";
+
   const interValue = Math.abs(signedInterconnection) < 1
     ? "0"
     : iemValue(Math.abs(signedInterconnection), 0);
@@ -1725,7 +1741,8 @@ function renderDailyPulse(data) {
       label: "Interconnection",
       value: interValue,
       unit: interUnit,
-      note: interNote,
+      note: pulseInterconnectionNote,
+      tone: pulseInterconnectionTone,
       historyKey: "imports_percent",
       history
     }),

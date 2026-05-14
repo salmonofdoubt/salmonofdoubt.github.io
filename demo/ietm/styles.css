@@ -8612,3 +8612,20 @@ main > .pulse-section:first-child {
   }
 }
 /* IETM tighten first Today section spacing: END */
+
+/* IETM Today interconnection direction signal: BEGIN */
+#dailyPulseGrid .pulse-card.interconnection-export p {
+  color: var(--green) !important;
+  font-weight: 850 !important;
+}
+
+#dailyPulseGrid .pulse-card.interconnection-import p {
+  color: #ff5d5d !important;
+  font-weight: 850 !important;
+}
+
+#dailyPulseGrid .pulse-card.interconnection-balanced p {
+  color: var(--muted) !important;
+  font-weight: 850 !important;
+}
+/* IETM Today interconnection direction signal: END */
