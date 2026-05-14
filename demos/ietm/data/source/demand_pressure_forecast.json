@@ -1,0 +1,361 @@
+{
+  "meta": {
+    "title": "Demand pressure forecast scenarios for RES-E catch-up burden",
+    "status": "scenario_model",
+    "generated_by": "ops/build_demand_pressure_forecast.py",
+    "baseline_year": 2024,
+    "target_year": 2030,
+    "target_share": 0.8,
+    "conversion": {
+      "twh_per_year_to_mw_average": 114.08,
+      "formula": "extra_renewable_required_mw_average = extra_demand_since_2024_twh_per_year * target_share * 114.08"
+    },
+    "confidence_method": "Scenario envelope. These are not statistical confidence intervals and not official forecasts.",
+    "important_note": "Demand growth does not change the official 80% RES-E target. It increases the renewable electricity required to reach that target.",
+    "source_notes": [
+      {
+        "topic": "Irish data-centre demand pressure",
+        "note": "Public reporting and official statistics indicate very high Irish data-centre electricity demand, with further growth pressure.",
+        "sources": [
+          "CSO-reported data-centre share as summarised in public reporting",
+          "Ireland National Energy and Climate Plan / public reporting on data-centre share trajectories"
+        ]
+      },
+      {
+        "topic": "AI/data-centre uncertainty",
+        "note": "AI-related data-centre growth is treated as scenario uncertainty, not as a deterministic forecast."
+      },
+      {
+        "topic": "EV electricity demand",
+        "note": "EV values are transparent scenario assumptions from modelled fleet electricity demand, not metered national EV electricity."
+      }
+    ]
+  },
+  "years": [
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
+  ],
+  "drivers": {
+    "data_centres": {
+      "unit": "TWh/year",
+      "basis": "Irish data-centre electricity demand. 2024 measured/known anchor and 2025 near-term forecast are followed by scenario paths.",
+      "confidence": {
+        "2024": "high",
+        "2025": "medium",
+        "2026_2030": "scenario"
+      },
+      "scenarios": {
+        "low": {
+          "label": "Constrained / plateau",
+          "description": "Data-centre demand reaches the known 2025 forecast and then plateaus.",
+          "values_twh_per_year": {
+            "2024": 6.97,
+            "2025": 9.4,
+            "2026": 9.4,
+            "2027": 9.4,
+            "2028": 9.4,
+            "2029": 9.4,
+            "2030": 9.4
+          }
+        },
+        "central": {
+          "label": "Managed growth",
+          "description": "Moderate continued growth after the 2025 forecast.",
+          "values_twh_per_year": {
+            "2024": 6.97,
+            "2025": 9.4,
+            "2026": 9.82,
+            "2027": 10.24,
+            "2028": 10.66,
+            "2029": 11.08,
+            "2030": 11.5
+          }
+        },
+        "high": {
+          "label": "AI / high-growth pressure",
+          "description": "Rapid AI-related expansion after the 2025 forecast, constrained but still high.",
+          "values_twh_per_year": {
+            "2024": 6.97,
+            "2025": 9.4,
+            "2026": 10.32,
+            "2027": 11.24,
+            "2028": 12.16,
+            "2029": 13.08,
+            "2030": 14.0
+          }
+        }
+      }
+    },
+    "evs": {
+      "unit": "TWh/year",
+      "basis": "Modelled EV fleet electricity demand. Paths are scenario assumptions, not official forecasts.",
+      "confidence": {
+        "2024": "medium",
+        "2025_2030": "scenario"
+      },
+      "scenarios": {
+        "low": {
+          "label": "Slow uptake",
+          "description": "Slow EV electricity-demand growth toward 2030.",
+          "values_twh_per_year": {
+            "2024": 0.45,
+            "2025": 0.575,
+            "2026": 0.7,
+            "2027": 0.825,
+            "2028": 0.95,
+            "2029": 1.075,
+            "2030": 1.2
+          }
+        },
+        "central": {
+          "label": "Policy-aligned uptake",
+          "description": "Steady EV electricity-demand growth toward 2030.",
+          "values_twh_per_year": {
+            "2024": 0.45,
+            "2025": 0.708,
+            "2026": 0.967,
+            "2027": 1.225,
+            "2028": 1.483,
+            "2029": 1.742,
+            "2030": 2.0
+          }
+        },
+        "high": {
+          "label": "Accelerated electrification",
+          "description": "Rapid EV electricity-demand growth toward 2030.",
+          "values_twh_per_year": {
+            "2024": 0.45,
+            "2025": 0.875,
+            "2026": 1.3,
+            "2027": 1.725,
+            "2028": 2.15,
+            "2029": 2.575,
+            "2030": 3.0
+          }
+        }
+      }
+    }
+  },
+  "derived": {
+    "baseline_combined_demand_twh_per_year": {
+      "low": 7.42,
+      "central": 7.42,
+      "high": 7.42
+    },
+    "by_year": {
+      "2024": {
+        "low": {
+          "data_centres_twh_per_year": 6.97,
+          "evs_twh_per_year": 0.45,
+          "combined_demand_twh_per_year": 7.42,
+          "extra_demand_since_2024_twh_per_year": 0.0,
+          "extra_renewable_required_twh_per_year": 0.0,
+          "extra_renewable_required_mw_average": 0
+        },
+        "central": {
+          "data_centres_twh_per_year": 6.97,
+          "evs_twh_per_year": 0.45,
+          "combined_demand_twh_per_year": 7.42,
+          "extra_demand_since_2024_twh_per_year": 0.0,
+          "extra_renewable_required_twh_per_year": 0.0,
+          "extra_renewable_required_mw_average": 0
+        },
+        "high": {
+          "data_centres_twh_per_year": 6.97,
+          "evs_twh_per_year": 0.45,
+          "combined_demand_twh_per_year": 7.42,
+          "extra_demand_since_2024_twh_per_year": 0.0,
+          "extra_renewable_required_twh_per_year": 0.0,
+          "extra_renewable_required_mw_average": 0
+        }
+      },
+      "2025": {
+        "low": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 0.575,
+          "combined_demand_twh_per_year": 9.975,
+          "extra_demand_since_2024_twh_per_year": 2.555,
+          "extra_renewable_required_twh_per_year": 2.044,
+          "extra_renewable_required_mw_average": 233
+        },
+        "central": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 0.708,
+          "combined_demand_twh_per_year": 10.108,
+          "extra_demand_since_2024_twh_per_year": 2.688,
+          "extra_renewable_required_twh_per_year": 2.15,
+          "extra_renewable_required_mw_average": 245
+        },
+        "high": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 0.875,
+          "combined_demand_twh_per_year": 10.275,
+          "extra_demand_since_2024_twh_per_year": 2.855,
+          "extra_renewable_required_twh_per_year": 2.284,
+          "extra_renewable_required_mw_average": 261
+        }
+      },
+      "2026": {
+        "low": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 0.7,
+          "combined_demand_twh_per_year": 10.1,
+          "extra_demand_since_2024_twh_per_year": 2.68,
+          "extra_renewable_required_twh_per_year": 2.144,
+          "extra_renewable_required_mw_average": 245
+        },
+        "central": {
+          "data_centres_twh_per_year": 9.82,
+          "evs_twh_per_year": 0.967,
+          "combined_demand_twh_per_year": 10.787,
+          "extra_demand_since_2024_twh_per_year": 3.367,
+          "extra_renewable_required_twh_per_year": 2.694,
+          "extra_renewable_required_mw_average": 307
+        },
+        "high": {
+          "data_centres_twh_per_year": 10.32,
+          "evs_twh_per_year": 1.3,
+          "combined_demand_twh_per_year": 11.62,
+          "extra_demand_since_2024_twh_per_year": 4.2,
+          "extra_renewable_required_twh_per_year": 3.36,
+          "extra_renewable_required_mw_average": 383
+        }
+      },
+      "2027": {
+        "low": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 0.825,
+          "combined_demand_twh_per_year": 10.225,
+          "extra_demand_since_2024_twh_per_year": 2.805,
+          "extra_renewable_required_twh_per_year": 2.244,
+          "extra_renewable_required_mw_average": 256
+        },
+        "central": {
+          "data_centres_twh_per_year": 10.24,
+          "evs_twh_per_year": 1.225,
+          "combined_demand_twh_per_year": 11.465,
+          "extra_demand_since_2024_twh_per_year": 4.045,
+          "extra_renewable_required_twh_per_year": 3.236,
+          "extra_renewable_required_mw_average": 369
+        },
+        "high": {
+          "data_centres_twh_per_year": 11.24,
+          "evs_twh_per_year": 1.725,
+          "combined_demand_twh_per_year": 12.965,
+          "extra_demand_since_2024_twh_per_year": 5.545,
+          "extra_renewable_required_twh_per_year": 4.436,
+          "extra_renewable_required_mw_average": 506
+        }
+      },
+      "2028": {
+        "low": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 0.95,
+          "combined_demand_twh_per_year": 10.35,
+          "extra_demand_since_2024_twh_per_year": 2.93,
+          "extra_renewable_required_twh_per_year": 2.344,
+          "extra_renewable_required_mw_average": 267
+        },
+        "central": {
+          "data_centres_twh_per_year": 10.66,
+          "evs_twh_per_year": 1.483,
+          "combined_demand_twh_per_year": 12.143,
+          "extra_demand_since_2024_twh_per_year": 4.723,
+          "extra_renewable_required_twh_per_year": 3.778,
+          "extra_renewable_required_mw_average": 431
+        },
+        "high": {
+          "data_centres_twh_per_year": 12.16,
+          "evs_twh_per_year": 2.15,
+          "combined_demand_twh_per_year": 14.31,
+          "extra_demand_since_2024_twh_per_year": 6.89,
+          "extra_renewable_required_twh_per_year": 5.512,
+          "extra_renewable_required_mw_average": 629
+        }
+      },
+      "2029": {
+        "low": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 1.075,
+          "combined_demand_twh_per_year": 10.475,
+          "extra_demand_since_2024_twh_per_year": 3.055,
+          "extra_renewable_required_twh_per_year": 2.444,
+          "extra_renewable_required_mw_average": 279
+        },
+        "central": {
+          "data_centres_twh_per_year": 11.08,
+          "evs_twh_per_year": 1.742,
+          "combined_demand_twh_per_year": 12.822,
+          "extra_demand_since_2024_twh_per_year": 5.402,
+          "extra_renewable_required_twh_per_year": 4.322,
+          "extra_renewable_required_mw_average": 493
+        },
+        "high": {
+          "data_centres_twh_per_year": 13.08,
+          "evs_twh_per_year": 2.575,
+          "combined_demand_twh_per_year": 15.655,
+          "extra_demand_since_2024_twh_per_year": 8.235,
+          "extra_renewable_required_twh_per_year": 6.588,
+          "extra_renewable_required_mw_average": 752
+        }
+      },
+      "2030": {
+        "low": {
+          "data_centres_twh_per_year": 9.4,
+          "evs_twh_per_year": 1.2,
+          "combined_demand_twh_per_year": 10.6,
+          "extra_demand_since_2024_twh_per_year": 3.18,
+          "extra_renewable_required_twh_per_year": 2.544,
+          "extra_renewable_required_mw_average": 290
+        },
+        "central": {
+          "data_centres_twh_per_year": 11.5,
+          "evs_twh_per_year": 2.0,
+          "combined_demand_twh_per_year": 13.5,
+          "extra_demand_since_2024_twh_per_year": 6.08,
+          "extra_renewable_required_twh_per_year": 4.864,
+          "extra_renewable_required_mw_average": 555
+        },
+        "high": {
+          "data_centres_twh_per_year": 14.0,
+          "evs_twh_per_year": 3.0,
+          "combined_demand_twh_per_year": 17.0,
+          "extra_demand_since_2024_twh_per_year": 9.58,
+          "extra_renewable_required_twh_per_year": 7.664,
+          "extra_renewable_required_mw_average": 874
+        }
+      }
+    },
+    "summary_2030": {
+      "low": {
+        "data_centres_twh_per_year": 9.4,
+        "evs_twh_per_year": 1.2,
+        "combined_demand_twh_per_year": 10.6,
+        "extra_demand_since_2024_twh_per_year": 3.18,
+        "extra_renewable_required_twh_per_year": 2.544,
+        "extra_renewable_required_mw_average": 290
+      },
+      "central": {
+        "data_centres_twh_per_year": 11.5,
+        "evs_twh_per_year": 2.0,
+        "combined_demand_twh_per_year": 13.5,
+        "extra_demand_since_2024_twh_per_year": 6.08,
+        "extra_renewable_required_twh_per_year": 4.864,
+        "extra_renewable_required_mw_average": 555
+      },
+      "high": {
+        "data_centres_twh_per_year": 14.0,
+        "evs_twh_per_year": 3.0,
+        "combined_demand_twh_per_year": 17.0,
+        "extra_demand_since_2024_twh_per_year": 9.58,
+        "extra_renewable_required_twh_per_year": 7.664,
+        "extra_renewable_required_mw_average": 874
+      }
+    }
+  }
+}
