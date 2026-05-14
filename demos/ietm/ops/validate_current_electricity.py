@@ -112,11 +112,8 @@ def main() -> int:
             "This usually indicates stale/incomplete wind or solar component data."
         )
 
-    if renewables >= 30.0 and solar <= 0.0:
-        errors.append(
-            f"Solar is zero while renewables are {renewables:.2f}%. "
-            "This usually indicates incomplete live component data."
-        )
+    # Solar can legitimately be zero at night while wind keeps renewables high.
+    # Do not fail the refresh pipeline on solar=0 alone.
     if errors:
         print("Current electricity validation FAILED:")
         for err in errors:
