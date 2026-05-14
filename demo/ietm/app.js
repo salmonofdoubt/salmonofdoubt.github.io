@@ -3657,37 +3657,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 /* v0.59 Electricity Now consistency: renewables output can exceed demand */
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const renewableNote = Number(e.renewables_percent) > 100
-    ? "Wind + solar output exceeds current demand"
-    : "Wind + solar output vs demand";
-
-  const residualNote = Number(e.renewables_percent) > 100
-    ? "Computed residual is zero when renewables exceed demand"
-    : "Computed after wind, solar and net imports";
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind", percentOrNA(e.wind_percent), "Wind output vs demand"),
-    metricCard("Solar", percentOrNA(e.solar_percent), "Solar output vs demand"),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), residualNote),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-}
 
 /* v0.60 Correct public renewable wording: contribution, not raw output */
 function renderMetrics(data) {
