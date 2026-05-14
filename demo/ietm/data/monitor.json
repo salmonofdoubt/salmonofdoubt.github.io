@@ -5,7 +5,7 @@
       "status": {
         "source": "EirGrid System Data Qtr Hourly spreadsheet",
         "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-        "harvested_at": "2026-05-14T13:44:22+00:00",
+        "harvested_at": "2026-05-14T14:51:58+00:00",
         "parser": {
           "sheet": "System Data",
           "header_row": 1,
@@ -51,7 +51,7 @@
         "smartgrid_live": {
           "source": "EirGrid Smart Grid Dashboard public pages",
           "source_url": "https://www.smartgriddashboard.com",
-          "harvested_at": "2026-05-14T13:44:25+00:00",
+          "harvested_at": "2026-05-14T14:52:01+00:00",
           "mode": "diagnostic-only",
           "caveat": "Smart Grid visible-page parser is disabled for demand, wind and solar because visible-page scraping can confuse actual, forecast and chart values. Core grid quantities use the official EirGrid quarter-hourly workbook instead.",
           "probe_file": "ops/debug/smartgrid_live_probe.json"
@@ -60,12 +60,12 @@
           "source": "Smart Grid Dashboard chart API",
           "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=14-May-2026+00%3A00&dateTo=14-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
           "mode": "api-chart",
-          "harvested_at": "2026-05-14T13:44:25+00:00",
+          "harvested_at": "2026-05-14T14:52:02+00:00",
           "region": "ROI",
           "parser": {
-            "row_count": 75,
-            "candidate_count": 54,
-            "latest_time": "14-May-2026 13:15:00",
+            "row_count": 77,
+            "candidate_count": 58,
+            "latest_time": "14-May-2026 14:15:00",
             "latest_field": "CO2_INTENSITY"
           },
           "caveat": "Parsed from Smart Grid Dashboard chart API. ROI is preferred; ALL is used only as fallback and labelled."
@@ -73,7 +73,7 @@
         "smartgrid_api_live": {
           "source": "Smart Grid Dashboard API",
           "source_url": "https://www.smartgriddashboard.com/",
-          "harvested_at": "2026-05-14T13:44:27+00:00",
+          "harvested_at": "2026-05-14T14:52:04+00:00",
           "mode": "direct-api-latest-non-null-actual",
           "region": "ALL",
           "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected."
@@ -85,17 +85,17 @@
       "status": {
         "source": "SEAI Energy Price Trends",
         "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/prices",
-        "harvested_at": "2026-05-14T13:44:28+00:00",
-        "mode": "official-fallback-snapshot",
-        "electricity_household_rows": 2,
-        "gas_household_rows": 2,
+        "harvested_at": "2026-05-14T14:52:04+00:00",
+        "mode": "live-page-parse",
+        "electricity_household_rows": 37,
+        "gas_household_rows": 37,
         "caveat": "Best-effort parser. If SEAI blocks scripted access, the site uses an embedded official fallback snapshot and labels it as such."
       }
     },
     {
       "name": "Market prices",
       "status": {
-        "generated_at": "2026-05-14T13:44:28+00:00",
+        "generated_at": "2026-05-14T14:52:05+00:00",
         "mode": "system-market-price-layer",
         "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
         "sources": [
@@ -110,7 +110,7 @@
       "status": {
         "source": "SEAI Renewables statistics",
         "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/renewables",
-        "harvested_at": "2026-05-14T13:44:28+00:00",
+        "harvested_at": "2026-05-14T14:52:05+00:00",
         "mode": "official-static-snapshot",
         "caveat": "Embedded official annual values; automate extraction later if source format remains stable."
       }
@@ -120,7 +120,7 @@
       "status": {
         "source": "SEAI Renewable Electricity County Dashboard",
         "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
-        "harvested_at": "2026-05-14T13:44:28+00:00",
+        "harvested_at": "2026-05-14T14:52:05+00:00",
         "mode": "scaffold",
         "caveat": "SEAI beta dashboard integration pending."
       }
@@ -726,27 +726,27 @@
     },
     {
       "date": "2026-05-14",
-      "captured_at": "2026-05-14T13:44:28+00:00",
-      "demand_mw": 4658.0,
-      "demand_gw": 4.66,
-      "renewables_percent": 73.8,
-      "wind_percent": 57.1,
-      "solar_percent": 16.7,
+      "captured_at": "2026-05-14T14:52:05+00:00",
+      "demand_mw": 4571.0,
+      "demand_gw": 4.57,
+      "renewables_percent": 77.6,
+      "wind_percent": 60.2,
+      "solar_percent": 17.4,
       "imports_percent": 0.0,
-      "residual_percent": 26.2,
-      "co2_g_per_kwh": 138.0,
+      "residual_percent": 22.4,
+      "co2_g_per_kwh": 140.0,
       "co2_available": true,
       "target_gap_pp": 38.7,
       "target_status": "Off track",
-      "household_electricity_c_per_kwh": 31.72,
-      "household_gas_c_per_kwh": 12.33,
-      "electricity_system_price_eur_per_mwh": 105.7,
-      "electricity_system_price_c_per_kwh_equiv": 10.57,
+      "household_electricity_c_per_kwh": 38.4,
+      "household_gas_c_per_kwh": 13.5,
+      "electricity_system_price_eur_per_mwh": 102.35,
+      "electricity_system_price_c_per_kwh_equiv": 10.23,
       "gas_balancing_price_c_per_kwh": 3.84
     }
   ],
   "daily_history_meta": {
-    "generated_at": "2026-05-14T13:44:28+00:00",
+    "generated_at": "2026-05-14T14:52:05+00:00",
     "row_count": 31,
     "mode": "daily-snapshot-history",
     "warm_start_window_days": 30,
@@ -756,7 +756,7 @@
   },
   "meta": {
     "project": "Ireland Energy Transition Monitor",
-    "generated_at": "2026-05-14T13:44:28+00:00",
+    "generated_at": "2026-05-14T14:52:05+00:00",
     "timezone": "Europe/Dublin",
     "mode": "Generated static dataset with EirGrid harvester",
     "confidence": "Medium",
@@ -777,7 +777,7 @@
   },
   "source_model": {
     "meta": {
-      "generated_at": "2026-05-14T13:44:28+00:00",
+      "generated_at": "2026-05-14T14:52:05+00:00",
       "mode": "source-model-and-freshness-gate",
       "project": "Ireland Energy Transition Monitor"
     },
@@ -788,8 +788,8 @@
       "status": "live",
       "values_are_live": true,
       "values_are_current": true,
-      "latest_interval": "2026-05-14T13:30:00+00:00",
-      "age_hours": 0.24,
+      "latest_interval": "2026-05-14T14:45:00+00:00",
+      "age_hours": 0.12,
       "public_badge": "Live grid source",
       "public_title": "Current grid pulse",
       "public_caveat": "Core grid values are treated as live because the mapped source interval is within two hours.",
@@ -859,8 +859,8 @@
     "status": "live",
     "values_are_live": true,
     "values_are_current": true,
-    "latest_interval": "2026-05-14T13:30:00+00:00",
-    "age_hours": 0.24,
+    "latest_interval": "2026-05-14T14:45:00+00:00",
+    "age_hours": 0.12,
     "public_badge": "Live grid source",
     "public_title": "Current grid pulse",
     "public_caveat": "Core grid values are treated as live because the mapped source interval is within two hours.",
@@ -886,24 +886,24 @@
     }
   },
   "electricity_now": {
-    "demand_mw": 4658,
-    "renewables_percent": 77.51,
-    "renewables_output_percent": 73.8,
+    "demand_mw": 4571,
+    "renewables_percent": 77.08,
+    "renewables_output_percent": 77.6,
     "renewable_surplus_percent": 0.0,
-    "renewables_coverage_percent": 73.8,
+    "renewables_coverage_percent": 77.6,
     "renewables_normalised": false,
     "renewables_model": "smartgrid_api_latest_non_null_actual",
     "renewables_definition": "Latest non-null Smart Grid Dashboard API wind plus solar cover of current demand.",
-    "wind_percent": 57.1,
-    "solar_percent": 16.7,
-    "gas_percent": 22.49,
-    "residual_percent": 22.49,
+    "wind_percent": 59.8,
+    "solar_percent": 17.28,
+    "gas_percent": 22.92,
+    "residual_percent": 22.92,
     "imports_percent": 0.0,
     "imports_available": true,
-    "co2_g_per_kwh": 138.0,
+    "co2_g_per_kwh": 140.0,
     "co2_available": true,
     "gas_is_residual_proxy": true,
-    "electricity_datetime": "2026-05-14T14:30:00+01:00",
+    "electricity_datetime": "2026-05-14T15:45:00+01:00",
     "source_label": "Smart Grid Dashboard API",
     "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=14-May-2026&dateTo=14-May-2026&areas=demandactual",
     "source_freshness": "live chart API latest non-null actual",
@@ -911,54 +911,61 @@
     "co2_source": "EirGrid Smart Grid Dashboard, ROI",
     "co2_unit": "gCO2/kWh",
     "co2_region": "ROI",
-    "co2_datetime": "14-May-2026 13:15:00",
-    "generation_mw": 4932,
-    "wind_mw": 2661,
-    "solar_mw": 777,
-    "interconnection_mw": -13,
+    "co2_datetime": "14-May-2026 14:15:00",
+    "generation_mw": 5025,
+    "wind_mw": 2750,
+    "solar_mw": 795,
+    "interconnection_mw": -14,
     "interconnection_percent": -0.27,
     "net_import_percent": -0.27,
     "interconnection_basis": "smartgrid_visible_generation_overview_net_import_percent",
     "interconnection_direction": "exporting",
     "imports_mw": 0,
-    "exports_mw": 13,
+    "exports_mw": 14,
     "exports_percent": 0.27,
     "smartgrid_live_available": true,
     "smartgrid_api_live": true,
     "interconnection_available": true,
     "consistency_warnings": [],
-    "thermal_generation_percent": 22.76,
+    "thermal_generation_percent": 23.19,
     "interconnection_note": "Live SmartGrid System Generation page NET IMPORT % converted to MW using visible system generation.",
     "smartgrid_visible_overview_url": "https://www.smartgriddashboard.com/all/generation/",
-    "smartgrid_visible_overview_harvested_at": "2026-05-14T13:44:29+00:00",
-    "other_renewables_percent": 3.71,
-    "thermal_other_percent": 22.49,
+    "smartgrid_visible_overview_harvested_at": "2026-05-14T14:52:06+00:00",
+    "other_renewables_percent": 0.0,
+    "thermal_other_percent": 22.92,
+    "generation_mix_reconciliation": {
+      "mode": "scaled_children_to_renewable_total",
+      "reason": "Source wind plus solar exceeded renewable total for this interval.",
+      "raw_wind_percent": 60.2,
+      "raw_solar_percent": 17.4,
+      "raw_renewables_percent": 77.08
+    },
     "generation_mix_percent": {
-      "wind": 57.1,
-      "solar": 16.7,
-      "other_renewables": 3.71,
-      "thermal_other": 22.49,
+      "wind": 59.8,
+      "solar": 17.28,
+      "other_renewables": 0.0,
+      "thermal_other": 22.92,
       "sum": 100.0
     },
-    "demand_balance_expected_mw": 4919,
-    "demand_balance_gap_mw": -261,
+    "demand_balance_expected_mw": 5011,
+    "demand_balance_gap_mw": -440,
     "demand_balance_tolerance_mw": 300,
-    "demand_balance_status": "coherent",
-    "show_demand_card": true,
-    "normalised_at": "2026-05-14T13:44:29+00:00",
+    "demand_balance_status": "withheld_balance_mismatch",
+    "show_demand_card": false,
+    "normalised_at": "2026-05-14T14:52:06+00:00",
     "normalisation_version": "current-electricity-v1"
   },
   "fuel_mix_24h": [
     {
       "label": "Wind",
       "class": "wind",
-      "percent": 57.1,
+      "percent": 60.2,
       "available": true
     },
     {
       "label": "Solar",
       "class": "solar",
-      "percent": 16.7,
+      "percent": 17.4,
       "available": true
     },
     {
@@ -970,7 +977,7 @@
     {
       "label": "Uncovered",
       "class": "residual",
-      "percent": 26.2,
+      "percent": 22.4,
       "available": true
     }
   ],
@@ -999,7 +1006,7 @@
       "status": "risk",
       "status_label": "At risk",
       "reading": "Unclassified remainder",
-      "value": "26%",
+      "value": "22%",
       "rule": "On track ≤20%; at risk 20–35%; off track >35%.",
       "why": "High thermal/other means the system still depends on non-wind, non-solar and unidentified supply.",
       "basis": "Computed live proxy",
@@ -1012,7 +1019,7 @@
       "status": "risk",
       "status_label": "At risk",
       "reading": "Latest carbon signal",
-      "value": "138 g/kWh",
+      "value": "140 g/kWh",
       "rule": "On track ≤100 g/kWh; at risk 100–250; off track >250.",
       "why": "Carbon intensity indicates how clean the electricity actually is at the point of use.",
       "basis": "Live public dashboard",
@@ -1022,16 +1029,16 @@
     },
     {
       "name": "Energy affordability",
-      "status": "risk",
-      "status_label": "At risk",
+      "status": "off",
+      "status_label": "Off track",
       "reading": "Household pressure",
-      "value": "31.7 c/kWh elec",
+      "value": "38.4 c/kWh elec",
       "rule": "At risk if electricity >28 c/kWh or gas >10 c/kWh; off track if materially higher.",
       "why": "The transition remains politically fragile if households experience it mainly as cost pressure.",
       "basis": "Official semi-annual",
       "confidence": "High",
       "direction": "pressured",
-      "logic": "Current household signals: electricity 31.72 c/kWh; gas 12.33 c/kWh."
+      "logic": "Current household signals: electricity 38.40 c/kWh; gas 13.50 c/kWh."
     },
     {
       "name": "EV transition",
@@ -1061,12 +1068,12 @@
     }
   ],
   "truth_summary": {
-    "overall_status": "risk",
-    "overall_label": "At risk",
+    "overall_status": "off",
+    "overall_label": "Off track",
     "counts": {
       "on": 1,
-      "risk": 4,
-      "off": 1
+      "risk": 3,
+      "off": 2
     },
     "main_drag": "Renewable electricity",
     "best_signal": "EV transition",
@@ -1212,7 +1219,7 @@
       }
     ],
     "interconnection_direction": "exporting",
-    "interconnection_mw": -104.0,
+    "interconnection_mw": -109.0,
     "target_gap_pp": 38.7
   },
   "electricity_metrics": [
@@ -1392,25 +1399,25 @@
   "prices": [
     {
       "label": "Household electricity",
-      "value": "31.72 c/kWh",
-      "detail": "Latest official SEAI semester: 2025S1; up 1.13 c/kWh from previous period; 2.38 c/kWh above EU-27. Not a live supplier tariff.",
+      "value": "38.40 c/kWh",
+      "detail": "Latest official SEAI semester: 2025S2; up 7.20 c/kWh from previous period; 9.00 c/kWh above EU-27. Not a live supplier tariff.",
       "status": "mapped",
-      "period": "2025S1",
-      "ireland_c_per_kwh": 31.72,
-      "eu27_c_per_kwh": 29.34,
-      "change_c_per_kwh": 1.129999999999999,
+      "period": "2025S2",
+      "ireland_c_per_kwh": 38.4,
+      "eu27_c_per_kwh": 29.4,
+      "change_c_per_kwh": 7.199999999999999,
       "unit": "Euro cent/kWh",
       "source": "SEAI Energy Price Trends"
     },
     {
       "label": "Household gas",
-      "value": "12.33 c/kWh",
-      "detail": "Latest official SEAI semester: 2025S1; down 1.35 c/kWh from previous period; 0.65 c/kWh above EU-27. Not a live supplier tariff.",
+      "value": "13.50 c/kWh",
+      "detail": "Latest official SEAI semester: 2025S2; up 1.40 c/kWh from previous period; 0.90 c/kWh above EU-27. Not a live supplier tariff.",
       "status": "mapped",
-      "period": "2025S1",
-      "ireland_c_per_kwh": 12.33,
-      "eu27_c_per_kwh": 11.68,
-      "change_c_per_kwh": -1.3499999999999996,
+      "period": "2025S2",
+      "ireland_c_per_kwh": 13.5,
+      "eu27_c_per_kwh": 12.6,
+      "change_c_per_kwh": 1.4000000000000004,
       "unit": "Euro cent/kWh",
       "source": "SEAI Energy Price Trends"
     },
@@ -1425,11 +1432,11 @@
   "market_prices": [
     {
       "label": "Electricity system price",
-      "value": "105.70 €/MWh",
-      "numeric_value": 105.7,
+      "value": "102.35 €/MWh",
+      "numeric_value": 102.35,
       "unit": "€/MWh",
-      "equivalent_value": "10.57 c/kWh",
-      "numeric_value_c_per_kwh": 10.57,
+      "equivalent_value": "10.23 c/kWh",
+      "numeric_value_c_per_kwh": 10.23,
       "status": "mapped",
       "period": "2026-05-14",
       "freshness": "latest settlement period visible on Smart Grid Dashboard",
@@ -1437,10 +1444,10 @@
       "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
       "detail": "Latest electricity imbalance settlement price. This is a system/market signal, not a household electricity tariff.",
       "stats": {
-        "latest_eur_per_mwh": 105.7,
-        "latest_c_per_kwh_equivalent": 10.57,
+        "latest_eur_per_mwh": 102.35,
+        "latest_c_per_kwh_equivalent": 10.23,
         "dashboard_date": "14/05/2026",
-        "latest_line": "105.7",
+        "latest_line": "102.35",
         "daily_min_eur_per_mwh": 0.35,
         "daily_max_eur_per_mwh": 193.13
       }
@@ -1466,7 +1473,7 @@
     }
   ],
   "market_price_meta": {
-    "generated_at": "2026-05-14T13:44:28+00:00",
+    "generated_at": "2026-05-14T14:52:05+00:00",
     "mode": "system-market-price-layer",
     "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
     "sources": [
@@ -1476,14 +1483,14 @@
     ]
   },
   "gas": {
-    "share_percent": 26.2,
+    "share_percent": 22.4,
     "signal": "Uncovered demand estimate",
     "narrative": "Uncovered demand is calculated from live demand minus mapped wind and solar cover. It is not measured gas. A later fuel-mix endpoint should split this into gas, hydro, storage, imports and other sources."
   },
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-14T13:44:22+00:00",
+    "harvested_at": "2026-05-14T14:51:58+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -1529,7 +1536,7 @@
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
-      "harvested_at": "2026-05-14T13:44:25+00:00",
+      "harvested_at": "2026-05-14T14:52:01+00:00",
       "mode": "diagnostic-only",
       "caveat": "Smart Grid visible-page parser is disabled for demand, wind and solar because visible-page scraping can confuse actual, forecast and chart values. Core grid quantities use the official EirGrid quarter-hourly workbook instead.",
       "probe_file": "ops/debug/smartgrid_live_probe.json"
@@ -1538,12 +1545,12 @@
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=14-May-2026+00%3A00&dateTo=14-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-05-14T13:44:25+00:00",
+      "harvested_at": "2026-05-14T14:52:02+00:00",
       "region": "ROI",
       "parser": {
-        "row_count": 75,
-        "candidate_count": 54,
-        "latest_time": "14-May-2026 13:15:00",
+        "row_count": 77,
+        "candidate_count": 58,
+        "latest_time": "14-May-2026 14:15:00",
         "latest_field": "CO2_INTENSITY"
       },
       "caveat": "Parsed from Smart Grid Dashboard chart API. ROI is preferred; ALL is used only as fallback and labelled."
@@ -1551,7 +1558,7 @@
     "smartgrid_api_live": {
       "source": "Smart Grid Dashboard API",
       "source_url": "https://www.smartgriddashboard.com/",
-      "harvested_at": "2026-05-14T13:44:27+00:00",
+      "harvested_at": "2026-05-14T14:52:04+00:00",
       "mode": "direct-api-latest-non-null-actual",
       "region": "ALL",
       "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected."
@@ -1559,21 +1566,21 @@
     "smartgrid_visible_overview": {
       "source": "SmartGrid Dashboard visible System Generation page",
       "source_url": "https://www.smartgriddashboard.com/all/generation/",
-      "harvested_at": "2026-05-14T13:44:29+00:00",
+      "harvested_at": "2026-05-14T14:52:06+00:00",
       "mode": "visible-page-current-kpi-parser",
       "caveat": "Uses the visible System Generation KPI values. Net Import % is converted to MW from visible system generation for the top KPI card."
     },
     "current_electricity_normalisation": {
       "source": "Derived from final electricity_now fields",
       "mode": "post-build-normalisation",
-      "generated_at": "2026-05-14T13:44:29+00:00",
+      "generated_at": "2026-05-14T14:52:06+00:00",
       "caveat": "Generation mix is normalised so wind + solar + other renewables + thermal/other = 100. Interconnection MW is derived from visible SmartGrid net-import percentage and generation. Demand is withheld from top accounting cards when it fails the generation + net-flow balance check."
     }
   },
   "county_hosting": {
     "title": "County Hosting Index",
     "mode": "schematic-scaffold",
-    "generated_at": "2026-05-14T13:44:28+00:00",
+    "generated_at": "2026-05-14T14:52:05+00:00",
     "source": "SEAI Renewable Electricity County Dashboard",
     "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
     "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km² and population-density normalisation.",
