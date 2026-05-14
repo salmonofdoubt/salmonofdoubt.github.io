@@ -141,25 +141,6 @@ function iemGenerationMixParts(e) {
 }
 // IETM canonical generation mix helper: END
 
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const importsAvailable = e.imports_available !== false;
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-
-  target.innerHTML = [
-    metricCard("Demand now", formatPowerMw(e.demand_mw || 0, { forceGw: true }), "Current mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), "Wind + solar in latest mapped interval"),
-    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation now"),
-    metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remaining supply"),
-    metricCard("Imports", percentOrNA(e.imports_percent, importsAvailable), importsAvailable ? "Mapped interconnector contribution" : "Not mapped in current source", importsAvailable ? "" : "missing"),
-    metricCard("CO₂ intensity", co2OrNA(e.co2_g_per_kwh, co2Available), co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source", co2Available ? "co2-card" : "missing co2-card")
-  ].join("");
-}
-
 function renderMix(data) {
   const target = document.getElementById("mixBars");
   if (!target) return;
