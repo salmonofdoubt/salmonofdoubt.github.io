@@ -8288,3 +8288,45 @@ h3 {
 }
 
 /* IETM residual sparkline purple: END */
+
+
+/* IETM renewable reconciliation helper */
+.generation-reconcile-box {
+  margin: 0.9rem 0 0 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-left: 3px solid var(--green);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+}
+
+.generation-reconcile-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.35rem;
+}
+
+.generation-reconcile-text {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.88);
+}
+
+.generation-reconcile-text strong {
+  color: #fff;
+  font-weight: 800;
+}
+
+
+/* IETM others calculated KPI card */
+#metricGrid .metric-card[data-accent="other-renewables"] {
+  border-top-color: var(--green) !important;
+}
+
+#metricGrid .metric-card[data-accent="other-renewables"]::before {
+  background: var(--green) !important;
+  opacity: 0.72;
+}

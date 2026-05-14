@@ -68,6 +68,8 @@ function formatPowerMw(value, options = {}) {
 function metricAccentKey(label) {
   const key = String(label || "").toLowerCase();
 
+  if (key.includes("others")) return "other-renewables";
+
   if (key.includes("thermal")) return "thermal";
 
   if (key.includes("renewable")) return "renewables";
@@ -633,7 +635,7 @@ function renderDailyPulse(data) {
       label: "Renewables now",
       value: pulseNumber(renewables, 0),
       unit: "%",
-      note: "Wind and solar in the latest mapped interval.",
+      note: "Wind and solar reported; others calculated from renewable total.",
       key: "renewables_percent",
       history,
       tone: "good"
@@ -644,7 +646,7 @@ function renderDailyPulse(data) {
       label: "Residual supply",
       value: pulseNumber(residual, 0),
       unit: "%",
-      note: "Computed remainder, not measured gas.",
+      note: "Non-renewable generation remainder.",
       key: "residual_percent",
       history,
       tone: "caution"
@@ -2124,7 +2126,7 @@ function renderDailyPulse(data) {
       label: "Renewables now",
       value: pulseNumber(renewables, 0),
       unit: "%",
-      note: "Wind and solar in the latest mapped interval.",
+      note: "Wind and solar reported; others calculated from renewable total.",
       key: "renewables_percent",
       history,
       tone: "good",
@@ -2156,7 +2158,7 @@ function renderDailyPulse(data) {
       label: "Residual supply",
       value: pulseNumber(residual, 0),
       unit: "%",
-      note: "Computed remainder, not measured gas.",
+      note: "Non-renewable generation remainder.",
       key: "residual_percent",
       history,
       tone: "caution",
@@ -2442,7 +2444,7 @@ function renderDailyPulse(data) {
       label: "Renewables now",
       value: pulseNumber(renewables, 0),
       unit: "%",
-      note: "Wind and solar as share of demand.",
+      note: "Wind and solar reported; others calculated from renewable total.",
       key: "renewables_percent",
       history,
       tone: "good"
@@ -2471,7 +2473,7 @@ function renderDailyPulse(data) {
       label: "Residual supply",
       value: pulseNumber(residual, 0),
       unit: "%",
-      note: "Computed remainder, not measured gas.",
+      note: "Non-renewable generation remainder.",
       key: "residual_percent",
       history,
       tone: "caution"
@@ -4474,7 +4476,7 @@ function iemPowerForLiveCards(value, options = {}) {
       metricCard(
         "Renewable generation",
         percentOrNA(e.renewables_percent),
-        "Estimated wind + solar share of generation"
+        "SmartGrid renewable total; wind and solar reported separately"
       ),
       metricCard(
         "Wind generation",
@@ -4487,9 +4489,14 @@ function iemPowerForLiveCards(value, options = {}) {
         "Solar share of current generation"
       ),
       metricCard(
+        "Others (calculated)",
+        percentOrNA(iemGenerationMixParts(e).otherRenewables),
+        "Renewable total minus reported wind and solar"
+      ),
+      metricCard(
         "Thermal/other",
         percentOrNA(iemGenerationMixParts(e).thermalOther),
-        "Computed non-renewable remainder"
+        "Non-renewable generation remainder"
       ),
       metricCard(
         "Interconnection",
@@ -4656,7 +4663,7 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
     const generationRows = [
       { label: "Wind", class: "wind", percent: mix.wind, available: true },
       { label: "Solar", class: "solar", percent: mix.solar, available: true },
-      { label: "Other renewables", class: "other-renewables", percent: mix.otherRenewables, available: mix.otherRenewables > 0 },
+      { label: "Others (calculated)", class: "other-renewables", percent: mix.otherRenewables, available: mix.otherRenewables > 0 },
       { label: "Thermal/other", class: "thermal", percent: mix.thermalOther, available: true }
     ];
 
