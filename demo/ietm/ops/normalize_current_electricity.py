@@ -56,29 +56,61 @@ def normalise_electricity(e: dict) -> dict:
     generation_mw = num(e.get("generation_mw"))
     demand_mw = num(e.get("demand_mw"))
 
-    wind = clamp(num(e.get("wind_percent")) or 0.0)
-    solar = clamp(num(e.get("solar_percent")) or 0.0)
+    raw_wind = clamp(num(e.get("wind_percent")) or 0.0)
+    raw_solar = clamp(num(e.get("solar_percent")) or 0.0)
 
-    renewables = num(e.get("renewables_percent"))
-    if renewables is None:
-        renewables = clamp(wind + solar)
+    raw_renewables = num(e.get("renewables_percent"))
+    if raw_renewables is None:
+        renewables = round(clamp(raw_wind + raw_solar), 2)
     else:
-        renewables = clamp(renewables)
+        renewables = round(clamp(raw_renewables), 2)
 
-    other_renewables = max(0.0, renewables - wind - solar)
-    thermal_other = max(0.0, 100.0 - renewables)
+    # Keep wind and solar as children of renewable generation.
+    # Some live source intervals can report wind + solar above the renewable
+    # total, usually because public feed values are not perfectly synchronous
+    # or not using the same denominator. For the public generation-mix model,
+    # preserve the renewable total and scale the child components into it.
+    component_sum = raw_wind + raw_solar
+    mix_reconciled = False
 
-    e["wind_percent"] = round2(wind)
-    e["solar_percent"] = round2(solar)
-    e["renewables_percent"] = round2(renewables)
-    e["other_renewables_percent"] = round2(other_renewables)
-    e["thermal_other_percent"] = round2(thermal_other)
+    if component_sum > renewables and component_sum > 0:
+        scale = renewables / component_sum
+        wind = round(clamp(raw_wind * scale), 2)
+        solar = round(max(0.0, renewables - wind), 2)
+        other_renewables = 0.0
+        mix_reconciled = True
+    else:
+        wind = round(raw_wind, 2)
+        solar = round(raw_solar, 2)
+        other_renewables = round(max(0.0, renewables - wind - solar), 2)
+
+    # Rebuild the parent total from its children after rounding. This keeps the
+    # downstream contract exact: wind + solar + other renewables = renewables.
+    renewables = round(wind + solar + other_renewables, 2)
+    thermal_other = round(max(0.0, 100.0 - renewables), 2)
+
+    e["wind_percent"] = wind
+    e["solar_percent"] = solar
+    e["renewables_percent"] = renewables
+    e["other_renewables_percent"] = other_renewables
+    e["thermal_other_percent"] = thermal_other
+
+    if mix_reconciled:
+        e["generation_mix_reconciliation"] = {
+            "mode": "scaled_children_to_renewable_total",
+            "reason": "Source wind plus solar exceeded renewable total for this interval.",
+            "raw_wind_percent": round2(raw_wind),
+            "raw_solar_percent": round2(raw_solar),
+            "raw_renewables_percent": round2(raw_renewables),
+        }
+    else:
+        e.pop("generation_mix_reconciliation", None)
 
     e["generation_mix_percent"] = {
-        "wind": round2(wind),
-        "solar": round2(solar),
-        "other_renewables": round2(other_renewables),
-        "thermal_other": round2(thermal_other),
+        "wind": wind,
+        "solar": solar,
+        "other_renewables": other_renewables,
+        "thermal_other": thermal_other,
         "sum": round2(wind + solar + other_renewables + thermal_other),
     }
 
