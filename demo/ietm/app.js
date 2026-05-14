@@ -550,10 +550,10 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
-      label: "Electricity demand",
+      label: "System demand",
       value: pulseNumber(demandGw, 2),
       unit: "GW",
-      note: "Latest mapped system demand.",
+      note: "Current load, not generation.",
       key: "demand_gw",
       history
     }),
@@ -2029,10 +2029,10 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
-      label: "Electricity demand",
+      label: "System demand",
       value: pulseNumber(demandGw, 2),
       unit: "GW",
-      note: "Latest mapped system demand.",
+      note: "Current load, not generation.",
       key: "demand_gw",
       history,
       delta: iemDelta(history, "demand_gw", { digits: 2, unit: "GW", goodWhen: "neutral" })
@@ -2330,10 +2330,10 @@ function renderDailyPulse(data) {
 
   target.innerHTML = [
     pulseCard({
-      label: "Electricity demand",
+      label: "System demand",
       value: pulseNumber(demandGw, 2),
       unit: "GW",
-      note: "Latest mapped system demand.",
+      note: "Current load, not generation.",
       key: "demand_gw",
       history
     }),
