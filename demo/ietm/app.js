@@ -609,6 +609,7 @@ async function init() {
     renderStory(data);
     renderTruthMeter(data);
     renderTrajectory(data);
+    renderTrajectoryTrendLabel(data);
     renderTargetDrift(data);
     renderPrices(data);
     renderResidual(data);
@@ -2658,6 +2659,7 @@ window.addEventListener("resize", () => {
     try {
       const data = await loadMonitor();
       renderTrajectory(data);
+      renderTrajectoryTrendLabel(data);
     } catch {
       /* no action */
     }
@@ -3034,12 +3036,7 @@ function ietmDecorateRenewableHierarchy(data) {
   `;
 }
 
-// IETM trajectory fit label override: BEGIN
-(function () {
-  const previousRenderTrajectory = renderTrajectory;
-
-  renderTrajectory = function refinedRenderTrajectory(data) {
-    previousRenderTrajectory(data);
+function renderTrajectoryTrendLabel(data) {
 
     const target = document.getElementById("trajectoryChart");
     if (!target) return;
@@ -3107,9 +3104,9 @@ function ietmDecorateRenewableHierarchy(data) {
       "aria-label",
       `Renewable electricity trajectory. Observed trend ${slopeText} percentage points per year. Fit ${fitStrength}, based on ${n} annual points.`
     );
-  };
-})();
-// IETM trajectory fit label override: END
+  
+}
+
 
 // IETM demand-now GW override: BEGIN
 function iemFormatPowerMw(value, options = {}) {
