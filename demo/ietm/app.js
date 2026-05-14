@@ -488,15 +488,6 @@ function renderSourceConsole(data) {
   }).join("");
 }
 
-
-function pulseNumber(value, digits = 0) {
-  if (!isNumber(value)) return "n/a";
-  return Number(value).toLocaleString(undefined, {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits
-  });
-}
-
 function pulseLast(history, key) {
   const rows = [...(history || [])].reverse();
   for (const row of rows) {
@@ -1255,29 +1246,6 @@ function marketStatusClass(status) {
   return "missing";
 }
 
-function renderMarketPriceCard(item) {
-  const cls = marketStatusClass(item.status);
-  const stats = item.stats || {};
-  const avg = isNumber(stats.daily_average_eur_per_mwh)
-    ? `<small>Daily average: ${Number(stats.daily_average_eur_per_mwh).toFixed(2)} €/MWh</small>`
-    : "";
-
-  return `
-    <article class="market-price-card ${cls}">
-      <div class="market-price-top">
-        <h3>${escapeHtml(item.label)}</h3>
-        <span>${escapeHtml(item.status || "unknown")}</span>
-      </div>
-      <strong>${escapeHtml(item.value || "n/a")}</strong>
-      ${avg}
-      <p>${escapeHtml(item.detail || "")}</p>
-      <a href="${escapeHtml(item.source_url || "#")}" target="_blank" rel="noopener noreferrer">
-        ${escapeHtml(item.source || "Source")}
-      </a>
-    </article>
-  `;
-}
-
 async function renderMarketPrices() {
   const target = document.getElementById("marketPriceGrid");
   if (!target) return;
@@ -1304,29 +1272,6 @@ async function renderMarketPrices() {
 document.addEventListener("DOMContentLoaded", renderMarketPrices);
 
 /* v0.17 clearer market/system price rendering */
-function iemMarketNumberParts(item) {
-  const raw = item?.numeric_value;
-
-  if (!isNumber(raw)) {
-    return {
-      value: "n/a",
-      unit: item?.unit || "",
-      unavailable: true
-    };
-  }
-
-  const unit = item?.unit || "";
-  const digits = unit.includes("MWh") ? 2 : 2;
-
-  return {
-    value: Number(raw).toLocaleString("en-IE", {
-      minimumFractionDigits: digits,
-      maximumFractionDigits: digits
-    }),
-    unit,
-    unavailable: false
-  };
-}
 
 function iemMarketPlainStatus(item) {
   if (item.status === "mapped") return "System signal";
