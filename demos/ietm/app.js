@@ -526,6 +526,7 @@ function renderDataQuality(data) {
 
 // IETM demand pressure renderer defined in canonical fallback-aware block below.
 
+
 async function init() {
   try {
     const data = await loadMonitor();
@@ -2308,11 +2309,6 @@ function renderTrajectory(data) {
       ${svg}
     </div>
 
-    <div class="trajectory-mobile-readout" aria-label="Trendline formula and interpretation">
-      <span>${escapeHtml(formulaText || "Observed trend unavailable")}</span>
-      <strong>${escapeHtml(endpointText || "")}</strong>
-      <em>Swipe chart sideways to inspect years.</em>
-    </div>
   `;
 
   const scrollWrap = target.querySelector(".trajectory-scroll-wrap");
