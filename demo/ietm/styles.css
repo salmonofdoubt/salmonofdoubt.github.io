@@ -8268,3 +8268,23 @@ h3 {
 }
 
 /* IETM other renewables generation mix: END */
+
+/* IETM residual sparkline purple: BEGIN */
+
+#dailyPulseGrid .pulse-card.thermal .sparkline path,
+#dailyPulseGrid .pulse-card.thermal .sparkline polyline,
+#dailyPulseGrid .pulse-card.thermal svg path,
+#dailyPulseGrid .pulse-card.thermal svg polyline,
+#dailyPulseGrid .pulse-card[data-kpi="residual"] .sparkline path,
+#dailyPulseGrid .pulse-card[data-kpi="residual"] .sparkline polyline,
+#dailyPulseGrid .pulse-card[data-kpi="residual"] svg path,
+#dailyPulseGrid .pulse-card[data-kpi="residual"] svg polyline {
+  stroke: var(--thermal-purple) !important;
+}
+
+#dailyPulseGrid .pulse-card.thermal .sparkline,
+#dailyPulseGrid .pulse-card[data-kpi="residual"] .sparkline {
+  color: var(--thermal-purple) !important;
+}
+
+/* IETM residual sparkline purple: END */
