@@ -1586,9 +1586,11 @@ function renderDailyPulse(data) {
   const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
   const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
   const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
-  const residual = isNumber(e.residual_percent ?? e.gas_percent)
-    ? (e.residual_percent ?? e.gas_percent)
-    : pulseLast(history, "residual_percent");
+  const thermalOther = isNumber(e.thermal_other_percent)
+    ? e.thermal_other_percent
+    : isNumber(e.residual_percent ?? e.gas_percent)
+      ? (e.residual_percent ?? e.gas_percent)
+      : (pulseLast(history, "thermal_other_percent") ?? pulseLast(history, "residual_percent"));
 
   const signedInterconnection = isNumber(e.interconnection_mw) ? Number(e.interconnection_mw) : Number(e.imports_mw || 0);
   const interValue = Math.abs(signedInterconnection) < 1
@@ -1662,7 +1664,7 @@ function renderDailyPulse(data) {
     pulseCard({
       key: "residual",
       label: "Thermal/other",
-      value: pulseNumber(residual, 0),
+      value: pulseNumber(thermalOther, 0),
       unit: "%",
       note: "Non-renewable generation remainder.",
       historyKey: "residual_percent",

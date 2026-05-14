@@ -95,6 +95,13 @@ def normalise_electricity(e: dict) -> dict:
     e["other_renewables_percent"] = other_renewables
     e["thermal_other_percent"] = thermal_other
 
+    # Legacy aliases: older frontend sections and history code may still read
+    # residual_percent / gas_percent. Keep them aligned with the canonical
+    # generation-accounting value so visible tiles cannot diverge.
+    e["residual_percent"] = thermal_other
+    e["gas_percent"] = thermal_other
+    e["gas_is_residual_proxy"] = True
+
     if mix_reconciled:
         e["generation_mix_reconciliation"] = {
             "mode": "scaled_children_to_renewable_total",
