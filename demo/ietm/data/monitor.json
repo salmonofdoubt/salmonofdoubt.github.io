@@ -47,7 +47,7 @@
           ],
           "row_count": 8636
         },
-        "caveat": "Best-effort parser. Residual is not pure gas.",
+        "caveat": "Best-effort parser. Thermal/other is not pure gas.",
         "smartgrid_live": {
           "source": "EirGrid Smart Grid Dashboard public pages",
           "source_url": "https://www.smartgriddashboard.com",
@@ -847,7 +847,7 @@
       "do_not_do": [
         "Do not call stale workbook values live.",
         "Do not mix dashboard percentages with workbook MW values without explicit denominator notes.",
-        "Do not treat residual supply as measured gas.",
+        "Do not treat thermal/other as measured gas.",
         "Do not substitute household tariffs for market/system prices."
       ]
     }
@@ -995,13 +995,13 @@
       "logic": "Recent gain is 1.95 pp/yr versus 6.45 pp/yr required to 2030."
     },
     {
-      "name": "Residual supply",
+      "name": "Thermal/other",
       "status": "risk",
       "status_label": "At risk",
       "reading": "Unclassified remainder",
       "value": "31%",
       "rule": "On track ≤20%; at risk 20–35%; off track >35%.",
-      "why": "High residual supply means the system still depends on non-wind, non-solar and unidentified supply.",
+      "why": "High thermal/other means the system still depends on non-wind, non-solar and unidentified supply.",
       "basis": "Computed live proxy",
       "confidence": "Medium",
       "direction": "needs classification",
@@ -1136,14 +1136,14 @@
       },
       {
         "key": "residual",
-        "label": "Residual supply",
+        "label": "Thermal/other",
         "definition": "Demand not covered by detected wind, solar and net imports.",
         "value_key": "residual_percent",
         "unit": "%",
         "denominator": "Current electricity demand.",
         "evidence_basis": "Computed",
         "confidence": "Medium",
-        "caveat": "Residual is not measured gas. It may include gas, hydro, storage, coal/oil or unidentified supply.",
+        "caveat": "Thermal/other is computed, not measured gas. It may include gas, hydro, storage, coal/oil or unidentified supply.",
         "accent": "purple"
       },
       {
@@ -1266,14 +1266,14 @@
     },
     {
       "key": "residual",
-      "label": "Residual supply",
+      "label": "Thermal/other",
       "definition": "Demand not covered by detected wind, solar and net imports.",
       "value_key": "residual_percent",
       "unit": "%",
       "denominator": "Current electricity demand.",
       "evidence_basis": "Computed",
       "confidence": "Medium",
-      "caveat": "Residual is not measured gas. It may include gas, hydro, storage, coal/oil or unidentified supply.",
+      "caveat": "Thermal/other is computed, not measured gas. It may include gas, hydro, storage, coal/oil or unidentified supply.",
       "accent": "purple"
     },
     {
@@ -1525,7 +1525,7 @@
       ],
       "row_count": 8636
     },
-    "caveat": "Best-effort parser. Residual is not pure gas.",
+    "caveat": "Best-effort parser. Thermal/other is not pure gas.",
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
