@@ -8174,21 +8174,6 @@ h3 {
   .pulse-card[data-kpi="gas-price"] { order: 8; }
 }
 
-/* IETM mobile reorder for Today at a glance: BEGIN */
-
-@media (max-width: 700px) {
-  #dailyPulseGrid .pulse-card[data-kpi="demand"] { order: 1 !important; }
-  #dailyPulseGrid .pulse-card[data-kpi="renewables"] { order: 2 !important; }
-  #dailyPulseGrid .pulse-card[data-kpi="residual"] { order: 3 !important; }
-  #dailyPulseGrid .pulse-card[data-kpi="co2"] { order: 4 !important; }
-  #dailyPulseGrid .pulse-card[data-kpi="interconnection"] { order: 5 !important; }
-  #dailyPulseGrid .pulse-card[data-kpi="target-gap"] { order: 6 !important; }
-  #dailyPulseGrid .pulse-card[data-kpi="electricity-price"] { order: 7 !important; }
-  #dailyPulseGrid .pulse-card[data-kpi="gas-price"] { order: 8 !important; }
-}
-
-/* IETM mobile reorder for Today at a glance: END */
-
 /* IETM other renewables generation mix: BEGIN */
 
 .mix-row.other-renewables .bar-fill {
@@ -8339,7 +8324,7 @@ h3 {
   color: var(--muted) !important;
 }
 
-/* IETM Today at a glance semantic order: BEGIN */
+/* IETM Today at a glance canonical order: BEGIN */
 /* Page order:
    Generation now | System demand if shown | Renewables now | Thermal/other
    CO2 now | Interconnection | 2030 target gap | Electricity price | Gas price
@@ -8353,24 +8338,12 @@ h3 {
 #dailyPulseGrid .pulse-card[data-kpi="target-gap"] { order: 7 !important; }
 #dailyPulseGrid .pulse-card[data-kpi="electricity-price"] { order: 8 !important; }
 #dailyPulseGrid .pulse-card[data-kpi="gas-price"] { order: 9 !important; }
-/* IETM Today at a glance semantic order: END */
 
-/* IETM final mobile Today at a glance semantic order: BEGIN */
-/* Keep Thermal/other immediately after Renewables now on mobile. */
 @media (max-width: 700px) {
   #dailyPulseGrid {
     display: flex !important;
     flex-direction: column !important;
   }
-
-  #dailyPulseGrid > .pulse-card[data-kpi="generation"] { order: 1 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="demand"] { order: 2 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="renewables"] { order: 3 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="residual"] { order: 4 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="co2"] { order: 5 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="interconnection"] { order: 6 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="target-gap"] { order: 7 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="electricity-price"] { order: 8 !important; }
-  #dailyPulseGrid > .pulse-card[data-kpi="gas-price"] { order: 9 !important; }
 }
-/* IETM final mobile Today at a glance semantic order: END */
+/* IETM Today at a glance canonical order: END */
+
