@@ -2196,7 +2196,7 @@ function renderDailyPulse(data) {
       note: "Non-renewable generation remainder.",
       key: "residual_percent",
       history,
-      tone: "caution"
+      tone: "thermal"
     }),
     pulseCard({
       key: "target-gap",
@@ -4365,52 +4365,3 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
 })();
 // IETM demand balance warning renderer: END
 
-// IETM force residual sparkline purple: BEGIN
-(function () {
-  function forceResidualSparklinePurple() {
-    for (const card of document.querySelectorAll("#dailyPulseGrid .pulse-card")) {
-      const label = card.querySelector("span");
-      if (!label) continue;
-
-      if (label.textContent.trim().toLowerCase() !== "residual supply") continue;
-
-      card.classList.add("residual-card", "thermal");
-      card.classList.remove("caution");
-
-      const purple = "#5b3a96";
-      const purpleSoft = "rgba(91, 58, 150, 0.78)";
-      const purpleFaint = "rgba(91, 58, 150, 0.28)";
-
-      for (const el of card.querySelectorAll("svg path, svg polyline, svg line, .pulse-sparkline path, .pulse-sparkline polyline, .pulse-sparkline line")) {
-        if (el.tagName.toLowerCase() === "line") {
-          el.style.stroke = purpleFaint;
-        } else {
-          el.style.stroke = purpleSoft;
-        }
-      }
-
-      // Fallback if colour is inherited through currentColor.
-      for (const el of card.querySelectorAll("svg, .pulse-sparkline")) {
-        el.style.color = purple;
-      }
-
-      break;
-    }
-  }
-
-  const previousRenderDailyPulse = renderDailyPulse;
-
-  renderDailyPulse = function renderDailyPulseWithPurpleResidual(data) {
-    previousRenderDailyPulse(data);
-    forceResidualSparklinePurple();
-    setTimeout(forceResidualSparklinePurple, 0);
-    setTimeout(forceResidualSparklinePurple, 120);
-  };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    forceResidualSparklinePurple();
-    setTimeout(forceResidualSparklinePurple, 0);
-    setTimeout(forceResidualSparklinePurple, 250);
-  });
-})();
-// IETM force residual sparkline purple: END

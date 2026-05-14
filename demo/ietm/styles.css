@@ -8370,3 +8370,21 @@ h3 {
   background: #7b5ce1 !important;
 }
 
+/* IETM canonical residual daily-pulse styling */
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline path,
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline polyline,
+#dailyPulseGrid .pulse-card.thermal svg path,
+#dailyPulseGrid .pulse-card.thermal svg polyline {
+  stroke: var(--thermal-purple, #5b3a96) !important;
+}
+
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline line,
+#dailyPulseGrid .pulse-card.thermal svg line {
+  stroke: rgba(91, 58, 150, 0.28) !important;
+}
+
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline,
+#dailyPulseGrid .pulse-card.thermal svg {
+  color: var(--thermal-purple, #5b3a96) !important;
+}
+
