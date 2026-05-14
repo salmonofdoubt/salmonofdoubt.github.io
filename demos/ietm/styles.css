@@ -8699,3 +8699,10 @@ html body #metricGrid.metric-grid article.metric-card.others-calculated-card > s
     align-self: start !important;
   }
 }
+
+/* IETM Current grid pulse: soften child renewable values */
+html body #metricGrid.metric-grid article.metric-card[data-accent="wind"] > strong,
+html body #metricGrid.metric-grid article.metric-card[data-accent="solar"] > strong,
+html body #metricGrid.metric-grid article.metric-card.others-calculated-card > strong {
+  color: rgba(224, 236, 229, 0.78) !important;
+}
