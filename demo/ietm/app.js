@@ -1,3 +1,33 @@
+// IETM demand balance sanity helper: BEGIN
+function demandPassesBalanceCheck(e) {
+  const demandMw = Number(e.demand_mw);
+  const generationMw = Number(e.generation_mw);
+  const interconnectionMw = Number(e.interconnection_mw || 0);
+
+  if (!Number.isFinite(demandMw) || !Number.isFinite(generationMw)) {
+    return false;
+  }
+
+  // Positive interconnection_mw = net import, negative = net export.
+  const expectedDemandMw = generationMw + interconnectionMw;
+  const gapMw = demandMw - expectedDemandMw;
+
+  return Math.abs(gapMw) <= 300;
+}
+
+function demandBalanceGapMw(e) {
+  const demandMw = Number(e.demand_mw);
+  const generationMw = Number(e.generation_mw);
+  const interconnectionMw = Number(e.interconnection_mw || 0);
+
+  if (!Number.isFinite(demandMw) || !Number.isFinite(generationMw)) {
+    return null;
+  }
+
+  return demandMw - (generationMw + interconnectionMw);
+}
+// IETM demand balance sanity helper: END
+
 async function loadMonitor() {
   const response = await fetch("data/monitor.json", { cache: "no-store" });
   if (!response.ok) {
@@ -533,6 +563,7 @@ function renderDailyPulse(data) {
   // Current display values should come from electricity_now / current monitor first.
   // History is for sparklines and fallback only.
   const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
+  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
   const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
   const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
   const imports = isNumber(e.imports_percent) ? e.imports_percent : pulseLast(history, "imports_percent");
@@ -560,6 +591,15 @@ function renderDailyPulse(data) {
       key: "generation_gw",
       history
     }),
+    ...(demandPassesBalanceCheck(e) ? [pulseCard({
+      key: "demand",
+      label: "System demand",
+      value: pulseNumber(demandGw, 2),
+      unit: "GW",
+      note: "Current load-side signal.",
+      key: "demand_gw",
+      history
+    })] : []),
     pulseCard({
       key: "renewables",
       label: "Renewables now",
@@ -2018,6 +2058,7 @@ function renderDailyPulse(data) {
   const gasPrice = prices.find(p => p.label === "Household gas");
 
   const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
+  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
   const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
   const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
 
@@ -2320,6 +2361,7 @@ function renderDailyPulse(data) {
   const gasPrice = prices.find(p => p.label === "Household gas");
 
   const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
+  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
   const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
   const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
   const residual = isNumber(e.residual_percent ?? e.gas_percent)
@@ -2357,6 +2399,15 @@ function renderDailyPulse(data) {
       key: "generation_gw",
       history
     }),
+    ...(demandPassesBalanceCheck(e) ? [pulseCard({
+      key: "demand",
+      label: "System demand",
+      value: pulseNumber(demandGw, 2),
+      unit: "GW",
+      note: "Current load-side signal.",
+      key: "demand_gw",
+      history
+    })] : []),
     pulseCard({
       key: "renewables",
       label: "Renewables now",
@@ -4754,3 +4805,32 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
   };
 })();
 // IETM live mix bars from electricity_now: END
+
+// IETM demand balance warning renderer: BEGIN
+(function () {
+  const previousRenderDataQuality = renderDataQuality;
+
+  renderDataQuality = function renderDataQualityWithDemandBalance(data) {
+    previousRenderDataQuality(data);
+
+    const target = document.getElementById("dataQualityList");
+    if (!target) return;
+
+    const e = data.electricity_now || {};
+    if (demandPassesBalanceCheck(e)) return;
+
+    const gap = demandBalanceGapMw(e);
+    const gapText = Number.isFinite(gap)
+      ? `${Math.round(gap).toLocaleString()} MW`
+      : "unknown gap";
+
+    target.insertAdjacentHTML("afterbegin", `
+      <div class="quality-item missing">
+        <span class="quality-badge">withheld</span>
+        <strong>System demand</strong>
+        <small>Demand feed is not shown in the top cards because it fails the generation + net-flow balance check. Gap: ${gapText}.</small>
+      </div>
+    `);
+  };
+})();
+// IETM demand balance warning renderer: END
