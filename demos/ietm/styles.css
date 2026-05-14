@@ -8823,3 +8823,92 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
     border-top-color: var(--ietm-neutral-grid-accent) !important;
   }
 }
+
+/* IETM demand pressure trend sparklines: BEGIN */
+.demand-pressure-card .demand-trend {
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(224, 236, 229, 0.12);
+  color: rgba(224, 236, 229, 0.72);
+}
+
+.demand-pressure-card .demand-trend svg {
+  display: block;
+  width: 100%;
+  height: 46px;
+  overflow: visible;
+}
+
+.demand-pressure-card .demand-trend-axis {
+  stroke: rgba(224, 236, 229, 0.15);
+  stroke-width: 1;
+}
+
+.demand-pressure-card .demand-trend-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.demand-pressure-card .demand-trend-point {
+  fill: currentColor;
+  stroke: rgba(5, 18, 14, 0.95);
+  stroke-width: 1.4;
+}
+
+.demand-pressure-card .demand-trend-point.forecast {
+  fill: rgba(5, 18, 14, 0.95);
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.demand-pressure-card .demand-trend-single-track {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(224, 236, 229, 0.15);
+}
+
+.demand-pressure-card .demand-trend-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.demand-pressure-card .demand-trend-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.28rem;
+  font-size: 0.66rem;
+  color: rgba(224, 236, 229, 0.72);
+}
+
+.demand-pressure-card .demand-trend-meta strong {
+  font-size: 0.68rem;
+  color: rgba(224, 236, 229, 0.92);
+}
+
+.demand-pressure-card .demand-trend small {
+  display: block;
+  margin-top: 0.18rem;
+  font-size: 0.63rem;
+  line-height: 1.25;
+  color: rgba(224, 236, 229, 0.58);
+}
+
+.demand-pressure-card.pressure .demand-trend {
+  color: #ff7b7b;
+}
+
+.demand-pressure-card.measured .demand-trend {
+  color: #72f0a0;
+}
+
+.demand-pressure-card.modelled .demand-trend {
+  color: #62d8ff;
+}
+/* IETM demand pressure trend sparklines: END */

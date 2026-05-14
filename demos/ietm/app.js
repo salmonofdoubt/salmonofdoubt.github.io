@@ -524,39 +524,7 @@ function renderDataQuality(data) {
   target.innerHTML = rows.join("");
 }
 
-// IETM demand pressure renderer: BEGIN
-function renderDemandPressure(data) {
-  const target = document.getElementById("demandPressureGrid");
-  if (!target) return;
-
-  const pressure = data.demand_pressure || {};
-  const cards = pressure.cards || [];
-
-  target.innerHTML = cards.map(card => `
-    <article class="demand-pressure-card ${escapeHtml(card.tone || "")}">
-      <span>${escapeHtml(card.label)}</span>
-      <strong>${escapeHtml(card.value)}</strong>
-      <small>${escapeHtml(card.subtitle || "")}</small>
-      <p>${escapeHtml(card.detail || "")}</p>
-      <em>${escapeHtml(card.source || "")}</em>
-    </article>
-  `).join("");
-
-  const contrast = document.getElementById("demandPressureContrast");
-  if (contrast) {
-    contrast.textContent = pressure.contrast || "";
-  }
-
-  const note = document.getElementById("demandPressureNote");
-  if (note) {
-    note.innerHTML = `
-      <strong>How to read this:</strong> ${escapeHtml(pressure.unit_note || "")}
-      <br>
-      <strong>Caveat:</strong> ${escapeHtml(pressure.caveat || "")}
-    `;
-  }
-}
-// IETM demand pressure renderer: END
+// IETM demand pressure renderer defined in canonical fallback-aware block below.
 
 async function init() {
   try {
@@ -2948,9 +2916,9 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
   unit_note:
     "The live grid cards show instantaneous MW/GW. This panel converts annual demand into average load equivalents so the scale is comparable. Rule of thumb: 1 TWh/yr ≈ 114 MW continuous average demand.",
   caveat:
-    "Data-centre demand is a current forecast layer. Other large energy users and standalone EV charging are latest measured annual CSO layers. EV fleet electricity is modelled, not directly metered.",
+    "Data-centre demand is shown as a current forecast layer. Other large energy users, standalone EV charging and large-user totals use latest measured annual CSO layers where available. EV fleet electricity is modelled, not directly metered.",
   contrast:
-    "Data centres are already roughly gigawatt-scale average demand. EV electricity is growing, but from a much smaller base. Read this as load pressure, not live dispatch.",
+    "Data centres are already roughly gigawatt-scale average demand. Other large users remain material, while EV electricity is growing from a much smaller base. Read this as load pressure, not live dispatch.",
   cards: [
     {
       label: "Data centres",
@@ -2959,16 +2927,31 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
       detail: "9.4 TWh/yr forecast annual electricity use for 2025. Forecast demand, not live metered consumption.",
       source: "CRU / EirGrid",
       tone: "pressure",
-      acceleration: "Fast growth: 6.97 TWh measured in 2024 to ~9.4 TWh forecast in 2025"
+      acceleration: "Fast growth: 6.97 TWh measured in 2024 to ~9.4 TWh forecast in 2025",
+      trend: {
+        unit: "TWh/yr",
+        label: "Measured → forecast",
+        points: [
+          { year: 2024, value: 6.97, status: "measured" },
+          { year: 2025, value: 9.40, status: "forecast" }
+        ]
+      }
     },
     {
       label: "Other large energy users",
-      value: "~57 MW",
+      value: "~334 MW",
       subtitle: "Average load equivalent",
-      detail: "0.5 TWh/yr residual after deducting the data-centre tile from the large-energy-user total. Avoids double-counting data centres.",
-      source: "CSO",
+      detail: "2.93 TWh/yr measured residual in 2024: 9.9 TWh large-energy-user total minus 6.97 TWh data centres. Avoids double-counting data centres.",
+      source: "CSO / EirGrid",
       tone: "measured",
-      acceleration: "Measured annual grid-pressure proxy"
+      acceleration: "2024 measured residual; multi-year separated series still needed",
+      trend: {
+        unit: "TWh/yr",
+        label: "2024 residual",
+        points: [
+          { year: 2024, value: 2.93, status: "measured" }
+        ]
+      }
     },
     {
       label: "EV fleet electricity",
@@ -2977,7 +2960,14 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
       detail: "~0.45 TWh/yr modelled from 196,000 EVs × 13,500 km/year × 0.17 kWh/km. Not a metered national EV feed.",
       source: "ZEVI / Department of Transport + transparent model",
       tone: "modelled",
-      acceleration: "Growing fleet, still much smaller than data-centre load"
+      acceleration: "Growing fleet, still much smaller than data-centre load",
+      trend: {
+        unit: "TWh/yr",
+        label: "Modelled point",
+        points: [
+          { year: 2024, value: 0.45, status: "modelled" }
+        ]
+      }
     },
     {
       label: "Standalone EV charging",
@@ -2986,49 +2976,138 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
       detail: "33 GWh/yr measured at standalone EV charge-point meters in 2024. Excludes home, workplace and depot charging.",
       source: "CSO",
       tone: "measured",
-      acceleration: "+43% from 2023 to 2024, partial coverage only"
+      acceleration: "+43% from 2023 to 2024, partial coverage only",
+      trend: {
+        unit: "GWh/yr",
+        label: "Measured growth",
+        points: [
+          { year: 2023, value: 23.1, status: "measured" },
+          { year: 2024, value: 33.0, status: "measured" }
+        ]
+      }
     }
   ]
 };
 
-(function () {
-  renderDemandPressure = function renderDemandPressureWithFallback(data) {
-    const target = document.getElementById("demandPressureGrid");
-    if (!target) return;
+function demandPressureTrendSvg(card) {
+  const trend = card.trend || {};
+  const points = (trend.points || [])
+    .map(point => ({
+      year: Number(point.year),
+      value: Number(point.value),
+      status: String(point.status || "measured")
+    }))
+    .filter(point => Number.isFinite(point.year) && Number.isFinite(point.value));
 
-    const supplied = data && data.demand_pressure ? data.demand_pressure : {};
-    const pressure = Array.isArray(supplied.cards) && supplied.cards.length
-      ? supplied
-      : IEM_DEMAND_PRESSURE_FALLBACK;
+  if (!points.length) return "";
 
-    const cards = pressure.cards || [];
+  const unit = trend.unit || "";
+  const label = trend.label || "Trend";
+  const width = 180;
+  const height = 44;
+  const padX = 8;
+  const padY = 7;
 
-    target.innerHTML = cards.map(card => `
-      <article class="demand-pressure-card ${escapeHtml(card.tone || "")}">
-        <span>${escapeHtml(card.label)}</span>
-        <strong>${escapeHtml(card.value)}</strong>
-        <small>${escapeHtml(card.subtitle || "")}</small>
-        <p>${escapeHtml(card.detail || "")}</p>
-        ${card.acceleration ? `<b class="demand-acceleration">${escapeHtml(card.acceleration)}</b>` : ""}
-        <em>${escapeHtml(card.source || "")}</em>
-      </article>
-    `).join("");
+  if (points.length === 1) {
+    const point = points[0];
+    return `
+      <div class="demand-trend single" aria-label="${escapeHtml(label)}">
+        <div class="demand-trend-single-track">
+          <span class="demand-trend-dot ${escapeHtml(point.status)}"></span>
+        </div>
+        <div class="demand-trend-meta">
+          <span>${escapeHtml(String(point.year))}</span>
+          <strong>${escapeHtml(point.value.toFixed(point.value < 10 ? 2 : 1))} ${escapeHtml(unit)}</strong>
+        </div>
+        <small>${escapeHtml(label)}</small>
+      </div>
+    `;
+  }
 
-    const contrast = document.getElementById("demandPressureContrast");
-    if (contrast) {
-      contrast.textContent = pressure.contrast || IEM_DEMAND_PRESSURE_FALLBACK.contrast;
-    }
+  const minYear = Math.min(...points.map(point => point.year));
+  const maxYear = Math.max(...points.map(point => point.year));
+  const minValue = Math.min(...points.map(point => point.value));
+  const maxValue = Math.max(...points.map(point => point.value));
+  const yearSpan = maxYear - minYear || 1;
+  const valueSpan = maxValue - minValue || 1;
 
-    const note = document.getElementById("demandPressureNote");
-    if (note) {
-      note.innerHTML = `
-        <strong>How to read this:</strong> ${escapeHtml(pressure.unit_note || IEM_DEMAND_PRESSURE_FALLBACK.unit_note)}
-        <br>
-        <strong>Caveat:</strong> ${escapeHtml(pressure.caveat || IEM_DEMAND_PRESSURE_FALLBACK.caveat)}
-      `;
-    }
-  };
-})();
+  const x = year => padX + ((year - minYear) / yearSpan) * (width - padX * 2);
+  const y = value => height - padY - ((value - minValue) / valueSpan) * (height - padY * 2);
+
+  const path = points
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${x(point.year).toFixed(2)} ${y(point.value).toFixed(2)}`)
+    .join(" ");
+
+  const dots = points.map(point => `
+    <circle
+      class="demand-trend-point ${escapeHtml(point.status)}"
+      cx="${x(point.year).toFixed(2)}"
+      cy="${y(point.value).toFixed(2)}"
+      r="3.2"
+    ></circle>
+  `).join("");
+
+  const first = points[0];
+  const last = points[points.length - 1];
+  const change = first.value ? ((last.value - first.value) / first.value) * 100 : null;
+  const changeLabel = Number.isFinite(change)
+    ? `${change >= 0 ? "+" : ""}${change.toFixed(0)}%`
+    : "";
+
+  return `
+    <div class="demand-trend" aria-label="${escapeHtml(label)}">
+      <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" role="img">
+        <line class="demand-trend-axis" x1="${padX}" y1="${height - padY}" x2="${width - padX}" y2="${height - padY}"></line>
+        <path class="demand-trend-line" d="${path}"></path>
+        ${dots}
+      </svg>
+      <div class="demand-trend-meta">
+        <span>${escapeHtml(String(first.year))}</span>
+        <strong>${escapeHtml(changeLabel || label)}</strong>
+        <span>${escapeHtml(String(last.year))}</span>
+      </div>
+      <small>${escapeHtml(label)}${unit ? ` · ${escapeHtml(unit)}` : ""}</small>
+    </div>
+  `;
+}
+
+function renderDemandPressure(data) {
+  const target = document.getElementById("demandPressureGrid");
+  if (!target) return;
+
+  const supplied = data && data.demand_pressure ? data.demand_pressure : {};
+  const pressure = Array.isArray(supplied.cards) && supplied.cards.length
+    ? supplied
+    : IEM_DEMAND_PRESSURE_FALLBACK;
+
+  const cards = pressure.cards || [];
+
+  target.innerHTML = cards.map(card => `
+    <article class="demand-pressure-card ${escapeHtml(card.tone || "")}">
+      <span>${escapeHtml(card.label)}</span>
+      <strong>${escapeHtml(card.value)}</strong>
+      <small>${escapeHtml(card.subtitle || "")}</small>
+      <p>${escapeHtml(card.detail || "")}</p>
+      ${demandPressureTrendSvg(card)}
+      ${card.acceleration ? `<b>${escapeHtml(card.acceleration)}</b>` : ""}
+      <em>${escapeHtml(card.source || "")}</em>
+    </article>
+  `).join("");
+
+  const contrast = document.getElementById("demandPressureContrast");
+  if (contrast) {
+    contrast.textContent = pressure.contrast || "";
+  }
+
+  const note = document.getElementById("demandPressureNote");
+  if (note) {
+    note.innerHTML = `
+      <strong>How to read this:</strong> ${escapeHtml(pressure.unit_note || "")}
+      <br>
+      <strong>Caveat:</strong> ${escapeHtml(pressure.caveat || "")}
+    `;
+  }
+}
 // IETM demand pressure fallback renderer: END
 
 // IETM live mix bars from electricity_now: BEGIN
