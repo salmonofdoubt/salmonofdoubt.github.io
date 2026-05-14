@@ -87,18 +87,6 @@ function metricAccentKey(label) {
   return "neutral";
 }
 
-function metricCard(label, value, note, className = "") {
-  const accent = metricAccentKey(label);
-
-  return `
-    <article class="metric-card ${className}" data-accent="${accent}">
-      <span>${label}</span>
-      <strong>${value}</strong>
-      <small>${note}</small>
-    </article>
-  `;
-}
-
 function isNumber(value) {
   return Number.isFinite(Number(value));
 }
