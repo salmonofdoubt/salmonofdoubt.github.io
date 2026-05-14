@@ -663,9 +663,28 @@ function renderDemandPressureScenarioChart(data, forecast) {
 }
 // IETM demand pressure scenario chart: END
 
+
+async function loadDemandPressureForecast() {
+  try {
+    const response = await fetch("data/source/demand_pressure_forecast.json", { cache: "no-store" });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch (error) {
+    console.warn("Demand pressure forecast unavailable", error);
+    return null;
+  }
+}
+
 async function init() {
   try {
-    const data = await loadMonitor();
+    const [data, demandPressureForecast] = await Promise.all([
+      loadMonitor(),
+      loadDemandPressureForecast()
+    ]);
+
+    if (demandPressureForecast) {
+      data.demand_pressure_forecast = demandPressureForecast;
+    }
     renderMeta(data);
     renderDailyPulse(data);
     renderMetrics(data);
@@ -675,6 +694,8 @@ async function init() {
     renderTrajectory(data);
     renderTrajectoryTrendLabel(data);
     renderTargetDrift(data);
+    renderDemandAdjustedTrajectoryPanel(data);
+    renderDemandMatchSensitivityPanel(data);
     renderDemandPressureScenarioChart(data, await loadDemandPressureScenarios());
     renderPrices(data);
     renderResidual(data);
@@ -2839,6 +2860,411 @@ function ietmDecorateRenewableHierarchy(data) {
     </div>
   `;
 }
+
+
+// IETM demand-adjusted trajectory companion chart: BEGIN
+function renderDemandAdjustedTrajectoryPanel(data) {
+  const host = document.getElementById("trajectoryChart");
+  if (!host) return;
+
+  document.querySelectorAll("#trajectoryDemandAdjustedPanel").forEach(el => el.remove());
+
+  const rows = (data?.target_trajectory || [])
+    .filter(row => row.actual !== null && row.actual !== undefined && Number.isFinite(Number(row.actual)));
+
+  const latest = rows.length ? rows[rows.length - 1] : null;
+  const forecast = data?.demand_pressure_forecast;
+  const summary = forecast?.derived?.summary_2030 || {};
+  const targetShare = Number(forecast?.meta?.target_share || 0.8);
+  const officialTarget = Math.round(targetShare * 100);
+
+  if (!latest || !Object.keys(summary).length) return;
+
+  const latestYear = Number(latest.year);
+  const latestActual = Number(latest.actual);
+  const endYear = 2030;
+
+  const burdens = [
+    { key: "low", label: "Low", colour: "#7fbf7f", pp: Number(summary.low?.demand_adjusted_burden_pp || 0), mw: Number(summary.low?.extra_renewable_required_mw_average || 0) },
+    { key: "central", label: "Central", colour: "#d9a441", pp: Number(summary.central?.demand_adjusted_burden_pp || 0), mw: Number(summary.central?.extra_renewable_required_mw_average || 0) },
+    { key: "high", label: "High", colour: "#d46a6a", pp: Number(summary.high?.demand_adjusted_burden_pp || 0), mw: Number(summary.high?.extra_renewable_required_mw_average || 0) }
+  ];
+
+  const maxY = Math.max(85, Math.ceil((Math.max(latestActual, officialTarget) + 2) / 5) * 5);
+  const minY = Math.max(0, Math.floor((Math.min(latestActual, officialTarget) - 5) / 5) * 5);
+
+  const width = 980;
+  const height = 300;
+  const padLeft = 64;
+  const padRight = 24;
+  const padTop = 22;
+  const padBottom = 42;
+
+  const x = yr => {
+    const span = endYear - latestYear || 1;
+    return padLeft + ((yr - latestYear) / span) * (width - padLeft - padRight);
+  };
+
+  const y = val => {
+    const span = maxY - minY || 1;
+    return height - padBottom - ((val - minY) / span) * (height - padTop - padBottom);
+  };
+
+  const gridValues = [];
+  for (let v = minY; v <= maxY; v += 5) gridValues.push(v);
+
+  const officialPath = `M ${x(latestYear).toFixed(2)} ${y(latestActual).toFixed(2)} L ${x(endYear).toFixed(2)} ${y(officialTarget).toFixed(2)}`;
+
+  const panel = document.createElement("section");
+  panel.id = "trajectoryDemandAdjustedPanel";
+  panel.className = "trajectory-demand-adjusted-panel";
+  panel.innerHTML = `
+    <div class="trajectory-demand-adjusted-head">
+      <div>
+        <h4>80% goalpost plus demand-pressure burden</h4>
+        <p>
+          The green dotted line remains the official catch-up path to 80% RES-E.
+          Extra DC and EV demand does not move the target; it adds a conditional burden if new demand is not matched by additional renewable electricity.
+        </p>
+      </div>
+      <span class="trajectory-demand-adjusted-rule">
+        Latest official actual: ${escapeHtml(String(latestActual.toFixed(1)))}% in ${escapeHtml(String(latestYear))}
+      </span>
+    </div>
+
+    <div class="trajectory-demand-adjusted-svg-wrap">
+      <svg class="trajectory-demand-adjusted-svg" viewBox="0 0 ${width} ${height}" role="img"
+           aria-label="Official 80 percent RES-E path with demand-pressure burden shown separately">
+        ${gridValues.map(v => `
+          <line class="trajectory-demand-grid" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
+          <text class="trajectory-demand-axis" x="${padLeft - 12}" y="${y(v) + 5}" text-anchor="end">${v}%</text>
+        `).join("")}
+
+        <line class="trajectory-demand-grid vertical" x1="${x(latestYear)}" y1="${padTop}" x2="${x(latestYear)}" y2="${height - padBottom}"></line>
+        <line class="trajectory-demand-grid vertical" x1="${x(endYear)}" y1="${padTop}" x2="${x(endYear)}" y2="${height - padBottom}"></line>
+
+        <text class="trajectory-demand-axis" x="${x(latestYear)}" y="${height - 16}" text-anchor="middle">${latestYear}</text>
+        <text class="trajectory-demand-axis" x="${x(endYear)}" y="${height - 16}" text-anchor="middle">${endYear}</text>
+
+        <path class="trajectory-demand-official" d="${officialPath}"></path>
+        <circle cx="${x(latestYear)}" cy="${y(latestActual)}" r="4.8" fill="var(--blue)"></circle>
+        <circle cx="${x(endYear)}" cy="${y(officialTarget)}" r="5.2" fill="var(--lime)"></circle>
+
+        <text class="trajectory-demand-label official" x="${x(endYear) - 8}" y="${y(officialTarget) - 10}" text-anchor="end">
+          Official 80% goalpost
+        </text>
+      </svg>
+    </div>
+
+    <div class="trajectory-demand-burden-chips" aria-label="Demand-pressure burden scenarios">
+      ${burdens.map(item => `
+        <article style="--burden-colour:${escapeHtml(item.colour)}">
+          <span>${escapeHtml(item.label)} burden</span>
+          <strong>+${escapeHtml(item.pp.toFixed(1))} pp</strong>
+          <small>~${escapeHtml(String(Math.round(item.mw)))} MW avg renewables</small>
+        </article>
+      `).join("")}
+    </div>
+
+    <p class="trajectory-demand-adjusted-note">
+      Interpretation: these are not new RES-E targets. They are equivalent catch-up burdens created by extra demand if that demand is not matched by additional renewable electricity.
+    </p>
+  `;
+
+  host.insertAdjacentElement("afterend", panel);
+}
+// IETM demand-adjusted trajectory companion chart: END
+
+
+// IETM demand-match sensitivity panel: BEGIN
+function iemReseGapRegression(rows) {
+  const points = rows
+    .filter(row => row.actual !== null && row.actual !== undefined && Number.isFinite(Number(row.actual)))
+    .map(row => ({ year: Number(row.year), value: Number(row.actual) }));
+
+  if (points.length < 2) return null;
+
+  const origin = points[0].year;
+  const xs = points.map(point => point.year - origin);
+  const ys = points.map(point => point.value);
+  const n = points.length;
+
+  const xMean = xs.reduce((a, b) => a + b, 0) / n;
+  const yMean = ys.reduce((a, b) => a + b, 0) / n;
+  const ssX = xs.reduce((sum, x) => sum + Math.pow(x - xMean, 2), 0);
+
+  if (!ssX) return null;
+
+  const slope = xs.reduce((sum, x, i) => sum + ((x - xMean) * (ys[i] - yMean)), 0) / ssX;
+  const intercept = yMean - slope * xMean;
+
+  return {
+    origin,
+    predict(year) {
+      return intercept + slope * (Number(year) - origin);
+    }
+  };
+}
+
+function renderDemandMatchSensitivityPanel(data) {
+  const host = document.getElementById("trajectoryChart");
+  if (!host) return;
+
+  document.querySelectorAll("#demandMatchSensitivityPanel").forEach(el => el.remove());
+
+  const rows = Array.isArray(data?.target_trajectory) ? data.target_trajectory : [];
+  const forecast = data?.demand_pressure_forecast;
+  const byYear = forecast?.derived?.by_year || {};
+  const forecastYears = (forecast?.years || []).map(Number).filter(Number.isFinite);
+
+  if (!forecast || !Object.keys(byYear).length || !forecastYears.length) return;
+
+  const regression = iemReseGapRegression(rows);
+  if (!regression) return;
+
+  const actualRows = rows
+    .filter(row => row.actual !== null && row.actual !== undefined && Number.isFinite(Number(row.actual)))
+    .sort((a, b) => Number(a.year) - Number(b.year));
+
+  const latest = actualRows[actualRows.length - 1];
+  if (!latest) return;
+
+  const latestYear = Number(latest.year);
+  const latestActual = Number(latest.actual);
+  const targetYear = 2030;
+  const targetPercent = 80;
+
+  const years = forecastYears.filter(year => year >= latestYear && year <= targetYear);
+  if (!years.includes(latestYear)) years.unshift(latestYear);
+  if (!years.includes(targetYear)) years.push(targetYear);
+
+  const baseSeries = years.map(year => {
+    const projected = year === latestYear
+      ? latestActual
+      : Math.max(0, Math.min(100, regression.predict(year)));
+
+    return {
+      year,
+      value: projected,
+      gap: Math.max(0, targetPercent - projected)
+    };
+  });
+
+  const scenarios = [
+    { key: "low", label: "Low pressure", colour: "#7fbf7f" },
+    { key: "central", label: "Central pressure", colour: "#d9a441" },
+    { key: "high", label: "High pressure", colour: "#d46a6a" }
+  ].map(scenario => ({
+    ...scenario,
+    points: years.map(year => {
+      const base = baseSeries.find(point => point.year === year);
+      const burdenPp = Number(byYear[String(year)]?.[scenario.key]?.demand_adjusted_burden_pp || 0);
+      const stressed = Math.max(0, (base?.value ?? regression.predict(year)) - burdenPp);
+
+      return {
+        year,
+        baseValue: base?.value ?? 0,
+        burdenPp,
+        value: stressed,
+        gap: Math.max(0, targetPercent - stressed)
+      };
+    })
+  }));
+
+  const officialSeries = years.map(year => {
+    const progress = (year - latestYear) / (targetYear - latestYear || 1);
+    return {
+      year,
+      value: latestActual + progress * (targetPercent - latestActual)
+    };
+  });
+
+  const allValues = [
+    ...officialSeries.map(point => point.value),
+    ...baseSeries.map(point => point.value),
+    ...scenarios.flatMap(series => series.points.map(point => point.value)),
+    targetPercent
+  ];
+
+  const minY = Math.max(0, Math.floor((Math.min(...allValues) - 5) / 5) * 5);
+  const maxY = Math.min(100, Math.ceil((Math.max(...allValues) + 5) / 5) * 5);
+
+  const width = 980;
+  const height = 340;
+  const padLeft = 66;
+  const padRight = 34;
+  const padTop = 24;
+  const padBottom = 44;
+
+  const x = year => padLeft + ((year - latestYear) / (targetYear - latestYear || 1)) * (width - padLeft - padRight);
+  const y = value => height - padBottom - ((value - minY) / (maxY - minY || 1)) * (height - padTop - padBottom);
+
+  const linePath = points => points.map((point, index) =>
+    `${index === 0 ? "M" : "L"} ${x(point.year).toFixed(1)} ${y(point.value).toFixed(1)}`
+  ).join(" ");
+
+  const low = scenarios.find(series => series.key === "low");
+  const high = scenarios.find(series => series.key === "high");
+
+  const bandPath = [
+    ...low.points.map((point, index) =>
+      `${index === 0 ? "M" : "L"} ${x(point.year).toFixed(1)} ${y(point.value).toFixed(1)}`
+    ),
+    ...high.points.slice().reverse().map(point =>
+      `L ${x(point.year).toFixed(1)} ${y(point.value).toFixed(1)}`
+    ),
+    "Z"
+  ].join(" ");
+
+  const gridValues = [];
+  for (let value = minY; value <= maxY; value += 5) gridValues.push(value);
+
+  const endpoint = series => series.points[series.points.length - 1];
+  const baseEndpoint = baseSeries[baseSeries.length - 1];
+
+  const endpointCards = [
+    {
+      key: "base",
+      label: "Recent pace only",
+      colour: "rgba(235,245,242,0.72)",
+      value: baseEndpoint.value,
+      gap: baseEndpoint.gap,
+      detail: "Recent RES-E trend without added demand-pressure penalty."
+    },
+    ...scenarios.map(series => {
+      const final = endpoint(series);
+      return {
+        key: series.key,
+        label: series.label,
+        colour: series.colour,
+        value: final.value,
+        gap: final.gap,
+        detail: `Subtracts ${final.burdenPp.toFixed(1)} pp unneutralised demand burden by 2030.`
+      };
+    })
+  ];
+
+  const panel = document.createElement("section");
+  panel.id = "demandMatchSensitivityPanel";
+  panel.className = "rese-gap-panel";
+
+  panel.innerHTML = `
+    <div class="rese-gap-head">
+      <div>
+        <h4>How unneutralised demand can widen the RES-E gap</h4>
+        <p>
+          Same RES-E axis as the main chart. Higher demand pressure pulls the projected observed trend downward,
+          widening the visible gap to the fixed 80% target.
+        </p>
+      </div>
+      <span class="rese-gap-pill">
+        ${escapeHtml(String(latestYear))}–2030 · RES-E %
+      </span>
+    </div>
+
+    <div class="rese-gap-chart-wrap" tabindex="0">
+      <svg class="rese-gap-svg" viewBox="0 0 ${width} ${height}" role="img"
+        aria-label="RES-E projection fan showing how unneutralised demand widens the gap to the 80 percent target">
+        ${gridValues.map(value => `
+          <line class="rese-gap-grid" x1="${padLeft}" y1="${y(value)}" x2="${width - padRight}" y2="${y(value)}"></line>
+          <text class="rese-gap-axis" x="${padLeft - 12}" y="${y(value) + 4}" text-anchor="end">${value}%</text>
+        `).join("")}
+
+        ${years.map(year => `
+          <line class="rese-gap-grid vertical" x1="${x(year)}" y1="${padTop}" x2="${x(year)}" y2="${height - padBottom}"></line>
+          <text class="rese-gap-axis" x="${x(year)}" y="${height - 16}" text-anchor="middle">${year}</text>
+        `).join("")}
+
+        <path class="rese-gap-pressure-band" d="${bandPath}"></path>
+        <path class="rese-gap-official-line" d="${linePath(officialSeries)}"></path>
+        <path class="rese-gap-base-line" d="${linePath(baseSeries)}"></path>
+
+        ${scenarios.map(series => `
+          <path class="rese-gap-pressure-line scenario-${escapeHtml(series.key)}" d="${linePath(series.points)}"></path>
+          <circle class="rese-gap-dot scenario-${escapeHtml(series.key)}"
+            cx="${x(targetYear)}"
+            cy="${y(endpoint(series).value)}"
+            r="${series.key === "central" ? 4.3 : 3.7}">
+          </circle>
+        `).join("")}
+
+        <circle cx="${x(latestYear)}" cy="${y(latestActual)}" r="4.8" fill="var(--blue)"></circle>
+        <circle cx="${x(targetYear)}" cy="${y(targetPercent)}" r="4.6" fill="var(--lime)"></circle>
+        <circle cx="${x(targetYear)}" cy="${y(baseEndpoint.value)}" r="3.8" fill="rgba(235,245,242,0.72)"></circle>
+
+        <line class="rese-gap-gap-bracket"
+          x1="${x(targetYear) + 16}"
+          y1="${y(targetPercent)}"
+          x2="${x(targetYear) + 16}"
+          y2="${y(endpoint(high).value)}">
+        </line>
+
+        <text class="rese-gap-label official"
+          x="${x(targetYear) - 8}"
+          y="${y(targetPercent) - 8}"
+          text-anchor="end">
+          Fixed 80% target
+        </text>
+
+        <text class="rese-gap-label base"
+          x="${x(targetYear) - 8}"
+          y="${y(baseEndpoint.value) - 8}"
+          text-anchor="end">
+          Recent pace ${escapeHtml(baseEndpoint.value.toFixed(1))}%
+        </text>
+
+        ${scenarios.map(series => {
+          const final = endpoint(series);
+          const offsets = { low: 16, central: 2, high: 18 };
+          return `
+            <text class="rese-gap-label scenario-${escapeHtml(series.key)}"
+              x="${x(targetYear) - 8}"
+              y="${y(final.value) + offsets[series.key]}"
+              text-anchor="end">
+              ${escapeHtml(series.label)} ${escapeHtml(final.value.toFixed(1))}%
+            </text>
+          `;
+        }).join("")}
+
+        <text class="rese-gap-label gap"
+          x="${x(targetYear) + 24}"
+          y="${(y(targetPercent) + y(endpoint(high).value)) / 2}"
+          text-anchor="start">
+          widened gap
+        </text>
+      </svg>
+    </div>
+
+    <div class="rese-gap-legend">
+      <span><i class="official"></i> Required path to fixed 80%</span>
+      <span><i class="base"></i> Recent observed trend</span>
+      <span><i class="band"></i> Demand-pressure fan</span>
+      <span><i class="low"></i> Low</span>
+      <span><i class="central"></i> Central</span>
+      <span><i class="high"></i> High</span>
+    </div>
+
+    <div class="rese-gap-cards">
+      ${endpointCards.map(card => `
+        <article style="--gap-colour:${escapeHtml(card.colour)}">
+          <span>${escapeHtml(card.label)}</span>
+          <strong>${escapeHtml(card.value.toFixed(1))}% RES-E</strong>
+          <small>${escapeHtml(card.gap.toFixed(1))} pp gap to 80%</small>
+          <p>${escapeHtml(card.detail)}</p>
+        </article>
+      `).join("")}
+    </div>
+
+    <p class="rese-gap-note">
+      Interpretation: extra demand does not move the 80% target. If it is not neutralised by additional renewable electricity,
+      the projected RES-E line falls lower and the gap to 80% widens.
+    </p>
+  `;
+
+  const anchor = document.getElementById("trajectoryDemandAdjustedPanel") || host;
+  anchor.insertAdjacentElement("afterend", panel);
+}
+// IETM demand-match sensitivity panel: END
 
 function renderTrajectoryTrendLabel(data) {
 
