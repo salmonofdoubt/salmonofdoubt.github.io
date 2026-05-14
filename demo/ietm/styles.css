@@ -8255,3 +8255,16 @@ h3 {
 }
 
 /* IETM Today-at-a-glance canonical card order: END */
+
+/* IETM other renewables generation mix: BEGIN */
+
+.mix-row.other-renewables .bar-fill {
+  background: var(--green) !important;
+  opacity: 0.78;
+}
+
+.mix-row.other-renewables label {
+  color: var(--text);
+}
+
+/* IETM other renewables generation mix: END */

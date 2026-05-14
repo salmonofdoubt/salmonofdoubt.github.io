@@ -108,6 +108,34 @@ function co2OrNA(value, available = true) {
   return `<span class="co2-value">${Number(value).toFixed(0)}</span><span class="co2-unit">g/kWh</span>`;
 }
 
+
+// IETM canonical generation mix helper: BEGIN
+function iemGenerationMixParts(e) {
+  const wind = isNumber(e.wind_percent)
+    ? Math.max(0, Math.min(100, Math.round(Number(e.wind_percent))))
+    : 0;
+
+  const solar = isNumber(e.solar_percent)
+    ? Math.max(0, Math.min(100, Math.round(Number(e.solar_percent))))
+    : 0;
+
+  const renewables = isNumber(e.renewables_percent)
+    ? Math.max(0, Math.min(100, Math.round(Number(e.renewables_percent))))
+    : Math.max(0, Math.min(100, wind + solar));
+
+  const otherRenewables = Math.max(0, renewables - wind - solar);
+  const thermalOther = Math.max(0, 100 - renewables);
+
+  return {
+    wind,
+    solar,
+    renewables,
+    otherRenewables,
+    thermalOther
+  };
+}
+// IETM canonical generation mix helper: END
+
 function renderMetrics(data) {
   const e = data.electricity_now || {};
   const target = document.getElementById("metricGrid");
@@ -4527,8 +4555,8 @@ function iemPowerForLiveCards(value, options = {}) {
       ),
       metricCard(
         "Thermal/other",
-        percentOrNA(e.residual_percent ?? e.gas_percent),
-        "Computed remainder; not a full fuel mix"
+        percentOrNA(iemGenerationMixParts(e).thermalOther),
+        "Computed non-renewable remainder"
       ),
       metricCard(
         "Interconnection",
@@ -4690,26 +4718,21 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
     if (!target) return;
 
     const e = data.electricity_now || {};
-
-    const windRaw = isNumber(e.wind_percent) ? Number(e.wind_percent) : 0;
-    const solarRaw = isNumber(e.solar_percent) ? Number(e.solar_percent) : 0;
-
-    // Generation mix rows must sum to 100%.
-    // Cross-border flow is shown separately and is not a generation source.
-    const wind = Math.max(0, Math.min(100, Math.round(windRaw)));
-    const solar = Math.max(0, Math.min(100, Math.round(solarRaw)));
-    const thermalOther = Math.max(0, 100 - wind - solar);
+    const mix = iemGenerationMixParts(e);
 
     const generationRows = [
-      { label: "Wind", class: "wind", percent: wind, available: true },
-      { label: "Solar", class: "solar", percent: solar, available: true },
-      { label: "Thermal/other", class: "thermal", percent: thermalOther, available: true }
+      { label: "Wind", class: "wind", percent: mix.wind, available: true },
+      { label: "Solar", class: "solar", percent: mix.solar, available: true },
+      { label: "Other renewables", class: "other-renewables", percent: mix.otherRenewables, available: mix.otherRenewables > 0 },
+      { label: "Thermal/other", class: "thermal", percent: mix.thermalOther, available: true }
     ];
 
-    const dominant = [...generationRows].sort((a, b) => Number(b.percent || 0) - Number(a.percent || 0))[0];
+    const visibleRows = generationRows.filter(row => row.available !== false);
+
+    const dominant = [...visibleRows].sort((a, b) => Number(b.percent || 0) - Number(a.percent || 0))[0];
     text("dominantFuel", dominant ? `${dominant.label} dominant` : "No mapped data");
 
-    const generationHtml = generationRows.map(item => {
+    const generationHtml = visibleRows.map(item => {
       const width = Math.max(0, Math.min(100, Number(item.percent || 0)));
       const value = percent(item.percent);
 
@@ -4740,10 +4763,7 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
     const isExport = flowMw < -0.5 || (Number.isFinite(netPct) && netPct < -0.005);
     const isImport = flowMw > 0.5 || (Number.isFinite(netPct) && netPct > 0.005);
 
-    const flowPct = Number.isFinite(netPct)
-      ? netPct
-      : 0;
-
+    const flowPct = Number.isFinite(netPct) ? netPct : 0;
     const scaleMax = 30;
     const clampedPct = Math.max(-scaleMax, Math.min(scaleMax, flowPct));
     const scaledWidth = Math.abs(clampedPct) / scaleMax * 50;
