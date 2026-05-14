@@ -694,7 +694,6 @@ async function init() {
     renderTrajectory(data);
     renderTrajectoryTrendLabel(data);
     renderTargetDrift(data);
-    renderDemandAdjustedTrajectoryPanel(data);
     renderDemandMatchSensitivityPanel(data);
     renderPrices(data);
     renderResidual(data);
@@ -2861,118 +2860,6 @@ function ietmDecorateRenewableHierarchy(data) {
 }
 
 
-// IETM demand-adjusted trajectory companion chart: BEGIN
-function renderDemandAdjustedTrajectoryPanel(data) {
-  const host = document.getElementById("trajectoryChart");
-  if (!host) return;
-
-  document.querySelectorAll("#trajectoryDemandAdjustedPanel").forEach(el => el.remove());
-
-  const rows = (data?.target_trajectory || [])
-    .filter(row => row.actual !== null && row.actual !== undefined && Number.isFinite(Number(row.actual)));
-
-  const latest = rows.length ? rows[rows.length - 1] : null;
-  const forecast = data?.demand_pressure_forecast;
-  const summary = forecast?.derived?.summary_2030 || {};
-  const targetShare = Number(forecast?.meta?.target_share || 0.8);
-  const officialTarget = Math.round(targetShare * 100);
-
-  if (!latest || !Object.keys(summary).length) return;
-
-  const latestYear = Number(latest.year);
-  const latestActual = Number(latest.actual);
-  const endYear = 2030;
-
-  const burdens = [
-    { key: "low", label: "Low", colour: "#7fbf7f", pp: Number(summary.low?.demand_adjusted_burden_pp || 0), mw: Number(summary.low?.extra_renewable_required_mw_average || 0) },
-    { key: "central", label: "Central", colour: "#d9a441", pp: Number(summary.central?.demand_adjusted_burden_pp || 0), mw: Number(summary.central?.extra_renewable_required_mw_average || 0) },
-    { key: "high", label: "High", colour: "#d46a6a", pp: Number(summary.high?.demand_adjusted_burden_pp || 0), mw: Number(summary.high?.extra_renewable_required_mw_average || 0) }
-  ];
-
-  const maxY = Math.max(85, Math.ceil((Math.max(latestActual, officialTarget) + 2) / 5) * 5);
-  const minY = Math.max(0, Math.floor((Math.min(latestActual, officialTarget) - 5) / 5) * 5);
-
-  const width = 980;
-  const height = 300;
-  const padLeft = 64;
-  const padRight = 24;
-  const padTop = 22;
-  const padBottom = 42;
-
-  const x = yr => {
-    const span = endYear - latestYear || 1;
-    return padLeft + ((yr - latestYear) / span) * (width - padLeft - padRight);
-  };
-
-  const y = val => {
-    const span = maxY - minY || 1;
-    return height - padBottom - ((val - minY) / span) * (height - padTop - padBottom);
-  };
-
-  const gridValues = [];
-  for (let v = minY; v <= maxY; v += 5) gridValues.push(v);
-
-  const officialPath = `M ${x(latestYear).toFixed(2)} ${y(latestActual).toFixed(2)} L ${x(endYear).toFixed(2)} ${y(officialTarget).toFixed(2)}`;
-
-  const panel = document.createElement("section");
-  panel.id = "trajectoryDemandAdjustedPanel";
-  panel.className = "trajectory-demand-adjusted-panel";
-  panel.innerHTML = `
-    <div class="trajectory-demand-adjusted-head">
-      <div>
-        <h4>80% goalpost plus demand-pressure burden</h4>
-        <p>
-          The green dotted line remains the official catch-up path to 80% RES-E.
-          Extra DC and EV demand does not move the target; it adds a conditional burden if new demand is not matched by additional renewable electricity.
-        </p>
-      </div>
-      <span class="trajectory-demand-adjusted-rule">
-        Latest official actual: ${escapeHtml(String(latestActual.toFixed(1)))}% in ${escapeHtml(String(latestYear))}
-      </span>
-    </div>
-
-    <div class="trajectory-demand-adjusted-svg-wrap">
-      <svg class="trajectory-demand-adjusted-svg" viewBox="0 0 ${width} ${height}" role="img"
-           aria-label="Official 80 percent RES-E path with demand-pressure burden shown separately">
-        ${gridValues.map(v => `
-          <line class="trajectory-demand-grid" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
-          <text class="trajectory-demand-axis" x="${padLeft - 12}" y="${y(v) + 5}" text-anchor="end">${v}%</text>
-        `).join("")}
-
-        <line class="trajectory-demand-grid vertical" x1="${x(latestYear)}" y1="${padTop}" x2="${x(latestYear)}" y2="${height - padBottom}"></line>
-        <line class="trajectory-demand-grid vertical" x1="${x(endYear)}" y1="${padTop}" x2="${x(endYear)}" y2="${height - padBottom}"></line>
-
-        <text class="trajectory-demand-axis" x="${x(latestYear)}" y="${height - 16}" text-anchor="middle">${latestYear}</text>
-        <text class="trajectory-demand-axis" x="${x(endYear)}" y="${height - 16}" text-anchor="middle">${endYear}</text>
-
-        <path class="trajectory-demand-official" d="${officialPath}"></path>
-        <circle cx="${x(latestYear)}" cy="${y(latestActual)}" r="4.8" fill="var(--blue)"></circle>
-        <circle cx="${x(endYear)}" cy="${y(officialTarget)}" r="5.2" fill="var(--lime)"></circle>
-
-        <text class="trajectory-demand-label official" x="${x(endYear) - 8}" y="${y(officialTarget) - 10}" text-anchor="end">
-          Official 80% goalpost
-        </text>
-      </svg>
-    </div>
-
-    <div class="trajectory-demand-burden-chips" aria-label="Demand-pressure burden scenarios">
-      ${burdens.map(item => `
-        <article style="--burden-colour:${escapeHtml(item.colour)}">
-          <span>${escapeHtml(item.label)} burden</span>
-          <strong>+${escapeHtml(item.pp.toFixed(1))} pp</strong>
-          <small>~${escapeHtml(String(Math.round(item.mw)))} MW avg renewables</small>
-        </article>
-      `).join("")}
-    </div>
-
-    <p class="trajectory-demand-adjusted-note">
-      Interpretation: these are not new RES-E targets. They are equivalent catch-up burdens created by extra demand if that demand is not matched by additional renewable electricity.
-    </p>
-  `;
-
-  host.insertAdjacentElement("afterend", panel);
-}
-// IETM demand-adjusted trajectory companion chart: END
 
 
 // IETM demand-match sensitivity panel: BEGIN
