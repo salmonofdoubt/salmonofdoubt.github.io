@@ -2948,7 +2948,7 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
   unit_note:
     "The live grid cards show instantaneous MW/GW. This panel converts annual demand into average load equivalents so the scale is comparable. Rule of thumb: 1 TWh/yr ≈ 114 MW continuous average demand.",
   caveat:
-    "Data-centre demand is a current forecast layer. Large energy users and standalone EV charging are latest measured annual CSO layers. EV fleet electricity is modelled, not directly metered.",
+    "Data-centre demand is a current forecast layer. Other large energy users and standalone EV charging are latest measured annual CSO layers. EV fleet electricity is modelled, not directly metered.",
   contrast:
     "Data centres are already roughly gigawatt-scale average demand. EV electricity is growing, but from a much smaller base. Read this as load pressure, not live dispatch.",
   cards: [
@@ -2962,10 +2962,10 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
       acceleration: "Fast growth: 6.97 TWh measured in 2024 to ~9.4 TWh forecast in 2025"
     },
     {
-      label: "Large energy users",
-      value: "~1.13 GW",
+      label: "Other large energy users",
+      value: "~57 MW",
       subtitle: "Average load equivalent",
-      detail: "9.9 TWh/yr measured in 2024, equal to 31% of metered electricity. Includes major data centres and other very large users.",
+      detail: "0.5 TWh/yr residual after deducting the data-centre tile from the large-energy-user total. Avoids double-counting data centres.",
       source: "CSO",
       tone: "measured",
       acceleration: "Measured annual grid-pressure proxy"
