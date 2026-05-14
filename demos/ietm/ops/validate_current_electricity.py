@@ -101,6 +101,22 @@ def main() -> int:
                 if not status.startswith("withheld"):
                     fail(errors, f"Demand balance status should be withheld, got {status!r}")
 
+
+    # Plausibility guard: in the current public model, "other renewables" is a
+    # calculated remainder, not a trusted measured technology class. Very high
+    # values usually mean the source has mixed a renewable total with stale or
+    # incomplete wind/solar child values.
+    if other > 20.0:
+        errors.append(
+            f"Other renewables remainder is implausibly high: {other:.2f}%. "
+            "This usually indicates stale/incomplete wind or solar component data."
+        )
+
+    if renewables >= 30.0 and solar <= 0.0:
+        errors.append(
+            f"Solar is zero while renewables are {renewables:.2f}%. "
+            "This usually indicates incomplete live component data."
+        )
     if errors:
         print("Current electricity validation FAILED:")
         for err in errors:
