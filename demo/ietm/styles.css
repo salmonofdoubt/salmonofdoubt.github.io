@@ -8288,3 +8288,121 @@ h3 {
 }
 
 /* IETM residual sparkline purple: END */
+
+
+/* IETM renewable reconciliation helper */
+.generation-reconcile-box {
+  margin: 0.9rem 0 0 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-left: 3px solid var(--green);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+}
+
+.generation-reconcile-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.35rem;
+}
+
+.generation-reconcile-text {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.88);
+}
+
+.generation-reconcile-text strong {
+  color: #fff;
+  font-weight: 800;
+}
+
+
+/* IETM others calculated KPI card */
+#metricGrid .metric-card[data-accent="other-renewables"] {
+  border-top-color: var(--green) !important;
+}
+
+#metricGrid .metric-card[data-accent="other-renewables"]::before {
+  background: var(--green) !important;
+  opacity: 0.72;
+}
+
+/* IETM KPI accent consistency: Thermal purple, Others green-blue */
+:root {
+  --ietm-thermal-purple: #7b5ce1;
+  --ietm-others-teal: #38d7c8;
+}
+
+#metricGrid .metric-card[data-accent="thermal"] {
+  border-top-color: var(--ietm-thermal-purple) !important;
+}
+
+#metricGrid .metric-card[data-accent="thermal"]::before {
+  background: var(--ietm-thermal-purple) !important;
+}
+
+#metricGrid .metric-card[data-accent="others-calculated"] {
+  border-top-color: var(--ietm-others-teal) !important;
+}
+
+#metricGrid .metric-card[data-accent="others-calculated"]::before {
+  background: var(--ietm-others-teal) !important;
+}
+
+/* IETM forced KPI card accents */
+#metricGrid .metric-card.others-calculated-card {
+  border-top-color: #38d7c8 !important;
+}
+
+#metricGrid .metric-card.others-calculated-card::before {
+  background: #38d7c8 !important;
+}
+
+#metricGrid .metric-card.thermal-other-card {
+  border-top-color: #7b5ce1 !important;
+}
+
+#metricGrid .metric-card.thermal-other-card::before {
+  background: #7b5ce1 !important;
+}
+
+/* IETM canonical residual daily-pulse styling */
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline path,
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline polyline,
+#dailyPulseGrid .pulse-card.thermal svg path,
+#dailyPulseGrid .pulse-card.thermal svg polyline {
+  stroke: var(--thermal-purple, #5b3a96) !important;
+}
+
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline line,
+#dailyPulseGrid .pulse-card.thermal svg line {
+  stroke: rgba(91, 58, 150, 0.28) !important;
+}
+
+#dailyPulseGrid .pulse-card.thermal .pulse-sparkline,
+#dailyPulseGrid .pulse-card.thermal svg {
+  color: var(--thermal-purple, #5b3a96) !important;
+}
+
+/* IETM canonical interconnection KPI note */
+#metricGrid .metric-card.interconnection-card small {
+  white-space: nowrap;
+  font-weight: 850;
+}
+
+#metricGrid .metric-card.interconnection-card.export small {
+  color: var(--green) !important;
+}
+
+#metricGrid .metric-card.interconnection-card.import small {
+  color: #ff5d5d !important;
+}
+
+#metricGrid .metric-card.interconnection-card.balanced small {
+  color: var(--muted) !important;
+}
+

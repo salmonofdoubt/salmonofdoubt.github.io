@@ -69,6 +69,11 @@ function metricAccentKey(label) {
   const key = String(label || "").toLowerCase();
 
   if (key.includes("thermal")) return "thermal";
+  if (key.includes("others")) return "others-calculated";
+
+  if (key.includes("others")) return "other-renewables";
+
+  if (key.includes("thermal")) return "thermal";
 
   if (key.includes("renewable")) return "renewables";
   if (key.includes("wind")) return "wind";
@@ -80,18 +85,6 @@ function metricAccentKey(label) {
   if (key.includes("co₂") || key.includes("co2") || key.includes("carbon")) return "co2";
 
   return "neutral";
-}
-
-function metricCard(label, value, note, className = "") {
-  const accent = metricAccentKey(label);
-
-  return `
-    <article class="metric-card ${className}" data-accent="${accent}">
-      <span>${label}</span>
-      <strong>${value}</strong>
-      <small>${note}</small>
-    </article>
-  `;
 }
 
 function isNumber(value) {
@@ -135,25 +128,6 @@ function iemGenerationMixParts(e) {
   };
 }
 // IETM canonical generation mix helper: END
-
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const importsAvailable = e.imports_available !== false;
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-
-  target.innerHTML = [
-    metricCard("Demand now", formatPowerMw(e.demand_mw || 0, { forceGw: true }), "Current mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), "Wind + solar in latest mapped interval"),
-    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation now"),
-    metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remaining supply"),
-    metricCard("Imports", percentOrNA(e.imports_percent, importsAvailable), importsAvailable ? "Mapped interconnector contribution" : "Not mapped in current source", importsAvailable ? "" : "missing"),
-    metricCard("CO₂ intensity", co2OrNA(e.co2_g_per_kwh, co2Available), co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source", co2Available ? "co2-card" : "missing co2-card")
-  ].join("");
-}
 
 function renderMix(data) {
   const target = document.getElementById("mixBars");
@@ -202,110 +176,6 @@ function truthContextLabel(item) {
   return context;
 }
 
-function renderTruthMeter(data) {
-  const target = document.getElementById("truthGrid");
-  if (!target) return;
-
-  const scale = `
-    <article class="truth-card truth-scale-card">
-      <div class="truth-top">
-        <h3>Signal scale</h3>
-        <span class="truth-status truth-status-scale">Fixed labels</span>
-      </div>
-      <div class="truth-scale-row" aria-label="Truth meter signal scale">
-        <span class="truth-scale-pill on">On track</span>
-        <span class="truth-scale-pill risk">At risk</span>
-        <span class="truth-scale-pill off">Off track</span>
-      </div>
-      <p>
-        Every module receives exactly one transition signal. Descriptive terms such as
-        “Improving”, “Pressured” or “Unclassified” are readings, not final labels.
-      </p>
-    </article>
-  `;
-
-  const cards = (data.truth_meter || []).map(item => {
-    const cls = truthClass(item.status);
-    const signal = truthSignalLabel(item.status);
-    const context = truthContextLabel(item);
-
-    return `
-      <article class="truth-card ${cls}">
-        <div class="truth-top">
-          <h3>${escapeHtml(item.name)}</h3>
-          <span class="truth-status truth-status-${cls}">Signal: ${escapeHtml(signal)}</span>
-        </div>
-
-        <div class="truth-reading">
-          <span>Current reading</span>
-          <strong>${escapeHtml(item.value)}</strong>
-          ${context ? `<small>${escapeHtml(context)}</small>` : ""}
-        </div>
-
-        <p class="truth-logic"><strong>Logic:</strong> ${escapeHtml(item.note)}</p>
-      </article>
-    `;
-  }).join("");
-
-  target.innerHTML = scale + cards;
-}
-
-
-function renderTrajectory(data) {
-  const target = document.getElementById("trajectoryChart");
-  if (!target) return;
-
-  const rows = data.target_trajectory;
-  const width = 900;
-  const height = 300;
-  const pad = 36;
-
-  const years = rows.map(d => d.year);
-  const minYear = Math.min(...years);
-  const maxYear = Math.max(...years);
-
-  const x = year => pad + ((year - minYear) / (maxYear - minYear)) * (width - pad * 2);
-  const y = value => height - pad - (value / 100) * (height - pad * 2);
-
-  const targetPath = rows
-    .filter(d => d.target !== null)
-    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year)} ${y(d.target)}`)
-    .join(" ");
-
-  const actualRows = rows.filter(d => d.actual !== null);
-  const actualPath = actualRows
-    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year)} ${y(d.actual)}`)
-    .join(" ");
-
-  const latest = actualRows[actualRows.length - 1];
-  const sameYear = rows.find(d => d.year === latest.year);
-  const gap = sameYear ? sameYear.target - latest.actual : 0;
-
-  text("targetGap", `${gap.toFixed(0)} pp path gap`);
-
-  target.innerHTML = `
-    <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
-      <line class="grid-line" x1="${pad}" y1="${y(80)}" x2="${width - pad}" y2="${y(80)}"></line>
-      <line class="grid-line" x1="${pad}" y1="${y(50)}" x2="${width - pad}" y2="${y(50)}"></line>
-      <line class="grid-line" x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}"></line>
-
-      <path class="line-target" d="${targetPath}"></path>
-      <path class="line-actual" d="${actualPath}"></path>
-
-      ${actualRows.map(d => `<circle cx="${x(d.year)}" cy="${y(d.actual)}" r="4" fill="var(--blue)"></circle>`).join("")}
-      ${rows.filter(d => d.target !== null).map(d => `<circle cx="${x(d.year)}" cy="${y(d.target)}" r="3" fill="var(--lime)"></circle>`).join("")}
-
-      <text class="axis-text" x="${pad}" y="${y(80) - 8}">80% target</text>
-      <text class="axis-text" x="${pad}" y="${y(50) - 8}">50%</text>
-      <text class="axis-text" x="${pad}" y="${height - 10}">${minYear}</text>
-      <text class="axis-text" x="${width - pad - 34}" y="${height - 10}">${maxYear}</text>
-      <text class="axis-text" x="${width - 210}" y="34">Dashed: required path</text>
-      <text class="axis-text" x="${width - 210}" y="52">Solid: observed/prototype path</text>
-    </svg>
-  `;
-}
-
-
 function driftStatusClass(status) {
   if (status === "on") return "on";
   if (status === "off") return "off";
@@ -314,57 +184,6 @@ function driftStatusClass(status) {
 
 function targetMetricValue(value, unit = "") {
   return `<span class="target-number">${escapeHtml(value)}</span>${unit ? `<span class="target-unit">${escapeHtml(unit)}</span>` : ""}`;
-}
-
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const statusClass = driftStatusClass(drift.status);
-
-  target.innerHTML = `
-    <article class="target-drift-card ${statusClass}">
-      <span>Latest official RES-E</span>
-      <strong>${targetMetricValue(Number(drift.latest_value).toFixed(1), "%")}</strong>
-      <small>${drift.latest_year}</small>
-    </article>
-
-    <article class="target-drift-card">
-      <span>2030 benchmark</span>
-      <strong>${targetMetricValue(Number(drift.target_value).toFixed(0), "%")}</strong>
-      <small>Renewable electricity</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>2030 target gap</span>
-      <strong>${targetMetricValue(Number(drift.gap_to_target_pp).toFixed(1), "pp")}</strong>
-      <small>${drift.years_remaining} years remaining</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Required gain</span>
-      <strong>${targetMetricValue(Number(drift.required_annual_gain_pp).toFixed(2), "pp/yr")}</strong>
-      <small>From ${drift.latest_year} to ${drift.target_year}</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Recent gain</span>
-      <strong>${targetMetricValue(Number(drift.recent_two_year_gain_pp_per_year).toFixed(2), "pp/yr")}</strong>
-      <small>Two-year average</small>
-    </article>
-
-    <article class="target-drift-card target-status-card ${statusClass}">
-      <span>Status</span>
-      <strong>${escapeHtml(drift.status_label)}</strong>
-      <small>${escapeHtml(drift.caveat || "")}</small>
-    </article>
-  `;
 }
 
 function renderPrices(data) {
@@ -378,16 +197,6 @@ function renderPrices(data) {
       <p>${item.detail}</p>
     </article>
   `).join("");
-}
-
-function renderResidual(data) {
-  text("residualSignal", data.gas.signal);
-  text("residualNarrative", data.gas.narrative);
-
-  const gauge = document.getElementById("residualGauge");
-  if (gauge) {
-    gauge.style.setProperty("--value", `${Math.max(0, Math.min(100, data.gas.share_percent))}%`);
-  }
 }
 
 function renderCounties(data) {
@@ -514,15 +323,6 @@ function renderSourceConsole(data) {
   }).join("");
 }
 
-
-function pulseNumber(value, digits = 0) {
-  if (!isNumber(value)) return "n/a";
-  return Number(value).toLocaleString(undefined, {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits
-  });
-}
-
 function pulseLast(history, key) {
   const rows = [...(history || [])].reverse();
   for (const row of rows) {
@@ -563,142 +363,7 @@ function sparkline(series) {
   </svg>`;
 }
 
-function pulseCard({key = "", label, value, unit, note, history, tone = ""}) {
-  return `
-    <article class="pulse-card ${tone}" data-kpi="${escapeHtml(key || "")}">
-      <div class="pulse-card-top">
-        <span>${escapeHtml(label)}</span>
-        <strong>${value}<small>${escapeHtml(unit || "")}</small></strong>
-      </div>
-      ${sparkline(pulseSeries(history, key))}
-      <p>${escapeHtml(note)}</p>
-    </article>
-  `;
-}
 
-function renderDailyPulse(data) {
-  const target = document.getElementById("dailyPulseGrid");
-  if (!target) return;
-
-  const history = data.daily_history || [];
-  const e = data.electricity_now || {};
-  const drift = data.target_drift || {};
-  const prices = data.prices || [];
-
-  const electricityPrice = prices.find(p => p.label === "Household electricity");
-  const gasPrice = prices.find(p => p.label === "Household gas");
-
-  // Current display values should come from electricity_now / current monitor first.
-  // History is for sparklines and fallback only.
-  const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
-  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
-  const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
-  const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
-  const imports = isNumber(e.imports_percent) ? e.imports_percent : pulseLast(history, "imports_percent");
-  const residual = isNumber(e.residual_percent ?? e.gas_percent)
-    ? (e.residual_percent ?? e.gas_percent)
-    : pulseLast(history, "residual_percent");
-
-  const gap = isNumber(drift.gap_to_target_pp) ? drift.gap_to_target_pp : pulseLast(history, "target_gap_pp");
-
-  const electricityPriceValue = isNumber(electricityPrice?.ireland_c_per_kwh)
-    ? electricityPrice.ireland_c_per_kwh
-    : pulseLast(history, "household_electricity_c_per_kwh");
-
-  const gasPriceValue = isNumber(gasPrice?.ireland_c_per_kwh)
-    ? gasPrice.ireland_c_per_kwh
-    : pulseLast(history, "household_gas_c_per_kwh");
-
-  target.innerHTML = [
-    pulseCard({
-      key: "generation",
-      label: "Generation now",
-      value: pulseNumber(generationGw, 2),
-      unit: "GW",
-      note: "Current production-side signal.",
-      key: "generation_gw",
-      history
-    }),
-    ...(demandPassesBalanceCheck(e) ? [pulseCard({
-      key: "demand",
-      label: "System demand",
-      value: pulseNumber(demandGw, 2),
-      unit: "GW",
-      note: "Current load-side signal.",
-      key: "demand_gw",
-      history
-    })] : []),
-    pulseCard({
-      key: "renewables",
-      label: "Renewables now",
-      value: pulseNumber(renewables, 0),
-      unit: "%",
-      note: "Wind and solar in the latest mapped interval.",
-      key: "renewables_percent",
-      history,
-      tone: "good"
-    }),
-    pulseCard({
-      key: "residual",
-      tone: "thermal",
-      label: "Residual supply",
-      value: pulseNumber(residual, 0),
-      unit: "%",
-      note: "Computed remainder, not measured gas.",
-      key: "residual_percent",
-      history,
-      tone: "caution"
-    }),
-    pulseCard({
-      key: "co2",
-      label: "CO₂ now",
-      value: pulseNumber(co2, 0),
-      unit: "g/kWh",
-      note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
-      key: "co2_g_per_kwh",
-      history,
-      tone: co2 ? "" : "muted"
-    }),
-    pulseCard({
-      key: "interconnection",
-      label: "Imports",
-      value: pulseNumber(imports, 0),
-      unit: "%",
-      note: "Mapped interconnector contribution.",
-      key: "imports_percent",
-      history
-    }),
-    pulseCard({
-      key: "target-gap",
-      label: "2030 target gap",
-      value: pulseNumber(gap, 1),
-      unit: "pp",
-      note: "Percentage-point gap to 80% renewable electricity.",
-      key: "target_gap_pp",
-      history,
-      tone: "risk"
-    }),
-    pulseCard({
-      key: "electricity-price",
-      label: "Electricity price",
-      value: pulseNumber(electricityPriceValue, 2),
-      unit: "c/kWh",
-      note: "Latest official SEAI semester, not a live tariff.",
-      key: "household_electricity_c_per_kwh",
-      history
-    }),
-    pulseCard({
-      key: "gas-price",
-      label: "Gas price",
-      value: pulseNumber(gasPriceValue, 2),
-      unit: "c/kWh",
-      note: "Latest official SEAI semester, not a live tariff.",
-      key: "household_gas_c_per_kwh",
-      history
-    })
-
-  ].join("");
-}
 
 function renderMeta(data) {
   const generated = new Date(data.meta.generated_at);
@@ -835,6 +500,7 @@ async function init() {
     renderStory(data);
     renderTruthMeter(data);
     renderTrajectory(data);
+    renderTrajectoryTrendLabel(data);
     renderTargetDrift(data);
     renderPrices(data);
     renderResidual(data);
@@ -939,21 +605,6 @@ function iemCollectGeoCoords(input, out = []) {
   return out;
 }
 
-function iemGeoBounds(features) {
-  const coords = [];
-  features.forEach(feature => iemCollectGeoCoords(feature.geometry?.coordinates, coords));
-
-  const xs = coords.map(c => c[0]).filter(isNumber);
-  const ys = coords.map(c => c[1]).filter(isNumber);
-
-  return {
-    minX: Math.min(...xs),
-    maxX: Math.max(...xs),
-    minY: Math.min(...ys),
-    maxY: Math.max(...ys)
-  };
-}
-
 function iemMakeProjector(bounds, width, height, pad) {
   const scale = Math.min(
     (width - pad * 2) / (bounds.maxX - bounds.minX || 1),
@@ -992,19 +643,6 @@ function iemGeometryPath(geometry, project) {
   }
 
   return "";
-}
-
-function iemFeatureCentroid(feature, project) {
-  const coords = iemCollectGeoCoords(feature.geometry?.coordinates, []);
-  if (!coords.length) return [0, 0];
-
-  const xs = coords.map(c => c[0]);
-  const ys = coords.map(c => c[1]);
-
-  return project([
-    (Math.min(...xs) + Math.max(...xs)) / 2,
-    (Math.min(...ys) + Math.max(...ys)) / 2
-  ]);
 }
 
 function iemRenderCountyTileFallback(heatmap, counties) {
@@ -1239,165 +877,6 @@ function iemTrajectoryMetric(label, value, unit, note, tone = "") {
   `;
 }
 
-function renderTrajectory(data) {
-  const target = document.getElementById("trajectoryChart");
-  if (!target) return;
-
-  const rows = data.target_trajectory || [];
-  if (!rows.length) return;
-
-  const width = 920;
-  const height = 330;
-  const plotLeft = 56;
-  const plotRight = 26;
-  const plotTop = 26;
-  const plotBottom = 42;
-  const plotWidth = width - plotLeft - plotRight;
-  const plotHeight = height - plotTop - plotBottom;
-
-  const startYear = Math.min(...rows.map(d => Number(d.year)).filter(isNumber));
-  const endYear = Math.max(...rows.map(d => Number(d.year)).filter(isNumber));
-  const years = Array.from(
-    { length: endYear - startYear + 1 },
-    (_, i) => startYear + i
-  );
-
-  const yMin = 20;
-  const yMax = 85;
-  const yTicks = [20, 35, 50, 65, 80];
-
-  const x = year => plotLeft + ((Number(year) - startYear) / (endYear - startYear)) * plotWidth;
-  const y = value => plotTop + (1 - ((Number(value) - yMin) / (yMax - yMin))) * plotHeight;
-
-  const pathFrom = (items, key) => items
-    .filter(d => d[key] !== null && isNumber(d[key]))
-    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
-    .join(" ");
-
-  const targetPath = pathFrom(rows, "target");
-  const actualRows = rows.filter(d => d.actual !== null && isNumber(d.actual));
-  const actualPath = pathFrom(actualRows, "actual");
-
-  const latest = actualRows[actualRows.length - 1];
-  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
-  const gap = sameYear && isNumber(sameYear.target) && isNumber(latest.actual)
-    ? Number(sameYear.target) - Number(latest.actual)
-    : null;
-
-  if (isNumber(gap)) {
-    text("targetGap", `${gap.toFixed(0)} pp path gap`);
-  }
-
-  const verticalGrid = years.map(year => {
-    const xx = x(year);
-    const label = year % 2 === 0 || year === startYear || year === endYear;
-    return `
-      <line class="trajectory-grid-v" x1="${xx}" y1="${plotTop}" x2="${xx}" y2="${plotTop + plotHeight}"></line>
-      <line class="trajectory-tick" x1="${xx}" y1="${plotTop + plotHeight}" x2="${xx}" y2="${plotTop + plotHeight + 5}"></line>
-      ${label ? `<text class="trajectory-axis-text" x="${xx}" y="${plotTop + plotHeight + 23}" text-anchor="middle">${year}</text>` : ""}
-    `;
-  }).join("");
-
-  const horizontalGrid = yTicks.map(tick => {
-    const yy = y(tick);
-    return `
-      <line class="trajectory-grid-h" x1="${plotLeft}" y1="${yy}" x2="${plotLeft + plotWidth}" y2="${yy}"></line>
-      <text class="trajectory-axis-text" x="${plotLeft - 12}" y="${yy + 4}" text-anchor="end">${tick}%</text>
-    `;
-  }).join("");
-
-  const targetDots = rows
-    .filter(d => d.target !== null && isNumber(d.target))
-    .map(d => `<circle class="trajectory-dot target-dot" cx="${x(d.year)}" cy="${y(d.target)}" r="3"></circle>`)
-    .join("");
-
-  const actualDots = actualRows
-    .map(d => `<circle class="trajectory-dot actual-dot" cx="${x(d.year)}" cy="${y(d.actual)}" r="4"></circle>`)
-    .join("");
-
-  target.innerHTML = `
-    <svg class="trajectory-svg-v2" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
-      <rect class="trajectory-plot-bg" x="${plotLeft}" y="${plotTop}" width="${plotWidth}" height="${plotHeight}"></rect>
-
-      <g class="trajectory-grid">
-        ${horizontalGrid}
-        ${verticalGrid}
-      </g>
-
-      <path class="trajectory-line-required" d="${targetPath}"></path>
-      <path class="trajectory-line-observed" d="${actualPath}"></path>
-
-      <g>${targetDots}</g>
-      <g>${actualDots}</g>
-
-      <text class="trajectory-legend-text" x="${width - 235}" y="32">Dashed: required path</text>
-      <text class="trajectory-legend-text" x="${width - 235}" y="50">Solid: observed path</text>
-    </svg>
-  `;
-}
-
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  target.className = "trajectory-metrics";
-
-  const status = String(drift.status_label || "Unknown");
-  const statusTone = drift.status === "off" ? "off" : drift.status === "on" ? "on" : "risk";
-
-  target.innerHTML = `
-    ${iemTrajectoryMetric(
-      "Latest official RES-E",
-      iemFmt(drift.latest_value, 1),
-      "%",
-      String(drift.latest_year || "")
-    )}
-
-    ${iemTrajectoryMetric(
-      "2030 benchmark",
-      iemFmt(drift.target_value, 0),
-      "%",
-      "Renewable electricity"
-    )}
-
-    ${iemTrajectoryMetric(
-      "Gap to target",
-      iemFmt(drift.gap_to_target_pp, 1),
-      "pp",
-      `${drift.years_remaining || "—"} years remaining`,
-      statusTone
-    )}
-
-    ${iemTrajectoryMetric(
-      "Required gain",
-      iemFmt(drift.required_annual_gain_pp, 2),
-      "pp/yr",
-      `From ${drift.latest_year || "latest"} to ${drift.target_year || 2030}`,
-      statusTone
-    )}
-
-    ${iemTrajectoryMetric(
-      "Recent gain",
-      iemFmt(drift.recent_two_year_gain_pp_per_year, 2),
-      "pp/yr",
-      "Two-year average",
-      statusTone
-    )}
-
-    <article class="trajectory-metric trajectory-status ${statusTone}">
-      <span class="trajectory-metric-label">Status</span>
-      <strong class="trajectory-status-value">${escapeHtml(status)}</strong>
-      <em class="trajectory-metric-note">${escapeHtml(drift.caveat || "")}</em>
-    </article>
-  `;
-}
-
 /* v0.16 Daily market price layer */
 async function loadMarketPrices() {
   try {
@@ -1414,29 +893,6 @@ function marketStatusClass(status) {
   if (status === "mapped") return "mapped";
   if (status === "not-parsed") return "risk";
   return "missing";
-}
-
-function renderMarketPriceCard(item) {
-  const cls = marketStatusClass(item.status);
-  const stats = item.stats || {};
-  const avg = isNumber(stats.daily_average_eur_per_mwh)
-    ? `<small>Daily average: ${Number(stats.daily_average_eur_per_mwh).toFixed(2)} €/MWh</small>`
-    : "";
-
-  return `
-    <article class="market-price-card ${cls}">
-      <div class="market-price-top">
-        <h3>${escapeHtml(item.label)}</h3>
-        <span>${escapeHtml(item.status || "unknown")}</span>
-      </div>
-      <strong>${escapeHtml(item.value || "n/a")}</strong>
-      ${avg}
-      <p>${escapeHtml(item.detail || "")}</p>
-      <a href="${escapeHtml(item.source_url || "#")}" target="_blank" rel="noopener noreferrer">
-        ${escapeHtml(item.source || "Source")}
-      </a>
-    </article>
-  `;
 }
 
 async function renderMarketPrices() {
@@ -1465,29 +921,6 @@ async function renderMarketPrices() {
 document.addEventListener("DOMContentLoaded", renderMarketPrices);
 
 /* v0.17 clearer market/system price rendering */
-function iemMarketNumberParts(item) {
-  const raw = item?.numeric_value;
-
-  if (!isNumber(raw)) {
-    return {
-      value: "n/a",
-      unit: item?.unit || "",
-      unavailable: true
-    };
-  }
-
-  const unit = item?.unit || "";
-  const digits = unit.includes("MWh") ? 2 : 2;
-
-  return {
-    value: Number(raw).toLocaleString("en-IE", {
-      minimumFractionDigits: digits,
-      maximumFractionDigits: digits
-    }),
-    unit,
-    unavailable: false
-  };
-}
 
 function iemMarketPlainStatus(item) {
   if (item.status === "mapped") return "System signal";
@@ -2074,125 +1507,6 @@ function pulseCard({label, value, unit, note, key, history, tone = "", delta = "
   `;
 }
 
-function renderDailyPulse(data) {
-  const target = document.getElementById("dailyPulseGrid");
-  if (!target) return;
-
-  const history = data.daily_history || [];
-  const e = data.electricity_now || {};
-  const drift = data.target_drift || {};
-  const prices = data.prices || [];
-
-  const electricityPrice = prices.find(p => p.label === "Household electricity");
-  const gasPrice = prices.find(p => p.label === "Household gas");
-
-  const generationGw = isNumber(e.generation_mw) ? Number(e.generation_mw) / 1000 : pulseLast(history, "generation_gw");
-  const demandGw = isNumber(e.demand_mw) ? Number(e.demand_mw) / 1000 : pulseLast(history, "demand_gw");
-  const renewables = isNumber(e.renewables_percent) ? e.renewables_percent : pulseLast(history, "renewables_percent");
-  const co2 = isNumber(e.co2_g_per_kwh) ? e.co2_g_per_kwh : pulseLast(history, "co2_g_per_kwh");
-
-  const importsRaw = isNumber(e.imports_percent) ? Number(e.imports_percent) : pulseLast(history, "imports_percent");
-  const imports = iemCleanNumber(Math.max(0, Number(importsRaw || 0)), 0);
-
-  const residual = isNumber(e.residual_percent ?? e.gas_percent)
-    ? (e.residual_percent ?? e.gas_percent)
-    : pulseLast(history, "residual_percent");
-
-  const gap = isNumber(drift.gap_to_target_pp) ? drift.gap_to_target_pp : pulseLast(history, "target_gap_pp");
-
-  const electricityPriceValue = isNumber(electricityPrice?.ireland_c_per_kwh)
-    ? electricityPrice.ireland_c_per_kwh
-    : pulseLast(history, "household_electricity_c_per_kwh");
-
-  const gasPriceValue = isNumber(gasPrice?.ireland_c_per_kwh)
-    ? gasPrice.ireland_c_per_kwh
-    : pulseLast(history, "household_gas_c_per_kwh");
-
-  target.innerHTML = [
-    pulseCard({
-      key: "demand",
-      label: "Generation now",
-      value: pulseNumber(demandGw, 2),
-      unit: "GW",
-      note: "Current production-side signal.",
-      key: "demand_gw",
-      history,
-      delta: iemDelta(history, "demand_gw", { digits: 2, unit: "GW", goodWhen: "neutral" })
-    }),
-    pulseCard({
-      key: "renewables",
-      label: "Renewables now",
-      value: pulseNumber(renewables, 0),
-      unit: "%",
-      note: "Wind and solar in the latest mapped interval.",
-      key: "renewables_percent",
-      history,
-      tone: "good",
-      delta: iemDelta(history, "renewables_percent", { digits: 1, unit: "pp", goodWhen: "up" })
-    }),
-    pulseCard({
-      key: "co2",
-      label: "CO₂ now",
-      value: pulseNumber(co2, 0),
-      unit: "g/kWh",
-      note: co2 ? "Latest Smart Grid Dashboard carbon signal; line shows daily snapshots." : "Not available in this build.",
-      key: "co2_g_per_kwh",
-      history,
-      tone: co2 ? "" : "muted",
-      delta: iemDelta(history, "co2_g_per_kwh", { digits: 0, unit: "g/kWh", goodWhen: "down" })
-    }),
-    pulseCard({
-      key: "interconnection",
-      label: "Imports",
-      value: pulseNumber(imports, 0),
-      unit: "%",
-      note: "Mapped interconnector import contribution. Exports are not negative imports.",
-      key: "imports_percent",
-      history,
-      delta: iemDelta(history, "imports_percent", { digits: 1, unit: "pp", goodWhen: "neutral" })
-    }),
-    pulseCard({
-      key: "residual",
-      label: "Residual supply",
-      value: pulseNumber(residual, 0),
-      unit: "%",
-      note: "Computed remainder, not measured gas.",
-      key: "residual_percent",
-      history,
-      tone: "caution",
-      delta: iemDelta(history, "residual_percent", { digits: 1, unit: "pp", goodWhen: "down" })
-    }),
-    pulseCard({
-      key: "target-gap",
-      label: "2030 target gap",
-      value: pulseNumber(gap, 1),
-      unit: "pp",
-      note: "Official annual gap to 80% renewable electricity, not a live 30-day signal.",
-      key: "target_gap_pp",
-      history,
-      tone: "risk"
-    }),
-    pulseCard({
-      key: "electricity-price",
-      label: "Electricity price",
-      value: pulseNumber(electricityPriceValue, 2),
-      unit: "c/kWh",
-      note: "Latest official SEAI semester, not a live tariff.",
-      key: "household_electricity_c_per_kwh",
-      history
-    }),
-    pulseCard({
-      key: "gas-price",
-      label: "Gas price",
-      value: pulseNumber(gasPriceValue, 2),
-      unit: "c/kWh",
-      note: "Latest official SEAI semester, not a live tariff.",
-      key: "household_gas_c_per_kwh",
-      history
-    })
-  ].join("");
-}
-
 function iemClarifyGapPills() {
   const targetGap = document.getElementById("targetGap");
   if (targetGap) {
@@ -2206,106 +1520,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* v0.41 Trajectory status sidecar: move Off track out of numeric silos */
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const statusClass = driftStatusClass(drift.status);
-  const latestValue = Number(drift.latest_value);
-  const targetValue = Number(drift.target_value);
-  const gapValue = Number(drift.gap_to_target_pp);
-  const requiredGain = Number(drift.required_annual_gain_pp);
-  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
-
-  target.innerHTML = `
-    <article class="target-drift-card">
-      <span>Latest official RES-E</span>
-      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
-      <small>${escapeHtml(drift.latest_year)}</small>
-    </article>
-
-    <article class="target-drift-card">
-      <span>2030 benchmark</span>
-      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
-      <small>Renewable electricity</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>2030 target gap</span>
-      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
-      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Required gain</span>
-      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
-      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Recent gain</span>
-      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
-      <small>Two-year average</small>
-    </article>
-  `;
-
-  renderTargetStatusSidecar(drift);
-}
-
-function renderTargetStatusSidecar(drift) {
-  const residualSignal = document.getElementById("residualSignal");
-  const panel = residualSignal?.closest(".panel");
-  if (!panel) return;
-
-  const existing = panel.querySelector(".target-status-sidecar");
-  if (existing) existing.remove();
-
-  const statusClass = driftStatusClass(drift.status);
-  const requiredGain = Number(drift.required_annual_gain_pp);
-  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
-  const gapValue = Number(drift.gap_to_target_pp);
-
-  const sidecar = document.createElement("article");
-  sidecar.className = `target-status-sidecar ${statusClass}`;
-  sidecar.innerHTML = `
-    <div class="target-status-sidecar-top">
-      <span>2030 trajectory status</span>
-      <strong>${escapeHtml(drift.status_label || "Status")}</strong>
-    </div>
-
-    <p>
-      Ireland is <strong>${gapValue.toFixed(1)} percentage points</strong> below the
-      2030 renewable-electricity benchmark. Recent progress is
-      <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required path is
-      <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
-    </p>
-
-    <div class="target-status-mini-grid">
-      <div>
-        <span>Gap</span>
-        <strong>${gapValue.toFixed(1)} pp</strong>
-      </div>
-      <div>
-        <span>Speed needed</span>
-        <strong>${requiredGain.toFixed(2)} pp/yr</strong>
-      </div>
-      <div>
-        <span>Recent speed</span>
-        <strong>${recentGain.toFixed(2)} pp/yr</strong>
-      </div>
-    </div>
-
-    <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not live quarter-hourly electricity mix.")}</small>
-  `;
-
-  panel.appendChild(sidecar);
-}
 
 /* v0.45 Structural governance: canonical metrics, interconnection and method section */
 function iemValue(value, digits = 0) {
@@ -2320,6 +1534,9 @@ function iemValue(value, digits = 0) {
 
 function iemMetricAccent(label) {
   const key = String(label || "").toLowerCase();
+
+  if (key.includes("thermal")) return "thermal";
+  if (key.includes("others")) return "others-calculated";
   if (key.includes("renewable")) return "renewables";
   if (key.includes("wind")) return "wind";
   if (key.includes("solar")) return "solar";
@@ -2351,30 +1568,6 @@ function metricCard(label, value, note, className = "") {
       <small>${escapeHtml(note)}</small>
     </article>
   `;
-}
-
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), "Wind + solar as share of demand"),
-    metricCard("Wind", percentOrNA(e.wind_percent), "Mapped wind generation now"),
-    metricCard("Solar", percentOrNA(e.solar_percent), "Mapped solar generation now"),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), "Not gas: unclassified remainder"),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
 }
 
 function renderDailyPulse(data) {
@@ -2442,7 +1635,7 @@ function renderDailyPulse(data) {
       label: "Renewables now",
       value: pulseNumber(renewables, 0),
       unit: "%",
-      note: "Wind and solar as share of demand.",
+      note: "Wind and solar reported; others calculated from renewable total.",
       key: "renewables_percent",
       history,
       tone: "good"
@@ -2471,10 +1664,10 @@ function renderDailyPulse(data) {
       label: "Residual supply",
       value: pulseNumber(residual, 0),
       unit: "%",
-      note: "Computed remainder, not measured gas.",
+      note: "Non-renewable generation remainder.",
       key: "residual_percent",
       history,
-      tone: "caution"
+      tone: "thermal"
     }),
     pulseCard({
       key: "target-gap",
@@ -2630,75 +1823,6 @@ function decorateTargetTrajectoryPanel() {
   }
 }
 
-function renderTargetDrift(data) {
-  const target = document.getElementById("targetDriftGrid");
-  if (!target) return;
-
-  const drift = data.target_drift || {};
-  if (!Object.keys(drift).length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const statusClass = driftStatusClass(drift.status);
-  const statusLabel = drift.status_label || truthSignalLabel(drift.status);
-
-  const latestValue = Number(drift.latest_value);
-  const targetValue = Number(drift.target_value);
-  const gapValue = Number(drift.gap_to_target_pp);
-  const requiredGain = Number(drift.required_annual_gain_pp);
-  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
-
-  target.innerHTML = `
-    <article class="target-drift-card">
-      <span>Latest official RES-E</span>
-      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
-      <small>${escapeHtml(drift.latest_year)}</small>
-    </article>
-
-    <article class="target-drift-card">
-      <span>2030 benchmark</span>
-      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
-      <small>Renewable electricity</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>2030 target gap</span>
-      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
-      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Required gain</span>
-      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
-      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
-    </article>
-
-    <article class="target-drift-card ${statusClass}">
-      <span>Recent gain</span>
-      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
-      <small>Two-year average</small>
-    </article>
-
-    <article class="target-verdict-card ${statusClass}">
-      <div>
-        <span>Same verdict as Truth Meter</span>
-        <strong>${escapeHtml(statusLabel)}</strong>
-      </div>
-      <p>
-        Renewable electricity is <strong>${gapValue.toFixed(1)} percentage points</strong>
-        below the 2030 benchmark. Recent progress is
-        <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required pace is
-        <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
-      </p>
-      <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not the live quarter-hourly electricity mix.")}</small>
-    </article>
-  `;
-
-  decorateTargetTrajectoryPanel();
-  renderTargetStatusSidecar();
-}
-
 function decorateRenewableTruthCard() {
   const cards = document.querySelectorAll("#truthGrid .truth-card");
   for (const card of cards) {
@@ -2776,22 +1900,6 @@ function truth_status_from_residual_frontend(data) {
   if (value <= 20) return "on";
   if (value <= 35) return "risk";
   return "off";
-}
-
-function decorateTargetTrajectoryPanelWithSignal(data) {
-  const drift = data.target_drift || {};
-  const panel = document.querySelector(".target-explainer-panel") || document.getElementById("targetDriftGrid")?.closest(".panel");
-  const head = panel?.querySelector(".panel-head");
-  if (!panel || !head) return;
-
-  let pill = head.querySelector(".target-signal-pill");
-  if (!pill) {
-    pill = document.createElement("span");
-    pill.className = "pill panel-signal-pill target-signal-pill";
-    head.appendChild(pill);
-  }
-
-  setSignalPill(pill, drift.status || "risk");
 }
 
 function renderTargetDrift(data) {
@@ -2910,177 +2018,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* v0.52 Taller RES-E trajectory chart: larger real SVG coordinate system, not stretched */
-function renderTrajectory(data) {
-  const target = document.getElementById("trajectoryChart");
-  if (!target) return;
-
-  const rows = data.target_trajectory || [];
-  if (!rows.length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const width = 980;
-  const height = 420;
-
-  const padLeft = 54;
-  const padRight = 34;
-  const padTop = 34;
-  const padBottom = 48;
-
-  const years = rows.map(d => Number(d.year)).filter(Number.isFinite);
-  const minYear = Math.min(...years);
-  const maxYear = Math.max(...years);
-
-  // Use a fixed policy-relevant y-domain rather than auto-zooming.
-  // This avoids exaggerating small annual movements.
-  const minY = 20;
-  const maxY = 85;
-
-  const plotWidth = width - padLeft - padRight;
-  const plotHeight = height - padTop - padBottom;
-
-  const x = year => padLeft + ((Number(year) - minYear) / (maxYear - minYear)) * plotWidth;
-  const y = value => padTop + ((maxY - Number(value)) / (maxY - minY)) * plotHeight;
-
-  const targetRows = rows.filter(d => d.target !== null && d.target !== undefined);
-  const actualRows = rows.filter(d => d.actual !== null && d.actual !== undefined);
-
-  const pathFrom = (series, key) => series
-    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
-    .join(" ");
-
-  const targetPath = pathFrom(targetRows, "target");
-  const actualPath = pathFrom(actualRows, "actual");
-
-  const latest = actualRows[actualRows.length - 1];
-  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
-  const gap = sameYear ? Number(sameYear.target) - Number(latest.actual) : 0;
-
-  text("targetGap", `${gap.toFixed(0)} pp path gap`);
-
-  const gridValues = [80, 65, 50, 35, 20];
-  const yearTicks = [];
-  for (let yr = minYear; yr <= maxYear; yr += 2) yearTicks.push(yr);
-
-  target.innerHTML = `
-    <svg class="trajectory-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">
-      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
-
-      ${gridValues.map(v => `
-        <line class="grid-line" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
-        <text class="axis-text y-axis-label" x="${padLeft - 12}" y="${y(v) + 4}" text-anchor="end">${v}%</text>
-      `).join("")}
-
-      ${yearTicks.map(yr => `
-        <line class="grid-line vertical" x1="${x(yr)}" y1="${padTop}" x2="${x(yr)}" y2="${height - padBottom}"></line>
-        <text class="axis-text" x="${x(yr)}" y="${height - 15}" text-anchor="middle">${yr}</text>
-      `).join("")}
-
-      <path class="line-target" d="${targetPath}"></path>
-      <path class="line-actual" d="${actualPath}"></path>
-
-      ${actualRows.map(d => `
-        <circle cx="${x(d.year)}" cy="${y(d.actual)}" r="4.2" fill="var(--blue)"></circle>
-      `).join("")}
-
-      ${targetRows.map(d => `
-        <circle cx="${x(d.year)}" cy="${y(d.target)}" r="3.2" fill="var(--lime)"></circle>
-      `).join("")}
-
-      <text class="axis-text chart-key" x="${width - 255}" y="${padTop + 8}">Dashed: required path</text>
-      <text class="axis-text chart-key" x="${width - 255}" y="${padTop + 27}">Solid: observed path</text>
-    </svg>
-  `;
-}
 
 /* v0.53 RES-E trajectory: full-width plot, not miniature, not CSS-stretched */
-function renderTrajectory(data) {
-  const target = document.getElementById("trajectoryChart");
-  if (!target) return;
-
-  const rows = data.target_trajectory || [];
-  if (!rows.length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const width = 1280;
-  const height = 520;
-
-  const padLeft = 68;
-  const padRight = 44;
-  const padTop = 42;
-  const padBottom = 58;
-
-  const years = rows.map(d => Number(d.year)).filter(Number.isFinite);
-  const minYear = Math.min(...years);
-  const maxYear = Math.max(...years);
-
-  const minY = 20;
-  const maxY = 85;
-
-  const plotWidth = width - padLeft - padRight;
-  const plotHeight = height - padTop - padBottom;
-
-  const x = year => padLeft + ((Number(year) - minYear) / (maxYear - minYear)) * plotWidth;
-  const y = value => padTop + ((maxY - Number(value)) / (maxY - minY)) * plotHeight;
-
-  const targetRows = rows.filter(d => d.target !== null && d.target !== undefined);
-  const actualRows = rows.filter(d => d.actual !== null && d.actual !== undefined);
-
-  const pathFrom = (series, key) => series
-    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
-    .join(" ");
-
-  const targetPath = pathFrom(targetRows, "target");
-  const actualPath = pathFrom(actualRows, "actual");
-
-  const latest = actualRows[actualRows.length - 1];
-  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
-  const gap = sameYear ? Number(sameYear.target) - Number(latest.actual) : 0;
-
-  text("targetGap", `${gap.toFixed(0)} pp path gap`);
-
-  const gridValues = [80, 65, 50, 35, 20];
-  const yearTicks = [];
-  for (let yr = minYear; yr <= maxYear; yr += 2) yearTicks.push(yr);
-
-  target.innerHTML = `
-    <svg class="trajectory-svg trajectory-svg-large"
-      viewBox="0 0 ${width} ${height}"
-      preserveAspectRatio="xMidYMid meet"
-      role="img"
-      aria-label="2030 renewable electricity trajectory"
-    >
-      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
-
-      ${gridValues.map(v => `
-        <line class="grid-line" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
-        <text class="axis-text y-axis-label" x="${padLeft - 14}" y="${y(v) + 4}" text-anchor="end">${v}%</text>
-      `).join("")}
-
-      ${yearTicks.map(yr => `
-        <line class="grid-line vertical" x1="${x(yr)}" y1="${padTop}" x2="${x(yr)}" y2="${height - padBottom}"></line>
-        <text class="axis-text" x="${x(yr)}" y="${height - 18}" text-anchor="middle">${yr}</text>
-      `).join("")}
-
-      <path class="line-target" d="${targetPath}"></path>
-      <path class="line-actual" d="${actualPath}"></path>
-
-      ${actualRows.map(d => `
-        <circle cx="${x(d.year)}" cy="${y(d.actual)}" r="5" fill="var(--blue)"></circle>
-      `).join("")}
-
-      ${targetRows.map(d => `
-        <circle cx="${x(d.year)}" cy="${y(d.target)}" r="3.8" fill="var(--lime)"></circle>
-      `).join("")}
-
-      <text class="axis-text chart-key" x="${width - 330}" y="${padTop + 8}">Dashed: required path</text>
-      <text class="axis-text chart-key" x="${width - 330}" y="${padTop + 29}">Solid: observed path</text>
-    </svg>
-  `;
-}
 
 /* v0.54 RES-E trajectory trendline + escalating catch-up burden note */
 
@@ -3146,161 +2085,6 @@ function ietmAddSystemsNote() {
   } else if (chart) {
     chart.insertAdjacentElement("beforebegin", note);
   }
-}
-
-function renderTrajectory(data) {
-  const target = document.getElementById("trajectoryChart");
-  if (!target) return;
-
-  const rows = data.target_trajectory || [];
-  if (!rows.length) {
-    target.innerHTML = "";
-    return;
-  }
-
-  const width = 1280;
-  const height = 520;
-
-  const padLeft = 68;
-  const padRight = 44;
-  const padTop = 42;
-  const padBottom = 58;
-
-  const years = rows.map(d => Number(d.year)).filter(Number.isFinite);
-  const minYear = Math.min(...years);
-  const maxYear = Math.max(...years);
-
-  const minY = 20;
-  const maxY = 85;
-
-  const plotWidth = width - padLeft - padRight;
-  const plotHeight = height - padTop - padBottom;
-
-  const x = year => padLeft + ((Number(year) - minYear) / (maxYear - minYear)) * plotWidth;
-  const y = value => padTop + ((maxY - Number(value)) / (maxY - minY)) * plotHeight;
-
-  const targetRows = rows.filter(d => d.target !== null && d.target !== undefined);
-  const actualRows = rows.filter(d => d.actual !== null && d.actual !== undefined);
-
-  const pathFrom = (series, key) => series
-    .map((d, i) => `${i === 0 ? "M" : "L"} ${x(d.year).toFixed(2)} ${y(d[key]).toFixed(2)}`)
-    .join(" ");
-
-  const targetPath = pathFrom(targetRows, "target");
-  const actualPath = pathFrom(actualRows, "actual");
-
-  const latest = actualRows[actualRows.length - 1];
-  const sameYear = latest ? rows.find(d => Number(d.year) === Number(latest.year)) : null;
-  const gap = sameYear ? Number(sameYear.target) - Number(latest.actual) : 0;
-
-  const targetGap = document.getElementById("targetGap");
-  if (targetGap) targetGap.textContent = `${gap.toFixed(0)} pp path gap`;
-
-  /*
-    Regression convention:
-    t = years since first observed year.
-    y = m t + a.
-    This avoids a useless large negative intercept from raw calendar years.
-  */
-  const trendOriginYear = actualRows.length ? Number(actualRows[0].year) : minYear;
-  const observedTrendInput = actualRows.map(d => ({
-    x: Number(d.year) - trendOriginYear,
-    y: Number(d.actual)
-  }));
-
-  const regression = ietmLinearRegression(observedTrendInput);
-
-  let trendLine = "";
-  let trendLabel = "";
-  let trendEndpointLabel = "";
-
-  if (regression) {
-    const trendStartYear = minYear;
-    const trendEndYear = maxYear;
-
-    const trendStartValue = regression.m * (trendStartYear - trendOriginYear) + regression.a;
-    const trendEndValue = regression.m * (trendEndYear - trendOriginYear) + regression.a;
-
-    const clippedStartValue = Math.max(minY, Math.min(maxY, trendStartValue));
-    const clippedEndValue = Math.max(minY, Math.min(maxY, trendEndValue));
-
-    const x1 = x(trendStartYear);
-    const y1 = y(clippedStartValue);
-    const x2 = x(trendEndYear);
-    const y2 = y(clippedEndValue);
-
-    const signA = regression.a >= 0 ? "+" : "−";
-    const absA = Math.abs(regression.a).toFixed(1);
-
-    trendLabel = `Observed trend: y = ${regression.m.toFixed(2)}t ${signA} ${absA}; R² = ${regression.r2.toFixed(2)}`;
-    trendEndpointLabel = `Recent-pace 2030: ${trendEndValue.toFixed(0)}%`;
-
-    trendLine = `
-      <line
-        class="line-trend"
-        x1="${x1.toFixed(2)}"
-        y1="${y1.toFixed(2)}"
-        x2="${x2.toFixed(2)}"
-        y2="${y2.toFixed(2)}"
-      ></line>
-
-      <text
-        class="trendline-label"
-        x="${Math.max(padLeft + 220, x2 - 420).toFixed(2)}"
-        y="${Math.max(padTop + 74, y2 - 18).toFixed(2)}"
-      >${trendLabel}</text>
-
-      <text
-        class="trendline-label trendline-endpoint"
-        x="${(x2 - 8).toFixed(2)}"
-        y="${(y2 + 22).toFixed(2)}"
-        text-anchor="end"
-      >${trendEndpointLabel}</text>
-    `;
-  }
-
-  const gridValues = [80, 65, 50, 35, 20];
-  const yearTicks = [];
-  for (let yr = minYear; yr <= maxYear; yr += 2) yearTicks.push(yr);
-
-  target.innerHTML = `
-    <svg class="trajectory-svg trajectory-svg-large"
-      viewBox="0 0 ${width} ${height}"
-      preserveAspectRatio="xMidYMid meet"
-      role="img"
-      aria-label="2030 renewable electricity trajectory with observed trendline"
-    >
-      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
-
-      ${gridValues.map(v => `
-        <line class="grid-line" x1="${padLeft}" y1="${y(v)}" x2="${width - padRight}" y2="${y(v)}"></line>
-        <text class="axis-text y-axis-label" x="${padLeft - 14}" y="${y(v) + 4}" text-anchor="end">${v}%</text>
-      `).join("")}
-
-      ${yearTicks.map(yr => `
-        <line class="grid-line vertical" x1="${x(yr)}" y1="${padTop}" x2="${x(yr)}" y2="${height - padBottom}"></line>
-        <text class="axis-text" x="${x(yr)}" y="${height - 18}" text-anchor="middle">${yr}</text>
-      `).join("")}
-
-      <path class="line-target" d="${targetPath}"></path>
-      ${trendLine}
-      <path class="line-actual" d="${actualPath}"></path>
-
-      ${actualRows.map(d => `
-        <circle cx="${x(d.year)}" cy="${y(d.actual)}" r="5" fill="var(--blue)"></circle>
-      `).join("")}
-
-      ${targetRows.map(d => `
-        <circle cx="${x(d.year)}" cy="${y(d.target)}" r="3.8" fill="var(--lime)"></circle>
-      `).join("")}
-
-      <text class="axis-text chart-key" x="${width - 355}" y="${padTop + 8}">Dashed green: required path</text>
-      <text class="axis-text chart-key" x="${width - 355}" y="${padTop + 29}">Blue: observed path</text>
-      <text class="axis-text chart-key" x="${width - 355}" y="${padTop + 50}">Thin white: observed trend</text>
-    </svg>
-  `;
-
-  ietmAddSystemsNote();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -3491,6 +2275,7 @@ window.addEventListener("resize", () => {
     try {
       const data = await loadMonitor();
       renderTrajectory(data);
+      renderTrajectoryTrendLabel(data);
     } catch {
       /* no action */
     }
@@ -3692,169 +2477,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 /* v0.59 Electricity Now consistency: renewables output can exceed demand */
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const renewableNote = Number(e.renewables_percent) > 100
-    ? "Wind + solar output exceeds current demand"
-    : "Wind + solar output vs demand";
-
-  const residualNote = Number(e.renewables_percent) > 100
-    ? "Computed residual is zero when renewables exceed demand"
-    : "Computed after wind, solar and net imports";
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind", percentOrNA(e.wind_percent), "Wind output vs demand"),
-    metricCard("Solar", percentOrNA(e.solar_percent), "Solar output vs demand"),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), residualNote),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-}
 
 /* v0.60 Correct public renewable wording: contribution, not raw output */
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const normalised = Boolean(e.renewables_normalised);
-  const surplus = Number(e.renewable_surplus_percent || 0);
-
-  const renewableNote = normalised
-    ? `Domestic contribution capped; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
-    : "Estimated wind + solar contribution to demand";
-
-  const windNote = normalised
-    ? "Normalised contribution to Irish demand"
-    : "Wind contribution to Irish demand";
-
-  const solarNote = normalised
-    ? "Normalised contribution to Irish demand"
-    : "Solar contribution to Irish demand";
-
-  const residualNote = "Computed remainder after renewables and net imports";
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind", percentOrNA(e.wind_percent), windNote),
-    metricCard("Solar", percentOrNA(e.solar_percent), solarNote),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), residualNote),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-}
-
-/* v0.62 Rename top-row renewables to renewable cover, not total system mix */
-function iemMetricAccent(label) {
-  const key = String(label || "").toLowerCase();
-  if (key.includes("renewable")) return "renewables";
-  if (key.includes("wind")) return "wind";
-  if (key.includes("solar")) return "solar";
-  if (key.includes("generation")) return "demand";
-  if (key.includes("residual") || key.includes("uncovered")) return "residual";
-  if (key.includes("interconnection")) return "imports";
-  if (key.includes("demand")) return "demand";
-  if (key.includes("co₂") || key.includes("co2")) return "co2";
-  return "neutral";
-}
-
-function renderElectricityCoverageNote(data) {
-  const grid = document.getElementById("metricGrid");
-  if (!grid) return;
-
-  let note = document.getElementById("electricityCoverageNote");
-  if (!note) {
-    note = document.createElement("div");
-    note.id = "electricityCoverageNote";
-    note.className = "electricity-coverage-note";
-    grid.insertAdjacentElement("afterend", note);
-  }
-
-  const e = data.electricity_now || {};
-  const normalised = Boolean(e.renewables_normalised);
-  const surplus = Number(e.renewable_surplus_percent || 0);
-  const output = Number(e.renewables_output_percent || e.renewables_percent || 0);
-  const inter = iemInterconnectionDisplay(e);
-
-  if (normalised) {
-    note.innerHTML = `
-      <strong>Generation view, not full fuel mix.</strong>
-      Wind + solar output is estimated at <b>${pulseNumber(output, 0)}%</b> of current demand.
-      The public cover cards are capped at 100% because domestic demand cannot be more than fully covered.
-      Surplus/output above demand is shown separately and may coincide with exports, curtailment or model uncertainty.
-      Current interconnection signal: <b>${escapeHtml(inter.note.toLowerCase())}</b>.
-    `;
-  } else {
-    note.innerHTML = `
-      <strong>Generation view.</strong>
-      Percentages estimate the current generation split between renewable generation, thermal/other generation and interconnection.
-      The thermal/other card is a computed remainder, not measured gas or a complete fuel mix.
-    `;
-  }
-}
-
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const normalised = Boolean(e.renewables_normalised);
-  const surplus = Number(e.renewable_surplus_percent || 0);
-
-  const renewableNote = normalised
-    ? `Capped domestic cover; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
-    : "Estimated wind + solar cover of demand";
-
-  const windNote = normalised
-    ? "Normalised share of domestic renewable cover"
-    : "Wind cover of current demand";
-
-  const solarNote = normalised
-    ? "Normalised share of domestic renewable cover"
-    : "Solar cover of current demand";
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewable cover", percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind cover", percentOrNA(e.wind_percent), windNote),
-    metricCard("Solar cover", percentOrNA(e.solar_percent), solarNote),
-    metricCard("Uncovered", percentOrNA(e.residual_percent ?? e.gas_percent), "Computed remainder; not measured gas"),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-
-  renderElectricityCoverageNote(data);
-}
 
 /* v0.64 Honest source badge for workbook-derived core grid values */
 function renderElectricitySourceBadge(data) {
@@ -3966,45 +2590,6 @@ function renderSourceGovernance(data) {
   }
 }
 
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const gate = ietmSourceGate(data);
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const demandLabel = gate.valuesAreLive ? "Demand now" : "Demand snapshot";
-  const renewableLabel = "Renewable cover";
-  const uncoveredLabel = "Uncovered";
-
-  const normalised = Boolean(e.renewables_normalised);
-  const surplus = Number(e.renewable_surplus_percent || 0);
-
-  const renewableNote = normalised
-    ? `Capped domestic cover; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
-    : "Estimated wind + solar cover of demand";
-
-  target.innerHTML = [
-    metricCard(demandLabel, `${iemValue(e.demand_mw, 0)} MW`, gate.valuesAreLive ? "Current mapped system demand" : "Latest fallback interval"),
-    metricCard(renewableLabel, percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind cover", percentOrNA(e.wind_percent), "Wind cover of current demand"),
-    metricCard("Solar cover", percentOrNA(e.solar_percent), "Solar cover of current demand"),
-    metricCard(uncoveredLabel, percentOrNA(e.residual_percent ?? e.gas_percent), "Computed remainder; not measured gas"),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-
-  renderSourceGovernance(data);
-  renderElectricityCoverageNote(data);
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const data = await loadMonitor();
@@ -4014,276 +2599,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.warn("v0.65 source governance render failed", error);
   }
 });
-
-/* v0.71 Do not pretend interconnection is mapped when API endpoint is absent */
-function iemInterconnectionDisplay(e) {
-  if (e && e.interconnection_available === false) {
-    return {
-      value: "Not mapped",
-      note: "Interconnection API endpoint pending"
-    };
-  }
-
-  const mw = Number(e?.interconnection_mw);
-
-  if (!Number.isFinite(mw) || Math.abs(mw) < 1) {
-    return {
-      value: "Near balanced",
-      note: "Interconnector flow close to zero"
-    };
-  }
-
-  if (mw > 0) {
-    return {
-      value: `${iemValue(mw, 0)} MW`,
-      note: "Net import"
-    };
-  }
-
-  return {
-    value: `${iemValue(Math.abs(mw), 0)} MW`,
-    note: "Net export"
-  };
-}
-
-/* v0.73 Interconnection direction arrow badge */
-function ietmFlowMeta(direction) {
-  const d = String(direction || "").toLowerCase();
-
-  if (d.includes("export")) {
-    return {
-      cls: "export",
-      arrow: "",
-      text: "Net export"
-    };
-  }
-
-  if (d.includes("import")) {
-    return {
-      cls: "import",
-      arrow: "",
-      text: "Net import"
-    };
-  }
-
-  if (d.includes("balanc")) {
-    return {
-      cls: "balanced",
-      arrow: "↔",
-      text: "Near balanced"
-    };
-  }
-
-  return {
-    cls: "unknown",
-    arrow: "•",
-    text: "Not mapped"
-  };
-}
-
-function ietmFlowBadge(direction) {
-  const meta = ietmFlowMeta(direction);
-  return `
-    <span class="flow-indicator ${meta.cls}">
-      <span class="flow-indicator-arrow" aria-hidden="true">${meta.arrow}</span>
-      <span>${meta.text}</span>
-    </span>
-  `;
-}
-
-/*
-  Override the interconnection display helper.
-  Existing renderMetrics() already calls iemInterconnectionDisplay(e),
-  so this is enough to upgrade the card note everywhere.
-*/
-function iemInterconnectionDisplay(e) {
-  if (e && e.interconnection_available === false) {
-    return {
-      value: "Not mapped",
-      note: ietmFlowBadge("unknown")
-    };
-  }
-
-  const mw = Number(e?.interconnection_mw);
-  const direction = String(e?.interconnection_direction || "");
-
-  if (!Number.isFinite(mw)) {
-    return {
-      value: "Not mapped",
-      note: ietmFlowBadge("unknown")
-    };
-  }
-
-  if (Math.abs(mw) < 1) {
-    return {
-      value: "Near balanced",
-      note: ietmFlowBadge("near balanced")
-    };
-  }
-
-  if (mw > 0) {
-    return {
-      value: `${iemValue(mw, 0)} MW`,
-      note: ietmFlowBadge("importing")
-    };
-  }
-
-  return {
-    value: `${iemValue(Math.abs(mw), 0)} MW`,
-    note: ietmFlowBadge("exporting")
-  };
-}
-
-/* v0.74 Render interconnection arrow badge safely after metric cards render */
-function ietmPlainFlowMeta(direction) {
-  const d = String(direction || "").toLowerCase();
-
-  if (d.includes("export")) {
-    return { cls: "export", arrow: "", text: "Net export" };
-  }
-
-  if (d.includes("import")) {
-    return { cls: "import", arrow: "", text: "Net import" };
-  }
-
-  if (d.includes("balanc")) {
-    return { cls: "balanced", arrow: "↔", text: "Near balanced" };
-  }
-
-  return { cls: "unknown", arrow: "•", text: "Not mapped" };
-}
-
-/* Override again: metricCard note is plain text, not HTML. */
-function iemInterconnectionDisplay(e) {
-  if (e && e.interconnection_available === false) {
-    const meta = ietmPlainFlowMeta("unknown");
-    return {
-      value: "Not mapped",
-      note: `${meta.arrow} ${meta.text}`
-    };
-  }
-
-  const mw = Number(e?.interconnection_mw);
-
-  if (!Number.isFinite(mw)) {
-    const meta = ietmPlainFlowMeta("unknown");
-    return {
-      value: "Not mapped",
-      note: `${meta.arrow} ${meta.text}`
-    };
-  }
-
-  if (Math.abs(mw) < 1) {
-    const meta = ietmPlainFlowMeta("near balanced");
-    return {
-      value: "Near balanced",
-      note: `${meta.arrow} ${meta.text}`
-    };
-  }
-
-  if (mw > 0) {
-    const meta = ietmPlainFlowMeta("importing");
-    return {
-      value: `${iemValue(mw, 0)} MW`,
-      note: `${meta.arrow} ${meta.text}`
-    };
-  }
-
-  const meta = ietmPlainFlowMeta("exporting");
-  return {
-    value: `${iemValue(Math.abs(mw), 0)} MW`,
-    note: `${meta.arrow} ${meta.text}`
-  };
-}
-
-function ietmDecorateInterconnectionCard(data) {
-  const e = data?.electricity_now || {};
-  const meta = ietmPlainFlowMeta(e.interconnection_direction);
-
-  const cards = Array.from(document.querySelectorAll(".metric-card"));
-  const card = cards.find(el =>
-    String(el.textContent || "").toLowerCase().includes("interconnection")
-  );
-
-  if (!card) return;
-
-  const note = card.querySelector("small");
-  if (!note) return;
-
-  note.classList.add("flow-note");
-  note.innerHTML = `
-    <span class="flow-indicator ${meta.cls}">
-      <span class="flow-indicator-arrow" aria-hidden="true">${meta.arrow}</span>
-      <span>${meta.text}</span>
-    </span>
-  `;
-}
-
-/*
-  Wrap the current renderMetrics so the normal card is rendered first,
-  then the interconnection note is upgraded into a real DOM badge.
-*/
-if (typeof renderMetrics === "function" && !window.__ietmFlowPatch74) {
-  window.__ietmFlowPatch74 = true;
-  const previousRenderMetrics = renderMetrics;
-
-  renderMetrics = function patchedRenderMetrics(data) {
-    previousRenderMetrics(data);
-    setTimeout(() => ietmDecorateInterconnectionCard(data), 0);
-  };
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const data = await loadMonitor();
-    setTimeout(() => ietmDecorateInterconnectionCard(data), 150);
-    setTimeout(() => ietmDecorateInterconnectionCard(data), 700);
-  } catch {
-    /* no action */
-  }
-});
-
-/* v0.75 Force clean interconnection badge labels */
-function ietmPlainFlowMeta(direction) {
-  const d = String(direction || "").toLowerCase();
-
-  if (d.includes("export")) {
-    return { cls: "export", arrow: "", text: "Net export" };
-  }
-
-  if (d.includes("import")) {
-    return { cls: "import", arrow: "", text: "Net import" };
-  }
-
-  if (d.includes("balanc")) {
-    return { cls: "balanced", arrow: "↔", text: "Near balanced" };
-  }
-
-  return { cls: "unknown", arrow: "•", text: "Not mapped" };
-}
-
-function ietmDecorateInterconnectionCard(data) {
-  const e = data?.electricity_now || {};
-  const meta = ietmPlainFlowMeta(e.interconnection_direction);
-
-  const cards = Array.from(document.querySelectorAll(".metric-card"));
-  const card = cards.find(el =>
-    String(el.textContent || "").toLowerCase().includes("interconnection")
-  );
-
-  if (!card) return;
-
-  const note = card.querySelector("small");
-  if (!note) return;
-
-  note.className = "flow-note";
-  note.innerHTML = `
-    <span class="flow-indicator ${meta.cls}">
-      <span class="flow-indicator-arrow" aria-hidden="true">${meta.arrow}</span>
-      <span>${meta.text}</span>
-    </span>
-  `;
-}
 
 /* v0.76 Make Renewable cover visibly parent of Wind + Solar */
 function ietmFindMetricCard(labelText) {
@@ -4337,32 +2652,7 @@ function ietmDecorateRenewableHierarchy(data) {
   `;
 }
 
-if (typeof renderMetrics === "function" && !window.__ietmRenewableHierarchy76) {
-  window.__ietmRenewableHierarchy76 = true;
-  const previousRenderMetrics76 = renderMetrics;
-
-  renderMetrics = function patchedRenewableHierarchyRender(data) {
-    previousRenderMetrics76(data);
-    setTimeout(() => ietmDecorateRenewableHierarchy(data), 0);
-  };
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  try {
-    const data = await loadMonitor();
-    setTimeout(() => ietmDecorateRenewableHierarchy(data), 200);
-    setTimeout(() => ietmDecorateRenewableHierarchy(data), 900);
-  } catch {
-    /* no action */
-  }
-});
-
-// IETM trajectory fit label override: BEGIN
-(function () {
-  const previousRenderTrajectory = renderTrajectory;
-
-  renderTrajectory = function refinedRenderTrajectory(data) {
-    previousRenderTrajectory(data);
+function renderTrajectoryTrendLabel(data) {
 
     const target = document.getElementById("trajectoryChart");
     if (!target) return;
@@ -4430,9 +2720,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       "aria-label",
       `Renewable electricity trajectory. Observed trend ${slopeText} percentage points per year. Fit ${fitStrength}, based on ${n} annual points.`
     );
-  };
-})();
-// IETM trajectory fit label override: END
+  
+}
+
 
 // IETM demand-now GW override: BEGIN
 function iemFormatPowerMw(value, options = {}) {
@@ -4454,30 +2744,6 @@ function iemFormatPowerMw(value, options = {}) {
   })} MW`;
 }
 
-(function () {
-  const previousRenderMetrics = renderMetrics;
-
-  renderMetrics = function renderMetricsWithDemandGw(data) {
-    previousRenderMetrics(data);
-
-    const demandMw = data?.electricity_now?.demand_mw;
-    const cards = document.querySelectorAll("#metricGrid .metric-card");
-
-    for (const card of cards) {
-      const label = card.querySelector("span");
-      const value = card.querySelector("strong");
-
-      if (
-        label &&
-        value &&
-        label.textContent.trim().toLowerCase() === "demand now"
-      ) {
-        value.textContent = iemFormatPowerMw(demandMw, { forceGw: true });
-        break;
-      }
-    }
-  };
-})();
 // IETM demand-now GW override: END
 
 // IETM generation-basis live metric renderer: BEGIN
@@ -4500,8 +2766,7 @@ function iemPowerForLiveCards(value, options = {}) {
   })} MW`;
 }
 
-(function () {
-  renderMetrics = function renderGenerationBasedMetrics(data) {
+function renderMetrics(data) {
     const e = data.electricity_now || {};
     const target = document.getElementById("metricGrid");
     if (!target) return;
@@ -4524,7 +2789,12 @@ function iemPowerForLiveCards(value, options = {}) {
     const isExporting = interconnectionMw < 0 || interconnectionDirection.includes("export");
     const isImporting = interconnectionMw > 0 || interconnectionDirection.includes("import");
 
-    const interconnectionNote = isExporting ? "Net export" : isImporting ? "Net import" : "Near balanced";
+    const interconnectionNote = isExporting ? "↗ Net export" : isImporting ? "↘ Net import" : "• Near balanced";
+    const interconnectionClass = isExporting
+      ? "interconnection-card export"
+      : isImporting
+        ? "interconnection-card import"
+        : "interconnection-card balanced";
 
     const co2Available =
       e.co2_available !== false &&
@@ -4542,7 +2812,7 @@ function iemPowerForLiveCards(value, options = {}) {
       metricCard(
         "Renewable generation",
         percentOrNA(e.renewables_percent),
-        "Estimated wind + solar share of generation"
+        "SmartGrid renewable total; wind and solar reported separately"
       ),
       metricCard(
         "Wind generation",
@@ -4555,14 +2825,22 @@ function iemPowerForLiveCards(value, options = {}) {
         "Solar share of current generation"
       ),
       metricCard(
+        "Others (calculated)",
+        percentOrNA(iemGenerationMixParts(e).otherRenewables),
+        "Renewable total minus reported wind and solar",
+        "others-calculated-card"
+      ),
+      metricCard(
         "Thermal/other",
         percentOrNA(iemGenerationMixParts(e).thermalOther),
-        "Computed non-renewable remainder"
+        "Non-renewable generation remainder",
+        "thermal-other-card"
       ),
       metricCard(
         "Interconnection",
         iemPowerForLiveCards(Math.abs(interconnectionMw)),
-        interconnectionNote
+        interconnectionNote,
+        interconnectionClass
       ),
       metricCard(
         "CO₂ intensity",
@@ -4573,55 +2851,9 @@ function iemPowerForLiveCards(value, options = {}) {
         co2Available ? "co2-card" : "missing co2-card"
       )
     ].join("");
-  };
-})();
-// IETM generation-basis live metric renderer: END
-
-// IETM post-render interconnection arrow: BEGIN
-(function () {
-  function patchInterconnectionArrow() {
-    const cards = document.querySelectorAll("#metricGrid .metric-card");
-
-    for (const card of cards) {
-      const label = card.querySelector("span");
-      const note = card.querySelector("small");
-
-      if (!label || !note) continue;
-      if (label.textContent.trim().toLowerCase() !== "interconnection") continue;
-
-      let text = note.textContent
-        .replace(/[↗↘•]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-
-      if (!text) text = "Net export";
-
-      const lower = text.toLowerCase();
-      const arrow = lower.includes("export")
-        ? "↗"
-        : lower.includes("import")
-          ? "↘"
-          : "•";
-
-      note.textContent = `${arrow} ${text}`;
-      note.style.whiteSpace = "nowrap";
-      note.style.color = "var(--green)";
-      note.style.fontWeight = "850";
-      card.setAttribute("data-accent", "interconnection");
-      break;
-    }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    patchInterconnectionArrow();
-    requestAnimationFrame(patchInterconnectionArrow);
-    setTimeout(patchInterconnectionArrow, 50);
-    setTimeout(patchInterconnectionArrow, 250);
-    setTimeout(patchInterconnectionArrow, 750);
-    setTimeout(patchInterconnectionArrow, 1500);
-  });
-})();
-// IETM post-render interconnection arrow: END
+// IETM generation-basis live metric renderer: END
 
 // IETM demand pressure fallback renderer: BEGIN
 const IEM_DEMAND_PRESSURE_FALLBACK = {
@@ -4724,7 +2956,7 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
     const generationRows = [
       { label: "Wind", class: "wind", percent: mix.wind, available: true },
       { label: "Solar", class: "solar", percent: mix.solar, available: true },
-      { label: "Other renewables", class: "other-renewables", percent: mix.otherRenewables, available: mix.otherRenewables > 0 },
+      { label: "Others (calculated)", class: "other-renewables", percent: mix.otherRenewables, available: mix.otherRenewables > 0 },
       { label: "Thermal/other", class: "thermal", percent: mix.thermalOther, available: true }
     ];
 
@@ -4856,52 +3088,3 @@ const IEM_DEMAND_PRESSURE_FALLBACK = {
 })();
 // IETM demand balance warning renderer: END
 
-// IETM force residual sparkline purple: BEGIN
-(function () {
-  function forceResidualSparklinePurple() {
-    for (const card of document.querySelectorAll("#dailyPulseGrid .pulse-card")) {
-      const label = card.querySelector("span");
-      if (!label) continue;
-
-      if (label.textContent.trim().toLowerCase() !== "residual supply") continue;
-
-      card.classList.add("residual-card", "thermal");
-      card.classList.remove("caution");
-
-      const purple = "#5b3a96";
-      const purpleSoft = "rgba(91, 58, 150, 0.78)";
-      const purpleFaint = "rgba(91, 58, 150, 0.28)";
-
-      for (const el of card.querySelectorAll("svg path, svg polyline, svg line, .pulse-sparkline path, .pulse-sparkline polyline, .pulse-sparkline line")) {
-        if (el.tagName.toLowerCase() === "line") {
-          el.style.stroke = purpleFaint;
-        } else {
-          el.style.stroke = purpleSoft;
-        }
-      }
-
-      // Fallback if colour is inherited through currentColor.
-      for (const el of card.querySelectorAll("svg, .pulse-sparkline")) {
-        el.style.color = purple;
-      }
-
-      break;
-    }
-  }
-
-  const previousRenderDailyPulse = renderDailyPulse;
-
-  renderDailyPulse = function renderDailyPulseWithPurpleResidual(data) {
-    previousRenderDailyPulse(data);
-    forceResidualSparklinePurple();
-    setTimeout(forceResidualSparklinePurple, 0);
-    setTimeout(forceResidualSparklinePurple, 120);
-  };
-
-  document.addEventListener("DOMContentLoaded", () => {
-    forceResidualSparklinePurple();
-    setTimeout(forceResidualSparklinePurple, 0);
-    setTimeout(forceResidualSparklinePurple, 250);
-  });
-})();
-// IETM force residual sparkline purple: END
