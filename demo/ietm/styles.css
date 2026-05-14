@@ -8468,3 +8468,104 @@ h3 {
   }
 }
 /* IETM hero status desktop alignment: END */
+
+/* IETM hero text flow: BEGIN */
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 360px) !important;
+    column-gap: clamp(2rem, 5vw, 5rem) !important;
+    align-items: start !important;
+  }
+
+  .hero > div:first-child,
+  .hero .hero-copy,
+  .hero .hero-content,
+  .hero .hero-text {
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  .hero .lede,
+  .hero .hero-lede,
+  .hero .micro-note,
+  .hero p {
+    max-width: min(980px, 100%) !important;
+  }
+
+  .hero .lede,
+  .hero .hero-lede {
+    max-width: min(1040px, 100%) !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) 360px !important;
+  }
+
+  .hero .lede,
+  .hero .hero-lede {
+    max-width: 1080px !important;
+  }
+
+  .hero .micro-note,
+  .hero p {
+    max-width: 980px !important;
+  }
+}
+/* IETM hero text flow: END */
+
+/* IETM hero wide text layout: BEGIN */
+@media (min-width: 1000px) {
+  header.hero.panel,
+  .hero.panel,
+  .hero {
+    grid-template-columns: minmax(720px, 1fr) 300px !important;
+    column-gap: clamp(1.5rem, 3vw, 3rem) !important;
+    align-items: start !important;
+  }
+
+  header.hero.panel > *:first-child,
+  .hero.panel > *:first-child,
+  .hero > *:first-child {
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  header.hero.panel .lede,
+  header.hero.panel .micro-note,
+  .hero.panel .lede,
+  .hero.panel .micro-note,
+  .hero .lede,
+  .hero .micro-note {
+    max-width: 900px !important;
+    width: 100% !important;
+  }
+
+  header.hero.panel .prototype-status-card,
+  .hero.panel .prototype-status-card,
+  .hero .prototype-status-card {
+    width: 300px !important;
+    max-width: 300px !important;
+    align-self: start !important;
+    margin-top: 0 !important;
+  }
+}
+
+@media (min-width: 1250px) {
+  header.hero.panel,
+  .hero.panel,
+  .hero {
+    grid-template-columns: minmax(820px, 1fr) 300px !important;
+  }
+
+  header.hero.panel .lede,
+  header.hero.panel .micro-note,
+  .hero.panel .lede,
+  .hero.panel .micro-note,
+  .hero .lede,
+  .hero .micro-note {
+    max-width: 980px !important;
+  }
+}
+/* IETM hero wide text layout: END */
