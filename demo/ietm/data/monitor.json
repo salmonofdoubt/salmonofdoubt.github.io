@@ -930,7 +930,23 @@
     "thermal_generation_percent": 38.46,
     "interconnection_note": "Live SmartGrid System Generation page NET IMPORT % converted to MW using visible system generation.",
     "smartgrid_visible_overview_url": "https://www.smartgriddashboard.com/all/generation/",
-    "smartgrid_visible_overview_harvested_at": "2026-05-14T09:08:35+00:00"
+    "smartgrid_visible_overview_harvested_at": "2026-05-14T09:08:35+00:00",
+    "other_renewables_percent": 5.01,
+    "thermal_other_percent": 38.79,
+    "generation_mix_percent": {
+      "wind": 49.5,
+      "solar": 6.7,
+      "other_renewables": 5.01,
+      "thermal_other": 38.79,
+      "sum": 100.0
+    },
+    "demand_balance_expected_mw": 4824,
+    "demand_balance_gap_mw": 506,
+    "demand_balance_tolerance_mw": 300,
+    "demand_balance_status": "withheld_balance_mismatch",
+    "show_demand_card": false,
+    "normalised_at": "2026-05-14T09:24:22+00:00",
+    "normalisation_version": "current-electricity-v1"
   },
   "fuel_mix_24h": [
     {
@@ -1546,6 +1562,12 @@
       "harvested_at": "2026-05-14T09:08:35+00:00",
       "mode": "visible-page-current-kpi-parser",
       "caveat": "Uses the visible System Generation KPI values. Net Import % is converted to MW from visible system generation for the top KPI card."
+    },
+    "current_electricity_normalisation": {
+      "source": "Derived from final electricity_now fields",
+      "mode": "post-build-normalisation",
+      "generated_at": "2026-05-14T09:24:22+00:00",
+      "caveat": "Generation mix is normalised so wind + solar + other renewables + thermal/other = 100. Interconnection MW is derived from visible SmartGrid net-import percentage and generation. Demand is withheld from top accounting cards when it fails the generation + net-flow balance check."
     }
   },
   "county_hosting": {
