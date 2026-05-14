@@ -9585,3 +9585,47 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   }
 }
 /* IETM demand-match sensitivity panel: END */
+
+/* IETM Pink Floyd simplification: BEGIN */
+/*
+  Simplified trajectory story:
+  - hide the original RES-E plot
+  - hide the demand-pressure scenario plot
+  - hide the 80% goalpost mini-plot
+  - keep surrounding titles, badges, notes, chips, tiles, legends and final gap-widening chart
+*/
+
+#trajectoryChart .trajectory-scroll-wrap {
+  display: none !important;
+}
+
+#demandPressureScenarioChart .demand-scenario-chart-wrap {
+  display: none !important;
+}
+
+#trajectoryDemandAdjustedPanel .trajectory-demand-adjusted-svg-wrap {
+  display: none !important;
+}
+
+/* Tighten spacing where hidden plots used to sit */
+#trajectoryChart {
+  padding-bottom: 0.75rem;
+}
+
+#demandPressureScenarioChart,
+#trajectoryDemandAdjustedPanel {
+  padding-top: 0.95rem;
+}
+
+#demandPressureScenarioChart .demand-scenario-legend,
+#trajectoryDemandAdjustedPanel .trajectory-demand-adjusted-legend {
+  margin-top: 0.15rem;
+}
+
+/* Preserve explanatory labels and burden tiles as the visible narrative layer */
+.trajectory-demand-burden-chips,
+.demand-scenario-note,
+.trajectory-demand-adjusted-note {
+  margin-top: 0.75rem;
+}
+/* IETM Pink Floyd simplification: END */

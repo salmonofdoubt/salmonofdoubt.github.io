@@ -696,7 +696,6 @@ async function init() {
     renderTargetDrift(data);
     renderDemandAdjustedTrajectoryPanel(data);
     renderDemandMatchSensitivityPanel(data);
-    renderDemandPressureScenarioChart(data, await loadDemandPressureScenarios());
     renderPrices(data);
     renderResidual(data);
     renderCounties(data);
