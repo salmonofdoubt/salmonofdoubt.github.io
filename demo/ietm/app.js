@@ -3659,46 +3659,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 /* v0.59 Electricity Now consistency: renewables output can exceed demand */
 
 /* v0.60 Correct public renewable wording: contribution, not raw output */
-function renderMetrics(data) {
-  const e = data.electricity_now || {};
-  const target = document.getElementById("metricGrid");
-  if (!target) return;
-
-  const co2Available = e.co2_available !== false && isNumber(e.co2_g_per_kwh) && Number(e.co2_g_per_kwh) > 0;
-  const inter = iemInterconnectionDisplay(e);
-
-  const normalised = Boolean(e.renewables_normalised);
-  const surplus = Number(e.renewable_surplus_percent || 0);
-
-  const renewableNote = normalised
-    ? `Domestic contribution capped; raw output exceeded demand by ${pulseNumber(surplus, 0)} pp`
-    : "Estimated wind + solar contribution to demand";
-
-  const windNote = normalised
-    ? "Normalised contribution to Irish demand"
-    : "Wind contribution to Irish demand";
-
-  const solarNote = normalised
-    ? "Normalised contribution to Irish demand"
-    : "Solar contribution to Irish demand";
-
-  const residualNote = "Computed remainder after renewables and net imports";
-
-  target.innerHTML = [
-    metricCard("Demand now", `${iemValue(e.demand_mw, 0)} MW`, "Latest mapped system demand"),
-    metricCard("Renewables", percentOrNA(e.renewables_percent), renewableNote),
-    metricCard("Wind", percentOrNA(e.wind_percent), windNote),
-    metricCard("Solar", percentOrNA(e.solar_percent), solarNote),
-    metricCard("Residual", percentOrNA(e.residual_percent ?? e.gas_percent), residualNote),
-    metricCard("Interconnection", inter.value, inter.note),
-    metricCard(
-      "CO₂ intensity",
-      co2OrNA(e.co2_g_per_kwh, co2Available),
-      co2Available ? `${e.co2_source || "Mapped"} · ${e.co2_unit || "g/kWh"}` : "Not mapped in current source",
-      co2Available ? "co2-card" : "missing co2-card"
-    )
-  ].join("");
-}
 
 /* v0.62 Rename top-row renewables to renewable cover, not total system mix */
 function iemMetricAccent(label) {
