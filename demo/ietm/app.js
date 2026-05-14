@@ -605,21 +605,6 @@ function iemCollectGeoCoords(input, out = []) {
   return out;
 }
 
-function iemGeoBounds(features) {
-  const coords = [];
-  features.forEach(feature => iemCollectGeoCoords(feature.geometry?.coordinates, coords));
-
-  const xs = coords.map(c => c[0]).filter(isNumber);
-  const ys = coords.map(c => c[1]).filter(isNumber);
-
-  return {
-    minX: Math.min(...xs),
-    maxX: Math.max(...xs),
-    minY: Math.min(...ys),
-    maxY: Math.max(...ys)
-  };
-}
-
 function iemMakeProjector(bounds, width, height, pad) {
   const scale = Math.min(
     (width - pad * 2) / (bounds.maxX - bounds.minX || 1),
@@ -658,19 +643,6 @@ function iemGeometryPath(geometry, project) {
   }
 
   return "";
-}
-
-function iemFeatureCentroid(feature, project) {
-  const coords = iemCollectGeoCoords(feature.geometry?.coordinates, []);
-  if (!coords.length) return [0, 0];
-
-  const xs = coords.map(c => c[0]);
-  const ys = coords.map(c => c[1]);
-
-  return project([
-    (Math.min(...xs) + Math.max(...xs)) / 2,
-    (Math.min(...ys) + Math.max(...ys)) / 2
-  ]);
 }
 
 function iemRenderCountyTileFallback(heatmap, counties) {
