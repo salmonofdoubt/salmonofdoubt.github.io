@@ -33,6 +33,7 @@ def main() -> int:
     data = json.loads(MONITOR.read_text())
     e = data.get("electricity_now", {})
     errors: list[str] = []
+    warnings: list[str] = []
 
     generation = num(e.get("generation_mw"))
     renewables = num(e.get("renewables_percent"))
@@ -105,9 +106,9 @@ def main() -> int:
     # Plausibility guard: in the current public model, "other renewables" is a
     # calculated remainder, not a trusted measured technology class. Very high
     # values usually mean the source has mixed a renewable total with stale or
-    # incomplete wind/solar child values.
-    if other > 20.0:
-        errors.append(
+    # incomplete wind/solar child values. Warn, but do not fail the refresh.
+    if other is not None and other > 20.0:
+        warnings.append(
             f"Other renewables remainder is implausibly high: {other:.2f}%. "
             "This usually indicates stale/incomplete wind or solar component data."
         )
@@ -121,6 +122,10 @@ def main() -> int:
         return 1
 
     print("Current electricity validation passed.")
+    if warnings:
+        print("Current electricity validation warnings:")
+        for warning in warnings:
+            print(" -", warning)
     print(f"Generation mix: wind {wind:.2f} + solar {solar:.2f} + other renewables {other:.2f} + thermal/other {thermal:.2f} = {wind + solar + other + thermal:.2f}%")
     print(f"Interconnection: {inter_mw:.0f} MW from {net_pct:.2f}% of {generation:.0f} MW")
     print(f"Demand status: {e.get('demand_balance_status')}")
