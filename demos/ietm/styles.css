@@ -8674,3 +8674,28 @@ html body #metricGrid.metric-grid article.metric-card.others-calculated-card > s
   font-size: 10.88px !important;
   line-height: 13.9264px !important;
 }
+
+/* IETM Current grid pulse: align value rows across desktop cards */
+@media (min-width: 760px) {
+  html body #metricGrid.metric-grid article.metric-card {
+    display: grid !important;
+    grid-template-rows: 2.15rem auto 1fr !important;
+    align-content: start !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card > span:first-child {
+    min-height: 2.15rem !important;
+    display: block !important;
+    margin: 0 !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card > strong {
+    align-self: start !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.45rem !important;
+  }
+
+  html body #metricGrid.metric-grid article.metric-card > small {
+    align-self: start !important;
+  }
+}
