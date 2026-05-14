@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "title": "Demand pressure scenarios for RES-E catch-up burden",
+    "status": "scenario_model",
+    "purpose": "Estimate how additional electricity demand from data centres and EVs widens the renewable electricity build burden required to maintain the 2030 RES-E target share.",
+    "target_share": 0.8,
+    "conversion": {
+      "twh_per_year_to_mw_average": 114.08,
+      "formula": "extra_renewable_mw_average = extra_demand_twh_per_year * target_share * 114.08"
+    },
+    "important_note": "These scenarios do not change the official 80% RES-E target. They estimate additional renewable electricity required if electricity demand rises."
+  },
+  "years": [2024, 2025, 2026, 2027, 2028, 2029, 2030],
+  "drivers": {
+    "data_centres": {
+      "unit": "TWh/year",
+      "known": [
+        {
+          "year": 2024,
+          "value": 6.97,
+          "basis": "measured"
+        },
+        {
+          "year": 2025,
+          "value": 9.4,
+          "basis": "forecast"
+        }
+      ],
+      "scenarios": {
+        "low": {
+          "label": "Constrained / plateau",
+          "description": "Data-centre demand reaches the known 2025 forecast and then plateaus.",
+          "values": {
+            "2024": 6.97,
+            "2025": 9.4,
+            "2026": 9.4,
+            "2027": 9.4,
+            "2028": 9.4,
+            "2029": 9.4,
+            "2030": 9.4
+          }
+        },
+        "central": {
+          "label": "Managed growth",
+          "description": "Data-centre demand grows moderately after the 2025 forecast.",
+          "values": {
+            "2024": 6.97,
+            "2025": 9.4,
+            "2026": 9.82,
+            "2027": 10.24,
+            "2028": 10.66,
+            "2029": 11.08,
+            "2030": 11.5
+          }
+        },
+        "high": {
+          "label": "AI / high-growth pressure",
+          "description": "Data-centre demand continues to expand rapidly after the 2025 forecast.",
+          "values": {
+            "2024": 6.97,
+            "2025": 9.4,
+            "2026": 10.32,
+            "2027": 11.24,
+            "2028": 12.16,
+            "2029": 13.08,
+            "2030": 14.0
+          }
+        }
+      }
+    },
+    "evs": {
+      "unit": "TWh/year",
+      "known": [
+        {
+          "year": 2024,
+          "value": 0.45,
+          "basis": "modelled"
+        }
+      ],
+      "scenarios": {
+        "low": {
+          "label": "Slow uptake",
+          "description": "EV electricity demand grows slowly toward 2030.",
+          "values": {
+            "2024": 0.45,
+            "2025": 0.58,
+            "2026": 0.7,
+            "2027": 0.83,
+            "2028": 0.95,
+            "2029": 1.08,
+            "2030": 1.2
+          }
+        },
+        "central": {
+          "label": "Policy-aligned uptake",
+          "description": "EV electricity demand grows steadily toward 2030.",
+          "values": {
+            "2024": 0.45,
+            "2025": 0.71,
+            "2026": 0.97,
+            "2027": 1.23,
+            "2028": 1.48,
+            "2029": 1.74,
+            "2030": 2.0
+          }
+        },
+        "high": {
+          "label": "Accelerated electrification",
+          "description": "EV electricity demand grows rapidly toward 2030.",
+          "values": {
+            "2024": 0.45,
+            "2025": 0.88,
+            "2026": 1.3,
+            "2027": 1.73,
+            "2028": 2.15,
+            "2029": 2.58,
+            "2030": 3.0
+          }
+        }
+      }
+    }
+  }
+}
