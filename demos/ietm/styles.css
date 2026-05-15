@@ -9447,3 +9447,62 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
 }
 /* IETM compact prototype status final: END */
 
+/* IETM generation-now sparkline restore: BEGIN */
+.generation-now-sparkline {
+  display: block;
+  width: min(8rem, 100%);
+  height: 2rem;
+  margin: 0.35rem 0 0.45rem;
+  overflow: visible;
+}
+
+.generation-now-sparkline-baseline {
+  fill: none;
+  stroke: rgba(114,214,255,0.24);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.generation-now-sparkline-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* IETM generation-now sparkline restore: END */
+
+/* IETM forced generation-now sparkline: BEGIN */
+.generation-now-forced-sparkline {
+  display: block;
+  width: min(8.75rem, 100%);
+  height: 2.25rem;
+  margin: 0.38rem 0 0.46rem;
+  overflow: visible;
+}
+/* IETM forced generation-now sparkline: END */
+
+/* IETM post-render generation sparkline repair: BEGIN */
+.generation-now-repaired-sparkline {
+  display: block;
+  width: min(8.75rem, 100%);
+  height: 2rem;
+  margin: 0.38rem 0 0.45rem;
+  overflow: visible;
+}
+
+.generation-now-repaired-baseline {
+  fill: none;
+  stroke: rgba(114,214,255,0.28);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+}
+
+.generation-now-repaired-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* IETM post-render generation sparkline repair: END */
