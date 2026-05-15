@@ -9506,3 +9506,10 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   stroke-linejoin: round;
 }
 /* IETM post-render generation sparkline repair: END */
+
+/* IETM generation mix other-renewables teal: BEGIN */
+/* Latest generation mix only: Others (calculated), rendered as .other-renewables. */
+#mixBars .mix-row.other-renewables .bar-fill {
+  background: #2dd4bf !important;
+}
+/* IETM generation mix other-renewables teal: END */
