@@ -1,0 +1,42 @@
+name: Bump IETM dashboard version
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "demos/ietm/**"
+      - ".github/workflows/bump-ietm-dashboard-version.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump IETM live dashboard patch version
+        run: |
+          python3 demos/ietm/ops/bump_dashboard_version.py
+
+      - name: Commit version bump
+        run: |
+          if git diff --quiet; then
+            echo "No version change to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          VERSION="$(cat demos/ietm/VERSION)"
+          git add demos/ietm/VERSION demos/ietm/data/monitor.json demos/ietm/index.html
+          git commit -m "Bump IETM dashboard version to v${VERSION}"
+          git push

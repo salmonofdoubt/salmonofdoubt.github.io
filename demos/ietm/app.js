@@ -696,7 +696,7 @@ function iemCompactStatusDate(value) {
 
 function iemCompactVersion(data) {
   const meta = data?.meta || data?.metadata || {};
-  const explicit = meta.version || data?.version;
+  const explicit = data?.dashboard_version || meta.dashboard_version || meta.version || data?.version;
   if (explicit) return String(explicit).startsWith("v") ? String(explicit) : `v${explicit}`;
 
   const stamp = meta.generated_at || meta.updated_at || data?.updated_at || data?.electricity_now?.updated_at;
