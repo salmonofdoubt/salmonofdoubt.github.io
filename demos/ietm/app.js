@@ -1,4 +1,7 @@
 
+
+
+
 // IETM hide oversized annual-energy metrics: BEGIN
 function hideOversizedAnnualEnergyMetrics() {
   const annualEnergyOnly = /^(?:Annual energy:\s*)?[~≈]?\s*\d+(?:\.\d+)?\s*TWh\/yr\s*$/i;
