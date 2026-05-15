@@ -1,4 +1,50 @@
 
+// IETM hide oversized annual-energy metrics: BEGIN
+function hideOversizedAnnualEnergyMetrics() {
+  const annualEnergyOnly = /^(?:Annual energy:\s*)?[~≈]?\s*\d+(?:\.\d+)?\s*TWh\/yr\s*$/i;
+
+  const cards = Array.from(document.querySelectorAll("article, .card, .metric-card, .panel, [class*='card']"))
+    .filter(card => /Average load equivalent/i.test(card.textContent || ""));
+
+  cards.forEach(card => {
+    card.querySelectorAll(".ietm-annual-energy-compact").forEach(el => {
+      el.classList.remove("ietm-annual-energy-compact");
+    });
+
+    const candidates = Array.from(card.querySelectorAll("*"))
+      .filter(el => {
+        const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+        if (!annualEnergyOnly.test(text)) return false;
+
+        const childContainsAnnualEnergy = Array.from(el.children || []).some(child =>
+          /TWh\/yr/i.test(child.textContent || "")
+        );
+
+        if (childContainsAnnualEnergy) return false;
+
+        const fontSize = Number.parseFloat(window.getComputedStyle(el).fontSize || "0");
+
+        return fontSize >= 16 || el.matches("strong, b, .value, .metric-value, [class*='value'], [class*='metric']");
+      });
+
+    candidates.forEach(el => {
+      el.remove();
+    });
+  });
+}
+
+function scheduleHideOversizedAnnualEnergyMetrics() {
+  [0, 100, 350, 900, 1600].forEach(delay => {
+    window.setTimeout(hideOversizedAnnualEnergyMetrics, delay);
+  });
+}
+// IETM hide oversized annual-energy metrics: END
+
+
+
+
+
+
 // IETM post-render generation sparkline repair: BEGIN
 function iemGenerationSparkShapePath() {
   // Fixed warm-start shape. This is visual scaffolding until real observed
@@ -971,6 +1017,7 @@ async function init() {
     renderDemandPressure(data);
     renderCountyHosting(data);
     renderSourceConsole(data);
+    scheduleHideOversizedAnnualEnergyMetrics();
     scheduleGenerationNowSparklineRepair();
   } catch (error) {
     console.error(error);
