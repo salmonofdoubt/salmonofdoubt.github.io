@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software or dashboard, please cite it using the metadata from this file."
+title: "Ireland Energy Transition Monitor"
+type: software
+authors:
+  - family-names: "Baumann"
+    given-names: "André"
+    orcid: "https://orcid.org/0009-0005-8345-5530"
+abstract: "An independent civic dashboard and reproducible data pipeline for tracking Ireland's electricity transition, RES-E progress, and demand-pressure scenarios from data centres and electric vehicles."
+keywords:
+  - Ireland
+  - electricity
+  - renewable energy
+  - RES-E
+  - energy transition
+  - data centres
+  - electric vehicles
+  - civic dashboard
+  - scenario model
+repository-code: "https://github.com/salmonofdoubt/ietm"
+url: "https://salmonofdoubt.github.io/demos/ietm/"
+license: "MIT"
+version: "0.1.0"
+date-released: "2026-05-15"
+
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20200900"

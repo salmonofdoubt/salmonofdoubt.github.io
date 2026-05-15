@@ -1,0 +1,40 @@
+{
+  "title": "Ireland Energy Transition Monitor",
+  "upload_type": "software",
+  "description": "An independent civic dashboard and reproducible data pipeline for tracking Ireland's electricity transition, annual RES-E progress, and demand-pressure scenarios from data centres and electric vehicles. The project combines generated JSON, public-source harvesting scripts, validation logic, a layperson method page, and a static web dashboard.",
+  "creators": [
+    {
+      "name": "Baumann, André",
+      "affiliation": "Independent researcher, Dublin, Ireland",
+      "orcid": "0009-0005-8345-5530"
+    }
+  ],
+  "keywords": [
+    "Ireland",
+    "electricity",
+    "renewable energy",
+    "RES-E",
+    "energy transition",
+    "data centres",
+    "electric vehicles",
+    "civic dashboard",
+    "scenario modelling",
+    "open data"
+  ],
+  "license": "MIT",
+  "version": "0.1.0",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "https://salmonofdoubt.github.io/demos/ietm/",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://github.com/salmonofdoubt/ietm",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "doi": "10.5281/zenodo.20200900"
+}
