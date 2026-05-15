@@ -9322,3 +9322,128 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   margin-top: 0.75rem;
 }
 /* IETM Pink Floyd simplification: END */
+
+
+/* IETM compact prototype status final: BEGIN */
+.status-card {
+  width: min(100%, 15.6rem) !important;
+  padding: 0.85rem 1rem !important;
+  border-radius: 1rem !important;
+}
+
+.status-card .status-label {
+  display: block;
+  margin: 0 0 0.65rem !important;
+  color: rgba(235,245,242,0.84);
+  font-size: 0.72rem !important;
+  line-height: 1.15 !important;
+  font-weight: 850;
+}
+
+.prototype-status-list {
+  display: grid;
+  gap: 0 !important;
+}
+
+.prototype-status-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.38rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.prototype-status-row span {
+  color: rgba(235,245,242,0.72);
+  font-size: 0.68rem !important;
+  line-height: 1.1 !important;
+}
+
+.prototype-status-row strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.28rem;
+  font-size: 0.7rem !important;
+  line-height: 1.1 !important;
+  font-weight: 900 !important;
+  white-space: nowrap;
+}
+
+.prototype-status-row strong i {
+  display: inline-grid;
+  place-items: center;
+  width: 0.82rem;
+  height: 0.82rem;
+  border-radius: 999px;
+  font-size: 0.58rem;
+  font-style: normal;
+  line-height: 1;
+  color: #06160f;
+}
+
+.prototype-status-row .status-ok {
+  color: #72f09a;
+}
+
+.prototype-status-row .status-ok i {
+  background: #72f09a;
+}
+
+.prototype-status-row .status-bad {
+  color: #ff6f7d;
+}
+
+.prototype-status-row .status-bad i {
+  background: #ff6f7d;
+}
+
+.prototype-status-row .status-warn {
+  color: #ffd866;
+}
+
+.prototype-status-row .status-warn i {
+  background: #ffd866;
+}
+
+.prototype-status-meta {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem !important;
+  margin: 0.72rem 0 0 !important;
+}
+
+.prototype-status-meta div {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.prototype-status-meta dt {
+  margin: 0 0 0.2rem !important;
+  color: rgba(235,245,242,0.62);
+  font-size: 0.58rem !important;
+  line-height: 1.1 !important;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.prototype-status-meta dd {
+  margin: 0 !important;
+  color: rgba(244,255,248,0.95);
+  font-size: 0.68rem !important;
+  line-height: 1.12 !important;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .status-card {
+    width: 100% !important;
+  }
+}
+/* IETM compact prototype status final: END */
+

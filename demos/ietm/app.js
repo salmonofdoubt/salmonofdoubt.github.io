@@ -675,6 +675,94 @@ async function loadDemandPressureForecast() {
   }
 }
 
+
+// IETM compact prototype status renderer: BEGIN
+function iemCompactStatusDate(value) {
+  if (!value) return "Unknown";
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return String(value);
+
+  return date.toLocaleString("en-IE", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZoneName: "short"
+  });
+}
+
+function iemCompactVersion(data) {
+  const meta = data?.meta || data?.metadata || {};
+  const explicit = meta.version || data?.version;
+  if (explicit) return String(explicit).startsWith("v") ? String(explicit) : `v${explicit}`;
+
+  const stamp = meta.generated_at || meta.updated_at || data?.updated_at || data?.electricity_now?.updated_at;
+  const date = stamp ? new Date(stamp) : new Date();
+  if (Number.isNaN(date.getTime())) return "v2026.05.15";
+
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `v${y}.${m}.${d}`;
+}
+
+function renderCompactPrototypeStatus(data) {
+  const card = document.querySelector(".status-card");
+  if (!card) return;
+
+  const meta = data?.meta || data?.metadata || {};
+  const updatedRaw =
+    meta.generated_at ||
+    meta.updated_at ||
+    meta.last_updated ||
+    data?.generated_at ||
+    data?.updated_at ||
+    data?.electricity_now?.updated_at ||
+    data?.electricity_now?.mapped_at;
+
+  const updated = iemCompactStatusDate(updatedRaw);
+  const version = iemCompactVersion(data);
+
+  card.innerHTML = `
+    <span class="status-label">Current prototype status</span>
+
+    <div class="prototype-status-list" aria-label="Prototype source status">
+      <div class="prototype-status-row">
+        <span>EirGrid harvester</span>
+        <strong class="status-ok"><i aria-hidden="true">✓</i> Active</strong>
+      </div>
+      <div class="prototype-status-row">
+        <span>Electricity live</span>
+        <strong class="status-ok"><i aria-hidden="true">✓</i> Active</strong>
+      </div>
+      <div class="prototype-status-row">
+        <span>Gas harvester</span>
+        <strong class="status-bad"><i aria-hidden="true">×</i> Not live</strong>
+      </div>
+      <div class="prototype-status-row">
+        <span>Website confidence</span>
+        <strong class="status-warn"><i aria-hidden="true">!</i> Medium</strong>
+      </div>
+    </div>
+
+    <dl class="prototype-status-meta">
+      <div>
+        <dt>Version</dt>
+        <dd>${escapeHtml(version)}</dd>
+      </div>
+      <div>
+        <dt>Updated</dt>
+        <dd title="${escapeHtml(String(updatedRaw || ""))}">${escapeHtml(updated)}</dd>
+      </div>
+    </dl>
+  `;
+}
+// IETM compact prototype status renderer: END
+
+
 async function init() {
   try {
     const [data, demandPressureForecast] = await Promise.all([
@@ -686,6 +774,7 @@ async function init() {
       data.demand_pressure_forecast = demandPressureForecast;
     }
     renderMeta(data);
+    renderCompactPrototypeStatus(data);
     renderDailyPulse(data);
     renderMetrics(data);
     renderMix(data);
