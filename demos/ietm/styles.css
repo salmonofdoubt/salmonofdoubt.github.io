@@ -9544,3 +9544,105 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   box-shadow: 0 0 0 1px rgba(114, 224, 168, 0.2);
 }
 /* v0.59 RES-E demand fan arriving renewables: END */
+
+/* v0.60 RES-E demand fan lines-only: BEGIN */
+.rese-gap-pressure-band {
+  display: none !important;
+}
+
+.rese-gap-pressure-line {
+  fill: none;
+  stroke-width: 3.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.98;
+}
+
+.rese-gap-pressure-line.scenario-low {
+  stroke: #7fbf7f;
+}
+
+.rese-gap-pressure-line.scenario-central {
+  stroke: #d9a441;
+}
+
+.rese-gap-pressure-line.scenario-high {
+  stroke: #d46a6a;
+}
+
+.rese-gap-dot.scenario-low,
+.rese-gap-dot.scenario-central,
+.rese-gap-dot.scenario-high {
+  stroke: rgba(4, 12, 10, 0.88);
+  stroke-width: 1.5;
+}
+
+.rese-gap-label.scenario-low,
+.rese-gap-label.scenario-central,
+.rese-gap-label.scenario-high {
+  font-weight: 800;
+}
+/* v0.60 RES-E demand fan lines-only: END */
+
+/* v0.61 RES-E pressure lines truly thin: BEGIN */
+.rese-gap-pressure-band {
+  display: none !important;
+  opacity: 0 !important;
+  fill: transparent !important;
+  stroke: none !important;
+}
+
+.rese-gap-pressure-line {
+  fill: none !important;
+  stroke-width: 2.1px !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  opacity: 0.95 !important;
+  filter: none !important;
+}
+
+.rese-gap-pressure-line.scenario-low {
+  stroke: #7fbf7f !important;
+}
+
+.rese-gap-pressure-line.scenario-central {
+  stroke: #d9a441 !important;
+}
+
+.rese-gap-pressure-line.scenario-high {
+  stroke: #d46a6a !important;
+}
+
+.rese-gap-supply-line {
+  fill: none !important;
+  stroke: var(--green, #72e0a8) !important;
+  stroke-width: 3.2px !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: none !important;
+}
+
+.rese-gap-dot.scenario-low,
+.rese-gap-dot.scenario-central,
+.rese-gap-dot.scenario-high {
+  r: 3px;
+  stroke: rgba(4, 12, 10, 0.88) !important;
+  stroke-width: 1px !important;
+}
+
+.rese-gap-dot.supply-central {
+  fill: var(--green, #72e0a8) !important;
+  stroke: rgba(4, 12, 10, 0.9) !important;
+  stroke-width: 1.4px !important;
+}
+
+.rese-gap-label.scenario-low,
+.rese-gap-label.scenario-central,
+.rese-gap-label.scenario-high,
+.rese-gap-label.supply-central {
+  paint-order: stroke !important;
+  stroke: rgba(4, 12, 10, 0.9) !important;
+  stroke-width: 3px !important;
+  stroke-linejoin: round !important;
+}
+/* v0.61 RES-E pressure lines truly thin: END */

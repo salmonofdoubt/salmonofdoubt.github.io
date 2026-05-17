@@ -3354,16 +3354,6 @@ function renderDemandMatchSensitivityPanel(data) {
   const low = scenarios.find(series => series.key === "low");
   const high = scenarios.find(series => series.key === "high");
 
-  const bandPath = [
-    ...low.points.map((point, index) =>
-      `${index === 0 ? "M" : "L"} ${x(point.year).toFixed(1)} ${y(point.value).toFixed(1)}`
-    ),
-    ...high.points.slice().reverse().map(point =>
-      `L ${x(point.year).toFixed(1)} ${y(point.value).toFixed(1)}`
-    ),
-    "Z"
-  ].join(" ");
-
   const gridValues = [];
   for (let value = minY; value <= maxY; value += 5) gridValues.push(value);
 
@@ -3424,7 +3414,6 @@ function renderDemandMatchSensitivityPanel(data) {
           <text class="rese-gap-axis" x="${x(year)}" y="${height - 16}" text-anchor="middle">${year}</text>
         `).join("")}
 
-        <path class="rese-gap-pressure-band" d="${bandPath}"></path>
         <path class="rese-gap-official-line" d="${linePath(officialSeries)}"></path>
         <path class="rese-gap-base-line" d="${linePath(baseSeries)}"></path>
 
@@ -3505,7 +3494,6 @@ function renderDemandMatchSensitivityPanel(data) {
     <div class="rese-gap-legend">
       <span><i class="official"></i> Required path to fixed 80%</span>
       <span><i class="base"></i> Recent observed trend</span>
-      <span><i class="band"></i> Demand-pressure fan</span>
       <span><i class="low"></i> Low</span>
       <span><i class="central"></i> Central</span>
       <span><i class="high"></i> High</span>
