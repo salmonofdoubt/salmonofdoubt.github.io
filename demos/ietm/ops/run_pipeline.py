@@ -20,6 +20,7 @@ STEPS = [
     ("Harvest Smart Grid live electricity", ["python3", "ops/harvest_smartgrid_live.py"]),
     ("Harvest EirGrid CO2", ["python3", "ops/harvest_eirgrid_co2.py"]),
     ("Harvest Smart Grid API live electricity", ["python3", "ops/harvest_smartgrid_api_live.py"]),
+    ("Harvest renewable capacity evidence", ["python3", "ops/harvest_renewable_capacity.py"]),
     ("Harvest SEAI prices", ["python3", "ops/harvest_seai_prices.py"]),
     ("Harvest daily market prices", ["python3", "ops/harvest_daily_market_prices.py"]),
     ("Build source model and freshness gates", ["python3", "ops/write_source_model.py"]),
