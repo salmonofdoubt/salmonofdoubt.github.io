@@ -3351,7 +3351,6 @@ function renderDemandMatchSensitivityPanel(data) {
     `${index === 0 ? "M" : "L"} ${x(point.year).toFixed(1)} ${y(point.value).toFixed(1)}`
   ).join(" ");
 
-  const low = scenarios.find(series => series.key === "low");
   const high = scenarios.find(series => series.key === "high");
 
   const gridValues = [];
