@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-05-17T14:51:39+00:00",
+  "sources": {
+    "eirgrid_system_renewable": {
+      "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
+      "link_count": 40,
+      "status": "loaded"
+    },
+    "eirgrid_connected_contracted": {
+      "url": "https://www.eirgrid.ie/industry/customer-information/connected-and-contracted-generators",
+      "link_count": 32,
+      "status": "loaded"
+    },
+    "esb_generator_statistics": {
+      "url": "https://www.esbnetworks.ie/services/get-connected/renewable-connection/generator-statistics",
+      "link_count": 67,
+      "status": "loaded"
+    },
+    "gov_ress": {
+      "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/renewable-electricity-support-scheme-ress/",
+      "link_count": 65,
+      "status": "loaded"
+    },
+    "gov_oress": {
+      "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/offshore-renewable-electricity-support-scheme-oress/",
+      "link_count": 28,
+      "status": "loaded"
+    },
+    "eirgrid_airaa": {
+      "url": "https://www.eirgrid.ie/airaa",
+      "link_count": 43,
+      "status": "loaded"
+    },
+    "eirgrid_tso_contracted_wind": {
+      "status": "loaded",
+      "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Wind-Report-28-11-2025.pdf",
+      "bytes": 200808,
+      "pages": 2,
+      "source_key": "eirgrid_tso_contracted_wind",
+      "records": 25,
+      "source_correct_as_of": "28/11/2025",
+      "parser": "pdf_line_window_v1"
+    },
+    "eirgrid_tso_contracted_non_wind": {
+      "status": "loaded",
+      "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Non-Wind-Report-28-11-2025.pdf",
+      "bytes": 320055,
+      "pages": 8,
+      "source_key": "eirgrid_tso_contracted_non_wind",
+      "records": 100,
+      "source_correct_as_of": "28/11/2025",
+      "parser": "pdf_line_window_v1"
+    },
+    "esb_dso_contracted_renewable": {
+      "status": "loaded",
+      "url": "https://media.esbnetworks.ie/media/docs/default-source/publications/dso-contracted-renewable-generators-q1-2026.pdf?sfvrsn=5e5bb2f4_20",
+      "bytes": 582513,
+      "pages": 7,
+      "source_key": "esb_dso_contracted_renewable",
+      "records": 295,
+      "source_correct_as_of": "01/04/2026",
+      "parser": "pdf_line_window_v1"
+    },
+    "esb_dso_energised_renewable": {
+      "status": "loaded",
+      "url": "https://media.esbnetworks.ie/media/docs/default-source/publications/dso-energised-renewable-generators-q1-2026.pdf?sfvrsn=19be3394_23",
+      "bytes": 1228874,
+      "pages": 22,
+      "source_key": "esb_dso_energised_renewable",
+      "records": 536,
+      "source_correct_as_of": "01/04/2026",
+      "parser": "pdf_line_window_v1"
+    },
+    "eirgrid_system_renewable_summary": {
+      "status": "loaded",
+      "url": "https://cms.eirgrid.ie/sites/default/files/publications/System-and-Renewable-Data-Summary-Report-V22.xlsx",
+      "bytes": 623526,
+      "worksheets": [
+        "KPI",
+        "System Data Summary",
+        "Fuel Mix & CO2",
+        "Wind Installed Capacities",
+        "NI Connected Wind & Solar",
+        "IE Connected Renewables",
+        "IE Connected Non-Renewables"
+      ],
+      "records": 6,
+      "parser": "xlsx_aggregate_scan_v1",
+      "source_key": "eirgrid_system_renewable_summary"
+    }
+  },
+  "errors": []
+}
