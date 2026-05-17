@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "title": "Renewable capacity delivery assumptions",
+    "schema_version": "0.1.0",
+    "purpose": "Converts official connected/contracted capacity evidence into transparent arriving-renewables RES-E scenario inputs.",
+    "caveat": "These are explicit scenario assumptions, not official delivery forecasts. Battery storage is excluded from renewable-generation uplift because it is flexibility capacity, not primary renewable generation."
+  },
+  "capacity_factor": {
+    "solar": 0.11,
+    "wind_onshore": 0.31,
+    "wind_offshore": 0.45,
+    "hydro": 0.35,
+    "bioenergy": 0.70,
+    "waste_to_energy": 0.55,
+    "wave": 0.25,
+    "hybrid_renewable": 0.25,
+    "hybrid_renewable_storage": 0.22,
+    "battery_storage": 0.0
+  },
+  "generation_exclusions": [
+    "battery_storage"
+  ],
+  "delivery_confidence": {
+    "contracted": {
+      "low": 0.35,
+      "central": 0.55,
+      "high": 0.75
+    },
+    "awarded_support": {
+      "low": 0.45,
+      "central": 0.65,
+      "high": 0.85
+    },
+    "connected": {
+      "low": 1.0,
+      "central": 1.0,
+      "high": 1.0
+    }
+  },
+  "delivery_profile": {
+    "solar": {
+      "2025": 0.00,
+      "2026": 0.15,
+      "2027": 0.25,
+      "2028": 0.25,
+      "2029": 0.20,
+      "2030": 0.15
+    },
+    "wind_onshore": {
+      "2025": 0.00,
+      "2026": 0.05,
+      "2027": 0.15,
+      "2028": 0.25,
+      "2029": 0.30,
+      "2030": 0.25
+    },
+    "wind_offshore": {
+      "2025": 0.00,
+      "2026": 0.00,
+      "2027": 0.05,
+      "2028": 0.15,
+      "2029": 0.30,
+      "2030": 0.50
+    },
+    "hydro": {
+      "2025": 0.00,
+      "2026": 0.10,
+      "2027": 0.20,
+      "2028": 0.25,
+      "2029": 0.25,
+      "2030": 0.20
+    },
+    "bioenergy": {
+      "2025": 0.00,
+      "2026": 0.10,
+      "2027": 0.20,
+      "2028": 0.25,
+      "2029": 0.25,
+      "2030": 0.20
+    },
+    "waste_to_energy": {
+      "2025": 0.00,
+      "2026": 0.10,
+      "2027": 0.20,
+      "2028": 0.25,
+      "2029": 0.25,
+      "2030": 0.20
+    },
+    "wave": {
+      "2025": 0.00,
+      "2026": 0.00,
+      "2027": 0.05,
+      "2028": 0.15,
+      "2029": 0.30,
+      "2030": 0.50
+    },
+    "default": {
+      "2025": 0.00,
+      "2026": 0.10,
+      "2027": 0.20,
+      "2028": 0.25,
+      "2029": 0.25,
+      "2030": 0.20
+    }
+  },
+  "scenario_pairing": {
+    "low": "low demand pressure + low delivery confidence",
+    "central": "central demand pressure + central delivery confidence",
+    "high": "high demand pressure + high delivery confidence"
+  }
+}
