@@ -832,6 +832,10 @@ function renderCompactPrototypeStatus(data) {
         <strong class="status-ok"><i aria-hidden="true">✓</i> Active</strong>
       </div>
       <div class="prototype-status-row">
+        <span>Renewable build-out</span>
+        <strong class="status-ok"><i aria-hidden="true">✓</i> Active</strong>
+      </div>
+      <div class="prototype-status-row">
         <span>Gas harvester</span>
         <strong class="status-bad"><i aria-hidden="true">×</i> Not live</strong>
       </div>
