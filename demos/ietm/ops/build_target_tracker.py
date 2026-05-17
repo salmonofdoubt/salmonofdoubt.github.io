@@ -46,6 +46,7 @@ BASELINE_DEMAND_TWH = 31.682
 HOURS_PER_YEAR = 8760
 
 SCENARIOS = ("low", "central", "high")
+CONNECTED_STATUSES = {"connected", "energised", "commissioned"}
 
 
 def now_iso() -> str:
@@ -66,6 +67,17 @@ def as_float(value: Any, default: float = 0.0) -> float:
         return float(value)
     except (TypeError, ValueError):
         return default
+
+
+def parse_year(value: Any) -> int | None:
+    text = str(value or "")
+    for token in text.replace("/", "-").split("-"):
+        if token.isdigit() and len(token) == 4:
+            return int(token)
+    try:
+        return int(text[:4])
+    except Exception:
+        return None
 
 
 def linear_target(year: int) -> float:
@@ -142,6 +154,32 @@ def expected_supply_uplift_twh(
     return total_twh, by_technology
 
 
+def record_has_real_connected_transition(record: dict[str, Any]) -> bool:
+    """True only when history shows a non-connected state before connected.
+
+    The first history bootstrap sees many projects already connected. Those are
+    baseline stock, not newly-arriving renewables, so they must not be counted as
+    post-2024 confirmed additions. A confirmed addition requires an observed
+    status transition from contracted/non-connected to connected in later runs.
+    """
+    first_status = str(record.get("first_seen_status") or "").lower()
+    if first_status in CONNECTED_STATUSES:
+        return False
+
+    statuses = [str(event.get("status") or "").lower() for event in record.get("status_history", [])]
+    if not statuses:
+        return False
+
+    seen_non_connected = False
+    for status in statuses:
+        if status not in CONNECTED_STATUSES:
+            seen_non_connected = True
+        elif seen_non_connected:
+            return True
+
+    return False
+
+
 def connected_supply_uplift_twh(
     capacity: dict[str, Any],
     history: dict[str, Any],
@@ -149,7 +187,12 @@ def connected_supply_uplift_twh(
     year: int,
     baseline_year: int,
 ) -> tuple[float, dict[str, float]]:
-    """Return observed annual TWh from projects first seen connected after baseline year."""
+    """Return observed annual TWh from projects demonstrably connected after baseline.
+
+    A project is counted only if our longitudinal history shows it first as
+    non-connected and later as connected/energised. This prevents the initial
+    history bootstrap from treating all already-connected stock as new arrivals.
+    """
     capacity_factors = assumptions.get("capacity_factor", {}) or {}
     excluded = set(assumptions.get("generation_exclusions", []) or [])
     projects = history.get("projects", {}) or {}
@@ -158,23 +201,15 @@ def connected_supply_uplift_twh(
     by_technology: dict[str, float] = {}
 
     for record in projects.values():
+        if not record_has_real_connected_transition(record):
+            continue
+
         latest = record.get("latest", {}) or {}
         tech = str(latest.get("technology") or record.get("technology") or "unknown")
         if tech in excluded:
             continue
 
-        connected_at = str(record.get("first_seen_connected_at") or "")
-        connected_year = None
-        for token in connected_at.replace("/", "-").split("-"):
-            if token.isdigit() and len(token) == 4:
-                connected_year = int(token)
-                break
-        if connected_year is None:
-            try:
-                connected_year = int(connected_at[:4])
-            except Exception:
-                connected_year = None
-
+        connected_year = parse_year(record.get("first_seen_connected_at"))
         if connected_year is None or connected_year <= baseline_year or connected_year > year:
             continue
 
@@ -318,8 +353,9 @@ def main() -> None:
         "capacity_source": "data/source/renewable_capacity.json",
         "history_source": "data/source/renewable_capacity_history.json",
         "caveat": (
-            "Supply-corrected trajectories are scenario outputs. Confirmed additions use first-seen connected history; "
-            "expected additions use contracted/support-awarded capacity, technology capacity factors, delivery profiles and delivery-confidence assumptions."
+            "Supply-corrected trajectories are scenario outputs. Confirmed additions count only observed transitions "
+            "from non-connected to connected in renewable_capacity_history.json; the initial connected stock is treated as baseline, not new arrival. "
+            "Expected additions use contracted/support-awarded capacity, technology capacity factors, delivery profiles and delivery-confidence assumptions."
         ),
     }
 
