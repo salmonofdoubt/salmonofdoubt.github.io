@@ -9513,3 +9513,34 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   background: #2dd4bf !important;
 }
 /* IETM generation mix other-renewables teal: END */
+
+/* v0.59 RES-E demand fan arriving renewables: BEGIN */
+.rese-gap-supply-line {
+  fill: none;
+  stroke: var(--green, #72e0a8);
+  stroke-width: 4.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(114, 224, 168, 0.18));
+}
+
+.rese-gap-dot.supply-central {
+  fill: var(--green, #72e0a8);
+  stroke: rgba(4, 12, 10, 0.9);
+  stroke-width: 2;
+}
+
+.rese-gap-label.supply-central {
+  fill: var(--green, #72e0a8);
+  font-weight: 850;
+  paint-order: stroke;
+  stroke: rgba(4, 12, 10, 0.9);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.rese-gap-legend i.supply {
+  background: var(--green, #72e0a8);
+  box-shadow: 0 0 0 1px rgba(114, 224, 168, 0.2);
+}
+/* v0.59 RES-E demand fan arriving renewables: END */

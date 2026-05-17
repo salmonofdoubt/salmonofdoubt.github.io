@@ -3229,6 +3229,12 @@ function renderDemandMatchSensitivityPanel(data) {
 
   if (!forecast || !Object.keys(byYear).length || !forecastYears.length) return;
 
+  const trajectoryByYear = new Map(
+    rows
+      .filter(row => Number.isFinite(Number(row.year)))
+      .map(row => [Number(row.year), row])
+  );
+
   const regression = iemReseGapRegression(rows);
   if (!regression) return;
 
@@ -3249,9 +3255,14 @@ function renderDemandMatchSensitivityPanel(data) {
   if (!years.includes(targetYear)) years.push(targetYear);
 
   const baseSeries = years.map(year => {
-    const projected = year === latestYear
-      ? latestActual
-      : Math.max(0, Math.min(100, regression.predict(year)));
+    const row = trajectoryByYear.get(Number(year)) || {};
+    const modelledRecentPace = Number(row.recent_pace);
+
+    const projected = Number.isFinite(modelledRecentPace)
+      ? modelledRecentPace
+      : year === latestYear
+        ? latestActual
+        : Math.max(0, Math.min(100, regression.predict(year)));
 
     return {
       year,
@@ -3268,18 +3279,44 @@ function renderDemandMatchSensitivityPanel(data) {
     ...scenario,
     points: years.map(year => {
       const base = baseSeries.find(point => point.year === year);
-      const burdenPp = Number(byYear[String(year)]?.[scenario.key]?.demand_adjusted_burden_pp || 0);
-      const stressed = Math.max(0, (base?.value ?? regression.predict(year)) - burdenPp);
+      const row = trajectoryByYear.get(Number(year)) || {};
+      const modelledDemand = Number(row[`demand_${scenario.key}`]);
+      const modelledSupply = Number(row[`supply_corrected_${scenario.key}`]);
+      const fallbackBurden = Number(byYear[String(year)]?.[scenario.key]?.demand_adjusted_burden_pp || 0);
+
+      const stressed = Number.isFinite(modelledDemand)
+        ? modelledDemand
+        : Math.max(0, (base?.value ?? regression.predict(year)) - fallbackBurden);
+
+      const burdenPp = Math.max(0, (base?.value ?? regression.predict(year)) - stressed);
 
       return {
         year,
         baseValue: base?.value ?? 0,
         burdenPp,
         value: stressed,
-        gap: Math.max(0, targetPercent - stressed)
+        supplyValue: Number.isFinite(modelledSupply) ? modelledSupply : null,
+        arrivingUpliftPp: Number(row[`arriving_supply_uplift_pp_${scenario.key}`] || 0),
+        expectedPipelineTwh: Number(row[`expected_pipeline_twh_${scenario.key}`] || 0),
+        confirmedConnectedTwh: Number(row[`confirmed_connected_twh_${scenario.key}`] || 0),
+        gap: Math.max(0, targetPercent - stressed),
+        supplyGap: Number.isFinite(modelledSupply) ? Math.max(0, targetPercent - modelledSupply) : null
       };
     })
   }));
+
+  const centralSupplySeries = (
+    scenarios.find(series => series.key === "central")?.points || []
+  )
+    .filter(point => Number.isFinite(Number(point.supplyValue)))
+    .map(point => ({
+      year: point.year,
+      value: Number(point.supplyValue),
+      arrivingUpliftPp: Number(point.arrivingUpliftPp || 0),
+      expectedPipelineTwh: Number(point.expectedPipelineTwh || 0),
+      confirmedConnectedTwh: Number(point.confirmedConnectedTwh || 0),
+      gap: Math.max(0, targetPercent - Number(point.supplyValue))
+    }));
 
   const officialSeries = years.map(year => {
     const progress = (year - latestYear) / (targetYear - latestYear || 1);
@@ -3293,6 +3330,7 @@ function renderDemandMatchSensitivityPanel(data) {
     ...officialSeries.map(point => point.value),
     ...baseSeries.map(point => point.value),
     ...scenarios.flatMap(series => series.points.map(point => point.value)),
+    ...centralSupplySeries.map(point => point.value),
     targetPercent
   ];
 
@@ -3331,6 +3369,7 @@ function renderDemandMatchSensitivityPanel(data) {
 
   const endpoint = series => series.points[series.points.length - 1];
   const baseEndpoint = baseSeries[baseSeries.length - 1];
+  const centralSupplyEndpoint = centralSupplySeries[centralSupplySeries.length - 1];
 
   const endpointCards = [
     {
@@ -3398,6 +3437,15 @@ function renderDemandMatchSensitivityPanel(data) {
           </circle>
         `).join("")}
 
+        ${centralSupplySeries.length ? `
+          <path class="rese-gap-supply-line" d="${linePath(centralSupplySeries)}"></path>
+          <circle class="rese-gap-dot supply-central"
+            cx="${x(targetYear)}"
+            cy="${y(centralSupplyEndpoint.value)}"
+            r="5.2">
+          </circle>
+        ` : ""}
+
         <circle cx="${x(latestYear)}" cy="${y(latestActual)}" r="4.8" fill="var(--blue)"></circle>
         <circle cx="${x(targetYear)}" cy="${y(targetPercent)}" r="4.6" fill="var(--lime)"></circle>
         <circle cx="${x(targetYear)}" cy="${y(baseEndpoint.value)}" r="3.8" fill="rgba(235,245,242,0.72)"></circle>
@@ -3436,6 +3484,15 @@ function renderDemandMatchSensitivityPanel(data) {
           `;
         }).join("")}
 
+        ${centralSupplyEndpoint ? `
+          <text class="rese-gap-label supply-central"
+            x="${x(targetYear) - 8}"
+            y="${y(centralSupplyEndpoint.value) - 14}"
+            text-anchor="end">
+            Demand + arriving renewables ${escapeHtml(centralSupplyEndpoint.value.toFixed(1))}%
+          </text>
+        ` : ""}
+
         <text class="rese-gap-label gap"
           x="${x(targetYear) + 24}"
           y="${(y(targetPercent) + y(endpoint(high).value)) / 2}"
@@ -3452,6 +3509,7 @@ function renderDemandMatchSensitivityPanel(data) {
       <span><i class="low"></i> Low</span>
       <span><i class="central"></i> Central</span>
       <span><i class="high"></i> High</span>
+      <span><i class="supply"></i> Demand + arriving renewables</span>
     </div>
 
     <div class="rese-gap-cards">
@@ -3467,7 +3525,9 @@ function renderDemandMatchSensitivityPanel(data) {
 
     <p class="rese-gap-note">
       Interpretation: extra demand does not move the 80% target. If it is not neutralised by additional renewable electricity,
-      the projected RES-E line falls lower and the gap to 80% widens.
+      the projected RES-E line falls lower and the gap to 80% widens. The green line shows the central supply correction from
+      expected contracted renewable delivery; confirmed connected additions remain zero until the monitor observes a real transition
+      from non-connected to connected.
     </p>
   `;
 
