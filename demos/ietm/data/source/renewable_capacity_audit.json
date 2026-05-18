@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-18T16:15:10+00:00",
+  "generated_at": "2026-05-18T18:13:28+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
-      "link_count": 40,
+      "link_count": 41,
       "status": "loaded"
     },
     "eirgrid_connected_contracted": {
@@ -28,7 +28,7 @@
     },
     "eirgrid_airaa": {
       "url": "https://www.eirgrid.ie/airaa",
-      "link_count": 43,
+      "link_count": 44,
       "status": "loaded"
     },
     "eirgrid_tso_contracted_wind": {
@@ -73,8 +73,8 @@
     },
     "eirgrid_system_renewable_summary": {
       "status": "loaded",
-      "url": "https://cms.eirgrid.ie/sites/default/files/publications/System-and-Renewable-Data-Summary-Report-V22.xlsx",
-      "bytes": 623526,
+      "url": "https://cms.eirgrid.ie/sites/default/files/publications/System-and-Renewable-Data-Summary-Report-v21.xlsx",
+      "bytes": 622449,
       "worksheets": [
         "KPI",
         "System Data Summary",
