@@ -9533,134 +9533,150 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
 }
 /* v0.59 RES-E demand fan arriving renewables: END */
 
-/* v0.63 RES-E uplift marker chart: BEGIN */
-.rese-gap-target-benchmark {
+/* v0.70 Transition pathway v2 graph: BEGIN */
+.transition-v2-benchmark {
+  fill: none;
   stroke: var(--lime, #b7ef67);
   stroke-width: 3px;
   stroke-dasharray: 9 7;
   stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.rese-gap-official-line {
+.transition-v2-official {
   fill: none;
   stroke: var(--blue, #72d6ff);
-  stroke-width: 3px;
+  stroke-width: 3.2px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.rese-gap-base-line {
-  fill: none;
-  stroke: rgba(235, 245, 242, 0.78);
-  stroke-width: 2.5px;
-  stroke-dasharray: 6 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.rese-gap-pressure-line.scenario-central {
+.transition-v2-drag {
   fill: none;
   stroke: #d9a441;
-  stroke-width: 2.3px;
+  stroke-width: 2.4px;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.rese-gap-uplift-line {
+.transition-v2-arrivals {
+  fill: none;
+  stroke: var(--green, #72e0a8);
+  stroke-width: 3.6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.transition-v2-uplift {
   stroke: var(--green, #72e0a8);
   stroke-width: 4px;
   stroke-linecap: round;
+  opacity: 0.9;
 }
 
-.rese-gap-dot.official {
-  fill: var(--blue, #72d6ff);
-  stroke: rgba(4, 12, 10, 0.88);
+.transition-v2-dot {
+  stroke: rgba(4, 12, 10, 0.9);
   stroke-width: 1.2px;
 }
 
-.rese-gap-dot.recent {
-  fill: rgba(235, 245, 242, 0.86);
-  stroke: rgba(4, 12, 10, 0.88);
-  stroke-width: 1px;
+.transition-v2-dot.official {
+  fill: var(--blue, #72d6ff);
 }
 
-.rese-gap-dot.scenario-central {
-  fill: #d9a441;
-  stroke: rgba(4, 12, 10, 0.88);
-  stroke-width: 1.1px;
-}
-
-.rese-gap-dot.supply-central {
-  fill: var(--green, #72e0a8);
-  stroke: rgba(4, 12, 10, 0.9);
-  stroke-width: 1.4px;
-}
-
-.rese-gap-label.target {
-  fill: var(--lime, #b7ef67);
-}
-
-.rese-gap-label.base {
-  fill: rgba(235, 245, 242, 0.88);
-}
-
-.rese-gap-label.scenario-central {
+.transition-v2-dot.drag {
   fill: #d9a441;
 }
 
-.rese-gap-label.supply-central,
-.rese-gap-label.uplift {
+.transition-v2-dot.arrivals {
   fill: var(--green, #72e0a8);
+  stroke-width: 1.5px;
 }
 
-.rese-gap-label.gap {
-  fill: rgba(235, 245, 242, 0.82);
-}
-
-.rese-gap-label.target,
-.rese-gap-label.base,
-.rese-gap-label.scenario-central,
-.rese-gap-label.supply-central,
-.rese-gap-label.uplift,
-.rese-gap-label.gap {
+.transition-v2-label {
   font-weight: 820;
   paint-order: stroke;
-  stroke: rgba(4, 12, 10, 0.9);
+  stroke: rgba(4, 12, 10, 0.92);
   stroke-width: 3px;
   stroke-linejoin: round;
 }
 
-.rese-gap-legend i.target {
+.transition-v2-label.benchmark {
+  fill: var(--lime, #b7ef67);
+}
+
+.transition-v2-label.official {
+  fill: var(--blue, #72d6ff);
+}
+
+.transition-v2-label.drag {
+  fill: #d9a441;
+}
+
+.transition-v2-label.arrivals,
+.transition-v2-label.uplift {
+  fill: var(--green, #72e0a8);
+}
+
+.transition-v2-label.gap {
+  fill: rgba(235, 245, 242, 0.84);
+}
+
+.transition-v2-legend i.benchmark {
   background: var(--lime, #b7ef67);
-  border-radius: 999px;
 }
 
-.rese-gap-legend i.official {
+.transition-v2-legend i.official {
   background: var(--blue, #72d6ff);
-  border-radius: 999px;
 }
 
-.rese-gap-legend i.base {
-  background: rgba(235, 245, 242, 0.78);
-  border-radius: 999px;
-}
-
-.rese-gap-legend i.central {
+.transition-v2-legend i.drag {
   background: #d9a441;
-  border-radius: 999px;
 }
 
-.rese-gap-legend i.supply {
+.transition-v2-legend i.arrivals {
   background: var(--green, #72e0a8);
-  border-radius: 999px;
 }
 
-.rese-gap-supply-readout {
-  color: var(--green, #72e0a8) !important;
+.transition-v2-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-top: 1rem;
 }
 
-.rese-gap-cards article .rese-gap-supply-readout {
-  margin-top: 0.2rem;
-  font-weight: 750;
+.transition-v2-cards article {
+  padding: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.045);
 }
-/* v0.63 RES-E uplift marker chart: END */
+
+.transition-v2-cards span,
+.transition-v2-cards small {
+  display: block;
+  color: var(--muted, #9fb3bd);
+}
+
+.transition-v2-cards strong {
+  display: block;
+  margin: 0.25rem 0;
+  color: var(--text, #ecf6f8);
+  font-size: 1.16rem;
+}
+
+.transition-v2-cards p {
+  margin: 0.45rem 0 0;
+  color: var(--muted, #9fb3bd);
+  font-size: 0.86rem;
+}
+
+.transition-v2-note code {
+  color: var(--green, #72e0a8);
+}
+
+@media (max-width: 860px) {
+  .transition-v2-cards {
+    grid-template-columns: 1fr;
+  }
+}
+/* v0.70 Transition pathway v2 graph: END */
