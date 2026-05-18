@@ -9770,3 +9770,22 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   line-height: 1.45;
 }
 /* v0.74 Crisp RES-E trajectory panel: END */
+
+/* v0.75 RES-E pathway label polish: BEGIN */
+.transition-v2-uplift {
+  stroke: rgba(255, 255, 255, 0.78) !important;
+  stroke-width: 1.4px !important;
+  stroke-dasharray: 4 6 !important;
+  stroke-linecap: round;
+  opacity: 0.92;
+}
+
+.transition-v2-label.gap {
+  fill: rgba(235, 245, 242, 0.9);
+}
+
+.transition-v2-label.drag {
+  paint-order: stroke;
+  stroke-width: 3.5px;
+}
+/* v0.75 RES-E pathway label polish: END */

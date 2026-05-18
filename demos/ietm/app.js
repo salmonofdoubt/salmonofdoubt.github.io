@@ -3322,8 +3322,8 @@ function renderDemandMatchSensitivityPanel(data) {
         </text>
 
         <text class="transition-v2-label drag"
-          x="${x(drag2030.year) - 8}"
-          y="${y(drag2030.value) + 14}"
+          x="${x(drag2030.year) - 18}"
+          y="${y(drag2030.value) - 12}"
           text-anchor="end">
           Central demand drag ${escapeHtml(Number(drag2030.value).toFixed(1))}%
         </text>
@@ -3343,10 +3343,10 @@ function renderDemandMatchSensitivityPanel(data) {
         </text>
 
         <text class="transition-v2-label gap"
-          x="${x(arrivals2030.year) + 22}"
-          y="${(y(targetValue) + y(arrivals2030.value)) / 2}"
-          text-anchor="start">
-          ${escapeHtml(remainingGap.toFixed(1))} pp remaining gap
+          x="${x(arrivals2030.year) - 16}"
+          y="${(y(targetValue) + y(arrivals2030.value)) / 2 + 4}"
+          text-anchor="end">
+          ${escapeHtml(remainingGap.toFixed(1))} pp gap
         </text>
       </svg>
     </div>
