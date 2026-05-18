@@ -392,13 +392,25 @@ def build_pathway() -> dict[str, Any]:
     ]
 
     central_drag = []
-    supply_corrected_central = []
+    central_arrivals_uplift_pp = []
+    central_supply_corrected_res_e = []
 
     for year in range(latest_year, TARGET_YEAR + 1):
         row = chart_rows.get(year, {})
         drag_value = as_float(row.get("demand_central"), None)
         if year == latest_year:
             drag_value = latest_value
+
+        uplift = capacity_arrivals["expected_cumulative_by_year"]["central"][year]["uplift_pp"]
+
+        central_arrivals_uplift_pp.append({
+            "year": year,
+            "value": round(float(uplift), 1),
+            "basis": "cumulative_expected_arrivals_uplift_pp",
+            "note": "Pure uplift component. This is not an RES-E pathway by itself.",
+            "timing_basis": "explicit_assumption_profile_not_project_online_dates",
+        })
+
         if drag_value is not None:
             central_drag.append({
                 "year": year,
@@ -406,14 +418,13 @@ def build_pathway() -> dict[str, Any]:
                 "basis": "central_unmet_demand_drag",
             })
 
-        uplift = capacity_arrivals["expected_cumulative_by_year"]["central"][year]["uplift_pp"]
-        corrected = None if drag_value is None else float(drag_value) + uplift
-        if corrected is not None:
-            supply_corrected_central.append({
+            corrected = float(drag_value) + uplift
+            central_supply_corrected_res_e.append({
                 "year": year,
                 "value": round(min(100.0, max(0.0, corrected)), 1),
-                "basis": "central_unmet_demand_plus_expected_arrivals",
-                "uplift_pp": uplift,
+                "basis": "central_drag_plus_expected_arrivals",
+                "drag_value": round(float(drag_value), 1),
+                "uplift_pp": round(float(uplift), 1),
                 "timing_basis": "explicit_assumption_profile_not_project_online_dates",
             })
 
@@ -440,7 +451,8 @@ def build_pathway() -> dict[str, Any]:
             "benchmark_80": benchmark,
             "official_res_e": official,
             "central_unmet_demand_drag": central_drag,
-            "central_expected_arrivals": supply_corrected_central,
+            "central_arrivals_uplift_pp": central_arrivals_uplift_pp,
+            "central_supply_corrected_res_e": central_supply_corrected_res_e,
         },
         "chart_contract": {
             "rendering_rule": (
@@ -450,7 +462,8 @@ def build_pathway() -> dict[str, Any]:
                 "benchmark_80",
                 "official_res_e",
                 "central_unmet_demand_drag",
-                "central_expected_arrivals",
+                "central_arrivals_uplift_pp",
+                "central_supply_corrected_res_e",
             ],
             "grid_proxy_rule": (
                 "Show grid_observed_proxy as a separate status note or marker only when the label states it is not official annual RES-E."
@@ -467,7 +480,8 @@ def main() -> None:
     print(f"Wrote {OUT.relative_to(ROOT)}")
     print("official latest:", payload["official_res_e_history"]["latest_year"], payload["official_res_e_history"]["latest_value"])
     print("grid proxy:", payload["grid_observed_proxy"]["observed_window"])
-    print("central 2030:", payload["chart_series"]["central_expected_arrivals"][-1])
+    print("central uplift 2030:", payload["chart_series"]["central_arrivals_uplift_pp"][-1])
+    print("central corrected 2030:", payload["chart_series"]["central_supply_corrected_res_e"][-1])
 
 
 if __name__ == "__main__":

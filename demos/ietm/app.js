@@ -3227,7 +3227,8 @@ function renderDemandMatchSensitivityPanel(data) {
   const official = chart.official_res_e || [];
   const benchmark = chart.benchmark_80 || [];
   const demandDrag = chart.central_unmet_demand_drag || [];
-  const expectedArrivals = chart.central_expected_arrivals || [];
+  const expectedArrivals = chart.central_supply_corrected_res_e || [];
+  const arrivalsUplift = chart.central_arrivals_uplift_pp || [];
   const gridProxy = pathway.grid_observed_proxy || {};
   const officialMeta = pathway.official_res_e_history || {};
   const arrivalsMeta = pathway.capacity_arrivals_timeline || {};
@@ -3296,7 +3297,7 @@ function renderDemandMatchSensitivityPanel(data) {
         <h4>Can arriving renewables close the 2030 RES-E gap?</h4>
         <p>
           This v2 pathway separates official annual RES-E, grid-observed proxy evidence, unmet-demand drag,
-          and expected contracted renewable arrivals. The green pathway is an explicit assumption-profile,
+          expected renewable-arrivals uplift, and the resulting supply-corrected pathway. The green pathway is central demand drag plus expected arrivals,
           not inferred project online dates.
         </p>
       </div>
@@ -3360,7 +3361,7 @@ function renderDemandMatchSensitivityPanel(data) {
           x="${x(arrivals2030.year) - 8}"
           y="${y(arrivals2030.value) - 14}"
           text-anchor="end">
-          Expected arrivals pathway ${escapeHtml(Number(arrivals2030.value).toFixed(1))}%
+          Central drag + expected arrivals ${escapeHtml(Number(arrivals2030.value).toFixed(1))}%
         </text>
 
         <text class="transition-v2-label uplift"
@@ -3383,7 +3384,7 @@ function renderDemandMatchSensitivityPanel(data) {
       <span><i class="benchmark"></i> Fixed 80% benchmark</span>
       <span><i class="official"></i> Official annual RES-E</span>
       <span><i class="drag"></i> Central unmet-demand drag</span>
-      <span><i class="arrivals"></i> Expected arrivals pathway</span>
+      <span><i class="arrivals"></i> Central drag + expected arrivals</span>
     </div>
 
     <div class="transition-v2-cards">
@@ -3409,15 +3410,15 @@ function renderDemandMatchSensitivityPanel(data) {
       </article>
 
       <article>
-        <span>2030 expected arrivals</span>
+        <span>2030 drag + expected arrivals</span>
         <strong>${escapeHtml(Number(arrivals2030.value).toFixed(1))}%</strong>
-        <small>Remaining gap: ${escapeHtml(remainingGap.toFixed(1))} pp</small>
-        <p>Uses explicit delivery assumptions because project online dates are not yet reliable.</p>
+        <small>Pure arrivals uplift: +${escapeHtml(Number(arrivals2030.uplift_pp || arrivalUplift).toFixed(1))} pp</small>
+        <p>Equals central unmet-demand drag plus expected renewable-arrivals uplift. Project online dates are not yet reliable.</p>
       </article>
     </div>
 
     <p class="rese-gap-note transition-v2-note">
-      Interpretation: the green line is not a claimed commissioning schedule. It is a scenario pathway built from
+      Interpretation: the green line is not pure new arrivals and not a claimed commissioning schedule. It is the supply-corrected scenario built from
       contracted/support-awarded renewable capacity, technology capacity factors, delivery-confidence settings, and
       explicit delivery profiles. The timing audit remains in <code>transition_pathway.json</code>.
     </p>
