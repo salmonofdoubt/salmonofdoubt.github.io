@@ -9727,3 +9727,29 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   margin-top: 0.85rem;
 }
 /* v0.71 Transition pathway card cleanup: END */
+
+/* v0.72 Transition pathway crisp summary: BEGIN */
+.transition-v2-context,
+.transition-v2-note {
+  display: none !important;
+}
+
+.transition-v2-bottomline {
+  margin: 0.9rem 0 0;
+  padding: 0.85rem 1rem;
+  border-left: 3px solid var(--green, #72e0a8);
+  border-radius: 0.75rem;
+  background: rgba(114, 224, 168, 0.055);
+  color: var(--text, #ecf6f8);
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.transition-v2-bottomline span {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted, #9fb3bd);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+/* v0.72 Transition pathway crisp summary: END */
