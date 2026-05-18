@@ -9680,3 +9680,50 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   }
 }
 /* v0.70 Transition pathway v2 graph: END */
+
+/* v0.71 Transition pathway card cleanup: BEGIN */
+.transition-v2-cards article {
+  min-height: 0;
+}
+
+.transition-v2-cards article.official-card {
+  border-color: rgba(114, 214, 255, 0.24);
+}
+
+.transition-v2-cards article.drag-card {
+  border-color: rgba(217, 164, 65, 0.25);
+}
+
+.transition-v2-cards article.uplift-card,
+.transition-v2-cards article.corrected-card {
+  border-color: rgba(114, 224, 168, 0.25);
+}
+
+.transition-v2-cards article.official-card strong {
+  color: var(--blue, #72d6ff);
+}
+
+.transition-v2-cards article.drag-card strong {
+  color: #d9a441;
+}
+
+.transition-v2-cards article.uplift-card strong,
+.transition-v2-cards article.corrected-card strong {
+  color: var(--green, #72e0a8);
+}
+
+.transition-v2-context {
+  margin: 0.9rem 0 0;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(114, 214, 255, 0.16);
+  border-radius: 0.85rem;
+  color: var(--muted, #9fb3bd);
+  background: rgba(114, 214, 255, 0.045);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.transition-v2-note {
+  margin-top: 0.85rem;
+}
+/* v0.71 Transition pathway card cleanup: END */

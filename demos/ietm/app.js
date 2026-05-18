@@ -3296,9 +3296,8 @@ function renderDemandMatchSensitivityPanel(data) {
       <div>
         <h4>Can arriving renewables close the 2030 RES-E gap?</h4>
         <p>
-          This v2 pathway separates official annual RES-E, grid-observed proxy evidence, unmet-demand drag,
-          expected renewable-arrivals uplift, and the resulting supply-corrected pathway. The green pathway is central demand drag plus expected arrivals,
-          not inferred project online dates.
+          Official annual RES-E is shown separately from modelled 2030 pathways. The amber line shows the central
+          demand-drag case; the green line shows that same case after expected renewable arrivals are added.
         </p>
       </div>
       <span class="rese-gap-pill">Pathway v2 · ${escapeHtml(String(minYear))}–${escapeHtml(String(maxYear))}</span>
@@ -3388,39 +3387,46 @@ function renderDemandMatchSensitivityPanel(data) {
     </div>
 
     <div class="transition-v2-cards">
-      <article>
-        <span>Official annual RES-E</span>
+      <article class="official-card">
+        <span>Latest official RES-E</span>
         <strong>${escapeHtml(Number(officialLatest.value).toFixed(1))}%</strong>
-        <small>Latest official year: ${escapeHtml(String(officialLatest.year))}</small>
-        <p>Official annual series only. It is not extended with live grid snapshots.</p>
+        <small>${escapeHtml(String(officialLatest.year))} annual RES-E</small>
+        <p>Official benchmark series. Not live grid mix.</p>
       </article>
 
-      <article>
-        <span>Grid-observed proxy</span>
-        <strong>${Number.isFinite(Number(gridWindow.value)) ? `${escapeHtml(Number(gridWindow.value).toFixed(1))}%` : "n/a"}</strong>
-        <small>${escapeHtml(String(gridWindow.start_date || "n/a"))} to ${escapeHtml(String(gridWindow.end_date || "n/a"))}</small>
-        <p>Separate observed-window grid proxy. Not official annual RES-E.</p>
+      <article class="drag-card">
+        <span>2030 demand drag</span>
+        <strong>${escapeHtml(Number(drag2030.value).toFixed(1))}%</strong>
+        <small>Central unmet-demand case</small>
+        <p>Where RES-E lands if new electricity demand is not matched by extra renewable generation.</p>
       </article>
 
-      <article>
-        <span>Latest grid snapshot</span>
-        <strong>${Number.isFinite(Number(latestSnapshot.value)) ? `${escapeHtml(Number(latestSnapshot.value).toFixed(1))}%` : "n/a"}</strong>
-        <small>${escapeHtml(String(latestSnapshot.datetime || "n/a"))}</small>
-        <p>Current status only. Not a trajectory point.</p>
+      <article class="uplift-card">
+        <span>Expected arrivals uplift</span>
+        <strong>+${escapeHtml(Number(arrivals2030.uplift_pp || arrivalUplift).toFixed(1))} pp</strong>
+        <small>Modelled by 2030</small>
+        <p>Cumulative uplift from contracted/support-awarded renewable capacity using explicit delivery assumptions.</p>
       </article>
 
-      <article>
-        <span>2030 drag + expected arrivals</span>
+      <article class="corrected-card">
+        <span>2030 corrected pathway</span>
         <strong>${escapeHtml(Number(arrivals2030.value).toFixed(1))}%</strong>
-        <small>Pure arrivals uplift: +${escapeHtml(Number(arrivals2030.uplift_pp || arrivalUplift).toFixed(1))} pp</small>
-        <p>Equals central unmet-demand drag plus expected renewable-arrivals uplift. Project online dates are not yet reliable.</p>
+        <small>${escapeHtml(remainingGap.toFixed(1))} pp below 80%</small>
+        <p>Central demand drag plus expected arrivals. Still below the fixed 80% benchmark.</p>
       </article>
     </div>
 
+    <p class="transition-v2-context">
+      Grid context: recent observed-window renewable cover was
+      ${Number.isFinite(Number(gridWindow.value)) ? `${escapeHtml(Number(gridWindow.value).toFixed(1))}%` : "n/a"}
+      from ${escapeHtml(String(gridWindow.start_date || "n/a"))} to ${escapeHtml(String(gridWindow.end_date || "n/a"))}.
+      This is a grid proxy, not official annual RES-E.
+    </p>
+
     <p class="rese-gap-note transition-v2-note">
-      Interpretation: the green line is not pure new arrivals and not a claimed commissioning schedule. It is the supply-corrected scenario built from
-      contracted/support-awarded renewable capacity, technology capacity factors, delivery-confidence settings, and
-      explicit delivery profiles. The timing audit remains in <code>transition_pathway.json</code>.
+      Interpretation: official RES-E is observed to ${escapeHtml(String(officialLatest.year))}. The amber line shows the central demand-drag case,
+      and the green line shows that same case after expected renewable arrivals are added. The green pathway is modelled from explicit delivery
+      assumptions, not confirmed project online dates.
     </p>
   `;
 
