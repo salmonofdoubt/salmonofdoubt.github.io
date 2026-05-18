@@ -34,6 +34,7 @@ STEPS = [
     ("Rebuild monitor JSON with history", [PYTHON, "ops/build_monitor.py"]),
     ("Update visible SmartGrid overview", [PYTHON, "ops/update_smartgrid_visible_overview.py"]),
     ("Normalize current electricity", [PYTHON, "ops/normalize_current_electricity.py"]),
+    ("Build transition pathway v2", [PYTHON, "ops/build_transition_pathway.py"]),
     ("Apply dashboard version", [PYTHON, "ops/apply_dashboard_version.py"]),
     ("Validate current electricity", [PYTHON, "ops/validate_current_electricity.py"]),
     ("Validate monitor JSON", [PYTHON, "ops/validate_monitor.py"]),

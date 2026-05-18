@@ -423,6 +423,7 @@ def main() -> None:
     market_prices = read_json(SOURCE_DIR / "market_prices.json", {})
     counties = read_json(SOURCE_DIR / "counties.json", {})
     target_tracker = read_json(SOURCE_DIR / "target_tracker.json", {})
+    transition_pathway = read_json(SOURCE_DIR / "transition_pathway.json", {})
     county_hosting = read_json(SOURCE_DIR / "county_hosting.json", {})
     metadata = read_json(SOURCE_DIR / "metadata.json", {})
     daily_history = read_json(HISTORY_DIR / "daily.json", {})
@@ -486,6 +487,7 @@ def main() -> None:
         "electricity_metrics": method_model.get("metrics", []),
         "target_drift": target_tracker.get("target_drift", {}),
         "target_trajectory": target_tracker.get("target_trajectory", truth.get("target_trajectory", [])),
+        "transition_pathway": transition_pathway,
         "prices": prices.get("prices", []),
         "market_prices": market_prices.get("market_prices", []),
         "market_price_meta": market_prices.get("meta", {}),
