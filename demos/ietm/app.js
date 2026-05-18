@@ -2353,7 +2353,7 @@ function decorateTargetTrajectoryPanel() {
   if (!panel.querySelector(".target-explainer-note")) {
     const note = document.createElement("p");
     note.className = "target-explainer-note";
-    note.textContent = "This panel explains the Renewable electricity box in the Truth Meter: the verdict comes from official annual RES-E progress against the 80% 2030 benchmark.";
+    note.textContent = "Off track: official RES-E progress is too slow for the 80% benchmark. The chart shows official history, central demand drag, and modelled expected arrivals.";
     const chart = panel.querySelector("#trajectoryChart");
     if (chart) chart.insertAdjacentElement("beforebegin", note);
   }
@@ -2542,34 +2542,6 @@ function ietmLinearRegression(points) {
 
   return { m, a, r2, n };
 }
-
-function ietmAddSystemsNote() {
-  const panel = document.getElementById("trajectoryChart")?.closest(".panel");
-  if (!panel) return;
-
-  panel.querySelectorAll(".systems-note").forEach(el => el.remove());
-
-  const note = document.createElement("p");
-  note.className = "systems-note";
-  note.innerHTML = `
-    <strong>System reading: escalating catch-up burden.</strong>
-    At the current pace, the 2030 gap does not close fast enough, so every slow year raises the annual gain Ireland must deliver later.
-  `;
-
-  const explainer = panel.querySelector(".target-explainer-note");
-  const chart = panel.querySelector("#trajectoryChart");
-
-  if (explainer) {
-    explainer.insertAdjacentElement("afterend", note);
-  } else if (chart) {
-    chart.insertAdjacentElement("beforebegin", note);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(ietmAddSystemsNote, 300);
-  setTimeout(ietmAddSystemsNote, 1100);
-});
 
 /* v0.56 Mobile solution: scrollable plot area, readable labels, formula outside SVG */
 function renderTrajectory(data) {
