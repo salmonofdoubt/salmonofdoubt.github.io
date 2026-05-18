@@ -3223,17 +3223,7 @@ function renderDemandMatchSensitivityPanel(data) {
   document.querySelectorAll("#demandMatchSensitivityPanel").forEach(el => el.remove());
 
   const rows = Array.isArray(data?.target_trajectory) ? data.target_trajectory : [];
-  const forecast = data?.demand_pressure_forecast;
-  const byYear = forecast?.derived?.by_year || {};
-  const forecastYears = (forecast?.years || []).map(Number).filter(Number.isFinite);
-
-  if (!forecast || !Object.keys(byYear).length || !forecastYears.length) return;
-
-  const trajectoryByYear = new Map(
-    rows
-      .filter(row => Number.isFinite(Number(row.year)))
-      .map(row => [Number(row.year), row])
-  );
+  if (!rows.length) return;
 
   const regression = iemReseGapRegression(rows);
   if (!regression) return;
@@ -3247,19 +3237,23 @@ function renderDemandMatchSensitivityPanel(data) {
 
   const latestYear = Number(latest.year);
   const latestActual = Number(latest.actual);
-  const targetYear = 2030;
-  const targetPercent = 80;
+  const targetYear = Number(data.target_drift?.target_year || 2030);
+  const targetPercent = Number(data.target_drift?.target_value || 80);
 
-  const years = forecastYears.filter(year => year >= latestYear && year <= targetYear);
+  const years = rows
+    .map(row => Number(row.year))
+    .filter(year => Number.isFinite(year) && year >= latestYear && year <= targetYear)
+    .sort((a, b) => a - b);
+
   if (!years.includes(latestYear)) years.unshift(latestYear);
   if (!years.includes(targetYear)) years.push(targetYear);
 
-  const baseSeries = years.map(year => {
-    const row = trajectoryByYear.get(Number(year)) || {};
-    const modelledRecentPace = Number(row.recent_pace);
+  const rowForYear = year => rows.find(row => Number(row.year) === Number(year)) || {};
 
-    const projected = Number.isFinite(modelledRecentPace)
-      ? modelledRecentPace
+  const recentProjectionSeries = years.map(year => {
+    const row = rowForYear(year);
+    const projected = Number.isFinite(Number(row.recent_pace))
+      ? Number(row.recent_pace)
       : year === latestYear
         ? latestActual
         : Math.max(0, Math.min(100, regression.predict(year)));
@@ -3271,78 +3265,66 @@ function renderDemandMatchSensitivityPanel(data) {
     };
   });
 
-  const scenarios = [
-    { key: "low", label: "Low pressure", colour: "#7fbf7f" },
-    { key: "central", label: "Central pressure", colour: "#d9a441" },
-    { key: "high", label: "High pressure", colour: "#d46a6a" }
-  ].map(scenario => ({
+  const scenarioDefs = [
+    { key: "low", label: "No extra build-out: low demand", colour: "#7fbf7f" },
+    { key: "central", label: "Central unmet-demand drag", colour: "#d9a441" },
+    { key: "high", label: "No extra build-out: high demand", colour: "#d46a6a" }
+  ];
+
+  const scenarios = scenarioDefs.map(scenario => ({
     ...scenario,
     points: years.map(year => {
-      const base = baseSeries.find(point => point.year === year);
-      const row = trajectoryByYear.get(Number(year)) || {};
+      const row = rowForYear(year);
+      const base = recentProjectionSeries.find(point => point.year === year);
       const modelledDemand = Number(row[`demand_${scenario.key}`]);
-      const modelledSupply = Number(row[`supply_corrected_${scenario.key}`]);
-      const fallbackBurden = Number(byYear[String(year)]?.[scenario.key]?.demand_adjusted_burden_pp || 0);
-
       const stressed = Number.isFinite(modelledDemand)
         ? modelledDemand
-        : Math.max(0, (base?.value ?? regression.predict(year)) - fallbackBurden);
-
-      const burdenPp = Math.max(0, (base?.value ?? regression.predict(year)) - stressed);
+        : Number(base?.value || 0);
 
       return {
         year,
         baseValue: base?.value ?? 0,
-        burdenPp,
         value: stressed,
-        supplyValue: Number.isFinite(modelledSupply) ? modelledSupply : null,
+        gap: Math.max(0, targetPercent - stressed),
         arrivingUpliftPp: Number(row[`arriving_supply_uplift_pp_${scenario.key}`] || 0),
         expectedPipelineTwh: Number(row[`expected_pipeline_twh_${scenario.key}`] || 0),
         confirmedConnectedTwh: Number(row[`confirmed_connected_twh_${scenario.key}`] || 0),
-        gap: Math.max(0, targetPercent - stressed),
-        supplyGap: Number.isFinite(modelledSupply) ? Math.max(0, targetPercent - modelledSupply) : null
+        supplyValue: Number(row[`supply_corrected_${scenario.key}`] || NaN)
       };
     })
   }));
 
-  const centralSupplySeries = (
-    scenarios.find(series => series.key === "central")?.points || []
-  )
-    .filter(point => Number.isFinite(Number(point.supplyValue)))
-    .map(point => ({
-      year: point.year,
-      value: Number(point.supplyValue),
-      arrivingUpliftPp: Number(point.arrivingUpliftPp || 0),
-      expectedPipelineTwh: Number(point.expectedPipelineTwh || 0),
-      confirmedConnectedTwh: Number(point.confirmedConnectedTwh || 0),
-      gap: Math.max(0, targetPercent - Number(point.supplyValue))
-    }));
+  const centralScenario = scenarios.find(series => series.key === "central");
+  if (!centralScenario) return;
 
-  const officialSeries = years.map(year => {
-    const progress = (year - latestYear) / (targetYear - latestYear || 1);
-    return {
-      year,
-      value: latestActual + progress * (targetPercent - latestActual)
-    };
-  });
+  const centralEndpoint = centralScenario.points[centralScenario.points.length - 1];
+  const recentEndpoint = recentProjectionSeries[recentProjectionSeries.length - 1];
+
+  const supply2030 = Number(
+    data.arriving_renewables?.scenarios_2030?.central?.supply_corrected_res_e_percent
+      ?? rowForYear(targetYear).supply_corrected_central
+  );
+
+  const supplyGap2030 = Number.isFinite(supply2030) ? Math.max(0, targetPercent - supply2030) : null;
+  const uplift2030 = Number.isFinite(supply2030) ? (supply2030 - centralEndpoint.value) : null;
+
+  const width = 980;
+  const height = 360;
+  const padLeft = 66;
+  const padRight = 44;
+  const padTop = 24;
+  const padBottom = 44;
 
   const allValues = [
-    ...officialSeries.map(point => point.value),
-    ...baseSeries.map(point => point.value),
-    ...scenarios.flatMap(series => series.points.map(point => point.value)),
-    ...centralSupplySeries.map(point => point.value),
-    targetPercent
-  ];
+    targetPercent,
+    ...actualRows.map(point => Number(point.actual)),
+    ...recentProjectionSeries.map(point => Number(point.value)),
+    ...centralScenario.points.map(point => Number(point.value)),
+    Number.isFinite(supply2030) ? supply2030 : null
+  ].filter(value => Number.isFinite(Number(value)));
 
   const minY = Math.max(0, Math.floor((Math.min(...allValues) - 5) / 5) * 5);
   const maxY = Math.min(100, Math.ceil((Math.max(...allValues) + 5) / 5) * 5);
-
-  const width = 980;
-  const height = 340;
-  const padLeft = 66;
-  const padRight = 34;
-  const padTop = 24;
-  const padBottom = 44;
 
   const x = year => padLeft + ((year - latestYear) / (targetYear - latestYear || 1)) * (width - padLeft - padRight);
   const y = value => height - padBottom - ((value - minY) / (maxY - minY || 1)) * (height - padTop - padBottom);
@@ -3351,33 +3333,39 @@ function renderDemandMatchSensitivityPanel(data) {
     `${index === 0 ? "M" : "L"} ${x(point.year).toFixed(1)} ${y(point.value).toFixed(1)}`
   ).join(" ");
 
-  const high = scenarios.find(series => series.key === "high");
+  const recentPath = linePath(recentProjectionSeries);
+  const centralPath = linePath(centralScenario.points);
+  const actualPath = linePath(actualRows.map(row => ({ year: Number(row.year), value: Number(row.actual) })));
 
   const gridValues = [];
   for (let value = minY; value <= maxY; value += 5) gridValues.push(value);
 
-  const endpoint = series => series.points[series.points.length - 1];
-  const baseEndpoint = baseSeries[baseSeries.length - 1];
-  const centralSupplyEndpoint = centralSupplySeries[centralSupplySeries.length - 1];
-
-  const endpointCards = [
+  const cards = [
     {
-      key: "base",
-      label: "Recent pace only",
-      colour: "rgba(235,245,242,0.72)",
-      value: baseEndpoint.value,
-      gap: baseEndpoint.gap,
-      detail: "Recent RES-E trend without added demand-pressure penalty."
+      key: "recent",
+      label: "Recent pace projection",
+      colour: "rgba(235,245,242,0.76)",
+      value: recentEndpoint.value,
+      gap: recentEndpoint.gap,
+      detail: "Two-year observed RES-E trend projected forward from the latest official annual data."
     },
     ...scenarios.map(series => {
-      const final = endpoint(series);
+      const final = series.points[series.points.length - 1];
+      const scenario2030 = data.arriving_renewables?.scenarios_2030?.[series.key] || {};
+      const corrected = Number(scenario2030.supply_corrected_res_e_percent);
+      const uplift = Number(scenario2030.arriving_supply_uplift_pp);
       return {
         key: series.key,
         label: series.label,
         colour: series.colour,
         value: final.value,
         gap: final.gap,
-        detail: `Subtracts ${final.burdenPp.toFixed(1)} pp unneutralised demand burden by 2030.`
+        supplyValue: Number.isFinite(corrected) ? corrected : null,
+        supplyGap: Number.isFinite(corrected) ? Math.max(0, targetPercent - corrected) : null,
+        uplift,
+        detail: Number.isFinite(corrected)
+          ? `After expected arrivals: ${corrected.toFixed(1)}% RES-E (${Number.isFinite(uplift) ? `+${uplift.toFixed(1)} pp` : "uplift n/a"}).`
+          : "Expected arriving-renewables uplift not available."
       };
     })
   ];
@@ -3389,20 +3377,18 @@ function renderDemandMatchSensitivityPanel(data) {
   panel.innerHTML = `
     <div class="rese-gap-head">
       <div>
-        <h4>How unneutralised demand can widen the RES-E gap</h4>
+        <h4>Can arriving renewables close the 2030 RES-E gap?</h4>
         <p>
-          Same RES-E axis as the main chart. Higher demand pressure pulls the projected observed trend downward,
-          widening the visible gap to the fixed 80% target.
+          Official RES-E is observed to ${escapeHtml(String(latestYear))}. The dashed grey line is a recent pace projection,
+          the amber line shows central unmet-demand drag, and the green marker shows the 2030 uplift from expected arriving renewables.
         </p>
       </div>
-      <span class="rese-gap-pill">
-        ${escapeHtml(String(latestYear))}–2030 · RES-E %
-      </span>
+      <span class="rese-gap-pill">${escapeHtml(String(latestYear))}–2030 · RES-E %</span>
     </div>
 
     <div class="rese-gap-chart-wrap" tabindex="0">
       <svg class="rese-gap-svg" viewBox="0 0 ${width} ${height}" role="img"
-        aria-label="RES-E projection fan showing how unneutralised demand widens the gap to the 80 percent target">
+        aria-label="RES-E projection with 80 percent benchmark, recent pace projection, central unmet-demand drag, and 2030 arriving-renewables uplift">
         ${gridValues.map(value => `
           <line class="rese-gap-grid" x1="${padLeft}" y1="${y(value)}" x2="${width - padRight}" y2="${y(value)}"></line>
           <text class="rese-gap-axis" x="${padLeft - 12}" y="${y(value) + 4}" text-anchor="end">${value}%</text>
@@ -3413,108 +3399,138 @@ function renderDemandMatchSensitivityPanel(data) {
           <text class="rese-gap-axis" x="${x(year)}" y="${height - 16}" text-anchor="middle">${year}</text>
         `).join("")}
 
-        <path class="rese-gap-official-line" d="${linePath(officialSeries)}"></path>
-        <path class="rese-gap-base-line" d="${linePath(baseSeries)}"></path>
+        <line class="rese-gap-target-benchmark"
+          x1="${x(latestYear)}"
+          y1="${y(targetPercent)}"
+          x2="${x(targetYear)}"
+          y2="${y(targetPercent)}">
+        </line>
 
-        ${scenarios.map(series => `
-          <path class="rese-gap-pressure-line scenario-${escapeHtml(series.key)}" d="${linePath(series.points)}"></path>
-          <circle class="rese-gap-dot scenario-${escapeHtml(series.key)}"
-            cx="${x(targetYear)}"
-            cy="${y(endpoint(series).value)}"
-            r="${series.key === "central" ? 4.3 : 3.7}">
+        <path class="rese-gap-base-line" d="${recentPath}"></path>
+        <path class="rese-gap-pressure-line scenario-central" d="${centralPath}"></path>
+        <path class="rese-gap-official-line" d="${actualPath}"></path>
+
+        ${actualRows.map(point => `
+          <circle class="rese-gap-dot official"
+            cx="${x(Number(point.year))}"
+            cy="${y(Number(point.actual))}"
+            r="4.4">
           </circle>
         `).join("")}
 
-        ${centralSupplySeries.length ? `
-          <path class="rese-gap-supply-line" d="${linePath(centralSupplySeries)}"></path>
+        <circle class="rese-gap-dot scenario-central"
+          cx="${x(targetYear)}"
+          cy="${y(centralEndpoint.value)}"
+          r="4.3">
+        </circle>
+
+        <circle class="rese-gap-dot recent"
+          cx="${x(targetYear)}"
+          cy="${y(recentEndpoint.value)}"
+          r="3.9">
+        </circle>
+
+        ${Number.isFinite(supply2030) ? `
+          <line class="rese-gap-uplift-line"
+            x1="${x(targetYear)}"
+            y1="${y(centralEndpoint.value)}"
+            x2="${x(targetYear)}"
+            y2="${y(supply2030)}">
+          </line>
           <circle class="rese-gap-dot supply-central"
             cx="${x(targetYear)}"
-            cy="${y(centralSupplyEndpoint.value)}"
+            cy="${y(supply2030)}"
             r="5.2">
           </circle>
         ` : ""}
 
-        <circle cx="${x(latestYear)}" cy="${y(latestActual)}" r="4.8" fill="var(--blue)"></circle>
-        <circle cx="${x(targetYear)}" cy="${y(targetPercent)}" r="4.6" fill="var(--lime)"></circle>
-        <circle cx="${x(targetYear)}" cy="${y(baseEndpoint.value)}" r="3.8" fill="rgba(235,245,242,0.72)"></circle>
+        ${Number.isFinite(supply2030) ? `
+          <line class="rese-gap-gap-bracket"
+            x1="${x(targetYear) + 16}"
+            y1="${y(targetPercent)}"
+            x2="${x(targetYear) + 16}"
+            y2="${y(supply2030)}">
+          </line>
+        ` : ""}
 
-        <line class="rese-gap-gap-bracket"
-          x1="${x(targetYear) + 16}"
-          y1="${y(targetPercent)}"
-          x2="${x(targetYear) + 16}"
-          y2="${y(endpoint(high).value)}">
-        </line>
-
-        <text class="rese-gap-label official"
+        <text class="rese-gap-label target"
           x="${x(targetYear) - 8}"
           y="${y(targetPercent) - 8}"
           text-anchor="end">
-          Fixed 80% target
+          Fixed 80% benchmark
         </text>
 
         <text class="rese-gap-label base"
           x="${x(targetYear) - 8}"
-          y="${y(baseEndpoint.value) - 8}"
+          y="${y(recentEndpoint.value) - 8}"
           text-anchor="end">
-          Recent pace ${escapeHtml(baseEndpoint.value.toFixed(1))}%
+          Recent pace projection ${escapeHtml(recentEndpoint.value.toFixed(1))}%
         </text>
 
-        ${scenarios.map(series => {
-          const final = endpoint(series);
-          const offsets = { low: 16, central: 2, high: 18 };
-          return `
-            <text class="rese-gap-label scenario-${escapeHtml(series.key)}"
-              x="${x(targetYear) - 8}"
-              y="${y(final.value) + offsets[series.key]}"
-              text-anchor="end">
-              ${escapeHtml(series.label)} ${escapeHtml(final.value.toFixed(1))}%
-            </text>
-          `;
-        }).join("")}
+        <text class="rese-gap-label scenario-central"
+          x="${x(targetYear) - 8}"
+          y="${y(centralEndpoint.value) + 12}"
+          text-anchor="end">
+          Central unmet-demand drag ${escapeHtml(centralEndpoint.value.toFixed(1))}%
+        </text>
 
-        ${centralSupplyEndpoint ? `
+        ${Number.isFinite(supply2030) ? `
           <text class="rese-gap-label supply-central"
             x="${x(targetYear) - 8}"
-            y="${y(centralSupplyEndpoint.value) - 14}"
+            y="${y(supply2030) - 12}"
             text-anchor="end">
-            Demand + arriving renewables ${escapeHtml(centralSupplyEndpoint.value.toFixed(1))}%
+            2030 after arriving renewables ${escapeHtml(supply2030.toFixed(1))}%
           </text>
         ` : ""}
 
-        <text class="rese-gap-label gap"
-          x="${x(targetYear) + 24}"
-          y="${(y(targetPercent) + y(endpoint(high).value)) / 2}"
-          text-anchor="start">
-          widened gap
-        </text>
+        ${Number.isFinite(uplift2030) ? `
+          <text class="rese-gap-label uplift"
+            x="${x(targetYear) - 20}"
+            y="${(y(centralEndpoint.value) + y(supply2030)) / 2 - 6}"
+            text-anchor="end">
+            +${escapeHtml(uplift2030.toFixed(1))} pp
+          </text>
+        ` : ""}
+
+        ${Number.isFinite(supplyGap2030) ? `
+          <text class="rese-gap-label gap"
+            x="${x(targetYear) + 24}"
+            y="${(y(targetPercent) + y(supply2030)) / 2}"
+            text-anchor="start">
+            ${escapeHtml(supplyGap2030.toFixed(1))} pp remaining gap
+          </text>
+        ` : ""}
       </svg>
     </div>
 
     <div class="rese-gap-legend">
-      <span><i class="official"></i> Required path to fixed 80%</span>
-      <span><i class="base"></i> Recent observed trend</span>
-      <span><i class="low"></i> Low</span>
-      <span><i class="central"></i> Central</span>
-      <span><i class="high"></i> High</span>
-      <span><i class="supply"></i> Demand + arriving renewables</span>
+      <span><i class="target"></i> Fixed 80% benchmark</span>
+      <span><i class="official"></i> Official observed RES-E</span>
+      <span><i class="base"></i> Recent pace projection</span>
+      <span><i class="central"></i> Central unmet-demand drag</span>
+      <span><i class="supply"></i> 2030 arriving-renewables uplift</span>
     </div>
 
     <div class="rese-gap-cards">
-      ${endpointCards.map(card => `
+      ${cards.map(card => `
         <article style="--gap-colour:${escapeHtml(card.colour)}">
           <span>${escapeHtml(card.label)}</span>
           <strong>${escapeHtml(card.value.toFixed(1))}% RES-E</strong>
           <small>${escapeHtml(card.gap.toFixed(1))} pp gap to 80%</small>
+          ${Number.isFinite(card.supplyValue) ? `
+            <small class="rese-gap-supply-readout">
+              After arrivals: ${escapeHtml(card.supplyValue.toFixed(1))}% · ${escapeHtml((card.supplyGap ?? 0).toFixed(1))} pp gap
+            </small>
+          ` : ""}
           <p>${escapeHtml(card.detail)}</p>
         </article>
       `).join("")}
     </div>
 
     <p class="rese-gap-note">
-      Interpretation: extra demand does not move the 80% target. If it is not neutralised by additional renewable electricity,
-      the projected RES-E line falls lower and the gap to 80% widens. The green line shows the central supply correction from
-      expected contracted renewable delivery; confirmed connected additions remain zero until the monitor observes a real transition
-      from non-connected to connected.
+      Interpretation: official annual RES-E is observed only up to ${escapeHtml(String(latestYear))}. The dashed grey line is a
+      projection, not observed data after that point. The amber line shows the central unmet-demand counterfactual, and the green
+      uplift marker shows the additional 2030 lift from expected arriving renewable delivery.
     </p>
   `;
 
