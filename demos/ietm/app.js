@@ -3388,18 +3388,13 @@ function renderDemandMatchSensitivityPanel(data) {
       </article>
     </div>
 
-    <p class="transition-v2-context">
-      Grid context: recent observed-window renewable cover was
+    <p class="transition-v2-bottomline">
+      Grid proxy: recent observed-window renewable cover was
       ${Number.isFinite(Number(gridWindow.value)) ? `${escapeHtml(Number(gridWindow.value).toFixed(1))}%` : "n/a"}
-      from ${escapeHtml(String(gridWindow.start_date || "n/a"))} to ${escapeHtml(String(gridWindow.end_date || "n/a"))}.
-      This is a grid proxy, not official annual RES-E.
+      from ${escapeHtml(String(gridWindow.start_date || "n/a"))} to ${escapeHtml(String(gridWindow.end_date || "n/a"))};
+      this is not official annual RES-E.
     </p>
 
-    <p class="rese-gap-note transition-v2-note">
-      Interpretation: official RES-E is observed to ${escapeHtml(String(officialLatest.year))}. The amber line shows the central demand-drag case,
-      and the green line shows that same case after expected renewable arrivals are added. The green pathway is modelled from explicit delivery
-      assumptions, not confirmed project online dates.
-    </p>
   `;
 
   const trajectoryPanel = host.closest(".panel");
