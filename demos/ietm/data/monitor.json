@@ -866,7 +866,9 @@
     "build": {
       "builder": "ops/build_monitor.py",
       "schema_version": "0.2.0"
-    }
+    },
+    "dashboard_version": "0.1.29",
+    "dashboard_version_updated_at": "2026-05-18T07:23:19Z"
   },
   "source_model": {
     "meta": {
@@ -1093,7 +1095,7 @@
       "status_label": "Off track",
       "reading": "Unclassified remainder",
       "value": "93%",
-      "rule": "On track \u226420%; at risk 20\u201335%; off track >35%.",
+      "rule": "On track ≤20%; at risk 20–35%; off track >35%.",
       "why": "High thermal/other means the system still depends on non-wind, non-solar and unidentified supply.",
       "basis": "Computed live proxy",
       "confidence": "Medium",
@@ -1106,7 +1108,7 @@
       "status_label": "Off track",
       "reading": "Latest carbon signal",
       "value": "263 g/kWh",
-      "rule": "On track \u2264100 g/kWh; at risk 100\u2013250; off track >250.",
+      "rule": "On track ≤100 g/kWh; at risk 100–250; off track >250.",
       "why": "Carbon intensity indicates how clean the electricity actually is at the point of use.",
       "basis": "Live public dashboard",
       "confidence": "Medium",
@@ -1254,14 +1256,14 @@
       },
       {
         "key": "co2",
-        "label": "CO\u2082 intensity",
+        "label": "CO₂ intensity",
         "definition": "Carbon intensity of electricity generation/use signal.",
         "value_key": "co2_g_per_kwh",
         "unit": "g/kWh",
         "denominator": "Electricity consumed/generated per kWh basis.",
         "evidence_basis": "Live",
         "confidence": "Medium",
-        "caveat": "Public Smart Grid Dashboard CO\u2082 signal; method depends on EirGrid published model.",
+        "caveat": "Public Smart Grid Dashboard CO₂ signal; method depends on EirGrid published model.",
         "accent": "grey"
       },
       {
@@ -1301,7 +1303,7 @@
       {
         "section": "County hosting",
         "purpose": "Spatial hosting and transition-justice scaffold.",
-        "method_note": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km\u00b2 and population-density normalisation."
+        "method_note": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km² and population-density normalisation."
       }
     ],
     "interconnection_direction": "importing",
@@ -1384,14 +1386,14 @@
     },
     {
       "key": "co2",
-      "label": "CO\u2082 intensity",
+      "label": "CO₂ intensity",
       "definition": "Carbon intensity of electricity generation/use signal.",
       "value_key": "co2_g_per_kwh",
       "unit": "g/kWh",
       "denominator": "Electricity consumed/generated per kWh basis.",
       "evidence_basis": "Live",
       "confidence": "Medium",
-      "caveat": "Public Smart Grid Dashboard CO\u2082 signal; method depends on EirGrid published model.",
+      "caveat": "Public Smart Grid Dashboard CO₂ signal; method depends on EirGrid published model.",
       "accent": "grey"
     },
     {
@@ -2692,9 +2694,9 @@
   "market_prices": [
     {
       "label": "Electricity system price",
-      "value": "457.42 \u20ac/MWh",
+      "value": "457.42 €/MWh",
       "numeric_value": 457.42,
-      "unit": "\u20ac/MWh",
+      "unit": "€/MWh",
       "equivalent_value": "45.74 c/kWh",
       "numeric_value_c_per_kwh": 45.74,
       "status": "mapped",
@@ -2843,7 +2845,7 @@
     "generated_at": "2026-05-18T06:21:30+00:00",
     "source": "SEAI Renewable Electricity County Dashboard",
     "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
-    "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km\u00b2 and population-density normalisation.",
+    "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km² and population-density normalisation.",
     "method": {
       "index": "0 to 100 illustrative hosting score",
       "display": "Schematic tile heatmap, not boundary-accurate geography",
@@ -3206,5 +3208,6 @@
       "note": "South-east coastal hosting signal.",
       "interpretation": "Scaffold index for display only. Replace with SEAI county production metrics."
     }
-  ]
+  ],
+  "dashboard_version": "0.1.29"
 }
