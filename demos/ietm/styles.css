@@ -9727,3 +9727,24 @@ html body #metricGrid.metric-grid article.metric-card[data-accent="co₂"]::befo
   margin-top: 0.85rem;
 }
 /* v0.71 Transition pathway card cleanup: END */
+
+/* v0.73 Force transition pathway v2 visibility: BEGIN */
+.transition-v2-panel {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin-top: 1rem;
+}
+
+.transition-v2-panel .rese-gap-chart-wrap,
+.transition-v2-panel .transition-v2-svg,
+.transition-v2-panel svg {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.transition-v2-panel .rese-gap-chart-wrap {
+  min-height: 390px;
+}
+/* v0.73 Force transition pathway v2 visibility: END */

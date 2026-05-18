@@ -2768,7 +2768,7 @@ function renderTrajectory(data) {
     scrollWrap.scrollLeft = 0;
   }
 
-  ietmAddSystemsNote();
+  if (typeof ietmAddSystemsNote === "function") ietmAddSystemsNote();
 }
 
 let ietmTrajectoryResizeTimerV56 = null;
@@ -3402,7 +3402,12 @@ function renderDemandMatchSensitivityPanel(data) {
     </p>
   `;
 
-  const anchor = document.getElementById("trajectoryDemandAdjustedPanel") || host;
+  const trajectoryPanel = host.closest(".panel");
+  const anchor =
+    trajectoryPanel?.querySelector(".target-explainer-note") ||
+    trajectoryPanel?.querySelector(".target-drift-grid") ||
+    host;
+
   anchor.insertAdjacentElement("afterend", panel);
 }
 // IETM demand-match sensitivity panel: END
