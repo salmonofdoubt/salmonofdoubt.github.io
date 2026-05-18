@@ -2442,12 +2442,69 @@ function renderTargetDrift(data) {
   const target = document.getElementById("targetDriftGrid");
   if (!target) return;
 
-  // The transition pathway v2 panel now carries the RES-E verdict,
-  // benchmark, demand-drag pathway, expected-arrivals uplift,
-  // corrected 2030 pathway, and concise bottom line.
-  // Keep this legacy target-drift grid silent to avoid repeating
-  // the same Off track signal underneath the graph.
-  target.innerHTML = "";
+  const drift = data.target_drift || {};
+  if (!Object.keys(drift).length) {
+    target.innerHTML = "";
+    return;
+  }
+
+  const statusClass = driftStatusClass(drift.status);
+  const statusLabel = drift.status_label || truthSignalLabel(drift.status);
+
+  const latestValue = Number(drift.latest_value);
+  const targetValue = Number(drift.target_value);
+  const gapValue = Number(drift.gap_to_target_pp);
+  const requiredGain = Number(drift.required_annual_gain_pp);
+  const recentGain = Number(drift.recent_two_year_gain_pp_per_year);
+
+  target.innerHTML = `
+    <article class="target-drift-card">
+      <span>Latest official RES-E</span>
+      <strong>${targetMetricValue(latestValue.toFixed(1), "%")}</strong>
+      <small>${escapeHtml(drift.latest_year)}</small>
+    </article>
+
+    <article class="target-drift-card">
+      <span>2030 benchmark</span>
+      <strong>${targetMetricValue(targetValue.toFixed(0), "%")}</strong>
+      <small>Renewable electricity</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>2030 target gap</span>
+      <strong>${targetMetricValue(gapValue.toFixed(1), "pp")}</strong>
+      <small>${escapeHtml(drift.years_remaining)} years remaining</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Required gain</span>
+      <strong>${targetMetricValue(requiredGain.toFixed(2), "pp/yr")}</strong>
+      <small>From ${escapeHtml(drift.latest_year)} to ${escapeHtml(drift.target_year)}</small>
+    </article>
+
+    <article class="target-drift-card ${statusClass}">
+      <span>Recent gain</span>
+      <strong>${targetMetricValue(recentGain.toFixed(2), "pp/yr")}</strong>
+      <small>Two-year average</small>
+    </article>
+
+    <article class="target-verdict-card ${statusClass}">
+      <div>
+        <span>Same signal as Truth Meter</span>
+        <strong>${escapeHtml(statusLabel)}</strong>
+      </div>
+      <p>
+        Renewable electricity is <strong>${gapValue.toFixed(1)} percentage points</strong>
+        below the 2030 benchmark. Recent progress is
+        <strong>${recentGain.toFixed(2)} pp/yr</strong>, while the required pace is
+        <strong>${requiredGain.toFixed(2)} pp/yr</strong>.
+      </p>
+      <small>${escapeHtml(drift.caveat || "Official annual RES-E indicator, not the live quarter-hourly electricity mix.")}</small>
+    </article>
+  `;
+
+  decorateTargetTrajectoryPanel();
+  decorateTargetTrajectoryPanelWithSignal(data);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -3331,14 +3388,18 @@ function renderDemandMatchSensitivityPanel(data) {
       </article>
     </div>
 
-    <p class="transition-v2-bottomline">
-      Bottom line: even after expected arrivals, the central corrected pathway reaches
-      ${escapeHtml(Number(arrivals2030.value).toFixed(1))}% by 2030, still
-      ${escapeHtml(remainingGap.toFixed(1))} pp below the 80% benchmark.
-      <span>Grid proxy: ${Number.isFinite(Number(gridWindow.value)) ? `${escapeHtml(Number(gridWindow.value).toFixed(1))}%` : "n/a"}
-      from ${escapeHtml(String(gridWindow.start_date || "n/a"))} to ${escapeHtml(String(gridWindow.end_date || "n/a"))}, not official annual RES-E.</span>
+    <p class="transition-v2-context">
+      Grid context: recent observed-window renewable cover was
+      ${Number.isFinite(Number(gridWindow.value)) ? `${escapeHtml(Number(gridWindow.value).toFixed(1))}%` : "n/a"}
+      from ${escapeHtml(String(gridWindow.start_date || "n/a"))} to ${escapeHtml(String(gridWindow.end_date || "n/a"))}.
+      This is a grid proxy, not official annual RES-E.
     </p>
 
+    <p class="rese-gap-note transition-v2-note">
+      Interpretation: official RES-E is observed to ${escapeHtml(String(officialLatest.year))}. The amber line shows the central demand-drag case,
+      and the green line shows that same case after expected renewable arrivals are added. The green pathway is modelled from explicit delivery
+      assumptions, not confirmed project online dates.
+    </p>
   `;
 
   const anchor = document.getElementById("trajectoryDemandAdjustedPanel") || host;
