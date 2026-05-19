@@ -1,6 +1,23 @@
 const state = {
   items: [],
   archive: [],
+  sections: [
+    {
+      id: "ireland-practice",
+      title: "Practical Urban Forests in Ireland",
+      intro: "Irish examples, delivery signals, local authority action, campus greening, pocket forests, and implementation news."
+    },
+    {
+      id: "temperate-practice",
+      title: "Similar Latitudes and Temperate Cities",
+      intro: "Transferable examples from comparable temperate urban contexts: UK, western Europe, northern Europe, and maritime city settings."
+    },
+    {
+      id: "research-evidence",
+      title: "Urban Forest Research and Evidence",
+      intro: "Research, evaluation, biodiversity, wellbeing, maintenance, survival, governance, and design lessons."
+    }
+  ]
 };
 
 const els = {
@@ -34,6 +51,10 @@ function formatDate(value) {
   return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
+function itemSection(item) {
+  return item.section || item.section_id || "ireland-practice";
+}
+
 function visibleItems() {
   const q = clean(els.search.value).toLowerCase();
   const theme = els.theme.value;
@@ -46,12 +67,13 @@ function visibleItems() {
       item.source_name,
       item.publisher,
       item.theme,
+      item.section,
       item.freshness_status,
       ...(Array.isArray(item.tags) ? item.tags : []),
     ].join(" ").toLowerCase();
 
     const matchesSearch = !q || haystack.includes(q);
-    const matchesTheme = theme === "all" || item.theme === theme || (item.tags || []).includes(theme);
+    const matchesTheme = theme === "all" || item.theme === theme || (item.tags || []).includes(theme) || itemSection(item) === theme;
     const matchesFreshness = freshness === "all" || item.freshness_status === freshness;
 
     return matchesSearch && matchesTheme && matchesFreshness;
@@ -61,12 +83,46 @@ function visibleItems() {
 function renderSummary(items) {
   const fresh = items.filter((item) => item.freshness_status === "fresh").length;
   const reference = items.filter((item) => item.freshness_status === "reference").length;
+  const ireland = items.filter((item) => itemSection(item) === "ireland-practice").length;
+  const temperate = items.filter((item) => itemSection(item) === "temperate-practice").length;
+  const research = items.filter((item) => itemSection(item) === "research-evidence").length;
 
   els.summary.innerHTML = `
     <div class="summary-pill">${items.length} visible items</div>
     <div class="summary-pill">${fresh} fresh/current</div>
     <div class="summary-pill">${reference} reference/background</div>
-    <div class="summary-pill">${state.items.length} total in latest radar</div>
+    <div class="summary-pill">${ireland} Ireland</div>
+    <div class="summary-pill">${temperate} comparable cities</div>
+    <div class="summary-pill">${research} research/evidence</div>
+  `;
+}
+
+function renderCard(item) {
+  const tags = Array.isArray(item.tags) ? item.tags.slice(0, 5) : [];
+  const freshnessClass = item.freshness_status === "reference" ? "warn" : "";
+
+  return `
+    <article class="news-card">
+      <div>
+        <h3><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a></h3>
+        <div class="news-meta">
+          <span class="chip">${escapeHtml(item.source_name || item.publisher || "Source")}</span>
+          <span class="chip">${escapeHtml(formatDate(item.published))}</span>
+          <span class="chip ${freshnessClass}">${escapeHtml(item.freshness_label || item.freshness_status || "Freshness unknown")}</span>
+        </div>
+        <p class="news-summary">${escapeHtml(item.summary || "Open the source to inspect this item.")}</p>
+        <div class="news-tags">
+          ${tags.map((tag) => `<span class="chip">${escapeHtml(tag)}</span>`).join("")}
+        </div>
+      </div>
+      <aside class="news-side">
+        <div class="score-box">
+          <span>Usefulness</span>
+          <strong>${escapeHtml(Math.round(Number(item.score || 0)))}</strong>
+        </div>
+        <a class="open-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener">Open source</a>
+      </aside>
+    </article>
   `;
 }
 
@@ -79,31 +135,21 @@ function renderItems() {
     return;
   }
 
-  els.list.innerHTML = items.map((item) => {
-    const tags = Array.isArray(item.tags) ? item.tags.slice(0, 5) : [];
-    const freshnessClass = item.freshness_status === "reference" ? "warn" : "";
+  els.list.innerHTML = state.sections.map((section) => {
+    const sectionItems = items.filter((item) => itemSection(item) === section.id);
+
     return `
-      <article class="news-card">
-        <div>
-          <h3><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a></h3>
-          <div class="news-meta">
-            <span class="chip">${escapeHtml(item.source_name || item.publisher || "Source")}</span>
-            <span class="chip">${escapeHtml(formatDate(item.published))}</span>
-            <span class="chip ${freshnessClass}">${escapeHtml(item.freshness_label || item.freshness_status || "Freshness unknown")}</span>
+      <section class="news-section-group" id="${escapeHtml(section.id)}">
+        <div class="news-section-heading">
+          <div>
+            <p class="eyebrow">${escapeHtml(section.id.replaceAll("-", " "))}</p>
+            <h3>${escapeHtml(section.title)}</h3>
+            <p>${escapeHtml(section.intro)}</p>
           </div>
-          <p class="news-summary">${escapeHtml(item.summary || "Open the source to inspect this item.")}</p>
-          <div class="news-tags">
-            ${tags.map((tag) => `<span class="chip">${escapeHtml(tag)}</span>`).join("")}
-          </div>
+          <span class="section-count">${sectionItems.length} item${sectionItems.length === 1 ? "" : "s"}</span>
         </div>
-        <aside class="news-side">
-          <div class="score-box">
-            <span>Usefulness</span>
-            <strong>${escapeHtml(Math.round(Number(item.score || 0)))}</strong>
-          </div>
-          <a class="open-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener">Open source</a>
-        </aside>
-      </article>
+        ${sectionItems.length ? sectionItems.map(renderCard).join("") : `<div class="empty">No matching items in this section yet.</div>`}
+      </section>
     `;
   }).join("");
 }
@@ -134,6 +180,8 @@ async function loadLatest() {
     const data = await response.json();
 
     state.items = Array.isArray(data.items) ? data.items : [];
+    if (Array.isArray(data.sections) && data.sections.length) state.sections = data.sections;
+
     els.lastRefresh.textContent = data.generated_at ? formatDate(data.generated_at) : "Not yet generated";
     els.refreshNote.textContent = data.note || "Source-led daily discovery.";
 

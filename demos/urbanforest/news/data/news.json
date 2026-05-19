@@ -1,24 +1,124 @@
 {
-  "generated_at": "2026-05-19T16:21:18.567156+00:00",
-  "note": "Source-led daily radar for urban forests, pocket forests, Miyawaki planting, biodiversity, wellbeing, and practical delivery.",
-  "count": 14,
+  "generated_at": "2026-05-19T16:34:27.566244+00:00",
+  "note": "Source-led daily radar organised into Irish practice, comparable temperate-city examples, and research evidence.",
+  "sections": [
+    {
+      "id": "ireland-practice",
+      "title": "Practical Urban Forests in Ireland",
+      "description": "Irish examples, delivery signals, local authority action, campus greening, community planting, pocket forests, and implementation news."
+    },
+    {
+      "id": "temperate-practice",
+      "title": "Similar Latitudes and Temperate Cities",
+      "description": "Transferable examples from comparable temperate urban contexts: UK, western Europe, northern Europe, and maritime city settings."
+    },
+    {
+      "id": "research-evidence",
+      "title": "Urban Forest Research and Evidence",
+      "description": "Research, evidence, evaluation, biodiversity, wellbeing, maintenance, survival, governance, and design lessons."
+    }
+  ],
+  "count": 40,
   "items": [
+    {
+      "id": "zenodo-cbsm-15583804",
+      "title": "Cradle-Based Syntrophic Miyawaki (CBSM)",
+      "url": "https://doi.org/10.5281/zenodo.15583804",
+      "summary": "A fixed research and design reference for Cradle-Based Syntrophic Miyawaki, linking the UrbanForest implementation to the next-step Miyawaki-inspired concept.",
+      "published": null,
+      "source_id": "zenodo",
+      "source_name": "Zenodo",
+      "publisher": "Zenodo",
+      "section": "research-evidence",
+      "theme": "miyawaki",
+      "tags": [
+        "miyawaki",
+        "research-evidence",
+        "urban-forest",
+        "cbsm",
+        "zenodo"
+      ],
+      "score": 96,
+      "freshness_status": "reference",
+      "freshness_label": "Fixed research reference"
+    },
+    {
+      "id": "zenodo-urbanforest-19645195",
+      "title": "UrbanForest: Trinity Urban Forest case-study record",
+      "url": "https://doi.org/10.5281/zenodo.19645195",
+      "summary": "A fixed reference item for the UrbanForest case-study record, linking the project page to its archived Zenodo DOI and supporting the evidence base for the Trinity Urban Forest intervention.",
+      "published": null,
+      "source_id": "zenodo",
+      "source_name": "Zenodo",
+      "publisher": "Zenodo",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest",
+        "ireland-practice",
+        "case-study",
+        "zenodo",
+        "trinity"
+      ],
+      "score": 94,
+      "freshness_status": "reference",
+      "freshness_label": "Fixed project reference"
+    },
     {
       "id": "06f7730adfce9ead",
       "title": "Pocket Forest - Trinity Sustainability - Trinity College Dublin",
       "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOUXZmYUNWNU1VN2lXeG45bDRSdmZHNDFiLWxSR1JzdW81YmFKMWg4TGV2aW00U3lUUWZuclpMZEVCZWF4eGN3VEU3aVJFVllDcnpudXZsN1lCQ1loN3RGRFhOOHZ5Z3lvem1fTXBzX1kwUUMxZ2tVVF9CWHZyTmJqMlBaVmJwZmlzb1RFa2RBNjlYUzJWNHB6TTh2ZFp5cFRjRUhmM0hHSWs?oc=5",
       "summary": "Pocket Forest - Trinity Sustainability Trinity College Dublin",
       "published": "2026-04-02",
-      "source_id": "google-news-pocket-forest-ireland",
+      "source_id": "gn-ireland-pocket-forest",
       "source_name": "Google News: pocket forest Ireland",
       "publisher": "Google News: pocket forest Ireland",
+      "section": "ireland-practice",
       "theme": "pocket-forest",
       "tags": [
         "pocket-forest"
       ],
-      "score": 47,
+      "score": 57,
       "freshness_status": "fresh",
       "freshness_label": "47 days old"
+    },
+    {
+      "id": "189f6e1f2a046fae",
+      "title": "Popular Miyawaki reforestation method lacks evidence, study finds - news - Mongabay",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQlA3MlA2SmhYLXdURUR6WFVVUzVDOHJFSExqRDBKYk5nUko1cFB4Tnh5M01JQU9WbjdfLTlKNmY3YVRWb1pEZGE2czBSam9xbm9jdE1JMEVXLTZUS3BHY3hvUXV1VENPRHJJMzZ0eGh1ZzRVeWZTeDZDMTk0dUs4TFBlT1ExS0NqSE8xZzVMeXNCczhKRUx3ZTRKc3dhSXBE0gGmAUFVX3lxTE8tQXlUSzh6ZzFxMFNpcUU5ZkdvSWxFWjRHRjMxcDFsMzhhcGVHM0szaG4wUzFtQXpqVndiZ3luU2FCbGFmQVRZalVlZU5DemNxVGNnQzA0Sk14bnRHVW9KV3RydHdESmpMYXp1SlZUNVVJUXE4c1Z1SF9Kcm1BaFFRYjVuZzZXWEVDaFVnRWFMcmd2SEwtS2VHNmM4WEk3ZGM2OF9FSlE?oc=5",
+      "summary": "Popular Miyawaki reforestation method lacks evidence, study finds news - Mongabay",
+      "published": "2026-05-13",
+      "source_id": "gn-miyawaki-research",
+      "source_name": "Google News: Miyawaki research",
+      "publisher": "Google News: Miyawaki research",
+      "section": "research-evidence",
+      "theme": "miyawaki",
+      "tags": [
+        "miyawaki"
+      ],
+      "score": 47,
+      "freshness_status": "fresh",
+      "freshness_label": "6 days old"
+    },
+    {
+      "id": "9d797290d7ed9782",
+      "title": "Baggot Estate Biodiversity Garden promotes community well being initiatives in an urban forest - I Love Limerick",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBuSlMyNzZjRmtjUmNJNFk3ai1MWWYxN2pZOW5KR1ZJaEVjVWdkYUF3ZlpPVkRCWUJFRkRWMXlCNl9HWjRsbG50Y3N2V2RDZG5FQ21DcmtyR2ZyN1JENVkxVTFqQnQyUXdRN0VSRlR0UlA?oc=5",
+      "summary": "Baggot Estate Biodiversity Garden promotes community well being initiatives in an urban forest I Love Limerick",
+      "published": "2022-02-04",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest",
+        "biodiversity",
+        "wellbeing"
+      ],
+      "score": 44,
+      "freshness_status": "reference",
+      "freshness_label": "1565 days old · background"
     },
     {
       "id": "31b018c3a85bb633",
@@ -27,13 +127,14 @@
       "summary": "How to grow your pocket forest",
       "published": null,
       "source_id": "pocket-forests-ireland",
-      "source_name": "Pocket Forests",
-      "publisher": "Pocket Forests",
+      "source_name": "Pocket Forests Ireland",
+      "publisher": "Pocket Forests Ireland",
+      "section": "ireland-practice",
       "theme": "pocket-forest",
       "tags": [
         "pocket-forest"
       ],
-      "score": 43,
+      "score": 44,
       "freshness_status": "reference",
       "freshness_label": "Date unknown"
     },
@@ -44,42 +145,99 @@
       "summary": "University of Galway Pocket Forest",
       "published": null,
       "source_id": "pocket-forests-ireland",
-      "source_name": "Pocket Forests",
-      "publisher": "Pocket Forests",
+      "source_name": "Pocket Forests Ireland",
+      "publisher": "Pocket Forests Ireland",
+      "section": "ireland-practice",
       "theme": "pocket-forest",
       "tags": [
         "pocket-forest"
       ],
-      "score": 43,
+      "score": 44,
       "freshness_status": "reference",
       "freshness_label": "Date unknown"
     },
     {
-      "id": "6e7e9fae2fbc2abd",
-      "title": "Record year for urban forest project - Nation.Cymru",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA0bENpLUN2R3V5NmRSUGoza1JsSDE2eWxZMWV5cjVLTDM1VlBkNEEwUTk4NXFoRmpjNlVBRm9DNGxpcTdMb3lLNVB3Z29HS29MQzNXYkkzSi1YZ0lmZGRVaEZjb09IaWVTSV83MF9pb3c?oc=5",
-      "summary": "Record year for urban forest project Nation.Cymru",
-      "published": "2026-05-17",
-      "source_id": "google-news-urban-biodiversity-forests",
-      "source_name": "Google News: urban biodiversity forests",
-      "publisher": "Google News: urban biodiversity forests",
+      "id": "2ca83dadc3fc6e4d",
+      "title": "An Urban Forest on Campus - Trinity College Dublin",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1PeVdxWGNvRnFYQV9KdlFESk5UWU9BczhiaVFFUjVQMTZHQVZCcTczZVZqNXBEd3hzRUZGY1k0TW9QdGJpdHktbzl4WFA3dkpfY3ctOHh2czdmZ3hIam0ybHRjeG5BNFcxTkxpU1hseU44Z0tZcHV1cUpuSXg?oc=5",
+      "summary": "An Urban Forest on Campus Trinity College Dublin",
+      "published": "2025-01-14",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
       "theme": "urban-forest",
       "tags": [
         "urban-forest"
       ],
-      "score": 38,
-      "freshness_status": "fresh",
-      "freshness_label": "2 days old"
+      "score": 43,
+      "freshness_status": "reference",
+      "freshness_label": "490 days old · background"
     },
     {
-      "id": "ca4177325cc42248",
-      "title": "Protecting UCT’s urban forest from the polyphagous shot-hole borer - UCT News",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQejVlYmxBTDhPQ0RCMERsZDZqTEZsQUU4RUlKTTQ4V0Y1OFBwbHBpLVJTQmhiRUVXZ0pMN1Z3NzRxdnJMVzlaODdrYlZCMDE1dTZLbUkzYkJpYkp2X1ZpdnRfMlh2RHpQOFBmODNXQ3Q5ZVhhWDV4UUZ1YWZYMk4yZGRwczlDWU5na0ktQk5mT043bS1RMmlSbFExbXdQbFFNUlVMZThkMzdkdkZzczdSZTJB?oc=5",
-      "summary": "Protecting UCT’s urban forest from the polyphagous shot-hole borer UCT News",
+      "id": "f44d491b46cfd972",
+      "title": "Study finds urban nature-based solutions overlook biodiversity - Mongabay-India",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQU0VwdVdDWUFfMzhvdk56NGZmeEJMQzRxaXpzUGlybV9sMVRLM3VXQlNla2lTT0RyYnNjZnRFUjZRSWhYT1Z4VkZPZ3YxbS02YVFOa3FqQ2FGMEc2OHU3bS1XOWZKOEluLWgxWlo5cXZnZ1p2NnE0dGRGeGczcHMtdGtlNy1nRzFJLU1DSHhTemlhOXItdVg5dWlzTkl6Y0E?oc=5",
+      "summary": "Study finds urban nature-based solutions overlook biodiversity Mongabay-India",
+      "published": "2026-03-02",
+      "source_id": "gn-urban-forest-research",
+      "source_name": "Google News: urban forest research",
+      "publisher": "Google News: urban forest research",
+      "section": "research-evidence",
+      "theme": "biodiversity",
+      "tags": [
+        "biodiversity"
+      ],
+      "score": 40,
+      "freshness_status": "reference",
+      "freshness_label": "78 days old · background"
+    },
+    {
+      "id": "029063de5039f452",
+      "title": "Miyawaki forests in Bengaluru need more than just trees - Dailyhunt",
+      "url": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQNXRCNkk5T3ZLV0plaDJHTWpPTWFzTmpST3dVUTVpTzZOYlJBZHVMY2dRcFF0QkdGRnNlampxVFlZcjJwUktoQnNzWmRwYU1iU1VPcTlNbXB0c3hFWVptclE0eUlxcG5PUFNGZ2VDdF9FYXRMSENuMG9jVlgxbERpQTlFUlE2SldQZC0zNUZjTkNwWWcwcm5HUXJId3o1UFZrVElwVkVOZkUwemdPQXBEcnMyc3dnWEZMRlE0NVNpdFRETXBpeUYxTm5ES29PdGE4akNMbVZKc0Z6MW8?oc=5",
+      "summary": "Miyawaki forests in Bengaluru need more than just trees Dailyhunt",
+      "published": "2026-05-09",
+      "source_id": "gn-miyawaki-research",
+      "source_name": "Google News: Miyawaki research",
+      "publisher": "Google News: Miyawaki research",
+      "section": "research-evidence",
+      "theme": "miyawaki",
+      "tags": [
+        "miyawaki"
+      ],
+      "score": 39,
+      "freshness_status": "fresh",
+      "freshness_label": "10 days old"
+    },
+    {
+      "id": "dcc4b935302150fe",
+      "title": "Dublin suburb of Darndale joins Milan and Barcelona as new European urban forest - IrishCentral",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOHdPN2ZTNzlKWkNZdnlHcWh5d0xydHpZTGNXRGRmbFp0eHNpMnQ1N05SOUxTRHJqVnhkb00tV0tyX3l4T1cxT0YwdmVJdGhuSG1naWFybHJKd3JyZWkwdlBYQVhHUHZFV25DUE1iR1VDUWIxcG1EMWxNNnBhTEhrU0pIVUlldHRK0gGOAUFVX3lxTE02aGd0c3JkZGdPbE9wY1l2Q2ZnRDNXQU1zb2UyOWVYcldNci1qOVZlN2ZRV3duaEJRTld3TERTeDJkZ093YWdIbE9fY2h4WUx1ajBpSDAxS21TOTU4dkVHTmYyblE1Wi1QOTUzY0lEWFdZUWZvUV9mUmNCRmtWMjh3ZmhPY1lPdDdMUUhQQlE?oc=5",
+      "summary": "Dublin suburb of Darndale joins Milan and Barcelona as new European urban forest IrishCentral",
+      "published": "2023-12-07",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 39,
+      "freshness_status": "reference",
+      "freshness_label": "894 days old · background"
+    },
+    {
+      "id": "2854a8b25896575a",
+      "title": "‘Agriculture of life’: the Rio families growing bananas to protect the world’s largest urban forest - The Guardian",
+      "url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxQel83S1RrbWpYR2R1OVRTMjlYVDJTX1M5d0t0cmNHOVBScGk5XzJJZGJNeTd0NFFkUjVyLVVOemo4b2ZFaFM2ZWxPb3lDNkhJak5rR2VxblFmdlZJZ2RPVFF2SkpLdXhNeElkV19IRjVrOG9RbWhwdDJBOGQwZ0JyTmpSOFg0MGNpeTc4RjByWE9KbGt1NWU1SlQzODh4U2JiZDUzaV9wVTM5ZDlqek9PbzJtdDhoT3hWYnZudEFBbzZHMVVIekgyOXZ4NGhqNE04YWpBbVBNMU5kcnpTVVlKRzJrR0dVZGRXaFE?oc=5",
+      "summary": "‘Agriculture of life’: the Rio families growing bananas to protect the world’s largest urban forest The Guardian",
       "published": "2026-03-20",
-      "source_id": "google-news-urban-biodiversity-forests",
-      "source_name": "Google News: urban biodiversity forests",
-      "publisher": "Google News: urban biodiversity forests",
+      "source_id": "gn-urban-forest-uk-europe",
+      "source_name": "Google News: urban forest UK Europe",
+      "publisher": "Google News: urban forest UK Europe",
+      "section": "temperate-practice",
       "theme": "urban-forest",
       "tags": [
         "urban-forest"
@@ -89,89 +247,20 @@
       "freshness_label": "60 days old"
     },
     {
-      "id": "9d797290d7ed9782",
-      "title": "Baggot Estate Biodiversity Garden promotes community well being initiatives in an urban forest - I Love Limerick",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBuSlMyNzZjRmtjUmNJNFk3ai1MWWYxN2pZOW5KR1ZJaEVjVWdkYUF3ZlpPVkRCWUJFRkRWMXlCNl9HWjRsbG50Y3N2V2RDZG5FQ21DcmtyR2ZyN1JENVkxVTFqQnQyUXdRN0VSRlR0UlA?oc=5",
-      "summary": "Baggot Estate Biodiversity Garden promotes community well being initiatives in an urban forest I Love Limerick",
-      "published": "2022-02-04",
-      "source_id": "google-news-urban-forest-ireland",
-      "source_name": "Google News: urban forest Ireland",
-      "publisher": "Google News: urban forest Ireland",
-      "theme": "urban-forest",
-      "tags": [
-        "urban-forest",
-        "biodiversity",
-        "wellbeing"
-      ],
-      "score": 34,
-      "freshness_status": "reference",
-      "freshness_label": "1565 days old · background"
-    },
-    {
-      "id": "2ca83dadc3fc6e4d",
-      "title": "An Urban Forest on Campus - Trinity College Dublin",
-      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1PeVdxWGNvRnFYQV9KdlFESk5UWU9BczhiaVFFUjVQMTZHQVZCcTczZVZqNXBEd3hzRUZGY1k0TW9QdGJpdHktbzl4WFA3dkpfY3ctOHh2czdmZ3hIam0ybHRjeG5BNFcxTkxpU1hseU44Z0tZcHV1cUpuSXg?oc=5",
-      "summary": "An Urban Forest on Campus Trinity College Dublin",
-      "published": "2025-01-14",
-      "source_id": "google-news-urban-forest-ireland",
-      "source_name": "Google News: urban forest Ireland",
-      "publisher": "Google News: urban forest Ireland",
-      "theme": "urban-forest",
-      "tags": [
-        "urban-forest"
-      ],
-      "score": 33,
-      "freshness_status": "reference",
-      "freshness_label": "490 days old · background"
-    },
-    {
-      "id": "90156612a14a39e1",
-      "title": "First 'tiny forest' planted on Devon's major road network - North Devon Gazette",
-      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPSXZsRHJBWFg2SHhlRlQ4NVFSeng0bEtrNlhSa0FOcU1DMmZlMXA5OG1hdi1Kd05mb283cmxkTnpjYkd5SWpRNmRZQXFKdUQyR0lLSEQ4NTFoOWlSbHJKSzBoTU5RQ2h2UGJwenNyRExpcVB5eTF6aHBTd3RncWJiR2p2SDk0LVlmU1BCTEFXUzQ5N3BYb3ZQUERISkxLMUktU1F1STRHV1lBM0JpUHZjX09qanIydjMxZElxZUJpVQ?oc=5",
-      "summary": "First 'tiny forest' planted on Devon's major road network North Devon Gazette",
-      "published": "2026-03-02",
-      "source_id": "google-news-tiny-forest-europe",
-      "source_name": "Google News: tiny forest Europe",
-      "publisher": "Google News: tiny forest Europe",
-      "theme": "urban-forest",
-      "tags": [
-        "urban-forest"
-      ],
-      "score": 30,
-      "freshness_status": "reference",
-      "freshness_label": "78 days old · background"
-    },
-    {
-      "id": "dcc4b935302150fe",
-      "title": "Dublin suburb of Darndale joins Milan and Barcelona as new European urban forest - IrishCentral",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOHdPN2ZTNzlKWkNZdnlHcWh5d0xydHpZTGNXRGRmbFp0eHNpMnQ1N05SOUxTRHJqVnhkb00tV0tyX3l4T1cxT0YwdmVJdGhuSG1naWFybHJKd3JyZWkwdlBYQVhHUHZFV25DUE1iR1VDUWIxcG1EMWxNNnBhTEhrU0pIVUlldHRK0gGOAUFVX3lxTE02aGd0c3JkZGdPbE9wY1l2Q2ZnRDNXQU1zb2UyOWVYcldNci1qOVZlN2ZRV3duaEJRTld3TERTeDJkZ093YWdIbE9fY2h4WUx1ajBpSDAxS21TOTU4dkVHTmYyblE1Wi1QOTUzY0lEWFdZUWZvUV9mUmNCRmtWMjh3ZmhPY1lPdDdMUUhQQlE?oc=5",
-      "summary": "Dublin suburb of Darndale joins Milan and Barcelona as new European urban forest IrishCentral",
-      "published": "2023-12-07",
-      "source_id": "google-news-urban-forest-ireland",
-      "source_name": "Google News: urban forest Ireland",
-      "publisher": "Google News: urban forest Ireland",
-      "theme": "urban-forest",
-      "tags": [
-        "urban-forest"
-      ],
-      "score": 29,
-      "freshness_status": "reference",
-      "freshness_label": "894 days old · background"
-    },
-    {
       "id": "ac8c0a93147d8b97",
       "title": "Rehabilitation centre branches out with Ireland's first Tiny Forest - RTE.ie",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5VX3UzMkZvTVJ0UjFfUEZGay1iSkotSzU0a1dWLXlXb3ZGYnJWcTZpdnU1blJISTZxZkhWbHk1Y0M0TGVUazNScVdYeUdIb2pnVzRLMUVWTUVZelA0UmNSQmw2UTV0ODFuLUgzYWZ5eWJWTlZM?oc=5",
       "summary": "Rehabilitation centre branches out with Ireland's first Tiny Forest RTE.ie",
       "published": "2023-03-24",
-      "source_id": "google-news-urban-forest-ireland",
+      "source_id": "gn-ireland-urban-forest",
       "source_name": "Google News: urban forest Ireland",
       "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
       "theme": "urban-forest",
       "tags": [
         "urban-forest"
       ],
-      "score": 27,
+      "score": 37,
       "freshness_status": "reference",
       "freshness_label": "1152 days old · background"
     },
@@ -181,14 +270,15 @@
       "url": "https://news.google.com/rss/articles/CBMijwJBVV95cUxOc2xsQWt4bmxHLWpKTDdMR2FsUG1HLXRJTTk5RHpLYTI0endMMGFHYVFYcDVqVURxNFIxaFlSMjRfRzdXTk1TNzYzS09fSk1uR0dVWTcyRFc5Vk05R0lSRDQ3UnozVW1Ic0k2am9VRUo1VHgwRTJHNlJWbzJWMGhibHo4TjZvcXR0UGFOcnp3a1ZQQjN6bHY4SkUxMEFLbkhKa0gwUUNaWEc4ekd6SG9RMXk3aFY5cExWaGxvN0ZEV2lJc3JwdmtEQkJZNGxHQlltdlBLXzI0cGk2VEc2QkFRZXJMZ0dlbmlXeVd5MV9XeWFyTVVxZlpsQ0EydzNJSEhYQUNLamVyQ080MkJuNDVv?oc=5",
       "summary": "Meet the guardian of Dublin’s trees, who is making contingencies for climate change as he tends to ‘urban forest’ Irish Independent",
       "published": "2025-11-02",
-      "source_id": "google-news-urban-forest-ireland",
+      "source_id": "gn-ireland-urban-forest",
       "source_name": "Google News: urban forest Ireland",
       "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
       "theme": "urban-forest",
       "tags": [
         "urban-forest"
       ],
-      "score": 25,
+      "score": 35,
       "freshness_status": "reference",
       "freshness_label": "198 days old · background"
     },
@@ -198,14 +288,15 @@
       "url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOR1l3TGhYMkpWYTN5a1ltd1d1SXdkYjdQZFN1Qm50aExfV3ZFSDFGNXp3OVdLTW8yYUpjaDZUMDJiMTkyU3dWMXNuU2ZnQUtnaHhjd28weVRlWDlPLUVXXzVoLTRoTDdQOE0xT3l5SS1MeXhLUlppcWF0bXkwdVFHWXNpUzRCWFBCelh2aVZwRkxFbzB0enlBaEdVX216NTJpZ3k0aGRxb05mcjhKRnBUT3JEeWd2cmpGeDVxNTJ6QWl3RU03ZlFhYXlWR1I0elY3b3JjTkdSYTVhYjhhLUpkSlI1NW0xOTBZSTB5N1FxbnU?oc=5",
       "summary": "Saunas, food truck and ‘pocket forest’ among proposals to transform Dublin’s graving docks Irish Independent",
       "published": "2024-11-07",
-      "source_id": "google-news-pocket-forest-ireland",
+      "source_id": "gn-ireland-pocket-forest",
       "source_name": "Google News: pocket forest Ireland",
       "publisher": "Google News: pocket forest Ireland",
+      "section": "ireland-practice",
       "theme": "pocket-forest",
       "tags": [
         "pocket-forest"
       ],
-      "score": 25,
+      "score": 35,
       "freshness_status": "reference",
       "freshness_label": "558 days old · background"
     },
@@ -215,14 +306,15 @@
       "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPU3NSQWhhbkVIZWlqZUlublRwXy1JTDZaZ3dMWFJLdHBVMlU2My1QanB4dkFaS3Q0aGtUQmE2UHEtdTg5MFhKY1prR3lhREMwYXVKSTdaT3pkY3pscjRJelVHcElfd1paSDc5cE40MzlMMTZHUEdSSlY5RG9LVWFLTURTdGJCR2xjbW1GcGh6bFM5bXhRQmg5SmNWZlVDbUhiQ1pMTHdSdTBKQ184Q0VZU1doZUpIUjRfMkJFYmZrT0QydFJPN2w2N0I2VWVUQjFSSldUSw?oc=5",
       "summary": "Plan for lido, saunas, food trucks and pocket forest in Dublin’s historic graving docks The Irish Times",
       "published": "2024-11-01",
-      "source_id": "google-news-pocket-forest-ireland",
+      "source_id": "gn-ireland-pocket-forest",
       "source_name": "Google News: pocket forest Ireland",
       "publisher": "Google News: pocket forest Ireland",
+      "section": "ireland-practice",
       "theme": "pocket-forest",
       "tags": [
         "pocket-forest"
       ],
-      "score": 25,
+      "score": 35,
       "freshness_status": "reference",
       "freshness_label": "564 days old · background"
     },
@@ -232,17 +324,437 @@
       "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOQ3gxTl93UjZYWW5hb0N4b1hTV2d3aDZsRm9TWHlZOWgxYjZPNFVPUHJpbUdlYmpsWVZHMC14Q1Vkal9TRVJjSk9uSkNaXzMzMWtzX29xbGo5QVJ3Tkt2T3hLNldlWUo5WFgzTlAwdGVtem5ZU09QazEwYnJhbzRZQVdzZ2RqWEZSenN4UnBZVU9BcHcwemI1UUFyV0pGb05EMUM4QUxCNGRacFE1UHFVOEJLZWJ4cmV1RXpZeA?oc=5",
       "summary": "Darndale urban forest collaboration led by Trinity and Dublin City Council Trinity College Dublin",
       "published": "2023-12-01",
-      "source_id": "google-news-urban-forest-ireland",
+      "source_id": "gn-ireland-urban-forest",
       "source_name": "Google News: urban forest Ireland",
       "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
       "theme": "urban-forest",
       "tags": [
         "urban-forest",
         "funding-policy"
       ],
-      "score": 25,
+      "score": 35,
       "freshness_status": "reference",
       "freshness_label": "900 days old · background"
+    },
+    {
+      "id": "c889d0ca05083651",
+      "title": "Could the Miyawaki method of planting trees help prevent vandalism in urban areas? - The Irish Times",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOY2JMeHdJM0FoMXVybWpMSWY3dmx1eFUtMnpyT1E3WWdtVXBPWUwycndwU1RXM2Z4NnQyYVJLSXlyZTJySjNqWHVBc2J2SVR5Vm9YYUxBZWtEY2lRMjBvZnROR0lkZU5pb0dKdkFOV09ESGRoZmJMcnpDd2pDbzZEYjVFUlNaTFFBSGJKREliX0VVMDFUUVhPNklSMWxnTlhaWjJlYTBaTlZWbGZzRU9PY0lnOWR3UVpsX0tlRzBXMmwyOUpTbDA4cjZtUQ?oc=5",
+      "summary": "Could the Miyawaki method of planting trees help prevent vandalism in urban areas? The Irish Times",
+      "published": "2024-06-24",
+      "source_id": "gn-ireland-miyawaki",
+      "source_name": "Google News: Miyawaki Ireland",
+      "publisher": "Google News: Miyawaki Ireland",
+      "section": "ireland-practice",
+      "theme": "miyawaki",
+      "tags": [
+        "miyawaki"
+      ],
+      "score": 33,
+      "freshness_status": "reference",
+      "freshness_label": "694 days old · background"
+    },
+    {
+      "id": "e0328eb21c7f7dc0",
+      "title": "Paris plans to go green by planting \"urban forest\" around architectural landmarks - Dezeen",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPV25fSVRMYUs3czhhcm5PTDM2WlJ5MzBoZ3F1NHZnbHNaa0wxSFVjTDE3eUJRb1FwSWNKTWdZbENqcWRHREJYWUdva1g1eVFMUzk3dnIwQ3dtVXdFTm9GR09rTnU1NkhBMm9tNHFiQnFGUXh3OGRiajcxNDFlM1g4eQ?oc=5",
+      "summary": "Paris plans to go green by planting \"urban forest\" around architectural landmarks Dezeen",
+      "published": "2019-06-26",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 33,
+      "freshness_status": "reference",
+      "freshness_label": "2519 days old · background"
+    },
+    {
+      "id": "d7d347515e157a1e",
+      "title": "Greater Noida authority to develop forest on 12 acres with Miyawaki method | Hindustan Times - Hindustan Times",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQemtSVWJuck9MYmhMN0FoUG50QTJjYU5YNjNUNksxM2Rsa1lSZVdJczl6NVBKb2Q3SWJDYTBtWlRkQmcxNzhSelp2T3QtMkVkS0VpMWVELXpJX2RRUmhsV19QNV9acGpMaTYtMEE2T1BVay13Qm5hUXpLU2hyZVFOUjd6UmttR3V6RnJjYzhPZ0ZuUU5tQzdIcm82YUJKdVJFc00wNEwzd1IxS09JbmJGVUVOYkVvVkxfWHB2UVk2TkxPckhOdkVNbS1hVllraG5WNGk4Q2tBdEc3VGU10gHiAUFVX3lxTFBsd3NFMWJncVRiR1ZyY3BOZmNTVDhuNDdoLUZ6RnVXWGcyRWlRY0c1V1FDSWE3OHc0T2ZyeUVQSFBjNnpOOWtkMGRKNjlkeF9iR3E1MGZsRU0tenBpdG5kbWFFTTdyLWQ4WGpLenV2aG5aRU5lSXdLWkt1Ni1LNG1LQnZLWmxjNWJtQkp2eW80LXFNWGFXNFJOS0xlZWtxYndWNm9WVWdldWFkcUJMYVhtTGQtV285N1dwbUZzT0JxYXhnT2RBMzBVbk8tSDUzV2dvcUhxMnJiT004cklCWHdxM0E?oc=5",
+      "summary": "Greater Noida authority to develop forest on 12 acres with Miyawaki method | Hindustan Times Hindustan Times",
+      "published": "2026-03-09",
+      "source_id": "gn-urban-forest-maintenance",
+      "source_name": "Google News: urban forest maintenance",
+      "publisher": "Google News: urban forest maintenance",
+      "section": "research-evidence",
+      "theme": "miyawaki",
+      "tags": [
+        "miyawaki"
+      ],
+      "score": 30,
+      "freshness_status": "reference",
+      "freshness_label": "71 days old · background"
+    },
+    {
+      "id": "90156612a14a39e1",
+      "title": "First 'tiny forest' planted on Devon's major road network - North Devon Gazette",
+      "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPSXZsRHJBWFg2SHhlRlQ4NVFSeng0bEtrNlhSa0FOcU1DMmZlMXA5OG1hdi1Kd05mb283cmxkTnpjYkd5SWpRNmRZQXFKdUQyR0lLSEQ4NTFoOWlSbHJKSzBoTU5RQ2h2UGJwenNyRExpcVB5eTF6aHBTd3RncWJiR2p2SDk0LVlmU1BCTEFXUzQ5N3BYb3ZQUERISkxLMUktU1F1STRHV1lBM0JpUHZjX09qanIydjMxZElxZUJpVQ?oc=5",
+      "summary": "First 'tiny forest' planted on Devon's major road network North Devon Gazette",
+      "published": "2026-03-02",
+      "source_id": "gn-europe-tiny-forest",
+      "source_name": "Google News: tiny forest Europe",
+      "publisher": "Google News: tiny forest Europe",
+      "section": "temperate-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 30,
+      "freshness_status": "reference",
+      "freshness_label": "78 days old · background"
+    },
+    {
+      "id": "ff2daf8b501d0745",
+      "title": "Almost 5000 trees and shrubs to be planted across the North East as part of a “Miyawaki” Tiny Forest initiative. - Newcastle City Council",
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPR05BSXFSdDdOTndONElLUU14cndiU2djbnYzZzRRX0VxM2RFcmlha3FIUjNHYkJER0x2T2xYYW5KcVYwbEs1NFp1dTRhUmRjTUsyNzlZRm1NbGJHSzFVb3hiOEROZXZmc216OHBuc1V1d1RBVkVmVnhXMzhndlVqTWppUGhONUs1UEtFY2ROcmRyN3h5S2RZV0dnbWFSaFR4Tm5NbmszUWJHRmVUaXo5VmhVak82aGdlZGRJQ0JlUzhYbXRq?oc=5",
+      "summary": "Almost 5000 trees and shrubs to be planted across the North East as part of a “Miyawaki” Tiny Forest initiative. Newcastle City Council",
+      "published": "2023-11-29",
+      "source_id": "gn-temperate-miyawaki",
+      "source_name": "Google News: Miyawaki Europe",
+      "publisher": "Google News: Miyawaki Europe",
+      "section": "temperate-practice",
+      "theme": "miyawaki",
+      "tags": [
+        "miyawaki",
+        "funding-policy"
+      ],
+      "score": 28,
+      "freshness_status": "reference",
+      "freshness_label": "902 days old · background"
+    },
+    {
+      "id": "762b7d2537697562",
+      "title": "Thermal conditions modulate urban forest therapy outcomes: a meta-analytic review - Nature",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBwcm1xRThhcFlTT2RjdGR0a21VVUJCcDQtR2h1bWs2ZS1FemhfY0djaDJTcG5nenlKd3lUdkVhdVNuT3E2WHg3N0ROb1k4cHJ5aXpQWkxKa2FobTBnQ3hn?oc=5",
+      "summary": "Thermal conditions modulate urban forest therapy outcomes: a meta-analytic review Nature",
+      "published": "2025-11-10",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "190 days old · background"
+    },
+    {
+      "id": "24ec26a6c7393adb",
+      "title": "‘We Wanted to do Some Little Thing’: The Five-Month-Old Trinity Urban Forest - The University Times",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNTDdjRHQtTnRpdFpaM2puYi1MVno5MG5MZEQycy1DNzJ6clAtaXVXblloQlR2RURfRWlnWjRBdWpteGZ5WnFPVGEtT25pYnpyc2pUNFlsRk9YeXZYMV8zUlAyTEd2Q1EyVmFEQ1JWM2d3YWRhY0E1Ym1FaVB4bHRqYjRGeHNReU80c2tmWUttNWN3SjZjckVzeEZQM3pvTC0xc0YtbkpOLVEyVm1Lcnc?oc=5",
+      "summary": "‘We Wanted to do Some Little Thing’: The Five-Month-Old Trinity Urban Forest The University Times",
+      "published": "2025-05-15",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "369 days old · background"
+    },
+    {
+      "id": "ba5feb60148e3e4d",
+      "title": "Pocket Forest for University of Galway - Irish Tech News",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPOTFwSnBBcy1ONmxCLTlFMExIMGhyUjh5S1VSR2FER3FqcjNrWWFWQkxZbjlNeEozU3pCRjJkZ0xIbV9CNlNCcVBveVc5dlNFbl9oaHBfZngxeEtGZVZ2Y3dsTGNyZjhtQmFwVzVnSzItcXN2cktIUHJyQ3N5RFBYOWdR0gGCAUFVX3lxTE85MXBKcEFzLU42bEItOUUwTEgwaHJSOHlLVVJHYURHcWpyM2tZYVZCTFluOU14SjNTekJGMmRnTEhtX0I2U0JxUG95Vzl2U0VuX2hocF9meDF4S0ZlVnZjd2xMY3JmOG1CYXBXNWdLMi1xc3ZyS0hQcnJDc3lEUFg5Z1E?oc=5",
+      "summary": "Pocket Forest for University of Galway Irish Tech News",
+      "published": "2025-03-03",
+      "source_id": "gn-ireland-pocket-forest",
+      "source_name": "Google News: pocket forest Ireland",
+      "publisher": "Google News: pocket forest Ireland",
+      "section": "ireland-practice",
+      "theme": "pocket-forest",
+      "tags": [
+        "pocket-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "442 days old · background"
+    },
+    {
+      "id": "59383f1c131edfb7",
+      "title": "University of Galway launches Pocket Forest mini-woodland project - Agriland",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxObXRDS0dYdUZfSXZWa1FUemk4eDdZVkh2dE0xbDlaVW42RGZJLUFUa2NiUTNsbFduSEV3LTdwY0lGckpHWFJ0aXAybXRucHpfRWFva1JpMm43Znp1YTFWSUtVSFN2S3FZWFlqblA2ZFk2MkV1Y1ppalJ2SXZQcHN3c2FveFZfeDRjbXZvSXpKdFpYelFiUWZQWmJjX2pXM2xya19leUdn?oc=5",
+      "summary": "University of Galway launches Pocket Forest mini-woodland project Agriland",
+      "published": "2025-02-12",
+      "source_id": "gn-ireland-pocket-forest",
+      "source_name": "Google News: pocket forest Ireland",
+      "publisher": "Google News: pocket forest Ireland",
+      "section": "ireland-practice",
+      "theme": "pocket-forest",
+      "tags": [
+        "pocket-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "461 days old · background"
+    },
+    {
+      "id": "83b731381dfaf017",
+      "title": "Irish Dog Foods plants over 600 trees as part of new Urban Forest in Kildare - Kildare Now",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxObzcxbk5ObVVLeHdpbWxTWEw4eG8ydldaY21JblNxX2J3RVJQcGtla1ZhOTV5OVdEZUJlbjVTYTlHRHo3ZzhrUWFrQ2lYcFNzUmNYU1dVbGVOWDBQOU1jWnVCQWFqN1VOaU9QX2NTVjAtelJlems0V1NxeUdjUzBxelFVcjNialNFS2k4RU15NEN3Z05uaGNWOGNHX25hM2tRbWd5eUFpNElLSkEzNE5uLVZJWDlkQTg?oc=5",
+      "summary": "Irish Dog Foods plants over 600 trees as part of new Urban Forest in Kildare Kildare Now",
+      "published": "2025-01-13",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "491 days old · background"
+    },
+    {
+      "id": "9655ab1f139daa5f",
+      "title": "Oakland Adopts Urban Forest Plan to Foster Equity and Environmental Justice - Planetizen",
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNbWY4U3BucEZHdHZCaTlsa0FLZEdmcVpxbzB5NDlNakp4VTlHOXUzSXNTNnFUTnltaV9fWFM2VnRXOS1qWDVqUWdvTmo0ZmdEVDdydnBxN1VHQnNtamxTRWJJMUdBZWNNWk5DUjBrSlg2anFvTDNXY3JHUW5mNjNUNG1zVjhrZ2lKYWhHX0dNY1NGRWpSU05JV0k4cU84VmQ1ODlUV1BqTHVuVWo2MklYWTRkcVVGeW1TdjVj0gHAAUFVX3lxTE1wbUh4U2l6YTlSYnN1LU1idkYycWtfcXJHbml1TlVnQW1pQTYyTnNqOUJvTkYwWDVhSk44ZUNDLVRwcXlSLVZFY1Y3T2dVU3VaZlhqMVpQWTdQWVdFd3IyOXE1RDZ3NGRNR2trV1VIM09zMjJjdC1VX0lWaElmRE80dUZwb0NSNmZDeTF5YkwyOUZCdTBhc0ZfUnFSQ1drZDJNQTJwVGVhdnJXY0M2dndqZnU5N1VqVGY2UlhBZV9ZTw?oc=5",
+      "summary": "Oakland Adopts Urban Forest Plan to Foster Equity and Environmental Justice Planetizen",
+      "published": "2024-12-23",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "512 days old · background"
+    },
+    {
+      "id": "898a59dd1af578d4",
+      "title": "Tijuca National Park: The fight to rewild the world's largest urban forest - BBC",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNQ3Rubm9LbmtPRjBvMHpQSGNHUmNqeDU2Q0wxN2h5U0VTYTBjVTVJM1Rhc0ZuQ05JNFdCZWNrT0dvZ2lBcGJPRE5YNEhKNXlxRTQ2QmZDTjNQbnA3MDFrekpkZ3lqZGtsWmlTS041SGJ5c1ZYb0NvQzhGd3ZvVWc1eXhtMENrRzd4U05UYjBKYWhLZmlsc1lHMHR3MlNsNFFYLXFKcA?oc=5",
+      "summary": "Tijuca National Park: The fight to rewild the world's largest urban forest BBC",
+      "published": "2024-05-17",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "732 days old · background"
+    },
+    {
+      "id": "5e761e52c8c34ee6",
+      "title": "Miyawaki method shows dense Irish forest can grow rapidly - RTE.ie",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9mZlp5SHE4OVZITFRKS3lCM2RHeTBRTzE4SldWVkw0cHNKRkRBRHR4dUJBT1dySFR5ZU5HaXpZUWdseGZRV01sS0dpazJ4cm1zMkdoeFBHbUxSMjRnR0hRSENucXNSRHc?oc=5",
+      "summary": "Miyawaki method shows dense Irish forest can grow rapidly RTE.ie",
+      "published": "2024-03-08",
+      "source_id": "gn-ireland-miyawaki",
+      "source_name": "Google News: Miyawaki Ireland",
+      "publisher": "Google News: Miyawaki Ireland",
+      "section": "ireland-practice",
+      "theme": "miyawaki",
+      "tags": [
+        "miyawaki"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "802 days old · background"
+    },
+    {
+      "id": "64f2efd04d1568e2",
+      "title": "Belfast City Council considering Japan’s ‘tiny urban forest’ method - Belfast Telegraph",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOd0Nwb0F4QWxtSl9XZFZQTXE0VEhGQk42THNWNjBKTTZkakgzR2o2ekFxMzFqc0dicE1HY2pMUDlFNHdrYWQzZEpsQkhGQlJWVk9jWG14a0lyU1lseldpeDU5UTE5cWVkQkJfVFdDc1lEYlBmQVFKX3gxd1R2aFVtbGZJWUlsanV2bjRUeXVqdEpRZmxpd0kzM3kzNVhJZkNWZ2pFRWdYVnJKaVBvdDRYMUZGcDVCRko5bVhWdHlickUzVU5kYlVmSXZDMFNMTjdZczRwRQ?oc=5",
+      "summary": "Belfast City Council considering Japan’s ‘tiny urban forest’ method Belfast Telegraph",
+      "published": "2023-12-07",
+      "source_id": "gn-ireland-miyawaki",
+      "source_name": "Google News: Miyawaki Ireland",
+      "publisher": "Google News: Miyawaki Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest",
+        "funding-policy"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "894 days old · background"
+    },
+    {
+      "id": "c8835d566b1bc9a7",
+      "title": "Darndale joins Barcelona and Milan in new urban forest initiative - Irish Independent",
+      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPMU04b1hXb0Q2OFp1aEhCRWFlS0F0Q1FyYVNWNzliQ2NmWTZiV1RER0JUQW1jT3RWM1BVNXVCMjlQa19fdHZqRkhaQ2NhQW1RY2R6Y29aZ29LYnQ2eHljTFE1b2lCS1RSSGVzSUIyM2VnczFqRXVnOG92RXh1ZDU4MklGUjk3SWNpYlh5bnJvSWtiZmFzbkcxZXg2WkhMcmRxWXZOMjNONUd6VFE0SzNQT1N1NE9qdWhUb19EZFBGakRlbFUxaEpaZGtPY0VXOHZrVV9jcA?oc=5",
+      "summary": "Darndale joins Barcelona and Milan in new urban forest initiative Irish Independent",
+      "published": "2023-12-01",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "900 days old · background"
+    },
+    {
+      "id": "54437b7454d994d4",
+      "title": "Tiny Forest - UNESCO",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5UQm96VTRsLVBtOXBTWTZSOU1nbzIyN1VxcjBXTWxSb1VpeTRxSFdaN1d6Q1Nab3hZY08yMXF2LVFtMHZPMkwzZ2RKZHJQb1djVGhvN1RrSGgtZw?oc=5",
+      "summary": "Tiny Forest UNESCO",
+      "published": "2023-04-20",
+      "source_id": "gn-ireland-miyawaki",
+      "source_name": "Google News: Miyawaki Ireland",
+      "publisher": "Google News: Miyawaki Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "1125 days old · background"
+    },
+    {
+      "id": "dda7262a4b981473",
+      "title": "Limerick shrubs up well as urban forest appears! - Limerick Leader",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQUG5CWlo4YmVYMWlHQ0xiaFlNQ09LVUtVZ2hDWjN6cGp3U1ZEN3ZRODM2U0MzR3dMenRPQUF2MmRLcEJMUG81RUx4MW1JdXJpSXh2MXVKZ1BNRm9NUXU4ZF9aejhvakVxeE9JLXVFLVVxeHZpazNRR05FMnhOcy1sbm5PUDNqSFhRU0JPazM0Y29XX0t5SkJUNnhZSzJROEpp?oc=5",
+      "summary": "Limerick shrubs up well as urban forest appears! Limerick Leader",
+      "published": "2022-06-04",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "1445 days old · background"
+    },
+    {
+      "id": "98c9c11daf1eb793",
+      "title": "Belfast’s cathedral area to get 'urban forest' - Belfast Live",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOc0xkcW9FSzFQMDlsY0xZTWZOb25BRU9XVHNncWc0YjdJcTlFQTY4ZkJoTDB1RnhKWnVsTmI3by1IZU4zOGplVjJPN09LWjBzVXlUZzEwTm5EMFo5WFBnSm94YnM3TTd0MEFnd0dndW9FR05KRl9GYkg4cmh1MUZGWmpLaGZGc0XSAYwBQVVfeXFMTW5UcF8xNDJib1dYX0o3RWRVbXlkVElXVUdmckhQU0tKWU1JcmlzY2FKdjZ2Y0d2RG9sUTctbVhMSzlVU2d6WWJVWWpZZFVlNjRRM2JQQm5aRW1NOVk5U3kyWnZIQUEwN2kwZm5jNmpuLUFjX3VPb2R1OFNYTTVmYzlVWHZyNnZpalhmN0U?oc=5",
+      "summary": "Belfast’s cathedral area to get 'urban forest' Belfast Live",
+      "published": "2021-09-26",
+      "source_id": "gn-ireland-urban-forest",
+      "source_name": "Google News: urban forest Ireland",
+      "publisher": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "1696 days old · background"
+    },
+    {
+      "id": "55057538348cd793",
+      "title": "The Digital Hub hosts urban tree nursery first in Pocket Forest partnership - Irish Tech News",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1lXzRlYTBpa3dMVndaQXBNZ1NMVmhoakhvLVNXNEZ3RlByLTd4Vzg4aVRVSlpxX3JEMWJEVGwxOWJuS3RybXVFcDEydXRvTUJv0gFQQVVfeXFMTWVfNGVhMGlrd0xWd1pBcE1nU0xWaGhqSG8tU1c0RndGUHItN3hXODhpVFVKWnFfckQxYkRUbDE5Ym5LdHJtdUVwMTJ1dG9NQm8?oc=5",
+      "summary": "The Digital Hub hosts urban tree nursery first in Pocket Forest partnership Irish Tech News",
+      "published": "2021-07-26",
+      "source_id": "gn-ireland-pocket-forest",
+      "source_name": "Google News: pocket forest Ireland",
+      "publisher": "Google News: pocket forest Ireland",
+      "section": "ireland-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest",
+        "pocket-forest"
+      ],
+      "score": 27,
+      "freshness_status": "reference",
+      "freshness_label": "1758 days old · background"
+    },
+    {
+      "id": "7f5d37a6f306eb69",
+      "title": "Urban forest quality corresponds with soil microbial community composition and arbuscular mycorrhizal fungi root colonization - Nature",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE0xazB1ZjNRZDFoX2dGY2EtcDZyY3hMWjdoamhVV0g0Y3JiTDBqcW9PWFlOUWNrTFIzZnFQdk12c0VHQXVWQjJLZ2RHazhDU1ZvUGc0QXJmMXlkYlVaTDRJ?oc=5",
+      "summary": "Urban forest quality corresponds with soil microbial community composition and arbuscular mycorrhizal fungi root colonization Nature",
+      "published": "2025-07-01",
+      "source_id": "gn-urban-forest-research",
+      "source_name": "Google News: urban forest research",
+      "publisher": "Google News: urban forest research",
+      "section": "research-evidence",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest",
+        "wellbeing"
+      ],
+      "score": 25,
+      "freshness_status": "reference",
+      "freshness_label": "322 days old · background"
+    },
+    {
+      "id": "c574e089f42e76d2",
+      "title": "Western Australia’s first tiny forest for community-led urban greening - Murdoch University",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPQWFWT0ZDUWlWb2FQam1xOHEwRHpNLTAxbWQ4SFBiOHdVaVJSX3A0LWtHbFBtSzY4S090Wmp4T0NFM3Q3LW5FaVBxRFlROGRHTElYd05TQ3VPdDVLZmxTakVNcmpEN2tORi04bTlpQm0xMUY0TmF6emdpb21oRHVaaGJFbU5FalRIdGxvb1JLUVIwdkc3MWRMWGtVZjY2ZllxWDFVdUZ0bTItS21lVnYydA?oc=5",
+      "summary": "Western Australia’s first tiny forest for community-led urban greening Murdoch University",
+      "published": "2021-07-22",
+      "source_id": "gn-miyawaki-research",
+      "source_name": "Google News: Miyawaki research",
+      "publisher": "Google News: Miyawaki research",
+      "section": "research-evidence",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest",
+        "wellbeing"
+      ],
+      "score": 25,
+      "freshness_status": "reference",
+      "freshness_label": "1762 days old · background"
+    },
+    {
+      "id": "56ae929b6adbc447",
+      "title": "The Big Apple gets a tiny forest: 1,000 native plants coming to New York - The Guardian",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPNmk5TDYtZWxYZml6U2FmYl82N2xfQXlLZUdjaUk5d0dWNE5ra3NjT3NDV25nZ3pmR0d1a2dOd0lmd25qWDhuWUlGeE1WWDR0LWlzX01LcjhFRVB2Q0cxX3BzZ00xQ0hPVEc0QnktWXhMdGtZM2pRdk44SG1LT0dIbm5VcldrVldNbmZEM3ZR?oc=5",
+      "summary": "The Big Apple gets a tiny forest: 1,000 native plants coming to New York The Guardian",
+      "published": "2024-03-14",
+      "source_id": "gn-uk-tiny-forest",
+      "source_name": "Google News: tiny forest UK",
+      "publisher": "Google News: tiny forest UK",
+      "section": "temperate-practice",
+      "theme": "biodiversity",
+      "tags": [
+        "biodiversity"
+      ],
+      "score": 24,
+      "freshness_status": "reference",
+      "freshness_label": "796 days old · background"
+    },
+    {
+      "id": "c050d7c5f5906fdf",
+      "title": "North Dublin suburb joins Barcelona and Milan in urban forest initiative - LovinDublin",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOWEw0ZEJSRWhIT1dWSnhiTnRqbW55bThpaHdfbmxTTUtYZUlKaEJ5UVJnNkp3TGxvR3RGNkp6RFR1MFZIZDZBZGJkM0xzMEpMSl9NbVk3N285VEttRnVLUXZEbEpXSWMwMy1hclF6RWpUZnRfNE5IMy0zMC1Pc2gwM3M1NTNkN1NxRS1v?oc=5",
+      "summary": "North Dublin suburb joins Barcelona and Milan in urban forest initiative LovinDublin",
+      "published": "2023-12-04",
+      "source_id": "gn-urban-forest-uk-europe",
+      "source_name": "Google News: urban forest UK Europe",
+      "publisher": "Google News: urban forest UK Europe",
+      "section": "temperate-practice",
+      "theme": "urban-forest",
+      "tags": [
+        "urban-forest"
+      ],
+      "score": 24,
+      "freshness_status": "reference",
+      "freshness_label": "897 days old · background"
     }
   ]
 }

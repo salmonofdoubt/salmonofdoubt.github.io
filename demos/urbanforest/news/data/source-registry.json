@@ -1,77 +1,166 @@
 {
-  "version": "0.1",
+  "version": "0.2",
+  "sections": [
+    {
+      "id": "ireland-practice",
+      "title": "Practical Urban Forests in Ireland",
+      "description": "Irish examples, delivery signals, local authority action, campus greening, community planting, pocket forests, and implementation news."
+    },
+    {
+      "id": "temperate-practice",
+      "title": "Similar Latitudes and Temperate Cities",
+      "description": "Transferable examples from comparable temperate urban contexts: UK, western Europe, northern Europe, and maritime city settings."
+    },
+    {
+      "id": "research-evidence",
+      "title": "Urban Forest Research and Evidence",
+      "description": "Research, evidence, evaluation, biodiversity, wellbeing, maintenance, survival, governance, and design lessons."
+    }
+  ],
   "sources": [
     {
-      "id": "google-news-urban-forest-ireland",
+      "id": "gn-ireland-urban-forest",
       "name": "Google News: urban forest Ireland",
+      "section": "ireland-practice",
       "type": "rss",
       "url": "https://news.google.com/rss/search?q=%22urban%20forest%22%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.72,
-      "scope": "search"
+      "trust": 0.74,
+      "scope": "ireland"
     },
     {
-      "id": "google-news-pocket-forest-ireland",
+      "id": "gn-ireland-pocket-forest",
       "name": "Google News: pocket forest Ireland",
+      "section": "ireland-practice",
       "type": "rss",
       "url": "https://news.google.com/rss/search?q=%22pocket%20forest%22%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.72,
-      "scope": "search"
+      "trust": 0.74,
+      "scope": "ireland"
     },
     {
-      "id": "google-news-miyawaki-ireland",
+      "id": "gn-ireland-miyawaki",
       "name": "Google News: Miyawaki Ireland",
+      "section": "ireland-practice",
       "type": "rss",
       "url": "https://news.google.com/rss/search?q=Miyawaki%20forest%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "trust": 0.72,
-      "scope": "search"
+      "scope": "ireland"
     },
     {
-      "id": "google-news-tiny-forest-europe",
-      "name": "Google News: tiny forest Europe",
+      "id": "gn-ireland-campus-greening",
+      "name": "Google News: campus greening Ireland",
+      "section": "ireland-practice",
       "type": "rss",
-      "url": "https://news.google.com/rss/search?q=%22tiny%20forest%22%20Europe%20biodiversity&hl=en-IE&gl=IE&ceid=IE:en",
+      "url": "https://news.google.com/rss/search?q=%28%22campus%20greening%22%20OR%20%22urban%20biodiversity%22%20OR%20%22tree%20planting%22%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "trust": 0.68,
-      "scope": "search"
-    },
-    {
-      "id": "google-news-urban-biodiversity-forests",
-      "name": "Google News: urban biodiversity forests",
-      "type": "rss",
-      "url": "https://news.google.com/rss/search?q=%22urban%20forest%22%20biodiversity%20wellbeing&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.66,
-      "scope": "search"
-    },
-    {
-      "id": "trees-for-cities-news",
-      "name": "Trees for Cities",
-      "type": "page",
-      "url": "https://www.treesforcities.org/stories",
-      "trust": 0.78,
-      "scope": "practice"
-    },
-    {
-      "id": "earthwatch-tiny-forest",
-      "name": "Earthwatch Tiny Forest",
-      "type": "page",
-      "url": "https://earthwatch.org.uk/programme/tiny-forests/",
-      "trust": 0.80,
-      "scope": "practice"
+      "scope": "ireland"
     },
     {
       "id": "pocket-forests-ireland",
-      "name": "Pocket Forests",
+      "name": "Pocket Forests Ireland",
+      "section": "ireland-practice",
       "type": "page",
       "url": "https://www.pocketforests.ie/",
-      "trust": 0.78,
+      "trust": 0.8,
       "scope": "ireland-practice"
     },
     {
       "id": "trinity-news",
       "name": "Trinity News",
+      "section": "ireland-practice",
       "type": "page",
       "url": "https://www.tcd.ie/news_events/",
       "trust": 0.82,
       "scope": "institutional"
+    },
+    {
+      "id": "gn-uk-tiny-forest",
+      "name": "Google News: tiny forest UK",
+      "section": "temperate-practice",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22tiny%20forest%22%20UK%20OR%20%22tiny%20forest%22%20Britain&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.7,
+      "scope": "temperate"
+    },
+    {
+      "id": "gn-europe-tiny-forest",
+      "name": "Google News: tiny forest Europe",
+      "section": "temperate-practice",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22tiny%20forest%22%20Europe%20biodiversity&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.68,
+      "scope": "temperate"
+    },
+    {
+      "id": "gn-temperate-miyawaki",
+      "name": "Google News: Miyawaki Europe",
+      "section": "temperate-practice",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=Miyawaki%20forest%20Europe%20city&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.68,
+      "scope": "temperate"
+    },
+    {
+      "id": "gn-urban-forest-uk-europe",
+      "name": "Google News: urban forest UK Europe",
+      "section": "temperate-practice",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22urban%20forest%22%20UK%20OR%20%22urban%20forest%22%20Europe&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.68,
+      "scope": "temperate"
+    },
+    {
+      "id": "earthwatch-tiny-forest",
+      "name": "Earthwatch Tiny Forest",
+      "section": "temperate-practice",
+      "type": "page",
+      "url": "https://earthwatch.org.uk/programme/tiny-forests/",
+      "trust": 0.82,
+      "scope": "practice"
+    },
+    {
+      "id": "trees-for-cities",
+      "name": "Trees for Cities",
+      "section": "temperate-practice",
+      "type": "page",
+      "url": "https://www.treesforcities.org/stories",
+      "trust": 0.8,
+      "scope": "practice"
+    },
+    {
+      "id": "gn-urban-forest-research",
+      "name": "Google News: urban forest research",
+      "section": "research-evidence",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22urban%20forest%22%20research%20biodiversity%20wellbeing&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.7,
+      "scope": "research"
+    },
+    {
+      "id": "gn-miyawaki-research",
+      "name": "Google News: Miyawaki research",
+      "section": "research-evidence",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=Miyawaki%20forest%20research%20biodiversity%20urban&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.7,
+      "scope": "research"
+    },
+    {
+      "id": "gn-urban-trees-wellbeing",
+      "name": "Google News: urban trees wellbeing evidence",
+      "section": "research-evidence",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22urban%20trees%22%20wellbeing%20biodiversity%20research&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.68,
+      "scope": "research"
+    },
+    {
+      "id": "gn-urban-forest-maintenance",
+      "name": "Google News: urban forest maintenance",
+      "section": "research-evidence",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22urban%20forest%22%20maintenance%20survival%20monitoring&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.66,
+      "scope": "research"
     }
   ]
 }

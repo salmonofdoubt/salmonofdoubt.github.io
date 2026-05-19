@@ -22,6 +22,7 @@ ARCHIVE = DATA / "archive"
 REGISTRY = DATA / "source-registry.json"
 LATEST = DATA / "news.json"
 INDEX = ARCHIVE / "index.json"
+CURATED = DATA / "curated-items.json"
 
 MAX_ITEMS = 40
 MIN_SCORE = 24
@@ -279,8 +280,52 @@ def fetch_page(source: dict[str, Any]) -> list[RawItem]:
     return items
 
 
-def discover() -> list[dict[str, Any]]:
+def registry_sections(registry: dict[str, Any]) -> list[dict[str, Any]]:
+    return registry.get("sections", [])
+
+
+
+
+def load_curated_items() -> list[dict[str, Any]]:
+    if not CURATED.exists():
+        return []
+
+    try:
+        payload = json.loads(CURATED.read_text(encoding="utf-8"))
+    except Exception as exc:
+        print(f"Curated item file failed: {exc}")
+        return []
+
+    items = payload.get("items", [])
+    clean_items: list[dict[str, Any]] = []
+
+    for item in items:
+        if not item.get("title") or not item.get("url"):
+            continue
+
+        clean_items.append({
+            "id": item.get("id") or item_id(item["url"], item["title"]),
+            "title": clean_text(item.get("title"), 240),
+            "url": canonical_url(item.get("url", "")),
+            "summary": clean_text(item.get("summary"), 900),
+            "published": item.get("published"),
+            "source_id": item.get("source_id", "curated"),
+            "source_name": item.get("source_name", "Curated reference"),
+            "publisher": item.get("publisher", item.get("source_name", "Curated reference")),
+            "section": item.get("section", "research-evidence"),
+            "theme": item.get("theme", "urban-forest"),
+            "tags": item.get("tags", ["curated"]),
+            "score": int(item.get("score", 90)),
+            "freshness_status": item.get("freshness_status", "reference"),
+            "freshness_label": item.get("freshness_label", "Curated reference"),
+        })
+
+    return clean_items
+
+
+def discover() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
+    sections = registry_sections(registry)
     seen: set[str] = set()
     results: list[dict[str, Any]] = []
 
@@ -317,6 +362,7 @@ def discover() -> list[dict[str, Any]]:
                 "source_id": raw.source.get("id"),
                 "source_name": raw.source.get("name"),
                 "publisher": raw.source.get("name"),
+                "section": raw.source.get("section", "ireland-practice"),
                 "theme": theme,
                 "tags": tags,
                 "score": score,
@@ -325,7 +371,7 @@ def discover() -> list[dict[str, Any]]:
             })
 
     results.sort(key=lambda item: (item.get("score", 0), item.get("published") or ""), reverse=True)
-    return results[:MAX_ITEMS]
+    return results[:MAX_ITEMS], sections
 
 
 def update_archive(latest: dict[str, Any]) -> None:
@@ -365,11 +411,25 @@ def main() -> None:
     DATA.mkdir(parents=True, exist_ok=True)
     ARCHIVE.mkdir(parents=True, exist_ok=True)
 
-    items = discover()
+    discovered_items, sections = discover()
+    curated_items = load_curated_items()
+
+    seen_ids = set()
+    items = []
+
+    for item in curated_items + discovered_items:
+        uid = item.get("id") or item_id(item.get("url", ""), item.get("title", ""))
+        if uid in seen_ids:
+            continue
+        seen_ids.add(uid)
+        items.append(item)
+
+    items.sort(key=lambda item: (int(item.get("score", 0)), item.get("published") or ""), reverse=True)
 
     latest = {
         "generated_at": now_utc().isoformat(),
-        "note": "Source-led daily radar for urban forests, pocket forests, Miyawaki planting, biodiversity, wellbeing, and practical delivery.",
+        "note": "Source-led daily radar organised into Irish practice, comparable temperate-city examples, and research evidence.",
+        "sections": sections,
         "count": len(items),
         "items": items,
     }

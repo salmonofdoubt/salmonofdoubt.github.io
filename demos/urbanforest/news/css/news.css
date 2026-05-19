@@ -379,3 +379,61 @@ select {
     font-size: clamp(2.9rem, 18vw, 5rem);
   }
 }
+
+
+/* Three-lane UrbanForest News grouping */
+.news-section-group {
+  display: grid;
+  gap: 1rem;
+  margin: 1.4rem 0 2.2rem;
+}
+
+.news-section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(225, 240, 220, 0.68));
+  box-shadow: var(--shadow-soft);
+}
+
+.news-section-heading h3 {
+  margin: 0;
+  font-size: clamp(1.55rem, 3vw, 2.55rem);
+  line-height: 0.98;
+}
+
+.news-section-heading p {
+  margin: 0.55rem 0 0;
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.section-count {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 2.4rem;
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  background: var(--accent);
+  color: white;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .news-section-heading {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .section-count {
+    justify-self: start;
+  }
+}
+
