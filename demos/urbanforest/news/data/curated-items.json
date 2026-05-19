@@ -2,20 +2,26 @@
   "version": "0.1",
   "items": [
     {
-      "id": "zenodo-urbanforest-19645195",
-      "title": "UrbanForest: Trinity Urban Forest case-study record",
-      "url": "https://doi.org/10.5281/zenodo.19645195",
-      "summary": "A fixed reference item for the UrbanForest case-study record, linking the project page to its archived Zenodo DOI and supporting the evidence base for the Trinity Urban Forest intervention.",
+      "id": "urbanforest-site-case-study",
+      "title": "Trinity Urban Forest case study",
+      "url": "https://salmonofdoubt.github.io/demos/urbanforest/",
+      "summary": "A site-native reference item for the Trinity Urban Forest case study: the live microsite documenting the proposal, preparation, planting, milestones, human value, evidence base, and next-step CBSM design trajectory.",
       "published": null,
-      "source_id": "zenodo",
-      "source_name": "Zenodo",
-      "publisher": "Zenodo",
+      "source_id": "urbanforest-site",
+      "source_name": "UrbanForest microsite",
+      "publisher": "Salmon of Doubt",
       "section": "ireland-practice",
       "theme": "urban-forest",
-      "tags": ["urban-forest", "ireland-practice", "case-study", "zenodo", "trinity"],
+      "tags": [
+        "urban-forest",
+        "ireland-practice",
+        "case-study",
+        "trinity",
+        "site-reference"
+      ],
       "score": 94,
       "freshness_status": "reference",
-      "freshness_label": "Fixed project reference"
+      "freshness_label": "Site reference"
     },
     {
       "id": "zenodo-cbsm-15583804",
@@ -28,7 +34,13 @@
       "publisher": "Zenodo",
       "section": "research-evidence",
       "theme": "miyawaki",
-      "tags": ["miyawaki", "research-evidence", "urban-forest", "cbsm", "zenodo"],
+      "tags": [
+        "miyawaki",
+        "research-evidence",
+        "urban-forest",
+        "cbsm",
+        "zenodo"
+      ],
       "score": 96,
       "freshness_status": "reference",
       "freshness_label": "Fixed research reference"

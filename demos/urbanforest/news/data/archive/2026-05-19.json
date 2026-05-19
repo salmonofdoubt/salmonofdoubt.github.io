@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-19T16:34:27.566244+00:00",
+  "generated_at": "2026-05-19T16:40:58.739608+00:00",
   "note": "Source-led daily radar organised into Irish practice, comparable temperate-city examples, and research evidence.",
   "sections": [
     {
@@ -18,7 +18,7 @@
       "description": "Research, evidence, evaluation, biodiversity, wellbeing, maintenance, survival, governance, and design lessons."
     }
   ],
-  "count": 40,
+  "count": 39,
   "items": [
     {
       "id": "zenodo-cbsm-15583804",
@@ -43,26 +43,26 @@
       "freshness_label": "Fixed research reference"
     },
     {
-      "id": "zenodo-urbanforest-19645195",
-      "title": "UrbanForest: Trinity Urban Forest case-study record",
-      "url": "https://doi.org/10.5281/zenodo.19645195",
-      "summary": "A fixed reference item for the UrbanForest case-study record, linking the project page to its archived Zenodo DOI and supporting the evidence base for the Trinity Urban Forest intervention.",
+      "id": "urbanforest-site-case-study",
+      "title": "Trinity Urban Forest case study",
+      "url": "https://salmonofdoubt.github.io/demos/urbanforest/",
+      "summary": "A site-native reference item for the Trinity Urban Forest case study: the live microsite documenting the proposal, preparation, planting, milestones, human value, evidence base, and next-step CBSM design trajectory.",
       "published": null,
-      "source_id": "zenodo",
-      "source_name": "Zenodo",
-      "publisher": "Zenodo",
+      "source_id": "urbanforest-site",
+      "source_name": "UrbanForest microsite",
+      "publisher": "Salmon of Doubt",
       "section": "ireland-practice",
       "theme": "urban-forest",
       "tags": [
         "urban-forest",
         "ireland-practice",
         "case-study",
-        "zenodo",
-        "trinity"
+        "trinity",
+        "site-reference"
       ],
       "score": 94,
       "freshness_status": "reference",
-      "freshness_label": "Fixed project reference"
+      "freshness_label": "Site reference"
     },
     {
       "id": "06f7730adfce9ead",
@@ -681,25 +681,6 @@
       "score": 27,
       "freshness_status": "reference",
       "freshness_label": "1758 days old · background"
-    },
-    {
-      "id": "7f5d37a6f306eb69",
-      "title": "Urban forest quality corresponds with soil microbial community composition and arbuscular mycorrhizal fungi root colonization - Nature",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE0xazB1ZjNRZDFoX2dGY2EtcDZyY3hMWjdoamhVV0g0Y3JiTDBqcW9PWFlOUWNrTFIzZnFQdk12c0VHQXVWQjJLZ2RHazhDU1ZvUGc0QXJmMXlkYlVaTDRJ?oc=5",
-      "summary": "Urban forest quality corresponds with soil microbial community composition and arbuscular mycorrhizal fungi root colonization Nature",
-      "published": "2025-07-01",
-      "source_id": "gn-urban-forest-research",
-      "source_name": "Google News: urban forest research",
-      "publisher": "Google News: urban forest research",
-      "section": "research-evidence",
-      "theme": "urban-forest",
-      "tags": [
-        "urban-forest",
-        "wellbeing"
-      ],
-      "score": 25,
-      "freshness_status": "reference",
-      "freshness_label": "322 days old · background"
     },
     {
       "id": "c574e089f42e76d2",
