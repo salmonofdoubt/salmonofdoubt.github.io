@@ -1,0 +1,77 @@
+{
+  "version": "0.1",
+  "sources": [
+    {
+      "id": "google-news-urban-forest-ireland",
+      "name": "Google News: urban forest Ireland",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22urban%20forest%22%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.72,
+      "scope": "search"
+    },
+    {
+      "id": "google-news-pocket-forest-ireland",
+      "name": "Google News: pocket forest Ireland",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22pocket%20forest%22%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.72,
+      "scope": "search"
+    },
+    {
+      "id": "google-news-miyawaki-ireland",
+      "name": "Google News: Miyawaki Ireland",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=Miyawaki%20forest%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.72,
+      "scope": "search"
+    },
+    {
+      "id": "google-news-tiny-forest-europe",
+      "name": "Google News: tiny forest Europe",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22tiny%20forest%22%20Europe%20biodiversity&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.68,
+      "scope": "search"
+    },
+    {
+      "id": "google-news-urban-biodiversity-forests",
+      "name": "Google News: urban biodiversity forests",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%22urban%20forest%22%20biodiversity%20wellbeing&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.66,
+      "scope": "search"
+    },
+    {
+      "id": "trees-for-cities-news",
+      "name": "Trees for Cities",
+      "type": "page",
+      "url": "https://www.treesforcities.org/stories",
+      "trust": 0.78,
+      "scope": "practice"
+    },
+    {
+      "id": "earthwatch-tiny-forest",
+      "name": "Earthwatch Tiny Forest",
+      "type": "page",
+      "url": "https://earthwatch.org.uk/programme/tiny-forests/",
+      "trust": 0.80,
+      "scope": "practice"
+    },
+    {
+      "id": "pocket-forests-ireland",
+      "name": "Pocket Forests",
+      "type": "page",
+      "url": "https://www.pocketforests.ie/",
+      "trust": 0.78,
+      "scope": "ireland-practice"
+    },
+    {
+      "id": "trinity-news",
+      "name": "Trinity News",
+      "type": "page",
+      "url": "https://www.tcd.ie/news_events/",
+      "trust": 0.82,
+      "scope": "institutional"
+    }
+  ]
+}
