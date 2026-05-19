@@ -259,3 +259,40 @@ dd { margin: 0; line-height: 1.45; }
 }
 /* --- WNBS INLINE INSIGHT PREVIEW END --- */
 
+
+/* --- WNBS CARD PREVIEW CSS START --- */
+.insight-card-preview-wrap {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(15, 107, 122, 0.16);
+}
+
+.insight-card-preview-title {
+  font-weight: 850;
+  color: #0f6b7a;
+  margin-bottom: 0.55rem;
+}
+
+.insight-card-preview {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 107, 122, 0.14);
+  box-shadow: 0 10px 28px rgba(16, 32, 22, 0.1);
+  cursor: pointer;
+  background: #f6f8f3;
+}
+
+.insight-card-preview:hover {
+  transform: translateY(-1px);
+}
+
+.insight-card-preview-note {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  color: #5e6d60;
+}
+/* --- WNBS CARD PREVIEW CSS END --- */
+
