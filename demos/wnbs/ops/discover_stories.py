@@ -530,43 +530,51 @@ def build_relevance_text(
 def linkedin_draft(item: RawItem, angle: str, brand_fit: str) -> str:
     source = item.source.get("name") or item.source.get("id") or "Source"
     published = item.published or "n.d."
-    citation = f"{source}. ({published}). {item.title}.
-{item.url}"
+    title = item.title or "Untitled item"
+    url = item.url or ""
+    citation = f"{source}. ({published}). {title}.
+{url}"
 
     return (
-        f"A practical Water NbS signal for Ireland.
+        "A practical Water NbS signal for Ireland.
 
 "
-        f"This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+        f"{title}
 
 "
-        f"For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+        "This caught my attention because it connects land management with what ultimately matters in a catchment: "
+        "cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
 
 "
-        f"What I would look for:
+        "For me, the useful question is not simply whether a project is green or nature-based. "
+        "The useful question is whether it changes a pressure pathway.
+
 "
-        f"• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
+        "What I would look for:
 "
-        f"• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
+        "• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
 "
-        f"• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
+        "• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
 "
-        f"• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
+        "• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
 "
-        f"• repeatability: whether this can be maintained and applied elsewhere in Ireland
+        "• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
+"
+        "• repeatability: whether this can be maintained and applied elsewhere in Ireland
 
 "
         f"My take: {brand_fit}
 
 "
-        f"This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+        "This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure "
+        "that supports water quality, ecology, and biodiversity.
 
 "
         f"Source:
 {citation}
 
 "
-        f"#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement"
+        "#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement"
     )
 
 
