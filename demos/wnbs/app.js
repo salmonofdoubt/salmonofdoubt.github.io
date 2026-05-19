@@ -158,70 +158,11 @@ function postPackFor(item) {
   ].join("\n");
 }
 
-function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
-  const words = String(text || "").split(/\s+/).filter(Boolean);
-  let line = "";
-  let lines = 0;
-  for (const word of words) {
-    const test = line ? `${line} ${word}` : word;
-    if (ctx.measureText(test).width > maxWidth && line) {
-      ctx.fillText(line, x, y);
-      y += lineHeight;
-      lines += 1;
-      line = word;
-      if (lines >= maxLines - 1) break;
-    } else {
-      line = test;
-    }
-  }
-  if (line && lines < maxLines) ctx.fillText(line, x, y);
-  return y + lineHeight;
-}
 
-function downloadInsightCard(item) {
-  const canvas = document.createElement("canvas");
-  canvas.width = 1200;
-  canvas.height = 675;
-  const ctx = canvas.getContext("2d");
 
-  ctx.fillStyle = "#f6f8f3";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#e9f2e5";
-  ctx.fillRect(0, 0, canvas.width, 120);
-  ctx.fillStyle = "#356b3f";
-  ctx.fillRect(0, 0, 18, canvas.height);
 
-  ctx.fillStyle = "#0f6b7a";
-  ctx.font = "700 30px system-ui, sans-serif";
-  ctx.fillText("Water NbS Signal · Ireland", 70, 72);
 
-  ctx.fillStyle = "#122015";
-  ctx.font = "800 48px system-ui, sans-serif";
-  let y = wrapCanvasText(ctx, item.title || "Practical water-quality story", 70, 180, 1030, 58, 3);
 
-  ctx.font = "700 26px system-ui, sans-serif";
-  ctx.fillStyle = "#356b3f";
-  ctx.fillText("Measure", 70, y + 36);
-  ctx.fillText("Water outcome", 70, y + 126);
-  ctx.fillText("Monitoring question", 70, y + 216);
-
-  ctx.font = "24px system-ui, sans-serif";
-  ctx.fillStyle = "#122015";
-  wrapCanvasText(ctx, item.angle || "Practical Water NbS opportunity", 310, y + 36, 780, 32, 2);
-  wrapCanvasText(ctx, item.water_relevance || "Surface-water quality or aquatic-ecology value to verify.", 310, y + 126, 780, 32, 2);
-  wrapCanvasText(ctx, "What pressure is reduced, where in the catchment, and how will improvement be measured?", 310, y + 216, 780, 32, 2);
-
-  ctx.font = "20px system-ui, sans-serif";
-  ctx.fillStyle = "#61705f";
-  ctx.fillText(`${item.source_name || "Source"} · ${formatDate(item.published)}`, 70, 620);
-  ctx.fillText("salmonofdoubt.github.io/demos/wnbs", 760, 620);
-
-  const link = document.createElement("a");
-  link.download = `${(item.id || "water-nbs-signal")}.png`;
-  link.href = canvas.toDataURL("image/png");
-  link.click();
-  toast("Insight card downloaded");
-}
 
 
 function selectedMarkdown() {
@@ -242,6 +183,205 @@ function selectedMarkdown() {
       `Source citation:\n\n${sourceCitation(item)}\n\n` +
       `LinkedIn post pack:\n\n${postPackFor(item)}\n`;
   }).join("\n---\n\n")}`;
+}
+
+function cardDate(item) {
+  const value = item?.published;
+  if (!value) return "n.d.";
+  const d = new Date(`${value}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return value;
+  return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+function cleanCardText(value, fallback = "Source-led evidence to review") {
+  let text = String(value || fallback)
+    .replace(/Strong water-quality\/ecology signal detected\.\s*/gi, "")
+    .replace(/Evidence terms:\s*/gi, "")
+    .replace(/\bundefined\b/gi, "")
+    .replace(/,\s*$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return text || fallback;
+}
+
+function classifyCardStory(item) {
+  const text = `${item?.title || ""} ${item?.summary || ""} ${item?.water_relevance || ""} ${item?.angle || ""}`.toLowerCase();
+
+  if (/fish|spawning|passage|barrier|salmon|trout|eel|river habitat/.test(text)) {
+    return {
+      measure: "River habitat restoration",
+      pressure: "Fragmented habitat and restricted ecological movement",
+      outcome: "Improved fish passage, spawning habitat, and aquatic connectivity",
+      monitoring: "Fish movement, spawning success, habitat condition, and ecological status"
+    };
+  }
+
+  if (/wetland|integrated constructed wetland|constructed wetland|pond/.test(text)) {
+    return {
+      measure: "Wetland or pond-based treatment",
+      pressure: "Nutrient, sediment, and runoff pressure",
+      outcome: "Slower flow, better filtration, and improved receiving-water condition",
+      monitoring: "Nutrients, sediment, flow, vegetation condition, and aquatic ecology"
+    };
+  }
+
+  if (/suds|rainwater|stormwater|urban runoff|blue green|blue-green/.test(text)) {
+    return {
+      measure: "Urban SuDS or rainwater management",
+      pressure: "Fast runoff and pollutant wash-off from hard surfaces",
+      outcome: "Reduced runoff pressure and improved urban water quality",
+      monitoring: "Runoff volume, peak flow, sediment, nutrients, and receiving-water response"
+    };
+  }
+
+  if (/riparian|buffer|fencing|stock|livestock|riverbank|stream bank|bank erosion/.test(text)) {
+    return {
+      measure: "Riparian buffer or riverbank protection",
+      pressure: "Bank erosion, sediment delivery, and direct channel pressure",
+      outcome: "Lower sediment pressure and improved riparian habitat condition",
+      monitoring: "Bank stability, sediment, vegetation recovery, and macroinvertebrates"
+    };
+  }
+
+  if (/peat|rewet|bog|drain blocking|hydrology/.test(text)) {
+    return {
+      measure: "Peatland hydrological restoration",
+      pressure: "Drainage-driven runoff, carbon loss, and water-colour pressure",
+      outcome: "Re-wetted peat, moderated runoff, and improved downstream conditions",
+      monitoring: "Water table, flow response, DOC, nutrients, and habitat recovery"
+    };
+  }
+
+  return {
+    measure: cleanCardText(item?.angle || "Practical water-related NbS measure"),
+    pressure: "Surface-water pressure pathway to verify from source",
+    outcome: cleanCardText(item?.water_relevance || "Potential water-quality, aquatic-ecology, or biodiversity benefit"),
+    monitoring: "Pressure reduced, catchment position, maintenance, and measured ecological response"
+  };
+}
+
+function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
+  const words = String(text || "").split(/\s+/).filter(Boolean);
+  const lines = [];
+  let line = "";
+
+  for (const word of words) {
+    const test = line ? `${line} ${word}` : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+      if (lines.length >= maxLines) break;
+    } else {
+      line = test;
+    }
+  }
+
+  if (line && lines.length < maxLines) lines.push(line);
+
+  lines.slice(0, maxLines).forEach((entry, index) => {
+    ctx.fillText(entry, x, y + index * lineHeight);
+  });
+
+  return y + Math.max(lines.length, 1) * lineHeight;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  const radius = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + w, y, x + w, y + h, radius);
+  ctx.arcTo(x + w, y + h, x, y + h, radius);
+  ctx.arcTo(x, y + h, x, y, radius);
+  ctx.arcTo(x, y, x + w, y, radius);
+  ctx.closePath();
+}
+
+function drawSection(ctx, label, value, x, y, w, h) {
+  ctx.fillStyle = "#ffffff";
+  roundRect(ctx, x, y, w, h, 28);
+  ctx.fill();
+
+  ctx.fillStyle = "#e8f1e3";
+  roundRect(ctx, x + 26, y + 26, 68, 68, 22);
+  ctx.fill();
+
+  ctx.fillStyle = "#356b3f";
+  ctx.font = "900 25px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText(label, x + 118, y + 55);
+
+  ctx.fillStyle = "#102016";
+  ctx.font = "600 34px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  drawWrapped(ctx, value, x + 118, y + 105, w - 160, 42, 3);
+}
+
+function downloadInsightCard(item) {
+  const model = classifyCardStory(item);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1350;
+  const ctx = canvas.getContext("2d");
+
+  const bg = "#f5f8f2";
+  const header = "#e6f0e1";
+  const ink = "#102016";
+  const teal = "#0f6b7a";
+  const green = "#356b3f";
+  const muted = "#607061";
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = header;
+  ctx.fillRect(0, 0, canvas.width, 150);
+
+  ctx.fillStyle = teal;
+  ctx.fillRect(0, 0, 22, canvas.height);
+
+  ctx.fillStyle = teal;
+  ctx.font = "900 42px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText("Water NbS Signal · Ireland", 62, 92);
+
+  ctx.fillStyle = green;
+  roundRect(ctx, 62, 185, 310, 58, 29);
+  ctx.fill();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "900 26px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText("Practical catchment signal", 88, 224);
+
+  ctx.fillStyle = ink;
+  ctx.font = "950 58px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  const title = cleanCardText(item?.title || "Practical water-quality story");
+  const titleEnd = drawWrapped(ctx, title, 62, 335, 955, 68, 4);
+
+  const start = Math.max(650, titleEnd + 42);
+  const w = 956;
+  const x = 62;
+
+  drawSection(ctx, "Measure", model.measure, x, start, w, 178);
+  drawSection(ctx, "Pressure pathway", model.pressure, x, start + 205, w, 178);
+  drawSection(ctx, "Water outcome", model.outcome, x, start + 410, w, 178);
+  drawSection(ctx, "Monitor", model.monitoring, x, start + 615, w, 178);
+
+  ctx.fillStyle = muted;
+  ctx.font = "600 24px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+
+  const source = cleanCardText(item?.source_name || item?.source_id || "Source");
+  const footer1 = `${source} · ${cardDate(item)}`;
+  const footer2 = "salmonofdoubt.github.io/demos/wnbs";
+
+  ctx.fillText(footer1, 62, 1282);
+  const width2 = ctx.measureText(footer2).width;
+  ctx.fillText(footer2, canvas.width - width2 - 62, 1282);
+
+  const link = document.createElement("a");
+  const safeId = String(item?.id || "water-nbs-signal").replace(/[^a-z0-9_-]+/gi, "-").toLowerCase();
+  link.download = `${safeId}.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+  toast("Insight card downloaded");
 }
 
 function renderCard(item) {
