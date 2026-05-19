@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Water NbS Story Radar Ireland</title>
+  <meta name="description" content="Daily Ireland-focused Water NbS story radar for practical surface-water quality, aquatic ecology, and biodiversity curation." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="top-nav">
+      <a href="../../" class="back-link">← Back to Demos</a>
+      <span class="status-pill" id="statusPill">Loading radar</span>
+    </nav>
+    <section class="hero">
+      <p class="eyebrow">Ireland · Water quality · Aquatic ecology · Practical NbS</p>
+      <h1>Water NbS Story Radar</h1>
+      <p class="lede">A daily source-led discovery dashboard for practical stories that show how Ireland can improve surface water quality, water-related ecology, and aquatic biodiversity through implementable nature-based solutions.</p>
+      <div class="hero-actions">
+        <button id="copySelectedBtn" class="primary">Copy selected LinkedIn queue</button>
+        <button id="exportMarkdownBtn" class="secondary">Export selected report</button>
+        <button id="clearLocalBtn" class="ghost">Clear local choices</button>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="control-panel" aria-label="Filters">
+      <div class="metric"><strong id="candidateCount">0</strong><span>candidates</span></div>
+      <div class="metric"><strong id="excellentCount">0</strong><span>excellent</span></div>
+      <div class="metric"><strong id="selectedCount">0</strong><span>selected</span></div>
+      <label>
+        Search
+        <input id="searchInput" type="search" placeholder="riparian buffer, phosphate, fish passage, ICW, SuDS..." />
+      </label>
+      <label>
+        Angle
+        <select id="angleFilter"><option value="all">All angles</option></select>
+      </label>
+      <label>
+        Minimum score
+        <input id="scoreRange" type="range" min="0" max="100" value="0" />
+        <span id="scoreLabel">0</span>
+      </label>
+    </section>
+
+    <section class="insight-strip">
+      <article>
+        <h2>How to use it</h2>
+        <p>Pick items that have a clear pressure-measure-outcome line: what water pressure is addressed, what NbS measure is used, and how improvement could be monitored.</p>
+      </article>
+      <article>
+        <h2>What counts as strong</h2>
+        <p>High scores combine Irish relevance, surface-water-quality or aquatic-ecology value, practical implementation detail, and credible evidence or funding routes.</p>
+      </article>
+      <article>
+        <h2>Publishing rule</h2>
+        <p>Post only when you can explain the practical hook: pressure, pathway, measure, maintenance, and monitored outcome. Decorative greening is not enough.</p>
+      </article>
+    </section>
+
+    <section id="cards" class="cards" aria-live="polite"></section>
+  </main>
+
+  <template id="cardTemplate">
+    <article class="story-card">
+      <div class="card-topline">
+        <span class="score"></span>
+        <span class="band"></span>
+        <span class="source"></span>
+      </div>
+      <h2><a class="title" href="#" target="_blank" rel="noopener"></a></h2>
+      <p class="summary"></p>
+      <dl class="story-meta">
+        <div><dt>Angle</dt><dd class="angle"></dd></div>
+        <div><dt>Ireland relevance</dt><dd class="ireland"></dd></div>
+        <div><dt>Water value</dt><dd class="water"></dd></div>
+        <div><dt>Practical value</dt><dd class="practical"></dd></div>
+        <div><dt>Brand fit</dt><dd class="brand"></dd></div>
+        <div><dt>Why post</dt><dd class="why"></dd></div>
+      </dl>
+      <div class="tags"></div>
+      <label class="draft-label">LinkedIn draft<textarea class="draft" rows="6"></textarea></label>
+      <div class="card-actions">
+        <button class="select-btn">Pick</button>
+        <button class="watch-btn">Watch</button>
+        <button class="reject-btn">Reject</button>
+        <button class="copy-btn">Copy draft</button>
+      </div>
+    </article>
+  </template>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

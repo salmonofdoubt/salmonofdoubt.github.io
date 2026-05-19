@@ -1,0 +1,186 @@
+{
+  "version": "0.2.0",
+  "updated": "2026-05-19",
+  "notes": "Source-led registry for practical Ireland-relevant Water NbS story discovery. Priority is surface-water quality, aquatic ecology, water-related biodiversity, and implementable measures. Prefer RSS/API/listing pages over unrestricted scraping.",
+  "sources": [
+    {
+      "id": "epa-news",
+      "name": "EPA Ireland News Releases",
+      "type": "rss",
+      "url": "https://www.epa.ie/resources/rss/index-90474.xml",
+      "home": "https://www.epa.ie/news-releases/",
+      "trust": 1.0,
+      "scope": "Ireland environmental regulation, water quality, bathing water, catchment evidence, WFD and policy delivery",
+      "tags": [
+        "epa",
+        "surface-water-quality",
+        "wfd",
+        "monitoring",
+        "policy"
+      ]
+    },
+    {
+      "id": "epa-consultations",
+      "name": "EPA Consultations",
+      "type": "rss",
+      "url": "https://www.epa.ie/resources/rss/index-90488.xml",
+      "home": "https://www.epa.ie/public-consultations/",
+      "trust": 0.95,
+      "scope": "Irish environmental consultations with relevance to WFD, surface water, pressures, regulation and implementation windows",
+      "tags": [
+        "consultation",
+        "policy",
+        "epa",
+        "wfd",
+        "surface-water"
+      ]
+    },
+    {
+      "id": "epa-hydrometric",
+      "name": "EPA Hydrometric Bulletin",
+      "type": "rss",
+      "url": "https://www.epa.ie/resources/rss/index-90495.xml",
+      "home": "https://www.epa.ie/",
+      "trust": 0.9,
+      "scope": "Hydrology, rainfall, river flow, flood pressure, and water-related hazards relevant to NbS placement",
+      "tags": [
+        "hydrology",
+        "surface-water",
+        "runoff",
+        "flood",
+        "monitoring"
+      ]
+    },
+    {
+      "id": "catchments-news",
+      "name": "Catchments.ie",
+      "type": "rss",
+      "url": "https://www.catchments.ie/feed/",
+      "home": "https://www.catchments.ie/",
+      "trust": 0.95,
+      "scope": "Water Framework Directive, catchments, LAWPRO/EPA water-quality stories, measures, monitoring and ecological status",
+      "tags": [
+        "catchments",
+        "wfd",
+        "surface-water-quality",
+        "ecological-status",
+        "measures"
+      ]
+    },
+    {
+      "id": "lawpro-news",
+      "name": "Local Authority Waters Programme",
+      "type": "rss",
+      "url": "https://lawaters.ie/feed/",
+      "home": "https://lawaters.ie/",
+      "trust": 0.95,
+      "scope": "LAWPRO catchment science, community engagement, practical water-quality measures and Nature-based Surface Water Management",
+      "tags": [
+        "lawpro",
+        "community",
+        "surface-water-quality",
+        "nbs",
+        "implementation"
+      ]
+    },
+    {
+      "id": "farming-for-water",
+      "name": "Farming for Water EIP",
+      "type": "rss",
+      "url": "https://www.farmingforwater.ie/feed/",
+      "home": "https://www.farmingforwater.ie/",
+      "trust": 0.9,
+      "scope": "Agricultural water protection, nutrient and sediment interception, farm measures, advice, and delivery",
+      "tags": [
+        "agriculture",
+        "farm-runoff",
+        "nutrients",
+        "sediment",
+        "water-quality",
+        "measures"
+      ]
+    },
+    {
+      "id": "npws-news",
+      "name": "National Parks and Wildlife Service News",
+      "type": "html_listing",
+      "url": "https://www.npws.ie/news",
+      "home": "https://www.npws.ie/news",
+      "trust": 0.95,
+      "scope": "Water-related biodiversity, protected aquatic habitats, wetlands, peatlands and nature restoration policy",
+      "tags": [
+        "aquatic-biodiversity",
+        "wetlands",
+        "peatlands",
+        "protected-sites",
+        "habitat"
+      ],
+      "link_selector": "a"
+    },
+    {
+      "id": "inland-fisheries-news",
+      "name": "Inland Fisheries Ireland News",
+      "type": "html_listing",
+      "url": "https://www.fisheriesireland.ie/news",
+      "home": "https://www.fisheriesireland.ie/news",
+      "trust": 0.9,
+      "scope": "River habitat, fish passage, fisheries conservation, aquatic ecology, enforcement and water-related biodiversity",
+      "tags": [
+        "inland-fisheries-ireland",
+        "river-restoration",
+        "fish-passage",
+        "aquatic-ecology",
+        "water-biodiversity"
+      ],
+      "link_selector": "a"
+    },
+    {
+      "id": "teagasc-environment",
+      "name": "Teagasc Environment Daily",
+      "type": "html_listing",
+      "url": "https://www.teagasc.ie/news--events/daily/environment/",
+      "home": "https://www.teagasc.ie/news--events/daily/environment/",
+      "trust": 0.85,
+      "scope": "Farm advisory stories on soil, water, nutrients, sediment, biodiversity and practical agricultural measures",
+      "tags": [
+        "agriculture",
+        "soil",
+        "farm-runoff",
+        "water-quality",
+        "advisory"
+      ],
+      "link_selector": "a"
+    },
+    {
+      "id": "biodiversity-ireland",
+      "name": "National Biodiversity Data Centre",
+      "type": "rss",
+      "url": "https://biodiversityireland.ie/feed/",
+      "home": "https://biodiversityireland.ie/",
+      "trust": 0.9,
+      "scope": "Biodiversity data, citizen science, species and monitoring, with priority for water-related ecology",
+      "tags": [
+        "biodiversity",
+        "citizen-science",
+        "monitoring",
+        "aquatic-ecology"
+      ]
+    },
+    {
+      "id": "climate-adapt-nbs",
+      "name": "Climate-ADAPT Nature-based Solutions",
+      "type": "html_listing",
+      "url": "https://climate-adapt.eea.europa.eu/en/eu-adaptation-policy/key-eu-actions/NbS/index_html",
+      "home": "https://climate-adapt.eea.europa.eu/",
+      "trust": 0.8,
+      "scope": "EU adaptation and NbS knowledge base, retained only when items connect to surface-water management or aquatic outcomes",
+      "tags": [
+        "eu",
+        "adaptation",
+        "nbs",
+        "surface-water"
+      ],
+      "link_selector": "a"
+    }
+  ]
+}
