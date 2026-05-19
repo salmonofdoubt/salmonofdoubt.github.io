@@ -1,459 +1,525 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
-  <title>Demos | André Baumann</title>
-  <meta
-    name="description"
-    content="Interactive demos and prototypes by André Baumann, including Ireland Energy Transition Monitor, Grant Radar, SDSS, NDRT, UrbanForest, Colour Lab, and the Three Intelligences Explorer."
-  />
-  <link rel="stylesheet" href="../assets/css/site.css" />
-
+  <title>Salmon of Doubt · Demos</title>
+  <meta name="description" content="Exploratory public demos by André Baumann: water, nature-based solutions, energy, grants, intelligence, and civic environmental tools." />
   <style>
-    .demos-hero {
-      margin-top: 1.5rem;
+    :root {
+      --bg: #f6f8f3;
+      --panel: #ffffff;
+      --ink: #102016;
+      --muted: #5e6d60;
+      --line: rgba(15, 107, 122, 0.16);
+      --teal: #0f6b7a;
+      --green: #356b3f;
+      --soft: #e6f0e1;
+      --amber: #9a6518;
+      --shadow: 0 18px 50px rgba(16, 32, 22, 0.08);
     }
 
-    .demos-hero .panel {
-      padding: clamp(1.2rem, 3vw, 2rem);
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(15, 107, 122, 0.12), transparent 32rem),
+        linear-gradient(180deg, #f7faf4 0%, var(--bg) 45%, #eef4ea 100%);
+      color: var(--ink);
     }
 
-    .demo-kicker {
-      display: inline-flex;
-      width: fit-content;
-      padding: 0.28rem 0.55rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.06);
-      color: var(--muted, #b8d9d1);
-      font-size: 0.76rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.7rem;
+    a { color: inherit; }
+
+    .shell {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 32px 0 72px;
     }
 
-    .demos-hero h1 {
-      margin-bottom: 0.7rem;
-    }
-
-    .demos-hero .lead {
-      max-width: 850px;
-      margin-bottom: 0.8rem;
-    }
-
-    .demo-toolbar {
+    .topbar {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-top: 1rem;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
     }
 
-    .demo-section {
-      margin-top: 1.4rem;
+    .brand {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--teal);
+      font-weight: 950;
+      letter-spacing: -0.02em;
+      text-decoration: none;
     }
 
-    .demo-section h2 {
-      margin-bottom: 0.55rem;
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      background: var(--teal);
+      box-shadow: var(--shadow);
     }
 
-    .demo-section-intro {
-      max-width: 860px;
-      color: var(--muted, #b8d9d1);
-      margin-bottom: 1rem;
+    .toplink {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .toplink:hover { color: var(--teal); }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      padding: clamp(26px, 5vw, 54px);
+      background: linear-gradient(180deg, rgba(230, 240, 225, 0.96), rgba(255, 255, 255, 0.88));
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--teal);
+      font-weight: 950;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 950px;
+      font-size: clamp(2.4rem, 7vw, 6.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+    }
+
+    .lede {
+      margin: 22px 0 0;
+      max-width: 780px;
+      color: var(--muted);
+      font-size: clamp(1.02rem, 1.7vw, 1.25rem);
+      line-height: 1.55;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(230px, 1fr) 220px;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 52px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--ink);
+      padding: 0 16px;
+      font: inherit;
+      font-weight: 700;
     }
 
     .demo-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
-      gap: 0.85rem;
-      align-items: stretch;
+      gap: 12px;
     }
 
-    .demo-card {
-      padding: 0.95rem !important;
-      min-height: 0;
+    .demo {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 10px 30px rgba(16, 32, 22, 0.06);
+      overflow: clip;
+    }
+
+    .demo[hidden] { display: none; }
+
+    .demo-toggle {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+    }
+
+    .demo-bar {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 22px 24px;
+    }
+
+    .demo-index {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: var(--soft);
+      color: var(--green);
+      font-weight: 950;
+    }
+
+    .demo-title {
+      margin: 0;
+      font-size: clamp(1.3rem, 2.2vw, 2rem);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+    }
+
+    .demo-sub {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-weight: 650;
+      line-height: 1.35;
+    }
+
+    .chevron {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: #edf4e9;
+      color: var(--teal);
+      font-weight: 950;
+      transition: transform 0.18s ease;
+    }
+
+    .demo.open .chevron {
+      transform: rotate(45deg);
+      background: var(--teal);
+      color: white;
+    }
+
+    .demo-panel {
+      display: none;
+      border-top: 1px solid var(--line);
+      padding: 0 24px 24px 96px;
+    }
+
+    .demo.open .demo-panel { display: block; }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 24px;
+      padding-top: 22px;
+    }
+
+    .panel-copy {
+      color: var(--muted);
+      line-height: 1.58;
+      font-size: 1rem;
+    }
+
+    .panel-copy strong { color: var(--ink); }
+
+    .tags {
       display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
     }
 
-    .demo-card h3 {
-      margin: 0;
-      font-size: 1.02rem;
-      line-height: 1.2;
-    }
-
-    .demo-card p {
-      margin: 0;
-      font-size: 0.92rem;
-      line-height: 1.43;
-    }
-
-    .demo-card .tag-row {
-      margin-top: auto;
-      gap: 0.35rem;
-    }
-
-    .demo-card .tag {
-      padding: 0.25rem 0.48rem;
-      font-size: 0.72rem;
-      border-radius: 999px;
-    }
-
-    .demo-card .button-row {
-      margin-top: 0.2rem;
-    }
-
-    .demo-card .button {
-      min-height: 2.2rem;
-      padding: 0.48rem 0.72rem;
-      font-size: 0.86rem;
-    }
-
-    .demo-card.featured {
-      border-color: rgba(120, 255, 202, 0.34);
-      background:
-        radial-gradient(circle at 12% 12%, rgba(120, 255, 202, 0.12), transparent 30%),
-        rgba(255,255,255,0.055);
-    }
-
-    .demo-card.energy {
-      border-color: rgba(183, 240, 106, 0.42);
-      background:
-        radial-gradient(circle at 8% 14%, rgba(183, 240, 106, 0.14), transparent 32%),
-        radial-gradient(circle at 85% 18%, rgba(114, 214, 255, 0.10), transparent 28%),
-        rgba(255,255,255,0.055);
-    }
-
-    .demo-card.blue {
-      border-color: rgba(114, 214, 255, 0.28);
-      background:
-        radial-gradient(circle at 12% 10%, rgba(114, 214, 255, 0.12), transparent 30%),
-        rgba(255,255,255,0.05);
-    }
-
-    .demo-card.green {
-      border-color: rgba(114, 235, 194, 0.28);
-    }
-
-    .demo-card.status-prototype::before,
-    .demo-card.status-live::before,
-    .demo-card.status-concept::before {
+    .tag {
       display: inline-flex;
-      width: fit-content;
-      padding: 0.22rem 0.46rem;
+      align-items: center;
       border-radius: 999px;
-      font-size: 0.68rem;
+      padding: 7px 10px;
+      background: #edf4e9;
+      color: var(--green);
+      font-size: 0.86rem;
+      font-weight: 850;
+    }
+
+    .actions {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      border-radius: 16px;
+      padding: 12px 16px;
+      text-decoration: none;
       font-weight: 900;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
+      background: var(--teal);
+      color: white;
     }
 
-    .demo-card.status-live::before {
-      content: "Live";
-      background: rgba(73, 209, 125, 0.15);
-      border: 1px solid rgba(73, 209, 125, 0.38);
-      color: #dfffee;
+    .button.secondary {
+      background: #edf4e9;
+      color: var(--green);
     }
 
-    .demo-card.status-prototype::before {
-      content: "Prototype";
-      background: rgba(247, 201, 72, 0.15);
-      border: 1px solid rgba(247, 201, 72, 0.38);
-      color: #fff4d5;
+    .status {
+      color: var(--amber);
+      font-weight: 850;
+      font-size: 0.92rem;
+      line-height: 1.35;
     }
 
-    .demo-card.status-concept::before {
-      content: "Concept";
-      background: rgba(114, 214, 255, 0.14);
-      border: 1px solid rgba(114, 214, 255, 0.35);
-      color: #e1f6ff;
+    .footer {
+      color: var(--muted);
+      margin-top: 34px;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
-    .small-note {
-      color: var(--muted, #b8d9d1);
-      font-size: 0.88rem;
-    }
-
-    @media (max-width: 700px) {
-      .demo-list {
+    @media (max-width: 760px) {
+      .controls,
+      .panel-grid,
+      .demo-bar {
         grid-template-columns: 1fr;
+      }
+
+      .demo-bar {
+        gap: 10px;
+      }
+
+      .chevron {
+        justify-self: start;
+      }
+
+      .demo-panel {
+        padding: 0 20px 22px;
       }
     }
   </style>
 </head>
 
 <body>
-  <header class="site-header">
-    <div class="container topbar">
-      <a class="brand" href="../index.html">André Baumann</a>
-      <nav class="nav" aria-label="Primary">
-        <a href="../index.html">Home</a>
-        <a href="../art/">Art</a>
-        <a href="../music/">Music</a>
-        <a href="index.html" aria-current="page">Demos</a>
-      </nav>
-    </div>
-  </header>
+  <main class="shell">
+    <nav class="topbar" aria-label="Site navigation">
+      <a class="brand" href="../">
+        <span class="brand-mark">≈</span>
+        <span>Salmon of Doubt</span>
+      </a>
+      <a class="toplink" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io" target="_blank" rel="noopener">GitHub</a>
+    </nav>
 
-  <main class="container">
-    <section class="hero demos-hero">
-      <div class="panel">
-        <span class="demo-kicker">Demos · prototypes · civic data tools</span>
-        <h1>Demos</h1>
-
-        <p class="lead">
-          Interactive public prototypes, concept sites, and small decision-support tools. Each demo lives in its
-          own folder so it can mature independently or later split into a standalone repository.
-        </p>
-
-        <p class="small-note">
-          The emphasis is practical: transparent logic, inspectable data, and public-facing interfaces that explain
-          the idea without hiding the machinery.
-        </p>
-
-        <div class="demo-toolbar">
-          <a class="button primary" href="/demos/ietm/">Open Ireland Energy Transition Monitor</a>
-          <a class="button" href="grant-radar/">Open Grant Radar</a>
-          <a class="button" href="sdss-concept/">Open SDSS Concept</a>
-          <a class="button" href="../index.html">Back Home</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section demo-section">
-      <h2>Featured</h2>
-      <p class="demo-section-intro">
-        Larger strategic demos with public-interest value, reusable data architecture, or policy-relevant framing.
+    <header class="hero">
+      <p class="eyebrow">Public prototypes</p>
+      <h1>Demos for water, climate, ecology, and civic intelligence.</h1>
+      <p class="lede">
+        A compact index of experimental tools and explainers. Each bar opens into one project at a time, so the page stays calm, browsable, and useful.
       </p>
+    </header>
 
-      <div class="demo-list">
-        <article class="demo-card energy status-prototype">
-          <h3>Ireland Energy Transition Monitor</h3>
-          <p class="muted">
-            Open civic dashboard for Ireland’s electricity mix, energy prices, gas dependency, county renewable
-            build-out, and 2030 transition truth meter.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Energy</span>
-            <span class="tag">Ireland</span>
-            <span class="tag">Open Data</span>
-            <span class="tag">2030</span>
-          </div>
-          <div class="button-row">
-            <a class="button primary" href="/demos/ietm/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card blue status-live">
-          <h3>Grant Radar</h3>
-          <p class="muted">
-            Funding radar for nature, biodiversity, climate, water, energy and environmental opportunities, with
-            mode-first filtering and review workflow.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Funding</span>
-            <span class="tag">Environment</span>
-            <span class="tag">Climate</span>
-            <span class="tag">Water</span>
-          </div>
-          <div class="button-row">
-            <a class="button primary" href="grant-radar/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card featured status-concept">
-          <h3>Stability-Aware SDSS</h3>
-          <p class="muted">
-            Spatial decision-support concept for prioritising nature-based solutions under uncertainty, with
-            transparent ranking and stability logic.
-          </p>
-          <div class="tag-row">
-            <span class="tag">SDSS</span>
-            <span class="tag">NbS</span>
-            <span class="tag">Water Quality</span>
-            <span class="tag">Uncertainty</span>
-          </div>
-          <div class="button-row">
-            <a class="button primary" href="sdss-concept/">Open</a>
-          </div>
-        </article>
-      </div>
+    <section class="controls" aria-label="Demo filters">
+      <input id="search" type="search" placeholder="Search demos by topic, tool, or keyword..." />
+      <select id="filter">
+        <option value="all">All demos</option>
+        <option value="water">Water and NbS</option>
+        <option value="energy">Energy</option>
+        <option value="funding">Funding and grants</option>
+        <option value="systems">Systems thinking</option>
+        <option value="civic">Civic tools</option>
+      </select>
     </section>
 
-    <section class="section demo-section">
-      <h2>All demos</h2>
-      <p class="demo-section-intro">
-        Compact index of the current demo portfolio.
-      </p>
+    <section id="demoList" class="demo-list" aria-label="Demo list"></section>
 
-      <div class="demo-list">
-        <article class="demo-card energy status-prototype">
-          <h3>Ireland Energy Transition Monitor</h3>
-          <p class="muted">
-            Daily open-data truth meter for Ireland’s energy transition.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Energy</span>
-            <span class="tag">Data</span>
-            <span class="tag">Policy</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="/demos/ietm/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card blue status-live">
-          <h3>Grant Radar</h3>
-          <p class="muted">
-            Grant and call tracker for environmental, climate, water and energy opportunities.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Funding</span>
-            <span class="tag">Radar</span>
-            <span class="tag">Automation</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="grant-radar/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card blue status-prototype">
-          <h3>Geo Radar</h3>
-          <p class="muted">
-            Funding radar spin-off for geoscience, Earth systems and climate-related opportunities.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Geo</span>
-            <span class="tag">Funding</span>
-            <span class="tag">Earth Systems</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="geo-radar/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card status-concept">
-          <h3>Three Intelligences Explorer</h3>
-          <p class="muted">
-            3D model of individual capability, collective coordination and planetary stewardship.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Systems</span>
-            <span class="tag">3D</span>
-            <span class="tag">Governance</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="intelligence/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card green status-concept">
-          <h3>Stability-Aware SDSS</h3>
-          <p class="muted">
-            Transparent NbS prioritisation concept with uncertainty and ranking-stability framing.
-          </p>
-          <div class="tag-row">
-            <span class="tag">SDSS</span>
-            <span class="tag">NbS</span>
-            <span class="tag">Water</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="sdss-concept/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card green status-prototype">
-          <h3>Nanny-Delvin River Trust</h3>
-          <p class="muted">
-            Public-facing river trust demo with monitoring, restoration and citizen-science framing.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Rivers</span>
-            <span class="tag">Citizen Science</span>
-            <span class="tag">NDRT</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="ndrt/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card green status-live">
-          <h3>UrbanForest</h3>
-          <p class="muted">
-            Trinity campus Miyawaki extension case study with species mix, milestones and carbon scenario.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Urban Forest</span>
-            <span class="tag">Miyawaki</span>
-            <span class="tag">TCD</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="urbanforest/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card status-prototype">
-          <h3>Dublin Representative Finder</h3>
-          <p class="muted">
-            Civic lookup prototype for Dublin constituencies, local electoral areas, TDs and councillors.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Civic</span>
-            <span class="tag">Dublin</span>
-            <span class="tag">Lookup</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="td-lookup/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card status-prototype">
-          <h3>Colour Lab</h3>
-          <p class="muted">
-            Interactive RGB light and approximate paint-mixing explainer.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Colour</span>
-            <span class="tag">Learning</span>
-            <span class="tag">Interactive</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="colour-lab/">Open</a>
-          </div>
-        </article>
-
-        <article class="demo-card status-concept">
-          <h3>Tax-trigger Demo</h3>
-          <p class="muted">
-            Prototype exploring tax-trigger logic and decision framing.
-          </p>
-          <div class="tag-row">
-            <span class="tag">Finance</span>
-            <span class="tag">Logic</span>
-            <span class="tag">Prototype</span>
-          </div>
-          <div class="button-row">
-            <a class="button" href="tax-trigger/">Open</a>
-          </div>
-        </article>
-      </div>
-    </section>
+    <p class="footer">
+      These demos are public-facing prototypes. They are intended to make environmental information easier to inspect, discuss, and improve.
+    </p>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <p>© André Baumann · Demos page</p>
-    </div>
-  </footer>
+  <script>
+    const demos = [
+      {
+        title: "Water NbS Story Radar",
+        path: "wnbs/",
+        category: "water",
+        summary: "Daily shortlist of practical stories for surface water quality, aquatic ecology, and water-related biodiversity.",
+        detail: "A curation tool for finding Ireland-relevant Water NbS stories, preparing LinkedIn-ready post packs, and generating simple insight cards. Built around practical catchment signals rather than generic green news.",
+        tags: ["Water quality", "NbS", "LinkedIn curation", "Catchments"],
+        status: "Active build"
+      },
+      {
+        title: "Ireland Energy Transition Monitor",
+        path: "ietm/",
+        category: "energy",
+        summary: "Live-style dashboard for Ireland’s electricity mix, demand, interconnection, renewable capacity, and transition indicators.",
+        detail: "Tracks operational electricity data and transition context in a public dashboard. Designed to make system-level energy signals easier to understand without losing technical integrity.",
+        tags: ["Electricity", "CO₂", "Renewables", "Ireland"],
+        status: "Active data workflow"
+      },
+      {
+        title: "Grant Radar",
+        path: "grant-radar/",
+        category: "funding",
+        summary: "Funding and call discovery layer for climate, nature, biodiversity, water, and community environmental work.",
+        detail: "A source-led catalogue and review workflow for spotting relevant opportunities, separating candidates from promoted items, and reducing missed calls.",
+        tags: ["Funding", "Grants", "Climate", "Biodiversity"],
+        status: "Active workflow"
+      },
+      {
+        title: "Nanny-Delvin Rivers Trust Microsite",
+        path: "ndrt/",
+        category: "water",
+        summary: "Catchment-facing microsite concept for river restoration, citizen science, monitoring, and practical local action.",
+        detail: "A public communication space for catchment restoration ideas, field interpretation, citizen science, water quality, and restoration-led engagement.",
+        tags: ["Rivers", "Citizen science", "CSSI", "Restoration"],
+        status: "Prototype"
+      },
+      {
+        title: "Urban Forest",
+        path: "urbanforest/",
+        category: "civic",
+        summary: "A public-facing story and share page around urban forest planting and nature-based placemaking.",
+        detail: "A lightweight communication demo for making small urban nature interventions visible, shareable, and easier to explain to non-specialist audiences.",
+        tags: ["Urban nature", "Trees", "Community", "Share page"],
+        status: "Prototype"
+      },
+      {
+        title: "SDSS Concept",
+        path: "sdss-concept/",
+        category: "water",
+        summary: "Spatial Decision Support System concept for prioritising Nature-based Solution portfolios in Irish catchments.",
+        detail: "A methodological demonstrator for transparent rule formalisation, suitability logic, ranking stability, and explainable catchment-scale NbS planning.",
+        tags: ["SDSS", "GIS", "NbS portfolios", "Decision support"],
+        status: "Concept demo"
+      },
+      {
+        title: "Three Intelligences Explorer",
+        path: "intelligence/",
+        category: "systems",
+        summary: "Exploratory model linking individual, collective, and planetary intelligence.",
+        detail: "A systems-thinking prototype inspired by planetary intelligence concepts, using indicators to provoke discussion rather than produce simplistic rankings.",
+        tags: ["Systems thinking", "Planetary intelligence", "Indicators"],
+        status: "Exploratory"
+      },
+      {
+        title: "Tree Diversity Lookup",
+        path: "td-lookup/",
+        category: "civic",
+        summary: "Compact lookup-style tool for exploring species, diversity, and planting-related information.",
+        detail: "A practical lookup demo designed to make ecological or planting information easier to browse and share.",
+        tags: ["Trees", "Lookup", "Biodiversity"],
+        status: "Utility demo"
+      },
+      {
+        title: "Geo Radar",
+        path: "geo-radar/",
+        category: "systems",
+        summary: "Geospatial discovery and catalogue-style workflow for spatial data or environmental intelligence.",
+        detail: "A radar-style prototype for organising geospatially relevant sources and making discovery workflows more systematic.",
+        tags: ["Geospatial", "Radar", "Data catalogue"],
+        status: "Prototype"
+      }
+    ];
 
-  <script
-    defer
-    src="https://static.cloudflareinsights.com/beacon.min.js"
-    data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'>
+    const list = document.getElementById("demoList");
+    const search = document.getElementById("search");
+    const filter = document.getElementById("filter");
+
+    function render() {
+      const q = search.value.trim().toLowerCase();
+      const f = filter.value;
+
+      list.innerHTML = "";
+
+      demos.forEach((demo, index) => {
+        const haystack = [
+          demo.title,
+          demo.summary,
+          demo.detail,
+          demo.category,
+          demo.status,
+          demo.tags.join(" ")
+        ].join(" ").toLowerCase();
+
+        const visible = (!q || haystack.includes(q)) && (f === "all" || demo.category === f);
+
+        const article = document.createElement("article");
+        article.className = "demo";
+        article.hidden = !visible;
+
+        article.innerHTML = `
+          <button class="demo-toggle" type="button" aria-expanded="false">
+            <div class="demo-bar">
+              <div class="demo-index">${String(index + 1).padStart(2, "0")}</div>
+              <div>
+                <h2 class="demo-title">${demo.title}</h2>
+                <p class="demo-sub">${demo.summary}</p>
+              </div>
+              <div class="chevron">+</div>
+            </div>
+          </button>
+
+          <div class="demo-panel">
+            <div class="panel-grid">
+              <div>
+                <p class="panel-copy"><strong>Purpose.</strong> ${demo.detail}</p>
+                <div class="tags">
+                  ${demo.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+                </div>
+              </div>
+              <div class="actions">
+                <a class="button" href="${demo.path}">Open demo</a>
+                <a class="button secondary" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/${demo.path.replace(/\/$/, "")}" target="_blank" rel="noopener">View code</a>
+                <div class="status">${demo.status}</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        list.appendChild(article);
+      });
+
+      bindAccordions();
+    }
+
+    function bindAccordions() {
+      document.querySelectorAll(".demo-toggle").forEach(button => {
+        button.onclick = () => {
+          const current = button.closest(".demo");
+          const wasOpen = current.classList.contains("open");
+
+          document.querySelectorAll(".demo.open").forEach(item => {
+            item.classList.remove("open");
+            item.querySelector(".demo-toggle").setAttribute("aria-expanded", "false");
+          });
+
+          if (!wasOpen) {
+            current.classList.add("open");
+            button.setAttribute("aria-expanded", "true");
+          }
+        };
+      });
+    }
+
+    search.addEventListener("input", render);
+    filter.addEventListener("change", render);
+
+    render();
+
+    const firstVisible = () => Array.from(document.querySelectorAll(".demo:not([hidden])"))[0];
+    const first = firstVisible();
+    if (first) {
+      first.classList.add("open");
+      first.querySelector(".demo-toggle").setAttribute("aria-expanded", "true");
+    }
   </script>
 </body>
 </html>
