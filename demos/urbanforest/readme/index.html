@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#16351f" />
+  <title>How UrbanForest Works | Salmon of Doubt</title>
+  <meta name="description" content="A public README explaining the UrbanForest microsite, the UrbanForest News radar, the ranking mechanism, archive workflow, and evidence structure." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f4f8ef;
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-strong: #ffffff;
+      --ink: #102b19;
+      --muted: rgba(16, 43, 25, 0.72);
+      --line: rgba(22, 53, 31, 0.14);
+      --accent: #2f6f3e;
+      --accent-dark: #16351f;
+      --soft: rgba(47, 111, 62, 0.08);
+      --soft-strong: rgba(47, 111, 62, 0.13);
+      --gold: #9a6518;
+      --radius: 1.25rem;
+      --shadow: 0 18px 48px rgba(22, 53, 31, 0.10);
+      --shadow-soft: 0 12px 34px rgba(22, 53, 31, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(47, 111, 62, 0.13), transparent 34rem),
+        linear-gradient(180deg, #f9fcf6 0%, var(--bg) 55%, #eef5e9 100%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .shell {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(249, 252, 246, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-wrap {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-block,
+    .page-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .site-brand,
+    .site-home,
+    .page-nav a {
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .divider-dot {
+      color: var(--muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 1.5rem;
+      align-items: end;
+      padding: 4.2rem 0 2rem;
+    }
+
+    .eyebrow,
+    .mini-label {
+      margin: 0 0 0.65rem;
+      color: var(--accent);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      letter-spacing: -0.055em;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      line-height: 0.9;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.9rem, 3.6vw, 3.2rem);
+      line-height: 0.98;
+    }
+
+    h3 {
+      margin: 0 0 0.45rem;
+      font-size: 1.25rem;
+    }
+
+    p {
+      line-height: 1.62;
+    }
+
+    .hero-lead,
+    .section-heading p,
+    .card p,
+    li {
+      color: var(--muted);
+    }
+
+    .hero-card,
+    .card,
+    .toc,
+    .score-table,
+    .file-map,
+    .callout {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card {
+      padding: 1.15rem;
+    }
+
+    .hero-card strong {
+      display: block;
+      font-size: 1.25rem;
+    }
+
+    .hero-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1.4rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border-radius: 999px;
+      padding: 0.62rem 0.9rem;
+      text-decoration: none;
+      font-weight: 900;
+      background: var(--accent);
+      color: white;
+    }
+
+    .button.secondary {
+      background: var(--soft);
+      color: var(--accent-dark);
+      border: 1px solid var(--line);
+    }
+
+    .section {
+      padding: clamp(2rem, 3.8vw, 3.4rem) 0;
+    }
+
+    .section-heading {
+      margin-bottom: 1.1rem;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+      padding: 1rem;
+      margin: 1rem auto 2rem;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      padding: 0.9rem;
+      border-radius: 1rem;
+      background: var(--soft);
+      color: var(--accent-dark);
+      font-weight: 850;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      padding: 1.15rem;
+    }
+
+    .card ul {
+      margin-bottom: 0;
+      padding-left: 1.15rem;
+    }
+
+    .lane-card {
+      border-left: 7px solid var(--accent);
+    }
+
+    .score-table {
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.65);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      line-height: 1.45;
+    }
+
+    th {
+      color: var(--accent-dark);
+      background: var(--soft);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      padding: 0.12rem 0.32rem;
+      border-radius: 0.35rem;
+      background: var(--soft);
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    pre {
+      overflow: auto;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: #102b19;
+      color: #e9f6ec;
+      line-height: 1.5;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .callout {
+      padding: 1.15rem;
+      border-left: 7px solid var(--gold);
+      background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(246, 233, 203, 0.45));
+    }
+
+    .file-map {
+      padding: 1rem;
+    }
+
+    .file-map dl {
+      display: grid;
+      gap: 0.7rem;
+      margin: 0;
+    }
+
+    .file-map div {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .file-map div:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .file-map dt {
+      font-weight: 900;
+      color: var(--accent-dark);
+    }
+
+    .file-map dd {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0;
+      margin-top: 2rem;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-title {
+      margin: 0 0 0.35rem;
+      font-weight: 900;
+    }
+
+    .footer-text {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--accent);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .grid-2,
+      .grid-3,
+      .toc,
+      .file-map div {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 15vw, 5rem);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <div class="brand-block">
+        <a class="site-brand" href="../">UrbanForest</a>
+        <span class="divider-dot" aria-hidden="true">•</span>
+        <a class="site-home" href="../../">Demos</a>
+      </div>
+      <nav class="page-nav" aria-label="README navigation">
+        <a href="../">Case study</a>
+        <a href="../news/">News</a>
+        <a href="../refs/">Refs</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div>
+        <p class="eyebrow">Public README</p>
+        <h1>How UrbanForest works</h1>
+        <p class="hero-lead">
+          This page explains the UrbanForest microsite, the daily UrbanForest News radar, the three-lane
+          curation model, the ranking mechanism, the archive workflow, and how the project evidence is organised.
+        </p>
+        <div class="quick-actions">
+          <a class="button" href="../">Open case study</a>
+          <a class="button secondary" href="../news/">Open news radar</a>
+          <a class="button secondary" href="../refs/">Open references</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <p class="mini-label">Purpose</p>
+        <strong>Evidence-rich, public-facing, reusable</strong>
+        <p>
+          UrbanForest is both a case-study microsite and a small environmental intelligence system:
+          part story, part archive, part radar.
+        </p>
+      </aside>
+    </section>
+
+    <nav class="toc shell" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#case-study">Case study</a>
+      <a href="#news">News radar</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#archive">Archive</a>
+      <a href="#files">Files</a>
+      <a href="#governance">Governance</a>
+      <a href="#limits">Limits</a>
+    </nav>
+
+    <section id="overview" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Overview</p>
+        <h2>What this project is</h2>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <p class="mini-label">Case study</p>
+          <h3>UrbanForest microsite</h3>
+          <p>
+            The main UrbanForest page documents the Trinity Urban Forest intervention as a compact case study:
+            context, method, species palette, milestones, carbon scenario, visual evidence, wellbeing value,
+            public recognition, and the CBSM research bridge.
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="mini-label">News radar</p>
+          <h3>Daily intelligence layer</h3>
+          <p>
+            The News page watches selected sources and search feeds for useful urban forest, pocket forest,
+            Miyawaki, biodiversity, wellbeing, maintenance, policy, and research signals.
+          </p>
+        </article>
+
+        <article class="card">
+          <p class="mini-label">Evidence spine</p>
+          <h3>Stable anchors</h3>
+          <p>
+            Curated reference items keep the project grounded: the live UrbanForest case study appears as a
+            site-native reference, while the CBSM working paper remains linked to Zenodo as a research record.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="case-study" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Case-study page</p>
+        <h2>What the main UrbanForest page does</h2>
+        <p>
+          The main page is designed as a public case study, not a light project announcement. It combines narrative,
+          evidence, methods, diagrams, and links so the intervention can be inspected rather than merely admired.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Core sections</h3>
+          <ul>
+            <li><strong>Story:</strong> why the project exists and what was built.</li>
+            <li><strong>Method:</strong> how the site was prepared and planted.</li>
+            <li><strong>Species:</strong> final shrubs and trees used in the implemented palette.</li>
+            <li><strong>Milestones:</strong> proposal, preparation, planting, recognition, and next steps.</li>
+            <li><strong>Carbon:</strong> a scenario explorer, not a carbon-credit calculator.</li>
+            <li><strong>Gallery:</strong> visual evidence from documents, preparation, and recognition.</li>
+            <li><strong>Wellbeing:</strong> agency, connection, attention, and legacy.</li>
+            <li><strong>Evidence:</strong> internal files, public coverage, and research continuation.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Design logic</h3>
+          <p>
+            The page is structured to show that a small urban forest can be understood as more than tree planting.
+            It is a place-based intervention with ecological, educational, social, and research value.
+          </p>
+          <p>
+            The microsite also acts as a reusable template for future compact urban greening projects: document the
+            site, explain the method, show evidence, disclose assumptions, and connect the intervention to wider research.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="news" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">UrbanForest News</p>
+        <h2>How the news radar works</h2>
+        <p>
+          The News page is a daily, source-led radar. It does not try to capture every mention of trees online.
+          It prioritises useful signals that can help someone understand, design, fund, maintain, evaluate, or explain
+          compact urban forest interventions.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card lane-card">
+          <p class="mini-label">Lane 1</p>
+          <h3>Practical Urban Forests in Ireland</h3>
+          <p>
+            Irish examples, delivery signals, local authority action, campus greening, community planting,
+            pocket forests, and implementation news.
+          </p>
+        </article>
+
+        <article class="card lane-card">
+          <p class="mini-label">Lane 2</p>
+          <h3>Similar latitudes and temperate cities</h3>
+          <p>
+            Transferable examples from the UK, western Europe, northern Europe, maritime cities, and comparable
+            temperate settings. Latitude and climate are more useful than longitude for ecological transfer.
+          </p>
+        </article>
+
+        <article class="card lane-card">
+          <p class="mini-label">Lane 3</p>
+          <h3>Urban forest research and evidence</h3>
+          <p>
+            Research, evaluation, biodiversity, wellbeing, maintenance, survival, governance, and design lessons.
+          </p>
+        </article>
+      </div>
+
+      <div class="callout" style="margin-top: 1rem;">
+        <p class="mini-label">Important distinction</p>
+        <p>
+          The live UrbanForest case study links to the microsite because it is a web-based project record.
+          The CBSM item links to Zenodo because it is a working paper. The radar therefore separates
+          <strong>site-native usefulness</strong> from <strong>research-paper evidence</strong>.
+        </p>
+      </div>
+    </section>
+
+    <section id="ranking" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Ranking mechanism</p>
+        <h2>How usefulness is scored</h2>
+        <p>
+          The ranking is rule-based and transparent. It is not an artificial intelligence judgement.
+          The score is designed to bring practical, relevant, and recent items to the top while keeping useful
+          background references available.
+        </p>
+      </div>
+
+      <div class="score-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>What it does</th>
+              <th>Current effect</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Base relevance</td>
+              <td>Items must match an urban forest, pocket forest, tiny forest, micro forest, Miyawaki, campus forest, community forest, urban woodland, native planting, or nature-based signal.</td>
+              <td>Starts relevant items from a base score.</td>
+            </tr>
+            <tr>
+              <td>Core phrase match</td>
+              <td>Strong phrases such as <code>urban forest</code>, <code>pocket forest</code>, <code>tiny forest</code>, or <code>Miyawaki</code> add weight.</td>
+              <td>Rewards topic specificity.</td>
+            </tr>
+            <tr>
+              <td>Practical terms</td>
+              <td>Terms such as implementation, maintenance, monitoring, biodiversity, wellbeing, community, campus, native, survival, case study, evidence, research, funding, and grant add points.</td>
+              <td>Favours useful practice and evidence over vague green news.</td>
+            </tr>
+            <tr>
+              <td>Source trust</td>
+              <td>Each source has a trust value in the source registry.</td>
+              <td>Higher-trust sources receive a modest score boost.</td>
+            </tr>
+            <tr>
+              <td>Geographic and source scope</td>
+              <td>Irish practice, institutional sources, and practice-oriented sources receive additional weight.</td>
+              <td>Keeps the radar aligned with the UrbanForest use case.</td>
+            </tr>
+            <tr>
+              <td>Freshness</td>
+              <td>Items inside the freshness window are marked fresh. Older items can remain as reference/background material.</td>
+              <td>Recent items rise, but useful references are not automatically discarded.</td>
+            </tr>
+            <tr>
+              <td>Off-topic exclusions</td>
+              <td>Terms such as wildfire, deforestation, logging, stock market, film, or unrelated forest stories are filtered out.</td>
+              <td>Reduces noisy false positives.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2" style="margin-top: 1rem;">
+        <article class="card">
+          <h3>Current scoring behaviour</h3>
+          <ul>
+            <li>Items below the minimum score are excluded from the latest feed.</li>
+            <li>The latest feed is capped so the page remains readable.</li>
+            <li>Curated items are merged with discovered items before sorting.</li>
+            <li>Duplicate IDs are removed so the same item does not appear twice.</li>
+            <li>Items are sorted by score and then by date where available.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Why this approach</h3>
+          <p>
+            The ranking mechanism is deliberately simple enough to inspect. Its purpose is not to declare
+            objective importance. Its purpose is to create a practical shortlist that is good enough for daily review.
+          </p>
+          <p>
+            This makes the radar more like a research assistant than a news publisher: it finds, groups, and
+            prioritises candidate items, but interpretation remains human.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="archive" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Archive</p>
+        <h2>How the daily archive works</h2>
+        <p>
+          Each refresh writes the current radar to a latest file and also stores a dated archive snapshot.
+          This gives the news page memory.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Latest feed</h3>
+          <p>
+            The page reads <code>data/news.json</code>. This file contains the current generated timestamp,
+            the section definitions, the note shown on the page, and the latest ranked items.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Dated snapshots</h3>
+          <p>
+            Each run writes a dated file under <code>data/archive/</code> and updates
+            <code>data/archive/index.json</code>. The archive index lets the page show a growing list of daily snapshots.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="files" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">File map</p>
+        <h2>Where things live</h2>
+      </div>
+
+      <div class="file-map">
+        <dl>
+          <div>
+            <dt><code>demos/urbanforest/index.html</code></dt>
+            <dd>Main UrbanForest case-study page.</dd>
+          </div>
+          <div>
+            <dt><code>demos/urbanforest/css/urbanforest.css</code></dt>
+            <dd>Main site styling, including cards, sections, gallery, carbon, evidence, and shared visual language.</dd>
+          </div>
+          <div>
+            <dt><code>demos/urbanforest/css/wellbeing.css</code></dt>
+            <dd>Standalone styling for the Mental and Social Benefit section.</dd>
+          </div>
+          <div>
+            <dt><code>demos/urbanforest/css/rhythm.css</code></dt>
+            <dd>Final spacing authority for the microsite. Controls section gaps and vertical rhythm.</dd>
+          </div>
+          <div>
+            <dt><code>demos/urbanforest/news/</code></dt>
+            <dd>UrbanForest News radar: page, styles, JavaScript, data, archive, sources, and discovery script.</dd>
+          </div>
+          <div>
+            <dt><code>news/data/source-registry.json</code></dt>
+            <dd>Defines source feeds, source names, source type, section assignment, trust values, and scope.</dd>
+          </div>
+          <div>
+            <dt><code>news/data/curated-items.json</code></dt>
+            <dd>Manual evidence spine: stable items that should always appear, such as the site case study and CBSM paper.</dd>
+          </div>
+          <div>
+            <dt><code>news/ops/discover_urbanforest_news.py</code></dt>
+            <dd>Daily discovery and ranking script. Fetches feeds/pages, scores items, merges curated items, writes latest and archive data.</dd>
+          </div>
+          <div>
+            <dt><code>.github/workflows/refresh-urbanforest-news.yml</code></dt>
+            <dd>GitHub Actions workflow that runs the radar daily and commits refreshed JSON data.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="governance" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Governance</p>
+        <h2>What is automatic and what remains human</h2>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Automatic</h3>
+          <ul>
+            <li>Fetch configured RSS feeds and selected source pages.</li>
+            <li>Extract titles, URLs, summaries, and dates where available.</li>
+            <li>Apply rule-based relevance scoring.</li>
+            <li>Group items into the three lanes.</li>
+            <li>Merge curated reference items.</li>
+            <li>Write latest JSON and dated archive files.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Human</h3>
+          <ul>
+            <li>Decide which items are genuinely useful.</li>
+            <li>Improve the source registry over time.</li>
+            <li>Adjust scoring if the radar becomes noisy.</li>
+            <li>Interpret research and practice implications.</li>
+            <li>Use the radar as a starting point, not as final editorial judgement.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="limits" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Limits</p>
+        <h2>What this system does not claim</h2>
+      </div>
+
+      <div class="callout">
+        <p>
+          The radar is not a systematic literature review, not a peer-review process, and not a complete global news monitor.
+          It is a practical discovery tool for a public UrbanForest microsite. The ranking system is transparent and adjustable,
+          but it should not be treated as an objective measure of scientific quality or public importance.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">UrbanForest README</p>
+        <p class="footer-text">A public explanation of the microsite, radar, data, and ranking logic.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../">Case study</a>
+        <a href="../news/">News</a>
+        <a href="../refs/">References</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
