@@ -635,13 +635,6 @@
     filter.addEventListener("change", render);
 
     render();
-
-    const firstVisible = () => Array.from(document.querySelectorAll(".demo:not([hidden])"))[0];
-    const first = firstVisible();
-    if (first) {
-      first.classList.add("open");
-      first.querySelector(".demo-toggle").setAttribute("aria-expanded", "true");
-    }
   </script>
 </body>
 </html>
