@@ -82,6 +82,38 @@ function draftFor(item) {
   return state.drafts[item.id] || item.linkedin_draft || "";
 }
 
+function formatSourceDate(itemOrValue) {
+  const value = typeof itemOrValue === "string" ? itemOrValue : itemOrValue?.published;
+  if (!value) return "n.d.";
+  const date = new Date(`${value}T00:00:00Z`);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+function storySourceCitation(item) {
+  const publisher = item.source_name || item.source_id || "Source";
+  const date = formatSourceDate(item);
+  const title = item.title || "Untitled item";
+  const url = item.url || "";
+  return `${publisher}. (${date}). ${title}.\n${url}`.trim();
+}
+
+function finalPostFor(item) {
+  const base = draftFor(item).trim();
+  const citation = storySourceCitation(item);
+  const url = String(item.url || "").trim();
+
+  if (!base) return `Source:\n${citation}`;
+
+  const alreadyHasSourceBlock = /(^|\n)\s*Source\s*:/i.test(base);
+  const alreadyHasUrl = url && base.includes(url);
+
+  if (alreadyHasSourceBlock || alreadyHasUrl) return base;
+
+  return `${base}\n\nSource:\n${citation}`;
+}
+
+
 function formatDate(value) {
   if (!value) return "Date unknown";
   const date = new Date(`${value}T00:00:00Z`);
@@ -244,7 +276,7 @@ function renderCard(item) {
   });
 
   const draft = node.querySelector(".draft");
-  draft.value = draftFor(item);
+  draft.value = finalPostFor(item);
   draft.addEventListener("input", () => {
     state.drafts[item.id] = draft.value;
     saveLocal();
@@ -256,7 +288,7 @@ function renderCard(item) {
   node.querySelector(".select-btn").addEventListener("click", () => setChoice(item.id, "selected"));
   node.querySelector(".watch-btn").addEventListener("click", () => setChoice(item.id, "watch"));
   node.querySelector(".reject-btn").addEventListener("click", () => setChoice(item.id, "reject"));
-  node.querySelector(".copy-btn").addEventListener("click", () => copy(draft.value));
+  node.querySelector(".copy-btn").addEventListener("click", () => copy(finalPostFor(item)));
   node.querySelector(".source-btn").addEventListener("click", () => copy(item.url || ""));
   node.querySelector(".pack-btn").addEventListener("click", () => copy(postPackFor(item)));
   node.querySelector(".image-btn").addEventListener("click", () => downloadInsightCard(item));

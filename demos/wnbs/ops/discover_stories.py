@@ -528,20 +528,47 @@ def build_relevance_text(
 
 
 def linkedin_draft(item: RawItem, angle: str, brand_fit: str) -> str:
-    source = item.source.get("name", "the source")
-    date_note = f" Published {item.published}." if item.published else ""
+    source = item.source.get("name") or item.source.get("id") or "Source"
+    published = item.published or "n.d."
+    citation = f"{source}. ({published}). {item.title}.
+{item.url}"
+
     return (
-        f"A practical Water NbS signal for Ireland from {source}.{date_note}\n\n"
-        f"This is not just another nature-positive story. The useful question is whether it shows a measure that can reduce pressure on surface waters and support water-related ecology or biodiversity.\n\n"
-        f"What I would look for:\n"
-        f"• pressure addressed: nutrients, sediment, runoff, hydromorphology, or habitat fragmentation\n"
-        f"• measure type: {angle.lower()}\n"
-        f"• catchment position: where the measure interrupts, delays, filters, or reconnects flow\n"
-        f"• monitoring: what indicator would show improvement over time?\n\n"
-        f"My take: {brand_fit}\n\n"
-        f"This is where Nature-based Solutions become serious: practical design, water-quality outcomes, ecological evidence, and repeatable delivery.\n\n"
-        "#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement"
+        f"A practical Water NbS signal for Ireland.
+
+"
+        f"This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+
+"
+        f"For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+
+"
+        f"What I would look for:
+"
+        f"• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
+"
+        f"• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
+"
+        f"• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
+"
+        f"• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
+"
+        f"• repeatability: whether this can be maintained and applied elsewhere in Ireland
+
+"
+        f"My take: {brand_fit}
+
+"
+        f"This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+
+"
+        f"Source:
+{citation}
+
+"
+        f"#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement"
     )
+
 
 
 def tags_for(source: dict[str, Any], angle: str, hits: list[str]) -> list[str]:
