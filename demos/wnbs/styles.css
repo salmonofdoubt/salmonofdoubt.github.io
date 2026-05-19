@@ -225,3 +225,37 @@ dd { margin: 0; line-height: 1.45; }
   .control-panel label { grid-column: auto; }
   .copy-btn { margin-left: 0; }
 }
+
+
+/* --- WNBS INLINE INSIGHT PREVIEW START --- */
+.insight-card-preview-wrap {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(15, 107, 122, 0.15);
+}
+
+.insight-card-preview-title {
+  font-weight: 800;
+  color: #0f6b7a;
+  margin-bottom: 0.55rem;
+}
+
+.insight-card-preview {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 107, 122, 0.12);
+  box-shadow: 0 8px 24px rgba(16, 32, 22, 0.08);
+  cursor: pointer;
+  background: #f6f8f3;
+}
+
+.insight-card-preview-note {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  color: #5e6d60;
+}
+/* --- WNBS INLINE INSIGHT PREVIEW END --- */
+
