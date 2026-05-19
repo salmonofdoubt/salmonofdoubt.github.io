@@ -77,6 +77,6 @@ The initial source set prioritises:
 
 ## UI notes
 
-- Uses the official Zenodo badge image in the share card with a placeholder DOI of `10.5281/zenodo.000000`.
+- Uses a DOI-pending badge until a valid Zenodo DOI is minted. No placeholder DOI is shown publicly.
 - Purpose chips are positioned above the free-text and advanced filters.
 - Status pills are visually stronger so open, upcoming, and closed calls are easier to scan.
