@@ -503,3 +503,177 @@ async function init() {
 }
 
 init();
+
+
+// --- WNBS CLEAN LINKEDIN CARD OVERRIDE START ---
+function downloadInsightCard(item) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1200;
+  canvas.height = 1200;
+  const ctx = canvas.getContext("2d");
+
+  const bg = "#f6f8f3";
+  const band = "#e6f0e1";
+  const ink = "#102016";
+  const teal = "#0f6b7a";
+  const green = "#356b3f";
+  const muted = "#5e6d60";
+  const white = "#ffffff";
+
+  function clean(value, fallback = "") {
+    return String(value || fallback)
+      .replace(/Strong water-quality\/ecology signal detected\.\s*/gi, "")
+      .replace(/Evidence terms:\s*/gi, "")
+      .replace(/\bundefined\b/gi, "")
+      .replace(/,\s*$/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function sourceDate(value) {
+    if (!value) return "n.d.";
+    const d = new Date(`${value}T00:00:00Z`);
+    if (Number.isNaN(d.getTime())) return value;
+    return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+  }
+
+  function wrap(text, x, y, maxWidth, lineHeight, maxLines) {
+    const words = clean(text).split(/\s+/).filter(Boolean);
+    const lines = [];
+    let line = "";
+
+    for (const word of words) {
+      const test = line ? `${line} ${word}` : word;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        lines.push(line);
+        line = word;
+        if (lines.length >= maxLines) break;
+      } else {
+        line = test;
+      }
+    }
+
+    if (line && lines.length < maxLines) lines.push(line);
+
+    lines.slice(0, maxLines).forEach((entry, i) => {
+      ctx.fillText(entry, x, y + i * lineHeight);
+    });
+
+    return y + Math.max(lines.length, 1) * lineHeight;
+  }
+
+  function roundRect(x, y, w, h, r) {
+    const rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function inferInsight() {
+    const text = `${item?.title || ""} ${item?.summary || ""} ${item?.water_relevance || ""} ${item?.angle || ""}`.toLowerCase();
+
+    if (/fish|spawning|passage|barrier|salmon|trout|eel/.test(text)) {
+      return "Connects river restoration with fish movement, spawning habitat, and aquatic ecological recovery.";
+    }
+
+    if (/wetland|pond|constructed wetland/.test(text)) {
+      return "Shows how wetlands and ponds can slow, filter, and treat water before it reaches receiving waters.";
+    }
+
+    if (/suds|stormwater|rainwater|urban runoff/.test(text)) {
+      return "Links urban runoff management with cleaner water, slower flow, and more resilient blue-green infrastructure.";
+    }
+
+    if (/riparian|buffer|fencing|bank|erosion/.test(text)) {
+      return "Targets the land-water edge where sediment, nutrients, livestock pressure, and habitat condition meet.";
+    }
+
+    if (/peat|rewet|bog|drain/.test(text)) {
+      return "Links hydrological restoration with downstream water conditions, flow regulation, and habitat recovery.";
+    }
+
+    return "A practical signal where land management, water quality, ecology, and biodiversity need to be judged together.";
+  }
+
+  const title = clean(item?.title, "Practical Water NbS signal");
+  const source = clean(item?.source_name || item?.source_id, "Source");
+  const date = sourceDate(item?.published);
+  const insight = inferInsight();
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, 1200, 1200);
+
+  ctx.fillStyle = teal;
+  ctx.fillRect(0, 0, 28, 1200);
+
+  ctx.fillStyle = band;
+  ctx.fillRect(28, 0, 1172, 170);
+
+  ctx.fillStyle = teal;
+  ctx.font = "900 42px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText("Water NbS Signal · Ireland", 72, 98);
+
+  ctx.fillStyle = green;
+  roundRect(72, 215, 372, 60, 30);
+  ctx.fill();
+
+  ctx.fillStyle = white;
+  ctx.font = "900 25px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText("Practical catchment signal", 100, 253);
+
+  let titleFont = 66;
+  if (title.length > 90) titleFont = 58;
+  if (title.length > 135) titleFont = 50;
+
+  ctx.fillStyle = ink;
+  ctx.font = `950 ${titleFont}px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;
+  const titleEnd = wrap(title, 72, 380, 1040, titleFont + 10, 5);
+
+  const panelY = Math.max(titleEnd + 70, 690);
+
+  ctx.fillStyle = white;
+  roundRect(72, panelY, 1056, 250, 34);
+  ctx.fill();
+
+  ctx.fillStyle = green;
+  ctx.font = "900 30px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText("Why this matters", 112, panelY + 62);
+
+  ctx.fillStyle = ink;
+  ctx.font = "650 38px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  wrap(insight, 112, panelY + 125, 960, 47, 3);
+
+  ctx.fillStyle = "#edf4e9";
+  roundRect(72, 980, 1056, 95, 28);
+  ctx.fill();
+
+  ctx.fillStyle = green;
+  ctx.font = "900 26px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText("Practical question", 112, 1018);
+
+  ctx.fillStyle = ink;
+  ctx.font = "650 29px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText("What pressure is reduced, where, and how is improvement measured?", 112, 1058);
+
+  ctx.fillStyle = muted;
+  ctx.font = "650 24px system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif";
+  ctx.fillText(`${source} · ${date}`, 72, 1145);
+
+  const footer = "salmonofdoubt.github.io/demos/wnbs";
+  const footerWidth = ctx.measureText(footer).width;
+  ctx.fillText(footer, 1200 - footerWidth - 72, 1145);
+
+  const link = document.createElement("a");
+  const safeId = String(item?.id || "water-nbs-signal").replace(/[^a-z0-9_-]+/gi, "-").toLowerCase();
+  link.download = `${safeId}.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+
+  if (typeof toast === "function") toast("Clean LinkedIn card downloaded");
+}
+// --- WNBS CLEAN LINKEDIN CARD OVERRIDE END ---
+
