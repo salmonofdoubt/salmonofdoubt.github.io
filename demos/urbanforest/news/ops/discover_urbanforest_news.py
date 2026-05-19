@@ -394,7 +394,7 @@ def update_archive(latest: dict[str, Any]) -> None:
     snapshots = [entry for entry in index.get("snapshots", []) if entry.get("date") != stamp]
     snapshots.insert(0, {
         "date": stamp,
-        "path": f"archive/{snapshot_name}",
+        "path": f"data/archive/{snapshot_name}",
         "count": latest.get("count", 0),
         "generated_at": latest.get("generated_at"),
     })
