@@ -1,0 +1,116 @@
+/* UrbanForest page rhythm
+   Final spacing authority for the microsite.
+   Keeps the page airy, but removes the large dead bands between sections.
+*/
+
+:root {
+  --uf-section-y: clamp(2rem, 3.4vw, 3.1rem);
+  --uf-section-y-tight: clamp(1.45rem, 2.4vw, 2.2rem);
+  --uf-heading-gap: 1.05rem;
+}
+
+/* Global section rhythm */
+body .section,
+body .timeline-section,
+body .carbon-section,
+body .evidence-section,
+body .next-section,
+body .wellbeing-section {
+  padding-top: var(--uf-section-y);
+  padding-bottom: var(--uf-section-y);
+}
+
+/* Section headings should not create a second invisible gap */
+body .section-heading {
+  margin-bottom: var(--uf-heading-gap);
+}
+
+body .section-intro {
+  margin-bottom: 0;
+}
+
+/* Tighter transitions where one section naturally follows another */
+body #method,
+body #species,
+body #milestones,
+body #carbon,
+body #gallery,
+body #wellbeing,
+body #evidence,
+body #next {
+  scroll-margin-top: 5rem;
+}
+
+/* Specific visible transitions */
+body #method {
+  padding-top: var(--uf-section-y-tight);
+}
+
+body #species {
+  padding-top: var(--uf-section-y-tight);
+  padding-bottom: var(--uf-section-y-tight);
+}
+
+body #milestones {
+  padding-top: var(--uf-section-y-tight);
+}
+
+body #gallery {
+  padding-top: var(--uf-section-y-tight);
+}
+
+body #wellbeing {
+  padding-top: var(--uf-section-y-tight);
+}
+
+/* Cards and notes at section ends should not add extra perceived whitespace */
+body .implementation-note,
+body .diagram-card,
+body .proof-card,
+body .reference-card,
+body .zenodo-card {
+  margin-bottom: 0;
+}
+
+/* Carbon diagram was visually pushing the Gallery down */
+body .diagram-card {
+  margin-top: 0.9rem;
+}
+
+body .diagram-card figcaption {
+  padding-top: 0.75rem;
+  padding-bottom: 0.85rem;
+}
+
+/* Timeline should feel compact but readable */
+body .timeline {
+  gap: 0.95rem;
+}
+
+body .timeline-item {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Gallery should start as a continuation, not a new poster */
+body .gallery-redesign .section-heading {
+  margin-bottom: 0.9rem;
+}
+
+body .gallery-feature-grid {
+  margin-top: 1rem;
+}
+
+/* Mobile: remove more vertical drift */
+@media (max-width: 760px) {
+  :root {
+    --uf-section-y: 2rem;
+    --uf-section-y-tight: 1.45rem;
+    --uf-heading-gap: 0.85rem;
+  }
+
+  body .timeline-item {
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+}
