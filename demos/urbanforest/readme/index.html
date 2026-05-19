@@ -438,6 +438,7 @@
       <a href="#news">News radar</a>
       <a href="#ranking">Ranking</a>
       <a href="#archive">Archive</a>
+      <a href="#today">Today</a>
       <a href="#files">Files</a>
       <a href="#governance">Governance</a>
       <a href="#limits">Limits</a>
@@ -679,6 +680,71 @@
             Each run writes a dated file under <code>data/archive/</code> and updates
             <code>data/archive/index.json</code>. The archive index lets the page show a growing list of daily snapshots.
           </p>
+        </article>
+      </div>
+    </section>
+
+
+    <section id="today" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Version history</p>
+        <h2>Changes in Version v2.0.1</h2>
+        <p>
+          This note records the functional and structural changes introduced in Version v2.0.1.
+          It is included so the public README reflects not only what the site is, but how the system evolved.
+        </p>
+      </div>
+
+      <div class="callout">
+        <p class="mini-label">Version note</p>
+        <p>
+          The public UrbanForest case study now carries <strong>Version v2.0.1</strong> in the top DOI/share card,
+          aligned with the archived UrbanForest DOI badge. The version label refers to the public microsite state,
+          not to the CBSM Zenodo working paper.
+        </p>
+      </div>
+
+      <div class="grid-2" style="margin-top: 1rem;">
+        <article class="card">
+          <h3>UrbanForest case-study improvements</h3>
+          <ul>
+            <li>Refined the Mental and Social Benefit section into a coherent component rather than stacked patch content.</li>
+            <li>Clarified the reflection invitation as visitor-facing copy, with a direct email route for no-login reflections.</li>
+            <li>Rebuilt the Gallery as a compact visual evidence sequence: site baseline, preparation, living result, spatial thinking, and institutional recognition.</li>
+            <li>Added a dedicated rhythm layer to reduce excessive gaps between sections and improve page flow.</li>
+            <li>Added clearer navigation links to News, References, and this public README page.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>UrbanForest News improvements</h3>
+          <ul>
+            <li>Created the <strong>UrbanForest News</strong> subsite as a daily source-led radar.</li>
+            <li>Organised the radar into three lanes: Irish practice, comparable temperate-city examples, and research evidence.</li>
+            <li>Added a transparent rule-based usefulness score for ranking candidate items.</li>
+            <li>Added a daily archive mechanism using dated JSON snapshots.</li>
+            <li>Fixed archive links so snapshots resolve to <code>data/archive/YYYY-MM-DD.json</code>.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Curated evidence spine</h3>
+          <ul>
+            <li>Added curated items so stable project references appear even when the daily crawler has little useful news.</li>
+            <li>Set the Trinity Urban Forest case-study item to point to the live microsite rather than Zenodo.</li>
+            <li>Kept the CBSM item pointing to Zenodo because it is a working paper / research record.</li>
+            <li>Separated site-native usefulness from research-paper evidence.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Operational behaviour</h3>
+          <ul>
+            <li>The daily GitHub Action refreshes the news data and archive.</li>
+            <li>The page reads the generated <code>news.json</code>, not the curated-items file directly.</li>
+            <li>Curated items and discovered items are merged, deduplicated, scored, sorted, and displayed together.</li>
+            <li>The system remains reviewable because sources, curated items, scoring rules, latest data, and archive snapshots are stored as plain files.</li>
+          </ul>
         </article>
       </div>
     </section>
