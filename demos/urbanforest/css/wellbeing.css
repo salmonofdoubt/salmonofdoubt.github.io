@@ -1,0 +1,154 @@
+/* UrbanForest wellbeing component
+   Clean standalone styling for the Mental and social benefit section.
+*/
+
+.wellbeing-section {
+  position: relative;
+}
+
+.wellbeing-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 1.25rem;
+  align-items: stretch;
+  margin-top: 1.5rem;
+}
+
+.wellbeing-main {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.wellbeing-card,
+.wellbeing-mechanisms,
+.wellbeing-reflection-route,
+.wellbeing-photo {
+  border: 1px solid rgba(22, 53, 31, 0.14);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 14px 38px rgba(22, 53, 31, 0.08);
+}
+
+.wellbeing-card {
+  padding: 1.25rem;
+  height: 100%;
+}
+
+.wellbeing-card h3,
+.wellbeing-mechanisms h3,
+.wellbeing-reflection-route h3,
+.wellbeing-lenses h4 {
+  margin-top: 0;
+}
+
+.wellbeing-card p:last-child,
+.wellbeing-reflection-route p:last-child {
+  margin-bottom: 0;
+}
+
+.wellbeing-side {
+  display: block;
+  height: 100%;
+}
+
+.wellbeing-photo {
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.wellbeing-photo img {
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  object-fit: cover;
+}
+
+.wellbeing-photo figcaption {
+  padding: 0.75rem 0.85rem 0.85rem;
+  color: rgba(22, 53, 31, 0.72);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  flex: 0 0 auto;
+}
+
+.wellbeing-mechanisms {
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+}
+
+.wellbeing-mechanisms-head {
+  max-width: 760px;
+}
+
+.wellbeing-lenses {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.1rem;
+}
+
+.wellbeing-lenses article {
+  border-radius: 1rem;
+  padding: 1rem;
+  background: rgba(22, 53, 31, 0.055);
+}
+
+.wellbeing-lenses span {
+  display: inline-flex;
+  margin-bottom: 0.65rem;
+  color: rgba(22, 53, 31, 0.62);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.wellbeing-lenses p {
+  margin-bottom: 0;
+}
+
+.wellbeing-reflection-route {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(225, 240, 220, 0.72));
+}
+
+@media (max-width: 1080px) {
+  .wellbeing-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .wellbeing-side {
+    height: auto;
+  }
+
+  .wellbeing-photo {
+    max-width: 320px;
+    height: auto;
+  }
+
+  .wellbeing-photo img {
+    height: 220px;
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 860px) {
+  .wellbeing-main,
+  .wellbeing-lenses,
+  .wellbeing-reflection-route {
+    grid-template-columns: 1fr;
+  }
+
+  .wellbeing-photo {
+    max-width: 100%;
+  }
+}
