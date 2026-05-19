@@ -36,6 +36,8 @@ TIMEOUT = 20
 MAX_PER_SOURCE = 35
 MAX_TOTAL_ITEMS = 160
 MIN_SCORE = 28
+CURRENT_WINDOW_DAYS = 45
+STRATEGIC_WINDOW_DAYS = 90
 
 # The brand lens: practical, Ireland-facing, water-first NbS.
 # Generic climate, carbon, tree-planting, or biodiversity stories should only rise
@@ -352,6 +354,45 @@ def parse_date(value: Any) -> str | None:
     return None
 
 
+def days_since(iso_date: str | None) -> int | None:
+    if not iso_date:
+        return None
+    try:
+        published = date_parser.parse(iso_date).date()
+        return (now_utc().date() - published).days
+    except Exception:
+        return None
+
+
+def recency_profile(item: RawItem) -> tuple[int | None, str, str, int, int | None]:
+    age = days_since(item.published)
+    lowered = " ".join([item.title, item.summary]).lower()
+    has_call_or_deadline = any(term in lowered for term in [
+        "call for expressions of interest",
+        "expression of interest",
+        "expressions of interest",
+        "deadline",
+        "closing date",
+        "call for applications",
+        "applications close",
+        "funding call",
+        "grant call",
+    ])
+    if age is None:
+        return None, "unknown", "No publication date detected; verify currency before posting.", 10, 58
+    if age < 0:
+        return age, "future", "Future-dated item; verify source date.", 0, None
+    if age <= 14:
+        return age, "fresh", "Fresh item; suitable for current commentary if the source is credible.", 0, None
+    if age <= CURRENT_WINDOW_DAYS:
+        return age, "current", "Current enough for LinkedIn if the practical water hook is strong.", 4, None
+    if has_call_or_deadline and age > 30:
+        return age, "stale_call", "Older call or deadline item; treat as archive/reference unless the source confirms it is still open.", 45, 38
+    if age <= STRATEGIC_WINDOW_DAYS:
+        return age, "strategic", "No longer fresh news; use only if it gives useful policy, design, or delivery context.", 14, 72
+    return age, "stale", "Older than the normal current-news window; keep as background or precedent, not as today's story.", 32, 52
+
+
 def fetch(url: str) -> requests.Response:
     return requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT)
 
@@ -487,10 +528,18 @@ def build_relevance_text(
 
 
 def linkedin_draft(item: RawItem, angle: str, brand_fit: str) -> str:
+    source = item.source.get("name", "the source")
+    date_note = f" Published {item.published}." if item.published else ""
     return (
-        f"This is the kind of Ireland-focused water story worth watching: {angle.lower()}. "
-        f"For me, the key question is practical, not decorative: what pressure on surface water does the measure reduce, where does it sit in the catchment, and how will ecological improvement be measured? "
-        f"{brand_fit} "
+        f"A practical Water NbS signal for Ireland from {source}.{date_note}\n\n"
+        f"This is not just another nature-positive story. The useful question is whether it shows a measure that can reduce pressure on surface waters and support water-related ecology or biodiversity.\n\n"
+        f"What I would look for:\n"
+        f"• pressure addressed: nutrients, sediment, runoff, hydromorphology, or habitat fragmentation\n"
+        f"• measure type: {angle.lower()}\n"
+        f"• catchment position: where the measure interrupts, delays, filters, or reconnects flow\n"
+        f"• monitoring: what indicator would show improvement over time?\n\n"
+        f"My take: {brand_fit}\n\n"
+        f"This is where Nature-based Solutions become serious: practical design, water-quality outcomes, ecological evidence, and repeatable delivery.\n\n"
         "#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement"
     )
 
@@ -537,15 +586,18 @@ def enrich(item: RawItem, previous: dict[str, Any] | None = None) -> dict[str, A
 
     trust_score = int(float(item.source.get("trust", 0.7)) * 10)
     source_boost = source_scope_boost(str(item.source.get("id", "")))
+    age_days, freshness_status, freshness_note, recency_penalty, recency_cap = recency_profile(item)
 
     # Water and practical implementation dominate. Generic NbS and climate terms can help but cannot carry a story.
-    score = water_score + measure_score + implementation_score + ireland_score + min(general_score, 24) + trust_score + source_boost - dilution_score
+    score = water_score + measure_score + implementation_score + ireland_score + min(general_score, 24) + trust_score + source_boost - dilution_score - recency_penalty
     if not has_water_core:
         score -= 22
     if not has_practical_core:
         score -= 12
     if dilution_hits and not has_water_core:
         score -= 12
+    if recency_cap is not None:
+        score = min(score, recency_cap)
     score = max(0, min(100, score))
 
     if score < MIN_SCORE:
@@ -563,6 +615,10 @@ def enrich(item: RawItem, previous: dict[str, Any] | None = None) -> dict[str, A
         "url": item.url,
         "published": item.published,
         "summary": sentence_summary(item, evidence),
+        "age_days": age_days,
+        "freshness_status": freshness_status,
+        "freshness_note": freshness_note,
+        "source_citation": f"{item.source.get('name', 'Source')}. ({item.published or 'n.d.'}). {item.title}. {item.url}",
         "score": score,
         "score_band": score_band(score),
         "angle": angle,
@@ -613,6 +669,8 @@ def markdown_report(payload: dict[str, Any]) -> str:
             f"URL: {item['url']}",
             "",
             f"Angle: {item.get('angle', 'Unclassified')}",
+            "",
+            f"Freshness: {item.get('freshness_note', '')}",
             "",
             f"Water signal: {item.get('water_relevance', '')}",
             "",

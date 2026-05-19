@@ -18,7 +18,7 @@
       <h1>Water NbS Story Radar</h1>
       <p class="lede">A daily source-led discovery dashboard for practical stories that show how Ireland can improve surface water quality, water-related ecology, and aquatic biodiversity through implementable nature-based solutions.</p>
       <div class="hero-actions">
-        <button id="copySelectedBtn" class="primary">Copy selected LinkedIn queue</button>
+        <button id="copySelectedBtn" class="primary">Copy selected post packs</button>
         <button id="exportMarkdownBtn" class="secondary">Export selected report</button>
         <button id="clearLocalBtn" class="ghost">Clear local choices</button>
       </div>
@@ -56,7 +56,7 @@
       </article>
       <article>
         <h2>Publishing rule</h2>
-        <p>Post only when you can explain the practical hook: pressure, pathway, measure, maintenance, and monitored outcome. Decorative greening is not enough.</p>
+        <p>Each item now gives you a post pack: draft text, source URL for the LinkedIn preview, source citation, freshness check, and an optional insight-card image.</p>
       </article>
     </section>
 
@@ -79,14 +79,18 @@
         <div><dt>Practical value</dt><dd class="practical"></dd></div>
         <div><dt>Brand fit</dt><dd class="brand"></dd></div>
         <div><dt>Why post</dt><dd class="why"></dd></div>
+        <div><dt>Freshness</dt><dd class="freshness"></dd></div>
       </dl>
       <div class="tags"></div>
-      <label class="draft-label">LinkedIn draft<textarea class="draft" rows="6"></textarea></label>
+      <label class="draft-label">LinkedIn post draft<textarea class="draft" rows="8"></textarea></label>
       <div class="card-actions">
         <button class="select-btn">Pick</button>
         <button class="watch-btn">Watch</button>
         <button class="reject-btn">Reject</button>
-        <button class="copy-btn">Copy draft</button>
+        <button class="copy-btn">Copy post</button>
+        <button class="source-btn">Copy source URL</button>
+        <button class="pack-btn">Copy post pack</button>
+        <button class="image-btn">Download insight card</button>
       </div>
     </article>
   </template>

@@ -195,7 +195,11 @@ dd { margin: 0; line-height: 1.45; }
 .select-btn { background: var(--accent); color: white; }
 .watch-btn { background: #fff4d7; color: var(--warn); }
 .reject-btn { background: #f7dddd; color: var(--reject); }
-.copy-btn { background: var(--ink); color: white; margin-left: auto; }
+.copy-btn { background: var(--ink); color: white; }
+.source-btn { background: #eef4f8; color: var(--accent-2); }
+.pack-btn { background: #e9f2e5; color: var(--accent); }
+.image-btn { background: #f3ead8; color: var(--warn); }
+.stale-note { color: var(--warn); font-weight: 800; }
 #toast {
   position: fixed;
   left: 50%;
