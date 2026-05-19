@@ -1198,3 +1198,15 @@ dl {
     align-items: flex-start;
   }
 }
+
+/* Zenodo badge inside the lower CBSM bridge card */
+.zenodo-card .zenodo-card-badge {
+  margin: 0.2rem 0 0;
+}
+
+.zenodo-card .zenodo-card-badge img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+}
+
