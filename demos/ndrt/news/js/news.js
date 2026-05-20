@@ -86,18 +86,43 @@ function visibleItems() {
 }
 
 function renderSummary(items) {
-  const ireland = items.filter((item) => itemSection(item) === "ireland-catchment-practice").length;
-  const evidence = items.filter((item) => itemSection(item) === "waterbody-evidence-alerts").length;
-  const grants = items.filter((item) => itemSection(item) === "grants-opportunities").length;
-  const research = items.filter((item) => itemSection(item) === "research-papers").length;
+  const lanes = [
+    {
+      id: "ireland-catchment-practice",
+      label: "Irish practice",
+      count: items.filter((item) => itemSection(item) === "ireland-catchment-practice").length
+    },
+    {
+      id: "waterbody-evidence-alerts",
+      label: "Evidence/alerts",
+      count: items.filter((item) => itemSection(item) === "waterbody-evidence-alerts").length
+    },
+    {
+      id: "grants-opportunities",
+      label: "Grants",
+      count: items.filter((item) => itemSection(item) === "grants-opportunities").length
+    },
+    {
+      id: "research-papers",
+      label: "Research",
+      count: items.filter((item) => itemSection(item) === "research-papers").length
+    }
+  ];
 
   els.summary.innerHTML = `
     <div class="result-stripe" aria-label="Current lane counts">
       <span class="result-stripe-label">Current lanes:</span>
-      <span><strong>${ireland}</strong> Irish practice</span>
-      <span><strong>${evidence}</strong> evidence/alerts</span>
-      <span><strong>${grants}</strong> grants</span>
-      <span><strong>${research}</strong> research</span>
+      ${lanes.map((lane) => `
+        <button
+          type="button"
+          class="result-lane-link"
+          data-lane-target="${escapeHtml(lane.id)}"
+          ${lane.count ? "" : "disabled"}
+          aria-label="Jump to ${escapeHtml(lane.label)} lane"
+        >
+          <strong>${lane.count}</strong> ${escapeHtml(lane.label)}
+        </button>
+      `).join("")}
     </div>
   `;
 }
@@ -215,6 +240,25 @@ async function loadArchive() {
     renderArchive();
   }
 }
+
+
+
+function jumpToResultLane(targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  target.classList.add("lane-focus-pulse");
+  window.setTimeout(() => target.classList.remove("lane-focus-pulse"), 900);
+}
+
+els.summary.addEventListener("click", (event) => {
+  const button = event.target.closest(".result-lane-link");
+  if (!button || button.disabled) return;
+
+  jumpToResultLane(button.dataset.laneTarget);
+});
 
 els.search.addEventListener("input", renderItems);
 els.theme.addEventListener("change", renderItems);
