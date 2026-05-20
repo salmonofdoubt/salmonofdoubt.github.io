@@ -426,6 +426,95 @@
         padding: 0 20px 22px;
       }
     }
+  
+
+/* Mobile demo card action enhancer v5 */
+.demo-mobile-action-row {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .demo-bar {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    gap: 14px 12px !important;
+    align-items: start !important;
+    padding: 22px !important;
+  }
+
+  .demo-index {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  .demo-mobile-action-row {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .demo-mobile-action-row .chevron {
+    display: inline-flex !important;
+    width: auto !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 0.72rem !important;
+    border-radius: 999px !important;
+    transform: none !important;
+    background: rgba(255, 176, 64, 0.14) !important;
+    border: 1px solid rgba(255, 176, 64, 0.36) !important;
+    color: var(--amber) !important;
+    box-shadow: none !important;
+    font-size: 0 !important;
+  }
+
+  .demo-mobile-action-row .chevron::after {
+    content: "Details";
+    font-size: 0.82rem;
+    font-weight: 950;
+  }
+
+  .demo.open .demo-mobile-action-row .chevron::after {
+    content: "Hide";
+  }
+
+  .demo-mobile-open {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 34px !important;
+    padding: 0 0.72rem !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, var(--cyan), #91fff2) !important;
+    color: #031014 !important;
+    border: 1px solid rgba(79, 246, 255, 0.42) !important;
+    font-size: 0.82rem !important;
+    font-weight: 950 !important;
+    text-decoration: none !important;
+  }
+
+  .demo-title,
+  .demo-sub {
+    grid-column: 1 / -1 !important;
+  }
+
+  .demo-bar > div:not(.demo-index):not(.demo-mobile-action-row) {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+  }
+
+  .demo-bar > .chevron {
+    display: none !important;
+  }
+
+  .demo-panel .actions > .button:first-child {
+    display: none !important;
+  }
+}
+
   </style>
   <link rel="stylesheet" href="/demos/shared/demo-support.css" />
   <script defer src="/demos/shared/demo-support.js"></script>
@@ -638,5 +727,67 @@
 
     render();
   </script>
+
+  <script id="mobile-demo-action-enhancer">
+    (function () {
+      function enhanceDemoCards() {
+        document.querySelectorAll("#demoList .demo").forEach(card => {
+          if (card.dataset.mobileActionsEnhanced === "1") return;
+
+          const bar = card.querySelector(".demo-bar");
+          const panel = card.querySelector(".demo-panel");
+          const chevron = bar ? bar.querySelector(".chevron") : null;
+          const openButton = panel ? panel.querySelector(".actions .button") : null;
+
+          if (!bar || !chevron || !openButton) return;
+
+          const row = document.createElement("div");
+          row.className = "demo-mobile-action-row";
+
+          const open = document.createElement("a");
+          open.className = "demo-mobile-open";
+          open.href = openButton.getAttribute("href") || "#";
+          open.textContent = "Open";
+          open.setAttribute("aria-label", "Open demo");
+
+          row.appendChild(chevron);
+          row.appendChild(open);
+
+          const index = bar.querySelector(".demo-index");
+          if (index && index.nextSibling) {
+            bar.insertBefore(row, index.nextSibling);
+          } else {
+            bar.appendChild(row);
+          }
+
+          card.dataset.mobileActionsEnhanced = "1";
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        enhanceDemoCards();
+
+        const list = document.getElementById("demoList");
+        if (!list) return;
+
+        const observer = new MutationObserver(() => enhanceDemoCards());
+        observer.observe(list, { childList: true, subtree: true });
+
+        document.addEventListener("click", event => {
+          const toggle = event.target.closest(".demo-mobile-action-row .chevron");
+          if (!toggle) return;
+
+          window.setTimeout(() => {
+            document.querySelectorAll("#demoList .demo").forEach(card => {
+              const button = card.querySelector(".demo-mobile-action-row .chevron");
+              if (!button) return;
+              button.setAttribute("aria-expanded", card.classList.contains("open") ? "true" : "false");
+            });
+          }, 0);
+        });
+      });
+    })();
+  </script>
+
 </body>
 </html>
