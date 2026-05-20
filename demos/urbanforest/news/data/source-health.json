@@ -1,176 +1,200 @@
 {
-  "version": "1.0",
-  "sections": [
-    {
-      "id": "ireland-urban-forest-practice",
-      "title": "Ireland Urban Forest Practice",
-      "description": "Irish examples, local authority action, campus greening, school forests, pocket forests, community planting, and implementation signals."
-    },
-    {
-      "id": "urban-nbs-implementation",
-      "title": "Urban NbS Implementation",
-      "description": "Urban nature-based solutions linked to trees and small urban forests: SuDS, rain gardens, bioswales, shade corridors, depaving, soil restoration, green roofs, and stormwater design."
-    },
-    {
-      "id": "funding-opportunities",
-      "title": "Funding and Opportunities",
-      "description": "Grants, schemes, calls, awards, and practical funding routes for schools, communities, campuses, NGOs, local authorities, biodiversity, monitoring, and maintenance."
-    },
-    {
-      "id": "research-evidence",
-      "title": "Practical Research and Evidence",
-      "description": "Scholarly and evidence items ranked for practical UrbanForest usefulness: biodiversity, wellbeing, shade, heat, survival, soil, maintenance, monitoring, and governance."
-    },
-    {
-      "id": "design-maintenance-risk",
-      "title": "Design, Maintenance and Risk",
-      "description": "Tree survival, watering, drought stress, soil preparation, aftercare, vandalism, public acceptance, carbon claims, governance risk, and long-term stewardship."
-    }
-  ],
+  "generated_at": "2026-05-20T13:39:37.666195+00:00",
+  "latest_generated_at": "2026-05-20T08:41:18.244963+00:00",
+  "total_items": 38,
+  "total_sources": 16,
+  "sources_active": 2,
+  "sources_checked_no_current_items": 14,
+  "sources_failed": 0,
+  "items_by_section": {
+    "research-evidence": 6,
+    "ireland-practice": 27,
+    "temperate-practice": 5
+  },
+  "annotation_coverage": {
+    "urbanforest_relevance": 0,
+    "benefit_categories": 0,
+    "local_relevance": 0,
+    "opportunity_fit": 0,
+    "research_use_type": 0
+  },
+  "archive_snapshots": 2,
   "sources": [
     {
       "id": "gn-ireland-urban-forest",
       "name": "Google News: urban forest Ireland",
-      "section": "ireland-urban-forest-practice",
       "type": "rss",
+      "section": "ireland-urban-forest-practice",
+      "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28%22urban%20forest%22%20OR%20%22pocket%20forest%22%20OR%20%22tiny%20forest%22%20OR%20Miyawaki%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.76,
-      "scope": "ireland"
+      "host": "news.google.com",
+      "status": "active",
+      "current_item_count": 16
     },
     {
       "id": "gn-dublin-urban-greening",
       "name": "Google News: Dublin urban greening",
-      "section": "ireland-urban-forest-practice",
       "type": "rss",
+      "section": "ireland-urban-forest-practice",
+      "scope": "dublin ireland",
       "url": "https://news.google.com/rss/search?q=%28Dublin%20OR%20Trinity%20OR%20TCD%20OR%20Fingal%20OR%20%22Dublin%20City%20Council%22%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20pocket%20forest%29&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.78,
-      "scope": "dublin ireland"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-ireland-school-campus-forest",
       "name": "Google News: school and campus forests Ireland",
-      "section": "ireland-urban-forest-practice",
       "type": "rss",
+      "section": "ireland-urban-forest-practice",
+      "scope": "ireland schools campus",
       "url": "https://news.google.com/rss/search?q=%28school%20forest%20OR%20campus%20greening%20OR%20school%20garden%20OR%20biodiversity%20campus%29%20Ireland%20%28trees%20OR%20forest%20OR%20planting%29&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.72,
-      "scope": "ireland schools campus"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-urban-nbs-suds",
       "name": "Google News: urban NbS and SuDS",
-      "section": "urban-nbs-implementation",
       "type": "rss",
+      "section": "urban-nbs-implementation",
+      "scope": "urban nbs",
       "url": "https://news.google.com/rss/search?q=%28urban%20nature-based%20solutions%20OR%20rain%20garden%20OR%20bioswale%20OR%20SuDS%20OR%20green%20roof%20OR%20depaving%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.72,
-      "scope": "urban nbs"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-urban-heat-shade-trees",
       "name": "Google News: urban heat shade trees",
-      "section": "urban-nbs-implementation",
       "type": "rss",
+      "section": "urban-nbs-implementation",
+      "scope": "urban climate",
       "url": "https://news.google.com/rss/search?q=%28urban%20heat%20OR%20heatwave%20OR%20cooling%20OR%20shade%29%20%28trees%20OR%20urban%20forest%20OR%20green%20infrastructure%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.70,
-      "scope": "urban climate"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-urban-forest-grants",
       "name": "Google News: urban forest and biodiversity grants",
-      "section": "funding-opportunities",
       "type": "rss",
+      "section": "funding-opportunities",
+      "scope": "funding ireland",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20call%20OR%20award%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20greening%20OR%20nature-based%20solutions%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.78,
-      "scope": "funding ireland"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "heritage-council-funding",
       "name": "Heritage Council Funding",
-      "section": "funding-opportunities",
       "type": "page",
+      "section": "funding-opportunities",
+      "scope": "funding ireland",
       "url": "https://www.heritagecouncil.ie/funding",
-      "trust": 0.88,
-      "scope": "funding ireland"
+      "host": "www.heritagecouncil.ie",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "community-foundation-ireland-grants",
       "name": "Community Foundation Ireland Grants",
-      "section": "funding-opportunities",
       "type": "page",
+      "section": "funding-opportunities",
+      "scope": "funding ireland",
       "url": "https://www.communityfoundation.ie/grants/",
-      "trust": 0.82,
-      "scope": "funding ireland"
+      "host": "www.communityfoundation.ie",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "eu-life-calls",
       "name": "EU LIFE Calls",
-      "section": "funding-opportunities",
       "type": "page",
+      "section": "funding-opportunities",
+      "scope": "funding europe",
       "url": "https://cinea.ec.europa.eu/programmes/life/calls-proposals_en",
-      "trust": 0.88,
-      "scope": "funding europe"
+      "host": "cinea.ec.europa.eu",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-urban-forest-maintenance-risk",
       "name": "Google News: urban forest survival and maintenance",
-      "section": "design-maintenance-risk",
       "type": "rss",
+      "section": "design-maintenance-risk",
+      "scope": "maintenance risk",
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tiny%20forest%20OR%20Miyawaki%20OR%20street%20trees%29%20%28maintenance%20OR%20survival%20OR%20watering%20OR%20drought%20OR%20aftercare%20OR%20vandalism%20OR%20soil%29&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.72,
-      "scope": "maintenance risk"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-urban-forest-carbon-claims",
       "name": "Google News: urban forest carbon and climate claims",
-      "section": "design-maintenance-risk",
       "type": "rss",
+      "section": "design-maintenance-risk",
+      "scope": "risk evidence",
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tree%20planting%20OR%20tiny%20forest%29%20%28carbon%20OR%20climate%20claim%20OR%20offset%20OR%20greenwashing%20OR%20survival%29&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.66,
-      "scope": "risk evidence"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-temperate-tiny-forest",
       "name": "Google News: tiny forest temperate cities",
-      "section": "urban-nbs-implementation",
       "type": "rss",
+      "section": "urban-nbs-implementation",
+      "scope": "temperate practice",
       "url": "https://news.google.com/rss/search?q=%28%22tiny%20forest%22%20OR%20%22pocket%20forest%22%20OR%20Miyawaki%29%20%28UK%20OR%20Netherlands%20OR%20Belgium%20OR%20Germany%20OR%20France%20OR%20Denmark%20OR%20Europe%29%20urban&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.72,
-      "scope": "temperate practice"
+      "host": "news.google.com",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "earthwatch-tiny-forest",
       "name": "Earthwatch Tiny Forest",
-      "section": "urban-nbs-implementation",
       "type": "page",
+      "section": "urban-nbs-implementation",
+      "scope": "practice temperate",
       "url": "https://earthwatch.org.uk/programme/tiny-forests/",
-      "trust": 0.82,
-      "scope": "practice temperate"
+      "host": "earthwatch.org.uk",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "trees-for-cities",
       "name": "Trees for Cities",
-      "section": "urban-nbs-implementation",
       "type": "page",
+      "section": "urban-nbs-implementation",
+      "scope": "practice temperate",
       "url": "https://www.treesforcities.org/stories",
-      "trust": 0.80,
-      "scope": "practice temperate"
+      "host": "www.treesforcities.org",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "pocket-forests-ireland",
       "name": "Pocket Forests Ireland",
-      "section": "ireland-urban-forest-practice",
       "type": "page",
+      "section": "ireland-urban-forest-practice",
+      "scope": "ireland practice",
       "url": "https://www.pocketforests.ie/",
-      "trust": 0.82,
-      "scope": "ireland practice"
+      "host": "www.pocketforests.ie",
+      "status": "active",
+      "current_item_count": 2
     },
     {
       "id": "trinity-news",
       "name": "Trinity News",
-      "section": "ireland-urban-forest-practice",
       "type": "page",
+      "section": "ireland-urban-forest-practice",
+      "scope": "dublin institutional",
       "url": "https://www.tcd.ie/news_events/",
-      "trust": 0.82,
-      "scope": "dublin institutional"
+      "host": "www.tcd.ie",
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     }
   ]
 }

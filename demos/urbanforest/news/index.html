@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#16351f" />
-  <title>UrbanForest News | Salmon of Doubt</title>
-  <meta name="description" content="A daily source-led news and evidence radar for urban forests, pocket forests, Miyawaki forests, campus greening, biodiversity, and small urban woodland interventions." />
+  <title>UrbanForest & Urban NbS Radar | Salmon of Doubt</title>
+  <meta name="description" content="A practical radar for urban forests, pocket forests, tiny forests, Miyawaki planting, urban NbS, funding, research, design, maintenance, and delivery risk." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -28,11 +28,11 @@
         <span class="divider-dot" aria-hidden="true">•</span>
         <a class="site-home" href="../../">Demos</a>
       </div>
-      <nav class="page-nav" aria-label="News navigation">
+      <nav class="page-nav" aria-label="Radar navigation">
         <a href="../">Case study</a>
         <a href="#latest">Latest</a>
         <a href="#archive">Archive</a>
-        <a href="../readme/">How it works</a>
+        <a href="how-it-works/">How it works</a>
         <a href="../refs/">Refs</a>
       </nav>
     </div>
@@ -41,53 +41,89 @@
   <main id="main">
     <section class="hero shell">
       <div>
-        <p class="eyebrow">Daily radar</p>
-        <h1>UrbanForest News</h1>
+        <p class="eyebrow">Practical intelligence radar</p>
+        <h1>UrbanForest & Urban NbS Radar</h1>
         <p class="hero-lead">
-          A source-led daily watchlist organised into Irish practice, comparable temperate-city examples,
-          and research evidence for urban forests, pocket forests, Miyawaki-style planting, biodiversity, wellbeing, and delivery.
+          A practical watchlist for urban forests, pocket forests, tiny forests, Miyawaki-style planting,
+          urban nature-based solutions, funding, evidence, design, maintenance, and long-term survival.
         </p>
       </div>
 
       <aside class="hero-card" aria-label="Radar summary">
         <p class="mini-label">Last refresh</p>
         <strong id="lastRefresh">Loading...</strong>
-        <p id="refreshNote">The radar updates from curated sources and search feeds.</p>
+        <p id="refreshNote">The radar updates from curated sources, search feeds, and research metadata.</p>
       </aside>
     </section>
 
-    <section class="controls shell" aria-label="News controls">
-      <input id="searchInput" type="search" placeholder="Search news, sources, themes, places..." />
+    <section class="controls shell" aria-label="Radar controls">
+      <input id="searchInput" type="search" placeholder="Search urban forests, SuDS, grants, maintenance, schools, Dublin..." />
       <select id="themeFilter">
-        <option value="all">All themes</option>
-        <option value="ireland-practice">Ireland practice</option>
-        <option value="temperate-practice">Similar latitudes / temperate cities</option>
-        <option value="research-evidence">Research and evidence</option>
-        <option value="urban-forest">Urban forest</option>
-        <option value="pocket-forest">Pocket forest</option>
-        <option value="miyawaki">Miyawaki</option>
-        <option value="biodiversity">Biodiversity</option>
-        <option value="wellbeing">Wellbeing</option>
-        <option value="maintenance">Maintenance</option>
-        <option value="funding-policy">Funding and policy</option>
+        <option value="all">All lanes and themes</option>
+        <option value="dublin-ireland-local">Dublin / Ireland local</option>
+
+        <option value="ireland-urban-forest-practice">Ireland urban forest practice</option>
+        <option value="urban-nbs-implementation">Urban NbS implementation</option>
+        <option value="funding-opportunities">Funding and opportunities</option>
+        <option value="research-evidence">Practical research and evidence</option>
+        <option value="design-maintenance-risk">Design, maintenance and risk</option>
+
+        <option value="urban-heat-shade">Urban heat / shade</option>
+        <option value="biodiversity-habitat">Biodiversity / habitat</option>
+        <option value="soil-health">Soil health</option>
+        <option value="stormwater-suds">Stormwater / SuDS</option>
+        <option value="wellbeing">Wellbeing / health</option>
+        <option value="school-education">School / education</option>
+        <option value="community-stewardship">Community stewardship</option>
+        <option value="tree-survival-maintenance">Tree survival / maintenance</option>
+        <option value="funding-grants">Funding / grants</option>
+        <option value="monitoring-evaluation">Monitoring / evaluation</option>
+        <option value="carbon-claims">Carbon / climate claims</option>
       </select>
       <select id="freshnessFilter">
         <option value="all">All freshness</option>
         <option value="fresh">Fresh/current</option>
         <option value="reference">Reference/background</option>
       </select>
+      <select id="dateFilter" aria-label="Filter by publication date">
+        <option value="recentPlusResearch" selected>Last 12 months + all research</option>
+        <option value="12m">Last 12 months only</option>
+        <option value="all">All dates</option>
+      </select>
+    </section>
+
+    <section class="watch-panel shell" aria-label="Radar watch logic">
+      <p class="eyebrow">Watch logic</p>
+      <h2>What this radar is watching for</h2>
+      <p>
+        Dublin, Trinity, Irish practice, school forests, pocket forests, tiny forests, Miyawaki planting,
+        urban NbS, SuDS, rain gardens, shade, heat, biodiversity, soil, stormwater, wellbeing,
+        funding, maintenance, watering, survival, monitoring, stewardship, and weak carbon claims.
+      </p>
+    </section>
+
+    <section id="opsStatus" class="ops-panel shell" aria-label="Radar operations">
+      <div id="weeklyDigest" class="ops-card" aria-live="polite">
+        <p class="eyebrow">Weekly digest</p>
+        <h2>Loading practical digest...</h2>
+      </div>
+      <div id="sourceHealthMini" class="ops-card" aria-live="polite">
+        <p class="eyebrow">Source health</p>
+        <h2>Loading source health...</h2>
+      </div>
     </section>
 
     <section id="latest" class="section shell">
       <div class="section-heading">
-        <p class="eyebrow">Latest useful items</p>
-        <h2>Three useful lanes</h2>
+        <p class="eyebrow">Useful signals</p>
+        <h2>Five practical lanes</h2>
         <p>
-          This page separates Irish practice, transferable temperate-city examples, and research evidence,
-          so the radar is useful rather than merely noisy.
+          The radar is designed to answer whether an item helps someone design, fund, plant,
+          maintain, monitor, defend, or communicate an urban forest or urban NbS intervention.
         </p>
       </div>
 
+      <div id="practicalShortlist" class="practical-shortlist" aria-live="polite"></div>
       <div id="summary" class="summary-row" aria-live="polite"></div>
       <div id="newsList" class="news-list" aria-live="polite"></div>
     </section>
@@ -96,10 +132,7 @@
       <div class="section-heading">
         <p class="eyebrow">Indexed archive</p>
         <h2>Daily snapshots</h2>
-        <p>
-          Each refresh stores a dated JSON snapshot. This keeps the radar auditable and lets the page build
-          a simple archive over time.
-        </p>
+        <p>Each refresh stores a dated JSON snapshot so the radar remains auditable over time.</p>
       </div>
 
       <div id="archiveList" class="archive-list" aria-live="polite"></div>
@@ -109,12 +142,13 @@
   <footer class="site-footer">
     <div class="shell footer-grid">
       <div>
-        <p class="footer-title">UrbanForest News</p>
-        <p class="footer-text">A daily, source-led radar for small urban forest practice and evidence.</p>
+        <p class="footer-title">UrbanForest & Urban NbS Radar</p>
+        <p class="footer-text">A practical intelligence layer for small urban forest and urban NbS delivery.</p>
       </div>
       <div class="footer-links">
         <a href="../">Back to UrbanForest</a>
         <a href="../../">Back to demos</a>
+        <a href="how-it-works/">How it works</a>
       </div>
     </div>
   </footer>

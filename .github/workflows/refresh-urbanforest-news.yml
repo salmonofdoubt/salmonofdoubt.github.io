@@ -1,12 +1,16 @@
-name: Refresh UrbanForest News
+name: Refresh UrbanForest radar
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "37 5 * * *"
+    - cron: "31 5 * * *"
 
 permissions:
   contents: write
+
+concurrency:
+  group: refresh-urbanforest-radar
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -22,19 +26,26 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: python -m pip install -r demos/urbanforest/news/ops/requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r demos/urbanforest/news/ops/requirements.txt
 
-      - name: Discover UrbanForest news
-        run: python demos/urbanforest/news/ops/discover_urbanforest_news.py
+      - name: Refresh UrbanForest radar
+        run: |
+          python demos/urbanforest/news/ops/discover_urbanforest_news.py
+          python demos/urbanforest/news/ops/audit_urbanforest_radar.py
 
-      - name: Commit refreshed UrbanForest news data
+      - name: Commit generated data
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add demos/urbanforest/news/data/news.json demos/urbanforest/news/data/archive/
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add demos/urbanforest/news/data/news.json \
+                  demos/urbanforest/news/data/archive \
+                  demos/urbanforest/news/data/source-health.json \
+                  demos/urbanforest/news/data/weekly-digest.json
           if git diff --cached --quiet; then
-            echo "No UrbanForest news changes to commit."
+            echo "No UrbanForest radar data changes."
           else
-            git commit -m "Refresh UrbanForest news archive"
+            git commit -m "Refresh UrbanForest radar"
             git push
           fi
