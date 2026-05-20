@@ -53,10 +53,10 @@
     "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
   },
   {
-    "title": "Irish Life Fund Watch",
-    "path": "irish-life-funds/",
+    "title": "ILPF",
+    "path": "ilpf/",
     "category": "finance",
-    "summary": "Daily public-data watchlist for selected Irish Life pension and investment funds.",
+    "summary": "Daily public-data watchlist for selected Irish Life Pension Funds.",
     "detail": "A static GitHub Pages monitor backed by a scheduled scraper. It tracks public Irish Life/myBline fund rows where available, records coverage diagnostics, and keeps a local history file for daily movement over time.",
     "tags": [
       "Pensions",
@@ -65,7 +65,7 @@
       "Daily data"
     ],
     "status": "Active data workflow",
-    "workflow": "refresh-irishlife-funds.yml",
+    "workflow": "refresh-ilpf.yml",
     "doi": "10.5281/zenodo.0000000",
     "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
   },

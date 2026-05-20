@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Irish Life fund watch harvester.
+ILPF harvester.
 
 Purpose
 -------
@@ -20,7 +20,7 @@ Outputs
 
 Run locally
 -----------
-python demos/irish-life-funds/ops/harvest_irishlife_funds.py
+python demos/ilpf/ops/harvest_ilpf.py
 """
 
 from __future__ import annotations
