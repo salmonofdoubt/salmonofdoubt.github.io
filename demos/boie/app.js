@@ -156,13 +156,30 @@ function seasonForMonth(month) {
   return "autumn";
 }
 
+function birdAliases(bird) {
+  const common = String(bird.common_name || "").toLowerCase();
+  const scientific = String(bird.scientific_name || "").toLowerCase();
+  const aliases = [];
+
+  if (common.includes("european robin") || scientific.includes("erithacus rubecula")) {
+    aliases.push("robin", "garden robin", "irish robin");
+  }
+
+  if (common.includes("wren")) aliases.push("wren");
+  if (common.includes("blackbird")) aliases.push("blackbird");
+  if (common.includes("chaffinch")) aliases.push("chaffinch");
+
+  return aliases.join(" ");
+}
+
 function textBag(bird) {
   return [
     bird.common_name,
     bird.scientific_name,
     bird.irish_name,
     bird.group,
-    bird.status
+    bird.status,
+    birdAliases(bird)
   ].join(" ").toLowerCase();
 }
 
@@ -455,6 +472,8 @@ function renderSound(bird) {
 }
 
 function applyNearbyDeck(birds) {
+  const query = els.search.value.trim().toLowerCase();
+
   if (els.deckMode.value === "all") {
     state.plausibleCount = birds.length;
     return birds.map(b => ({ ...b, local: null }));
@@ -463,14 +482,21 @@ function applyNearbyDeck(birds) {
   const radius = Number(els.radius?.value || 10);
   const threshold = radius <= 5 ? 52 : radius <= 10 ? 46 : radius <= 25 ? 38 : 32;
 
-  const plausible = birds
+  const scored = birds
     .map(bird => {
       const local = scoreBirdForNearby(bird);
       return { ...bird, local };
     })
-    .filter(b => b.local.score >= threshold)
-    .filter(passesHabitatGate)
     .sort((a, b) => b.local.score - a.local.score || String(a.common_name).localeCompare(String(b.common_name)));
+
+  if (query) {
+    state.plausibleCount = scored.length;
+    return scored;
+  }
+
+  const plausible = scored
+    .filter(b => b.local.score >= threshold)
+    .filter(passesHabitatGate);
 
   state.plausibleCount = plausible.length;
 
@@ -485,15 +511,13 @@ function render() {
 
   let birds = state.birds.filter(bird => {
     const haystack = [
-      bird.common_name,
-      bird.scientific_name,
-      bird.irish_name,
-      bird.group,
-      bird.status,
+      textBag(bird),
       ...(bird.status_codes || [])
     ].join(" ").toLowerCase();
 
-    if (q && !haystack.includes(q)) return false;
+    // Direct search is authoritative. Other filters should not hide a named lookup.
+    if (q) return haystack.includes(q);
+
     if (!matchesStatus(bird, status)) return false;
     if (sound === "has" && !hasAudio(bird)) return false;
     if (sound === "missing" && hasAudio(bird)) return false;
