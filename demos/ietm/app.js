@@ -1570,14 +1570,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return t && !t.includes("github") && !t.includes("code") && !t.includes("issues") && !t.includes("discussions");
       });
 
-    const buy = clickable.find(el => /buy me a coffee/i.test(el.textContent || ""));
     const feedback = clickable.find(el => /send feedback|feedback/i.test(el.textContent || ""));
 
-    if (buy && feedback && !panel.querySelector(".quick-links-duo")) {
+    if (feedback && !panel.querySelector(".quick-links-duo")) {
       const duo = document.createElement("div");
       duo.className = "quick-links-duo";
-      buy.parentNode.insertBefore(duo, buy);
-      duo.appendChild(buy);
+      feedback.parentNode.insertBefore(duo, feedback);
       duo.appendChild(feedback);
     }
 
