@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "title": "Birds of Ireland Sound Atlas",
+    "generated_at": "2026-05-20T15:32:23.030351+00:00",
+    "mode": "seed",
+    "note": "Seed data. Run demos/boie/ops/harvest_birds.py to generate the full Irish checklist with xeno-canto matches."
+  },
+  "birds": [
+    {
+      "common_name": "European robin",
+      "scientific_name": "Erithacus rubecula",
+      "irish_name": "Spideog",
+      "group": "Chats, Old World flycatchers",
+      "status": "A",
+      "status_codes": [
+        "A"
+      ],
+      "audio": null
+    },
+    {
+      "common_name": "Eurasian wren",
+      "scientific_name": "Troglodytes troglodytes",
+      "irish_name": "Dreolín",
+      "group": "Wrens",
+      "status": "A",
+      "status_codes": [
+        "A"
+      ],
+      "audio": null
+    },
+    {
+      "common_name": "Eurasian curlew",
+      "scientific_name": "Numenius arquata",
+      "irish_name": "Crotach",
+      "group": "Sandpipers, snipes",
+      "status": "A",
+      "status_codes": [
+        "A"
+      ],
+      "audio": null
+    },
+    {
+      "common_name": "Corn crake",
+      "scientific_name": "Crex crex",
+      "irish_name": "Traonach",
+      "group": "Rails, crakes and coots",
+      "status": "A",
+      "status_codes": [
+        "A"
+      ],
+      "audio": null
+    },
+    {
+      "common_name": "Red-billed chough",
+      "scientific_name": "Pyrrhocorax pyrrhocorax",
+      "irish_name": "Cág cosdearg",
+      "group": "Crows, jays",
+      "status": "A",
+      "status_codes": [
+        "A"
+      ],
+      "audio": null
+    }
+  ]
+}

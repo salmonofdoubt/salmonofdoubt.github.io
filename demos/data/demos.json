@@ -36,6 +36,23 @@
     "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
   },
   {
+    "title": "Birds of Ireland Sound Atlas",
+    "path": "boie/",
+    "category": "civic",
+    "summary": "Searchable sound atlas for bird species recorded on the Irish checklist.",
+    "detail": "A public GitHub Pages sound atlas covering birds recorded in Ireland, with representative open bird sounds where available and visible attribution for recordist, source, country, quality, and licence.",
+    "tags": [
+      "Birds",
+      "Ireland",
+      "Soundscape",
+      "Biodiversity"
+    ],
+    "status": "Active data workflow",
+    "workflow": "refresh-boie.yml",
+    "doi": "10.5281/zenodo.0000000",
+    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+  },
+  {
     "title": "Ireland Energy Transition Monitor",
     "path": "ietm/",
     "category": "energy",

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birds of Ireland Sound Atlas</title>
+  <meta name="description" content="A public GitHub Pages sound atlas for birds recorded on the Irish checklist, with open audio links and attribution." />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+</head>
+
+<body>
+  <main class="shell">
+    <nav class="topnav" aria-label="Demo navigation">
+      <a href="/demos/">← Back to demos</a>
+      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/boie" target="_blank" rel="noopener">Source</a>
+    </nav>
+
+    <header class="hero">
+      <p class="eyebrow">GitHub Lab · open soundscape demo</p>
+      <h1>Birds of Ireland Sound Atlas</h1>
+      <p class="lede">
+        A searchable atlas of bird species recorded on the Irish checklist, paired with representative public bird sounds where available.
+        Recordings do not have to be from Ireland. Each playable sound keeps its recordist, source, licence, and xeno-canto link visible.
+      </p>
+
+      <div class="hero-actions">
+        <button id="shuffleSound" type="button">Play a random bird</button>
+        <a href="#source-notes">Source notes</a>
+      </div>
+
+      <section class="stats" aria-label="Atlas summary">
+        <article>
+          <span id="totalSpecies">–</span>
+          <strong>species</strong>
+        </article>
+        <article>
+          <span id="audioSpecies">–</span>
+          <strong>with sound</strong>
+        </article>
+        <article>
+          <span id="rareSpecies">–</span>
+          <strong>rarity flagged</strong>
+        </article>
+        <article>
+          <span id="generatedAt">–</span>
+          <strong>last harvest</strong>
+        </article>
+      </section>
+    </header>
+
+    <section class="controls" aria-label="Bird filters">
+      <label>
+        <span>Search</span>
+        <input id="search" type="search" placeholder="robin, curlew, gull, bog, corvus..." />
+      </label>
+
+      <label>
+        <span>Status</span>
+        <select id="statusFilter">
+          <option value="all">All Irish checklist records</option>
+          <option value="regular">Recorded since 1950 / established</option>
+          <option value="rare">Rare / details required</option>
+          <option value="historical">Historical only</option>
+          <option value="introduced">Introduced / established feral</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Sound</span>
+        <select id="soundFilter">
+          <option value="all">All sound states</option>
+          <option value="has">Has playable sound</option>
+          <option value="missing">No matched sound yet</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Sort</span>
+        <select id="sortFilter">
+          <option value="common">Common name A-Z</option>
+          <option value="scientific">Scientific name A-Z</option>
+          <option value="quality">Sound quality first</option>
+          <option value="status">Status code</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="notice" id="coverageNotice" aria-live="polite">
+      Loading bird atlas…
+    </section>
+
+    <section id="birdGrid" class="bird-grid" aria-label="Bird sound cards"></section>
+
+    <section class="panel" id="source-notes">
+      <h2>Source notes</h2>
+      <p>
+        The checklist layer is generated from the public “List of birds of Ireland” table and preserves status codes where available:
+        A = recorded naturally in Ireland since 1950, B = recorded naturally before 1950 only, C = introduced or established from introduced populations,
+        R = rarity requiring details.
+      </p>
+      <p>
+        The sound layer is harvested from xeno-canto using scientific names. The atlas prefers good-quality song recordings, then calls, then any available representative recording.
+        Every audio card exposes its recordist, licence, recording country, quality grade, and source link. Missing audio is shown honestly rather than substituted silently.
+      </p>
+      <p>
+        This is an educational and research-facing public demo, not an official checklist. Rare, historical, introduced, and taxonomically awkward entries should be checked against
+        the Irish Rare Birds Committee and BirdWatch Ireland before formal use.
+      </p>
+    </section>
+  </main>
+
+  <template id="birdCardTemplate">
+    <article class="bird-card">
+      <div class="card-top">
+        <div>
+          <h2 class="common-name"></h2>
+          <p class="scientific-name"></p>
+          <p class="irish-name"></p>
+        </div>
+        <div class="badges"></div>
+      </div>
+
+      <div class="sound-block"></div>
+
+      <dl class="meta-list">
+        <div><dt>Group</dt><dd class="group"></dd></div>
+        <div><dt>Status</dt><dd class="status-text"></dd></div>
+      </dl>
+    </article>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
