@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": null,
+  "generated_at": "2026-05-20T15:07:41+00:00",
   "source_pages": [
     "https://my.bline.ie/fund-centre",
     "https://www.irishlife.ie/fund-information/",
@@ -9,11 +9,323 @@
   "disclaimer": "Public fund information only. Irish Life may operate multiple fund series; public fund charges and pricing may not match the exact series held in a member policy.",
   "summary": {
     "watchlist_count": 17,
-    "matched_public_rows": 0,
-    "missing_public_rows": 17
+    "matched_public_rows": 1,
+    "missing_public_rows": 16
   },
-  "warnings": [
-    "Seed file only. Run the GitHub Action or the local harvester to populate daily values."
-  ],
-  "funds": []
+  "warnings": [],
+  "funds": [
+    {
+      "id": "new-world-indexed-all-country-equity",
+      "display_name": "New World Indexed All Country Equity Fund",
+      "aliases": [
+        "New World Indx All Country Equity Fund",
+        "New World Indexed All Country Equity Fund"
+      ],
+      "canonical_name": "New World Indexed All Country Equity Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?SQ4=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    },
+    {
+      "id": "consensus",
+      "display_name": "Consensus Fund",
+      "aliases": [
+        "Consensus Fund"
+      ],
+      "canonical_name": "Consensus Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "id": "empower-annuity-objective",
+      "display_name": "EMPOWER Annuity Objective Fund",
+      "aliases": [
+        "EMPOWER Annuity Objective Fund",
+        "Empower Annuity Objective Fund"
+      ],
+      "canonical_name": "EMPOWER Annuity Objective Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "id": "empower-cash",
+      "display_name": "EMPOWER Cash Fund",
+      "aliases": [
+        "EMPOWER Cash Fund",
+        "Empower Cash Fund"
+      ],
+      "canonical_name": "EMPOWER Cash Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "id": "empower-cautious-growth",
+      "display_name": "EMPOWER Cautious Growth Fund",
+      "aliases": [
+        "EMPOWER Cautious Growth Fund",
+        "Empower Cautious Growth Fund"
+      ],
+      "canonical_name": "EMPOWER Cautious Growth Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?XEC=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    },
+    {
+      "id": "empower-growth",
+      "display_name": "EMPOWER Growth Fund",
+      "aliases": [
+        "EMPOWER Growth Fund",
+        "Empower Growth Fund"
+      ],
+      "canonical_name": "EMPOWER Growth Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?OPG=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    },
+    {
+      "id": "empower-high-growth",
+      "display_name": "EMPOWER High Growth Fund",
+      "aliases": [
+        "EMPOWER High Growth Fund",
+        "Empower High Growth Fund"
+      ],
+      "canonical_name": "EMPOWER High Growth Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?XEH=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    },
+    {
+      "id": "empower-stability",
+      "display_name": "EMPOWER Stability Fund",
+      "aliases": [
+        "EMPOWER Stability Fund",
+        "Empower Stability Fund"
+      ],
+      "canonical_name": "EMPOWER Stability Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?XES=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    },
+    {
+      "id": "indexed-world-equity",
+      "display_name": "Indexed World Equity Fund",
+      "aliases": [
+        "Indexed World Equity Fund",
+        "Indexed World Equities"
+      ],
+      "canonical_name": "Indexed World Equity Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "canonical_name": "Pension Property Fund",
+      "source_name": "Pension Property Fund",
+      "status": "ok",
+      "risk": "6",
+      "launch_date": "28/05/2004",
+      "performance_to": "19 May 2026",
+      "performance": {
+        "one_month": null,
+        "three_months": null,
+        "six_months": null,
+        "one_year": null,
+        "three_years": null,
+        "five_years": null,
+        "ten_years": null,
+        "since_launch": null
+      },
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": "http://www.ilim.com/downloads/fund_sheets_retail/01_Retail_Fund_Fact_Sheets/+++-Exempt_Property_S2_Premium.pdf",
+      "note": "Public performance table. This may not be the exact member policy series.",
+      "id": "irish-property",
+      "display_name": "Irish Property Fund",
+      "aliases": [
+        "Irish Property Fund",
+        "Irish Property Fund (Irish Prop IS)",
+        "Pension Property Fund"
+      ]
+    },
+    {
+      "id": "multi-manager-target-return",
+      "display_name": "Multi-Manager Target Return Fund",
+      "aliases": [
+        "Multi Manager Target Return Fund",
+        "Multi-Manager Target Return Fund"
+      ],
+      "canonical_name": "Multi-Manager Target Return Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "id": "new-world-indexed-emerging-market-equity",
+      "display_name": "New World Indexed Emerging Market Equity Fund",
+      "aliases": [
+        "New World Indx EM Equity Fund",
+        "New World Indexed Emerging Market Equity Fund",
+        "New World Indexed EM Equity Fund"
+      ],
+      "canonical_name": "New World Indexed Emerging Market Equity Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?IG3=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    },
+    {
+      "id": "new-world-indexed-euro-corporate-bond",
+      "display_name": "New World Indexed Euro Corporate Bond Fund",
+      "aliases": [
+        "New World Indx Euro Corporate Bond Fund",
+        "New World Indexed Euro Corporate Bond Fund",
+        "New World Indexed Euro Corporate Bond"
+      ],
+      "canonical_name": "New World Indexed Euro Corporate Bond Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "id": "alternative-energy",
+      "display_name": "Alternative Energy Fund",
+      "aliases": [
+        "Alternative Energy Fund"
+      ],
+      "canonical_name": "Alternative Energy Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "id": "water",
+      "display_name": "Water Fund",
+      "aliases": [
+        "Water Fund"
+      ],
+      "canonical_name": "Water Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://my.bline.ie/fund-centre",
+      "factsheet_url": null,
+      "note": "No matching public row found on the myBline fund centre."
+    },
+    {
+      "id": "indexed-global-sustainable-equity",
+      "display_name": "Indexed Global Sustainable Equity Fund",
+      "aliases": [
+        "Indexed Global Sustainable Equity Fund"
+      ],
+      "canonical_name": "Indexed Global Sustainable Equity Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?GGL=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    },
+    {
+      "id": "indexed-islamic-equity",
+      "display_name": "Indexed Islamic Equity Fund",
+      "aliases": [
+        "Indexed Islamic Equity Fund"
+      ],
+      "canonical_name": "Indexed Islamic Equity Fund",
+      "source_name": null,
+      "status": "missing_public_row",
+      "risk": null,
+      "launch_date": null,
+      "performance_to": null,
+      "performance": null,
+      "source_url": "https://www.irishlifeemployersolutions.ie/fund?FWB=",
+      "factsheet_url": null,
+      "note": "Irish Life Employer Solutions page exists, but currently says public data for this fund is unavailable."
+    }
+  ]
 }
