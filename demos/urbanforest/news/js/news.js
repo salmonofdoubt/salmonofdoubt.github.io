@@ -129,7 +129,7 @@ function visibleItems() {
   const q = clean(els.search.value).toLowerCase();
   const theme = els.theme.value;
   const freshness = els.freshness.value;
-  const dateRange = els.date?.value || "recentPlusResearch";
+  const dateRange = els.date?.value || "all";
 
   return state.items.filter((item) => {
     const haystack = itemText(item);
@@ -416,7 +416,7 @@ els.theme.addEventListener("change", renderItems);
 els.freshness.addEventListener("change", renderItems);
 els.date?.addEventListener("change", renderItems);
 
-if (els.date && !els.date.value) els.date.value = "recentPlusResearch";
+if (els.date && !els.date.value) els.date.value = "all";
 
 loadLatest();
 loadArchive();
