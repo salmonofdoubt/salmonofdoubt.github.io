@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-20T12:58:21.661660+00:00",
-  "latest_generated_at": "2026-05-20T12:58:15.412112+00:00",
+  "generated_at": "2026-05-20T13:12:46.126663+00:00",
+  "latest_generated_at": "2026-05-20T13:12:40.653534+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "grants-opportunities": 18,
-    "waterbody-evidence-alerts": 27,
-    "ireland-catchment-practice": 14,
-    "research-papers": 36
+    "grants-opportunities": 17,
+    "ireland-catchment-practice": 12,
+    "research-papers": 36,
+    "waterbody-evidence-alerts": 30
   },
   "top_pressure_categories": [
     {
@@ -15,7 +15,7 @@
       "count": 42
     },
     {
-      "pressure": "funding / grant",
+      "pressure": "citizen science / monitoring",
       "count": 29
     },
     {
@@ -23,56 +23,56 @@
       "count": 28
     },
     {
-      "pressure": "citizen science / monitoring",
-      "count": 28
+      "pressure": "NbS / restoration",
+      "count": 25
     },
     {
       "pressure": "agricultural runoff",
       "count": 25
     },
     {
-      "pressure": "NbS / restoration",
-      "count": 25
+      "pressure": "funding / grant",
+      "count": 22
     },
     {
       "pressure": "water quality",
       "count": 20
     },
     {
-      "pressure": "septic / domestic wastewater",
+      "pressure": "nutrients",
       "count": 12
     },
     {
-      "pressure": "nutrients",
-      "count": 12
+      "pressure": "septic / domestic wastewater",
+      "count": 9
     },
     {
       "pressure": "sediment / hydromorphology",
       "count": 5
     },
     {
-      "pressure": "incident / alert",
+      "pressure": "general catchment signal",
       "count": 4
     },
     {
-      "pressure": "river ecology",
-      "count": 3
+      "pressure": "incident / alert",
+      "count": 4
     }
   ],
   "items": [
     {
-      "id": "fd045bd47cd4e3db",
-      "title": "Six out of 10 septic tanks failed inspection in 2025 - EPA - Irish Farmers Journal",
-      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNbkNxd2FCOHBUamxuZ3VVN2FhY1l3d2doeFBPWXNtck1QcVJrRFh2aVZDVWREYnMzX2RqQ2lURGlJdXNKVkR4dVpqWHFjZWJQQTlOT2w0NEkxODNhSmxDYWdOYWJ2Vy1TLXhRa3BIMkZQM25Kd18yQ19LNkZ3SFZROWVqSExkdW04aGZ2SnJhN21Qa0Zsazh3OG9Obm5oekx4Y1Q3YmRR?oc=5",
+      "id": "4a091e9fa684a202",
+      "title": "Skip to main content",
+      "url": "https://www.npws.ie/news",
       "section": "grants-opportunities",
-      "source_name": "Google News: septic tank grants Ireland",
+      "source_name": "NPWS",
       "published": "2026-05-19",
       "score": 100,
       "practical_score": 153.0,
       "freshness_label": "1 days old",
       "pressure_categories": [
-        "septic / domestic wastewater",
-        "agricultural runoff",
+        "invasive species",
+        "habitat / biodiversity",
         "funding / grant",
         "policy / governance"
       ],
@@ -84,75 +84,13 @@
         ]
       },
       "opportunity_fit": {
-        "fit": "Medium",
-        "score": 63,
+        "fit": "High",
+        "score": 77,
         "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
         "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
       },
       "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, agricultural runoff, funding / grant, citizen science, engagement, or small catchment actions."
-    },
-    {
-      "id": "d2ef38f0debb8627",
-      "title": "EPA: Almost two thirds of septic tanks failed inspections in 2025 - Agriland",
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNM0Zpa19fcjVnbmhFNmlVUVJCOVlHTmdkc0RyVWJjUG1uQXNBRjJPWXdDYkdXMjF5ekZLaEV6a2tzcTVfM0lDVHVNMkR4R3k1cHBQLWVYaDlNSnNzbVA3YzNPNXZoR2VnSmpIaDc1ZmUzTDFLcUZVN21Mc0JFUXpTUlFUdUx4cXpUbWxuX2NpTld1XzQ5S1lLcGNQUEZqbFI3V2Y4bg?oc=5",
-      "section": "grants-opportunities",
-      "source_name": "Google News: septic tank grants Ireland",
-      "published": "2026-05-19",
-      "score": 99,
-      "practical_score": 144.0,
-      "freshness_label": "1 days old",
-      "pressure_categories": [
-        "septic / domestic wastewater",
-        "funding / grant",
-        "policy / governance"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 63,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      },
-      "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
-    },
-    {
-      "id": "afe3680e4051522e",
-      "title": "Almost 60% of domestic septic tanks fail inspection - EPA - RTE.ie",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1obmdTQi13bjJYdElQc0RXZi01LXdyRXp0bk1oeC1sNHl1N3JCVk03MGxuV1hvR1hWOVh1MVdOeEZ3R0pDaTU5bU1oVFUzc1JVeU9neEFWV0FWRmpsdTZsak1yaE5pOEdhVEVz?oc=5",
-      "section": "grants-opportunities",
-      "source_name": "Google News: septic tank grants Ireland",
-      "published": "2026-05-18",
-      "score": 99,
-      "practical_score": 144.0,
-      "freshness_label": "2 days old",
-      "pressure_categories": [
-        "septic / domestic wastewater",
-        "funding / grant",
-        "policy / governance"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 63,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      },
-      "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
+      "action_relevance": "Funding signal for the Trust: check whether this can support invasive species, habitat / biodiversity, funding / grant, citizen science, engagement, or small catchment actions."
     },
     {
       "id": "ac071f2c5bd02118",
@@ -328,6 +266,62 @@
       "id": "b573912aa50f6be0",
       "title": "Planning and Infrastructure Bill",
       "url": "https://theriverstrust.org/about-us/news?c=101203",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "The Rivers Trust News",
+      "published": null,
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "nutrients",
+        "habitat / biodiversity",
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+    },
+    {
+      "id": "635a732b3168613b",
+      "title": "Plastic Pollution",
+      "url": "https://theriverstrust.org/about-us/news?c=46709",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "The Rivers Trust News",
+      "published": null,
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "nutrients",
+        "habitat / biodiversity",
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+    },
+    {
+      "id": "5439804a3bae6e06",
+      "title": "Policy & Advocacy",
+      "url": "https://theriverstrust.org/about-us/news?c=98799",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,

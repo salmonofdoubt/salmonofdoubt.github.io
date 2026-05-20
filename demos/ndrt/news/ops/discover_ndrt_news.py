@@ -233,6 +233,44 @@ def age_days(iso_date: str | None) -> int | None:
     except Exception:
         return None
 
+
+TRUE_GRANT_TERMS = [
+    "grant", "grants", "funding", "fund", "funds", "scheme", "call for proposals",
+    "applications open", "application deadline", "deadline", "eligible", "eligibility",
+    "award", "awards", "programme", "program", "community water development fund",
+    "heritage council", "life calls", "open call", "small grants", "biodiversity fund"
+]
+
+GRANT_FALSE_POSITIVE_CONTEXTS = [
+    "failed inspection", "failed inspections", "inspection", "inspections",
+    "environmental check", "epa report", "non-compliant", "non compliant",
+    "wastewater treatment systems failed", "septic tanks failed"
+]
+
+def has_true_grant_signal(text: str) -> bool:
+    lowered = text.lower()
+    return any(term in lowered for term in TRUE_GRANT_TERMS)
+
+def likely_grant_false_positive(text: str) -> bool:
+    lowered = text.lower()
+    return any(term in lowered for term in GRANT_FALSE_POSITIVE_CONTEXTS)
+
+def infer_operational_section(source_section: str, text: str) -> str:
+    lowered = text.lower()
+
+    # Grants must be real opportunities, not merely from a grant-watch source.
+    if source_section == "grants-opportunities":
+        if has_true_grant_signal(lowered) and not likely_grant_false_positive(lowered):
+            return "grants-opportunities"
+        return "waterbody-evidence-alerts"
+
+    # Allow true grant signals found elsewhere to move into grants.
+    if has_true_grant_signal(lowered) and not likely_grant_false_positive(lowered):
+        return "grants-opportunities"
+
+    return source_section or "ireland-catchment-practice"
+
+
 def matches_core(text: str) -> bool:
     lowered = text.lower()
 
@@ -576,7 +614,7 @@ def local_relevance_for(text: str) -> dict[str, Any]:
     }
 
 def grant_fit_for(item: dict[str, Any], text: str) -> dict[str, Any] | None:
-    if item.get("section") != "grants-opportunities" and "grant" not in text and "funding" not in text:
+    if not has_true_grant_signal(text) or likely_grant_false_positive(text):
         return None
 
     fit_score = 35
@@ -714,6 +752,11 @@ def discover() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
             text = f"{raw.title} {raw.summary}"
             theme = infer_theme(text)
 
+            inferred_section = infer_operational_section(
+                raw.source.get("section", "ireland-catchment-practice"),
+                text
+            )
+
             results.append({
                 "id": uid,
                 "title": raw.title,
@@ -723,7 +766,7 @@ def discover() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
                 "source_id": raw.source.get("id"),
                 "source_name": raw.source.get("name"),
                 "publisher": raw.source.get("name"),
-                "section": raw.source.get("section", "ireland-catchment-practice"),
+                "section": inferred_section,
                 "theme": theme,
                 "tags": tags,
                 "score": score,
