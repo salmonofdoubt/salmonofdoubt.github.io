@@ -107,6 +107,7 @@
       <p>
         The sound layer is harvested from xeno-canto using scientific names. The atlas prefers good-quality song recordings, then calls, then any available representative recording.
         Every audio card exposes its recordist, licence, recording country, quality grade, and source link. Missing audio is shown honestly rather than substituted silently.
+        Image metadata is harvested from Wikidata taxon images and Wikimedia Commons, with photographer, licence, and source page retained where available.
       </p>
       <p>
         This is an educational and research-facing public demo, not an official checklist. Rare, historical, introduced, and taxonomically awkward entries should be checked against
@@ -117,6 +118,7 @@
 
   <template id="birdCardTemplate">
     <article class="bird-card">
+      <div class="image-block"></div>
       <div class="card-top">
         <div>
           <h2 class="common-name"></h2>

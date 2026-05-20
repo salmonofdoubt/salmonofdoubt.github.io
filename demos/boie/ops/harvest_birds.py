@@ -23,7 +23,7 @@ import re
 import time
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
-from urllib.parse import urlencode
+from urllib.parse import urlencode, unquote
 
 import requests
 from bs4 import BeautifulSoup
@@ -36,6 +36,8 @@ COVERAGE_PATH = DATA_DIR / "coverage.json"
 CHECKLIST_URL = "https://en.wikipedia.org/wiki/List_of_birds_of_Ireland"
 XC_API = "https://xeno-canto.org/api/3/recordings"
 XC_API_KEY = os.environ.get("XENO_CANTO_API_KEY", "").strip()
+WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
+COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 
 HEADERS = {
     "User-Agent": "salmonofdoubt-boie-sound-atlas/1.0 (+https://salmonofdoubt.github.io/demos/boie/)"
@@ -137,11 +139,150 @@ def parse_checklist() -> List[Dict[str, Any]]:
                     "status_labels": [STATUS_LABELS[c] for c in status_codes(status)],
                     "checklist_source": CHECKLIST_URL,
                     "audio": None,
+                    "image": None,
                 }
             )
 
     birds.sort(key=lambda b: b["common_name"].lower())
     return birds
+
+
+
+def html_to_plain_text(value: str) -> str:
+    """Convert Commons extmetadata HTML-ish fields into plain readable text."""
+    if not value:
+        return ""
+    text = BeautifulSoup(str(value), "html.parser").get_text(" ", strip=True)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def chunks(values: List[str], size: int) -> Iterable[List[str]]:
+    for i in range(0, len(values), size):
+        yield values[i:i + size]
+
+
+def commons_title_from_wikidata_image(value: str) -> str:
+    """Turn a Wikidata P18 image URL into a Commons File: title."""
+    if not value:
+        return ""
+    marker = "/Special:FilePath/"
+    if marker in value:
+        filename = value.split(marker, 1)[1]
+    else:
+        filename = value.rsplit("/", 1)[-1]
+    filename = unquote(filename).replace("_", " ").strip()
+    if not filename:
+        return ""
+    return filename if filename.startswith("File:") else f"File:{filename}"
+
+
+def fetch_wikidata_taxon_images(scientific_names: List[str]) -> Dict[str, str]:
+    """Return scientific name -> Commons File:title using Wikidata taxon image P18."""
+    image_titles: Dict[str, str] = {}
+
+    for batch in chunks(scientific_names, 80):
+        values = " ".join(json.dumps(name, ensure_ascii=False) for name in batch)
+        query = f"""
+        SELECT ?taxonName ?image WHERE {{
+          VALUES ?taxonName {{ {values} }}
+          ?taxon wdt:P225 ?taxonName.
+          ?taxon wdt:P18 ?image.
+        }}
+        """
+
+        response = requests.get(
+            WIKIDATA_SPARQL,
+            params={"query": query, "format": "json"},
+            headers={**HEADERS, "Accept": "application/sparql-results+json"},
+            timeout=60,
+        )
+        response.raise_for_status()
+        payload = response.json()
+
+        for row in payload.get("results", {}).get("bindings", []):
+            name = row.get("taxonName", {}).get("value", "")
+            image_url = row.get("image", {}).get("value", "")
+            title = commons_title_from_wikidata_image(image_url)
+            if name and title and name not in image_titles:
+                image_titles[name] = title
+
+        time.sleep(0.5)
+
+    return image_titles
+
+
+def fetch_commons_image_metadata(file_titles: List[str]) -> Dict[str, Dict[str, Any]]:
+    """Return Commons File:title -> image metadata with thumbnail and attribution."""
+    metadata: Dict[str, Dict[str, Any]] = {}
+
+    for batch in chunks(file_titles, 50):
+        response = requests.get(
+            COMMONS_API,
+            params={
+                "action": "query",
+                "format": "json",
+                "formatversion": "2",
+                "prop": "imageinfo",
+                "iiprop": "url|extmetadata",
+                "iiurlwidth": "900",
+                "titles": "|".join(batch),
+            },
+            headers=HEADERS,
+            timeout=60,
+        )
+        response.raise_for_status()
+        payload = response.json()
+
+        for page in payload.get("query", {}).get("pages", []):
+            title = page.get("title", "")
+            infos = page.get("imageinfo", [])
+            if not title or not infos:
+                continue
+
+            info = infos[0]
+            ext = info.get("extmetadata", {}) or {}
+
+            def meta(key: str) -> str:
+                return html_to_plain_text((ext.get(key) or {}).get("value", ""))
+
+            metadata[title] = {
+                "source": "Wikimedia Commons via Wikidata",
+                "file_title": title,
+                "thumb": info.get("thumburl") or info.get("url") or "",
+                "url": info.get("descriptionurl") or info.get("descriptionshorturl") or "",
+                "artist": meta("Artist") or meta("Attribution") or "Unknown photographer",
+                "credit": meta("Credit"),
+                "license": meta("LicenseShortName") or meta("UsageTerms"),
+                "license_url": (ext.get("LicenseUrl") or {}).get("value", ""),
+            }
+
+        time.sleep(0.5)
+
+    return metadata
+
+
+def build_image_lookup(birds: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    """Build scientific name -> image metadata for all parsed checklist birds."""
+    scientific_names = sorted({
+        name
+        for bird in birds
+        for name in (bird.get("scientific_alternatives") or [bird.get("scientific_name", "")])
+        if name
+    })
+
+    print(f"Looking up images for {len(scientific_names)} scientific names via Wikidata.")
+    name_to_file = fetch_wikidata_taxon_images(scientific_names)
+    print(f"Wikidata image matches: {len(name_to_file)}")
+
+    file_titles = sorted(set(name_to_file.values()))
+    file_to_meta = fetch_commons_image_metadata(file_titles)
+    print(f"Commons image metadata matches: {len(file_to_meta)}")
+
+    return {
+        name: file_to_meta[file_title]
+        for name, file_title in name_to_file.items()
+        if file_title in file_to_meta
+    }
 
 
 def xc_query_for(scientific: str, extra: str = "") -> str:
@@ -307,6 +448,8 @@ def main() -> None:
     birds = parse_checklist()
     print(f"Parsed {len(birds)} Irish checklist species.")
 
+    image_lookup = build_image_lookup(birds)
+
     missing = 0
     with_audio = 0
     query_log: Dict[str, Any] = {}
@@ -314,6 +457,13 @@ def main() -> None:
     for i, bird in enumerate(birds, start=1):
         names = bird.get("scientific_alternatives") or [bird["scientific_name"]]
         print(f"[{i:03d}/{len(birds):03d}] {bird['common_name']} ({bird['scientific_name']})")
+
+        image = None
+        for name in names:
+            image = image_lookup.get(name)
+            if image:
+                break
+        bird["image"] = image
 
         audio, tried = find_audio_for_species(names)
         bird["audio"] = audio
@@ -335,6 +485,8 @@ def main() -> None:
             "total_species": len(birds),
             "species_with_audio": with_audio,
             "species_without_audio": missing,
+            "species_with_image": sum(1 for b in birds if b.get("image")),
+            "species_without_image": sum(1 for b in birds if not b.get("image")),
             "status_labels": STATUS_LABELS,
         },
         "birds": birds,
@@ -345,6 +497,8 @@ def main() -> None:
         "total_species": len(birds),
         "species_with_audio": with_audio,
         "species_without_audio": missing,
+        "species_with_image": sum(1 for b in birds if b.get("image")),
+        "species_without_image": sum(1 for b in birds if not b.get("image")),
         "coverage_percent": round((with_audio / len(birds) * 100) if birds else 0, 2),
         "missing_audio": [
             {

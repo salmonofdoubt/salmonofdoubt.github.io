@@ -32,6 +32,30 @@ function hasAudio(bird) {
   return Boolean(bird.audio && bird.audio.file);
 }
 
+function hasImage(bird) {
+  return Boolean(bird.image && (bird.image.thumb || bird.image.url));
+}
+
+function renderImage(bird) {
+  if (!hasImage(bird)) {
+    return `<div class="image-placeholder">No image matched yet</div>`;
+  }
+
+  const image = bird.image;
+  const src = image.thumb || image.url;
+  const page = image.url || "#";
+  const artist = image.artist || "Unknown photographer";
+  const licence = image.license || "Licence not parsed";
+  const source = image.source || "Wikimedia Commons";
+
+  return `
+    <img src="${src}" alt="${bird.common_name || 'Bird'}" loading="lazy" />
+    <p class="image-credit">
+      Image: <a href="${page}" target="_blank" rel="noopener">${source}</a>. ${artist}. ${licence}.
+    </p>
+  `;
+}
+
 function qualityRank(q) {
   return { A: 1, B: 2, C: 3, D: 4, E: 5 }[String(q || "").toUpperCase()] || 9;
 }
@@ -130,6 +154,7 @@ function render() {
 
   birds.forEach(bird => {
     const node = els.template.content.cloneNode(true);
+    node.querySelector(".image-block").innerHTML = renderImage(bird);
     node.querySelector(".common-name").textContent = bird.common_name || "Unnamed species";
     node.querySelector(".scientific-name").textContent = bird.scientific_name || "";
     node.querySelector(".irish-name").textContent = bird.irish_name || "";
