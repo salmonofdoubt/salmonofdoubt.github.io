@@ -400,27 +400,9 @@ function renderImage(bird) {
   `;
 }
 
+
 function renderBadges(bird) {
-  const codes = bird.status_codes || [];
-  const parts = codes.map(code => {
-    const klass = code === "R" ? "rare" : code === "B" ? "historical" : "";
-    return `<span class="badge ${klass}">${code}</span>`;
-  });
-
-  if (bird.local) {
-    parts.push(`<span class="badge confidence ${bird.local.confidence}">${localMatchLabel(bird.local.confidence)}</span>`);
-  }
-
-  if (hasAudio(bird)) {
-    parts.push(`<span class="badge">Sound</span>`);
-    const q = bird.audio.q ? String(bird.audio.q).toUpperCase() : "";
-    if (q) parts.push(`<span class="badge">Q ${q}</span>`);
-  } else {
-    parts.push(`<span class="badge missing">No sound</span>`);
-  }
-
-  if (hasImage(bird)) parts.push(`<span class="badge image-ok">Image</span>`);
-  return parts.join("");
+  return "";
 }
 
 function renderLocalReason(bird) {
@@ -1042,3 +1024,22 @@ els.chorusMosaic?.addEventListener("click", event => {
 });
 
 init();
+
+/* BOIE hard DOM badge remover FINAL */
+(function () {
+  function removeBoieBadgeClutter() {
+    document
+      .querySelectorAll("#birdGrid .badges, #birdGrid .badge, #birdGrid .recording-type")
+      .forEach(node => node.remove());
+  }
+
+  removeBoieBadgeClutter();
+
+  const target = document.getElementById("birdGrid");
+  if (target) {
+    const observer = new MutationObserver(removeBoieBadgeClutter);
+    observer.observe(target, { childList: true, subtree: true });
+  }
+
+  window.addEventListener("load", removeBoieBadgeClutter);
+})();

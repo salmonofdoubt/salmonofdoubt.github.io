@@ -1344,3 +1344,72 @@ audio {
 .recording-type {
   display: none !important;
 }
+
+/* BOIE remove all song bubbles */
+.recording-type,
+.sound-type,
+.audio-type,
+.type-badge {
+  display: none !important;
+}
+
+/* BOIE simplify public badges v1 */
+.badge.introduced {
+  border-color: rgba(79, 246, 255, 0.24);
+  color: var(--cyan);
+  background: rgba(79, 246, 255, 0.08);
+}
+
+.badges:empty {
+  display: none;
+}
+
+/* BOIE badge cleanup final */
+.badges:empty {
+  display: none !important;
+}
+
+.recording-type,
+.sound-type,
+.audio-type,
+.type-badge {
+  display: none !important;
+}
+
+/* BOIE hard badge kill-switch */
+.bird-card .badges,
+.bird-card .badge,
+.bird-card .recording-type,
+.bird-card .sound-type,
+.bird-card .audio-type,
+.bird-card .type-badge {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.bird-card .card-top {
+  gap: 0 !important;
+}
+
+
+/* BOIE badge and song bubble kill-switch FINAL */
+.badges,
+.badge,
+.recording-type,
+.sound-type,
+.audio-type,
+.type-badge {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+.card-top {
+  gap: 8px !important;
+}
