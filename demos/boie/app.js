@@ -14,6 +14,7 @@ const els = {
   status: document.getElementById("statusFilter"),
   sound: document.getElementById("soundFilter"),
   sort: document.getElementById("sortFilter"),
+  group: document.getElementById("groupFilter"),
   notice: document.getElementById("coverageNotice"),
   total: document.getElementById("totalSpecies"),
   audio: document.getElementById("audioSpecies"),
@@ -447,6 +448,146 @@ function renderLocalReason(bird) {
   return `<p><strong>${month} local deck.</strong> ${bits}. Score ${Math.round(bird.local.score)}.</p>`;
 }
 
+function habitatGroupLabel(bird) {
+  const habitats = inferBirdEcology(bird).habitats || [];
+
+  if (habitats.includes("estuary")) return "Estuary and tidal wetland birds";
+  if (habitats.includes("coast")) return "Coastal and seabirds";
+  if (habitats.includes("wetland")) return "Wetland, ducks, waders, and marsh birds";
+  if (habitats.includes("river")) return "Rivers, lakes, and freshwater birds";
+  if (habitats.includes("bog")) return "Bog, upland, and open-country birds";
+  if (habitats.includes("woodland")) return "Woodland and scrub birds";
+  if (habitats.includes("farmland")) return "Farmland and hedgerow birds";
+  if (habitats.includes("urban") || habitats.includes("garden")) return "Urban, garden, and parkland birds";
+  if (habitats.includes("wide")) return "Wide-ranging raptors and large birds";
+
+  return "Generalist and other birds";
+}
+
+function seasonGroupLabel(bird) {
+  const months = monthsForBird(bird);
+  const codes = bird.status_codes || [];
+
+  if (codes.includes("B")) return "Historical records";
+  if (codes.includes("R")) return "Rare or vagrant records";
+
+  const hasWinter = [12, 1, 2].some(m => months.includes(m));
+  const hasSpring = [3, 4, 5].some(m => months.includes(m));
+  const hasSummer = [6, 7, 8].some(m => months.includes(m));
+  const hasAutumn = [9, 10, 11].some(m => months.includes(m));
+
+  if (months.length >= 11) return "Resident or broadly present year-round";
+  if (hasSummer && hasSpring && !hasWinter) return "Summer visitors and breeding-season birds";
+  if (hasWinter && !hasSummer) return "Winter visitors";
+  if ((hasSpring || hasAutumn) && months.length <= 6) return "Passage migrants";
+  return "Seasonally variable or irregular";
+}
+
+function localGroupLabel(bird) {
+  const confidence = bird.local?.confidence || "unscored";
+
+  if (confidence === "high") return "High local match";
+  if (confidence === "medium") return "Medium local match";
+  if (confidence === "low") return "Low local match";
+  return "Unscored catalogue entries";
+}
+
+function checklistGroupLabel(bird) {
+  return bird.group || "Unspecified checklist group";
+}
+
+function groupLabelForBird(bird) {
+  const mode = els.group?.value || "local";
+
+  if (mode === "checklist") return checklistGroupLabel(bird);
+  if (mode === "habitat") return habitatGroupLabel(bird);
+  if (mode === "season") return seasonGroupLabel(bird);
+  return localGroupLabel(bird);
+}
+
+function groupRank(label) {
+  const order = [
+    "High local match",
+    "Medium local match",
+    "Low local match",
+    "Unscored catalogue entries",
+
+    "Estuary and tidal wetland birds",
+    "Coastal and seabirds",
+    "Wetland, ducks, waders, and marsh birds",
+    "Rivers, lakes, and freshwater birds",
+    "Bog, upland, and open-country birds",
+    "Woodland and scrub birds",
+    "Farmland and hedgerow birds",
+    "Urban, garden, and parkland birds",
+    "Wide-ranging raptors and large birds",
+    "Generalist and other birds",
+
+    "Resident or broadly present year-round",
+    "Summer visitors and breeding-season birds",
+    "Winter visitors",
+    "Passage migrants",
+    "Seasonally variable or irregular",
+    "Rare or vagrant records",
+    "Historical records"
+  ];
+
+  const idx = order.indexOf(label);
+  return idx === -1 ? 999 : idx;
+}
+
+function renderBirdCard(bird) {
+  const node = els.template.content.cloneNode(true);
+  node.querySelector(".image-block").innerHTML = renderImage(bird);
+  node.querySelector(".common-name").textContent = bird.common_name || "Unnamed species";
+  node.querySelector(".scientific-name").textContent = bird.scientific_name || "";
+  node.querySelector(".irish-name").textContent = bird.irish_name || "";
+  node.querySelector(".badges").innerHTML = renderBadges(bird);
+  node.querySelector(".local-reason").innerHTML = renderLocalReason(bird);
+  node.querySelector(".sound-block").innerHTML = renderSound(bird);
+  node.querySelector(".group").textContent = bird.group || "Unspecified";
+  node.querySelector(".status-text").textContent = statusText(bird.status_codes);
+  return node;
+}
+
+function renderGroupedBirds(birds) {
+  els.grid.innerHTML = "";
+
+  const groups = new Map();
+
+  birds.forEach(bird => {
+    const label = groupLabelForBird(bird);
+    if (!groups.has(label)) groups.set(label, []);
+    groups.get(label).push(bird);
+  });
+
+  const orderedGroups = [...groups.entries()].sort((a, b) => {
+    return groupRank(a[0]) - groupRank(b[0]) || a[0].localeCompare(b[0]);
+  });
+
+  orderedGroups.forEach(([label, items]) => {
+    const section = document.createElement("section");
+    section.className = "bird-group-section";
+
+    const header = document.createElement("header");
+    header.className = "bird-group-header";
+    header.innerHTML = `
+      <h2>${label}</h2>
+      <span>${items.length.toLocaleString()} species</span>
+    `;
+
+    const groupGrid = document.createElement("div");
+    groupGrid.className = "bird-group-grid";
+
+    items.forEach(bird => {
+      groupGrid.appendChild(renderBirdCard(bird));
+    });
+
+    section.append(header, groupGrid);
+    els.grid.appendChild(section);
+  });
+}
+
 function renderSound(bird) {
   if (!hasAudio(bird)) {
     return `
@@ -537,21 +678,7 @@ function render() {
   });
 
   state.filtered = birds;
-  els.grid.innerHTML = "";
-
-  birds.forEach(bird => {
-    const node = els.template.content.cloneNode(true);
-    node.querySelector(".image-block").innerHTML = renderImage(bird);
-    node.querySelector(".common-name").textContent = bird.common_name || "Unnamed species";
-    node.querySelector(".scientific-name").textContent = bird.scientific_name || "";
-    node.querySelector(".irish-name").textContent = bird.irish_name || "";
-    node.querySelector(".badges").innerHTML = renderBadges(bird);
-    node.querySelector(".local-reason").innerHTML = renderLocalReason(bird);
-    node.querySelector(".sound-block").innerHTML = renderSound(bird);
-    node.querySelector(".group").textContent = bird.group || "Unspecified";
-    node.querySelector(".status-text").textContent = statusText(bird.status_codes);
-    els.grid.appendChild(node);
-  });
+  renderGroupedBirds(birds);
 
   if (els.deckMode.value === "nearby") {
     const plausible = Number(state.plausibleCount || birds.length);
@@ -740,7 +867,7 @@ function useBrowserLocation() {
   );
 }
 
-[els.search, els.status, els.sound, els.sort, els.month, els.radius, els.deckMode].forEach(el => {
+[els.search, els.status, els.sound, els.sort, els.group, els.month, els.radius, els.deckMode].forEach(el => {
   if (!el) return;
   el.addEventListener("input", render);
   el.addEventListener("change", render);
