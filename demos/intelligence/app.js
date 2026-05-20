@@ -14,7 +14,9 @@ const state = {
   report: null,
   dataMode: "loading",
   hybridFallback: false,
-  camera: DEFAULT_CAMERA
+  camera: DEFAULT_CAMERA,
+  hoveredCode: null,
+  hoveredAt: 0
 };
 
 document.addEventListener("DOMContentLoaded", init);
@@ -782,6 +784,51 @@ function plotRanges(rows) {
   };
 }
 
+function countryCodeFromPlotEvent(event) {
+  const point = (event?.points || []).find(p =>
+    typeof p?.customdata === "string" && p.customdata.trim()
+  );
+
+  return point?.customdata || null;
+}
+
+function rememberHoveredCountry(code) {
+  if (!code) return;
+  state.hoveredCode = code;
+  state.hoveredAt = Date.now();
+}
+
+function rowForCountryCode(code) {
+  if (!code) return null;
+  return plottableRows(state.scores).find(item => item.code === code) || null;
+}
+
+function selectCountryByCode(code, options = {}) {
+  const row = rowForCountryCode(code);
+  if (!row) return false;
+
+  selectRow(row);
+
+  if (options.unhover) {
+    const target = document.getElementById("plot");
+    if (target && window.Plotly && Plotly.Fx && typeof Plotly.Fx.unhover === "function") {
+      setTimeout(() => Plotly.Fx.unhover(target), 0);
+    }
+  }
+
+  return true;
+}
+
+function selectRecentlyHoveredCountry() {
+  const ageMs = Date.now() - Number(state.hoveredAt || 0);
+
+  // Grace period: long enough for a small hand/mouse movement after the hover card appears,
+  // short enough to avoid selecting a stale country much later.
+  if (!state.hoveredCode || ageMs > 2500) return false;
+
+  return selectCountryByCode(state.hoveredCode, { unhover: true });
+}
+
 function renderPlot() {
   const target = document.getElementById("plot");
   if (!target) return;
@@ -826,34 +873,37 @@ function renderPlot() {
 
   const config = {
     responsive: true,
-    displaylogo: false
+    displaylogo: false,
+    doubleClick: false
   };
 
   Plotly.react(target, traces, layout, config).then(() => {
     if (target.removeAllListeners) {
       target.removeAllListeners("plotly_click");
+      target.removeAllListeners("plotly_hover");
+      target.removeAllListeners("plotly_unhover");
+      target.removeAllListeners("plotly_doubleclick");
       target.removeAllListeners("plotly_relayout");
     }
 
     if (target.on) {
-      target.on("plotly_click", event => {
-        const point = (event?.points || []).find(p =>
-          typeof p?.customdata === "string" && p.customdata.trim()
-        );
+      target.on("plotly_hover", event => {
+        rememberHoveredCountry(countryCodeFromPlotEvent(event));
+      });
 
-        const code = point?.customdata;
+      target.on("plotly_click", event => {
+        const code = countryCodeFromPlotEvent(event);
         if (!code) return;
 
-        const row = plottableRows(state.scores).find(item => item.code === code);
-        if (row) {
-          selectRow(row);
+        rememberHoveredCountry(code);
+        selectCountryByCode(code, { unhover: true });
+      });
 
-          // Dismiss the native Plotly hoverlabel after selection so it does not
-          // sit on top of the clicked marker and interfere with follow-up clicks.
-          if (window.Plotly && Plotly.Fx && typeof Plotly.Fx.unhover === "function") {
-            setTimeout(() => Plotly.Fx.unhover(target), 0);
-          }
-        }
+      target.on("plotly_doubleclick", event => {
+        const code = countryCodeFromPlotEvent(event);
+        if (code) rememberHoveredCountry(code);
+
+        selectRecentlyHoveredCountry();
       });
 
       target.on("plotly_relayout", event => {
@@ -862,6 +912,13 @@ function renderPlot() {
         }
       });
     }
+
+    target.ondblclick = event => {
+      if (selectRecentlyHoveredCountry()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
   });
 }
 
