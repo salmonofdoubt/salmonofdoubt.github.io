@@ -27,6 +27,31 @@ The radar therefore prioritises practical usefulness over exhaustive coverage.
 | Grants and Opportunities | Funding calls and support routes relevant to river trusts, biodiversity, education, citizen science, wetlands, and water quality. |
 | Practical Research Papers and Reviews | Research ranked for practical usefulness, with Ireland first, comparable temperate systems second, and transferable NbS evidence where useful. |
 
+
+## Nanny-Delvin locality logic
+
+The radar now gives extra weight to local and near-local signals, including:
+
+- Nanny-Delvin
+- River Nanny
+- River Delvin
+- Nanny estuary
+- East Meath
+- North Fingal
+- Balbriggan
+- Gormanston
+- Julianstown
+- Laytown
+- Bettystown
+- Mornington
+- Stamullen
+- Duleek
+- Naul
+- Sonairte
+- Meath, Louth, and Fingal council contexts
+
+This is not a GIS boundary model. It is a textual locality boost that helps weak but relevant local signals rise above generic national or European items.
+
 ## Watched pressure categories
 
 The radar watches for:

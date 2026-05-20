@@ -18,6 +18,42 @@
   ],
   "sources": [
     {
+      "id": "google-news-nanny-delvin-local",
+      "name": "Google News: Nanny-Delvin local catchment",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28%22Nanny%20Delvin%22%20OR%20%22Nanny-Delvin%22%20OR%20%22River%20Nanny%22%20OR%20%22River%20Delvin%22%20OR%20%22Nanny%20estuary%22%20OR%20%22Delvin%20river%22%29%20%28water%20OR%20river%20OR%20catchment%20OR%20pollution%20OR%20biodiversity%20OR%20restoration%20OR%20flooding%20OR%20estuary%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "ireland-catchment-practice",
+      "scope": "nanny-delvin local",
+      "trust": 0.82
+    },
+    {
+      "id": "google-news-east-meath-water",
+      "name": "Google News: East Meath water and ecology",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28%22East%20Meath%22%20OR%20Laytown%20OR%20Bettystown%20OR%20Mornington%20OR%20Julianstown%20OR%20Gormanston%20OR%20Stamullen%20OR%20Duleek%20OR%20Sonairte%29%20%28water%20quality%20OR%20river%20OR%20estuary%20OR%20biodiversity%20OR%20pollution%20OR%20wetland%20OR%20flooding%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "ireland-catchment-practice",
+      "scope": "east meath local",
+      "trust": 0.78
+    },
+    {
+      "id": "google-news-fingal-north-county-water",
+      "name": "Google News: North Fingal water and ecology",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28Fingal%20OR%20Balbriggan%20OR%20Balrothery%20OR%20Ballyboghil%20OR%20Naul%20OR%20Garristown%20OR%20Oldtown%20OR%20Stamullen%29%20%28water%20quality%20OR%20river%20OR%20stream%20OR%20biodiversity%20OR%20pollution%20OR%20wetland%20OR%20flooding%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "ireland-catchment-practice",
+      "scope": "north fingal local",
+      "trust": 0.78
+    },
+    {
+      "id": "google-news-meath-louth-fingal-catchment",
+      "name": "Google News: Meath Louth Fingal catchment signals",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28Meath%20OR%20Louth%20OR%20Fingal%29%20%28catchment%20OR%20river%20OR%20stream%20OR%20estuary%20OR%20lagoon%20OR%20water%20quality%20OR%20septic%20OR%20slurry%20OR%20invasive%20OR%20Spartina%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "waterbody-evidence-alerts",
+      "scope": "meath louth fingal regional",
+      "trust": 0.76
+    },
+    {
       "id": "google-news-ireland-river-water-quality",
       "name": "Google News: Ireland river water quality",
       "type": "rss",
