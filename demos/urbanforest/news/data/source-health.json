@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T13:45:05.942938+00:00",
+  "generated_at": "2026-05-20T13:53:57.757379+00:00",
   "latest_generated_at": "2026-05-20T08:41:18.244963+00:00",
   "total_items": 38,
   "total_sources": 16,
@@ -9,7 +9,7 @@
   "items_by_section": {
     "research-evidence": 6,
     "ireland-urban-forest-practice": 27,
-    "urban-nbs-implementation": 5
+    "transferable-urbanforest-practice": 5
   },
   "annotation_coverage": {
     "urbanforest_relevance": 0,
@@ -55,11 +55,11 @@
     },
     {
       "id": "gn-urban-nbs-suds",
-      "name": "Google News: urban NbS and SuDS",
+      "name": "Google News: urban forest stormwater and tree-linked SuDS",
       "type": "rss",
-      "section": "urban-nbs-implementation",
-      "scope": "urban nbs",
-      "url": "https://news.google.com/rss/search?q=%28urban%20nature-based%20solutions%20OR%20rain%20garden%20OR%20bioswale%20OR%20SuDS%20OR%20green%20roof%20OR%20depaving%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "transferable-urbanforest-practice",
+      "scope": "urban forest stormwater",
+      "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tree%20canopy%20OR%20street%20trees%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20%28stormwater%20OR%20SuDS%20OR%20rain%20garden%20OR%20bioswale%20OR%20runoff%20OR%20soil%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "checked-no-current-items",
       "current_item_count": 0
@@ -68,7 +68,7 @@
       "id": "gn-urban-heat-shade-trees",
       "name": "Google News: urban heat shade trees",
       "type": "rss",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "scope": "urban climate",
       "url": "https://news.google.com/rss/search?q=%28urban%20heat%20OR%20heatwave%20OR%20cooling%20OR%20shade%29%20%28trees%20OR%20urban%20forest%20OR%20green%20infrastructure%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
@@ -145,7 +145,7 @@
       "id": "gn-temperate-tiny-forest",
       "name": "Google News: tiny forest temperate cities",
       "type": "rss",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "scope": "temperate practice",
       "url": "https://news.google.com/rss/search?q=%28%22tiny%20forest%22%20OR%20%22pocket%20forest%22%20OR%20Miyawaki%29%20%28UK%20OR%20Netherlands%20OR%20Belgium%20OR%20Germany%20OR%20France%20OR%20Denmark%20OR%20Europe%29%20urban&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
@@ -156,7 +156,7 @@
       "id": "earthwatch-tiny-forest",
       "name": "Earthwatch Tiny Forest",
       "type": "page",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "scope": "practice temperate",
       "url": "https://earthwatch.org.uk/programme/tiny-forests/",
       "host": "earthwatch.org.uk",
@@ -167,7 +167,7 @@
       "id": "trees-for-cities",
       "name": "Trees for Cities",
       "type": "page",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "scope": "practice temperate",
       "url": "https://www.treesforcities.org/stories",
       "host": "www.treesforcities.org",

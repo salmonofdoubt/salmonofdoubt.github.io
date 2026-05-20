@@ -10,7 +10,8 @@ from urllib.parse import urlparse
 
 SECTION_ALIASES = {
     "ireland-practice": "ireland-urban-forest-practice",
-    "temperate-practice": "urban-nbs-implementation",
+    "temperate-practice": "transferable-urbanforest-practice",
+    "urban-nbs-implementation": "transferable-urbanforest-practice",
     "research-evidence": "research-evidence",
     "funding-policy": "funding-opportunities",
     "maintenance": "design-maintenance-risk",
@@ -129,7 +130,7 @@ def build_digest() -> dict[str, Any]:
         "generated_at": now_utc(),
         "latest_generated_at": latest.get("generated_at"),
         "title": "UrbanForest weekly practical digest",
-        "summary": "Top practical signals for urban forest and urban NbS delivery, funding, evidence, maintenance, and communication.",
+        "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
         "lane_counts": lane_counts,
         "top_benefit_categories": [{"benefit": k, "count": v} for k, v in sorted(benefit_counts.items(), key=lambda kv: kv[1], reverse=True)[:12]],
         "items": [{

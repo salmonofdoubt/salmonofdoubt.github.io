@@ -3,23 +3,23 @@
   "sections": [
     {
       "id": "ireland-urban-forest-practice",
-      "title": "Ireland Urban Forest Practice",
-      "description": "Irish examples, local authority action, campus greening, school forests, pocket forests, community planting, and implementation signals."
+      "title": "Ireland UrbanForest Practice",
+      "description": "Irish urban forest, pocket forest, school forest, campus greening, local authority, and community implementation signals."
     },
     {
-      "id": "urban-nbs-implementation",
-      "title": "Urban NbS Implementation",
-      "description": "Urban nature-based solutions linked to trees and small urban forests: SuDS, rain gardens, bioswales, shade corridors, depaving, soil restoration, green roofs, and stormwater design."
+      "id": "transferable-urbanforest-practice",
+      "title": "Transferable UrbanForest Practice",
+      "description": "Comparable temperate-city practice where urban forests, tiny forests, tree canopy, or forest-linked urban NbS lessons are transferable."
     },
     {
       "id": "funding-opportunities",
       "title": "Funding and Opportunities",
-      "description": "Grants, schemes, calls, awards, and practical funding routes for schools, communities, campuses, NGOs, local authorities, biodiversity, monitoring, and maintenance."
+      "description": "Grants, schemes, calls, awards, and practical funding routes for planting, monitoring, maintenance, schools, communities, campuses, and biodiversity."
     },
     {
       "id": "research-evidence",
       "title": "Practical Research and Evidence",
-      "description": "Scholarly and evidence items ranked for practical UrbanForest usefulness: biodiversity, wellbeing, shade, heat, survival, soil, maintenance, monitoring, and governance."
+      "description": "Evidence for urban forest biodiversity, wellbeing, shade, heat mitigation, soil, stormwater value, survival, maintenance, monitoring, and governance."
     },
     {
       "id": "design-maintenance-risk",
@@ -57,20 +57,20 @@
     },
     {
       "id": "gn-urban-nbs-suds",
-      "name": "Google News: urban NbS and SuDS",
-      "section": "urban-nbs-implementation",
+      "name": "Google News: urban forest stormwater and tree-linked SuDS",
+      "section": "transferable-urbanforest-practice",
       "type": "rss",
-      "url": "https://news.google.com/rss/search?q=%28urban%20nature-based%20solutions%20OR%20rain%20garden%20OR%20bioswale%20OR%20SuDS%20OR%20green%20roof%20OR%20depaving%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tree%20canopy%20OR%20street%20trees%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20%28stormwater%20OR%20SuDS%20OR%20rain%20garden%20OR%20bioswale%20OR%20runoff%20OR%20soil%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "trust": 0.72,
-      "scope": "urban nbs"
+      "scope": "urban forest stormwater"
     },
     {
       "id": "gn-urban-heat-shade-trees",
       "name": "Google News: urban heat shade trees",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "type": "rss",
       "url": "https://news.google.com/rss/search?q=%28urban%20heat%20OR%20heatwave%20OR%20cooling%20OR%20shade%29%20%28trees%20OR%20urban%20forest%20OR%20green%20infrastructure%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
-      "trust": 0.70,
+      "trust": 0.7,
       "scope": "urban climate"
     },
     {
@@ -130,7 +130,7 @@
     {
       "id": "gn-temperate-tiny-forest",
       "name": "Google News: tiny forest temperate cities",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "type": "rss",
       "url": "https://news.google.com/rss/search?q=%28%22tiny%20forest%22%20OR%20%22pocket%20forest%22%20OR%20Miyawaki%29%20%28UK%20OR%20Netherlands%20OR%20Belgium%20OR%20Germany%20OR%20France%20OR%20Denmark%20OR%20Europe%29%20urban&hl=en-IE&gl=IE&ceid=IE:en",
       "trust": 0.72,
@@ -139,7 +139,7 @@
     {
       "id": "earthwatch-tiny-forest",
       "name": "Earthwatch Tiny Forest",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "type": "page",
       "url": "https://earthwatch.org.uk/programme/tiny-forests/",
       "trust": 0.82,
@@ -148,10 +148,10 @@
     {
       "id": "trees-for-cities",
       "name": "Trees for Cities",
-      "section": "urban-nbs-implementation",
+      "section": "transferable-urbanforest-practice",
       "type": "page",
       "url": "https://www.treesforcities.org/stories",
-      "trust": 0.80,
+      "trust": 0.8,
       "scope": "practice temperate"
     },
     {

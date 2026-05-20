@@ -3,7 +3,7 @@ const state = {
   archive: [],
   sections: [
     { id: "ireland-urban-forest-practice", title: "Ireland Urban Forest Practice", intro: "Irish delivery, schools, campuses, communities, local authorities, and practical implementation signals." },
-    { id: "urban-nbs-implementation", title: "Urban NbS Implementation", intro: "SuDS, rain gardens, bioswales, shade, depaving, soil restoration, and urban nature-based solution delivery." },
+    { id: "transferable-urbanforest-practice", title: "Transferable UrbanForest Practice", intro: "SuDS, rain gardens, bioswales, shade, depaving, soil restoration, and urban nature-based solution delivery." },
     { id: "funding-opportunities", title: "Funding and Opportunities", intro: "Grants, schemes, calls, and support routes for planting, monitoring, maintenance, and education." },
     { id: "research-evidence", title: "Practical Research and Evidence", intro: "Evidence for biodiversity, wellbeing, shade, survival, maintenance, monitoring, soil, and governance." },
     { id: "design-maintenance-risk", title: "Design, Maintenance and Risk", intro: "Tree survival, watering, soil care, vandalism, public acceptance, carbon claims, and stewardship risk." }
@@ -49,7 +49,8 @@ function formatDate(value) {
 function normaliseSection(value) {
   const aliases = {
     "ireland-practice": "ireland-urban-forest-practice",
-    "temperate-practice": "urban-nbs-implementation",
+    "temperate-practice": "transferable-urbanforest-practice",
+    "urban-nbs-implementation": "transferable-urbanforest-practice",
     "research-evidence": "research-evidence",
     "funding-policy": "funding-opportunities",
     "maintenance": "design-maintenance-risk"
@@ -183,7 +184,7 @@ function renderPracticalShortlist(items) {
 function renderSummary(items) {
   const lanes = [
     ["ireland-urban-forest-practice", "Ireland practice"],
-    ["urban-nbs-implementation", "Urban NbS"],
+    ["transferable-urbanforest-practice", "Transferable practice"],
     ["funding-opportunities", "Funding"],
     ["research-evidence", "Research"],
     ["design-maintenance-risk", "Design/risk"]
@@ -303,7 +304,7 @@ function renderArchive() {
 function sectionLabel(section) {
   const labels = {
     "ireland-urban-forest-practice": "Ireland practice",
-    "urban-nbs-implementation": "Urban NbS",
+    "transferable-urbanforest-practice": "Transferable practice",
     "funding-opportunities": "Funding",
     "research-evidence": "Research",
     "design-maintenance-risk": "Design/risk"

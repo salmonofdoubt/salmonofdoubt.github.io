@@ -38,7 +38,8 @@ HEADERS = {
 
 SECTION_ALIASES = {
     "ireland-practice": "ireland-urban-forest-practice",
-    "temperate-practice": "urban-nbs-implementation",
+    "temperate-practice": "transferable-urbanforest-practice",
+    "urban-nbs-implementation": "transferable-urbanforest-practice",
     "research-evidence": "research-evidence",
     "funding-policy": "funding-opportunities",
     "maintenance": "design-maintenance-risk",
@@ -52,7 +53,7 @@ def normalise_section(value: str | None) -> str:
 
 SECTIONS = [
     "ireland-urban-forest-practice",
-    "urban-nbs-implementation",
+    "transferable-urbanforest-practice",
     "funding-opportunities",
     "research-evidence",
     "design-maintenance-risk",
@@ -277,10 +278,10 @@ def infer_section(source_section: str, text: str, source_scope: str = "") -> str
     if any(term in lowered for term in ["maintenance", "aftercare", "watering", "survival", "drought", "vandalism", "carbon", "greenwashing", "soil compaction"]):
         return "design-maintenance-risk"
     if any(term in lowered for term in ["rain garden", "bioswale", "suds", "stormwater", "green roof", "depaving", "urban heat", "shade", "cooling", "nature-based", "nature based"]):
-        return "urban-nbs-implementation"
+        return "transferable-urbanforest-practice"
     if any(term in lowered for term in ["ireland", "irish", "dublin", "trinity", "tcd", "fingal"]):
         return "ireland-urban-forest-practice"
-    return normalise_section(source_section) if normalise_section(source_section) in SECTIONS else "urban-nbs-implementation"
+    return normalise_section(source_section) if normalise_section(source_section) in SECTIONS else "transferable-urbanforest-practice"
 
 
 def grant_fit(text: str) -> dict[str, Any] | None:
@@ -311,7 +312,7 @@ def urbanforest_relevance(item: dict[str, Any], benefits: list[str], loc: dict[s
     b = ", ".join(benefits[:3])
     section = item.get("section", "")
     if opportunity:
-        return f"Opportunity signal: may help fund {b.lower()}, school/community planting, monitoring, maintenance, or urban NbS delivery."
+        return f"Opportunity signal: may help fund {b.lower()}, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     if "Tree survival / maintenance" in benefits:
         return "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     if "Stormwater / SuDS" in benefits:
@@ -324,7 +325,7 @@ def urbanforest_relevance(item: dict[str, Any], benefits: list[str], loc: dict[s
         return f"Evidence signal: useful for supporting design, monitoring, communication, or funding claims around {b.lower()}."
     if loc.get("score", 0) >= 24:
         return "Local practice signal: useful because it connects to Dublin, Ireland, campuses, schools, or local-authority implementation contexts."
-    return f"Practical signal: potentially useful for designing, funding, planting, maintaining, monitoring, or explaining urban forest and urban NbS work around {b.lower()}."
+    return f"Practical signal: potentially useful for designing, funding, planting, maintaining, monitoring, or explaining UrbanForest work around {b.lower()}."
 
 
 def research_use_type(text: str) -> str | None:
@@ -341,14 +342,14 @@ def research_use_type(text: str) -> str | None:
     if "wellbeing" in text or "mental health" in text:
         return "Wellbeing evidence"
     if "stormwater" in text or "suds" in text or "rain garden" in text:
-        return "Urban NbS / SuDS evidence"
+        return "UrbanForest stormwater evidence"
     return None
 
 
 def score_raw(raw: RawItem) -> tuple[int, str, str, list[str]]:
     text = text_for(raw)
     if not matches_core(text):
-        return 0, "reference", "No strong UrbanForest / urban NbS signal detected.", []
+        return 0, "reference", "No strong UrbanForest signal detected.", []
     score = 24
     for pattern in CORE_PATTERNS:
         if re.search(pattern, text):
@@ -579,7 +580,7 @@ def discover_source_items() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]
                 continue
             text = text_for(raw)
             theme = infer_theme(text)
-            section = normalise_section(infer_section(raw.source.get("section", "urban-nbs-implementation"), text, raw.source.get("scope", "")))
+            section = normalise_section(infer_section(raw.source.get("section", "transferable-urbanforest-practice"), text, raw.source.get("scope", "")))
             item = {
                 "id": uid,
                 "title": raw.title,
@@ -646,7 +647,7 @@ def main() -> None:
 
     latest = {
         "generated_at": now_utc().isoformat(),
-        "note": "Practical UrbanForest and urban NbS radar: Ireland-first practice, implementation, funding, research, and maintenance-risk intelligence.",
+        "note": "Practical UrbanForest radar: Ireland-first practice, implementation, funding, research, and maintenance-risk intelligence.",
         "sections": sections,
         "count": len(items[:MAX_ITEMS]),
         "items": items[:MAX_ITEMS]
