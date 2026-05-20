@@ -34,12 +34,13 @@ jobs:
         run: |
           python demos/ndrt/news/ops/discover_ndrt_news.py
           python demos/ndrt/news/ops/enrich_ndrt_research.py
+          python demos/ndrt/news/ops/audit_ndrt_radar.py
 
       - name: Commit generated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add demos/ndrt/news/data/news.json demos/ndrt/news/data/archive
+          git add demos/ndrt/news/data/news.json demos/ndrt/news/data/archive demos/ndrt/news/data/source-health.json demos/ndrt/news/data/weekly-digest.json
           if git diff --cached --quiet; then
             echo "No NDRT water radar data changes."
           else

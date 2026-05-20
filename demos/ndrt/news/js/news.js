@@ -35,6 +35,8 @@ const els = {
   lastRefresh: document.getElementById("lastRefresh"),
   refreshNote: document.getElementById("refreshNote"),
   shortlist: document.getElementById("practicalShortlist"),
+  digest: document.getElementById("weeklyDigest"),
+  health: document.getElementById("sourceHealthMini"),
 };
 
 function clean(value, fallback = "") {
@@ -455,11 +457,106 @@ els.summary.addEventListener("click", (event) => {
   jumpToResultLane(button.dataset.laneTarget);
 });
 
+
+
+function sectionLabel(section) {
+  const labels = {
+    "ireland-catchment-practice": "Irish practice",
+    "waterbody-evidence-alerts": "Evidence/alerts",
+    "grants-opportunities": "Grants",
+    "research-papers": "Research"
+  };
+
+  return labels[section] || clean(section || "unknown").replaceAll("-", " ");
+}
+
+function renderWeeklyDigest(data) {
+  if (!els.digest) return;
+
+  const items = Array.isArray(data.items) ? data.items.slice(0, 5) : [];
+
+  if (!items.length) {
+    els.digest.innerHTML = `
+      <p class="eyebrow">Weekly digest</p>
+      <h2>No digest yet</h2>
+      <p>The next refresh will generate a practical digest.</p>
+    `;
+    return;
+  }
+
+  els.digest.innerHTML = `
+    <p class="eyebrow">Weekly digest</p>
+    <h2>Top practical signals</h2>
+    <ol class="ops-list">
+      ${items.map((item) => `
+        <li>
+          <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
+          <span>${escapeHtml(sectionLabel(item.section))} · practical score ${escapeHtml(item.practical_score ?? "n/a")}</span>
+        </li>
+      `).join("")}
+    </ol>
+    <a class="open-link" href="data/weekly-digest.json" target="_blank" rel="noopener">Open digest JSON</a>
+  `;
+}
+
+function renderSourceHealth(data) {
+  if (!els.health) return;
+
+  const failed = Number(data.sources_failed || 0);
+  const active = Number(data.sources_active || 0);
+  const quiet = Number(data.sources_checked_no_current_items || 0);
+  const total = Number(data.total_sources || 0);
+
+  els.health.innerHTML = `
+    <p class="eyebrow">Source health</p>
+    <h2>${active}/${total} active sources</h2>
+    <div class="ops-metrics">
+      <span><strong>${active}</strong> active</span>
+      <span><strong>${quiet}</strong> quiet</span>
+      <span class="${failed ? "warn" : ""}"><strong>${failed}</strong> failed</span>
+    </div>
+    <p>${escapeHtml(data.total_items || 0)} current items · ${escapeHtml(data.archive_snapshots || 0)} archive snapshots.</p>
+    <a class="open-link" href="data/source-health.json" target="_blank" rel="noopener">Open source health JSON</a>
+  `;
+}
+
+async function loadOpsStatus() {
+  try {
+    const [digestResponse, healthResponse] = await Promise.all([
+      fetch(`data/weekly-digest.json?v=${Date.now()}`),
+      fetch(`data/source-health.json?v=${Date.now()}`)
+    ]);
+
+    if (digestResponse.ok) renderWeeklyDigest(await digestResponse.json());
+    if (healthResponse.ok) renderSourceHealth(await healthResponse.json());
+  } catch (error) {
+    console.warn(error);
+
+    if (els.digest) {
+      els.digest.innerHTML = `
+        <p class="eyebrow">Weekly digest</p>
+        <h2>Digest unavailable</h2>
+        <p>The operational JSON files may not have been generated yet.</p>
+      `;
+    }
+
+    if (els.health) {
+      els.health.innerHTML = `
+        <p class="eyebrow">Source health</p>
+        <h2>Health unavailable</h2>
+        <p>The operational JSON files may not have been generated yet.</p>
+      `;
+    }
+  }
+}
+
+
 els.search.addEventListener("input", renderItems);
 els.theme.addEventListener("change", renderItems);
 els.freshness.addEventListener("change", renderItems);
 
 loadLatest();
 loadArchive();
+loadOpsStatus();
 
 

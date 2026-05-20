@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b3d4a" />
+  <title>How the NDRT Water Radar Works | Salmon of Doubt</title>
+  <meta name="description" content="Explains the Nanny-Delvin Water Radar source logic, ranking, practical relevance scoring, research enrichment, source health, archive, and known limitations." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/news.css" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <div class="brand-block">
+        <a class="site-brand" href="../">Nanny-Delvin Water Radar</a>
+        <span class="divider-dot" aria-hidden="true">•</span>
+        <a class="site-home" href="../../../">Demos</a>
+      </div>
+      <nav class="page-nav" aria-label="Radar explanation navigation">
+        <a href="../">Radar</a>
+        <a href="../../">Trust microsite</a>
+        <a href="../../citizen-science.html">Citizen Science</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero shell">
+      <div>
+        <p class="eyebrow">Method note</p>
+        <h1>How this radar works</h1>
+        <p class="hero-lead">
+          The Nanny-Delvin Water Radar is a daily, source-led catchment intelligence layer.
+          It is designed to support practical Trust action, not to collect every possible water-related link.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <p class="mini-label">Operating principle</p>
+        <strong>Useful beats exhaustive</strong>
+        <p>Items are ranked by likely value for restoration, monitoring, funding, engagement, governance, and evidence use.</p>
+      </aside>
+    </section>
+
+    <section class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Radar structure</p>
+        <h2>Four operational lanes</h2>
+      </div>
+
+      <div class="news-list">
+        <article class="news-card">
+          <div>
+            <h3>Ireland Catchment Practice</h3>
+            <p class="news-summary">
+              Irish river, lake, estuary, lagoon, catchment, restoration, monitoring, citizen-science,
+              and water-quality signals.
+            </p>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div>
+            <h3>Waterbody Evidence and Alerts</h3>
+            <p class="news-summary">
+              Incidents, ecological signals, invasive species, fish kills, septic pressures, slurry/manure timing,
+              rainfall-runoff issues, estuary and lagoon items, and practical waterbody intelligence.
+            </p>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div>
+            <h3>Grants and Opportunities</h3>
+            <p class="news-summary">
+              Funding routes relevant to community water action, citizen science, biodiversity, catchment restoration,
+              wetlands, education, and Trust partnership work.
+            </p>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div>
+            <h3>Practical Research Papers and Reviews</h3>
+            <p class="news-summary">
+              Research is ranked Ireland-first, then comparable temperate systems, then transferable NbS and
+              water-quality evidence where it helps action.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Ranking logic</p>
+        <h2>How usefulness is estimated</h2>
+        <p>
+          The score is not a truth claim. It is a prioritisation aid. Items receive boosts for practical relevance,
+          local relevance, Irish applicability, source trust, freshness, grant fit, research usefulness, and pressure categories.
+        </p>
+      </div>
+
+      <div class="watch-panel">
+        <h2>Pressure categories watched</h2>
+        <p>
+          Septic / domestic wastewater, manure / slurry timing, agricultural runoff, nutrients, sediment and hydromorphology,
+          incident alerts, invasive species, Spartina and saltmarsh, birds and wetland ecology, river ecology, citizen science,
+          NbS and restoration, funding, and policy / governance.
+        </p>
+      </div>
+
+      <div class="watch-panel">
+        <h2>Known limitations</h2>
+        <p>
+          Google News RSS can miss items, source pages change structure, grant deadlines may require manual checking,
+          and research relevance is inferred from metadata and abstracts. The radar should support human judgement,
+          not replace it.
+        </p>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Operational files</p>
+        <h2>Auditability</h2>
+        <p>
+          The radar writes daily JSON files so outputs can be checked, archived, and reused.
+        </p>
+      </div>
+
+      <div class="archive-list">
+        <article class="archive-item">
+          <div>
+            <strong>Latest radar data</strong>
+            <p>Current generated items used by the page.</p>
+          </div>
+          <a class="archive-link" href="../data/news.json" target="_blank" rel="noopener">Open JSON</a>
+        </article>
+
+        <article class="archive-item">
+          <div>
+            <strong>Source health</strong>
+            <p>Source checks, item counts, failures, and coverage summary.</p>
+          </div>
+          <a class="archive-link" href="../data/source-health.json" target="_blank" rel="noopener">Open JSON</a>
+        </article>
+
+        <article class="archive-item">
+          <div>
+            <strong>Weekly practical digest</strong>
+            <p>Top practical signals ranked for Trust action.</p>
+          </div>
+          <a class="archive-link" href="../data/weekly-digest.json" target="_blank" rel="noopener">Open JSON</a>
+        </article>
+
+        <article class="archive-item">
+          <div>
+            <strong>Daily archive index</strong>
+            <p>Dated snapshots retained for traceability.</p>
+          </div>
+          <a class="archive-link" href="../data/archive/index.json" target="_blank" rel="noopener">Open JSON</a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">Nanny-Delvin Water Radar</p>
+        <p class="footer-text">A practical catchment intelligence layer for Trust action.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../">Back to radar</a>
+        <a href="../../">Back to NDRT</a>
+        <a href="../../../">Back to demos</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
