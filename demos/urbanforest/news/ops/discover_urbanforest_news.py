@@ -35,6 +35,21 @@ HEADERS = {
     "User-Agent": "UrbanForestNbSRadar/1.0 (+https://salmonofdoubt.github.io/demos/urbanforest/news/)"
 }
 
+
+SECTION_ALIASES = {
+    "ireland-practice": "ireland-urban-forest-practice",
+    "temperate-practice": "urban-nbs-implementation",
+    "research-evidence": "research-evidence",
+    "funding-policy": "funding-opportunities",
+    "maintenance": "design-maintenance-risk",
+}
+
+def normalise_section(value: str | None) -> str:
+    if not value:
+        return "ireland-urban-forest-practice"
+    return SECTION_ALIASES.get(value, value)
+
+
 SECTIONS = [
     "ireland-urban-forest-practice",
     "urban-nbs-implementation",
@@ -265,7 +280,7 @@ def infer_section(source_section: str, text: str, source_scope: str = "") -> str
         return "urban-nbs-implementation"
     if any(term in lowered for term in ["ireland", "irish", "dublin", "trinity", "tcd", "fingal"]):
         return "ireland-urban-forest-practice"
-    return source_section if source_section in SECTIONS else "urban-nbs-implementation"
+    return normalise_section(source_section) if normalise_section(source_section) in SECTIONS else "urban-nbs-implementation"
 
 
 def grant_fit(text: str) -> dict[str, Any] | None:
@@ -510,7 +525,7 @@ def load_curated_items() -> list[dict[str, Any]]:
             "source_id": item.get("source_id", "curated"),
             "source_name": item.get("source_name", "Curated reference"),
             "publisher": item.get("publisher", item.get("source_name", "Curated reference")),
-            "section": item.get("section", "research-evidence"),
+            "section": normalise_section(item.get("section", "research-evidence")),
             "theme": item.get("theme", "urban-forest"),
             "tags": item.get("tags", ["curated"]),
             "score": int(item.get("score", 90)),
@@ -564,7 +579,7 @@ def discover_source_items() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]
                 continue
             text = text_for(raw)
             theme = infer_theme(text)
-            section = infer_section(raw.source.get("section", "urban-nbs-implementation"), text, raw.source.get("scope", ""))
+            section = normalise_section(infer_section(raw.source.get("section", "urban-nbs-implementation"), text, raw.source.get("scope", "")))
             item = {
                 "id": uid,
                 "title": raw.title,

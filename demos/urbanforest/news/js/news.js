@@ -45,8 +45,21 @@ function formatDate(value) {
   return date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
+
+function normaliseSection(value) {
+  const aliases = {
+    "ireland-practice": "ireland-urban-forest-practice",
+    "temperate-practice": "urban-nbs-implementation",
+    "research-evidence": "research-evidence",
+    "funding-policy": "funding-opportunities",
+    "maintenance": "design-maintenance-risk"
+  };
+
+  return aliases[value] || value || "ireland-urban-forest-practice";
+}
+
 function itemSection(item) {
-  return item.section || item.section_id || "ireland-urban-forest-practice";
+  return normaliseSection(item.section || item.section_id || "ireland-urban-forest-practice");
 }
 
 function itemText(item) {

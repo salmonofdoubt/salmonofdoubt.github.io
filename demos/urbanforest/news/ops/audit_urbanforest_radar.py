@@ -7,6 +7,21 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+
+SECTION_ALIASES = {
+    "ireland-practice": "ireland-urban-forest-practice",
+    "temperate-practice": "urban-nbs-implementation",
+    "research-evidence": "research-evidence",
+    "funding-policy": "funding-opportunities",
+    "maintenance": "design-maintenance-risk",
+}
+
+def normalise_section(value: str | None) -> str:
+    if not value:
+        return "ireland-urban-forest-practice"
+    return SECTION_ALIASES.get(value, value)
+
+
 ROOT = Path("demos/urbanforest/news")
 DATA = ROOT / "data"
 REGISTRY = DATA / "source-registry.json"
@@ -27,7 +42,7 @@ def load_json(path: Path, fallback: Any) -> Any:
         return fallback
 
 def section(item: dict[str, Any]) -> str:
-    return item.get("section") or "unknown"
+    return normalise_section(item.get("section") or "unknown")
 
 def practical_score(item: dict[str, Any]) -> float:
     score = float(item.get("score") or 0)
