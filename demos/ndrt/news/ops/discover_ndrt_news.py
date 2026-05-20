@@ -352,6 +352,225 @@ def load_curated_items() -> list[dict[str, Any]]:
 
     return clean_items
 
+
+LOCAL_RELEVANCE_TERMS = {
+    "nanny": 30,
+    "delvin": 30,
+    "nanny-delvin": 35,
+    "meath": 22,
+    "louth": 22,
+    "fingal": 18,
+    "dublin bay": 18,
+    "boyne": 16,
+    "east coast": 14,
+    "irish sea": 14,
+    "balbriggan": 22,
+    "gormanston": 22,
+    "julianstown": 22,
+    "laytown": 18,
+    "bettystown": 18,
+    "naul": 18,
+    "county meath": 22,
+    "county louth": 22,
+}
+
+PRESSURE_RULES = {
+    "septic / domestic wastewater": [
+        "septic", "domestic wastewater", "on-site wastewater", "onsite wastewater",
+        "private well", "groundwater contamination", "e. coli", "faecal", "fecal"
+    ],
+    "agricultural runoff": [
+        "agricultural runoff", "farm runoff", "agriculture", "farmer", "slurry",
+        "fertiliser", "fertilizer", "nutrient runoff", "field margin"
+    ],
+    "nutrients": [
+        "phosphorus", "phosphate", "nitrogen", "nitrate", "nutrient", "eutrophication",
+        "algal bloom", "cyanobacteria"
+    ],
+    "sediment / hydromorphology": [
+        "sediment", "suspended solids", "silt", "erosion", "hydromorphology",
+        "drainage", "channel", "river bank", "bank erosion"
+    ],
+    "habitat / biodiversity": [
+        "biodiversity", "habitat", "species", "salmon", "trout", "eel", "lamprey",
+        "macroinvertebrate", "pollinator", "wetland", "saltmarsh"
+    ],
+    "invasive species": [
+        "invasive", "invasive species", "spartina", "japanese knotweed", "himalayan balsam"
+    ],
+    "incident / alert": [
+        "fish kill", "pollution incident", "sewage overflow", "algal bloom",
+        "do not swim", "bathing water", "contamination"
+    ],
+    "citizen science / monitoring": [
+        "citizen science", "monitoring", "volunteer", "kick sampling", "cssi",
+        "q-value", "sampling", "field observation"
+    ],
+    "funding / grant": [
+        "grant", "funding", "scheme", "call", "award", "programme", "opportunity"
+    ],
+    "policy / governance": [
+        "policy", "governance", "lawpro", "epa", "npws", "water framework directive",
+        "wfd", "rbmp", "river basin management"
+    ],
+    "NbS / restoration": [
+        "nature-based", "nature based", "riparian buffer", "constructed wetland",
+        "wetland restoration", "rewetting", "pond", "river restoration", "buffer strip",
+        "floodplain"
+    ],
+}
+
+def text_for_annotation(item: dict[str, Any]) -> str:
+    tags = item.get("tags") if isinstance(item.get("tags"), list) else []
+    return " ".join([
+        str(item.get("title", "")),
+        str(item.get("summary", "")),
+        str(item.get("section", "")),
+        str(item.get("theme", "")),
+        " ".join(map(str, tags)),
+        str(item.get("source_name", "")),
+    ]).lower()
+
+def pressure_categories_for(text: str) -> list[str]:
+    categories = []
+    for label, terms in PRESSURE_RULES.items():
+        if any(term in text for term in terms):
+            categories.append(label)
+    return categories[:5] or ["general catchment signal"]
+
+def local_relevance_for(text: str) -> dict[str, Any]:
+    score = 0
+    matched = []
+
+    for term, points in LOCAL_RELEVANCE_TERMS.items():
+        if term in text:
+            score += points
+            matched.append(term)
+
+    if "ireland" in text or "irish" in text:
+        score += 10
+        matched.append("Ireland")
+
+    if "east coast" in text or "irish sea" in text:
+        score += 8
+
+    score = max(0, min(100, score))
+
+    if score >= 45:
+        label = "High local relevance"
+    elif score >= 20:
+        label = "Moderate local relevance"
+    elif score >= 8:
+        label = "Ireland-wide relevance"
+    else:
+        label = "Transferable relevance"
+
+    return {
+        "score": score,
+        "label": label,
+        "matched_terms": sorted(set(matched))[:8]
+    }
+
+def grant_fit_for(item: dict[str, Any], text: str) -> dict[str, Any] | None:
+    if item.get("section") != "grants-opportunities" and "grant" not in text and "funding" not in text:
+        return None
+
+    fit_score = 35
+
+    if "community" in text:
+        fit_score += 18
+    if "water" in text or "catchment" in text or "river" in text:
+        fit_score += 18
+    if "biodiversity" in text or "heritage" in text or "wetland" in text:
+        fit_score += 14
+    if "citizen science" in text or "monitoring" in text or "education" in text:
+        fit_score += 12
+    if "ireland" in text or "irish" in text:
+        fit_score += 10
+
+    fit_score = max(0, min(100, fit_score))
+
+    if fit_score >= 75:
+        fit = "High"
+    elif fit_score >= 55:
+        fit = "Medium"
+    else:
+        fit = "Low"
+
+    return {
+        "fit": fit,
+        "score": fit_score,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+    }
+
+def action_relevance_for(item: dict[str, Any], pressures: list[str], local: dict[str, Any], grant_fit: dict[str, Any] | None) -> str:
+    section = item.get("section", "")
+    title = str(item.get("title", "")).lower()
+    pressure_text = ", ".join(pressures[:3])
+
+    if grant_fit:
+        return f"Funding signal for the Trust: check whether this can support {pressure_text}, citizen science, engagement, or small catchment actions."
+
+    if "septic" in title or "domestic wastewater" in title or "septic / domestic wastewater" in pressures:
+        return "Potential catchment-pressure signal: septic or domestic wastewater issues can affect groundwater, small streams, bathing waters, and local engagement priorities."
+
+    if "incident / alert" in pressures:
+        return "Operational watch signal: this may indicate a water-quality incident, bathing-water concern, fish kill, pollution pathway, or public-reporting opportunity."
+
+    if "citizen science / monitoring" in pressures:
+        return "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+
+    if "NbS / restoration" in pressures:
+        return "Restoration signal: potentially useful for riparian, wetland, floodplain, habitat, or runoff-interception measures."
+
+    if section == "research-papers":
+        return f"Evidence signal: use this to support practical decisions, explain methods, or justify action around {pressure_text}."
+
+    if local.get("score", 0) >= 20:
+        return f"Local relevance signal: useful because it connects to {local.get('label', 'local relevance')} and the Trust's catchment-facing work."
+
+    return f"General practical signal: may help the Trust track {pressure_text}, policy, funding, monitoring, or community action."
+
+def research_use_type_for(text: str) -> str | None:
+    if "review" in text or "meta-analysis" in text or "systematic review" in text:
+        return "Review / evidence synthesis"
+    if "citizen science" in text or "monitoring" in text or "macroinvertebrate" in text:
+        return "Monitoring method"
+    if "constructed wetland" in text or "riparian" in text or "nature-based" in text or "nature based" in text:
+        return "NbS effectiveness"
+    if "policy" in text or "governance" in text or "wfd" in text:
+        return "Policy / governance"
+    if "case study" in text or "field study" in text:
+        return "Case / field evidence"
+    return None
+
+def annotate_item(item: dict[str, Any]) -> dict[str, Any]:
+    text = text_for_annotation(item)
+    pressures = pressure_categories_for(text)
+    local = local_relevance_for(text)
+    grant_fit = grant_fit_for(item, text)
+
+    item["pressure_categories"] = pressures
+    item["local_relevance"] = local
+    item["action_relevance"] = action_relevance_for(item, pressures, local, grant_fit)
+
+    if grant_fit:
+        item["opportunity_fit"] = grant_fit
+
+    research_use = research_use_type_for(text)
+    if research_use:
+        item["research_use_type"] = research_use
+
+    # Locality boost, but do not let it swamp all other scoring.
+    if local["score"] >= 45:
+        item["score"] = min(100, int(item.get("score", 0)) + 8)
+    elif local["score"] >= 20:
+        item["score"] = min(100, int(item.get("score", 0)) + 4)
+
+    return item
+
+
 def discover() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     registry = load_registry()
     sections = registry.get("sections", [])
@@ -444,7 +663,7 @@ def main() -> None:
         if key in seen_urls:
             continue
         seen_urls.add(key)
-        items.append(item)
+        items.append(annotate_item(item))
 
     items.sort(key=lambda item: (int(item.get("score", 0)), item.get("published") or ""), reverse=True)
 

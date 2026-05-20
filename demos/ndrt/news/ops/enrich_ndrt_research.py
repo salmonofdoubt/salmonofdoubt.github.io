@@ -311,6 +311,70 @@ def fetch_query(search: str, theme: str, priority: str, tags: list[str]) -> list
 
     return items
 
+
+RESEARCH_PRESSURE_RULES = {
+    "water quality": ["water quality", "phosphorus", "phosphate", "nitrogen", "nitrate", "nutrient", "eutrophication"],
+    "agricultural runoff": ["agricultural", "agriculture", "runoff", "farm", "field margin"],
+    "sediment / hydromorphology": ["sediment", "suspended solids", "erosion", "hydromorphology", "channel"],
+    "NbS / restoration": ["nature-based", "nature based", "constructed wetland", "riparian", "wetland", "river restoration", "floodplain"],
+    "citizen science / monitoring": ["citizen science", "monitoring", "macroinvertebrate", "sampling", "field observation"],
+    "estuary / lagoon": ["estuary", "lagoon", "saltmarsh", "coastal wetland"],
+    "habitat / biodiversity": ["biodiversity", "habitat", "species", "ecology"]
+}
+
+def research_pressure_categories(text: str) -> list[str]:
+    out = []
+    for label, terms in RESEARCH_PRESSURE_RULES.items():
+        if any(term in text for term in terms):
+            out.append(label)
+    return out[:5] or ["research evidence"]
+
+def research_use_type(text: str) -> str:
+    if "systematic review" in text or "meta-analysis" in text or "meta analysis" in text or "review" in text:
+        return "Review / evidence synthesis"
+    if "citizen science" in text or "macroinvertebrate" in text or "monitoring" in text:
+        return "Monitoring method"
+    if "constructed wetland" in text or "riparian" in text or "nature-based" in text or "nature based" in text:
+        return "NbS effectiveness"
+    if "policy" in text or "governance" in text or "water framework directive" in text or "wfd" in text:
+        return "Policy / governance"
+    if "case study" in text or "field study" in text:
+        return "Case / field evidence"
+    return "Supporting evidence"
+
+def research_action_relevance(text: str, geography: str, pressures: list[str], use_type: str) -> str:
+    pressure_text = ", ".join(pressures[:3])
+
+    if geography.startswith("Ireland"):
+        return f"Ireland-first evidence: use this to support Trust decisions, engagement, or methods around {pressure_text}."
+    if geography.startswith("Comparable"):
+        return f"Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for {pressure_text}."
+    if use_type == "Review / evidence synthesis":
+        return f"Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for {pressure_text}."
+    if use_type == "NbS effectiveness":
+        return f"NbS evidence: potentially useful for selecting or justifying measures that improve water quality through {pressure_text}."
+    if use_type == "Monitoring method":
+        return f"Monitoring evidence: potentially useful for Nanny Watch protocols, volunteer training, or interpreting field observations."
+    return f"Research signal: background evidence that may support practical catchment action around {pressure_text}."
+
+def annotate_research_item(item: dict[str, Any]) -> dict[str, Any]:
+    text = " ".join([
+        str(item.get("title", "")),
+        str(item.get("summary", "")),
+        " ".join(item.get("tags", []) if isinstance(item.get("tags"), list) else [])
+    ]).lower()
+
+    pressures = research_pressure_categories(text)
+    use_type = research_use_type(text)
+    geography = item.get("geographic_relevance", "General transferable evidence")
+
+    item["pressure_categories"] = pressures
+    item["research_use_type"] = use_type
+    item["action_relevance"] = research_action_relevance(text, geography, pressures, use_type)
+
+    return item
+
+
 def load_latest() -> dict[str, Any]:
     if not LATEST.exists():
         return {"generated_at": now_utc().isoformat(), "note": "", "sections": [], "count": 0, "items": []}
@@ -385,7 +449,7 @@ def main() -> None:
         reverse=True
     )
 
-    research = deduped[:MAX_RESEARCH_ITEMS]
+    research = [annotate_research_item(item) for item in deduped[:MAX_RESEARCH_ITEMS]]
 
     data["items"] = non_research + research
     data["items"].sort(key=lambda item: (int(item.get("score", 0)), item.get("published") or ""), reverse=True)

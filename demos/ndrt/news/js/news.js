@@ -34,6 +34,7 @@ const els = {
   freshness: document.getElementById("freshnessFilter"),
   lastRefresh: document.getElementById("lastRefresh"),
   refreshNote: document.getElementById("refreshNote"),
+  shortlist: document.getElementById("practicalShortlist"),
 };
 
 function clean(value, fallback = "") {
@@ -85,6 +86,51 @@ function visibleItems() {
   });
 }
 
+function practicalSortScore(item) {
+  let score = Number(item.score || 0);
+
+  if (item.action_relevance) score += 8;
+  if (item.opportunity_fit?.fit === "High") score += 12;
+  if (item.local_relevance?.score >= 45) score += 12;
+  if (item.local_relevance?.score >= 20) score += 6;
+  if (item.freshness_status === "fresh") score += 8;
+  if ((item.pressure_categories || []).includes("septic / domestic wastewater")) score += 8;
+  if ((item.pressure_categories || []).includes("incident / alert")) score += 7;
+
+  return score;
+}
+
+function renderPracticalShortlist(items) {
+  if (!els.shortlist) return;
+
+  const shortlist = [...items]
+    .sort((a, b) => practicalSortScore(b) - practicalSortScore(a))
+    .slice(0, 5);
+
+  if (!shortlist.length) {
+    els.shortlist.innerHTML = "";
+    return;
+  }
+
+  els.shortlist.innerHTML = `
+    <section class="shortlist-card" aria-label="Top practical signals">
+      <div class="shortlist-heading">
+        <p class="eyebrow">Today’s practical shortlist</p>
+        <h3>Top signals for Trust action</h3>
+      </div>
+      <ol class="shortlist-list">
+        ${shortlist.map((item) => `
+          <li>
+            <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>
+            <p>${escapeHtml(item.action_relevance || "Useful signal for Trust review.")}</p>
+          </li>
+        `).join("")}
+      </ol>
+    </section>
+  `;
+}
+
+
 function renderSummary(items) {
   const lanes = [
     {
@@ -129,8 +175,12 @@ function renderSummary(items) {
 
 function renderCard(item) {
   const tags = Array.isArray(item.tags) ? item.tags.slice(0, 6) : [];
+  const pressures = Array.isArray(item.pressure_categories) ? item.pressure_categories.slice(0, 5) : [];
   const freshnessClass = item.freshness_status === "reference" ? "warn" : "";
   const lane = itemSection(item).replaceAll("-", " ");
+  const local = item.local_relevance;
+  const grantFit = item.opportunity_fit;
+  const researchUse = item.research_use_type;
 
   return `
     <article class="news-card">
@@ -142,8 +192,33 @@ function renderCard(item) {
           <span class="chip">${escapeHtml(formatDate(item.published))}</span>
           <span class="chip ${freshnessClass}">${escapeHtml(item.freshness_label || item.freshness_status || "Freshness unknown")}</span>
           ${item.practical_fit ? `<span class="chip">${escapeHtml(item.practical_fit)}</span>` : ""}
+          ${local?.label ? `<span class="chip">${escapeHtml(local.label)}</span>` : ""}
+          ${researchUse ? `<span class="chip">${escapeHtml(researchUse)}</span>` : ""}
         </div>
+
         <p class="news-summary">${escapeHtml(item.summary || "Open the source to inspect this item.")}</p>
+
+        ${item.action_relevance ? `
+          <div class="action-relevance">
+            <strong>Trust relevance:</strong>
+            <span>${escapeHtml(item.action_relevance)}</span>
+          </div>
+        ` : ""}
+
+        ${grantFit ? `
+          <div class="grant-fit">
+            <strong>Opportunity fit: ${escapeHtml(grantFit.fit)}</strong>
+            <span>${escapeHtml(grantFit.eligible_hint || "")}</span>
+            <em>${escapeHtml(grantFit.action_needed || "")}</em>
+          </div>
+        ` : ""}
+
+        ${pressures.length ? `
+          <div class="pressure-row" aria-label="Pressure categories">
+            ${pressures.map((pressure) => `<span class="pressure-chip">${escapeHtml(pressure)}</span>`).join("")}
+          </div>
+        ` : ""}
+
         <div class="news-tags">
           ${tags.map((tag) => `<span class="chip">${escapeHtml(tag)}</span>`).join("")}
         </div>
@@ -161,6 +236,7 @@ function renderCard(item) {
 
 function renderItems() {
   const items = visibleItems();
+  renderPracticalShortlist(items);
   renderSummary(items);
 
   if (!items.length) {

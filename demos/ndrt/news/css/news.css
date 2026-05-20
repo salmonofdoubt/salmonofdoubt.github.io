@@ -598,3 +598,124 @@ select {
     margin-left: 0.55rem;
   }
 }
+
+/* Practical Trust intelligence layer */
+.watch-panel {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1.35rem 1.45rem;
+  border: 1px solid rgba(15, 77, 65, 0.14);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.watch-panel h2 {
+  margin: 0.15rem 0 0.45rem;
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+}
+
+.watch-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.practical-shortlist {
+  margin: 1.2rem 0 1.1rem;
+}
+
+.shortlist-card {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(14, 116, 144, 0.18);
+  border-radius: 1.2rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(229,247,250,0.62));
+  box-shadow: 0 18px 46px rgba(14, 116, 144, 0.08);
+}
+
+.shortlist-heading h3 {
+  margin: 0.15rem 0 0.75rem;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+}
+
+.shortlist-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.shortlist-list li::marker {
+  font-weight: 900;
+  color: #0b5b6f;
+}
+
+.shortlist-list a {
+  color: #0c321b;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.shortlist-list a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.shortlist-list p {
+  margin: 0.2rem 0 0;
+  color: rgba(20, 42, 31, 0.72);
+  line-height: 1.45;
+}
+
+.action-relevance,
+.grant-fit {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0.9rem 0;
+  padding: 0.85rem 0.95rem;
+  border-left: 4px solid #0e7490;
+  border-radius: 0.85rem;
+  background: rgba(14, 116, 144, 0.08);
+  color: rgba(20, 42, 31, 0.78);
+}
+
+.action-relevance strong,
+.grant-fit strong {
+  color: #0c321b;
+  font-weight: 900;
+}
+
+.grant-fit em {
+  font-style: normal;
+  color: rgba(20, 42, 31, 0.68);
+}
+
+.pressure-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+}
+
+.pressure-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.28rem 0.58rem;
+  background: rgba(12, 50, 27, 0.08);
+  color: #0c321b;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+@media (max-width: 700px) {
+  .watch-panel {
+    padding: 1rem;
+  }
+
+  .shortlist-card {
+    padding: 1rem;
+  }
+
+  .action-relevance,
+  .grant-fit {
+    padding: 0.8rem;
+  }
+}
