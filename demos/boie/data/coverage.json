@@ -1,0 +1,1813 @@
+{
+  "generated_at": "2026-05-20T16:00:16.358709+00:00",
+  "total_species": 496,
+  "species_with_audio": 485,
+  "species_without_audio": 11,
+  "coverage_percent": 97.78,
+  "missing_audio": [
+    {
+      "common_name": "Common firecrest",
+      "scientific_name": "Regulus ignicapillus",
+      "status_codes": [
+        "A"
+      ]
+    },
+    {
+      "common_name": "Eskimo curlew",
+      "scientific_name": "Numenius borealis",
+      "status_codes": [
+        "B"
+      ]
+    },
+    {
+      "common_name": "Eurasian jackdaw",
+      "scientific_name": "Corvus monedula",
+      "status_codes": [
+        "A"
+      ]
+    },
+    {
+      "common_name": "Frigatebird species",
+      "scientific_name": "Fregata sp",
+      "status_codes": [
+        "A",
+        "R"
+      ]
+    },
+    {
+      "common_name": "Great auk",
+      "scientific_name": "Pinguinus impennis",
+      "status_codes": [
+        "B"
+      ]
+    },
+    {
+      "common_name": "Red grouse",
+      "scientific_name": "Lagopus scotica",
+      "status_codes": [
+        "A"
+      ]
+    },
+    {
+      "common_name": "Sandhill crane",
+      "scientific_name": "Antiogne canadensis",
+      "status_codes": [
+        "B",
+        "R"
+      ]
+    },
+    {
+      "common_name": "Sooty shearwater",
+      "scientific_name": "Ardenna griseus",
+      "status_codes": [
+        "A"
+      ]
+    },
+    {
+      "common_name": "Spotted sandpiper",
+      "scientific_name": "Actitis macularia",
+      "status_codes": [
+        "A",
+        "R"
+      ]
+    },
+    {
+      "common_name": "Whiskered tern",
+      "scientific_name": "Chlidonias hybridus",
+      "status_codes": [
+        "A",
+        "R"
+      ]
+    },
+    {
+      "common_name": "Yellow-breasted bunting",
+      "scientific_name": "Emberiza aureola",
+      "status_codes": [
+        "A",
+        "R"
+      ]
+    }
+  ],
+  "query_log": {
+    "Porphyrio alleni": [
+      "gen:Porphyrio sp:alleni q:A type:song",
+      "gen:Porphyrio sp:alleni q:B type:song",
+      "gen:Porphyrio sp:alleni type:song",
+      "gen:Porphyrio sp:alleni q:A type:call"
+    ],
+    "Tachymarptis melba": [
+      "gen:Tachymarptis sp:melba q:A type:song"
+    ],
+    "Botaurus lentiginosus": [
+      "gen:Botaurus sp:lentiginosus q:A type:song"
+    ],
+    "Anas rubripes": [
+      "gen:Anas sp:rubripes q:A type:song",
+      "gen:Anas sp:rubripes q:B type:song",
+      "gen:Anas sp:rubripes type:song",
+      "gen:Anas sp:rubripes q:A type:call"
+    ],
+    "Petrochelidon pyrrhonota": [
+      "gen:Petrochelidon sp:pyrrhonota q:A type:song"
+    ],
+    "Fulica americana": [
+      "gen:Fulica sp:americana q:A type:song"
+    ],
+    "Pluvialis dominica": [
+      "gen:Pluvialis sp:dominica q:A type:song"
+    ],
+    "Larus smithsonianus": [
+      "gen:Larus sp:smithsonianus q:A type:song",
+      "gen:Larus sp:smithsonianus q:B type:song"
+    ],
+    "Setophaga ruticilla": [
+      "gen:Setophaga sp:ruticilla q:A type:song"
+    ],
+    "Turdus migratorius": [
+      "gen:Turdus sp:migratorius q:A type:song"
+    ],
+    "Mareca americana": [
+      "gen:Mareca sp:americana q:A type:song"
+    ],
+    "Setophaga aestiva": [
+      "gen:Setophaga sp:aestiva q:A type:song"
+    ],
+    "Acrocephalus paludicola": [
+      "gen:Acrocephalus sp:paludicola q:A type:song"
+    ],
+    "Acanthis hornemanni": [
+      "gen:Acanthis sp:hornemanni q:A type:song"
+    ],
+    "Stercorarius parasiticus": [
+      "gen:Stercorarius sp:parasiticus q:A type:song"
+    ],
+    "Sterna paradisaea": [
+      "gen:Sterna sp:paradisaea q:A type:song"
+    ],
+    "Phylloscopus borealis": [
+      "gen:Phylloscopus sp:borealis q:A type:song"
+    ],
+    "Fratercula arctica": [
+      "gen:Fratercula sp:arctica q:A type:song"
+    ],
+    "Sibirionetta formosa": [
+      "gen:Sibirionetta sp:formosa q:A type:song"
+    ],
+    "Zapornia pusilla": [
+      "gen:Zapornia sp:pusilla q:A type:song"
+    ],
+    "Calidris bairdii": [
+      "gen:Calidris sp:bairdii q:A type:song"
+    ],
+    "Haliaeetus leucocephalus": [
+      "gen:Haliaeetus sp:leucocephalus q:A type:song",
+      "gen:Haliaeetus sp:leucocephalus q:B type:song"
+    ],
+    "Puffinus mauretanicus": [
+      "gen:Puffinus sp:mauretanicus q:A type:song"
+    ],
+    "Icterus galbula": [
+      "gen:Icterus sp:galbula q:A type:song"
+    ],
+    "Hydrobates castro": [
+      "gen:Hydrobates sp:castro q:A type:song"
+    ],
+    "Limosa lapponica": [
+      "gen:Limosa sp:lapponica q:A type:song"
+    ],
+    "Hirundo rustica": [
+      "gen:Hirundo sp:rustica q:A type:song"
+    ],
+    "Branta leucopsis": [
+      "gen:Branta sp:leucopsis q:A type:song",
+      "gen:Branta sp:leucopsis q:B type:song"
+    ],
+    "Puffinus baroli": [
+      "gen:Puffinus sp:baroli q:A type:song"
+    ],
+    "Curruca nisoria": [
+      "gen:Curruca sp:nisoria q:A type:song"
+    ],
+    "Bucephala islandica": [
+      "gen:Bucephala sp:islandica q:A type:song",
+      "gen:Bucephala sp:islandica q:B type:song"
+    ],
+    "Panurus biarmicus": [
+      "gen:Panurus sp:biarmicus q:A type:song"
+    ],
+    "Megaceryle alcyon": [
+      "gen:Megaceryle sp:alcyon q:A type:song"
+    ],
+    "Pterodroma cahow": [
+      "gen:Pterodroma sp:cahow q:A type:song",
+      "gen:Pterodroma sp:cahow q:B type:song",
+      "gen:Pterodroma sp:cahow type:song",
+      "gen:Pterodroma sp:cahow q:A type:call",
+      "gen:Pterodroma sp:cahow q:B type:call",
+      "gen:Pterodroma sp:cahow type:call",
+      "gen:Pterodroma sp:cahow q:A",
+      "gen:Pterodroma sp:cahow q:B"
+    ],
+    "Cygnus columbianus": [
+      "gen:Cygnus sp:columbianus q:A type:song"
+    ],
+    "Cepphus grylle": [
+      "gen:Cepphus sp:grylle q:A type:song"
+    ],
+    "Milvus migrans": [
+      "gen:Milvus sp:migrans q:A type:song"
+    ],
+    "Phoenicurus ochruros": [
+      "gen:Phoenicurus sp:ochruros q:A type:song"
+    ],
+    "Melanitta americana": [
+      "gen:Melanitta sp:americana q:A type:song"
+    ],
+    "Ciconia nigra": [
+      "gen:Ciconia sp:nigra q:A type:song"
+    ],
+    "Chlidonias niger": [
+      "gen:Chlidonias sp:niger q:A type:song",
+      "gen:Chlidonias sp:niger q:B type:song"
+    ],
+    "Oenanthe leucura": [
+      "gen:Oenanthe sp:leucura q:A type:song"
+    ],
+    "Mniotilta varia": [
+      "gen:Mniotilta sp:varia q:A type:song"
+    ],
+    "Coccyzus erythropthalmus": [
+      "gen:Coccyzus sp:erythropthalmus q:A type:song"
+    ],
+    "Thalassarche melanophris": [
+      "gen:Thalassarche sp:melanophris q:A type:song"
+    ],
+    "Nycticorax nycticorax": [
+      "gen:Nycticorax sp:nycticorax q:A type:song"
+    ],
+    "Emberiza melanocephala": [
+      "gen:Emberiza sp:melanocephala q:A type:song"
+    ],
+    "Chroicocephalus ridibundus": [
+      "gen:Chroicocephalus sp:ridibundus q:A type:song"
+    ],
+    "Rissa tridactyla": [
+      "gen:Rissa sp:tridactyla q:A type:song"
+    ],
+    "Podiceps nigricollis": [
+      "gen:Podiceps sp:nigricollis q:A type:song"
+    ],
+    "Limosa limosa": [
+      "gen:Limosa sp:limosa q:A type:song"
+    ],
+    "Gavia arctica": [
+      "gen:Gavia sp:arctica q:A type:song"
+    ],
+    "Glareola nordmanni": [
+      "gen:Glareola sp:nordmanni q:A type:song"
+    ],
+    "Himantopus himantopus": [
+      "gen:Himantopus sp:himantopus q:A type:song"
+    ],
+    "Setophaga striata": [
+      "gen:Setophaga sp:striata q:A type:song"
+    ],
+    "Spatula discors": [
+      "gen:Spatula sp:discors q:A type:song"
+    ],
+    "Vermivora cyanoptera": [
+      "gen:Vermivora sp:cyanoptera q:A type:song"
+    ],
+    "Luscinia svecica": [
+      "gen:Luscinia sp:svecica q:A type:song"
+    ],
+    "Acrocephalus dumetorum": [
+      "gen:Acrocephalus sp:dumetorum q:A type:song"
+    ],
+    "Dolichonyx oryzivorus": [
+      "gen:Dolichonyx sp:oryzivorus q:A type:song"
+    ],
+    "Bombycilla garrulus": [
+      "gen:Bombycilla sp:garrulus q:A type:song"
+    ],
+    "Chroicocephalus philadelphia": [
+      "gen:Chroicocephalus sp:philadelphia q:A type:song"
+    ],
+    "Iduna caligata": [
+      "gen:Iduna sp:caligata q:A type:song"
+    ],
+    "Fringilla montifringilla": [
+      "gen:Fringilla sp:montifringilla q:A type:song"
+    ],
+    "Branta bernicla": [
+      "gen:Branta sp:bernicla q:A type:song"
+    ],
+    "Calidris falcinellus": [
+      "gen:Calidris sp:falcinellus q:A type:song"
+    ],
+    "Sula leucogaster": [
+      "gen:Sula sp:leucogaster q:A type:song",
+      "gen:Sula sp:leucogaster q:B type:song",
+      "gen:Sula sp:leucogaster type:song",
+      "gen:Sula sp:leucogaster q:A type:call"
+    ],
+    "Lanius cristatus": [
+      "gen:Lanius sp:cristatus q:A type:song"
+    ],
+    "Uria lomvia": [
+      "gen:Uria sp:lomvia q:A type:song"
+    ],
+    "Anthus rubescens": [
+      "gen:Anthus sp:rubescens q:A type:song"
+    ],
+    "Calidris subruficollis": [
+      "gen:Calidris sp:subruficollis q:A type:song",
+      "gen:Calidris sp:subruficollis q:B type:song"
+    ],
+    "Bucephala albeola": [
+      "gen:Bucephala sp:albeola q:A type:song",
+      "gen:Bucephala sp:albeola q:B type:song",
+      "gen:Bucephala sp:albeola type:song",
+      "gen:Bucephala sp:albeola q:A type:call"
+    ],
+    "Bulweria bulwerii": [
+      "gen:Bulweria sp:bulwerii q:A type:song"
+    ],
+    "Branta hutchinsii": [
+      "gen:Branta sp:hutchinsii q:A type:song",
+      "gen:Branta sp:hutchinsii q:B type:song",
+      "gen:Branta sp:hutchinsii type:song",
+      "gen:Branta sp:hutchinsii q:A type:call"
+    ],
+    "Branta canadensis": [
+      "gen:Branta sp:canadensis q:A type:song"
+    ],
+    "Cardellina canadensis": [
+      "gen:Cardellina sp:canadensis q:A type:song"
+    ],
+    "Corvus corone": [
+      "gen:Corvus sp:corone q:A type:song"
+    ],
+    "Larus cachinnans": [
+      "gen:Larus sp:cachinnans q:A type:song"
+    ],
+    "Hydroprogne caspia": [
+      "gen:Hydroprogne sp:caspia q:A type:song"
+    ],
+    "Bombycilla cedrorum": [
+      "gen:Bombycilla sp:cedrorum q:A type:song"
+    ],
+    "Cettia cetti": [
+      "gen:Cettia sp:cetti q:A type:song"
+    ],
+    "Chaetura pelagica": [
+      "gen:Chaetura sp:pelagica q:A type:song"
+    ],
+    "Emberiza cirlus": [
+      "gen:Emberiza sp:cirlus q:A type:song"
+    ],
+    "Motacilla citreola": [
+      "gen:Motacilla sp:citreola q:A type:song"
+    ],
+    "Periparus ater": [
+      "gen:Periparus sp:ater q:A type:song"
+    ],
+    "Ficedula albicollis": [
+      "gen:Ficedula sp:albicollis q:A type:song"
+    ],
+    "Glareola pratincola": [
+      "gen:Glareola sp:pratincola q:A type:song"
+    ],
+    "Buteo buteo": [
+      "gen:Buteo sp:buteo q:A type:song"
+    ],
+    "Phylloscopus collybita": [
+      "gen:Phylloscopus sp:collybita q:A type:song"
+    ],
+    "Grus grus": [
+      "gen:Grus sp:grus q:A type:song"
+    ],
+    "Cuculus canorus": [
+      "gen:Cuculus sp:canorus q:A type:song"
+    ],
+    "Somateria mollissima": [
+      "gen:Somateria sp:mollissima q:A type:song"
+    ],
+    "Regulus ignicapillus": [
+      "gen:Regulus sp:ignicapillus q:A type:song",
+      "gen:Regulus sp:ignicapillus q:B type:song",
+      "gen:Regulus sp:ignicapillus type:song",
+      "gen:Regulus sp:ignicapillus q:A type:call",
+      "gen:Regulus sp:ignicapillus q:B type:call",
+      "gen:Regulus sp:ignicapillus type:call",
+      "gen:Regulus sp:ignicapillus q:A",
+      "gen:Regulus sp:ignicapillus q:B",
+      "gen:Regulus sp:ignicapillus"
+    ],
+    "Bucephala clangula": [
+      "gen:Bucephala sp:clangula q:A type:song"
+    ],
+    "Locustella naevia": [
+      "gen:Locustella sp:naevia q:A type:song"
+    ],
+    "Tringa nebularia": [
+      "gen:Tringa sp:nebularia q:A type:song"
+    ],
+    "Uria aalge": [
+      "gen:Uria sp:aalge q:A type:song"
+    ],
+    "Larus canus": [
+      "gen:Larus sp:canus q:A type:song"
+    ],
+    "Delichon urbicum": [
+      "gen:Delichon sp:urbicum q:A type:song"
+    ],
+    "Falco tinnunculus": [
+      "gen:Falco sp:tinnunculus q:A type:song"
+    ],
+    "Alcedo atthis": [
+      "gen:Alcedo sp:atthis q:A type:song"
+    ],
+    "Linaria cannabina": [
+      "gen:Linaria sp:cannabina q:A type:song"
+    ],
+    "Gallinula chloropus": [
+      "gen:Gallinula sp:chloropus q:A type:song"
+    ],
+    "Chordeiles minor": [
+      "gen:Chordeiles sp:minor q:A type:song"
+    ],
+    "Luscinia megarhynchos": [
+      "gen:Luscinia sp:megarhynchos q:A type:song"
+    ],
+    "Phasianus colchicus": [
+      "gen:Phasianus sp:colchicus q:A type:song"
+    ],
+    "Aythya ferina": [
+      "gen:Aythya sp:ferina q:A type:song"
+    ],
+    "Coturnix coturnix": [
+      "gen:Coturnix sp:coturnix q:A type:song"
+    ],
+    "Acanthis flammea": [
+      "gen:Acanthis sp:flammea q:A type:song"
+    ],
+    "Tringa totanus": [
+      "gen:Tringa sp:totanus q:A type:song"
+    ],
+    "Phoenicurus phoenicurus": [
+      "gen:Phoenicurus sp:phoenicurus q:A type:song"
+    ],
+    "Emberiza schoeniclus": [
+      "gen:Emberiza sp:schoeniclus q:A type:song"
+    ],
+    "Charadrius hiaticula": [
+      "gen:Charadrius sp:hiaticula q:A type:song"
+    ],
+    "Monticola saxatilis": [
+      "gen:Monticola sp:saxatilis q:A type:song"
+    ],
+    "Carpodacus erythrinus": [
+      "gen:Carpodacus sp:erythrinus q:A type:song"
+    ],
+    "Actitis hypoleucos": [
+      "gen:Actitis sp:hypoleucos q:A type:song"
+    ],
+    "Melanitta nigra": [
+      "gen:Melanitta sp:nigra q:A type:song",
+      "gen:Melanitta sp:nigra q:B type:song"
+    ],
+    "Tadorna tadorna": [
+      "gen:Tadorna sp:tadorna q:A type:song"
+    ],
+    "Gallinago gallinago": [
+      "gen:Gallinago sp:gallinago q:A type:song"
+    ],
+    "Sturnus vulgaris": [
+      "gen:Sturnus sp:vulgaris q:A type:song"
+    ],
+    "Apus apus": [
+      "gen:Apus sp:apus q:A type:song"
+    ],
+    "Sterna hirundo": [
+      "gen:Sterna sp:hirundo q:A type:song"
+    ],
+    "Curruca communis": [
+      "gen:Curruca sp:communis q:A type:song"
+    ],
+    "Columba palumbus": [
+      "gen:Columba sp:palumbus q:A type:song"
+    ],
+    "Geothlypis trichas": [
+      "gen:Geothlypis sp:trichas q:A type:song"
+    ],
+    "Emberiza calandra": [
+      "gen:Emberiza sp:calandra q:A type:song"
+    ],
+    "Crex crex": [
+      "gen:Crex sp:crex q:A type:song"
+    ],
+    "Calonectris borealis": [
+      "gen:Calonectris sp:borealis q:A type:song"
+    ],
+    "Cursorius cursor": [
+      "gen:Cursorius sp:cursor q:A type:song",
+      "gen:Cursorius sp:cursor q:B type:song"
+    ],
+    "Calidris ferruginea": [
+      "gen:Calidris sp:ferruginea q:A type:song",
+      "gen:Calidris sp:ferruginea q:B type:song",
+      "gen:Calidris sp:ferruginea type:song",
+      "gen:Calidris sp:ferruginea q:A type:call"
+    ],
+    "Junco hyemalis": [
+      "gen:Junco sp:hyemalis q:A type:song"
+    ],
+    "Curruca undata": [
+      "gen:Curruca sp:undata q:A type:song"
+    ],
+    "Oenanthe deserti": [
+      "gen:Oenanthe sp:deserti q:A type:song"
+    ],
+    "Nannopterum auritum": [
+      "gen:Nannopterum sp:auritum q:A type:song",
+      "gen:Nannopterum sp:auritum q:B type:song",
+      "gen:Nannopterum sp:auritum type:song",
+      "gen:Nannopterum sp:auritum q:A type:call"
+    ],
+    "Calidris alpina": [
+      "gen:Calidris sp:alpina q:A type:song"
+    ],
+    "Prunella modularis": [
+      "gen:Prunella sp:modularis q:A type:song"
+    ],
+    "Phylloscopus fuscatus": [
+      "gen:Phylloscopus sp:fuscatus q:A type:song"
+    ],
+    "Tyrannus tyrannus": [
+      "gen:Tyrannus sp:tyrannus q:A type:song"
+    ],
+    "Iduna pallida": [
+      "gen:Iduna sp:pallida q:A type:song"
+    ],
+    "Curruca cantillans": [
+      "gen:Curruca sp:cantillans q:A type:song"
+    ],
+    "Motacilla tschutschensis": [
+      "gen:Motacilla sp:tschutschensis q:A type:song"
+    ],
+    "Thalasseus elegans": [
+      "gen:Thalasseus sp:elegans q:A type:song",
+      "gen:Thalasseus sp:elegans q:B type:song",
+      "gen:Thalasseus sp:elegans type:song",
+      "gen:Thalasseus sp:elegans q:A type:call"
+    ],
+    "Numenius borealis": [
+      "gen:Numenius sp:borealis q:A type:song",
+      "gen:Numenius sp:borealis q:B type:song",
+      "gen:Numenius sp:borealis type:song",
+      "gen:Numenius sp:borealis q:A type:call",
+      "gen:Numenius sp:borealis q:B type:call",
+      "gen:Numenius sp:borealis type:call",
+      "gen:Numenius sp:borealis q:A",
+      "gen:Numenius sp:borealis q:B",
+      "gen:Numenius sp:borealis"
+    ],
+    "Botaurus stellaris": [
+      "gen:Botaurus sp:stellaris q:A type:song"
+    ],
+    "Turdus merula": [
+      "gen:Turdus sp:merula q:A type:song"
+    ],
+    "Sylvia atricapilla": [
+      "gen:Sylvia sp:atricapilla q:A type:song"
+    ],
+    "Cyanistes caeruleus": [
+      "gen:Cyanistes sp:caeruleus q:A type:song"
+    ],
+    "Pyrrhula pyrrhula": [
+      "gen:Pyrrhula sp:pyrrhula q:A type:song"
+    ],
+    "Fringilla coelebs": [
+      "gen:Fringilla sp:coelebs q:A type:song"
+    ],
+    "Streptopelia decaocto": [
+      "gen:Streptopelia sp:decaocto q:A type:song"
+    ],
+    "Fulica atra": [
+      "gen:Fulica sp:atra q:A type:song"
+    ],
+    "Numenius arquata": [
+      "gen:Numenius sp:arquata q:A type:song"
+    ],
+    "Charadrius morinellus": [
+      "gen:Charadrius sp:morinellus q:A type:song"
+    ],
+    "Oriolus oriolus": [
+      "gen:Oriolus sp:oriolus q:A type:song"
+    ],
+    "Accipiter gentilis": [
+      "gen:Accipiter sp:gentilis q:A type:song"
+    ],
+    "Picus viridis": [
+      "gen:Picus sp:viridis q:A type:song"
+    ],
+    "Falco subbuteo": [
+      "gen:Falco sp:subbuteo q:A type:song"
+    ],
+    "Upupa epops": [
+      "gen:Upupa sp:epops q:A type:song"
+    ],
+    "Corvus monedula": [
+      "gen:Corvus sp:monedula q:A type:song",
+      "gen:Corvus sp:monedula q:B type:song",
+      "gen:Corvus sp:monedula type:song",
+      "gen:Corvus sp:monedula q:A type:call",
+      "gen:Corvus sp:monedula q:B type:call",
+      "gen:Corvus sp:monedula type:call",
+      "gen:Corvus sp:monedula q:A",
+      "gen:Corvus sp:monedula q:B",
+      "gen:Corvus sp:monedula"
+    ],
+    "Garrulus glandarius": [
+      "gen:Garrulus sp:glandarius q:A type:song"
+    ],
+    "Pica pica": [
+      "gen:Pica sp:pica q:A type:song"
+    ],
+    "Haematopus ostralegus": [
+      "gen:Haematopus sp:ostralegus q:A type:song"
+    ],
+    "Remiz pendulinus": [
+      "gen:Remiz sp:pendulinus q:A type:song"
+    ],
+    "Acrocephalus scirpaceus": [
+      "gen:Acrocephalus sp:scirpaceus q:A type:song"
+    ],
+    "Otus scops": [
+      "gen:Otus sp:scops q:A type:song"
+    ],
+    "Spinus spinus": [
+      "gen:Spinus sp:spinus q:A type:song"
+    ],
+    "Alauda arvensis": [
+      "gen:Alauda sp:arvensis q:A type:song"
+    ],
+    "Accipiter nisus": [
+      "gen:Accipiter sp:nisus q:A type:song"
+    ],
+    "Platalea leucorodia": [
+      "gen:Platalea sp:leucorodia q:A type:song",
+      "gen:Platalea sp:leucorodia q:B type:song",
+      "gen:Platalea sp:leucorodia type:song",
+      "gen:Platalea sp:leucorodia q:A type:call"
+    ],
+    "Burhinus oedicnemus": [
+      "gen:Burhinus sp:oedicnemus q:A type:song"
+    ],
+    "Anas crecca": [
+      "gen:Anas sp:crecca q:A type:song"
+    ],
+    "Certhia familiaris": [
+      "gen:Certhia sp:familiaris q:A type:song"
+    ],
+    "Numenius phaeopus": [
+      "gen:Numenius sp:phaeopus q:A type:song"
+    ],
+    "Mareca penelope": [
+      "gen:Mareca sp:penelope q:A type:song"
+    ],
+    "Scolopax rusticola": [
+      "gen:Scolopax sp:rusticola q:A type:song"
+    ],
+    "Troglodytes troglodytes": [
+      "gen:Troglodytes sp:troglodytes q:A type:song"
+    ],
+    "Jynx torquilla": [
+      "gen:Jynx sp:torquilla q:A type:song"
+    ],
+    "Merops apiaster": [
+      "gen:Merops sp:apiaster q:A type:song"
+    ],
+    "Pluvialis apricaria": [
+      "gen:Pluvialis sp:apricaria q:A type:song"
+    ],
+    "Carduelis carduelis": [
+      "gen:Carduelis sp:carduelis q:A type:song"
+    ],
+    "Chloris chloris": [
+      "gen:Chloris sp:chloris q:A type:song"
+    ],
+    "Larus argentatus": [
+      "gen:Larus sp:argentatus q:A type:song"
+    ],
+    "Pernis apivorus": [
+      "gen:Pernis sp:apivorus q:A type:song",
+      "gen:Pernis sp:apivorus q:B type:song"
+    ],
+    "Caprimulgus europaeus": [
+      "gen:Caprimulgus sp:europaeus q:A type:song"
+    ],
+    "Ficedula hypoleuca": [
+      "gen:Ficedula sp:hypoleuca q:A type:song"
+    ],
+    "Erithacus rubecula": [
+      "gen:Erithacus sp:rubecula q:A type:song"
+    ],
+    "Anthus petrosus": [
+      "gen:Anthus sp:petrosus q:A type:song"
+    ],
+    "Coracias garrulus": [
+      "gen:Coracias sp:garrulus q:A type:song"
+    ],
+    "Serinus serinus": [
+      "gen:Serinus sp:serinus q:A type:song"
+    ],
+    "Gulosus aristotelis": [
+      "gen:Gulosus sp:aristotelis q:A type:song"
+    ],
+    "Saxicola rubicola": [
+      "gen:Saxicola sp:rubicola q:A type:song"
+    ],
+    "Hydrobates pelagicus": [
+      "gen:Hydrobates sp:pelagicus q:A type:song"
+    ],
+    "Streptopelia turtur": [
+      "gen:Streptopelia sp:turtur q:A type:song"
+    ],
+    "Pterodroma feae": [
+      "gen:Pterodroma sp:feae q:A type:song",
+      "gen:Pterodroma sp:feae q:B type:song",
+      "gen:Pterodroma sp:feae type:song"
+    ],
+    "Aythya nyroca": [
+      "gen:Aythya sp:nyroca q:A type:song"
+    ],
+    "Turdus pilaris": [
+      "gen:Turdus sp:pilaris q:A type:song"
+    ],
+    "Sterna forsteri": [
+      "gen:Sterna sp:forsteri q:A type:song"
+    ],
+    "Leucophaeus pipixcan": [
+      "gen:Leucophaeus sp:pipixcan q:A type:song",
+      "gen:Leucophaeus sp:pipixcan q:B type:song",
+      "gen:Leucophaeus sp:pipixcan type:song"
+    ],
+    "Fregata sp": [
+      "gen:Fregata sp:sp q:A type:song",
+      "gen:Fregata sp:sp q:B type:song",
+      "gen:Fregata sp:sp type:song",
+      "gen:Fregata sp:sp q:A type:call",
+      "gen:Fregata sp:sp q:B type:call",
+      "gen:Fregata sp:sp type:call",
+      "gen:Fregata sp:sp q:A",
+      "gen:Fregata sp:sp q:B",
+      "gen:Fregata sp:sp"
+    ],
+    "Mareca strepera": [
+      "gen:Mareca sp:strepera q:A type:song"
+    ],
+    "Sylvia borin": [
+      "gen:Sylvia sp:borin q:A type:song"
+    ],
+    "Spatula querquedula": [
+      "gen:Spatula sp:querquedula q:A type:song"
+    ],
+    "Larus hyperboreus": [
+      "gen:Larus sp:hyperboreus q:A type:song"
+    ],
+    "Larus glaucescens": [
+      "gen:Larus sp:glaucescens q:A type:song",
+      "gen:Larus sp:glaucescens q:B type:song",
+      "gen:Larus sp:glaucescens type:song",
+      "gen:Larus sp:glaucescens q:A type:call"
+    ],
+    "Plegadis falcinellus": [
+      "gen:Plegadis sp:falcinellus q:A type:song"
+    ],
+    "Regulus regulus": [
+      "gen:Regulus sp:regulus q:A type:song"
+    ],
+    "Aquila chrysaetos": [
+      "gen:Aquila sp:chrysaetos q:A type:song",
+      "gen:Aquila sp:chrysaetos q:B type:song"
+    ],
+    "Mergus merganser": [
+      "gen:Mergus sp:merganser q:A type:song"
+    ],
+    "Pinguinus impennis": [
+      "gen:Pinguinus sp:impennis q:A type:song",
+      "gen:Pinguinus sp:impennis q:B type:song",
+      "gen:Pinguinus sp:impennis type:song",
+      "gen:Pinguinus sp:impennis q:A type:call",
+      "gen:Pinguinus sp:impennis q:B type:call",
+      "gen:Pinguinus sp:impennis type:call",
+      "gen:Pinguinus sp:impennis q:A",
+      "gen:Pinguinus sp:impennis q:B",
+      "gen:Pinguinus sp:impennis"
+    ],
+    "Larus marinus": [
+      "gen:Larus sp:marinus q:A type:song"
+    ],
+    "Otis tarda": [
+      "gen:Otis sp:tarda q:A type:song",
+      "gen:Otis sp:tarda q:B type:song",
+      "gen:Otis sp:tarda type:song",
+      "gen:Otis sp:tarda q:A type:call"
+    ],
+    "Phalacrocorax carbo": [
+      "gen:Phalacrocorax sp:carbo q:A type:song"
+    ],
+    "Podiceps cristatus": [
+      "gen:Podiceps sp:cristatus q:A type:song"
+    ],
+    "Ardea alba": [
+      "gen:Ardea sp:alba q:A type:song"
+    ],
+    "Lanius excubitor": [
+      "gen:Lanius sp:excubitor q:A type:song"
+    ],
+    "Calidris tenuirostris": [
+      "gen:Calidris sp:tenuirostris q:A type:song",
+      "gen:Calidris sp:tenuirostris q:B type:song",
+      "gen:Calidris sp:tenuirostris type:song",
+      "gen:Calidris sp:tenuirostris q:A type:call",
+      "gen:Calidris sp:tenuirostris q:B type:call",
+      "gen:Calidris sp:tenuirostris type:call"
+    ],
+    "Gavia immer": [
+      "gen:Gavia sp:immer q:A type:song"
+    ],
+    "Acrocephalus arundinaceus": [
+      "gen:Acrocephalus sp:arundinaceus q:A type:song"
+    ],
+    "Ardenna gravis": [
+      "gen:Ardenna sp:gravis q:A type:song",
+      "gen:Ardenna sp:gravis q:B type:song",
+      "gen:Ardenna sp:gravis type:song",
+      "gen:Ardenna sp:gravis q:A type:call"
+    ],
+    "Stercorarius skua": [
+      "gen:Stercorarius sp:skua q:A type:song"
+    ],
+    "Gallinago media": [
+      "gen:Gallinago sp:media q:A type:song"
+    ],
+    "Clamator glandarius": [
+      "gen:Clamator sp:glandarius q:A type:song"
+    ],
+    "Dendrocopos major": [
+      "gen:Dendrocopos sp:major q:A type:song"
+    ],
+    "Parus major": [
+      "gen:Parus sp:major q:A type:song"
+    ],
+    "Charadrius leschenaultii": [
+      "gen:Charadrius sp:leschenaultii q:A type:song"
+    ],
+    "Aythya marila": [
+      "gen:Aythya sp:marila q:A type:song",
+      "gen:Aythya sp:marila q:B type:song",
+      "gen:Aythya sp:marila type:song",
+      "gen:Aythya sp:marila q:A type:call"
+    ],
+    "Calandrella brachydactyla": [
+      "gen:Calandrella sp:brachydactyla q:A type:song"
+    ],
+    "Clanga clanga": [
+      "gen:Clanga sp:clanga q:A type:song"
+    ],
+    "Anser albifrons": [
+      "gen:Anser sp:albifrons q:A type:song"
+    ],
+    "Tringa melanoleuca": [
+      "gen:Tringa sp:melanoleuca q:A type:song"
+    ],
+    "Butorides virescens": [
+      "gen:Butorides sp:virescens q:A type:song"
+    ],
+    "Tringa ochropus": [
+      "gen:Tringa sp:ochropus q:A type:song"
+    ],
+    "Anas carolinensis": [
+      "gen:Anas sp:carolinensis q:A type:song",
+      "gen:Anas sp:carolinensis q:B type:song"
+    ],
+    "Phylloscopus trochiloides": [
+      "gen:Phylloscopus sp:trochiloides q:A type:song"
+    ],
+    "Dumetella carolinensis": [
+      "gen:Dumetella sp:carolinensis q:A type:song"
+    ],
+    "Ardea cinerea": [
+      "gen:Ardea sp:cinerea q:A type:song"
+    ],
+    "Perdix perdix": [
+      "gen:Perdix sp:perdix q:A type:song"
+    ],
+    "Phalaropus fulicarius": [
+      "gen:Phalaropus sp:fulicarius q:A type:song"
+    ],
+    "Pluvialis squatarola": [
+      "gen:Pluvialis sp:squatarola q:A type:song"
+    ],
+    "Motacilla cinerea": [
+      "gen:Motacilla sp:cinerea q:A type:song"
+    ],
+    "Catharus minimus": [
+      "gen:Catharus sp:minimus q:A type:song"
+    ],
+    "Anser anser": [
+      "gen:Anser sp:anser q:A type:song"
+    ],
+    "Gyps fulvus": [
+      "gen:Gyps sp:fulvus q:A type:song",
+      "gen:Gyps sp:fulvus q:B type:song",
+      "gen:Gyps sp:fulvus type:song",
+      "gen:Gyps sp:fulvus q:A type:call"
+    ],
+    "Gelochelidon nilotica": [
+      "gen:Gelochelidon sp:nilotica q:A type:song",
+      "gen:Gelochelidon sp:nilotica q:B type:song"
+    ],
+    "Falco rusticolus": [
+      "gen:Falco sp:rusticolus q:A type:song",
+      "gen:Falco sp:rusticolus q:B type:song",
+      "gen:Falco sp:rusticolus type:song"
+    ],
+    "Coccothraustes coccothraustes": [
+      "gen:Coccothraustes sp:coccothraustes q:A type:song"
+    ],
+    "Circus cyaneus": [
+      "gen:Circus sp:cyaneus q:A type:song",
+      "gen:Circus sp:cyaneus q:B type:song"
+    ],
+    "Catharus guttatus": [
+      "gen:Catharus sp:guttatus q:A type:song"
+    ],
+    "Corvus cornix": [
+      "gen:Corvus sp:cornix q:A type:song"
+    ],
+    "Lophodytes cucullatus": [
+      "gen:Lophodytes sp:cucullatus q:A type:song",
+      "gen:Lophodytes sp:cucullatus q:B type:song",
+      "gen:Lophodytes sp:cucullatus type:song"
+    ],
+    "Eremophila alpestris": [
+      "gen:Eremophila sp:alpestris q:A type:song"
+    ],
+    "Passer domesticus": [
+      "gen:Passer sp:domesticus q:A type:song"
+    ],
+    "Limosa haemastica": [
+      "gen:Limosa sp:haemastica q:A type:song"
+    ],
+    "Phylloscopus humei": [
+      "gen:Phylloscopus sp:humei q:A type:song"
+    ],
+    "Phylloscopus ibericus": [
+      "gen:Phylloscopus sp:ibericus q:A type:song"
+    ],
+    "Larus glaucoides": [
+      "gen:Larus sp:glaucoides q:A type:song",
+      "gen:Larus sp:glaucoides q:B type:song",
+      "gen:Larus sp:glaucoides type:song",
+      "gen:Larus sp:glaucoides q:A type:call",
+      "gen:Larus sp:glaucoides q:B type:call"
+    ],
+    "Hippolais icterina": [
+      "gen:Hippolais sp:icterina q:A type:song"
+    ],
+    "Passerina cyanea": [
+      "gen:Passerina sp:cyanea q:A type:song"
+    ],
+    "Lanius isabellinus": [
+      "gen:Lanius sp:isabellinus q:A type:song"
+    ],
+    "Oenanthe isabellina": [
+      "gen:Oenanthe sp:isabellina q:A type:song"
+    ],
+    "Pagophila eburnea": [
+      "gen:Pagophila sp:eburnea q:A type:song"
+    ],
+    "Lymnocryptes minimus": [
+      "gen:Lymnocryptes sp:minimus q:A type:song"
+    ],
+    "Charadrius alexandrinus": [
+      "gen:Charadrius sp:alexandrinus q:A type:song"
+    ],
+    "Charadrius vociferus": [
+      "gen:Charadrius sp:vociferus q:A type:song"
+    ],
+    "Somateria spectabilis": [
+      "gen:Somateria sp:spectabilis q:A type:song"
+    ],
+    "Calcarius lapponicus": [
+      "gen:Calcarius sp:lapponicus q:A type:song"
+    ],
+    "Leucophaeus atricilla": [
+      "gen:Leucophaeus sp:atricilla q:A type:song"
+    ],
+    "Hydrobates leucorhous": [
+      "gen:Hydrobates sp:leucorhous q:A type:song"
+    ],
+    "Calidris minutilla": [
+      "gen:Calidris sp:minutilla q:A type:song"
+    ],
+    "Larus fuscus": [
+      "gen:Larus sp:fuscus q:A type:song"
+    ],
+    "Thalasseus bengalensis": [
+      "gen:Thalasseus sp:bengalensis q:A type:song",
+      "gen:Thalasseus sp:bengalensis q:B type:song",
+      "gen:Thalasseus sp:bengalensis type:song",
+      "gen:Thalasseus sp:bengalensis q:A type:call"
+    ],
+    "Lanius minor": [
+      "gen:Lanius sp:minor q:A type:song"
+    ],
+    "Falco naumanni": [
+      "gen:Falco sp:naumanni q:A type:song"
+    ],
+    "Acanthis cabaret": [
+      "gen:Acanthis sp:cabaret q:A type:song"
+    ],
+    "Charadrius mongolus": [
+      "gen:Charadrius sp:mongolus q:A type:song"
+    ],
+    "Aythya affinis": [
+      "gen:Aythya sp:affinis q:A type:song",
+      "gen:Aythya sp:affinis q:B type:song"
+    ],
+    "Anser erythropus": [
+      "gen:Anser sp:erythropus q:A type:song",
+      "gen:Anser sp:erythropus q:B type:song",
+      "gen:Anser sp:erythropus type:song",
+      "gen:Anser sp:erythropus q:A type:call"
+    ],
+    "Curruca curruca": [
+      "gen:Curruca sp:curruca q:A type:song"
+    ],
+    "Tringa flavipes": [
+      "gen:Tringa sp:flavipes q:A type:song"
+    ],
+    "Alle alle": [
+      "gen:Alle sp:alle q:A type:song"
+    ],
+    "Ixobrychus minutus": [
+      "gen:Ixobrychus sp:minutus q:A type:song"
+    ],
+    "Egretta caerulea": [
+      "gen:Egretta sp:caerulea q:A type:song"
+    ],
+    "Emberiza pusilla": [
+      "gen:Emberiza sp:pusilla q:A type:song"
+    ],
+    "Tetrax tetrax": [
+      "gen:Tetrax sp:tetrax q:A type:song"
+    ],
+    "Zapornia parva": [
+      "gen:Zapornia sp:parva q:A type:song"
+    ],
+    "Egretta garzetta": [
+      "gen:Egretta sp:garzetta q:A type:song"
+    ],
+    "Tachybaptus ruficollis": [
+      "gen:Tachybaptus sp:ruficollis q:A type:song"
+    ],
+    "Hydrocoloeus minutus": [
+      "gen:Hydrocoloeus sp:minutus q:A type:song"
+    ],
+    "Athene noctua": [
+      "gen:Athene sp:noctua q:A type:song"
+    ],
+    "Charadrius dubius": [
+      "gen:Charadrius sp:dubius q:A type:song"
+    ],
+    "Calidris minuta": [
+      "gen:Calidris sp:minuta q:A type:song"
+    ],
+    "Apus affinis": [
+      "gen:Apus sp:affinis q:A type:song"
+    ],
+    "Sternula albifrons": [
+      "gen:Sternula sp:albifrons q:A type:song"
+    ],
+    "Limnodromus scolopaceus": [
+      "gen:Limnodromus sp:scolopaceus q:A type:song"
+    ],
+    "Asio otus": [
+      "gen:Asio sp:otus q:A type:song"
+    ],
+    "Clangula hyemalis": [
+      "gen:Clangula sp:hyemalis q:A type:song"
+    ],
+    "Stercorarius longicaudus": [
+      "gen:Stercorarius sp:longicaudus q:A type:song",
+      "gen:Stercorarius sp:longicaudus q:B type:song"
+    ],
+    "Aegithalos caudatus": [
+      "gen:Aegithalos sp:caudatus q:A type:song"
+    ],
+    "Calidris subminuta": [
+      "gen:Calidris sp:subminuta q:A type:song",
+      "gen:Calidris sp:subminuta q:B type:song",
+      "gen:Calidris sp:subminuta type:song",
+      "gen:Calidris sp:subminuta q:A type:call"
+    ],
+    "Anas platyrhynchos": [
+      "gen:Anas sp:platyrhynchos q:A type:song"
+    ],
+    "Aix galericulata": [
+      "gen:Aix sp:galericulata q:A type:song"
+    ],
+    "Puffinus puffinus": [
+      "gen:Puffinus sp:puffinus q:A type:song"
+    ],
+    "Tringa stagnatilis": [
+      "gen:Tringa sp:stagnatilis q:A type:song"
+    ],
+    "Poecile palustris": [
+      "gen:Poecile sp:palustris q:A type:song"
+    ],
+    "Acrocephalus palustris": [
+      "gen:Acrocephalus sp:palustris q:A type:song"
+    ],
+    "Anthus pratensis": [
+      "gen:Anthus sp:pratensis q:A type:song"
+    ],
+    "Ichthyaetus melanocephalus": [
+      "gen:Ichthyaetus sp:melanocephalus q:A type:song"
+    ],
+    "Hippolais polyglotta": [
+      "gen:Hippolais sp:polyglotta q:A type:song"
+    ],
+    "Falco columbarius": [
+      "gen:Falco sp:columbarius q:A type:song"
+    ],
+    "Turdus viscivorus": [
+      "gen:Turdus sp:viscivorus q:A type:song"
+    ],
+    "Circus pygargus": [
+      "gen:Circus sp:pygargus q:A type:song"
+    ],
+    "Zenaida macroura": [
+      "gen:Zenaida sp:macroura q:A type:song"
+    ],
+    "Cygnus olor": [
+      "gen:Cygnus sp:olor q:A type:song"
+    ],
+    "Setophaga coronata": [
+      "gen:Setophaga sp:coronata q:A type:song"
+    ],
+    "Fulmarus glacialis": [
+      "gen:Fulmarus sp:glacialis q:A type:song"
+    ],
+    "Morus bassanus": [
+      "gen:Morus sp:bassanus q:A type:song"
+    ],
+    "Circus hudsonius": [
+      "gen:Circus sp:hudsonius q:A type:song",
+      "gen:Circus sp:hudsonius q:B type:song",
+      "gen:Circus sp:hudsonius type:song",
+      "gen:Circus sp:hudsonius q:A type:call"
+    ],
+    "Vanellus vanellus": [
+      "gen:Vanellus sp:vanellus q:A type:song"
+    ],
+    "Setophaga americana": [
+      "gen:Setophaga sp:americana q:A type:song"
+    ],
+    "Anas acuta": [
+      "gen:Anas sp:acuta q:A type:song"
+    ],
+    "Corvus corax": [
+      "gen:Corvus sp:corax q:A type:song"
+    ],
+    "Spatula clypeata": [
+      "gen:Spatula sp:clypeata q:A type:song"
+    ],
+    "Parkesia noveboracensis": [
+      "gen:Parkesia sp:noveboracensis q:A type:song"
+    ],
+    "Oenanthe oenanthe": [
+      "gen:Oenanthe sp:oenanthe q:A type:song"
+    ],
+    "Anthus hodgsoni": [
+      "gen:Anthus sp:hodgsoni q:A type:song"
+    ],
+    "Emberiza hortulana": [
+      "gen:Emberiza sp:hortulana q:A type:song"
+    ],
+    "Pandion haliaetus": [
+      "gen:Pandion sp:haliaetus q:A type:song"
+    ],
+    "Seiurus aurocapilla": [
+      "gen:Seiurus sp:aurocapilla q:A type:song"
+    ],
+    "Gavia pacifica": [
+      "gen:Gavia sp:pacifica q:A type:song"
+    ],
+    "Pluvialis fulva": [
+      "gen:Pluvialis sp:fulva q:A type:song"
+    ],
+    "Acrocephalus agricola": [
+      "gen:Acrocephalus sp:agricola q:A type:song"
+    ],
+    "Helopsaltes certhiola": [
+      "gen:Helopsaltes sp:certhiola q:A type:song"
+    ],
+    "Phylloscopus proregulus": [
+      "gen:Phylloscopus sp:proregulus q:A type:song"
+    ],
+    "Syrrhaptes paradoxus": [
+      "gen:Syrrhaptes sp:paradoxus q:A type:song",
+      "gen:Syrrhaptes sp:paradoxus q:B type:song",
+      "gen:Syrrhaptes sp:paradoxus type:song",
+      "gen:Syrrhaptes sp:paradoxus q:A type:call"
+    ],
+    "Circus macrourus": [
+      "gen:Circus sp:macrourus q:A type:song"
+    ],
+    "Apus pallidus": [
+      "gen:Apus sp:pallidus q:A type:song"
+    ],
+    "Anthus gustavi": [
+      "gen:Anthus sp:gustavi q:A type:song"
+    ],
+    "Calidris melanotos": [
+      "gen:Calidris sp:melanotos q:A type:song"
+    ],
+    "Falco peregrinus": [
+      "gen:Falco sp:peregrinus q:A type:song"
+    ],
+    "Vireo philadelphicus": [
+      "gen:Vireo sp:philadelphicus q:A type:song"
+    ],
+    "Recurvirostra avosetta": [
+      "gen:Recurvirostra sp:avosetta q:A type:song"
+    ],
+    "Oenanthe pleschanka": [
+      "gen:Oenanthe sp:pleschanka q:A type:song"
+    ],
+    "Podilymbus podiceps": [
+      "gen:Podilymbus sp:podiceps q:A type:song"
+    ],
+    "Emberiza leucocephalos": [
+      "gen:Emberiza sp:leucocephalos q:A type:song"
+    ],
+    "Anser brachyrhynchus": [
+      "gen:Anser sp:brachyrhynchus q:A type:song"
+    ],
+    "Stercorarius pomarinus": [
+      "gen:Stercorarius sp:pomarinus q:A type:song",
+      "gen:Stercorarius sp:pomarinus q:B type:song",
+      "gen:Stercorarius sp:pomarinus type:song"
+    ],
+    "Porphyrio martinica": [
+      "gen:Porphyrio sp:martinica q:A type:song"
+    ],
+    "Ardea purpurea": [
+      "gen:Ardea sp:purpurea q:A type:song",
+      "gen:Ardea sp:purpurea q:B type:song"
+    ],
+    "Calidris maritima": [
+      "gen:Calidris sp:maritima q:A type:song"
+    ],
+    "Phylloscopus schwarzi": [
+      "gen:Phylloscopus sp:schwarzi q:A type:song"
+    ],
+    "Alca torda": [
+      "gen:Alca sp:torda q:A type:song"
+    ],
+    "Loxia curvirostra": [
+      "gen:Loxia sp:curvirostra q:A type:song"
+    ],
+    "Passerella iliaca": [
+      "gen:Passerella sp:iliaca q:A type:song"
+    ],
+    "Lagopus scotica": [
+      "gen:Lagopus sp:scotica q:A type:song",
+      "gen:Lagopus sp:scotica q:B type:song",
+      "gen:Lagopus sp:scotica type:song",
+      "gen:Lagopus sp:scotica q:A type:call",
+      "gen:Lagopus sp:scotica q:B type:call",
+      "gen:Lagopus sp:scotica type:call",
+      "gen:Lagopus sp:scotica q:A",
+      "gen:Lagopus sp:scotica q:B",
+      "gen:Lagopus sp:scotica"
+    ],
+    "Milvus milvus": [
+      "gen:Milvus sp:milvus q:A type:song"
+    ],
+    "Calidris canutus": [
+      "gen:Calidris sp:canutus q:A type:song"
+    ],
+    "Lanius collurio": [
+      "gen:Lanius sp:collurio q:A type:song"
+    ],
+    "Pyrrhocorax pyrrhocorax": [
+      "gen:Pyrrhocorax sp:pyrrhocorax q:A type:song"
+    ],
+    "Ficedula parva": [
+      "gen:Ficedula sp:parva q:A type:song"
+    ],
+    "Branta ruficollis": [
+      "gen:Branta sp:ruficollis q:A type:song"
+    ],
+    "Mergus serrator": [
+      "gen:Mergus sp:serrator q:A type:song"
+    ],
+    "Netta rufina": [
+      "gen:Netta sp:rufina q:A type:song"
+    ],
+    "Vireo olivaceus": [
+      "gen:Vireo sp:olivaceus q:A type:song"
+    ],
+    "Tarsiger cyanurus": [
+      "gen:Tarsiger sp:cyanurus q:A type:song"
+    ],
+    "Falco vespertinus": [
+      "gen:Falco sp:vespertinus q:A type:song"
+    ],
+    "Podiceps grisegena": [
+      "gen:Podiceps sp:grisegena q:A type:song"
+    ],
+    "Phalaropus lobatus": [
+      "gen:Phalaropus sp:lobatus q:A type:song"
+    ],
+    "Calidris ruficollis": [
+      "gen:Calidris sp:ruficollis q:A type:song"
+    ],
+    "Cecropis daurica": [
+      "gen:Cecropis sp:daurica q:A type:song"
+    ],
+    "Gavia stellata": [
+      "gen:Gavia sp:stellata q:A type:song"
+    ],
+    "Anthus cervinus": [
+      "gen:Anthus sp:cervinus q:A type:song"
+    ],
+    "Aythya americana": [
+      "gen:Aythya sp:americana q:A type:song"
+    ],
+    "Turdus iliacus": [
+      "gen:Turdus sp:iliacus q:A type:song"
+    ],
+    "Anthus richardi": [
+      "gen:Anthus sp:richardi q:A type:song"
+    ],
+    "Turdus torquatus": [
+      "gen:Turdus sp:torquatus q:A type:song"
+    ],
+    "Larus delawarensis": [
+      "gen:Larus sp:delawarensis q:A type:song",
+      "gen:Larus sp:delawarensis q:B type:song"
+    ],
+    "Aythya collaris": [
+      "gen:Aythya sp:collaris q:A type:song"
+    ],
+    "Columba livia": [
+      "gen:Columba sp:livia q:A type:song"
+    ],
+    "Corvus frugilegus": [
+      "gen:Corvus sp:frugilegus q:A type:song"
+    ],
+    "Pheucticus ludovicianus": [
+      "gen:Pheucticus sp:ludovicianus q:A type:song"
+    ],
+    "Sterna dougallii": [
+      "gen:Sterna sp:dougallii q:A type:song",
+      "gen:Sterna sp:dougallii q:B type:song",
+      "gen:Sterna sp:dougallii type:song",
+      "gen:Sterna sp:dougallii q:A type:call"
+    ],
+    "Rhodostethia rosea": [
+      "gen:Rhodostethia sp:rosea q:A type:song",
+      "gen:Rhodostethia sp:rosea q:B type:song"
+    ],
+    "Pastor roseus": [
+      "gen:Pastor sp:roseus q:A type:song"
+    ],
+    "Buteo lagopus": [
+      "gen:Buteo sp:lagopus q:A type:song",
+      "gen:Buteo sp:lagopus q:B type:song"
+    ],
+    "Thalasseus maximus": [
+      "gen:Thalasseus sp:maximus q:A type:song"
+    ],
+    "Corthylio calendula": [
+      "gen:Corthylio sp:calendula q:A type:song"
+    ],
+    "Oxyura jamaicensis": [
+      "gen:Oxyura sp:jamaicensis q:A type:song"
+    ],
+    "Tadorna ferruginea": [
+      "gen:Tadorna sp:ferruginea q:A type:song"
+    ],
+    "Arenaria interpres": [
+      "gen:Arenaria sp:interpres q:A type:song"
+    ],
+    "Calidris pugnax": [
+      "gen:Calidris sp:pugnax q:A type:song",
+      "gen:Calidris sp:pugnax q:B type:song",
+      "gen:Calidris sp:pugnax type:song",
+      "gen:Calidris sp:pugnax q:A type:call"
+    ],
+    "Cercotrichas galactotes": [
+      "gen:Cercotrichas sp:galactotes q:A type:song"
+    ],
+    "Emberiza rustica": [
+      "gen:Emberiza sp:rustica q:A type:song"
+    ],
+    "Xema sabini": [
+      "gen:Xema sp:sabini q:A type:song"
+    ],
+    "Riparia riparia": [
+      "gen:Riparia sp:riparia q:A type:song"
+    ],
+    "Calidris alba": [
+      "gen:Calidris sp:alba q:A type:song"
+    ],
+    "Antiogne canadensis": [
+      "gen:Antiogne sp:canadensis q:A type:song",
+      "gen:Antiogne sp:canadensis q:B type:song",
+      "gen:Antiogne sp:canadensis type:song",
+      "gen:Antiogne sp:canadensis q:A type:call",
+      "gen:Antiogne sp:canadensis q:B type:call",
+      "gen:Antiogne sp:canadensis type:call",
+      "gen:Antiogne sp:canadensis q:A",
+      "gen:Antiogne sp:canadensis q:B",
+      "gen:Antiogne sp:canadensis"
+    ],
+    "Thalasseus sandvicensis": [
+      "gen:Thalasseus sp:sandvicensis q:A type:song",
+      "gen:Thalasseus sp:sandvicensis q:B type:song"
+    ],
+    "Curruca melanocephala": [
+      "gen:Curruca sp:melanocephala q:A type:song"
+    ],
+    "Locustella luscinioides": [
+      "gen:Locustella sp:luscinioides q:A type:song"
+    ],
+    "Piranga olivacea": [
+      "gen:Piranga sp:olivacea q:A type:song"
+    ],
+    "Calonectris diomedea": [
+      "gen:Calonectris sp:diomedea q:A type:song"
+    ],
+    "Acrocephalus schoenobaenus": [
+      "gen:Acrocephalus sp:schoenobaenus q:A type:song"
+    ],
+    "Charadrius semipalmatus": [
+      "gen:Charadrius sp:semipalmatus q:A type:song"
+    ],
+    "Calidris pusilla": [
+      "gen:Calidris sp:pusilla q:A type:song"
+    ],
+    "Calidris acuminata": [
+      "gen:Calidris sp:acuminata q:A type:song"
+    ],
+    "Limnodromus griseus": [
+      "gen:Limnodromus sp:griseus q:A type:song"
+    ],
+    "Asio flammeus": [
+      "gen:Asio sp:flammeus q:A type:song"
+    ],
+    "Ardenna tenuirostris": [
+      "gen:Ardenna sp:tenuirostris q:A type:song"
+    ],
+    "Saxicola maurus": [
+      "gen:Saxicola sp:maurus q:A type:song"
+    ],
+    "Geokichla sibirica": [
+      "gen:Geokichla sp:sibirica q:A type:song"
+    ],
+    "Larus schistisagus": [
+      "gen:Larus sp:schistisagus q:A type:song",
+      "gen:Larus sp:schistisagus q:B type:song",
+      "gen:Larus sp:schistisagus type:song",
+      "gen:Larus sp:schistisagus q:A type:call"
+    ],
+    "Podiceps auritus": [
+      "gen:Podiceps sp:auritus q:A type:song"
+    ],
+    "Mergellus albellus": [
+      "gen:Mergellus sp:albellus q:A type:song"
+    ],
+    "Plectrophenax nivalis": [
+      "gen:Plectrophenax sp:nivalis q:A type:song"
+    ],
+    "Anser caerulescens": [
+      "gen:Anser sp:caerulescens q:A type:song",
+      "gen:Anser sp:caerulescens q:B type:song",
+      "gen:Anser sp:caerulescens type:song",
+      "gen:Anser sp:caerulescens q:A type:call"
+    ],
+    "Bubo scandiacus": [
+      "gen:Bubo sp:scandiacus q:A type:song"
+    ],
+    "Vanellus gregarius": [
+      "gen:Vanellus sp:gregarius q:A type:song",
+      "gen:Vanellus sp:gregarius q:B type:song",
+      "gen:Vanellus sp:gregarius type:song",
+      "gen:Vanellus sp:gregarius q:A type:call"
+    ],
+    "Tringa solitaria": [
+      "gen:Tringa sp:solitaria q:A type:song"
+    ],
+    "Turdus philomelos": [
+      "gen:Turdus sp:philomelos q:A type:song"
+    ],
+    "Ardenna griseus": [
+      "gen:Ardenna sp:griseus q:A type:song",
+      "gen:Ardenna sp:griseus q:B type:song",
+      "gen:Ardenna sp:griseus type:song",
+      "gen:Ardenna sp:griseus q:A type:call",
+      "gen:Ardenna sp:griseus q:B type:call",
+      "gen:Ardenna sp:griseus type:call",
+      "gen:Ardenna sp:griseus q:A",
+      "gen:Ardenna sp:griseus q:B",
+      "gen:Ardenna sp:griseus"
+    ],
+    "Onychoprion fuscatus": [
+      "gen:Onychoprion sp:fuscatus q:A type:song",
+      "gen:Onychoprion sp:fuscatus q:B type:song",
+      "gen:Onychoprion sp:fuscatus type:song",
+      "gen:Onychoprion sp:fuscatus q:A type:call"
+    ],
+    "Porzana carolina": [
+      "gen:Porzana sp:carolina q:A type:song"
+    ],
+    "Macronectes giganteus": [
+      "gen:Macronectes sp:giganteus q:A type:song",
+      "gen:Macronectes sp:giganteus q:B type:song",
+      "gen:Macronectes sp:giganteus type:song",
+      "gen:Macronectes sp:giganteus q:A type:call"
+    ],
+    "Porzana porzana": [
+      "gen:Porzana sp:porzana q:A type:song"
+    ],
+    "Muscicapa striata": [
+      "gen:Muscicapa sp:striata q:A type:song"
+    ],
+    "Tringa erythropus": [
+      "gen:Tringa sp:erythropus q:A type:song"
+    ],
+    "Actitis macularia": [
+      "gen:Actitis sp:macularia q:A type:song",
+      "gen:Actitis sp:macularia q:B type:song",
+      "gen:Actitis sp:macularia type:song",
+      "gen:Actitis sp:macularia q:A type:call",
+      "gen:Actitis sp:macularia q:B type:call",
+      "gen:Actitis sp:macularia type:call",
+      "gen:Actitis sp:macularia q:A",
+      "gen:Actitis sp:macularia q:B",
+      "gen:Actitis sp:macularia"
+    ],
+    "Ardeola ralloides": [
+      "gen:Ardeola sp:ralloides q:A type:song",
+      "gen:Ardeola sp:ralloides q:B type:song",
+      "gen:Ardeola sp:ralloides type:song",
+      "gen:Ardeola sp:ralloides q:A type:call"
+    ],
+    "Calidris himantopus": [
+      "gen:Calidris sp:himantopus q:A type:song"
+    ],
+    "Columba oenas": [
+      "gen:Columba sp:oenas q:A type:song"
+    ],
+    "Melanitta perspicillata": [
+      "gen:Melanitta sp:perspicillata q:A type:song",
+      "gen:Melanitta sp:perspicillata q:B type:song",
+      "gen:Melanitta sp:perspicillata type:song",
+      "gen:Melanitta sp:perspicillata q:A type:call",
+      "gen:Melanitta sp:perspicillata q:B type:call"
+    ],
+    "Catharus ustulatus": [
+      "gen:Catharus sp:ustulatus q:A type:song"
+    ],
+    "Hydrobates monorhis": [
+      "gen:Hydrobates sp:monorhis q:A type:song"
+    ],
+    "Iduna rama": [
+      "gen:Iduna sp:rama q:A type:song"
+    ],
+    "Anser fabalis": [
+      "gen:Anser sp:fabalis q:A type:song"
+    ],
+    "Ficedula albicilla": [
+      "gen:Ficedula sp:albicilla q:A type:song"
+    ],
+    "Anthus campestris": [
+      "gen:Anthus sp:campestris q:A type:song"
+    ],
+    "Calidris temminckii": [
+      "gen:Calidris sp:temminckii q:A type:song"
+    ],
+    "Xenus cinereus": [
+      "gen:Xenus sp:cinereus q:A type:song"
+    ],
+    "Luscinia luscinia": [
+      "gen:Luscinia sp:luscinia q:A type:song"
+    ],
+    "Anthus trivialis": [
+      "gen:Anthus sp:trivialis q:A type:song"
+    ],
+    "Passer montanus": [
+      "gen:Passer sp:montanus q:A type:song"
+    ],
+    "Aythya fuligula": [
+      "gen:Aythya sp:fuligula q:A type:song"
+    ],
+    "Anser serrirostris": [
+      "gen:Anser sp:serrirostris q:A type:song"
+    ],
+    "Linaria flavirostris": [
+      "gen:Linaria sp:flavirostris q:A type:song"
+    ],
+    "Loxia leucoptera": [
+      "gen:Loxia sp:leucoptera q:A type:song"
+    ],
+    "Bartramia longicauda": [
+      "gen:Bartramia sp:longicauda q:A type:song"
+    ],
+    "Catharus fuscescens": [
+      "gen:Catharus sp:fuscescens q:A type:song"
+    ],
+    "Larus vegae": [
+      "gen:Larus sp:vegae q:A type:song"
+    ],
+    "Melanitta fusca": [
+      "gen:Melanitta sp:fusca q:A type:song"
+    ],
+    "Anthus spinoletta": [
+      "gen:Anthus sp:spinoletta q:A type:song"
+    ],
+    "Rallus aquaticus": [
+      "gen:Rallus sp:aquaticus q:A type:song"
+    ],
+    "Thalasseus albididorsalis": [
+      "gen:Thalasseus sp:albididorsalis q:A type:song",
+      "gen:Thalasseus sp:albididorsalis q:B type:song",
+      "gen:Thalasseus sp:albididorsalis type:song",
+      "gen:Thalasseus sp:albididorsalis q:A type:call"
+    ],
+    "Tyto alba": [
+      "gen:Tyto sp:alba q:A type:song"
+    ],
+    "Oenanthe hispanica": [
+      "gen:Oenanthe sp:hispanica q:A type:song"
+    ],
+    "Phylloscopus bonelli": [
+      "gen:Phylloscopus sp:bonelli q:A type:song"
+    ],
+    "Tetrao urogallus": [
+      "gen:Tetrao sp:urogallus q:A type:song"
+    ],
+    "Bubulcus ibis": [
+      "gen:Bubulcus sp:ibis q:A type:song"
+    ],
+    "Circus aeruginosus": [
+      "gen:Circus sp:aeruginosus q:A type:song"
+    ],
+    "Calidris mauri": [
+      "gen:Calidris sp:mauri q:A type:song"
+    ],
+    "Curruca iberiae": [
+      "gen:Curruca sp:iberiae q:A type:song"
+    ],
+    "Motacilla flava": [
+      "gen:Motacilla sp:flava q:A type:song"
+    ],
+    "Saxicola rubetra": [
+      "gen:Saxicola sp:rubetra q:A type:song"
+    ],
+    "Chlidonias hybridus": [
+      "gen:Chlidonias sp:hybridus q:A type:song",
+      "gen:Chlidonias sp:hybridus q:B type:song",
+      "gen:Chlidonias sp:hybridus type:song",
+      "gen:Chlidonias sp:hybridus q:A type:call",
+      "gen:Chlidonias sp:hybridus q:B type:call",
+      "gen:Chlidonias sp:hybridus type:call",
+      "gen:Chlidonias sp:hybridus q:A",
+      "gen:Chlidonias sp:hybridus q:B",
+      "gen:Chlidonias sp:hybridus"
+    ],
+    "Ciconia ciconia": [
+      "gen:Ciconia sp:ciconia q:A type:song"
+    ],
+    "Motacilla alba": [
+      "gen:Motacilla sp:alba q:A type:song"
+    ],
+    "Zoothera aurea": [
+      "gen:Zoothera sp:aurea q:A type:song"
+    ],
+    "Gavia adamsii": [
+      "gen:Gavia sp:adamsii q:A type:song"
+    ],
+    "Procellaria aequinoctialis": [
+      "gen:Procellaria sp:aequinoctialis q:A type:song"
+    ],
+    "Zonotrichia leucophrys": [
+      "gen:Zonotrichia sp:leucophrys q:A type:song"
+    ],
+    "Calidris fuscicollis": [
+      "gen:Calidris sp:fuscicollis q:A type:song"
+    ],
+    "Haliaeetus albicilla": [
+      "gen:Haliaeetus sp:albicilla q:A type:song"
+    ],
+    "Cinclus cinclus": [
+      "gen:Cinclus sp:cinclus q:A type:song"
+    ],
+    "Hirundapus caudacutus": [
+      "gen:Hirundapus sp:caudacutus q:A type:song",
+      "gen:Hirundapus sp:caudacutus q:B type:song",
+      "gen:Hirundapus sp:caudacutus type:song"
+    ],
+    "Zonotrichia albicollis": [
+      "gen:Zonotrichia sp:albicollis q:A type:song"
+    ],
+    "Melanitta deglandi": [
+      "gen:Melanitta sp:deglandi q:A type:song",
+      "gen:Melanitta sp:deglandi q:B type:song",
+      "gen:Melanitta sp:deglandi type:song",
+      "gen:Melanitta sp:deglandi q:A type:call"
+    ],
+    "Chlidonias leucopterus": [
+      "gen:Chlidonias sp:leucopterus q:A type:song"
+    ],
+    "Cygnus cygnus": [
+      "gen:Cygnus sp:cygnus q:A type:song"
+    ],
+    "Phylloscopus trochilus": [
+      "gen:Phylloscopus sp:trochilus q:A type:song"
+    ],
+    "Phalaropus tricolor": [
+      "gen:Phalaropus sp:tricolor q:A type:song",
+      "gen:Phalaropus sp:tricolor q:B type:song",
+      "gen:Phalaropus sp:tricolor type:song",
+      "gen:Phalaropus sp:tricolor q:A type:call"
+    ],
+    "Gallinago delicata": [
+      "gen:Gallinago sp:delicata q:A type:song"
+    ],
+    "Oceanites oceanicus": [
+      "gen:Oceanites sp:oceanicus q:A type:song"
+    ],
+    "Cardellina pusilla": [
+      "gen:Cardellina sp:pusilla q:A type:song"
+    ],
+    "Lullula arborea": [
+      "gen:Lullula sp:arborea q:A type:song"
+    ],
+    "Tringa glareola": [
+      "gen:Tringa sp:glareola q:A type:song"
+    ],
+    "Phylloscopus sibilatrix": [
+      "gen:Phylloscopus sp:sibilatrix q:A type:song"
+    ],
+    "Lanius senator": [
+      "gen:Lanius sp:senator q:A type:song"
+    ],
+    "Puffinus yelkouan": [
+      "gen:Puffinus sp:yelkouan q:A type:song"
+    ],
+    "Sphyrapicus varius": [
+      "gen:Sphyrapicus sp:varius q:A type:song",
+      "gen:Sphyrapicus sp:varius q:B type:song",
+      "gen:Sphyrapicus sp:varius type:song"
+    ],
+    "Coccyzus americanus": [
+      "gen:Coccyzus sp:americanus q:A type:song"
+    ],
+    "Emberiza aureola": [
+      "gen:Emberiza sp:aureola q:A type:song",
+      "gen:Emberiza sp:aureola q:B type:song",
+      "gen:Emberiza sp:aureola type:song",
+      "gen:Emberiza sp:aureola q:A type:call",
+      "gen:Emberiza sp:aureola q:B type:call",
+      "gen:Emberiza sp:aureola type:call",
+      "gen:Emberiza sp:aureola q:A",
+      "gen:Emberiza sp:aureola q:B",
+      "gen:Emberiza sp:aureola"
+    ],
+    "Phylloscopus inornatus": [
+      "gen:Phylloscopus sp:inornatus q:A type:song"
+    ],
+    "Larus michahellis": [
+      "gen:Larus sp:michahellis q:A type:song"
+    ],
+    "Emberiza citrinella": [
+      "gen:Emberiza sp:citrinella q:A type:song"
+    ],
+    "Pterodroma madeira": [
+      "gen:Pterodroma sp:madeira q:A type:song"
+    ],
+    "Cisticola juncidis": [
+      "gen:Cisticola sp:juncidis q:A type:song"
+    ]
+  }
+}

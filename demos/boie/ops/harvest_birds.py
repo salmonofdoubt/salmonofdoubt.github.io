@@ -8,7 +8,7 @@ Builds:
 
 Sources:
   - Checklist: https://en.wikipedia.org/wiki/List_of_birds_of_Ireland
-  - Audio metadata: https://xeno-canto.org API v2
+  - Audio metadata: https://xeno-canto.org API v3
 
 The page is intentionally attribution-forward. Audio is linked remotely, not copied
 into this repository. Each card keeps recordist, source URL, licence, country, and quality.
@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import datetime as dt
 import json
+import os
 import re
 import time
 from pathlib import Path
@@ -33,7 +34,8 @@ OUT_PATH = DATA_DIR / "birds.json"
 COVERAGE_PATH = DATA_DIR / "coverage.json"
 
 CHECKLIST_URL = "https://en.wikipedia.org/wiki/List_of_birds_of_Ireland"
-XC_API = "https://xeno-canto.org/api/2/recordings"
+XC_API = "https://xeno-canto.org/api/3/recordings"
+XC_API_KEY = os.environ.get("XENO_CANTO_API_KEY", "").strip()
 
 HEADERS = {
     "User-Agent": "salmonofdoubt-boie-sound-atlas/1.0 (+https://salmonofdoubt.github.io/demos/boie/)"
@@ -153,10 +155,47 @@ def xc_query_for(scientific: str, extra: str = "") -> str:
 
 
 def fetch_xc_recordings(query: str) -> Dict[str, Any]:
-    url = XC_API + "?" + urlencode({"query": query})
-    response = requests.get(url, headers=HEADERS, timeout=30)
+    """Fetch xeno-canto recordings from API v3.
+
+    API v3 requires an API key. Keep the key out of git:
+    export XENO_CANTO_API_KEY="your_key_here"
+    """
+    if not XC_API_KEY:
+        raise RuntimeError(
+            "Missing XENO_CANTO_API_KEY. Get an API key from https://xeno-canto.org/account "
+            "and run: export XENO_CANTO_API_KEY='your_key_here'"
+        )
+
+    response = requests.get(
+        XC_API,
+        params={"query": query, "key": XC_API_KEY},
+        headers=HEADERS,
+        timeout=30,
+    )
+
+    if response.status_code in {401, 403}:
+        raise RuntimeError(
+            "xeno-canto authentication failed. Check XENO_CANTO_API_KEY. "
+            f"Response: {response.text[:300]}"
+        )
+
+    if response.status_code == 404:
+        return {
+            "numRecordings": "0",
+            "recordings": [],
+            "query": query,
+            "warning": "404 no recordings for query",
+        }
+
     response.raise_for_status()
-    return response.json()
+    payload = response.json()
+
+    if "recordings" not in payload:
+        raise RuntimeError(
+            f"Unexpected xeno-canto API response for {query}: {str(payload)[:500]}"
+        )
+
+    return payload
 
 
 def normalise_file_url(value: str) -> str:
@@ -244,8 +283,26 @@ def find_audio_for_species(scientific_names: Iterable[str]) -> Tuple[Optional[Di
     return None, tried
 
 
+def preflight_xc_api() -> None:
+    """Fail early if xeno-canto API v3 or the key is not usable."""
+    test_query = "gen:Erithacus sp:rubecula"
+    payload = fetch_xc_recordings(test_query)
+    records = payload.get("recordings", [])
+
+    if not records:
+        raise RuntimeError(
+            "xeno-canto API preflight failed: no recordings returned for European robin. "
+            "The key may work, but the query syntax or API response has changed."
+        )
+
+    print(f"xeno-canto API preflight OK: {len(records)} robin recordings available.")
+
+
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+
+    preflight_xc_api()
 
     birds = parse_checklist()
     print(f"Parsed {len(birds)} Irish checklist species.")

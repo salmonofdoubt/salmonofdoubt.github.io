@@ -28,6 +28,8 @@ jobs:
           pip install -r demos/boie/ops/requirements.txt
 
       - name: Harvest bird checklist and audio metadata
+        env:
+          XENO_CANTO_API_KEY: ${{ secrets.XENO_CANTO_API_KEY }}
         run: |
           python demos/boie/ops/harvest_birds.py
 
