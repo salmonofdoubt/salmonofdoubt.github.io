@@ -437,14 +437,12 @@ function renderSound(bird) {
 
   const audio = bird.audio;
   const rawType = Array.isArray(audio.type) ? audio.type.join(", ") : (audio.type || "recording");
-  const typeLabel = recordingTypeLabel(audio.type);
   const source = audio.url ? `<a href="${audio.url}" target="_blank" rel="noopener">xeno-canto ${audio.id || ""}</a>` : "xeno-canto";
   const rec = audio.recordist ? `Recordist: ${audio.recordist}` : "Recordist unknown";
   const country = audio.country ? `Country: ${audio.country}` : "Country unknown";
   const licence = audio.license ? `Licence: ${audio.license}` : "Licence not parsed";
 
   return `
-    <div class="recording-type">${typeLabel}</div>
     <audio controls preload="none" src="${audio.file}"></audio>
     <p class="sound-meta">
       ${rawType}. ${rec}. ${country}. Quality ${audio.q || "?"}. ${licence}. Source: ${source}.

@@ -1339,3 +1339,8 @@ audio {
     backdrop-filter: none !important;
   }
 }
+
+/* BOIE remove recording-type bubble v1 */
+.recording-type {
+  display: none !important;
+}
