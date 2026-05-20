@@ -73,6 +73,20 @@
           <button id="useLocation" type="button">Use my approximate location</button>
 
           <label>
+            <span>Habitat preset</span>
+            <select id="presetFilter">
+              <option value="">Manual habitat mix</option>
+              <option value="garden">My garden</option>
+              <option value="park">Town park</option>
+              <option value="farmland">Farmland walk</option>
+              <option value="river">River walk</option>
+              <option value="estuary">Estuary walk</option>
+              <option value="coast">Beach / cliffs</option>
+              <option value="bog">Bog / upland</option>
+            </select>
+          </label>
+
+          <label>
             <span>Month</span>
             <select id="monthFilter">
               <option value="1">January</option>
@@ -107,6 +121,28 @@
               <option value="all">Full checklist catalogue</option>
             </select>
           </label>
+
+          <div class="toggle-row" aria-label="Bird deck options">
+            <label class="check-option">
+              <input id="listenOnly" type="checkbox" />
+              <span>Listening walk mode</span>
+            </label>
+
+            <label class="check-option">
+              <input id="includeRare" type="checkbox" />
+              <span>Include rare / vagrant records</span>
+            </label>
+          </div>
+
+          <div class="confidence-legend" aria-label="Local match legend">
+            <span><strong>High</strong> good month + habitat + location fit</span>
+            <span><strong>Medium</strong> plausible but less specific</span>
+            <span><strong>Low</strong> weak local or seasonal signal</span>
+          </div>
+
+          <p class="privacy-note">
+            Location is used only in this browser session. BOIE does not store your coordinates.
+          </p>
 
           <div class="habitats" aria-label="Habitat filters">
             <button type="button" data-habitat="urban">Urban</button>
@@ -173,6 +209,24 @@
           <option value="season">Seasonal status</option>
         </select>
       </label>
+    </section>
+
+    <section class="chorus-panel" id="chorusPanel" aria-label="Likely chorus">
+      <header>
+        <div>
+          <p class="eyebrow mini">Listening walk</p>
+          <h2>Today’s likely chorus</h2>
+        </div>
+        <span id="chorusContext">Local seasonal shortlist</span>
+      </header>
+      <div id="chorusList" class="chorus-list"></div>
+
+      <div id="chorusMosaic" class="chorus-mosaic" aria-label="Likely chorus bird images"></div>
+
+      <div class="chorus-actions" aria-label="Chorus audio controls">
+        <button id="playChorusTogether" type="button">Play chorus together</button>
+        <button id="stopChorusTogether" type="button">Stop chorus</button>
+      </div>
     </section>
 
     <section class="notice" id="coverageNotice" aria-live="polite">

@@ -32,7 +32,10 @@ const els = {
   includeRare: document.getElementById("includeRare"),
   nearbySummary: document.getElementById("nearbySummary"),
   chorusList: document.getElementById("chorusList"),
-  chorusContext: document.getElementById("chorusContext")
+  chorusContext: document.getElementById("chorusContext"),
+  chorusMosaic: document.getElementById("chorusMosaic"),
+  playChorus: document.getElementById("playChorusTogether"),
+  stopChorus: document.getElementById("stopChorusTogether")
 };
 
 const MONTHS = {
@@ -635,22 +638,124 @@ function applyNearbyDeck(birds) {
   return plausible.slice(0, deckLimit());
 }
 
-function renderChorus() {
-  if (!els.chorusList) return;
 
-  const playable = state.filtered
+let activeChorusPlayers = [];
+
+function chorusCandidates() {
+  return state.filtered
     .filter(hasAudio)
     .filter(b => !(b.status_codes || []).includes("B"))
     .slice(0, 8);
+}
+
+function stopChorusTogether() {
+  activeChorusPlayers.forEach(audio => {
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.src = "";
+    } catch (error) {
+      console.warn("Could not stop chorus audio", error);
+    }
+  });
+
+  activeChorusPlayers = [];
+
+  if (els.playChorus) {
+    els.playChorus.textContent = "Play chorus together";
+  }
+}
+
+function playChorusTogether() {
+  const birds = chorusCandidates();
+
+  if (!birds.length) {
+    if (els.notice) {
+      els.notice.textContent = "No playable birds in the current chorus. Switch off filters or change location/month.";
+    }
+    return;
+  }
+
+  stopChorusTogether();
+
+  if (els.playChorus) {
+    els.playChorus.textContent = "Playing chorus…";
+  }
+
+  birds.forEach((bird, index) => {
+    const audio = new Audio(bird.audio.file);
+    audio.preload = "auto";
+    audio.volume = Math.max(0.10, 0.22 - (birds.length * 0.012));
+    activeChorusPlayers.push(audio);
+
+    // A tiny stagger makes the result feel like a natural chorus and avoids
+    // hammering the browser with eight simultaneous remote loads.
+    window.setTimeout(() => {
+      audio.play().catch(error => {
+        console.warn("Could not play chorus bird", bird.common_name, error);
+        if (els.notice) {
+          els.notice.textContent = "Some chorus audio could not start. Press Play again or use individual bird controls.";
+        }
+      });
+    }, index * 220);
+  });
+
+  if (els.notice) {
+    els.notice.textContent = `Playing ${birds.length} birds together from Today’s likely chorus. Use Stop chorus to end playback.`;
+  }
+}
+
+function renderChorusMosaic(birds) {
+  if (!els.chorusMosaic) return;
+
+  if (!birds.length) {
+    els.chorusMosaic.innerHTML = "";
+    return;
+  }
+
+  els.chorusMosaic.innerHTML = birds.map(bird => {
+    const image = bird.image || {};
+    const src = image.thumb || image.original || image.url || "";
+    const name = bird.common_name || "Bird";
+
+    if (!src) {
+      return `
+        <div class="chorus-photo is-empty" title="${name}">
+          <span>${name.slice(0, 2)}</span>
+        </div>
+      `;
+    }
+
+    return `
+      <button type="button" class="chorus-photo" data-bird="${name}" title="${name}">
+        <img src="${src}" alt="${name}" loading="lazy" />
+        <span>${name}</span>
+      </button>
+    `;
+  }).join("");
+}
+
+
+function renderChorus() {
+  if (!els.chorusList) return;
+
+  const playable = chorusCandidates();
 
   if (els.chorusContext) {
     els.chorusContext.textContent = `${MONTHS[selectedMonth()]} · ${playable.length} quick-listen species`;
   }
 
+  renderChorusMosaic(playable);
+
   if (!playable.length) {
     els.chorusList.innerHTML = `<p class="chorus-empty">No playable sounds in the current deck.</p>`;
+    if (els.playChorus) els.playChorus.disabled = true;
+    if (els.stopChorus) els.stopChorus.disabled = true;
     return;
   }
+
+  if (els.playChorus) els.playChorus.disabled = false;
+  if (els.stopChorus) els.stopChorus.disabled = false;
 
   els.chorusList.innerHTML = playable.map(bird => {
     const match = bird.local ? localMatchLabel(bird.local.confidence) : "Catalogue";
@@ -920,13 +1025,22 @@ async function init() {
 els.preset?.addEventListener("change", applyPreset);
 els.shuffle?.addEventListener("click", playRandomBird);
 els.useLocation?.addEventListener("click", useBrowserLocation);
+els.playChorus?.addEventListener("click", playChorusTogether);
+els.stopChorus?.addEventListener("click", stopChorusTogether);
 
-els.chorusList?.addEventListener("click", event => {
-  const button = event.target.closest("[data-bird]");
+function jumpToBirdFromButton(button) {
   if (!button) return;
   if (els.search) els.search.value = button.dataset.bird || "";
   render();
   document.querySelector(".bird-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+els.chorusList?.addEventListener("click", event => {
+  jumpToBirdFromButton(event.target.closest("[data-bird]"));
+});
+
+els.chorusMosaic?.addEventListener("click", event => {
+  jumpToBirdFromButton(event.target.closest("[data-bird]"));
 });
 
 init();
