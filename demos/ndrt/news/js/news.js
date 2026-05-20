@@ -16,6 +16,11 @@ const state = {
       id: "grants-opportunities",
       title: "Grants and Opportunities",
       intro: "Funding calls and support routes relevant to river trusts, catchment groups, citizen science, biodiversity, wetlands, and community water action."
+    },
+    {
+      id: "research-papers",
+      title: "Practical Research Papers and Reviews",
+      intro: "Scholarly evidence ranked for practical Nanny-Delvin usefulness: Ireland first, comparable temperate systems second, and transferable NbS / water-quality evidence where it helps action."
     }
   ]
 };
@@ -86,14 +91,16 @@ function renderSummary(items) {
   const ireland = items.filter((item) => itemSection(item) === "ireland-catchment-practice").length;
   const evidence = items.filter((item) => itemSection(item) === "waterbody-evidence-alerts").length;
   const grants = items.filter((item) => itemSection(item) === "grants-opportunities").length;
+  const research = items.filter((item) => itemSection(item) === "research-papers").length;
 
   els.summary.innerHTML = `
-    <div class="summary-pill">${items.length} visible items</div>
-    <div class="summary-pill">${fresh} fresh/current</div>
-    <div class="summary-pill">${reference} reference/background</div>
-    <div class="summary-pill">${ireland} Irish practice</div>
-    <div class="summary-pill">${evidence} evidence/alerts</div>
-    <div class="summary-pill">${grants} grants</div>
+    <button type="button" class="summary-pill summary-button" data-filter-kind="reset">${items.length} visible items</button>
+    <button type="button" class="summary-pill summary-button" data-filter-kind="freshness" data-filter-value="fresh">${fresh} fresh/current</button>
+    <button type="button" class="summary-pill summary-button" data-filter-kind="freshness" data-filter-value="reference">${reference} reference/background</button>
+    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="ireland-catchment-practice">${ireland} Irish practice</button>
+    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="waterbody-evidence-alerts">${evidence} evidence/alerts</button>
+    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="grants-opportunities">${grants} grants</button>
+    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="research-papers">${research} research papers</button>
   `;
 }
 
@@ -111,6 +118,7 @@ function renderCard(item) {
           <span class="chip">${escapeHtml(item.source_name || item.publisher || "Source")}</span>
           <span class="chip">${escapeHtml(formatDate(item.published))}</span>
           <span class="chip ${freshnessClass}">${escapeHtml(item.freshness_label || item.freshness_status || "Freshness unknown")}</span>
+          ${item.practical_fit ? `<span class="chip">${escapeHtml(item.practical_fit)}</span>` : ""}
         </div>
         <p class="news-summary">${escapeHtml(item.summary || "Open the source to inspect this item.")}</p>
         <div class="news-tags">
@@ -216,3 +224,36 @@ els.freshness.addEventListener("change", renderItems);
 
 loadLatest();
 loadArchive();
+
+
+function applySummaryFilter(button) {
+  const kind = button.dataset.filterKind;
+  const value = button.dataset.filterValue || "all";
+
+  if (kind === "reset") {
+    els.search.value = "";
+    els.theme.value = "all";
+    els.freshness.value = "all";
+    renderItems();
+    return;
+  }
+
+  if (kind === "theme") {
+    els.theme.value = value;
+    renderItems();
+    document.getElementById("latest")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  if (kind === "freshness") {
+    els.freshness.value = value;
+    renderItems();
+    document.getElementById("latest")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+els.summary.addEventListener("click", (event) => {
+  const button = event.target.closest(".summary-button");
+  if (!button) return;
+  applySummaryFilter(button);
+});
