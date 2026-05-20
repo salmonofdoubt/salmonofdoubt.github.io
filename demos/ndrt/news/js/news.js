@@ -86,21 +86,19 @@ function visibleItems() {
 }
 
 function renderSummary(items) {
-  const fresh = items.filter((item) => item.freshness_status === "fresh").length;
-  const reference = items.filter((item) => item.freshness_status === "reference").length;
   const ireland = items.filter((item) => itemSection(item) === "ireland-catchment-practice").length;
   const evidence = items.filter((item) => itemSection(item) === "waterbody-evidence-alerts").length;
   const grants = items.filter((item) => itemSection(item) === "grants-opportunities").length;
   const research = items.filter((item) => itemSection(item) === "research-papers").length;
 
   els.summary.innerHTML = `
-    <button type="button" class="summary-pill summary-button" data-filter-kind="reset">${items.length} visible items</button>
-    <button type="button" class="summary-pill summary-button" data-filter-kind="freshness" data-filter-value="fresh">${fresh} fresh/current</button>
-    <button type="button" class="summary-pill summary-button" data-filter-kind="freshness" data-filter-value="reference">${reference} reference/background</button>
-    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="ireland-catchment-practice">${ireland} Irish practice</button>
-    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="waterbody-evidence-alerts">${evidence} evidence/alerts</button>
-    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="grants-opportunities">${grants} grants</button>
-    <button type="button" class="summary-pill summary-button" data-filter-kind="theme" data-filter-value="research-papers">${research} research papers</button>
+    <div class="result-stripe" aria-label="Current lane counts">
+      <span class="result-stripe-label">Current lanes:</span>
+      <span><strong>${ireland}</strong> Irish practice</span>
+      <span><strong>${evidence}</strong> evidence/alerts</span>
+      <span><strong>${grants}</strong> grants</span>
+      <span><strong>${research}</strong> research</span>
+    </div>
   `;
 }
 
@@ -226,34 +224,3 @@ loadLatest();
 loadArchive();
 
 
-function applySummaryFilter(button) {
-  const kind = button.dataset.filterKind;
-  const value = button.dataset.filterValue || "all";
-
-  if (kind === "reset") {
-    els.search.value = "";
-    els.theme.value = "all";
-    els.freshness.value = "all";
-    renderItems();
-    return;
-  }
-
-  if (kind === "theme") {
-    els.theme.value = value;
-    renderItems();
-    document.getElementById("latest")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    return;
-  }
-
-  if (kind === "freshness") {
-    els.freshness.value = value;
-    renderItems();
-    document.getElementById("latest")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-}
-
-els.summary.addEventListener("click", (event) => {
-  const button = event.target.closest(".summary-button");
-  if (!button) return;
-  applySummaryFilter(button);
-});
