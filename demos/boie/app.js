@@ -726,3 +726,38 @@ els.shuffle.addEventListener("click", playRandomBird);
 els.useLocation?.addEventListener("click", useBrowserLocation);
 
 init();
+
+// BOIE mobile controls v1
+(function () {
+  function installMobileMapToggle() {
+    const panel = document.querySelector(".nearby-panel");
+    const grid = document.querySelector(".nearby-grid");
+
+    if (!panel || !grid || panel.querySelector(".mobile-nearby-toggle")) return;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "mobile-nearby-toggle";
+    button.textContent = "Show / hide map and location controls";
+
+    panel.insertBefore(button, grid);
+
+    // On phones, start with the map visible once, but allow fast collapse.
+    button.addEventListener("click", () => {
+      document.body.classList.toggle("boie-mobile-map-collapsed");
+
+      // Leaflet needs a resize nudge when the map returns.
+      window.setTimeout(() => {
+        if (window.L && state && state.map) {
+          state.map.invalidateSize();
+        }
+      }, 120);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installMobileMapToggle);
+  } else {
+    installMobileMapToggle();
+  }
+})();

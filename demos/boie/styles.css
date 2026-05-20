@@ -591,3 +591,320 @@ audio {
     min-height: 300px;
   }
 }
+
+/* BOIE mobile optimisation v1 */
+.mobile-nearby-toggle {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .shell {
+    width: min(100vw - 18px, 1180px);
+    padding: 14px 0 78px;
+  }
+
+  .topnav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 8px 0;
+    margin-bottom: 10px;
+    background: rgba(5, 8, 13, 0.86);
+    backdrop-filter: blur(12px);
+  }
+
+  .topnav a {
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 0.82rem;
+  }
+
+  .hero {
+    border-radius: 24px;
+    padding: 22px 18px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 13vw, 3.35rem);
+    line-height: 0.95;
+  }
+
+  .lede {
+    margin-top: 16px;
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    gap: 8px;
+  }
+
+  .hero-actions a,
+  .hero-actions button {
+    min-height: 38px;
+    padding: 0 11px;
+    font-size: 0.86rem;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .stats article {
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .stats span {
+    font-size: 1.55rem;
+  }
+
+  .stats strong {
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+  }
+
+  .nearby-panel {
+    border-radius: 22px;
+    padding: 13px;
+    margin: 14px 0 12px;
+  }
+
+  .nearby-copy h2 {
+    font-size: 1.35rem;
+  }
+
+  .nearby-copy p:not(.eyebrow) {
+    font-size: 0.92rem;
+    margin-bottom: 12px;
+  }
+
+  .mobile-nearby-toggle {
+    display: inline-flex;
+    width: 100%;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 10px;
+    border: 1px solid rgba(79, 246, 255, 0.24);
+    border-radius: 999px;
+    background: rgba(79, 246, 255, 0.08);
+    color: var(--cyan);
+    font: inherit;
+    font-weight: 900;
+  }
+
+  body.boie-mobile-map-collapsed .bird-map {
+    display: none;
+  }
+
+  body.boie-mobile-map-collapsed .nearby-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nearby-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .bird-map {
+    min-height: 245px;
+    max-height: 245px;
+    border-radius: 18px;
+  }
+
+  .nearby-controls {
+    gap: 8px;
+  }
+
+  .nearby-controls > button {
+    min-height: 38px;
+    font-size: 0.86rem;
+  }
+
+  .nearby-controls label {
+    border-radius: 16px;
+    padding: 8px 10px 9px;
+  }
+
+  .nearby-controls label span,
+  .controls span {
+    font-size: 0.66rem;
+  }
+
+  .habitats {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 7px;
+    padding: 2px 1px 8px;
+    margin: 0 -2px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .habitats::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .habitats button {
+    flex: 0 0 auto;
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 0.82rem;
+    scroll-snap-align: start;
+  }
+
+  .nearby-summary {
+    font-size: 0.82rem;
+    padding: 10px;
+  }
+
+  .controls {
+    position: sticky;
+    top: 50px;
+    z-index: 45;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 12px 0;
+    padding: 8px;
+    border: 1px solid rgba(79, 246, 255, 0.14);
+    border-radius: 18px;
+    background: rgba(5, 8, 13, 0.88);
+    backdrop-filter: blur(12px);
+  }
+
+  .controls label {
+    min-width: 0;
+    padding: 8px 10px;
+    border-radius: 14px;
+  }
+
+  .controls label:first-child {
+    grid-column: 1 / -1;
+  }
+
+  input,
+  select {
+    font-size: 0.9rem;
+  }
+
+  .notice {
+    border-radius: 16px;
+    padding: 10px 12px;
+    font-size: 0.86rem;
+  }
+
+  .bird-grid {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .bird-card {
+    min-height: unset;
+    padding: 13px;
+    border-radius: 20px;
+    gap: 11px;
+  }
+
+  .image-block {
+    margin: -13px -13px 0;
+    min-height: 165px;
+    aspect-ratio: 16 / 10;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .image-credit {
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    font-size: 0.58rem;
+    padding: 5px 7px;
+    max-height: 2.4rem;
+    overflow: hidden;
+  }
+
+  .card-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .common-name {
+    font-size: 1.12rem;
+  }
+
+  .scientific-name,
+  .irish-name {
+    font-size: 0.86rem;
+  }
+
+  .badges {
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  .badge {
+    min-height: 23px;
+    padding: 0 7px;
+    font-size: 0.68rem;
+  }
+
+  .local-reason p {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+
+  .sound-block {
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  audio {
+    height: 34px;
+  }
+
+  .sound-meta,
+  .missing-note {
+    font-size: 0.76rem;
+    line-height: 1.38;
+  }
+
+  .meta-list {
+    font-size: 0.78rem;
+    gap: 5px;
+  }
+
+  .meta-list div {
+    grid-template-columns: 58px 1fr;
+    gap: 8px;
+  }
+
+  .panel {
+    border-radius: 20px;
+    padding: 16px;
+    font-size: 0.9rem;
+  }
+
+  .demo-support-widget {
+    transform: scale(0.92);
+    transform-origin: bottom right;
+  }
+}
+
+@media (max-width: 390px) {
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .controls label:first-child {
+    grid-column: auto;
+  }
+
+  .image-block {
+    min-height: 145px;
+  }
+}
