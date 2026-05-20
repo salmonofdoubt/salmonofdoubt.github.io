@@ -32,6 +32,7 @@ const els = {
   search: document.getElementById("searchInput"),
   theme: document.getElementById("themeFilter"),
   freshness: document.getElementById("freshnessFilter"),
+  date: document.getElementById("dateFilter"),
   lastRefresh: document.getElementById("lastRefresh"),
   refreshNote: document.getElementById("refreshNote"),
   shortlist: document.getElementById("practicalShortlist"),
@@ -229,10 +230,27 @@ function itemMatchesTheme(item, selectedTheme) {
   return themeAliases(selectedTheme).some(alias => terms.includes(String(alias).toLowerCase()));
 }
 
+
+function itemDateInRange(item, range) {
+  if (range === "all") return true;
+  if (!item.published) return false;
+
+  const published = new Date(item.published);
+  if (Number.isNaN(published.getTime())) return false;
+
+  const ageDays = (Date.now() - published.getTime()) / (24 * 60 * 60 * 1000);
+
+  if (range === "6m") return ageDays <= 183;
+  if (range === "12m") return ageDays <= 366;
+
+  return true;
+}
+
 function visibleItems() {
   const q = clean(els.search.value).toLowerCase();
   const theme = els.theme.value;
   const freshness = els.freshness.value;
+  const dateRange = els.date?.value || "all";
 
   return state.items.filter((item) => {
     const haystack = itemFilterTerms(item);
@@ -240,8 +258,9 @@ function visibleItems() {
     const matchesSearch = !q || haystack.includes(q);
     const matchesTheme = itemMatchesTheme(item, theme);
     const matchesFreshness = freshness === "all" || item.freshness_status === freshness;
+    const matchesDate = itemDateInRange(item, dateRange);
 
-    return matchesSearch && matchesTheme && matchesFreshness;
+    return matchesSearch && matchesTheme && matchesFreshness && matchesDate;
   });
 }
 
@@ -592,7 +611,9 @@ async function loadOpsStatus() {
 els.search.addEventListener("input", renderItems);
 els.theme.addEventListener("change", renderItems);
 els.freshness.addEventListener("change", renderItems);
+els.date?.addEventListener("change", renderItems);
 
+if (els.date && !els.date.value) els.date.value = "6m";
 loadLatest();
 loadArchive();
 loadOpsStatus();
