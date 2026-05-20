@@ -837,7 +837,13 @@ function renderPlot() {
 
     if (target.on) {
       target.on("plotly_click", event => {
-        const code = event?.points?.[0]?.customdata;
+        const point = (event?.points || []).find(p =>
+          typeof p?.customdata === "string" && p.customdata.trim()
+        );
+
+        const code = point?.customdata;
+        if (!code) return;
+
         const row = plottableRows(state.scores).find(item => item.code === code);
         if (row) selectRow(row);
       });
@@ -1031,7 +1037,10 @@ function selectRow(row) {
   renderSelectedTheory(enriched);
   renderTransitionLean(enriched);
   updateReportCta();
-  renderPlot();
+
+  // Important: do not call renderPlot() here.
+  // Country selection should update the analysis panels only.
+  // Re-rendering the Plotly cube on every click makes selection slow and can swallow later clicks.
 }
 
 function renderSelectedCountry(row) {
