@@ -101,7 +101,7 @@
 @media (max-width: 700px) {
   .demo-support-widget {
     right: 12px;
-    bottom: 96px;
+    bottom: 78px;
     max-width: calc(100vw - 24px);
   }
 
@@ -111,5 +111,44 @@
 
   .demo-support-menu {
     min-width: min(230px, calc(100vw - 24px));
+  }
+}
+/* Mobile compact shared controls v1 */
+@media (max-width: 700px) {
+  .demo-support-widget {
+    right: 10px;
+    bottom: 42px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .demo-support-pill {
+    min-height: 30px;
+    padding: 0.36rem 0.56rem;
+    font-size: 0.68rem;
+    gap: 0.32rem;
+  }
+
+  .demo-support-pill::before {
+    width: 0.82rem;
+    height: 0.82rem;
+  }
+
+  .demo-support-menu {
+    min-width: min(198px, calc(100vw - 20px));
+    padding: 0.4rem;
+    border-radius: 0.85rem;
+  }
+
+  .demo-support-option {
+    padding: 0.54rem 0.6rem;
+    border-radius: 0.68rem;
+  }
+
+  .demo-support-option strong {
+    font-size: 0.78rem;
+  }
+
+  .demo-support-option span {
+    font-size: 0.66rem;
   }
 }
