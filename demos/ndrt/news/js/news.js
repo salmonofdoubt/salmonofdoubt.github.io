@@ -61,25 +61,111 @@ function itemSection(item) {
   return item.section || item.section_id || "ireland-catchment-practice";
 }
 
+function itemFilterTerms(item) {
+  return [
+    item.title,
+    item.summary,
+    item.source_name,
+    item.publisher,
+    item.theme,
+    item.section,
+    item.freshness_status,
+    item.action_relevance,
+    item.practical_fit,
+    item.research_use_type,
+    item.local_relevance?.label,
+    item.opportunity_fit?.fit,
+    item.opportunity_fit?.eligible_hint,
+    item.opportunity_fit?.action_needed,
+    ...(Array.isArray(item.tags) ? item.tags : []),
+    ...(Array.isArray(item.pressure_categories) ? item.pressure_categories : []),
+    ...(Array.isArray(item.local_relevance?.matched_terms) ? item.local_relevance.matched_terms : [])
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+function themeAliases(value) {
+  const aliases = {
+    "slurry-manure-timing": [
+      "slurry-manure-timing",
+      "manure / slurry timing",
+      "slurry spreading",
+      "manure spreading",
+      "organic fertiliser",
+      "organic fertilizer",
+      "fertiliser spreading",
+      "fertilizer spreading",
+      "closed period",
+      "spreading dates",
+      "nitrates",
+      "nitrates action programme",
+      "nitrates derogation",
+      "rainfall",
+      "rain forecast",
+      "agricultural runoff"
+    ],
+    "septic-wastewater": [
+      "septic-wastewater",
+      "septic / domestic wastewater",
+      "septic tank",
+      "septic tanks",
+      "domestic wastewater",
+      "on-site wastewater",
+      "onsite wastewater",
+      "private well",
+      "groundwater"
+    ],
+    "wetland-nbs": [
+      "wetland-nbs",
+      "NbS / restoration",
+      "nature-based",
+      "nature based",
+      "constructed wetland",
+      "riparian buffer",
+      "wetland",
+      "river restoration"
+    ],
+    "incident-alert": [
+      "incident-alert",
+      "incident / alert",
+      "fish kill",
+      "pollution incident",
+      "sewage overflow",
+      "algal bloom",
+      "bathing water"
+    ]
+  };
+
+  return aliases[value] || [value];
+}
+
+function itemMatchesTheme(item, selectedTheme) {
+  if (selectedTheme === "all") return true;
+
+  const directMatches =
+    item.theme === selectedTheme ||
+    itemSection(item) === selectedTheme ||
+    (Array.isArray(item.tags) && item.tags.includes(selectedTheme)) ||
+    (Array.isArray(item.pressure_categories) && item.pressure_categories.includes(selectedTheme));
+
+  if (directMatches) return true;
+
+  const terms = itemFilterTerms(item);
+  return themeAliases(selectedTheme).some(alias => terms.includes(String(alias).toLowerCase()));
+}
+
 function visibleItems() {
   const q = clean(els.search.value).toLowerCase();
   const theme = els.theme.value;
   const freshness = els.freshness.value;
 
   return state.items.filter((item) => {
-    const haystack = [
-      item.title,
-      item.summary,
-      item.source_name,
-      item.publisher,
-      item.theme,
-      item.section,
-      item.freshness_status,
-      ...(Array.isArray(item.tags) ? item.tags : []),
-    ].join(" ").toLowerCase();
+    const haystack = itemFilterTerms(item);
 
     const matchesSearch = !q || haystack.includes(q);
-    const matchesTheme = theme === "all" || item.theme === theme || (item.tags || []).includes(theme) || itemSection(item) === theme;
+    const matchesTheme = itemMatchesTheme(item, theme);
     const matchesFreshness = freshness === "all" || item.freshness_status === freshness;
 
     return matchesSearch && matchesTheme && matchesFreshness;
