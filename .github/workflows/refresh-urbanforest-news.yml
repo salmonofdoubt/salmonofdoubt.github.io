@@ -35,6 +35,7 @@ jobs:
           python demos/urbanforest/news/ops/discover_urbanforest_news.py
           python demos/urbanforest/news/ops/ensure_urbanforest_watch_lanes.py
           python demos/urbanforest/news/ops/audit_urbanforest_radar.py
+          python demos/urbanforest/news/ops/validate_urbanforest_radar.py
 
       - name: Commit generated data
         run: |
@@ -43,7 +44,8 @@ jobs:
           git add demos/urbanforest/news/data/news.json \
                   demos/urbanforest/news/data/archive \
                   demos/urbanforest/news/data/source-health.json \
-                  demos/urbanforest/news/data/weekly-digest.json
+                  demos/urbanforest/news/data/weekly-digest.json \
+                  demos/urbanforest/news/data/validation.json
           if git diff --cached --quiet; then
             echo "No UrbanForest radar data changes."
           else
