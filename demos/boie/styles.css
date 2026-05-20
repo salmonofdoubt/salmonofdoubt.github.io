@@ -1315,3 +1315,27 @@ audio {
     font-size: 0.82rem;
   }
 }
+
+/* BOIE mobile sticky-control fix v1 */
+@media (max-width: 760px) {
+  .controls {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    backdrop-filter: none !important;
+  }
+
+  .bird-group-header {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    backdrop-filter: none !important;
+  }
+
+  .topnav {
+    position: static !important;
+    top: auto !important;
+    z-index: auto !important;
+    backdrop-filter: none !important;
+  }
+}
