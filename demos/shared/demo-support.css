@@ -1,12 +1,20 @@
-/* Shared GitHub Sponsors control
-   Purpose: consistent support link across public demo pages.
+/* Shared support control
+   Purpose: consistent support options across public demo pages.
+   Opens to GitHub Sponsors and Buy Me a Coffee.
 */
 
-.demo-support-pill {
+.demo-support-widget {
   position: fixed;
   right: 16px;
   bottom: 54px;
   z-index: 9998;
+  display: grid;
+  gap: 0.45rem;
+  justify-items: end;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.demo-support-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.42rem;
@@ -18,6 +26,7 @@
   color: #f0dcff;
   font: 900 0.78rem/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-decoration: none;
+  cursor: pointer;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.26), 0 0 18px rgba(211, 108, 255, 0.13);
   backdrop-filter: blur(12px);
 }
@@ -39,11 +48,68 @@
   outline: none;
 }
 
+.demo-support-menu {
+  display: none;
+  min-width: 210px;
+  padding: 0.5rem;
+  border: 1px solid rgba(211, 108, 255, 0.30);
+  border-radius: 1rem;
+  background: rgba(5, 12, 18, 0.92);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34), 0 0 26px rgba(211, 108, 255, 0.13);
+  backdrop-filter: blur(14px);
+}
+
+.demo-support-widget.is-open .demo-support-menu {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.demo-support-option {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.68rem 0.72rem;
+  border-radius: 0.78rem;
+  color: #f5e8ff;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.demo-support-option:hover,
+.demo-support-option:focus {
+  outline: none;
+  background: rgba(211, 108, 255, 0.14);
+  border-color: rgba(211, 108, 255, 0.30);
+}
+
+.demo-support-option strong {
+  font-size: 0.88rem;
+  line-height: 1.1;
+}
+
+.demo-support-option span {
+  color: rgba(245, 232, 255, 0.70);
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+
+.demo-support-option.coffee:hover,
+.demo-support-option.coffee:focus {
+  background: rgba(255, 176, 64, 0.14);
+  border-color: rgba(255, 176, 64, 0.32);
+}
+
 @media (max-width: 700px) {
-  .demo-support-pill {
+  .demo-support-widget {
     right: 12px;
     bottom: 96px;
     max-width: calc(100vw - 24px);
+  }
+
+  .demo-support-pill {
     font-size: 0.72rem;
+  }
+
+  .demo-support-menu {
+    min-width: min(230px, calc(100vw - 24px));
   }
 }
