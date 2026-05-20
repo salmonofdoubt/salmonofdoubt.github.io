@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b3d4a" />
+  <title>Nanny-Delvin Water Radar | Salmon of Doubt</title>
+  <meta name="description" content="A daily source-led radar for Nanny-Delvin catchment practice, rivers, lakes, estuaries, lagoons, water quality, citizen science, incidents, evidence, and suitable grants." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/news.css" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <div class="brand-block">
+        <a class="site-brand" href="../">Nanny-Delvin</a>
+        <span class="divider-dot" aria-hidden="true">•</span>
+        <a class="site-home" href="../../">Demos</a>
+      </div>
+      <nav class="page-nav" aria-label="Water radar navigation">
+        <a href="../">Trust microsite</a>
+        <a href="../citizen-science.html">Citizen Science</a>
+        <a href="#latest">Latest</a>
+        <a href="#archive">Archive</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero shell">
+      <div>
+        <p class="eyebrow">Daily water radar</p>
+        <h1>Nanny-Delvin Water Radar</h1>
+        <p class="hero-lead">
+          A source-led watchlist for the Nanny-Delvin catchment: rivers, lakes, estuaries, lagoons,
+          water quality, restoration, citizen science, incidents, evidence, and suitable grants.
+        </p>
+      </div>
+
+      <aside class="hero-card" aria-label="Radar summary">
+        <p class="mini-label">Last refresh</p>
+        <strong id="lastRefresh">Loading...</strong>
+        <p id="refreshNote">The radar updates from curated sources, official pages, and search feeds.</p>
+      </aside>
+    </section>
+
+    <section class="controls shell" aria-label="Radar controls">
+      <input id="searchInput" type="search" placeholder="Search rivers, lakes, estuaries, lagoons, grants, sources..." />
+      <select id="themeFilter">
+        <option value="all">All lanes and themes</option>
+        <option value="ireland-catchment-practice">Ireland catchment practice</option>
+        <option value="waterbody-evidence-alerts">Waterbody evidence and alerts</option>
+        <option value="grants-opportunities">Grants and opportunities</option>
+        <option value="catchment">Catchment</option>
+        <option value="river-restoration">River restoration</option>
+        <option value="water-quality">Water quality</option>
+        <option value="citizen-science">Citizen science</option>
+        <option value="estuary-lagoon">Estuary / lagoon</option>
+        <option value="lake">Lake / lough</option>
+        <option value="wetland-nbs">Wetland / NbS</option>
+        <option value="biodiversity">Biodiversity</option>
+        <option value="incident-alert">Incidents / alerts</option>
+        <option value="grant">Grants</option>
+      </select>
+      <select id="freshnessFilter">
+        <option value="all">All freshness</option>
+        <option value="fresh">Fresh/current</option>
+        <option value="reference">Reference/background</option>
+      </select>
+    </section>
+
+    <section id="latest" class="section shell">
+      <div class="section-heading">
+        <p class="eyebrow">Useful signals</p>
+        <h2>Three lanes for action</h2>
+        <p>
+          The radar is deliberately broader than NbS: it also watches water-quality incidents,
+          monitoring, lakes, estuaries, lagoons, citizen science, and funding routes.
+        </p>
+      </div>
+
+      <div id="summary" class="summary-row" aria-live="polite"></div>
+      <div id="newsList" class="news-list" aria-live="polite"></div>
+    </section>
+
+    <section id="archive" class="section shell archive-section">
+      <div class="section-heading">
+        <p class="eyebrow">Indexed archive</p>
+        <h2>Daily snapshots</h2>
+        <p>
+          Each refresh stores a dated JSON snapshot so the radar remains auditable over time.
+        </p>
+      </div>
+
+      <div id="archiveList" class="archive-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">Nanny-Delvin Water Radar</p>
+        <p class="footer-text">A daily radar for practical catchment intelligence and funding signals.</p>
+      </div>
+      <div class="footer-links">
+        <a href="../">Back to NDRT</a>
+        <a href="../citizen-science.html">Citizen Science Hub</a>
+        <a href="../../">Back to demos</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/news.js"></script>
+</body>
+</html>

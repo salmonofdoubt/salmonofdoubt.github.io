@@ -1,0 +1,165 @@
+{
+  "sections": [
+    {
+      "id": "ireland-catchment-practice",
+      "title": "Ireland Catchment Practice",
+      "description": "Irish river, lake, estuary, lagoon, catchment, citizen-science, restoration, monitoring, water-quality, and community-action signals."
+    },
+    {
+      "id": "waterbody-evidence-alerts",
+      "title": "Waterbody Evidence and Alerts",
+      "description": "Useful evidence, incidents, monitoring signals, policy, research, and practice for rivers, lakes, estuaries, lagoons, wetlands, and connected waters."
+    },
+    {
+      "id": "grants-opportunities",
+      "title": "Grants and Opportunities",
+      "description": "Funding calls, community grants, biodiversity funds, water-quality supports, catchment restoration funding, and open opportunities relevant to river trusts."
+    }
+  ],
+  "sources": [
+    {
+      "id": "google-news-ireland-river-water-quality",
+      "name": "Google News: Ireland river water quality",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28river%20OR%20catchment%20OR%20stream%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%20OR%20monitoring%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "ireland-catchment-practice",
+      "scope": "ireland",
+      "trust": 0.72
+    },
+    {
+      "id": "google-news-nbs-water-ireland",
+      "name": "Google News: Ireland water NbS",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28nature-based%20solutions%20OR%20wetland%20OR%20riparian%20buffer%20OR%20pond%20OR%20rewetting%20OR%20river%20restoration%29%20%28water%20OR%20catchment%20OR%20river%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "ireland-catchment-practice",
+      "scope": "ireland",
+      "trust": 0.74
+    },
+    {
+      "id": "google-news-estuary-lagoon-ireland",
+      "name": "Google News: Ireland estuaries and lagoons",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28estuary%20OR%20lagoon%20OR%20coastal%20wetland%20OR%20saltmarsh%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "waterbody-evidence-alerts",
+      "scope": "ireland",
+      "trust": 0.70
+    },
+    {
+      "id": "google-news-fish-kill-pollution",
+      "name": "Google News: fish kills and pollution",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "waterbody-evidence-alerts",
+      "scope": "ireland",
+      "trust": 0.72
+    },
+    {
+      "id": "google-news-community-water-grants",
+      "name": "Google News: water and biodiversity grants Ireland",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20call%20OR%20scheme%29%20%28river%20OR%20water%20quality%20OR%20biodiversity%20OR%20wetland%20OR%20catchment%20OR%20citizen%20science%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "grants-opportunities",
+      "scope": "funding",
+      "trust": 0.76
+    },
+    {
+      "id": "catchments-ie",
+      "name": "Catchments.ie",
+      "type": "page",
+      "url": "https://www.catchments.ie/",
+      "section": "ireland-catchment-practice",
+      "scope": "ireland institutional",
+      "trust": 0.92
+    },
+    {
+      "id": "lawpro",
+      "name": "LAWPRO",
+      "type": "page",
+      "url": "https://lawaters.ie/",
+      "section": "ireland-catchment-practice",
+      "scope": "ireland institutional",
+      "trust": 0.92
+    },
+    {
+      "id": "epa-water",
+      "name": "EPA Ireland Water",
+      "type": "page",
+      "url": "https://www.epa.ie/our-services/monitoring--assessment/freshwater--marine/",
+      "section": "waterbody-evidence-alerts",
+      "scope": "ireland institutional",
+      "trust": 0.94
+    },
+    {
+      "id": "inland-fisheries-ireland",
+      "name": "Inland Fisheries Ireland",
+      "type": "page",
+      "url": "https://www.fisheriesireland.ie/news",
+      "section": "waterbody-evidence-alerts",
+      "scope": "ireland institutional",
+      "trust": 0.90
+    },
+    {
+      "id": "npws",
+      "name": "NPWS",
+      "type": "page",
+      "url": "https://www.npws.ie/news",
+      "section": "waterbody-evidence-alerts",
+      "scope": "ireland institutional",
+      "trust": 0.88
+    },
+    {
+      "id": "heritage-council-funding",
+      "name": "Heritage Council Funding",
+      "type": "page",
+      "url": "https://www.heritagecouncil.ie/funding",
+      "section": "grants-opportunities",
+      "scope": "funding ireland",
+      "trust": 0.90
+    },
+    {
+      "id": "community-foundation-ireland-grants",
+      "name": "Community Foundation Ireland Grants",
+      "type": "page",
+      "url": "https://www.communityfoundation.ie/grants/",
+      "section": "grants-opportunities",
+      "scope": "funding ireland",
+      "trust": 0.82
+    },
+    {
+      "id": "eu-life-calls",
+      "name": "EU LIFE Calls",
+      "type": "page",
+      "url": "https://cinea.ec.europa.eu/programmes/life/calls-proposals_en",
+      "section": "grants-opportunities",
+      "scope": "funding europe",
+      "trust": 0.90
+    },
+    {
+      "id": "research-ireland-funding",
+      "name": "Research Ireland Funding",
+      "type": "page",
+      "url": "https://www.researchireland.ie/funding/",
+      "section": "grants-opportunities",
+      "scope": "funding ireland research",
+      "trust": 0.86
+    },
+    {
+      "id": "rivers-trust-news",
+      "name": "The Rivers Trust News",
+      "type": "page",
+      "url": "https://theriverstrust.org/about-us/news",
+      "section": "waterbody-evidence-alerts",
+      "scope": "practice rivers trust",
+      "trust": 0.82
+    },
+    {
+      "id": "uk-river-restoration-centre",
+      "name": "River Restoration Centre",
+      "type": "page",
+      "url": "https://www.therrc.co.uk/news",
+      "section": "waterbody-evidence-alerts",
+      "scope": "practice reference",
+      "trust": 0.80
+    }
+  ]
+}
