@@ -37,6 +37,44 @@ const MONTHS = {
 const IRELAND_CENTRE = { lat: 53.35, lng: -7.7 };
 const DUBLIN_COAST = { lat: 53.38, lng: -6.13 };
 
+const COAST_POINTS = [
+  { name: "Donegal", lat: 55.15, lng: -8.13 },
+  { name: "Sligo", lat: 54.27, lng: -8.48 },
+  { name: "Mayo", lat: 53.80, lng: -9.52 },
+  { name: "Galway Bay", lat: 53.25, lng: -9.10 },
+  { name: "Shannon Estuary", lat: 52.62, lng: -9.23 },
+  { name: "Kerry", lat: 52.15, lng: -9.90 },
+  { name: "Cork Harbour", lat: 51.85, lng: -8.30 },
+  { name: "Waterford", lat: 52.15, lng: -7.05 },
+  { name: "Wexford", lat: 52.34, lng: -6.46 },
+  { name: "Wicklow", lat: 52.98, lng: -6.04 },
+  { name: "Dublin Bay", lat: 53.33, lng: -6.10 },
+  { name: "Dundalk Bay", lat: 54.00, lng: -6.25 }
+];
+
+const ESTUARY_POINTS = [
+  { name: "Baldoyle/Malahide", lat: 53.45, lng: -6.15 },
+  { name: "Dublin Bay", lat: 53.32, lng: -6.13 },
+  { name: "Rogerstown", lat: 53.52, lng: -6.12 },
+  { name: "Boyne", lat: 53.72, lng: -6.25 },
+  { name: "Dundalk Bay", lat: 54.00, lng: -6.25 },
+  { name: "Wexford Harbour", lat: 52.34, lng: -6.45 },
+  { name: "Cork Harbour", lat: 51.85, lng: -8.30 },
+  { name: "Shannon Estuary", lat: 52.62, lng: -9.23 },
+  { name: "Galway Bay", lat: 53.25, lng: -9.10 }
+];
+
+const CITY_POINTS = [
+  { name: "Dublin", lat: 53.35, lng: -6.26 },
+  { name: "Cork", lat: 51.90, lng: -8.47 },
+  { name: "Galway", lat: 53.27, lng: -9.06 },
+  { name: "Limerick", lat: 52.66, lng: -8.63 },
+  { name: "Waterford", lat: 52.26, lng: -7.11 },
+  { name: "Drogheda", lat: 53.72, lng: -6.35 },
+  { name: "Dundalk", lat: 54.00, lng: -6.40 },
+  { name: "Sligo", lat: 54.27, lng: -8.47 }
+];
+
 function statusText(codes = []) {
   const labels = {
     A: "Recorded naturally since 1950",
@@ -101,6 +139,14 @@ function monthFromNow() {
 
 function selectedMonth() {
   return Number(els.month?.value || monthFromNow());
+}
+
+function deckLimit() {
+  const radius = Number(els.radius?.value || 10);
+  if (radius <= 5) return 45;
+  if (radius <= 10) return 70;
+  if (radius <= 25) return 110;
+  return 160;
 }
 
 function seasonForMonth(month) {
@@ -180,35 +226,75 @@ function distanceKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(x));
 }
 
-function roughCoastSignal(location) {
-  if (!location) return 0.5;
+function nearestDistanceKm(location, points) {
+  if (!location || !points?.length) return Infinity;
+  return Math.min(...points.map(point => distanceKm(location, point)));
+}
 
-  // Approximation for V1: if user is near Irish bounding coast bands or known east-coast corridor,
-  // treat coast habitat as plausible. This is deliberately broad, not a precise coastline model.
-  const lat = location.lat;
-  const lng = location.lng;
-  const nearEast = lng > -6.45;
-  const nearWest = lng < -9.0;
-  const nearSouth = lat < 52.2;
-  const nearNorth = lat > 54.8;
-  const nearDublinCoast = distanceKm(location, DUBLIN_COAST) < 28;
-  return (nearEast || nearWest || nearSouth || nearNorth || nearDublinCoast) ? 1 : 0;
+function roughCoastSignal(location) {
+  if (!location) return 0;
+
+  const radius = Number(els.radius?.value || 10);
+  const coastDistance = nearestDistanceKm(location, COAST_POINTS);
+
+  if (coastDistance <= Math.max(8, radius * 0.65)) return 1;
+  if (coastDistance <= Math.max(18, radius * 0.95)) return 0.5;
+  return 0;
+}
+
+function locationProfile(location) {
+  const radius = Number(els.radius?.value || 10);
+
+  const coastDistance = nearestDistanceKm(location, COAST_POINTS);
+  const estuaryDistance = nearestDistanceKm(location, ESTUARY_POINTS);
+  const cityDistance = nearestDistanceKm(location, CITY_POINTS);
+
+  return {
+    coastDistance,
+    estuaryDistance,
+    cityDistance,
+    coastal: coastDistance <= Math.max(10, radius * 0.7),
+    nearCoastal: coastDistance <= Math.max(22, radius),
+    estuary: estuaryDistance <= Math.max(10, radius * 0.65),
+    urban: cityDistance <= Math.max(8, radius * 0.45),
+    inland: coastDistance > Math.max(25, radius)
+  };
 }
 
 function autoHabitatsFromLocation(location) {
   const habitats = new Set(["general"]);
 
-  if (!location) return habitats;
+  if (!location) {
+    habitats.add("garden");
+    habitats.add("farmland");
+    habitats.add("river");
+    return habitats;
+  }
 
-  habitats.add("urban");
+  const profile = locationProfile(location);
+
   habitats.add("garden");
   habitats.add("farmland");
   habitats.add("river");
 
-  if (roughCoastSignal(location) > 0) {
+  if (profile.urban) {
+    habitats.add("urban");
+  } else {
+    habitats.add("woodland");
+  }
+
+  if (profile.coastal || profile.nearCoastal) {
     habitats.add("coast");
+  }
+
+  if (profile.estuary) {
     habitats.add("estuary");
     habitats.add("wetland");
+  }
+
+  if (profile.inland) {
+    habitats.add("woodland");
+    habitats.add("bog");
   }
 
   return habitats;
@@ -217,6 +303,20 @@ function autoHabitatsFromLocation(location) {
 function activeHabitats() {
   if (state.habitats.size) return new Set(state.habitats);
   return autoHabitatsFromLocation(state.location);
+}
+
+function passesHabitatGate(bird) {
+  const selected = state.habitats.size ? new Set(state.habitats) : activeHabitats();
+  const ecology = inferBirdEcology(bird);
+  const habitats = ecology.habitats || [];
+
+  if (habitats.includes("general")) return true;
+  if (habitats.some(h => selected.has(h))) return true;
+
+  // Wide-ranging raptors/corvids can remain plausible, but not dominant.
+  if (habitats.includes("wide") && !selected.has("estuary")) return true;
+
+  return false;
 }
 
 function scoreBirdForNearby(bird) {
@@ -252,11 +352,19 @@ function scoreBirdForNearby(bird) {
     score -= 12;
   }
 
+  const profile = locationProfile(state.location);
+
   if (habitats.has("coast") || habitats.has("estuary")) {
     if (ecology.habitats.includes("coast") || ecology.habitats.includes("estuary")) score += 22;
   } else {
-    if (ecology.habitats.includes("coast") || ecology.habitats.includes("estuary")) score -= 28;
+    if (ecology.habitats.includes("coast") || ecology.habitats.includes("estuary")) score -= 42;
   }
+
+  if (profile.estuary && ecology.habitats.includes("estuary")) score += 28;
+  if (profile.coastal && ecology.habitats.includes("coast")) score += 22;
+  if (profile.inland && ecology.habitats.includes("coast")) score -= 45;
+  if (profile.inland && ecology.habitats.includes("estuary")) score -= 55;
+  if (profile.urban && (ecology.habitats.includes("urban") || ecology.habitats.includes("garden"))) score += 14;
 
   if (codes.includes("R")) {
     score -= 55;
@@ -348,18 +456,25 @@ function renderSound(bird) {
 
 function applyNearbyDeck(birds) {
   if (els.deckMode.value === "all") {
+    state.plausibleCount = birds.length;
     return birds.map(b => ({ ...b, local: null }));
   }
 
-  const scored = birds.map(bird => {
-    const local = scoreBirdForNearby(bird);
-    return { ...bird, local };
-  });
+  const radius = Number(els.radius?.value || 10);
+  const threshold = radius <= 5 ? 52 : radius <= 10 ? 46 : radius <= 25 ? 38 : 32;
 
-  return scored
-    .filter(b => b.local.score >= 25)
-    .sort((a, b) => b.local.score - a.local.score || String(a.common_name).localeCompare(String(b.common_name)))
-    .slice(0, 140);
+  const plausible = birds
+    .map(bird => {
+      const local = scoreBirdForNearby(bird);
+      return { ...bird, local };
+    })
+    .filter(b => b.local.score >= threshold)
+    .filter(passesHabitatGate)
+    .sort((a, b) => b.local.score - a.local.score || String(a.common_name).localeCompare(String(b.common_name)));
+
+  state.plausibleCount = plausible.length;
+
+  return plausible.slice(0, deckLimit());
 }
 
 function render() {
@@ -414,8 +529,14 @@ function render() {
     els.grid.appendChild(node);
   });
 
-  const modeText = els.deckMode.value === "nearby" ? "local seasonal deck" : "full catalogue";
-  els.notice.textContent = `${birds.length.toLocaleString()} of ${state.birds.length.toLocaleString()} species displayed in ${modeText}.`;
+  if (els.deckMode.value === "nearby") {
+    const plausible = Number(state.plausibleCount || birds.length);
+    const cap = deckLimit();
+    const suffix = plausible > birds.length ? ` Showing top ${birds.length.toLocaleString()} of ${plausible.toLocaleString()}.` : "";
+    els.notice.textContent = `${plausible.toLocaleString()} plausible species from ${state.birds.length.toLocaleString()} checklist species for this month/location/filter.${suffix}`;
+  } else {
+    els.notice.textContent = `${birds.length.toLocaleString()} of ${state.birds.length.toLocaleString()} species displayed in full catalogue mode.`;
+  }
   updateNearbySummary();
 }
 
@@ -438,13 +559,22 @@ function updateNearbySummary() {
   const month = MONTHS[selectedMonth()];
   const habitatText = [...activeHabitats()].filter(h => h !== "general").slice(0, 6).join(", ") || "general Ireland";
   const radius = els.radius?.value || "10";
+  const limit = deckLimit();
 
   if (state.location) {
+    const profile = locationProfile(state.location);
+    const placeBits = [];
+    if (profile.estuary) placeBits.push("estuary signal");
+    else if (profile.coastal) placeBits.push("coastal signal");
+    else if (profile.nearCoastal) placeBits.push("near-coastal signal");
+    else placeBits.push("inland signal");
+    if (profile.urban) placeBits.push("urban signal");
+
     els.nearbySummary.textContent =
-      `${month}, approx. ${radius} km radius, habitats: ${habitatText}. Coordinates are used only in this browser session.`;
+      `${month}, approx. ${radius} km radius, ${placeBits.join(", ")}, max ${limit} cards, habitats: ${habitatText}. Coordinates are used only in this browser session.`;
   } else {
     els.nearbySummary.textContent =
-      `${month}, no exact location selected. Using Ireland-wide seasonal plausibility and selected habitats: ${habitatText}.`;
+      `${month}, no exact location selected. Showing top ${limit} Ireland-wide seasonal cards for selected habitats: ${habitatText}.`;
   }
 }
 
