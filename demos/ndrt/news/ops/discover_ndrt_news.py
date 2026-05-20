@@ -84,6 +84,9 @@ THEMES = {
     "lake": ["lake", "lough", "algal bloom", "cyanobacteria", "eutrophication"],
     "wetland-nbs": ["wetland", "nature-based", "pond", "riparian buffer", "constructed wetland", "buffer strip", "rewetting"],
     "biodiversity": ["biodiversity", "habitat", "species", "salmon", "trout", "eel", "lamprey", "kingfisher", "invasive"],
+    "invasive-species": ["invasive species", "invasive plant", "invasive aquatic", "spartina", "cordgrass", "japanese knotweed", "himalayan balsam", "zebra mussel"],
+    "birds-wetlands": ["waterbirds", "wetland birds", "estuary birds", "waders", "shorebirds", "wintering birds", "birdwatch", "breeding birds"],
+    "river-ecology": ["river ecology", "freshwater ecology", "aquatic ecology", "macroinvertebrates", "fish passage", "habitat restoration", "ecological status"],
     "incident-alert": ["fish kill", "pollution incident", "do not swim", "bathing water", "algal bloom", "sewage overflow"],
     "septic-wastewater": ["septic tank", "septic tanks", "domestic wastewater", "on-site wastewater", "onsite wastewater", "private well", "groundwater contamination"],
     "grant": ["grant", "funding", "scheme", "call", "award", "opportunity", "programme"],
@@ -110,6 +113,26 @@ GOOD_TERMS = {
     "monitoring": 10,
     "restoration": 10,
     "biodiversity": 9,
+    "invasive species": 14,
+    "invasive plant": 12,
+    "invasive aquatic": 13,
+    "spartina": 18,
+    "cordgrass": 16,
+    "japanese knotweed": 12,
+    "himalayan balsam": 12,
+    "zebra mussel": 12,
+    "waterbirds": 12,
+    "wetland birds": 12,
+    "estuary birds": 12,
+    "waders": 10,
+    "shorebirds": 10,
+    "wintering birds": 10,
+    "river ecology": 13,
+    "freshwater ecology": 13,
+    "aquatic ecology": 12,
+    "macroinvertebrates": 12,
+    "fish passage": 10,
+    "ecological status": 10,
     "pollution": 8,
     "fish kill": 11,
     "algal bloom": 9,
@@ -385,6 +408,18 @@ LOCAL_RELEVANCE_TERMS = {
 }
 
 PRESSURE_RULES = {
+    "invasive species": [
+        "invasive species", "invasive plant", "invasive aquatic", "spartina", "cordgrass",
+        "japanese knotweed", "himalayan balsam", "zebra mussel"
+    ],
+    "birds / wetland ecology": [
+        "waterbirds", "wetland birds", "estuary birds", "waders", "shorebirds",
+        "wintering birds", "birdwatch", "breeding birds"
+    ],
+    "river ecology": [
+        "river ecology", "freshwater ecology", "aquatic ecology", "macroinvertebrates",
+        "fish passage", "habitat restoration", "ecological status", "q-value"
+    ],
     "manure / slurry timing": [
         "slurry spreading", "manure spreading", "organic fertiliser", "organic fertilizer",
         "fertiliser spreading", "fertilizer spreading", "closed period", "spreading dates",
@@ -527,6 +562,15 @@ def action_relevance_for(item: dict[str, Any], pressures: list[str], local: dict
 
     if grant_fit:
         return f"Funding signal for the Trust: check whether this can support {pressure_text}, citizen science, engagement, or small catchment actions."
+
+    if "invasive species" in pressures:
+        return "Ecological pressure signal: invasive species such as Spartina, knotweed, balsam, or aquatic invaders can affect habitats, access, estuary condition, and restoration priorities."
+
+    if "birds / wetland ecology" in pressures:
+        return "Ecology signal: bird and wetland indicators can help connect river, estuary, lagoon, saltmarsh, and habitat condition to visible biodiversity outcomes."
+
+    if "river ecology" in pressures:
+        return "River ecology signal: useful for understanding habitat condition, macroinvertebrates, fish passage, ecological status, and monitoring priorities for Nanny Watch."
 
     if "manure / slurry timing" in pressures:
         return "Agricultural timing signal: slurry or manure may be legally spread while rainfall/runoff risk is still high, which is directly relevant to nutrients, sediment pathways, farmer engagement, and catchment messaging."

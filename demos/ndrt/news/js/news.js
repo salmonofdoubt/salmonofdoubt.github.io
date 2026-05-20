@@ -88,6 +88,39 @@ function itemFilterTerms(item) {
 
 function themeAliases(value) {
   const aliases = {
+    "invasive-species": [
+      "invasive-species",
+      "invasive species",
+      "invasive plant",
+      "invasive aquatic",
+      "spartina",
+      "cordgrass",
+      "japanese knotweed",
+      "himalayan balsam",
+      "zebra mussel"
+    ],
+    "birds-wetlands": [
+      "birds-wetlands",
+      "birds / wetland ecology",
+      "waterbirds",
+      "wetland birds",
+      "estuary birds",
+      "waders",
+      "shorebirds",
+      "wintering birds",
+      "birdwatch"
+    ],
+    "river-ecology": [
+      "river-ecology",
+      "river ecology",
+      "freshwater ecology",
+      "aquatic ecology",
+      "macroinvertebrates",
+      "fish passage",
+      "habitat restoration",
+      "ecological status",
+      "q-value"
+    ],
     "slurry-manure-timing": [
       "slurry-manure-timing",
       "manure / slurry timing",
