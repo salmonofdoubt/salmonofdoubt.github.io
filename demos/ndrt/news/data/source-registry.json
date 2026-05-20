@@ -42,7 +42,7 @@
       "url": "https://news.google.com/rss/search?q=%28estuary%20OR%20lagoon%20OR%20coastal%20wetland%20OR%20saltmarsh%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%29&hl=en-IE&gl=IE&ceid=IE:en",
       "section": "waterbody-evidence-alerts",
       "scope": "ireland",
-      "trust": 0.70
+      "trust": 0.7
     },
     {
       "id": "google-news-fish-kill-pollution",
@@ -61,6 +61,24 @@
       "section": "grants-opportunities",
       "scope": "funding",
       "trust": 0.76
+    },
+    {
+      "id": "google-news-septic-tank-grants-ireland",
+      "name": "Google News: septic tank grants Ireland",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28septic%20tank%20grant%20OR%20septic%20tank%20grants%20OR%20domestic%20wastewater%20grant%20OR%20wastewater%20treatment%20grant%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "grants-opportunities",
+      "scope": "funding ireland wastewater",
+      "trust": 0.74
+    },
+    {
+      "id": "google-news-septic-tanks-ireland",
+      "name": "Google News: septic tanks Ireland",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28septic%20tank%20OR%20septic%20tanks%20OR%20domestic%20wastewater%20OR%20on-site%20wastewater%20OR%20onsite%20wastewater%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20pollution%20OR%20river%20OR%20lake%20OR%20groundwater%20OR%20grant%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "waterbody-evidence-alerts",
+      "scope": "ireland wastewater pressure",
+      "trust": 0.74
     },
     {
       "id": "catchments-ie",
@@ -96,7 +114,7 @@
       "url": "https://www.fisheriesireland.ie/news",
       "section": "waterbody-evidence-alerts",
       "scope": "ireland institutional",
-      "trust": 0.90
+      "trust": 0.9
     },
     {
       "id": "npws",
@@ -114,7 +132,7 @@
       "url": "https://www.heritagecouncil.ie/funding",
       "section": "grants-opportunities",
       "scope": "funding ireland",
-      "trust": 0.90
+      "trust": 0.9
     },
     {
       "id": "community-foundation-ireland-grants",
@@ -132,7 +150,7 @@
       "url": "https://cinea.ec.europa.eu/programmes/life/calls-proposals_en",
       "section": "grants-opportunities",
       "scope": "funding europe",
-      "trust": 0.90
+      "trust": 0.9
     },
     {
       "id": "research-ireland-funding",
@@ -159,7 +177,7 @@
       "url": "https://www.therrc.co.uk/news",
       "section": "waterbody-evidence-alerts",
       "scope": "practice reference",
-      "trust": 0.80
+      "trust": 0.8
     }
   ]
 }
