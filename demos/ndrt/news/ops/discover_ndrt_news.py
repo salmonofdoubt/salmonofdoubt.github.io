@@ -57,6 +57,16 @@ CORE_PATTERNS = [
     r"\bprivate well\b",
     r"\bgroundwater contamination\b",
     r"\bpollution\b",
+    r"\bslurry spreading\b",
+    r"\bmanure spreading\b",
+    r"\borganic fertiliser\b",
+    r"\borganic fertilizer\b",
+    r"\bfertiliser spreading\b",
+    r"\bfertilizer spreading\b",
+    r"\bclosed period\b",
+    r"\bspreading dates\b",
+    r"\bnitrates action programme\b",
+    r"\bnitrates derogation\b",
     r"\bcitizen science\b",
     r"\bnature-based\b",
     r"\brestoration\b",
@@ -375,10 +385,16 @@ LOCAL_RELEVANCE_TERMS = {
 }
 
 PRESSURE_RULES = {
+    "manure / slurry timing": [
+        "slurry spreading", "manure spreading", "organic fertiliser", "organic fertilizer",
+        "fertiliser spreading", "fertilizer spreading", "closed period", "spreading dates",
+        "rain forecast", "rainfall", "nitrates action programme", "nitrates derogation"
+    ],
     "septic / domestic wastewater": [
         "septic", "domestic wastewater", "on-site wastewater", "onsite wastewater",
         "private well", "groundwater contamination", "e. coli", "faecal", "fecal"
     ],
+    "slurry-manure-timing": ["slurry spreading", "manure spreading", "organic fertiliser", "organic fertilizer", "fertiliser spreading", "fertilizer spreading", "closed period", "spreading dates", "nitrates action programme", "nitrates derogation", "rainfall", "rain forecast"],
     "agricultural runoff": [
         "agricultural runoff", "farm runoff", "agriculture", "farmer", "slurry",
         "fertiliser", "fertilizer", "nutrient runoff", "field margin"
@@ -511,6 +527,9 @@ def action_relevance_for(item: dict[str, Any], pressures: list[str], local: dict
 
     if grant_fit:
         return f"Funding signal for the Trust: check whether this can support {pressure_text}, citizen science, engagement, or small catchment actions."
+
+    if "manure / slurry timing" in pressures:
+        return "Agricultural timing signal: slurry or manure may be legally spread while rainfall/runoff risk is still high, which is directly relevant to nutrients, sediment pathways, farmer engagement, and catchment messaging."
 
     if "septic" in title or "domestic wastewater" in title or "septic / domestic wastewater" in pressures:
         return "Potential catchment-pressure signal: septic or domestic wastewater issues can affect groundwater, small streams, bathing waters, and local engagement priorities."
