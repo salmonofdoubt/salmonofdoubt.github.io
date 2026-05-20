@@ -1,0 +1,65 @@
+/* Shared demo DOI / Zenodo status control
+   Real DOI: clickable.
+   Placeholder DOI: visible but not clickable.
+*/
+
+.demo-doi-pill {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9998;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 28px;
+  padding: 0.32rem 0.58rem;
+  border-radius: 999px;
+  border: 1px solid rgba(79, 246, 255, 0.26);
+  background: rgba(5, 12, 18, 0.82);
+  color: #e9f7f4;
+  font: 900 0.72rem/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.26), 0 0 18px rgba(79, 246, 255, 0.10);
+  backdrop-filter: blur(12px);
+}
+
+.demo-doi-pill::before {
+  content: "DOI";
+  display: inline-flex;
+  align-items: center;
+  min-height: 15px;
+  padding: 0 0.32rem;
+  border-radius: 0.2rem;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
+}
+
+a.demo-doi-pill:hover,
+a.demo-doi-pill:focus {
+  color: #031014;
+  background: linear-gradient(135deg, #4ff6ff, #91fff2);
+  border-color: rgba(79, 246, 255, 0.56);
+  outline: none;
+}
+
+.demo-doi-pill.is-pending {
+  color: rgba(233, 247, 244, 0.72);
+  border-color: rgba(255, 176, 64, 0.30);
+  background: rgba(5, 12, 18, 0.72);
+}
+
+.demo-doi-pill.is-pending::before {
+  background: rgba(255, 176, 64, 0.28);
+}
+
+@media (max-width: 700px) {
+  .demo-doi-pill {
+    right: 12px;
+    bottom: 58px;
+    max-width: calc(100vw - 24px);
+    font-size: 0.66rem;
+  }
+}

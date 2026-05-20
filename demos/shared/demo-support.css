@@ -1,0 +1,49 @@
+/* Shared GitHub Sponsors control
+   Purpose: consistent support link across public demo pages.
+*/
+
+.demo-support-pill {
+  position: fixed;
+  right: 16px;
+  bottom: 54px;
+  z-index: 9998;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 34px;
+  padding: 0.48rem 0.72rem;
+  border-radius: 999px;
+  border: 1px solid rgba(211, 108, 255, 0.38);
+  background: rgba(5, 12, 18, 0.84);
+  color: #f0dcff;
+  font: 900 0.78rem/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.26), 0 0 18px rgba(211, 108, 255, 0.13);
+  backdrop-filter: blur(12px);
+}
+
+.demo-support-pill::before {
+  content: "♥";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+}
+
+.demo-support-pill:hover,
+.demo-support-pill:focus {
+  color: #17031d;
+  background: linear-gradient(135deg, #d36cff, #ffc8ff);
+  border-color: rgba(211, 108, 255, 0.62);
+  outline: none;
+}
+
+@media (max-width: 700px) {
+  .demo-support-pill {
+    right: 12px;
+    bottom: 96px;
+    max-width: calc(100vw - 24px);
+    font-size: 0.72rem;
+  }
+}
