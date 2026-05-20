@@ -3,8 +3,8 @@
   const coffeeUrl = "https://buymeacoffee.com/andrecbaum1";
   const path = window.location.pathname.replace(/\/index\.html$/, "/");
 
-  // Do not show on the demos index itself; individual demos get the support control.
-  if (path === "/demos/" || path.endsWith("/demos/")) return;
+  // Show on both the demos index and individual demo pages.
+  // DOI and return controls remain separate and still skip the demos index.
 
   if (document.querySelector("[data-demo-support-widget]")) return;
 
