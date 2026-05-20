@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-05-20T14:33:12.090204+00:00",
-  "latest_generated_at": "2026-05-20T14:33:11.915290+00:00",
+  "generated_at": "2026-05-20T14:36:38.376321+00:00",
+  "latest_generated_at": "2026-05-20T14:36:38.201264+00:00",
   "total_items": 92,
   "total_sources": 20,
-  "sources_active": 10,
-  "sources_checked_no_current_items": 10,
+  "sources_active": 11,
+  "sources_checked_no_current_items": 9,
   "sources_failed": 0,
   "items_by_section": {
-    "ireland-urban-forest-practice": 22,
-    "funding-opportunities": 25,
+    "ireland-urban-forest-practice": 21,
+    "funding-opportunities": 26,
     "research-evidence": 40,
     "design-maintenance-risk": 3,
     "transferable-urbanforest-practice": 2
@@ -17,8 +17,8 @@
     "urbanforest_relevance": 92,
     "benefit_categories": 92,
     "local_relevance": 92,
-    "opportunity_fit": 31,
-    "research_use_type": 53
+    "opportunity_fit": 32,
+    "research_use_type": 52
   },
   "archive_snapshots": 2,
   "sources": [
@@ -41,8 +41,8 @@
       "scope": "funding ireland trees biodiversity",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-urbanforest-maintenance-ireland-uk",
@@ -97,7 +97,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20forest%20OR%20campus%20greening%20OR%20school%20garden%20OR%20biodiversity%20campus%29%20Ireland%20%28trees%20OR%20forest%20OR%20planting%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 5
+      "current_item_count": 4
     },
     {
       "id": "gn-urban-nbs-suds",
