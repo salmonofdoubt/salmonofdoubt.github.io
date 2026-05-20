@@ -233,6 +233,13 @@ function itemMatchesTheme(item, selectedTheme) {
 
 function itemDateInRange(item, range) {
   if (range === "all") return true;
+
+  // Default view: keep operational signals recent, but keep the research evidence base visible.
+  if (range === "recentPlusResearch") {
+    if (itemSection(item) === "research-papers") return true;
+    range = "6m";
+  }
+
   if (!item.published) return false;
 
   const published = new Date(item.published);
@@ -613,7 +620,7 @@ els.theme.addEventListener("change", renderItems);
 els.freshness.addEventListener("change", renderItems);
 els.date?.addEventListener("change", renderItems);
 
-if (els.date && !els.date.value) els.date.value = "6m";
+if (els.date && !els.date.value) els.date.value = "recentPlusResearch";
 loadLatest();
 loadArchive();
 loadOpsStatus();
