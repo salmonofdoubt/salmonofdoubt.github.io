@@ -1,6 +1,7 @@
 const state = {
   birds: [],
   filtered: [],
+  plausibleCount: 0,
   map: null,
   marker: null,
   location: null,
@@ -26,7 +27,12 @@ const els = {
   month: document.getElementById("monthFilter"),
   radius: document.getElementById("radiusFilter"),
   deckMode: document.getElementById("deckMode"),
-  nearbySummary: document.getElementById("nearbySummary")
+  preset: document.getElementById("presetFilter"),
+  listenOnly: document.getElementById("listenOnly"),
+  includeRare: document.getElementById("includeRare"),
+  nearbySummary: document.getElementById("nearbySummary"),
+  chorusList: document.getElementById("chorusList"),
+  chorusContext: document.getElementById("chorusContext")
 };
 
 const MONTHS = {
@@ -35,8 +41,17 @@ const MONTHS = {
   9: "September", 10: "October", 11: "November", 12: "December"
 };
 
+const HABITAT_PRESETS = {
+  garden: ["garden", "urban", "woodland"],
+  park: ["urban", "garden", "woodland", "river"],
+  farmland: ["farmland", "garden", "river"],
+  river: ["river", "wetland", "woodland", "farmland"],
+  estuary: ["estuary", "wetland", "coast", "river"],
+  coast: ["coast", "estuary", "wetland"],
+  bog: ["bog", "farmland", "wide"]
+};
+
 const IRELAND_CENTRE = { lat: 53.35, lng: -7.7 };
-const DUBLIN_COAST = { lat: 53.38, lng: -6.13 };
 
 const COAST_POINTS = [
   { name: "Donegal", lat: 55.15, lng: -8.13 },
@@ -76,16 +91,6 @@ const CITY_POINTS = [
   { name: "Sligo", lat: 54.27, lng: -8.47 }
 ];
 
-function statusText(codes = []) {
-  const labels = {
-    A: "Recorded naturally since 1950",
-    B: "Historical natural record before 1950 only",
-    C: "Introduced / established feral",
-    R: "Rarity requiring details"
-  };
-  return codes.map(code => labels[code] || code).join("; ") || "Unclassified";
-}
-
 function hasAudio(bird) {
   return Boolean(bird.audio && bird.audio.file);
 }
@@ -94,27 +99,14 @@ function hasImage(bird) {
   return Boolean(bird.image && (bird.image.thumb || bird.image.original || bird.image.url));
 }
 
-function renderImage(bird) {
-  if (!hasImage(bird)) {
-    return `<div class="image-placeholder">No image matched yet</div>`;
-  }
-
-  const image = bird.image;
-  const src = image.thumb || image.original || image.url;
-  const page = image.commons_url || image.url || "#";
-  const source = image.source || "Wikimedia";
-  const licence = image.license || "See source page";
-
-  return `
-    <img src="${src}" alt="${bird.common_name || "Bird"}" loading="lazy" />
-    <p class="image-credit">
-      Image: <a href="${page}" target="_blank" rel="noopener">${source}</a>. ${licence}.
-    </p>
-  `;
-}
-
-function qualityRank(q) {
-  return { A: 1, B: 2, C: 3, D: 4, E: 5 }[String(q || "").toUpperCase()] || 9;
+function statusText(codes = []) {
+  const labels = {
+    A: "Recorded naturally since 1950",
+    B: "Historical natural record before 1950 only",
+    C: "Introduced / established feral",
+    R: "Rarity requiring details"
+  };
+  return codes.map(code => labels[code] || code).join("; ") || "Unclassified";
 }
 
 function classifyStatus(bird) {
@@ -134,6 +126,10 @@ function matchesStatus(bird, filter) {
   return classifyStatus(bird) === filter;
 }
 
+function qualityRank(q) {
+  return { A: 1, B: 2, C: 3, D: 4, E: 5 }[String(q || "").toUpperCase()] || 9;
+}
+
 function monthFromNow() {
   return new Date().getMonth() + 1;
 }
@@ -150,13 +146,6 @@ function deckLimit() {
   return 160;
 }
 
-function seasonForMonth(month) {
-  if ([12, 1, 2].includes(month)) return "winter";
-  if ([3, 4, 5].includes(month)) return "spring";
-  if ([6, 7, 8].includes(month)) return "summer";
-  return "autumn";
-}
-
 function birdAliases(bird) {
   const common = String(bird.common_name || "").toLowerCase();
   const scientific = String(bird.scientific_name || "").toLowerCase();
@@ -165,10 +154,6 @@ function birdAliases(bird) {
   if (common.includes("european robin") || scientific.includes("erithacus rubecula")) {
     aliases.push("robin", "garden robin", "irish robin");
   }
-
-  if (common.includes("wren")) aliases.push("wren");
-  if (common.includes("blackbird")) aliases.push("blackbird");
-  if (common.includes("chaffinch")) aliases.push("chaffinch");
 
   return aliases.join(" ");
 }
@@ -192,7 +177,7 @@ function inferBirdEcology(bird) {
 
   addIf(/gull|tern|skua|auk|guillemot|razorbill|puffin|fulmar|gannet|cormorant|shag|shearwater|petrel|kittiwake|diver|eider|scoter|merganser|seaduck|oystercatcher|turnstone|sanderling/.test(t), "coast");
   addIf(/brent|wigeon|teal|pintail|shoveler|godwit|curlew|redshank|greenshank|sandpiper|plover|lapwing|snipe|rail|crake|heron|egret|ibis|spoonbill|moorhen|coot|duck|goose|swan|grebe|bittern|avocet|stilt/.test(t), "wetland");
-  addIf(/estuary|brent|godwit|redshank|curlew|dunlin|knot|bar-tailed|black-tailed|oystercatcher|shelduck|turnstone|sanderling|ringed plover|grey plover/.test(t), "estuary");
+  addIf(/brent|godwit|redshank|curlew|dunlin|knot|bar-tailed|black-tailed|oystercatcher|shelduck|turnstone|sanderling|ringed plover|grey plover/.test(t), "estuary");
   addIf(/warbler|woodpecker|treecreeper|nuthatch|tit|chiffchaff|willow|blackcap|goldcrest|firecrest|jay|sparrowhawk|woodcock|owl|thrush|redstart|flycatcher|crossbill/.test(t), "woodland");
   addIf(/sparrow|starling|swift|swallow|martin|wagtail|pigeon|dove|rook|jackdaw|magpie|crow|robin|blackbird|dunnock|finch|greenfinch|goldfinch|chaffinch|collared dove/.test(t), "urban");
   addIf(/robin|blackbird|dunnock|wren|sparrow|tit|finch|starling|magpie|woodpigeon|collared dove|goldcrest/.test(t), "garden");
@@ -201,17 +186,15 @@ function inferBirdEcology(bird) {
   addIf(/curlew|golden plover|merlin|hen harrier|red grouse|ptarmigan|raven|wheatear|stonechat|meadow pipit|twite/.test(t), "bog");
   addIf(/eagle|falcon|harrier|buzzard|kestrel|kite|osprey|hawk|owl/.test(t), "wide");
 
-  if (!habitats.size) {
-    habitats.add("general");
-  }
+  if (!habitats.size) habitats.add("general");
 
-  const migratory = {
-    summer: /swallow|swift|martin|cuckoo|warbler|chiffchaff|willow|whitethroat|redstart|flycatcher|wheatear|tern|puffin|corncrake|nightjar|hobby|osprey/.test(t),
-    winter: /brent|whooper|wigeon|teal|scaup|goldeneye|scoter|diver|godwit|dunlin|knot|sanderling|redwing|fieldfare|waxwing|snow bunting|jack snipe|purple sandpiper/.test(t),
-    passage: /sandpiper|phalarope|skua|whimbrel|spotted flycatcher|redstart|wheatear|warbler|tern|plover/.test(t)
+  return {
+    habitats: [...habitats],
+    migratory: {
+      summer: /swallow|swift|martin|cuckoo|warbler|chiffchaff|willow|whitethroat|redstart|flycatcher|wheatear|tern|puffin|corncrake|nightjar|hobby|osprey/.test(t),
+      winter: /brent|whooper|wigeon|teal|scaup|goldeneye|scoter|diver|godwit|dunlin|knot|sanderling|redwing|fieldfare|waxwing|snow bunting|jack snipe|purple sandpiper/.test(t)
+    }
   };
-
-  return { habitats: [...habitats], migratory };
 }
 
 function monthsForBird(bird) {
@@ -220,15 +203,10 @@ function monthsForBird(bird) {
   const codes = bird.status_codes || [];
 
   if (codes.includes("B")) return [];
-  if (codes.includes("R")) {
-    if (ecology.migratory.summer) return [4, 5, 6, 7, 8, 9];
-    if (ecology.migratory.winter) return [10, 11, 12, 1, 2, 3];
-    return [1,2,3,4,5,6,7,8,9,10,11,12];
-  }
-
-  if (ecology.migratory.summer && !ecology.migratory.winter) return [4, 5, 6, 7, 8, 9];
-  if (ecology.migratory.winter && !ecology.migratory.summer) return [10, 11, 12, 1, 2, 3];
-  if (/tern|skua|phalarope|whimbrel|curlew sandpiper|little stint/.test(t)) return [4, 5, 8, 9, 10];
+  if (codes.includes("R")) return [1,2,3,4,5,6,7,8,9,10,11,12];
+  if (ecology.migratory.summer && !ecology.migratory.winter) return [4,5,6,7,8,9];
+  if (ecology.migratory.winter && !ecology.migratory.summer) return [10,11,12,1,2,3];
+  if (/tern|skua|phalarope|whimbrel|curlew sandpiper|little stint/.test(t)) return [4,5,8,9,10];
 
   return [1,2,3,4,5,6,7,8,9,10,11,12];
 }
@@ -249,20 +227,8 @@ function nearestDistanceKm(location, points) {
   return Math.min(...points.map(point => distanceKm(location, point)));
 }
 
-function roughCoastSignal(location) {
-  if (!location) return 0;
-
-  const radius = Number(els.radius?.value || 10);
-  const coastDistance = nearestDistanceKm(location, COAST_POINTS);
-
-  if (coastDistance <= Math.max(8, radius * 0.65)) return 1;
-  if (coastDistance <= Math.max(18, radius * 0.95)) return 0.5;
-  return 0;
-}
-
 function locationProfile(location) {
   const radius = Number(els.radius?.value || 10);
-
   const coastDistance = nearestDistanceKm(location, COAST_POINTS);
   const estuaryDistance = nearestDistanceKm(location, ESTUARY_POINTS);
   const cityDistance = nearestDistanceKm(location, CITY_POINTS);
@@ -290,26 +256,18 @@ function autoHabitatsFromLocation(location) {
   }
 
   const profile = locationProfile(location);
-
   habitats.add("garden");
   habitats.add("farmland");
   habitats.add("river");
 
-  if (profile.urban) {
-    habitats.add("urban");
-  } else {
-    habitats.add("woodland");
-  }
+  if (profile.urban) habitats.add("urban");
+  else habitats.add("woodland");
 
-  if (profile.coastal || profile.nearCoastal) {
-    habitats.add("coast");
-  }
-
+  if (profile.coastal || profile.nearCoastal) habitats.add("coast");
   if (profile.estuary) {
     habitats.add("estuary");
     habitats.add("wetland");
   }
-
   if (profile.inland) {
     habitats.add("woodland");
     habitats.add("bog");
@@ -325,13 +283,10 @@ function activeHabitats() {
 
 function passesHabitatGate(bird) {
   const selected = state.habitats.size ? new Set(state.habitats) : activeHabitats();
-  const ecology = inferBirdEcology(bird);
-  const habitats = ecology.habitats || [];
+  const habitats = inferBirdEcology(bird).habitats || [];
 
   if (habitats.includes("general")) return true;
   if (habitats.some(h => selected.has(h))) return true;
-
-  // Wide-ranging raptors/corvids can remain plausible, but not dominant.
   if (habitats.includes("wide") && !selected.has("estuary")) return true;
 
   return false;
@@ -339,11 +294,10 @@ function passesHabitatGate(bird) {
 
 function scoreBirdForNearby(bird) {
   const month = selectedMonth();
-  const ecology = inferBirdEcology(bird);
   const birdMonths = monthsForBird(bird);
-  const codes = bird.status_codes || [];
+  const ecology = inferBirdEcology(bird);
   const habitats = activeHabitats();
-  const radius = Number(els.radius?.value || 10);
+  const codes = bird.status_codes || [];
 
   let score = 0;
   const reasons = [];
@@ -392,27 +346,55 @@ function scoreBirdForNearby(bird) {
     score -= 120;
     reasons.push("historical only");
   }
-  if (codes.includes("C")) {
-    score -= 6;
-  }
+  if (codes.includes("C")) score -= 6;
 
   if (hasAudio(bird)) score += 4;
   if (hasImage(bird)) score += 4;
-
-  if (radius >= 25) score += ecology.habitats.includes("wide") ? 12 : 3;
-  if (radius <= 5 && ecology.habitats.includes("wide")) score -= 8;
 
   let confidence = "low";
   if (score >= 70) confidence = "high";
   else if (score >= 40) confidence = "medium";
 
-  return {
-    score,
-    confidence,
-    reasons: reasons.slice(0, 4),
-    habitats: ecology.habitats,
-    months: birdMonths
-  };
+  return { score, confidence, reasons: reasons.slice(0, 4), habitats: ecology.habitats, months: birdMonths };
+}
+
+function localMatchLabel(confidence) {
+  if (confidence === "high") return "High";
+  if (confidence === "medium") return "Medium";
+  if (confidence === "low") return "Low";
+  return "Context only";
+}
+
+function recordingTypeLabel(typeValue) {
+  const text = Array.isArray(typeValue)
+    ? typeValue.join(", ").toLowerCase()
+    : String(typeValue || "").toLowerCase();
+
+  if (text.includes("song")) return "Song";
+  if (text.includes("flight")) return "Flight call";
+  if (text.includes("alarm")) return "Alarm call";
+  if (text.includes("display")) return "Display call";
+  if (text.includes("call")) return "Call";
+  return "Recording";
+}
+
+function renderImage(bird) {
+  if (!hasImage(bird)) {
+    return `<div class="image-placeholder">No image matched yet</div>`;
+  }
+
+  const image = bird.image;
+  const src = image.thumb || image.original || image.url;
+  const page = image.commons_url || image.url || "#";
+  const source = image.source || "Wikimedia";
+  const licence = image.license || "See source page";
+
+  return `
+    <img src="${src}" alt="${bird.common_name || "Bird"}" loading="lazy" />
+    <p class="image-credit">
+      Image: <a href="${page}" target="_blank" rel="noopener">${source}</a>. ${licence}.
+    </p>
+  `;
 }
 
 function renderBadges(bird) {
@@ -423,7 +405,7 @@ function renderBadges(bird) {
   });
 
   if (bird.local) {
-    parts.push(`<span class="badge confidence ${bird.local.confidence}">${bird.local.confidence}</span>`);
+    parts.push(`<span class="badge confidence ${bird.local.confidence}">${localMatchLabel(bird.local.confidence)}</span>`);
   }
 
   if (hasAudio(bird)) {
@@ -434,23 +416,41 @@ function renderBadges(bird) {
     parts.push(`<span class="badge missing">No sound</span>`);
   }
 
-  if (hasImage(bird)) {
-    parts.push(`<span class="badge image-ok">Image</span>`);
-  }
-
+  if (hasImage(bird)) parts.push(`<span class="badge image-ok">Image</span>`);
   return parts.join("");
 }
 
 function renderLocalReason(bird) {
-  if (!bird.local || els.deckMode.value === "all") return "";
-  const month = MONTHS[selectedMonth()];
+  if (!bird.local || els.deckMode?.value === "all") return "";
+  const label = localMatchLabel(bird.local.confidence);
   const bits = bird.local.reasons?.length ? bird.local.reasons.join(" · ") : "seasonal plausibility";
-  return `<p><strong>${month} local deck.</strong> ${bits}. Score ${Math.round(bird.local.score)}.</p>`;
+  return `<p><strong>Local match: ${label}.</strong> Why shown: ${bits}.</p>`;
+}
+
+function renderSound(bird) {
+  if (!hasAudio(bird)) {
+    return `<p class="missing-note">No public xeno-canto recording was matched during the latest harvest.</p>`;
+  }
+
+  const audio = bird.audio;
+  const rawType = Array.isArray(audio.type) ? audio.type.join(", ") : (audio.type || "recording");
+  const typeLabel = recordingTypeLabel(audio.type);
+  const source = audio.url ? `<a href="${audio.url}" target="_blank" rel="noopener">xeno-canto ${audio.id || ""}</a>` : "xeno-canto";
+  const rec = audio.recordist ? `Recordist: ${audio.recordist}` : "Recordist unknown";
+  const country = audio.country ? `Country: ${audio.country}` : "Country unknown";
+  const licence = audio.license ? `Licence: ${audio.license}` : "Licence not parsed";
+
+  return `
+    <div class="recording-type">${typeLabel}</div>
+    <audio controls preload="none" src="${audio.file}"></audio>
+    <p class="sound-meta">
+      ${rawType}. ${rec}. ${country}. Quality ${audio.q || "?"}. ${licence}. Source: ${source}.
+    </p>
+  `;
 }
 
 function habitatGroupLabel(bird) {
   const habitats = inferBirdEcology(bird).habitats || [];
-
   if (habitats.includes("estuary")) return "Estuary and tidal wetland birds";
   if (habitats.includes("coast")) return "Coastal and seabirds";
   if (habitats.includes("wetland")) return "Wetland, ducks, waders, and marsh birds";
@@ -460,7 +460,6 @@ function habitatGroupLabel(bird) {
   if (habitats.includes("farmland")) return "Farmland and hedgerow birds";
   if (habitats.includes("urban") || habitats.includes("garden")) return "Urban, garden, and parkland birds";
   if (habitats.includes("wide")) return "Wide-ranging raptors and large birds";
-
   return "Generalist and other birds";
 }
 
@@ -485,21 +484,15 @@ function seasonGroupLabel(bird) {
 
 function localGroupLabel(bird) {
   const confidence = bird.local?.confidence || "unscored";
-
   if (confidence === "high") return "High local match";
   if (confidence === "medium") return "Medium local match";
   if (confidence === "low") return "Low local match";
   return "Unscored catalogue entries";
 }
 
-function checklistGroupLabel(bird) {
-  return bird.group || "Unspecified checklist group";
-}
-
 function groupLabelForBird(bird) {
   const mode = els.group?.value || "local";
-
-  if (mode === "checklist") return checklistGroupLabel(bird);
+  if (mode === "checklist") return bird.group || "Unspecified checklist group";
   if (mode === "habitat") return habitatGroupLabel(bird);
   if (mode === "season") return seasonGroupLabel(bird);
   return localGroupLabel(bird);
@@ -511,7 +504,6 @@ function groupRank(label) {
     "Medium local match",
     "Low local match",
     "Unscored catalogue entries",
-
     "Estuary and tidal wetland birds",
     "Coastal and seabirds",
     "Wetland, ducks, waders, and marsh birds",
@@ -522,7 +514,6 @@ function groupRank(label) {
     "Urban, garden, and parkland birds",
     "Wide-ranging raptors and large birds",
     "Generalist and other birds",
-
     "Resident or broadly present year-round",
     "Summer visitors and breeding-season birds",
     "Winter visitors",
@@ -531,22 +522,47 @@ function groupRank(label) {
     "Rare or vagrant records",
     "Historical records"
   ];
-
   const idx = order.indexOf(label);
   return idx === -1 ? 999 : idx;
 }
 
+function groupDescription(label) {
+  const descriptions = {
+    "High local match": "Strong month, habitat, and location fit. These are the first birds to listen for.",
+    "Medium local match": "Plausible in this setting, but less tightly tied to the chosen place or month.",
+    "Low local match": "Weak local signal. Kept for context, search, or broader browsing.",
+    "Estuary and tidal wetland birds": "Birds associated with mudflats, tidal channels, saltmarsh, estuarine edges, and sheltered coastal wetlands.",
+    "Coastal and seabirds": "Birds of beaches, cliffs, harbours, nearshore waters, islands, and open sea influence.",
+    "Wetland, ducks, waders, and marsh birds": "Birds linked to freshwater marsh, reedbed, wet grassland, lakes, ponds, and open water.",
+    "Rivers, lakes, and freshwater birds": "Species often encountered along rivers, streams, reservoirs, lakes, canals, and riparian corridors.",
+    "Bog, upland, and open-country birds": "Species associated with peatland, moorland, uplands, rough grassland, and exposed open landscapes.",
+    "Woodland and scrub birds": "Birds of trees, woodland edge, scrub, hedgerow structure, and shaded nesting or feeding niches.",
+    "Farmland and hedgerow birds": "Birds often linked to fields, farmyards, pasture, tillage, hedgerows, ditches, and rural edges.",
+    "Urban, garden, and parkland birds": "Species commonly encountered around gardens, streets, parks, campuses, and built landscapes.",
+    "Wide-ranging raptors and large birds": "Mobile species that may range across several habitats and large territories.",
+    "Generalist and other birds": "Species not cleanly assigned to one simple habitat guild in the current model."
+  };
+  return descriptions[label] || "Checklist group from the Irish bird list.";
+}
+
 function renderBirdCard(bird) {
   const node = els.template.content.cloneNode(true);
-  node.querySelector(".image-block").innerHTML = renderImage(bird);
+
+  const imageBlock = node.querySelector(".image-block");
+  if (imageBlock) imageBlock.innerHTML = renderImage(bird);
+
   node.querySelector(".common-name").textContent = bird.common_name || "Unnamed species";
   node.querySelector(".scientific-name").textContent = bird.scientific_name || "";
   node.querySelector(".irish-name").textContent = bird.irish_name || "";
   node.querySelector(".badges").innerHTML = renderBadges(bird);
-  node.querySelector(".local-reason").innerHTML = renderLocalReason(bird);
+
+  const reason = node.querySelector(".local-reason");
+  if (reason) reason.innerHTML = renderLocalReason(bird);
+
   node.querySelector(".sound-block").innerHTML = renderSound(bird);
   node.querySelector(".group").textContent = bird.group || "Unspecified";
   node.querySelector(".status-text").textContent = statusText(bird.status_codes);
+
   return node;
 }
 
@@ -561,73 +577,41 @@ function renderGroupedBirds(birds) {
     groups.get(label).push(bird);
   });
 
-  const orderedGroups = [...groups.entries()].sort((a, b) => {
-    return groupRank(a[0]) - groupRank(b[0]) || a[0].localeCompare(b[0]);
-  });
+  [...groups.entries()]
+    .sort((a, b) => groupRank(a[0]) - groupRank(b[0]) || a[0].localeCompare(b[0]))
+    .forEach(([label, items]) => {
+      const section = document.createElement("section");
+      section.className = "bird-group-section";
 
-  orderedGroups.forEach(([label, items]) => {
-    const section = document.createElement("section");
-    section.className = "bird-group-section";
+      const header = document.createElement("header");
+      header.className = "bird-group-header";
+      header.innerHTML = `
+        <div>
+          <h2>${label}</h2>
+          <p>${groupDescription(label)}</p>
+        </div>
+        <span>${items.length.toLocaleString()} species</span>
+      `;
 
-    const header = document.createElement("header");
-    header.className = "bird-group-header";
-    header.innerHTML = `
-      <h2>${label}</h2>
-      <span>${items.length.toLocaleString()} species</span>
-    `;
+      const groupGrid = document.createElement("div");
+      groupGrid.className = "bird-group-grid";
 
-    const groupGrid = document.createElement("div");
-    groupGrid.className = "bird-group-grid";
-
-    items.forEach(bird => {
-      groupGrid.appendChild(renderBirdCard(bird));
+      items.forEach(bird => groupGrid.appendChild(renderBirdCard(bird)));
+      section.append(header, groupGrid);
+      els.grid.appendChild(section);
     });
-
-    section.append(header, groupGrid);
-    els.grid.appendChild(section);
-  });
-}
-
-function renderSound(bird) {
-  if (!hasAudio(bird)) {
-    return `
-      <p class="missing-note">
-        No public xeno-canto recording was matched during the latest harvest. This is a coverage gap, not evidence that the species is silent. An outrageous biological claim would be most illogical.
-      </p>
-    `;
-  }
-
-  const audio = bird.audio;
-  const type = Array.isArray(audio.type) ? audio.type.join(", ") : (audio.type || "recording");
-  const source = audio.url ? `<a href="${audio.url}" target="_blank" rel="noopener">xeno-canto ${audio.id || ""}</a>` : "xeno-canto";
-  const rec = audio.recordist ? `Recordist: ${audio.recordist}` : "Recordist unknown";
-  const country = audio.country ? `Country: ${audio.country}` : "Country unknown";
-  const licence = audio.license ? `Licence: ${audio.license}` : "Licence not parsed";
-
-  return `
-    <audio controls preload="none" src="${audio.file}"></audio>
-    <p class="sound-meta">
-      ${type}. ${rec}. ${country}. Quality ${audio.q || "?"}. ${licence}. Source: ${source}.
-    </p>
-  `;
 }
 
 function applyNearbyDeck(birds) {
-  const query = els.search.value.trim().toLowerCase();
+  const query = els.search?.value.trim().toLowerCase() || "";
 
-  if (els.deckMode.value === "all") {
+  if (els.deckMode?.value === "all") {
     state.plausibleCount = birds.length;
     return birds.map(b => ({ ...b, local: null }));
   }
 
-  const radius = Number(els.radius?.value || 10);
-  const threshold = radius <= 5 ? 52 : radius <= 10 ? 46 : radius <= 25 ? 38 : 32;
-
   const scored = birds
-    .map(bird => {
-      const local = scoreBirdForNearby(bird);
-      return { ...bird, local };
-    })
+    .map(bird => ({ ...bird, local: scoreBirdForNearby(bird) }))
     .sort((a, b) => b.local.score - a.local.score || String(a.common_name).localeCompare(String(b.common_name)));
 
   if (query) {
@@ -635,73 +619,106 @@ function applyNearbyDeck(birds) {
     return scored;
   }
 
+  const radius = Number(els.radius?.value || 10);
+  const threshold = radius <= 5 ? 52 : radius <= 10 ? 46 : radius <= 25 ? 38 : 32;
+
   const plausible = scored
     .filter(b => b.local.score >= threshold)
-    .filter(passesHabitatGate);
+    .filter(passesHabitatGate)
+    .filter(b => {
+      if (els.includeRare?.checked) return true;
+      const codes = b.status_codes || [];
+      return !codes.includes("R") && !codes.includes("B");
+    });
 
   state.plausibleCount = plausible.length;
-
   return plausible.slice(0, deckLimit());
 }
 
-function render() {
-  const q = els.search.value.trim().toLowerCase();
-  const status = els.status.value;
-  const sound = els.sound.value;
-  const sort = els.sort.value;
+function renderChorus() {
+  if (!els.chorusList) return;
 
-  let birds = state.birds.filter(bird => {
-    const haystack = [
-      textBag(bird),
-      ...(bird.status_codes || [])
-    ].join(" ").toLowerCase();
+  const playable = state.filtered
+    .filter(hasAudio)
+    .filter(b => !(b.status_codes || []).includes("B"))
+    .slice(0, 8);
 
-    // Direct search is authoritative. Other filters should not hide a named lookup.
-    if (q) return haystack.includes(q);
-
-    if (!matchesStatus(bird, status)) return false;
-    if (sound === "has" && !hasAudio(bird)) return false;
-    if (sound === "missing" && hasAudio(bird)) return false;
-    return true;
-  });
-
-  birds = applyNearbyDeck(birds);
-
-  birds.sort((a, b) => {
-    if (els.deckMode.value === "nearby" && sort === "common") {
-      return (b.local?.score || 0) - (a.local?.score || 0) || String(a.common_name).localeCompare(String(b.common_name));
-    }
-    if (sort === "scientific") return String(a.scientific_name).localeCompare(String(b.scientific_name));
-    if (sort === "quality") return qualityRank(a.audio?.q) - qualityRank(b.audio?.q) || String(a.common_name).localeCompare(String(b.common_name));
-    if (sort === "status") return String(a.status || "").localeCompare(String(b.status || "")) || String(a.common_name).localeCompare(String(b.common_name));
-    return String(a.common_name).localeCompare(String(b.common_name));
-  });
-
-  state.filtered = birds;
-  renderGroupedBirds(birds);
-
-  if (els.deckMode.value === "nearby") {
-    const plausible = Number(state.plausibleCount || birds.length);
-    const cap = deckLimit();
-    const suffix = plausible > birds.length ? ` Showing top ${birds.length.toLocaleString()} of ${plausible.toLocaleString()}.` : "";
-    els.notice.textContent = `${plausible.toLocaleString()} plausible species from ${state.birds.length.toLocaleString()} checklist species for this month/location/filter.${suffix}`;
-  } else {
-    els.notice.textContent = `${birds.length.toLocaleString()} of ${state.birds.length.toLocaleString()} species displayed in full catalogue mode.`;
+  if (els.chorusContext) {
+    els.chorusContext.textContent = `${MONTHS[selectedMonth()]} · ${playable.length} quick-listen species`;
   }
-  updateNearbySummary();
+
+  if (!playable.length) {
+    els.chorusList.innerHTML = `<p class="chorus-empty">No playable sounds in the current deck.</p>`;
+    return;
+  }
+
+  els.chorusList.innerHTML = playable.map(bird => {
+    const match = bird.local ? localMatchLabel(bird.local.confidence) : "Catalogue";
+    return `
+      <button type="button" class="chorus-chip" data-bird="${bird.common_name}">
+        <span>${bird.common_name}</span>
+        <small>${match}</small>
+      </button>
+    `;
+  }).join("");
 }
 
-function updateStats(payload) {
-  const birds = payload.birds || [];
-  const audioCount = birds.filter(hasAudio).length;
-  const rareCount = birds.filter(b => (b.status_codes || []).includes("R")).length;
+function render() {
+  try {
+    const q = els.search?.value.trim().toLowerCase() || "";
+    const status = els.status?.value || "all";
+    const sound = els.sound?.value || "all";
+    const sort = els.sort?.value || "common";
 
-  els.total.textContent = birds.length.toLocaleString();
-  els.audio.textContent = audioCount.toLocaleString();
-  els.rare.textContent = rareCount.toLocaleString();
+    let birds = state.birds.filter(bird => {
+      const haystack = [textBag(bird), ...(bird.status_codes || [])].join(" ").toLowerCase();
 
-  const generated = payload.meta?.generated_at;
-  els.generated.textContent = generated ? new Date(generated).toLocaleDateString("en-IE") : "seed";
+      if (q) return haystack.includes(q);
+      if (!matchesStatus(bird, status)) return false;
+      if (sound === "has" && !hasAudio(bird)) return false;
+      if (sound === "missing" && hasAudio(bird)) return false;
+      if (els.listenOnly?.checked && !hasAudio(bird)) return false;
+
+      return true;
+    });
+
+    birds = applyNearbyDeck(birds);
+
+    birds.sort((a, b) => {
+      if ((els.deckMode?.value || "nearby") === "nearby" && sort === "common") {
+        return (b.local?.score || 0) - (a.local?.score || 0) || String(a.common_name).localeCompare(String(b.common_name));
+      }
+      if (sort === "scientific") return String(a.scientific_name).localeCompare(String(b.scientific_name));
+      if (sort === "quality") return qualityRank(a.audio?.q) - qualityRank(b.audio?.q) || String(a.common_name).localeCompare(String(b.common_name));
+      if (sort === "status") return String(a.status || "").localeCompare(String(b.status || "")) || String(a.common_name).localeCompare(String(b.common_name));
+      return String(a.common_name).localeCompare(String(b.common_name));
+    });
+
+    state.filtered = birds;
+    renderGroupedBirds(birds);
+    renderChorus();
+
+    if ((els.deckMode?.value || "nearby") === "nearby") {
+      const query = els.search?.value.trim() || "";
+      const plausible = Number(state.plausibleCount || birds.length);
+      const suffix = plausible > birds.length ? ` Showing top ${birds.length.toLocaleString()} of ${plausible.toLocaleString()}.` : "";
+
+      if (query) {
+        els.notice.textContent = `${birds.length.toLocaleString()} checklist match(es) for “${query}”.`;
+      } else {
+        const rareText = els.includeRare?.checked ? " Rare/vagrant records included." : " Rare/vagrant records hidden by default.";
+        const listenText = els.listenOnly?.checked ? " Listening walk mode: only birds with playable sound." : "";
+        els.notice.textContent = `${plausible.toLocaleString()} plausible species from ${state.birds.length.toLocaleString()} checklist species.${suffix}${rareText}${listenText}`;
+      }
+    } else {
+      els.notice.textContent = `${birds.length.toLocaleString()} of ${state.birds.length.toLocaleString()} species displayed in full catalogue mode.`;
+    }
+
+    updateNearbySummary();
+  } catch (error) {
+    console.error(error);
+    if (els.notice) els.notice.textContent = `Render error: ${error.message}`;
+  }
 }
 
 function updateNearbySummary() {
@@ -722,94 +739,34 @@ function updateNearbySummary() {
     if (profile.urban) placeBits.push("urban signal");
 
     els.nearbySummary.textContent =
-      `${month}, approx. ${radius} km radius, ${placeBits.join(", ")}, max ${limit} cards, habitats: ${habitatText}. Coordinates are used only in this browser session.`;
+      `${month}, approx. ${radius} km radius, ${placeBits.join(", ")}, max ${limit} cards, habitats: ${habitatText}.`;
   } else {
     els.nearbySummary.textContent =
-      `${month}, no exact location selected. Showing top ${limit} Ireland-wide seasonal cards for selected habitats: ${habitatText}.`;
+      `${month}, no exact location selected. Showing a seasonal Ireland-wide deck for selected habitats: ${habitatText}.`;
   }
 }
 
-async function init() {
-  try {
-    const response = await fetch("./data/birds.json?v=" + Date.now());
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+function updateStats(payload) {
+  const birds = payload.birds || [];
+  const audioCount = birds.filter(hasAudio).length;
+  const rareCount = birds.filter(b => (b.status_codes || []).includes("R")).length;
 
-    const payload = await response.json();
-    state.birds = Array.isArray(payload.birds) ? payload.birds : [];
-    updateStats(payload);
-    initialiseMonth();
-    initialiseMap();
-    initialiseHabitatButtons();
-    render();
-  } catch (error) {
-    console.error(error);
-    els.notice.textContent = "Could not load bird atlas data. Check data/birds.json.";
-  }
-}
+  if (els.total) els.total.textContent = birds.length.toLocaleString();
+  if (els.audio) els.audio.textContent = audioCount.toLocaleString();
+  if (els.rare) els.rare.textContent = rareCount.toLocaleString();
 
-function playRandomBird() {
-  const playable = state.filtered.filter(hasAudio);
-  if (!playable.length) {
-    els.notice.textContent = "No playable sound in the current filter. Adjust the filters, Captain.";
-    return;
-  }
-
-  const bird = playable[Math.floor(Math.random() * playable.length)];
-  els.search.value = bird.common_name || "";
-  els.status.value = "all";
-  els.sound.value = "has";
-  render();
-
-  window.setTimeout(() => {
-    const audio = document.querySelector("audio");
-    if (audio) {
-      audio.play().catch(() => {
-        els.notice.textContent = `Selected ${bird.common_name}. Press play on the audio control to start it.`;
-      });
-      document.querySelector(".bird-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, 80);
+  const generated = payload.meta?.generated_at;
+  if (els.generated) els.generated.textContent = generated ? new Date(generated).toLocaleDateString("en-IE") : "seed";
 }
 
 function initialiseMonth() {
-  if (!els.month) return;
-  els.month.value = String(monthFromNow());
-}
-
-function setLocation(lat, lng, source = "map") {
-  state.location = { lat, lng, source };
-
-  if (state.map && window.L) {
-    if (!state.marker) {
-      state.marker = L.marker([lat, lng]).addTo(state.map);
-    } else {
-      state.marker.setLatLng([lat, lng]);
-    }
-    state.map.setView([lat, lng], source === "browser" ? 11 : state.map.getZoom());
-  }
-
-  // Suggest coast/estuary if the broad coastal heuristic fires.
-  if (roughCoastSignal(state.location) > 0) {
-    state.habitats.add("coast");
-    state.habitats.add("estuary");
-    state.habitats.add("wetland");
-    syncHabitatButtons();
-  }
-
-  render();
+  if (els.month) els.month.value = String(monthFromNow());
 }
 
 function initialiseMap() {
-  if (!els.map || !window.L) {
-    if (els.map) {
-      els.map.innerHTML = "<div class='map-fallback'>Map library unavailable. Habitat and month filters still work.</div>";
-    }
-    return;
-  }
+  if (!els.map || !window.L) return;
 
-  state.map = L.map(els.map, {
-    scrollWheelZoom: false
-  }).setView([IRELAND_CENTRE.lat, IRELAND_CENTRE.lng], 6);
+  state.map = L.map(els.map, { scrollWheelZoom: false }).setView([IRELAND_CENTRE.lat, IRELAND_CENTRE.lng], 6);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 18,
@@ -821,15 +778,53 @@ function initialiseMap() {
   });
 }
 
+function setLocation(lat, lng, source = "map") {
+  state.location = { lat, lng, source };
+
+  if (state.map && window.L) {
+    if (!state.marker) state.marker = L.marker([lat, lng]).addTo(state.map);
+    else state.marker.setLatLng([lat, lng]);
+    state.map.setView([lat, lng], source === "browser" ? 11 : state.map.getZoom());
+  }
+
+  const profile = locationProfile(state.location);
+  if (profile.coastal || profile.estuary) {
+    state.habitats.add("coast");
+    state.habitats.add("wetland");
+    if (profile.estuary) state.habitats.add("estuary");
+    syncHabitatButtons();
+  }
+
+  render();
+}
+
+function useBrowserLocation() {
+  if (!navigator.geolocation) {
+    els.nearbySummary.textContent = "Browser geolocation is not available. Click the map instead.";
+    return;
+  }
+
+  els.nearbySummary.textContent = "Requesting approximate location…";
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      setLocation(position.coords.latitude, position.coords.longitude, "browser");
+    },
+    () => {
+      els.nearbySummary.textContent = "Location permission was not granted. Click the map instead.";
+    },
+    { enableHighAccuracy: false, timeout: 10000, maximumAge: 1000 * 60 * 60 }
+  );
+}
+
 function initialiseHabitatButtons() {
   document.querySelectorAll("[data-habitat]").forEach(button => {
     button.addEventListener("click", () => {
       const habitat = button.dataset.habitat;
-      if (state.habitats.has(habitat)) {
-        state.habitats.delete(habitat);
-      } else {
-        state.habitats.add(habitat);
-      }
+      if (state.habitats.has(habitat)) state.habitats.delete(habitat);
+      else state.habitats.add(habitat);
+
+      if (els.preset) els.preset.value = "";
       syncHabitatButtons();
       render();
     });
@@ -843,72 +838,95 @@ function syncHabitatButtons() {
   });
 }
 
-function useBrowserLocation() {
-  if (!navigator.geolocation) {
-    els.nearbySummary.textContent = "Browser geolocation is not available. Click the map instead.";
+function applyPreset() {
+  const preset = els.preset?.value || "";
+  if (!preset || !HABITAT_PRESETS[preset]) return;
+
+  state.habitats.clear();
+  HABITAT_PRESETS[preset].forEach(h => state.habitats.add(h));
+  syncHabitatButtons();
+  render();
+}
+
+function playRandomBird() {
+  const playable = state.filtered.filter(hasAudio);
+  if (!playable.length) {
+    els.notice.textContent = "No playable sound in the current filter.";
     return;
   }
 
-  els.nearbySummary.textContent = "Requesting approximate location…";
+  const bird = playable[Math.floor(Math.random() * playable.length)];
+  els.search.value = bird.common_name || "";
+  if (els.status) els.status.value = "all";
+  if (els.sound) els.sound.value = "has";
+  render();
 
-  navigator.geolocation.getCurrentPosition(
-    position => {
-      const { latitude, longitude } = position.coords;
-      setLocation(latitude, longitude, "browser");
-    },
-    () => {
-      els.nearbySummary.textContent = "Location permission was not granted. Click the map instead.";
-    },
-    {
-      enableHighAccuracy: false,
-      timeout: 10000,
-      maximumAge: 1000 * 60 * 60
+  window.setTimeout(() => {
+    const audio = document.querySelector("audio");
+    if (audio) {
+      audio.play().catch(() => {
+        els.notice.textContent = `Selected ${bird.common_name}. Press play on the audio control to start it.`;
+      });
+      document.querySelector(".bird-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  );
+  }, 80);
 }
 
-[els.search, els.status, els.sound, els.sort, els.group, els.month, els.radius, els.deckMode].forEach(el => {
+function installMobileMapToggle() {
+  const panel = document.querySelector(".nearby-panel");
+  const grid = document.querySelector(".nearby-grid");
+  if (!panel || !grid || panel.querySelector(".mobile-nearby-toggle")) return;
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "mobile-nearby-toggle";
+  button.textContent = "Show / hide map and location controls";
+  panel.insertBefore(button, grid);
+
+  button.addEventListener("click", () => {
+    document.body.classList.toggle("boie-mobile-map-collapsed");
+    window.setTimeout(() => {
+      if (state.map) state.map.invalidateSize();
+    }, 120);
+  });
+}
+
+async function init() {
+  try {
+    const response = await fetch("./data/birds.json?v=" + Date.now());
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const payload = await response.json();
+    state.birds = Array.isArray(payload.birds) ? payload.birds : [];
+
+    updateStats(payload);
+    initialiseMonth();
+    initialiseMap();
+    initialiseHabitatButtons();
+    installMobileMapToggle();
+    render();
+  } catch (error) {
+    console.error(error);
+    if (els.notice) els.notice.textContent = `Could not load BOIE: ${error.message}`;
+  }
+}
+
+[els.search, els.status, els.sound, els.sort, els.group, els.month, els.radius, els.deckMode, els.listenOnly, els.includeRare].forEach(el => {
   if (!el) return;
   el.addEventListener("input", render);
   el.addEventListener("change", render);
 });
 
-els.shuffle.addEventListener("click", playRandomBird);
+els.preset?.addEventListener("change", applyPreset);
+els.shuffle?.addEventListener("click", playRandomBird);
 els.useLocation?.addEventListener("click", useBrowserLocation);
 
+els.chorusList?.addEventListener("click", event => {
+  const button = event.target.closest("[data-bird]");
+  if (!button) return;
+  if (els.search) els.search.value = button.dataset.bird || "";
+  render();
+  document.querySelector(".bird-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+});
+
 init();
-
-// BOIE mobile controls v1
-(function () {
-  function installMobileMapToggle() {
-    const panel = document.querySelector(".nearby-panel");
-    const grid = document.querySelector(".nearby-grid");
-
-    if (!panel || !grid || panel.querySelector(".mobile-nearby-toggle")) return;
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "mobile-nearby-toggle";
-    button.textContent = "Show / hide map and location controls";
-
-    panel.insertBefore(button, grid);
-
-    // On phones, start with the map visible once, but allow fast collapse.
-    button.addEventListener("click", () => {
-      document.body.classList.toggle("boie-mobile-map-collapsed");
-
-      // Leaflet needs a resize nudge when the map returns.
-      window.setTimeout(() => {
-        if (window.L && state && state.map) {
-          state.map.invalidateSize();
-        }
-      }, 120);
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", installMobileMapToggle);
-  } else {
-    installMobileMapToggle();
-  }
-})();
