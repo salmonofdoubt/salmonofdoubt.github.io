@@ -845,7 +845,15 @@ function renderPlot() {
         if (!code) return;
 
         const row = plottableRows(state.scores).find(item => item.code === code);
-        if (row) selectRow(row);
+        if (row) {
+          selectRow(row);
+
+          // Dismiss the native Plotly hoverlabel after selection so it does not
+          // sit on top of the clicked marker and interfere with follow-up clicks.
+          if (window.Plotly && Plotly.Fx && typeof Plotly.Fx.unhover === "function") {
+            setTimeout(() => Plotly.Fx.unhover(target), 0);
+          }
+        }
       });
 
       target.on("plotly_relayout", event => {
