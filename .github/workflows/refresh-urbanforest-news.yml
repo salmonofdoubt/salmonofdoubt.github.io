@@ -33,6 +33,7 @@ jobs:
       - name: Refresh UrbanForest radar
         run: |
           python demos/urbanforest/news/ops/discover_urbanforest_news.py
+          python demos/urbanforest/news/ops/ensure_urbanforest_watch_lanes.py
           python demos/urbanforest/news/ops/audit_urbanforest_radar.py
 
       - name: Commit generated data

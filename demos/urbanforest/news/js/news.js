@@ -1,13 +1,35 @@
+const CANONICAL_SECTIONS = [
+  {
+    id: "ireland-urban-forest-practice",
+    title: "Ireland UrbanForest Practice",
+    intro: "Irish urban forest, pocket forest, school forest, campus greening, community planting, local authority action, and implementation signals."
+  },
+  {
+    id: "transferable-urbanforest-practice",
+    title: "Transferable UrbanForest Practice",
+    intro: "Comparable temperate-city examples where tiny forests, pocket forests, tree canopy, soil, shade, or forest-linked design lessons support UrbanForest delivery."
+  },
+  {
+    id: "funding-opportunities",
+    title: "Funding and Opportunities",
+    intro: "Grants, schemes, calls, and support routes for planting, monitoring, maintenance, schools, communities, campuses, and biodiversity."
+  },
+  {
+    id: "research-evidence",
+    title: "Practical Research and Evidence",
+    intro: "Evidence for urban forest biodiversity, wellbeing, shade, heat mitigation, soil, stormwater value, survival, maintenance, monitoring, and governance."
+  },
+  {
+    id: "design-maintenance-risk",
+    title: "Design, Maintenance and Risk",
+    intro: "Tree survival, watering, drought stress, soil preparation, aftercare, vandalism, public acceptance, carbon claims, governance risk, and long-term stewardship."
+  }
+];
+
 const state = {
   items: [],
   archive: [],
-  sections: [
-    { id: "ireland-urban-forest-practice", title: "Ireland Urban Forest Practice", intro: "Irish delivery, schools, campuses, communities, local authorities, and practical implementation signals." },
-    { id: "transferable-urbanforest-practice", title: "Transferable UrbanForest Practice", intro: "SuDS, rain gardens, bioswales, shade, depaving, soil restoration, and urban nature-based solution delivery." },
-    { id: "funding-opportunities", title: "Funding and Opportunities", intro: "Grants, schemes, calls, and support routes for planting, monitoring, maintenance, and education." },
-    { id: "research-evidence", title: "Practical Research and Evidence", intro: "Evidence for biodiversity, wellbeing, shade, survival, maintenance, monitoring, soil, and governance." },
-    { id: "design-maintenance-risk", title: "Design, Maintenance and Risk", intro: "Tree survival, watering, soil care, vandalism, public acceptance, carbon claims, and stewardship risk." }
-  ]
+  sections: CANONICAL_SECTIONS
 };
 
 const els = {
@@ -114,6 +136,7 @@ function itemMatchesTheme(item, selectedTheme) {
 
 function itemDateInRange(item, range) {
   if (range === "all") return true;
+  if (Array.isArray(item.tags) && item.tags.includes("watch-source")) return true;
   if (range === "recentPlusResearch") {
     if (itemSection(item) === "research-evidence") return true;
     range = "12m";
@@ -222,6 +245,7 @@ function renderCard(item) {
           <span class="chip ${freshnessClass}">${escapeHtml(item.freshness_label || item.freshness_status || "Freshness unknown")}</span>
           ${local?.label ? `<span class="chip">${escapeHtml(local.label)}</span>` : ""}
           ${item.research_use_type ? `<span class="chip">${escapeHtml(item.research_use_type)}</span>` : ""}
+          ${item.tags?.includes("watch-source") ? `<span class="chip">Watch source</span>` : ""}
         </div>
         <p class="news-summary">${escapeHtml(item.summary || "Open the source to inspect this item.")}</p>
         ${item.urbanforest_relevance ? `
@@ -360,7 +384,7 @@ async function loadLatest() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
     state.items = Array.isArray(data.items) ? data.items : [];
-    if (Array.isArray(data.sections) && data.sections.length) state.sections = data.sections;
+    state.sections = CANONICAL_SECTIONS;
     els.lastRefresh.textContent = data.generated_at ? formatDate(data.generated_at) : "Not yet generated";
     els.refreshNote.textContent = data.note || "Source-led daily discovery.";
     renderItems();

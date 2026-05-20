@@ -1,164 +1,343 @@
 {
-  "generated_at": "2026-05-20T13:53:57.758149+00:00",
-  "latest_generated_at": "2026-05-20T08:41:18.244963+00:00",
+  "generated_at": "2026-05-20T14:24:32.906953+00:00",
+  "latest_generated_at": "2026-05-20T14:24:32.728830+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "research-evidence": 6,
-    "ireland-urban-forest-practice": 27,
-    "transferable-urbanforest-practice": 5
+    "ireland-urban-forest-practice": 22,
+    "funding-opportunities": 25,
+    "research-evidence": 40,
+    "design-maintenance-risk": 3,
+    "transferable-urbanforest-practice": 2
   },
-  "top_benefit_categories": [],
+  "top_benefit_categories": [
+    {
+      "benefit": "Funding / grants",
+      "count": 31
+    },
+    {
+      "benefit": "Biodiversity / habitat",
+      "count": 26
+    },
+    {
+      "benefit": "Tree survival / maintenance",
+      "count": 24
+    },
+    {
+      "benefit": "School / education",
+      "count": 19
+    },
+    {
+      "benefit": "Monitoring / evaluation",
+      "count": 18
+    },
+    {
+      "benefit": "Planning / policy",
+      "count": 15
+    },
+    {
+      "benefit": "Wellbeing / health",
+      "count": 13
+    },
+    {
+      "benefit": "Urban forest / NbS",
+      "count": 13
+    },
+    {
+      "benefit": "Urban heat / shade",
+      "count": 12
+    },
+    {
+      "benefit": "Community stewardship",
+      "count": 11
+    },
+    {
+      "benefit": "Risk / safety",
+      "count": 10
+    },
+    {
+      "benefit": "Stormwater / SuDS",
+      "count": 10
+    }
+  ],
   "items": [
     {
-      "id": "zenodo-cbsm-15583804",
-      "title": "Cradle-Based Syntrophic Miyawaki (CBSM)",
-      "url": "https://doi.org/10.5281/zenodo.15583804",
-      "section": "research-evidence",
-      "source_name": "Zenodo",
+      "id": "54c7447c1fa8e4d6",
+      "title": "Funding watch: Community Foundation Ireland Grants",
+      "url": "https://www.communityfoundation.ie/grants/",
+      "section": "funding-opportunities",
+      "source_name": "Community Foundation Ireland Grants",
       "published": null,
-      "score": 96,
-      "practical_score": 96.0,
-      "benefit_categories": [],
-      "local_relevance": null,
-      "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
+      "score": 100,
+      "practical_score": 161.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 26,
+        "label": "Strong Ireland relevance",
+        "matched_terms": [
+          "ireland",
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 97,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "c03e78e8ded069e2",
+      "title": "Derry school leads the way in biodiversity with major ESB funding - Ireland Live",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSFZtMDV3Y2FWenYzZWUxeFJaWlVhMXhfVF94X0xhbC1pMUVUaC1RRzl4bGk1QjNfMXhkSzJSaVpUcmxtSTdhbEdQMG5sbzhpYkt3bW1QUXZ5bFgyQ3BVSUoySVhJSEEwN0lCTm4zNEt5TTRKb0RKLWNwbGt5V3RQQ00yMzFRalk5N0NNS1RrRDM3MVNMSXhCM3d2UjN2eTBpSEhkUERpWWl2YkF0U281Vm1xN1R1ZnVlNnIyMlNB?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: school garden tree funding Ireland",
+      "published": "2026-03-24",
+      "score": 100,
+      "practical_score": 136.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 26,
+        "label": "Strong Ireland relevance",
+        "matched_terms": [
+          "ireland",
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 71,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Biodiversity evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "073b2523d843a620",
+      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - NYC.gov",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPN3NOaGR2RVkwS09NWkNtNFNGeGtVbjc3NHgwZXQ1bE0xZlI5anNNNHRhcGRhQmMtVmQ1MzB3RzZoMkxTUGI1VEdCTGQ1UXBJNDNXNWxNYk9lU09kaGtmdnRUaFJzZUdmRU1nNjVJU1dRckxBMWJ0Q25BbC1ZNlVCY2xLVXljaUhQVG82dm1Gemg5TXZGSTJQWDZ3U1plLVBWVEdNNkFfR0lmM2Y3Q1Z2X1o0dTVlME5HZTJXeGpJRndwdXZlVTBZ?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: urban forest survival and maintenance",
+      "published": "2026-04-23",
+      "score": 100,
+      "practical_score": 130.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": {
+        "fit": "Low",
+        "score": 35,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Heat / shade evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "urbanforest-site-case-study",
       "title": "Trinity Urban Forest case study",
       "url": "https://salmonofdoubt.github.io/demos/urbanforest/",
-      "section": "ireland-practice",
+      "section": "ireland-urban-forest-practice",
       "source_name": "UrbanForest microsite",
       "published": null,
-      "score": 94,
-      "practical_score": 94.0,
-      "benefit_categories": [],
-      "local_relevance": null,
+      "score": 100,
+      "practical_score": 129.0,
+      "benefit_categories": [
+        "Biodiversity / habitat"
+      ],
+      "local_relevance": {
+        "score": 50,
+        "label": "High Dublin / Ireland relevance",
+        "matched_terms": [
+          "ireland",
+          "trinity"
+        ]
+      },
       "opportunity_fit": null,
       "research_use_type": null,
-      "urbanforest_relevance": null
+      "urbanforest_relevance": "Local practice signal: useful because it connects to Dublin, Ireland, campuses, schools, or local-authority implementation contexts."
     },
     {
-      "id": "189f6e1f2a046fae",
-      "title": "Popular Miyawaki reforestation method lacks evidence, study finds - news - Mongabay",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQQlA3MlA2SmhYLXdURUR6WFVVUzVDOHJFSExqRDBKYk5nUko1cFB4Tnh5M01JQU9WbjdfLTlKNmY3YVRWb1pEZGE2czBSam9xbm9jdE1JMEVXLTZUS3BHY3hvUXV1VENPRHJJMzZ0eGh1ZzRVeWZTeDZDMTk0dUs4TFBlT1ExS0NqSE8xZzVMeXNCczhKRUx3ZTRKc3dhSXBE0gGmAUFVX3lxTE8tQXlUSzh6ZzFxMFNpcUU5ZkdvSWxFWjRHRjMxcDFsMzhhcGVHM0szaG4wUzFtQXpqVndiZ3luU2FCbGFmQVRZalVlZU5DemNxVGNnQzA0Sk14bnRHVW9KV3RydHdESmpMYXp1SlZUNVVJUXE4c1Z1SF9Kcm1BaFFRYjVuZzZXWEVDaFVnRWFMcmd2SEwtS2VHNmM4WEk3ZGM2OF9FSlE?oc=5",
+      "id": "aeeac12ad7fe61ec",
+      "title": "Analysis of Alternatives for Sustainable Stormwater Management in Small Developments of Polish Urban Catchments",
+      "url": "https://doi.org/10.3390/su122310189",
       "section": "research-evidence",
-      "source_name": "Google News: Miyawaki research",
-      "published": "2026-05-13",
-      "score": 47,
-      "practical_score": 53.0,
-      "benefit_categories": [],
-      "local_relevance": null,
+      "source_name": "Sustainability",
+      "published": "2020-12-06",
+      "score": 100,
+      "practical_score": 129.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "Stormwater / SuDS",
+        "Tree survival / maintenance"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
       "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
+      "research_use_type": "Survival / maintenance evidence",
+      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "8f4483cac2c7a691",
-      "title": "Miyawaki Forests in Bengaluru: Beyond Trees to Urban Ecology - Deccan Herald",
-      "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQcUFyS0UzVmREOUJFVlZEd2MyZmpTbWtsMmgyLXlURWRmRkY5Y1BySzdCQjZkWDRlTEhzME9Va2NkSWt6NnBsY2FTZUd4dEtiVlZYQVo1cWlJb3FJam5uLXlVeFBzMUN0YWdISVJBSmVRTzlOdl9iZkNITlgxeEtTSGVrTzMtQ0lSZl9PRkNXQVlaTHlHdGFuWnMzMkVBdGg4Y1IyZXV4TkRJb0VOeXV0YnN3ek9zWVZleGc?oc=5",
+      "id": "8547e65a00b18eae",
+      "title": "It Is Not Easy Being Green: Recognizing Unintended Consequences of Green Stormwater Infrastructure",
+      "url": "https://doi.org/10.3390/w12020522",
       "section": "research-evidence",
-      "source_name": "Google News: Miyawaki research",
-      "published": "2026-05-08",
-      "score": 39,
-      "practical_score": 45.0,
-      "benefit_categories": [],
-      "local_relevance": null,
+      "source_name": "Water",
+      "published": "2020-02-13",
+      "score": 100,
+      "practical_score": 129.0,
+      "benefit_categories": [
+        "Stormwater / SuDS",
+        "Wellbeing / health",
+        "Tree survival / maintenance",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
       "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "9d797290d7ed9782",
-      "title": "Baggot Estate Biodiversity Garden promotes community well being initiatives in an urban forest - I Love Limerick",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBuSlMyNzZjRmtjUmNJNFk3ai1MWWYxN2pZOW5KR1ZJaEVjVWdkYUF3ZlpPVkRCWUJFRkRWMXlCNl9HWjRsbG50Y3N2V2RDZG5FQ21DcmtyR2ZyN1JENVkxVTFqQnQyUXdRN0VSRlR0UlA?oc=5",
-      "section": "ireland-practice",
-      "source_name": "Google News: urban forest Ireland",
-      "published": "2022-02-04",
-      "score": 44,
-      "practical_score": 44.0,
-      "benefit_categories": [],
-      "local_relevance": null,
-      "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
+      "id": "cbbf24101f2472e2",
+      "title": "Ten Dublin schools achieve biodiversity awards - Dublin Gazette Newspapers",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOZFpLMTl6dEtKd0ZrWkZiMXh1QzdlcUV4WnpGS3hVYWJOSm11dkc4dmozN3RKREZTV200bzh3OFMwakdUMzhCSzZnUDJhWk5Ja3FjTFQ4NFBUUDhSTHQ3dFhDQ08zdGxTdWZ0LWxwcmtNMHlJaG1IV2NQYXRnNXRfTw?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: school garden tree funding Ireland",
+      "published": "2025-06-21",
+      "score": 93,
+      "practical_score": 129.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 34,
+        "label": "Strong Ireland relevance",
+        "matched_terms": [
+          "dublin",
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 71,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Biodiversity evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
-      "id": "31b018c3a85bb633",
-      "title": "How to grow your pocket forest",
-      "url": "https://www.pocketforests.ie/how-to-grow-your-pocket-forest-1",
-      "section": "ireland-practice",
-      "source_name": "Pocket Forests Ireland",
-      "published": null,
-      "score": 44,
-      "practical_score": 44.0,
-      "benefit_categories": [],
-      "local_relevance": null,
-      "opportunity_fit": null,
+      "id": "92d2a98c9582dd1d",
+      "title": "Trinity partners with Jaipur Literature Festival for first all-island of Ireland edition of international festival The Dublin leg of the Jaipur Literature Festival Island of Ireland programme is being hosted by the Trinity Long Room Hub and the School of Histo",
+      "url": "https://www.tcd.ie/news_events/top-stories/featured/jaipur-literature-festival-2026/",
+      "section": "funding-opportunities",
+      "source_name": "Trinity News",
+      "published": "2026-05-18",
+      "score": 89,
+      "practical_score": 126.0,
+      "benefit_categories": [
+        "School / education",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 84,
+        "label": "High Dublin / Ireland relevance",
+        "matched_terms": [
+          "dublin",
+          "ireland",
+          "school",
+          "trinity"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 57,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
       "research_use_type": null,
-      "urbanforest_relevance": null
+      "urbanforest_relevance": "Opportunity signal: may help fund school / education, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
-      "id": "993bbffc10089282",
-      "title": "University of Galway Pocket Forest",
-      "url": "https://www.pocketforests.ie/university-of-galway-pocket-forest",
-      "section": "ireland-practice",
-      "source_name": "Pocket Forests Ireland",
-      "published": null,
-      "score": 44,
-      "practical_score": 44.0,
-      "benefit_categories": [],
-      "local_relevance": null,
-      "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
-    },
-    {
-      "id": "2ca83dadc3fc6e4d",
-      "title": "An Urban Forest on Campus - Trinity College Dublin",
-      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1PeVdxWGNvRnFYQV9KdlFESk5UWU9BczhiaVFFUjVQMTZHQVZCcTczZVZqNXBEd3hzRUZGY1k0TW9QdGJpdHktbzl4WFA3dkpfY3ctOHh2czdmZ3hIam0ybHRjeG5BNFcxTkxpU1hseU44Z0tZcHV1cUpuSXg?oc=5",
-      "section": "ireland-practice",
-      "source_name": "Google News: urban forest Ireland",
-      "published": "2025-01-14",
-      "score": 43,
-      "practical_score": 43.0,
-      "benefit_categories": [],
-      "local_relevance": null,
-      "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
-    },
-    {
-      "id": "f44d491b46cfd972",
-      "title": "Study finds urban nature-based solutions overlook biodiversity - Mongabay-India",
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQU0VwdVdDWUFfMzhvdk56NGZmeEJMQzRxaXpzUGlybV9sMVRLM3VXQlNla2lTT0RyYnNjZnRFUjZRSWhYT1Z4VkZPZ3YxbS02YVFOa3FqQ2FGMEc2OHU3bS1XOWZKOEluLWgxWlo5cXZnZ1p2NnE0dGRGeGczcHMtdGtlNy1nRzFJLU1DSHhTemlhOXItdVg5dWlzTkl6Y0E?oc=5",
+      "id": "60b7faa9f1338a32",
+      "title": "The Benefits and Limits of Urban Tree Planting for Environmental and Human Health",
+      "url": "https://doi.org/10.3389/fevo.2021.603757",
       "section": "research-evidence",
-      "source_name": "Google News: urban forest research",
-      "published": "2026-03-02",
-      "score": 40,
-      "practical_score": 40.0,
-      "benefit_categories": [],
-      "local_relevance": null,
-      "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
+      "source_name": "Frontiers in Ecology and Evolution",
+      "published": "2021-04-08",
+      "score": 92,
+      "practical_score": 123.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Stormwater / SuDS",
+        "Wellbeing / health",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": {
+        "fit": "Low",
+        "score": 35,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Heat / shade evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, stormwater / suds, wellbeing / health, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
-      "id": "dcc4b935302150fe",
-      "title": "Dublin suburb of Darndale joins Milan and Barcelona as new European urban forest - IrishCentral",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOOHdPN2ZTNzlKWkNZdnlHcWh5d0xydHpZTGNXRGRmbFp0eHNpMnQ1N05SOUxTRHJqVnhkb00tV0tyX3l4T1cxT0YwdmVJdGhuSG1naWFybHJKd3JyZWkwdlBYQVhHUHZFV25DUE1iR1VDUWIxcG1EMWxNNnBhTEhrU0pIVUlldHRK0gGOAUFVX3lxTE02aGd0c3JkZGdPbE9wY1l2Q2ZnRDNXQU1zb2UyOWVYcldNci1qOVZlN2ZRV3duaEJRTld3TERTeDJkZ093YWdIbE9fY2h4WUx1ajBpSDAxS21TOTU4dkVHTmYyblE1Wi1QOTUzY0lEWFdZUWZvUV9mUmNCRmtWMjh3ZmhPY1lPdDdMUUhQQlE?oc=5",
-      "section": "ireland-practice",
-      "source_name": "Google News: urban forest Ireland",
-      "published": "2023-12-07",
-      "score": 39,
-      "practical_score": 39.0,
-      "benefit_categories": [],
-      "local_relevance": null,
+      "id": "49084ae8556e5d1c",
+      "title": "Urban heat mitigation by green and blue infrastructure: Drivers, effectiveness, and future needs",
+      "url": "https://doi.org/10.1016/j.xinn.2024.100588",
+      "section": "research-evidence",
+      "source_name": "The Innovation",
+      "published": "2024-02-07",
+      "score": 100,
+      "practical_score": 122.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Monitoring / evaluation",
+        "Risk / safety"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
       "opportunity_fit": null,
-      "research_use_type": null,
-      "urbanforest_relevance": null
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Climate-adaptation signal: useful for explaining shade, cooling, heat exposure, and tree-canopy value in practical urban design."
     }
   ]
 }

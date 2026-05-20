@@ -29,6 +29,42 @@
   ],
   "sources": [
     {
+      "id": "gn-street-tree-survival-drought",
+      "name": "Google News: street-tree survival and drought",
+      "section": "design-maintenance-risk",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28street%20trees%20OR%20urban%20trees%20OR%20tree%20planting%29%20%28drought%20OR%20watering%20OR%20survival%20OR%20maintenance%20OR%20aftercare%20OR%20establishment%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.72,
+      "scope": "maintenance risk trees"
+    },
+    {
+      "id": "gn-urbanforest-tree-grants-ireland",
+      "name": "Google News: UrbanForest tree grants Ireland",
+      "section": "funding-opportunities",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.78,
+      "scope": "funding ireland trees biodiversity"
+    },
+    {
+      "id": "gn-urbanforest-maintenance-ireland-uk",
+      "name": "Google News: UrbanForest maintenance and tree survival",
+      "section": "design-maintenance-risk",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28urban%20trees%20OR%20street%20trees%20OR%20tree%20canopy%20OR%20tiny%20forest%20OR%20pocket%20forest%20OR%20urban%20forest%29%20%28watering%20OR%20drought%20OR%20survival%20OR%20maintenance%20OR%20aftercare%20OR%20vandalism%20OR%20soil%20OR%20dead%20trees%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.74,
+      "scope": "maintenance risk trees"
+    },
+    {
+      "id": "gn-school-garden-tree-funding-ireland",
+      "name": "Google News: school garden tree funding Ireland",
+      "section": "funding-opportunities",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28school%20garden%20OR%20school%20trees%20OR%20school%20biodiversity%20OR%20outdoor%20classroom%29%20%28grant%20OR%20funding%20OR%20scheme%20OR%20award%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "trust": 0.76,
+      "scope": "funding schools ireland"
+    },
+    {
       "id": "gn-ireland-urban-forest",
       "name": "Google News: urban forest Ireland",
       "section": "ireland-urban-forest-practice",
@@ -102,10 +138,10 @@
     },
     {
       "id": "eu-life-calls",
-      "name": "EU LIFE Calls",
+      "name": "CINEA calls for proposals",
       "section": "funding-opportunities",
       "type": "page",
-      "url": "https://cinea.ec.europa.eu/programmes/life/calls-proposals_en",
+      "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals_en",
       "trust": 0.88,
       "scope": "funding europe"
     },
@@ -138,12 +174,12 @@
     },
     {
       "id": "earthwatch-tiny-forest",
-      "name": "Earthwatch Tiny Forest",
+      "name": "Google News: Earthwatch Tiny Forest",
       "section": "transferable-urbanforest-practice",
-      "type": "page",
-      "url": "https://earthwatch.org.uk/programme/tiny-forests/",
+      "type": "rss",
+      "url": "https://news.google.com/rss/search?q=%28Earthwatch%20%22Tiny%20Forest%22%20OR%20%22Tiny%20Forest%22%20Earthwatch%29&hl=en-IE&gl=IE&ceid=IE:en",
       "trust": 0.82,
-      "scope": "practice temperate"
+      "scope": "temperate practice"
     },
     {
       "id": "trees-for-cities",

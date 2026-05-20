@@ -51,6 +51,35 @@ def normalise_section(value: str | None) -> str:
     return SECTION_ALIASES.get(value, value)
 
 
+CANONICAL_SECTIONS = [
+    {
+        "id": "ireland-urban-forest-practice",
+        "title": "Ireland UrbanForest Practice",
+        "description": "Irish urban forest, pocket forest, school forest, campus greening, community planting, local authority action, and implementation signals."
+    },
+    {
+        "id": "transferable-urbanforest-practice",
+        "title": "Transferable UrbanForest Practice",
+        "description": "Comparable temperate-city examples where tiny forests, pocket forests, tree canopy, soil, shade, or forest-linked design lessons support UrbanForest delivery."
+    },
+    {
+        "id": "funding-opportunities",
+        "title": "Funding and Opportunities",
+        "description": "Grants, schemes, calls, and support routes for planting, monitoring, maintenance, schools, communities, campuses, and biodiversity."
+    },
+    {
+        "id": "research-evidence",
+        "title": "Practical Research and Evidence",
+        "description": "Evidence for urban forest biodiversity, wellbeing, shade, heat mitigation, soil, stormwater value, survival, maintenance, monitoring, and governance."
+    },
+    {
+        "id": "design-maintenance-risk",
+        "title": "Design, Maintenance and Risk",
+        "description": "Tree survival, watering, drought stress, soil preparation, aftercare, vandalism, public acceptance, carbon claims, governance risk, and long-term stewardship."
+    }
+]
+
+
 SECTIONS = [
     "ireland-urban-forest-practice",
     "transferable-urbanforest-practice",
@@ -271,17 +300,35 @@ def comparable_label(text: str) -> str:
 
 def infer_section(source_section: str, text: str, source_scope: str = "") -> str:
     lowered = text.lower()
-    if has_true_grant_signal(lowered):
+    source_section = normalise_section(source_section)
+
+    # Hard routing first.
+    if matches_funding_gateway(lowered):
         return "funding-opportunities"
+
     if "research" in source_scope or "openalex" in source_scope:
         return "research-evidence"
-    if any(term in lowered for term in ["maintenance", "aftercare", "watering", "survival", "drought", "vandalism", "carbon", "greenwashing", "soil compaction"]):
+
+    if matches_design_risk_gateway(lowered):
         return "design-maintenance-risk"
-    if any(term in lowered for term in ["rain garden", "bioswale", "suds", "stormwater", "green roof", "depaving", "urban heat", "shade", "cooling", "nature-based", "nature based"]):
-        return "transferable-urbanforest-practice"
-    if any(term in lowered for term in ["ireland", "irish", "dublin", "trinity", "tcd", "fingal"]):
+
+    # Respect explicit registry lane. This prevents transferable practice sources
+    # being swallowed by the Ireland lane merely because an item mentions Ireland.
+    if source_section in {
+        "ireland-urban-forest-practice",
+        "transferable-urbanforest-practice",
+        "funding-opportunities",
+        "research-evidence",
+        "design-maintenance-risk",
+    }:
+        return source_section
+
+    # Only infer Ireland when no reliable source lane exists.
+    if strong_local_ireland_signal(lowered):
         return "ireland-urban-forest-practice"
-    return normalise_section(source_section) if normalise_section(source_section) in SECTIONS else "transferable-urbanforest-practice"
+
+    return "transferable-urbanforest-practice"
+
 
 
 def grant_fit(text: str) -> dict[str, Any] | None:
@@ -346,24 +393,79 @@ def research_use_type(text: str) -> str | None:
     return None
 
 
+
+
+FUNDING_CONTEXT_TERMS = [
+    "biodiversity", "nature", "tree", "trees", "woodland", "forest", "urban greening",
+    "community", "school", "campus", "garden", "pollinator", "climate", "environment",
+    "green infrastructure", "local authority", "heritage", "education", "monitoring"
+]
+
+DESIGN_RISK_CONTEXT_TERMS = [
+    "tree", "trees", "street tree", "urban tree", "tree canopy", "urban forest",
+    "tiny forest", "pocket forest", "miyawaki", "urban greening", "woodland",
+    "planting", "native planting", "school forest", "campus"
+]
+
+DESIGN_RISK_TERMS = [
+    "maintenance", "aftercare", "watering", "watered", "drought", "survival",
+    "tree survival", "replacement", "vandalism", "soil", "soil compaction",
+    "mulch", "establishment", "young trees", "heat stress", "failure",
+    "dead trees", "tree pit", "root", "roots", "irrigation"
+]
+
+def matches_funding_gateway(text: str) -> bool:
+    lowered = text.lower()
+    return has_true_grant_signal(lowered) and any(term in lowered for term in FUNDING_CONTEXT_TERMS)
+
+def matches_design_risk_gateway(text: str) -> bool:
+    lowered = text.lower()
+    return (
+        any(term in lowered for term in DESIGN_RISK_TERMS)
+        and any(term in lowered for term in DESIGN_RISK_CONTEXT_TERMS)
+    )
+
+def matches_urbanforest_scope(text: str) -> bool:
+    lowered = text.lower()
+    return matches_core(lowered) or matches_funding_gateway(lowered) or matches_design_risk_gateway(lowered)
+
+
 def score_raw(raw: RawItem) -> tuple[int, str, str, list[str]]:
     text = text_for(raw)
-    if not matches_core(text):
-        return 0, "reference", "No strong UrbanForest signal detected.", []
+
+    if not matches_urbanforest_scope(text):
+        return 0, "reference", "No strong UrbanForest, funding, or design-risk signal detected.", []
+
     score = 24
-    for pattern in CORE_PATTERNS:
-        if re.search(pattern, text):
-            score += 9
+
+    if matches_core(text):
+        for pattern in CORE_PATTERNS:
+            if re.search(pattern, text):
+                score += 9
+
     for term, points in PRACTICAL_TERMS.items():
         if term in text:
             score += points
+
+    if matches_funding_gateway(text):
+        score += 22
+
+    if matches_design_risk_gateway(text):
+        score += 22
+
     trust = float(raw.source.get("trust", 0.65))
     score += int(trust * 10)
+
     scope = raw.source.get("scope", "")
     if "ireland" in scope or "dublin" in scope:
         score += 12
     elif "temperate" in scope or "practice" in scope:
         score += 7
+    elif "funding" in scope:
+        score += 8
+    elif "maintenance" in scope or "risk" in scope:
+        score += 8
+
     days = age_days(raw.published)
     if days is None:
         freshness_status = "reference"
@@ -377,6 +479,7 @@ def score_raw(raw: RawItem) -> tuple[int, str, str, list[str]]:
         freshness_status = "reference"
         freshness_label = f"{days} days old · background"
         score -= min(16, int(days / 90) * 3)
+
     return max(0, min(100, score)), freshness_status, freshness_label, benefit_categories(text)
 
 
@@ -430,14 +533,51 @@ def abstract_from_inverted_index(index: dict[str, list[int]] | None) -> str:
 
 
 def source_name(work: dict[str, Any]) -> str:
-    return work.get("primary_location", {}).get("source", {}).get("display_name") or "OpenAlex"
+    primary = work.get("primary_location") or {}
+    if isinstance(primary, dict):
+        source = primary.get("source") or {}
+        if isinstance(source, dict) and source.get("display_name"):
+            return source["display_name"]
+
+    for location in work.get("locations") or []:
+        location = location or {}
+        if not isinstance(location, dict):
+            continue
+        source = location.get("source") or {}
+        if isinstance(source, dict) and source.get("display_name"):
+            return source["display_name"]
+
+    return "OpenAlex"
 
 
 def best_work_url(work: dict[str, Any]) -> str:
     if work.get("doi"):
         return str(work["doi"])
+
     best = work.get("best_oa_location") or {}
-    return best.get("landing_page_url") or best.get("pdf_url") or work.get("id") or ""
+    if isinstance(best, dict):
+        if best.get("landing_page_url"):
+            return best["landing_page_url"]
+        if best.get("pdf_url"):
+            return best["pdf_url"]
+
+    primary = work.get("primary_location") or {}
+    if isinstance(primary, dict):
+        if primary.get("landing_page_url"):
+            return primary["landing_page_url"]
+        if primary.get("pdf_url"):
+            return primary["pdf_url"]
+
+    for location in work.get("locations") or []:
+        location = location or {}
+        if not isinstance(location, dict):
+            continue
+        if location.get("landing_page_url"):
+            return location["landing_page_url"]
+        if location.get("pdf_url"):
+            return location["pdf_url"]
+
+    return work.get("id") or ""
 
 
 def fetch_openalex() -> list[dict[str, Any]]:
@@ -463,7 +603,7 @@ def fetch_openalex() -> list[dict[str, Any]]:
             abstract = abstract_from_inverted_index(work.get("abstract_inverted_index"))
             summary = abstract or "Open the source to inspect abstract, DOI, journal, and publication metadata."
             text = f"{title} {summary}".lower()
-            if not matches_core(text):
+            if not matches_urbanforest_scope(text):
                 continue
             year = work.get("publication_year")
             cited = int(work.get("cited_by_count") or 0)
@@ -559,28 +699,75 @@ def annotate_item(item: dict[str, Any]) -> dict[str, Any]:
     return item
 
 
+
+
+def baseline_watch_raw_item(source: dict[str, Any]) -> RawItem | None:
+    section = normalise_section(source.get("section"))
+
+    if section == "funding-opportunities":
+        summary = (
+            "Baseline UrbanForest funding watch source. Check this source for grants, funding, schemes, "
+            "calls, deadlines, eligibility, community biodiversity, school greening, tree planting, "
+            "monitoring, maintenance, education, and practical support routes. This card does not claim "
+            "that a grant is currently open; it keeps a relevant funding source visible for review."
+        )
+        return RawItem(
+            title=f"Funding watch: {source.get('name', 'source')}",
+            url=source.get("url", ""),
+            summary=summary,
+            published=None,
+            source=source,
+        )
+
+    if section == "design-maintenance-risk":
+        summary = (
+            "Baseline UrbanForest design and maintenance watch source. Check this source for tree survival, "
+            "watering, drought stress, aftercare, replacement planting, soil care, vandalism, establishment "
+            "risk, young-tree failure, weak carbon claims, and long-term stewardship issues."
+        )
+        return RawItem(
+            title=f"Design and maintenance watch: {source.get('name', 'source')}",
+            url=source.get("url", ""),
+            summary=summary,
+            published=None,
+            source=source,
+        )
+
+    return None
+
+
 def discover_source_items() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    sections = registry.get("sections", [])
+    sections = CANONICAL_SECTIONS
     seen = set()
     results = []
+
     for source in registry.get("sources", []):
+        source_section = normalise_section(source.get("section"))
+        passed_for_source = 0
+
         try:
             raw_items = fetch_rss(source) if source.get("type") == "rss" else fetch_page(source)
         except Exception as exc:
             print(f"Source failed: {source.get('id')} :: {exc}")
-            continue
+            raw_items = []
+
         for raw in raw_items:
             uid = item_id(raw.url, raw.title)
             if uid in seen:
                 continue
-            seen.add(uid)
+
             score, freshness_status, freshness_label, tags = score_raw(raw)
             if score < MIN_SCORE:
                 continue
+
+            seen.add(uid)
+            passed_for_source += 1
+
             text = text_for(raw)
             theme = infer_theme(text)
             section = normalise_section(infer_section(raw.source.get("section", "transferable-urbanforest-practice"), text, raw.source.get("scope", "")))
+
             item = {
                 "id": uid,
                 "title": raw.title,
@@ -598,7 +785,153 @@ def discover_source_items() -> tuple[list[dict[str, Any]], list[dict[str, Any]]]
                 "freshness_label": freshness_label
             }
             results.append(annotate_item(item))
+
+        # Operational lanes should not vanish just because today's feed is quiet.
+        if source_section in {"funding-opportunities", "design-maintenance-risk"} and passed_for_source == 0:
+            baseline = baseline_watch_raw_item(source)
+            if baseline:
+                uid = item_id(baseline.url, baseline.title)
+                if uid not in seen:
+                    seen.add(uid)
+
+                    score, freshness_status, freshness_label, tags = score_raw(baseline)
+                    text = text_for(baseline)
+                    theme = infer_theme(text)
+
+                    item = {
+                        "id": uid,
+                        "title": baseline.title,
+                        "url": canonical_url(baseline.url),
+                        "summary": baseline.summary,
+                        "published": baseline.published,
+                        "source_id": baseline.source.get("id"),
+                        "source_name": baseline.source.get("name"),
+                        "publisher": baseline.source.get("name"),
+                        "section": source_section,
+                        "theme": theme,
+                        "tags": list(dict.fromkeys(tags + [theme, "watch-source"]))[:9],
+                        "score": max(score, 60 if source_section == "funding-opportunities" else 56),
+                        "freshness_status": "reference",
+                        "freshness_label": "Watch source"
+                    }
+                    results.append(annotate_item(item))
+
     return results, sections
+
+
+
+def make_operational_baseline_item(section: str, source_id: str, source_name: str, url: str, title: str, summary: str, score: int) -> dict[str, Any]:
+    item = {
+        "id": item_id(url, title),
+        "title": title,
+        "url": canonical_url(url),
+        "summary": clean_text(summary, 900),
+        "published": None,
+        "source_id": source_id,
+        "source_name": source_name,
+        "publisher": source_name,
+        "section": section,
+        "theme": "funding-grants" if section == "funding-opportunities" else "tree-survival-maintenance",
+        "tags": ["watch-source", "operational-baseline", "funding-grants" if section == "funding-opportunities" else "tree-survival-maintenance"],
+        "score": score,
+        "freshness_status": "reference",
+        "freshness_label": "Operational watch source",
+    }
+
+    return annotate_item(item)
+
+
+def ensure_operational_baseline_lanes(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    existing_sections = {normalise_section(item.get("section")) for item in items}
+
+    baselines: list[dict[str, Any]] = []
+
+    if "funding-opportunities" not in existing_sections:
+        baselines.extend([
+            make_operational_baseline_item(
+                section="funding-opportunities",
+                source_id="baseline-heritage-council-funding",
+                source_name="Heritage Council Funding",
+                url="https://www.heritagecouncil.ie/funding",
+                title="Funding watch: Heritage Council funding",
+                summary=(
+                    "Baseline UrbanForest funding watch source. Check for grants that may support "
+                    "community biodiversity, school greening, local heritage, tree planting, education, "
+                    "monitoring, maintenance, and practical urban forest delivery. This card keeps the "
+                    "funding lane operational; it does not claim a specific grant is open today."
+                ),
+                score=66,
+            ),
+            make_operational_baseline_item(
+                section="funding-opportunities",
+                source_id="baseline-community-foundation-ireland",
+                source_name="Community Foundation Ireland",
+                url="https://www.communityfoundation.ie/grants/",
+                title="Funding watch: Community Foundation Ireland grants",
+                summary=(
+                    "Baseline community and biodiversity funding watch source. Check for funding routes "
+                    "that could support community greening, school/community planting, local biodiversity, "
+                    "monitoring, education, stewardship, or maintenance connected to UrbanForest delivery."
+                ),
+                score=64,
+            ),
+            make_operational_baseline_item(
+                section="funding-opportunities",
+                source_id="baseline-eu-life-calls",
+                source_name="EU LIFE Calls",
+                url="https://cinea.ec.europa.eu/programmes/life/calls-proposals_en",
+                title="Funding watch: EU LIFE calls",
+                summary=(
+                    "Baseline European funding watch source. Check selectively for biodiversity, climate, "
+                    "urban greening, nature restoration, or nature-based solution calls where an UrbanForest "
+                    "project could contribute as a demonstration, monitoring, education, or implementation component."
+                ),
+                score=60,
+            ),
+        ])
+
+    if "design-maintenance-risk" not in existing_sections:
+        baselines.extend([
+            make_operational_baseline_item(
+                section="design-maintenance-risk",
+                source_id="baseline-urbanforest-maintenance",
+                source_name="UrbanForest maintenance watch",
+                url="https://news.google.com/search?q=urban%20trees%20watering%20survival%20maintenance%20aftercare%20soil%20drought",
+                title="Design and maintenance watch: tree survival, watering, aftercare, and soil",
+                summary=(
+                    "Baseline UrbanForest design and maintenance watch. Inspect this lane for tree survival, "
+                    "watering, drought stress, young-tree establishment, soil care, mulch, replacement planting, "
+                    "aftercare, vandalism, and long-term stewardship. Urban forests fail quietly after launch "
+                    "when these risks are not funded and managed."
+                ),
+                score=64,
+            ),
+            make_operational_baseline_item(
+                section="design-maintenance-risk",
+                source_id="baseline-carbon-claims-risk",
+                source_name="UrbanForest claims-risk watch",
+                url="https://news.google.com/search?q=urban%20tree%20planting%20carbon%20claims%20survival%20maintenance%20greenwashing",
+                title="Design and risk watch: weak carbon claims and survival evidence",
+                summary=(
+                    "Baseline claims-risk watch. Useful for keeping UrbanForest communication grounded in "
+                    "survival, biodiversity, shade, wellbeing, soil, monitoring, and stewardship rather than "
+                    "overclaiming short-term carbon benefits before establishment and survival are known."
+                ),
+                score=58,
+            ),
+        ])
+
+    if not baselines:
+        return items
+
+    existing_keys = {canonical_url(item.get("url", "")) or item.get("id") for item in items}
+    for item in baselines:
+        key = canonical_url(item.get("url", "")) or item.get("id")
+        if key not in existing_keys:
+            items.append(item)
+            existing_keys.add(key)
+
+    return items
 
 
 def update_archive(latest: dict[str, Any]) -> None:
@@ -638,6 +971,8 @@ def main() -> None:
             continue
         seen.add(key)
         items.append(item)
+
+    items = ensure_operational_baseline_lanes(items)
 
     items.sort(key=lambda item: (
         1 if item.get("section") == "ireland-urban-forest-practice" else 0,
