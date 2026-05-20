@@ -6,6 +6,7 @@
   <title>Birds of Ireland Sound Atlas</title>
   <meta name="description" content="A public GitHub Pages sound atlas for birds recorded on the Irish checklist, with open audio links and attribution." />
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
   <script defer src="/demos/shared/demo-return.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
@@ -53,6 +54,79 @@
         </article>
       </section>
     </header>
+
+
+    <section class="nearby-panel" aria-label="Birds near me">
+      <div class="nearby-copy">
+        <p class="eyebrow mini">Birds Near Me</p>
+        <h2>What might I hear here this month?</h2>
+        <p>
+          Use your approximate location or click the map. BOIE then reshuffles the bird cards into a local, seasonal deck.
+          This is a plausibility model, not a live bird radar.
+        </p>
+      </div>
+
+      <div class="nearby-grid">
+        <div id="birdMap" class="bird-map" aria-label="Location map"></div>
+
+        <div class="nearby-controls">
+          <button id="useLocation" type="button">Use my approximate location</button>
+
+          <label>
+            <span>Month</span>
+            <select id="monthFilter">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Radius</span>
+            <select id="radiusFilter">
+              <option value="5">5 km</option>
+              <option value="10" selected>10 km</option>
+              <option value="25">25 km</option>
+              <option value="50">50 km</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Deck mode</span>
+            <select id="deckMode">
+              <option value="nearby" selected>Likely near this place</option>
+              <option value="all">Full checklist catalogue</option>
+            </select>
+          </label>
+
+          <div class="habitats" aria-label="Habitat filters">
+            <button type="button" data-habitat="urban">Urban</button>
+            <button type="button" data-habitat="garden">Garden</button>
+            <button type="button" data-habitat="farmland">Farmland</button>
+            <button type="button" data-habitat="woodland">Woodland</button>
+            <button type="button" data-habitat="river">River/lake</button>
+            <button type="button" data-habitat="wetland">Wetland</button>
+            <button type="button" data-habitat="coast">Coast</button>
+            <button type="button" data-habitat="estuary">Estuary</button>
+            <button type="button" data-habitat="bog">Bog/upland</button>
+          </div>
+
+          <p id="nearbySummary" class="nearby-summary">
+            Defaulting to Ireland-wide seasonal plausibility. Choose a location to refine the deck.
+          </p>
+        </div>
+      </div>
+    </section>
+
 
     <section class="controls" aria-label="Bird filters">
       <label>
@@ -128,6 +202,8 @@
         <div class="badges"></div>
       </div>
 
+      <div class="local-reason"></div>
+
       <div class="sound-block"></div>
 
       <dl class="meta-list">
@@ -137,6 +213,7 @@
     </article>
   </template>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>
