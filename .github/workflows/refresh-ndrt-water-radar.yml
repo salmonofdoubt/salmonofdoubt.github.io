@@ -31,7 +31,9 @@ jobs:
           pip install -r demos/ndrt/news/ops/requirements.txt
 
       - name: Refresh NDRT water radar
-        run: python demos/ndrt/news/ops/discover_ndrt_news.py
+        run: |
+          python demos/ndrt/news/ops/discover_ndrt_news.py
+          python demos/ndrt/news/ops/enrich_ndrt_research.py
 
       - name: Commit generated data
         run: |
