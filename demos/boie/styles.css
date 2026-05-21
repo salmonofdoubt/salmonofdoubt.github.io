@@ -1905,3 +1905,100 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.62rem !important;
   }
 }
+
+/* BOIE mobile cockpit compression */
+@media (max-width: 760px) {
+  .nearby-panel {
+    padding: 9px !important;
+    margin: 8px 0 !important;
+    border-radius: 18px !important;
+  }
+
+  .nearby-controls {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 5px !important;
+  }
+
+  .nearby-controls > button#useLocation {
+    grid-column: 1 / -1;
+    min-height: 32px !important;
+    padding: 0 9px !important;
+    border-radius: 999px !important;
+    font-size: 0.76rem !important;
+    line-height: 1 !important;
+  }
+
+  .nearby-controls label {
+    min-height: 46px !important;
+    padding: 6px 8px !important;
+    border-radius: 12px !important;
+    gap: 3px !important;
+  }
+
+  .nearby-controls label span {
+    font-size: 0.53rem !important;
+    letter-spacing: 0.09em !important;
+    line-height: 1 !important;
+  }
+
+  .nearby-controls select,
+  .nearby-controls input {
+    font-size: 0.78rem !important;
+    line-height: 1.05 !important;
+    font-weight: 800 !important;
+  }
+
+  .nearby-summary {
+    padding: 7px 8px !important;
+    border-radius: 11px !important;
+    font-size: 0.72rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .habitats {
+    gap: 5px !important;
+    padding: 1px 0 4px !important;
+  }
+
+  .habitats button {
+    min-height: 28px !important;
+    padding: 0 8px !important;
+    border-radius: 999px !important;
+    font-size: 0.72rem !important;
+    line-height: 1 !important;
+  }
+
+  .bird-map {
+    min-height: 185px !important;
+    max-height: 205px !important;
+    border-radius: 14px !important;
+    margin-bottom: 7px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .nearby-controls label {
+    min-height: 42px !important;
+    padding: 5px 7px !important;
+  }
+
+  .nearby-controls label span {
+    font-size: 0.48rem !important;
+  }
+
+  .nearby-controls select,
+  .nearby-controls input {
+    font-size: 0.72rem !important;
+  }
+
+  .habitats button {
+    min-height: 26px !important;
+    padding: 0 7px !important;
+    font-size: 0.68rem !important;
+  }
+
+  .bird-map {
+    min-height: 170px !important;
+    max-height: 190px !important;
+  }
+}
