@@ -2671,11 +2671,12 @@ body.boie-advanced-open .chorus-actions {
 }
 
 
-/* BOIE chorus title mix button */
+/* BOIE chorus mix control v3 */
+/* Match selected habitat chip behaviour */
 .chorus-title-row {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   min-width: 0;
 }
 
@@ -2684,43 +2685,73 @@ body.boie-advanced-open .chorus-actions {
 }
 
 .chorus-mix-button {
-  min-height: 26px;
-  padding: 0 10px;
-  border: 1px solid rgba(128, 255, 200, 0.36);
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 11px;
+  border: 1px solid rgba(255, 176, 64, 0.46);
   border-radius: 999px;
-  background: rgba(128, 255, 200, 0.12);
-  color: var(--green);
+  background:
+    linear-gradient(135deg, rgba(255, 176, 64, 0.16), rgba(80, 46, 8, 0.18)),
+    rgba(5, 10, 18, 0.96);
+  color: #ffca72;
   font: inherit;
-  font-size: 0.70rem;
+  font-size: 0.64rem;
   font-weight: 950;
   line-height: 1;
   cursor: pointer;
+  box-shadow: none;
+  transition:
+    border-color 120ms ease,
+    background 120ms ease,
+    color 120ms ease,
+    transform 80ms ease;
 }
 
 .chorus-mix-button:hover,
 .chorus-mix-button:focus-visible {
-  background: rgba(128, 255, 200, 0.20);
-  outline: none;
+  border-color: rgba(79, 246, 255, 0.72);
+  outline: 2px solid rgba(79, 246, 255, 0.55);
+  outline-offset: 1px;
+}
+
+.chorus-mix-button:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* Pressed/playing state uses the same selected-chip visual language */
+.chorus-mix-button.is-playing,
+.chorus-mix-button[aria-pressed="true"] {
+  border-color: rgba(255, 176, 64, 0.72);
+  background:
+    linear-gradient(135deg, rgba(255, 176, 64, 0.26), rgba(80, 46, 8, 0.26)),
+    rgba(18, 14, 8, 0.96);
+  color: #ffd58a;
+  outline: 2px solid rgba(79, 246, 255, 0.62);
+  outline-offset: 1px;
 }
 
 .chorus-mix-button:disabled {
-  opacity: 0.45;
+  opacity: 0.42;
   cursor: not-allowed;
+  transform: none;
+  outline: none;
 }
 
-/* The old large play/stop row is no longer needed. */
+/* Retire older large chorus action row */
 .chorus-actions {
   display: none !important;
 }
 
 @media (max-width: 760px) {
   .chorus-title-row {
-    gap: 6px;
+    gap: 5px;
   }
 
   .chorus-mix-button {
-    min-height: 22px;
+    min-height: 21px;
     padding: 0 8px;
-    font-size: 0.58rem;
+    font-size: 0.54rem;
   }
 }
