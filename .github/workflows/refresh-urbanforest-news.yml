@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -39,16 +42,29 @@ jobs:
 
       - name: Commit generated data
         run: |
+          set -euo pipefail
+
+          BRANCH="${GITHUB_REF_NAME:-master}"
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Keep the runner aligned with the latest remote branch before committing.
+          git fetch origin "$BRANCH"
+          git rebase "origin/$BRANCH"
+
           git add demos/urbanforest/news/data/news.json \
                   demos/urbanforest/news/data/archive \
                   demos/urbanforest/news/data/source-health.json \
                   demos/urbanforest/news/data/weekly-digest.json \
                   demos/urbanforest/news/data/validation.json
+
           if git diff --cached --quiet; then
             echo "No UrbanForest radar data changes."
           else
             git commit -m "Refresh UrbanForest radar"
-            git push
+
+            # Remote may have moved again while this job was running.
+            git pull --rebase --autostash origin "$BRANCH"
+            git push origin "HEAD:$BRANCH"
           fi
