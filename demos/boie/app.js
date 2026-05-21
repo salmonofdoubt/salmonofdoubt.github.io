@@ -697,11 +697,57 @@ function applyNearbyDeck(birds) {
 
 let activeChorusPlayers = [];
 
-function chorusCandidates() {
+
+function selectableChorusBirds() {
   return state.filtered
     .filter(hasAudio)
     .filter(b => !(b.status_codes || []).includes("B"))
-    .slice(0, 8);
+    .slice(0, 16);
+}
+
+function currentFilteredChorusSignature() {
+  return selectableChorusBirds()
+    .map(bird => `${bird.common_name || ""}:${bird.audio?.file || ""}`)
+    .join("|");
+}
+
+function currentChorusSelectionSignature() {
+  return (state.chorusSelection || [])
+    .map(bird => `${bird.common_name || ""}:${bird.audio?.file || ""}`)
+    .join("|");
+}
+
+function isChorusSelectionStale() {
+  if (!state.chorusDeckSignature) return false;
+  return state.chorusDeckSignature !== currentFilteredChorusSignature();
+}
+
+function remixChorusSelection() {
+  stopChorusTogether();
+
+  state.chorusSelection = selectableChorusBirds().slice(0, 8);
+  state.chorusDeckSignature = currentFilteredChorusSignature();
+
+  renderChorus();
+
+  if (els.notice && state.chorusSelection.length) {
+    els.notice.textContent = `Chorus remixed · ${state.chorusSelection.length} selected · press Play to listen`;
+  }
+}
+
+function chorusCandidates() {
+  if (!Array.isArray(state.chorusSelection)) {
+    state.chorusSelection = [];
+  }
+
+  if (!state.chorusSelection.length) {
+    state.chorusSelection = selectableChorusBirds().slice(0, 8);
+    state.chorusDeckSignature = currentFilteredChorusSignature();
+  }
+
+  return state.chorusSelection
+    .filter(hasAudio)
+    .filter(b => !(b.status_codes || []).includes("B"));
 }
 
 function stopChorusTogether() {
@@ -716,10 +762,7 @@ function stopChorusTogether() {
   });
 
   activeChorusPlayers = [];
-
-  if (els.playChorus) {
-    els.playChorus.textContent = "Play chorus together";
-  }
+  syncChorusControlButtons();
 }
 
 function playChorusTogether() {
@@ -727,38 +770,41 @@ function playChorusTogether() {
 
   if (!birds.length) {
     if (els.notice) {
-      els.notice.textContent = "No playable birds in the current chorus. Switch off filters or change location/month.";
+      els.notice.textContent = "No playable birds in the current chorus. Press Remix after changing filters.";
     }
+    syncChorusControlButtons();
     return;
   }
 
   stopChorusTogether();
 
-  if (els.playChorus) {
-    els.playChorus.textContent = "Playing chorus…";
-  }
-
   birds.forEach((bird, index) => {
     const audio = new Audio(bird.audio.file);
     audio.preload = "auto";
     audio.volume = Math.max(0.10, 0.22 - (birds.length * 0.012));
+
+    audio.addEventListener("ended", () => {
+      activeChorusPlayers = activeChorusPlayers.filter(player => player !== audio);
+      syncChorusControlButtons();
+    });
+
     activeChorusPlayers.push(audio);
 
-    // A tiny stagger makes the result feel like a natural chorus and avoids
-    // hammering the browser with eight simultaneous remote loads.
     window.setTimeout(() => {
       audio.play().catch(error => {
         console.warn("Could not play chorus bird", bird.common_name, error);
         if (els.notice) {
-          els.notice.textContent = "Some chorus audio could not start. Press Play again or use individual bird controls.";
+          els.notice.textContent = "Some chorus audio could not start. Use the individual bird controls if needed.";
         }
       });
     }, index * 220);
   });
 
   if (els.notice) {
-    els.notice.textContent = `Playing ${birds.length} birds together from Today’s likely chorus. Use Stop chorus to end playback.`;
+    els.notice.textContent = `Playing ${birds.length} selected chorus birds · press Stop to end playback`;
   }
+
+  syncChorusControlButtons();
 }
 
 function renderChorusMosaic(birds) {
@@ -792,26 +838,78 @@ function renderChorusMosaic(birds) {
 }
 
 
+
+function syncChorusControlButtons() {
+  const remixButton = document.getElementById("remixChorusSelection");
+  const playButton = document.getElementById("toggleChorusPlayback");
+  const candidates = typeof chorusCandidates === "function" ? chorusCandidates() : [];
+  const playing = activeChorusPlayers.length > 0;
+  const stale = typeof isChorusSelectionStale === "function" ? isChorusSelectionStale() : false;
+
+  if (remixButton) {
+    remixButton.disabled = selectableChorusBirds().length === 0;
+    remixButton.classList.toggle("is-stale", stale);
+    remixButton.setAttribute(
+      "aria-label",
+      stale ? "Remix chorus using current filters" : "Refresh chorus selection"
+    );
+  }
+
+  if (playButton) {
+    playButton.disabled = candidates.length === 0;
+    playButton.textContent = playing ? "Stop" : "Play";
+    playButton.classList.toggle("is-playing", playing);
+    playButton.setAttribute("aria-pressed", playing ? "true" : "false");
+    playButton.setAttribute(
+      "aria-label",
+      playing ? "Stop selected chorus" : "Play selected chorus"
+    );
+  }
+}
+
+function installChorusControlButtons() {
+  const remixButton = document.getElementById("remixChorusSelection");
+  const playButton = document.getElementById("toggleChorusPlayback");
+
+  if (remixButton && remixButton.dataset.bound !== "true") {
+    remixButton.dataset.bound = "true";
+    remixButton.addEventListener("click", remixChorusSelection);
+  }
+
+  if (playButton && playButton.dataset.bound !== "true") {
+    playButton.dataset.bound = "true";
+    playButton.addEventListener("click", () => {
+      if (activeChorusPlayers.length) {
+        stopChorusTogether();
+      } else {
+        playChorusTogether();
+      }
+    });
+  }
+
+  syncChorusControlButtons();
+}
+
+
 function renderChorus() {
   if (!els.chorusList) return;
 
   const playable = chorusCandidates();
+  const stale = isChorusSelectionStale();
 
   if (els.chorusContext) {
-    els.chorusContext.textContent = `${MONTHS[selectedMonth()]} · ${playable.length} quick-listen species`;
+    els.chorusContext.textContent = stale
+      ? `${MONTHS[selectedMonth()]} · ${playable.length} selected · remix available`
+      : `${MONTHS[selectedMonth()]} · ${playable.length} selected`;
   }
 
   renderChorusMosaic(playable);
 
   if (!playable.length) {
-    els.chorusList.innerHTML = `<p class="chorus-empty">No playable sounds in the current deck.</p>`;
-    if (els.playChorus) els.playChorus.disabled = true;
-    if (els.stopChorus) els.stopChorus.disabled = true;
+    els.chorusList.innerHTML = `<p class="chorus-empty">No playable sounds in the current chorus. Press Remix after changing filters.</p>`;
+    syncChorusControlButtons();
     return;
   }
-
-  if (els.playChorus) els.playChorus.disabled = false;
-  if (els.stopChorus) els.stopChorus.disabled = false;
 
   els.chorusList.innerHTML = playable.map(bird => {
     const match = bird.local ? localMatchLabel(bird.local.confidence) : "Catalogue";
@@ -822,6 +920,8 @@ function renderChorus() {
       </button>
     `;
   }).join("");
+
+  syncChorusControlButtons();
 }
 
 function render() {
@@ -1325,113 +1425,13 @@ init();
 
 
 
-/* BOIE chorus title mix button v2 */
+/* BOIE manual chorus controls */
 (function () {
-  let lastChorusSignature = "";
-
-  function getMixButton() {
-    return document.getElementById("toggleChorusMix");
-  }
-
-  function currentChorusSignature() {
-    if (typeof chorusCandidates !== "function") return "";
-    return chorusCandidates()
-      .map(bird => `${bird.common_name || ""}:${bird.audio?.file || ""}`)
-      .join("|");
-  }
-
-  function isChorusPlaying() {
-    return typeof activeChorusPlayers !== "undefined" && activeChorusPlayers.length > 0;
-  }
-
-  function syncMixButton() {
-    const button = getMixButton();
-    if (!button) return;
-
-    const candidates = typeof chorusCandidates === "function" ? chorusCandidates() : [];
-    const playing = isChorusPlaying();
-
-    button.disabled = candidates.length === 0;
-    button.textContent = playing ? "Stop" : "Mix";
-    button.classList.toggle("is-playing", playing);
-    button.setAttribute("aria-pressed", playing ? "true" : "false");
-    button.setAttribute(
-      "aria-label",
-      playing ? "Stop likely chorus mix" : "Mix the likely chorus sounds"
-    );
-  }
-
-  function stopIfChorusChanged() {
-    const signature = currentChorusSignature();
-
-    if (lastChorusSignature && signature !== lastChorusSignature && isChorusPlaying()) {
-      if (typeof stopChorusTogether === "function") {
-        stopChorusTogether();
-      }
-    }
-
-    lastChorusSignature = signature;
-    syncMixButton();
-  }
-
-  function installChorusMixButton() {
-    const button = getMixButton();
-    if (!button || button.dataset.bound === "true") return;
-
-    button.dataset.bound = "true";
-
-    button.addEventListener("click", () => {
-      if (isChorusPlaying()) {
-        if (typeof stopChorusTogether === "function") {
-          stopChorusTogether();
-        }
-      } else if (typeof playChorusTogether === "function") {
-        playChorusTogether();
-      }
-
-      lastChorusSignature = currentChorusSignature();
-      window.setTimeout(syncMixButton, 80);
-    });
-
-    syncMixButton();
-  }
-
-  if (typeof playChorusTogether === "function" && !playChorusTogether.__boieMixV2Wrapped) {
-    const originalPlay = playChorusTogether;
-    playChorusTogether = function () {
-      originalPlay();
-      window.setTimeout(syncMixButton, 80);
-    };
-    playChorusTogether.__boieMixV2Wrapped = true;
-  }
-
-  if (typeof stopChorusTogether === "function" && !stopChorusTogether.__boieMixV2Wrapped) {
-    const originalStop = stopChorusTogether;
-    stopChorusTogether = function () {
-      originalStop();
-      window.setTimeout(syncMixButton, 40);
-    };
-    stopChorusTogether.__boieMixV2Wrapped = true;
-  }
-
-  if (typeof renderChorus === "function" && !renderChorus.__boieMixV2Wrapped) {
-    const originalRenderChorus = renderChorus;
-    renderChorus = function () {
-      originalRenderChorus();
-      stopIfChorusChanged();
-      installChorusMixButton();
-    };
-    renderChorus.__boieMixV2Wrapped = true;
-  }
-
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", installChorusMixButton);
+    document.addEventListener("DOMContentLoaded", installChorusControlButtons);
   } else {
-    installChorusMixButton();
+    installChorusControlButtons();
   }
 
-  window.addEventListener("load", () => {
-    installChorusMixButton();
-    syncMixButton();
-  });
+  window.addEventListener("load", installChorusControlButtons);
 })();

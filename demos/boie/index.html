@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bird Sound Atlas · Ireland</title>
   <meta name="description" content="An Ireland-first public bird sound atlas with representative sounds, images, location-aware cards, and attribution." />
-  <link rel="stylesheet" href="./styles.css?v=chorus-chip-canonical-1779355664" />
+  <link rel="stylesheet" href="./styles.css?v=manual-chorus-controls-1779355832" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
   <script defer src="/demos/shared/demo-return.js"></script>
@@ -238,7 +238,8 @@
           <p class="eyebrow mini">Listening walk</p>
           <div class="chorus-title-row">
             <h2>Today’s likely chorus</h2>
-            <button id="toggleChorusMix" class="chorus-mix-button" type="button">Mix</button>
+            <button id="remixChorusSelection" class="chorus-mix-button chorus-remix-button" type="button">Remix</button>
+            <button id="toggleChorusPlayback" class="chorus-mix-button chorus-play-button" type="button" aria-pressed="false">Play</button>
           </div>
         </div>
         <span id="chorusContext">Local seasonal shortlist</span>
@@ -298,6 +299,6 @@
   </template>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./app.js?v=chorus-mix-control-v2-1779355391"></script>
+  <script src="./app.js?v=manual-chorus-controls-1779355832"></script>
 </body>
 </html>
