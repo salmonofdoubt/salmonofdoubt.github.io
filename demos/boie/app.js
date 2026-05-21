@@ -1501,3 +1501,59 @@ init();
 
   window.addEventListener("load", installChorusControlButtons);
 })();
+
+
+/* BOIE exclusive individual bird audio */
+(function () {
+  function isBirdCardAudio(node) {
+    return (
+      node instanceof HTMLAudioElement &&
+      Boolean(node.closest?.(".bird-card") || node.closest?.("#birdGrid"))
+    );
+  }
+
+  function pauseAllBirdCardAudio(except = null) {
+    document.querySelectorAll("#birdGrid audio, .bird-card audio").forEach(audio => {
+      if (audio === except) return;
+
+      try {
+        if (!audio.paused) {
+          audio.pause();
+        }
+        audio.currentTime = 0;
+      } catch (error) {
+        console.warn("Could not pause bird-card audio", error);
+      }
+    });
+  }
+
+  // Individual bird cards are mutually exclusive.
+  document.addEventListener("play", event => {
+    const audio = event.target;
+    if (!isBirdCardAudio(audio)) return;
+
+    // Individual bird playback should not overlap with a chorus mix.
+    if (
+      typeof stopChorusTogether === "function" &&
+      typeof activeChorusPlayers !== "undefined" &&
+      activeChorusPlayers.length
+    ) {
+      stopChorusTogether();
+    }
+
+    pauseAllBirdCardAudio(audio);
+  }, true);
+
+  // Chorus playback is the one permitted multi-audio mode.
+  // Before starting it, stop any individual bird-card audio.
+  if (typeof playChorusTogether === "function" && !playChorusTogether.__boieExclusiveAudioWrapped) {
+    const originalPlayChorusTogether = playChorusTogether;
+
+    playChorusTogether = function () {
+      pauseAllBirdCardAudio();
+      return originalPlayChorusTogether.apply(this, arguments);
+    };
+
+    playChorusTogether.__boieExclusiveAudioWrapped = true;
+  }
+})();
