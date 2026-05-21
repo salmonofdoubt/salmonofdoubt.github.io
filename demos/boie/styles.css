@@ -2288,3 +2288,94 @@ body.boie-advanced-open .chorus-actions {
     max-width: 42vw !important;
   }
 }
+
+/* BOIE map/control layout correction */
+@media (min-width: 761px) {
+  .nearby-grid {
+    display: grid !important;
+    grid-template-columns: minmax(320px, 430px) minmax(0, 1fr) !important;
+    gap: 12px !important;
+    align-items: start !important;
+  }
+
+  .bird-map {
+    display: block !important;
+    width: 100% !important;
+    min-height: 245px !important;
+    max-height: 285px !important;
+    margin: 0 !important;
+    border-radius: 18px !important;
+  }
+
+  .nearby-controls {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(120px, 1fr)) !important;
+    gap: 8px !important;
+    align-items: start !important;
+  }
+
+  .nearby-controls > button#useLocation {
+    grid-column: span 1 !important;
+    min-height: 44px !important;
+  }
+
+  .nearby-controls label {
+    min-height: 44px !important;
+  }
+
+  .habitats,
+  .nearby-summary {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+/* Mobile selector array */
+@media (max-width: 760px) {
+  .nearby-grid {
+    display: block !important;
+  }
+
+  .bird-map {
+    display: block !important;
+    width: 100% !important;
+    min-height: 190px !important;
+    max-height: 220px !important;
+    margin-bottom: 7px !important;
+    border-radius: 14px !important;
+  }
+
+  .nearby-controls {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+  }
+
+  .nearby-controls > button#useLocation {
+    grid-column: 1 / -1 !important;
+  }
+
+  .nearby-controls label {
+    min-width: 0 !important;
+  }
+
+  .habitats,
+  .nearby-summary {
+    grid-column: 1 / -1 !important;
+  }
+
+  .habitats {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .nearby-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .nearby-controls label {
+    min-height: 40px !important;
+  }
+}
