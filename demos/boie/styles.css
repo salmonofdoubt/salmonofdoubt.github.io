@@ -1714,3 +1714,65 @@ body.boie-advanced-open .chorus-actions {
 .bird-map {
   display: block !important;
 }
+
+/* BOIE mobile hero/font tightening */
+@media (max-width: 760px) {
+  .topnav {
+    gap: 7px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .topnav a {
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    border-radius: 999px !important;
+    font-size: 0.78rem !important;
+    line-height: 1.05 !important;
+  }
+
+  .hero {
+    padding: 18px 16px !important;
+    border-radius: 22px !important;
+  }
+
+  .hero .eyebrow,
+  .eyebrow {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.18em !important;
+    margin-bottom: 9px !important;
+  }
+
+  h1 {
+    font-size: clamp(1.95rem, 10.5vw, 2.85rem) !important;
+    line-height: 0.98 !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  .lede {
+    margin-top: 14px !important;
+    font-size: 0.92rem !important;
+    line-height: 1.48 !important;
+  }
+
+  .hero-actions a,
+  .hero-actions button {
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  h1 {
+    font-size: clamp(1.75rem, 9.5vw, 2.45rem) !important;
+  }
+
+  .lede {
+    font-size: 0.88rem !important;
+  }
+
+  .topnav a {
+    font-size: 0.72rem !important;
+    padding: 0 8px !important;
+  }
+}
