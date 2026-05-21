@@ -800,10 +800,78 @@ function render() {
     }
 
     updateNearbySummary();
+    updateConciseNotice(birds);
   } catch (error) {
     console.error(error);
     if (els.notice) els.notice.textContent = `Render error: ${error.message}`;
   }
+}
+
+
+function titleCaseShort(value) {
+  return String(value || "")
+    .replace("-", " ")
+    .replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
+function selectedOptionText(selectEl) {
+  return selectEl?.selectedOptions?.[0]?.textContent?.trim() || "";
+}
+
+function compactHabitatLabel() {
+  const habitats = [...activeHabitats()]
+    .filter(h => h !== "general")
+    .map(titleCaseShort);
+
+  if (!habitats.length) return "Auto habitat";
+  if (habitats.length <= 3) return habitats.join(", ");
+  return `${habitats.slice(0, 3).join(", ")} +${habitats.length - 3}`;
+}
+
+function compactPlaceLabel() {
+  if (!state.location) return "Ireland-wide";
+
+  const profile = locationProfile(state.location);
+  if (profile.estuary) return "Estuary";
+  if (profile.coastal) return "Coast";
+  if (profile.nearCoastal) return "Near coast";
+  if (profile.urban) return "Urban";
+  return "Inland";
+}
+
+function updateConciseNotice(birds) {
+  if (!els.notice) return;
+
+  const query = els.search?.value.trim() || "";
+  const mode = els.deckMode?.value || "nearby";
+  const month = MONTHS[selectedMonth()];
+  const radius = `${els.radius?.value || 10} km`;
+  const group = selectedOptionText(els.group) || "Habitat";
+  const shown = birds.length.toLocaleString();
+  const total = state.birds.length.toLocaleString();
+  const plausible = Number(state.plausibleCount || birds.length).toLocaleString();
+
+  if (query) {
+    els.notice.textContent = `Search “${query}” · ${shown} match${birds.length === 1 ? "" : "es"} · local match shown as context`;
+    return;
+  }
+
+  if (mode === "all") {
+    els.notice.textContent = `Full catalogue · ${shown}/${total} shown · grouped by ${group}`;
+    return;
+  }
+
+  const shownText = Number(state.plausibleCount || birds.length) > birds.length
+    ? `${shown}/${plausible} shown`
+    : `${shown} shown`;
+
+  const extras = [];
+  if (els.listenOnly?.checked || els.sound?.value === "has") extras.push("sound only");
+  if (els.sound?.value === "missing") extras.push("no sound");
+  extras.push(els.includeRare?.checked ? "rare on" : "rare off");
+
+  els.notice.textContent =
+    `${month} · ${radius} · ${compactPlaceLabel()} · ${compactHabitatLabel()} · ${shownText} · ${extras.join(" · ")}`;
 }
 
 function updateNearbySummary() {

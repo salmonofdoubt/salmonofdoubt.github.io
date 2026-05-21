@@ -2649,3 +2649,35 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.52rem !important;
   }
 }
+
+
+/* BOIE concise result notice */
+.controls + .notice {
+  margin: 6px 0 10px !important;
+}
+
+.notice {
+  padding: 8px 11px !important;
+  border-radius: 13px !important;
+  font-size: 0.82rem !important;
+  line-height: 1.3 !important;
+  color: rgba(233, 247, 244, 0.78) !important;
+}
+
+@media (max-width: 760px) {
+  .controls + .notice {
+    margin: 5px 0 8px !important;
+  }
+
+  .notice {
+    padding: 7px 8px !important;
+    font-size: 0.66rem !important;
+    line-height: 1.22 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .notice {
+    font-size: 0.60rem !important;
+  }
+}

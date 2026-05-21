@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bird Sound Atlas · Ireland</title>
   <meta name="description" content="An Ireland-first public bird sound atlas with representative sounds, images, location-aware cards, and attribution." />
-  <link rel="stylesheet" href="./styles.css?v=four-filter-row-1779353749" />
+  <link rel="stylesheet" href="./styles.css?v=concise-result-summary-1779353932" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
   <script defer src="/demos/shared/demo-return.js"></script>
@@ -213,6 +213,10 @@
       </label>
     </section>
 
+    <section class="notice" id="coverageNotice" aria-live="polite">
+      Loading bird atlas…
+    </section>
+
     <section class="chorus-panel" id="chorusPanel" aria-label="Likely chorus">
       <header>
         <div>
@@ -230,12 +234,7 @@
         <button id="stopChorusTogether" type="button">Stop chorus</button>
       </div>
     </section>
-
-    <section class="notice" id="coverageNotice" aria-live="polite">
-      Loading bird atlas…
-    </section>
-
-    <section id="birdGrid" class="bird-grid" aria-label="Bird sound cards"></section>
+<section id="birdGrid" class="bird-grid" aria-label="Bird sound cards"></section>
 
     <section class="panel" id="source-notes">
       <h2>Source notes</h2>
@@ -281,6 +280,6 @@
   </template>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./app.js?v=pin-habitat-sync-1779353367"></script>
+  <script src="./app.js?v=concise-result-summary-1779353932"></script>
 </body>
 </html>
