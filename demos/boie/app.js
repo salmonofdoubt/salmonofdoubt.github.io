@@ -1295,11 +1295,29 @@ els.stopChorus?.addEventListener("click", stopChorusTogether);
 
 function jumpToBirdFromButton(button) {
   if (!button) return;
-  if (els.searchSelected) els.searchSelected.value = button.dataset.bird || "";
-  if (els.searchCatalogue) els.searchCatalogue.value = "";
-  if (els.search) els.search.value = button.dataset.bird || "";
-  render();
-  document.querySelector(".bird-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  const name = String(button.dataset.bird || "").trim();
+  if (!name) return;
+
+  const cards = [...document.querySelectorAll(".bird-card")];
+  const target = cards.find(card => {
+    const title = card.querySelector(".common-name")?.textContent?.trim();
+    return title === name;
+  });
+
+  if (!target) {
+    if (els.notice) {
+      els.notice.textContent = `${name} is in the selected chorus. Press Remix after changing filters, or use Search if you want to filter the catalogue.`;
+    }
+    return;
+  }
+
+  target.classList.add("bird-card--pulse");
+  target.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  window.setTimeout(() => {
+    target.classList.remove("bird-card--pulse");
+  }, 1400);
 }
 
 els.chorusList?.addEventListener("click", event => {

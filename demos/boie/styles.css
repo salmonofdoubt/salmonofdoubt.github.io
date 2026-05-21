@@ -2852,3 +2852,13 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.42rem !important;
   }
 }
+
+
+/* BOIE chorus click target highlight */
+.bird-card--pulse {
+  outline: 2px solid rgba(79, 246, 255, 0.72) !important;
+  outline-offset: 3px !important;
+  box-shadow:
+    0 0 0 1px rgba(79, 246, 255, 0.22),
+    0 0 28px rgba(79, 246, 255, 0.22) !important;
+}
