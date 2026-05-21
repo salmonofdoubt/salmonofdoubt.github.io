@@ -14,6 +14,9 @@ const els = {
   search: document.getElementById("search"),
   searchSelected: document.getElementById("searchSelected"),
   searchCatalogue: document.getElementById("searchCatalogue"),
+  searchUnified: document.getElementById("searchUnified"),
+  searchScopeSelected: document.getElementById("searchScopeSelected"),
+  searchScopeCatalogue: document.getElementById("searchScopeCatalogue"),
   status: document.getElementById("statusFilter"),
   sound: document.getElementById("soundFilter"),
   sort: document.getElementById("sortFilter"),
@@ -619,16 +622,21 @@ function birdMatchesQuery(bird, rawQuery) {
 }
 
 function activeSearchMode() {
+  const unifiedQuery = normaliseQuery(els.searchUnified?.value);
+
+  if (unifiedQuery) {
+    return {
+      mode: state.searchScope || "selected",
+      query: unifiedQuery
+    };
+  }
+
+  // Backwards compatibility if old fields still exist in a cached/local branch.
   const selectedQuery = normaliseQuery(els.searchSelected?.value);
   const catalogueQuery = normaliseQuery(els.searchCatalogue?.value);
 
-  if (catalogueQuery) {
-    return { mode: "catalogue", query: catalogueQuery };
-  }
-
-  if (selectedQuery) {
-    return { mode: "selected", query: selectedQuery };
-  }
+  if (catalogueQuery) return { mode: "catalogue", query: catalogueQuery };
+  if (selectedQuery) return { mode: "selected", query: selectedQuery };
 
   return { mode: "none", query: "" };
 }
@@ -647,6 +655,45 @@ function applySharedFilters(birds) {
 }
 
 function bindDualSearchControls() {
+  if (!state.searchScope) {
+    state.searchScope = "selected";
+  }
+
+  function syncScopeButtons() {
+    const scope = state.searchScope || "selected";
+
+    if (els.searchScopeSelected) {
+      els.searchScopeSelected.classList.toggle("is-active", scope === "selected");
+      els.searchScopeSelected.setAttribute("aria-pressed", scope === "selected" ? "true" : "false");
+    }
+
+    if (els.searchScopeCatalogue) {
+      els.searchScopeCatalogue.classList.toggle("is-active", scope === "catalogue");
+      els.searchScopeCatalogue.setAttribute("aria-pressed", scope === "catalogue" ? "true" : "false");
+    }
+  }
+
+  if (els.searchUnified && !els.searchUnified.dataset.bound) {
+    els.searchUnified.dataset.bound = "true";
+    els.searchUnified.addEventListener("input", () => {
+      if (els.searchSelected) els.searchSelected.value = "";
+      if (els.searchCatalogue) els.searchCatalogue.value = "";
+      render();
+    });
+  }
+
+  [els.searchScopeSelected, els.searchScopeCatalogue].forEach(button => {
+    if (!button || button.dataset.bound) return;
+
+    button.dataset.bound = "true";
+    button.addEventListener("click", () => {
+      state.searchScope = button.dataset.searchScope || "selected";
+      syncScopeButtons();
+      render();
+    });
+  });
+
+  // Old dual search fallback if those controls still exist.
   if (els.searchSelected && !els.searchSelected.dataset.bound) {
     els.searchSelected.dataset.bound = "true";
     els.searchSelected.addEventListener("input", () => {
@@ -666,8 +713,9 @@ function bindDualSearchControls() {
       render();
     });
   }
-}
 
+  syncScopeButtons();
+}
 
 function applyNearbyDeck(birds) {
   if (els.deckMode?.value === "all") {
@@ -849,15 +897,20 @@ function syncChorusControlButtons() {
   const remixButton = document.getElementById("remixChorusSelection");
   const playButton = document.getElementById("toggleChorusPlayback");
   const candidates = typeof chorusCandidates === "function" ? chorusCandidates() : [];
+  const remixCandidates = typeof selectableChorusBirds === "function" ? selectableChorusBirds() : [];
   const playing = activeChorusPlayers.length > 0;
   const stale = typeof isChorusSelectionStale === "function" ? isChorusSelectionStale() : false;
 
   if (remixButton) {
-    remixButton.disabled = selectableChorusBirds().length === 0;
+    remixButton.disabled = remixCandidates.length === 0;
     remixButton.classList.toggle("is-stale", stale);
+    remixButton.classList.toggle("is-active", stale);
+    remixButton.setAttribute("aria-pressed", stale ? "true" : "false");
     remixButton.setAttribute(
       "aria-label",
-      stale ? "Remix chorus using current filters" : "Refresh chorus selection"
+      stale
+        ? "Remix is available because the current filters changed"
+        : "Refresh chorus selection"
     );
   }
 
@@ -1209,9 +1262,11 @@ function playRandomBird() {
   }
 
   const bird = playable[Math.floor(Math.random() * playable.length)];
+  if (els.searchUnified) els.searchUnified.value = bird.common_name || "";
   if (els.searchSelected) els.searchSelected.value = bird.common_name || "";
   if (els.searchCatalogue) els.searchCatalogue.value = "";
   if (els.search) els.search.value = bird.common_name || "";
+  state.searchScope = "selected";
   if (els.status) els.status.value = "all";
   if (els.sound) els.sound.value = "has";
   render();
