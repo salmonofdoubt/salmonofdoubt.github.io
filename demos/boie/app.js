@@ -916,9 +916,10 @@ function syncChorusControlButtons() {
 
   if (playButton) {
     playButton.disabled = candidates.length === 0;
-    playButton.textContent = playing ? "Stop" : "Play";
+    playButton.textContent = playing ? "■" : "▶";
     playButton.classList.toggle("is-playing", playing);
     playButton.setAttribute("aria-pressed", playing ? "true" : "false");
+    playButton.setAttribute("title", playing ? "Stop chorus" : "Play chorus");
     playButton.setAttribute(
       "aria-label",
       playing ? "Stop selected chorus" : "Play selected chorus"

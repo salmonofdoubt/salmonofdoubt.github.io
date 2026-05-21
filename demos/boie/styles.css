@@ -2935,3 +2935,71 @@ body.boie-advanced-open .chorus-actions {
   color: var(--ink) !important;
   outline: none !important;
 }
+
+
+/* BOIE round chorus playback button */
+/* Idle = green play. Active = round red stop. */
+#toggleChorusPlayback.chorus-play-button {
+  width: 26px !important;
+  min-width: 26px !important;
+  max-width: 26px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(128, 255, 200, 0.72) !important;
+  background:
+    linear-gradient(135deg, rgba(128, 255, 200, 0.95), rgba(79, 246, 255, 0.70)) !important;
+  color: #031014 !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  font-size: 0.68rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  box-shadow:
+    0 0 0 1px rgba(128, 255, 200, 0.18) inset,
+    0 0 14px rgba(128, 255, 200, 0.18) !important;
+}
+
+#toggleChorusPlayback.chorus-play-button:hover,
+#toggleChorusPlayback.chorus-play-button:focus-visible {
+  outline: 2px solid rgba(79, 246, 255, 0.58) !important;
+  outline-offset: 2px !important;
+}
+
+#toggleChorusPlayback.chorus-play-button.is-playing,
+#toggleChorusPlayback.chorus-play-button[aria-pressed="true"] {
+  width: 26px !important;
+  min-width: 26px !important;
+  max-width: 26px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  border-radius: 999px !important;
+  border-color: rgba(255, 98, 98, 0.90) !important;
+  background:
+    linear-gradient(135deg, rgba(255, 98, 98, 0.96), rgba(130, 18, 32, 0.92)) !important;
+  color: #fff4f4 !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 190, 190, 0.22) inset,
+    0 0 18px rgba(255, 70, 70, 0.28) !important;
+  outline: none !important;
+}
+
+#toggleChorusPlayback.chorus-play-button:disabled {
+  opacity: 0.42 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+  #toggleChorusPlayback.chorus-play-button,
+  #toggleChorusPlayback.chorus-play-button.is-playing,
+  #toggleChorusPlayback.chorus-play-button[aria-pressed="true"] {
+    width: 23px !important;
+    min-width: 23px !important;
+    max-width: 23px !important;
+    height: 23px !important;
+    min-height: 23px !important;
+    font-size: 0.58rem !important;
+  }
+}
