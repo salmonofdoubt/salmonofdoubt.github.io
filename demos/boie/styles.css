@@ -2761,3 +2761,94 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.52rem;
   }
 }
+
+
+/* BOIE chorus thumbnails canonical */
+/* Shows the currently selected/remixed chorus as tiny thumbnails. No horizontal scrolling. */
+.chorus-mosaic {
+  display: grid !important;
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+  gap: 5px !important;
+  width: 100% !important;
+  margin-top: 7px !important;
+  overflow: visible !important;
+  overflow-x: hidden !important;
+  padding: 0 !important;
+}
+
+.chorus-photo {
+  aspect-ratio: 1 / 1 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(79, 246, 255, 0.24) !important;
+  border-radius: 10px !important;
+  padding: 0 !important;
+  background: rgba(79, 246, 255, 0.045) !important;
+  cursor: pointer !important;
+}
+
+.chorus-photo img {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  padding: 0 !important;
+}
+
+.chorus-photo span {
+  position: static !important;
+  inset: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: var(--green) !important;
+  font-size: 0.62rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  text-align: center !important;
+}
+
+.chorus-photo:hover,
+.chorus-photo:focus-visible {
+  border-color: rgba(79, 246, 255, 0.72) !important;
+  outline: 2px solid rgba(79, 246, 255, 0.38) !important;
+  outline-offset: 1px !important;
+}
+
+@media (max-width: 760px) {
+  .chorus-mosaic {
+    grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+    margin-top: 5px !important;
+    overflow: visible !important;
+    overflow-x: hidden !important;
+  }
+
+  .chorus-photo {
+    border-radius: 7px !important;
+  }
+
+  .chorus-photo span {
+    font-size: 0.48rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .chorus-mosaic {
+    gap: 3px !important;
+  }
+
+  .chorus-photo {
+    border-radius: 6px !important;
+  }
+
+  .chorus-photo span {
+    font-size: 0.42rem !important;
+  }
+}

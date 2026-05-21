@@ -810,34 +810,40 @@ function playChorusTogether() {
 function renderChorusMosaic(birds) {
   if (!els.chorusMosaic) return;
 
-  if (!birds.length) {
+  const selected = Array.isArray(birds) ? birds.slice(0, 8) : [];
+
+  if (!selected.length) {
     els.chorusMosaic.innerHTML = "";
     return;
   }
 
-  els.chorusMosaic.innerHTML = birds.map(bird => {
+  els.chorusMosaic.innerHTML = selected.map(bird => {
     const image = bird.image || {};
     const src = image.thumb || image.original || image.url || "";
     const name = bird.common_name || "Bird";
+    const initials = name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(part => part[0])
+      .join("")
+      .toUpperCase();
 
     if (!src) {
       return `
-        <div class="chorus-photo is-empty" title="${name}">
-          <span>${name.slice(0, 2)}</span>
-        </div>
+        <button type="button" class="chorus-photo is-empty" data-bird="${name}" title="${name}" aria-label="${name}">
+          <span>${initials || "B"}</span>
+        </button>
       `;
     }
 
     return `
-      <button type="button" class="chorus-photo" data-bird="${name}" title="${name}">
-        <img src="${src}" alt="${name}" loading="lazy" />
-        <span>${name}</span>
+      <button type="button" class="chorus-photo" data-bird="${name}" title="${name}" aria-label="${name}">
+        <img src="${src}" alt="" loading="lazy" />
       </button>
     `;
   }).join("");
 }
-
-
 
 function syncChorusControlButtons() {
   const remixButton = document.getElementById("remixChorusSelection");
