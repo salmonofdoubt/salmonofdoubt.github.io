@@ -2186,3 +2186,37 @@ body.boie-advanced-open .chorus-actions {
     min-height: 165px !important;
   }
 }
+
+/* BOIE bird image fit improvement */
+.image-block {
+  background:
+    radial-gradient(circle at 50% 35%, rgba(128, 255, 200, 0.08), transparent 60%),
+    rgba(3, 10, 16, 0.92) !important;
+}
+
+.image-block img {
+  object-fit: contain !important;
+  object-position: center center !important;
+  padding: 6px !important;
+  background:
+    linear-gradient(135deg, rgba(79, 246, 255, 0.05), rgba(128, 255, 200, 0.04)),
+    rgba(0, 0, 0, 0.18) !important;
+}
+
+/* Give photos a little more breathing room on mobile */
+@media (max-width: 760px) {
+  .image-block {
+    min-height: 180px !important;
+    aspect-ratio: 4 / 3 !important;
+  }
+
+  .image-block img {
+    padding: 5px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .image-block {
+    min-height: 165px !important;
+  }
+}
