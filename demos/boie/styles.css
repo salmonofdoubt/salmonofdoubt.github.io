@@ -2573,3 +2573,79 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.68rem !important;
   }
 }
+
+/* BOIE filter row: search full-width, four controls beside each other */
+.controls {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+}
+
+.controls > label:first-child {
+  grid-column: 1 / -1 !important;
+}
+
+.controls label {
+  min-width: 0 !important;
+}
+
+.controls select,
+.controls input {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .controls {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+    padding: 5px !important;
+  }
+
+  .controls label,
+  .controls label:first-child {
+    min-height: 36px !important;
+    padding: 5px 5px !important;
+    border-radius: 10px !important;
+  }
+
+  .controls > label:first-child {
+    grid-column: 1 / -1 !important;
+  }
+
+  .controls span {
+    font-size: 0.40rem !important;
+    letter-spacing: 0.06em !important;
+  }
+
+  .controls select,
+  .controls input,
+  #search {
+    font-size: 0.58rem !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .controls {
+    gap: 3px !important;
+    padding: 4px !important;
+  }
+
+  .controls label,
+  .controls label:first-child {
+    min-height: 34px !important;
+    padding: 4px 4px !important;
+  }
+
+  .controls span {
+    font-size: 0.36rem !important;
+  }
+
+  .controls select,
+  .controls input,
+  #search {
+    font-size: 0.52rem !important;
+  }
+}

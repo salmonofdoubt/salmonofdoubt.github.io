@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bird Sound Atlas · Ireland</title>
   <meta name="description" content="An Ireland-first public bird sound atlas with representative sounds, images, location-aware cards, and attribution." />
-  <link rel="stylesheet" href="./styles.css?v=purple-search-1779353607" />
+  <link rel="stylesheet" href="./styles.css?v=four-filter-row-1779353749" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
   <script defer src="/demos/shared/demo-return.js"></script>
@@ -175,10 +175,10 @@
       <label>
         <span>Status</span>
         <select id="statusFilter">
-          <option value="all">All Irish checklist records</option>
+          <option value="all">All records</option>
           <option value="regular">Recorded since 1950 / established</option>
           <option value="rare">Rare / details required</option>
-          <option value="historical">Historical only</option>
+          <option value="historical">Historical</option>
           <option value="introduced">Introduced / established feral</option>
         </select>
       </label>
@@ -186,7 +186,7 @@
       <label>
         <span>Sound</span>
         <select id="soundFilter">
-          <option value="all">All sound states</option>
+          <option value="all">All sounds</option>
           <option value="has">Has playable sound</option>
           <option value="missing">No matched sound yet</option>
         </select>
@@ -195,20 +195,20 @@
       <label>
         <span>Sort</span>
         <select id="sortFilter">
-          <option value="common">Common name A-Z</option>
-          <option value="scientific">Scientific name A-Z</option>
-          <option value="quality">Sound quality first</option>
-          <option value="status">Status code</option>
+          <option value="common">A-Z</option>
+          <option value="scientific">Scientific</option>
+          <option value="quality">Quality</option>
+          <option value="status">Status</option>
         </select>
       </label>
 
       <label>
         <span>Group by</span>
         <select id="groupFilter">
-          <option value="local">Local likelihood</option>
-          <option value="checklist">Checklist / taxonomy</option>
-          <option value="habitat" selected>Habitat guild</option>
-          <option value="season">Seasonal status</option>
+          <option value="local">Local</option>
+          <option value="checklist">Checklist</option>
+          <option value="habitat" selected>Habitat</option>
+          <option value="season">Season</option>
         </select>
       </label>
     </section>
