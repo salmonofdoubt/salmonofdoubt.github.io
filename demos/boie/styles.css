@@ -1890,3 +1890,18 @@ body.boie-advanced-open .chorus-actions {
     letter-spacing: 0.055em !important;
   }
 }
+
+/* BOIE mobile: shrink last-harvest date */
+@media (max-width: 760px) {
+  #generatedAt {
+    font-size: 0.72rem !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #generatedAt {
+    font-size: 0.62rem !important;
+  }
+}
