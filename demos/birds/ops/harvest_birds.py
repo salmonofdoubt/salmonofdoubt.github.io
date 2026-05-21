@@ -3,8 +3,8 @@
 Birds of Ireland Sound Atlas harvester.
 
 Builds:
-  demos/boie/data/birds.json
-  demos/boie/data/coverage.json
+  demos/birds/data/birds.json
+  demos/birds/data/coverage.json
 
 Sources:
   - Checklist: https://en.wikipedia.org/wiki/List_of_birds_of_Ireland
@@ -40,7 +40,7 @@ WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 
 HEADERS = {
-    "User-Agent": "salmonofdoubt-boie-sound-atlas/1.0 (+https://salmonofdoubt.github.io/demos/boie/)"
+    "User-Agent": "salmonofdoubt-birds-sound-atlas/1.0 (+https://salmonofdoubt.github.io/demos/birds/)"
 }
 
 STATUS_LABELS = {

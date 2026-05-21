@@ -3,8 +3,8 @@
 Birds of Ireland Sound Atlas harvester.
 
 Builds:
-  demos/boie/data/birds.json
-  demos/boie/data/coverage.json
+  demos/birds/data/birds.json
+  demos/birds/data/coverage.json
 
 Sources:
   - Checklist: https://en.wikipedia.org/wiki/List_of_birds_of_Ireland
@@ -36,7 +36,7 @@ CHECKLIST_URL = "https://en.wikipedia.org/wiki/List_of_birds_of_Ireland"
 XC_API = "https://xeno-canto.org/api/3/recordings"
 
 HEADERS = {
-    "User-Agent": "salmonofdoubt-boie-sound-atlas/1.0 (+https://salmonofdoubt.github.io/demos/boie/)"
+    "User-Agent": "salmonofdoubt-birds-sound-atlas/1.0 (+https://salmonofdoubt.github.io/demos/birds/)"
 }
 
 STATUS_LABELS = {
