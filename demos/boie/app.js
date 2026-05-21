@@ -1324,7 +1324,8 @@ init();
 })();
 
 
-/* BOIE chorus title mix button v1 */
+
+/* BOIE chorus title mix button v2 */
 (function () {
   let lastChorusSignature = "";
 
@@ -1348,13 +1349,15 @@ init();
     if (!button) return;
 
     const candidates = typeof chorusCandidates === "function" ? chorusCandidates() : [];
+    const playing = isChorusPlaying();
+
     button.disabled = candidates.length === 0;
-    button.textContent = isChorusPlaying() ? "Stop" : "Mix";
+    button.textContent = playing ? "Stop" : "Mix";
+    button.classList.toggle("is-playing", playing);
+    button.setAttribute("aria-pressed", playing ? "true" : "false");
     button.setAttribute(
       "aria-label",
-      isChorusPlaying()
-        ? "Stop likely chorus mix"
-        : "Mix the likely chorus sounds"
+      playing ? "Stop likely chorus mix" : "Mix the likely chorus sounds"
     );
   }
 
@@ -1387,39 +1390,38 @@ init();
       }
 
       lastChorusSignature = currentChorusSignature();
-      syncMixButton();
+      window.setTimeout(syncMixButton, 80);
     });
 
     syncMixButton();
   }
 
-  // Wrap existing functions so the small title button stays in sync.
-  if (typeof playChorusTogether === "function" && !playChorusTogether.__boieWrapped) {
+  if (typeof playChorusTogether === "function" && !playChorusTogether.__boieMixV2Wrapped) {
     const originalPlay = playChorusTogether;
     playChorusTogether = function () {
       originalPlay();
       window.setTimeout(syncMixButton, 80);
     };
-    playChorusTogether.__boieWrapped = true;
+    playChorusTogether.__boieMixV2Wrapped = true;
   }
 
-  if (typeof stopChorusTogether === "function" && !stopChorusTogether.__boieWrapped) {
+  if (typeof stopChorusTogether === "function" && !stopChorusTogether.__boieMixV2Wrapped) {
     const originalStop = stopChorusTogether;
     stopChorusTogether = function () {
       originalStop();
       window.setTimeout(syncMixButton, 40);
     };
-    stopChorusTogether.__boieWrapped = true;
+    stopChorusTogether.__boieMixV2Wrapped = true;
   }
 
-  if (typeof renderChorus === "function" && !renderChorus.__boieMixButtonWrapped) {
+  if (typeof renderChorus === "function" && !renderChorus.__boieMixV2Wrapped) {
     const originalRenderChorus = renderChorus;
     renderChorus = function () {
       originalRenderChorus();
       stopIfChorusChanged();
       installChorusMixButton();
     };
-    renderChorus.__boieMixButtonWrapped = true;
+    renderChorus.__boieMixV2Wrapped = true;
   }
 
   if (document.readyState === "loading") {
