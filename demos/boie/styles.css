@@ -2762,98 +2762,6 @@ body.boie-advanced-open .chorus-actions {
   }
 }
 
-
-/* BOIE chorus thumbnails canonical */
-/* Shows the currently selected/remixed chorus as tiny thumbnails. No horizontal scrolling. */
-.chorus-mosaic {
-  display: grid !important;
-  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
-  gap: 5px !important;
-  width: 100% !important;
-  margin-top: 7px !important;
-  overflow: visible !important;
-  overflow-x: hidden !important;
-  padding: 0 !important;
-}
-
-.chorus-photo {
-  aspect-ratio: 1 / 1 !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  min-height: 0 !important;
-  height: auto !important;
-  display: grid !important;
-  place-items: center !important;
-  overflow: hidden !important;
-  border: 1px solid rgba(79, 246, 255, 0.24) !important;
-  border-radius: 10px !important;
-  padding: 0 !important;
-  background: rgba(79, 246, 255, 0.045) !important;
-  cursor: pointer !important;
-}
-
-.chorus-photo img {
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 0 !important;
-  display: block !important;
-  object-fit: cover !important;
-  object-position: center center !important;
-  padding: 0 !important;
-}
-
-.chorus-photo span {
-  position: static !important;
-  inset: auto !important;
-  padding: 0 !important;
-  background: transparent !important;
-  color: var(--green) !important;
-  font-size: 0.62rem !important;
-  font-weight: 950 !important;
-  line-height: 1 !important;
-  text-align: center !important;
-}
-
-.chorus-photo:hover,
-.chorus-photo:focus-visible {
-  border-color: rgba(79, 246, 255, 0.72) !important;
-  outline: 2px solid rgba(79, 246, 255, 0.38) !important;
-  outline-offset: 1px !important;
-}
-
-@media (max-width: 760px) {
-  .chorus-mosaic {
-    grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
-    gap: 4px !important;
-    margin-top: 5px !important;
-    overflow: visible !important;
-    overflow-x: hidden !important;
-  }
-
-  .chorus-photo {
-    border-radius: 7px !important;
-  }
-
-  .chorus-photo span {
-    font-size: 0.48rem !important;
-  }
-}
-
-@media (max-width: 390px) {
-  .chorus-mosaic {
-    gap: 3px !important;
-  }
-
-  .chorus-photo {
-    border-radius: 6px !important;
-  }
-
-  .chorus-photo span {
-    font-size: 0.42rem !important;
-  }
-}
-
-
 /* BOIE chorus click target highlight */
 .bird-card--pulse {
   outline: 2px solid rgba(79, 246, 255, 0.72) !important;
@@ -2861,4 +2769,138 @@ body.boie-advanced-open .chorus-actions {
   box-shadow:
     0 0 0 1px rgba(79, 246, 255, 0.22),
     0 0 28px rgba(79, 246, 255, 0.22) !important;
+}
+
+
+/* BOIE chorus gallery canonical */
+/* Replace the old wide chip row with a compact no-scroll thumbnail grid. */
+.chorus-list {
+  display: none !important;
+}
+
+.chorus-mosaic {
+  display: grid !important;
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+  width: 100% !important;
+  margin-top: 7px !important;
+  overflow: visible !important;
+  overflow-x: hidden !important;
+  padding: 0 !important;
+}
+
+.chorus-tile {
+  min-width: 0 !important;
+  width: 100% !important;
+  display: grid !important;
+  grid-template-rows: auto auto auto !important;
+  gap: 3px !important;
+  align-content: start !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--ink) !important;
+  text-align: center !important;
+  cursor: pointer !important;
+}
+
+.chorus-tile__thumb {
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(79, 246, 255, 0.24) !important;
+  border-radius: 9px !important;
+  background: rgba(79, 246, 255, 0.045) !important;
+}
+
+.chorus-tile__thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+.chorus-tile__thumb.is-empty {
+  display: grid !important;
+  place-items: center !important;
+}
+
+.chorus-tile__initials {
+  color: var(--green) !important;
+  font-size: 0.60rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+}
+
+.chorus-tile__name {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  font-size: 0.56rem !important;
+  font-weight: 850 !important;
+  line-height: 1.1 !important;
+  color: rgba(233, 247, 244, 0.92) !important;
+  min-height: 1.2em !important;
+}
+
+.chorus-tile__meta {
+  font-size: 0.46rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  color: rgba(233, 247, 244, 0.62) !important;
+}
+
+.chorus-tile:hover .chorus-tile__thumb,
+.chorus-tile:focus-visible .chorus-tile__thumb {
+  border-color: rgba(79, 246, 255, 0.72) !important;
+  outline: 2px solid rgba(79, 246, 255, 0.38) !important;
+  outline-offset: 1px !important;
+}
+
+.chorus-empty {
+  grid-column: 1 / -1 !important;
+  margin: 0 !important;
+  padding: 6px 0 !important;
+  font-size: 0.68rem !important;
+  color: rgba(233, 247, 244, 0.72) !important;
+}
+
+@media (max-width: 760px) {
+  .chorus-mosaic {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    margin-top: 6px !important;
+  }
+
+  .chorus-tile__thumb {
+    border-radius: 8px !important;
+  }
+
+  .chorus-tile__name {
+    font-size: 0.50rem !important;
+    min-height: 2.25em !important;
+  }
+
+  .chorus-tile__meta {
+    font-size: 0.42rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .chorus-mosaic {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+  }
+
+  .chorus-tile__name {
+    font-size: 0.46rem !important;
+  }
+
+  .chorus-tile__meta {
+    font-size: 0.39rem !important;
+  }
 }

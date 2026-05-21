@@ -813,7 +813,7 @@ function renderChorusMosaic(birds) {
   const selected = Array.isArray(birds) ? birds.slice(0, 8) : [];
 
   if (!selected.length) {
-    els.chorusMosaic.innerHTML = "";
+    els.chorusMosaic.innerHTML = `<p class="chorus-empty">No playable birds in the current chorus. Press Remix after changing filters.</p>`;
     return;
   }
 
@@ -821,6 +821,7 @@ function renderChorusMosaic(birds) {
     const image = bird.image || {};
     const src = image.thumb || image.original || image.url || "";
     const name = bird.common_name || "Bird";
+    const match = bird.local ? localMatchLabel(bird.local.confidence) : "Selected";
     const initials = name
       .split(/\s+/)
       .filter(Boolean)
@@ -829,17 +830,16 @@ function renderChorusMosaic(birds) {
       .join("")
       .toUpperCase();
 
-    if (!src) {
-      return `
-        <button type="button" class="chorus-photo is-empty" data-bird="${name}" title="${name}" aria-label="${name}">
-          <span>${initials || "B"}</span>
-        </button>
-      `;
-    }
-
     return `
-      <button type="button" class="chorus-photo" data-bird="${name}" title="${name}" aria-label="${name}">
-        <img src="${src}" alt="" loading="lazy" />
+      <button type="button" class="chorus-tile" data-bird="${name}" title="${name}" aria-label="${name}">
+        <span class="chorus-tile__thumb${src ? "" : " is-empty"}">
+          ${src
+            ? `<img src="${src}" alt="" loading="lazy" />`
+            : `<span class="chorus-tile__initials">${initials || "B"}</span>`
+          }
+        </span>
+        <span class="chorus-tile__name">${name}</span>
+        <span class="chorus-tile__meta">${match}</span>
       </button>
     `;
   }).join("");
@@ -898,8 +898,6 @@ function installChorusControlButtons() {
 
 
 function renderChorus() {
-  if (!els.chorusList) return;
-
   const playable = chorusCandidates();
   const stale = isChorusSelectionStale();
 
@@ -909,24 +907,12 @@ function renderChorus() {
       : `${MONTHS[selectedMonth()]} · ${playable.length} selected`;
   }
 
-  renderChorusMosaic(playable);
-
-  if (!playable.length) {
-    els.chorusList.innerHTML = `<p class="chorus-empty">No playable sounds in the current chorus. Press Remix after changing filters.</p>`;
-    syncChorusControlButtons();
-    return;
+  if (els.chorusList) {
+    els.chorusList.innerHTML = "";
+    els.chorusList.setAttribute("aria-hidden", "true");
   }
 
-  els.chorusList.innerHTML = playable.map(bird => {
-    const match = bird.local ? localMatchLabel(bird.local.confidence) : "Catalogue";
-    return `
-      <button type="button" class="chorus-chip" data-bird="${bird.common_name}">
-        <span>${bird.common_name}</span>
-        <small>${match}</small>
-      </button>
-    `;
-  }).join("");
-
+  renderChorusMosaic(playable);
   syncChorusControlButtons();
 }
 
