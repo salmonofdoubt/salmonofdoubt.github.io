@@ -863,23 +863,41 @@ function initialiseMap() {
   });
 }
 
+
+function syncHabitatsFromPin(location) {
+  const auto = autoHabitatsFromLocation(location);
+
+  state.habitats.clear();
+
+  // Do not show "general" as a chip. It is a scoring fallback, not a place type.
+  auto.forEach(habitat => {
+    if (habitat !== "general") {
+      state.habitats.add(habitat);
+    }
+  });
+
+  // If the pin is moved, the habitat preset should no longer claim to be manual user intent.
+  if (els.preset) {
+    els.preset.value = "";
+  }
+
+  syncHabitatButtons();
+}
+
 function setLocation(lat, lng, source = "map") {
   state.location = { lat, lng, source };
 
   if (state.map && window.L) {
-    if (!state.marker) state.marker = L.marker([lat, lng]).addTo(state.map);
-    else state.marker.setLatLng([lat, lng]);
+    if (!state.marker) {
+      state.marker = L.marker([lat, lng]).addTo(state.map);
+    } else {
+      state.marker.setLatLng([lat, lng]);
+    }
+
     state.map.setView([lat, lng], source === "browser" ? 11 : state.map.getZoom());
   }
 
-  const profile = locationProfile(state.location);
-  if (profile.coastal || profile.estuary) {
-    state.habitats.add("coast");
-    state.habitats.add("wetland");
-    if (profile.estuary) state.habitats.add("estuary");
-    syncHabitatButtons();
-  }
-
+  syncHabitatsFromPin(state.location);
   render();
 }
 
