@@ -13,6 +13,9 @@
   <script defer src="/demos/shared/demo-doi.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css" />
   <script defer src="/demos/shared/demo-support.js"></script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#2f6f4e">
 </head>
 
 <body>
@@ -298,5 +301,14 @@
   <button id="backToBirdControls" class="back-to-controls" type="button" aria-label="Back to bird search and filters">
     ↑ Controls
   </button>
+  <script>
+  if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js").catch(error => {
+        console.warn("Service worker registration failed:", error);
+      });
+    });
+  }
+</script>
 </body>
 </html>

@@ -1,0 +1,25 @@
+{
+  "name": "European Bird Radar",
+  "short_name": "Bird Radar",
+  "description": "A mobile-first bird sound, observation, and seasonal awareness app for Europe.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7fbf4",
+  "theme_color": "#2f6f4e",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
