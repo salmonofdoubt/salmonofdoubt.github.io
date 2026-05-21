@@ -2486,3 +2486,40 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.60rem !important;
   }
 }
+
+/* BOIE mobile habitat chips: two rows max */
+@media (max-width: 760px) {
+  .habitats {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  .habitats button {
+    min-width: 0 !important;
+    width: 100% !important;
+    min-height: 23px !important;
+    padding: 0 3px !important;
+    border-radius: 999px !important;
+    font-size: 0.54rem !important;
+    line-height: 1 !important;
+    letter-spacing: -0.01em !important;
+    white-space: nowrap !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .habitats {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 3px !important;
+  }
+
+  .habitats button {
+    min-height: 21px !important;
+    padding: 0 2px !important;
+    font-size: 0.48rem !important;
+  }
+}
