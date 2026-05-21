@@ -3003,3 +3003,57 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.58rem !important;
   }
 }
+
+
+/* BOIE back to controls button */
+.back-to-controls {
+  position: fixed;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  z-index: 10000;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(79, 246, 255, 0.42);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(79, 246, 255, 0.18), rgba(6, 24, 34, 0.94)),
+    rgba(5, 10, 18, 0.96);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 950;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.back-to-controls.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-controls:hover,
+.back-to-controls:focus-visible {
+  border-color: rgba(79, 246, 255, 0.78);
+  outline: 2px solid rgba(79, 246, 255, 0.42);
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .back-to-controls {
+    right: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom));
+    min-height: 30px;
+    padding: 0 10px;
+    font-size: 0.62rem;
+  }
+}

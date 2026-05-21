@@ -1557,3 +1557,69 @@ init();
     playChorusTogether.__boieExclusiveAudioWrapped = true;
   }
 })();
+
+
+/* BOIE back to controls button */
+(function () {
+  function controlsTarget() {
+    return (
+      document.getElementById("birdControls") ||
+      document.querySelector(".controls") ||
+      document.querySelector(".nearby-panel") ||
+      document.querySelector("main")
+    );
+  }
+
+  function syncBackToControlsButton() {
+    const button = document.getElementById("backToBirdControls");
+    const target = controlsTarget();
+    if (!button || !target) return;
+
+    const rect = target.getBoundingClientRect();
+    const shouldShow = rect.bottom < 0 || window.scrollY > 720;
+
+    button.classList.toggle("is-visible", shouldShow);
+    button.setAttribute("aria-hidden", shouldShow ? "false" : "true");
+  }
+
+  function installBackToControlsButton() {
+    const button = document.getElementById("backToBirdControls");
+    if (!button || button.dataset.bound === "true") return;
+
+    button.dataset.bound = "true";
+    button.setAttribute("aria-hidden", "true");
+
+    button.addEventListener("click", () => {
+      const target = controlsTarget();
+      if (!target) return;
+
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      window.setTimeout(() => {
+        const search =
+          document.getElementById("searchUnified") ||
+          document.getElementById("searchSelected") ||
+          document.getElementById("search");
+
+        if (search && window.matchMedia("(min-width: 761px)").matches) {
+          search.focus({ preventScroll: true });
+        }
+      }, 420);
+    });
+
+    syncBackToControlsButton();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installBackToControlsButton);
+  } else {
+    installBackToControlsButton();
+  }
+
+  window.addEventListener("load", syncBackToControlsButton);
+  window.addEventListener("scroll", syncBackToControlsButton, { passive: true });
+  window.addEventListener("resize", syncBackToControlsButton);
+})();
