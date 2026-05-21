@@ -3004,15 +3004,154 @@ body.boie-advanced-open .chorus-actions {
   }
 }
 
+@media (max-width: 760px) {
 
-/* BOIE back to controls button */
+}
+
+
+/* BOIE support menu hard mobile box */
+/* Keep the shared NDRT-style widgets. Hide only BOIE's duplicate mobile topnav Demos/DOI. */
+@media (max-width: 760px) {
+  .topnav a[href="/demos/"],
+  .topnav .doi-pill {
+    display: none !important;
+  }
+
+  .topnav {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .topnav a {
+    min-width: 0 !important;
+  }
+
+  .demo-support-widget {
+    overflow: visible !important;
+    contain: none !important;
+    z-index: 10040 !important;
+  }
+
+  .demo-support-widget.is-open {
+    z-index: 10060 !important;
+  }
+
+  .demo-support-widget.is-open > .demo-support-menu {
+    position: fixed !important;
+    right: 10px !important;
+    left: auto !important;
+    top: auto !important;
+    bottom: calc(82px + env(safe-area-inset-bottom)) !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 7px !important;
+
+    width: min(270px, calc(100vw - 20px)) !important;
+    min-width: 0 !important;
+    max-width: calc(100vw - 20px) !important;
+    height: auto !important;
+    min-height: 136px !important;
+    max-height: none !important;
+
+    padding: 9px !important;
+    border: 1px solid rgba(211, 108, 255, 0.42) !important;
+    border-radius: 16px !important;
+    background: rgba(5, 12, 18, 0.98) !important;
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.46),
+      0 0 26px rgba(211, 108, 255, 0.18) !important;
+    backdrop-filter: blur(14px) !important;
+
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .demo-support-widget.is-open > .demo-support-menu::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(5, 12, 18, 0.98);
+    z-index: -1;
+  }
+
+  .demo-support-widget.is-open .demo-support-option {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 3px !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 56px !important;
+    height: auto !important;
+
+    padding: 10px 11px !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(211, 108, 255, 0.18) !important;
+    background: rgba(211, 108, 255, 0.08) !important;
+    color: #f5e8ff !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+    text-decoration: none !important;
+    overflow: visible !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option.coffee {
+    background: rgba(255, 176, 64, 0.10) !important;
+    border-color: rgba(255, 176, 64, 0.22) !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option strong,
+  .demo-support-widget.is-open .demo-support-option span {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option strong {
+    font-size: 0.82rem !important;
+    line-height: 1.12 !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option span {
+    font-size: 0.67rem !important;
+    line-height: 1.22 !important;
+    color: rgba(245, 232, 255, 0.72) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .demo-support-widget.is-open > .demo-support-menu {
+    right: 8px !important;
+    bottom: calc(78px + env(safe-area-inset-bottom)) !important;
+    width: min(246px, calc(100vw - 16px)) !important;
+    max-width: calc(100vw - 16px) !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option strong {
+    font-size: 0.76rem !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option span {
+    font-size: 0.62rem !important;
+  }
+}
+
+/* BOIE back-to-controls canonical */
 .back-to-controls {
   position: fixed;
-  right: 14px;
-  bottom: calc(14px + env(safe-area-inset-bottom));
+  top: calc(12px + env(safe-area-inset-top));
+  right: 12px;
   z-index: 10000;
-  min-height: 34px;
-  padding: 0 12px;
+  min-height: 32px;
+  padding: 0 11px;
   border: 1px solid rgba(79, 246, 255, 0.42);
   border-radius: 999px;
   background:
@@ -3020,14 +3159,14 @@ body.boie-advanced-open .chorus-actions {
     rgba(5, 10, 18, 0.96);
   color: var(--ink);
   font: inherit;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 950;
   line-height: 1;
   cursor: pointer;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(8px);
+  transform: translateY(-8px);
   transition:
     opacity 140ms ease,
     transform 140ms ease,
@@ -3050,10 +3189,14 @@ body.boie-advanced-open .chorus-actions {
 
 @media (max-width: 760px) {
   .back-to-controls {
+    top: calc(10px + env(safe-area-inset-top));
     right: 10px;
-    bottom: calc(10px + env(safe-area-inset-bottom));
-    min-height: 30px;
-    padding: 0 10px;
-    font-size: 0.62rem;
+    min-height: 28px;
+    padding: 0 9px;
+    font-size: 0.58rem;
+  }
+
+  body {
+    padding-bottom: 76px;
   }
 }
