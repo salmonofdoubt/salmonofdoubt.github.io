@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-21T00:14:28+00:00",
+    "generated_at": "2026-05-21T04:47:36+00:00",
     "schema_version": "transition_pathway_v2",
     "builder": "build_transition_pathway.py",
     "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -56,7 +56,7 @@
     },
     "latest_snapshot": {
       "datetime": "2026-03-31T23:45:00",
-      "value": 59.5,
+      "value": 60.0,
       "unit": "%",
       "basis": "latest_grid_snapshot",
       "source_label": "EirGrid quarter-hourly workbook",
@@ -128,7 +128,7 @@
       },
       {
         "date": "2026-05-21",
-        "captured_at": "2026-05-21T00:14:27+00:00",
+        "captured_at": "2026-05-21T04:47:35+00:00",
         "value": 27.6,
         "weight_mw": 4553.0,
         "estimated_backfill": false
