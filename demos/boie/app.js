@@ -1322,3 +1322,114 @@ init();
     subtree: true
   });
 })();
+
+
+/* BOIE chorus title mix button v1 */
+(function () {
+  let lastChorusSignature = "";
+
+  function getMixButton() {
+    return document.getElementById("toggleChorusMix");
+  }
+
+  function currentChorusSignature() {
+    if (typeof chorusCandidates !== "function") return "";
+    return chorusCandidates()
+      .map(bird => `${bird.common_name || ""}:${bird.audio?.file || ""}`)
+      .join("|");
+  }
+
+  function isChorusPlaying() {
+    return typeof activeChorusPlayers !== "undefined" && activeChorusPlayers.length > 0;
+  }
+
+  function syncMixButton() {
+    const button = getMixButton();
+    if (!button) return;
+
+    const candidates = typeof chorusCandidates === "function" ? chorusCandidates() : [];
+    button.disabled = candidates.length === 0;
+    button.textContent = isChorusPlaying() ? "Stop" : "Mix";
+    button.setAttribute(
+      "aria-label",
+      isChorusPlaying()
+        ? "Stop likely chorus mix"
+        : "Mix the likely chorus sounds"
+    );
+  }
+
+  function stopIfChorusChanged() {
+    const signature = currentChorusSignature();
+
+    if (lastChorusSignature && signature !== lastChorusSignature && isChorusPlaying()) {
+      if (typeof stopChorusTogether === "function") {
+        stopChorusTogether();
+      }
+    }
+
+    lastChorusSignature = signature;
+    syncMixButton();
+  }
+
+  function installChorusMixButton() {
+    const button = getMixButton();
+    if (!button || button.dataset.bound === "true") return;
+
+    button.dataset.bound = "true";
+
+    button.addEventListener("click", () => {
+      if (isChorusPlaying()) {
+        if (typeof stopChorusTogether === "function") {
+          stopChorusTogether();
+        }
+      } else if (typeof playChorusTogether === "function") {
+        playChorusTogether();
+      }
+
+      lastChorusSignature = currentChorusSignature();
+      syncMixButton();
+    });
+
+    syncMixButton();
+  }
+
+  // Wrap existing functions so the small title button stays in sync.
+  if (typeof playChorusTogether === "function" && !playChorusTogether.__boieWrapped) {
+    const originalPlay = playChorusTogether;
+    playChorusTogether = function () {
+      originalPlay();
+      window.setTimeout(syncMixButton, 80);
+    };
+    playChorusTogether.__boieWrapped = true;
+  }
+
+  if (typeof stopChorusTogether === "function" && !stopChorusTogether.__boieWrapped) {
+    const originalStop = stopChorusTogether;
+    stopChorusTogether = function () {
+      originalStop();
+      window.setTimeout(syncMixButton, 40);
+    };
+    stopChorusTogether.__boieWrapped = true;
+  }
+
+  if (typeof renderChorus === "function" && !renderChorus.__boieMixButtonWrapped) {
+    const originalRenderChorus = renderChorus;
+    renderChorus = function () {
+      originalRenderChorus();
+      stopIfChorusChanged();
+      installChorusMixButton();
+    };
+    renderChorus.__boieMixButtonWrapped = true;
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installChorusMixButton);
+  } else {
+    installChorusMixButton();
+  }
+
+  window.addEventListener("load", () => {
+    installChorusMixButton();
+    syncMixButton();
+  });
+})();

@@ -2669,3 +2669,58 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.60rem !important;
   }
 }
+
+
+/* BOIE chorus title mix button */
+.chorus-title-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.chorus-title-row h2 {
+  margin: 0 !important;
+}
+
+.chorus-mix-button {
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid rgba(128, 255, 200, 0.36);
+  border-radius: 999px;
+  background: rgba(128, 255, 200, 0.12);
+  color: var(--green);
+  font: inherit;
+  font-size: 0.70rem;
+  font-weight: 950;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.chorus-mix-button:hover,
+.chorus-mix-button:focus-visible {
+  background: rgba(128, 255, 200, 0.20);
+  outline: none;
+}
+
+.chorus-mix-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* The old large play/stop row is no longer needed. */
+.chorus-actions {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .chorus-title-row {
+    gap: 6px;
+  }
+
+  .chorus-mix-button {
+    min-height: 22px;
+    padding: 0 8px;
+    font-size: 0.58rem;
+  }
+}
