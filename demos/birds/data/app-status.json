@@ -1,0 +1,26 @@
+{
+  "app": "European Bird Radar",
+  "mode": "pwa-foundation",
+  "generated_at": "2026-05-21T18:26:22.699744+00:00",
+  "coverage": {
+    "scope": "Europe-ready pilot",
+    "countries": [
+      "IE",
+      "GB",
+      "FR",
+      "DE",
+      "IT"
+    ]
+  },
+  "pwa": {
+    "installable": true,
+    "offline_shell": true,
+    "offline_data_policy": "last-successful-cache"
+  },
+  "sources": [],
+  "notes": [
+    "This file describes the app-level status contract for the bird PWA.",
+    "Observation and species datasets remain separate from the app shell.",
+    "App status refreshed by birds PWA workflow."
+  ]
+}
