@@ -2220,3 +2220,71 @@ body.boie-advanced-open .chorus-actions {
     min-height: 165px !important;
   }
 }
+
+
+/* BOIE DOI pill */
+.doi-pill {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid rgba(128, 255, 200, 0.30);
+  border-radius: 999px;
+  background: rgba(128, 255, 200, 0.10);
+  color: inherit;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+/* BOIE mobile fixed-widget containment */
+@media (max-width: 760px) {
+  body {
+    padding-bottom: 78px !important;
+  }
+
+  .boie-mobile-backlink,
+  .boie-mobile-doilink,
+  .boie-mobile-supportlink,
+  .demo-return-widget,
+  .demo-return-link,
+  .demo-doi-widget,
+  .demo-doi-strip,
+  .demo-support-widget {
+    position: fixed !important;
+    z-index: 9999 !important;
+    max-width: calc(50vw - 14px) !important;
+    min-height: 28px !important;
+    padding: 5px 9px !important;
+    border-radius: 999px !important;
+    font-size: 0.58rem !important;
+    line-height: 1.05 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    transform: none !important;
+  }
+
+  .boie-mobile-backlink,
+  .demo-return-widget,
+  .demo-return-link {
+    left: 8px !important;
+    right: auto !important;
+    bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .boie-mobile-doilink,
+  .demo-doi-widget,
+  .demo-doi-strip {
+    right: 8px !important;
+    left: auto !important;
+    bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .boie-mobile-supportlink,
+  .demo-support-widget {
+    right: 8px !important;
+    left: auto !important;
+    bottom: calc(42px + env(safe-area-inset-bottom)) !important;
+    max-width: 42vw !important;
+  }
+}

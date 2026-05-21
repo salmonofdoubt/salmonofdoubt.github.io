@@ -1098,3 +1098,46 @@ init();
     group.value = "habitat";
   }
 })();
+
+/* BOIE mobile utility-link classifier */
+(function () {
+  function classifyUtilityLinks() {
+    document.querySelectorAll("a").forEach(link => {
+      const text = (link.textContent || "").trim().toLowerCase();
+      const href = (link.href || "").toLowerCase();
+
+      if (
+        text.includes("back to demos") ||
+        text === "← demos" ||
+        text === "demos" ||
+        text.includes("← demos")
+      ) {
+        link.classList.add("boie-mobile-backlink");
+      }
+
+      if (
+        href.includes("doi.org") ||
+        href.includes("zenodo") ||
+        text.startsWith("doi")
+      ) {
+        link.classList.add("boie-mobile-doilink");
+      }
+
+      if (
+        text.includes("support") ||
+        href.includes("buymeacoffee") ||
+        href.includes("github.com/sponsors")
+      ) {
+        link.classList.add("boie-mobile-supportlink");
+      }
+    });
+  }
+
+  classifyUtilityLinks();
+
+  const observer = new MutationObserver(classifyUtilityLinks);
+  observer.observe(document.documentElement, {
+    childList: true,
+    subtree: true
+  });
+})();

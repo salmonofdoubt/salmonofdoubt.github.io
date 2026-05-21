@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20321309.svg)](https://doi.org/10.5281/zenodo.20321309)
+
 # Birds of Ireland Sound Atlas, BOIE
 
 Birds of Ireland Sound Atlas, BOIE, is a public GitHub Pages demo for exploring birds recorded on the Irish checklist by sound, image, month, habitat, approximate location, and broad ornithological grouping.
@@ -220,3 +222,8 @@ Potential next steps:
 - More precise coast and estuary detection.
 - Media licence filter for commercial-compatible builds.
 - Android app wrapper after PWA hardening.
+
+
+## DOI
+
+https://doi.org/10.5281/zenodo.20321309
