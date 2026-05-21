@@ -2379,3 +2379,110 @@ body.boie-advanced-open .chorus-actions {
     min-height: 40px !important;
   }
 }
+
+/* BOIE no-scroll control arrays */
+.nearby-controls {
+  overflow: visible !important;
+}
+
+.habitats {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(88px, 1fr)) !important;
+  gap: 7px !important;
+  overflow: visible !important;
+  overflow-x: visible !important;
+  flex-wrap: initial !important;
+  padding: 0 !important;
+}
+
+.habitats button {
+  width: 100% !important;
+  min-width: 0 !important;
+  justify-content: center !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+/* Desktop: map left, controls right, chips in tidy array */
+@media (min-width: 761px) {
+  .nearby-grid {
+    display: grid !important;
+    grid-template-columns: minmax(320px, 430px) minmax(0, 1fr) !important;
+    gap: 12px !important;
+    align-items: start !important;
+  }
+
+  .nearby-controls {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(110px, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .nearby-controls > button#useLocation {
+    grid-column: span 1 !important;
+  }
+
+  .habitats,
+  .nearby-summary {
+    grid-column: 1 / -1 !important;
+  }
+
+  .habitats {
+    grid-template-columns: repeat(5, minmax(90px, 1fr)) !important;
+  }
+}
+
+/* Mobile: compact two-column selector array, chips wrap as grid */
+@media (max-width: 760px) {
+  .nearby-controls {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    overflow: visible !important;
+  }
+
+  .nearby-controls > button#useLocation {
+    grid-column: 1 / -1 !important;
+  }
+
+  .nearby-controls label {
+    min-width: 0 !important;
+  }
+
+  .nearby-summary,
+  .habitats {
+    grid-column: 1 / -1 !important;
+  }
+
+  .habitats {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 5px !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    padding: 0 !important;
+  }
+
+  .habitats button {
+    min-height: 27px !important;
+    padding: 0 6px !important;
+    font-size: 0.66rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .nearby-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .habitats {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+  }
+
+  .habitats button {
+    min-height: 25px !important;
+    padding: 0 4px !important;
+    font-size: 0.60rem !important;
+  }
+}
