@@ -140,11 +140,11 @@ def main() -> None:
     OUT_MD.write_text(
         "# BOIE Attribution Index\n\n"
         f"Generated: `{generated}`\n\n"
-        "This file is generated from demos/boie/data/birds.json.\n\n"
+        "This file is generated from demos/birds/data/birds.json.\n\n"
         "BOIE does not claim ownership of third-party sounds or images. Media remain the work of their original creators and are subject to the licence terms shown by the source. Licence metadata may be incomplete or may change at source. Check the linked source page before reuse, redistribution, monetisation, or app-store release.\n\n"
         "## Attribution table\n\n"
         + (markdown_table(rows) if rows else "No media attribution rows found.\n")
-        + "\n## Regenerate\n\npython demos/boie/ops/build_attribution.py\n"
+        + "\n## Regenerate\n\npython demos/birds/ops/build_attribution.py\n"
     )
 
     OUT_HTML.write_text(f"""<!doctype html>
@@ -242,8 +242,8 @@ def main() -> None:
   <main>
     <nav>
       <a href="./">← Back to BOIE</a>
-      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/blob/master/demos/boie/README.md" target="_blank" rel="noopener">README</a>
-      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/blob/master/demos/boie/ATTRIBUTION.md" target="_blank" rel="noopener">Markdown attribution</a>
+      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/blob/master/demos/birds/README.md" target="_blank" rel="noopener">README</a>
+      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/blob/master/demos/birds/ATTRIBUTION.md" target="_blank" rel="noopener">Markdown attribution</a>
     </nav>
 
     <h1>BOIE Attribution Index</h1>

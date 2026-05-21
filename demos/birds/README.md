@@ -5,10 +5,10 @@
 Birds of Ireland Sound Atlas, BOIE, is a public GitHub Pages demo for exploring birds recorded on the Irish checklist by sound, image, month, habitat, approximate location, and broad ornithological grouping.
 
 Live demo:
-https://salmonofdoubt.github.io/demos/boie/
+https://salmonofdoubt.github.io/demos/birds/
 
 Source folder:
-demos/boie/
+demos/birds/
 
 ## What BOIE does
 
@@ -90,7 +90,7 @@ Each sound card aims to retain species name, recording type, recordist, recordin
 xeno-canto API v3 requires an API key:
 
 export XENO_CANTO_API_KEY="your_key_here"
-python demos/boie/ops/harvest_birds.py
+python demos/birds/ops/harvest_birds.py
 
 Never commit the API key.
 
@@ -110,12 +110,12 @@ Third-party media remain the work of their original creators and are used under 
 
 Each bird card exposes media attribution where available. A generated attribution index is maintained in:
 
-- demos/boie/ATTRIBUTION.md
-- demos/boie/attribution.html
+- demos/birds/ATTRIBUTION.md
+- demos/birds/attribution.html
 
 Regenerate it with:
 
-python demos/boie/ops/build_attribution.py
+python demos/birds/ops/build_attribution.py
 
 ## Commercial-use caution
 
@@ -152,7 +152,7 @@ python -m http.server 8000
 
 Open:
 
-http://127.0.0.1:8000/demos/boie/
+http://127.0.0.1:8000/demos/birds/
 
 Hard refresh after JavaScript or CSS changes:
 
@@ -162,33 +162,33 @@ Cmd + Shift + R
 
 Install dependencies:
 
-pip install -r demos/boie/ops/requirements.txt
+pip install -r demos/birds/ops/requirements.txt
 
 Harvest checklist and sound metadata:
 
 export XENO_CANTO_API_KEY="your_key_here"
-python demos/boie/ops/harvest_birds.py
+python demos/birds/ops/harvest_birds.py
 
 Add or refresh image metadata:
 
-python demos/boie/ops/enrich_bird_images.py
+python demos/birds/ops/enrich_bird_images.py
 
 Build attribution index:
 
-python demos/boie/ops/build_attribution.py
+python demos/birds/ops/build_attribution.py
 
 Check generated JSON:
 
-python -m json.tool demos/boie/data/birds.json >/dev/null
-python -m json.tool demos/boie/data/coverage.json >/dev/null
+python -m json.tool demos/birds/data/birds.json >/dev/null
+python -m json.tool demos/birds/data/coverage.json >/dev/null
 
 Check JavaScript syntax:
 
-node --check demos/boie/app.js
+node --check demos/birds/app.js
 
 ## File structure
 
-demos/boie/
+demos/birds/
   index.html
   app.js
   styles.css

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Add representative bird images to demos/boie/data/birds.json.
+Add representative bird images to demos/birds/data/birds.json.
 
 Source:
   English Wikipedia pageimages API.
@@ -28,7 +28,7 @@ COVERAGE_PATH = ROOT / "data" / "coverage.json"
 WIKI_API = "https://en.wikipedia.org/w/api.php"
 
 HEADERS = {
-    "User-Agent": "salmonofdoubt-boie-image-enricher/1.0 (+https://salmonofdoubt.github.io/demos/boie/)"
+    "User-Agent": "salmonofdoubt-birds-image-enricher/1.0 (+https://salmonofdoubt.github.io/demos/birds/)"
 }
 
 

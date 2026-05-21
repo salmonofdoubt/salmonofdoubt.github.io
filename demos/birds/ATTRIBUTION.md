@@ -1,8 +1,8 @@
 # BOIE Attribution Index
 
-Generated: `2026-05-20T17:28:58.655064+00:00`
+Generated: `2026-05-21T17:51:31.608293+00:00`
 
-This file is generated from demos/boie/data/birds.json.
+This file is generated from demos/birds/data/birds.json.
 
 BOIE does not claim ownership of third-party sounds or images. Media remain the work of their original creators and are subject to the licence terms shown by the source. Licence metadata may be incomplete or may change at source. Check the linked source page before reuse, redistribution, monetisation, or app-store release.
 
@@ -994,4 +994,4 @@ BOIE does not claim ownership of third-party sounds or images. Media remain the 
 
 ## Regenerate
 
-python demos/boie/ops/build_attribution.py
+python demos/birds/ops/build_attribution.py
