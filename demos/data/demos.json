@@ -36,18 +36,18 @@
     "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
   },
   {
-    "title": "Birds of Ireland Sound Atlas",
-    "path": "boie/",
+    "title": "European Bird Radar",
+    "path": "birds/",
     "category": "civic",
-    "summary": "Searchable sound atlas for bird species recorded on the Irish checklist.",
-    "detail": "A public GitHub Pages sound atlas covering birds recorded in Ireland, with representative open bird sounds where available and visible attribution for recordist, source, country, quality, and licence.",
+    "summary": "Mobile-first bird sound, observation, and seasonal awareness demo for Europe.",
+    "detail": "A public GitHub Pages bird app evolving from the Birds of Ireland Sound Atlas towards a Europe-ready bird radar with sound, species, seasonal, and observation layers.",
     "tags": [
       "Birds",
       "Ireland",
       "Soundscape",
       "Biodiversity"
     ],
-    "status": "Active data workflow",
+    "status": "Europe-ready refactor",
     "workflow": "refresh-boie.yml",
     "doi": "10.5281/zenodo.20321309",
     "sponsor_url": "https://github.com/sponsors/salmonofdoubt",
