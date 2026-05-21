@@ -2671,8 +2671,8 @@ body.boie-advanced-open .chorus-actions {
 }
 
 
-/* BOIE chorus mix control v3 */
-/* Match selected habitat chip behaviour */
+/* BOIE chorus mix control canonical */
+/* Idle = unselected habitat chip. Active = selected habitat chip. */
 .chorus-title-row {
   display: inline-flex;
   align-items: center;
@@ -2690,18 +2690,17 @@ body.boie-advanced-open .chorus-actions {
   align-items: center;
   justify-content: center;
   padding: 0 11px;
-  border: 1px solid rgba(255, 176, 64, 0.46);
+  border: 1px solid rgba(79, 246, 255, 0.28);
   border-radius: 999px;
-  background:
-    linear-gradient(135deg, rgba(255, 176, 64, 0.16), rgba(80, 46, 8, 0.18)),
-    rgba(5, 10, 18, 0.96);
-  color: #ffca72;
+  background: rgba(79, 246, 255, 0.045);
+  color: var(--ink);
   font: inherit;
   font-size: 0.64rem;
   font-weight: 950;
   line-height: 1;
   cursor: pointer;
   box-shadow: none;
+  outline: none;
   transition:
     border-color 120ms ease,
     background 120ms ease,
@@ -2712,7 +2711,8 @@ body.boie-advanced-open .chorus-actions {
 .chorus-mix-button:hover,
 .chorus-mix-button:focus-visible {
   border-color: rgba(79, 246, 255, 0.72);
-  outline: 2px solid rgba(79, 246, 255, 0.55);
+  background: rgba(79, 246, 255, 0.08);
+  outline: 2px solid rgba(79, 246, 255, 0.42);
   outline-offset: 1px;
 }
 
@@ -2720,7 +2720,7 @@ body.boie-advanced-open .chorus-actions {
   transform: translateY(1px) scale(0.98);
 }
 
-/* Pressed/playing state uses the same selected-chip visual language */
+/* Playing state mirrors selected habitat chips */
 .chorus-mix-button.is-playing,
 .chorus-mix-button[aria-pressed="true"] {
   border-color: rgba(255, 176, 64, 0.72);
@@ -2739,7 +2739,7 @@ body.boie-advanced-open .chorus-actions {
   outline: none;
 }
 
-/* Retire older large chorus action row */
+/* Old large chorus action row stays retired. */
 .chorus-actions {
   display: none !important;
 }
