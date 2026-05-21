@@ -2681,3 +2681,112 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.60rem !important;
   }
 }
+
+
+/* BOIE dual search controls */
+.controls {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 6px !important;
+}
+
+.controls > label:first-child {
+  grid-column: auto !important;
+}
+
+.search-control {
+  min-width: 0 !important;
+}
+
+.search-control--selected {
+  grid-column: 1 / span 2 !important;
+  border-color: rgba(168, 118, 255, 0.46) !important;
+  background:
+    linear-gradient(135deg, rgba(106, 56, 166, 0.20), rgba(34, 12, 62, 0.14)),
+    rgba(5, 10, 18, 0.96) !important;
+}
+
+.search-control--catalogue {
+  grid-column: 3 / span 2 !important;
+  border-color: rgba(145, 116, 214, 0.30) !important;
+  background:
+    linear-gradient(135deg, rgba(84, 48, 130, 0.13), rgba(26, 12, 48, 0.10)),
+    rgba(5, 10, 18, 0.94) !important;
+}
+
+.search-control--selected span,
+.search-control--catalogue span {
+  color: #d8c5ff !important;
+}
+
+#searchSelected,
+#searchCatalogue {
+  color: #f3eeff !important;
+  font-weight: 800 !important;
+}
+
+#searchSelected::placeholder,
+#searchCatalogue::placeholder {
+  color: rgba(214, 194, 255, 0.72) !important;
+}
+
+.controls label {
+  min-width: 0 !important;
+}
+
+.controls input,
+.controls select {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .controls {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 4px !important;
+  }
+
+  .search-control--selected {
+    grid-column: 1 / span 2 !important;
+  }
+
+  .search-control--catalogue {
+    grid-column: 3 / span 2 !important;
+  }
+
+  .controls label {
+    min-height: 36px !important;
+    padding: 5px !important;
+  }
+
+  .controls span {
+    font-size: 0.38rem !important;
+    letter-spacing: 0.055em !important;
+  }
+
+  .controls input,
+  .controls select {
+    font-size: 0.54rem !important;
+    line-height: 1 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .controls {
+    gap: 3px !important;
+  }
+
+  .controls label {
+    min-height: 34px !important;
+    padding: 4px !important;
+  }
+
+  .controls span {
+    font-size: 0.34rem !important;
+  }
+
+  .controls input,
+  .controls select {
+    font-size: 0.48rem !important;
+  }
+}

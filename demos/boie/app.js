@@ -12,6 +12,8 @@ const els = {
   grid: document.getElementById("birdGrid"),
   template: document.getElementById("birdCardTemplate"),
   search: document.getElementById("search"),
+  searchSelected: document.getElementById("searchSelected"),
+  searchCatalogue: document.getElementById("searchCatalogue"),
   status: document.getElementById("statusFilter"),
   sound: document.getElementById("soundFilter"),
   sort: document.getElementById("sortFilter"),
@@ -585,9 +587,89 @@ function renderGroupedBirds(birds) {
     });
 }
 
-function applyNearbyDeck(birds) {
-  const query = els.search?.value.trim().toLowerCase() || "";
 
+function normaliseQuery(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function birdSearchHaystack(bird) {
+  return [
+    textBag(bird),
+    bird.common_name,
+    bird.scientific_name,
+    bird.irish_name,
+    bird.group,
+    bird.status,
+    ...(bird.status_codes || []),
+    ...(bird.aliases || [])
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+function birdMatchesQuery(bird, rawQuery) {
+  const query = normaliseQuery(rawQuery);
+  if (!query) return true;
+
+  const haystack = birdSearchHaystack(bird);
+  const terms = query.split(/\s+/).filter(Boolean);
+
+  return terms.every(term => haystack.includes(term));
+}
+
+function activeSearchMode() {
+  const selectedQuery = normaliseQuery(els.searchSelected?.value);
+  const catalogueQuery = normaliseQuery(els.searchCatalogue?.value);
+
+  if (catalogueQuery) {
+    return { mode: "catalogue", query: catalogueQuery };
+  }
+
+  if (selectedQuery) {
+    return { mode: "selected", query: selectedQuery };
+  }
+
+  return { mode: "none", query: "" };
+}
+
+function applySharedFilters(birds) {
+  const status = els.status?.value || "all";
+  const sound = els.sound?.value || "all";
+
+  return birds.filter(bird => {
+    if (!matchesStatus(bird, status)) return false;
+    if (sound === "has" && !hasAudio(bird)) return false;
+    if (sound === "missing" && hasAudio(bird)) return false;
+    if (els.listenOnly?.checked && !hasAudio(bird)) return false;
+    return true;
+  });
+}
+
+function bindDualSearchControls() {
+  if (els.searchSelected && !els.searchSelected.dataset.bound) {
+    els.searchSelected.dataset.bound = "true";
+    els.searchSelected.addEventListener("input", () => {
+      if (els.searchSelected.value.trim() && els.searchCatalogue?.value) {
+        els.searchCatalogue.value = "";
+      }
+      render();
+    });
+  }
+
+  if (els.searchCatalogue && !els.searchCatalogue.dataset.bound) {
+    els.searchCatalogue.dataset.bound = "true";
+    els.searchCatalogue.addEventListener("input", () => {
+      if (els.searchCatalogue.value.trim() && els.searchSelected?.value) {
+        els.searchSelected.value = "";
+      }
+      render();
+    });
+  }
+}
+
+
+function applyNearbyDeck(birds) {
   if (els.deckMode?.value === "all") {
     state.plausibleCount = birds.length;
     return birds.map(b => ({ ...b, local: null }));
@@ -596,11 +678,6 @@ function applyNearbyDeck(birds) {
   const scored = birds
     .map(bird => ({ ...bird, local: scoreBirdForNearby(bird) }))
     .sort((a, b) => b.local.score - a.local.score || String(a.common_name).localeCompare(String(b.common_name)));
-
-  if (query) {
-    state.plausibleCount = scored.length;
-    return scored;
-  }
 
   const radius = Number(els.radius?.value || 10);
   const threshold = radius <= 5 ? 52 : radius <= 10 ? 46 : radius <= 25 ? 38 : 32;
@@ -617,7 +694,6 @@ function applyNearbyDeck(birds) {
   state.plausibleCount = plausible.length;
   return plausible.slice(0, deckLimit());
 }
-
 
 let activeChorusPlayers = [];
 
@@ -750,24 +826,30 @@ function renderChorus() {
 
 function render() {
   try {
-    const q = els.search?.value.trim().toLowerCase() || "";
-    const status = els.status?.value || "all";
-    const sound = els.sound?.value || "all";
+    const search = activeSearchMode();
     const sort = els.sort?.value || "common";
 
-    let birds = state.birds.filter(bird => {
-      const haystack = [textBag(bird), ...(bird.status_codes || [])].join(" ").toLowerCase();
+    const catalogueBase = applySharedFilters(state.birds);
+    let selectedBase = applyNearbyDeck(catalogueBase);
 
-      if (q) return haystack.includes(q);
-      if (!matchesStatus(bird, status)) return false;
-      if (sound === "has" && !hasAudio(bird)) return false;
-      if (sound === "missing" && hasAudio(bird)) return false;
-      if (els.listenOnly?.checked && !hasAudio(bird)) return false;
+    let birds = selectedBase;
 
-      return true;
-    });
+    if (search.mode === "catalogue") {
+      birds = catalogueBase
+        .filter(bird => birdMatchesQuery(bird, search.query))
+        .map(bird => {
+          if ((els.deckMode?.value || "nearby") === "all") {
+            return { ...bird, local: null };
+          }
+          return { ...bird, local: scoreBirdForNearby(bird) };
+        });
 
-    birds = applyNearbyDeck(birds);
+      state.plausibleCount = selectedBase.length;
+    }
+
+    if (search.mode === "selected") {
+      birds = selectedBase.filter(bird => birdMatchesQuery(bird, search.query));
+    }
 
     birds.sort((a, b) => {
       if ((els.deckMode?.value || "nearby") === "nearby" && sort === "common") {
@@ -782,31 +864,19 @@ function render() {
     state.filtered = birds;
     renderGroupedBirds(birds);
     renderChorus();
-
-    if ((els.deckMode?.value || "nearby") === "nearby") {
-      const query = els.search?.value.trim() || "";
-      const plausible = Number(state.plausibleCount || birds.length);
-      const suffix = plausible > birds.length ? ` Showing top ${birds.length.toLocaleString()} of ${plausible.toLocaleString()}.` : "";
-
-      if (query) {
-        els.notice.textContent = `${birds.length.toLocaleString()} checklist match(es) for “${query}”.`;
-      } else {
-        const rareText = els.includeRare?.checked ? " Rare/vagrant records included." : " Rare/vagrant records hidden by default.";
-        const listenText = els.listenOnly?.checked ? " Listening walk mode: only birds with playable sound." : "";
-        els.notice.textContent = `${plausible.toLocaleString()} plausible species from ${state.birds.length.toLocaleString()} checklist species.${suffix}${rareText}${listenText}`;
-      }
-    } else {
-      els.notice.textContent = `${birds.length.toLocaleString()} of ${state.birds.length.toLocaleString()} species displayed in full catalogue mode.`;
-    }
-
     updateNearbySummary();
-    updateConciseNotice(birds);
+
+    updateConciseNotice({
+      birds,
+      search,
+      selectedCount: selectedBase.length,
+      catalogueCount: catalogueBase.length
+    });
   } catch (error) {
     console.error(error);
     if (els.notice) els.notice.textContent = `Render error: ${error.message}`;
   }
 }
-
 
 function titleCaseShort(value) {
   return String(value || "")
@@ -839,30 +909,36 @@ function compactPlaceLabel() {
   return "Inland";
 }
 
-function updateConciseNotice(birds) {
+function updateConciseNotice(context) {
   if (!els.notice) return;
 
-  const query = els.search?.value.trim() || "";
-  const mode = els.deckMode?.value || "nearby";
+  const birds = Array.isArray(context) ? context : context.birds;
+  const search = context.search || activeSearchMode();
+  const selectedCount = Number(context.selectedCount ?? state.plausibleCount ?? birds.length);
+  const catalogueCount = Number(context.catalogueCount ?? state.birds.length);
+
+  const shown = birds.length.toLocaleString();
+  const selectedTotal = selectedCount.toLocaleString();
+  const catalogueTotal = catalogueCount.toLocaleString();
   const month = MONTHS[selectedMonth()];
   const radius = `${els.radius?.value || 10} km`;
-  const group = selectedOptionText(els.group) || "Habitat";
-  const shown = birds.length.toLocaleString();
-  const total = state.birds.length.toLocaleString();
-  const plausible = Number(state.plausibleCount || birds.length).toLocaleString();
+  const status = selectedOptionText(els.status) || "All records";
+  const sound = selectedOptionText(els.sound) || "All sounds";
 
-  if (query) {
-    els.notice.textContent = `Search “${query}” · ${shown} match${birds.length === 1 ? "" : "es"} · local match shown as context`;
+  if (search.mode === "catalogue") {
+    els.notice.textContent =
+      `Catalogue search “${search.query}” · ${shown}/${catalogueTotal} shown · ${status} · ${sound}`;
     return;
   }
 
-  if (mode === "all") {
-    els.notice.textContent = `Full catalogue · ${shown}/${total} shown · grouped by ${group}`;
+  if (search.mode === "selected") {
+    els.notice.textContent =
+      `Selected search “${search.query}” · ${shown}/${selectedTotal} shown · ${month} · ${compactPlaceLabel()} · ${compactHabitatLabel()}`;
     return;
   }
 
-  const shownText = Number(state.plausibleCount || birds.length) > birds.length
-    ? `${shown}/${plausible} shown`
+  const shownText = selectedCount > birds.length
+    ? `${shown}/${selectedTotal} shown`
     : `${shown} shown`;
 
   const extras = [];
@@ -1027,7 +1103,9 @@ function playRandomBird() {
   }
 
   const bird = playable[Math.floor(Math.random() * playable.length)];
-  els.search.value = bird.common_name || "";
+  if (els.searchSelected) els.searchSelected.value = bird.common_name || "";
+  if (els.searchCatalogue) els.searchCatalogue.value = "";
+  if (els.search) els.search.value = bird.common_name || "";
   if (els.status) els.status.value = "all";
   if (els.sound) els.sound.value = "has";
   render();
@@ -1074,6 +1152,7 @@ async function init() {
     initialiseMonth();
     initialiseMap();
     initialiseHabitatButtons();
+    bindDualSearchControls();
     installMobileMapToggle();
     render();
   } catch (error) {
@@ -1082,7 +1161,7 @@ async function init() {
   }
 }
 
-[els.search, els.status, els.sound, els.sort, els.group, els.month, els.radius, els.deckMode, els.listenOnly, els.includeRare].forEach(el => {
+[els.status, els.sound, els.sort, els.group, els.month, els.radius, els.deckMode, els.listenOnly, els.includeRare].forEach(el => {
   if (!el) return;
   el.addEventListener("input", render);
   el.addEventListener("change", render);
@@ -1096,6 +1175,8 @@ els.stopChorus?.addEventListener("click", stopChorusTogether);
 
 function jumpToBirdFromButton(button) {
   if (!button) return;
+  if (els.searchSelected) els.searchSelected.value = button.dataset.bird || "";
+  if (els.searchCatalogue) els.searchCatalogue.value = "";
   if (els.search) els.search.value = button.dataset.bird || "";
   render();
   document.querySelector(".bird-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
