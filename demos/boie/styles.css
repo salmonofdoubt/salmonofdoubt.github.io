@@ -2636,3 +2636,36 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.41rem !important;
   }
 }
+
+
+/* BOIE canonical dynamic summary */
+#coverageNotice {
+  display: none !important;
+}
+
+.nearby-summary {
+  display: block !important;
+  margin-top: 6px !important;
+  padding: 8px 10px !important;
+  border-radius: 13px !important;
+  border: 1px solid rgba(79, 246, 255, 0.12) !important;
+  background: rgba(3, 10, 16, 0.68) !important;
+  color: rgba(233, 247, 244, 0.84) !important;
+  font-size: 0.82rem !important;
+  line-height: 1.3 !important;
+}
+
+@media (max-width: 760px) {
+  .nearby-summary {
+    margin-top: 5px !important;
+    padding: 7px 8px !important;
+    font-size: 0.66rem !important;
+    line-height: 1.24 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .nearby-summary {
+    font-size: 0.60rem !important;
+  }
+}

@@ -864,7 +864,7 @@ function render() {
     state.filtered = birds;
     renderGroupedBirds(birds);
     renderChorus();
-    updateNearbySummary();
+    updateNearbySummary({ birds, selectedCount: selectedBase.length, catalogueCount: catalogueBase.length });
 
     updateConciseNotice({
       birds,
@@ -910,69 +910,83 @@ function compactPlaceLabel() {
 }
 
 function updateConciseNotice(context) {
-  if (!els.notice) return;
+  if (els.notice) {
+    els.notice.textContent = "";
+    els.notice.setAttribute("aria-hidden", "true");
+  }
+}
 
-  const birds = Array.isArray(context) ? context : context.birds;
-  const search = context.search || activeSearchMode();
-  const selectedCount = Number(context.selectedCount ?? state.plausibleCount ?? birds.length);
-  const catalogueCount = Number(context.catalogueCount ?? state.birds.length);
+function updateNearbySummary(context = null) {
+  const target =
+    els.nearbySummary ||
+    document.querySelector(".nearby-summary");
+
+  if (!target) return;
+
+  const search =
+    typeof activeSearchMode === "function"
+      ? activeSearchMode()
+      : { mode: "none", query: "" };
+
+  const birds = Array.isArray(context?.birds)
+    ? context.birds
+    : Array.isArray(state.filtered)
+      ? state.filtered
+      : [];
+
+  const selectedCount = Number(
+    context?.selectedCount ?? state.plausibleCount ?? birds.length
+  );
+
+  const catalogueCount = Number(
+    context?.catalogueCount ?? state.birds?.length ?? 0
+  );
+
+  const month = MONTHS[selectedMonth()];
+  const radius = `${els.radius?.value || 10} km`;
+  const place = typeof compactPlaceLabel === "function" ? compactPlaceLabel() : "Ireland-wide";
+  const habitats = typeof compactHabitatLabel === "function" ? compactHabitatLabel() : "Auto habitat";
+  const status = typeof selectedOptionText === "function"
+    ? (selectedOptionText(els.status) || "All records")
+    : "All records";
+  const sound = typeof selectedOptionText === "function"
+    ? (selectedOptionText(els.sound) || "All sounds")
+    : "All sounds";
 
   const shown = birds.length.toLocaleString();
   const selectedTotal = selectedCount.toLocaleString();
   const catalogueTotal = catalogueCount.toLocaleString();
-  const month = MONTHS[selectedMonth()];
-  const radius = `${els.radius?.value || 10} km`;
-  const status = selectedOptionText(els.status) || "All records";
-  const sound = selectedOptionText(els.sound) || "All sounds";
+
+  const bits = [];
 
   if (search.mode === "catalogue") {
-    els.notice.textContent =
-      `Catalogue search “${search.query}” · ${shown}/${catalogueTotal} shown · ${status} · ${sound}`;
-    return;
-  }
-
-  if (search.mode === "selected") {
-    els.notice.textContent =
-      `Selected search “${search.query}” · ${shown}/${selectedTotal} shown · ${month} · ${compactPlaceLabel()} · ${compactHabitatLabel()}`;
-    return;
-  }
-
-  const shownText = selectedCount > birds.length
-    ? `${shown}/${selectedTotal} shown`
-    : `${shown} shown`;
-
-  const extras = [];
-  if (els.listenOnly?.checked || els.sound?.value === "has") extras.push("sound only");
-  if (els.sound?.value === "missing") extras.push("no sound");
-  extras.push(els.includeRare?.checked ? "rare on" : "rare off");
-
-  els.notice.textContent =
-    `${month} · ${radius} · ${compactPlaceLabel()} · ${compactHabitatLabel()} · ${shownText} · ${extras.join(" · ")}`;
-}
-
-function updateNearbySummary() {
-  if (!els.nearbySummary) return;
-
-  const month = MONTHS[selectedMonth()];
-  const habitatText = [...activeHabitats()].filter(h => h !== "general").slice(0, 6).join(", ") || "general Ireland";
-  const radius = els.radius?.value || "10";
-  const limit = deckLimit();
-
-  if (state.location) {
-    const profile = locationProfile(state.location);
-    const placeBits = [];
-    if (profile.estuary) placeBits.push("estuary signal");
-    else if (profile.coastal) placeBits.push("coastal signal");
-    else if (profile.nearCoastal) placeBits.push("near-coastal signal");
-    else placeBits.push("inland signal");
-    if (profile.urban) placeBits.push("urban signal");
-
-    els.nearbySummary.textContent =
-      `${month}, approx. ${radius} km radius, ${placeBits.join(", ")}, max ${limit} cards, habitats: ${habitatText}.`;
+    bits.push(`Catalogue search “${search.query}”`);
+    bits.push(`${shown}/${catalogueTotal} shown`);
+    bits.push(status);
+    bits.push(sound);
+  } else if (search.mode === "selected") {
+    bits.push(`Selected search “${search.query}”`);
+    bits.push(`${shown}/${selectedTotal} shown`);
+    bits.push(month);
+    bits.push(place);
+    bits.push(habitats);
   } else {
-    els.nearbySummary.textContent =
-      `${month}, no exact location selected. Showing a seasonal Ireland-wide deck for selected habitats: ${habitatText}.`;
+    bits.push(month);
+    bits.push(radius);
+    bits.push(place);
+    bits.push(habitats);
+    bits.push(selectedCount > birds.length ? `${shown}/${selectedTotal} shown` : `${shown} shown`);
+
+    if (els.sound?.value === "has" || els.listenOnly?.checked) {
+      bits.push("sound only");
+    } else if (els.sound?.value === "missing") {
+      bits.push("no sound");
+    }
+
+    bits.push(els.includeRare?.checked ? "rare on" : "rare off");
   }
+
+  target.textContent = bits.filter(Boolean).join(" · ");
 }
 
 function updateStats(payload) {
