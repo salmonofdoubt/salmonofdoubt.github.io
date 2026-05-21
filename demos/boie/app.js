@@ -1088,3 +1088,13 @@ init();
     installStreamlinedCockpit();
   }
 })();
+
+
+/* BOIE default group by habitat */
+(function () {
+  const group = document.getElementById("groupFilter");
+  if (group && !group.dataset.defaulted) {
+    group.dataset.defaulted = "true";
+    group.value = "habitat";
+  }
+})();
