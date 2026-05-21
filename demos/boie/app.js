@@ -1043,3 +1043,48 @@ init();
 
   window.addEventListener("load", removeBoieBadgeClutter);
 })();
+
+
+/* BOIE streamlined cockpit v1 */
+(function () {
+  function toggleClass(name) {
+    document.body.classList.toggle(name);
+
+    window.setTimeout(() => {
+      if (typeof state !== "undefined" && state.map) {
+        state.map.invalidateSize();
+      }
+    }, 160);
+  }
+
+  function installStreamlinedCockpit() {
+    const mapButton = document.getElementById("toggleMapPanel");
+    const advancedButton = document.getElementById("toggleAdvancedPanel");
+
+    if (mapButton && !mapButton.dataset.bound) {
+      mapButton.dataset.bound = "true";
+      mapButton.addEventListener("click", () => {
+        toggleClass("boie-map-open");
+        mapButton.textContent = document.body.classList.contains("boie-map-open")
+          ? "Hide map"
+          : "Map / pin";
+      });
+    }
+
+    if (advancedButton && !advancedButton.dataset.bound) {
+      advancedButton.dataset.bound = "true";
+      advancedButton.addEventListener("click", () => {
+        toggleClass("boie-advanced-open");
+        advancedButton.textContent = document.body.classList.contains("boie-advanced-open")
+          ? "Hide extras"
+          : "More filters";
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installStreamlinedCockpit);
+  } else {
+    installStreamlinedCockpit();
+  }
+})();

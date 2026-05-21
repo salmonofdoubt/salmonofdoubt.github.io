@@ -1413,3 +1413,304 @@ audio {
 .card-top {
   gap: 8px !important;
 }
+
+
+/* BOIE streamlined cockpit v1 */
+.nearby-panel {
+  margin: 14px 0 12px !important;
+  padding: 14px !important;
+  border-radius: 22px !important;
+}
+
+.nearby-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.nearby-copy .eyebrow {
+  margin-bottom: 2px !important;
+}
+
+.nearby-copy h2 {
+  margin: 0 !important;
+  font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
+}
+
+.nearby-copy p:not(.eyebrow) {
+  max-width: 880px;
+  margin: 4px 0 8px !important;
+  font-size: 0.92rem !important;
+  line-height: 1.42 !important;
+}
+
+.nearby-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 10px;
+}
+
+.nearby-quick-actions button {
+  min-height: 36px;
+  border: 1px solid rgba(128, 255, 200, 0.28);
+  border-radius: 999px;
+  padding: 0 13px;
+  background: rgba(128, 255, 200, 0.09);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.nearby-quick-actions button:first-child {
+  background: linear-gradient(135deg, var(--green), #b7ffdf);
+  color: #031014;
+}
+
+.nearby-grid {
+  display: block !important;
+}
+
+.bird-map {
+  display: none !important;
+  min-height: 300px !important;
+  max-height: 300px !important;
+  margin-bottom: 10px;
+}
+
+body.boie-map-open .bird-map {
+  display: block !important;
+}
+
+.nearby-controls {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(130px, 1fr));
+  gap: 8px !important;
+  align-items: start;
+}
+
+.nearby-controls > button#useLocation {
+  min-height: 40px !important;
+  padding: 0 12px !important;
+  font-size: 0.9rem !important;
+}
+
+.nearby-controls label {
+  min-height: 40px;
+  padding: 8px 10px !important;
+  border-radius: 15px !important;
+}
+
+.nearby-controls label span {
+  font-size: 0.64rem !important;
+  letter-spacing: 0.08em !important;
+}
+
+.nearby-summary {
+  grid-column: 1 / -1;
+  padding: 9px 11px !important;
+  font-size: 0.82rem !important;
+  line-height: 1.35 !important;
+  border-radius: 14px !important;
+}
+
+.habitats {
+  grid-column: 1 / -1;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto;
+  gap: 7px !important;
+  padding: 2px 1px 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.habitats button {
+  flex: 0 0 auto;
+  min-height: 34px !important;
+  padding: 0 11px !important;
+  font-size: 0.82rem !important;
+}
+
+.toggle-row,
+.confidence-legend,
+.privacy-note {
+  display: none !important;
+}
+
+body.boie-advanced-open .toggle-row,
+body.boie-advanced-open .confidence-legend,
+body.boie-advanced-open .privacy-note {
+  display: grid !important;
+}
+
+body.boie-advanced-open .privacy-note {
+  display: block !important;
+}
+
+body.boie-advanced-open .toggle-row,
+body.boie-advanced-open .confidence-legend,
+body.boie-advanced-open .privacy-note {
+  grid-column: 1 / -1;
+}
+
+/* Keep the chorus compact so results start sooner */
+.chorus-panel {
+  margin: 10px 0 10px !important;
+  padding: 11px !important;
+  border-radius: 18px !important;
+}
+
+.chorus-panel header {
+  margin-bottom: 6px !important;
+}
+
+.chorus-panel h2 {
+  font-size: 1.05rem !important;
+}
+
+.chorus-list {
+  gap: 6px !important;
+}
+
+.chorus-chip {
+  min-height: 34px !important;
+  padding: 5px 10px !important;
+  font-size: 0.82rem !important;
+}
+
+.chorus-mosaic,
+.chorus-actions {
+  display: none;
+}
+
+body.boie-advanced-open .chorus-mosaic,
+body.boie-advanced-open .chorus-actions {
+  display: flex;
+}
+
+/* Mobile: one clean column, no sticky cockpit */
+@media (max-width: 760px) {
+  .nearby-panel {
+    padding: 12px !important;
+    margin: 10px 0 !important;
+  }
+
+  .nearby-copy p:not(.eyebrow) {
+    display: none !important;
+  }
+
+  .nearby-quick-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+
+  .nearby-quick-actions button {
+    min-height: 36px;
+    font-size: 0.82rem;
+  }
+
+  .nearby-controls {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 7px !important;
+  }
+
+  .nearby-controls > button#useLocation {
+    grid-column: 1 / -1;
+  }
+
+  .nearby-controls label {
+    padding: 7px 9px !important;
+  }
+
+  .nearby-summary,
+  .habitats,
+  .toggle-row,
+  .confidence-legend,
+  .privacy-note {
+    grid-column: 1 / -1;
+  }
+
+  .bird-map {
+    min-height: 230px !important;
+    max-height: 230px !important;
+  }
+
+  .chorus-panel {
+    padding: 10px !important;
+  }
+
+  .chorus-panel header {
+    display: grid !important;
+    gap: 3px !important;
+  }
+
+  .chorus-list {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+
+  .chorus-chip {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .nearby-controls {
+    grid-template-columns: 1fr !important;
+  }
+
+  .nearby-quick-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* BOIE keep map visible v1 */
+.bird-map {
+  display: block !important;
+}
+
+#toggleMapPanel {
+  display: none !important;
+}
+
+/* With only More filters left, keep the quick action row compact */
+.nearby-quick-actions {
+  justify-content: flex-start;
+}
+
+.nearby-quick-actions button {
+  min-width: auto;
+}
+
+/* Keep the map useful but not dominant */
+.bird-map {
+  min-height: 280px !important;
+  max-height: 320px !important;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 760px) {
+  .bird-map {
+    min-height: 220px !important;
+    max-height: 240px !important;
+  }
+
+  .nearby-quick-actions {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* BOIE remove cockpit buttons final */
+.nearby-quick-actions,
+#toggleMapPanel,
+#toggleAdvancedPanel,
+.mobile-nearby-toggle {
+  display: none !important;
+}
+
+.bird-map {
+  display: block !important;
+}
