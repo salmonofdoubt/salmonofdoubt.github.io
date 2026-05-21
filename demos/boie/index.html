@@ -5,7 +5,255 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bird Sound Atlas · Ireland</title>
   <meta name="description" content="An Ireland-first public bird sound atlas with representative sounds, images, location-aware cards, and attribution." />
-  <link rel="stylesheet" href="./styles.css?v=support-menu-hard-box-1779363258" />
+cd /Users/diandre/Downloads/VC/salmonofdoubt.github.io
+
+mkdir -p .local-logs
+git diff > .local-logs/boie-before-support-menu-clean-fix.patch
+
+python - <<'PY'
+from pathlib import Path
+import re
+import time
+
+index = Path("demos/boie/index.html")
+css_path = Path("demos/boie/styles.css")
+
+h = index.read_text()
+css = css_path.read_text()
+
+# Remove previous versions of this fix if rerun.
+for marker in [
+    "/* BOIE mobile shared-widget clarity fix */",
+    "/* BOIE support menu mobile viewport fix */",
+    "/* BOIE back-to-controls canonical */",
+    "/* BOIE owns only this contextual button. Shared Demos / DOI / Support are left untouched. */"
+]:
+    while marker in css:
+        start = css.find(marker)
+        next_marker = css.find("\n/* BOIE", start + len(marker))
+        if next_marker == -1:
+            css = css[:start].rstrip() + "\n"
+        else:
+            css = css[:start].rstrip() + "\n\n" + css[next_marker:].lstrip()
+
+# Remove duplicate raw back-to-controls rules if older patches left them behind.
+def remove_rule_containing(src, token):
+    while token in src:
+        pos = src.find(token)
+        open_before = src.rfind("{", 0, pos)
+        open_after = src.find("{", pos)
+        close_after = src.find("}", pos)
+
+        if open_after != -1 and (close_after == -1 or open_after < close_after):
+            rule_open = open_after
+        else:
+            rule_open = open_before
+
+        if rule_open == -1:
+            break
+
+        rule_start = max(src.rfind("}", 0, rule_open), src.rfind("{", 0, rule_open)) + 1
+
+        depth = 0
+        rule_end = None
+        for i in range(rule_open, len(src)):
+            if src[i] == "{":
+                depth += 1
+            elif src[i] == "}":
+                depth -= 1
+                if depth == 0:
+                    rule_end = i + 1
+                    break
+
+        if rule_end is None:
+            break
+
+        src = src[:rule_start].rstrip() + "\n\n" + src[rule_end:].lstrip()
+
+    return src
+
+css = remove_rule_containing(css, ".back-to-controls")
+
+css += r'''
+
+/* BOIE mobile shared-widget clarity fix */
+/* Keep shared NDRT-style widgets. Remove only BOIE's duplicate mobile topnav Demos/DOI. */
+@media (max-width: 760px) {
+  .topnav a[href="/demos/"],
+  .topnav .doi-pill {
+    display: none !important;
+  }
+
+  .topnav {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* BOIE support menu mobile viewport fix */
+/* This does not replace the shared widget. It only gives the open menu a proper mobile box. */
+@media (max-width: 760px) {
+  .demo-support-widget {
+    overflow: visible !important;
+    z-index: 10040 !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-menu {
+    position: fixed !important;
+    right: 10px !important;
+    left: auto !important;
+    bottom: calc(82px + env(safe-area-inset-bottom)) !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.46rem !important;
+
+    width: min(260px, calc(100vw - 20px)) !important;
+    min-width: 0 !important;
+    max-width: calc(100vw - 20px) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    padding: 0.55rem !important;
+    border: 1px solid rgba(211, 108, 255, 0.38) !important;
+    border-radius: 1rem !important;
+    background: rgba(5, 12, 18, 0.96) !important;
+    box-shadow:
+      0 18px 44px rgba(0, 0, 0, 0.42),
+      0 0 26px rgba(211, 108, 255, 0.16) !important;
+    backdrop-filter: blur(14px) !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option {
+    position: static !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.18rem !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+
+    padding: 0.62rem 0.66rem !important;
+    border-radius: 0.78rem !important;
+    border: 1px solid transparent !important;
+    background: transparent !important;
+    color: #f5e8ff !important;
+    box-sizing: border-box !important;
+    white-space: normal !important;
+    text-decoration: none !important;
+    overflow: visible !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option strong,
+  .demo-support-widget.is-open .demo-support-option span {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option strong {
+    font-size: 0.82rem !important;
+    line-height: 1.12 !important;
+  }
+
+  .demo-support-widget.is-open .demo-support-option span {
+    font-size: 0.68rem !important;
+    line-height: 1.24 !important;
+    color: rgba(245, 232, 255, 0.72) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .demo-support-widget.is-open .demo-support-menu {
+    right: 8px !important;
+    bottom: calc(78px + env(safe-area-inset-bottom)) !important;
+    width: min(244px, calc(100vw - 16px)) !important;
+    max-width: calc(100vw - 16px) !important;
+  }
+}
+
+/* BOIE back-to-controls canonical */
+.back-to-controls {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  right: 12px;
+  z-index: 10000;
+  min-height: 32px;
+  padding: 0 11px;
+  border: 1px solid rgba(79, 246, 255, 0.42);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(79, 246, 255, 0.18), rgba(6, 24, 34, 0.94)),
+    rgba(5, 10, 18, 0.96);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 950;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    opacity 140ms ease,
+    transform 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease;
+}
+
+.back-to-controls.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-controls:hover,
+.back-to-controls:focus-visible {
+  border-color: rgba(79, 246, 255, 0.78);
+  outline: 2px solid rgba(79, 246, 255, 0.42);
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .back-to-controls {
+    top: calc(10px + env(safe-area-inset-top));
+    right: 10px;
+    min-height: 28px;
+    padding: 0 9px;
+    font-size: 0.58rem;
+  }
+
+  body {
+    padding-bottom: 76px;
+  }
+}
+'''
+
+stamp = str(int(time.time()))
+h = re.sub(
+    r'href="./styles[^"]*"',
+    f'href="./styles.css?v=support-menu-clean-fix-{stamp}"',
+    h
+)
+
+index.write_text(h)
+css_path.write_text(css)
+
+print("Applied BOIE support menu clean fix.")
+print("CSS cache stamp:", stamp)
+PY
+
+node --check demos/boie/app.js  <link rel="stylesheet" href="./styles.css?v=support-menu-viewport-1779361718" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
   <script defer src="/demos/shared/demo-return.js"></script>

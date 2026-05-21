@@ -1,0 +1,137 @@
+diff --git a/demos/boie/index.html b/demos/boie/index.html
+index a40854a..2c76611 100644
+--- a/demos/boie/index.html
++++ b/demos/boie/index.html
+@@ -5,7 +5,7 @@
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <title>Bird Sound Atlas · Ireland</title>
+   <meta name="description" content="An Ireland-first public bird sound atlas with representative sounds, images, location-aware cards, and attribution." />
+-  <link rel="stylesheet" href="./styles.css?v=back-to-controls-1779357968" />
++  <link rel="stylesheet" href="./styles.css?v=support-menu-viewport-1779361718" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+   <script defer src="/demos/shared/demo-return.js"></script>
+diff --git a/demos/boie/styles.css b/demos/boie/styles.css
+index 86cd986..9f3cb8b 100644
+--- a/demos/boie/styles.css
++++ b/demos/boie/styles.css
+@@ -3004,15 +3004,19 @@ body.boie-advanced-open .chorus-actions {
+   }
+ }
+ 
++@media (max-width: 760px) {
++
++}
+ 
+-/* BOIE back to controls button */
++
++/* BOIE back-to-controls canonical */
+ .back-to-controls {
+   position: fixed;
+-  right: 14px;
+-  bottom: calc(14px + env(safe-area-inset-bottom));
++  top: calc(12px + env(safe-area-inset-top));
++  right: 12px;
+   z-index: 10000;
+-  min-height: 34px;
+-  padding: 0 12px;
++  min-height: 32px;
++  padding: 0 11px;
+   border: 1px solid rgba(79, 246, 255, 0.42);
+   border-radius: 999px;
+   background:
+@@ -3020,14 +3024,14 @@ body.boie-advanced-open .chorus-actions {
+     rgba(5, 10, 18, 0.96);
+   color: var(--ink);
+   font: inherit;
+-  font-size: 0.72rem;
++  font-size: 0.68rem;
+   font-weight: 950;
+   line-height: 1;
+   cursor: pointer;
+   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.34);
+   opacity: 0;
+   pointer-events: none;
+-  transform: translateY(8px);
++  transform: translateY(-8px);
+   transition:
+     opacity 140ms ease,
+     transform 140ms ease,
+@@ -3050,10 +3054,73 @@ body.boie-advanced-open .chorus-actions {
+ 
+ @media (max-width: 760px) {
+   .back-to-controls {
++    top: calc(10px + env(safe-area-inset-top));
+     right: 10px;
+-    bottom: calc(10px + env(safe-area-inset-bottom));
+-    min-height: 30px;
+-    padding: 0 10px;
+-    font-size: 0.62rem;
++    min-height: 28px;
++    padding: 0 9px;
++    font-size: 0.58rem;
++  }
++
++  body {
++    padding-bottom: 76px;
++  }
++}
++
++
++/* BOIE support menu mobile viewport fix */
++/* Shared support behaviour remains unchanged. This only gives the open menu enough room on phone widths. */
++@media (max-width: 760px) {
++  .demo-support-widget {
++    overflow: visible !important;
++  }
++
++  .demo-support-widget.is-open .demo-support-menu {
++    position: fixed !important;
++    right: 10px !important;
++    left: auto !important;
++    bottom: calc(78px + env(safe-area-inset-bottom)) !important;
++    width: min(270px, calc(100vw - 20px)) !important;
++    min-width: 0 !important;
++    max-width: calc(100vw - 20px) !important;
++    max-height: min(44vh, 260px) !important;
++    overflow: visible !important;
++    padding: 0.56rem !important;
++    box-sizing: border-box !important;
++    z-index: 10020 !important;
++  }
++
++  .demo-support-widget.is-open .demo-support-option {
++    min-width: 0 !important;
++    width: 100% !important;
++    box-sizing: border-box !important;
++    padding: 0.62rem 0.68rem !important;
++    white-space: normal !important;
++  }
++
++  .demo-support-widget.is-open .demo-support-option strong,
++  .demo-support-widget.is-open .demo-support-option span {
++    display: block !important;
++    white-space: normal !important;
++    overflow: visible !important;
++    text-overflow: clip !important;
++  }
++
++  .demo-support-widget.is-open .demo-support-option strong {
++    font-size: 0.82rem !important;
++    line-height: 1.12 !important;
++  }
++
++  .demo-support-widget.is-open .demo-support-option span {
++    font-size: 0.68rem !important;
++    line-height: 1.24 !important;
++  }
++}
++
++@media (max-width: 390px) {
++  .demo-support-widget.is-open .demo-support-menu {
++    right: 8px !important;
++    bottom: calc(76px + env(safe-area-inset-bottom)) !important;
++    width: min(248px, calc(100vw - 16px)) !important;
++    max-width: calc(100vw - 16px) !important;
+   }
+ }
