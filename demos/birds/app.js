@@ -1302,6 +1302,73 @@ function installMobileMapToggle() {
   });
 }
 
+function handleBirdDeepLink() {
+  const params = new URLSearchParams(window.location.search);
+  const linkedBird = String(params.get("bird") || params.get("q") || "").trim();
+
+  if (!linkedBird) return;
+
+  const scope = params.get("scope") || "catalogue";
+  const sound = params.get("sound") || "all";
+
+  if (els.searchUnified) els.searchUnified.value = linkedBird;
+  if (els.searchCatalogue) els.searchCatalogue.value = linkedBird;
+  if (els.searchSelected) els.searchSelected.value = linkedBird;
+  if (els.search) els.search.value = linkedBird;
+
+  state.searchScope = scope === "selected" ? "selected" : "catalogue";
+
+  if (els.searchScopeSelected) {
+    els.searchScopeSelected.setAttribute("aria-pressed", state.searchScope === "selected" ? "true" : "false");
+  }
+
+  if (els.searchScopeCatalogue) {
+    els.searchScopeCatalogue.setAttribute("aria-pressed", state.searchScope === "catalogue" ? "true" : "false");
+  }
+
+  if (els.deckMode) els.deckMode.value = "all";
+  if (els.status) els.status.value = "all";
+  if (els.sound) els.sound.value = sound;
+  if (els.group) els.group.value = "habitat";
+
+  render();
+
+  window.setTimeout(() => {
+    const wanted = linkedBird.toLowerCase();
+    const cards = [...document.querySelectorAll(".bird-card")];
+
+    const target = cards.find(card => {
+      const common = card.querySelector(".common-name")?.textContent?.trim().toLowerCase() || "";
+      const scientific = card.querySelector(".scientific-name")?.textContent?.trim().toLowerCase() || "";
+      return common === wanted || scientific === wanted || common.includes(wanted) || scientific.includes(wanted);
+    }) || cards[0];
+
+    if (!target) {
+      if (els.notice) {
+        els.notice.textContent = `${linkedBird} was not found in the current sound atlas.`;
+      }
+      return;
+    }
+
+    target.scrollIntoView({ behavior: "smooth", block: "center" });
+    target.classList.add("bird-card--pulse");
+
+    window.setTimeout(() => {
+      target.classList.remove("bird-card--pulse");
+    }, 1600);
+
+    const audio = target.querySelector("audio");
+    if (audio) {
+      audio.focus({ preventScroll: true });
+      if (els.notice) {
+        els.notice.textContent = `Opened ${linkedBird}. Press play on the sound card to hear the recording.`;
+      }
+    } else if (els.notice) {
+      els.notice.textContent = `Opened ${linkedBird}, but no matched sound is currently available.`;
+    }
+  }, 140);
+}
+
 async function init() {
   try {
     const response = await fetch("./data/birds.json?v=" + Date.now());
@@ -1317,15 +1384,8 @@ async function init() {
     bindDualSearchControls();
     installMobileMapToggle();
 
-    const params = new URLSearchParams(window.location.search);
-    const linkedBird = params.get("bird") || params.get("q");
-    if (linkedBird && els.searchUnified) {
-      els.searchUnified.value = linkedBird;
-      state.searchScope = "selected";
-      if (els.sound) els.sound.value = "all";
-    }
-
     render();
+    handleBirdDeepLink();
   } catch (error) {
     console.error(error);
     if (els.notice) els.notice.textContent = `Could not load BOIE: ${error.message}`;

@@ -86,18 +86,24 @@ function observationSort(a, b) {
   return String(b.observation_date || "").localeCompare(String(a.observation_date || ""));
 }
 
-function imageForObservation(item) {
+function atlasBirdForObservation(item) {
   const byCommon = recentState.birdIndex.get(normaliseKey(item.common_name));
   const byScientific = recentState.birdIndex.get(normaliseKey(item.scientific_name));
-  const bird = byCommon || byScientific;
+  return byCommon || byScientific || null;
+}
 
+function imageForObservation(item) {
+  const bird = atlasBirdForObservation(item);
   const image = bird?.image || {};
   return image.thumb || image.thumbnail || image.original || image.url || "";
 }
 
 function atlasLinkForObservation(item) {
-  const query = encodeURIComponent(item.common_name || item.scientific_name || "");
-  return `./?bird=${query}`;
+  const bird = atlasBirdForObservation(item);
+  if (!bird) return "";
+
+  const query = encodeURIComponent(bird.common_name || item.common_name || item.scientific_name || "");
+  return `./?bird=${query}&scope=catalogue&sound=all#birdGrid`;
 }
 
 function renderThumb(item) {
@@ -130,15 +136,25 @@ function renderObservation(item) {
   const date = formatDate(item.observation_date);
   const atlasLink = atlasLinkForObservation(item);
 
+  const titleBlock = `
+    ${renderThumb(item)}
+    <span>
+      <strong>${escapeHtml(name)}</strong>
+      <em>${escapeHtml(sci)}</em>
+    </span>
+  `;
+
+  const title = atlasLink
+    ? `<a class="recent-observation-mainlink" href="${atlasLink}" aria-label="Open ${escapeHtml(name)} in the sound atlas">${titleBlock}</a>`
+    : `<div class="recent-observation-mainlink recent-observation-mainlink--disabled">${titleBlock}</div>`;
+
+  const soundLink = atlasLink
+    ? `<a class="recent-observation-soundlink" href="${atlasLink}">Open sound card</a>`
+    : `<span class="recent-observation-soundlink is-disabled">No atlas sound card</span>`;
+
   return `
     <article class="recent-observation-card">
-      <a class="recent-observation-mainlink" href="${atlasLink}" aria-label="Open ${escapeHtml(name)} in the sound atlas">
-        ${renderThumb(item)}
-        <span>
-          <strong>${escapeHtml(name)}</strong>
-          <em>${escapeHtml(sci)}</em>
-        </span>
-      </a>
+      ${title}
 
       <dl>
         <div><dt>Where</dt><dd>${escapeHtml(location)}, ${escapeHtml(country)}</dd></div>
@@ -146,7 +162,7 @@ function renderObservation(item) {
         <div><dt>Count</dt><dd>${escapeHtml(count)}</dd></div>
       </dl>
 
-      <a class="recent-observation-soundlink" href="${atlasLink}">Open sound card</a>
+      ${soundLink}
     </article>
   `;
 }

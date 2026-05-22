@@ -3463,6 +3463,8 @@ body.boie-advanced-open .chorus-actions {
 }
 
 
+
+
 /* Recent page thumbnails and sound-card links */
 .recent-observation-mainlink {
   display: grid;
@@ -3488,6 +3490,10 @@ body.boie-advanced-open .chorus-actions {
   margin-top: 0.2rem;
   color: rgba(230, 255, 250, 0.62);
   font-size: 0.82rem;
+}
+
+.recent-observation-mainlink--disabled {
+  opacity: 0.7;
 }
 
 .recent-observation-thumb {
@@ -3517,6 +3523,12 @@ body.boie-advanced-open .chorus-actions {
   font-size: 0.78rem;
   font-weight: 900;
   text-decoration: none;
+}
+
+.recent-observation-soundlink.is-disabled {
+  opacity: 0.58;
+  pointer-events: none;
+  border-style: dashed;
 }
 
 .recent-observation-soundlink:hover,
