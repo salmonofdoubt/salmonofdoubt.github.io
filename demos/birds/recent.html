@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recent observations · European Bird Radar</title>
+  <meta name="description" content="Recent eBird pilot-country observations for the European Bird Radar demo." />
+
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#2f6f4e">
+</head>
+
+<body>
+  <main class="shell">
+    <nav class="topnav" aria-label="Demo navigation">
+      <a href="./">← Back to bird atlas</a>
+      <a href="/demos/">Demos</a>
+      <a href="./attribution.html">Attribution</a>
+      <a class="doi-pill" href="https://doi.org/10.5281/zenodo.20321309" target="_blank" rel="noopener">DOI 10.5281/zenodo.20321309</a>
+    </nav>
+
+    <header class="hero recent-hero">
+      <p class="eyebrow">European Bird Radar</p>
+      <h1>Recent observations</h1>
+      <p class="lede">
+        A live context layer built from recent eBird pilot-country records. This page is a freshness signal,
+        not a complete checklist or formal monitoring record.
+      </p>
+    </header>
+
+    <section class="panel recent-observations-panel" id="recentObservationsPanel" aria-label="Recent European bird observations">
+      <header class="recent-observations-header">
+        <div>
+          <p class="eyebrow mini">Live context layer</p>
+          <h2>Recent pilot-country observations</h2>
+          <p>
+            Latest generated eBird observations for the pilot countries. Records are kept here so the main sound atlas remains readable.
+          </p>
+        </div>
+        <p id="recentObservationsStatus" class="recent-observations-status">Loading recent observations…</p>
+      </header>
+
+      <div class="recent-observations-stats" aria-label="Recent observation summary">
+        <article>
+          <span id="recentObservationCount">–</span>
+          <strong>observations</strong>
+        </article>
+        <article>
+          <span id="recentObservationCountries">–</span>
+          <strong>countries</strong>
+        </article>
+        <article>
+          <span id="recentObservationUpdated">–</span>
+          <strong>updated</strong>
+        </article>
+      </div>
+
+      <div class="recent-observations-controls">
+        <label>
+          <span>Country</span>
+          <select id="recentCountryFilter">
+            <option value="all">All pilot countries</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="recentObservationsList" class="recent-observations-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script src="./recent.js"></script>
+  <script>
+    if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(error => {
+          console.warn("Service worker registration failed:", error);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
