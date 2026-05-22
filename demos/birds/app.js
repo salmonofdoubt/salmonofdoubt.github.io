@@ -9,7 +9,8 @@ const state = {
   habitatZones: [],
   osmHabitatContext: null,
   habitatMode: "auto",
-  locationContextToken: 0
+  locationContextToken: 0,
+  chorusIsPlaying: false
 };
 
 const els = {
@@ -1476,6 +1477,20 @@ function chorusCandidates() {
     });
 }
 
+function setChorusPlaybackState(isPlaying) {
+  state.chorusIsPlaying = Boolean(isPlaying);
+
+  const playButton = document.getElementById("toggleChorusPlayback");
+  if (!playButton) return;
+
+  playButton.textContent = state.chorusIsPlaying ? "Stop" : "Play";
+  playButton.dataset.state = state.chorusIsPlaying ? "stop" : "play";
+  playButton.classList.toggle("is-playing", state.chorusIsPlaying);
+  playButton.setAttribute("aria-pressed", state.chorusIsPlaying ? "true" : "false");
+  playButton.setAttribute("title", state.chorusIsPlaying ? "Stop chorus" : "Play chorus");
+  playButton.setAttribute("aria-label", state.chorusIsPlaying ? "Stop selected chorus" : "Play selected chorus");
+}
+
 function stopChorusTogether() {
   activeChorusPlayers.forEach(audio => {
     try {
@@ -1488,6 +1503,7 @@ function stopChorusTogether() {
   });
 
   activeChorusPlayers = [];
+  setChorusPlaybackState(false);
   syncChorusControlButtons();
 }
 
@@ -1498,11 +1514,23 @@ function playChorusTogether() {
     if (els.notice) {
       els.notice.textContent = "No playable birds in the current chorus. Press Remix after changing filters.";
     }
+    setChorusPlaybackState(false);
     syncChorusControlButtons();
     return;
   }
 
-  stopChorusTogether();
+  activeChorusPlayers.forEach(audio => {
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.src = "";
+    } catch (error) {
+      console.warn("Could not clear previous chorus audio", error);
+    }
+  });
+
+  activeChorusPlayers = [];
+  setChorusPlaybackState(true);
 
   birds.forEach((bird, index) => {
     const audio = new Audio(bird.audio.file);
@@ -1511,14 +1539,36 @@ function playChorusTogether() {
 
     audio.addEventListener("ended", () => {
       activeChorusPlayers = activeChorusPlayers.filter(player => player !== audio);
+      if (!activeChorusPlayers.length) {
+        setChorusPlaybackState(false);
+      }
+      syncChorusControlButtons();
+    });
+
+    audio.addEventListener("error", () => {
+      activeChorusPlayers = activeChorusPlayers.filter(player => player !== audio);
+      if (!activeChorusPlayers.length) {
+        setChorusPlaybackState(false);
+      }
       syncChorusControlButtons();
     });
 
     activeChorusPlayers.push(audio);
 
     window.setTimeout(() => {
-      audio.play().catch(error => {
+      audio.play().then(() => {
+        setChorusPlaybackState(true);
+        syncChorusControlButtons();
+      }).catch(error => {
         console.warn("Could not play chorus bird", bird.common_name, error);
+        activeChorusPlayers = activeChorusPlayers.filter(player => player !== audio);
+
+        if (!activeChorusPlayers.length) {
+          setChorusPlaybackState(false);
+        }
+
+        syncChorusControlButtons();
+
         if (els.notice) {
           els.notice.textContent = "Some chorus audio could not start. Use the individual bird controls if needed.";
         }
@@ -1572,57 +1622,46 @@ function renderChorusMosaic(birds) {
 }
 
 function syncChorusControlButtons() {
-  const remixButton = document.getElementById("remixChorusSelection");
-  const playButton = document.getElementById("toggleChorusPlayback");
-  const candidates = typeof chorusCandidates === "function" ? chorusCandidates() : [];
-  const remixCandidates = typeof selectableChorusBirds === "function" ? selectableChorusBirds() : [];
-  const playing = activeChorusPlayers.length > 0;
-  const stale = typeof isChorusSelectionStale === "function" ? isChorusSelectionStale() : false;
+  const hasPlayableChorus = chorusCandidates().length > 0;
+  const isPlaying = Array.isArray(activeChorusPlayers) && activeChorusPlayers.some(audio => !audio.paused);
+  const isStale = isChorusSelectionStale();
 
-  if (remixButton) {
-    remixButton.disabled = remixCandidates.length === 0;
-    remixButton.classList.toggle("is-stale", stale);
-    remixButton.classList.toggle("is-active", stale);
-    remixButton.setAttribute("aria-pressed", stale ? "true" : "false");
-    remixButton.setAttribute(
-      "aria-label",
-      stale
-        ? "Remix is available because the current filters changed"
-        : "Refresh chorus selection"
-    );
+  if (els.remixChorusSelection) {
+    els.remixChorusSelection.disabled = !hasPlayableChorus;
+    els.remixChorusSelection.classList.toggle("is-stale", isStale);
+    els.remixChorusSelection.classList.toggle("is-active", isStale);
+    els.remixChorusSelection.setAttribute("aria-label", isStale ? "Remix available for the current place" : "Remix chorus selection");
   }
 
-  if (playButton) {
-    playButton.disabled = candidates.length === 0;
-    playButton.textContent = playing ? "■" : "▶";
-    playButton.classList.toggle("is-playing", playing);
-    playButton.setAttribute("aria-pressed", playing ? "true" : "false");
-    playButton.setAttribute("title", playing ? "Stop chorus" : "Play chorus");
-    playButton.setAttribute(
-      "aria-label",
-      playing ? "Stop selected chorus" : "Play selected chorus"
-    );
+  if (els.toggleChorusPlayback) {
+    els.toggleChorusPlayback.disabled = !hasPlayableChorus;
+    els.toggleChorusPlayback.classList.toggle("is-playing", isPlaying);
+    els.toggleChorusPlayback.dataset.state = isPlaying ? "stop" : "play";
+    els.toggleChorusPlayback.textContent = isPlaying ? "Stop" : "Play";
+    els.toggleChorusPlayback.setAttribute("aria-label", isPlaying ? "Stop chorus playback" : "Play chorus");
+    els.toggleChorusPlayback.setAttribute("title", isPlaying ? "Stop chorus playback" : "Play chorus");
   }
 }
+
 
 function installChorusControlButtons() {
   const remixButton = document.getElementById("remixChorusSelection");
   const playButton = document.getElementById("toggleChorusPlayback");
 
-  if (remixButton && remixButton.dataset.bound !== "true") {
+  if (remixButton) {
+    remixButton.onclick = remixChorusSelection;
     remixButton.dataset.bound = "true";
-    remixButton.addEventListener("click", remixChorusSelection);
   }
 
-  if (playButton && playButton.dataset.bound !== "true") {
-    playButton.dataset.bound = "true";
-    playButton.addEventListener("click", () => {
-      if (activeChorusPlayers.length) {
+  if (playButton) {
+    playButton.onclick = () => {
+      if (state.chorusIsPlaying) {
         stopChorusTogether();
       } else {
         playChorusTogether();
       }
-    });
+    };
+    playButton.dataset.bound = "true";
   }
 
   syncChorusControlButtons();

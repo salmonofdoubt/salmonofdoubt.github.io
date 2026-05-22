@@ -3639,60 +3639,13 @@ body.boie-advanced-open .chorus-actions {
 }
 
 .chorus-title-row #toggleChorusPlayback::before,
-.chorus-title-row #toggleChorusPlayback::after {
-  content: none !important;
-  display: none !important;
-}
+.chorus-title-row 
 
-.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
-  font-size: 0 !important;
-}
 
-.chorus-title-row #toggleChorusPlayback[aria-pressed="false"]::selection {
-  background: transparent !important;
-}
 
-.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
-  position: relative !important;
-}
 
-.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] span {
-  display: none !important;
-}
 
-.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
-  text-indent: -9999px !important;
-}
 
-.chorus-title-row #toggleChorusPlayback[aria-pressed="false"]::after {
-  content: "Play" !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: absolute !important;
-  inset: 0 !important;
-  text-indent: 0 !important;
-  font-size: 0.9rem !important;
-  font-weight: 950 !important;
-  line-height: 1 !important;
-}
-
-.chorus-title-row #toggleChorusPlayback[aria-pressed="true"] {
-  text-indent: -9999px !important;
-}
-
-.chorus-title-row #toggleChorusPlayback[aria-pressed="true"]::after {
-  content: "Stop" !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: absolute !important;
-  inset: 0 !important;
-  text-indent: 0 !important;
-  font-size: 0.9rem !important;
-  font-weight: 950 !important;
-  line-height: 1 !important;
-}
 
 .chorus-title-row #remixChorusSelection:hover,
 .chorus-title-row #remixChorusSelection:focus-visible,
@@ -3784,23 +3737,7 @@ body.boie-advanced-open .chorus-actions {
   display: none !important;
 }
 
-.chorus-title-row #toggleChorusPlayback::after {
-  content: "Play" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-indent: 0 !important;
-  font-size: 0.82rem !important;
-  font-weight: 950 !important;
-  line-height: 1 !important;
-}
-
-.chorus-title-row #toggleChorusPlayback[aria-pressed="true"]::after {
-  content: "Stop" !important;
-}
-
+.chorus-title-row 
 .chorus-title-row #remixChorusSelection:hover,
 .chorus-title-row #remixChorusSelection:focus-visible,
 .chorus-title-row #toggleChorusPlayback:hover,
@@ -3846,10 +3783,7 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.78rem !important;
   }
 
-  .chorus-title-row #toggleChorusPlayback::after {
-    font-size: 0.78rem !important;
-  }
-}
+  .chorus-title-row }
 
 
 /* Chorus remix available highlight */
@@ -3867,4 +3801,172 @@ body.boie-advanced-open .chorus-actions {
 /* Habitat context status refinement */
 .nearby-summary {
   min-height: 1.4em;
+}
+
+
+
+
+
+
+
+
+
+
+/* Chorus Play/Stop state only: no layout changes */
+.chorus-title-row #toggleChorusPlayback {
+  text-indent: 0 !important;
+  font-size: 0.92rem !important;
+  overflow: visible !important;
+  text-align: center !important;
+}
+
+.chorus-title-row #toggleChorusPlayback::before,
+.chorus-title-row #toggleChorusPlayback::after {
+  content: none !important;
+  display: none !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[data-state="play"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
+  background: linear-gradient(135deg, rgba(130, 255, 208, 0.95), rgba(82, 214, 255, 0.95)) !important;
+  color: #001315 !important;
+  border-color: rgba(127, 255, 223, 0.72) !important;
+}
+
+.chorus-title-row #toggleChorusPlayback.is-playing,
+.chorus-title-row #toggleChorusPlayback[data-state="stop"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(255, 112, 112, 0.98), rgba(205, 34, 48, 0.98)) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 180, 180, 0.82) !important;
+  box-shadow: 0 8px 20px rgba(205, 34, 48, 0.28) !important;
+}
+
+
+/* Chorus Play/Stop state only: do not move controls */
+.chorus-title-row #toggleChorusPlayback,
+.chorus-title-row #toggleChorusPlayback[aria-pressed],
+.chorus-title-row #toggleChorusPlayback[data-state] {
+  text-indent: 0 !important;
+  font-size: 0.92rem !important;
+  overflow: visible !important;
+  text-align: center !important;
+  color: #001315 !important;
+}
+
+.chorus-title-row #toggleChorusPlayback::before,
+.chorus-title-row #toggleChorusPlayback::after,
+.chorus-title-row #toggleChorusPlayback[aria-pressed]::before,
+.chorus-title-row #toggleChorusPlayback[aria-pressed]::after,
+.chorus-title-row #toggleChorusPlayback[data-state]::before,
+.chorus-title-row #toggleChorusPlayback[data-state]::after {
+  content: none !important;
+  display: none !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[data-state="play"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
+  background: linear-gradient(135deg, rgba(130, 255, 208, 0.95), rgba(82, 214, 255, 0.95)) !important;
+  color: #001315 !important;
+  border-color: rgba(127, 255, 223, 0.72) !important;
+}
+
+.chorus-title-row #toggleChorusPlayback.is-playing,
+.chorus-title-row #toggleChorusPlayback[data-state="stop"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(255, 112, 112, 0.98), rgba(205, 34, 48, 0.98)) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 180, 180, 0.82) !important;
+  box-shadow: 0 8px 20px rgba(205, 34, 48, 0.28) !important;
+}
+
+
+/* Chorus Play/Stop state only: no layout changes */
+.chorus-title-row #toggleChorusPlayback,
+.chorus-title-row #toggleChorusPlayback[aria-pressed],
+.chorus-title-row #toggleChorusPlayback[data-state] {
+  text-indent: 0 !important;
+  font-size: 0.92rem !important;
+  overflow: visible !important;
+  text-align: center !important;
+}
+
+.chorus-title-row #toggleChorusPlayback::before,
+.chorus-title-row #toggleChorusPlayback::after,
+.chorus-title-row #toggleChorusPlayback[aria-pressed]::before,
+.chorus-title-row #toggleChorusPlayback[aria-pressed]::after,
+.chorus-title-row #toggleChorusPlayback[data-state]::before,
+.chorus-title-row #toggleChorusPlayback[data-state]::after {
+  content: none !important;
+  display: none !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[data-state="play"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
+  background: linear-gradient(135deg, rgba(130, 255, 208, 0.95), rgba(82, 214, 255, 0.95)) !important;
+  color: #001315 !important;
+  border-color: rgba(127, 255, 223, 0.72) !important;
+}
+
+.chorus-title-row #toggleChorusPlayback.is-playing,
+.chorus-title-row #toggleChorusPlayback[data-state="stop"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(255, 112, 112, 0.98), rgba(205, 34, 48, 0.98)) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 180, 180, 0.82) !important;
+  box-shadow: 0 8px 20px rgba(205, 34, 48, 0.28) !important;
+}
+
+
+
+
+/* Chorus playback button: compact fixed Play/Stop size, no layout changes */
+.chorus-title-row #toggleChorusPlayback,
+.chorus-title-row #toggleChorusPlayback[data-state],
+.chorus-title-row #toggleChorusPlayback[aria-pressed] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 76px !important;
+  min-width: 76px !important;
+  max-width: 76px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  font-size: 0.84rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  text-indent: 0 !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+}
+
+.chorus-title-row #toggleChorusPlayback::before,
+.chorus-title-row #toggleChorusPlayback::after,
+.chorus-title-row #toggleChorusPlayback[data-state]::before,
+.chorus-title-row #toggleChorusPlayback[data-state]::after,
+.chorus-title-row #toggleChorusPlayback[aria-pressed]::before,
+.chorus-title-row #toggleChorusPlayback[aria-pressed]::after {
+  content: none !important;
+  display: none !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[data-state="play"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
+  background: linear-gradient(135deg, rgba(130, 255, 208, 0.95), rgba(82, 214, 255, 0.95)) !important;
+  color: #001315 !important;
+  border: 2px solid rgba(127, 255, 223, 0.72) !important;
+}
+
+.chorus-title-row #toggleChorusPlayback.is-playing,
+.chorus-title-row #toggleChorusPlayback[data-state="stop"],
+.chorus-title-row #toggleChorusPlayback[aria-pressed="true"] {
+  background: linear-gradient(135deg, rgba(255, 112, 112, 0.98), rgba(205, 34, 48, 0.98)) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(255, 180, 180, 0.82) !important;
+  box-shadow: 0 6px 16px rgba(205, 34, 48, 0.24) !important;
 }
