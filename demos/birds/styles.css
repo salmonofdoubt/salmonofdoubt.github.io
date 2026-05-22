@@ -3200,3 +3200,179 @@ body.boie-advanced-open .chorus-actions {
     padding-bottom: 76px;
   }
 }
+
+/* European Bird Radar recent observations */
+.recent-observations-panel {
+  margin-block: 1.2rem;
+}
+
+.recent-observations-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.recent-observations-status {
+  margin: 0;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(130, 255, 226, 0.25);
+  border-radius: 999px;
+  color: rgba(230, 255, 250, 0.84);
+  background: rgba(4, 24, 28, 0.72);
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.recent-observations-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-block: 1rem;
+}
+
+.recent-observations-stats article {
+  padding: 0.7rem;
+  border: 1px solid rgba(130, 255, 226, 0.18);
+  border-radius: 1rem;
+  background: rgba(0, 18, 24, 0.72);
+}
+
+.recent-observations-stats span {
+  display: block;
+  color: #78fff0;
+  font-size: 1.25rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.recent-observations-stats strong {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgba(230, 255, 250, 0.72);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.recent-observations-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.recent-observations-controls label {
+  display: grid;
+  gap: 0.3rem;
+  min-width: min(100%, 220px);
+}
+
+.recent-observations-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.recent-observation-card {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid rgba(130, 255, 226, 0.16);
+  border-radius: 1rem;
+  background: rgba(0, 12, 18, 0.78);
+  min-width: 0;
+}
+
+.recent-observation-card h3 {
+  margin: 0;
+  color: #f2fffb;
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.recent-observation-scientific {
+  margin: 0.2rem 0 0;
+  color: rgba(230, 255, 250, 0.62);
+  font-style: italic;
+  font-size: 0.82rem;
+}
+
+.recent-observation-card dl {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.recent-observation-card dl div {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.recent-observation-card dt {
+  color: rgba(255, 190, 95, 0.9);
+  font-size: 0.62rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.recent-observation-card dd {
+  margin: 0;
+  color: rgba(230, 255, 250, 0.78);
+  font-size: 0.82rem;
+}
+
+.recent-observation-focus {
+  justify-self: start;
+  border: 1px solid rgba(120, 255, 240, 0.32);
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  background: rgba(120, 255, 240, 0.12);
+  color: #eafffb;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.recent-observation-focus:hover,
+.recent-observation-focus:focus-visible {
+  background: #78fff0;
+  color: #001014;
+  outline: none;
+}
+
+.recent-observations-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0.9rem;
+  border: 1px dashed rgba(130, 255, 226, 0.24);
+  border-radius: 1rem;
+  color: rgba(230, 255, 250, 0.72);
+}
+
+@media (max-width: 900px) {
+  .recent-observations-header {
+    display: grid;
+  }
+
+  .recent-observations-status {
+    justify-self: start;
+    white-space: normal;
+  }
+
+  .recent-observations-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .recent-observations-stats,
+  .recent-observations-list {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-observations-controls label {
+    width: 100%;
+  }
+}

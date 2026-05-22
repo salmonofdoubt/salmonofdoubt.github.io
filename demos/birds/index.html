@@ -230,6 +230,47 @@
       Loading bird atlas…
     </section>
 
+
+    <section class="panel recent-observations-panel" id="recentObservationsPanel" aria-label="Recent European bird observations">
+      <header class="recent-observations-header">
+        <div>
+          <p class="eyebrow mini">European Bird Radar</p>
+          <h2>Recent observations</h2>
+          <p>
+            Latest eBird pilot-country observations, shown as a live context layer beside the sound atlas.
+            Use this as a freshness signal, not as a complete species record.
+          </p>
+        </div>
+        <p id="recentObservationsStatus" class="recent-observations-status">Loading recent observations…</p>
+      </header>
+
+      <div class="recent-observations-stats" aria-label="Recent observation summary">
+        <article>
+          <span id="recentObservationCount">–</span>
+          <strong>observations</strong>
+        </article>
+        <article>
+          <span id="recentObservationCountries">–</span>
+          <strong>countries</strong>
+        </article>
+        <article>
+          <span id="recentObservationUpdated">–</span>
+          <strong>updated</strong>
+        </article>
+      </div>
+
+      <div class="recent-observations-controls">
+        <label>
+          <span>Country</span>
+          <select id="recentCountryFilter">
+            <option value="all">All pilot countries</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="recentObservationsList" class="recent-observations-list" aria-live="polite"></div>
+    </section>
+
     <section class="chorus-panel" id="chorusPanel" aria-label="Likely chorus">
       <header>
         <div>
