@@ -3461,3 +3461,68 @@ body.boie-advanced-open .chorus-actions {
     min-height: 46px;
   }
 }
+
+
+/* Recent page thumbnails and sound-card links */
+.recent-observation-mainlink {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.recent-observation-mainlink strong,
+.recent-observation-mainlink em {
+  display: block;
+}
+
+.recent-observation-mainlink strong {
+  color: #f2fffb;
+  font-size: 1rem;
+  line-height: 1.12;
+}
+
+.recent-observation-mainlink em {
+  margin-top: 0.2rem;
+  color: rgba(230, 255, 250, 0.62);
+  font-size: 0.82rem;
+}
+
+.recent-observation-thumb {
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(120, 255, 240, 0.24);
+  border-radius: 0.8rem;
+  object-fit: cover;
+  background: rgba(120, 255, 240, 0.08);
+}
+
+.recent-observation-thumb--empty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(230, 255, 250, 0.78);
+  font-weight: 950;
+}
+
+.recent-observation-soundlink {
+  justify-self: start;
+  border: 1px solid rgba(120, 255, 240, 0.32);
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  background: rgba(120, 255, 240, 0.12);
+  color: #eafffb;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.recent-observation-soundlink:hover,
+.recent-observation-soundlink:focus-visible,
+.recent-observation-mainlink:hover strong,
+.recent-observation-mainlink:focus-visible strong {
+  color: #78fff0;
+  outline: none;
+}

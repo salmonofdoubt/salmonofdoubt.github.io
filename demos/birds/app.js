@@ -1316,6 +1316,15 @@ async function init() {
     initialiseHabitatButtons();
     bindDualSearchControls();
     installMobileMapToggle();
+
+    const params = new URLSearchParams(window.location.search);
+    const linkedBird = params.get("bird") || params.get("q");
+    if (linkedBird && els.searchUnified) {
+      els.searchUnified.value = linkedBird;
+      state.searchScope = "selected";
+      if (els.sound) els.sound.value = "all";
+    }
+
     render();
   } catch (error) {
     console.error(error);
