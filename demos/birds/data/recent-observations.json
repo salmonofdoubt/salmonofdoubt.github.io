@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-05-22T05:43:50.987693+00:00",
+  "generated_at": "2026-05-22T05:56:52.823071+00:00",
   "provider": "ebird",
-  "status": "missing_api_key",
+  "status": "warning",
   "coverage": {
     "countries": [
       "IE",
@@ -11,10 +11,15 @@
       "IT"
     ],
     "back_days": 7,
-    "max_results_per_country": 100
+    "max_results_per_country": 100,
+    "item_count": 0
   },
   "items": [],
   "warnings": [
-    "EBIRD_API_KEY is not set. Add it as a GitHub Actions repository secret before scheduled harvesting."
+    "IE: HTTP Error 403: Forbidden",
+    "GB: HTTP Error 403: Forbidden",
+    "FR: HTTP Error 403: Forbidden",
+    "DE: HTTP Error 403: Forbidden",
+    "IT: HTTP Error 403: Forbidden"
   ]
 }
