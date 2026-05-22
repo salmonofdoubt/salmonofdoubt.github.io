@@ -3377,51 +3377,45 @@ body.boie-advanced-open .chorus-actions {
   }
 }
 
-/* Recent observations moved to a dedicated page */
-.recent-observations-teaser {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
-  margin-block: 1rem;
+
+
+/* Recent observations: simple control-row link */
+.search-scope {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.recent-observations-teaser p {
-  max-width: 68ch;
-}
-
-.recent-observations-link {
+.search-scope .recent-scope-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
-  padding: 0.65rem 0.95rem;
-  border: 1px solid rgba(120, 255, 240, 0.34);
+  min-height: 44px;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(0, 220, 220, 0.42);
   border-radius: 999px;
-  background: rgba(120, 255, 240, 0.12);
-  color: #eafffb;
+  background: rgba(0, 20, 26, 0.78);
+  color: #f2fffb;
+  font-size: 0.95rem;
   font-weight: 950;
+  line-height: 1;
   text-decoration: none;
   white-space: nowrap;
 }
 
-.recent-observations-link:hover,
-.recent-observations-link:focus-visible {
-  background: #78fff0;
-  color: #001014;
+.search-scope .recent-scope-link:hover,
+.search-scope .recent-scope-link:focus-visible {
+  border-color: rgba(120, 255, 240, 0.72);
+  background: rgba(0, 38, 44, 0.92);
   outline: none;
 }
 
-.recent-hero {
-  margin-bottom: 1rem;
-}
-
-@media (max-width: 700px) {
-  .recent-observations-teaser {
-    display: grid;
+@media (max-width: 760px) {
+  .search-scope {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .recent-observations-link {
+  .search-scope .recent-scope-link {
+    grid-column: 1 / -1;
     width: 100%;
+    min-height: 46px;
   }
 }
