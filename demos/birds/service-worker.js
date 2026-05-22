@@ -1,4 +1,4 @@
-const CACHE_VERSION = "bird-radar-v29";
+const CACHE_VERSION = "bird-radar-v30";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 
