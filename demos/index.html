@@ -407,6 +407,80 @@
       line-height: 1.5;
     }
 
+
+
+    .creator-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      margin: 0 0 24px;
+      padding: clamp(18px, 3vw, 26px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(9, 18, 28, 0.90), rgba(6, 13, 21, 0.78)),
+        radial-gradient(circle at 92% 10%, rgba(79, 246, 255, 0.10), transparent 16rem);
+      box-shadow: 0 14px 46px rgba(0, 0, 0, 0.34);
+    }
+
+    .creator-strip h2 {
+      margin: 0;
+      font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+      letter-spacing: -0.04em;
+      color: var(--ink);
+    }
+
+    .creator-strip p:last-child {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 760px;
+    }
+
+    .creator-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .creator-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 0.82rem;
+      border-radius: 999px;
+      border: 1px solid rgba(79, 246, 255, 0.25);
+      background: rgba(79, 246, 255, 0.08);
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .creator-links a:hover {
+      border-color: rgba(79, 246, 255, 0.52);
+      box-shadow: var(--glow);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 760px) {
+      .creator-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .creator-links {
+        justify-content: flex-start;
+      }
+
+      .creator-links a {
+        flex: 1 1 auto;
+      }
+    }
+
     @media (max-width: 760px) {
       .controls,
       .panel-grid,
@@ -537,6 +611,23 @@
         A compact index of experimental tools and explainers. Each bar opens into one project at a time, so the page stays calm, browsable, and useful.
       </p>
     </header>
+
+
+    <section class="creator-strip" aria-label="Creator profile">
+      <div>
+        <p class="eyebrow">Creator profile</p>
+        <h2>Built by André Baumann / Salmon of Doubt</h2>
+        <p>
+          Public prototypes, data tools, and civic environmental experiments across water, climate, biodiversity,
+          energy, systems thinking, and open web publishing.
+        </p>
+      </div>
+      <div class="creator-links" aria-label="Creator links">
+        <a href="https://github.com/salmonofdoubt" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://me.developers.google.com/u/101029369499498837023" target="_blank" rel="noopener">Google Dev</a>
+        <a href="https://salmonofdoubt.github.io/" target="_blank" rel="noopener">Website</a>
+      </div>
+    </section>
 
     <section class="controls" aria-label="Demo filters">
       <input id="search" type="search" placeholder="Search demos by topic, tool, or keyword..." />
