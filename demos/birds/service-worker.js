@@ -1,4 +1,4 @@
-const CACHE_VERSION = "bird-radar-v22";
+const CACHE_VERSION = "bird-radar-v24";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 
@@ -11,7 +11,8 @@ const APP_SHELL = [
   "./recent.js",
   "./manifest.webmanifest",
   "./data/app-status.json",
-  "./data/validation.json"
+  "./data/validation.json",
+  "./data/habitat-zones.geojson"
 ];
 
 self.addEventListener("install", event => {

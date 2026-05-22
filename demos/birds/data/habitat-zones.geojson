@@ -1,0 +1,175 @@
+{
+  "type": "FeatureCollection",
+  "name": "European Bird Radar pilot habitat zones",
+  "description": "Lightweight pilot polygons for fast browser-side habitat context. These zones support map-click interpretation and fall back to distance heuristics where no zone matches.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "de-baltic-bodden",
+        "label": "German Baltic lagoon coast",
+        "country": "DE",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 90
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[12.00,53.62],[14.45,53.62],[14.45,54.82],[12.00,54.82],[12.00,53.62]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "de-north-sea-wadden",
+        "label": "German Wadden Sea coast",
+        "country": "DE",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 92
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[6.60,53.20],[9.30,53.20],[9.30,55.15],[6.60,55.15],[6.60,53.20]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "de-elbe-weser-ems",
+        "label": "German tidal river and estuary belt",
+        "country": "DE",
+        "habitats": ["estuary", "wetland", "river", "coast"],
+        "priority": 82
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[7.00,52.90],[10.20,52.90],[10.20,54.20],[7.00,54.20],[7.00,52.90]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "fr-camargue",
+        "label": "Camargue delta and Mediterranean wetlands",
+        "country": "FR",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 94
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[4.05,43.25],[5.05,43.25],[5.05,43.85],[4.05,43.85],[4.05,43.25]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "fr-atlantic-estuaries",
+        "label": "French Atlantic estuary coast",
+        "country": "FR",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 84
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-2.80,44.70],[-0.05,44.70],[-0.05,47.70],[-2.80,47.70],[-2.80,44.70]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "fr-channel-bays",
+        "label": "French Channel coast and bays",
+        "country": "FR",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 78
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-1.95,48.55],[2.05,48.55],[2.05,50.45],[-1.95,50.45],[-1.95,48.55]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "it-venice-lagoon",
+        "label": "Venetian Lagoon",
+        "country": "IT",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 96
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[11.95,45.15],[12.65,45.15],[12.65,45.65],[11.95,45.65],[11.95,45.15]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "it-po-delta",
+        "label": "Po Delta and Adriatic wetlands",
+        "country": "IT",
+        "habitats": ["coast", "wetland", "estuary", "river"],
+        "priority": 95
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[11.75,44.45],[12.70,44.45],[12.70,45.10],[11.75,45.10],[11.75,44.45]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ie-east-coast-estuaries",
+        "label": "Irish east-coast estuary belt",
+        "country": "IE",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 86
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-6.65,52.95],[-5.85,52.95],[-5.85,54.10],[-6.65,54.10],[-6.65,52.95]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ie-west-atlantic-coast",
+        "label": "Irish Atlantic coast",
+        "country": "IE",
+        "habitats": ["coast", "wetland"],
+        "priority": 76
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-10.40,51.35],[-8.35,51.35],[-8.35,55.45],[-10.40,55.45],[-10.40,51.35]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "gb-wash-norfolk",
+        "label": "The Wash and Norfolk coast",
+        "country": "GB",
+        "habitats": ["coast", "wetland", "estuary"],
+        "priority": 88
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-0.05,52.45],[1.35,52.45],[1.35,53.15],[-0.05,53.15],[-0.05,52.45]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "gb-thames-estuary",
+        "label": "Thames Estuary",
+        "country": "GB",
+        "habitats": ["estuary", "wetland", "coast", "urban"],
+        "priority": 88
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-0.20,51.25],[1.15,51.25],[1.15,51.75],[-0.20,51.75],[-0.20,51.25]]]
+      }
+    }
+  ]
+}

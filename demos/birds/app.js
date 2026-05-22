@@ -5,7 +5,8 @@ const state = {
   map: null,
   marker: null,
   location: null,
-  habitats: new Set()
+  habitats: new Set(),
+  habitatZones: []
 };
 
 const els = {
@@ -59,45 +60,253 @@ const HABITAT_PRESETS = {
   bog: ["bog", "farmland", "wide"]
 };
 
-const IRELAND_CENTRE = { lat: 53.35, lng: -7.7 };
+const EUROPE_PILOT_CENTRE = { lat: 50.8, lng: 7.2 };
 
 const COAST_POINTS = [
-  { name: "Donegal", lat: 55.15, lng: -8.13 },
-  { name: "Sligo", lat: 54.27, lng: -8.48 },
-  { name: "Mayo", lat: 53.80, lng: -9.52 },
-  { name: "Galway Bay", lat: 53.25, lng: -9.10 },
-  { name: "Shannon Estuary", lat: 52.62, lng: -9.23 },
-  { name: "Kerry", lat: 52.15, lng: -9.90 },
-  { name: "Cork Harbour", lat: 51.85, lng: -8.30 },
-  { name: "Waterford", lat: 52.15, lng: -7.05 },
-  { name: "Wexford", lat: 52.34, lng: -6.46 },
-  { name: "Wicklow", lat: 52.98, lng: -6.04 },
-  { name: "Dublin Bay", lat: 53.33, lng: -6.10 },
-  { name: "Dundalk Bay", lat: 54.00, lng: -6.25 }
+  // Ireland
+  { name: "Donegal", country: "IE", lat: 55.15, lng: -8.13 },
+  { name: "Sligo", country: "IE", lat: 54.27, lng: -8.48 },
+  { name: "Galway Bay", country: "IE", lat: 53.25, lng: -9.10 },
+  { name: "Shannon Estuary", country: "IE", lat: 52.62, lng: -9.23 },
+  { name: "Cork Harbour", country: "IE", lat: 51.85, lng: -8.30 },
+  { name: "Dublin Bay", country: "IE", lat: 53.33, lng: -6.10 },
+
+  // United Kingdom
+  { name: "Cornwall", country: "GB", lat: 50.26, lng: -5.05 },
+  { name: "Dorset Coast", country: "GB", lat: 50.63, lng: -2.45 },
+  { name: "Norfolk Coast", country: "GB", lat: 52.94, lng: 0.85 },
+  { name: "Humber", country: "GB", lat: 53.70, lng: -0.20 },
+  { name: "Northumberland", country: "GB", lat: 55.45, lng: -1.60 },
+  { name: "Firth of Forth", country: "GB", lat: 56.02, lng: -3.20 },
+
+  // France
+  { name: "Brittany", country: "FR", lat: 48.39, lng: -4.49 },
+  { name: "Normandy", country: "FR", lat: 49.36, lng: -0.86 },
+  { name: "Bay of Biscay", country: "FR", lat: 46.16, lng: -1.20 },
+  { name: "Camargue", country: "FR", lat: 43.50, lng: 4.50 },
+  { name: "Côte d'Azur", country: "FR", lat: 43.55, lng: 7.02 },
+
+  // Germany
+  { name: "North Sea Coast", country: "DE", lat: 53.70, lng: 7.75 },
+  { name: "Wadden Sea", country: "DE", lat: 54.40, lng: 8.65 },
+  { name: "Hamburg / Elbe", country: "DE", lat: 53.55, lng: 9.99 },
+  { name: "Baltic Coast", country: "DE", lat: 54.32, lng: 10.14 },
+  { name: "Rügen", country: "DE", lat: 54.45, lng: 13.40 },
+
+  // Italy
+  { name: "Venetian Lagoon", country: "IT", lat: 45.44, lng: 12.33 },
+  { name: "Po Delta", country: "IT", lat: 44.87, lng: 12.25 },
+  { name: "Liguria", country: "IT", lat: 44.30, lng: 8.48 },
+  { name: "Tyrrhenian Coast", country: "IT", lat: 41.90, lng: 12.45 },
+  { name: "Adriatic Coast", country: "IT", lat: 43.62, lng: 13.51 },
+  { name: "Sicily", country: "IT", lat: 37.50, lng: 15.09 },
+  { name: "Vorpommersche Boddenlandschaft", country: "DE", lat: 54.43, lng: 12.86 },
+  { name: "Darß-Zingst", country: "DE", lat: 54.43, lng: 12.65 },
+  { name: "Greifswald Lagoon", country: "DE", lat: 54.15, lng: 13.45 },
+  { name: "Usedom", country: "DE", lat: 53.95, lng: 14.1 },
+  { name: "Schleswig-Holstein Wadden Sea", country: "DE", lat: 54.55, lng: 8.65 },
+  { name: "Lower Saxony Wadden Sea", country: "DE", lat: 53.72, lng: 7.65 },
 ];
 
 const ESTUARY_POINTS = [
-  { name: "Baldoyle/Malahide", lat: 53.45, lng: -6.15 },
-  { name: "Dublin Bay", lat: 53.32, lng: -6.13 },
-  { name: "Rogerstown", lat: 53.52, lng: -6.12 },
-  { name: "Boyne", lat: 53.72, lng: -6.25 },
-  { name: "Dundalk Bay", lat: 54.00, lng: -6.25 },
-  { name: "Wexford Harbour", lat: 52.34, lng: -6.45 },
-  { name: "Cork Harbour", lat: 51.85, lng: -8.30 },
-  { name: "Shannon Estuary", lat: 52.62, lng: -9.23 },
-  { name: "Galway Bay", lat: 53.25, lng: -9.10 }
+  // Ireland
+  { name: "Baldoyle/Malahide", country: "IE", lat: 53.45, lng: -6.15 },
+  { name: "Dublin Bay", country: "IE", lat: 53.32, lng: -6.13 },
+  { name: "Rogerstown", country: "IE", lat: 53.52, lng: -6.12 },
+  { name: "Boyne", country: "IE", lat: 53.72, lng: -6.25 },
+  { name: "Shannon Estuary", country: "IE", lat: 52.62, lng: -9.23 },
+
+  // United Kingdom
+  { name: "Thames Estuary", country: "GB", lat: 51.50, lng: 0.60 },
+  { name: "Humber Estuary", country: "GB", lat: 53.70, lng: -0.20 },
+  { name: "Severn Estuary", country: "GB", lat: 51.55, lng: -2.85 },
+  { name: "Mersey Estuary", country: "GB", lat: 53.35, lng: -2.95 },
+  { name: "Wash", country: "GB", lat: 52.90, lng: 0.25 },
+
+  // France
+  { name: "Seine Estuary", country: "FR", lat: 49.45, lng: 0.15 },
+  { name: "Loire Estuary", country: "FR", lat: 47.28, lng: -2.18 },
+  { name: "Gironde Estuary", country: "FR", lat: 45.50, lng: -0.75 },
+  { name: "Somme Bay", country: "FR", lat: 50.22, lng: 1.60 },
+  { name: "Camargue / Rhône Delta", country: "FR", lat: 43.52, lng: 4.57 },
+
+  // Germany
+  { name: "Elbe Estuary", country: "DE", lat: 53.90, lng: 8.90 },
+  { name: "Weser Estuary", country: "DE", lat: 53.55, lng: 8.55 },
+  { name: "Ems Estuary", country: "DE", lat: 53.35, lng: 7.20 },
+  { name: "Wadden Sea", country: "DE", lat: 54.20, lng: 8.80 },
+  { name: "Oder Lagoon", country: "DE", lat: 53.85, lng: 14.15 },
+
+  // Italy
+  { name: "Venetian Lagoon", country: "IT", lat: 45.44, lng: 12.33 },
+  { name: "Po Delta", country: "IT", lat: 44.87, lng: 12.25 },
+  { name: "Comacchio Lagoons", country: "IT", lat: 44.65, lng: 12.18 },
+  { name: "Orbetello Lagoon", country: "IT", lat: 42.44, lng: 11.23 }
+];
+
+const WETLAND_POINTS = [
+  { name: "Vorpommersche Boddenlandschaft", country: "DE", lat: 54.43, lng: 12.86 },
+  { name: "Darß-Zingst Lagoon", country: "DE", lat: 54.42, lng: 12.72 },
+  { name: "Greifswald Lagoon", country: "DE", lat: 54.15, lng: 13.45 },
+  { name: "Oder Lagoon", country: "DE", lat: 53.85, lng: 14.15 },
+  { name: "Schleswig-Holstein Wadden Sea", country: "DE", lat: 54.55, lng: 8.65 },
+  { name: "Lower Saxony Wadden Sea", country: "DE", lat: 53.72, lng: 7.65 },
+  { name: "Camargue", country: "FR", lat: 43.52, lng: 4.57 },
+  { name: "Somme Bay", country: "FR", lat: 50.22, lng: 1.60 },
+  { name: "Loire Estuary Wetlands", country: "FR", lat: 47.28, lng: -2.18 },
+  { name: "Venetian Lagoon", country: "IT", lat: 45.44, lng: 12.33 },
+  { name: "Po Delta", country: "IT", lat: 44.87, lng: 12.25 },
+  { name: "Comacchio Lagoons", country: "IT", lat: 44.65, lng: 12.18 },
+  { name: "Dublin Bay", country: "IE", lat: 53.32, lng: -6.13 },
+  { name: "Shannon Estuary", country: "IE", lat: 52.62, lng: -9.23 },
+  { name: "The Wash", country: "GB", lat: 52.90, lng: 0.25 },
+  { name: "Thames Estuary", country: "GB", lat: 51.50, lng: 0.60 }
 ];
 
 const CITY_POINTS = [
-  { name: "Dublin", lat: 53.35, lng: -6.26 },
-  { name: "Cork", lat: 51.90, lng: -8.47 },
-  { name: "Galway", lat: 53.27, lng: -9.06 },
-  { name: "Limerick", lat: 52.66, lng: -8.63 },
-  { name: "Waterford", lat: 52.26, lng: -7.11 },
-  { name: "Drogheda", lat: 53.72, lng: -6.35 },
-  { name: "Dundalk", lat: 54.00, lng: -6.40 },
-  { name: "Sligo", lat: 54.27, lng: -8.47 }
+  // Ireland
+  { name: "Dublin", country: "IE", lat: 53.35, lng: -6.26 },
+  { name: "Cork", country: "IE", lat: 51.90, lng: -8.47 },
+  { name: "Galway", country: "IE", lat: 53.27, lng: -9.06 },
+  { name: "Limerick", country: "IE", lat: 52.66, lng: -8.63 },
+  { name: "Sligo", country: "IE", lat: 54.27, lng: -8.47 },
+
+  // United Kingdom
+  { name: "London", country: "GB", lat: 51.51, lng: -0.13 },
+  { name: "Birmingham", country: "GB", lat: 52.49, lng: -1.89 },
+  { name: "Manchester", country: "GB", lat: 53.48, lng: -2.24 },
+  { name: "Edinburgh", country: "GB", lat: 55.95, lng: -3.19 },
+  { name: "Cardiff", country: "GB", lat: 51.48, lng: -3.18 },
+
+  // France
+  { name: "Paris", country: "FR", lat: 48.86, lng: 2.35 },
+  { name: "Lyon", country: "FR", lat: 45.76, lng: 4.84 },
+  { name: "Marseille", country: "FR", lat: 43.30, lng: 5.37 },
+  { name: "Nantes", country: "FR", lat: 47.22, lng: -1.55 },
+  { name: "Bordeaux", country: "FR", lat: 44.84, lng: -0.58 },
+
+  // Germany
+  { name: "Berlin", country: "DE", lat: 52.52, lng: 13.40 },
+  { name: "Hamburg", country: "DE", lat: 53.55, lng: 9.99 },
+  { name: "Munich", country: "DE", lat: 48.14, lng: 11.58 },
+  { name: "Cologne", country: "DE", lat: 50.94, lng: 6.96 },
+  { name: "Frankfurt", country: "DE", lat: 50.11, lng: 8.68 },
+  { name: "Leipzig", country: "DE", lat: 51.34, lng: 12.37 },
+
+  // Italy
+  { name: "Rome", country: "IT", lat: 41.90, lng: 12.50 },
+  { name: "Milan", country: "IT", lat: 45.46, lng: 9.19 },
+  { name: "Venice", country: "IT", lat: 45.44, lng: 12.33 },
+  { name: "Turin", country: "IT", lat: 45.07, lng: 7.69 },
+  { name: "Naples", country: "IT", lat: 40.85, lng: 14.27 },
+  { name: "Trieste", country: "IT", lat: 45.65, lng: 13.77 }
 ];
+
+const EUROPE_URBAN_POINTS = [
+  // Germany: broader city coverage for inland urban clicks
+  { name: "Berlin", country: "DE", lat: 52.52, lng: 13.40 },
+  { name: "Hamburg", country: "DE", lat: 53.55, lng: 9.99 },
+  { name: "Munich", country: "DE", lat: 48.14, lng: 11.58 },
+  { name: "Cologne", country: "DE", lat: 50.94, lng: 6.96 },
+  { name: "Frankfurt", country: "DE", lat: 50.11, lng: 8.68 },
+  { name: "Stuttgart", country: "DE", lat: 48.78, lng: 9.18 },
+  { name: "Düsseldorf", country: "DE", lat: 51.23, lng: 6.77 },
+  { name: "Dortmund", country: "DE", lat: 51.51, lng: 7.47 },
+  { name: "Essen", country: "DE", lat: 51.46, lng: 7.01 },
+  { name: "Leipzig", country: "DE", lat: 51.34, lng: 12.37 },
+  { name: "Bremen", country: "DE", lat: 53.08, lng: 8.80 },
+  { name: "Dresden", country: "DE", lat: 51.05, lng: 13.74 },
+  { name: "Hanover", country: "DE", lat: 52.37, lng: 9.73 },
+  { name: "Nuremberg", country: "DE", lat: 49.45, lng: 11.08 },
+  { name: "Duisburg", country: "DE", lat: 51.43, lng: 6.76 },
+  { name: "Bochum", country: "DE", lat: 51.48, lng: 7.22 },
+  { name: "Wuppertal", country: "DE", lat: 51.26, lng: 7.15 },
+  { name: "Bielefeld", country: "DE", lat: 52.03, lng: 8.53 },
+  { name: "Bonn", country: "DE", lat: 50.74, lng: 7.10 },
+  { name: "Münster", country: "DE", lat: 51.96, lng: 7.63 },
+  { name: "Karlsruhe", country: "DE", lat: 49.01, lng: 8.40 },
+  { name: "Mannheim", country: "DE", lat: 49.49, lng: 8.47 },
+  { name: "Augsburg", country: "DE", lat: 48.37, lng: 10.90 },
+  { name: "Wiesbaden", country: "DE", lat: 50.08, lng: 8.24 },
+  { name: "Gelsenkirchen", country: "DE", lat: 51.52, lng: 7.09 },
+  { name: "Mönchengladbach", country: "DE", lat: 51.18, lng: 6.44 },
+  { name: "Braunschweig", country: "DE", lat: 52.27, lng: 10.52 },
+  { name: "Chemnitz", country: "DE", lat: 50.83, lng: 12.92 },
+  { name: "Kiel", country: "DE", lat: 54.32, lng: 10.14 },
+  { name: "Aachen", country: "DE", lat: 50.78, lng: 6.08 },
+  { name: "Halle", country: "DE", lat: 51.48, lng: 11.97 },
+  { name: "Magdeburg", country: "DE", lat: 52.12, lng: 11.63 },
+  { name: "Freiburg", country: "DE", lat: 47.99, lng: 7.85 },
+  { name: "Krefeld", country: "DE", lat: 51.34, lng: 6.57 },
+  { name: "Lübeck", country: "DE", lat: 53.87, lng: 10.69 },
+  { name: "Oberhausen", country: "DE", lat: 51.50, lng: 6.85 },
+  { name: "Erfurt", country: "DE", lat: 50.98, lng: 11.03 },
+  { name: "Mainz", country: "DE", lat: 50.00, lng: 8.27 },
+  { name: "Rostock", country: "DE", lat: 54.09, lng: 12.10 },
+  { name: "Kassel", country: "DE", lat: 51.31, lng: 9.49 },
+  { name: "Potsdam", country: "DE", lat: 52.39, lng: 13.06 },
+  { name: "Saarbrücken", country: "DE", lat: 49.24, lng: 6.99 },
+  { name: "Oldenburg", country: "DE", lat: 53.14, lng: 8.21 },
+  { name: "Osnabrück", country: "DE", lat: 52.28, lng: 8.05 },
+  { name: "Heidelberg", country: "DE", lat: 49.40, lng: 8.67 },
+  { name: "Darmstadt", country: "DE", lat: 49.87, lng: 8.65 },
+  { name: "Regensburg", country: "DE", lat: 49.01, lng: 12.10 },
+  { name: "Ingolstadt", country: "DE", lat: 48.77, lng: 11.43 },
+  { name: "Würzburg", country: "DE", lat: 49.79, lng: 9.95 },
+  { name: "Ulm", country: "DE", lat: 48.40, lng: 9.99 },
+  { name: "Göttingen", country: "DE", lat: 51.54, lng: 9.93 },
+  { name: "Trier", country: "DE", lat: 49.75, lng: 6.64 },
+  { name: "Jena", country: "DE", lat: 50.93, lng: 11.59 },
+  { name: "Erlangen", country: "DE", lat: 49.59, lng: 11.00 },
+
+  // Existing pilot countries: useful urban anchors
+  { name: "London", country: "GB", lat: 51.51, lng: -0.13 },
+  { name: "Birmingham", country: "GB", lat: 52.49, lng: -1.89 },
+  { name: "Manchester", country: "GB", lat: 53.48, lng: -2.24 },
+  { name: "Edinburgh", country: "GB", lat: 55.95, lng: -3.19 },
+  { name: "Paris", country: "FR", lat: 48.86, lng: 2.35 },
+  { name: "Lyon", country: "FR", lat: 45.76, lng: 4.84 },
+  { name: "Marseille", country: "FR", lat: 43.30, lng: 5.37 },
+  { name: "Nantes", country: "FR", lat: 47.22, lng: -1.55 },
+  { name: "Bordeaux", country: "FR", lat: 44.84, lng: -0.58 },
+  { name: "Rome", country: "IT", lat: 41.90, lng: 12.50 },
+  { name: "Milan", country: "IT", lat: 45.46, lng: 9.19 },
+  { name: "Venice", country: "IT", lat: 45.44, lng: 12.33 },
+  { name: "Turin", country: "IT", lat: 45.07, lng: 7.69 },
+  { name: "Naples", country: "IT", lat: 40.85, lng: 14.27 },
+  { name: "Trieste", country: "IT", lat: 45.65, lng: 13.77 },
+  { name: "Dublin", country: "IE", lat: 53.35, lng: -6.26 },
+  { name: "Cork", country: "IE", lat: 51.90, lng: -8.47 },
+  { name: "Galway", country: "IE", lat: 53.27, lng: -9.06 }
+];
+
+const RIVER_POINTS = [
+  // Germany
+  { name: "Danube at Ulm", country: "DE", lat: 48.40, lng: 9.99 },
+  { name: "Danube at Regensburg", country: "DE", lat: 49.01, lng: 12.10 },
+  { name: "Isar at Munich", country: "DE", lat: 48.14, lng: 11.58 },
+  { name: "Rhine at Cologne", country: "DE", lat: 50.94, lng: 6.96 },
+  { name: "Rhine at Düsseldorf", country: "DE", lat: 51.23, lng: 6.77 },
+  { name: "Rhine at Mainz", country: "DE", lat: 50.00, lng: 8.27 },
+  { name: "Rhine at Mannheim", country: "DE", lat: 49.49, lng: 8.47 },
+  { name: "Main at Frankfurt", country: "DE", lat: 50.11, lng: 8.68 },
+  { name: "Main at Würzburg", country: "DE", lat: 49.79, lng: 9.95 },
+  { name: "Elbe at Dresden", country: "DE", lat: 51.05, lng: 13.74 },
+  { name: "Elbe at Hamburg", country: "DE", lat: 53.55, lng: 9.99 },
+  { name: "Spree at Berlin", country: "DE", lat: 52.52, lng: 13.40 },
+  { name: "Neckar at Stuttgart", country: "DE", lat: 48.78, lng: 9.18 },
+  { name: "Leine at Hanover", country: "DE", lat: 52.37, lng: 9.73 },
+  { name: "Weser at Bremen", country: "DE", lat: 53.08, lng: 8.80 },
+
+  // Other pilot anchors
+  { name: "Thames at London", country: "GB", lat: 51.51, lng: -0.13 },
+  { name: "Seine at Paris", country: "FR", lat: 48.86, lng: 2.35 },
+  { name: "Rhône at Lyon", country: "FR", lat: 45.76, lng: 4.84 },
+  { name: "Tiber at Rome", country: "IT", lat: 41.90, lng: 12.50 },
+  { name: "Po at Turin", country: "IT", lat: 45.07, lng: 7.69 },
+  { name: "Liffey at Dublin", country: "IE", lat: 53.35, lng: -6.26 }
+];
+
 
 function hasAudio(bird) {
   return Boolean(bird.audio && bird.audio.file);
@@ -235,21 +444,123 @@ function nearestDistanceKm(location, points) {
   return Math.min(...points.map(point => distanceKm(location, point)));
 }
 
+function pointInHabitatRing(location, ring) {
+  const x = location.lng;
+  const y = location.lat;
+  let inside = false;
+  let j = ring.length - 1;
+
+  for (let i = 0; i < ring.length; i += 1) {
+    const xi = Number(ring[i][0]);
+    const yi = Number(ring[i][1]);
+    const xj = Number(ring[j][0]);
+    const yj = Number(ring[j][1]);
+
+    const intersects = ((yi > y) !== (yj > y)) &&
+      (x < ((xj - xi) * (y - yi)) / ((yj - yi) || 1e-12) + xi);
+
+    if (intersects) inside = !inside;
+    j = i;
+  }
+
+  return inside;
+}
+
+function pointInHabitatFeature(location, feature) {
+  const geometry = feature?.geometry || {};
+  const coordinates = geometry.coordinates || [];
+
+  if (geometry.type === "Polygon") {
+    return coordinates.some(ring => pointInHabitatRing(location, ring));
+  }
+
+  if (geometry.type === "MultiPolygon") {
+    return coordinates.some(polygon =>
+      polygon.some(ring => pointInHabitatRing(location, ring))
+    );
+  }
+
+  return false;
+}
+
+function habitatZonesForLocation(location) {
+  if (!location || !Array.isArray(state.habitatZones)) return [];
+
+  return state.habitatZones
+    .filter(feature => pointInHabitatFeature(location, feature))
+    .sort((a, b) => Number(b.properties?.priority || 0) - Number(a.properties?.priority || 0));
+}
+
+function habitatZoneSetForLocation(location) {
+  const habitats = new Set();
+
+  habitatZonesForLocation(location).forEach(feature => {
+    (feature.properties?.habitats || []).forEach(habitat => habitats.add(habitat));
+  });
+
+  return habitats;
+}
+
+function habitatZoneLabelForLocation(location) {
+  const zones = habitatZonesForLocation(location);
+  return zones[0]?.properties?.label || "";
+}
+
+async function loadHabitatZones() {
+  try {
+    const response = await fetch("./data/habitat-zones.geojson", { cache: "force-cache" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const payload = await response.json();
+    state.habitatZones = Array.isArray(payload.features) ? payload.features : [];
+  } catch (error) {
+    console.warn("Could not load habitat zones; falling back to distance heuristics", error);
+    state.habitatZones = [];
+  }
+}
+
 function locationProfile(location) {
   const radius = Number(els.radius?.value || 10);
   const coastDistance = nearestDistanceKm(location, COAST_POINTS);
   const estuaryDistance = nearestDistanceKm(location, ESTUARY_POINTS);
-  const cityDistance = nearestDistanceKm(location, CITY_POINTS);
+  const wetlandDistance = nearestDistanceKm(
+    location,
+    typeof WETLAND_POINTS !== "undefined" ? WETLAND_POINTS : []
+  );
+  const cityDistance = nearestDistanceKm(location, [
+    ...CITY_POINTS,
+    ...(typeof EUROPE_URBAN_POINTS !== "undefined" ? EUROPE_URBAN_POINTS : [])
+  ]);
+  const riverDistance = nearestDistanceKm(
+    location,
+    typeof RIVER_POINTS !== "undefined" ? RIVER_POINTS : []
+  );
+  const zoneHabitats = typeof habitatZoneSetForLocation === "function"
+    ? habitatZoneSetForLocation(location)
+    : new Set();
+
+  const coastalThreshold = Math.max(32, radius * 1.4);
+  const nearCoastalThreshold = Math.max(55, radius * 2.0);
+  const estuaryThreshold = Math.max(28, radius * 1.3);
+  const wetlandThreshold = Math.max(30, radius * 1.3);
+  const urbanThreshold = Math.max(16, radius * 1.4);
+  const riverThreshold = Math.max(12, radius * 1.1);
 
   return {
     coastDistance,
     estuaryDistance,
+    wetlandDistance,
     cityDistance,
-    coastal: coastDistance <= Math.max(10, radius * 0.7),
-    nearCoastal: coastDistance <= Math.max(22, radius),
-    estuary: estuaryDistance <= Math.max(10, radius * 0.65),
-    urban: cityDistance <= Math.max(8, radius * 0.45),
-    inland: coastDistance > Math.max(25, radius)
+    riverDistance,
+    zoneLabel: typeof habitatZoneLabelForLocation === "function" ? habitatZoneLabelForLocation(location) : "",
+    zoneHabitats: [...zoneHabitats],
+    coastal: zoneHabitats.has("coast") || coastDistance <= coastalThreshold,
+    nearCoastal: zoneHabitats.has("coast") || coastDistance <= nearCoastalThreshold,
+    estuary: zoneHabitats.has("estuary") || estuaryDistance <= estuaryThreshold,
+    wetland: zoneHabitats.has("wetland") || wetlandDistance <= wetlandThreshold,
+    urban: zoneHabitats.has("urban") || cityDistance <= urbanThreshold,
+    river: zoneHabitats.has("river") || riverDistance <= riverThreshold,
+    inland: !zoneHabitats.has("coast") && coastDistance > nearCoastalThreshold
   };
 }
 
@@ -264,21 +575,47 @@ function autoHabitatsFromLocation(location) {
   }
 
   const profile = locationProfile(location);
-  habitats.add("garden");
-  habitats.add("farmland");
-  habitats.add("river");
 
-  if (profile.urban) habitats.add("urban");
-  else habitats.add("woodland");
+  profile.zoneHabitats.forEach(habitat => habitats.add(habitat));
 
-  if (profile.coastal || profile.nearCoastal) habitats.add("coast");
+  if (profile.urban) {
+    habitats.add("urban");
+    habitats.add("garden");
+    habitats.add("woodland");
+  } else {
+    habitats.add("woodland");
+    habitats.add("farmland");
+  }
+
+  if (profile.river) {
+    habitats.add("river");
+  }
+
+  if (profile.coastal || profile.nearCoastal) {
+    habitats.add("coast");
+  }
+
   if (profile.estuary) {
     habitats.add("estuary");
     habitats.add("wetland");
+    habitats.add("coast");
   }
-  if (profile.inland) {
+
+  if (profile.wetland) {
+    habitats.add("wetland");
+  }
+
+  // If nothing specific was detected, keep a practical inland listening mix.
+  if (
+    !profile.urban &&
+    !profile.river &&
+    !profile.coastal &&
+    !profile.nearCoastal &&
+    !profile.estuary &&
+    !profile.wetland
+  ) {
+    habitats.add("farmland");
     habitats.add("woodland");
-    habitats.add("bog");
   }
 
   return habitats;
@@ -1157,13 +1494,17 @@ function compactHabitatLabel() {
 }
 
 function compactPlaceLabel() {
-  if (!state.location) return "Ireland-wide";
+  if (!state.location) return "Europe pilot";
 
   const profile = locationProfile(state.location);
+  if (profile.zoneLabel) return profile.zoneLabel;
   if (profile.estuary) return "Estuary";
+  if (profile.wetland && (profile.coastal || profile.nearCoastal)) return "Coastal wetland";
   if (profile.coastal) return "Coast";
   if (profile.nearCoastal) return "Near coast";
-  if (profile.urban) return "Urban";
+  if (profile.urban && profile.river) return "Urban river corridor";
+  if (profile.urban) return "Urban / garden";
+  if (profile.river) return "River corridor";
   return "Inland";
 }
 
@@ -1267,7 +1608,7 @@ function initialiseMonth() {
 function initialiseMap() {
   if (!els.map || !window.L) return;
 
-  state.map = L.map(els.map, { scrollWheelZoom: false }).setView([IRELAND_CENTRE.lat, IRELAND_CENTRE.lng], 6);
+  state.map = L.map(els.map, { scrollWheelZoom: false }).setView([EUROPE_PILOT_CENTRE.lat, EUROPE_PILOT_CENTRE.lng], 5);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 18,
@@ -1536,6 +1877,7 @@ async function init() {
 
     const payload = await response.json();
     state.birds = Array.isArray(payload.birds) ? payload.birds : [];
+    await loadHabitatZones();
 
     updateStats(payload);
     initialiseMonth();
