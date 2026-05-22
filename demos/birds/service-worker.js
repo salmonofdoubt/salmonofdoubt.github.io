@@ -1,4 +1,4 @@
-const CACHE_VERSION = "bird-radar-v1";
+const CACHE_VERSION = "bird-radar-v4";
 const APP_SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const DATA_CACHE = `${CACHE_VERSION}-data`;
 
@@ -7,6 +7,8 @@ const APP_SHELL = [
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./recent.html",
+  "./recent.js",
   "./manifest.webmanifest",
   "./data/app-status.json",
   "./data/validation.json"

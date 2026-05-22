@@ -3376,3 +3376,52 @@ body.boie-advanced-open .chorus-actions {
     width: 100%;
   }
 }
+
+/* Recent observations moved to a dedicated page */
+.recent-observations-teaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-block: 1rem;
+}
+
+.recent-observations-teaser p {
+  max-width: 68ch;
+}
+
+.recent-observations-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0.65rem 0.95rem;
+  border: 1px solid rgba(120, 255, 240, 0.34);
+  border-radius: 999px;
+  background: rgba(120, 255, 240, 0.12);
+  color: #eafffb;
+  font-weight: 950;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.recent-observations-link:hover,
+.recent-observations-link:focus-visible {
+  background: #78fff0;
+  color: #001014;
+  outline: none;
+}
+
+.recent-hero {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 700px) {
+  .recent-observations-teaser {
+    display: grid;
+  }
+
+  .recent-observations-link {
+    width: 100%;
+  }
+}
