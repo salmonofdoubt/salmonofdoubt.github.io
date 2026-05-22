@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bird Sound Atlas · Ireland</title>
-  <meta name="description" content="An Ireland-first public bird sound atlas with representative sounds, images, location-aware cards, and attribution." />
+  <title>European Bird Radar</title>
+  <meta name="description" content="A mobile-first European bird radar combining public bird sounds, images, recent observations, and habitat-aware local listening decks." />
   <link rel="stylesheet" href="./styles.css?v=support-menu-hard-box-1779363258" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
@@ -22,22 +22,22 @@
   <main class="shell">
     <nav class="topnav" aria-label="Demo navigation">
       <a href="/demos/">← Back to demos</a>
-      <a href="https://github.com/salmonofdoubt/bird-sound-atlas" target="_blank" rel="noopener">Source</a>
-      <a href="https://github.com/salmonofdoubt/bird-sound-atlas/blob/main/README.md" target="_blank" rel="noopener">README</a>
+      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/birds" target="_blank" rel="noopener">Source</a>
+      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/blob/master/demos/birds/README.md" target="_blank" rel="noopener">README</a>
       <a href="./attribution.html">Attribution</a>
           <a class="doi-pill" href="https://doi.org/10.5281/zenodo.20321309" target="_blank" rel="noopener">DOI 10.5281/zenodo.20321309</a>
     </nav>
 
     <header class="hero">
-      <p class="eyebrow">GitHub Lab · open soundscape demo</p>
-      <h1>Bird Sound Atlas</h1>
+      <p class="eyebrow">GitHub Lab · European bird radar</p>
+      <h1>European Bird Radar</h1>
       <p class="lede">
-        An Ireland-first atlas of bird species, paired with representative public sounds and images where available.
-        Recordings do not have to be from Ireland. Each playable sound keeps its recordist, source, licence, and xeno-canto link visible.
+        Explore likely birds by place, habitat, and season across Europe, with strongest support for Ireland, Germany, and Italy.
+        Sounds, images, recent observations, and source links remain visible where available.
       </p>
 
       <div class="hero-actions">
-        <button id="shuffleSound" type="button">Play a random bird</button>
+        <button id="shuffleSound" type="button">Play random sound</button>
         <a href="#source-notes">Source notes</a>
       </div>
 
@@ -52,7 +52,7 @@
         </article>
         <article>
           <span id="rareSpecies">–</span>
-          <strong>rarity flagged</strong>
+          <strong>flagged records</strong>
         </article>
         <article>
           <span id="generatedAt">–</span>
@@ -64,11 +64,11 @@
 
     <section class="nearby-panel" aria-label="Birds near me">
       <div class="nearby-copy">
-        <p class="eyebrow mini">Birds Near Me</p>
-        <h2>What might I hear here this month?</h2>
+        <p class="eyebrow mini">Birds near me</p>
+        <h2>What might I hear here?</h2>
         <p>
-          Use your approximate location or click the map. BOIE then reshuffles the bird cards into a local, seasonal deck.
-          This is a plausibility model, not a live bird radar.
+          Click the map or use your approximate location. The app estimates habitat and season, then builds a local listening deck.
+          Recent observations live on their own page.
         </p>
       </div>
 <div class="nearby-grid">
