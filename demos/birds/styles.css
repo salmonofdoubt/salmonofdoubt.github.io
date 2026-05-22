@@ -3970,3 +3970,72 @@ body.boie-advanced-open .chorus-actions {
   border: 2px solid rgba(255, 180, 180, 0.82) !important;
   box-shadow: 0 6px 16px rgba(205, 34, 48, 0.24) !important;
 }
+
+
+
+
+/* Birds top navigation: four equal buttons on one line */
+.topnav {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: clamp(0.35rem, 1.6vw, 0.9rem) !important;
+  align-items: center !important;
+}
+
+.topnav > a,
+.topnav > button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: clamp(42px, 7vw, 56px) !important;
+  padding: 0.55rem clamp(0.35rem, 1.5vw, 0.9rem) !important;
+  border-radius: 999px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: clamp(0.68rem, 2.45vw, 0.98rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: clamp(0em, 0.2vw, 0.03em) !important;
+  line-height: 1 !important;
+}
+
+.topnav-share-button {
+  appearance: none !important;
+  border: 1px solid rgba(63, 214, 255, 0.38) !important;
+  background: rgba(4, 16, 27, 0.92) !important;
+  color: #f4fbff !important;
+  font: inherit !important;
+  cursor: pointer !important;
+}
+
+.topnav-share-button:hover,
+.topnav-share-button:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(98, 233, 255, 0.72) !important;
+  background: rgba(7, 24, 38, 0.98) !important;
+  box-shadow: 0 0 0 2px rgba(98, 233, 255, 0.12);
+  outline: none;
+}
+
+.topnav-share-button.is-copied {
+  border-color: rgba(126, 255, 205, 0.72) !important;
+  color: #92ffd9 !important;
+}
+
+@media (max-width: 430px) {
+  .topnav {
+    gap: 0.32rem !important;
+  }
+
+  .topnav > a,
+  .topnav > button {
+    min-height: 40px !important;
+    padding-inline: 0.25rem !important;
+    font-size: 0.66rem !important;
+    letter-spacing: 0 !important;
+  }
+}

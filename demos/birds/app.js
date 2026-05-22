@@ -2169,6 +2169,64 @@ function handleBirdDeepLink() {
   }, 140);
 }
 
+
+
+function installShareButton() {
+  const button = document.getElementById("shareBirdRadar");
+  if (!button || button.dataset.bound === "true") return;
+
+  const defaultLabel = button.textContent.trim() || "Share";
+
+  const flashLabel = (label, copied = false) => {
+    button.textContent = label;
+    button.classList.toggle("is-copied", copied);
+    window.setTimeout(() => {
+      button.textContent = defaultLabel;
+      button.classList.remove("is-copied");
+    }, 1400);
+  };
+
+  button.addEventListener("click", async () => {
+    const shareUrl = window.location.href;
+    const shareData = {
+      title: document.title || "European Bird Radar",
+      text: "Explore likely birds by place, habitat, and season across Europe.",
+      url: shareUrl
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        return;
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+        flashLabel("Copied", true);
+        return;
+      }
+
+      window.prompt("Copy this link", shareUrl);
+    } catch (error) {
+      if (error && error.name === "AbortError") return;
+
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(shareUrl);
+          flashLabel("Copied", true);
+          return;
+        }
+      } catch (_) {
+        // fall through to prompt
+      }
+
+      window.prompt("Copy this link", shareUrl);
+    }
+  });
+
+  button.dataset.bound = "true";
+}
+
 async function init() {
   try {
     const response = await fetch("./data/birds.json?v=" + Date.now());
@@ -2184,6 +2242,7 @@ async function init() {
     initialiseHabitatButtons();
     bindDualSearchControls();
     installMobileMapToggle();
+    installShareButton();
 
     render();
     handleBirdDeepLink();
