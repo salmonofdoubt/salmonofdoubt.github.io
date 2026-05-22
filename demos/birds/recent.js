@@ -8,7 +8,8 @@ const COUNTRY_NAMES = {
 
 const recentState = {
   payload: null,
-  items: []
+  items: [],
+  birdIndex: new Map()
 };
 
 function byId(id) {
@@ -22,6 +23,10 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function normaliseKey(value) {
+  return String(value || "").trim().toLowerCase();
 }
 
 function countryLabel(code) {
@@ -81,6 +86,47 @@ function observationSort(a, b) {
   return String(b.observation_date || "").localeCompare(String(a.observation_date || ""));
 }
 
+function atlasBirdForObservation(item) {
+  const byCommon = recentState.birdIndex.get(normaliseKey(item.common_name));
+  const byScientific = recentState.birdIndex.get(normaliseKey(item.scientific_name));
+  return byCommon || byScientific || null;
+}
+
+function imageForObservation(item) {
+  const bird = atlasBirdForObservation(item);
+  const image = bird?.image || {};
+  return image.thumb || image.thumbnail || image.original || image.url || "";
+}
+
+function atlasLinkForObservation(item) {
+  const bird = atlasBirdForObservation(item);
+  if (!bird) return "";
+
+  const query = encodeURIComponent(bird.common_name || item.common_name || item.scientific_name || "");
+  return `./?bird=${query}&scope=catalogue&sound=all#birdGrid`;
+}
+
+function renderThumb(item) {
+  const src = imageForObservation(item);
+  const name = item.common_name || item.scientific_name || "Bird";
+
+  if (!src) {
+    return `<span class="recent-observation-thumb recent-observation-thumb--empty" aria-hidden="true">${escapeHtml(String(name).slice(0, 1))}</span>`;
+  }
+
+  return `
+    <img
+      class="recent-observation-thumb"
+      src="${escapeHtml(src)}"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      width="72"
+      height="72"
+    />
+  `;
+}
+
 function renderObservation(item) {
   const count = item.count === null || item.count === undefined ? "seen" : `${item.count} seen`;
   const name = item.common_name || "Unknown species";
@@ -88,17 +134,47 @@ function renderObservation(item) {
   const location = item.region || "Unknown location";
   const country = countryLabel(item.country);
   const date = formatDate(item.observation_date);
+  const atlasLink = atlasLinkForObservation(item);
+
+  const titleBlock = `
+    ${renderThumb(item)}
+    <span>
+      <strong>${escapeHtml(name)}</strong>
+      <em>${escapeHtml(sci)}</em>
+    </span>
+  `;
+
+  const title = atlasLink
+    ? `<a class="recent-observation-mainlink" href="${atlasLink}" aria-label="Open ${escapeHtml(name)} in the sound atlas">${titleBlock}</a>`
+    : `<div class="recent-observation-mainlink recent-observation-mainlink--disabled">${titleBlock}</div>`;
+
+  const soundAction = atlasLink
+    ? `<a class="recent-observation-soundlink" href="${atlasLink}">Open sound card</a>`
+    : `<span class="recent-observation-soundlink is-disabled">No sound card</span>`;
 
   return `
     <article class="recent-observation-card">
-      <div>
-        <h3>${escapeHtml(name)}</h3>
-        <p class="recent-observation-scientific">${escapeHtml(sci)}</p>
-      </div>
-      <dl>
-        <div><dt>Where</dt><dd>${escapeHtml(location)}, ${escapeHtml(country)}</dd></div>
-        <div><dt>When</dt><dd>${escapeHtml(date)}</dd></div>
-        <div><dt>Count</dt><dd>${escapeHtml(count)}</dd></div>
+      ${title}
+
+      <dl class="recent-observation-meta">
+        <div class="recent-observation-where">
+          <dt>Where</dt>
+          <dd>${escapeHtml(location)}, ${escapeHtml(country)}</dd>
+        </div>
+
+        <div>
+          <dt>When</dt>
+          <dd>${escapeHtml(date)}</dd>
+        </div>
+
+        <div>
+          <dt>Count</dt>
+          <dd>${escapeHtml(count)}</dd>
+        </div>
+
+        <div class="recent-observation-action">
+          ${soundAction}
+        </div>
       </dl>
     </article>
   `;
@@ -148,12 +224,33 @@ function renderRecentObservations() {
     .join("");
 }
 
-async function loadRecentObservations() {
+async function loadBirdIndex() {
   try {
-    const response = await fetch("./data/recent-observations.json", { cache: "no-cache" });
+    const response = await fetch("./data/birds.json", { cache: "force-cache" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const payload = await response.json();
+    const birds = Array.isArray(payload.birds) ? payload.birds : [];
+
+    birds.forEach(bird => {
+      if (bird.common_name) recentState.birdIndex.set(normaliseKey(bird.common_name), bird);
+      if (bird.scientific_name) recentState.birdIndex.set(normaliseKey(bird.scientific_name), bird);
+    });
+  } catch (error) {
+    console.warn("Could not load bird image index", error);
+  }
+}
+
+async function loadRecentObservations() {
+  try {
+    const [recentResponse] = await Promise.all([
+      fetch("./data/recent-observations.json", { cache: "no-cache" }),
+      loadBirdIndex()
+    ]);
+
+    if (!recentResponse.ok) throw new Error(`HTTP ${recentResponse.status}`);
+
+    const payload = await recentResponse.json();
     recentState.payload = payload;
     recentState.items = Array.isArray(payload.items) ? payload.items : [];
 

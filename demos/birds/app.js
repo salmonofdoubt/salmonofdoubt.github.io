@@ -1302,6 +1302,73 @@ function installMobileMapToggle() {
   });
 }
 
+function handleBirdDeepLink() {
+  const params = new URLSearchParams(window.location.search);
+  const linkedBird = String(params.get("bird") || params.get("q") || "").trim();
+
+  if (!linkedBird) return;
+
+  const scope = params.get("scope") || "catalogue";
+  const sound = params.get("sound") || "all";
+
+  if (els.searchUnified) els.searchUnified.value = linkedBird;
+  if (els.searchCatalogue) els.searchCatalogue.value = linkedBird;
+  if (els.searchSelected) els.searchSelected.value = linkedBird;
+  if (els.search) els.search.value = linkedBird;
+
+  state.searchScope = scope === "selected" ? "selected" : "catalogue";
+
+  if (els.searchScopeSelected) {
+    els.searchScopeSelected.setAttribute("aria-pressed", state.searchScope === "selected" ? "true" : "false");
+  }
+
+  if (els.searchScopeCatalogue) {
+    els.searchScopeCatalogue.setAttribute("aria-pressed", state.searchScope === "catalogue" ? "true" : "false");
+  }
+
+  if (els.deckMode) els.deckMode.value = "all";
+  if (els.status) els.status.value = "all";
+  if (els.sound) els.sound.value = sound;
+  if (els.group) els.group.value = "habitat";
+
+  render();
+
+  window.setTimeout(() => {
+    const wanted = linkedBird.toLowerCase();
+    const cards = [...document.querySelectorAll(".bird-card")];
+
+    const target = cards.find(card => {
+      const common = card.querySelector(".common-name")?.textContent?.trim().toLowerCase() || "";
+      const scientific = card.querySelector(".scientific-name")?.textContent?.trim().toLowerCase() || "";
+      return common === wanted || scientific === wanted || common.includes(wanted) || scientific.includes(wanted);
+    }) || cards[0];
+
+    if (!target) {
+      if (els.notice) {
+        els.notice.textContent = `${linkedBird} was not found in the current sound atlas.`;
+      }
+      return;
+    }
+
+    target.scrollIntoView({ behavior: "smooth", block: "center" });
+    target.classList.add("bird-card--pulse");
+
+    window.setTimeout(() => {
+      target.classList.remove("bird-card--pulse");
+    }, 1600);
+
+    const audio = target.querySelector("audio");
+    if (audio) {
+      audio.focus({ preventScroll: true });
+      if (els.notice) {
+        els.notice.textContent = `Opened ${linkedBird}. Press play on the sound card to hear the recording.`;
+      }
+    } else if (els.notice) {
+      els.notice.textContent = `Opened ${linkedBird}, but no matched sound is currently available.`;
+    }
+  }, 140);
+}
+
 async function init() {
   try {
     const response = await fetch("./data/birds.json?v=" + Date.now());
@@ -1316,7 +1383,9 @@ async function init() {
     initialiseHabitatButtons();
     bindDualSearchControls();
     installMobileMapToggle();
+
     render();
+    handleBirdDeepLink();
   } catch (error) {
     console.error(error);
     if (els.notice) els.notice.textContent = `Could not load BOIE: ${error.message}`;
@@ -1624,209 +1693,3 @@ init();
   window.addEventListener("resize", syncBackToControlsButton);
 })();
 
-/* European Bird Radar recent observations panel */
-(function () {
-  const COUNTRY_NAMES = {
-    IE: "Ireland",
-    GB: "United Kingdom",
-    FR: "France",
-    DE: "Germany",
-    IT: "Italy"
-  };
-
-  const recentState = {
-    payload: null,
-    items: []
-  };
-
-  function byId(id) {
-    return document.getElementById(id);
-  }
-
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  function countryLabel(code) {
-    return COUNTRY_NAMES[code] || code || "Unknown";
-  }
-
-  function formatDate(value) {
-    if (!value) return "unknown";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return String(value);
-    return date.toLocaleDateString("en-IE", {
-      day: "2-digit",
-      month: "short"
-    });
-  }
-
-  function formatDateTime(value) {
-    if (!value) return "–";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "–";
-    return date.toLocaleDateString("en-IE", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric"
-    });
-  }
-
-  function uniqueCountries(items) {
-    return [...new Set(items.map(item => item.country).filter(Boolean))].sort();
-  }
-
-  function populateCountryFilter(items, coverageCountries = []) {
-    const select = byId("recentCountryFilter");
-    if (!select || select.dataset.populated === "true") return;
-
-    const countries = uniqueCountries(items).length
-      ? uniqueCountries(items)
-      : [...coverageCountries].sort();
-
-    countries.forEach(code => {
-      const option = document.createElement("option");
-      option.value = code;
-      option.textContent = countryLabel(code);
-      select.appendChild(option);
-    });
-
-    select.dataset.populated = "true";
-    select.addEventListener("change", renderRecentObservations);
-  }
-
-  function setText(id, value) {
-    const node = byId(id);
-    if (node) node.textContent = value;
-  }
-
-  function observationSort(a, b) {
-    return String(b.observation_date || "").localeCompare(String(a.observation_date || ""));
-  }
-
-  function renderObservation(item) {
-    const count = item.count === null || item.count === undefined ? "seen" : `${item.count} seen`;
-    const name = item.common_name || "Unknown species";
-    const sci = item.scientific_name || "";
-    const location = item.region || "Unknown location";
-    const country = countryLabel(item.country);
-    const date = formatDate(item.observation_date);
-
-    return `
-      <article class="recent-observation-card">
-        <div>
-          <h3>${escapeHtml(name)}</h3>
-          <p class="recent-observation-scientific">${escapeHtml(sci)}</p>
-        </div>
-        <dl>
-          <div><dt>Where</dt><dd>${escapeHtml(location)}, ${escapeHtml(country)}</dd></div>
-          <div><dt>When</dt><dd>${escapeHtml(date)}</dd></div>
-          <div><dt>Count</dt><dd>${escapeHtml(count)}</dd></div>
-        </dl>
-        <button class="recent-observation-focus" type="button" data-bird="${escapeHtml(name)}">
-          Find in atlas
-        </button>
-      </article>
-    `;
-  }
-
-  function renderRecentObservations() {
-    const panel = byId("recentObservationsPanel");
-    const list = byId("recentObservationsList");
-    const status = byId("recentObservationsStatus");
-    const select = byId("recentCountryFilter");
-
-    if (!panel || !list || !status) return;
-
-    const payload = recentState.payload || {};
-    const items = recentState.items || [];
-    const selectedCountry = select?.value || "all";
-
-    const filtered = selectedCountry === "all"
-      ? items
-      : items.filter(item => item.country === selectedCountry);
-
-    setText("recentObservationCount", String(items.length));
-    setText("recentObservationCountries", String(uniqueCountries(items).length || payload.coverage?.countries?.length || "–"));
-    setText("recentObservationUpdated", formatDateTime(payload.generated_at));
-
-    if (payload.status === "missing_api_key") {
-      status.textContent = "eBird API key not configured yet.";
-      list.innerHTML = `<p class="recent-observations-empty">Recent observations are structurally ready, but EBIRD_API_KEY has not produced live data yet.</p>`;
-      return;
-    }
-
-    if (!items.length) {
-      status.textContent = "No recent observations available.";
-      list.innerHTML = `<p class="recent-observations-empty">No recent eBird records are currently available in the generated dataset.</p>`;
-      return;
-    }
-
-    status.textContent = `${filtered.length} shown from ${items.length} recent records.`;
-
-    list.innerHTML = filtered
-      .slice()
-      .sort(observationSort)
-      .slice(0, 12)
-      .map(renderObservation)
-      .join("");
-  }
-
-  async function loadRecentObservations() {
-    const panel = byId("recentObservationsPanel");
-    if (!panel) return;
-
-    try {
-      const response = await fetch("./data/recent-observations.json", { cache: "no-cache" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-      const payload = await response.json();
-      recentState.payload = payload;
-      recentState.items = Array.isArray(payload.items) ? payload.items : [];
-
-      populateCountryFilter(recentState.items, payload.coverage?.countries || []);
-      renderRecentObservations();
-    } catch (error) {
-      const status = byId("recentObservationsStatus");
-      const list = byId("recentObservationsList");
-
-      if (status) status.textContent = "Recent observations unavailable.";
-      if (list) {
-        list.innerHTML = `<p class="recent-observations-empty">Could not load recent-observations.json: ${escapeHtml(error.message)}</p>`;
-      }
-    }
-  }
-
-  document.addEventListener("click", event => {
-    const button = event.target.closest(".recent-observation-focus");
-    if (!button) return;
-
-    const bird = button.dataset.bird || "";
-    const search = byId("searchUnified") || byId("searchSelected") || byId("search");
-
-    if (search) {
-      search.value = bird;
-    }
-
-    if (typeof state !== "undefined") {
-      state.searchScope = "selected";
-    }
-
-    if (typeof render === "function") {
-      render();
-    }
-
-    byId("birdGrid")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadRecentObservations);
-  } else {
-    loadRecentObservations();
-  }
-})();
