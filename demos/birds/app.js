@@ -678,6 +678,7 @@ function bindDualSearchControls() {
     els.searchUnified.addEventListener("input", () => {
       if (els.searchSelected) els.searchSelected.value = "";
       if (els.searchCatalogue) els.searchCatalogue.value = "";
+      invalidateChorusSelection("Filters changed");
       render();
     });
   }
@@ -689,6 +690,7 @@ function bindDualSearchControls() {
     button.addEventListener("click", () => {
       state.searchScope = button.dataset.searchScope || "selected";
       syncScopeButtons();
+      invalidateChorusSelection("Filters changed");
       render();
     });
   });
@@ -700,6 +702,7 @@ function bindDualSearchControls() {
       if (els.searchSelected.value.trim() && els.searchCatalogue?.value) {
         els.searchCatalogue.value = "";
       }
+      invalidateChorusSelection("Filters changed");
       render();
     });
   }
@@ -710,6 +713,7 @@ function bindDualSearchControls() {
       if (els.searchCatalogue.value.trim() && els.searchSelected?.value) {
         els.searchSelected.value = "";
       }
+      invalidateChorusSelection("Filters changed");
       render();
     });
   }
@@ -745,12 +749,95 @@ function applyNearbyDeck(birds) {
 
 let activeChorusPlayers = [];
 
+function invalidateChorusSelection(reason = "Context changed") {
+  activeChorusPlayers.forEach(audio => {
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.src = "";
+    } catch (error) {
+      console.warn("Could not stop stale chorus audio", error);
+    }
+  });
+
+  activeChorusPlayers = [];
+  state.chorusNeedsRemix = true;
+  state.chorusRemixReason = reason;
+  syncChorusControlButtons();
+}
+
+
+function chorusBirdKey(bird) {
+  return `${bird.scientific_name || bird.common_name || ""}:${bird.audio?.file || ""}`;
+}
+
+function uniqueChorusBirds(birds) {
+  const seen = new Set();
+  const unique = [];
+
+  birds.forEach(bird => {
+    const key = chorusBirdKey(bird);
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    unique.push(bird);
+  });
+
+  return unique;
+}
+
+function chorusEligible(bird) {
+  if (!hasAudio(bird)) return false;
+  const codes = bird.status_codes || [];
+  return !codes.includes("B");
+}
+
+function relaxedLocalChorusBirds() {
+  const search = typeof activeSearchMode === "function"
+    ? activeSearchMode()
+    : { query: "" };
+
+  // If the user is deliberately searching, do not broaden the chorus.
+  if (search.query) return [];
+
+  return applySharedFilters(state.birds)
+    .filter(chorusEligible)
+    .map(bird => ({ ...bird, local: scoreBirdForNearby(bird) }))
+    .filter(bird => {
+      const codes = bird.status_codes || [];
+      if (!els.includeRare?.checked && (codes.includes("R") || codes.includes("B"))) return false;
+      return (bird.local?.score || 0) >= 24;
+    })
+    .sort((a, b) =>
+      (b.local?.score || 0) - (a.local?.score || 0) ||
+      String(a.common_name).localeCompare(String(b.common_name))
+    );
+}
 
 function selectableChorusBirds() {
-  return state.filtered
-    .filter(hasAudio)
-    .filter(b => !(b.status_codes || []).includes("B"))
-    .slice(0, 16);
+  const search = typeof activeSearchMode === "function"
+    ? activeSearchMode()
+    : { query: "" };
+
+  const primary = state.filtered
+    .filter(chorusEligible)
+    .filter(bird => {
+      const codes = bird.status_codes || [];
+      if (!els.includeRare?.checked && (codes.includes("R") || codes.includes("B"))) return false;
+      return true;
+    });
+
+  // If a search is active, respect it. Otherwise, do not allow the chorus to collapse to one bird
+  // merely because a very tight location deck produced too few playable records.
+  if (search.query) {
+    return uniqueChorusBirds(primary).slice(0, 24);
+  }
+
+  const relaxed = relaxedLocalChorusBirds();
+
+  return uniqueChorusBirds([
+    ...primary,
+    ...relaxed
+  ]).slice(0, 24);
 }
 
 function currentFilteredChorusSignature() {
@@ -766,6 +853,7 @@ function currentChorusSelectionSignature() {
 }
 
 function isChorusSelectionStale() {
+  if (state.chorusNeedsRemix) return true;
   if (!state.chorusDeckSignature) return false;
   return state.chorusDeckSignature !== currentFilteredChorusSignature();
 }
@@ -773,13 +861,23 @@ function isChorusSelectionStale() {
 function remixChorusSelection() {
   stopChorusTogether();
 
-  state.chorusSelection = selectableChorusBirds().slice(0, 8);
+  const candidates = selectableChorusBirds();
+  const shuffled = candidates
+    .map(bird => ({ bird, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(item => item.bird);
+
+  state.chorusSelection = shuffled.slice(0, Math.min(8, shuffled.length));
   state.chorusDeckSignature = currentFilteredChorusSignature();
+  state.chorusNeedsRemix = false;
+  state.chorusRemixReason = "";
 
   renderChorus();
 
-  if (els.notice && state.chorusSelection.length) {
-    els.notice.textContent = `Chorus remixed · ${state.chorusSelection.length} selected · press Play to listen`;
+  if (els.notice) {
+    els.notice.textContent = state.chorusSelection.length
+      ? `Chorus remixed · ${state.chorusSelection.length} selected · press Play to listen`
+      : "No playable birds available for this place and filter set.";
   }
 }
 
@@ -789,13 +887,20 @@ function chorusCandidates() {
   }
 
   if (!state.chorusSelection.length) {
-    state.chorusSelection = selectableChorusBirds().slice(0, 8);
+    const candidates = selectableChorusBirds();
+    state.chorusSelection = candidates.slice(0, Math.min(8, candidates.length));
     state.chorusDeckSignature = currentFilteredChorusSignature();
+    state.chorusNeedsRemix = false;
+    state.chorusRemixReason = "";
   }
 
   return state.chorusSelection
-    .filter(hasAudio)
-    .filter(b => !(b.status_codes || []).includes("B"));
+    .filter(chorusEligible)
+    .filter(bird => {
+      const codes = bird.status_codes || [];
+      if (!els.includeRare?.checked && (codes.includes("R") || codes.includes("B"))) return false;
+      return true;
+    });
 }
 
 function stopChorusTogether() {
@@ -1008,6 +1113,13 @@ function render() {
     });
 
     state.filtered = birds;
+
+    const nextChorusSignature = currentFilteredChorusSignature();
+    if (state.chorusDeckSignature && state.chorusDeckSignature !== nextChorusSignature) {
+      state.chorusNeedsRemix = true;
+      state.chorusRemixReason = "Current filters changed";
+    }
+
     renderGroupedBirds(birds);
     renderChorus();
     updateNearbySummary({ birds, selectedCount: selectedBase.length, catalogueCount: catalogueBase.length });
@@ -1188,7 +1300,53 @@ function syncHabitatsFromPin(location) {
   syncHabitatButtons();
 }
 
+function clearBirdSearchForNewPlace() {
+  const url = new URL(window.location.href);
+  const hadUrlBird = url.searchParams.has("bird") || url.searchParams.has("q");
+
+  const hadSearch = Boolean(
+    els.searchUnified?.value?.trim() ||
+    els.searchSelected?.value?.trim() ||
+    els.searchCatalogue?.value?.trim() ||
+    els.search?.value?.trim() ||
+    hadUrlBird
+  );
+
+  if (!hadSearch) return;
+
+  if (els.searchUnified) els.searchUnified.value = "";
+  if (els.searchSelected) els.searchSelected.value = "";
+  if (els.searchCatalogue) els.searchCatalogue.value = "";
+  if (els.search) els.search.value = "";
+
+  state.searchScope = "selected";
+
+  if (els.searchScopeSelected) {
+    els.searchScopeSelected.classList.add("is-active");
+    els.searchScopeSelected.setAttribute("aria-pressed", "true");
+  }
+
+  if (els.searchScopeCatalogue) {
+    els.searchScopeCatalogue.classList.remove("is-active");
+    els.searchScopeCatalogue.setAttribute("aria-pressed", "false");
+  }
+
+  if (els.deckMode) els.deckMode.value = "nearby";
+
+  if (hadUrlBird) {
+    url.searchParams.delete("bird");
+    url.searchParams.delete("q");
+    url.searchParams.delete("scope");
+    url.searchParams.delete("sound");
+    window.history.replaceState({}, "", url.pathname + url.hash);
+  }
+}
+
 function setLocation(lat, lng, source = "map") {
+  clearBirdSearchForNewPlace();
+  invalidateChorusSelection();
+clearBirdSearchForNewPlace();
+  invalidateChorusSelection();
   state.location = { lat, lng, source };
 
   if (state.map && window.L) {
@@ -1233,6 +1391,7 @@ function initialiseHabitatButtons() {
 
       if (els.preset) els.preset.value = "";
       syncHabitatButtons();
+      invalidateChorusSelection("Filters changed");
       render();
     });
   });
@@ -1252,6 +1411,7 @@ function applyPreset() {
   state.habitats.clear();
   HABITAT_PRESETS[preset].forEach(h => state.habitats.add(h));
   syncHabitatButtons();
+  invalidateChorusSelection("Habitat preset changed");
   render();
 }
 
@@ -1394,8 +1554,14 @@ async function init() {
 
 [els.status, els.sound, els.sort, els.group, els.month, els.radius, els.deckMode, els.listenOnly, els.includeRare].forEach(el => {
   if (!el) return;
-  el.addEventListener("input", render);
-  el.addEventListener("change", render);
+  el.addEventListener("input", () => {
+    invalidateChorusSelection();
+    render();
+  });
+  el.addEventListener("change", () => {
+    invalidateChorusSelection();
+    render();
+  });
 });
 
 els.preset?.addEventListener("change", applyPreset);

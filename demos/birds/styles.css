@@ -3850,3 +3850,13 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.78rem !important;
   }
 }
+
+
+/* Chorus remix available highlight */
+#remixChorusSelection.is-stale,
+#remixChorusSelection.is-active {
+  border-color: rgba(255, 205, 92, 0.95) !important;
+  background: rgba(255, 205, 92, 0.18) !important;
+  color: #fff6d2 !important;
+  box-shadow: 0 0 0 2px rgba(255, 205, 92, 0.16), 0 0 18px rgba(255, 205, 92, 0.16) !important;
+}
