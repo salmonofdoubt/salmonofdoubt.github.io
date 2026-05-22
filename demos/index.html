@@ -411,73 +411,104 @@
 
     .creator-strip {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 18px;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
+      gap: 20px;
       align-items: center;
       margin: 0 0 24px;
-      padding: clamp(18px, 3vw, 26px);
+      padding: clamp(18px, 3vw, 28px);
       border: 1px solid var(--line);
       border-radius: 28px;
       background:
-        linear-gradient(135deg, rgba(9, 18, 28, 0.90), rgba(6, 13, 21, 0.78)),
+        linear-gradient(135deg, rgba(9, 18, 28, 0.92), rgba(6, 13, 21, 0.80)),
         radial-gradient(circle at 92% 10%, rgba(79, 246, 255, 0.10), transparent 16rem);
       box-shadow: 0 14px 46px rgba(0, 0, 0, 0.34);
     }
 
-    .creator-strip h2 {
+    .creator-copy h2 {
       margin: 0;
-      font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+      font-size: clamp(1.2rem, 2.2vw, 1.75rem);
       letter-spacing: -0.04em;
       color: var(--ink);
     }
 
-    .creator-strip p:last-child {
+    .creator-copy p:last-child {
       margin: 8px 0 0;
       color: var(--muted);
       line-height: 1.5;
       max-width: 760px;
     }
 
-    .creator-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    .creator-badges {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
     }
 
-    .creator-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 38px;
-      padding: 0 0.82rem;
-      border-radius: 999px;
-      border: 1px solid rgba(79, 246, 255, 0.25);
-      background: rgba(79, 246, 255, 0.08);
-      color: var(--cyan);
+    .creator-badges a {
+      display: grid;
+      gap: 2px;
+      min-height: 50px;
+      padding: 0.62rem 0.72rem;
+      border-radius: 16px;
+      border: 1px solid rgba(79, 246, 255, 0.22);
+      background: rgba(79, 246, 255, 0.07);
+      color: var(--ink);
       text-decoration: none;
-      font-size: 0.86rem;
-      font-weight: 950;
-      white-space: nowrap;
+      overflow: hidden;
     }
 
-    .creator-links a:hover {
+    .creator-badges a span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .creator-badges a strong {
+      color: var(--cyan);
+      font-size: 0.9rem;
+      font-weight: 950;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .creator-badges a:hover {
       border-color: rgba(79, 246, 255, 0.52);
       box-shadow: var(--glow);
       transform: translateY(-1px);
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 860px) {
       .creator-strip {
         grid-template-columns: 1fr;
       }
 
-      .creator-links {
-        justify-content: flex-start;
+      .creator-badges {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .creator-badges {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .creator-links a {
-        flex: 1 1 auto;
+      .creator-badges a {
+        min-height: 46px;
+        padding: 0.52rem 0.58rem;
+      }
+
+      .creator-badges a span {
+        font-size: 0.62rem;
+      }
+
+      .creator-badges a strong {
+        font-size: 0.78rem;
       }
     }
 
@@ -614,18 +645,34 @@
 
 
     <section class="creator-strip" aria-label="Creator profile">
-      <div>
+      <div class="creator-copy">
         <p class="eyebrow">Creator profile</p>
-        <h2>Built by André Baumann / Salmon of Doubt</h2>
+        <h2>André Baumann / Salmon of Doubt</h2>
         <p>
-          Public prototypes, data tools, and civic environmental experiments across water, climate, biodiversity,
-          energy, systems thinking, and open web publishing.
+          Public prototypes, civic tools, data workflows, and environmental explainers across water,
+          climate, biodiversity, energy, systems thinking, and open web publishing.
         </p>
       </div>
-      <div class="creator-links" aria-label="Creator links">
-        <a href="https://github.com/salmonofdoubt" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://me.developers.google.com/u/101029369499498837023" target="_blank" rel="noopener">Google Dev</a>
-        <a href="https://salmonofdoubt.github.io/" target="_blank" rel="noopener">Website</a>
+
+      <div class="creator-badges" aria-label="Creator and project links">
+        <a href="https://github.com/salmonofdoubt" target="_blank" rel="noopener">
+          <span>GitHub</span><strong>@salmonofdoubt</strong>
+        </a>
+        <a href="https://me.developers.google.com/u/101029369499498837023" target="_blank" rel="noopener">
+          <span>Google Developer</span><strong>Profile</strong>
+        </a>
+        <a href="https://salmonofdoubt.github.io/" target="_blank" rel="noopener">
+          <span>Website</span><strong>Home</strong>
+        </a>
+        <a href="https://github.com/sponsors/salmonofdoubt" target="_blank" rel="noopener">
+          <span>Support</span><strong>Sponsor</strong>
+        </a>
+        <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io" target="_blank" rel="noopener">
+          <span>Repository</span><strong>GitHub Pages</strong>
+        </a>
+        <a href="https://doi.org/10.5281/zenodo.20321309" target="_blank" rel="noopener">
+          <span>Zenodo</span><strong>Bird Sounds DOI</strong>
+        </a>
       </div>
     </section>
 
