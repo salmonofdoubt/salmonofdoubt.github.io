@@ -156,7 +156,7 @@
           </div>
 
           <p class="privacy-note">
-            Location is used only in this browser session. BOIE does not store your coordinates.
+            Location is used only in this browser session. European Bird Sounds does not store your coordinates.
           </p>
 
           <div class="habitats" aria-label="Habitat filters">
@@ -265,20 +265,24 @@
 
     <section class="panel" id="source-notes">
       <h2>Source notes</h2>
-      <p>BOIE keeps third-party media attribution visible on each card where possible. A generated <a href="./attribution.html">full attribution index</a> lists the current sound and image metadata harvested into the atlas.</p>
       <p>
-        The checklist layer is generated from the public “List of birds of Ireland” table and preserves status codes where available:
-        A = recorded naturally in Ireland since 1950, B = recorded naturally before 1950 only, C = introduced or established from introduced populations,
-        R = rarity requiring details.
+        European Bird Sounds keeps third-party media attribution visible on each card where possible.
+        A generated <a href="./attribution.html">full attribution index</a> lists the current sound and image metadata used by the explorer.
       </p>
       <p>
-        The sound layer is harvested from xeno-canto using scientific names. The atlas prefers good-quality song recordings, then calls, then any available representative recording.
-        Every audio card exposes its recordist, licence, recording country, quality grade, and source link. Missing audio is shown honestly rather than substituted silently. Image thumbnails are added from English Wikipedia page images where available, with source links retained.
-        Image metadata is harvested from Wikidata taxon images and Wikimedia Commons, with photographer, licence, and source page retained where available.
+        The app is an educational sound explorer for training the ear by place, habitat, and season.
+        It is not an official checklist, scientific record, species survey, or evidence of local presence.
       </p>
       <p>
-        This is an educational and research-facing public demo, not an official checklist. Rare, historical, introduced, and taxonomically awkward entries should be checked against
-        the Irish Rare Birds Committee and BirdWatch Ireland before formal use.
+        Sound metadata is harvested from xeno-canto using scientific names. The explorer prefers good-quality song recordings, then calls, then available representative recordings.
+        Every playable sound keeps its recordist, licence, recording country, quality grade, and source link visible where available.
+      </p>
+      <p>
+        Images are added from public Wikimedia/Wikipedia sources where available, with source links and licence metadata retained where possible.
+        Recent observations are shown as educational context and freshness signals, not as a complete or verified species record.
+      </p>
+      <p>
+        For formal ecology, conservation, planning, or reporting, always check authoritative national or regional sources and expert guidance.
       </p>
     </section>
   </main>
@@ -307,7 +311,7 @@
   </template>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./app.js?v=back-to-controls-1779357968"></script>
+  <script src="./app.js?v=source-notes-1779446510"></script>
   <button id="backToBirdControls" class="back-to-controls" type="button" aria-label="Back to bird search and filters">
     ↑ Controls
   </button>
