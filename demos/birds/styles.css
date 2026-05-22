@@ -3617,3 +3617,236 @@ body.boie-advanced-open .chorus-actions {
     gap: 0.9rem;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Kill old circular Play icon treatment */
+.chorus-title-row #toggleChorusPlayback {
+  border-radius: 999px !important;
+  overflow: visible !important;
+  text-indent: 0 !important;
+  color: #02130f !important;
+}
+
+.chorus-title-row #toggleChorusPlayback::before,
+.chorus-title-row #toggleChorusPlayback::after {
+  content: none !important;
+  display: none !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
+  font-size: 0 !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"]::selection {
+  background: transparent !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
+  position: relative !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] span {
+  display: none !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"] {
+  text-indent: -9999px !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="false"]::after {
+  content: "Play" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  inset: 0 !important;
+  text-indent: 0 !important;
+  font-size: 0.9rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="true"] {
+  text-indent: -9999px !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="true"]::after {
+  content: "Stop" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  inset: 0 !important;
+  text-indent: 0 !important;
+  font-size: 0.9rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+}
+
+.chorus-title-row #remixChorusSelection:hover,
+.chorus-title-row #remixChorusSelection:focus-visible,
+.chorus-title-row #toggleChorusPlayback:hover,
+.chorus-title-row #toggleChorusPlayback:focus-visible {
+  transform: none !important;
+}
+
+@media (max-width: 760px) {
+  .chorus-title-row {
+    grid-template-columns: minmax(0, 1fr) 94px 94px !important;
+  }
+
+  .chorus-title-row h2 {
+    grid-column: 1 / -1 !important;
+  }
+
+  .chorus-title-row #remixChorusSelection {
+    grid-column: 2 !important;
+    justify-self: end !important;
+  }
+
+  .chorus-title-row #toggleChorusPlayback {
+    grid-column: 3 !important;
+    justify-self: end !important;
+  }
+}
+
+
+/* Chorus controls: compact same-size buttons aligned right of title */
+.chorus-title-row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto auto !important;
+  align-items: center !important;
+  column-gap: 0.45rem !important;
+  row-gap: 0.35rem !important;
+}
+
+.chorus-title-row h2 {
+  grid-column: 1 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+/* Exact matched button treatment for Remix and Play */
+.chorus-title-row #remixChorusSelection,
+.chorus-title-row #toggleChorusPlayback {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  width: 74px !important;
+  min-width: 74px !important;
+  max-width: 74px !important;
+  height: 38px !important;
+  min-height: 38px !important;
+  max-height: 38px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 999px !important;
+  font-size: 0.82rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  transform: none !important;
+  aspect-ratio: auto !important;
+}
+
+/* Place buttons to the right of Today's likely chorus */
+.chorus-title-row #remixChorusSelection {
+  grid-column: 2 !important;
+  justify-self: end !important;
+}
+
+.chorus-title-row #toggleChorusPlayback {
+  grid-column: 3 !important;
+  justify-self: end !important;
+}
+
+/* Kill the old circular play-icon styling */
+.chorus-title-row #toggleChorusPlayback {
+  position: relative !important;
+  overflow: hidden !important;
+  text-indent: -9999px !important;
+}
+
+.chorus-title-row #toggleChorusPlayback::before {
+  content: none !important;
+  display: none !important;
+}
+
+.chorus-title-row #toggleChorusPlayback::after {
+  content: "Play" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-indent: 0 !important;
+  font-size: 0.82rem !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+}
+
+.chorus-title-row #toggleChorusPlayback[aria-pressed="true"]::after {
+  content: "Stop" !important;
+}
+
+.chorus-title-row #remixChorusSelection:hover,
+.chorus-title-row #remixChorusSelection:focus-visible,
+.chorus-title-row #toggleChorusPlayback:hover,
+.chorus-title-row #toggleChorusPlayback:focus-visible {
+  transform: none !important;
+}
+
+/* Mobile: keep both controls on the title row, right aligned */
+@media (max-width: 760px) {
+  .chorus-title-row {
+    grid-template-columns: minmax(0, 1fr) 74px 74px !important;
+  }
+
+  .chorus-title-row h2 {
+    grid-column: 1 !important;
+    font-size: clamp(1.15rem, 5vw, 1.45rem) !important;
+  }
+
+  .chorus-title-row #remixChorusSelection,
+  .chorus-title-row #toggleChorusPlayback {
+    width: 74px !important;
+    min-width: 74px !important;
+    max-width: 74px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .chorus-title-row {
+    grid-template-columns: minmax(0, 1fr) 68px 68px !important;
+  }
+
+  .chorus-title-row #remixChorusSelection,
+  .chorus-title-row #toggleChorusPlayback {
+    width: 68px !important;
+    min-width: 68px !important;
+    max-width: 68px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    max-height: 36px !important;
+    font-size: 0.78rem !important;
+  }
+
+  .chorus-title-row #toggleChorusPlayback::after {
+    font-size: 0.78rem !important;
+  }
+}
