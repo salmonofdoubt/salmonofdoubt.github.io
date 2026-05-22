@@ -6,7 +6,10 @@ const state = {
   marker: null,
   location: null,
   habitats: new Set(),
-  habitatZones: []
+  habitatZones: [],
+  osmHabitatContext: null,
+  habitatMode: "auto",
+  locationContextToken: 0
 };
 
 const els = {
@@ -519,6 +522,237 @@ async function loadHabitatZones() {
   }
 }
 
+
+function osmHabitatCacheKey(location) {
+  const lat = Math.round(Number(location.lat) * 100) / 100;
+  const lng = Math.round(Number(location.lng) * 100) / 100;
+  return `birds:osm-habitat:${lat}:${lng}`;
+}
+
+function osmHabitatContextMatches(location) {
+  if (!state.osmHabitatContext?.location || !location) return false;
+  return distanceKm(state.osmHabitatContext.location, location) <= 1.5;
+}
+
+function addHabitatScore(scores, habitat, amount, evidence, label) {
+  scores.set(habitat, (scores.get(habitat) || 0) + amount);
+  if (label && evidence.length < 10) evidence.push(label);
+}
+
+function classifyOsmElements(elements) {
+  const scores = new Map();
+  const evidence = [];
+
+  (elements || []).forEach(element => {
+    const tags = element.tags || {};
+    const natural = String(tags.natural || "").toLowerCase();
+    const wetland = String(tags.wetland || "").toLowerCase();
+    const water = String(tags.water || "").toLowerCase();
+    const waterway = String(tags.waterway || "").toLowerCase();
+    const landuse = String(tags.landuse || "").toLowerCase();
+    const leisure = String(tags.leisure || "").toLowerCase();
+    const place = String(tags.place || "").toLowerCase();
+    const building = tags.building;
+
+    if (place && /city|town|village|suburb|neighbourhood/.test(place)) {
+      addHabitatScore(scores, "urban", 5, evidence, `place=${place}`);
+      addHabitatScore(scores, "garden", 1.2, evidence, "urban green/garden assumption");
+    }
+
+    if (building) {
+      addHabitatScore(scores, "urban", 0.35, evidence, "buildings nearby");
+    }
+
+    if (/residential|commercial|retail|industrial|construction|brownfield/.test(landuse)) {
+      addHabitatScore(scores, "urban", 4, evidence, `landuse=${landuse}`);
+    }
+
+    if (/park|garden|common|recreation_ground/.test(leisure)) {
+      addHabitatScore(scores, "garden", 4, evidence, `leisure=${leisure}`);
+      addHabitatScore(scores, "urban", 1.5, evidence, "managed green space");
+    }
+
+    if (/allotments|cemetery/.test(landuse)) {
+      addHabitatScore(scores, "garden", 3.5, evidence, `landuse=${landuse}`);
+    }
+
+    if (/farmland|farmyard|meadow|pasture|orchard|vineyard|grass/.test(landuse)) {
+      addHabitatScore(scores, "farmland", 4, evidence, `landuse=${landuse}`);
+    }
+
+    if (/wood|tree_row|scrub/.test(natural) || /forest/.test(landuse)) {
+      addHabitatScore(scores, "woodland", 4, evidence, natural ? `natural=${natural}` : `landuse=${landuse}`);
+    }
+
+    if (/heath|moor|fell|bare_rock|scree/.test(natural)) {
+      addHabitatScore(scores, "bog", 3.2, evidence, `natural=${natural}`);
+    }
+
+    if (/water|lake|pond|reservoir|basin|lagoon/.test(natural) || /lake|pond|reservoir|basin|lagoon/.test(water)) {
+      addHabitatScore(scores, "river", 3.5, evidence, natural ? `natural=${natural}` : `water=${water}`);
+    }
+
+    if (/river|stream|canal|ditch|drain/.test(waterway)) {
+      addHabitatScore(scores, "river", 4, evidence, `waterway=${waterway}`);
+    }
+
+    if (natural === "wetland" || wetland) {
+      addHabitatScore(scores, "wetland", 5, evidence, wetland ? `wetland=${wetland}` : "natural=wetland");
+
+      if (/saltmarsh|tidalflat|mud|reedbed|marsh|lagoon/.test(wetland)) {
+        addHabitatScore(scores, "estuary", 3, evidence, `coastal wetland=${wetland}`);
+      }
+
+      if (/saltmarsh|tidalflat|lagoon/.test(wetland)) {
+        addHabitatScore(scores, "coast", 2.5, evidence, `coastal wetland=${wetland}`);
+      }
+    }
+
+    if (/coastline|beach|sand|shingle|bay/.test(natural)) {
+      addHabitatScore(scores, "coast", 5, evidence, `natural=${natural}`);
+    }
+
+    if (/lagoon/.test(water)) {
+      addHabitatScore(scores, "wetland", 4, evidence, "water=lagoon");
+      addHabitatScore(scores, "coast", 3, evidence, "water=lagoon");
+      addHabitatScore(scores, "estuary", 2.5, evidence, "water=lagoon");
+    }
+  });
+
+  const habitats = new Set();
+
+  scores.forEach((score, habitat) => {
+    const threshold = habitat === "urban" ? 2.6 : 2.0;
+    if (score >= threshold) habitats.add(habitat);
+  });
+
+  if (habitats.has("estuary")) {
+    habitats.add("wetland");
+    habitats.add("coast");
+  }
+
+  return {
+    habitats: [...habitats],
+    scores: Object.fromEntries(scores),
+    evidence
+  };
+}
+
+function buildOverpassQuery(location) {
+  const radiusKm = Number(els.radius?.value || 10);
+  const radius = Math.max(2200, Math.min(7000, radiusKm * 700));
+  const lat = Number(location.lat).toFixed(5);
+  const lng = Number(location.lng).toFixed(5);
+
+  return `
+[out:json][timeout:8];
+(
+  nwr(around:${radius},${lat},${lng})["natural"~"coastline|beach|sand|shingle|bay|wetland|water|wood|tree_row|scrub|heath|moor|fell|bare_rock|scree"];
+  nwr(around:${radius},${lat},${lng})["wetland"];
+  nwr(around:${radius},${lat},${lng})["water"];
+  nwr(around:${radius},${lat},${lng})["waterway"~"river|stream|canal|ditch|drain"];
+  nwr(around:${radius},${lat},${lng})["landuse"~"residential|commercial|retail|industrial|construction|brownfield|farmland|farmyard|meadow|pasture|orchard|vineyard|grass|forest|allotments|cemetery"];
+  nwr(around:${radius},${lat},${lng})["leisure"~"park|garden|common|recreation_ground"];
+  nwr(around:${radius},${lat},${lng})["place"~"city|town|village|suburb|neighbourhood"];
+  nwr(around:${radius},${lat},${lng})["building"];
+);
+out tags center 140;
+`;
+}
+
+function fetchWithTimeout(url, options = {}, timeoutMs = 5000) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+
+  return fetch(url, {
+    ...options,
+    signal: controller.signal
+  }).finally(() => window.clearTimeout(timer));
+}
+
+async function resolveOsmHabitatContext(location) {
+  if (!location) return null;
+
+  const cacheKey = osmHabitatCacheKey(location);
+
+  try {
+    const cached = JSON.parse(localStorage.getItem(cacheKey) || "null");
+    if (cached?.checked_at && Date.now() - Date.parse(cached.checked_at) < 1000 * 60 * 60 * 24 * 14) {
+      return cached;
+    }
+  } catch {
+    // Ignore malformed cache entries.
+  }
+
+  const query = buildOverpassQuery(location);
+
+  try {
+    const response = await fetchWithTimeout(
+      "https://overpass-api.de/api/interpreter",
+      {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: query
+      },
+      5500
+    );
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const payload = await response.json();
+    const classified = classifyOsmElements(payload.elements || []);
+
+    const context = {
+      checked_at: new Date().toISOString(),
+      source: "osm-overpass",
+      location: { lat: Number(location.lat), lng: Number(location.lng) },
+      habitats: classified.habitats,
+      scores: classified.scores,
+      evidence: classified.evidence
+    };
+
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify(context));
+    } catch {
+      // Storage may be unavailable. The resolver still works.
+    }
+
+    return context;
+  } catch (error) {
+    console.warn("OSM habitat lookup failed; using static zone and distance fallback", error);
+    return {
+      checked_at: new Date().toISOString(),
+      source: "osm-failed",
+      location: { lat: Number(location.lat), lng: Number(location.lng) },
+      habitats: [],
+      scores: {},
+      evidence: [String(error.message || error)]
+    };
+  }
+}
+
+function osmHabitatSetForLocation(location) {
+  if (!osmHabitatContextMatches(location)) return new Set();
+  return new Set(state.osmHabitatContext?.habitats || []);
+}
+
+async function refineHabitatsFromOsm(location, token) {
+  const context = await resolveOsmHabitatContext(location);
+
+  if (!context) return;
+  if (token !== state.locationContextToken) return;
+  if (state.habitatMode !== "auto") return;
+
+  state.osmHabitatContext = context;
+
+  if (!context.habitats?.length) return;
+
+  syncHabitatsFromPin(location);
+  invalidateChorusSelection("OSM habitat context loaded");
+  render();
+}
+
+
 function locationProfile(location) {
   const radius = Number(els.radius?.value || 10);
   const coastDistance = nearestDistanceKm(location, COAST_POINTS);
@@ -535,8 +769,13 @@ function locationProfile(location) {
     location,
     typeof RIVER_POINTS !== "undefined" ? RIVER_POINTS : []
   );
+
   const zoneHabitats = typeof habitatZoneSetForLocation === "function"
     ? habitatZoneSetForLocation(location)
+    : new Set();
+
+  const osmHabitats = typeof osmHabitatSetForLocation === "function"
+    ? osmHabitatSetForLocation(location)
     : new Set();
 
   const coastalThreshold = Math.max(32, radius * 1.4);
@@ -554,13 +793,15 @@ function locationProfile(location) {
     riverDistance,
     zoneLabel: typeof habitatZoneLabelForLocation === "function" ? habitatZoneLabelForLocation(location) : "",
     zoneHabitats: [...zoneHabitats],
-    coastal: zoneHabitats.has("coast") || coastDistance <= coastalThreshold,
-    nearCoastal: zoneHabitats.has("coast") || coastDistance <= nearCoastalThreshold,
-    estuary: zoneHabitats.has("estuary") || estuaryDistance <= estuaryThreshold,
-    wetland: zoneHabitats.has("wetland") || wetlandDistance <= wetlandThreshold,
-    urban: zoneHabitats.has("urban") || cityDistance <= urbanThreshold,
-    river: zoneHabitats.has("river") || riverDistance <= riverThreshold,
-    inland: !zoneHabitats.has("coast") && coastDistance > nearCoastalThreshold
+    osmHabitats: [...osmHabitats],
+    osmSource: state.osmHabitatContext?.source || "",
+    coastal: osmHabitats.has("coast") || zoneHabitats.has("coast") || coastDistance <= coastalThreshold,
+    nearCoastal: osmHabitats.has("coast") || zoneHabitats.has("coast") || coastDistance <= nearCoastalThreshold,
+    estuary: osmHabitats.has("estuary") || zoneHabitats.has("estuary") || estuaryDistance <= estuaryThreshold,
+    wetland: osmHabitats.has("wetland") || zoneHabitats.has("wetland") || wetlandDistance <= wetlandThreshold,
+    urban: osmHabitats.has("urban") || zoneHabitats.has("urban") || cityDistance <= urbanThreshold,
+    river: osmHabitats.has("river") || zoneHabitats.has("river") || riverDistance <= riverThreshold,
+    inland: !osmHabitats.has("coast") && !zoneHabitats.has("coast") && coastDistance > nearCoastalThreshold
   };
 }
 
@@ -577,14 +818,17 @@ function autoHabitatsFromLocation(location) {
   const profile = locationProfile(location);
 
   profile.zoneHabitats.forEach(habitat => habitats.add(habitat));
+  profile.osmHabitats.forEach(habitat => habitats.add(habitat));
 
   if (profile.urban) {
     habitats.add("urban");
     habitats.add("garden");
     habitats.add("woodland");
-  } else {
-    habitats.add("woodland");
+  }
+
+  if (!profile.urban && !profile.coastal && !profile.nearCoastal && !profile.wetland && !profile.estuary) {
     habitats.add("farmland");
+    habitats.add("woodland");
   }
 
   if (profile.river) {
@@ -605,15 +849,7 @@ function autoHabitatsFromLocation(location) {
     habitats.add("wetland");
   }
 
-  // If nothing specific was detected, keep a practical inland listening mix.
-  if (
-    !profile.urban &&
-    !profile.river &&
-    !profile.coastal &&
-    !profile.nearCoastal &&
-    !profile.estuary &&
-    !profile.wetland
-  ) {
+  if (!profile.urban && !profile.river && !profile.coastal && !profile.nearCoastal && !profile.estuary && !profile.wetland) {
     habitats.add("farmland");
     habitats.add("woodland");
   }
@@ -1497,7 +1733,17 @@ function compactPlaceLabel() {
   if (!state.location) return "Europe pilot";
 
   const profile = locationProfile(state.location);
+  const osmHabitats = new Set(profile.osmHabitats || []);
+
   if (profile.zoneLabel) return profile.zoneLabel;
+  if (osmHabitats.has("estuary")) return "OSM estuary / wetland";
+  if (osmHabitats.has("coast") && osmHabitats.has("wetland")) return "OSM coastal wetland";
+  if (osmHabitats.has("coast")) return "OSM coast";
+  if (osmHabitats.has("urban") && osmHabitats.has("river")) return "OSM urban river corridor";
+  if (osmHabitats.has("urban")) return "OSM urban / garden";
+  if (osmHabitats.has("river")) return "OSM river corridor";
+  if (osmHabitats.has("farmland") && osmHabitats.has("woodland")) return "OSM rural mosaic";
+
   if (profile.estuary) return "Estuary";
   if (profile.wetland && (profile.coastal || profile.nearCoastal)) return "Coastal wetland";
   if (profile.coastal) return "Coast";
@@ -1622,6 +1868,11 @@ function initialiseMap() {
 
 
 function syncHabitatsFromPin(location) {
+  if (state.habitatMode === "manual") {
+    syncHabitatButtons();
+    return;
+  }
+
   const auto = autoHabitatsFromLocation(location);
 
   state.habitats.clear();
@@ -1685,10 +1936,13 @@ function clearBirdSearchForNewPlace() {
 
 function setLocation(lat, lng, source = "map") {
   clearBirdSearchForNewPlace();
-  invalidateChorusSelection();
-clearBirdSearchForNewPlace();
-  invalidateChorusSelection();
+  invalidateChorusSelection("Location changed");
+
   state.location = { lat, lng, source };
+  state.habitatMode = "auto";
+  state.osmHabitatContext = null;
+  state.locationContextToken = Number(state.locationContextToken || 0) + 1;
+  const token = state.locationContextToken;
 
   if (state.map && window.L) {
     if (!state.marker) {
@@ -1702,6 +1956,8 @@ clearBirdSearchForNewPlace();
 
   syncHabitatsFromPin(state.location);
   render();
+
+  refineHabitatsFromOsm(state.location, token);
 }
 
 function useBrowserLocation() {
@@ -1727,6 +1983,8 @@ function initialiseHabitatButtons() {
   document.querySelectorAll("[data-habitat]").forEach(button => {
     button.addEventListener("click", () => {
       const habitat = button.dataset.habitat;
+      state.habitatMode = "manual";
+      state.habitatMode = "manual";
       if (state.habitats.has(habitat)) state.habitats.delete(habitat);
       else state.habitats.add(habitat);
 
@@ -1749,6 +2007,8 @@ function applyPreset() {
   const preset = els.preset?.value || "";
   if (!preset || !HABITAT_PRESETS[preset]) return;
 
+  state.habitatMode = "manual";
+  state.habitatMode = "manual";
   state.habitats.clear();
   HABITAT_PRESETS[preset].forEach(h => state.habitats.add(h));
   syncHabitatButtons();
