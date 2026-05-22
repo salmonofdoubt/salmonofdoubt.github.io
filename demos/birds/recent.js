@@ -121,8 +121,8 @@ function renderThumb(item) {
       alt=""
       loading="lazy"
       decoding="async"
-      width="52"
-      height="52"
+      width="72"
+      height="72"
     />
   `;
 }
@@ -148,21 +148,34 @@ function renderObservation(item) {
     ? `<a class="recent-observation-mainlink" href="${atlasLink}" aria-label="Open ${escapeHtml(name)} in the sound atlas">${titleBlock}</a>`
     : `<div class="recent-observation-mainlink recent-observation-mainlink--disabled">${titleBlock}</div>`;
 
-  const soundLink = atlasLink
+  const soundAction = atlasLink
     ? `<a class="recent-observation-soundlink" href="${atlasLink}">Open sound card</a>`
-    : `<span class="recent-observation-soundlink is-disabled">No atlas sound card</span>`;
+    : `<span class="recent-observation-soundlink is-disabled">No sound card</span>`;
 
   return `
     <article class="recent-observation-card">
       ${title}
 
-      <dl>
-        <div><dt>Where</dt><dd>${escapeHtml(location)}, ${escapeHtml(country)}</dd></div>
-        <div><dt>When</dt><dd>${escapeHtml(date)}</dd></div>
-        <div><dt>Count</dt><dd>${escapeHtml(count)}</dd></div>
-      </dl>
+      <dl class="recent-observation-meta">
+        <div class="recent-observation-where">
+          <dt>Where</dt>
+          <dd>${escapeHtml(location)}, ${escapeHtml(country)}</dd>
+        </div>
 
-      ${soundLink}
+        <div>
+          <dt>When</dt>
+          <dd>${escapeHtml(date)}</dd>
+        </div>
+
+        <div>
+          <dt>Count</dt>
+          <dd>${escapeHtml(count)}</dd>
+        </div>
+
+        <div class="recent-observation-action">
+          ${soundAction}
+        </div>
+      </dl>
     </article>
   `;
 }
