@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-05-22T05:36:47.334654+00:00",
+  "scope": "Europe pilot",
+  "countries": [
+    {
+      "code": "IE",
+      "name": "Ireland",
+      "priority": 1,
+      "status": "active",
+      "reason": "Current atlas origin and existing workflow base."
+    },
+    {
+      "code": "GB",
+      "name": "United Kingdom",
+      "priority": 2,
+      "status": "pilot",
+      "reason": "Neighbouring Atlantic biogeographic context and strong bird-recording culture."
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "priority": 3,
+      "status": "pilot",
+      "reason": "Major migration corridor between northern Europe, Atlantic systems, and the Mediterranean."
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "priority": 4,
+      "status": "pilot",
+      "reason": "Central European coverage and useful test case for inland species patterns."
+    },
+    {
+      "code": "IT",
+      "name": "Italy",
+      "priority": 5,
+      "status": "pilot",
+      "reason": "Mediterranean and Alpine migration context, and strategically relevant for future expansion."
+    }
+  ]
+}

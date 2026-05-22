@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-05-22T05:36:47.334654+00:00",
+  "providers": [
+    {
+      "id": "local_atlas",
+      "name": "Local bird sound atlas",
+      "role": "sound_and_species_baseline",
+      "status": "active",
+      "data_type": [
+        "species",
+        "audio",
+        "attribution"
+      ],
+      "update_frequency": "daily_or_manual"
+    },
+    {
+      "id": "ebird",
+      "name": "eBird",
+      "role": "recent_observations",
+      "status": "planned",
+      "data_type": [
+        "recent_observations",
+        "hotspots",
+        "regional_lists"
+      ],
+      "update_frequency": "daily"
+    },
+    {
+      "id": "gbif",
+      "name": "GBIF",
+      "role": "occurrence_and_taxonomy_context",
+      "status": "planned",
+      "data_type": [
+        "occurrences",
+        "taxonomy",
+        "species_context"
+      ],
+      "update_frequency": "weekly_or_monthly"
+    },
+    {
+      "id": "eurobirdportal",
+      "name": "EuroBirdPortal",
+      "role": "seasonal_and_migration_context",
+      "status": "planned",
+      "data_type": [
+        "seasonal_patterns",
+        "migration_context"
+      ],
+      "update_frequency": "manual_or_periodic"
+    },
+    {
+      "id": "protected_sites",
+      "name": "Protected sites layer",
+      "role": "sensitivity_and_context",
+      "status": "planned",
+      "data_type": [
+        "protected_areas",
+        "habitat_context"
+      ],
+      "update_frequency": "monthly_or_manual"
+    }
+  ]
+}
