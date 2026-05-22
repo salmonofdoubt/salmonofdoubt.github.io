@@ -4078,3 +4078,41 @@ body.boie-advanced-open .chorus-actions {
     font-size: 0.5rem !important;
   }
 }
+
+
+/* Hero app icon brand mark */
+.hero-brandline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 14px;
+}
+
+.hero-brandline .eyebrow {
+  margin: 0;
+}
+
+.hero-app-icon {
+  width: clamp(40px, 6vw, 52px);
+  height: clamp(40px, 6vw, 52px);
+  flex: 0 0 auto;
+  border-radius: 16px;
+  border: 1px solid rgba(79, 246, 255, 0.24);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.035) inset,
+    0 0 22px rgba(79, 246, 255, 0.18);
+  background: rgba(4, 16, 27, 0.82);
+}
+
+@media (max-width: 520px) {
+  .hero-brandline {
+    gap: 0.62rem;
+    align-items: center;
+  }
+
+  .hero-app-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+  }
+}
