@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-05-22T05:43:50.987693+00:00",
+  "provider": "ebird",
+  "status": "missing_api_key",
+  "coverage": {
+    "countries": [
+      "IE",
+      "GB",
+      "FR",
+      "DE",
+      "IT"
+    ],
+    "back_days": 7,
+    "max_results_per_country": 100
+  },
+  "items": [],
+  "warnings": [
+    "EBIRD_API_KEY is not set. Add it as a GitHub Actions repository secret before scheduled harvesting."
+  ]
+}
