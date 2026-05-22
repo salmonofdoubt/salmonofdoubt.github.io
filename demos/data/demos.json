@@ -36,23 +36,23 @@
     "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
   },
   {
-    "title": "European Bird Radar",
+    "title": "European Bird Sounds",
     "path": "birds/",
     "category": "civic",
-    "summary": "Mobile-first bird sound, observation, and seasonal awareness demo for Europe.",
-    "detail": "A public GitHub Pages bird app evolving from the Birds of Ireland Sound Atlas towards a Europe-ready bird radar with sound, species, seasonal, and observation layers.",
+    "summary": "Educational bird sound explorer for learning calls by place, habitat, and season across Europe.",
+    "detail": "A mobile-first sound explorer for training the ear. It combines public bird sounds, images, habitat-aware local listening decks, and recent observations as educational context. It is not a scientific record or species survey.",
     "tags": [
       "Birds",
-      "Ireland",
+      "Europe",
       "Soundscape",
-      "Biodiversity"
+      "Education"
     ],
-    "status": "Europe-ready refactor",
+    "status": "Europe sound explorer",
     "workflow": "refresh-birds.yml",
     "doi": "10.5281/zenodo.20321309",
     "sponsor_url": "https://github.com/sponsors/salmonofdoubt",
-    "repository": "https://github.com/salmonofdoubt/bird-sound-atlas",
-    "source_url": "https://github.com/salmonofdoubt/bird-sound-atlas"
+    "repository": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/birds",
+    "source_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/birds"
   },
   {
     "title": "Ireland Energy Transition Monitor",
