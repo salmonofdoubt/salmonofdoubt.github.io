@@ -2227,6 +2227,123 @@ function installShareButton() {
   button.dataset.bound = "true";
 }
 
+
+
+let deferredBirdSoundsInstallPrompt = null;
+
+function isBirdSoundsStandalone() {
+  return window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+}
+
+function birdSoundsDeviceType() {
+  const ua = window.navigator.userAgent || "";
+  const platform = window.navigator.platform || "";
+
+  if (/iPad|iPhone|iPod/.test(ua) || (platform === "MacIntel" && navigator.maxTouchPoints > 1)) {
+    return "ios";
+  }
+
+  if (/Android/i.test(ua)) {
+    return "android";
+  }
+
+  return "desktop";
+}
+
+function flashInstallHint(button, label, className = "is-hinting") {
+  const original = button.dataset.defaultLabel || "Install";
+  button.textContent = label;
+  button.classList.add(className);
+
+  window.setTimeout(() => {
+    button.textContent = original;
+    button.classList.remove(className);
+  }, 2600);
+}
+
+function syncInstallButtonState() {
+  const button = document.getElementById("installBirdSounds");
+  if (!button) return;
+
+  const device = birdSoundsDeviceType();
+  button.dataset.defaultLabel = "Install";
+
+  if (isBirdSoundsStandalone()) {
+    button.textContent = "Installed";
+    button.classList.add("is-installed");
+    button.setAttribute("aria-label", "European Bird Sounds is already installed");
+    return;
+  }
+
+  button.classList.remove("is-installed");
+
+  if (device === "ios") {
+    button.textContent = "Install";
+    button.setAttribute("aria-label", "Install on iPhone or iPad using Safari share then Add to Home Screen");
+  } else if (device === "android") {
+    button.textContent = "Install";
+    button.setAttribute("aria-label", "Install European Bird Sounds on Android");
+  } else {
+    button.textContent = "Install";
+    button.setAttribute("aria-label", "Install European Bird Sounds if supported by this browser");
+  }
+}
+
+function installBirdSoundsInstallHint() {
+  const button = document.getElementById("installBirdSounds");
+  if (!button || button.dataset.bound === "true") return;
+
+  syncInstallButtonState();
+
+  window.addEventListener("beforeinstallprompt", event => {
+    event.preventDefault();
+    deferredBirdSoundsInstallPrompt = event;
+    syncInstallButtonState();
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredBirdSoundsInstallPrompt = null;
+    syncInstallButtonState();
+  });
+
+  button.addEventListener("click", async () => {
+    const device = birdSoundsDeviceType();
+
+    if (isBirdSoundsStandalone()) {
+      flashInstallHint(button, "Installed", "is-installed");
+      return;
+    }
+
+    if (deferredBirdSoundsInstallPrompt) {
+      deferredBirdSoundsInstallPrompt.prompt();
+
+      try {
+        await deferredBirdSoundsInstallPrompt.userChoice;
+      } finally {
+        deferredBirdSoundsInstallPrompt = null;
+        syncInstallButtonState();
+      }
+
+      return;
+    }
+
+    if (device === "ios") {
+      flashInstallHint(button, "Share → Add");
+      return;
+    }
+
+    if (device === "android") {
+      flashInstallHint(button, "Menu → Install");
+      return;
+    }
+
+    flashInstallHint(button, "Browser menu");
+  });
+
+  button.dataset.bound = "true";
+}
+
 async function init() {
   try {
     const response = await fetch("./data/birds.json?v=" + Date.now());
@@ -2243,6 +2360,7 @@ async function init() {
     bindDualSearchControls();
     installMobileMapToggle();
     installShareButton();
+    installBirdSoundsInstallHint();
 
     render();
     handleBirdDeepLink();
