@@ -1,0 +1,36 @@
+name: Validate birds Europe data
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "demos/birds/data/countries.json"
+      - "demos/birds/data/provider-registry.json"
+      - "demos/birds/data/europe-pilot.json"
+      - "demos/birds/ops/build_europe_pilot.py"
+      - "demos/birds/ops/validate_europe_data.py"
+      - ".github/workflows/validate-birds-europe-data.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build Europe pilot data
+        run: |
+          python demos/birds/ops/build_europe_pilot.py
+
+      - name: Validate Europe pilot data
+        run: |
+          python demos/birds/ops/validate_europe_data.py

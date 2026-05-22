@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-05-22T05:36:47.334654+00:00",
+  "app": "European Bird Radar",
+  "mode": "europe_data_foundation",
+  "coverage": {
+    "scope": "five-country pilot",
+    "country_count": 5,
+    "countries": [
+      "IE",
+      "GB",
+      "FR",
+      "DE",
+      "IT"
+    ]
+  },
+  "providers": [
+    {
+      "id": "local_atlas",
+      "name": "Local bird sound atlas",
+      "role": "sound_and_species_baseline",
+      "status": "active"
+    },
+    {
+      "id": "ebird",
+      "name": "eBird",
+      "role": "recent_observations",
+      "status": "planned"
+    },
+    {
+      "id": "gbif",
+      "name": "GBIF",
+      "role": "occurrence_and_taxonomy_context",
+      "status": "planned"
+    },
+    {
+      "id": "eurobirdportal",
+      "name": "EuroBirdPortal",
+      "role": "seasonal_and_migration_context",
+      "status": "planned"
+    },
+    {
+      "id": "protected_sites",
+      "name": "Protected sites layer",
+      "role": "sensitivity_and_context",
+      "status": "planned"
+    }
+  ],
+  "data_contract": {
+    "observation_fields": [
+      "species_code",
+      "common_name",
+      "scientific_name",
+      "country",
+      "region",
+      "observation_date",
+      "count",
+      "lat",
+      "lng",
+      "source",
+      "freshness"
+    ],
+    "status": "draft"
+  },
+  "notes": [
+    "This is a structural Europe-ready data layer.",
+    "Live external providers are not harvested in this foundation step.",
+    "The existing sound atlas remains the active baseline provider."
+  ]
+}
