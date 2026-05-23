@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-23T05:10:01+00:00",
+    "generated_at": "2026-05-23T07:45:12+00:00",
     "schema_version": "transition_pathway_v2",
     "builder": "build_transition_pathway.py",
     "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -48,15 +48,15 @@
     "observed_window": {
       "start_date": "2026-05-12",
       "end_date": "2026-05-23",
-      "value": 31.2,
+      "value": 32.4,
       "unit": "%",
       "method": "demand_weighted_observed_daily_history",
       "sample_count": 12,
       "caveat": "Observed grid renewable-cover proxy from local daily history. This is not official annual RES-E and must not be joined silently to the SEAI series."
     },
     "latest_snapshot": {
-      "datetime": "2026-05-23T06:00:00+01:00",
-      "value": 35.3,
+      "datetime": "2026-05-23T08:30:00+01:00",
+      "value": 59.8,
       "unit": "%",
       "basis": "latest_grid_snapshot",
       "source_label": "Smart Grid Dashboard API",
@@ -142,9 +142,9 @@
       },
       {
         "date": "2026-05-23",
-        "captured_at": "2026-05-23T05:10:00+00:00",
-        "value": 29.5,
-        "weight_mw": 3709.0,
+        "captured_at": "2026-05-23T07:45:11+00:00",
+        "value": 43.9,
+        "weight_mw": 4325.0,
         "estimated_backfill": false
       }
     ]
