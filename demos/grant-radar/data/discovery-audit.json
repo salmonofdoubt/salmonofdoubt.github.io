@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-05-22T08:32:15+00:00",
+  "generated_at": "2026-05-23T07:43:53+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 3,
-  "links_seen": 4593,
-  "funding_like_links": 434,
+  "seed_pages_failed": 4,
+  "links_seen": 4480,
+  "funding_like_links": 423,
   "candidate_fetches": 300,
-  "pending_review_count": 82,
+  "pending_review_count": 84,
   "status_counts": {
-    "pending_review": 82,
-    "suppressed_non_actionable": 55,
+    "pending_review": 84,
+    "suppressed_non_actionable": 50,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 16,
+    "suppressed_existing": 13,
     "suppressed_stale": 7,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 30
+    "suppressed_fetch_error": 25
   },
   "candidate_type_counts": {
-    "recurring_programme": 101,
-    "funding_call": 34,
+    "recurring_programme": 92,
+    "funding_call": 38,
     "scholarship": 29,
-    "generic_funding_hub": 7,
-    "unknown": 30
+    "generic_funding_hub": 6,
+    "unknown": 25
   },
   "seeds": [
     {
@@ -52,11 +52,11 @@
       "id": "lawpro_funding_hub",
       "name": "LAWPRO funding hub",
       "url": "https://lawaters.ie/funding/",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 112,
-      "funding_like_links": 11,
-      "candidates_fetched": 11
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7f0c9c04a710>, 'Connection to lawaters.ie timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "epa_research_funding_hub",
@@ -124,7 +124,7 @@
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 134,
+      "links_seen": 133,
       "funding_like_links": 45,
       "candidates_fetched": 45
     },
@@ -206,7 +206,7 @@
       "fetch_error": null,
       "links_seen": 596,
       "funding_like_links": 57,
-      "candidates_fetched": 50
+      "candidates_fetched": 57
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -216,7 +216,7 @@
       "fetch_error": null,
       "links_seen": 600,
       "funding_like_links": 59,
-      "candidates_fetched": 0
+      "candidates_fetched": 4
     },
     {
       "id": "geo_erc_advanced_watch",
