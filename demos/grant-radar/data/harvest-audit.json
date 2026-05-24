@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-23T07:48:11+00:00",
+  "generated_at": "2026-05-24T08:04:48+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -19,29 +19,7 @@
       "deadline_text": "23rd October 2025"
     }
   ],
-  "fetch_failures_using_last_known_good": [
-    {
-      "id": "lawpro_catchment_support_fund",
-      "name": "LAWPRO Catchment Support Fund",
-      "error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /catchment-support-fund/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7f712853e510>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
-      "last_successful_fetch_at": "2026-05-22T08:35:47+00:00",
-      "programme_state": "closed"
-    },
-    {
-      "id": "lawpro_cwdf",
-      "name": "LAWPRO Community Water Development Fund",
-      "error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /cwdf/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7f712854b3d0>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
-      "last_successful_fetch_at": "2026-05-22T08:35:47+00:00",
-      "programme_state": "closed"
-    },
-    {
-      "id": "lawpro_small_grants",
-      "name": "LAWPRO Small Grants and Events Scheme",
-      "error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /small-grants-and-events-scheme/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7f7128548590>, 'Connection to lawaters.ie timed out. (connect timeout=10)'))",
-      "last_successful_fetch_at": "2026-05-22T08:35:47+00:00",
-      "programme_state": "closed"
-    }
-  ],
+  "fetch_failures_using_last_known_good": [],
   "fetch_failures_using_registry_fallback": [
     {
       "id": "seai_community_grant",
@@ -69,9 +47,8 @@
     }
   ],
   "state_source_counts": {
-    "registry_fallback": 26,
+    "registry_fallback": 29,
     "deadline_past_recurring": 2,
-    "last_known_good": 3,
     "page_status_upcoming": 1,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 3,

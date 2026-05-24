@@ -1,31 +1,32 @@
 {
-  "generated_at": "2026-05-23T07:43:53+00:00",
+  "generated_at": "2026-05-24T08:00:39+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 4,
-  "links_seen": 4480,
-  "funding_like_links": 423,
+  "seed_pages_failed": 2,
+  "links_seen": 4713,
+  "funding_like_links": 482,
   "candidate_fetches": 300,
-  "pending_review_count": 84,
+  "pending_review_count": 85,
   "status_counts": {
-    "pending_review": 84,
-    "suppressed_non_actionable": 50,
+    "pending_review": 85,
+    "suppressed_non_actionable": 69,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 13,
+    "suppressed_existing": 15,
     "suppressed_stale": 7,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 25
+    "suppressed_generic_page": 6,
+    "suppressed_fetch_error": 55
   },
   "candidate_type_counts": {
-    "recurring_programme": 92,
-    "funding_call": 38,
+    "recurring_programme": 98,
+    "funding_call": 40,
     "scholarship": 29,
-    "generic_funding_hub": 6,
-    "unknown": 25
+    "generic_funding_hub": 8,
+    "tender": 13,
+    "unknown": 55
   },
   "seeds": [
     {
@@ -52,11 +53,11 @@
       "id": "lawpro_funding_hub",
       "name": "LAWPRO funding hub",
       "url": "https://lawaters.ie/funding/",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='lawaters.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='lawaters.ie', port=443) at 0x7f0c9c04a710>, 'Connection to lawaters.ie timed out. (connect timeout=12)'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 112,
+      "funding_like_links": 11,
+      "candidates_fetched": 11
     },
     {
       "id": "epa_research_funding_hub",
@@ -112,11 +113,11 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "fetch_error",
-      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals-2023_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 121,
+      "funding_like_links": 48,
+      "candidates_fetched": 48
     },
     {
       "id": "horizon_cluster6_watch",
@@ -206,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 596,
       "funding_like_links": 57,
-      "candidates_fetched": 57
+      "candidates_fetched": 2
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -216,7 +217,7 @@
       "fetch_error": null,
       "links_seen": 600,
       "funding_like_links": 59,
-      "candidates_fetched": 4
+      "candidates_fetched": 0
     },
     {
       "id": "geo_erc_advanced_watch",
