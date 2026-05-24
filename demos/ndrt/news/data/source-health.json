@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-05-23T07:45:00.604324+00:00",
-  "latest_generated_at": "2026-05-23T07:44:49.378724+00:00",
+  "generated_at": "2026-05-24T08:01:51.323860+00:00",
+  "latest_generated_at": "2026-05-24T08:01:42.234498+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 18,
-  "sources_checked_no_current_items": 11,
+  "sources_active": 15,
+  "sources_checked_no_current_items": 14,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 21,
-    "ireland-catchment-practice": 11,
+    "grants-opportunities": 20,
+    "ireland-catchment-practice": 10,
     "research-papers": 36,
-    "waterbody-evidence-alerts": 27
+    "waterbody-evidence-alerts": 29
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 25,
+    "opportunity_fit": 23,
     "research_use_type": 52
   },
-  "archive_snapshots": 3,
+  "archive_snapshots": 4,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -29,11 +29,11 @@
       "scope": "nanny-delvin local",
       "url": "https://news.google.com/rss/search?q=%28%22Nanny%20Delvin%22%20OR%20%22Nanny-Delvin%22%20OR%20%22River%20Nanny%22%20OR%20%22River%20Delvin%22%20OR%20%22Nanny%20estuary%22%20OR%20%22Delvin%20river%22%29%20%28water%20OR%20river%20OR%20catchment%20OR%20pollution%20OR%20biodiversity%20OR%20restoration%20OR%20flooding%20OR%20estuary%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 0,
       "discovered_hint_count": 14,
-      "elapsed_ms": 65,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 57,
-      "elapsed_ms": 93,
+      "discovered_hint_count": 52,
+      "elapsed_ms": 65,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 73,
-      "elapsed_ms": 93,
+      "discovered_hint_count": 68,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -74,11 +74,11 @@
       "scope": "meath louth fingal regional",
       "url": "https://news.google.com/rss/search?q=%28Meath%20OR%20Louth%20OR%20Fingal%29%20%28catchment%20OR%20river%20OR%20stream%20OR%20estuary%20OR%20lagoon%20OR%20water%20quality%20OR%20septic%20OR%20slurry%20OR%20invasive%20OR%20Spartina%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 68,
-      "elapsed_ms": 96,
+      "current_item_count": 0,
+      "discovered_hint_count": 60,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 100,
-      "elapsed_ms": 107,
+      "elapsed_ms": 86,
       "error": null
     },
     {
@@ -107,8 +107,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 3,
-      "discovered_hint_count": 67,
-      "elapsed_ms": 92,
+      "discovered_hint_count": 66,
+      "elapsed_ms": 71,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 61,
-      "elapsed_ms": 91,
+      "discovered_hint_count": 60,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -134,11 +134,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 44,
-      "elapsed_ms": 75,
+      "current_item_count": 0,
+      "discovered_hint_count": 43,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -151,9 +151,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 62,
-      "elapsed_ms": 91,
+      "current_item_count": 2,
+      "discovered_hint_count": 64,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 87,
-      "elapsed_ms": 875,
+      "elapsed_ms": 648,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 122,
+      "elapsed_ms": 79,
       "error": null
     },
     {
@@ -196,9 +196,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 83,
+      "current_item_count": 2,
+      "discovered_hint_count": 47,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 70,
-      "elapsed_ms": 94,
+      "discovered_hint_count": 76,
+      "elapsed_ms": 73,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 47,
-      "elapsed_ms": 75,
+      "discovered_hint_count": 40,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 60,
+      "elapsed_ms": 43,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 41,
-      "elapsed_ms": 76,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -272,8 +272,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 52,
-      "elapsed_ms": 84,
+      "discovered_hint_count": 39,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 9,
-      "discovered_hint_count": 39,
-      "elapsed_ms": 76,
+      "current_item_count": 12,
+      "discovered_hint_count": 47,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -302,8 +302,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 84,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 145,
-      "elapsed_ms": 1234,
+      "elapsed_ms": 1076,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 109,
-      "elapsed_ms": 568,
+      "elapsed_ms": 400,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 272,
-      "elapsed_ms": 478,
+      "elapsed_ms": 360,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 961,
+      "elapsed_ms": 669,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 412,
-      "elapsed_ms": 1170,
+      "elapsed_ms": 979,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 84,
-      "elapsed_ms": 944,
+      "elapsed_ms": 740,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 35,
-      "elapsed_ms": 1163,
+      "elapsed_ms": 940,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 62,
+      "elapsed_ms": 160,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 91,
-      "elapsed_ms": 105,
+      "elapsed_ms": 77,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 14,
       "discovered_hint_count": 94,
-      "elapsed_ms": 664,
+      "elapsed_ms": 590,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 109,
-      "elapsed_ms": 1222,
+      "elapsed_ms": 1053,
       "error": null
     }
   ]
