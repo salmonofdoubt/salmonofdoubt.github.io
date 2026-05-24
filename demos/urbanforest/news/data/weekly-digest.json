@@ -1,23 +1,23 @@
 {
-  "generated_at": "2026-05-23T07:56:20.009191+00:00",
-  "latest_generated_at": "2026-05-23T07:56:19.891770+00:00",
+  "generated_at": "2026-05-24T08:04:29.474544+00:00",
+  "latest_generated_at": "2026-05-24T08:04:29.358128+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
     "ireland-urban-forest-practice": 25,
-    "funding-opportunities": 30,
-    "research-evidence": 32,
-    "design-maintenance-risk": 3,
+    "funding-opportunities": 33,
+    "research-evidence": 28,
+    "design-maintenance-risk": 4,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
       "benefit": "Funding / grants",
-      "count": 36
+      "count": 39
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 24
+      "count": 23
     },
     {
       "benefit": "School / education",
@@ -29,26 +29,22 @@
     },
     {
       "benefit": "Urban forest / NbS",
-      "count": 16
+      "count": 17
     },
     {
       "benefit": "Monitoring / evaluation",
-      "count": 15
+      "count": 14
     },
     {
       "benefit": "Community stewardship",
-      "count": 13
-    },
-    {
-      "benefit": "Planning / policy",
       "count": 11
     },
     {
-      "benefit": "Urban heat / shade",
-      "count": 10
+      "benefit": "Risk / safety",
+      "count": 11
     },
     {
-      "benefit": "Risk / safety",
+      "benefit": "Planning / policy",
       "count": 10
     },
     {
@@ -56,8 +52,12 @@
       "count": 10
     },
     {
-      "benefit": "Wellbeing / health",
+      "benefit": "Urban heat / shade",
       "count": 9
+    },
+    {
+      "benefit": "Stormwater / SuDS",
+      "count": 8
     }
   ],
   "items": [
@@ -125,6 +125,33 @@
       },
       "research_use_type": "Biodiversity evidence",
       "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "03352798bbf1df92",
+      "title": "News Releases | Sherrill Administration Rounds Out Earth Week, Celebrates Arbor Day by Announcing Availability of Municipal Tree Maintenance Grants (26/P018) - New Jersey Department of Environmental Protection (.gov)",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5xVTRYRF81MXk0VVl6WTdTRHpCRGxaem1qc1RWUl9BcVVJUmJiWG56ZlJsR0RFS2ZBRnhrSEx4Ti1uV3RibGwxczJLdw?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: urban forest survival and maintenance",
+      "published": "2026-04-27",
+      "score": 100,
+      "practical_score": 130.0,
+      "benefit_categories": [
+        "Tree survival / maintenance",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": {
+        "fit": "Low",
+        "score": 45,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Survival / maintenance evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "073b2523d843a620",
@@ -315,29 +342,6 @@
       },
       "research_use_type": "Heat / shade evidence",
       "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, stormwater / suds, wellbeing / health, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
-      "id": "49084ae8556e5d1c",
-      "title": "Urban heat mitigation by green and blue infrastructure: Drivers, effectiveness, and future needs",
-      "url": "https://doi.org/10.1016/j.xinn.2024.100588",
-      "section": "research-evidence",
-      "source_name": "The Innovation",
-      "published": "2024-02-07",
-      "score": 100,
-      "practical_score": 122.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Monitoring / evaluation",
-        "Risk / safety"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Review / evidence synthesis",
-      "urbanforest_relevance": "Climate-adaptation signal: useful for explaining shade, cooling, heat exposure, and tree-canopy value in practical urban design."
     }
   ]
 }
