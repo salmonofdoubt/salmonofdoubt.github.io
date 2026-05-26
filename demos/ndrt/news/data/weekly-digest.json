@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-05-24T08:01:51.325450+00:00",
-  "latest_generated_at": "2026-05-24T08:01:42.234498+00:00",
+  "generated_at": "2026-05-26T08:45:21.362861+00:00",
+  "latest_generated_at": "2026-05-26T08:44:45.323310+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "grants-opportunities": 20,
+    "grants-opportunities": 21,
+    "waterbody-evidence-alerts": 28,
     "ireland-catchment-practice": 10,
-    "research-papers": 36,
-    "waterbody-evidence-alerts": 29
+    "research-papers": 36
   },
   "top_pressure_categories": [
     {
       "pressure": "habitat / biodiversity",
-      "count": 42
+      "count": 41
     },
     {
       "pressure": "policy / governance",
@@ -23,16 +23,16 @@
       "count": 28
     },
     {
+      "pressure": "agricultural runoff",
+      "count": 26
+    },
+    {
       "pressure": "NbS / restoration",
       "count": 25
     },
     {
-      "pressure": "agricultural runoff",
-      "count": 25
-    },
-    {
       "pressure": "funding / grant",
-      "count": 23
+      "count": 24
     },
     {
       "pressure": "water quality",
@@ -55,8 +55,8 @@
       "count": 4
     },
     {
-      "pressure": "incident / alert",
-      "count": 3
+      "pressure": "river ecology",
+      "count": 4
     }
   ],
   "items": [
@@ -69,7 +69,7 @@
       "published": "2026-05-21",
       "score": 100,
       "practical_score": 153.0,
-      "freshness_label": "3 days old",
+      "freshness_label": "5 days old",
       "pressure_categories": [
         "invasive species",
         "habitat / biodiversity",
@@ -91,38 +91,6 @@
       },
       "research_use_type": null,
       "action_relevance": "Funding signal for the Trust: check whether this can support invasive species, habitat / biodiversity, funding / grant, citizen science, engagement, or small catchment actions."
-    },
-    {
-      "id": "01007cc0fd14cb7f",
-      "title": "Minister Muir announces £380,000 in funding to improve water quality - Department of Agriculture, Environment and Rural Affairs",
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQN1I2allLUjA0SVJ3M1pGYkhHVmdDYTRMR2RVY243QzNVbGtYY3Z5Nk9QVGxZeDdNdnRjNGY0cHBoRGdJNmpHM1hKdldEc2t5ZzBfRGlXZTVsUWRPM2YxNjNOWW1EMFNueHNMNGt5RUtkU1Q1TER5bm0xQTFGbVIxbmNUQkUxaUpDMlpydWdpUTBCSHFjYjVvTXl5OA?oc=5",
-      "section": "grants-opportunities",
-      "source_name": "Google News: water and biodiversity grants Ireland",
-      "published": "2026-05-21",
-      "score": 93,
-      "practical_score": 147.0,
-      "freshness_label": "3 days old",
-      "pressure_categories": [
-        "agricultural runoff",
-        "habitat / biodiversity",
-        "funding / grant",
-        "policy / governance"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "High",
-        "score": 77,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      },
-      "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support agricultural runoff, habitat / biodiversity, funding / grant, citizen science, engagement, or small catchment actions."
     },
     {
       "id": "4f44253263213588",
@@ -324,6 +292,34 @@
       "id": "5439804a3bae6e06",
       "title": "Policy & Advocacy",
       "url": "https://theriverstrust.org/about-us/news?c=98799",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "The Rivers Trust News",
+      "published": null,
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "nutrients",
+        "habitat / biodiversity",
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+    },
+    {
+      "id": "d2a22c14a8b8f34e",
+      "title": "Raw sewage in our rivers",
+      "url": "https://theriverstrust.org/about-us/news?c=46810",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
