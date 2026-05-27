@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-26T08:51:10.427080+00:00",
-  "latest_generated_at": "2026-05-26T08:51:10.279697+00:00",
+  "generated_at": "2026-05-27T08:53:25.669042+00:00",
+  "latest_generated_at": "2026-05-27T08:53:25.525624+00:00",
   "total_items": 92,
   "total_sources": 20,
   "sources_active": 12,
@@ -8,19 +8,19 @@
   "sources_failed": 0,
   "items_by_section": {
     "ireland-urban-forest-practice": 21,
-    "funding-opportunities": 36,
-    "research-evidence": 29,
-    "design-maintenance-risk": 4,
+    "funding-opportunities": 29,
+    "research-evidence": 35,
+    "design-maintenance-risk": 5,
     "transferable-urbanforest-practice": 2
   },
   "annotation_coverage": {
     "urbanforest_relevance": 92,
     "benefit_categories": 92,
     "local_relevance": 92,
-    "opportunity_fit": 42,
-    "research_use_type": 42
+    "opportunity_fit": 35,
+    "research_use_type": 50
   },
-  "archive_snapshots": 8,
+  "archive_snapshots": 9,
   "sources": [
     {
       "id": "gn-street-tree-survival-drought",
@@ -41,8 +41,8 @@
       "scope": "funding ireland trees biodiversity",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-urbanforest-maintenance-ireland-uk",
@@ -64,7 +64,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20garden%20OR%20school%20trees%20OR%20school%20biodiversity%20OR%20outdoor%20classroom%29%20%28grant%20OR%20funding%20OR%20scheme%20OR%20award%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 15
+      "current_item_count": 14
     },
     {
       "id": "gn-ireland-urban-forest",
@@ -75,7 +75,7 @@
       "url": "https://news.google.com/rss/search?q=%28%22urban%20forest%22%20OR%20%22pocket%20forest%22%20OR%20%22tiny%20forest%22%20OR%20Miyawaki%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 10
+      "current_item_count": 12
     },
     {
       "id": "gn-dublin-urban-greening",
@@ -97,7 +97,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20forest%20OR%20campus%20greening%20OR%20school%20garden%20OR%20biodiversity%20campus%29%20Ireland%20%28trees%20OR%20forest%20OR%20planting%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 2
     },
     {
       "id": "gn-urban-nbs-suds",
@@ -130,7 +130,7 @@
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20call%20OR%20award%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20greening%20OR%20nature-based%20solutions%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 13
+      "current_item_count": 7
     },
     {
       "id": "heritage-council-funding",
@@ -174,7 +174,7 @@
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tiny%20forest%20OR%20Miyawaki%20OR%20street%20trees%29%20%28maintenance%20OR%20survival%20OR%20watering%20OR%20drought%20OR%20aftercare%20OR%20vandalism%20OR%20soil%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 5
     },
     {
       "id": "gn-urban-forest-carbon-claims",
@@ -239,8 +239,8 @@
       "scope": "dublin institutional",
       "url": "https://www.tcd.ie/news_events/",
       "host": "www.tcd.ie",
-      "status": "active",
-      "current_item_count": 1
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     }
   ]
 }
