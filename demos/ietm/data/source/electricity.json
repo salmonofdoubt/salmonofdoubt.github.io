@@ -1,23 +1,23 @@
 {
   "electricity_now": {
-    "demand_mw": 5018,
-    "renewables_percent": 57.46,
-    "renewables_output_percent": 57.5,
+    "demand_mw": 5019,
+    "renewables_percent": 59.06,
+    "renewables_output_percent": 47.8,
     "renewable_surplus_percent": 0.0,
-    "renewables_coverage_percent": 57.5,
+    "renewables_coverage_percent": 47.8,
     "renewables_normalised": false,
     "renewables_model": "smartgrid_api_latest_non_null_actual",
     "renewables_definition": "Latest non-null Smart Grid Dashboard API wind plus solar cover of current demand.",
-    "wind_percent": 48.57,
-    "solar_percent": 8.89,
-    "gas_percent": 42.54,
-    "residual_percent": 42.54,
-    "imports_percent": 1.11,
+    "wind_percent": 44.6,
+    "solar_percent": 3.2,
+    "gas_percent": 40.94,
+    "residual_percent": 40.94,
+    "imports_percent": 0.0,
     "imports_available": true,
-    "co2_g_per_kwh": 147.0,
+    "co2_g_per_kwh": 163.0,
     "co2_available": true,
     "gas_is_residual_proxy": true,
-    "electricity_datetime": "2026-05-28T17:15:00+01:00",
+    "electricity_datetime": "2026-05-28T19:30:00+01:00",
     "source_label": "Smart Grid Dashboard API",
     "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=28-May-2026&dateTo=28-May-2026&areas=demandactual",
     "source_freshness": "live chart API latest non-null actual",
@@ -25,73 +25,66 @@
     "co2_source": "EirGrid Smart Grid Dashboard, ROI",
     "co2_unit": "gCO2/kWh",
     "co2_region": "ROI",
-    "co2_datetime": "28-May-2026 15:30:00",
-    "generation_mw": 4814,
-    "wind_mw": 2441,
-    "solar_mw": 446,
-    "interconnection_mw": 53,
-    "interconnection_percent": 1.11,
-    "net_import_percent": 1.11,
+    "co2_datetime": "28-May-2026 18:15:00",
+    "generation_mw": 5028,
+    "wind_mw": 2239,
+    "solar_mw": 159,
+    "interconnection_mw": -63,
+    "interconnection_percent": -1.25,
+    "net_import_percent": -1.25,
     "interconnection_basis": "smartgrid_visible_generation_overview_net_import_percent",
-    "interconnection_direction": "importing",
-    "imports_mw": 53,
-    "exports_mw": 0,
-    "exports_percent": 0.0,
+    "interconnection_direction": "exporting",
+    "imports_mw": 0,
+    "exports_mw": 63,
+    "exports_percent": 1.25,
     "smartgrid_live_available": true,
     "smartgrid_api_live": true,
     "interconnection_available": true,
     "consistency_warnings": [],
-    "thermal_generation_percent": 41.43,
+    "thermal_generation_percent": 42.19,
     "interconnection_note": "Live SmartGrid System Generation page NET IMPORT % converted to MW using visible system generation.",
     "smartgrid_visible_overview_url": "https://www.smartgriddashboard.com/all/generation/",
-    "smartgrid_visible_overview_harvested_at": "2026-05-28T16:20:40+00:00",
-    "other_renewables_percent": 0.0,
-    "thermal_other_percent": 42.54,
-    "generation_mix_reconciliation": {
-      "mode": "scaled_children_to_renewable_total",
-      "reason": "Source wind plus solar exceeded renewable total for this interval.",
-      "raw_wind_percent": 48.6,
-      "raw_solar_percent": 8.9,
-      "raw_renewables_percent": 57.46
-    },
+    "smartgrid_visible_overview_harvested_at": "2026-05-28T18:45:16+00:00",
+    "other_renewables_percent": 11.26,
+    "thermal_other_percent": 40.94,
     "generation_mix_percent": {
-      "wind": 48.57,
-      "solar": 8.89,
-      "other_renewables": 0.0,
-      "thermal_other": 42.54,
+      "wind": 44.6,
+      "solar": 3.2,
+      "other_renewables": 11.26,
+      "thermal_other": 40.94,
       "sum": 100.0
     },
-    "demand_balance_expected_mw": 4867,
-    "demand_balance_gap_mw": 151,
+    "demand_balance_expected_mw": 4965,
+    "demand_balance_gap_mw": 54,
     "demand_balance_tolerance_mw": 300,
     "demand_balance_status": "coherent",
     "show_demand_card": true,
-    "normalised_at": "2026-05-28T16:20:40+00:00",
+    "normalised_at": "2026-05-28T18:45:16+00:00",
     "normalisation_version": "current-electricity-v1"
   },
   "fuel_mix_24h": [
     {
       "label": "Wind",
       "class": "wind",
-      "percent": 48.6,
+      "percent": 44.6,
       "available": true
     },
     {
       "label": "Solar",
       "class": "solar",
-      "percent": 8.9,
+      "percent": 3.2,
       "available": true
     },
     {
       "label": "Imports",
       "class": "imports",
-      "percent": 5.5,
+      "percent": 5.4,
       "available": true
     },
     {
       "label": "Uncovered",
       "class": "residual",
-      "percent": 37.0,
+      "percent": 46.8,
       "available": true
     }
   ],
@@ -102,14 +95,14 @@
     "period": "latest non-null actual interval"
   },
   "gas": {
-    "share_percent": 37.0,
+    "share_percent": 46.8,
     "signal": "Uncovered demand estimate",
     "narrative": "Uncovered demand is calculated from live demand minus mapped wind and solar cover. It is not measured gas. A later fuel-mix endpoint should split this into gas, hydro, storage, imports and other sources."
   },
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-05-28T16:20:16+00:00",
+    "harvested_at": "2026-05-28T18:44:56+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -155,7 +148,7 @@
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
-      "harvested_at": "2026-05-28T16:20:20+00:00",
+      "harvested_at": "2026-05-28T18:44:58+00:00",
       "mode": "diagnostic-only",
       "caveat": "Smart Grid visible-page parser is disabled for demand, wind and solar because visible-page scraping can confuse actual, forecast and chart values. Core grid quantities use the official EirGrid quarter-hourly workbook instead.",
       "probe_file": "ops/debug/smartgrid_live_probe.json"
@@ -164,12 +157,12 @@
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=28-May-2026+00%3A00&dateTo=28-May-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-05-28T16:20:21+00:00",
+      "harvested_at": "2026-05-28T18:44:59+00:00",
       "region": "ROI",
       "parser": {
-        "row_count": 80,
-        "candidate_count": 63,
-        "latest_time": "28-May-2026 15:30:00",
+        "row_count": 85,
+        "candidate_count": 74,
+        "latest_time": "28-May-2026 18:15:00",
         "latest_field": "CO2_INTENSITY"
       },
       "caveat": "Parsed from Smart Grid Dashboard chart API. ROI is preferred; ALL is used only as fallback and labelled."
@@ -177,7 +170,7 @@
     "smartgrid_api_live": {
       "source": "Smart Grid Dashboard API",
       "source_url": "https://www.smartgriddashboard.com/",
-      "harvested_at": "2026-05-28T16:20:24+00:00",
+      "harvested_at": "2026-05-28T18:45:00+00:00",
       "mode": "direct-api-latest-non-null-actual",
       "region": "ALL",
       "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected."
@@ -185,14 +178,14 @@
     "smartgrid_visible_overview": {
       "source": "SmartGrid Dashboard visible System Generation page",
       "source_url": "https://www.smartgriddashboard.com/all/generation/",
-      "harvested_at": "2026-05-28T16:20:40+00:00",
+      "harvested_at": "2026-05-28T18:45:16+00:00",
       "mode": "visible-page-current-kpi-parser",
       "caveat": "Uses the visible System Generation KPI values. Net Import % is converted to MW from visible system generation for the top KPI card."
     },
     "current_electricity_normalisation": {
       "source": "Derived from final electricity_now fields",
       "mode": "post-build-normalisation",
-      "generated_at": "2026-05-28T16:20:40+00:00",
+      "generated_at": "2026-05-28T18:45:16+00:00",
       "caveat": "Generation mix is normalised so wind + solar + other renewables + thermal/other = 100. Interconnection MW is derived from visible SmartGrid net-import percentage and generation. Demand is withheld from top accounting cards when it fails the generation + net-flow balance check."
     }
   }
