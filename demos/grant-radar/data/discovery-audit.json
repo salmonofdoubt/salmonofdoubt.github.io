@@ -1,32 +1,31 @@
 {
-  "generated_at": "2026-05-27T08:48:56+00:00",
+  "generated_at": "2026-05-28T08:53:33+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 2,
-  "links_seen": 4711,
-  "funding_like_links": 482,
+  "seed_pages_failed": 4,
+  "links_seen": 4425,
+  "funding_like_links": 429,
   "candidate_fetches": 300,
-  "pending_review_count": 85,
+  "pending_review_count": 87,
   "status_counts": {
-    "pending_review": 85,
-    "suppressed_non_actionable": 68,
+    "pending_review": 87,
+    "suppressed_non_actionable": 56,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 15,
-    "suppressed_stale": 7,
-    "suppressed_generic_page": 6,
-    "suppressed_fetch_error": 59
+    "suppressed_stale": 5,
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 22
   },
   "candidate_type_counts": {
     "recurring_programme": 98,
     "funding_call": 40,
     "scholarship": 29,
-    "generic_funding_hub": 8,
-    "tender": 12,
-    "unknown": 59
+    "generic_funding_hub": 6,
+    "unknown": 22
   },
   "seeds": [
     {
@@ -93,11 +92,11 @@
       "id": "gsi_geoheritage_watch",
       "name": "Geological Survey Ireland geoheritage watch",
       "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 163,
-      "funding_like_links": 5,
-      "candidates_fetched": 5
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gsi.ie', port=443): Read timed out. (read timeout=35)",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "waterways_ireland_heritage_watch",
@@ -113,11 +112,11 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 121,
-      "funding_like_links": 48,
-      "candidates_fetched": 48
+      "status": "fetch_error",
+      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals-2023_en",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "horizon_cluster6_watch",
@@ -207,7 +206,7 @@
       "fetch_error": null,
       "links_seen": 596,
       "funding_like_links": 57,
-      "candidates_fetched": 2
+      "candidates_fetched": 55
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -275,7 +274,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 155,
+      "links_seen": 154,
       "funding_like_links": 1,
       "candidates_fetched": 0
     },
@@ -285,7 +284,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 155,
+      "links_seen": 154,
       "funding_like_links": 1,
       "candidates_fetched": 0
     }
