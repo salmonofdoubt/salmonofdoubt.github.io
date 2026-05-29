@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-05-28T09:00:48.895512+00:00",
-  "latest_generated_at": "2026-05-28T09:00:48.774731+00:00",
+  "generated_at": "2026-05-29T08:57:35.172301+00:00",
+  "latest_generated_at": "2026-05-29T08:57:35.040467+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 25,
+    "ireland-urban-forest-practice": 23,
     "funding-opportunities": 27,
-    "research-evidence": 34,
-    "design-maintenance-risk": 4,
+    "research-evidence": 37,
+    "design-maintenance-risk": 3,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
@@ -17,38 +17,34 @@
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 27
+      "count": 29
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 21
+      "count": 24
     },
     {
       "benefit": "School / education",
-      "count": 17
+      "count": 18
+    },
+    {
+      "benefit": "Monitoring / evaluation",
+      "count": 16
     },
     {
       "benefit": "Urban forest / NbS",
       "count": 15
     },
     {
-      "benefit": "Monitoring / evaluation",
-      "count": 14
-    },
-    {
-      "benefit": "Planning / policy",
-      "count": 13
-    },
-    {
       "benefit": "Urban heat / shade",
       "count": 12
     },
     {
-      "benefit": "Community stewardship",
+      "benefit": "Planning / policy",
       "count": 12
     },
     {
-      "benefit": "Risk / safety",
+      "benefit": "Community stewardship",
       "count": 11
     },
     {
@@ -56,7 +52,11 @@
       "count": 10
     },
     {
-      "benefit": "Soil health",
+      "benefit": "Risk / safety",
+      "count": 10
+    },
+    {
+      "benefit": "Stormwater / SuDS",
       "count": 10
     }
   ],
@@ -96,8 +96,41 @@
       "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
+      "id": "e635bd17dbf4acfb",
+      "title": "Funding watch: Heritage Council Funding",
+      "url": "https://www.heritagecouncil.ie/funding",
+      "section": "funding-opportunities",
+      "source_name": "Heritage Council Funding",
+      "published": null,
+      "score": 100,
+      "practical_score": 148.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Planning / policy"
+      ],
+      "local_relevance": {
+        "score": 8,
+        "label": "Transferable relevance",
+        "matched_terms": [
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 87,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
       "id": "c03e78e8ded069e2",
-      "title": "Derry school leads the way in biodiversity with major ESB funding - Ireland Live",
+      "title": "Derry school leads the way in biodiversity with major ESB funding - Ireland Live News",
       "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSFZtMDV3Y2FWenYzZWUxeFJaWlVhMXhfVF94X0xhbC1pMUVUaC1RRzl4bGk1QjNfMXhkSzJSaVpUcmxtSTdhbEdQMG5sbzhpYkt3bW1QUXZ5bFgyQ3BVSUoySVhJSEEwN0lCTm4zNEt5TTRKb0RKLWNwbGt5V3RQQ00yMzFRalk5N0NNS1RrRDM3MVNMSXhCM3d2UjN2eTBpSEhkUERpWWl2YkF0U281Vm1xN1R1ZnVlNnIyMlNB?oc=5",
       "section": "funding-opportunities",
       "source_name": "Google News: school garden tree funding Ireland",
@@ -306,36 +339,6 @@
       "opportunity_fit": null,
       "research_use_type": "Review / evidence synthesis",
       "urbanforest_relevance": "Climate-adaptation signal: useful for explaining shade, cooling, heat exposure, and tree-canopy value in practical urban design."
-    },
-    {
-      "id": "b8701af5a4908584",
-      "title": "Special Needs Education Grants in Ireland: What Every Parent Should Know in 2026 - Schooldays.ie",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1EdVE3MG5UUWpPRWt6bk5aNkNaTDloSG93VGdJU2M4ZXpVX2FicWhnMzh0VDZXWkIxYUFyMUw2SC1mdVFvZWp6QXAxX1Z4X1YxOU5JWVNOSDdQblgxdkkxb05EMHlkTEd5NE9mcWQyOFRtT3A4Y3Vra3NERGtiTVU?oc=5",
-      "section": "funding-opportunities",
-      "source_name": "Google News: school garden tree funding Ireland",
-      "published": "2026-04-13",
-      "score": 91,
-      "practical_score": 122.0,
-      "benefit_categories": [
-        "School / education",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 26,
-        "label": "Strong Ireland relevance",
-        "matched_terms": [
-          "ireland",
-          "school"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 57,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": null,
-      "urbanforest_relevance": "Opportunity signal: may help fund school / education, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     }
   ]
 }
