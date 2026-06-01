@@ -2,34 +2,22 @@
   "meta": {
     "countries_with_any_value": 30,
     "country_count": 30,
-    "failed_indicator_count": 6,
-    "generated_at": "2026-05-18T08:56:34.896728+00:00",
+    "failed_indicator_count": 9,
+    "generated_at": "2026-06-01T10:38:45.425871+00:00",
     "indicator_count": 14,
-    "loaded_indicator_count": 8,
+    "loaded_indicator_count": 5,
     "source": "World Bank API",
     "title": "Three Intelligences Explorer World Bank snapshot",
-    "value_count": 240,
+    "value_count": 150,
     "years": "2010:2026"
   },
   "rawValues": {
     "AT": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 47.2402653902084,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 36.0,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 10.9335136815146,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -49,12 +37,6 @@
         "value": 91.92573373,
         "year": 2025
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 92.6126708984375,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -63,23 +45,11 @@
       }
     },
     "AU": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 17.4213145571644,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 12.3,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 8.25171746070811,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -99,12 +69,6 @@
         "value": 96.13140106,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 108.421989440918,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -113,23 +77,11 @@
       }
     },
     "BE": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 22.604446776415,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 11.7,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 11.2160664677018,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -149,12 +101,6 @@
         "value": 95.77579144,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 82.1475601196289,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -163,23 +109,11 @@
       }
     },
     "BR": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 58.9818729765235,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 46.5,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 12.1793252040724,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -199,12 +133,6 @@
         "value": 84.46347227,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 69.7317733764648,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -213,23 +141,11 @@
       }
     },
     "CA": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 39.4617117321106,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 23.8,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 6.56566994375263,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -249,12 +165,6 @@
         "value": 94.353302,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 76.2666931152344,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -263,23 +173,11 @@
       }
     },
     "CH": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 32.3827380818297,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 27.7,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 9.06104968621636,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -299,12 +197,6 @@
         "value": 97.32103855,
         "year": 2025
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 73.5430526733398,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -313,23 +205,11 @@
       }
     },
     "CL": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 25.0116461113584,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 24.2,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 23.2750668049145,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -349,12 +229,6 @@
         "value": 95.590243,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 110.176902770996,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -363,23 +237,11 @@
       }
     },
     "CN": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 24.0319389958256,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 15.2,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 34.8105237153218,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -399,12 +261,6 @@
         "value": 91.6,
         "year": 2025
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 76.8757843123403,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -413,23 +269,11 @@
       }
     },
     "DE": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 32.6789342643734,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 17.6,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 10.2876894329414,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -449,12 +293,6 @@
         "value": 93.49999579,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 76.7096862792969,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -463,23 +301,11 @@
       }
     },
     "DK": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 15.7815,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 39.5,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 9.06983927345931,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -499,12 +325,6 @@
         "value": 99.76915157,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 78.9604110717773,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -513,23 +333,11 @@
       }
     },
     "EE": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 57.0652937046572,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 38.0,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 6.14573290973003,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -549,12 +357,6 @@
         "value": 92.23796204,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 65.6692276000977,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -563,23 +365,11 @@
       }
     },
     "ES": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 37.1925889548355,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 19.0,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 9.58105460690675,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -599,12 +389,6 @@
         "value": 95.7574516,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 93.7689666748047,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -613,23 +397,11 @@
       }
     },
     "FI": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 73.7235162521384,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 50.2,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 4.89518090216668,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -649,12 +421,6 @@
         "value": 93.72405196,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 110.304496765137,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -663,23 +429,11 @@
       }
     },
     "FR": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 32.4764820484275,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 16.2,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 9.60038144780495,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -699,12 +453,6 @@
         "value": 88.65381638,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 71.5346908569336,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -713,23 +461,11 @@
       }
     },
     "GB": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 13.2907130161617,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 12.2,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 9.91288560282114,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -749,12 +485,6 @@
         "value": 95.4720993,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 80.4146499633789,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -763,23 +493,11 @@
       }
     },
     "IE": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 11.5259108724053,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 12.7,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 8.17058601306707,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -799,12 +517,6 @@
         "value": 97.18769836,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 77.5933380126953,
-        "year": 2022
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -813,23 +525,11 @@
       }
     },
     "IN": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 24.5390304689576,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 34.9,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 48.3948115195574,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -849,12 +549,6 @@
         "value": 70.0,
         "year": 2025
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 34.4465039692543,
-        "year": 2025
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -863,23 +557,11 @@
       }
     },
     "IT": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 32.8944947923712,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 17.5,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 14.6586386239905,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -899,12 +581,6 @@
         "value": 89.2207202,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 75.9496536254883,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -913,23 +589,11 @@
       }
     },
     "JP": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 68.3957811364628,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 8.8,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 12.835201662985,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -949,12 +613,6 @@
         "value": 85.54153081,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 64.4907608032227,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -963,23 +621,11 @@
       }
     },
     "KR": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 64.108606557377,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 3.6,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 25.9439899531653,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -999,12 +645,6 @@
         "value": 97.89563777,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 111.853302001953,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1013,23 +653,11 @@
       }
     },
     "MX": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 33.5959176419147,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 13.0,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 14.9923440243315,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1049,12 +677,6 @@
         "value": 83.12233799,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 48.203441619873,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1063,23 +685,11 @@
       }
     },
     "NL": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 11.0574428274428,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 12.2,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 10.8892498470498,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1099,12 +709,6 @@
         "value": 97.00679779,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 86.5938262939453,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1113,23 +717,11 @@
       }
     },
     "NO": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 33.5009745518434,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 61.4,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 6.05589724673443,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1149,12 +741,6 @@
         "value": 99.0,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 95.4987564086914,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1163,23 +749,11 @@
       }
     },
     "NZ": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 37.7892841137822,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 28.9,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 6.48591499675774,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1199,12 +773,6 @@
         "value": 93.51930237,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 77.2406463623047,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1213,23 +781,11 @@
       }
     },
     "PL": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 31.0804192379273,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 15.2,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 17.9583314936851,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1249,12 +805,6 @@
         "value": 88.58496367,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 80.9149627685547,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1263,23 +813,11 @@
       }
     },
     "PT": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 36.154994891142,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 32.3,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 8.45242266236737,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1299,12 +837,6 @@
         "value": 88.48704454,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 77.6778182983398,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1313,23 +845,11 @@
       }
     },
     "SE": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 68.7013529108454,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 57.9,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 5.63670790600148,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1349,12 +869,6 @@
         "value": 95.76629783,
         "year": 2025
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 83.9988098144531,
-        "year": 2024
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1363,23 +877,11 @@
       }
     },
     "SG": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 20.933147632312,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 1.1,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 13.8691955865476,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1399,12 +901,6 @@
         "value": 94.37757178,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 97.2886546863037,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1413,23 +909,11 @@
       }
     },
     "US": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 33.8669264120375,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 10.9,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 7.81485752365112,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1449,12 +933,6 @@
         "value": 94.69380188,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 79.361930847168,
-        "year": 2022
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1463,23 +941,11 @@
       }
     },
     "ZA": {
-      "AG.LND.FRST.ZS": {
-        "indicator": "AG.LND.FRST.ZS",
-        "label": "Forest area",
-        "value": 13.965072665672,
-        "year": 2023
-      },
       "EG.FEC.RNEW.ZS": {
         "indicator": "EG.FEC.RNEW.ZS",
         "label": "Renewable energy consumption",
         "value": 9.7,
         "year": 2021
-      },
-      "EN.ATM.PM25.MC.M3": {
-        "indicator": "EN.ATM.PM25.MC.M3",
-        "label": "PM2.5 exposure",
-        "value": 23.753069242361,
-        "year": 2020
       },
       "ER.PTD.TOTL.ZS": {
         "indicator": "ER.PTD.TOTL.ZS",
@@ -1499,12 +965,6 @@
         "value": 78.35759735,
         "year": 2024
       },
-      "SE.TER.ENRR": {
-        "indicator": "SE.TER.ENRR",
-        "label": "Tertiary enrolment",
-        "value": 23.493768799339,
-        "year": 2023
-      },
       "SP.DYN.LE00.IN": {
         "indicator": "SP.DYN.LE00.IN",
         "label": "Life expectancy",
@@ -1516,6 +976,12 @@
   "report": {
     "countriesWithAnyValue": 30,
     "failed": [
+      {
+        "code": "SE.TER.ENRR",
+        "label": "Tertiary enrolment",
+        "layer": "individual",
+        "reason": "HTTPError: HTTP Error 400: Bad Request"
+      },
       {
         "code": "GE.EST",
         "label": "Government effectiveness",
@@ -1547,13 +1013,25 @@
         "reason": "payload did not contain a data array for URL https://api.worldbank.org/v2/country/IE;IT;DE;FR;NL;DK;SE;FI;EE;GB;US;CA;AU;NZ;JP;KR;SG;ES;PT;PL;CL;MX;BR;ZA;IN;CN;NO;CH;AT;BE/indicator/RQ.EST?format=json&per_page=20000&date=2010%3A2026&source=1181 | payload did not contain a data array for URL https://api.worldbank.org/v2/country/IE;IT;DE;FR;NL;DK;SE;FI;EE;GB;US;CA;AU;NZ;JP;KR;SG;ES;PT;PL;CL;MX;BR;ZA;IN;CN;NO;CH;AT;BE/indicator/RQ.EST?format=json&per_page=20000&date=2010%3A2026"
       },
       {
+        "code": "AG.LND.FRST.ZS",
+        "label": "Forest area",
+        "layer": "planetary",
+        "reason": "TimeoutError: The read operation timed out"
+      },
+      {
         "code": "EN.GHG.CO2.PC.CE.AR5",
         "label": "CO2 emissions excluding LULUCF per capita",
         "layer": "planetary",
         "reason": "TimeoutError: The read operation timed out"
+      },
+      {
+        "code": "EN.ATM.PM25.MC.M3",
+        "label": "PM2.5 exposure",
+        "layer": "planetary",
+        "reason": "TimeoutError: The read operation timed out"
       }
     ],
-    "generated_at": "2026-05-18T08:56:34.896728+00:00",
+    "generated_at": "2026-06-01T10:38:45.425871+00:00",
     "loaded": [
       {
         "code": "HD.HCI.OVRL",
@@ -1570,14 +1048,6 @@
         "layer": "individual",
         "sourceRoute": "default World Bank API",
         "usableRows": 455
-      },
-      {
-        "code": "SE.TER.ENRR",
-        "countryValues": 30,
-        "label": "Tertiary enrolment",
-        "layer": "individual",
-        "sourceRoute": "default World Bank API",
-        "usableRows": 404
       },
       {
         "code": "SP.DYN.LE00.IN",
@@ -1602,26 +1072,10 @@
         "layer": "planetary",
         "sourceRoute": "default World Bank API",
         "usableRows": 390
-      },
-      {
-        "code": "AG.LND.FRST.ZS",
-        "countryValues": 30,
-        "label": "Forest area",
-        "layer": "planetary",
-        "sourceRoute": "default World Bank API",
-        "usableRows": 420
-      },
-      {
-        "code": "EN.ATM.PM25.MC.M3",
-        "countryValues": 30,
-        "label": "PM2.5 exposure",
-        "layer": "planetary",
-        "sourceRoute": "default World Bank API",
-        "usableRows": 330
       }
     ],
     "total": 14,
-    "values": 240,
+    "values": 150,
     "years": "2010:2026"
   }
 }
