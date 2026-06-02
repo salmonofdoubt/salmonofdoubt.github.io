@@ -1,15 +1,7 @@
 {
-  "generated_at": "2026-06-01T10:35:51+00:00",
+  "generated_at": "2026-06-02T09:22:32+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
-    {
-      "id": "ifi_habitats_conservation",
-      "name": "IFI Habitats & Conservation Funding Call",
-      "registry_state": "open",
-      "page_state": "closed",
-      "state_source": "deadline_past_recurring",
-      "deadline_text": "December 11th 2025"
-    },
     {
       "id": "research_ireland_goipg",
       "name": "Research Ireland Government of Ireland Postgraduate Scholarship",
@@ -19,7 +11,15 @@
       "deadline_text": "23rd October 2025"
     }
   ],
-  "fetch_failures_using_last_known_good": [],
+  "fetch_failures_using_last_known_good": [
+    {
+      "id": "ifi_habitats_conservation",
+      "name": "IFI Habitats & Conservation Funding Call",
+      "error": "HTTPSConnectionPool(host='www.fisheriesireland.ie', port=443): Read timed out. (read timeout=30)",
+      "last_successful_fetch_at": "2026-06-01T10:32:31+00:00",
+      "programme_state": "closed"
+    }
+  ],
   "fetch_failures_using_registry_fallback": [
     {
       "id": "seai_community_grant",
@@ -48,11 +48,12 @@
   ],
   "state_source_counts": {
     "registry_fallback": 29,
-    "deadline_past_recurring": 2,
+    "last_known_good": 1,
     "page_status_upcoming": 1,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 3,
     "page_status_open": 2,
+    "deadline_past_recurring": 1,
     "page_status_closed": 1
   },
   "public_visible_count": 40,

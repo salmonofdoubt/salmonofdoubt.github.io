@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-06-01T10:31:19+00:00",
+  "generated_at": "2026-06-02T09:17:59+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 2,
-  "links_seen": 4710,
-  "funding_like_links": 482,
+  "seed_pages_failed": 3,
+  "links_seen": 4108,
+  "funding_like_links": 452,
   "candidate_fetches": 300,
-  "pending_review_count": 79,
+  "pending_review_count": 72,
   "status_counts": {
-    "pending_review": 79,
-    "suppressed_non_actionable": 66,
+    "pending_review": 72,
+    "suppressed_non_actionable": 54,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 15,
-    "suppressed_stale": 7,
-    "suppressed_generic_page": 6,
-    "suppressed_fetch_error": 66
+    "suppressed_existing": 10,
+    "suppressed_stale": 5,
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 67
   },
   "candidate_type_counts": {
-    "recurring_programme": 98,
-    "funding_call": 34,
+    "recurring_programme": 79,
+    "funding_call": 27,
     "scholarship": 29,
-    "generic_funding_hub": 8,
-    "tender": 10,
-    "unknown": 66
+    "generic_funding_hub": 5,
+    "tender": 11,
+    "unknown": 67
   },
   "seeds": [
     {
@@ -45,9 +45,9 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 80,
-      "funding_like_links": 13,
-      "candidates_fetched": 13
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "lawpro_funding_hub",
@@ -55,9 +55,9 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 112,
-      "funding_like_links": 11,
-      "candidates_fetched": 11
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "epa_research_funding_hub",
@@ -73,11 +73,11 @@
       "id": "ifi_funding_hub",
       "name": "Inland Fisheries Ireland funding hub",
       "url": "https://www.fisheriesireland.ie/our-services/funding",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 173,
-      "funding_like_links": 6,
-      "candidates_fetched": 6
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.fisheriesireland.ie', port=443): Read timed out. (read timeout=35)",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "seai_grants_hub",
@@ -135,7 +135,7 @@
       "url": "https://farmingforwater.ie/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 90,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -145,7 +145,7 @@
       "url": "https://farmingforwater.ie/measures/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 145,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 596,
       "funding_like_links": 57,
-      "candidates_fetched": 2
+      "candidates_fetched": 32
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 155,
+      "links_seen": 154,
       "funding_like_links": 1,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 155,
+      "links_seen": 154,
       "funding_like_links": 1,
       "candidates_fetched": 0
     }
