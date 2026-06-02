@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-06-01T10:32:52.335785+00:00",
-  "latest_generated_at": "2026-06-01T10:32:39.676683+00:00",
+  "generated_at": "2026-06-02T09:19:39.875639+00:00",
+  "latest_generated_at": "2026-06-02T09:19:30.239623+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "grants-opportunities": 19,
-    "ireland-catchment-practice": 12,
+    "grants-opportunities": 18,
+    "ireland-catchment-practice": 13,
     "research-papers": 36,
     "waterbody-evidence-alerts": 28
   },
   "top_pressure_categories": [
     {
       "pressure": "habitat / biodiversity",
-      "count": 41
+      "count": 40
     },
     {
       "pressure": "policy / governance",
-      "count": 29
+      "count": 28
     },
     {
       "pressure": "citizen science / monitoring",
@@ -32,7 +32,7 @@
     },
     {
       "pressure": "funding / grant",
-      "count": 24
+      "count": 23
     },
     {
       "pressure": "water quality",
@@ -56,42 +56,10 @@
     },
     {
       "pressure": "incident / alert",
-      "count": 3
+      "count": 4
     }
   ],
   "items": [
-    {
-      "id": "4a091e9fa684a202",
-      "title": "Skip to main content",
-      "url": "https://www.npws.ie/news",
-      "section": "grants-opportunities",
-      "source_name": "NPWS",
-      "published": "2026-05-29",
-      "score": 100,
-      "practical_score": 153.0,
-      "freshness_label": "3 days old",
-      "pressure_categories": [
-        "invasive species",
-        "habitat / biodiversity",
-        "funding / grant",
-        "policy / governance"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "High",
-        "score": 77,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      },
-      "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support invasive species, habitat / biodiversity, funding / grant, citizen science, engagement, or small catchment actions."
-    },
     {
       "id": "4f44253263213588",
       "title": "Biodiversity Net Gain",
@@ -320,6 +288,34 @@
       "id": "d2a22c14a8b8f34e",
       "title": "Raw sewage in our rivers",
       "url": "https://theriverstrust.org/about-us/news?c=46810",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "The Rivers Trust News",
+      "published": null,
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "nutrients",
+        "habitat / biodiversity",
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+    },
+    {
+      "id": "b31cf059b3ab140c",
+      "title": "River Restoration",
+      "url": "https://theriverstrust.org/about-us/news?c=4564",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,

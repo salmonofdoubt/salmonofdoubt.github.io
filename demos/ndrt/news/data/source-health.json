@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-06-01T10:32:52.334243+00:00",
-  "latest_generated_at": "2026-06-01T10:32:39.676683+00:00",
+  "generated_at": "2026-06-02T09:19:39.874057+00:00",
+  "latest_generated_at": "2026-06-02T09:19:30.239623+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 15,
-  "sources_checked_no_current_items": 14,
+  "sources_active": 16,
+  "sources_checked_no_current_items": 13,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 19,
-    "ireland-catchment-practice": 12,
+    "grants-opportunities": 18,
+    "ireland-catchment-practice": 13,
     "research-papers": 36,
     "waterbody-evidence-alerts": 28
   },
@@ -16,10 +16,10 @@
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 23,
+    "opportunity_fit": 22,
     "research_use_type": 51
   },
-  "archive_snapshots": 11,
+  "archive_snapshots": 12,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -29,11 +29,11 @@
       "scope": "nanny-delvin local",
       "url": "https://news.google.com/rss/search?q=%28%22Nanny%20Delvin%22%20OR%20%22Nanny-Delvin%22%20OR%20%22River%20Nanny%22%20OR%20%22River%20Delvin%22%20OR%20%22Nanny%20estuary%22%20OR%20%22Delvin%20river%22%29%20%28water%20OR%20river%20OR%20catchment%20OR%20pollution%20OR%20biodiversity%20OR%20restoration%20OR%20flooding%20OR%20estuary%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 14,
-      "elapsed_ms": 73,
+      "current_item_count": 1,
+      "discovered_hint_count": 9,
+      "elapsed_ms": 38,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 57,
-      "elapsed_ms": 98,
+      "discovered_hint_count": 55,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 61,
-      "elapsed_ms": 95,
+      "discovered_hint_count": 62,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -77,8 +77,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 66,
-      "elapsed_ms": 100,
+      "discovered_hint_count": 58,
+      "elapsed_ms": 55,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 6,
       "discovered_hint_count": 100,
-      "elapsed_ms": 111,
+      "elapsed_ms": 72,
       "error": null
     },
     {
@@ -107,8 +107,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 4,
-      "discovered_hint_count": 67,
-      "elapsed_ms": 99,
+      "discovered_hint_count": 68,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 62,
-      "elapsed_ms": 95,
+      "discovered_hint_count": 67,
+      "elapsed_ms": 55,
       "error": null
     },
     {
@@ -138,7 +138,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 47,
-      "elapsed_ms": 84,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 84,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 87,
-      "elapsed_ms": 886,
+      "elapsed_ms": 557,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 196,
+      "elapsed_ms": 119,
       "error": null
     },
     {
@@ -198,7 +198,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 46,
-      "elapsed_ms": 81,
+      "elapsed_ms": 48,
       "error": null
     },
     {
@@ -213,7 +213,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 75,
-      "elapsed_ms": 102,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 41,
-      "elapsed_ms": 79,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -242,8 +242,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 67,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 33,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 38,
-      "elapsed_ms": 76,
+      "elapsed_ms": 43,
       "error": null
     },
     {
@@ -272,8 +272,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 83,
+      "discovered_hint_count": 50,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -288,7 +288,7 @@
       "http_status": 200,
       "current_item_count": 12,
       "discovered_hint_count": 45,
-      "elapsed_ms": 81,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -302,8 +302,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 43,
-      "elapsed_ms": 86,
+      "discovered_hint_count": 45,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 145,
-      "elapsed_ms": 1220,
+      "elapsed_ms": 1012,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 109,
-      "elapsed_ms": 717,
+      "elapsed_ms": 485,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 272,
-      "elapsed_ms": 444,
+      "elapsed_ms": 274,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 1436,
+      "elapsed_ms": 945,
       "error": null
     },
     {
@@ -376,9 +376,9 @@
       "host": "www.npws.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
-      "discovered_hint_count": 413,
-      "elapsed_ms": 1188,
+      "current_item_count": 3,
+      "discovered_hint_count": 415,
+      "elapsed_ms": 1061,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 901,
+      "elapsed_ms": 624,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 35,
-      "elapsed_ms": 1098,
+      "elapsed_ms": 1052,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 98,
+      "elapsed_ms": 74,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 91,
-      "elapsed_ms": 150,
+      "elapsed_ms": 65,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 12,
       "discovered_hint_count": 94,
-      "elapsed_ms": 1270,
+      "elapsed_ms": 1124,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 109,
-      "elapsed_ms": 1318,
+      "elapsed_ms": 1139,
       "error": null
     }
   ]
