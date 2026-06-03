@@ -1,22 +1,120 @@
 {
-  "generated_at": "2026-06-02T09:22:32+00:00",
+  "generated_at": "2026-06-03T10:10:11+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
-      "id": "research_ireland_goipg",
-      "name": "Research Ireland Government of Ireland Postgraduate Scholarship",
-      "registry_state": "closed",
-      "page_state": "upcoming",
-      "state_source": "page_status_upcoming",
-      "deadline_text": "23rd October 2025"
+      "id": "ifi_habitats_conservation",
+      "name": "IFI Habitats & Conservation Funding Call",
+      "registry_state": "open",
+      "page_state": "closed",
+      "state_source": "deadline_past_recurring",
+      "deadline_text": "December 11th 2025"
     }
   ],
   "fetch_failures_using_last_known_good": [
     {
-      "id": "ifi_habitats_conservation",
-      "name": "IFI Habitats & Conservation Funding Call",
-      "error": "HTTPSConnectionPool(host='www.fisheriesireland.ie', port=443): Read timed out. (read timeout=30)",
-      "last_successful_fetch_at": "2026-06-01T10:32:31+00:00",
+      "id": "acres_scheme",
+      "name": "ACRES",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/campaigns/agri-climate-rural-environment-scheme-acres/",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "climate_action_communities",
+      "name": "Climate Action in our Communities / START",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-climate-energy-and-the-environment/campaigns/climate-action-in-our-communities/",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "heritage_community_grant",
+      "name": "Heritage Council Community Heritage Grant Scheme",
+      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/community-heritage-grant-scheme-2 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7f2eb14fee10>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "horizon_biodiv",
+      "name": "Horizon Europe Cluster 6 Biodiversity",
+      "error": "403 Client Error: Forbidden for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment/biodiversity-and-ecosystem-services_en",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "leader_programme",
+      "name": "LEADER Programme",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development/",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "life_calls",
+      "name": "EU LIFE Calls",
+      "error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/life-calls-proposals-2026_en",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "npws_peatlands_natura_scheme",
+      "name": "NPWS Peatlands and Natura Community Engagement Scheme",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects/",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "archived"
+    },
+    {
+      "id": "research_ireland_goipg",
+      "name": "Research Ireland Government of Ireland Postgraduate Scholarship",
+      "error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/government-ireland-postgraduate/",
+      "last_successful_fetch_at": "2026-05-29T11:47:05+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "research_ireland_discover",
+      "name": "Research Ireland Discover Programme",
+      "error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/discover/",
+      "last_successful_fetch_at": "2026-05-29T11:47:00+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "research_ireland_discover_opportunistic",
+      "name": "Research Ireland Discover Programme – Opportunistic Funding Mechanism",
+      "error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/",
+      "last_successful_fetch_at": "2026-05-29T11:47:05+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "water_quality_capital_programme_2026",
+      "name": "Water Quality Capital Programme 2026",
+      "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-browne-announces-fourfold-increase-in-investment-in-water-quality-initiatives-in-2026/",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "international_joint_initiative_for_research_harnessing_disruptive_techno",
+      "name": "International Joint Initiative for Research Harnessing Disruptive Technologies to Address Global Challenges",
+      "error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/global-challenges",
+      "last_successful_fetch_at": "2026-05-29T11:47:05+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "geo_erc_advanced",
+      "name": "ERC Advanced Grant",
+      "error": "403 Client Error: Forbidden for url: https://erc.europa.eu/funding/advanced-grants",
+      "last_successful_fetch_at": "2026-06-02T09:00:22+00:00",
+      "programme_state": "upcoming"
+    },
+    {
+      "id": "geo_horizon_energy_supply",
+      "name": "Horizon Europe Sustainable, Secure and Competitive Energy Supply",
+      "error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "geo_clean_hydrogen_partnership",
+      "name": "Clean Hydrogen Partnership Call 2026",
+      "error": "403 Client Error: Forbidden for url: https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
+      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
       "programme_state": "closed"
     }
   ],
@@ -47,14 +145,11 @@
     }
   ],
   "state_source_counts": {
-    "registry_fallback": 29,
-    "last_known_good": 1,
-    "page_status_upcoming": 1,
+    "last_known_good": 15,
+    "registry_fallback": 20,
+    "deadline_past_recurring": 2,
     "registry_fallback_after_fetch_error": 4,
-    "deadline_future": 3,
-    "page_status_open": 2,
-    "deadline_past_recurring": 1,
-    "page_status_closed": 1
+    "deadline_future": 1
   },
   "public_visible_count": 40,
   "total_harvested_count": 42
