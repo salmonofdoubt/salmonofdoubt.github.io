@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-06-02T09:51:00.058821+00:00",
-  "latest_generated_at": "2026-06-02T09:50:59.950464+00:00",
+  "generated_at": "2026-06-03T10:23:28.742890+00:00",
+  "latest_generated_at": "2026-06-03T10:23:28.634951+00:00",
   "total_items": 92,
   "total_sources": 20,
-  "sources_active": 10,
-  "sources_checked_no_current_items": 10,
+  "sources_active": 11,
+  "sources_checked_no_current_items": 9,
   "sources_failed": 0,
   "items_by_section": {
-    "ireland-urban-forest-practice": 28,
-    "funding-opportunities": 26,
-    "research-evidence": 33,
-    "design-maintenance-risk": 3,
+    "ireland-urban-forest-practice": 27,
+    "funding-opportunities": 23,
+    "research-evidence": 35,
+    "design-maintenance-risk": 5,
     "transferable-urbanforest-practice": 2
   },
   "annotation_coverage": {
     "urbanforest_relevance": 92,
     "benefit_categories": 92,
     "local_relevance": 92,
-    "opportunity_fit": 31,
-    "research_use_type": 47
+    "opportunity_fit": 28,
+    "research_use_type": 50
   },
-  "archive_snapshots": 15,
+  "archive_snapshots": 16,
   "sources": [
     {
       "id": "gn-street-tree-survival-drought",
@@ -30,8 +30,8 @@
       "scope": "maintenance risk trees",
       "url": "https://news.google.com/rss/search?q=%28street%20trees%20OR%20urban%20trees%20OR%20tree%20planting%29%20%28drought%20OR%20watering%20OR%20survival%20OR%20maintenance%20OR%20aftercare%20OR%20establishment%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-urbanforest-tree-grants-ireland",
@@ -42,7 +42,7 @@
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 2
+      "current_item_count": 1
     },
     {
       "id": "gn-urbanforest-maintenance-ireland-uk",
@@ -64,7 +64,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20garden%20OR%20school%20trees%20OR%20school%20biodiversity%20OR%20outdoor%20classroom%29%20%28grant%20OR%20funding%20OR%20scheme%20OR%20award%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 11
+      "current_item_count": 9
     },
     {
       "id": "gn-ireland-urban-forest",
@@ -86,7 +86,7 @@
       "url": "https://news.google.com/rss/search?q=%28Dublin%20OR%20Trinity%20OR%20TCD%20OR%20Fingal%20OR%20%22Dublin%20City%20Council%22%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20pocket%20forest%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 5
+      "current_item_count": 4
     },
     {
       "id": "gn-ireland-school-campus-forest",
@@ -174,7 +174,7 @@
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tiny%20forest%20OR%20Miyawaki%20OR%20street%20trees%29%20%28maintenance%20OR%20survival%20OR%20watering%20OR%20drought%20OR%20aftercare%20OR%20vandalism%20OR%20soil%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 5
     },
     {
       "id": "gn-urban-forest-carbon-claims",
