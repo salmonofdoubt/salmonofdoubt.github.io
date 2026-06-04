@@ -161,6 +161,36 @@ function consistencyNotes() {
   return notes;
 }
 
+function isNbsDecision(data = decisionData()) {
+  return data.mode === "nbs";
+}
+
+function buildModeSpecificAudit() {
+  const data = decisionData();
+
+  if (isNbsDecision(data)) {
+    return `## NbS / SDSS audit
+${buildNbsAudit()}`;
+  }
+
+  return `## Project / method audit
+
+This is not an NbS spatial decision-support memo, so the NbS-SDSS audit is intentionally not included.
+
+Method questions:
+1. Is the project objective clear enough for a public demo?
+2. Does the workflow make the boundary between human judgement and AI critique obvious?
+3. Does the tool avoid implying that AI should make the decision?
+4. Does the memo distinguish evidence, assumptions, values, uncertainty, and risks?
+5. Does the EcoLogits note avoid false precision?
+6. Is the Zenodo status honest, with no invented DOI?
+7. What user test would show whether the workflow confuses people?
+8. What would justify revising the demo before release?
+
+Core safeguard:
+The public demo should make human ownership of the decision clearer than the interface aesthetics.`;
+}
+
 function buildNbsAudit() {
   const data = decisionData();
   const top = topOption();
@@ -191,6 +221,10 @@ A high suitability score does not mean "build here". It means "investigate here 
 function buildRedTeamPrompt() {
   const data = decisionData();
   const top = topOption();
+  const modeSpecificTask = isNbsDecision(data)
+    ? "Check whether the option score, preferred intervention, and NbS spatial audit are consistent."
+    : "Check whether the selected project path matches the stated purpose and avoids overclaiming what AI can do.";
+
   return `Act as a sceptical academic examiner.
 
 Review this decision without agreeing with me prematurely.
@@ -218,8 +252,9 @@ Your task:
 2. Identify weak assumptions.
 3. Distinguish tools from observable evidence.
 4. Identify ecological, ethical, governance, or practical risks.
-5. State what would change your mind.
-6. Recommend: proceed, revise, test first, delay, or reject.
+5. ${modeSpecificTask}
+6. State what would change your mind.
+7. Recommend: proceed, revise, test first, delay, or reject.
 
 Do not make the decision for me. Improve the quality of my judgement.`;
 }
@@ -299,8 +334,7 @@ ${$("boundaryText").textContent}
 ## Red-team prompt
 ${buildRedTeamPrompt()}
 
-## NbS / SDSS audit
-${buildNbsAudit()}
+${buildModeSpecificAudit()}
 
 ## Provisional decision
 [Write the decision here after red-team review.]
@@ -337,6 +371,27 @@ ${buildMemo()}`;
 }
 
 function buildEvidencePrompt() {
+  const data = decisionData();
+
+  if (!isNbsDecision(data)) {
+    return `You are reviewing a P(HI) project-method audit.
+
+Do not make the decision for me. Improve the quality of the project logic.
+
+Check whether:
+1. The public demo has a clear user journey.
+2. The workflow makes human ownership of the decision explicit.
+3. The tool avoids AI delegation and only prepares AI critique.
+4. The EcoLogits claim is transparent and avoids false precision.
+5. The Zenodo/DOI status is honest and not overstated.
+6. The decision memo is coherent for the selected decision mode.
+7. The project should proceed, be revised, be tested first, delayed, or rejected.
+
+Decision memo to review:
+
+${buildMemo()}`;
+  }
+
   return `You are reviewing a P(HI)-SDSS evidence audit for a nature-based solutions decision.
 
 Do not choose the intervention for me. Improve the evidence logic.
