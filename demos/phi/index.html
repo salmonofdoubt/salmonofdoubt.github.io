@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>P(HI) Decision Lab</title>
+  <meta name="description" content="A human-led decision lab for using AI without surrendering judgement, with an NbS spatial decision support mode.">
+  <meta name="application-name" content="P(HI) Decision Lab">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="topbar" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="P(HI) Decision Lab home">
+        <span class="brand-mark" aria-hidden="true">P(HI)</span>
+        <span class="brand-text">Decision Lab</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#cockpit">Cockpit</a>
+        <a href="#options">Options</a>
+        <a href="#nbs">NbS-SDSS</a>
+        <a href="#memo">Memo</a>
+        <a href="#about">About</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy">
+        <p class="eyebrow">Human intelligence for decisions under uncertainty</p>
+        <h1>Use AI to think better, not to stop thinking.</h1>
+        <p class="hero-lede">
+          P(HI) Decision Lab is a browser-based demonstrator for accountable, ecological,
+          human-led decision-making. It helps you frame a decision, compare options,
+          audit bias, red-team assumptions, and generate a traceable decision memo.
+        </p>
+        <div class="hero-actions" aria-label="Primary actions">
+          <a class="button button-primary" href="#cockpit">Start a decision</a>
+          <button class="button button-secondary" type="button" id="loadNbsExample">Load NbS example</button>
+          <button class="button button-secondary" type="button" id="loadPhiExample">Load P(HI) project example</button>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Project thesis">
+        <h2>Core thesis</h2>
+        <p>
+          Human intelligence prevails when artificial intelligence is made accountable to life.
+        </p>
+        <div class="thesis-grid">
+          <span>Traceable</span>
+          <span>Revisable</span>
+          <span>Evidence-aware</span>
+          <span>Ecologically accountable</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section-shell concept-band" aria-label="Concept summary">
+      <article>
+        <h2>Not an oracle. A judgement instrument.</h2>
+        <p>
+          The lab does not make decisions for you. It makes the structure of your judgement visible:
+          objectives, evidence, values, assumptions, uncertainty, risks, and the boundary of appropriate AI support.
+        </p>
+      </article>
+      <article>
+        <h2>Suitability is not recommendation.</h2>
+        <p>
+          In NbS spatial decision support, a high suitability score should mean: investigate here first,
+          document uncertainty, validate in the field, and keep the human accountable.
+        </p>
+      </article>
+    </section>
+
+    <section class="lab-layout section-shell" aria-label="Decision lab workspace">
+      <div class="workspace-main">
+        <section class="card" id="cockpit">
+          <div class="card-heading">
+            <p class="step-label">Step 1</p>
+            <h2>Decision Cockpit</h2>
+            <p>Frame the decision before asking AI anything useful.</p>
+          </div>
+
+          <div class="form-grid">
+            <label>
+              Decision title
+              <input id="decisionTitle" type="text" placeholder="Should we prioritise riparian buffers in this catchment?">
+            </label>
+            <label>
+              Decision mode
+              <select id="decisionMode">
+                <option value="personal">Personal / strategic</option>
+                <option value="research">Research / PhD</option>
+                <option value="policy">Policy / governance</option>
+                <option value="nbs">NbS spatial decision support</option>
+                <option value="financial">Financial / tax / legal</option>
+                <option value="medical">Medical / health</option>
+                <option value="safety">Fieldwork / safety-critical</option>
+              </select>
+            </label>
+            <label>
+              Main objective
+              <input id="objective" type="text" placeholder="Improve water quality while preserving farm practicality.">
+            </label>
+            <label>
+              Decision deadline
+              <input id="deadline" type="date">
+            </label>
+            <label>
+              Stakes
+              <select id="stakes">
+                <option value="1">Low</option>
+                <option value="2" selected>Medium</option>
+                <option value="3">High</option>
+                <option value="4">High and irreversible</option>
+              </select>
+            </label>
+            <label>
+              Reversibility
+              <select id="reversibility">
+                <option value="4">Easy to reverse</option>
+                <option value="3" selected>Partly reversible</option>
+                <option value="2">Hard to reverse</option>
+                <option value="1">Effectively irreversible</option>
+              </select>
+            </label>
+            <label class="wide">
+              Context
+              <textarea id="context" rows="4" placeholder="What triggered this decision? What matters politically, ecologically, practically, or personally?"></textarea>
+            </label>
+            <label class="wide">
+              Affected people, places, or systems
+              <textarea id="stakeholders" rows="3" placeholder="Communities, farmers, catchment managers, students, supervisors, funders, habitats, rivers, peatlands..."></textarea>
+            </label>
+          </div>
+
+          <div class="status-strip" id="decisionStatus" aria-live="polite">
+            <span class="status-pill neutral">Awaiting decision frame</span>
+            <span class="status-copy">Fill the cockpit to generate a judgement boundary.</span>
+          </div>
+        </section>
+
+        <section class="card" id="options">
+          <div class="card-heading">
+            <p class="step-label">Step 2</p>
+            <h2>Option Matrix</h2>
+            <p>Compare options without pretending the score is truth.</p>
+          </div>
+
+          <div class="table-actions">
+            <button class="button button-secondary" type="button" id="addOption">Add option</button>
+            <button class="button button-ghost" type="button" id="resetOptions">Reset options</button>
+          </div>
+
+          <div class="responsive-table" role="region" aria-label="Option comparison table" tabindex="0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Option</th>
+                  <th>Benefit</th>
+                  <th>Evidence</th>
+                  <th>Reversible</th>
+                  <th>Risk</th>
+                  <th>Uncertainty</th>
+                  <th>Score</th>
+                  <th><span class="visually-hidden">Remove</span></th>
+                </tr>
+              </thead>
+              <tbody id="optionsBody"></tbody>
+            </table>
+          </div>
+          <p class="microcopy">
+            Score = benefit + evidence + reversibility minus risk and uncertainty penalties. It is a prompt for discussion, not an answer.
+          </p>
+        </section>
+
+        <section class="card" id="bias">
+          <div class="card-heading">
+            <p class="step-label">Step 3</p>
+            <h2>Bias Scanner</h2>
+            <p>Expose pressure, preference, and hidden incentives before they become certainty.</p>
+          </div>
+
+          <div class="check-grid" id="biasChecks">
+            <label><input type="checkbox" value="Confirmation bias"> I am mostly seeking evidence that supports my preferred option.</label>
+            <label><input type="checkbox" value="Sunk-cost effect"> I may be continuing because I already invested time, status, or money.</label>
+            <label><input type="checkbox" value="Status quo bias"> I may be avoiding change because the current situation feels safer.</label>
+            <label><input type="checkbox" value="Authority pressure"> A supervisor, funder, institution, or public expectation may be distorting the decision.</label>
+            <label><input type="checkbox" value="Availability bias"> Recent events or vivid examples may be overweighted.</label>
+            <label><input type="checkbox" value="Automation bias"> I may be treating model or AI output as more authoritative than it deserves.</label>
+          </div>
+
+          <div class="form-grid compact">
+            <label class="wide">
+              What outcome are you secretly hoping for?
+              <textarea id="hopedOutcome" rows="2"></textarea>
+            </label>
+            <label class="wide">
+              What evidence would change your mind?
+              <textarea id="changeMind" rows="2"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <section class="card" id="redteam">
+          <div class="card-heading">
+            <p class="step-label">Step 4</p>
+            <h2>Red Team Chamber</h2>
+            <p>Generate critique prompts instead of asking for comfortable agreement.</p>
+          </div>
+
+          <div class="form-grid compact">
+            <label>
+              Critic mode
+              <select id="criticMode">
+                <option>Academic examiner</option>
+                <option>Policy reviewer</option>
+                <option>Funding panel</option>
+                <option>Fieldwork safety officer</option>
+                <option>Ecological auditor</option>
+                <option>Community stakeholder</option>
+                <option>Future self</option>
+              </select>
+            </label>
+            <label>
+              Preferred option
+              <input id="preferredOption" type="text" placeholder="Leave blank to use highest-scoring option">
+            </label>
+          </div>
+
+          <div class="output-box">
+            <div class="output-actions">
+              <h3>Generated red-team prompt</h3>
+              <button class="button button-small" type="button" data-copy-target="redTeamPrompt">Copy</button>
+            </div>
+            <pre id="redTeamPrompt"></pre>
+          </div>
+        </section>
+
+        <section class="card" id="nbs">
+          <div class="card-heading">
+            <p class="step-label">Step 5</p>
+            <h2>NbS Spatial Decision Mode</h2>
+            <p>Turn a suitability map into an auditable spatial argument.</p>
+          </div>
+
+          <div class="nbs-grid">
+            <div class="form-grid compact">
+              <label>
+                NbS intervention
+                <select id="nbsIntervention">
+                  <option>Riparian buffer</option>
+                  <option>Sediment pond</option>
+                  <option>Constructed wetland</option>
+                  <option>Leaky dam</option>
+                  <option>Peatland restoration</option>
+                  <option>Hedgerow / woodland corridor</option>
+                  <option>Advisory or non-structural measure</option>
+                </select>
+              </label>
+              <label>
+                Primary outcome
+                <select id="nbsOutcome">
+                  <option>Water quality</option>
+                  <option>Biodiversity</option>
+                  <option>Flood mitigation</option>
+                  <option>Carbon / peat protection</option>
+                  <option>Multi-benefit delivery</option>
+                  <option>Farm practicality</option>
+                </select>
+              </label>
+              <label class="wide">
+                Spatial criteria used
+                <textarea id="spatialCriteria" rows="3" placeholder="Stream proximity, slope, soil, flow accumulation, erosion risk, field access, protected areas..."></textarea>
+              </label>
+              <label class="wide">
+                Field validation required
+                <textarea id="fieldValidation" rows="3" placeholder="Check drainage pathways, landowner feasibility, wetness, pollutant pathway, access, maintenance burden..."></textarea>
+              </label>
+            </div>
+
+            <aside class="map-card" aria-label="Illustrative suitability map logic">
+              <h3>Suitability logic</h3>
+              <div class="map-legend">
+                <span><i class="zone high"></i> Investigate first</span>
+                <span><i class="zone medium"></i> Conditional</span>
+                <span><i class="zone low"></i> Low priority</span>
+              </div>
+              <div class="mock-map" aria-hidden="true">
+                <span class="stream"></span>
+                <span class="parcel parcel-a">A</span>
+                <span class="parcel parcel-b">B</span>
+                <span class="parcel parcel-c">C</span>
+                <span class="parcel parcel-d">D</span>
+              </div>
+              <p class="microcopy">
+                Demo logic only. A real SDSS should connect this audit to QGIS, R, Python, GeoPackage, or GeoJSON outputs.
+              </p>
+            </aside>
+          </div>
+
+          <div class="output-box">
+            <div class="output-actions">
+              <h3>NbS decision audit</h3>
+              <button class="button button-small" type="button" data-copy-target="nbsAudit">Copy</button>
+            </div>
+            <pre id="nbsAudit"></pre>
+          </div>
+        </section>
+
+        <section class="card" id="memo">
+          <div class="card-heading">
+            <p class="step-label">Step 6</p>
+            <h2>Decision Memo</h2>
+            <p>Export a traceable record of judgement, not a decorative summary.</p>
+          </div>
+
+          <div class="memo-actions">
+            <button class="button button-primary" type="button" id="generateMemo">Generate memo</button>
+            <button class="button button-secondary" type="button" data-copy-target="decisionMemo">Copy memo</button>
+            <button class="button button-secondary" type="button" id="downloadMemo">Download Markdown</button>
+            <button class="button button-ghost" type="button" id="clearDraft">Clear local draft</button>
+          </div>
+
+          <div class="output-box large">
+            <pre id="decisionMemo"></pre>
+          </div>
+        </section>
+      </div>
+
+      <aside class="workspace-side" aria-label="Live decision dashboard">
+        <section class="side-card judgement-card">
+          <h2>Judgement Boundary</h2>
+          <div class="meter" aria-hidden="true">
+            <span id="meterFill"></span>
+          </div>
+          <p id="boundaryLevel" class="boundary-level">Not assessed</p>
+          <p id="boundaryAdvice">Frame a decision to assess the appropriate role of AI.</p>
+        </section>
+
+        <section class="side-card">
+          <h2>P(HI) protocol</h2>
+          <ol class="protocol-list">
+            <li>Frame</li>
+            <li>Define values</li>
+            <li>Compare options</li>
+            <li>Assess evidence</li>
+            <li>Identify uncertainty</li>
+            <li>Audit bias</li>
+            <li>Red-team</li>
+            <li>Set AI boundary</li>
+            <li>Write memo</li>
+            <li>Review later</li>
+          </ol>
+        </section>
+
+        <section class="side-card score-card">
+          <h2>Readiness</h2>
+          <div class="readiness-number"><span id="readinessScore">0</span><small>/100</small></div>
+          <p id="readinessText">Add a decision, options, and bias review.</p>
+        </section>
+      </aside>
+    </section>
+
+    <section class="section-shell about-section" id="about">
+      <div>
+        <p class="eyebrow">Project spine</p>
+        <h2>From P(HI) article to website to SDSS</h2>
+      </div>
+      <div class="about-grid">
+        <article class="card mini-card">
+          <h3>P(HI) article</h3>
+          <p>The theory: human intelligence as embodied, ecological, moral, cultural, institutional agency.</p>
+        </article>
+        <article class="card mini-card">
+          <h3>Decision Lab</h3>
+          <p>The public tool: structure decisions, expose uncertainty, red-team assumptions, export memos.</p>
+        </article>
+        <article class="card mini-card">
+          <h3>P(HI)-SDSS</h3>
+          <p>The applied method: suitability maps as auditable spatial arguments for NbS planning.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>P(HI) Decision Lab. Static demo. No login, no backend, no AI API. The human stays responsible.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
