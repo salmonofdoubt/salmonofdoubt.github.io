@@ -1003,3 +1003,80 @@ pre {
 }
 
 /* === P(HI) AI handoff styles end === */
+
+/* === P(HI) contained handoff banner start === */
+
+/*
+  Keep the AI handoff explanation visible, but stop it spanning the full viewport.
+  It now behaves like a centred project card, consistent with the rest of the demo.
+*/
+
+.handoff-flow {
+  width: min(1120px, calc(100% - 40px));
+  margin: 22px auto 46px;
+  padding: clamp(18px, 2.3vw, 26px);
+  border-radius: 24px;
+  grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
+}
+
+.handoff-flow h2 {
+  max-width: 13ch;
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  letter-spacing: -0.055em;
+}
+
+.handoff-flow ol {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.handoff-flow li {
+  padding: 14px 16px;
+}
+
+.handoff-flow li strong {
+  font-size: 0.98rem;
+}
+
+.handoff-flow li span {
+  font-size: 0.9rem;
+}
+
+/* Header brand: slightly more mature, less badge-heavy. */
+.brand,
+.site-brand {
+  gap: 10px;
+}
+
+.brand span:last-child,
+.site-brand span:last-child {
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 1180px) {
+  .handoff-flow {
+    width: min(960px, calc(100% - 32px));
+    grid-template-columns: 1fr;
+  }
+
+  .handoff-flow h2 {
+    max-width: 18ch;
+  }
+}
+
+@media (max-width: 760px) {
+  .handoff-flow {
+    width: calc(100% - 24px);
+    margin: 16px auto 32px;
+    border-radius: 18px;
+  }
+
+  .handoff-flow ol {
+    grid-template-columns: 1fr;
+  }
+
+  .handoff-flow h2 {
+    max-width: 100%;
+  }
+}
+
+/* === P(HI) contained handoff banner end === */

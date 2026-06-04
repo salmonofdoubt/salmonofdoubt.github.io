@@ -1,4 +1,4 @@
-# P(HI) Decision Lab
+# P(HI) Judgement Lab
 
 Static website demo for human-led decision-making with AI support. Built for the short public GitHub Pages URL:
 
@@ -110,6 +110,6 @@ The intended workflow is:
 4. AI challenges assumptions, evidence gaps, bias, and false certainty.
 5. The human revises the memo and remains responsible for the decision.
 
-Core phrase: P(HI) frames. AI challenges. The human decides.
+Core phrase: Structure first. Challenge with AI. Decide yourself.
 
 EcoLogits note: local memo generation avoids a default AI text-generation call. If the user then pastes the output into AI, that external AI use should be counted separately.
