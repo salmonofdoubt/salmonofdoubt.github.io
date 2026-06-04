@@ -1080,3 +1080,112 @@ pre {
 }
 
 /* === P(HI) contained handoff banner end === */
+
+/* === P(HI) project polish start === */
+
+/* More serious hero statement and no accidental text-highlight effect. */
+.hero h1,
+.hero-title,
+main h1 {
+  background: none !important;
+  box-decoration-break: initial;
+  -webkit-box-decoration-break: initial;
+}
+
+.hero h1 {
+  max-width: 10ch;
+}
+
+/* Small project pills below the hero actions. */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.project-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 1px solid rgba(134, 239, 172, 0.28);
+  background: rgba(20, 83, 45, 0.42);
+  color: var(--text, #ecfdf5);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.project-pill:hover,
+.project-pill:focus-visible {
+  border-color: rgba(134, 239, 172, 0.62);
+  background: rgba(22, 101, 52, 0.66);
+}
+
+/* Floating project support links, compact and consistent with other demos. */
+.support-floater {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid rgba(134, 239, 172, 0.24);
+  border-radius: 999px;
+  background: rgba(2, 6, 23, 0.82);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.32);
+}
+
+.support-floater a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: var(--text, #ecfdf5);
+  background: rgba(20, 83, 45, 0.62);
+  border: 1px solid rgba(134, 239, 172, 0.24);
+  font-size: 0.82rem;
+  font-weight: 850;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.support-floater a:hover,
+.support-floater a:focus-visible {
+  background: rgba(22, 101, 52, 0.82);
+  border-color: rgba(134, 239, 172, 0.58);
+}
+
+.project-citation {
+  scroll-margin-top: 96px;
+}
+
+@media (max-width: 760px) {
+  .hero h1 {
+    max-width: 100%;
+  }
+
+  .support-floater {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    justify-content: center;
+    border-radius: 18px;
+  }
+
+  .support-floater a {
+    flex: 1;
+    justify-content: center;
+  }
+
+  body {
+    padding-bottom: 84px;
+  }
+}
+
+/* === P(HI) project polish end === */

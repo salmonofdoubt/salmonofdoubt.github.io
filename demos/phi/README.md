@@ -113,3 +113,12 @@ The intended workflow is:
 Core phrase: Structure first. Challenge with AI. Decide yourself.
 
 EcoLogits note: local memo generation avoids a default AI text-generation call. If the user then pastes the output into AI, that external AI use should be counted separately.
+
+
+## Citation and Zenodo
+
+This project is prepared for Zenodo archival. Until a DOI is minted, cite the public URL:
+
+https://salmonofdoubt.github.io/demos/phi/
+
+Zenodo status: DOI pending.
