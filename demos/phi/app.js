@@ -191,9 +191,98 @@ Core safeguard:
 The public demo should make human ownership of the decision clearer than the interface aesthetics.`;
 }
 
+function isNbsDecision(data = decisionData()) {
+  return data.mode === "nbs";
+}
+
+function classifyOptionType(name) {
+  const text = String(name || "").toLowerCase();
+
+  if (/advis|engagement|consult|training|workshop|governance|diagnos|survey|walkover|monitoring|baseline/.test(text)) {
+    return "process";
+  }
+
+  if (/buffer|pond|wetland|dam|peat|hedgerow|woodland|margin|drain|rewet|trap|interception/.test(text)) {
+    return "physical intervention";
+  }
+
+  if (/site|zone|field|parcel|reach|subcatchment|catchment/.test(text)) {
+    return "site priority";
+  }
+
+  return "unspecified";
+}
+
+function optionTypeSummary() {
+  const grouped = state.options.reduce((acc, option) => {
+    const type = classifyOptionType(option.name);
+    acc[type] = acc[type] || [];
+    acc[type].push(option.name);
+    return acc;
+  }, {});
+
+  return Object.entries(grouped)
+    .map(([type, names]) => `- ${type}: ${names.join(", ")}`)
+    .join("\n");
+}
+
+function hasMixedPriorityTypes() {
+  return new Set(state.options.map((option) => classifyOptionType(option.name))).size > 1;
+}
+
+function buildPriorityClarifier() {
+  const top = topOption();
+  const topType = top ? classifyOptionType(top.name) : "unspecified";
+
+  if (!top || !hasMixedPriorityTypes()) {
+    return "The current options appear to be in broadly comparable categories. Still check whether the score compares like with like.";
+  }
+
+  return `The option matrix mixes priority types.
+
+Current option categories:
+${optionTypeSummary()}
+
+Current score leader:
+${top.name} (${scoreOption(top)}/15), classified as ${topType}.
+
+Interpretation safeguard:
+If the score leader is a process option, such as advisory measures, it should be treated as a diagnostic or governance phase, not as the final physical NbS intervention. The memo should distinguish process priority, intervention priority, and site priority.`;
+}
+
+function buildModeSpecificAudit() {
+  const data = decisionData();
+
+  if (isNbsDecision(data)) {
+    return `## NbS / SDSS audit
+${buildNbsAudit()}
+
+## Priority-type clarification
+${buildPriorityClarifier()}`;
+  }
+
+  return `## Project / method audit
+
+This is not an NbS spatial decision-support memo, so the NbS-SDSS audit is intentionally not included.
+
+Method questions:
+1. Is the project objective clear enough for a public demo?
+2. Does the workflow make the boundary between human judgement and AI critique obvious?
+3. Does the tool avoid implying that AI should make the decision?
+4. Does the memo distinguish evidence, assumptions, values, uncertainty, and risks?
+5. Does the EcoLogits note avoid false precision?
+6. Is the Zenodo status honest, with no invented DOI?
+7. What user test would show whether the workflow confuses people?
+8. What would justify revising the demo before release?
+
+Core safeguard:
+The public demo should make human ownership of the decision clearer than the interface aesthetics.`;
+}
+
 function buildNbsAudit() {
   const data = decisionData();
   const top = topOption();
+
   return `NbS Spatial Decision Audit
 
 Intervention under spatial audit:
@@ -201,6 +290,9 @@ ${data.nbsIntervention || "[not selected]"}
 
 Current option-matrix leader:
 ${top ? `${top.name} (${scoreOption(top)}/15)` : "[not available]"}
+
+Current priority-type check:
+${buildPriorityClarifier()}
 
 Primary outcome:
 ${data.nbsOutcome || "[not selected]"}
@@ -214,6 +306,16 @@ ${data.fieldValidation || "[not stated]"}
 Consistency and caution notes:
 ${consistencyNotes().map((x) => `- ${x}`).join("\n") || "- No major consistency issue detected."}
 
+P(HI)-SDSS examiner questions:
+1. Is the matrix comparing like with like?
+2. Is the score leader a process priority, intervention priority, or site priority?
+3. Does the spatial audit intervention match the pollutant pathway?
+4. Could artificial drainage, subsurface flow, legacy phosphorus, access, or maintenance invalidate the mapped suitability?
+5. What field evidence would falsify the preferred physical intervention?
+6. What monitoring design would show whether the intervention worked?
+7. Who has authority to move from investigation to implementation?
+8. What stakeholder review is required before action?
+
 Core safeguard:
 A high suitability score does not mean "build here". It means "investigate here first".`;
 }
@@ -221,13 +323,76 @@ A high suitability score does not mean "build here". It means "investigate here 
 function buildRedTeamPrompt() {
   const data = decisionData();
   const top = topOption();
-  const modeSpecificTask = isNbsDecision(data)
-    ? "Check whether the option score, preferred intervention, and NbS spatial audit are consistent."
-    : "Check whether the selected project path matches the stated purpose and avoids overclaiming what AI can do.";
 
-  return `Act as a sceptical academic examiner.
+  if (isNbsDecision(data)) {
+    return `Act as a sceptical academic examiner reviewing a P(HI)-SDSS decision memo for nature-based solutions.
 
-Review this decision without agreeing with me prematurely.
+Do not make the decision for me. Improve the quality of my judgement.
+
+Decision:
+${data.title || "[not stated]"}
+
+Objective:
+${data.objective || "[not stated]"}
+
+Context:
+${data.context || "[not stated]"}
+
+Score leader:
+${top ? `${top.name} (${scoreOption(top)}/15)` : "[not available]"}
+
+Known bias signals:
+${selectedBiases().map((x) => `- ${x}`).join("\n") || "- None selected"}
+
+Priority-type check:
+${buildPriorityClarifier()}
+
+Consistency notes:
+${consistencyNotes().map((x) => `- ${x}`).join("\n") || "- None"}
+
+Your response must use this structure:
+
+1. Recommendation
+State one of: proceed, revise, test first, delay, or reject.
+
+2. Strongest objection
+Identify the strongest objection to the current reasoning.
+
+3. Category clarity
+Separate:
+- process priority
+- intervention priority
+- site priority
+
+Explain whether the option matrix compares like with like.
+
+4. Weak assumptions
+Identify assumptions about pollutant pathways, spatial layers, land-manager feasibility, monitoring, maintenance, and reversibility.
+
+5. Tools versus observable evidence
+Provide a table with:
+- item
+- what it is
+- what it is not
+
+6. Ecological, ethical, governance, and practical risks
+Flag risks separately.
+
+7. Field validation and independent review needed
+List the evidence required before implementation.
+
+8. What would change your mind?
+State the strongest falsifying evidence.
+
+9. Revised decision wording
+Rewrite the decision so it clearly distinguishes diagnostic/advisory sequencing from final physical NbS intervention selection.
+
+Use APA 7 references where possible. Do not invent citations.`;
+  }
+
+  return `Act as a sceptical academic examiner reviewing a P(HI) project decision.
+
+Do not make the decision for me. Improve the quality of my judgement.
 
 Decision:
 ${data.title || "[not stated]"}
@@ -247,16 +412,33 @@ ${selectedBiases().map((x) => `- ${x}`).join("\n") || "- None selected"}
 Consistency notes:
 ${consistencyNotes().map((x) => `- ${x}`).join("\n") || "- None"}
 
-Your task:
-1. Identify the strongest objection.
-2. Identify weak assumptions.
-3. Distinguish tools from observable evidence.
-4. Identify ecological, ethical, governance, or practical risks.
-5. ${modeSpecificTask}
-6. State what would change your mind.
-7. Recommend: proceed, revise, test first, delay, or reject.
+Your response must use this structure:
 
-Do not make the decision for me. Improve the quality of my judgement.`;
+1. Recommendation
+State one of: proceed, revise, test first, delay, or reject.
+
+2. Strongest objection
+Identify the strongest objection to the current project path.
+
+3. Weak assumptions
+Identify assumptions about users, clarity, public value, citation value, EcoLogits, and AI handoff behaviour.
+
+4. Tools versus evidence
+Distinguish what the demo proves from what it merely demonstrates.
+
+5. Ethical, governance, reputational, and practical risks
+Flag risks separately.
+
+6. User testing needed
+Define what evidence would show whether the workflow confuses users or encourages AI delegation.
+
+7. What would change your mind?
+State falsifying evidence that would make the project weaker or require redesign.
+
+8. Revised decision wording
+Rewrite the project decision in a more defensible form.
+
+Use APA 7 references where possible. Do not invent citations.`;
 }
 
 function buildEcoLogitsSummary() {
@@ -281,7 +463,7 @@ If you paste this memo into AI for critique:
 function buildMemo() {
   const data = decisionData();
   const top = topOption();
-  const optionRows = state.options.map((o) => `| ${o.name} | ${o.benefit} | ${o.evidence} | ${o.reversible} | ${o.risk} | ${o.uncertainty} | ${scoreOption(o)} |`).join("\n");
+  const optionRows = state.options.map((o) => `| ${o.name} | ${classifyOptionType(o.name)} | ${o.benefit} | ${o.evidence} | ${o.reversible} | ${o.risk} | ${o.uncertainty} | ${scoreOption(o)} |`).join("\n");
 
   return `# P(HI) Decision Memo
 
@@ -304,14 +486,17 @@ ${data.stakeholders || "[Stakeholders not stated]"}
 - Deadline: ${data.deadline || "Not specified"}
 
 ## Options considered
-| Option | Benefit | Evidence | Reversible | Risk | Uncertainty | Score |
-|---|---:|---:|---:|---:|---:|---:|
+| Option | Type | Benefit | Evidence | Reversible | Risk | Uncertainty | Score |
+|---|---|---:|---:|---:|---:|---:|---:|
 ${optionRows}
 
 ## Score leader
-${top ? `${top.name} (${scoreOption(top)}/15)` : "No option available"}
+${top ? `${top.name} (${scoreOption(top)}/15), classified as ${classifyOptionType(top.name)}` : "No option available"}
 
 Scores are screening signals, not decisions.
+
+## Priority-type check
+${buildPriorityClarifier()}
 
 ## Decision consistency check
 ${consistencyNotes().map((x) => `- ${x}`).join("\n") || "- No major consistency issue detected."}
@@ -352,18 +537,93 @@ AI may assist reasoning, but the human remains responsible for values, consequen
 }
 
 function buildAiReviewPrompt() {
-  return `You are reviewing a P(HI) Decision Memo.
+  const data = decisionData();
 
-Do not make the decision for me. Act as a critical thinking partner.
+  if (isNbsDecision(data)) {
+    return `You are reviewing a P(HI) Decision Memo for an NbS spatial decision-support problem.
 
-Challenge:
-1. Weak assumptions
-2. Missing evidence
-3. Tools or maps mistaken for evidence
-4. Bias and automation bias
-5. Ecological, governance, ethical, and practical risks
-6. Field checks or independent review needed
-7. Recommendation: proceed, revise, test first, delay, or reject
+Do not make the decision for me. Act as a sceptical academic examiner and critical thinking partner.
+
+Your response must be structured as follows:
+
+1. Recommendation
+Choose one: proceed, revise, test first, delay, or reject.
+
+2. Strongest objection
+Identify the strongest objection to the current memo.
+
+3. Category clarity
+Separate:
+- process priority
+- intervention priority
+- site priority
+
+Check whether the option matrix compares like with like.
+
+4. Weak assumptions
+Identify assumptions about spatial layers, pollutant pathways, artificial drainage, land-manager feasibility, maintenance, monitoring, and reversibility.
+
+5. Tools versus observable evidence
+Create a table:
+- item
+- what it is
+- what it is not
+
+6. Ecological, ethical, governance, and practical risks
+Discuss each separately.
+
+7. Field validation and independent review needed
+List the evidence required before implementation.
+
+8. What would change your mind?
+Identify the most important falsifying evidence.
+
+9. Revised decision wording
+Rewrite the provisional decision so it distinguishes advisory/process sequencing from final physical NbS intervention selection.
+
+10. References
+Use APA 7 references where possible. Do not invent citations.
+
+Decision memo to review:
+
+${buildMemo()}`;
+  }
+
+  return `You are reviewing a P(HI) Decision Memo for a public research/demo project.
+
+Do not make the decision for me. Act as a sceptical academic examiner and critical thinking partner.
+
+Your response must be structured as follows:
+
+1. Recommendation
+Choose one: proceed, revise, test first, delay, or reject.
+
+2. Strongest objection
+Identify the strongest objection to the current project path.
+
+3. What the demo proves versus what it only demonstrates
+Separate evidence from aspiration.
+
+4. Weak assumptions
+Identify assumptions about users, interface clarity, AI handoff behaviour, citation value, and public usefulness.
+
+5. Ethical, governance, reputational, and practical risks
+Discuss each separately.
+
+6. User testing needed
+State what evidence would show whether users understand: P(HI) structures, AI critiques, human decides.
+
+7. EcoLogits check
+Assess whether the footprint claims distinguish measured design facts from estimates.
+
+8. Zenodo readiness
+State what must be true before archival.
+
+9. Revised decision wording
+Rewrite the provisional decision in a more defensible form.
+
+10. References
+Use APA 7 references where possible. Do not invent citations.
 
 Decision memo to review:
 
@@ -378,14 +638,15 @@ function buildEvidencePrompt() {
 
 Do not make the decision for me. Improve the quality of the project logic.
 
-Check whether:
-1. The public demo has a clear user journey.
-2. The workflow makes human ownership of the decision explicit.
-3. The tool avoids AI delegation and only prepares AI critique.
-4. The EcoLogits claim is transparent and avoids false precision.
-5. The Zenodo/DOI status is honest and not overstated.
-6. The decision memo is coherent for the selected decision mode.
-7. The project should proceed, be revised, be tested first, delayed, or rejected.
+Use this structure:
+1. Recommendation: proceed, revise, test first, delay, or reject.
+2. What the demo actually demonstrates.
+3. What the demo does not demonstrate.
+4. Weak assumptions about users and AI handoff behaviour.
+5. Evidence needed before public release.
+6. EcoLogits caution: distinguish measured design facts from estimates.
+7. Zenodo caution: state whether the project is ready for archival.
+8. Revised release wording.
 
 Decision memo to review:
 
@@ -396,12 +657,16 @@ ${buildMemo()}`;
 
 Do not choose the intervention for me. Improve the evidence logic.
 
-Check whether:
-1. Spatial criteria match the objective
-2. The intervention matches the pollutant pathway
-3. The option score and spatial audit are consistent
-4. Artificial drainage, hydrological connectivity, maintenance, access, and monitoring are considered
-5. The map directs investigation rather than pretending to finish the decision
+Use this structure:
+1. Recommendation: proceed, revise, test first, delay, or reject.
+2. Category clarity: process priority, intervention priority, site priority.
+3. Tools versus observable evidence table.
+4. Pollutant pathway check.
+5. Artificial drainage and hydrological connectivity check.
+6. Land-manager feasibility and maintenance check.
+7. Monitoring and field validation checklist.
+8. Falsifying evidence.
+9. Revised decision wording.
 
 Audit to review:
 
