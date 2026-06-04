@@ -215,20 +215,42 @@ function highestOption() {
   return [...state.options].sort((a, b) => scoreOption(b) - scoreOption(a))[0] || null;
 }
 
-function updateBoundary() {
-  const data = getDecisionData();
+/* === P(HI) decision integrity upgrade start === */
+function normaliseDecisionText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/\bmeasures\b/g, "measure")
+    .replace(/\bbuffers\b/g, "buffer")
+    .replace(/\bponds\b/g, "pond")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function optionMatchesIntervention(optionName, intervention) {
+  const option = normaliseDecisionText(optionName);
+  const target = normaliseDecisionText(intervention);
+  if (!option || !target) return true;
+  return option.includes(target) || target.includes(option);
+}
+
+function chosenPreferredOptionName(data, top) {
+  return data.preferredOption.trim() || top?.name || "[preferred option]";
+}
+
+function computeBoundaryRisk(data = getDecisionData()) {
   const mode = data.decisionMode;
   const stakes = Number(data.stakes || 1);
   const reversibility = Number(data.reversibility || 1);
 
-  let risk = stakes + (5 - reversibility);
+  let risk = (stakes * 2) + (5 - reversibility);
   if (["financial", "medical", "safety"].includes(mode)) risk += 3;
-  if (mode === "nbs" || mode === "policy") risk += 1;
+  if (["nbs", "policy"].includes(mode)) risk += 1;
+  if (stakes >= 3 && reversibility <= 2) risk += 1;
 
-  const level = risk >= 9 ? "High delegation risk" : risk >= 6 ? "Moderate delegation risk" : "Low delegation risk";
-  const pill = risk >= 9 ? "danger" : risk >= 6 ? "warn" : "safe";
-  const width = Math.max(12, Math.min(100, risk * 10));
+  return Math.max(1, Math.min(12, risk));
+}
 
+function boundaryAdviceFor(mode) {
   const adviceByMode = {
     personal: "AI can help frame options, clarify values, and generate a memo. You remain responsible for the choice.",
     research: "AI can structure evidence, assumptions, and critique. It must not replace disciplinary judgement, supervision, or field validation.",
@@ -238,39 +260,98 @@ function updateBoundary() {
     medical: "Use AI only to prepare discussion notes and questions. Clinical decisions belong with qualified clinicians and informed consent.",
     safety: "Use AI for checklists and documentation only. Safety-critical decisions require competent human governance and conservative judgement.",
   };
+  return adviceByMode[mode] || adviceByMode.personal;
+}
+
+function averageOptionUncertainty() {
+  if (!state.options.length) return 3;
+  const total = state.options.reduce((sum, option) => sum + Number(option.uncertainty || 0), 0);
+  return total / state.options.length;
+}
+
+function buildConsistencyChecks(data = getDecisionData()) {
+  const top = highestOption();
+  const preferred = chosenPreferredOptionName(data, top);
+  const checks = [];
+
+  if (top) {
+    checks.push(`Score leader: ${top.name} (${scoreOption(top)}/15). Treat this as a screening signal, not a decision.`);
+  }
+
+  if (data.preferredOption.trim() && top && !optionMatchesIntervention(data.preferredOption, top.name)) {
+    checks.push(`Manual preferred option differs from score leader: ${data.preferredOption.trim()} versus ${top.name}. Explain why human judgement overrides the score.`);
+  }
+
+  if (data.decisionMode === "nbs" && data.nbsIntervention.trim() && top && !optionMatchesIntervention(top.name, data.nbsIntervention)) {
+    checks.push(`Spatial audit mismatch: the option matrix currently favours "${top.name}", while the NbS audit is focused on "${data.nbsIntervention}". Treat this as a sequence question: investigate, advise, then select the physical intervention.`);
+  }
+
+  if (data.decisionMode === "nbs" && /advisory|advice|engagement|non structural/i.test(preferred)) {
+    checks.push("Advisory measures are an enabling pathway, not the final NbS intervention. The memo should specify what evidence advisory engagement must collect before a physical measure is chosen.");
+  }
+
+  if (Number(data.stakes || 1) >= 3 || Number(data.reversibility || 4) <= 2) {
+    checks.push("High-stakes or hard-to-reverse decision: do not proceed from the score alone. Require field validation, stakeholder review, and a documented monitoring plan.");
+  }
+
+  if (data.changeMind.trim() && /tool|model|map|gis|hydrology/i.test(data.changeMind) && !/show|confirm|measure|demonstrate|evidence|data|pathway/i.test(data.changeMind)) {
+    checks.push("The 'change my mind' entry names a tool rather than observable evidence. Convert it into a testable condition, for example: field evidence of artificial drainage bypassing the proposed buffer.");
+  }
+
+  return checks.length ? checks : ["No major consistency issue detected yet. Continue evidence checking and red-team review before action."];
+}
+/* === P(HI) decision integrity upgrade end === */
+
+function updateBoundary() {
+  const data = getDecisionData();
+  const mode = data.decisionMode;
+  const risk = computeBoundaryRisk(data);
+
+  const level = risk >= 10 ? "High delegation risk" : risk >= 6 ? "Moderate delegation risk" : "Low delegation risk";
+  const pill = risk >= 10 ? "danger" : risk >= 6 ? "warn" : "safe";
+  const width = Math.max(12, Math.min(100, risk * 8.4));
+  const advice = boundaryAdviceFor(mode);
 
   $("meterFill").style.width = `${width}%`;
   $("boundaryLevel").textContent = level;
-  $("boundaryAdvice").textContent = adviceByMode[mode] || adviceByMode.personal;
+  $("boundaryAdvice").textContent = advice;
 
   $("decisionStatus").innerHTML = `
     <span class="status-pill ${pill}">${level}</span>
-    <span class="status-copy">${adviceByMode[mode] || adviceByMode.personal}</span>
+    <span class="status-copy">${advice}</span>
   `;
 }
 
 function updateReadiness() {
   const data = getDecisionData();
   const textFields = [data.decisionTitle, data.objective, data.context, data.stakeholders];
-  const fieldScore = textFields.filter((value) => value.trim().length > 12).length * 12;
+  const completeness = textFields.filter((value) => value.trim().length > 12).length * 10;
   const optionsScore = Math.min(24, state.options.filter((option) => option.name.trim().length > 2).length * 8);
-  const biasScore = Math.min(16, getSelectedBiases().length * 4 + (data.changeMind.trim() ? 6 : 0));
+  const reflectionScore = Math.min(18, getSelectedBiases().length * 4 + (data.changeMind.trim() ? 6 : 0) + (data.hopedOutcome.trim() ? 4 : 0));
   const nbsScore = data.decisionMode === "nbs" ? Math.min(12, [data.spatialCriteria, data.fieldValidation].filter((x) => x.trim().length > 10).length * 6) : 8;
-  const total = Math.min(100, fieldScore + optionsScore + biasScore + nbsScore);
+
+  const uncertaintyPenalty = Math.max(0, Math.round((averageOptionUncertainty() - 2) * 4));
+  const stakesPenalty = Number(data.stakes || 1) >= 3 ? 6 : 0;
+  const reversibilityPenalty = Number(data.reversibility || 4) <= 2 ? 6 : 0;
+  const biasPenalty = Math.min(8, getSelectedBiases().length * 2);
+  const nbsPenalty = data.decisionMode === "nbs" && computeBoundaryRisk(data) >= 10 ? 3 : 0;
+
+  const total = Math.max(0, Math.min(100, completeness + optionsScore + reflectionScore + nbsScore - uncertaintyPenalty - stakesPenalty - reversibilityPenalty - biasPenalty - nbsPenalty));
 
   $("readinessScore").textContent = String(total);
   $("readinessText").textContent = total >= 75
-    ? "Strong enough to generate a useful decision memo."
-    : total >= 45
-      ? "Promising. Add evidence, uncertainty, and red-team critique."
-      : "Add a clearer frame, real options, and bias review.";
+    ? "Strong enough for a memo. Still not permission to act without review."
+    : total >= 55
+      ? "Good memo basis. Add evidence, field validation, and red-team critique before action."
+      : "Add a clearer frame, real options, evidence checks, and consistency review.";
 }
 
 function buildRedTeamPrompt() {
   const data = getDecisionData();
   const top = highestOption();
-  const preferred = data.preferredOption.trim() || top?.name || "[preferred option]";
+  const preferred = chosenPreferredOptionName(data, top);
   const biases = getSelectedBiases();
+  const checks = buildConsistencyChecks(data);
 
   return `Act as a sceptical ${data.criticMode || "reviewer"}.
 
@@ -291,12 +372,15 @@ ${preferred}
 Known bias signals:
 ${biases.length ? biases.map((b) => `- ${b}`).join("\n") : "- None selected yet"}
 
+Decision consistency signals:
+${checks.map((check) => `- ${check}`).join("\n")}
+
 Your task:
 1. Identify the strongest objection to this decision.
 2. Identify weak assumptions.
-3. Identify missing evidence.
+3. Distinguish tools from evidence. State what observable evidence would change the decision.
 4. Identify ecological, ethical, governance, or practical risks.
-5. State what would change your mind.
+5. Check whether the score leader, preferred option, and NbS audit intervention are consistent.
 6. Suggest the minimum revision needed before action.
 7. End with a clear recommendation: proceed, revise, test first, delay, or reject.
 
@@ -305,10 +389,16 @@ Do not make the decision for me. Improve the quality of my judgement.`;
 
 function buildNbsAudit() {
   const data = getDecisionData();
+  const checks = buildConsistencyChecks(data);
+  const top = highestOption();
+
   return `NbS Spatial Decision Audit
 
-Intervention:
+Intervention under spatial audit:
 ${data.nbsIntervention || "[not selected]"}
+
+Current option-matrix leader:
+${top ? `${top.name} (${scoreOption(top)}/15)` : "[not available]"}
 
 Primary outcome:
 ${data.nbsOutcome || "[not selected]"}
@@ -318,6 +408,9 @@ ${data.spatialCriteria || "[criteria not yet stated]"}
 
 Field validation required:
 ${data.fieldValidation || "[field validation not yet stated]"}
+
+Consistency and caution notes:
+${checks.map((check) => `- ${check}`).join("\n")}
 
 P(HI)-SDSS audit questions:
 1. What is the decision objective: water quality, biodiversity, flood mitigation, carbon, farm practicality, or multi-benefit delivery?
@@ -339,6 +432,8 @@ function buildMemo() {
   const data = getDecisionData();
   const biases = getSelectedBiases();
   const top = highestOption();
+  const preferred = chosenPreferredOptionName(data, top);
+  const checks = buildConsistencyChecks(data);
   const options = state.options
     .map((option) => `| ${option.name || "Unnamed"} | ${option.benefit} | ${option.evidence} | ${option.reversible} | ${option.risk} | ${option.uncertainty} | ${scoreOption(option)} |`)
     .join("\n");
@@ -368,8 +463,15 @@ ${data.stakeholders || "[Stakeholders not stated]"}
 |---|---:|---:|---:|---:|---:|---:|
 ${options || "| No options entered | | | | | | |"}
 
-## Current highest-scoring option
-${top ? `${top.name} (${scoreOption(top)}/15)` : "No option available"}
+## Score leader and preferred option
+Score leader: ${top ? `${top.name} (${scoreOption(top)}/15)` : "No option available"}
+
+Preferred option for red-team review: ${preferred}
+
+Interpretation: the score is a screening device, not a recommendation. Human judgement may override the score, but the reason should be documented.
+
+## Decision consistency check
+${checks.map((check) => `- ${check}`).join("\n")}
 
 ## Bias audit
 Selected bias signals:
@@ -393,7 +495,7 @@ ${buildRedTeamPrompt()}
 ${buildNbsAudit()}
 
 ## Provisional decision
-[Write the decision here after red-team review.]
+[Write the decision here after red-team review. For NbS decisions, distinguish the next investigative step from the final physical intervention.]
 
 ## Review date
 [Set a date to revisit the outcome.]
