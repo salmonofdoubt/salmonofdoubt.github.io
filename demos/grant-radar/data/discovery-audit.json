@@ -1,47 +1,50 @@
 {
-  "generated_at": "2026-06-03T10:06:30+00:00",
+  "generated_at": "2026-06-04T09:01:30+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 11,
-  "links_seen": 3892,
-  "funding_like_links": 279,
-  "candidate_fetches": 279,
-  "pending_review_count": 66,
+  "seed_pages_failed": 7,
+  "links_seen": 4103,
+  "funding_like_links": 460,
+  "candidate_fetches": 300,
+  "pending_review_count": 81,
   "status_counts": {
-    "pending_review": 66,
+    "pending_review": 81,
+    "suppressed_non_actionable": 60,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_stale": 7,
-    "suppressed_existing": 12,
-    "suppressed_non_actionable": 26,
-    "suppressed_generic_page": 4
+    "suppressed_existing": 14,
+    "suppressed_stale": 5,
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 57
   },
   "candidate_type_counts": {
-    "recurring_programme": 94,
-    "funding_call": 20,
-    "scholarship": 2,
-    "generic_funding_hub": 5
+    "recurring_programme": 89,
+    "funding_call": 34,
+    "scholarship": 29,
+    "generic_funding_hub": 6,
+    "tender": 12,
+    "unknown": 57
   },
   "seeds": [
     {
       "id": "research_ireland_funding_hub",
       "name": "Research Ireland funding hub",
       "url": "https://www.researchireland.ie/funding/",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.researchireland.ie/funding/",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 90,
+      "funding_like_links": 34,
+      "candidates_fetched": 34
     },
     {
       "id": "heritage_council_funding_hub",
       "name": "Heritage Council funding hub",
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7f0e58a5e610>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=12)'))",
+      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7f526554ca90>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=12)'))",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -70,11 +73,11 @@
       "id": "ifi_funding_hub",
       "name": "Inland Fisheries Ireland funding hub",
       "url": "https://www.fisheriesireland.ie/our-services/funding",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 173,
-      "funding_like_links": 6,
-      "candidates_fetched": 6
+      "status": "fetch_error",
+      "fetch_error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "seai_grants_hub",
@@ -110,21 +113,21 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 121,
+      "funding_like_links": 48,
+      "candidates_fetched": 48
     },
     {
       "id": "horizon_cluster6_watch",
       "name": "Horizon Europe Cluster 6 watch",
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 132,
+      "funding_like_links": 45,
+      "candidates_fetched": 45
     },
     {
       "id": "farming_for_water_hub",
@@ -150,9 +153,9 @@
       "id": "gov_water_quality_nbs_watch",
       "name": "Gov.ie water quality and urban NbS watch",
       "url": "https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-browne-announces-fourfold-increase-in-investment-in-water-quality-initiatives-in-2026/",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-browne-announces-fourfold-increase-in-investment-in-water-quality-initiatives-in-2026/",
-      "links_seen": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 22,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -170,9 +173,9 @@
       "id": "climate_action_communities_watch",
       "name": "Climate Action in our Communities watch",
       "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/campaigns/climate-action-in-our-communities/",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-climate-energy-and-the-environment/campaigns/climate-action-in-our-communities/",
-      "links_seen": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 32,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -204,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 596,
       "funding_like_links": 57,
-      "candidates_fetched": 57
+      "candidates_fetched": 20
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -214,36 +217,36 @@
       "fetch_error": null,
       "links_seen": 600,
       "funding_like_links": 59,
-      "candidates_fetched": 59
+      "candidates_fetched": 0
     },
     {
       "id": "geo_erc_advanced_watch",
       "name": "Geo watch: ERC Advanced Grant",
       "url": "https://erc.europa.eu/funding/advanced-grants",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://erc.europa.eu/funding/advanced-grants",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 161,
+      "funding_like_links": 22,
       "candidates_fetched": 0
     },
     {
       "id": "geo_horizon_energy_supply_watch",
       "name": "Geo watch: Horizon Europe Sustainable, Secure and Competitive Energy Supply",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 95,
+      "funding_like_links": 33,
       "candidates_fetched": 0
     },
     {
       "id": "geo_clean_hydrogen_partnership_watch",
       "name": "Geo watch: Clean Hydrogen Partnership Call 2026",
       "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
-      "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 83,
+      "funding_like_links": 9,
       "candidates_fetched": 0
     },
     {
@@ -260,31 +263,31 @@
       "id": "geo_rifs_klaus_toepfer_watch",
       "name": "Geo watch: RIFS Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.rifs-potsdam.de/en/node/11996",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 44,
-      "funding_like_links": 2,
-      "candidates_fetched": 2
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x7f526478e710>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "geo_gfz_jobs_board_watch",
       "name": "Geo watch: GFZ Scientific Jobs Board",
       "url": "https://www.gfz.de/karriere/stellenangebote",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 154,
-      "funding_like_links": 1,
-      "candidates_fetched": 1
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f5265199790>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "geo_gfz_klaus_toepfer_watch",
       "name": "Geo watch: GFZ Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 154,
-      "funding_like_links": 1,
-      "candidates_fetched": 1
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f526519af90>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     }
   ]
 }
