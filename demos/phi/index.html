@@ -27,6 +27,21 @@
   </header>
 
   <main id="top">
+
+<!-- === P(HI) AI handoff flow start === -->
+    <section class="handoff-flow" aria-label="P(HI) workflow">
+      <div>
+        <p class="eyebrow">How this is meant to be used</p>
+        <h2>P(HI) frames. AI challenges. The human decides.</h2>
+      </div>
+      <ol>
+        <li><strong>1. Structure</strong><span>Use this page to frame the decision before AI enters.</span></li>
+        <li><strong>2. Handoff</strong><span>Copy the memo or critique prompt into an AI tool.</span></li>
+        <li><strong>3. Decide</strong><span>Use AI as a critic, not as the decision-maker.</span></li>
+      </ol>
+    </section>
+<!-- === P(HI) AI handoff flow end === -->
+
     <section class="hero section-shell">
       <div class="hero-copy">
         <p class="eyebrow">Human intelligence for decisions under uncertainty</p>
@@ -392,6 +407,49 @@
       </div>
 
     </section>
+  
+<!-- === P(HI) AI handoff section start === -->
+    <section class="card ai-handoff-panel" id="ai-handoff">
+      <p class="eyebrow">AI handoff</p>
+      <h2>Send the output to AI for critique, not delegation</h2>
+      <p>
+        The P(HI) Decision Lab deliberately structures the decision before any AI call.
+        The next step is to paste the output into an AI system and ask it to challenge the reasoning,
+        expose weak assumptions, identify missing evidence, and improve the memo.
+      </p>
+
+      <div class="handoff-rule">
+        <strong>Workflow:</strong>
+        <span>P(HI) frames → AI challenges → human decides.</span>
+      </div>
+
+      <div class="handoff-actions">
+        <button class="primary" type="button" id="copyAiMemo">Copy full AI review prompt</button>
+        <button type="button" id="copyAiRedTeam">Copy red-team prompt only</button>
+        <button type="button" id="copyAiEvidence">Copy NbS/SDSS evidence audit prompt</button>
+      </div>
+
+      <p class="copy-status" id="handoffCopyStatus" aria-live="polite"></p>
+
+      <div class="handoff-warning">
+        <h3>Before pasting into AI</h3>
+        <ul>
+          <li>Remove personal, confidential, medical, legal, financial, or sensitive field-site details.</li>
+          <li>Ask for critique, not a final decision.</li>
+          <li>Require uncertainty, missing evidence, and alternative interpretations.</li>
+          <li>Record what changed after the AI critique.</li>
+          <li>Keep the final decision human-owned.</li>
+        </ul>
+      </div>
+
+      <p class="fineprint">
+        EcoLogits note: generating the memo locally avoids one default AI text-generation call.
+        If you then paste it into AI, the AI footprint should be counted separately. The gain is not total avoidance;
+        it is disciplined, targeted AI use.
+      </p>
+    </section>
+<!-- === P(HI) AI handoff section end === -->
+
   </main>
 
   <footer class="site-footer">

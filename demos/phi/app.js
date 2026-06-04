@@ -678,3 +678,131 @@ function escapeHtml(value) {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+/* === P(HI) AI handoff logic start === */
+function phiGetGeneratedText(builderName, fallback) {
+  try {
+    if (builderName === "buildMemo" && typeof buildMemo === "function") {
+      return buildMemo();
+    }
+
+    if (builderName === "buildRedTeamPrompt" && typeof buildRedTeamPrompt === "function") {
+      return buildRedTeamPrompt();
+    }
+
+    if (builderName === "buildNbsAudit" && typeof buildNbsAudit === "function") {
+      return buildNbsAudit();
+    }
+  } catch (error) {
+    console.warn(`Could not run ${builderName}`, error);
+  }
+
+  return fallback;
+}
+
+function buildAiReviewPrompt() {
+  const memo = phiGetGeneratedText("buildMemo", "[Decision memo not available. Generate the memo first.]");
+
+  return `You are reviewing a P(HI) Decision Memo.
+
+Do not make the decision for me.
+Act as a critical thinking partner.
+
+Your role:
+1. Challenge the reasoning.
+2. Identify weak assumptions.
+3. Identify missing evidence.
+4. Distinguish tools, maps, and models from observable evidence.
+5. Flag bias, automation bias, and false certainty.
+6. Identify ecological, governance, ethical, and practical risks.
+7. Suggest what should be field-checked or independently reviewed.
+8. Recommend whether the next step should be: proceed, revise, test first, delay, or reject.
+
+Important:
+The human remains responsible for values, consequences, and action.
+
+Decision memo to review:
+
+${memo}`;
+}
+
+function buildAiEvidenceAuditPrompt() {
+  const audit = phiGetGeneratedText("buildNbsAudit", "[NbS/SDSS audit not available.]");
+
+  return `You are reviewing a P(HI)-SDSS evidence audit for a nature-based solutions decision.
+
+Do not choose the intervention for me.
+Improve the quality of the evidence logic.
+
+Check:
+1. Whether the spatial criteria match the stated decision objective.
+2. Whether the proposed intervention matches the pollutant pathway.
+3. Whether the option score, preferred option, and spatial audit intervention are consistent.
+4. Whether artificial drainage, hydrological connectivity, maintenance, access, and monitoring have been considered.
+5. Which claims need peer-reviewed, regulatory, field, or stakeholder evidence.
+6. What field observation could falsify the suitability recommendation.
+7. Whether the map is directing investigation or pretending to finish the decision.
+
+Return:
+- strongest objection
+- missing evidence
+- field validation checklist
+- revised wording for the decision memo
+- recommendation: proceed, revise, test first, delay, or reject
+
+Audit to review:
+
+${audit}`;
+}
+
+async function copyPhiText(text, statusMessage) {
+  const status = document.getElementById("handoffCopyStatus");
+
+  try {
+    await navigator.clipboard.writeText(text);
+    if (status) status.textContent = statusMessage;
+  } catch (error) {
+    const fallback = document.createElement("textarea");
+    fallback.value = text;
+    fallback.setAttribute("readonly", "");
+    fallback.style.position = "fixed";
+    fallback.style.opacity = "0";
+    document.body.appendChild(fallback);
+    fallback.select();
+    document.execCommand("copy");
+    document.body.removeChild(fallback);
+    if (status) status.textContent = statusMessage;
+  }
+}
+
+function initAiHandoffButtons() {
+  const full = document.getElementById("copyAiMemo");
+  const red = document.getElementById("copyAiRedTeam");
+  const evidence = document.getElementById("copyAiEvidence");
+
+  if (full) {
+    full.addEventListener("click", () => {
+      copyPhiText(buildAiReviewPrompt(), "Copied full AI review prompt. Paste it into AI for critique, not delegation.");
+    });
+  }
+
+  if (red) {
+    red.addEventListener("click", () => {
+      const prompt = phiGetGeneratedText("buildRedTeamPrompt", "[Red-team prompt not available. Generate the memo first.]");
+      copyPhiText(prompt, "Copied red-team prompt.");
+    });
+  }
+
+  if (evidence) {
+    evidence.addEventListener("click", () => {
+      copyPhiText(buildAiEvidenceAuditPrompt(), "Copied NbS/SDSS evidence audit prompt.");
+    });
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAiHandoffButtons);
+} else {
+  initAiHandoffButtons();
+}
+/* === P(HI) AI handoff logic end === */
