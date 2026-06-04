@@ -796,3 +796,82 @@ pre {
     min-width: 720px;
   }
 }
+
+/* === P(HI) responsive layout hardening start === */
+
+/*
+  Prevent the right-hand insight cards from behaving like an overlay.
+  On generous desktop screens they remain a proper right rail.
+  On laptop and tablet widths they flow underneath the main workspace.
+*/
+
+.lab-layout,
+.workspace-main,
+.workspace-side,
+.card,
+.side-card,
+.nbs-grid,
+.map-card,
+.suitability-map {
+  min-width: 0;
+}
+
+.lab-layout {
+  align-items: start;
+}
+
+@media (min-width: 1321px) {
+  .lab-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
+  }
+
+  .workspace-side {
+    position: sticky;
+    top: 92px;
+    align-self: start;
+  }
+}
+
+@media (max-width: 1320px) {
+  .lab-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .workspace-side {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .nbs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .map-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .workspace-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .workspace-side,
+  .nbs-grid,
+  .form-grid,
+  .check-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-card,
+  .card,
+  .map-card {
+    width: 100%;
+  }
+}
+
+/* === P(HI) responsive layout hardening end === */
