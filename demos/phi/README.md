@@ -74,6 +74,7 @@ The demo uses browser local storage only. There is no login, database, analytics
 5. Add citation metadata and Zenodo release files.
 
 
+
 ## EcoLogits
 
 This demo is intentionally static and browser-based.
@@ -85,9 +86,15 @@ Measured or directly knowable from the design:
 - No AI API call.
 - Local storage only.
 
-Not measured here:
-- Exact electricity use from the user's device.
+Estimated AI use avoided:
+- The memo reports 1 avoided AI text-generation call per generated decision memo.
+- Default estimate: about 0.34 Wh avoided.
+- Plausible range: 0.18-0.67 Wh avoided.
+- This is an avoided-inference estimate, not a measured footprint.
+
+Not claimed:
+- Exact device electricity use.
 - Exact hosting, transfer, water, or carbon impact.
-- Any footprint from separate AI prompts run outside the demo.
+- Exact water or carbon savings from avoided AI use.
 
 EcoLogits principle: report measured data where available, use transparent estimates where necessary, and avoid false precision.
