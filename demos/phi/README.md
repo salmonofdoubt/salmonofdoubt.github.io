@@ -72,3 +72,22 @@ The demo uses browser local storage only. There is no login, database, analytics
 3. Add sensitivity analysis for option and suitability scores.
 4. Add a project article link once the P(HI) article is published.
 5. Add citation metadata and Zenodo release files.
+
+
+## EcoLogits
+
+This demo is intentionally static and browser-based.
+
+Measured or directly knowable from the design:
+- No backend.
+- No database.
+- No login.
+- No AI API call.
+- Local storage only.
+
+Not measured here:
+- Exact electricity use from the user's device.
+- Exact hosting, transfer, water, or carbon impact.
+- Any footprint from separate AI prompts run outside the demo.
+
+EcoLogits principle: report measured data where available, use transparent estimates where necessary, and avoid false precision.
