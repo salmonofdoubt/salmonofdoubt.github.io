@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-06-04T09:01:30+00:00",
+  "generated_at": "2026-06-05T08:52:44+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 7,
-  "links_seen": 4103,
-  "funding_like_links": 460,
+  "seed_pages_failed": 2,
+  "links_seen": 4709,
+  "funding_like_links": 483,
   "candidate_fetches": 300,
-  "pending_review_count": 81,
+  "pending_review_count": 85,
   "status_counts": {
-    "pending_review": 81,
-    "suppressed_non_actionable": 60,
+    "pending_review": 85,
+    "suppressed_non_actionable": 68,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 14,
-    "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 57
+    "suppressed_existing": 15,
+    "suppressed_stale": 7,
+    "suppressed_generic_page": 6,
+    "suppressed_fetch_error": 58
   },
   "candidate_type_counts": {
-    "recurring_programme": 89,
-    "funding_call": 34,
+    "recurring_programme": 99,
+    "funding_call": 39,
     "scholarship": 29,
-    "generic_funding_hub": 6,
+    "generic_funding_hub": 8,
     "tender": 12,
-    "unknown": 57
+    "unknown": 58
   },
   "seeds": [
     {
@@ -43,11 +43,11 @@
       "id": "heritage_council_funding_hub",
       "name": "Heritage Council funding hub",
       "url": "https://www.heritagecouncil.ie/funding/",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/ (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7f526554ca90>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=12)'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 80,
+      "funding_like_links": 13,
+      "candidates_fetched": 13
     },
     {
       "id": "lawpro_funding_hub",
@@ -73,11 +73,11 @@
       "id": "ifi_funding_hub",
       "name": "Inland Fisheries Ireland funding hub",
       "url": "https://www.fisheriesireland.ie/our-services/funding",
-      "status": "fetch_error",
-      "fetch_error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 173,
+      "funding_like_links": 6,
+      "candidates_fetched": 6
     },
     {
       "id": "seai_grants_hub",
@@ -125,7 +125,7 @@
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 132,
+      "links_seen": 131,
       "funding_like_links": 45,
       "candidates_fetched": 45
     },
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 596,
       "funding_like_links": 57,
-      "candidates_fetched": 20
+      "candidates_fetched": 1
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -263,30 +263,30 @@
       "id": "geo_rifs_klaus_toepfer_watch",
       "name": "Geo watch: RIFS Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.rifs-potsdam.de/en/node/11996",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x7f526478e710>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=12)'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 44,
+      "funding_like_links": 2,
       "candidates_fetched": 0
     },
     {
       "id": "geo_gfz_jobs_board_watch",
       "name": "Geo watch: GFZ Scientific Jobs Board",
       "url": "https://www.gfz.de/karriere/stellenangebote",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f5265199790>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 155,
+      "funding_like_links": 1,
       "candidates_fetched": 0
     },
     {
       "id": "geo_gfz_klaus_toepfer_watch",
       "name": "Geo watch: GFZ Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
-      "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f526519af90>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 155,
+      "funding_like_links": 1,
       "candidates_fetched": 0
     }
   ]

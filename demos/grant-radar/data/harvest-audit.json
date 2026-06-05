@@ -1,7 +1,15 @@
 {
-  "generated_at": "2026-06-04T09:06:10+00:00",
+  "generated_at": "2026-06-05T08:58:51+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
+    {
+      "id": "ifi_habitats_conservation",
+      "name": "IFI Habitats & Conservation Funding Call",
+      "registry_state": "open",
+      "page_state": "closed",
+      "state_source": "deadline_past_recurring",
+      "deadline_text": "December 11th 2025"
+    },
     {
       "id": "research_ireland_goipg",
       "name": "Research Ireland Government of Ireland Postgraduate Scholarship",
@@ -11,43 +19,7 @@
       "deadline_text": "23rd October 2025"
     }
   ],
-  "fetch_failures_using_last_known_good": [
-    {
-      "id": "heritage_community_grant",
-      "name": "Heritage Council Community Heritage Grant Scheme",
-      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/community-heritage-grant-scheme-2 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7f6d6bbbf5d0>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=10)'))",
-      "last_successful_fetch_at": "2026-06-02T09:22:32+00:00",
-      "programme_state": "closed"
-    },
-    {
-      "id": "ifi_habitats_conservation",
-      "name": "IFI Habitats & Conservation Funding Call",
-      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
-      "last_successful_fetch_at": "2026-06-03T10:07:00+00:00",
-      "programme_state": "closed"
-    },
-    {
-      "id": "geo_rifs_klaus_toepfer",
-      "name": "RIFS Klaus Töpfer Sustainability Fellowship",
-      "error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x7f6d6b9f06d0>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=10)'))",
-      "last_successful_fetch_at": "2026-06-03T10:10:40+00:00",
-      "programme_state": "closed"
-    },
-    {
-      "id": "geo_gfz_jobs_board",
-      "name": "GFZ Scientific Jobs Board",
-      "error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f6d6ba17350>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))",
-      "last_successful_fetch_at": "2026-06-03T10:10:11+00:00",
-      "programme_state": "open"
-    },
-    {
-      "id": "geo_gfz_klaus_toepfer",
-      "name": "GFZ Klaus Töpfer Sustainability Fellowship",
-      "error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f6d6ba15d50>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))",
-      "last_successful_fetch_at": "2026-06-03T10:10:11+00:00",
-      "programme_state": "closed"
-    }
-  ],
+  "fetch_failures_using_last_known_good": [],
   "fetch_failures_using_registry_fallback": [
     {
       "id": "seai_community_grant",
@@ -75,13 +47,12 @@
     }
   ],
   "state_source_counts": {
-    "registry_fallback": 25,
-    "last_known_good": 5,
+    "registry_fallback": 29,
+    "deadline_past_recurring": 2,
     "page_status_upcoming": 1,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 3,
     "page_status_open": 2,
-    "deadline_past_recurring": 1,
     "page_status_closed": 1
   },
   "public_visible_count": 40,
