@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-05T17:33:49+00:00",
+  "generated_at": "2026-06-05T19:21:52+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
@@ -18,13 +18,13 @@
     },
     "gov_ress": {
       "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/renewable-electricity-support-scheme-ress/",
-      "link_count": 65,
-      "status": "loaded"
+      "status": "failed",
+      "error": "HTTP Error 403: Forbidden"
     },
     "gov_oress": {
       "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/offshore-renewable-electricity-support-scheme-oress/",
-      "link_count": 28,
-      "status": "loaded"
+      "status": "failed",
+      "error": "HTTP Error 403: Forbidden"
     },
     "eirgrid_airaa": {
       "url": "https://www.eirgrid.ie/airaa",
@@ -89,5 +89,16 @@
       "source_key": "eirgrid_system_renewable_summary"
     }
   },
-  "errors": []
+  "errors": [
+    {
+      "source": "gov_ress",
+      "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/renewable-electricity-support-scheme-ress/",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "source": "gov_oress",
+      "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/offshore-renewable-electricity-support-scheme-oress/",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ]
 }
