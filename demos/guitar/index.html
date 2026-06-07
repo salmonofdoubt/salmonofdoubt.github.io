@@ -960,6 +960,150 @@
 }
 /* guitar-mobile-float-polish:end */
 
+
+/* guitar-attempt-analyzer:start */
+.analyzer-panel{
+  margin-top:42px;
+}
+.analyzer-card{
+  border:1px solid rgba(24,198,216,.34);
+  background:linear-gradient(180deg,rgba(10,23,34,.88),rgba(5,10,15,.96));
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 22px 70px rgba(0,0,0,.28);
+}
+.analyzer-controls{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:16px;
+  align-items:start;
+}
+.analyzer-field{
+  display:grid;
+  gap:8px;
+}
+.analyzer-field label{
+  font-weight:900;
+  color:var(--ink);
+  font-size:13px;
+}
+.analyzer-field select,
+.analyzer-field input[type="file"]{
+  width:100%;
+  background:#070a11;
+  color:var(--ink);
+  border:1px solid rgba(24,198,216,.30);
+  border-radius:14px;
+  padding:11px 12px;
+  font:inherit;
+  font-size:13px;
+}
+.analyzer-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.analyzer-buttons button{
+  border:1px solid rgba(246,239,227,.16);
+  background:#121827;
+  color:var(--ink);
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:900;
+  font-size:13px;
+}
+.analyzer-buttons button.primary{
+  background:linear-gradient(135deg,#18c6d8,#7ee7f2);
+  color:#061014;
+}
+.analyzer-buttons button[disabled]{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.analyzer-audio{
+  width:100%;
+  margin-top:16px;
+}
+.analyzer-status{
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid rgba(246,239,227,.10);
+  background:rgba(255,255,255,.035);
+  border-radius:16px;
+  color:var(--muted);
+  font-size:13px;
+}
+.analyzer-results{
+  display:grid;
+  gap:14px;
+  margin-top:18px;
+}
+.attempt-row{
+  display:grid;
+  grid-template-columns:minmax(220px,.75fr) minmax(180px,.45fr);
+  gap:14px;
+  align-items:start;
+  border:1px solid rgba(24,198,216,.26);
+  background:rgba(255,255,255,.028);
+  border-radius:20px;
+  padding:14px;
+}
+.attempt-meta h3{
+  margin:0 0 8px;
+  font-family:var(--serif);
+  font-size:22px;
+  line-height:1.05;
+}
+.attempt-meta p{
+  margin:4px 0;
+  color:var(--muted);
+  font-size:13px;
+}
+.attempt-pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+.attempt-pill{
+  border:1px solid rgba(246,239,227,.12);
+  background:rgba(255,255,255,.045);
+  color:#d8ccbd;
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:11px;
+  font-weight:900;
+}
+.attempt-pill.good{
+  color:#061014;
+  background:#7ee7f2;
+}
+.attempt-pill.warn{
+  color:#160807;
+  background:#f2c46d;
+}
+.attempt-diagram .chord{
+  max-width:190px;
+  margin-left:auto;
+}
+.analyzer-note{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:760px){
+  .analyzer-controls,
+  .attempt-row{
+    grid-template-columns:1fr;
+  }
+  .attempt-diagram .chord{
+    margin-left:0;
+  }
+}
+/* guitar-attempt-analyzer:end */
+
 </style>
 
 
@@ -1083,7 +1227,56 @@
       <div id="progressionGrid" class="progression-grid"></div>
     </section>
 
-    <section id="library">
+    
+<!-- guitar-attempt-analyzer:start -->
+<section id="attempt-analyzer" class="analyzer-panel">
+  <div class="section-head">
+    <div>
+      <h2>Chord Attempt Analyzer</h2>
+      <p>Upload an audio file or record a live guitar attempt. The analyzer compares the sound against this page’s own chord library and returns the most likely chord diagrams.</p>
+    </div>
+  </div>
+
+  <div class="analyzer-card">
+    <div class="analyzer-controls">
+      <div class="analyzer-field">
+        <label for="attemptProgression">Analysis mode</label>
+        <select id="attemptProgression">
+          <option value="free">Free scan, detect likely chords</option>
+        </select>
+      </div>
+
+      <div class="analyzer-field">
+        <label for="attemptFile">Audio file</label>
+        <input id="attemptFile" type="file" accept="audio/*">
+      </div>
+    </div>
+
+    <div class="analyzer-buttons">
+      <button id="recordAttempt" class="primary" type="button">Record live</button>
+      <button id="stopAttempt" type="button" disabled>Stop recording</button>
+      <button id="analyzeAttempt" class="primary" type="button">Analyze attempt</button>
+      <button id="clearAttempt" type="button">Clear</button>
+      <a class="button" href="#progressions">Back to progressions</a>
+    </div>
+
+    <audio id="attemptAudio" class="analyzer-audio" controls></audio>
+
+    <div id="attemptStatus" class="analyzer-status">
+      Choose a progression for guided mode, or use free scan. For best results, play slowly and let each chord ring.
+    </div>
+
+    <div id="attemptResults" class="analyzer-results"></div>
+
+    <div class="analyzer-note">
+      Note: this estimates likely chord names and maps them to this site’s diagrams. Audio alone cannot prove the exact fingering used.
+    </div>
+  </div>
+</section>
+<!-- guitar-attempt-analyzer:end -->
+
+
+<section id="library">
       <div class="section-head">
         <div>
           <h2>Chord library</h2>
@@ -1266,5 +1459,436 @@ function renderLibrary(){
 document.getElementById("search").addEventListener("input",renderProgressions);
 renderFilters();renderProgressions();renderLibrary();
 </script>
+
+<!-- guitar-attempt-analyzer:start -->
+<script>
+(function(){
+  "use strict";
+
+  const NOTE_NAMES = ["C","C♯","D","E♭","E","F","F♯","G","G♯","A","B♭","B"];
+  const GUITAR_TUNING_MIDI = [40,45,50,55,59,64]; // E2 A2 D3 G3 B3 E4
+
+  let audioCtx = null;
+  let decodedBuffer = null;
+  let recorder = null;
+  let recordedChunks = [];
+  let activeStream = null;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(x){
+    return String(x ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[c]));
+  }
+
+  function status(msg){
+    const el = $("attemptStatus");
+    if (el) el.textContent = msg;
+  }
+
+  function getAudioContext(){
+    if (!audioCtx) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) throw new Error("This browser does not support Web Audio decoding.");
+      audioCtx = new Ctx();
+    }
+    return audioCtx;
+  }
+
+  function noteNameFromMidi(midi){
+    return NOTE_NAMES[((midi % 12) + 12) % 12];
+  }
+
+  function normalize(vec){
+    const mag = Math.sqrt(vec.reduce((s,v) => s + v*v, 0));
+    return mag ? vec.map(v => v / mag) : vec;
+  }
+
+  function dot(a,b){
+    let s = 0;
+    for (let i=0;i<a.length;i++) s += a[i] * b[i];
+    return s;
+  }
+
+  function freqFromMidi(midi){
+    return 440 * Math.pow(2, (midi - 69) / 12);
+  }
+
+  function chordTemplate(key){
+    const chord = DATA.chords[key];
+    if (!chord) return null;
+
+    const vec = Array(12).fill(0);
+    let bassMidi = null;
+
+    chord.frets.forEach((fret, stringIndex) => {
+      if (fret === "x" || fret === "X") return;
+      const f = Number(fret);
+      if (!Number.isFinite(f)) return;
+
+      const midi = GUITAR_TUNING_MIDI[stringIndex] + f;
+      if (bassMidi === null) bassMidi = midi;
+
+      const pc = ((midi % 12) + 12) % 12;
+      vec[pc] += bassMidi === midi ? 1.35 : 1.0;
+    });
+
+    return {
+      key,
+      name: chord.name || key,
+      quality: chord.q || chord.quality || "",
+      vec: normalize(vec),
+      bass: bassMidi === null ? "" : noteNameFromMidi(bassMidi)
+    };
+  }
+
+  function allTemplates(){
+    return Object.keys(DATA.chords)
+      .map(chordTemplate)
+      .filter(Boolean);
+  }
+
+  function getMono(buffer){
+    const n = buffer.length;
+    if (buffer.numberOfChannels === 1) return buffer.getChannelData(0);
+
+    const out = new Float32Array(n);
+    for (let ch=0; ch<buffer.numberOfChannels; ch++){
+      const data = buffer.getChannelData(ch);
+      for (let i=0;i<n;i++) out[i] += data[i] / buffer.numberOfChannels;
+    }
+    return out;
+  }
+
+  function goertzel(samples, start, len, freq, sr){
+    const omega = 2 * Math.PI * freq / sr;
+    const coeff = 2 * Math.cos(omega);
+    let q0 = 0, q1 = 0, q2 = 0;
+    const end = Math.min(samples.length, start + len);
+
+    for (let i=start; i<end; i++){
+      const t = (i - start) / Math.max(1, len - 1);
+      const hann = 0.5 - 0.5 * Math.cos(2 * Math.PI * t);
+      const x = samples[i] * hann;
+      q0 = coeff * q1 - q2 + x;
+      q2 = q1;
+      q1 = q0;
+    }
+
+    return Math.max(0, q1*q1 + q2*q2 - q1*q2*coeff);
+  }
+
+  function segmentChroma(samples, sr, startSec, endSec){
+    const start = Math.max(0, Math.floor(startSec * sr));
+    const end = Math.min(samples.length, Math.floor(endSec * sr));
+    const duration = Math.max(0, (end - start) / sr);
+    const frameSize = Math.min(4096, Math.max(1024, 2 ** Math.floor(Math.log2(Math.max(1024, (end-start)/5)))));
+    const frames = Math.max(1, Math.min(8, Math.floor(duration / 0.35) || 1));
+
+    const chroma = Array(12).fill(0);
+    const bassPower = [];
+
+    let rmsSum = 0;
+    let rmsN = 0;
+    for (let i=start; i<end; i += 8){
+      rmsSum += samples[i] * samples[i];
+      rmsN++;
+    }
+    const rms = Math.sqrt(rmsSum / Math.max(1, rmsN));
+
+    if (rms < 0.003) {
+      return {chroma: normalize(chroma), bass:"", rms, silent:true};
+    }
+
+    for (let f=0; f<frames; f++){
+      const centre = start + Math.floor((f + 0.5) * (end - start) / frames);
+      const frameStart = Math.max(start, Math.min(end - frameSize, centre - Math.floor(frameSize/2)));
+
+      for (let midi=40; midi<=88; midi++){
+        const freq = freqFromMidi(midi);
+        if (freq > sr * 0.48) continue;
+
+        const power = goertzel(samples, frameStart, frameSize, freq, sr);
+        const pc = midi % 12;
+        const weight = midi < 52 ? 1.12 : 1.0;
+        chroma[pc] += Math.log1p(power) * weight;
+
+        if (midi >= 40 && midi <= 60) {
+          bassPower.push({midi, power});
+        }
+      }
+    }
+
+    bassPower.sort((a,b) => b.power - a.power);
+    const bass = bassPower.length ? noteNameFromMidi(bassPower[0].midi) : "";
+
+    return {chroma: normalize(chroma), bass, rms, silent:false};
+  }
+
+  function bestMatches(chroma, bass, templates){
+    return templates.map(t => {
+      let score = dot(chroma, t.vec);
+      if (bass && t.bass && bass === t.bass) score += 0.05;
+      return {...t, score: Math.max(0, Math.min(1, score))};
+    }).sort((a,b) => b.score - a.score);
+  }
+
+  function formatTime(sec){
+    const m = Math.floor(sec / 60);
+    const s = Math.round(sec % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  }
+
+  function renderDiagram(key){
+    try {
+      if (typeof chordCard === "function") return chordCard(key);
+    } catch(e) {}
+    const c = DATA.chords[key] || {};
+    return `<article class="chord"><div class="chord-title">${esc(c.name || key)}</div></article>`;
+  }
+
+  function renderResults(rows){
+    const root = $("attemptResults");
+    if (!root) return;
+
+    if (!rows.length) {
+      root.innerHTML = "";
+      status("No playable audio segments detected.");
+      return;
+    }
+
+    root.innerHTML = rows.map(row => {
+      const confidence = Math.round(row.score * 100);
+      const good = confidence >= 72;
+      const warn = confidence < 55;
+
+      return `
+        <article class="attempt-row">
+          <div class="attempt-meta">
+            <h3>${esc(row.detectedName)}</h3>
+            <p><strong>Time:</strong> ${esc(row.time)}</p>
+            ${row.expectedName ? `<p><strong>Expected:</strong> ${esc(row.expectedName)}</p>` : ""}
+            <p><strong>Estimated bass:</strong> ${esc(row.bass || "unclear")}</p>
+            <div class="attempt-pill-row">
+              <span class="attempt-pill ${good ? "good" : warn ? "warn" : ""}">confidence ${confidence}%</span>
+              ${row.mode ? `<span class="attempt-pill">${esc(row.mode)}</span>` : ""}
+            </div>
+          </div>
+          <div class="attempt-diagram">
+            ${renderDiagram(row.detectedKey)}
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  function guidedRows(buffer, progressionIndex){
+    const progression = DATA.progressions[progressionIndex];
+    const samples = getMono(buffer);
+    const sr = buffer.sampleRate;
+    const duration = buffer.duration;
+    const steps = progression.steps || [];
+    const templates = allTemplates();
+    const seg = duration / Math.max(1, steps.length);
+
+    return steps.map((expectedKey, i) => {
+      const start = i * seg;
+      const end = (i + 1) * seg;
+      const features = segmentChroma(samples, sr, start, end);
+      const matches = bestMatches(features.chroma, features.bass, templates);
+      const best = matches[0];
+      const expected = DATA.chords[expectedKey];
+
+      return {
+        time: `${formatTime(start)}–${formatTime(end)}`,
+        expectedName: expected ? expected.name : expectedKey,
+        detectedKey: best.key,
+        detectedName: best.name,
+        score: best.score,
+        bass: features.bass,
+        mode: "guided"
+      };
+    });
+  }
+
+  function freeRows(buffer){
+    const samples = getMono(buffer);
+    const sr = buffer.sampleRate;
+    const duration = buffer.duration;
+    const templates = allTemplates();
+    const windowSec = duration > 18 ? 3 : 2;
+    const rows = [];
+
+    for (let start=0; start<duration; start += windowSec){
+      const end = Math.min(duration, start + windowSec);
+      const features = segmentChroma(samples, sr, start, end);
+      if (features.silent) continue;
+
+      const matches = bestMatches(features.chroma, features.bass, templates);
+      const best = matches[0];
+
+      if (!best || best.score < 0.32) continue;
+
+      const previous = rows[rows.length - 1];
+      if (previous && previous.detectedKey === best.key) {
+        previous.endSec = end;
+        previous.time = `${formatTime(previous.startSec)}–${formatTime(end)}`;
+        previous.score = (previous.score + best.score) / 2;
+      } else {
+        rows.push({
+          startSec: start,
+          endSec: end,
+          time: `${formatTime(start)}–${formatTime(end)}`,
+          expectedName: "",
+          detectedKey: best.key,
+          detectedName: best.name,
+          score: best.score,
+          bass: features.bass,
+          mode: "free scan"
+        });
+      }
+    }
+
+    return rows;
+  }
+
+  async function decodeArrayBuffer(arrayBuffer){
+    const ctx = getAudioContext();
+    const copy = arrayBuffer.slice(0);
+    return await ctx.decodeAudioData(copy);
+  }
+
+  async function handleFile(file){
+    if (!file) return;
+    status(`Loading ${file.name}...`);
+    const arr = await file.arrayBuffer();
+    decodedBuffer = await decodeArrayBuffer(arr);
+
+    const audio = $("attemptAudio");
+    if (audio) audio.src = URL.createObjectURL(file);
+
+    status(`Loaded ${file.name}. Duration: ${decodedBuffer.duration.toFixed(1)} seconds.`);
+  }
+
+  async function startRecording(){
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      status("Live recording is not supported in this browser.");
+      return;
+    }
+
+    activeStream = await navigator.mediaDevices.getUserMedia({audio:true});
+    recordedChunks = [];
+
+    recorder = new MediaRecorder(activeStream);
+    recorder.ondataavailable = e => {
+      if (e.data && e.data.size) recordedChunks.push(e.data);
+    };
+
+    recorder.onstop = async () => {
+      const blob = new Blob(recordedChunks, {type: recorder.mimeType || "audio/webm"});
+      const arr = await blob.arrayBuffer();
+      decodedBuffer = await decodeArrayBuffer(arr);
+
+      const audio = $("attemptAudio");
+      if (audio) audio.src = URL.createObjectURL(blob);
+
+      activeStream.getTracks().forEach(t => t.stop());
+      activeStream = null;
+
+      $("recordAttempt").disabled = false;
+      $("stopAttempt").disabled = true;
+      status(`Recorded ${decodedBuffer.duration.toFixed(1)} seconds. Ready to analyze.`);
+    };
+
+    recorder.start();
+    $("recordAttempt").disabled = true;
+    $("stopAttempt").disabled = false;
+    status("Recording. Play slowly and let each chord ring.");
+  }
+
+  function stopRecording(){
+    if (recorder && recorder.state !== "inactive") recorder.stop();
+  }
+
+  function analyze(){
+    if (!decodedBuffer) {
+      status("Load an audio file or record a live attempt first.");
+      return;
+    }
+
+    const choice = $("attemptProgression").value;
+    status("Analyzing audio. This may take a few seconds...");
+
+    window.setTimeout(() => {
+      try {
+        let rows;
+        if (choice === "free") {
+          rows = freeRows(decodedBuffer);
+        } else {
+          rows = guidedRows(decodedBuffer, Number(choice));
+        }
+        renderResults(rows);
+        status(`Analysis complete. ${rows.length} segment${rows.length === 1 ? "" : "s"} returned.`);
+      } catch (err) {
+        console.error(err);
+        status("Analysis failed: " + err.message);
+      }
+    }, 60);
+  }
+
+  function clearAll(){
+    decodedBuffer = null;
+    recordedChunks = [];
+    $("attemptResults").innerHTML = "";
+    $("attemptFile").value = "";
+    $("attemptAudio").removeAttribute("src");
+    $("attemptAudio").load();
+    status("Cleared. Choose a progression, upload audio, or record a new attempt.");
+  }
+
+  function populateProgressions(){
+    const select = $("attemptProgression");
+    if (!select || typeof DATA === "undefined" || !DATA.progressions) return;
+
+    const options = [`<option value="free">Free scan, detect likely chords</option>`];
+
+    DATA.progressions.forEach((p, i) => {
+      const names = (p.steps || []).map(k => DATA.chords[k]?.name || k).join(" → ");
+      options.push(`<option value="${i}">${esc(p.title)} · ${esc(names)}</option>`);
+    });
+
+    select.innerHTML = options.join("");
+  }
+
+  function addHeroLink(){
+    const actions = document.querySelector(".hero-actions");
+    if (!actions || actions.querySelector('[href="#attempt-analyzer"]')) return;
+    const a = document.createElement("a");
+    a.className = "button";
+    a.href = "#attempt-analyzer";
+    a.textContent = "Analyze attempt";
+    actions.appendChild(a);
+  }
+
+  function init(){
+    populateProgressions();
+    addHeroLink();
+
+    $("attemptFile")?.addEventListener("change", e => handleFile(e.target.files[0]).catch(err => status("Could not load audio: " + err.message)));
+    $("recordAttempt")?.addEventListener("click", () => startRecording().catch(err => status("Recording failed: " + err.message)));
+    $("stopAttempt")?.addEventListener("click", stopRecording);
+    $("analyzeAttempt")?.addEventListener("click", analyze);
+    $("clearAttempt")?.addEventListener("click", clearAll);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+<!-- guitar-attempt-analyzer:end -->
+
 </body>
 </html>
