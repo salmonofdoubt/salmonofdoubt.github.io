@@ -1581,6 +1581,87 @@
 }
 /* guitar-note-first-analyzer:end */
 
+
+/* guitar-note-tab:start */
+.note-tab-card{
+  border:1px solid rgba(24,198,216,.28);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(255,255,255,.028);
+}
+
+.note-tab-card h3{
+  margin:0 0 8px;
+  font-family:var(--serif);
+  font-size:24px;
+  line-height:1.05;
+}
+
+.note-tab-card p{
+  margin:0 0 12px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.tab-scroll{
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  border:1px solid rgba(246,239,227,.10);
+  border-radius:14px;
+  background:#05080d;
+  padding:12px;
+}
+
+.tab-block{
+  margin:0;
+  min-width:max-content;
+  color:#e9f8f8;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+  font-size:13px;
+  line-height:1.45;
+  white-space:pre;
+}
+
+.tab-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+
+.tab-chip{
+  border:1px solid rgba(24,198,216,.28);
+  border-radius:999px;
+  padding:5px 8px;
+  background:rgba(24,198,216,.08);
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+}
+
+.tab-chip strong{
+  color:var(--ink);
+}
+
+.note-match-grid.compact{
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+}
+
+@media(max-width:520px){
+  .note-tab-card{
+    padding:12px;
+  }
+
+  .tab-block{
+    font-size:12px;
+  }
+
+  .tab-scroll{
+    padding:10px;
+  }
+}
+/* guitar-note-tab:end */
+
 </style>
 
 
@@ -3125,11 +3206,158 @@ renderFilters();renderProgressions();renderLibrary();
 
     return ranked.slice(0,5);
   }
+  // guitar-note-tab:start
+  function pcFromNoteName(name){
+    const clean = String(name || "")
+      .replace("♯", "#")
+      .replace("♭", "b")
+      .trim();
+
+    const map = {
+      "C":0, "C#":1, "Db":1,
+      "D":2, "D#":3, "Eb":3,
+      "E":4,
+      "F":5, "F#":6, "Gb":6,
+      "G":7, "G#":8, "Ab":8,
+      "A":9, "A#":10, "Bb":10,
+      "B":11
+    };
+
+    return map[clean] ?? -1;
+  }
+
+  function vectorFromDetectedNotes(notes){
+    const vec = Array(12).fill(0);
+    (notes || []).forEach(n => {
+      const pc = typeof n.pc === "number" ? n.pc : pcFromNoteName(n.note);
+      if (pc >= 0) vec[pc] = Math.max(vec[pc], n.strength || 1);
+    });
+    return norm(vec);
+  }
+
+  function bestChordForVector(vec){
+    const target = $("noteTargetChord") ? $("noteTargetChord").value : "auto";
+
+    if (target !== "auto" && DATA.chords[target]) {
+      return {
+        key: target,
+        name: DATA.chords[target].name || target,
+        score: 1,
+        selected: true
+      };
+    }
+
+    const ranked = Object.keys(DATA.chords).map(key => {
+      const chord = DATA.chords[key];
+      const chordVec = norm(noteVectorForChord(key));
+      let score = dot(vec, chordVec);
+
+      // Do not let very complex extended chords win too easily.
+      const label = `${chord.name || ""} ${chord.q || ""}`.toLowerCase();
+      const isExtended = chord.libraryType === "extended";
+      const complex = /add|sus|maj7|m7|9|11|13|♯|#|♭|dim|°|\//.test(label);
+      if (isExtended) score -= 0.025;
+      if (complex) score -= 0.025;
+
+      return {
+        key,
+        name: chord.name || key,
+        score
+      };
+    }).sort((a,b) => b.score - a.score);
+
+    return ranked[0] || null;
+  }
+
+  function fretsForChordKey(key){
+    const chord = DATA.chords[key];
+    if (!chord || !Array.isArray(chord.frets)) return ["x","x","x","x","x","x"];
+    return chord.frets.map(f => f === "x" || f === "X" ? "x" : String(f));
+  }
+
+  function tabColumnForChord(key){
+    // DATA uses strings 6→1. Tablature displays strings 1→6: e B G D A E.
+    return fretsForChordKey(key).slice().reverse();
+  }
+
+  function formatTabColumns(columns){
+    const stringNames = ["e","B","G","D","A","E"];
+    const width = 5;
+
+    const header = "    " + columns.map(c => {
+      const label = c.label.length > width - 1 ? c.label.slice(0, width - 1) : c.label;
+      return label.padEnd(width, " ");
+    }).join("");
+
+    const lines = stringNames.map((name, rowIndex) => {
+      const cells = columns.map(c => {
+        const fret = c.frets[rowIndex] ?? "x";
+        const value = fret === "x" ? "x" : String(fret);
+        return ("--" + value + "-").padEnd(width, "-");
+      }).join("");
+
+      return `${name}|${cells}`;
+    });
+
+    return [header, ...lines].join("\n");
+  }
+
+  function buildEvidenceTab(timeline, globalNotes){
+    const columns = [];
+
+    if (timeline && timeline.length) {
+      timeline.slice(0, 24).forEach((row, i) => {
+        const vec = vectorFromDetectedNotes(row.notes || []);
+        const best = bestChordForVector(vec);
+        if (!best) return;
+
+        columns.push({
+          label: String(i + 1),
+          time: row.time,
+          key: best.key,
+          name: best.name,
+          score: best.score,
+          frets: tabColumnForChord(best.key)
+        });
+      });
+    }
+
+    if (!columns.length) {
+      const best = bestChordForVector(vectorFromDetectedNotes(globalNotes || []));
+      if (best) {
+        columns.push({
+          label: "1",
+          time: "whole attempt",
+          key: best.key,
+          name: best.name,
+          score: best.score,
+          frets: tabColumnForChord(best.key)
+        });
+      }
+    }
+
+    return columns;
+  }
+
+  function renderTabLegend(columns){
+    return columns.map(c => `
+      <span class="tab-chip">
+        <strong>${esc(c.label)}</strong>
+        ${esc(c.name)}
+        <span>${esc(c.time)}</span>
+      </span>
+    `).join("");
+  }
+
   function render(results){
     const root = $("noteResults");
     if (!root) return;
 
     const {notes, vector, timeline, matches} = results;
+    const tabColumns = buildEvidenceTab(timeline, notes);
+    const tabText = tabColumns.length
+      ? formatTabColumns(tabColumns)
+      : "No likely tab could be produced.";
 
     root.innerHTML = `
       <section class="note-summary">
@@ -3139,12 +3367,23 @@ renderFilters();renderProgressions();renderLibrary();
         </div>
       </section>
 
+      <section class="note-tab-card">
+        <h3>Likely tablature from note evidence</h3>
+        <p>This is estimated tab. Audio can suggest likely chord tones, but it cannot prove the exact string and fret choice.</p>
+        <div class="tab-scroll">
+          <pre class="tab-block">${esc(tabText)}</pre>
+        </div>
+        <div class="tab-legend">
+          ${renderTabLegend(tabColumns)}
+        </div>
+      </section>
+
       <section>
         <div class="attempt-timeline-head">
           <strong>Chord fit from notes</strong>
           <span>${matches.length} candidate${matches.length === 1 ? "" : "s"}</span>
         </div>
-        <div class="note-match-grid">
+        <div class="note-match-grid compact">
           ${matches.map(m => {
             const score = Math.max(4, Math.min(100, Math.round(m.score*100)));
             return `
@@ -3160,24 +3399,10 @@ renderFilters();renderProgressions();renderLibrary();
           }).join("")}
         </div>
       </section>
-
-      <section>
-        <div class="attempt-timeline-head">
-          <strong>Note timeline</strong>
-          <span>${timeline.length} segment${timeline.length === 1 ? "" : "s"}</span>
-        </div>
-        <div class="note-timeline">
-          ${timeline.map(row => `
-            <article class="note-frame">
-              <strong>${esc(row.time)}</strong>
-              <span>${esc(row.label)}</span>
-              <small>${esc(row.notes.map(n => `${n.note} ${Math.round(n.strength*100)}%`).join(" · "))}</small>
-            </article>
-          `).join("")}
-        </div>
-      </section>
     `;
   }
+  // guitar-note-tab:end
+
   async function decode(arrayBuffer){
     const ac = audioContext();
     return await ac.decodeAudioData(arrayBuffer.slice(0));
