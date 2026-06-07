@@ -1,969 +1,516 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet" />
-
-  <title>Salmon of Doubt · Demos</title>
-  <meta name="description" content="Exploratory public demos by André Baumann: water, nature-based solutions, energy, grants, intelligence, and civic environmental tools." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Demos · André Baumann</title>
+  <meta name="description" content="A compact index of experimental tools and explainers across water, climate, biodiversity, energy, ecology, and civic intelligence.">
   <style>
     :root {
-      --bg: #05080d;
-      --bg-2: #07111b;
-      --panel: rgba(9, 18, 28, 0.82);
-      --panel-strong: rgba(12, 25, 38, 0.96);
-      --ink: #e9f7f4;
-      --muted: #8fa8a5;
-      --line: rgba(79, 246, 255, 0.18);
-      --line-hot: rgba(255, 176, 64, 0.32);
-      --cyan: #4ff6ff;
-      --cyan-soft: rgba(79, 246, 255, 0.12);
-      --amber: #ffb040;
-      --amber-soft: rgba(255, 176, 64, 0.12);
-      --green: #80ffc8;
-      --magenta: #d36cff;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.52);
-      --glow: 0 0 28px rgba(79, 246, 255, 0.18);
+      --bg: #050a0f;
+      --panel: #07111a;
+      --panel2: #0a1722;
+      --line: rgba(0,210,230,.34);
+      --line-soft: rgba(0,210,230,.18);
+      --ink: #e9f8f8;
+      --muted: #9bb4b3;
+      --muted2: #78908f;
+      --accent: #18c6d8;
+      --accent-soft: rgba(24,198,216,.13);
+      --radius: 22px;
+      --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     * { box-sizing: border-box; }
-
-    html {
-      background: var(--bg);
-    }
-
     body {
       margin: 0;
-      font-family: "Play", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        linear-gradient(180deg, rgba(5, 8, 13, 0.76), rgba(5, 8, 13, 0.98)),
-        radial-gradient(circle at 18% 0%, rgba(79, 246, 255, 0.18), transparent 28rem),
-        radial-gradient(circle at 86% 18%, rgba(255, 176, 64, 0.12), transparent 30rem),
-        radial-gradient(circle at 50% 100%, rgba(211, 108, 255, 0.10), transparent 28rem),
-        var(--bg);
+        radial-gradient(circle at 18% 0%, rgba(24,198,216,.12), transparent 30rem),
+        linear-gradient(180deg, #05070d 0%, var(--bg) 45%, #030609 100%);
       color: var(--ink);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-      background-size: 100% 4px, 42px 42px;
-      mix-blend-mode: screen;
-      opacity: 0.34;
-      z-index: 0;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(90deg, rgba(79,246,255,0.08), transparent 18%, transparent 82%, rgba(255,176,64,0.06));
-      opacity: 0.38;
-      z-index: 0;
+      font-family: var(--font);
+      line-height: 1.45;
     }
 
     a { color: inherit; }
-
-    .shell {
-      position: relative;
-      z-index: 1;
-      width: min(1180px, calc(100vw - 32px));
+    .wrap {
+      width: min(1120px, calc(100% - 36px));
       margin: 0 auto;
-      padding: 32px 0 72px;
     }
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 24px;
-    }
-
-    .brand {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      color: var(--cyan);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      text-decoration: none;
-      text-shadow: 0 0 18px rgba(79, 246, 255, 0.28);
-    }
-
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      color: #02070a;
-      background: linear-gradient(135deg, var(--cyan), var(--green));
-      box-shadow: 0 0 24px rgba(79, 246, 255, 0.32);
-    }
-
-    .toplink {
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 850;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 9px 13px;
-      background: rgba(255,255,255,0.03);
-    }
-
-    .toplink:hover {
-      color: var(--cyan);
-      border-color: rgba(79, 246, 255, 0.42);
-      box-shadow: var(--glow);
+    header {
+      padding: 34px 0 18px;
     }
 
     .hero {
-      position: relative;
-      overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 34px;
-      padding: clamp(28px, 5vw, 58px);
-      background:
-        linear-gradient(135deg, rgba(12, 25, 38, 0.94), rgba(7, 17, 27, 0.82)),
-        radial-gradient(circle at 80% 15%, rgba(79, 246, 255, 0.14), transparent 20rem);
-      box-shadow: var(--shadow), var(--glow);
-      margin-bottom: 24px;
+      background: linear-gradient(180deg, rgba(10,23,34,.88), rgba(5,10,15,.94));
+      border-radius: 28px;
+      padding: 34px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.32);
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(120deg, transparent 0%, rgba(79,246,255,0.08) 38%, transparent 70%),
-        repeating-linear-gradient(90deg, transparent 0 42px, rgba(255,255,255,0.025) 42px 43px);
-      opacity: 0.55;
-      pointer-events: none;
-    }
-
-    .hero > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .eyebrow {
-      margin: 0 0 14px;
-      color: var(--amber);
-      font-weight: 700;
-      letter-spacing: 0.18em;
+    .kicker {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .14em;
       text-transform: uppercase;
-      font-size: 0.78rem;
-      text-shadow: 0 0 18px rgba(255, 176, 64, 0.28);
+      margin-bottom: 12px;
     }
 
     h1 {
-      margin: 0;
-      max-width: 980px;
-      font-size: clamp(2rem, 5.2vw, 4.6rem);
-      line-height: 0.98;
-      letter-spacing: -0.045em;
-      color: var(--ink);
-      text-shadow: 0 0 30px rgba(79, 246, 255, 0.10);
+      margin: 0 0 12px;
+      max-width: 920px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: .92;
+      letter-spacing: -.055em;
     }
 
-    .lede {
-      margin: 24px 0 0;
-      max-width: 820px;
-      color: var(--muted);
-      font-size: clamp(0.98rem, 1.35vw, 1.12rem);
-      line-height: 1.58;
-    }
-
-    .controls {
-      display: grid;
-      grid-template-columns: minmax(230px, 1fr) 220px;
-      gap: 12px;
-      margin: 24px 0;
-    }
-
-    input,
-    select {
-      width: 100%;
-      min-height: 54px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(6, 13, 21, 0.82);
-      color: var(--ink);
-      padding: 0 16px;
-      font: inherit;
-      font-weight: 750;
-      outline: none;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
-    }
-
-    input::placeholder {
-      color: rgba(143, 168, 165, 0.76);
-    }
-
-    input:focus,
-    select:focus {
-      border-color: rgba(79, 246, 255, 0.56);
-      box-shadow: 0 0 0 4px rgba(79, 246, 255, 0.08), var(--glow);
-    }
-
-    .demo-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .demo {
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background:
-        linear-gradient(135deg, rgba(9, 18, 28, 0.92), rgba(6, 13, 21, 0.82));
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.32);
-      overflow: clip;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .demo:hover {
-      border-color: rgba(79, 246, 255, 0.34);
-      box-shadow: 0 18px 56px rgba(0, 0, 0, 0.42), var(--glow);
-    }
-
-    .demo.open {
-      border-color: rgba(255, 176, 64, 0.42);
-      box-shadow: 0 20px 70px rgba(0, 0, 0, 0.46), 0 0 34px rgba(255, 176, 64, 0.10);
-    }
-
-    .demo[hidden] { display: none; }
-
-    .demo-toggle {
-      width: 100%;
-      border: 0;
-      background: transparent;
-      cursor: pointer;
-      padding: 0;
-      text-align: left;
-      color: inherit;
-      font: inherit;
-    }
-
-    .demo-bar {
-      display: grid;
-      grid-template-columns: 58px minmax(0, 1fr) auto;
-      gap: 16px;
-      align-items: center;
-      padding: 23px 24px;
-    }
-
-    .demo-index {
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      background: rgba(79, 246, 255, 0.10);
-      border: 1px solid rgba(79, 246, 255, 0.20);
-      color: var(--cyan);
-      font-weight: 950;
-      text-shadow: 0 0 16px rgba(79, 246, 255, 0.28);
-    }
-
-    .demo-title {
-      margin: 0;
-      font-size: clamp(1.18rem, 1.8vw, 1.72rem);
-      line-height: 1.1;
-      letter-spacing: -0.045em;
-      color: var(--ink);
-    }
-
-    .demo-sub {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-weight: 650;
-      line-height: 1.38;
-    }
-
-    .chevron {
-      width: 44px;
-      height: 44px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      background: rgba(79, 246, 255, 0.10);
-      border: 1px solid rgba(79, 246, 255, 0.18);
-      color: var(--cyan);
-      font-weight: 950;
-      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
-    }
-
-    .demo.open .chevron {
-      transform: rotate(45deg);
-      background: linear-gradient(135deg, var(--amber), #ffd27a);
-      border-color: rgba(255, 176, 64, 0.52);
-      color: #120a02;
-      box-shadow: 0 0 22px rgba(255, 176, 64, 0.24);
-    }
-
-    .demo-panel {
-      display: none;
-      border-top: 1px solid var(--line);
-      padding: 0 24px 24px 98px;
-      background:
-        linear-gradient(180deg, rgba(79, 246, 255, 0.035), transparent 38%),
-        rgba(0,0,0,0.10);
-    }
-
-    .demo.open .demo-panel { display: block; }
-
-    .panel-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px;
-      gap: 24px;
-      padding-top: 22px;
-    }
-
-    .panel-copy {
-      color: var(--muted);
-      line-height: 1.62;
-      font-size: 1rem;
-    }
-
-    .panel-copy strong {
-      color: var(--cyan);
-      text-shadow: 0 0 12px rgba(79, 246, 255, 0.18);
-    }
-
-    .tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 7px 10px;
-      background: rgba(128, 255, 200, 0.08);
-      border: 1px solid rgba(128, 255, 200, 0.17);
-      color: var(--green);
-      font-size: 0.86rem;
-      font-weight: 850;
-    }
-
-    .actions {
-      display: grid;
-      gap: 10px;
-      align-content: start;
-    }
-
-    .button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 50px;
-      border-radius: 16px;
-      padding: 12px 16px;
-      text-decoration: none;
-      font-weight: 950;
-      background: linear-gradient(135deg, var(--cyan), #91fff2);
-      color: #031014;
-      box-shadow: 0 0 24px rgba(79, 246, 255, 0.18);
-    }
-
-    .button.secondary {
-      background: rgba(255, 176, 64, 0.10);
-      border: 1px solid rgba(255, 176, 64, 0.26);
-      color: var(--amber);
-      box-shadow: none;
-    }
-
-    .button:hover {
-      transform: translateY(-1px);
-    }
-
-    .status {
-      color: var(--amber);
-      font-weight: 850;
-      font-size: 0.92rem;
-      line-height: 1.35;
-    }
-
-    .footer {
-      color: var(--muted);
-      margin-top: 34px;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-
-
-    .creator-strip {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
-      gap: 20px;
-      align-items: center;
-      margin: 0 0 24px;
-      padding: clamp(18px, 3vw, 28px);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background:
-        linear-gradient(135deg, rgba(9, 18, 28, 0.92), rgba(6, 13, 21, 0.80)),
-        radial-gradient(circle at 92% 10%, rgba(79, 246, 255, 0.10), transparent 16rem);
-      box-shadow: 0 14px 46px rgba(0, 0, 0, 0.34);
-    }
-
-    .creator-copy h2 {
-      margin: 0;
-      font-size: clamp(1.2rem, 2.2vw, 1.75rem);
-      letter-spacing: -0.04em;
-      color: var(--ink);
-    }
-
-    .creator-copy p:last-child {
-      margin: 8px 0 0;
-      color: var(--muted);
-      line-height: 1.5;
+    .hero p {
       max-width: 760px;
+      color: var(--muted);
+      margin: 0;
+      font-size: 15px;
     }
 
-    .creator-badges {
+    .profile {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, .78fr);
+      gap: 18px;
+      border: 1px solid var(--line);
+      background: rgba(7,17,26,.78);
+      border-radius: 22px;
+      padding: 22px;
+    }
+
+    .profile h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+    }
+
+    .profile p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 620px;
+    }
+
+    .links {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
     }
 
-    .creator-badges a {
-      display: grid;
-      gap: 2px;
-      min-height: 50px;
-      padding: 0.62rem 0.72rem;
-      border-radius: 16px;
-      border: 1px solid rgba(79, 246, 255, 0.22);
-      background: rgba(79, 246, 255, 0.07);
-      color: var(--ink);
+    .links a {
+      display: block;
       text-decoration: none;
-      overflow: hidden;
+      border: 1px solid var(--line);
+      background: rgba(24,198,216,.07);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    .creator-badges a span {
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 850;
+    .links small {
+      display: block;
+      color: var(--accent);
+      font-size: 9px;
+      letter-spacing: .09em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
-    .creator-badges a strong {
-      color: var(--cyan);
-      font-size: 0.9rem;
-      font-weight: 950;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .controls {
+      margin: 18px 0 16px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      gap: 10px;
     }
 
-    .creator-badges a:hover {
-      border-color: rgba(79, 246, 255, 0.52);
-      box-shadow: var(--glow);
+    input, select {
+      width: 100%;
+      color: var(--ink);
+      background: rgba(5,10,15,.9);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .demo-list {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .demo-card {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      min-height: 86px;
+      padding: 18px 22px;
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(7,17,26,.96), rgba(4,10,16,.96));
+      transition: transform .14s ease, border-color .14s ease, background .14s ease;
+    }
+
+    .demo-card:hover {
       transform: translateY(-1px);
+      border-color: rgba(24,198,216,.7);
+      background: linear-gradient(180deg, rgba(10,29,42,.98), rgba(4,10,16,.98));
     }
 
-    @media (max-width: 860px) {
-      .creator-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .creator-badges {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+    .demo-card.sub {
+      margin-left: 54px;
+      width: calc(100% - 54px);
+      border-left-width: 4px;
+      background: linear-gradient(90deg, rgba(24,198,216,.10), rgba(7,17,26,.96));
     }
 
-    @media (max-width: 560px) {
-      .creator-badges {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+    .num {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--accent-soft);
+      color: #7ee7f2;
+      font-weight: 900;
+      font-size: 13px;
+    }
 
-      .creator-badges a {
-        min-height: 46px;
-        padding: 0.52rem 0.58rem;
-      }
+    .demo-card.sub .num {
+      width: 46px;
+      color: var(--ink);
+    }
 
-      .creator-badges a span {
-        font-size: 0.62rem;
-      }
+    .demo-title {
+      margin: 0 0 4px;
+      font-size: 24px;
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
 
-      .creator-badges a strong {
-        font-size: 0.78rem;
-      }
+    .demo-summary {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      padding: 4px 0 42px;
+    }
+
+    .empty {
+      display: none;
+      border: 1px solid var(--line-soft);
+      border-radius: 16px;
+      padding: 20px;
+      color: var(--muted);
     }
 
     @media (max-width: 760px) {
-      .controls,
-      .panel-grid,
-      .demo-bar {
+      .profile, .controls {
         grid-template-columns: 1fr;
       }
-
-      .demo-bar {
-        gap: 10px;
+      .links {
+        grid-template-columns: 1fr;
       }
-
-      .chevron {
-        justify-self: start;
+      .demo-card {
+        grid-template-columns: 46px minmax(0, 1fr);
+        padding: 16px;
       }
-
-      .demo-panel {
-        padding: 0 20px 22px;
+      .demo-card.sub {
+        margin-left: 24px;
+        width: calc(100% - 24px);
+      }
+      .demo-title {
+        font-size: 20px;
       }
     }
-  
-
-/* Mobile demo card action enhancer v5 */
-.demo-mobile-action-row {
-  display: none;
-}
-
-@media (max-width: 760px) {
-  .demo-bar {
-    display: grid !important;
-    grid-template-columns: auto 1fr !important;
-    gap: 14px 12px !important;
-    align-items: start !important;
-    padding: 22px !important;
-  }
-
-  .demo-index {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-  }
-
-  .demo-mobile-action-row {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    gap: 8px !important;
-  }
-
-  .demo-mobile-action-row .chevron {
-    display: inline-flex !important;
-    width: auto !important;
-    height: 34px !important;
-    min-height: 34px !important;
-    padding: 0 0.72rem !important;
-    border-radius: 999px !important;
-    transform: none !important;
-    background: rgba(255, 176, 64, 0.14) !important;
-    border: 1px solid rgba(255, 176, 64, 0.36) !important;
-    color: var(--amber) !important;
-    box-shadow: none !important;
-    font-size: 0 !important;
-  }
-
-  .demo-mobile-action-row .chevron::after {
-    content: "Details";
-    font-size: 0.82rem;
-    font-weight: 950;
-  }
-
-  .demo.open .demo-mobile-action-row .chevron::after {
-    content: "Hide";
-  }
-
-  .demo-mobile-open {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-height: 34px !important;
-    padding: 0 0.72rem !important;
-    border-radius: 999px !important;
-    background: linear-gradient(135deg, var(--cyan), #91fff2) !important;
-    color: #031014 !important;
-    border: 1px solid rgba(79, 246, 255, 0.42) !important;
-    font-size: 0.82rem !important;
-    font-weight: 950 !important;
-    text-decoration: none !important;
-  }
-
-  .demo-title,
-  .demo-sub {
-    grid-column: 1 / -1 !important;
-  }
-
-  .demo-bar > div:not(.demo-index):not(.demo-mobile-action-row) {
-    grid-column: 1 / -1 !important;
-    grid-row: 2 !important;
-  }
-
-  .demo-bar > .chevron {
-    display: none !important;
-  }
-
-  .demo-panel .actions > .button:first-child {
-    display: none !important;
-  }
-}
-
   </style>
-  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
-  <script defer src="/demos/shared/demo-support.js"></script>
 </head>
-
 <body>
-  <main class="shell">
-    <nav class="topbar" aria-label="Site navigation">
-      <a class="brand" href="../">
-        <span class="brand-mark">≈</span>
-        <span>Salmon of Doubt</span>
-      </a>
-      <a class="toplink" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io" target="_blank" rel="noopener">GitHub</a>
-    </nav>
-
-    <header class="hero">
-      <p class="eyebrow">Public prototypes</p>
+  <header class="wrap">
+    <section class="hero">
+      <div class="kicker">Experimental tools · explainers · public demos</div>
       <h1>Demos for water, climate, ecology, and civic intelligence.</h1>
-      <p class="lede">
-        A compact index of experimental tools and explainers. Each bar opens into one project at a time, so the page stays calm, browsable, and useful.
-      </p>
-    </header>
-
-
-    <section class="creator-strip" aria-label="Creator profile">
-      <div class="creator-copy">
-        <p class="eyebrow">Creator profile</p>
-        <h2>André Baumann / Salmon of Doubt</h2>
-        <p>
-          Public prototypes, civic tools, data workflows, and environmental explainers across water,
-          climate, biodiversity, energy, systems thinking, and open web publishing.
-        </p>
-      </div>
-
-      <div class="creator-badges" aria-label="Creator and project links">
-        <a href="https://github.com/salmonofdoubt" target="_blank" rel="noopener">
-          <span>GitHub</span><strong>@salmonofdoubt</strong>
-        </a>
-        <a href="https://me.developers.google.com/u/101029369499498837023" target="_blank" rel="noopener">
-          <span>Google Developer</span><strong>Profile</strong>
-        </a>
-        <a href="https://salmonofdoubt.github.io/" target="_blank" rel="noopener">
-          <span>Website</span><strong>Home</strong>
-        </a>
-        <a href="https://github.com/sponsors/salmonofdoubt" target="_blank" rel="noopener">
-          <span>Support</span><strong>Sponsor</strong>
-        </a>
-        <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io" target="_blank" rel="noopener">
-          <span>Repository</span><strong>GitHub Pages</strong>
-        </a>
-        <a href="https://doi.org/10.5281/zenodo.20321309" target="_blank" rel="noopener">
-          <span>Zenodo</span><strong>Bird Sounds DOI</strong>
-        </a>
-      </div>
+      <p>A compact index of experimental tools and explainers. Each bar opens into one project at a time, so the page stays calm, browsable, and useful.</p>
     </section>
 
+    <section class="profile" aria-label="Creator profile">
+      <div>
+        <div class="kicker">Creator profile</div>
+        <h2>André Baumann / Salmon of Doubt</h2>
+        <p>Public prototypes, civic tools, data workflows, and environmental explainers across water, climate, biodiversity, energy, systems thinking, and open web publishing.</p>
+      </div>
+      <nav class="links" aria-label="Profile links">
+        <a href="https://github.com/salmonofdoubt"><small>GitHub</small>@salmonofdoubt</a>
+        <a href="../"><small>Website</small>Home</a>
+        <a href="https://github.com/sponsors/salmonofdoubt"><small>Support</small>Sponsor</a>
+        <a href="https://doi.org/10.5281/zenodo.20321309"><small>Zenodo</small>Bird Sounds DOI</a>
+      </nav>
+    </section>
+  </header>
+
+  <main class="wrap">
     <section class="controls" aria-label="Demo filters">
-      <input id="search" type="search" placeholder="Search demos by topic, tool, or keyword..." />
+      <input id="search" type="search" placeholder="Search demos by topic, tool, or keyword..." autocomplete="off">
       <select id="filter">
         <option value="all">All demos</option>
-        <option value="water">Water and NbS</option>
-        <option value="energy">Energy</option>
-        <option value="funding">Funding and grants</option>
-        <option value="finance">Finance and pensions</option>
-        <option value="systems">Systems thinking</option>
-        <option value="civic">Civic tools</option>
+        <option value="Water">Water</option>
+        <option value="NbS">NbS</option>
+        <option value="Energy">Energy</option>
+        <option value="Civic">Civic</option>
+        <option value="Music">Music</option>
+        <option value="P(HI)">P(HI)</option>
       </select>
     </section>
 
     <section id="demoList" class="demo-list" aria-label="Demo list"></section>
+    <section id="empty" class="empty">No matching demos found.</section>
+  </main>
 
-    <p class="footer">
-      These demos are public-facing prototypes. They are intended to make environmental information easier to inspect, discuss, and improve.
-    </p>
-  
-<!-- === P(HI) demo card start === -->
-<a class="demo-card" href="/demos/phi/">
-  <span class="demo-kicker">Decision intelligence</span>
-  <strong>P(HI) Judgement Lab</strong>
-  <span>Structure decisions, audit assumptions, prepare AI critique, and keep judgement human-owned.</span>
-</a>
-<!-- === P(HI) demo card end === -->
-
-</main>
+  <footer class="wrap">
+    These demos are public-facing prototypes. They are intended to make environmental information easier to inspect, discuss, and improve.
+  </footer>
 
   <script>
-    const demos = [
+    const DEMOS = [
       {
-        title: "Water NbS Story Radar",
-        path: "wnbs/",
-        category: "water",
-        summary: "Daily shortlist of practical stories for surface water quality, aquatic ecology, and water-related biodiversity.",
-        detail: "A curation tool for finding Ireland-relevant Water NbS stories, preparing LinkedIn-ready post packs, and generating simple insight cards. Built around practical catchment signals rather than generic green news.",
-        tags: ["Water quality", "NbS", "LinkedIn curation", "Catchments"],
-        status: "Active build"
+            "path": "wnbs/",
+            "summary": "Daily shortlist of practical stories for surface water quality, aquatic ecology, and water-related biodiversity.",
+            "detail": "A curation tool for finding Ireland-relevant Water NbS stories, preparing LinkedIn-ready post packs, and generating simple insight cards. Built around practical catchment signals rather than generic green news.",
+            "tags": [
+                  "Water quality",
+                  "NbS",
+                  "LinkedIn curation",
+                  "Catchments"
+            ],
+            "title": "Water NbS Story Radar",
+            "number": "01",
+            "kind": "main"
       },
       {
-        title: "Ireland Energy Transition Monitor",
-        path: "ietm/",
-        category: "energy",
-        summary: "Live-style dashboard for Ireland’s electricity mix, demand, interconnection, renewable capacity, and transition indicators.",
-        detail: "Tracks operational electricity data and transition context in a public dashboard. Designed to make system-level energy signals easier to understand without losing technical integrity.",
-        tags: ["Electricity", "CO₂", "Renewables", "Ireland"],
-        status: "Active data workflow"
-      },
-
-      {
-        title: "Irish Life Pension Funds",
-        path: "ilpf/",
-        category: "finance",
-        summary: "Daily public-data watchlist for selected Irish Life Pension Funds.",
-        detail: "A static GitHub Pages monitor backed by a scheduled scraper. It tracks public Irish Life/myBline fund rows where available, records coverage diagnostics, and keeps a local history file for daily movement over time.",
-        tags: ["Pensions", "Irish Life", "Fund prices", "Daily data"],
-        status: "Active data workflow"
+            "path": "ietm/",
+            "summary": "Live-style dashboard for Ireland’s electricity mix, demand, interconnection, renewable capacity, and transition indicators.",
+            "detail": "Tracks operational electricity data and transition context in a public dashboard. Designed to make system-level energy signals easier to understand without losing technical integrity.",
+            "tags": [
+                  "Electricity",
+                  "CO₂",
+                  "Renewables",
+                  "Ireland"
+            ],
+            "title": "Ireland Energy Transition Monitor",
+            "number": "02",
+            "kind": "main"
       },
       {
-        title: "Grant Radar",
-        path: "grant-radar/",
-        category: "funding",
-        summary: "Funding and call discovery layer for climate, nature, biodiversity, water, and community environmental work.",
-        detail: "A source-led catalogue and review workflow for spotting relevant opportunities, separating candidates from promoted items, and reducing missed calls.",
-        tags: ["Funding", "Grants", "Climate", "Biodiversity"],
-        status: "Active workflow"
+            "path": "ilpf/",
+            "summary": "Daily public-data watchlist for selected Irish Life Pension Funds.",
+            "detail": "A static GitHub Pages monitor backed by a scheduled scraper. It tracks public Irish Life/myBline fund rows where available, records coverage diagnostics, and keeps a local history file for daily movement over time.",
+            "tags": [
+                  "Pensions",
+                  "Irish Life",
+                  "Fund prices",
+                  "Daily data"
+            ],
+            "title": "Irish Life Pension Funds",
+            "number": "03",
+            "kind": "main"
       },
       {
-        title: "Nanny-Delvin Rivers Trust Microsite",
-        path: "ndrt/",
-        category: "water",
-        summary: "Catchment-facing microsite concept for river restoration, citizen science, monitoring, and practical local action.",
-        detail: "A public communication space for catchment restoration ideas, field interpretation, citizen science, water quality, and restoration-led engagement.",
-        tags: ["Rivers", "Citizen science", "CSSI", "Restoration"],
-        status: "Prototype"
+            "path": "grant-radar/",
+            "summary": "Funding and call discovery layer for climate, nature, biodiversity, water, and community environmental work.",
+            "detail": "A source-led catalogue and review workflow for spotting relevant opportunities, separating candidates from promoted items, and reducing missed calls.",
+            "tags": [
+                  "Funding",
+                  "Grants",
+                  "Climate",
+                  "Biodiversity"
+            ],
+            "title": "Grant Radar",
+            "number": "04",
+            "kind": "main"
       },
       {
-        title: "European Bird Sounds",
-        path: "birds/",
-        category: "civic",
-        summary: "Educational bird sound explorer for learning calls by place, habitat, and season across Europe.",
-        detail: "A mobile-first sound explorer for training the ear. It combines public bird sounds, images, habitat-aware local listening decks, and recent observations as educational context. It is not a scientific record or species survey.",
-        tags: ["Birds", "Europe", "Soundscape", "Education"],
-        status: "Europe sound explorer"
+            "path": "ndrt/",
+            "summary": "Catchment-facing microsite concept for river restoration, citizen science, monitoring, and practical local action.",
+            "detail": "A public communication space for catchment restoration ideas, field interpretation, citizen science, water quality, and restoration-led engagement.",
+            "tags": [
+                  "Rivers",
+                  "Citizen science",
+                  "CSSI",
+                  "Restoration"
+            ],
+            "title": "Nanny-Delvin Rivers Trust Microsite",
+            "number": "05",
+            "kind": "main"
       },
       {
-        title: "Urban Forest",
-        path: "urbanforest/",
-        category: "civic",
-        summary: "A public-facing story and share page around urban forest planting and nature-based placemaking.",
-        detail: "A lightweight communication demo for making small urban nature interventions visible, shareable, and easier to explain to non-specialist audiences.",
-        tags: ["Urban nature", "Trees", "Community", "Share page"],
-        status: "Prototype"
+            "path": "birds/",
+            "summary": "Educational bird sound explorer for learning calls by place, habitat, and season across Europe.",
+            "detail": "A mobile-first sound explorer for training the ear. It combines public bird sounds, images, habitat-aware local listening decks, and recent observations as educational context. It is not a scientific record or species survey.",
+            "tags": [
+                  "Birds",
+                  "Europe",
+                  "Soundscape",
+                  "Education"
+            ],
+            "title": "European Bird Sounds",
+            "number": "06",
+            "kind": "main"
       },
       {
-        title: "SDSS Concept",
-        path: "sdss-concept/",
-        category: "water",
-        summary: "Spatial Decision Support System concept for prioritising Nature-based Solution portfolios in Irish catchments.",
-        detail: "A methodological demonstrator for transparent rule formalisation, suitability logic, ranking stability, and explainable catchment-scale NbS planning.",
-        tags: ["SDSS", "GIS", "NbS portfolios", "Decision support"],
-        status: "Concept demo"
+            "path": "urbanforest/",
+            "summary": "A public-facing story and share page around urban forest planting and nature-based placemaking.",
+            "detail": "A lightweight communication demo for making small urban nature interventions visible, shareable, and easier to explain to non-specialist audiences.",
+            "tags": [
+                  "Urban nature",
+                  "Trees",
+                  "Community",
+                  "Share page"
+            ],
+            "title": "Urban Forest",
+            "number": "07",
+            "kind": "main"
       },
       {
-        title: "Three Intelligences Explorer",
-        path: "intelligence/",
-        category: "systems",
-        summary: "Exploratory model linking individual, collective, and planetary intelligence.",
-        detail: "A systems-thinking prototype inspired by planetary intelligence concepts, using indicators to provoke discussion rather than produce simplistic rankings.",
-        tags: ["Systems thinking", "Planetary intelligence", "Indicators"],
-        status: "Exploratory"
+            "path": "sdss-concept/",
+            "summary": "Spatial Decision Support System concept for prioritising Nature-based Solution portfolios in Irish catchments.",
+            "detail": "A methodological demonstrator for transparent rule formalisation, suitability logic, ranking stability, and explainable catchment-scale NbS planning.",
+            "tags": [
+                  "SDSS",
+                  "GIS",
+                  "NbS portfolios",
+                  "Decision support"
+            ],
+            "title": "SDSS Concept",
+            "number": "08",
+            "kind": "main"
       },
       {
-        title: "Dublin Representative Finder",
-        path: "td-lookup/",
-        category: "civic",
-        summary: "Compact civic lookup tool for finding Dublin political representatives and public-contact routes.",
-        detail: "A practical civic-information demo for helping people identify relevant Dublin representatives, understand who to contact, and navigate local democratic representation more easily.",
-        tags: ["Dublin", "Civic tool", "Representatives", "Lookup"],
-        status: "Utility demo"
+            "number": "08a",
+            "title": "Decision intelligence P(HI) Judgement Lab",
+            "path": "phi/",
+            "summary": "Subset of SDSS: structure decisions, audit assumptions, prepare AI critique, and keep judgement human-owned.",
+            "detail": "A decision-intelligence lab linked to SDSS, focused on human judgement, assumption audit, and AI critique.",
+            "tags": [
+                  "P(HI)",
+                  "Decision intelligence",
+                  "SDSS"
+            ],
+            "kind": "sub",
+            "parent": "SDSS Concept"
       },
       {
-        title: "Geo Radar",
-        path: "geo-radar/",
-        category: "systems",
-        summary: "Geospatial discovery and catalogue-style workflow for spatial data or environmental intelligence.",
-        detail: "A radar-style prototype for organising geospatially relevant sources and making discovery workflows more systematic.",
-        tags: ["Geospatial", "Radar", "Data catalogue"],
-        status: "Prototype"
+            "path": "intelligence/",
+            "summary": "Exploratory model linking individual, collective, and planetary intelligence.",
+            "detail": "A systems-thinking prototype inspired by planetary intelligence concepts, using indicators to provoke discussion rather than produce simplistic rankings.",
+            "tags": [
+                  "Systems thinking",
+                  "Planetary intelligence",
+                  "Indicators"
+            ],
+            "title": "Three Intelligences Explorer",
+            "number": "09",
+            "kind": "main"
+      },
+      {
+            "path": "td-lookup/",
+            "summary": "Compact civic lookup tool for finding Dublin political representatives and public-contact routes.",
+            "detail": "A practical civic-information demo for helping people identify relevant Dublin representatives, understand who to contact, and navigate local democratic representation more easily.",
+            "tags": [
+                  "Dublin",
+                  "Civic tool",
+                  "Representatives",
+                  "Lookup"
+            ],
+            "title": "Dublin Representative Finder",
+            "number": "10",
+            "kind": "main"
+      },
+      {
+            "path": "geo-radar/",
+            "summary": "Geospatial discovery and catalogue-style workflow for spatial data or environmental intelligence.",
+            "detail": "A radar-style prototype for organising geospatially relevant sources and making discovery workflows more systematic.",
+            "tags": [
+                  "Geospatial",
+                  "Radar",
+                  "Data catalogue"
+            ],
+            "title": "Geo Radar",
+            "number": "11",
+            "kind": "main"
+      },
+      {
+            "number": "12",
+            "title": "Guitar Progression Lab",
+            "path": "guitar/",
+            "summary": "Printable classical guitar progression lab with vertical fretboards, voice-led cadences, lament bass, Neapolitan colour, and advanced harmonic colours.",
+            "detail": "A printable classical guitar demo for nylon-string harmonic practice.",
+            "tags": [
+                  "Music",
+                  "Classical guitar",
+                  "Printable"
+            ],
+            "kind": "main"
       }
-    ];
+];
 
     const list = document.getElementById("demoList");
+    const empty = document.getElementById("empty");
     const search = document.getElementById("search");
     const filter = document.getElementById("filter");
 
-    function render() {
-      const q = search.value.trim().toLowerCase();
-      const f = filter.value;
+    function matches(demo, term, tag) {
+      const hay = [
+        demo.number,
+        demo.title,
+        demo.summary,
+        demo.detail,
+        demo.parent || "",
+        ...(demo.tags || [])
+      ].join(" ").toLowerCase();
 
-      list.innerHTML = "";
-
-      demos.forEach((demo, index) => {
-        const haystack = [
-          demo.title,
-          demo.summary,
-          demo.detail,
-          demo.category,
-          demo.status,
-          demo.tags.join(" ")
-        ].join(" ").toLowerCase();
-
-        const visible = (!q || haystack.includes(q)) && (f === "all" || demo.category === f);
-
-        const article = document.createElement("article");
-        article.className = "demo";
-        article.hidden = !visible;
-
-        article.innerHTML = `
-          <button class="demo-toggle" type="button" aria-expanded="false">
-            <div class="demo-bar">
-              <div class="demo-index">${String(index + 1).padStart(2, "0")}</div>
-              <div>
-                <h2 class="demo-title">${demo.title}</h2>
-                <p class="demo-sub">${demo.summary}</p>
-              </div>
-              <div class="chevron">+</div>
-            </div>
-          </button>
-
-          <div class="demo-panel">
-            <div class="panel-grid">
-
-
-              <div>
-                <p class="panel-copy"><strong>Purpose.</strong> ${demo.detail}</p>
-                <div class="tags">
-                  ${demo.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
-                </div>
-              </div>
-              <div class="actions">
-                <a class="button" href="${demo.path}">Open demo</a>
-                <a class="button secondary" href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/${demo.path.replace(/\/$/, "")}" target="_blank" rel="noopener">View code</a>
-                <div class="status">${demo.status}</div>
-              </div>
-            </div>
-          </div>
-        `;
-
-        list.appendChild(article);
-      });
-
-      bindAccordions();
+      const termOK = !term || hay.includes(term.toLowerCase());
+      const tagOK = tag === "all" || (demo.tags || []).some(t => t.toLowerCase() === tag.toLowerCase());
+      return termOK && tagOK;
     }
 
-    function bindAccordions() {
-      document.querySelectorAll(".demo-toggle").forEach(button => {
-        button.onclick = () => {
-          const current = button.closest(".demo");
-          const wasOpen = current.classList.contains("open");
+    function render() {
+      const term = search.value.trim();
+      const tag = filter.value;
+      const visible = DEMOS.filter(d => matches(d, term, tag));
 
-          document.querySelectorAll(".demo.open").forEach(item => {
-            item.classList.remove("open");
-            item.querySelector(".demo-toggle").setAttribute("aria-expanded", "false");
-          });
+      list.innerHTML = visible.map(d => `
+        <a class="demo-card ${d.kind === "sub" ? "sub" : ""}" href="${d.path}">
+          <span class="num">${d.number}</span>
+          <span>
+            <h2 class="demo-title">${d.title}</h2>
+            <p class="demo-summary">${d.summary}</p>
+          </span>
+        </a>
+      `).join("");
 
-          if (!wasOpen) {
-            current.classList.add("open");
-            button.setAttribute("aria-expanded", "true");
-          }
-        };
-      });
+      empty.style.display = visible.length ? "none" : "block";
     }
 
     search.addEventListener("input", render);
     filter.addEventListener("change", render);
-
     render();
   </script>
-
-  <script id="mobile-demo-action-enhancer">
-    (function () {
-      function enhanceDemoCards() {
-        document.querySelectorAll("#demoList .demo").forEach(card => {
-          if (card.dataset.mobileActionsEnhanced === "1") return;
-
-          const bar = card.querySelector(".demo-bar");
-          const panel = card.querySelector(".demo-panel");
-          const chevron = bar ? bar.querySelector(".chevron") : null;
-          const openButton = panel ? panel.querySelector(".actions .button") : null;
-
-          if (!bar || !chevron || !openButton) return;
-
-          const row = document.createElement("div");
-          row.className = "demo-mobile-action-row";
-
-          const open = document.createElement("a");
-          open.className = "demo-mobile-open";
-          open.href = openButton.getAttribute("href") || "#";
-          open.textContent = "Open";
-          open.setAttribute("aria-label", "Open demo");
-
-          row.appendChild(chevron);
-          row.appendChild(open);
-
-          const index = bar.querySelector(".demo-index");
-          if (index && index.nextSibling) {
-            bar.insertBefore(row, index.nextSibling);
-          } else {
-            bar.appendChild(row);
-          }
-
-          card.dataset.mobileActionsEnhanced = "1";
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        enhanceDemoCards();
-
-        const list = document.getElementById("demoList");
-        if (!list) return;
-
-        const observer = new MutationObserver(() => enhanceDemoCards());
-        observer.observe(list, { childList: true, subtree: true });
-
-        document.addEventListener("click", event => {
-          const toggle = event.target.closest(".demo-mobile-action-row .chevron");
-          if (!toggle) return;
-
-          window.setTimeout(() => {
-            document.querySelectorAll("#demoList .demo").forEach(card => {
-              const button = card.querySelector(".demo-mobile-action-row .chevron");
-              if (!button) return;
-              button.setAttribute("aria-expanded", card.classList.contains("open") ? "true" : "false");
-            });
-          }, 0);
-        });
-      });
-    })();
-  </script>
-
-<!-- Cloudflare Web Analytics -->
-  <script
-    defer
-    src="https://static.cloudflareinsights.com/beacon.min.js"
-    data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'
-  ></script>
-  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
