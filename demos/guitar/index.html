@@ -797,6 +797,169 @@
 
 /* guitar-integrated-hero:end */
 
+
+/* guitar-mobile-hero-fix:start */
+@media (max-width: 680px){
+
+  .hero-card{
+    position: relative !important;
+    padding: 22px !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .hero-card .kicker{
+    max-width: calc(100% - 92px) !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    letter-spacing: .12em !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero-card h1{
+    font-size: clamp(34px, 13vw, 46px) !important;
+    line-height: .9 !important;
+    max-width: calc(100% - 88px) !important;
+    margin-bottom: 18px !important;
+  }
+
+  .hero-card .lead{
+    max-width: 100% !important;
+    font-size: 15px !important;
+    line-height: 1.48 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hero-icon-panel{
+    position: absolute !important;
+    top: 18px !important;
+    right: 18px !important;
+    bottom: auto !important;
+    width: 72px !important;
+    min-height: 96px !important;
+    height: 96px !important;
+    margin: 0 !important;
+    border-radius: 18px !important;
+    opacity: .96 !important;
+  }
+
+  .music-key-sigil{
+    width: 58px !important;
+    filter: drop-shadow(0 0 14px rgba(24,198,216,.22)) !important;
+  }
+
+  .hero-actions{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 190px !important;
+  }
+
+  .hero-actions .button,
+  .hero-actions button{
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+  }
+
+  .side-card{
+    margin-top: 12px !important;
+  }
+
+  .toolbar{
+    margin-top: 16px !important;
+  }
+}
+
+@media (max-width: 380px){
+
+  .hero-card h1{
+    font-size: clamp(31px, 12vw, 40px) !important;
+    max-width: calc(100% - 78px) !important;
+  }
+
+  .hero-icon-panel{
+    width: 64px !important;
+    height: 86px !important;
+    min-height: 86px !important;
+    right: 16px !important;
+    top: 18px !important;
+  }
+
+  .music-key-sigil{
+    width: 50px !important;
+  }
+
+  .hero-card .lead{
+    font-size: 14px !important;
+  }
+}
+/* guitar-mobile-hero-fix:end */
+
+
+/* guitar-mobile-float-polish:start */
+@media (max-width: 680px){
+
+  body{
+    padding-bottom: 92px !important;
+  }
+
+  .support-float{
+    right: 10px !important;
+    bottom: 52px !important;
+    z-index: 35 !important;
+  }
+
+  .support-pill{
+    padding: 8px 12px !important;
+    font-size: 11px !important;
+    box-shadow: 0 0 18px rgba(24,198,216,.22) !important;
+  }
+
+  .support-panel{
+    display: none !important;
+  }
+
+  .demo-back{
+    left: 10px !important;
+    bottom: 10px !important;
+    padding: 8px 11px !important;
+    font-size: 12px !important;
+    z-index: 34 !important;
+  }
+
+  .doi-pill{
+    right: 10px !important;
+    bottom: 10px !important;
+    padding: 7px 9px !important;
+    font-size: 10px !important;
+    z-index: 34 !important;
+  }
+
+  .side-card{
+    margin-bottom: 24px !important;
+  }
+}
+
+@media (max-width: 380px){
+
+  .support-float{
+    bottom: 54px !important;
+  }
+
+  .support-pill{
+    max-width: 158px !important;
+    white-space: nowrap !important;
+  }
+
+  .doi-pill{
+    font-size: 9px !important;
+  }
+}
+/* guitar-mobile-float-polish:end */
+
 </style>
 
 
