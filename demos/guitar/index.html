@@ -1395,6 +1395,192 @@
 }
 /* guitar-better-detection-engine:end */
 
+
+/* guitar-note-first-analyzer:start */
+.note-analyzer-panel{
+  margin-top:42px;
+}
+.note-analyzer-card{
+  border:1px solid rgba(24,198,216,.34);
+  background:linear-gradient(180deg,rgba(10,23,34,.88),rgba(5,10,15,.96));
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 22px 70px rgba(0,0,0,.28);
+}
+.note-controls{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(220px,.55fr) minmax(220px,.55fr);
+  gap:14px;
+  align-items:end;
+}
+.note-field{
+  display:grid;
+  gap:8px;
+}
+.note-field label{
+  font-weight:900;
+  color:var(--ink);
+  font-size:13px;
+}
+.note-field input,
+.note-field select{
+  width:100%;
+  background:#070a11;
+  color:var(--ink);
+  border:1px solid rgba(24,198,216,.30);
+  border-radius:14px;
+  padding:11px 12px;
+  font:inherit;
+  font-size:13px;
+}
+.note-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.note-buttons button{
+  border:1px solid rgba(246,239,227,.16);
+  background:#121827;
+  color:var(--ink);
+  padding:10px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:900;
+  font-size:13px;
+}
+.note-buttons button.primary{
+  background:linear-gradient(135deg,#18c6d8,#7ee7f2);
+  color:#061014;
+}
+.note-buttons button[disabled]{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.note-audio{
+  width:100%;
+  margin-top:16px;
+}
+.note-status{
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid rgba(246,239,227,.10);
+  background:rgba(255,255,255,.035);
+  border-radius:16px;
+  color:var(--muted);
+  font-size:13px;
+}
+.note-results{
+  margin-top:18px;
+  display:grid;
+  gap:14px;
+}
+.note-summary{
+  border:1px solid rgba(24,198,216,.28);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(255,255,255,.03);
+}
+.note-summary h3{
+  margin:0 0 10px;
+  font-family:var(--serif);
+  font-size:24px;
+}
+.note-cloud{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.note-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border:1px solid rgba(24,198,216,.32);
+  background:rgba(24,198,216,.10);
+  border-radius:999px;
+  padding:6px 9px;
+  font-weight:900;
+  font-size:13px;
+}
+.note-pill small{
+  color:var(--muted);
+  font-weight:800;
+}
+.note-match-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:10px;
+}
+.note-match{
+  border:1px solid rgba(24,198,216,.24);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(255,255,255,.028);
+}
+.note-match h4{
+  margin:0 0 6px;
+  font-family:var(--serif);
+  font-size:22px;
+}
+.note-match p{
+  margin:3px 0;
+  color:var(--muted);
+  font-size:12px;
+}
+.note-score{
+  height:6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+  margin-top:8px;
+}
+.note-score span{
+  display:block;
+  height:100%;
+  width:var(--score);
+  background:linear-gradient(90deg,#18c6d8,#7ee7f2);
+}
+.note-timeline{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:8px;
+}
+.note-frame{
+  border:1px solid rgba(246,239,227,.10);
+  border-radius:14px;
+  padding:10px;
+  background:rgba(255,255,255,.025);
+}
+.note-frame strong{
+  display:block;
+  color:#7ee7f2;
+  font-size:12px;
+  margin-bottom:5px;
+}
+.note-frame span{
+  display:block;
+  color:var(--ink);
+  font-weight:900;
+}
+.note-frame small{
+  color:var(--muted);
+}
+@media(max-width:850px){
+  .note-controls{
+    grid-template-columns:1fr;
+  }
+}
+@media(max-width:520px){
+  .note-analyzer-card{
+    padding:16px;
+  }
+  .note-match-grid,
+  .note-timeline{
+    grid-template-columns:1fr;
+  }
+}
+/* guitar-note-first-analyzer:end */
+
 </style>
 
 
@@ -1719,6 +1905,58 @@
     </div>
   </div>
 </section>
+
+
+<!-- guitar-note-first-analyzer:start -->
+<section id="note-analyzer" class="note-analyzer-panel">
+  <div class="section-head">
+    <div>
+      <h2>Note-first Chord Check</h2>
+      <p>Detect likely notes from an audio attempt, then check whether those notes correspond to a selected chord or the broader chord library.</p>
+    </div>
+  </div>
+
+  <div class="note-analyzer-card">
+    <div class="note-controls">
+      <div class="note-field">
+        <label for="noteFile">Audio file</label>
+        <input id="noteFile" type="file" accept="audio/*">
+      </div>
+
+      <div class="note-field">
+        <label for="noteTargetChord">Check against chord</label>
+        <select id="noteTargetChord">
+          <option value="auto">Auto-match best chord</option>
+        </select>
+      </div>
+
+      <div class="note-field">
+        <label for="noteSensitivity">Sensitivity</label>
+        <select id="noteSensitivity">
+          <option value="normal" selected>Normal</option>
+          <option value="strict">Strict, fewer notes</option>
+          <option value="wide">Wide, include colour notes</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="note-buttons">
+      <button id="noteRecord" class="primary" type="button">Record notes</button>
+      <button id="noteStop" type="button" disabled>Stop recording</button>
+      <button id="noteAnalyze" class="primary" type="button">Detect notes</button>
+      <button id="noteClear" type="button">Clear</button>
+    </div>
+
+    <audio id="noteAudio" class="note-audio" controls></audio>
+
+    <div id="noteStatus" class="note-status">
+      Upload or record a short attempt. This detects likely pitch classes, then checks which chord diagrams they support.
+    </div>
+
+    <div id="noteResults" class="note-results"></div>
+  </div>
+</section>
+<!-- guitar-note-first-analyzer:end -->
 <!-- guitar-attempt-analyzer:end -->
 
 
@@ -2662,6 +2900,387 @@ renderFilters();renderProgressions();renderLibrary();
 })();
 </script>
 <!-- guitar-attempt-analyzer:end -->
+
+
+<!-- guitar-note-first-analyzer:start -->
+<script>
+(function(){
+  "use strict";
+
+  const NOTE_NAMES = ["C","C♯","D","E♭","E","F","F♯","G","G♯","A","B♭","B"];
+  const TUNING = [40,45,50,55,59,64];
+
+  let ctx = null;
+  let buffer = null;
+  let recorder = null;
+  let chunks = [];
+  let stream = null;
+
+  function $(id){ return document.getElementById(id); }
+  function esc(x){
+    return String(x ?? "").replace(/[&<>"']/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[c]));
+  }
+  function status(msg){
+    const el = $("noteStatus");
+    if (el) el.textContent = msg;
+  }
+  function audioContext(){
+    if (!ctx) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) throw new Error("Web Audio is not supported in this browser.");
+      ctx = new Ctx();
+    }
+    return ctx;
+  }
+  function freqFromMidi(midi){
+    return 440 * Math.pow(2, (midi - 69) / 12);
+  }
+  function noteFromMidi(midi){
+    return NOTE_NAMES[((midi % 12) + 12) % 12];
+  }
+  function norm(v){
+    const m = Math.sqrt(v.reduce((s,x)=>s+x*x,0));
+    return m ? v.map(x=>x/m) : v;
+  }
+  function dot(a,b){
+    return a.reduce((s,x,i)=>s+x*b[i],0);
+  }
+  function mono(buf){
+    if (buf.numberOfChannels === 1) return buf.getChannelData(0);
+    const out = new Float32Array(buf.length);
+    for (let ch=0; ch<buf.numberOfChannels; ch++){
+      const data = buf.getChannelData(ch);
+      for (let i=0;i<buf.length;i++) out[i] += data[i] / buf.numberOfChannels;
+    }
+    return out;
+  }
+  function goertzel(samples, start, len, freq, sr){
+    const omega = 2 * Math.PI * freq / sr;
+    const coeff = 2 * Math.cos(omega);
+    let q0 = 0, q1 = 0, q2 = 0;
+    const end = Math.min(samples.length, start + len);
+    for (let i=start;i<end;i++){
+      const t = (i - start) / Math.max(1, len - 1);
+      const hann = 0.5 - 0.5 * Math.cos(2 * Math.PI * t);
+      const x = samples[i] * hann;
+      q0 = coeff * q1 - q2 + x;
+      q2 = q1;
+      q1 = q0;
+    }
+    return Math.max(0, q1*q1 + q2*q2 - q1*q2*coeff);
+  }
+  function noteVectorForChord(key){
+    const chord = DATA.chords[key];
+    const vec = Array(12).fill(0);
+    if (!chord) return vec;
+
+    chord.frets.forEach((fret, stringIndex) => {
+      if (fret === "x" || fret === "X") return;
+      const f = Number(fret);
+      if (!Number.isFinite(f)) return;
+      const midi = TUNING[stringIndex] + f;
+      vec[midi % 12] = 1;
+    });
+
+    return vec;
+  }
+  function chordNoteNames(key){
+    const vec = noteVectorForChord(key);
+    return vec.map((v,i)=>v ? NOTE_NAMES[i] : null).filter(Boolean);
+  }
+  function sensitivitySettings(){
+    const val = $("noteSensitivity") ? $("noteSensitivity").value : "normal";
+    if (val === "strict") return {threshold:.34, maxNotes:5};
+    if (val === "wide") return {threshold:.18, maxNotes:8};
+    return {threshold:.25, maxNotes:6};
+  }
+  function pitchClassEvidence(samples, sr, startSec, endSec){
+    const start = Math.max(0, Math.floor(startSec * sr));
+    const end = Math.min(samples.length, Math.floor(endSec * sr));
+    const lenAvailable = Math.max(1024, end - start);
+    const frameSize = Math.min(8192, Math.max(2048, 2 ** Math.floor(Math.log2(lenAvailable))));
+    const frames = Math.max(1, Math.min(8, Math.floor((endSec - startSec) / 0.28) || 1));
+    const vec = Array(12).fill(0);
+
+    let rmsSum = 0, rmsN = 0;
+    for (let i=start; i<end; i+=8){
+      const x = samples[i] || 0;
+      rmsSum += x*x;
+      rmsN++;
+    }
+    const rms = Math.sqrt(rmsSum / Math.max(1,rmsN));
+    if (rms < 0.003) return {vec, rms, silent:true};
+
+    for (let frame=0; frame<frames; frame++){
+      const centre = start + Math.floor((frame+.5) * (end-start) / frames);
+      const frameStart = Math.max(start, Math.min(end-frameSize, centre - Math.floor(frameSize/2)));
+
+      for (let midi=40; midi<=88; midi++){
+        const freq = freqFromMidi(midi);
+        if (freq > sr * .48) continue;
+
+        let power = goertzel(samples, frameStart, frameSize, freq, sr);
+        if (freq * 2 < sr * .48) power += .35 * goertzel(samples, frameStart, frameSize, freq*2, sr);
+        if (freq * 3 < sr * .48 && midi <= 76) power += .18 * goertzel(samples, frameStart, frameSize, freq*3, sr);
+
+        const pc = midi % 12;
+        const weight = midi < 52 ? 1.18 : 1.0;
+        vec[pc] += Math.log1p(power) * weight;
+      }
+    }
+
+    const sorted = [...vec].sort((a,b)=>a-b);
+    const floor = sorted[3] || 0;
+    for (let i=0;i<12;i++) vec[i] = Math.max(0, vec[i] - floor*.55);
+
+    return {vec, rms, silent:false};
+  }
+  function topNotes(vec){
+    const settings = sensitivitySettings();
+    const max = Math.max(...vec);
+    if (!max) return [];
+
+    return vec
+      .map((v,i)=>({pc:i, note:NOTE_NAMES[i], value:v, strength:v/max}))
+      .filter(x => x.strength >= settings.threshold)
+      .sort((a,b)=>b.value-a.value)
+      .slice(0, settings.maxNotes);
+  }
+  function globalNotes(buf){
+    const samples = mono(buf);
+    const sr = buf.sampleRate;
+    const evidence = pitchClassEvidence(samples, sr, 0, buf.duration);
+    const notes = topNotes(evidence.vec);
+    return {notes, vector:norm(evidence.vec)};
+  }
+  function timelineNotes(buf){
+    const samples = mono(buf);
+    const sr = buf.sampleRate;
+    const win = buf.duration > 18 ? 2.5 : 1.8;
+    const hop = win * .85;
+    const rows = [];
+
+    for (let start=0; start<buf.duration; start += hop){
+      const end = Math.min(buf.duration, start + win);
+      const evidence = pitchClassEvidence(samples, sr, start, end);
+      if (evidence.silent) continue;
+
+      const notes = topNotes(evidence.vec).slice(0,4);
+      if (!notes.length) continue;
+
+      const last = rows[rows.length - 1];
+      const label = notes.map(n=>n.note).join(" ");
+      if (last && last.label === label) {
+        last.end = end;
+        last.time = `${formatTime(last.start)}–${formatTime(last.end)}`;
+      } else {
+        rows.push({
+          start,
+          end,
+          time:`${formatTime(start)}–${formatTime(end)}`,
+          label,
+          notes
+        });
+      }
+    }
+
+    return rows;
+  }
+  function formatTime(sec){
+    const m = Math.floor(sec/60);
+    const s = Math.round(sec%60).toString().padStart(2,"0");
+    return `${m}:${s}`;
+  }
+  function chordMatches(noteVector){
+    const target = $("noteTargetChord") ? $("noteTargetChord").value : "auto";
+    const keys = Object.keys(DATA.chords);
+    const ranked = keys.map(key => {
+      const chordVecRaw = noteVectorForChord(key);
+      const chordVec = norm(chordVecRaw);
+      const score = dot(noteVector, chordVec);
+      const detectedSet = new Set(noteVector.map((v,i)=>v>.10 ? i : null).filter(v=>v!==null));
+      const chordSet = new Set(chordVecRaw.map((v,i)=>v ? i : null).filter(v=>v!==null));
+
+      const missing = [...chordSet].filter(pc => !detectedSet.has(pc)).map(pc => NOTE_NAMES[pc]);
+      const extra = [...detectedSet].filter(pc => !chordSet.has(pc)).map(pc => NOTE_NAMES[pc]);
+
+      const chord = DATA.chords[key];
+      return {
+        key,
+        name: chord.name || key,
+        library: chord.libraryLabel || ((chord.libraryType || "classical") === "extended" ? "Extended detection" : "Classical study"),
+        score,
+        missing,
+        extra,
+        notes: chordNoteNames(key)
+      };
+    }).sort((a,b)=>b.score-a.score);
+
+    if (target !== "auto") {
+      const selected = ranked.find(r => r.key === target);
+      return selected ? [selected, ...ranked.filter(r=>r.key!==target).slice(0,4)] : ranked.slice(0,5);
+    }
+
+    return ranked.slice(0,5);
+  }
+  function render(results){
+    const root = $("noteResults");
+    if (!root) return;
+
+    const {notes, vector, timeline, matches} = results;
+
+    root.innerHTML = `
+      <section class="note-summary">
+        <h3>Detected note evidence</h3>
+        <div class="note-cloud">
+          ${notes.map(n => `<span class="note-pill">${esc(n.note)} <small>${Math.round(n.strength*100)}%</small></span>`).join("") || `<span class="note-pill">No clear notes</span>`}
+        </div>
+      </section>
+
+      <section>
+        <div class="attempt-timeline-head">
+          <strong>Chord fit from notes</strong>
+          <span>${matches.length} candidate${matches.length === 1 ? "" : "s"}</span>
+        </div>
+        <div class="note-match-grid">
+          ${matches.map(m => {
+            const score = Math.max(4, Math.min(100, Math.round(m.score*100)));
+            return `
+              <article class="note-match">
+                <h4>${esc(m.name)}</h4>
+                <p><strong>Library:</strong> ${esc(m.library)}</p>
+                <p><strong>Chord notes:</strong> ${esc(m.notes.join(" "))}</p>
+                <p><strong>Missing:</strong> ${esc(m.missing.join(" ") || "none")}</p>
+                <p><strong>Extra colour:</strong> ${esc(m.extra.join(" ") || "none")}</p>
+                <div class="note-score"><span style="--score:${score}%"></span></div>
+              </article>
+            `;
+          }).join("")}
+        </div>
+      </section>
+
+      <section>
+        <div class="attempt-timeline-head">
+          <strong>Note timeline</strong>
+          <span>${timeline.length} segment${timeline.length === 1 ? "" : "s"}</span>
+        </div>
+        <div class="note-timeline">
+          ${timeline.map(row => `
+            <article class="note-frame">
+              <strong>${esc(row.time)}</strong>
+              <span>${esc(row.label)}</span>
+              <small>${esc(row.notes.map(n => `${n.note} ${Math.round(n.strength*100)}%`).join(" · "))}</small>
+            </article>
+          `).join("")}
+        </div>
+      </section>
+    `;
+  }
+  async function decode(arrayBuffer){
+    const ac = audioContext();
+    return await ac.decodeAudioData(arrayBuffer.slice(0));
+  }
+  async function loadFile(file){
+    if (!file) return;
+    status(`Loading ${file.name}...`);
+    buffer = await decode(await file.arrayBuffer());
+    $("noteAudio").src = URL.createObjectURL(file);
+    status(`Loaded ${file.name}. Duration: ${buffer.duration.toFixed(1)} seconds.`);
+  }
+  async function startRecording(){
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      status("Live recording is not supported in this browser.");
+      return;
+    }
+    stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks = [];
+    recorder = new MediaRecorder(stream);
+    recorder.ondataavailable = e => {
+      if (e.data && e.data.size) chunks.push(e.data);
+    };
+    recorder.onstop = async () => {
+      const blob = new Blob(chunks, {type: recorder.mimeType || "audio/webm"});
+      buffer = await decode(await blob.arrayBuffer());
+      $("noteAudio").src = URL.createObjectURL(blob);
+      stream.getTracks().forEach(t => t.stop());
+      $("noteRecord").disabled = false;
+      $("noteStop").disabled = true;
+      status(`Recorded ${buffer.duration.toFixed(1)} seconds. Ready to detect notes.`);
+    };
+    recorder.start();
+    $("noteRecord").disabled = true;
+    $("noteStop").disabled = false;
+    status("Recording note evidence. Play one chord or short chord attempt.");
+  }
+  function stopRecording(){
+    if (recorder && recorder.state !== "inactive") recorder.stop();
+  }
+  function analyze(){
+    if (!buffer) {
+      status("Upload or record audio first.");
+      return;
+    }
+    status("Detecting notes and checking chord fit...");
+    setTimeout(() => {
+      try {
+        const global = globalNotes(buffer);
+        const timeline = timelineNotes(buffer);
+        const matches = chordMatches(global.vector);
+        render({notes:global.notes, vector:global.vector, timeline, matches});
+        status("Note-first analysis complete.");
+      } catch (err) {
+        console.error(err);
+        status("Note detection failed: " + err.message);
+      }
+    }, 60);
+  }
+  function clear(){
+    buffer = null;
+    $("noteResults").innerHTML = "";
+    $("noteFile").value = "";
+    $("noteAudio").removeAttribute("src");
+    $("noteAudio").load();
+    status("Cleared.");
+  }
+  function populateChordSelect(){
+    const select = $("noteTargetChord");
+    if (!select || typeof DATA === "undefined" || !DATA.chords) return;
+    const keys = Object.keys(DATA.chords).sort((a,b) => {
+      const an = DATA.chords[a]?.name || a;
+      const bn = DATA.chords[b]?.name || b;
+      return an.localeCompare(bn, undefined, {numeric:true, sensitivity:"base"});
+    });
+    select.innerHTML = `<option value="auto">Auto-match best chord</option>` + keys.map(k => {
+      const c = DATA.chords[k];
+      const lib = c.libraryLabel || ((c.libraryType || "classical") === "extended" ? "Extended detection" : "Classical study");
+      return `<option value="${esc(k)}">${esc(c.name || k)} · ${esc(lib)}</option>`;
+    }).join("");
+  }
+  function addHeroLink(){
+    const actions = document.querySelector(".hero-actions");
+    if (!actions || actions.querySelector('[href="#note-analyzer"]')) return;
+    const a = document.createElement("a");
+    a.className = "button";
+    a.href = "#note-analyzer";
+    a.textContent = "Detect notes";
+    actions.appendChild(a);
+  }
+  function init(){
+    populateChordSelect();
+    addHeroLink();
+    $("noteFile")?.addEventListener("change", e => loadFile(e.target.files[0]).catch(err => status("Could not load audio: " + err.message)));
+    $("noteRecord")?.addEventListener("click", () => startRecording().catch(err => status("Recording failed: " + err.message)));
+    $("noteStop")?.addEventListener("click", stopRecording);
+    $("noteAnalyze")?.addEventListener("click", analyze);
+    $("noteClear")?.addEventListener("click", clear);
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+<!-- guitar-note-first-analyzer:end -->
 
 </body>
 </html>
