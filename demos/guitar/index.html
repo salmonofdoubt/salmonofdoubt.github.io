@@ -1362,6 +1362,18 @@
 }
 /* guitar-extended-chord-library:end */
 
+
+/* guitar-analyzer-scope-fix:start */
+.analyzer-controls{
+  grid-template-columns: minmax(0, 1.05fr) minmax(220px, .55fr) minmax(220px, .6fr) !important;
+}
+@media(max-width:900px){
+  .analyzer-controls{
+    grid-template-columns: 1fr !important;
+  }
+}
+/* guitar-analyzer-scope-fix:end */
+
 </style>
 
 
@@ -1642,6 +1654,15 @@
       </div>
 
       <div class="analyzer-field">
+        <label for="attemptScope">Detection scope</label>
+        <select id="attemptScope">
+          <option value="simple" selected>Simple/common chords first</option>
+          <option value="classical">Classical study library only</option>
+          <option value="extended">Full extended detection library</option>
+        </select>
+      </div>
+
+      <div class="analyzer-field">
         <label for="attemptFile">Audio file</label>
         <input id="attemptFile" type="file" accept="audio/*">
       </div>
@@ -1658,7 +1679,7 @@
     <audio id="attemptAudio" class="analyzer-audio" controls></audio>
 
     <div id="attemptStatus" class="analyzer-status">
-      Choose a progression for guided mode, or use free scan. For best results, play slowly and let each chord ring.
+      Choose a progression for guided mode, or use free scan. For Am → G → F → E, select the Andalusian progression, or keep Detection scope on Simple/common chords first.
     </div>
 
     <div id="attemptResults" class="analyzer-results"></div>
@@ -1938,7 +1959,43 @@ renderFilters();renderProgressions();renderLibrary();
   }
 
   function allTemplates(){
-    return Object.keys(DATA.chords)
+    const allKeys = Object.keys(DATA.chords);
+
+    const simpleKeys = new Set([
+      "Am_open", "G", "F", "E",
+      "C_open", "Dm", "Em", "A", "A7", "B7", "E7",
+      "D7_open", "G7_open", "C7_open", "Am7_open", "Em7_open",
+      "Dsus2_open", "Dsus4_open", "Asus2_open", "Asus4_open",
+      "Fmaj7", "Fmaj7_open"
+    ]);
+
+    const progressionSelect = $("attemptProgression");
+    const scopeSelect = $("attemptScope");
+
+    const progressionChoice = progressionSelect ? progressionSelect.value : "free";
+    const scope = scopeSelect ? scopeSelect.value : "simple";
+
+    let keys;
+
+    // In guided mode, do not let the full extended library overrule the chosen progression.
+    // This is the critical fix for progressions such as Am → G → F → E.
+    if (progressionChoice !== "free" && DATA.progressions[Number(progressionChoice)]) {
+      const progression = DATA.progressions[Number(progressionChoice)];
+      keys = Array.from(new Set(progression.steps || []));
+    } else if (scope === "classical") {
+      keys = allKeys.filter(k => (DATA.chords[k].libraryType || "classical") === "classical");
+    } else if (scope === "extended") {
+      keys = allKeys;
+    } else {
+      // Default free-scan behaviour: practical simple/common chords first.
+      // Extended colours remain available only when explicitly selected.
+      keys = allKeys.filter(k => simpleKeys.has(k));
+    }
+
+    // Fallback safety.
+    if (!keys.length) keys = allKeys;
+
+    return keys
       .map(chordTemplate)
       .filter(Boolean);
   }
