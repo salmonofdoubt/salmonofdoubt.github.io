@@ -1374,6 +1374,27 @@
 }
 /* guitar-analyzer-scope-fix:end */
 
+
+/* guitar-better-detection-engine:start */
+.analyzer-controls{
+  grid-template-columns:minmax(0,1.05fr) minmax(210px,.55fr) minmax(210px,.55fr) minmax(210px,.6fr) !important;
+}
+.engine-small-note{
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:1100px){
+  .analyzer-controls{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media(max-width:760px){
+  .analyzer-controls{
+    grid-template-columns:1fr !important;
+  }
+}
+/* guitar-better-detection-engine:end */
+
 </style>
 
 
@@ -1663,6 +1684,15 @@
       </div>
 
       <div class="analyzer-field">
+        <label for="attemptEngine">Engine profile</label>
+        <select id="attemptEngine">
+          <option value="robust" selected>Robust guitar, recommended</option>
+          <option value="arpeggio">Arpeggio / classical ringing</option>
+          <option value="strum">Strum / faster changes</option>
+        </select>
+      </div>
+
+      <div class="analyzer-field">
         <label for="attemptFile">Audio file</label>
         <input id="attemptFile" type="file" accept="audio/*">
       </div>
@@ -1679,7 +1709,7 @@
     <audio id="attemptAudio" class="analyzer-audio" controls></audio>
 
     <div id="attemptStatus" class="analyzer-status">
-      Choose a progression for guided mode, or use free scan. For Am → G → F → E, select the Andalusian progression, or keep Detection scope on Simple/common chords first.
+      Choose a progression for strict guided analysis, or use free scan. The engine now smooths the chord timeline, penalises over-complex matches, and estimates bass separately.
     </div>
 
     <div id="attemptResults" class="analyzer-results"></div>
@@ -1969,16 +1999,11 @@ renderFilters();renderProgressions();renderLibrary();
       "Fmaj7", "Fmaj7_open"
     ]);
 
-    const progressionSelect = $("attemptProgression");
-    const scopeSelect = $("attemptScope");
-
-    const progressionChoice = progressionSelect ? progressionSelect.value : "free";
-    const scope = scopeSelect ? scopeSelect.value : "simple";
+    const progressionChoice = $("attemptProgression") ? $("attemptProgression").value : "free";
+    const scope = $("attemptScope") ? $("attemptScope").value : "simple";
 
     let keys;
 
-    // In guided mode, do not let the full extended library overrule the chosen progression.
-    // This is the critical fix for progressions such as Am → G → F → E.
     if (progressionChoice !== "free" && DATA.progressions[Number(progressionChoice)]) {
       const progression = DATA.progressions[Number(progressionChoice)];
       keys = Array.from(new Set(progression.steps || []));
@@ -1987,12 +2012,9 @@ renderFilters();renderProgressions();renderLibrary();
     } else if (scope === "extended") {
       keys = allKeys;
     } else {
-      // Default free-scan behaviour: practical simple/common chords first.
-      // Extended colours remain available only when explicitly selected.
       keys = allKeys.filter(k => simpleKeys.has(k));
     }
 
-    // Fallback safety.
     if (!keys.length) keys = allKeys;
 
     return keys
@@ -2030,57 +2052,226 @@ renderFilters();renderProgressions();renderLibrary();
     return Math.max(0, q1*q1 + q2*q2 - q1*q2*coeff);
   }
 
+  function engineSettings(){
+    const mode = $("attemptEngine") ? $("attemptEngine").value : "robust";
+
+    if (mode === "strum") {
+      return {
+        mode,
+        frameSize: 2048,
+        segmentFrames: 5,
+        freeWindow: 1.35,
+        freeHop: 0.55,
+        minDuration: 0.85,
+        stayBonus: 0.08,
+        changePenalty: 0.075,
+        trim: 0.05
+      };
+    }
+
+    if (mode === "arpeggio") {
+      return {
+        mode,
+        frameSize: 8192,
+        segmentFrames: 9,
+        freeWindow: 2.65,
+        freeHop: 0.75,
+        minDuration: 1.55,
+        stayBonus: 0.15,
+        changePenalty: 0.12,
+        trim: 0.14
+      };
+    }
+
+    return {
+      mode,
+      frameSize: 4096,
+      segmentFrames: 7,
+      freeWindow: 2.05,
+      freeHop: 0.65,
+      minDuration: 1.25,
+      stayBonus: 0.12,
+      changePenalty: 0.10,
+      trim: 0.10
+    };
+  }
+
+  function noteIndexFromName(name){
+    const clean = String(name || "")
+      .replace("♯", "#")
+      .replace("♭", "b")
+      .trim();
+
+    const root = clean.match(/^([A-G](?:#|b)?)/);
+    if (!root) return -1;
+
+    const map = {
+      "C":0, "C#":1, "Db":1,
+      "D":2, "D#":3, "Eb":3,
+      "E":4,
+      "F":5, "F#":6, "Gb":6,
+      "G":7, "G#":8, "Ab":8,
+      "A":9, "A#":10, "Bb":10,
+      "B":11
+    };
+
+    return map[root[1]] ?? -1;
+  }
+
   function segmentChroma(samples, sr, startSec, endSec){
-    const start = Math.max(0, Math.floor(startSec * sr));
-    const end = Math.min(samples.length, Math.floor(endSec * sr));
-    const duration = Math.max(0, (end - start) / sr);
-    const frameSize = Math.min(4096, Math.max(1024, 2 ** Math.floor(Math.log2(Math.max(1024, (end-start)/5)))));
-    const frames = Math.max(1, Math.min(8, Math.floor(duration / 0.35) || 1));
+    const settings = engineSettings();
+
+    let start = Math.max(0, Math.floor(startSec * sr));
+    let end = Math.min(samples.length, Math.floor(endSec * sr));
+
+    if (end <= start) {
+      return {chroma: normalize(Array(12).fill(0)), bass:"", rms:0, silent:true};
+    }
+
+    const rawDuration = (end - start) / sr;
+    const trim = Math.min(settings.trim, rawDuration < 1.2 ? 0.03 : settings.trim);
+    start += Math.floor((end - start) * trim);
+    end -= Math.floor((end - start) * trim);
+
+    const available = Math.max(256, end - start);
+    const frameSize = Math.max(1024, Math.min(settings.frameSize, available));
+    const frames = Math.max(1, Math.min(settings.segmentFrames, Math.floor(rawDuration / 0.28) || 1));
 
     const chroma = Array(12).fill(0);
-    const bassPower = [];
+    const bassBins = Array(12).fill(0);
 
     let rmsSum = 0;
     let rmsN = 0;
     for (let i=start; i<end; i += 8){
-      rmsSum += samples[i] * samples[i];
+      const x = samples[i] || 0;
+      rmsSum += x * x;
       rmsN++;
     }
-    const rms = Math.sqrt(rmsSum / Math.max(1, rmsN));
 
+    const rms = Math.sqrt(rmsSum / Math.max(1, rmsN));
     if (rms < 0.003) {
       return {chroma: normalize(chroma), bass:"", rms, silent:true};
     }
 
-    for (let f=0; f<frames; f++){
-      const centre = start + Math.floor((f + 0.5) * (end - start) / frames);
-      const frameStart = Math.max(start, Math.min(end - frameSize, centre - Math.floor(frameSize/2)));
+    for (let frame=0; frame<frames; frame++){
+      const centre = start + Math.floor((frame + 0.5) * (end - start) / frames);
+      const frameStart = Math.max(start, Math.min(end - frameSize, centre - Math.floor(frameSize / 2)));
 
       for (let midi=40; midi<=88; midi++){
         const freq = freqFromMidi(midi);
         if (freq > sr * 0.48) continue;
 
-        const power = goertzel(samples, frameStart, frameSize, freq, sr);
-        const pc = midi % 12;
-        const weight = midi < 52 ? 1.12 : 1.0;
-        chroma[pc] += Math.log1p(power) * weight;
+        let power = goertzel(samples, frameStart, frameSize, freq, sr);
 
-        if (midi >= 40 && midi <= 60) {
-          bassPower.push({midi, power});
+        // Harmonic-aware pitch evidence: overtones support the fundamental pitch class
+        // instead of being allowed to masquerade as unrelated chord tones.
+        if (freq * 2 < sr * 0.48) {
+          power += 0.42 * goertzel(samples, frameStart, frameSize, freq * 2, sr);
+        }
+        if (freq * 3 < sr * 0.48 && midi <= 76) {
+          power += 0.22 * goertzel(samples, frameStart, frameSize, freq * 3, sr);
+        }
+
+        const pc = midi % 12;
+        const lowWeight = midi < 52 ? 1.18 : 1.0;
+        const evidence = Math.log1p(power) * lowWeight;
+
+        chroma[pc] += evidence;
+
+        if (midi >= 40 && midi <= 59) {
+          bassBins[pc] += evidence * (midi < 48 ? 1.25 : 1.0);
         }
       }
     }
 
-    bassPower.sort((a,b) => b.power - a.power);
-    const bass = bassPower.length ? noteNameFromMidi(bassPower[0].midi) : "";
+    // Remove a little broad noise floor so ringing/room resonance has less power.
+    const sorted = [...chroma].sort((a,b) => a-b);
+    const floor = sorted[3] || 0;
+    for (let i=0;i<12;i++) {
+      chroma[i] = Math.max(0, chroma[i] - floor * 0.55);
+    }
+
+    let bassIndex = -1;
+    let bassValue = 0;
+    for (let i=0;i<12;i++){
+      if (bassBins[i] > bassValue) {
+        bassValue = bassBins[i];
+        bassIndex = i;
+      }
+    }
+
+    const bass = bassIndex >= 0 ? NOTE_NAMES[bassIndex] : "";
+    if (bassIndex >= 0) chroma[bassIndex] *= 1.06;
 
     return {chroma: normalize(chroma), bass, rms, silent:false};
   }
 
-  function bestMatches(chroma, bass, templates){
+  function chordComplexity(template){
+    const name = String(template.name || "");
+    const quality = String(template.quality || "");
+    const txt = `${name} ${quality}`.toLowerCase();
+
+    let c = 0;
+    if (/maj7|m7|7♭5|7b5|m7♭5|m7b5|dim|°/.test(txt)) c += 2;
+    if (/add|sus|9|11|13|♯|#|♭|b9|altered/.test(txt)) c += 2;
+    if (name.includes("/") || quality.includes("slash")) c += 1;
+    if ((DATA.chords[template.key]?.libraryType || "classical") === "extended") c += 1;
+
+    return c;
+  }
+
+  function commonChordPrior(template, scope, context){
+    const name = String(template.name || "");
+    const key = template.key || "";
+    const classical = (DATA.chords[key]?.libraryType || "classical") === "classical";
+
+    if (context && context.guided) return 0;
+
+    if (scope === "simple") {
+      if (/^(A|B|C|D|E|F|G)(m)?$/.test(name)) return 0.055;
+      if (/^(A7|B7|C7|D7|E7|G7|Am7|Em7)$/.test(name)) return 0.025;
+      if (!classical) return -0.055;
+    }
+
+    if (scope === "classical" && classical) return 0.025;
+    return 0;
+  }
+
+  function bestMatches(chroma, bass, templates, context = {}){
+    const scope = $("attemptScope") ? $("attemptScope").value : "simple";
+    const bassPc = noteIndexFromName(bass);
+
     return templates.map(t => {
+      const chord = DATA.chords[t.key] || {};
+      const rootPc = noteIndexFromName(t.name);
       let score = dot(chroma, t.vec);
-      if (bass && t.bass && bass === t.bass) score += 0.05;
+
+      if (bass && t.bass) {
+        if (bass === t.bass) score += 0.085;
+        else score -= 0.025;
+      }
+
+      if (context.expectedKey && t.key === context.expectedKey) {
+        score += 0.055;
+      }
+
+      if (context.previousKey && t.key === context.previousKey) {
+        score += 0.018;
+      }
+
+      // Prefer root/bass coherence for simple free detection.
+      if (!context.guided && scope === "simple" && bassPc >= 0 && rootPc >= 0) {
+        if (bassPc === rootPc) score += 0.025;
+      }
+
+      const complexityPenalty = context.guided ? 0.006 : (scope === "extended" ? 0.008 : 0.025);
+      score -= chordComplexity(t) * complexityPenalty;
+      score += commonChordPrior(t, scope, context);
+
+      if (chord.libraryType === "extended" && scope === "simple" && !context.guided) {
+        score -= 0.035;
+      }
+
       return {...t, score: Math.max(0, Math.min(1, score))};
     }).sort((a,b) => b.score - a.score);
   }
@@ -2159,24 +2350,165 @@ renderFilters();renderProgressions();renderLibrary();
     const steps = progression.steps || [];
     const templates = allTemplates();
     const seg = duration / Math.max(1, steps.length);
+    const rows = [];
 
-    return steps.map((expectedKey, i) => {
+    let previousKey = "";
+
+    steps.forEach((expectedKey, i) => {
       const start = i * seg;
       const end = (i + 1) * seg;
       const features = segmentChroma(samples, sr, start, end);
-      const matches = bestMatches(features.chroma, features.bass, templates);
+      const matches = bestMatches(features.chroma, features.bass, templates, {
+        guided: true,
+        expectedKey,
+        previousKey
+      });
+
       const best = matches[0];
       const expected = DATA.chords[expectedKey];
 
-      return {
-        time: `${formatTime(start)}–${formatTime(end)}`,
-        expectedName: expected ? expected.name : expectedKey,
-        detectedKey: best.key,
-        detectedName: best.name,
-        score: best.score,
+      if (best) {
+        previousKey = best.key;
+        rows.push({
+          time: `${formatTime(start)}–${formatTime(end)}`,
+          expectedName: expected ? expected.name : expectedKey,
+          detectedKey: best.key,
+          detectedName: best.name,
+          score: best.score,
+          bass: features.bass,
+          mode: "strict guided"
+        });
+      }
+    });
+
+    return rows;
+  }
+
+  function frameCandidates(samples, sr, duration, templates){
+    const settings = engineSettings();
+    const frames = [];
+
+    for (let centre=settings.freeWindow/2; centre<duration; centre += settings.freeHop){
+      const start = Math.max(0, centre - settings.freeWindow / 2);
+      const end = Math.min(duration, centre + settings.freeWindow / 2);
+      const features = segmentChroma(samples, sr, start, end);
+
+      if (features.silent) continue;
+
+      const candidates = bestMatches(features.chroma, features.bass, templates)
+        .slice(0, Math.min(10, templates.length));
+
+      if (!candidates.length || candidates[0].score < 0.25) continue;
+
+      frames.push({
+        centre,
+        start,
+        end,
         bass: features.bass,
-        mode: "guided"
-      };
+        candidates
+      });
+    }
+
+    return frames;
+  }
+
+  function smoothCandidates(frames){
+    if (!frames.length) return [];
+
+    const settings = engineSettings();
+
+    let paths = frames[0].candidates.map(c => ({
+      key: c.key,
+      score: c.score,
+      sequence: [c]
+    }));
+
+    for (let i=1; i<frames.length; i++){
+      const next = [];
+
+      frames[i].candidates.forEach(c => {
+        let bestPath = null;
+        let bestScore = -Infinity;
+
+        paths.forEach(path => {
+          const transition =
+            path.key === c.key
+              ? settings.stayBonus
+              : -settings.changePenalty;
+
+          const candidateScore = path.score + c.score + transition;
+
+          if (candidateScore > bestScore) {
+            bestScore = candidateScore;
+            bestPath = path;
+          }
+        });
+
+        next.push({
+          key: c.key,
+          score: bestScore,
+          sequence: [...bestPath.sequence, c]
+        });
+      });
+
+      next.sort((a,b) => b.score - a.score);
+      paths = next.slice(0, 18);
+    }
+
+    paths.sort((a,b) => b.score - a.score);
+    return paths[0] ? paths[0].sequence : [];
+  }
+
+  function mergeTimeline(sequence, frames){
+    const settings = engineSettings();
+    const rows = [];
+
+    sequence.forEach((c, i) => {
+      const frame = frames[i];
+      if (!frame) return;
+
+      const last = rows[rows.length - 1];
+
+      if (last && last.detectedKey === c.key) {
+        last.endSec = frame.end;
+        last.time = `${formatTime(last.startSec)}–${formatTime(last.endSec)}`;
+        last.score = (last.score * last.count + c.score) / (last.count + 1);
+        last.count += 1;
+        if (!last.bass && frame.bass) last.bass = frame.bass;
+      } else {
+        rows.push({
+          startSec: frame.start,
+          endSec: frame.end,
+          time: `${formatTime(frame.start)}–${formatTime(frame.end)}`,
+          expectedName: "",
+          detectedKey: c.key,
+          detectedName: c.name,
+          score: c.score,
+          bass: frame.bass,
+          mode: engineSettings().mode,
+          count: 1
+        });
+      }
+    });
+
+    const merged = [];
+
+    rows.forEach(row => {
+      const duration = row.endSec - row.startSec;
+
+      if (duration < settings.minDuration && merged.length) {
+        const prev = merged[merged.length - 1];
+        prev.endSec = row.endSec;
+        prev.time = `${formatTime(prev.startSec)}–${formatTime(prev.endSec)}`;
+        prev.score = (prev.score + row.score) / 2;
+      } else {
+        merged.push(row);
+      }
+    });
+
+    return merged.map(row => {
+      delete row.count;
+      return row;
     });
   }
 
@@ -2185,40 +2517,12 @@ renderFilters();renderProgressions();renderLibrary();
     const sr = buffer.sampleRate;
     const duration = buffer.duration;
     const templates = allTemplates();
-    const windowSec = duration > 18 ? 3 : 2;
-    const rows = [];
 
-    for (let start=0; start<duration; start += windowSec){
-      const end = Math.min(duration, start + windowSec);
-      const features = segmentChroma(samples, sr, start, end);
-      if (features.silent) continue;
+    const frames = frameCandidates(samples, sr, duration, templates);
+    const sequence = smoothCandidates(frames);
+    const rows = mergeTimeline(sequence, frames);
 
-      const matches = bestMatches(features.chroma, features.bass, templates);
-      const best = matches[0];
-
-      if (!best || best.score < 0.32) continue;
-
-      const previous = rows[rows.length - 1];
-      if (previous && previous.detectedKey === best.key) {
-        previous.endSec = end;
-        previous.time = `${formatTime(previous.startSec)}–${formatTime(end)}`;
-        previous.score = (previous.score + best.score) / 2;
-      } else {
-        rows.push({
-          startSec: start,
-          endSec: end,
-          time: `${formatTime(start)}–${formatTime(end)}`,
-          expectedName: "",
-          detectedKey: best.key,
-          detectedName: best.name,
-          score: best.score,
-          bass: features.bass,
-          mode: "free scan"
-        });
-      }
-    }
-
-    return rows;
+    return rows.slice(0, 64);
   }
 
   async function decodeArrayBuffer(arrayBuffer){
