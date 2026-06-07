@@ -959,351 +959,6 @@
   }
 }
 /* guitar-mobile-float-polish:end */
-
-
-/* guitar-attempt-analyzer:start */
-.analyzer-panel{
-  margin-top:42px;
-}
-.analyzer-card{
-  border:1px solid rgba(24,198,216,.34);
-  background:linear-gradient(180deg,rgba(10,23,34,.88),rgba(5,10,15,.96));
-  border-radius:24px;
-  padding:22px;
-  box-shadow:0 22px 70px rgba(0,0,0,.28);
-}
-.analyzer-controls{
-  display:grid;
-  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
-  gap:16px;
-  align-items:start;
-}
-.analyzer-field{
-  display:grid;
-  gap:8px;
-}
-.analyzer-field label{
-  font-weight:900;
-  color:var(--ink);
-  font-size:13px;
-}
-.analyzer-field select,
-.analyzer-field input[type="file"]{
-  width:100%;
-  background:#070a11;
-  color:var(--ink);
-  border:1px solid rgba(24,198,216,.30);
-  border-radius:14px;
-  padding:11px 12px;
-  font:inherit;
-  font-size:13px;
-}
-.analyzer-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:14px;
-}
-.analyzer-buttons button{
-  border:1px solid rgba(246,239,227,.16);
-  background:#121827;
-  color:var(--ink);
-  padding:10px 14px;
-  border-radius:999px;
-  cursor:pointer;
-  font-weight:900;
-  font-size:13px;
-}
-.analyzer-buttons button.primary{
-  background:linear-gradient(135deg,#18c6d8,#7ee7f2);
-  color:#061014;
-}
-.analyzer-buttons button[disabled]{
-  opacity:.45;
-  cursor:not-allowed;
-}
-.analyzer-audio{
-  width:100%;
-  margin-top:16px;
-}
-.analyzer-status{
-  margin-top:14px;
-  padding:12px 14px;
-  border:1px solid rgba(246,239,227,.10);
-  background:rgba(255,255,255,.035);
-  border-radius:16px;
-  color:var(--muted);
-  font-size:13px;
-}
-.analyzer-results{
-  display:grid;
-  gap:14px;
-  margin-top:18px;
-}
-.attempt-row{
-  display:grid;
-  grid-template-columns:minmax(220px,.75fr) minmax(180px,.45fr);
-  gap:14px;
-  align-items:start;
-  border:1px solid rgba(24,198,216,.26);
-  background:rgba(255,255,255,.028);
-  border-radius:20px;
-  padding:14px;
-}
-.attempt-meta h3{
-  margin:0 0 8px;
-  font-family:var(--serif);
-  font-size:22px;
-  line-height:1.05;
-}
-.attempt-meta p{
-  margin:4px 0;
-  color:var(--muted);
-  font-size:13px;
-}
-.attempt-pill-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.attempt-pill{
-  border:1px solid rgba(246,239,227,.12);
-  background:rgba(255,255,255,.045);
-  color:#d8ccbd;
-  border-radius:999px;
-  padding:5px 8px;
-  font-size:11px;
-  font-weight:900;
-}
-.attempt-pill.good{
-  color:#061014;
-  background:#7ee7f2;
-}
-.attempt-pill.warn{
-  color:#160807;
-  background:#f2c46d;
-}
-.attempt-diagram .chord{
-  max-width:190px;
-  margin-left:auto;
-}
-.analyzer-note{
-  margin-top:12px;
-  color:var(--muted);
-  font-size:12px;
-}
-@media(max-width:760px){
-  .analyzer-controls,
-  .attempt-row{
-    grid-template-columns:1fr;
-  }
-  .attempt-diagram .chord{
-    margin-left:0;
-  }
-}
-/* guitar-attempt-analyzer:end */
-
-
-/* guitar-analyzer-timeline:start */
-
-/* Analyzer results are a time sequence, not large report cards */
-.analyzer-results{
-  display:block !important;
-  margin-top:18px !important;
-}
-
-.attempt-timeline-head{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:12px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.attempt-timeline-head strong{
-  color:var(--ink);
-  font-size:15px;
-}
-
-.attempt-timeline{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(225px, 1fr));
-  gap:10px;
-}
-
-.attempt-tile{
-  min-width:0;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 88px;
-  gap:10px;
-  align-items:center;
-  border:1px solid rgba(24,198,216,.28);
-  background:linear-gradient(180deg,rgba(10,23,34,.88),rgba(5,10,15,.94));
-  border-radius:16px;
-  padding:10px;
-  min-height:126px;
-}
-
-.attempt-main{
-  min-width:0;
-}
-
-.attempt-main h3{
-  margin:0 0 5px;
-  font-family:var(--serif);
-  font-size:22px;
-  line-height:1;
-  letter-spacing:-.02em;
-}
-
-.attempt-main p{
-  margin:2px 0;
-  color:var(--muted);
-  font-size:11.5px;
-  line-height:1.35;
-}
-
-.attempt-time{
-  color:#7ee7f2 !important;
-  font-weight:900;
-}
-
-.attempt-pill-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:5px;
-  margin-top:7px;
-}
-
-.attempt-pill{
-  border:1px solid rgba(246,239,227,.12);
-  background:rgba(255,255,255,.045);
-  color:#d8ccbd;
-  border-radius:999px;
-  padding:4px 7px;
-  font-size:10px;
-  font-weight:900;
-}
-
-.attempt-pill.good{
-  color:#061014;
-  background:#7ee7f2;
-}
-
-.attempt-pill.warn{
-  color:#160807;
-  background:#f2c46d;
-}
-
-.attempt-mini{
-  justify-self:end;
-  width:88px;
-}
-
-.attempt-mini .chord{
-  width:88px !important;
-  max-width:88px !important;
-  min-width:0 !important;
-  padding:5px !important;
-  border-radius:12px !important;
-}
-
-.attempt-mini .chord-title{
-  font-size:10px !important;
-  margin-bottom:1px !important;
-}
-
-.attempt-mini .chord-sub,
-.attempt-mini .badges{
-  display:none !important;
-}
-
-.attempt-mini svg{
-  max-height:105px !important;
-}
-
-.attempt-confidence{
-  margin-top:8px;
-  height:6px;
-  overflow:hidden;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-}
-
-.attempt-confidence span{
-  display:block;
-  height:100%;
-  width:var(--confidence);
-  background:linear-gradient(90deg,#18c6d8,#7ee7f2);
-}
-
-@media(max-width:760px){
-  .attempt-timeline{
-    grid-template-columns:1fr;
-  }
-
-  .attempt-tile{
-    grid-template-columns:minmax(0,1fr) 72px;
-    min-height:104px;
-    padding:9px;
-  }
-
-  .attempt-main h3{
-    font-size:20px;
-  }
-
-  .attempt-main p{
-    font-size:11px;
-  }
-
-  .attempt-mini{
-    width:72px;
-  }
-
-  .attempt-mini .chord{
-    width:72px !important;
-    max-width:72px !important;
-    padding:4px !important;
-  }
-
-  .attempt-mini .chord-title{
-    font-size:9px !important;
-  }
-
-  .attempt-mini svg{
-    max-height:88px !important;
-  }
-}
-
-@media(max-width:380px){
-  .attempt-tile{
-    grid-template-columns:minmax(0,1fr) 62px;
-  }
-
-  .attempt-mini{
-    width:62px;
-  }
-
-  .attempt-mini .chord{
-    width:62px !important;
-    max-width:62px !important;
-  }
-
-  .attempt-mini svg{
-    max-height:78px !important;
-  }
-
-  .attempt-pill{
-    font-size:9px;
-  }
-}
-/* guitar-analyzer-timeline:end */
-
-
 /* guitar-extended-chord-library:start */
 .library-group-title{
   grid-column:1 / -1;
@@ -1362,66 +1017,34 @@
 }
 /* guitar-extended-chord-library:end */
 
-
-/* guitar-analyzer-scope-fix:start */
-.analyzer-controls{
-  grid-template-columns: minmax(0, 1.05fr) minmax(220px, .55fr) minmax(220px, .6fr) !important;
-}
-@media(max-width:900px){
-  .analyzer-controls{
-    grid-template-columns: 1fr !important;
-  }
-}
-/* guitar-analyzer-scope-fix:end */
-
-
-/* guitar-better-detection-engine:start */
-.analyzer-controls{
-  grid-template-columns:minmax(0,1.05fr) minmax(210px,.55fr) minmax(210px,.55fr) minmax(210px,.6fr) !important;
-}
-.engine-small-note{
-  color:var(--muted);
-  font-size:12px;
-}
-@media(max-width:1100px){
-  .analyzer-controls{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-  }
-}
-@media(max-width:760px){
-  .analyzer-controls{
-    grid-template-columns:1fr !important;
-  }
-}
-/* guitar-better-detection-engine:end */
-/* guitar-note-first-analyzer:start */
-.note-analyzer-panel{
+/* guitar-unified-audio-analyzer:start */
+.audio-lab-panel{
   margin-top:42px;
 }
-.note-analyzer-card{
+.audio-lab-card{
   border:1px solid rgba(24,198,216,.34);
   background:linear-gradient(180deg,rgba(10,23,34,.88),rgba(5,10,15,.96));
   border-radius:24px;
   padding:22px;
   box-shadow:0 22px 70px rgba(0,0,0,.28);
 }
-.note-controls{
+.audio-lab-controls{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(220px,.55fr) minmax(220px,.55fr);
+  grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(180px,.55fr));
   gap:14px;
   align-items:end;
 }
-.note-field{
+.audio-lab-field{
   display:grid;
   gap:8px;
 }
-.note-field label{
+.audio-lab-field label{
   font-weight:900;
   color:var(--ink);
   font-size:13px;
 }
-.note-field input,
-.note-field select{
+.audio-lab-field input,
+.audio-lab-field select{
   width:100%;
   background:#070a11;
   color:var(--ink);
@@ -1431,13 +1054,13 @@
   font:inherit;
   font-size:13px;
 }
-.note-buttons{
+.audio-lab-buttons{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   margin-top:14px;
 }
-.note-buttons button{
+.audio-lab-buttons button{
   border:1px solid rgba(246,239,227,.16);
   background:#121827;
   color:var(--ink);
@@ -1447,19 +1070,19 @@
   font-weight:900;
   font-size:13px;
 }
-.note-buttons button.primary{
+.audio-lab-buttons button.primary{
   background:linear-gradient(135deg,#18c6d8,#7ee7f2);
   color:#061014;
 }
-.note-buttons button[disabled]{
+.audio-lab-buttons button[disabled]{
   opacity:.45;
   cursor:not-allowed;
 }
-.note-audio{
+.audio-lab-audio{
   width:100%;
   margin-top:16px;
 }
-.note-status{
+.audio-lab-status{
   margin-top:14px;
   padding:12px 14px;
   border:1px solid rgba(246,239,227,.10);
@@ -1468,21 +1091,27 @@
   color:var(--muted);
   font-size:13px;
 }
-.note-results{
+.audio-lab-results{
   margin-top:18px;
   display:grid;
   gap:14px;
 }
-.note-summary{
+.audio-section-card{
   border:1px solid rgba(24,198,216,.28);
   border-radius:18px;
   padding:14px;
-  background:rgba(255,255,255,.03);
+  background:rgba(255,255,255,.028);
 }
-.note-summary h3{
-  margin:0 0 10px;
+.audio-section-card h3{
+  margin:0 0 8px;
   font-family:var(--serif);
   font-size:24px;
+  line-height:1.05;
+}
+.audio-section-card p{
+  margin:0 0 12px;
+  color:var(--muted);
+  font-size:12px;
 }
 .note-cloud{
   display:flex;
@@ -1504,104 +1133,69 @@
   color:var(--muted);
   font-weight:800;
 }
-.note-match-grid{
+.audio-timeline{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(225px,1fr));
   gap:10px;
 }
-.note-match{
+.audio-tile{
+  min-width:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 78px;
+  gap:10px;
+  align-items:center;
   border:1px solid rgba(24,198,216,.24);
+  background:rgba(255,255,255,.025);
   border-radius:16px;
-  padding:12px;
-  background:rgba(255,255,255,.028);
+  padding:10px;
 }
-.note-match h4{
-  margin:0 0 6px;
+.audio-tile h4{
+  margin:0 0 5px;
   font-family:var(--serif);
   font-size:22px;
+  line-height:1;
 }
-.note-match p{
-  margin:3px 0;
+.audio-tile p{
+  margin:2px 0;
   color:var(--muted);
-  font-size:12px;
+  font-size:11.5px;
 }
-.note-score{
+.audio-time{
+  color:#7ee7f2 !important;
+  font-weight:900;
+}
+.audio-mini .chord{
+  width:78px !important;
+  max-width:78px !important;
+  padding:4px !important;
+  border-radius:12px !important;
+}
+.audio-mini .chord-title{
+  font-size:9px !important;
+}
+.audio-mini .chord-sub,
+.audio-mini .badges,
+.audio-mini .library-badge{
+  display:none !important;
+}
+.audio-mini svg{
+  max-height:88px !important;
+}
+.audio-score{
   height:6px;
   border-radius:999px;
   background:rgba(255,255,255,.08);
   overflow:hidden;
-  margin-top:8px;
+  margin-top:7px;
 }
-.note-score span{
+.audio-score span{
   display:block;
   height:100%;
   width:var(--score);
   background:linear-gradient(90deg,#18c6d8,#7ee7f2);
 }
-.note-timeline{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:8px;
-}
-.note-frame{
-  border:1px solid rgba(246,239,227,.10);
-  border-radius:14px;
-  padding:10px;
-  background:rgba(255,255,255,.025);
-}
-.note-frame strong{
-  display:block;
-  color:#7ee7f2;
-  font-size:12px;
-  margin-bottom:5px;
-}
-.note-frame span{
-  display:block;
-  color:var(--ink);
-  font-weight:900;
-}
-.note-frame small{
-  color:var(--muted);
-}
-@media(max-width:850px){
-  .note-controls{
-    grid-template-columns:1fr;
-  }
-}
-@media(max-width:520px){
-  .note-analyzer-card{
-    padding:16px;
-  }
-  .note-match-grid,
-  .note-timeline{
-    grid-template-columns:1fr;
-  }
-}
-/* guitar-note-first-analyzer:end */
-
-
-/* guitar-note-tab:start */
-.note-tab-card{
-  border:1px solid rgba(24,198,216,.28);
-  border-radius:18px;
-  padding:14px;
-  background:rgba(255,255,255,.028);
-}
-
-.note-tab-card h3{
-  margin:0 0 8px;
-  font-family:var(--serif);
-  font-size:24px;
-  line-height:1.05;
-}
-
-.note-tab-card p{
-  margin:0 0 12px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.tab-scroll{
+.tab-scroll,
+.sheet-scroll{
   overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   border:1px solid rgba(246,239,227,.10);
@@ -1609,7 +1203,6 @@
   background:#05080d;
   padding:12px;
 }
-
 .tab-block{
   margin:0;
   min-width:max-content;
@@ -1619,14 +1212,12 @@
   line-height:1.45;
   white-space:pre;
 }
-
 .tab-legend{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
   margin-top:10px;
 }
-
 .tab-chip{
   border:1px solid rgba(24,198,216,.28);
   border-radius:999px;
@@ -1636,122 +1227,101 @@
   font-size:11px;
   font-weight:900;
 }
-
 .tab-chip strong{
   color:var(--ink);
 }
-
-.note-match-grid.compact{
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-}
-
-@media(max-width:520px){
-  .note-tab-card{
-    padding:12px;
-  }
-
-  .tab-block{
-    font-size:12px;
-  }
-
-  .tab-scroll{
-    padding:10px;
-  }
-}
-/* guitar-note-tab:end */
-
-
-/* guitar-sheet-notation:start */
-.sheet-card{
-  border:1px solid rgba(24,198,216,.28);
-  border-radius:18px;
-  padding:14px;
-  background:rgba(255,255,255,.028);
-}
-
-.sheet-card h3{
-  margin:0 0 8px;
-  font-family:var(--serif);
-  font-size:24px;
-  line-height:1.05;
-}
-
-.sheet-card p{
-  margin:0 0 12px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.sheet-scroll{
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  border:1px solid rgba(246,239,227,.10);
-  border-radius:14px;
-  background:#05080d;
-  padding:12px;
-}
-
 .sheet-svg{
   display:block;
   min-width:520px;
   height:auto;
 }
-
-.sheet-staff{
-  stroke:rgba(233,248,248,.82);
-  stroke-width:1.25;
-}
-
+.sheet-staff,
 .sheet-ledger{
   stroke:rgba(233,248,248,.82);
-  stroke-width:1.15;
+  stroke-width:1.2;
 }
-
 .sheet-note{
   fill:#e9f8f8;
   stroke:#e9f8f8;
   stroke-width:1;
 }
-
 .sheet-stem{
   stroke:#e9f8f8;
   stroke-width:1.2;
 }
-
 .sheet-text{
   fill:#e9f8f8;
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
   font-size:12px;
   font-weight:800;
 }
-
 .sheet-symbol{
   fill:#7ee7f2;
   font-family:Georgia,"Times New Roman",serif;
   font-size:46px;
 }
-
 .sheet-accidental{
   fill:#e9f8f8;
   font-family:Georgia,"Times New Roman",serif;
   font-size:17px;
 }
-
 .sheet-note-label{
   fill:rgba(233,248,248,.72);
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
   font-size:10px;
 }
-
-@media(max-width:520px){
-  .sheet-card{
-    padding:12px;
-  }
-  .sheet-scroll{
-    padding:10px;
+.match-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:10px;
+}
+.match-card{
+  border:1px solid rgba(24,198,216,.24);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(255,255,255,.028);
+}
+.match-card h4{
+  margin:0 0 6px;
+  font-family:var(--serif);
+  font-size:22px;
+}
+.match-card p{
+  margin:3px 0;
+  color:var(--muted);
+  font-size:12px;
+}
+@media(max-width:1100px){
+  .audio-lab-controls{
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 }
-/* guitar-sheet-notation:end */
+@media(max-width:760px){
+  .audio-lab-controls,
+  .audio-timeline{
+    grid-template-columns:1fr;
+  }
+  .audio-tile{
+    grid-template-columns:minmax(0,1fr) 68px;
+  }
+  .audio-mini .chord{
+    width:68px !important;
+    max-width:68px !important;
+  }
+  .audio-mini svg{
+    max-height:78px !important;
+  }
+}
+@media(max-width:520px){
+  .audio-lab-card,
+  .audio-section-card{
+    padding:14px;
+  }
+  .tab-block{
+    font-size:12px;
+  }
+}
+/* guitar-unified-audio-analyzer:end */
 
 </style>
 
@@ -2014,122 +1584,65 @@
 </script>
 <!-- guitar-extended-chord-library:end -->
 
-<!-- guitar-attempt-analyzer:start -->
-<section id="attempt-analyzer" class="analyzer-panel">
+<!-- guitar-unified-audio-analyzer:start -->
+<section id="audio-analyzer" class="audio-lab-panel">
   <div class="section-head">
     <div>
-      <h2>Chord Attempt Analyzer</h2>
-      <p>Upload an audio file or record a live guitar attempt. The analyzer compares the sound against this page’s own chord library and returns the most likely chord diagrams.</p>
+      <h2>Guitar Audio Analyzer</h2>
+      <p>Upload or record one attempt. The analyzer estimates note evidence, chord fit, chord timeline, timed tablature, and standard notation from the same audio.</p>
     </div>
   </div>
 
-  <div class="analyzer-card">
-    <div class="analyzer-controls">
-      <div class="analyzer-field">
-        <label for="attemptProgression">Analysis mode</label>
-        <select id="attemptProgression">
+  <div class="audio-lab-card">
+    <div class="audio-lab-controls">
+      <div class="audio-lab-field">
+        <label for="audioProgression">Analysis mode</label>
+        <select id="audioProgression">
           <option value="free">Free scan, detect likely chords</option>
         </select>
       </div>
 
-      <div class="analyzer-field">
-        <label for="attemptScope">Detection scope</label>
-        <select id="attemptScope">
+      <div class="audio-lab-field">
+        <label for="audioScope">Detection scope</label>
+        <select id="audioScope">
           <option value="simple" selected>Simple/common chords first</option>
           <option value="classical">Classical study library only</option>
           <option value="extended">Full extended detection library</option>
         </select>
       </div>
 
-      <div class="analyzer-field">
-        <label for="attemptEngine">Engine profile</label>
-        <select id="attemptEngine">
-          <option value="robust" selected>Robust guitar, recommended</option>
+      <div class="audio-lab-field">
+        <label for="audioEngine">Engine profile</label>
+        <select id="audioEngine">
+          <option value="robust" selected>Robust guitar</option>
           <option value="arpeggio">Arpeggio / classical ringing</option>
           <option value="strum">Strum / faster changes</option>
         </select>
       </div>
 
-      <div class="analyzer-field">
-        <label for="attemptFile">Audio file</label>
-        <input id="attemptFile" type="file" accept="audio/*">
+      <div class="audio-lab-field">
+        <label for="audioFile">Audio file</label>
+        <input id="audioFile" type="file" accept="audio/*">
       </div>
     </div>
 
-    <div class="analyzer-buttons">
-      <button id="recordAttempt" class="primary" type="button">Record live</button>
-      <button id="stopAttempt" type="button" disabled>Stop recording</button>
-      <button id="analyzeAttempt" class="primary" type="button">Analyze attempt</button>
-      <button id="clearAttempt" type="button">Clear</button>
-      <a class="button" href="#progressions">Back to progressions</a>
+    <div class="audio-lab-buttons">
+      <button id="audioRecord" class="primary" type="button">Record live</button>
+      <button id="audioStop" type="button" disabled>Stop recording</button>
+      <button id="audioAnalyze" class="primary" type="button">Analyze audio</button>
+      <button id="audioClear" type="button">Clear</button>
     </div>
 
-    <audio id="attemptAudio" class="analyzer-audio" controls></audio>
+    <audio id="audioPlayback" class="audio-lab-audio" controls></audio>
 
-    <div id="attemptStatus" class="analyzer-status">
-      Choose a progression for strict guided analysis, or use free scan. The engine now smooths the chord timeline, penalises over-complex matches, and estimates bass separately.
+    <div id="audioStatus" class="audio-lab-status">
+      Choose guided mode or free scan. Timed tab is estimated from likely chord evidence, not guaranteed fingering.
     </div>
 
-    <div id="attemptResults" class="analyzer-results"></div>
-
-    <div class="analyzer-note">
-      Note: this estimates likely chord names and maps them to this site’s diagrams. Audio alone cannot prove the exact fingering used.
-    </div>
+    <div id="audioResults" class="audio-lab-results"></div>
   </div>
 </section>
-
-
-<!-- guitar-note-first-analyzer:start -->
-<section id="note-analyzer" class="note-analyzer-panel">
-  <div class="section-head">
-    <div>
-      <h2>Note-first Chord Check</h2>
-      <p>Detect likely notes from an audio attempt, then check whether those notes correspond to a selected chord or the broader chord library.</p>
-    </div>
-  </div>
-
-  <div class="note-analyzer-card">
-    <div class="note-controls">
-      <div class="note-field">
-        <label for="noteFile">Audio file</label>
-        <input id="noteFile" type="file" accept="audio/*">
-      </div>
-
-      <div class="note-field">
-        <label for="noteTargetChord">Check against chord</label>
-        <select id="noteTargetChord">
-          <option value="auto">Auto-match best chord</option>
-        </select>
-      </div>
-
-      <div class="note-field">
-        <label for="noteSensitivity">Sensitivity</label>
-        <select id="noteSensitivity">
-          <option value="normal" selected>Normal</option>
-          <option value="strict">Strict, fewer notes</option>
-          <option value="wide">Wide, include colour notes</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="note-buttons">
-      <button id="noteRecord" class="primary" type="button">Record notes</button>
-      <button id="noteStop" type="button" disabled>Stop recording</button>
-      <button id="noteAnalyze" class="primary" type="button">Detect notes</button>
-      <button id="noteClear" type="button">Clear</button>
-    </div>
-
-    <audio id="noteAudio" class="note-audio" controls></audio>
-
-    <div id="noteStatus" class="note-status">
-      Upload or record a short attempt. This detects likely pitch classes, then checks which chord diagrams they support.
-    </div>
-
-    <div id="noteResults" class="note-results"></div>
-  </div>
-</section>
-<!-- guitar-note-first-analyzer:end -->
-<!-- guitar-attempt-analyzer:end -->
+<!-- guitar-unified-audio-analyzer:end -->
 
 
 <section id="library">
@@ -2316,764 +1829,7 @@ document.getElementById("search").addEventListener("input",renderProgressions);
 renderFilters();renderProgressions();renderLibrary();
 </script>
 
-<!-- guitar-attempt-analyzer:start -->
-<script>
-(function(){
-  "use strict";
-
-  const NOTE_NAMES = ["C","C♯","D","E♭","E","F","F♯","G","G♯","A","B♭","B"];
-  const GUITAR_TUNING_MIDI = [40,45,50,55,59,64]; // E2 A2 D3 G3 B3 E4
-
-  let audioCtx = null;
-  let decodedBuffer = null;
-  let recorder = null;
-  let recordedChunks = [];
-  let activeStream = null;
-
-  function $(id){ return document.getElementById(id); }
-  function esc(x){
-    return String(x ?? "").replace(/[&<>"']/g, c => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[c]));
-  }
-
-  function status(msg){
-    const el = $("attemptStatus");
-    if (el) el.textContent = msg;
-  }
-
-  function getAudioContext(){
-    if (!audioCtx) {
-      const Ctx = window.AudioContext || window.webkitAudioContext;
-      if (!Ctx) throw new Error("This browser does not support Web Audio decoding.");
-      audioCtx = new Ctx();
-    }
-    return audioCtx;
-  }
-
-  function noteNameFromMidi(midi){
-    return NOTE_NAMES[((midi % 12) + 12) % 12];
-  }
-
-  function normalize(vec){
-    const mag = Math.sqrt(vec.reduce((s,v) => s + v*v, 0));
-    return mag ? vec.map(v => v / mag) : vec;
-  }
-
-  function dot(a,b){
-    let s = 0;
-    for (let i=0;i<a.length;i++) s += a[i] * b[i];
-    return s;
-  }
-
-  function freqFromMidi(midi){
-    return 440 * Math.pow(2, (midi - 69) / 12);
-  }
-
-  function chordTemplate(key){
-    const chord = DATA.chords[key];
-    if (!chord) return null;
-
-    const vec = Array(12).fill(0);
-    let bassMidi = null;
-
-    chord.frets.forEach((fret, stringIndex) => {
-      if (fret === "x" || fret === "X") return;
-      const f = Number(fret);
-      if (!Number.isFinite(f)) return;
-
-      const midi = GUITAR_TUNING_MIDI[stringIndex] + f;
-      if (bassMidi === null) bassMidi = midi;
-
-      const pc = ((midi % 12) + 12) % 12;
-      vec[pc] += bassMidi === midi ? 1.35 : 1.0;
-    });
-
-    return {
-      key,
-      name: chord.name || key,
-      quality: chord.q || chord.quality || "",
-      vec: normalize(vec),
-      bass: bassMidi === null ? "" : noteNameFromMidi(bassMidi)
-    };
-  }
-
-  function allTemplates(){
-    const allKeys = Object.keys(DATA.chords);
-
-    const simpleKeys = new Set([
-      "Am_open", "G", "F", "E",
-      "C_open", "Dm", "Em", "A", "A7", "B7", "E7",
-      "D7_open", "G7_open", "C7_open", "Am7_open", "Em7_open",
-      "Dsus2_open", "Dsus4_open", "Asus2_open", "Asus4_open",
-      "Fmaj7", "Fmaj7_open"
-    ]);
-
-    const progressionChoice = $("attemptProgression") ? $("attemptProgression").value : "free";
-    const scope = $("attemptScope") ? $("attemptScope").value : "simple";
-
-    let keys;
-
-    if (progressionChoice !== "free" && DATA.progressions[Number(progressionChoice)]) {
-      const progression = DATA.progressions[Number(progressionChoice)];
-      keys = Array.from(new Set(progression.steps || []));
-    } else if (scope === "classical") {
-      keys = allKeys.filter(k => (DATA.chords[k].libraryType || "classical") === "classical");
-    } else if (scope === "extended") {
-      keys = allKeys;
-    } else {
-      keys = allKeys.filter(k => simpleKeys.has(k));
-    }
-
-    if (!keys.length) keys = allKeys;
-
-    return keys
-      .map(chordTemplate)
-      .filter(Boolean);
-  }
-
-  function getMono(buffer){
-    const n = buffer.length;
-    if (buffer.numberOfChannels === 1) return buffer.getChannelData(0);
-
-    const out = new Float32Array(n);
-    for (let ch=0; ch<buffer.numberOfChannels; ch++){
-      const data = buffer.getChannelData(ch);
-      for (let i=0;i<n;i++) out[i] += data[i] / buffer.numberOfChannels;
-    }
-    return out;
-  }
-
-  function goertzel(samples, start, len, freq, sr){
-    const omega = 2 * Math.PI * freq / sr;
-    const coeff = 2 * Math.cos(omega);
-    let q0 = 0, q1 = 0, q2 = 0;
-    const end = Math.min(samples.length, start + len);
-
-    for (let i=start; i<end; i++){
-      const t = (i - start) / Math.max(1, len - 1);
-      const hann = 0.5 - 0.5 * Math.cos(2 * Math.PI * t);
-      const x = samples[i] * hann;
-      q0 = coeff * q1 - q2 + x;
-      q2 = q1;
-      q1 = q0;
-    }
-
-    return Math.max(0, q1*q1 + q2*q2 - q1*q2*coeff);
-  }
-
-  function engineSettings(){
-    const mode = $("attemptEngine") ? $("attemptEngine").value : "robust";
-
-    if (mode === "strum") {
-      return {
-        mode,
-        frameSize: 2048,
-        segmentFrames: 5,
-        freeWindow: 1.35,
-        freeHop: 0.55,
-        minDuration: 0.85,
-        stayBonus: 0.08,
-        changePenalty: 0.075,
-        trim: 0.05
-      };
-    }
-
-    if (mode === "arpeggio") {
-      return {
-        mode,
-        frameSize: 8192,
-        segmentFrames: 9,
-        freeWindow: 2.65,
-        freeHop: 0.75,
-        minDuration: 1.55,
-        stayBonus: 0.15,
-        changePenalty: 0.12,
-        trim: 0.14
-      };
-    }
-
-    return {
-      mode,
-      frameSize: 4096,
-      segmentFrames: 7,
-      freeWindow: 2.05,
-      freeHop: 0.65,
-      minDuration: 1.25,
-      stayBonus: 0.12,
-      changePenalty: 0.10,
-      trim: 0.10
-    };
-  }
-
-  function noteIndexFromName(name){
-    const clean = String(name || "")
-      .replace("♯", "#")
-      .replace("♭", "b")
-      .trim();
-
-    const root = clean.match(/^([A-G](?:#|b)?)/);
-    if (!root) return -1;
-
-    const map = {
-      "C":0, "C#":1, "Db":1,
-      "D":2, "D#":3, "Eb":3,
-      "E":4,
-      "F":5, "F#":6, "Gb":6,
-      "G":7, "G#":8, "Ab":8,
-      "A":9, "A#":10, "Bb":10,
-      "B":11
-    };
-
-    return map[root[1]] ?? -1;
-  }
-
-  function segmentChroma(samples, sr, startSec, endSec){
-    const settings = engineSettings();
-
-    let start = Math.max(0, Math.floor(startSec * sr));
-    let end = Math.min(samples.length, Math.floor(endSec * sr));
-
-    if (end <= start) {
-      return {chroma: normalize(Array(12).fill(0)), bass:"", rms:0, silent:true};
-    }
-
-    const rawDuration = (end - start) / sr;
-    const trim = Math.min(settings.trim, rawDuration < 1.2 ? 0.03 : settings.trim);
-    start += Math.floor((end - start) * trim);
-    end -= Math.floor((end - start) * trim);
-
-    const available = Math.max(256, end - start);
-    const frameSize = Math.max(1024, Math.min(settings.frameSize, available));
-    const frames = Math.max(1, Math.min(settings.segmentFrames, Math.floor(rawDuration / 0.28) || 1));
-
-    const chroma = Array(12).fill(0);
-    const bassBins = Array(12).fill(0);
-
-    let rmsSum = 0;
-    let rmsN = 0;
-    for (let i=start; i<end; i += 8){
-      const x = samples[i] || 0;
-      rmsSum += x * x;
-      rmsN++;
-    }
-
-    const rms = Math.sqrt(rmsSum / Math.max(1, rmsN));
-    if (rms < 0.003) {
-      return {chroma: normalize(chroma), bass:"", rms, silent:true};
-    }
-
-    for (let frame=0; frame<frames; frame++){
-      const centre = start + Math.floor((frame + 0.5) * (end - start) / frames);
-      const frameStart = Math.max(start, Math.min(end - frameSize, centre - Math.floor(frameSize / 2)));
-
-      for (let midi=40; midi<=88; midi++){
-        const freq = freqFromMidi(midi);
-        if (freq > sr * 0.48) continue;
-
-        let power = goertzel(samples, frameStart, frameSize, freq, sr);
-
-        // Harmonic-aware pitch evidence: overtones support the fundamental pitch class
-        // instead of being allowed to masquerade as unrelated chord tones.
-        if (freq * 2 < sr * 0.48) {
-          power += 0.42 * goertzel(samples, frameStart, frameSize, freq * 2, sr);
-        }
-        if (freq * 3 < sr * 0.48 && midi <= 76) {
-          power += 0.22 * goertzel(samples, frameStart, frameSize, freq * 3, sr);
-        }
-
-        const pc = midi % 12;
-        const lowWeight = midi < 52 ? 1.18 : 1.0;
-        const evidence = Math.log1p(power) * lowWeight;
-
-        chroma[pc] += evidence;
-
-        if (midi >= 40 && midi <= 59) {
-          bassBins[pc] += evidence * (midi < 48 ? 1.25 : 1.0);
-        }
-      }
-    }
-
-    // Remove a little broad noise floor so ringing/room resonance has less power.
-    const sorted = [...chroma].sort((a,b) => a-b);
-    const floor = sorted[3] || 0;
-    for (let i=0;i<12;i++) {
-      chroma[i] = Math.max(0, chroma[i] - floor * 0.55);
-    }
-
-    let bassIndex = -1;
-    let bassValue = 0;
-    for (let i=0;i<12;i++){
-      if (bassBins[i] > bassValue) {
-        bassValue = bassBins[i];
-        bassIndex = i;
-      }
-    }
-
-    const bass = bassIndex >= 0 ? NOTE_NAMES[bassIndex] : "";
-    if (bassIndex >= 0) chroma[bassIndex] *= 1.06;
-
-    return {chroma: normalize(chroma), bass, rms, silent:false};
-  }
-
-  function chordComplexity(template){
-    const name = String(template.name || "");
-    const quality = String(template.quality || "");
-    const txt = `${name} ${quality}`.toLowerCase();
-
-    let c = 0;
-    if (/maj7|m7|7♭5|7b5|m7♭5|m7b5|dim|°/.test(txt)) c += 2;
-    if (/add|sus|9|11|13|♯|#|♭|b9|altered/.test(txt)) c += 2;
-    if (name.includes("/") || quality.includes("slash")) c += 1;
-    if ((DATA.chords[template.key]?.libraryType || "classical") === "extended") c += 1;
-
-    return c;
-  }
-
-  function commonChordPrior(template, scope, context){
-    const name = String(template.name || "");
-    const key = template.key || "";
-    const classical = (DATA.chords[key]?.libraryType || "classical") === "classical";
-
-    if (context && context.guided) return 0;
-
-    if (scope === "simple") {
-      if (/^(A|B|C|D|E|F|G)(m)?$/.test(name)) return 0.055;
-      if (/^(A7|B7|C7|D7|E7|G7|Am7|Em7)$/.test(name)) return 0.025;
-      if (!classical) return -0.055;
-    }
-
-    if (scope === "classical" && classical) return 0.025;
-    return 0;
-  }
-
-  function bestMatches(chroma, bass, templates, context = {}){
-    const scope = $("attemptScope") ? $("attemptScope").value : "simple";
-    const bassPc = noteIndexFromName(bass);
-
-    return templates.map(t => {
-      const chord = DATA.chords[t.key] || {};
-      const rootPc = noteIndexFromName(t.name);
-      let score = dot(chroma, t.vec);
-
-      if (bass && t.bass) {
-        if (bass === t.bass) score += 0.085;
-        else score -= 0.025;
-      }
-
-      if (context.expectedKey && t.key === context.expectedKey) {
-        score += 0.055;
-      }
-
-      if (context.previousKey && t.key === context.previousKey) {
-        score += 0.018;
-      }
-
-      // Prefer root/bass coherence for simple free detection.
-      if (!context.guided && scope === "simple" && bassPc >= 0 && rootPc >= 0) {
-        if (bassPc === rootPc) score += 0.025;
-      }
-
-      const complexityPenalty = context.guided ? 0.006 : (scope === "extended" ? 0.008 : 0.025);
-      score -= chordComplexity(t) * complexityPenalty;
-      score += commonChordPrior(t, scope, context);
-
-      if (chord.libraryType === "extended" && scope === "simple" && !context.guided) {
-        score -= 0.035;
-      }
-
-      return {...t, score: Math.max(0, Math.min(1, score))};
-    }).sort((a,b) => b.score - a.score);
-  }
-
-  function formatTime(sec){
-    const m = Math.floor(sec / 60);
-    const s = Math.round(sec % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-  }
-
-  function renderDiagram(key){
-    try {
-      if (typeof chordCard === "function") return chordCard(key);
-    } catch(e) {}
-    const c = DATA.chords[key] || {};
-    return `<article class="chord"><div class="chord-title">${esc(c.name || key)}</div></article>`;
-  }
-
-  function renderResults(rows){
-    const root = $("attemptResults");
-    if (!root) return;
-
-    if (!rows.length) {
-      root.innerHTML = "";
-      status("No playable audio segments detected.");
-      return;
-    }
-
-    const visible = rows.slice(0, 64);
-    const hidden = Math.max(0, rows.length - visible.length);
-
-    root.innerHTML = `
-      <div class="attempt-timeline-head">
-        <strong>Detected chord timeline</strong>
-        <span>${rows.length} segment${rows.length === 1 ? "" : "s"}${hidden ? ` · showing first ${visible.length}` : ""}</span>
-      </div>
-
-      <div class="attempt-timeline">
-        ${visible.map(row => {
-          const confidence = Math.round(row.score * 100);
-          const good = confidence >= 72;
-          const warn = confidence < 55;
-          const confidenceWidth = Math.max(5, Math.min(100, confidence));
-
-          return `
-            <article class="attempt-tile">
-              <div class="attempt-main">
-                <h3>${esc(row.detectedName)}</h3>
-                <p class="attempt-time">${esc(row.time)}</p>
-                ${row.expectedName ? `<p><strong>Expected:</strong> ${esc(row.expectedName)}</p>` : ""}
-                <p><strong>Bass:</strong> ${esc(row.bass || "unclear")}</p>
-                <div class="attempt-pill-row">
-                  <span class="attempt-pill ${good ? "good" : warn ? "warn" : ""}">${confidence}%</span>
-                  ${row.mode ? `<span class="attempt-pill">${esc(row.mode)}</span>` : ""}
-                </div>
-                <div class="attempt-confidence" aria-hidden="true">
-                  <span style="--confidence:${confidenceWidth}%"></span>
-                </div>
-              </div>
-
-              <div class="attempt-mini">
-                ${renderDiagram(row.detectedKey)}
-              </div>
-            </article>
-          `;
-        }).join("")}
-      </div>
-    `;
-  }
-
-  function guidedRows(buffer, progressionIndex){
-    const progression = DATA.progressions[progressionIndex];
-    const samples = getMono(buffer);
-    const sr = buffer.sampleRate;
-    const duration = buffer.duration;
-    const steps = progression.steps || [];
-    const templates = allTemplates();
-    const seg = duration / Math.max(1, steps.length);
-    const rows = [];
-
-    let previousKey = "";
-
-    steps.forEach((expectedKey, i) => {
-      const start = i * seg;
-      const end = (i + 1) * seg;
-      const features = segmentChroma(samples, sr, start, end);
-      const matches = bestMatches(features.chroma, features.bass, templates, {
-        guided: true,
-        expectedKey,
-        previousKey
-      });
-
-      const best = matches[0];
-      const expected = DATA.chords[expectedKey];
-
-      if (best) {
-        previousKey = best.key;
-        rows.push({
-          time: `${formatTime(start)}–${formatTime(end)}`,
-          expectedName: expected ? expected.name : expectedKey,
-          detectedKey: best.key,
-          detectedName: best.name,
-          score: best.score,
-          bass: features.bass,
-          mode: "strict guided"
-        });
-      }
-    });
-
-    return rows;
-  }
-
-  function frameCandidates(samples, sr, duration, templates){
-    const settings = engineSettings();
-    const frames = [];
-
-    for (let centre=settings.freeWindow/2; centre<duration; centre += settings.freeHop){
-      const start = Math.max(0, centre - settings.freeWindow / 2);
-      const end = Math.min(duration, centre + settings.freeWindow / 2);
-      const features = segmentChroma(samples, sr, start, end);
-
-      if (features.silent) continue;
-
-      const candidates = bestMatches(features.chroma, features.bass, templates)
-        .slice(0, Math.min(10, templates.length));
-
-      if (!candidates.length || candidates[0].score < 0.25) continue;
-
-      frames.push({
-        centre,
-        start,
-        end,
-        bass: features.bass,
-        candidates
-      });
-    }
-
-    return frames;
-  }
-
-  function smoothCandidates(frames){
-    if (!frames.length) return [];
-
-    const settings = engineSettings();
-
-    let paths = frames[0].candidates.map(c => ({
-      key: c.key,
-      score: c.score,
-      sequence: [c]
-    }));
-
-    for (let i=1; i<frames.length; i++){
-      const next = [];
-
-      frames[i].candidates.forEach(c => {
-        let bestPath = null;
-        let bestScore = -Infinity;
-
-        paths.forEach(path => {
-          const transition =
-            path.key === c.key
-              ? settings.stayBonus
-              : -settings.changePenalty;
-
-          const candidateScore = path.score + c.score + transition;
-
-          if (candidateScore > bestScore) {
-            bestScore = candidateScore;
-            bestPath = path;
-          }
-        });
-
-        next.push({
-          key: c.key,
-          score: bestScore,
-          sequence: [...bestPath.sequence, c]
-        });
-      });
-
-      next.sort((a,b) => b.score - a.score);
-      paths = next.slice(0, 18);
-    }
-
-    paths.sort((a,b) => b.score - a.score);
-    return paths[0] ? paths[0].sequence : [];
-  }
-
-  function mergeTimeline(sequence, frames){
-    const settings = engineSettings();
-    const rows = [];
-
-    sequence.forEach((c, i) => {
-      const frame = frames[i];
-      if (!frame) return;
-
-      const last = rows[rows.length - 1];
-
-      if (last && last.detectedKey === c.key) {
-        last.endSec = frame.end;
-        last.time = `${formatTime(last.startSec)}–${formatTime(last.endSec)}`;
-        last.score = (last.score * last.count + c.score) / (last.count + 1);
-        last.count += 1;
-        if (!last.bass && frame.bass) last.bass = frame.bass;
-      } else {
-        rows.push({
-          startSec: frame.start,
-          endSec: frame.end,
-          time: `${formatTime(frame.start)}–${formatTime(frame.end)}`,
-          expectedName: "",
-          detectedKey: c.key,
-          detectedName: c.name,
-          score: c.score,
-          bass: frame.bass,
-          mode: engineSettings().mode,
-          count: 1
-        });
-      }
-    });
-
-    const merged = [];
-
-    rows.forEach(row => {
-      const duration = row.endSec - row.startSec;
-
-      if (duration < settings.minDuration && merged.length) {
-        const prev = merged[merged.length - 1];
-        prev.endSec = row.endSec;
-        prev.time = `${formatTime(prev.startSec)}–${formatTime(prev.endSec)}`;
-        prev.score = (prev.score + row.score) / 2;
-      } else {
-        merged.push(row);
-      }
-    });
-
-    return merged.map(row => {
-      delete row.count;
-      return row;
-    });
-  }
-
-  function freeRows(buffer){
-    const samples = getMono(buffer);
-    const sr = buffer.sampleRate;
-    const duration = buffer.duration;
-    const templates = allTemplates();
-
-    const frames = frameCandidates(samples, sr, duration, templates);
-    const sequence = smoothCandidates(frames);
-    const rows = mergeTimeline(sequence, frames);
-
-    return rows.slice(0, 64);
-  }
-
-  async function decodeArrayBuffer(arrayBuffer){
-    const ctx = getAudioContext();
-    const copy = arrayBuffer.slice(0);
-    return await ctx.decodeAudioData(copy);
-  }
-
-  async function handleFile(file){
-    if (!file) return;
-    status(`Loading ${file.name}...`);
-    const arr = await file.arrayBuffer();
-    decodedBuffer = await decodeArrayBuffer(arr);
-
-    const audio = $("attemptAudio");
-    if (audio) audio.src = URL.createObjectURL(file);
-
-    status(`Loaded ${file.name}. Duration: ${decodedBuffer.duration.toFixed(1)} seconds.`);
-  }
-
-  async function startRecording(){
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      status("Live recording is not supported in this browser.");
-      return;
-    }
-
-    activeStream = await navigator.mediaDevices.getUserMedia({audio:true});
-    recordedChunks = [];
-
-    recorder = new MediaRecorder(activeStream);
-    recorder.ondataavailable = e => {
-      if (e.data && e.data.size) recordedChunks.push(e.data);
-    };
-
-    recorder.onstop = async () => {
-      const blob = new Blob(recordedChunks, {type: recorder.mimeType || "audio/webm"});
-      const arr = await blob.arrayBuffer();
-      decodedBuffer = await decodeArrayBuffer(arr);
-
-      const audio = $("attemptAudio");
-      if (audio) audio.src = URL.createObjectURL(blob);
-
-      activeStream.getTracks().forEach(t => t.stop());
-      activeStream = null;
-
-      $("recordAttempt").disabled = false;
-      $("stopAttempt").disabled = true;
-      status(`Recorded ${decodedBuffer.duration.toFixed(1)} seconds. Ready to analyze.`);
-    };
-
-    recorder.start();
-    $("recordAttempt").disabled = true;
-    $("stopAttempt").disabled = false;
-    status("Recording. Play slowly and let each chord ring.");
-  }
-
-  function stopRecording(){
-    if (recorder && recorder.state !== "inactive") recorder.stop();
-  }
-
-  function analyze(){
-    if (!decodedBuffer) {
-      status("Load an audio file or record a live attempt first.");
-      return;
-    }
-
-    const choice = $("attemptProgression").value;
-    status("Analyzing audio. This may take a few seconds...");
-
-    window.setTimeout(() => {
-      try {
-        let rows;
-        if (choice === "free") {
-          rows = freeRows(decodedBuffer);
-        } else {
-          rows = guidedRows(decodedBuffer, Number(choice));
-        }
-        renderResults(rows);
-        status(`Analysis complete. ${rows.length} segment${rows.length === 1 ? "" : "s"} returned.`);
-      } catch (err) {
-        console.error(err);
-        status("Analysis failed: " + err.message);
-      }
-    }, 60);
-  }
-
-  function clearAll(){
-    decodedBuffer = null;
-    recordedChunks = [];
-    $("attemptResults").innerHTML = "";
-    $("attemptFile").value = "";
-    $("attemptAudio").removeAttribute("src");
-    $("attemptAudio").load();
-    status("Cleared. Choose a progression, upload audio, or record a new attempt.");
-  }
-
-  function populateProgressions(){
-    const select = $("attemptProgression");
-    if (!select || typeof DATA === "undefined" || !DATA.progressions) return;
-
-    const options = [`<option value="free">Free scan, detect likely chords</option>`];
-
-    DATA.progressions.forEach((p, i) => {
-      const names = (p.steps || []).map(k => DATA.chords[k]?.name || k).join(" → ");
-      options.push(`<option value="${i}">${esc(p.title)} · ${esc(names)}</option>`);
-    });
-
-    select.innerHTML = options.join("");
-  }
-
-  function addHeroLink(){
-    const actions = document.querySelector(".hero-actions");
-    if (!actions || actions.querySelector('[href="#attempt-analyzer"]')) return;
-    const a = document.createElement("a");
-    a.className = "button";
-    a.href = "#attempt-analyzer";
-    a.textContent = "Analyze attempt";
-    actions.appendChild(a);
-  }
-
-  function init(){
-    populateProgressions();
-    addHeroLink();
-
-    $("attemptFile")?.addEventListener("change", e => handleFile(e.target.files[0]).catch(err => status("Could not load audio: " + err.message)));
-    $("recordAttempt")?.addEventListener("click", () => startRecording().catch(err => status("Recording failed: " + err.message)));
-    $("stopAttempt")?.addEventListener("click", stopRecording);
-    $("analyzeAttempt")?.addEventListener("click", analyze);
-    $("clearAttempt")?.addEventListener("click", clearAll);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-})();
-</script>
-<!-- guitar-attempt-analyzer:end -->
-
-<!-- guitar-note-first-analyzer:start -->
+<!-- guitar-unified-audio-analyzer:start -->
 <script>
 (function(){
   "use strict";
@@ -3094,7 +1850,7 @@ renderFilters();renderProgressions();renderLibrary();
     }[c]));
   }
   function status(msg){
-    const el = $("noteStatus");
+    const el = $("audioStatus");
     if (el) el.textContent = msg;
   }
   function audioContext(){
@@ -3142,38 +1898,86 @@ renderFilters();renderProgressions();renderLibrary();
     }
     return Math.max(0, q1*q1 + q2*q2 - q1*q2*coeff);
   }
-  function noteVectorForChord(key){
+  function formatTime(sec){
+    const m = Math.floor(sec/60);
+    const ss = Math.round(sec%60).toString().padStart(2,"0");
+    return `${m}:${ss}`;
+  }
+  function chordNoteVector(key){
     const chord = DATA.chords[key];
     const vec = Array(12).fill(0);
     if (!chord) return vec;
-
+    chord.frets.forEach((fret, stringIndex) => {
+      if (fret === "x" || fret === "X") return;
+      const f = Number(fret);
+      if (!Number.isFinite(f)) return;
+      vec[(TUNING[stringIndex] + f) % 12] = 1;
+    });
+    return vec;
+  }
+  function chordTemplate(key){
+    const chord = DATA.chords[key];
+    if (!chord) return null;
+    const vec = Array(12).fill(0);
+    let bass = "";
     chord.frets.forEach((fret, stringIndex) => {
       if (fret === "x" || fret === "X") return;
       const f = Number(fret);
       if (!Number.isFinite(f)) return;
       const midi = TUNING[stringIndex] + f;
-      vec[midi % 12] = 1;
+      if (!bass) bass = noteFromMidi(midi);
+      vec[midi % 12] += bass ? 1 : 1.2;
     });
+    return {
+      key,
+      name: chord.name || key,
+      quality: chord.q || chord.quality || "",
+      bass,
+      vec: norm(vec)
+    };
+  }
+  function engineSettings(){
+    const mode = $("audioEngine") ? $("audioEngine").value : "robust";
+    if (mode === "strum") return {mode, frameSize:2048, window:1.35, hop:.55, minDuration:.85, trim:.05};
+    if (mode === "arpeggio") return {mode, frameSize:8192, window:2.65, hop:.75, minDuration:1.55, trim:.14};
+    return {mode, frameSize:4096, window:2.05, hop:.65, minDuration:1.25, trim:.10};
+  }
+  function templateKeys(){
+    const all = Object.keys(DATA.chords);
+    const simple = new Set([
+      "Am_open","G","F","E","C_open","Dm","Em","A","A7","B7","E7",
+      "D7_open","G7_open","C7_open","Am7_open","Em7_open",
+      "Dsus2_open","Dsus4_open","Asus2_open","Asus4_open","Fmaj7","Fmaj7_open"
+    ]);
+    const choice = $("audioProgression") ? $("audioProgression").value : "free";
+    const scope = $("audioScope") ? $("audioScope").value : "simple";
+    if (choice !== "free" && DATA.progressions[Number(choice)]) {
+      return Array.from(new Set(DATA.progressions[Number(choice)].steps || []));
+    }
+    if (scope === "classical") return all.filter(k => (DATA.chords[k].libraryType || "classical") === "classical");
+    if (scope === "extended") return all;
+    return all.filter(k => simple.has(k));
+  }
+  function templates(){
+    const out = templateKeys().map(chordTemplate).filter(Boolean);
+    return out.length ? out : Object.keys(DATA.chords).map(chordTemplate).filter(Boolean);
+  }
+  function segmentEvidence(samples, sr, startSec, endSec){
+    const settings = engineSettings();
+    let start = Math.max(0, Math.floor(startSec * sr));
+    let end = Math.min(samples.length, Math.floor(endSec * sr));
+    if (end <= start) return {vec:Array(12).fill(0), notes:[], bass:"", silent:true};
 
-    return vec;
-  }
-  function chordNoteNames(key){
-    const vec = noteVectorForChord(key);
-    return vec.map((v,i)=>v ? NOTE_NAMES[i] : null).filter(Boolean);
-  }
-  function sensitivitySettings(){
-    const val = $("noteSensitivity") ? $("noteSensitivity").value : "normal";
-    if (val === "strict") return {threshold:.34, maxNotes:5};
-    if (val === "wide") return {threshold:.18, maxNotes:8};
-    return {threshold:.25, maxNotes:6};
-  }
-  function pitchClassEvidence(samples, sr, startSec, endSec){
-    const start = Math.max(0, Math.floor(startSec * sr));
-    const end = Math.min(samples.length, Math.floor(endSec * sr));
-    const lenAvailable = Math.max(1024, end - start);
-    const frameSize = Math.min(8192, Math.max(2048, 2 ** Math.floor(Math.log2(lenAvailable))));
-    const frames = Math.max(1, Math.min(8, Math.floor((endSec - startSec) / 0.28) || 1));
+    const rawDuration = (end - start) / sr;
+    const trim = Math.min(settings.trim, rawDuration < 1.2 ? .03 : settings.trim);
+    start += Math.floor((end-start)*trim);
+    end -= Math.floor((end-start)*trim);
+
+    const available = Math.max(1024, end-start);
+    const frameSize = Math.max(1024, Math.min(settings.frameSize, available));
+    const frames = Math.max(1, Math.min(8, Math.floor(rawDuration/.28) || 1));
     const vec = Array(12).fill(0);
+    const bassBins = Array(12).fill(0);
 
     let rmsSum = 0, rmsN = 0;
     for (let i=start; i<end; i+=8){
@@ -3182,23 +1986,24 @@ renderFilters();renderProgressions();renderLibrary();
       rmsN++;
     }
     const rms = Math.sqrt(rmsSum / Math.max(1,rmsN));
-    if (rms < 0.003) return {vec, rms, silent:true};
+    if (rms < .003) return {vec:Array(12).fill(0), notes:[], bass:"", silent:true};
 
     for (let frame=0; frame<frames; frame++){
-      const centre = start + Math.floor((frame+.5) * (end-start) / frames);
-      const frameStart = Math.max(start, Math.min(end-frameSize, centre - Math.floor(frameSize/2)));
+      const centre = start + Math.floor((frame+.5)*(end-start)/frames);
+      const fs = Math.max(start, Math.min(end-frameSize, centre - Math.floor(frameSize/2)));
 
       for (let midi=40; midi<=88; midi++){
         const freq = freqFromMidi(midi);
-        if (freq > sr * .48) continue;
+        if (freq > sr*.48) continue;
 
-        let power = goertzel(samples, frameStart, frameSize, freq, sr);
-        if (freq * 2 < sr * .48) power += .35 * goertzel(samples, frameStart, frameSize, freq*2, sr);
-        if (freq * 3 < sr * .48 && midi <= 76) power += .18 * goertzel(samples, frameStart, frameSize, freq*3, sr);
+        let power = goertzel(samples, fs, frameSize, freq, sr);
+        if (freq*2 < sr*.48) power += .38 * goertzel(samples, fs, frameSize, freq*2, sr);
+        if (freq*3 < sr*.48 && midi <= 76) power += .18 * goertzel(samples, fs, frameSize, freq*3, sr);
 
         const pc = midi % 12;
-        const weight = midi < 52 ? 1.18 : 1.0;
-        vec[pc] += Math.log1p(power) * weight;
+        const evidence = Math.log1p(power) * (midi < 52 ? 1.16 : 1);
+        vec[pc] += evidence;
+        if (midi >= 40 && midi <= 59) bassBins[pc] += evidence * (midi < 48 ? 1.22 : 1);
       }
     }
 
@@ -3206,438 +2011,322 @@ renderFilters();renderProgressions();renderLibrary();
     const floor = sorted[3] || 0;
     for (let i=0;i<12;i++) vec[i] = Math.max(0, vec[i] - floor*.55);
 
-    return {vec, rms, silent:false};
-  }
-  function topNotes(vec){
-    const settings = sensitivitySettings();
+    let bassPc = -1, bassValue = 0;
+    bassBins.forEach((v,i) => {
+      if (v > bassValue) {
+        bassValue = v;
+        bassPc = i;
+      }
+    });
+
     const max = Math.max(...vec);
-    if (!max) return [];
-
-    return vec
+    const notes = max ? vec
       .map((v,i)=>({pc:i, note:NOTE_NAMES[i], value:v, strength:v/max}))
-      .filter(x => x.strength >= settings.threshold)
+      .filter(n => n.strength >= .24)
       .sort((a,b)=>b.value-a.value)
-      .slice(0, settings.maxNotes);
-  }
-  function globalNotes(buf){
-    const samples = mono(buf);
-    const sr = buf.sampleRate;
-    const evidence = pitchClassEvidence(samples, sr, 0, buf.duration);
-    const notes = topNotes(evidence.vec);
-    return {notes, vector:norm(evidence.vec)};
-  }
-  function timelineNotes(buf){
-    const samples = mono(buf);
-    const sr = buf.sampleRate;
-    const win = buf.duration > 18 ? 2.5 : 1.8;
-    const hop = win * .85;
-    const rows = [];
+      .slice(0,6) : [];
 
-    for (let start=0; start<buf.duration; start += hop){
-      const end = Math.min(buf.duration, start + win);
-      const evidence = pitchClassEvidence(samples, sr, start, end);
+    return {
+      vec:norm(vec),
+      notes,
+      bass:bassPc >= 0 ? NOTE_NAMES[bassPc] : "",
+      silent:false
+    };
+  }
+  function chordComplexity(t){
+    const chord = DATA.chords[t.key] || {};
+    const txt = `${t.name || ""} ${t.quality || ""}`.toLowerCase();
+    let c = 0;
+    if (/maj7|m7|dim|°/.test(txt)) c += 2;
+    if (/add|sus|9|11|13|♯|#|♭|b9|altered/.test(txt)) c += 2;
+    if ((t.name || "").includes("/") || (t.quality || "").includes("slash")) c += 1;
+    if (chord.libraryType === "extended") c += 1;
+    return c;
+  }
+  function bestMatches(vec, bass, ts, context = {}){
+    const scope = $("audioScope") ? $("audioScope").value : "simple";
+    return ts.map(t => {
+      let score = dot(vec, t.vec);
+      if (bass && t.bass) score += bass === t.bass ? .08 : -.025;
+      if (context.expectedKey && t.key === context.expectedKey) score += .055;
+      if (context.previousKey && t.key === context.previousKey) score += .018;
+      const penalty = context.guided ? .006 : (scope === "extended" ? .008 : .025);
+      score -= chordComplexity(t) * penalty;
+      return {...t, score:Math.max(0, Math.min(1, score))};
+    }).sort((a,b)=>b.score-a.score);
+  }
+  function guidedRows(buf){
+    const choice = Number($("audioProgression").value);
+    const progression = DATA.progressions[choice];
+    const samples = mono(buf);
+    const sr = buf.sampleRate;
+    const steps = progression.steps || [];
+    const seg = buf.duration / Math.max(1, steps.length);
+    const ts = templates();
+    let previousKey = "";
+    return steps.map((expectedKey, i) => {
+      const start = i*seg;
+      const end = (i+1)*seg;
+      const evidence = segmentEvidence(samples, sr, start, end);
+      const best = bestMatches(evidence.vec, evidence.bass, ts, {guided:true, expectedKey, previousKey})[0];
+      previousKey = best ? best.key : previousKey;
+      return {
+        start, end,
+        time:`${formatTime(start)}–${formatTime(end)}`,
+        expectedName:DATA.chords[expectedKey]?.name || expectedKey,
+        key:best?.key || expectedKey,
+        name:best?.name || DATA.chords[expectedKey]?.name || expectedKey,
+        score:best?.score || 0,
+        bass:evidence.bass,
+        notes:evidence.notes,
+        mode:"strict guided"
+      };
+    });
+  }
+  function freeRows(buf){
+    const settings = engineSettings();
+    const samples = mono(buf);
+    const sr = buf.sampleRate;
+    const ts = templates();
+    const rough = [];
+
+    for (let centre=settings.window/2; centre<buf.duration; centre += settings.hop){
+      const start = Math.max(0, centre - settings.window/2);
+      const end = Math.min(buf.duration, centre + settings.window/2);
+      const evidence = segmentEvidence(samples, sr, start, end);
       if (evidence.silent) continue;
+      const best = bestMatches(evidence.vec, evidence.bass, ts)[0];
+      if (!best || best.score < .25) continue;
+      rough.push({start,end,time:`${formatTime(start)}–${formatTime(end)}`,key:best.key,name:best.name,score:best.score,bass:evidence.bass,notes:evidence.notes,mode:settings.mode});
+    }
 
-      const notes = topNotes(evidence.vec).slice(0,4);
-      if (!notes.length) continue;
-
-      const last = rows[rows.length - 1];
-      const label = notes.map(n=>n.note).join(" ");
-      if (last && last.label === label) {
-        last.end = end;
+    const merged = [];
+    rough.forEach(r => {
+      const last = merged[merged.length-1];
+      if (last && last.key === r.key) {
+        last.end = r.end;
+        last.time = `${formatTime(last.start)}–${formatTime(last.end)}`;
+        last.score = (last.score + r.score)/2;
+        last.notes = r.notes.length > last.notes.length ? r.notes : last.notes;
+      } else if (last && (r.end-r.start) < settings.minDuration) {
+        last.end = r.end;
         last.time = `${formatTime(last.start)}–${formatTime(last.end)}`;
       } else {
-        rows.push({
-          start,
-          end,
-          time:`${formatTime(start)}–${formatTime(end)}`,
-          label,
-          notes
-        });
+        merged.push({...r});
       }
-    }
-
-    return rows;
-  }
-  function formatTime(sec){
-    const m = Math.floor(sec/60);
-    const s = Math.round(sec%60).toString().padStart(2,"0");
-    return `${m}:${s}`;
-  }
-  function chordMatches(noteVector){
-    const target = $("noteTargetChord") ? $("noteTargetChord").value : "auto";
-    const keys = Object.keys(DATA.chords);
-    const ranked = keys.map(key => {
-      const chordVecRaw = noteVectorForChord(key);
-      const chordVec = norm(chordVecRaw);
-      const score = dot(noteVector, chordVec);
-      const detectedSet = new Set(noteVector.map((v,i)=>v>.10 ? i : null).filter(v=>v!==null));
-      const chordSet = new Set(chordVecRaw.map((v,i)=>v ? i : null).filter(v=>v!==null));
-
-      const missing = [...chordSet].filter(pc => !detectedSet.has(pc)).map(pc => NOTE_NAMES[pc]);
-      const extra = [...detectedSet].filter(pc => !chordSet.has(pc)).map(pc => NOTE_NAMES[pc]);
-
-      const chord = DATA.chords[key];
-      return {
-        key,
-        name: chord.name || key,
-        library: chord.libraryLabel || ((chord.libraryType || "classical") === "extended" ? "Extended detection" : "Classical study"),
-        score,
-        missing,
-        extra,
-        notes: chordNoteNames(key)
-      };
-    }).sort((a,b)=>b.score-a.score);
-
-    if (target !== "auto") {
-      const selected = ranked.find(r => r.key === target);
-      return selected ? [selected, ...ranked.filter(r=>r.key!==target).slice(0,4)] : ranked.slice(0,5);
-    }
-
-    return ranked.slice(0,5);
-  }
-  // guitar-note-tab:start
-  function pcFromNoteName(name){
-    const clean = String(name || "")
-      .replace("♯", "#")
-      .replace("♭", "b")
-      .trim();
-
-    const map = {
-      "C":0, "C#":1, "Db":1,
-      "D":2, "D#":3, "Eb":3,
-      "E":4,
-      "F":5, "F#":6, "Gb":6,
-      "G":7, "G#":8, "Ab":8,
-      "A":9, "A#":10, "Bb":10,
-      "B":11
-    };
-
-    return map[clean] ?? -1;
-  }
-
-  function vectorFromDetectedNotes(notes){
-    const vec = Array(12).fill(0);
-    (notes || []).forEach(n => {
-      const pc = typeof n.pc === "number" ? n.pc : pcFromNoteName(n.note);
-      if (pc >= 0) vec[pc] = Math.max(vec[pc], n.strength || 1);
     });
-    return norm(vec);
+
+    return merged.slice(0,64);
   }
-
-  function bestChordForVector(vec){
-    const target = $("noteTargetChord") ? $("noteTargetChord").value : "auto";
-
-    if (target !== "auto" && DATA.chords[target]) {
-      return {
-        key: target,
-        name: DATA.chords[target].name || target,
-        score: 1,
-        selected: true
-      };
-    }
-
-    const ranked = Object.keys(DATA.chords).map(key => {
+  function globalNotes(rows){
+    const accum = Array(12).fill(0);
+    rows.forEach(row => {
+      (row.notes || []).forEach(n => {
+        accum[n.pc] += n.strength || 0;
+      });
+    });
+    const max = Math.max(...accum);
+    return max ? accum.map((v,i)=>({pc:i,note:NOTE_NAMES[i],strength:v/max,value:v}))
+      .filter(n=>n.strength >= .20)
+      .sort((a,b)=>b.value-a.value)
+      .slice(0,8) : [];
+  }
+  function chordNotes(key){
+    const vec = chordNoteVector(key);
+    return vec.map((v,i)=>v ? NOTE_NAMES[i] : null).filter(Boolean);
+  }
+  function chordFitCandidates(noteList){
+    const vec = Array(12).fill(0);
+    noteList.forEach(n => vec[n.pc] = Math.max(vec[n.pc], n.strength || 1));
+    const nvec = norm(vec);
+    return Object.keys(DATA.chords).map(key => {
       const chord = DATA.chords[key];
-      const chordVec = norm(noteVectorForChord(key));
-      let score = dot(vec, chordVec);
-
-      const label = `${chord.name || ""} ${chord.q || ""}`.toLowerCase();
-      const isExtended = chord.libraryType === "extended";
-      const complex = /add|sus|maj7|m7|9|11|13|♯|#|♭|dim|°|\//.test(label);
-      if (isExtended) score -= 0.025;
-      if (complex) score -= 0.025;
-
+      const cvecRaw = chordNoteVector(key);
+      const cvec = norm(cvecRaw);
+      const score = dot(nvec, cvec);
+      const detected = new Set(vec.map((v,i)=>v>.10 ? i : null).filter(v=>v!==null));
+      const chordSet = new Set(cvecRaw.map((v,i)=>v ? i : null).filter(v=>v!==null));
       return {
         key,
-        name: chord.name || key,
-        score
+        name:chord.name || key,
+        library:chord.libraryLabel || ((chord.libraryType || "classical") === "extended" ? "Extended detection" : "Classical study"),
+        score,
+        notes:chordNotes(key),
+        missing:[...chordSet].filter(pc => !detected.has(pc)).map(pc => NOTE_NAMES[pc]),
+        extra:[...detected].filter(pc => !chordSet.has(pc)).map(pc => NOTE_NAMES[pc])
       };
-    }).sort((a,b) => b.score - a.score);
-
-    return ranked[0] || null;
+    }).sort((a,b)=>b.score-a.score).slice(0,5);
   }
-
-  function fretsForChordKey(key){
+  function tabFrets(key){
     const chord = DATA.chords[key];
     if (!chord || !Array.isArray(chord.frets)) return ["x","x","x","x","x","x"];
-    return chord.frets.map(f => f === "x" || f === "X" ? "x" : String(f));
+    return chord.frets.map(f => f === "x" || f === "X" ? "x" : String(f)).slice().reverse();
   }
+  function tabText(rows){
+    const names = ["e","B","G","D","A","E"];
+    const width = 11;
+    const cols = rows.slice(0,24).map((r,i) => ({
+      label:String(i+1),
+      time:r.time,
+      name:r.name,
+      frets:tabFrets(r.key)
+    }));
 
-  function tabColumnForChord(key){
-    return fretsForChordKey(key).slice().reverse();
+    const line = (label, getter) => label + cols.map(c => getter(c).slice(0,width-1).padEnd(width," ")).join("");
+
+    const headerTime = line("time ", c => c.time.replace("–","-"));
+    const headerChord = line("chrd ", c => c.name);
+    const stringLines = names.map((name, rowIndex) => {
+      return name + "|   " + cols.map(c => {
+        const f = c.frets[rowIndex] ?? "x";
+        return ("--" + f + "-").padEnd(width,"-");
+      }).join("");
+    });
+
+    return [headerTime, headerChord, ...stringLines].join("\n");
   }
-
-  function midiColumnForChord(key){
+  function midiForChord(key){
     const chord = DATA.chords[key];
     if (!chord || !Array.isArray(chord.frets)) return [];
-
-    const midis = [];
+    const out = [];
     chord.frets.forEach((fret, stringIndex) => {
       if (fret === "x" || fret === "X") return;
       const f = Number(fret);
-      if (!Number.isFinite(f)) return;
-      midis.push(TUNING[stringIndex] + f);
+      if (Number.isFinite(f)) out.push(TUNING[stringIndex] + f);
     });
-
-    return Array.from(new Set(midis)).sort((a,b) => a - b);
+    return Array.from(new Set(out)).sort((a,b)=>a-b);
   }
-
-  function formatTabColumns(columns){
-    const stringNames = ["e","B","G","D","A","E"];
-    const width = 5;
-
-    const header = "    " + columns.map(c => {
-      const label = c.label.length > width - 1 ? c.label.slice(0, width - 1) : c.label;
-      return label.padEnd(width, " ");
-    }).join("");
-
-    const lines = stringNames.map((name, rowIndex) => {
-      const cells = columns.map(c => {
-        const fret = c.frets[rowIndex] ?? "x";
-        const value = fret === "x" ? "x" : String(fret);
-        return ("--" + value + "-").padEnd(width, "-");
-      }).join("");
-
-      return `${name}|${cells}`;
-    });
-
-    return [header, ...lines].join("\n");
-  }
-
   function pitchSpell(midi){
-    const written = midi + 12; // guitar notation is conventionally written one octave above sounding pitch
+    const written = midi + 12;
     const pc = ((written % 12) + 12) % 12;
-    const octave = Math.floor(written / 12) - 1;
-
-    const spellings = {
-      0:["C",""],
-      1:["C","♯"],
-      2:["D",""],
-      3:["E","♭"],
-      4:["E",""],
-      5:["F",""],
-      6:["F","♯"],
-      7:["G",""],
-      8:["G","♯"],
-      9:["A",""],
-      10:["B","♭"],
-      11:["B",""]
-    };
-
-    const [letter, accidental] = spellings[pc];
-    return {letter, accidental, octave, written};
+    const octave = Math.floor(written/12)-1;
+    const spell = {
+      0:["C",""],1:["C","♯"],2:["D",""],3:["E","♭"],4:["E",""],5:["F",""],
+      6:["F","♯"],7:["G",""],8:["G","♯"],9:["A",""],10:["B","♭"],11:["B",""]
+    }[pc];
+    return {letter:spell[0], accidental:spell[1], octave};
   }
-
-  function staffYForMidi(midi, top, space){
-    const pitch = pitchSpell(midi);
-    const letterIndex = {C:0,D:1,E:2,F:3,G:4,A:5,B:6}[pitch.letter];
-    const e4Index = 4 * 7 + 2;
-    const noteIndex = pitch.octave * 7 + letterIndex;
-    const stepsAboveE4 = noteIndex - e4Index;
-    const bottomLine = top + 4 * space;
-    const y = bottomLine - stepsAboveE4 * (space / 2);
-    return {y, pitch, stepsAboveE4};
+  function staffY(midi, top, space){
+    const p = pitchSpell(midi);
+    const li = {C:0,D:1,E:2,F:3,G:4,A:5,B:6}[p.letter];
+    const e4 = 4*7+2;
+    const ni = p.octave*7+li;
+    const steps = ni-e4;
+    const bottom = top + 4*space;
+    return {y:bottom - steps*(space/2), pitch:p};
   }
-
-  function sheetLedgerLines(x, y, top, space){
-    const bottom = top + 4 * space;
+  function ledger(x,y,top,space){
+    const bottom = top+4*space;
     const lines = [];
-
-    if (y > bottom + space / 2) {
-      for (let ly = bottom + space; ly <= y + 1; ly += space) {
-        lines.push(`<line class="sheet-ledger" x1="${x - 13}" y1="${ly.toFixed(1)}" x2="${x + 13}" y2="${ly.toFixed(1)}"></line>`);
-      }
-    }
-
-    if (y < top - space / 2) {
-      for (let ly = top - space; ly >= y - 1; ly -= space) {
-        lines.push(`<line class="sheet-ledger" x1="${x - 13}" y1="${ly.toFixed(1)}" x2="${x + 13}" y2="${ly.toFixed(1)}"></line>`);
-      }
-    }
-
+    if (y > bottom + space/2) for (let ly=bottom+space; ly<=y+1; ly+=space) lines.push(`<line class="sheet-ledger" x1="${x-13}" y1="${ly.toFixed(1)}" x2="${x+13}" y2="${ly.toFixed(1)}"></line>`);
+    if (y < top - space/2) for (let ly=top-space; ly>=y-1; ly-=space) lines.push(`<line class="sheet-ledger" x1="${x-13}" y1="${ly.toFixed(1)}" x2="${x+13}" y2="${ly.toFixed(1)}"></line>`);
     return lines.join("");
   }
-
-  function renderSheetSvg(columns){
+  function sheetSvg(rows){
+    const cols = rows.slice(0,24);
     const colW = 72;
-    const width = Math.max(540, 110 + columns.length * colW);
+    const width = Math.max(540, 110 + cols.length*colW);
     const height = 210;
     const top = 82;
     const space = 12;
     const left = 72;
-    const right = width - 28;
+    const right = width-28;
+    const staff = Array.from({length:5}, (_,i) => `<line class="sheet-staff" x1="${left}" y1="${top+i*space}" x2="${right}" y2="${top+i*space}"></line>`).join("");
 
-    const staff = Array.from({length:5}, (_, i) => {
-      const y = top + i * space;
-      return `<line class="sheet-staff" x1="${left}" y1="${y}" x2="${right}" y2="${y}"></line>`;
-    }).join("");
-
-    const notes = columns.map((col, i) => {
-      const x = 104 + i * colW;
-      const midis = midiColumnForChord(col.key);
-      const chordName = col.name || "";
-
+    const notes = cols.map((row,i) => {
+      const x = 104 + i*colW;
+      const midis = midiForChord(row.key);
+      const ys = midis.map(m => staffY(m,top,space).y);
       const noteheads = midis.map(midi => {
-        const {y, pitch} = staffYForMidi(midi, top, space);
-        const acc = pitch.accidental
-          ? `<text class="sheet-accidental" x="${x - 22}" y="${y + 5}">${pitch.accidental}</text>`
-          : "";
-
-        return `
-          ${sheetLedgerLines(x, y, top, space)}
-          ${acc}
-          <ellipse class="sheet-note" cx="${x}" cy="${y.toFixed(1)}" rx="6.8" ry="4.7" transform="rotate(-18 ${x} ${y.toFixed(1)})"></ellipse>
-        `;
+        const {y,pitch} = staffY(midi,top,space);
+        const acc = pitch.accidental ? `<text class="sheet-accidental" x="${x-22}" y="${y+5}">${pitch.accidental}</text>` : "";
+        return `${ledger(x,y,top,space)}${acc}<ellipse class="sheet-note" cx="${x}" cy="${y.toFixed(1)}" rx="6.8" ry="4.7" transform="rotate(-18 ${x} ${y.toFixed(1)})"></ellipse>`;
       }).join("");
-
-      const ys = midis.map(midi => staffYForMidi(midi, top, space).y);
       const minY = Math.min(...ys, top);
-      const maxY = Math.max(...ys, top + 4 * space);
-      const stemX = x + 7;
-      const stem = midis.length
-        ? `<line class="sheet-stem" x1="${stemX}" y1="${Math.min(maxY, top + 4 * space) + 1}" x2="${stemX}" y2="${Math.min(minY - 34, top - 8)}"></line>`
-        : "";
-
-      return `
-        <text class="sheet-text" x="${x - 18}" y="32">${esc(chordName)}</text>
-        <text class="sheet-note-label" x="${x - 9}" y="52">${esc(col.time || "")}</text>
-        ${stem}
-        ${noteheads}
-      `;
+      const maxY = Math.max(...ys, top+4*space);
+      const stem = midis.length ? `<line class="sheet-stem" x1="${x+7}" y1="${Math.min(maxY,top+4*space)+1}" x2="${x+7}" y2="${Math.min(minY-34,top-8)}"></line>` : "";
+      return `<text class="sheet-text" x="${x-18}" y="32">${esc(row.name)}</text><text class="sheet-note-label" x="${x-9}" y="52">${esc(row.time)}</text>${stem}${noteheads}`;
     }).join("");
 
-    return `
-      <svg class="sheet-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Estimated standard notation">
-        <text class="sheet-symbol" x="28" y="${top + 42}">𝄞</text>
-        ${staff}
-        ${notes}
-      </svg>
-    `;
+    return `<svg class="sheet-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="Estimated standard notation"><text class="sheet-symbol" x="28" y="${top+42}">𝄞</text>${staff}${notes}</svg>`;
   }
-
-  function buildEvidenceTab(timeline, globalNotes){
-    const columns = [];
-
-    if (timeline && timeline.length) {
-      timeline.slice(0, 24).forEach((row, i) => {
-        const vec = vectorFromDetectedNotes(row.notes || []);
-        const best = bestChordForVector(vec);
-        if (!best) return;
-
-        columns.push({
-          label: String(i + 1),
-          time: row.time,
-          key: best.key,
-          name: best.name,
-          score: best.score,
-          frets: tabColumnForChord(best.key)
-        });
-      });
-    }
-
-    if (!columns.length) {
-      const best = bestChordForVector(vectorFromDetectedNotes(globalNotes || []));
-      if (best) {
-        columns.push({
-          label: "1",
-          time: "whole attempt",
-          key: best.key,
-          name: best.name,
-          score: best.score,
-          frets: tabColumnForChord(best.key)
-        });
-      }
-    }
-
-    return columns;
+  function renderDiagram(key){
+    try {
+      if (typeof chordCard === "function") return chordCard(key);
+    } catch(e) {}
+    return `<article class="chord"><div class="chord-title">${esc(DATA.chords[key]?.name || key)}</div></article>`;
   }
-
-  function renderTabLegend(columns){
-    return columns.map(c => `
-      <span class="tab-chip">
-        <strong>${esc(c.label)}</strong>
-        ${esc(c.name)}
-        <span>${esc(c.time)}</span>
-      </span>
-    `).join("");
-  }
-
-  function render(results){
-    const root = $("noteResults");
-    if (!root) return;
-
-    const {notes, vector, timeline, matches} = results;
-    const tabColumns = buildEvidenceTab(timeline, notes);
-    const tabText = tabColumns.length
-      ? formatTabColumns(tabColumns)
-      : "No likely tab could be produced.";
-    const sheetSvg = tabColumns.length
-      ? renderSheetSvg(tabColumns)
-      : "<p>No likely notation could be produced.</p>";
-
+  function render(rows){
+    const root = $("audioResults");
+    const notes = globalNotes(rows);
+    const matches = chordFitCandidates(notes);
+    const tab = tabText(rows);
     root.innerHTML = `
-      <section class="note-summary">
+      <section class="audio-section-card">
         <h3>Detected note evidence</h3>
         <div class="note-cloud">
           ${notes.map(n => `<span class="note-pill">${esc(n.note)} <small>${Math.round(n.strength*100)}%</small></span>`).join("") || `<span class="note-pill">No clear notes</span>`}
         </div>
       </section>
 
-      <section class="sheet-card">
-        <h3>Estimated standard notation</h3>
-        <p>Treble staff for guitar notation. Guitar sounds one octave lower than written. This is estimated from detected note evidence.</p>
-        <div class="sheet-scroll">
-          ${sheetSvg}
-        </div>
-      </section>
-
-      <section class="note-tab-card">
-        <h3>Likely tablature from note evidence</h3>
-        <p>This is estimated tab. Audio can suggest likely chord tones, but it cannot prove the exact string and fret choice.</p>
-        <div class="tab-scroll">
-          <pre class="tab-block">${esc(tabText)}</pre>
-        </div>
-        <div class="tab-legend">
-          ${renderTabLegend(tabColumns)}
-        </div>
-      </section>
-
-      <section>
-        <div class="attempt-timeline-head">
-          <strong>Chord fit from notes</strong>
-          <span>${matches.length} candidate${matches.length === 1 ? "" : "s"}</span>
-        </div>
-        <div class="note-match-grid compact">
-          ${matches.map(m => {
-            const score = Math.max(4, Math.min(100, Math.round(m.score*100)));
-            return `
-              <article class="note-match">
-                <h4>${esc(m.name)}</h4>
-                <p><strong>Library:</strong> ${esc(m.library)}</p>
-                <p><strong>Chord notes:</strong> ${esc(m.notes.join(" "))}</p>
-                <p><strong>Missing:</strong> ${esc(m.missing.join(" ") || "none")}</p>
-                <p><strong>Extra colour:</strong> ${esc(m.extra.join(" ") || "none")}</p>
-                <div class="note-score"><span style="--score:${score}%"></span></div>
-              </article>
-            `;
+      <section class="audio-section-card">
+        <h3>Chord timeline</h3>
+        <p>Estimated chord segments from the same audio evidence.</p>
+        <div class="audio-timeline">
+          ${rows.map(row => {
+            const score = Math.max(4, Math.min(100, Math.round(row.score*100)));
+            return `<article class="audio-tile">
+              <div>
+                <h4>${esc(row.name)}</h4>
+                <p class="audio-time">${esc(row.time)}</p>
+                ${row.expectedName ? `<p><strong>Expected:</strong> ${esc(row.expectedName)}</p>` : ""}
+                <p><strong>Bass:</strong> ${esc(row.bass || "unclear")}</p>
+                <p><strong>Notes:</strong> ${esc((row.notes || []).slice(0,4).map(n => n.note).join(" ") || "unclear")}</p>
+                <div class="audio-score"><span style="--score:${score}%"></span></div>
+              </div>
+              <div class="audio-mini">${renderDiagram(row.key)}</div>
+            </article>`;
           }).join("")}
+        </div>
+      </section>
+
+      <section class="audio-section-card">
+        <h3>Timed tablature</h3>
+        <p>Estimated tab with timing and chord labels above each column. Audio cannot prove exact fingering, so treat this as a playable reconstruction.</p>
+        <div class="tab-scroll"><pre class="tab-block">${esc(tab)}</pre></div>
+        <div class="tab-legend">
+          ${rows.slice(0,24).map((r,i) => `<span class="tab-chip"><strong>${i+1}</strong> ${esc(r.name)} <span>${esc(r.time)}</span></span>`).join("")}
+        </div>
+      </section>
+
+      <section class="audio-section-card">
+        <h3>Estimated standard notation</h3>
+        <p>Treble staff for guitar notation. Guitar sounds one octave lower than written.</p>
+        <div class="sheet-scroll">${sheetSvg(rows)}</div>
+      </section>
+
+      <section class="audio-section-card">
+        <h3>Chord fit from notes</h3>
+        <div class="match-grid">
+          ${matches.map(m => `<article class="match-card">
+            <h4>${esc(m.name)}</h4>
+            <p><strong>Library:</strong> ${esc(m.library)}</p>
+            <p><strong>Chord notes:</strong> ${esc(m.notes.join(" "))}</p>
+            <p><strong>Missing:</strong> ${esc(m.missing.join(" ") || "none")}</p>
+            <p><strong>Extra colour:</strong> ${esc(m.extra.join(" ") || "none")}</p>
+          </article>`).join("")}
         </div>
       </section>
     `;
   }
-  // guitar-note-tab:end
-
-
   async function decode(arrayBuffer){
-    const ac = audioContext();
-    return await ac.decodeAudioData(arrayBuffer.slice(0));
+    return await audioContext().decodeAudioData(arrayBuffer.slice(0));
   }
   async function loadFile(file){
     if (!file) return;
     status(`Loading ${file.name}...`);
     buffer = await decode(await file.arrayBuffer());
-    $("noteAudio").src = URL.createObjectURL(file);
+    $("audioPlayback").src = URL.createObjectURL(file);
     status(`Loaded ${file.name}. Duration: ${buffer.duration.toFixed(1)} seconds.`);
   }
   async function startRecording(){
@@ -3652,18 +2341,18 @@ renderFilters();renderProgressions();renderLibrary();
       if (e.data && e.data.size) chunks.push(e.data);
     };
     recorder.onstop = async () => {
-      const blob = new Blob(chunks, {type: recorder.mimeType || "audio/webm"});
+      const blob = new Blob(chunks, {type:recorder.mimeType || "audio/webm"});
       buffer = await decode(await blob.arrayBuffer());
-      $("noteAudio").src = URL.createObjectURL(blob);
+      $("audioPlayback").src = URL.createObjectURL(blob);
       stream.getTracks().forEach(t => t.stop());
-      $("noteRecord").disabled = false;
-      $("noteStop").disabled = true;
-      status(`Recorded ${buffer.duration.toFixed(1)} seconds. Ready to detect notes.`);
+      $("audioRecord").disabled = false;
+      $("audioStop").disabled = true;
+      status(`Recorded ${buffer.duration.toFixed(1)} seconds. Ready to analyze.`);
     };
     recorder.start();
-    $("noteRecord").disabled = true;
-    $("noteStop").disabled = false;
-    status("Recording note evidence. Play one chord or short chord attempt.");
+    $("audioRecord").disabled = true;
+    $("audioStop").disabled = false;
+    status("Recording. Play slowly and let each chord ring.");
   }
   function stopRecording(){
     if (recorder && recorder.state !== "inactive") recorder.stop();
@@ -3673,65 +2362,61 @@ renderFilters();renderProgressions();renderLibrary();
       status("Upload or record audio first.");
       return;
     }
-    status("Detecting notes and checking chord fit...");
+    status("Analyzing audio...");
     setTimeout(() => {
       try {
-        const global = globalNotes(buffer);
-        const timeline = timelineNotes(buffer);
-        const matches = chordMatches(global.vector);
-        render({notes:global.notes, vector:global.vector, timeline, matches});
-        status("Note-first analysis complete.");
-      } catch (err) {
+        const choice = $("audioProgression").value;
+        const rows = choice === "free" ? freeRows(buffer) : guidedRows(buffer);
+        render(rows);
+        status(`Analysis complete. ${rows.length} timed segment${rows.length === 1 ? "" : "s"} returned.`);
+      } catch(err) {
         console.error(err);
-        status("Note detection failed: " + err.message);
+        status("Analysis failed: " + err.message);
       }
     }, 60);
   }
   function clear(){
     buffer = null;
-    $("noteResults").innerHTML = "";
-    $("noteFile").value = "";
-    $("noteAudio").removeAttribute("src");
-    $("noteAudio").load();
+    chunks = [];
+    $("audioResults").innerHTML = "";
+    $("audioFile").value = "";
+    $("audioPlayback").removeAttribute("src");
+    $("audioPlayback").load();
     status("Cleared.");
   }
-  function populateChordSelect(){
-    const select = $("noteTargetChord");
-    if (!select || typeof DATA === "undefined" || !DATA.chords) return;
-    const keys = Object.keys(DATA.chords).sort((a,b) => {
-      const an = DATA.chords[a]?.name || a;
-      const bn = DATA.chords[b]?.name || b;
-      return an.localeCompare(bn, undefined, {numeric:true, sensitivity:"base"});
+  function populateProgressions(){
+    const select = $("audioProgression");
+    if (!select || !DATA.progressions) return;
+    const opts = [`<option value="free">Free scan, detect likely chords</option>`];
+    DATA.progressions.forEach((p,i) => {
+      const names = (p.steps || []).map(k => DATA.chords[k]?.name || k).join(" → ");
+      opts.push(`<option value="${i}">${esc(p.title)} · ${esc(names)}</option>`);
     });
-    select.innerHTML = `<option value="auto">Auto-match best chord</option>` + keys.map(k => {
-      const c = DATA.chords[k];
-      const lib = c.libraryLabel || ((c.libraryType || "classical") === "extended" ? "Extended detection" : "Classical study");
-      return `<option value="${esc(k)}">${esc(c.name || k)} · ${esc(lib)}</option>`;
-    }).join("");
+    select.innerHTML = opts.join("");
   }
   function addHeroLink(){
     const actions = document.querySelector(".hero-actions");
-    if (!actions || actions.querySelector('[href="#note-analyzer"]')) return;
+    if (!actions || actions.querySelector('[href="#audio-analyzer"]')) return;
     const a = document.createElement("a");
     a.className = "button";
-    a.href = "#note-analyzer";
-    a.textContent = "Detect notes";
+    a.href = "#audio-analyzer";
+    a.textContent = "Analyze audio";
     actions.appendChild(a);
   }
   function init(){
-    populateChordSelect();
+    populateProgressions();
     addHeroLink();
-    $("noteFile")?.addEventListener("change", e => loadFile(e.target.files[0]).catch(err => status("Could not load audio: " + err.message)));
-    $("noteRecord")?.addEventListener("click", () => startRecording().catch(err => status("Recording failed: " + err.message)));
-    $("noteStop")?.addEventListener("click", stopRecording);
-    $("noteAnalyze")?.addEventListener("click", analyze);
-    $("noteClear")?.addEventListener("click", clear);
+    $("audioFile")?.addEventListener("change", e => loadFile(e.target.files[0]).catch(err => status("Could not load audio: " + err.message)));
+    $("audioRecord")?.addEventListener("click", () => startRecording().catch(err => status("Recording failed: " + err.message)));
+    $("audioStop")?.addEventListener("click", stopRecording);
+    $("audioAnalyze")?.addEventListener("click", analyze);
+    $("audioClear")?.addEventListener("click", clear);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
 </script>
-<!-- guitar-note-first-analyzer:end -->
+<!-- guitar-unified-audio-analyzer:end -->
 
 </body>
 </html>
