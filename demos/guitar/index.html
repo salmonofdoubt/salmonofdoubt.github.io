@@ -1104,6 +1104,205 @@
 }
 /* guitar-attempt-analyzer:end */
 
+
+/* guitar-analyzer-timeline:start */
+
+/* Analyzer results are a time sequence, not large report cards */
+.analyzer-results{
+  display:block !important;
+  margin-top:18px !important;
+}
+
+.attempt-timeline-head{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.attempt-timeline-head strong{
+  color:var(--ink);
+  font-size:15px;
+}
+
+.attempt-timeline{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(225px, 1fr));
+  gap:10px;
+}
+
+.attempt-tile{
+  min-width:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 88px;
+  gap:10px;
+  align-items:center;
+  border:1px solid rgba(24,198,216,.28);
+  background:linear-gradient(180deg,rgba(10,23,34,.88),rgba(5,10,15,.94));
+  border-radius:16px;
+  padding:10px;
+  min-height:126px;
+}
+
+.attempt-main{
+  min-width:0;
+}
+
+.attempt-main h3{
+  margin:0 0 5px;
+  font-family:var(--serif);
+  font-size:22px;
+  line-height:1;
+  letter-spacing:-.02em;
+}
+
+.attempt-main p{
+  margin:2px 0;
+  color:var(--muted);
+  font-size:11.5px;
+  line-height:1.35;
+}
+
+.attempt-time{
+  color:#7ee7f2 !important;
+  font-weight:900;
+}
+
+.attempt-pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin-top:7px;
+}
+
+.attempt-pill{
+  border:1px solid rgba(246,239,227,.12);
+  background:rgba(255,255,255,.045);
+  color:#d8ccbd;
+  border-radius:999px;
+  padding:4px 7px;
+  font-size:10px;
+  font-weight:900;
+}
+
+.attempt-pill.good{
+  color:#061014;
+  background:#7ee7f2;
+}
+
+.attempt-pill.warn{
+  color:#160807;
+  background:#f2c46d;
+}
+
+.attempt-mini{
+  justify-self:end;
+  width:88px;
+}
+
+.attempt-mini .chord{
+  width:88px !important;
+  max-width:88px !important;
+  min-width:0 !important;
+  padding:5px !important;
+  border-radius:12px !important;
+}
+
+.attempt-mini .chord-title{
+  font-size:10px !important;
+  margin-bottom:1px !important;
+}
+
+.attempt-mini .chord-sub,
+.attempt-mini .badges{
+  display:none !important;
+}
+
+.attempt-mini svg{
+  max-height:105px !important;
+}
+
+.attempt-confidence{
+  margin-top:8px;
+  height:6px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+}
+
+.attempt-confidence span{
+  display:block;
+  height:100%;
+  width:var(--confidence);
+  background:linear-gradient(90deg,#18c6d8,#7ee7f2);
+}
+
+@media(max-width:760px){
+  .attempt-timeline{
+    grid-template-columns:1fr;
+  }
+
+  .attempt-tile{
+    grid-template-columns:minmax(0,1fr) 72px;
+    min-height:104px;
+    padding:9px;
+  }
+
+  .attempt-main h3{
+    font-size:20px;
+  }
+
+  .attempt-main p{
+    font-size:11px;
+  }
+
+  .attempt-mini{
+    width:72px;
+  }
+
+  .attempt-mini .chord{
+    width:72px !important;
+    max-width:72px !important;
+    padding:4px !important;
+  }
+
+  .attempt-mini .chord-title{
+    font-size:9px !important;
+  }
+
+  .attempt-mini svg{
+    max-height:88px !important;
+  }
+}
+
+@media(max-width:380px){
+  .attempt-tile{
+    grid-template-columns:minmax(0,1fr) 62px;
+  }
+
+  .attempt-mini{
+    width:62px;
+  }
+
+  .attempt-mini .chord{
+    width:62px !important;
+    max-width:62px !important;
+  }
+
+  .attempt-mini svg{
+    max-height:78px !important;
+  }
+
+  .attempt-pill{
+    font-size:9px;
+  }
+}
+/* guitar-analyzer-timeline:end */
+
 </style>
 
 
@@ -1657,29 +1856,46 @@ renderFilters();renderProgressions();renderLibrary();
       return;
     }
 
-    root.innerHTML = rows.map(row => {
-      const confidence = Math.round(row.score * 100);
-      const good = confidence >= 72;
-      const warn = confidence < 55;
+    const visible = rows.slice(0, 64);
+    const hidden = Math.max(0, rows.length - visible.length);
 
-      return `
-        <article class="attempt-row">
-          <div class="attempt-meta">
-            <h3>${esc(row.detectedName)}</h3>
-            <p><strong>Time:</strong> ${esc(row.time)}</p>
-            ${row.expectedName ? `<p><strong>Expected:</strong> ${esc(row.expectedName)}</p>` : ""}
-            <p><strong>Estimated bass:</strong> ${esc(row.bass || "unclear")}</p>
-            <div class="attempt-pill-row">
-              <span class="attempt-pill ${good ? "good" : warn ? "warn" : ""}">confidence ${confidence}%</span>
-              ${row.mode ? `<span class="attempt-pill">${esc(row.mode)}</span>` : ""}
-            </div>
-          </div>
-          <div class="attempt-diagram">
-            ${renderDiagram(row.detectedKey)}
-          </div>
-        </article>
-      `;
-    }).join("");
+    root.innerHTML = `
+      <div class="attempt-timeline-head">
+        <strong>Detected chord timeline</strong>
+        <span>${rows.length} segment${rows.length === 1 ? "" : "s"}${hidden ? ` · showing first ${visible.length}` : ""}</span>
+      </div>
+
+      <div class="attempt-timeline">
+        ${visible.map(row => {
+          const confidence = Math.round(row.score * 100);
+          const good = confidence >= 72;
+          const warn = confidence < 55;
+          const confidenceWidth = Math.max(5, Math.min(100, confidence));
+
+          return `
+            <article class="attempt-tile">
+              <div class="attempt-main">
+                <h3>${esc(row.detectedName)}</h3>
+                <p class="attempt-time">${esc(row.time)}</p>
+                ${row.expectedName ? `<p><strong>Expected:</strong> ${esc(row.expectedName)}</p>` : ""}
+                <p><strong>Bass:</strong> ${esc(row.bass || "unclear")}</p>
+                <div class="attempt-pill-row">
+                  <span class="attempt-pill ${good ? "good" : warn ? "warn" : ""}">${confidence}%</span>
+                  ${row.mode ? `<span class="attempt-pill">${esc(row.mode)}</span>` : ""}
+                </div>
+                <div class="attempt-confidence" aria-hidden="true">
+                  <span style="--confidence:${confidenceWidth}%"></span>
+                </div>
+              </div>
+
+              <div class="attempt-mini">
+                ${renderDiagram(row.detectedKey)}
+              </div>
+            </article>
+          `;
+        }).join("")}
+      </div>
+    `;
   }
 
   function guidedRows(buffer, progressionIndex){
