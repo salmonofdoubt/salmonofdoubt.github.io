@@ -1303,6 +1303,65 @@
 }
 /* guitar-analyzer-timeline:end */
 
+
+/* guitar-extended-chord-library:start */
+.library-group-title{
+  grid-column:1 / -1;
+  margin:18px 0 2px;
+  padding:12px 14px;
+  border:1px solid rgba(24,198,216,.26);
+  border-radius:16px;
+  background:linear-gradient(90deg,rgba(24,198,216,.09),rgba(255,255,255,.02));
+}
+.library-group-title h3{
+  margin:0 0 4px;
+  font-family:var(--serif);
+  font-size:24px;
+  line-height:1.05;
+}
+.library-group-title p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+}
+.library-badge{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  margin:6px auto 0;
+  padding:3px 7px;
+  border-radius:999px;
+  border:1px solid rgba(246,239,227,.12);
+  font-size:9px;
+  font-weight:900;
+  line-height:1;
+  text-align:center;
+}
+.library-badge.classical{
+  color:#061014;
+  background:#7ee7f2;
+}
+.library-badge.extended{
+  color:#f6efe3;
+  background:rgba(242,196,109,.22);
+  border-color:rgba(242,196,109,.42);
+}
+.attempt-mini .library-badge{
+  display:block !important;
+  margin-top:4px;
+  font-size:8px;
+  padding:3px 5px;
+}
+.analyzer-note strong{
+  color:var(--ink);
+}
+@media(max-width:760px){
+  .library-group-title h3{
+    font-size:20px;
+  }
+}
+/* guitar-extended-chord-library:end */
+
 </style>
 
 
@@ -1427,6 +1486,143 @@
     </section>
 
     
+
+<!-- guitar-extended-chord-library:start -->
+<script>
+(function(){
+  "use strict";
+
+  if (typeof DATA === "undefined" || !DATA.chords) return;
+
+  const classicalKeys = new Set(Object.keys(DATA.chords));
+
+  Object.keys(DATA.chords).forEach(key => {
+    DATA.chords[key].libraryType = "classical";
+    DATA.chords[key].libraryLabel = "Classical study";
+  });
+
+  const EXTENDED_CHORDS = {
+    Cmaj7_open: {name:"Cmaj7", q:"extended · open", frets:["x",3,2,0,0,0], f:[null,3,2,null,null,null], base:1},
+    C7_open: {name:"C7", q:"extended · blues", frets:["x",3,2,3,1,0], f:[null,3,2,4,1,null], base:1},
+    Cadd9_open: {name:"Cadd9", q:"extended · add9", frets:["x",3,2,0,3,0], f:[null,3,2,null,4,null], base:1},
+    C_sus2: {name:"Csus2", q:"extended · sus", frets:["x",3,0,0,1,3], f:[null,3,null,null,1,4], base:1},
+    C9_open: {name:"C9", q:"extended · dominant", frets:["x",3,2,3,3,3], f:[null,2,1,3,4,4], base:1},
+
+    D7_open: {name:"D7", q:"extended · dominant", frets:["x","x",0,2,1,2], f:[null,null,null,2,1,3], base:1},
+    Dm7_open: {name:"Dm7", q:"extended · minor 7", frets:["x","x",0,2,1,1], f:[null,null,null,2,1,1], base:1},
+    Dmaj7_open: {name:"Dmaj7", q:"extended · major 7", frets:["x","x",0,2,2,2], f:[null,null,null,1,2,3], base:1},
+    Dsus2_open: {name:"Dsus2", q:"extended · sus", frets:["x","x",0,2,3,0], f:[null,null,null,1,3,null], base:1},
+    Dsus4_open: {name:"Dsus4", q:"extended · sus", frets:["x","x",0,2,3,3], f:[null,null,null,1,3,4], base:1},
+    Dadd9_Fs: {name:"Dadd9/F♯", q:"extended · slash", frets:[2,"x",0,2,3,0], f:[1,null,null,2,4,null], base:1},
+
+    Emaj7_open: {name:"Emaj7", q:"extended · major 7", frets:[0,2,1,1,0,0], f:[null,3,1,2,null,null], base:1},
+    Em7_open: {name:"Em7", q:"extended · minor 7", frets:[0,2,2,0,3,0], f:[null,1,2,null,3,null], base:1},
+    E7sus4_open: {name:"E7sus4", q:"extended · sus", frets:[0,2,0,2,0,0], f:[null,2,null,3,null,null], base:1},
+    Esus4_open: {name:"Esus4", q:"extended · sus", frets:[0,2,2,2,0,0], f:[null,1,2,3,null,null], base:1},
+    E7s9: {name:"E7♯9", q:"extended · altered", frets:[0,7,6,7,8,0], f:[null,2,1,3,4,null], base:6},
+
+    Fmaj7_open: {name:"Fmaj7", q:"extended · lyrical", frets:[1,"x",2,2,1,0], f:[1,null,2,3,1,null], base:1},
+    Fm: {name:"Fm", q:"extended · minor", frets:[1,3,3,1,1,1], f:[1,3,4,1,1,1], base:1},
+    Fm7: {name:"Fm7", q:"extended · minor 7", frets:[1,3,1,1,1,1], f:[1,3,1,1,1,1], base:1},
+    F6: {name:"F6", q:"extended · sixth", frets:[1,"x",0,2,1,1], f:[1,null,null,3,2,1], base:1},
+
+    Gmaj7_open: {name:"Gmaj7", q:"extended · major 7", frets:[3,2,0,0,0,2], f:[3,1,null,null,null,2], base:1},
+    G6_open: {name:"G6", q:"extended · sixth", frets:[3,2,0,0,0,0], f:[3,2,null,null,null,null], base:1},
+    G7_open: {name:"G7", q:"extended · dominant", frets:[3,2,0,0,0,1], f:[3,2,null,null,null,1], base:1},
+    Gsus4: {name:"Gsus4", q:"extended · sus", frets:[3,3,0,0,1,3], f:[2,3,null,null,1,4], base:1},
+    Gadd9: {name:"Gadd9", q:"extended · add9", frets:[3,0,0,2,0,3], f:[2,null,null,1,null,3], base:1},
+
+    Amaj7_open: {name:"Amaj7", q:"extended · major 7", frets:["x",0,2,1,2,0], f:[null,null,2,1,3,null], base:1},
+    Am7_open: {name:"Am7", q:"extended · minor 7", frets:["x",0,2,0,1,0], f:[null,null,2,null,1,null], base:1},
+    Asus2_open: {name:"Asus2", q:"extended · sus", frets:["x",0,2,2,0,0], f:[null,null,1,2,null,null], base:1},
+    Asus4_open: {name:"Asus4", q:"extended · sus", frets:["x",0,2,2,3,0], f:[null,null,1,2,3,null], base:1},
+    A9: {name:"A9", q:"extended · dominant", frets:["x",0,2,4,2,3], f:[null,null,1,4,2,3], base:1},
+
+    Bm7_open: {name:"Bm7", q:"extended · minor 7", frets:["x",2,4,2,3,2], f:[null,1,3,1,2,1], base:2},
+    Bm7b5: {name:"Bm7♭5", q:"extended · half-dim", frets:["x",2,3,2,3,"x"], f:[null,1,3,1,4,null], base:2},
+    Bsus4: {name:"Bsus4", q:"extended · sus", frets:["x",2,4,4,5,2], f:[null,1,2,3,4,1], base:2},
+
+    Bb: {name:"B♭", q:"extended · barre", frets:["x",1,3,3,3,1], f:[null,1,2,3,4,1], base:1},
+    Bbmaj7: {name:"B♭maj7", q:"extended · major 7", frets:["x",1,3,2,3,1], f:[null,1,4,2,3,1], base:1},
+    Bb7: {name:"B♭7", q:"extended · dominant", frets:["x",1,3,1,3,1], f:[null,1,3,1,4,1], base:1},
+
+    Cm7: {name:"Cm7", q:"extended · minor 7", frets:["x",3,5,3,4,3], f:[null,1,3,1,2,1], base:3},
+    CsharpDim: {name:"C♯°", q:"extended · diminished", frets:["x",4,5,3,5,"x"], f:[null,2,3,1,4,null], base:3},
+    FsharpDim: {name:"F♯°", q:"extended · diminished", frets:[2,"x",1,2,1,"x"], f:[3,null,1,4,2,null], base:1}
+  };
+
+  Object.entries(EXTENDED_CHORDS).forEach(([key, chord]) => {
+    if (!DATA.chords[key]) {
+      chord.libraryType = "extended";
+      chord.libraryLabel = "Extended detection";
+      DATA.chords[key] = chord;
+    }
+  });
+
+  function libraryBadgeFor(key){
+    const chord = DATA.chords[key] || {};
+    const type = chord.libraryType || (classicalKeys.has(key) ? "classical" : "extended");
+    const label = chord.libraryLabel || (type === "classical" ? "Classical study" : "Extended detection");
+    return `<span class="library-badge ${type === "classical" ? "classical" : "extended"}">${label}</span>`;
+  }
+
+  if (typeof window.chordCard === "function") {
+    const originalChordCard = window.chordCard;
+    window.chordCard = function(key){
+      const html = originalChordCard(key);
+      if (!html || html.includes("library-badge")) return html;
+      return html.replace("</article>", libraryBadgeFor(key) + "</article>");
+    };
+  }
+
+  function chordSort(a, b){
+    const an = DATA.chords[a]?.name || a;
+    const bn = DATA.chords[b]?.name || b;
+    return an.localeCompare(bn, undefined, {numeric:true, sensitivity:"base"});
+  }
+
+  window.renderLibrary = function(){
+    const grid = document.getElementById("libraryGrid");
+    if (!grid) return;
+
+    const keys = Object.keys(DATA.chords);
+    const classical = keys.filter(k => (DATA.chords[k].libraryType || "classical") === "classical").sort(chordSort);
+    const extended = keys.filter(k => DATA.chords[k].libraryType === "extended").sort(chordSort);
+
+    grid.innerHTML = `
+      <div class="library-group-title">
+        <h3>Classical study library</h3>
+        <p>The progression and classical colour chords this page is deliberately teaching.</p>
+      </div>
+      ${classical.map(k => `<div class="library-card">${window.chordCard(k)}</div>`).join("")}
+
+      <div class="library-group-title">
+        <h3>Extended detection library</h3>
+        <p>Additional common modern, folk, pop, blues, sus, add9, maj7, m7, slash, diminished, and altered chords used by the analyzer.</p>
+      </div>
+      ${extended.map(k => `<div class="library-card">${window.chordCard(k)}</div>`).join("")}
+    `;
+  };
+
+  function refreshAfterExtension(){
+    if (typeof window.renderProgressions === "function") window.renderProgressions();
+    if (typeof window.renderLibrary === "function") window.renderLibrary();
+
+    const note = document.querySelector(".analyzer-note");
+    if (note && !note.innerHTML.includes("Extended detection")) {
+      note.innerHTML = "<strong>Detection note:</strong> the analyzer searches both the Classical study library and the Extended detection library. Audio alone estimates likely chord names; it cannot prove exact fingering.";
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", refreshAfterExtension);
+  } else {
+    refreshAfterExtension();
+  }
+})();
+</script>
+<!-- guitar-extended-chord-library:end -->
+
 <!-- guitar-attempt-analyzer:start -->
 <section id="attempt-analyzer" class="analyzer-panel">
   <div class="section-head">
