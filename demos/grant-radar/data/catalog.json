@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Grant Radar",
-    "generated_at": "2026-06-06T08:05:34+00:00",
+    "generated_at": "2026-06-07T08:33:09+00:00",
     "generator": "grant-radar-demo 1.5.0",
     "available_purposes": [
       "advisory support",
@@ -122,7 +122,7 @@
         "farm payments"
       ],
       "note": "Ireland's flagship agri-environment climate scheme with major water-quality relevance through actions, NPIs and landscape measures.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official scheme page monitoring",
       "fetch_status": "ok"
     },
@@ -139,7 +139,7 @@
         "advisory support"
       ],
       "note": "Free and confidential advisory service working with farmers in priority areas for action to improve water quality.",
-      "last_checked": "2026-06-06T08:05:35+00:00",
+      "last_checked": "2026-06-07T07:58:02+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -156,7 +156,7 @@
         "riparian management"
       ],
       "note": "Catchment-based Teagasc campaign built around practical actions for farmers to improve water quality.",
-      "last_checked": "2026-06-06T08:05:37+00:00",
+      "last_checked": "2026-06-07T07:41:30+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -176,7 +176,7 @@
         "sustainability"
       ],
       "note": "Local-authority and community climate-action route covering renewable energy, energy efficiency, biodiversity, sustainable transport and feasibility studies.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -192,7 +192,7 @@
         "climate action"
       ],
       "note": "Business sustainability support route.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -208,7 +208,7 @@
         "climate adaptation"
       ],
       "note": "Direct call page with explicit key dates.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -230,7 +230,7 @@
         "climate action"
       ],
       "note": "Official Farming for Water EIP route. Farmer-facing water-quality implementation programme using nutrient management, Natural Water Retention Measures, riparian buffers, hedgerows, fencing, sediment controls and other targeted measures.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official Farming for Water EIP site monitoring",
       "fetch_status": "ok"
     },
@@ -246,7 +246,7 @@
         "community nature"
       ],
       "note": "Community-based geoheritage grant stream.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -263,9 +263,10 @@
         "surveys"
       ],
       "note": "National community heritage and biodiversity grant stream.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=10)"
     },
     {
       "id": "horizon_biodiv",
@@ -279,7 +280,7 @@
         "nature-based solutions"
       ],
       "note": "Biodiversity topic page with deadline markers.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -300,9 +301,10 @@
         "nature-based solutions"
       ],
       "note": "Practical river, riparian, invasive-species, fish-passage, habitat and soft-engineering funding route for eligible third parties.",
-      "last_checked": "2026-06-06T08:03:27+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
       "id": "lawpro_catchment_support_fund",
@@ -319,7 +321,7 @@
         "natural water retention"
       ],
       "note": "Capacity-building and core-cost support for catchment partnerships and local delivery bodies.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -340,7 +342,7 @@
         "education"
       ],
       "note": "Community and voluntary funding route for local water-quality projects, awareness, citizen science and small practical restoration actions.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -357,7 +359,7 @@
         "education"
       ],
       "note": "Small-scale community water-awareness, survey, signage, education and event route.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -374,7 +376,7 @@
         "renewable energy"
       ],
       "note": "Rolling rural development route that can support environmental, catchment and community actions through Local Action Groups.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -390,7 +392,7 @@
         "climate action"
       ],
       "note": "Local LEO green supports including Energy Efficiency Grant.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -407,7 +409,7 @@
         "wetlands"
       ],
       "note": "Seed page before topic-level portal extraction.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -427,7 +429,7 @@
         "water quality"
       ],
       "note": "Local-authority-led biodiversity route with practical habitat, wetland, invasive-species and partnership relevance. Usually not a direct community application route.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -443,7 +445,7 @@
         "conservation"
       ],
       "note": "Award update for the community conservation scheme.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official press release monitoring",
       "fetch_status": "ok"
     },
@@ -476,7 +478,7 @@
         "climate action"
       ],
       "note": "SEAI community capital-funding route managed via project coordinators.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/grants/community-grants"
@@ -493,7 +495,7 @@
         "decarbonisation"
       ],
       "note": "National energy RD&D funding stream; 2026 call signalled as opening soon.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/seai-research/research-funding/research-development-and-demonstration-fund"
@@ -510,7 +512,7 @@
         "decarbonisation"
       ],
       "note": "SEC network and Energy Master Plan support route.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "403 Client Error: Forbidden for url: https://www.seai.ie/plan-your-energy-journey/for-your-community/sustainable-energy-communities/start-an-energy-community"
@@ -528,7 +530,7 @@
         "advisory support"
       ],
       "note": "Free advisory and demonstration-farm route with explicit water-quality and biodiversity co-benefits.",
-      "last_checked": "2026-06-06T07:20:29+00:00",
+      "last_checked": "2026-06-07T08:29:11+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -545,7 +547,7 @@
         "research training"
       ],
       "note": "Current Teagasc postgraduate opportunities page. Retained for research-facing users alongside practical farm-delivery routes.",
-      "last_checked": "2026-06-06T08:05:48+00:00",
+      "last_checked": "2026-06-07T08:24:29+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "ok"
     },
@@ -562,7 +564,7 @@
         "education"
       ],
       "note": "Waterway-focused small community grant.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official page text extraction",
       "fetch_status": "error",
       "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))"
@@ -616,7 +618,7 @@
         "geotourism"
       ],
       "note": "Decision: promote State: closed Kind: recurring programme Visibility: public-visible NDRT relevance: maybe Research relevance: include Farmer mode: exclude",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "promoted from Grant Radar review queue",
       "fetch_status": "ok"
     },
@@ -638,7 +640,7 @@
         "biodiversity"
       ],
       "note": "Watch signal for the 2026 water-quality capital programme supporting Farming for Water EIP, urban nature-based solutions and National Barrier Mitigation Programme activity. Not usually a direct community application route.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official water-quality capital programme watch",
       "fetch_status": "ok"
     },
@@ -672,7 +674,7 @@
         "subsurface storage"
       ],
       "note": "Core German investigator-led funding route for doctorate-holding researchers with proposals accepted at any time.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -689,7 +691,7 @@
         "wetland interfaces"
       ],
       "note": "Network-building route for topic-focused collaboration across sites, including international members.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -706,7 +708,7 @@
         "hydrogen"
       ],
       "note": "Higher-risk route for outstanding researchers with a strong scientific track record.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -722,7 +724,7 @@
         "environmental research"
       ],
       "note": "Career-advancement route for researchers already qualified for appointment to a permanent professorship.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -739,7 +741,7 @@
         "environmental research"
       ],
       "note": "Flagship frontier-funding route for established research leaders via annual ERC calls.",
-      "last_checked": "2026-06-05T17:42:56+00:00",
+      "last_checked": "2026-06-06T09:48:24+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -756,7 +758,7 @@
         "energy systems"
       ],
       "note": "Cluster 5 energy call relevant to subsurface energy systems, hydrogen storage and infrastructure themes.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official call page monitoring",
       "fetch_status": "ok"
     },
@@ -773,7 +775,7 @@
         "energy systems"
       ],
       "note": "Large consortium call covering hydrogen production, storage, distribution and demonstration.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official call page monitoring",
       "fetch_status": "ok"
     },
@@ -790,7 +792,7 @@
         "environmental research"
       ],
       "note": "Federal applied-energy-research route covering hydrogen production, derivatives, fuel cells and reconversion.",
-      "last_checked": "2026-06-06T08:05:54+00:00",
+      "last_checked": "2026-06-07T08:33:46+00:00",
       "discovery_method": "official funding priority page monitoring",
       "fetch_status": "ok"
     },
@@ -806,7 +808,7 @@
         "wetland interfaces"
       ],
       "note": "Potsdam-based bridge fellowship for experienced sustainability actors with science-policy reach.",
-      "last_checked": "2026-06-06T08:05:54+00:00",
+      "last_checked": "2026-06-07T08:33:47+00:00",
       "discovery_method": "official fellowship page monitoring",
       "fetch_status": "ok"
     },
@@ -823,7 +825,7 @@
         "environmental research"
       ],
       "note": "Official GFZ vacancies board covering scientific positions, doctoral roles and fellow programmes in Potsdam.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official GFZ careers page monitoring",
       "fetch_status": "ok"
     },
@@ -839,7 +841,7 @@
         "environmental research"
       ],
       "note": "GFZ-hosted RIFS fellowship page for the Klaus Töpfer Sustainability Fellowship.",
-      "last_checked": "2026-06-06T08:05:34+00:00",
+      "last_checked": "2026-06-07T08:33:09+00:00",
       "discovery_method": "official GFZ fellowship page monitoring",
       "fetch_status": "ok"
     }
@@ -890,7 +892,7 @@
       "programme_state": "closed",
       "expected_next_window": "Sep–Nov 2027",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -908,7 +910,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "assap_programme_assap",
@@ -955,7 +957,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:35+00:00",
+      "last_verified_at": "2026-06-07T07:58:02+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -973,7 +975,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:35+00:00"
+      "last_successful_fetch_at": "2026-06-07T07:58:02+00:00"
     },
     {
       "id": "better_farming_for_water_teagasc_better_farming_for_water",
@@ -1020,7 +1022,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:37+00:00",
+      "last_verified_at": "2026-06-07T07:41:30+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1038,7 +1040,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:37+00:00"
+      "last_successful_fetch_at": "2026-06-07T07:41:30+00:00"
     },
     {
       "id": "climate_action_communities_start_2026_climate_action_in_our_communities",
@@ -1093,7 +1095,7 @@
       "programme_state": "upcoming",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1111,7 +1113,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "enterprise_ireland_greenplus_enterprise_ireland_greenplus",
@@ -1162,7 +1164,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1179,7 +1181,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "epa_research_call_epa_research_call_2026",
@@ -1229,7 +1231,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1247,7 +1249,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "farming_for_water_eip_farming_for_water_eip",
@@ -1304,7 +1306,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling through advisors in eligible Priority Areas for Action",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1324,7 +1326,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "gsi_geoheritage_gsi_geoheritage_grant_scheme_watch",
@@ -1375,7 +1377,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1396,7 +1398,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "heritage_community_grant_heritage_council_community_heritage_grant_scheme",
@@ -1461,10 +1463,10 @@
       "mode_reason": {
         "ndrt": "Community heritage and biodiversity route with potential relevance for river heritage, surveys, and outreach."
       },
-      "state_source": "registry_fallback",
-      "state_confidence": 0.45,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=10)",
       "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
     },
     {
@@ -1515,7 +1517,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1533,7 +1535,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "ifi_habitats_conservation_ifi_habitats_conservation_funding_call",
@@ -1611,10 +1613,10 @@
       "mode_reason": {
         "ndrt": "Practical river, riparian, and habitat restoration funding route."
       },
-      "state_source": "deadline_past_recurring",
-      "state_confidence": 0.82,
-      "page_status": null,
-      "fetch_status": "ok",
+      "state_source": "last_known_good",
+      "state_confidence": 0.7,
+      "fetch_status": "error",
+      "fetch_error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
       "last_successful_fetch_at": "2026-06-06T08:03:27+00:00"
     },
     {
@@ -1675,7 +1677,7 @@
       "programme_state": "closed",
       "expected_next_window": "Jan–Mar 2027",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1693,7 +1695,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "lawpro_cwdf_lawpro_community_water_development_fund",
@@ -1757,7 +1759,7 @@
       "programme_state": "closed",
       "expected_next_window": "Jan–Mar 2027",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1775,7 +1777,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "lawpro_small_grants_lawpro_small_grants_and_events_scheme",
@@ -1827,7 +1829,7 @@
       "programme_state": "closed",
       "expected_next_window": "Apr–Jun 2027",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -1844,7 +1846,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "leader_programme_leader_rural_environment_and_community_route",
@@ -1901,7 +1903,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1918,7 +1920,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "leo_energy_efficiency_leo_energy_efficiency_grant",
@@ -1967,7 +1969,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -1984,7 +1986,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "life_calls_life_calls_for_proposals_2026",
@@ -2039,7 +2041,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2057,7 +2059,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "npws_local_biodiversity_action_fund_local_biodiversity_action_fund",
@@ -2119,7 +2121,7 @@
       "programme_state": "closed",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2137,7 +2139,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "npws_peatlands_natura_scheme_peatlands_and_natura_community_engagement_scheme_2026_results",
@@ -2187,7 +2189,7 @@
       "programme_state": "archived",
       "expected_next_window": null,
       "public_visible_state": "discovery_only",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "archived",
       "current_availability": "closed",
@@ -2204,7 +2206,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "research_ireland_goipg_goipg_research_ireland_government_of_ireland_postgraduate_scholarship",
@@ -2326,7 +2328,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2395,7 +2397,7 @@
       "programme_state": "upcoming",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2467,7 +2469,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2531,7 +2533,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T07:20:29+00:00",
+      "last_verified_at": "2026-06-07T08:29:11+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2549,7 +2551,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T07:20:29+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:29:11+00:00"
     },
     {
       "id": "teagasc_walsh_teagasc_walsh_scholars_2026_opportunities",
@@ -2601,7 +2603,7 @@
       "programme_state": "open",
       "expected_next_window": null,
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:48+00:00",
+      "last_verified_at": "2026-06-07T08:24:29+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -2619,7 +2621,7 @@
       "state_confidence": 0.9,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:48+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:24:29+00:00"
     },
     {
       "id": "waterways_heritage_biodiversity_community_heritage_and_biodiversity_grant_programme_2026",
@@ -2669,7 +2671,7 @@
       "programme_state": "archived",
       "expected_next_window": null,
       "public_visible_state": "discovery_only",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "archived",
       "current_availability": "closed",
@@ -2901,7 +2903,7 @@
       "programme_state": "closed",
       "expected_next_window": "Expected next annual round, likely 2026/27; check GSI page.",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2025,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2921,7 +2923,7 @@
       "state_confidence": 0.82,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "water_quality_capital_programme_2026_water_quality_capital_programme_2026",
@@ -2978,7 +2980,7 @@
       "programme_state": "upcoming",
       "expected_next_window": "2026 delivery through public bodies and programme partners",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -2998,7 +3000,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "international_joint_initiative_for_research_harnessing_disruptive_techno_international_joint_initiative_for_research_harnessing_disruptive_technologies_to_address_global_challenges",
@@ -3105,7 +3107,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -3128,7 +3130,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "geo_dfg_scientific_networks_dfg_scientific_networks",
@@ -3184,7 +3186,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -3207,7 +3209,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "geo_dfg_reinhart_koselleck_dfg_reinhart_koselleck_projects",
@@ -3261,7 +3263,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -3284,7 +3286,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "geo_dfg_heisenberg_dfg_heisenberg_programme",
@@ -3336,7 +3338,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -3359,7 +3361,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "geo_erc_advanced_erc_advanced_grant_watch",
@@ -3413,7 +3415,7 @@
       "programme_state": "upcoming",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-05T17:42:56+00:00",
+      "last_verified_at": "2026-06-06T09:48:24+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -3436,7 +3438,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-05T17:42:56+00:00"
+      "last_successful_fetch_at": "2026-06-06T09:48:24+00:00"
     },
     {
       "id": "geo_horizon_energy_supply_horizon_europe_energy_supply_call",
@@ -3490,7 +3492,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -3513,7 +3515,7 @@
       "state_confidence": 0.95,
       "page_status": "open",
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "geo_clean_hydrogen_partnership_clean_hydrogen_partnership_call_2026",
@@ -3570,7 +3572,7 @@
       "programme_state": "closed",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -3593,7 +3595,7 @@
       "state_confidence": 0.9,
       "page_status": "closed",
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "geo_ptj_hydrogen_derivatives_ptj_hydrogen_and_derivatives_funding_route",
@@ -3649,7 +3651,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:54+00:00",
+      "last_verified_at": "2026-06-07T08:33:46+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -3672,7 +3674,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:54+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:46+00:00"
     },
     {
       "id": "geo_rifs_klaus_toepfer_rifs_klaus_t_pfer_sustainability_fellowship_2027",
@@ -3722,7 +3724,7 @@
       "programme_state": "closed",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:54+00:00",
+      "last_verified_at": "2026-06-07T08:33:47+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -3745,7 +3747,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:54+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:47+00:00"
     },
     {
       "id": "geo_gfz_jobs_board_gfz_scientific_vacancies_watch",
@@ -3798,7 +3800,7 @@
       "programme_state": "open",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": 2026,
       "public_visibility": "public_visible",
       "current_availability": "open_now",
@@ -3821,7 +3823,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     },
     {
       "id": "geo_gfz_klaus_toepfer_gfz_klaus_t_pfer_sustainability_fellowship_2027",
@@ -3873,7 +3875,7 @@
       "programme_state": "closed",
       "expected_next_window": "Rolling",
       "public_visible_state": "public_visible",
-      "last_verified_at": "2026-06-06T08:05:34+00:00",
+      "last_verified_at": "2026-06-07T08:33:09+00:00",
       "last_open_year": null,
       "public_visibility": "public_visible",
       "current_availability": "closed_for_now",
@@ -3896,7 +3898,7 @@
       "state_confidence": 0.45,
       "page_status": null,
       "fetch_status": "ok",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00"
+      "last_successful_fetch_at": "2026-06-07T08:33:09+00:00"
     }
   ]
 }
