@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guitar Progression Lab</title>
+  <meta name="description" content="Printable classical guitar progression demo with vertical fretboards, advanced harmonic progressions, and fun nylon-string loops." />
+  <style>
+    :root{
+      --bg:#05070d;
+      --panel:#0d111b;
+      --panel2:#121827;
+      --ink:#f6efe3;
+      --muted:#b8ad9e;
+      --line:#2a3346;
+      --accent:#18c6d8;
+      --accent2:#6ee7ff;
+      --gold:#f2c46d;
+      --green:#8cffb2;
+      --danger:#ff8c8c;
+      --shadow:0 22px 70px rgba(0,0,0,.45);
+      --radius:24px;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --serif:Georgia,"Times New Roman",serif;
+      --mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%,rgba(24,198,216,.19),transparent 32rem),
+        radial-gradient(circle at 95% 8%,rgba(110,231,255,.14),transparent 28rem),
+        radial-gradient(circle at 50% 100%,rgba(242,196,109,.09),transparent 34rem),
+        var(--bg);
+      line-height:1.45;
+    }
+
+    a{color:inherit}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    .hero{padding:72px 0 28px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);
+      gap:22px;
+      align-items:stretch;
+    }
+    .hero-card,.side-card,.toolbar,.progression-card,.library-card,.theory-card{
+      border:1px solid rgba(24,198,216,.25);
+      background:linear-gradient(180deg,rgba(18,24,39,.88),rgba(8,11,18,.94));
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+      backdrop-filter:blur(10px);
+    }
+    .hero-card{padding:34px;position:relative;overflow:hidden}
+    .hero-card:after{
+      content:"♮";
+      position:absolute;
+      right:22px;
+      top:-8px;
+      font-family:var(--serif);
+      font-size:160px;
+      color:rgba(24,198,216,.08);
+      line-height:1;
+      pointer-events:none;
+    }
+    .kicker{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      color:var(--accent2);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.13em;
+      font-weight:850;
+      margin-bottom:16px;
+    }
+    h1{
+      margin:0 0 16px;
+      font-family:var(--serif);
+      font-size:clamp(42px,7vw,82px);
+      line-height:.9;
+      letter-spacing:-.045em;
+    }
+    .lead{
+      max-width:66ch;
+      color:#ded4c6;
+      font-size:18px;
+      margin:0 0 22px;
+    }
+    .hero-actions,.toolbar-actions{display:flex;flex-wrap:wrap;gap:10px}
+    button,.button{
+      border:1px solid rgba(246,239,227,.17);
+      background:#121827;
+      color:var(--ink);
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:850;
+      font-size:14px;
+      text-decoration:none;
+      box-shadow:0 10px 28px rgba(0,0,0,.18);
+    }
+    button.primary,.button.primary{
+      background:linear-gradient(135deg,var(--accent),#7ee7f2);
+      color:#100816;
+      border-color:rgba(255,255,255,.35);
+    }
+    button:hover,.button:hover{transform:translateY(-1px)}
+    .side-card{padding:22px;display:flex;flex-direction:column;gap:12px}
+    .side-card h2{font-family:var(--serif);font-size:26px;margin:0}
+    .hint{
+      display:grid;
+      grid-template-columns:34px 1fr;
+      gap:10px;
+      padding:12px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:16px;
+    }
+    .hint b{color:var(--accent2)}
+    .hint span{color:var(--muted);font-size:13px}
+
+    .toolbar{
+      position:sticky;
+      top:12px;
+      z-index:8;
+      margin:18px 0 28px;
+      padding:14px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .search{
+      flex:1 1 280px;
+      min-width:min(380px,100%);
+      background:#070a11;
+      color:var(--ink);
+      border:1px solid rgba(246,239,227,.14);
+      border-radius:999px;
+      padding:11px 14px;
+      font:inherit;
+    }
+    .filters{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{
+      font-size:13px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(246,239,227,.15);
+      background:#0b101b;
+      color:var(--muted);
+      cursor:pointer;
+      font-weight:850;
+    }
+    .chip.active{
+      background:var(--ink);
+      color:#080a10;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:20px;
+      margin:42px 0 18px;
+    }
+    .section-head h2{
+      margin:0;
+      font-family:var(--serif);
+      font-size:clamp(30px,4.4vw,52px);
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+    .section-head p{
+      margin:8px 0 0;
+      color:var(--muted);
+      max-width:62ch;
+    }
+
+    .progression-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+    .progression-card{
+      position:relative;
+      overflow:hidden;
+      padding:20px;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+    .progression-card:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 100% 0%,rgba(24,198,216,.08),transparent 24rem),
+        linear-gradient(90deg,rgba(110,231,255,.06),transparent 42%);
+      pointer-events:none;
+    }
+    .card-inner{position:relative;z-index:1}
+    .card-top{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:start;
+      margin-bottom:10px;
+    }
+    .card-top h3{
+      margin:0 0 8px;
+      font-family:var(--serif);
+      font-size:25px;
+      line-height:1.05;
+      letter-spacing:-.025em;
+    }
+    .badges{display:flex;flex-wrap:wrap;gap:6px}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      padding:4px 8px;
+      border-radius:999px;
+      border:1px solid rgba(246,239,227,.12);
+      background:rgba(255,255,255,.045);
+      color:#d8ccbd;
+      font-size:11px;
+      font-weight:850;
+      white-space:nowrap;
+    }
+    .badge.good{color:#06110b;background:var(--green)}
+    .badge.warn{color:#160807;background:var(--danger)}
+    .sequence{
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      align-items:center;
+      margin:12px 0 14px;
+      font-family:var(--mono);
+      font-size:13px;
+    }
+    .seq-item{
+      border:1px solid rgba(246,239,227,.12);
+      background:#070a11;
+      border-radius:10px;
+      padding:5px 8px;
+    }
+    .arrow{color:var(--gold);font-weight:900}
+    .diagram-row{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:10px;
+    }
+    .diagram-row.six{grid-template-columns:repeat(6,minmax(0,1fr))}
+    .diagram-row.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .practice{
+      margin-top:14px;
+      padding:12px;
+      border-radius:16px;
+      border:1px solid rgba(246,239,227,.11);
+      background:rgba(255,255,255,.035);
+      color:#d4c7b8;
+      font-size:13px;
+    }
+    .practice strong{color:var(--ink)}
+
+    .chord{
+      min-width:0;
+      padding:8px 7px 7px;
+      border-radius:16px;
+      border:1px solid rgba(246,239,227,.13);
+      background:#070a11;
+    }
+    .chord-title{
+      text-align:center;
+      font-weight:900;
+      font-size:12px;
+      margin-bottom:2px;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+    .chord-sub{
+      text-align:center;
+      color:var(--muted);
+      font-size:9.6px;
+      min-height:14px;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
+    .chord svg{display:block;width:100%;height:auto;overflow:visible}
+    .svg-line{stroke:#f6efe3;stroke-width:1.25;vector-effect:non-scaling-stroke}
+    .svg-nut{stroke:#f6efe3;stroke-width:4;vector-effect:non-scaling-stroke;stroke-linecap:round}
+    .svg-dot{fill:#18c6d8;stroke:#b7f6ff;stroke-width:.8;vector-effect:non-scaling-stroke}
+    .svg-text{fill:#f6efe3;font-family:var(--sans);font-size:9px;font-weight:900;dominant-baseline:middle;text-anchor:middle}
+    .svg-finger{fill:#09070c;font-family:var(--sans);font-size:8px;font-weight:950;dominant-baseline:middle;text-anchor:middle}
+    .svg-small{fill:#b8ad9e;font-family:var(--sans);font-size:7px;font-weight:850;dominant-baseline:middle;text-anchor:middle}
+
+    .library-grid{
+      display:grid;
+      grid-template-columns:repeat(6,minmax(0,1fr));
+      gap:12px;
+    }
+    .library-card{padding:12px;break-inside:avoid;page-break-inside:avoid}
+    .theory-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+      margin-bottom:90px;
+    }
+    .theory-card{padding:18px}
+    .theory-card h3{
+      margin:0 0 8px;
+      font-family:var(--serif);
+      font-size:23px;
+    }
+    .theory-card p{margin:0;color:var(--muted);font-size:14px}
+
+    .demo-back{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  top:auto;
+  z-index:30;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:900;
+  color:var(--ink);
+  background:rgba(8,11,18,.78);
+  border:1px solid rgba(24,198,216,.42);
+  border-radius:999px;
+  padding:9px 12px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+}
+
+    .support-float{
+      position:fixed;
+      right:14px;
+      bottom:46px;
+      z-index:30;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:8px;
+    }
+    .support-panel{
+      width:260px;
+      border:1px solid rgba(24,198,216,.55);
+      border-radius:16px;
+      background:rgba(12,14,24,.94);
+      box-shadow:0 0 40px rgba(24,198,216,.22);
+      padding:16px;
+      opacity:0;
+      transform:translateY(8px);
+      pointer-events:none;
+      transition:.18s ease;
+    }
+    .support-float:hover .support-panel,
+    .support-float:focus-within .support-panel{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+    .support-panel a{
+      display:block;
+      text-decoration:none;
+      padding:8px 0;
+    }
+    .support-panel strong{
+      display:block;
+      font-size:13px;
+      color:#fff;
+    }
+    .support-panel span{
+      display:block;
+      color:#cfc6d5;
+      font-size:11px;
+      margin-top:2px;
+    }
+    .support-pill{
+      border:1px solid rgba(255,255,255,.25);
+      background:linear-gradient(135deg,#18c6d8,#7ee7f2);
+      color:#140818;
+      border-radius:999px;
+      padding:10px 15px;
+      font-size:12px;
+      font-weight:950;
+      box-shadow:0 0 28px rgba(24,198,216,.28);
+    }
+    .doi-pill{
+      position:fixed;
+      right:14px;
+      bottom:14px;
+      z-index:30;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      border:1px solid rgba(110,231,255,.48);
+      background:rgba(8,11,18,.76);
+      color:var(--ink);
+      border-radius:999px;
+      padding:7px 10px;
+      font-family:var(--mono);
+      font-size:11px;
+      font-weight:900;
+      text-decoration:none;
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 24px rgba(110,231,255,.18);
+    }
+    .doi-pill b{
+      background:#f6efe3;
+      color:#081017;
+      border-radius:5px;
+      padding:2px 5px;
+      font-family:var(--sans);
+      font-size:9px;
+      letter-spacing:.08em;
+    }
+
+    @media(max-width:920px){
+      .hero-grid,.progression-grid{grid-template-columns:1fr}
+      .diagram-row,.diagram-row.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .theory-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      .hero{padding-top:62px}
+      .hero-card{padding:24px}
+      .diagram-row,.diagram-row.six,.diagram-row.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .toolbar{position:relative;top:auto}
+      .support-panel{width:238px}
+    }
+
+    @media print{
+      .demo-back{display:none!important}
+
+      @page{size:A4 portrait;margin:10mm}
+      body{background:#fff!important;color:#111!important}
+      .hero,.toolbar,.demo-back,.support-float,.doi-pill{display:none!important}
+      .wrap{width:100%;margin:0}
+      .section-head{margin:0 0 7mm;page-break-after:avoid}
+      .section-head h2{font-size:24pt;color:#111}
+      .section-head p{font-size:9pt;color:#333}
+      .progression-grid{display:block}
+      .progression-card,.library-card,.theory-card{
+        background:#fff!important;
+        border:1px solid #aaa!important;
+        box-shadow:none!important;
+        color:#111!important;
+      }
+      .progression-card{margin-bottom:7mm;padding:5mm;page-break-inside:avoid;break-inside:avoid}
+      .progression-card:before{display:none}
+      .card-top h3{font-size:18pt;color:#111}
+      .badge{border-color:#bbb;color:#111;background:#fff}
+      .badge.good,.badge.warn{background:#eee;color:#111}
+      .seq-item,.chord,.practice{background:#fff!important;color:#111!important;border-color:#aaa!important}
+      .diagram-row{gap:2.5mm}
+      .diagram-row.six{grid-template-columns:repeat(6,minmax(0,1fr))}
+      .chord-title{font-size:8.5pt}
+      .chord-sub{font-size:6.5pt;color:#333}
+      .svg-line,.svg-nut{stroke:#111}
+      .svg-dot{fill:#111;stroke:#111}
+      .svg-text{fill:#111}
+      .svg-finger{fill:#fff}
+      .svg-small{fill:#333}
+      .library-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:3mm}
+      .theory-grid{grid-template-columns:repeat(3,1fr);gap:4mm}
+      .theory-card p{color:#333}
+    }
+  </style>
+
+
+<style id="guitar-back-floater-style">
+.demo-back{
+  position:fixed;
+  left:14px;
+  bottom:14px;
+  top:auto;
+  z-index:30;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:900;
+  color:var(--ink);
+  background:rgba(8,11,18,.78);
+  border:1px solid rgba(24,198,216,.42);
+  border-radius:999px;
+  padding:9px 12px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 12px 30px rgba(0,0,0,.28);
+}
+@media print{
+  .demo-back{display:none!important}
+}
+</style>
+
+</head>
+<body>
+  <a class="demo-back" href="../">← Back to demos</a>
+
+  <div class="support-float">
+    <div class="support-panel">
+      <a href="https://github.com/sponsors/salmonofdoubt" target="_blank" rel="noopener">
+        <strong>GitHub Sponsors</strong>
+        <span>Best for open-source and civic-tech support.</span>
+      </a>
+      <a href="https://www.buymeacoffee.com/salmonofdoubt" target="_blank" rel="noopener">
+        <strong>Buy Me a Coffee</strong>
+        <span>Quick support for friends and casual visitors.</span>
+      </a>
+    </div>
+    <a class="support-pill" href="https://github.com/sponsors/salmonofdoubt" target="_blank" rel="noopener">♥ Support this work</a>
+  </div>
+
+  <a class="doi-pill" href="https://doi.org/10.5281/zenodo.0000000" target="_blank" rel="noopener">
+    <b>DOI</b> 10.5281/zenodo.0000000
+  </a>
+
+  <header class="hero wrap">
+    <div class="hero-grid">
+      <section class="hero-card">
+        <div class="kicker">Classical guitar · vertical fretboards · printable demo</div>
+        <h1>Progression Lab for Nylon Strings</h1>
+        <p class="lead">
+          Playable classical guitar progressions with vertical fretboards: voice-led cycles,
+          lament bass, Neapolitan colour, augmented sixth cadences, and a set of fun loops for immediate practice.
+        </p>
+        <div class="hero-actions">
+          <button class="primary" onclick="window.print()">Print / Save as PDF</button>
+          <a class="button" href="#progressions">Study progressions</a>
+          <a class="button" href="#library">Chord library</a>
+        </div>
+      </section>
+
+      <aside class="side-card">
+        <h2>Reading logic</h2>
+        <div class="hint"><b>1</b><span>Nut at top, low E string on the left, high E string on the right.</span></div>
+        <div class="hint"><b>2</b><span>Bass labels show the lowest sounded note. This matters for inversions.</span></div>
+        <div class="hint"><b>3</b><span>Use the print button to produce a clean PDF version with navigation removed.</span></div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="toolbar">
+      <input id="search" class="search" placeholder="Search: lament, Neapolitan, augmented sixth, Romanza, fun..." />
+      <div class="filters" id="filters"></div>
+      <div class="toolbar-actions">
+        <button onclick="toggleBass()">Bass labels</button>
+        <button class="primary" onclick="window.print()">Print / Save as PDF</button>
+      </div>
+    </section>
+
+    <section id="progressions">
+      <div class="section-head">
+        <div>
+          <h2>Progression cards</h2>
+          <p>Each card contains a playable loop, mini vertical fretboards, bass awareness, and a practical performance prompt.</p>
+        </div>
+      </div>
+      <div id="progressionGrid" class="progression-grid"></div>
+    </section>
+
+    <section id="library">
+      <div class="section-head">
+        <div>
+          <h2>Chord library</h2>
+          <p>All chord shapes used above, collected for drilling and quick print reference.</p>
+        </div>
+      </div>
+      <div id="libraryGrid" class="library-grid"></div>
+    </section>
+
+    <section id="theory">
+      <div class="section-head">
+        <div>
+          <h2>Small harmonic compass</h2>
+          <p>Enough theory to make the progressions useful without turning the page into a conservatoire tribunal.</p>
+        </div>
+      </div>
+      <div class="theory-grid">
+        <article class="theory-card">
+          <h3>Voice leading</h3>
+          <p>Keep common tones still, move adjacent voices by step, and listen for whether the top note sings across the chord change.</p>
+        </article>
+        <article class="theory-card">
+          <h3>Inversions</h3>
+          <p>A ⁶ chord places the third in the bass. A ⁶₄ chord places the fifth in the bass and often leans into the dominant.</p>
+        </article>
+        <article class="theory-card">
+          <h3>Altered cadences</h3>
+          <p>Neapolitan and augmented sixth chords intensify the approach to V. On guitar, the bass and tendency tones are the truth serum.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+<script>
+const DATA = (() => {
+  const chords = {
+    C_closed:{name:"C",q:"closed",frets:["x",3,5,5,5,"x"],f:[null,1,2,3,4,null],base:3},
+    C_open:{name:"C",q:"open",frets:["x",3,2,0,1,0],f:[null,3,2,null,1,null],base:1},
+    F_given:{name:"F",q:"supplied",frets:["x",8,7,5,6,"x"],f:[null,4,3,1,2,null],base:5,c:"played bass F, not A"},
+    F_A:{name:"F/A",q:"true ⁶",frets:["x",0,3,2,1,"x"],f:[null,null,3,2,1,null],base:1},
+    Bdim:{name:"B°",q:"root",frets:["x",2,3,4,3,"x"],f:[null,1,2,4,3,null],base:2},
+    Em_given:{name:"Em",q:"supplied",frets:["x",7,5,4,5,"x"],f:[null,4,2,1,3,null],base:4,c:"played bass E, not G"},
+    Em_G:{name:"Em/G",q:"true ⁶",frets:[3,2,2,0,0,0],f:[3,1,2,null,null,null],base:1},
+    Am_open:{name:"Am",q:"open",frets:["x",0,2,2,1,0],f:[null,null,2,3,1,null],base:1},
+    Am_high:{name:"Am",q:"V position",frets:["x",0,7,5,5,5],f:[null,null,3,1,1,1],base:5},
+    Dm_given:{name:"Dm",q:"supplied",frets:["x",5,3,2,3,"x"],f:[null,4,2,1,3,null],base:2,c:"played bass D, not F"},
+    Dm_F:{name:"Dm/F",q:"true ⁶",frets:[1,"x",0,2,3,1],f:[1,null,null,2,4,1],base:1},
+    G7:{name:"G7",q:"dominant",frets:[3,"x",3,4,3,"x"],f:[1,null,2,4,3,null],base:3},
+    E:{name:"E",q:"V",frets:[0,2,2,1,0,0],f:[null,2,3,1,null,null],base:1},
+    E7:{name:"E7",q:"V7",frets:[0,2,0,1,3,0],f:[null,2,null,1,4,null],base:1},
+    E7_high:{name:"E7",q:"high",frets:[0,7,6,7,5,"x"],f:[null,3,2,4,1,null],base:5},
+    Am_A:{name:"Am",q:"A bass",frets:[5,"x",7,5,5,"x"],f:[1,null,3,1,1,null],base:5},
+    Am_Gs:{name:"Am/G♯",q:"lament",frets:[4,"x",6,5,5,"x"],f:[1,null,4,2,3,null],base:4},
+    Am7_G:{name:"Am7/G",q:"lament",frets:[3,"x",5,5,5,"x"],f:[1,null,2,3,4,null],base:3},
+    D7_Fs:{name:"D7/F♯",q:"lament",frets:[2,"x",0,2,1,2],f:[2,null,null,3,1,4],base:1},
+    F6:{name:"F",q:"⁶ colour",frets:[1,"x",3,2,1,0],f:[1,null,4,2,1,null],base:1},
+    N_given:{name:"F",q:"supplied ♭II⁶",frets:["x",8,7,10,10,"x"],f:[null,2,1,3,4,null],base:7,c:"not strict A-minor ♭II⁶"},
+    Bb_D:{name:"B♭/D",q:"true ♭II⁶",frets:["x",5,3,3,3,"x"],f:[null,3,1,1,1,null],base:3},
+    It6:{name:"It+6",q:"F A D♯",frets:[1,"x",1,2,"x","x"],f:[1,null,1,2,null,null],base:1},
+    Ger6:{name:"Ger+6",q:"F A C D♯",frets:[1,3,1,2,1,1],f:[1,3,1,2,1,1],base:1},
+    Am_E:{name:"Am/E",q:"cadential ⁶₄",frets:[0,2,2,2,1,0],f:[null,2,3,4,1,null],base:1},
+    A:{name:"A",q:"bright",frets:["x",0,2,2,2,0],f:[null,null,1,2,3,null],base:1},
+    B7:{name:"B7",q:"dominant",frets:["x",2,1,2,0,2],f:[null,2,1,3,null,4],base:1},
+    Em:{name:"Em",q:"open",frets:[0,2,2,0,0,0],f:[null,2,3,null,null,null],base:1},
+    G:{name:"G",q:"open",frets:[3,2,0,0,0,3],f:[2,1,null,null,null,3],base:1},
+    F:{name:"F",q:"barre",frets:[1,3,3,2,1,1],f:[1,3,4,2,1,1],base:1},
+    Dm:{name:"Dm",q:"open",frets:["x","x",0,2,3,1],f:[null,null,null,1,3,2],base:1},
+    A7:{name:"A7",q:"dominant",frets:["x",0,2,0,2,0],f:[null,null,2,null,3,null],base:1},
+    Fmaj7:{name:"Fmaj7",q:"lyrical",frets:["x","x",3,2,1,0],f:[null,null,3,2,1,null],base:1},
+    E7b9:{name:"E7♭9",q:"Spanish sting",frets:[0,2,0,1,3,1],f:[null,2,null,1,4,1],base:1}
+  };
+
+  const progressions = [
+    {title:"Circle of Fifths, supplied shapes",tags:["advanced","voice-led","bass-check"],badges:["C major","circle","bass check"],steps:["C_closed","F_given","Bdim","Em_given","Am_open","Dm_given","G7","C_open"],practice:"Play as a slow sarabande. The supplied inversion labels are useful as colour, but several do not match the actual bass. Listen critically."},
+    {title:"Circle of Fifths, stricter inversion repair",tags:["advanced","voice-led","inversions"],badges:["corrected bass","study version"],steps:["C_open","F_A","Bdim","Em_G","Am_open","Dm_F","G7","C_open"],practice:"A cleaner study version: first inversions actually place the third in the bass. Keep left-hand motion quiet and economical."},
+    {title:"Baroque lament bass",tags:["lament","baroque","chromatic"],badges:["A → G♯ → G → F♯ → F → E","passacaglia"],steps:["Am_A","Am_Gs","Am7_G","D7_Fs","F6","E7"],practice:"Repeat until the bass line sounds inevitable. Then add p-i-m-a arpeggios. The tragedy will supply itself."},
+    {title:"Neapolitan drama, supplied colour",tags:["neapolitan","advanced","bass-check"],badges:["dramatic","bass check"],steps:["Am_high","N_given","E7_high","Am_high"],practice:"A vivid high-position colour. Use it theatrically, while noting that it is not a strict A-minor Neapolitan sixth."},
+    {title:"True Neapolitan sixth in A minor",tags:["neapolitan","cadence","advanced"],badges:["♭II⁶ → V7 → i","clean function"],steps:["Am_open","Bb_D","E7","Am_open"],practice:"B♭ major over D moves into E7 and resolves to A minor. Slow tempo, severe face."},
+    {title:"Italian augmented sixth snap",tags:["augmented-sixth","cadence","advanced"],badges:["It+6 → V → i","classical tension"],steps:["It6","E","Am_open"],practice:"Make the F and D♯ expand outward toward E. Small motion, large consequence."},
+    {title:"German sixth through cadential ⁶₄",tags:["augmented-sixth","cadential64","advanced"],badges:["Ger+6 → i⁶₄ → V7 → i","big cadence"],steps:["Ger6","Am_E","E7","Am_open"],practice:"Do not rush the cadential ⁶₄. It is not a resting tonic; it leans into V."},
+    {title:"Andalusian classical storm",tags:["fun","spanish","phrygian"],badges:["Am → G → F → E","instant theatre"],steps:["Am_open","G","F","E"],practice:"Start pianissimo, then crescendo. Use broken arpeggios for a more classical surface."},
+    {title:"Romanza mood loop",tags:["fun","romanza","easy"],badges:["Em → B7 → Em → Am","lyrical"],steps:["Em","B7","Em","Am_open"],practice:"Keep the first string gentle and ringing. This loop becomes hypnotic when the rhythm is steady."},
+    {title:"Lágrima sparkle",tags:["fun","tarrega","lyrical"],badges:["E → A → B7 → E","bright classical"],steps:["E","A","B7","E"],practice:"Let open strings shimmer rather than thump. Economise every left-hand movement."},
+    {title:"Greensleeves road",tags:["fun","modal","minor"],badges:["Am → G → C → E7","modal colour"],steps:["Am_open","G","C_open","E7"],practice:"Try two beats per chord, then one. Keep the bass soft and the melody implied on top."},
+    {title:"Dark arrival",tags:["fun","cadence","minor"],badges:["Dm → A7 → Dm → C → A7 → Dm","minor cadence"],steps:["Dm","A7","Dm","C_open","A7","Dm"],practice:"A compact minor-key scene. Accent the A7 only enough to make the return to Dm feel earned."},
+    {title:"Spanish Phrygian sting",tags:["fun","spanish","phrygian"],badges:["Am → Fmaj7 → E7♭9 → Am","colour chord"],steps:["Am_open","Fmaj7","E7b9","Am_open"],practice:"The E7♭9 is the bite. Place it carefully and resolve without apology."}
+  ];
+  return {chords,progressions};
+})();
+
+const state={filter:"all",showBass:true};
+const filters=[["all","All"],["fun","Fun"],["advanced","Advanced"],["voice-led","Voice-led"],["lament","Lament"],["neapolitan","Neapolitan"],["augmented-sixth","Aug. sixth"],["bass-check","Bass check"]];
+const tuning=["E","A","D","G","B","E"];
+const noteMap={
+  E:["E","F","F♯","G","G♯","A","B♭","B","C","C♯","D","E♭"],
+  A:["A","B♭","B","C","C♯","D","E♭","E","F","F♯","G","G♯"],
+  D:["D","E♭","E","F","F♯","G","G♯","A","B♭","B","C","C♯"],
+  G:["G","G♯","A","B♭","B","C","C♯","D","E♭","E","F","F♯"],
+  B:["B","C","C♯","D","E♭","E","F","F♯","G","G♯","A","B♭"]
+};
+
+function bassNote(chord){
+  for(let i=0;i<chord.frets.length;i++){
+    const fret=chord.frets[i];
+    if(fret!=="x"){
+      const n=typeof fret==="number" ? fret%12 : 0;
+      return noteMap[tuning[i]][n];
+    }
+  }
+  return "none";
+}
+
+function chordSvg(chord){
+  const frets=chord.frets,base=chord.base||1,w=138,h=168,gridX=22,gridY=34,gridW=94,gridH=104;
+  const sg=gridW/5,fg=gridH/5;
+  let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${chord.name} chord">`;
+  for(let i=0;i<6;i++){const x=gridX+i*sg;s+=`<line class="svg-line" x1="${x}" y1="${gridY}" x2="${x}" y2="${gridY+gridH}"></line>`}
+  for(let j=0;j<=5;j++){const y=gridY+j*fg;s+=`<line class="${j===0&&base===1?"svg-nut":"svg-line"}" x1="${gridX}" y1="${y}" x2="${gridX+gridW}" y2="${y}"></line>`}
+  if(base>1)s+=`<text class="svg-small" x="${gridX+gridW+13}" y="${gridY+fg/2}">${base}fr</text>`;
+  frets.forEach((fret,i)=>{const x=gridX+i*sg;if(fret==="x"||fret===0)s+=`<text class="svg-text" x="${x}" y="18">${fret==="x"?"×":"○"}</text>`});
+  frets.forEach((fret,i)=>{
+    if(fret==="x"||fret===0)return;
+    const df=fret-base+1;
+    if(df<1||df>5)return;
+    const x=gridX+i*sg,y=gridY+(df-.5)*fg,finger=chord.f?chord.f[i]:"";
+    s+=`<circle class="svg-dot" cx="${x}" cy="${y}" r="8.8"></circle>`;
+    if(finger)s+=`<text class="svg-finger" x="${x}" y="${y+.8}">${finger}</text>`;
+  });
+  return s+`</svg>`;
+}
+
+function chordCard(key){
+  const chord=DATA.chords[key];
+  const warn=chord.c?`<span class="badge warn">bass check</span>`:"";
+  return `<article class="chord" title="${chord.name} ${chord.q||""}">
+    <div class="chord-title">${chord.name}</div>
+    <div class="chord-sub">${chord.q||""}${state.showBass?" · bass "+bassNote(chord):""}</div>
+    ${chordSvg(chord)}
+    ${warn?`<div class="badges">${warn}</div>`:""}
+  </article>`;
+}
+
+function renderFilters(){
+  document.getElementById("filters").innerHTML=filters.map(([k,l])=>`<button class="chip ${state.filter===k?"active":""}" onclick="setFilter('${k}')">${l}</button>`).join("");
+}
+function setFilter(k){state.filter=k;renderFilters();renderProgressions()}
+function toggleBass(){state.showBass=!state.showBass;renderProgressions();renderLibrary()}
+
+function matches(p,term){
+  const filterOk=state.filter==="all"||p.tags.includes(state.filter);
+  const hay=[p.title,...p.tags,...p.badges,p.practice,...p.steps.map(k=>DATA.chords[k].name)].join(" ").toLowerCase();
+  return filterOk&&(!term||hay.includes(term.toLowerCase()));
+}
+function renderProgressions(){
+  const term=document.getElementById("search").value||"";
+  const items=DATA.progressions.filter(p=>matches(p,term));
+  document.getElementById("progressionGrid").innerHTML=items.map(p=>{
+    const seq=p.steps.map(k=>DATA.chords[k].name);
+    const rowClass=p.steps.length>=6?"six":(p.steps.length===3?"three":"");
+    return `<article class="progression-card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div>
+            <h3>${p.title}</h3>
+            <div class="badges">${p.badges.map((b,i)=>`<span class="badge ${i===0?"good":""}">${b}</span>`).join("")}</div>
+          </div>
+        </div>
+        <div class="sequence">${seq.map((n,i)=>`<span class="seq-item">${n}</span>${i<seq.length-1?`<span class="arrow">→</span>`:""}`).join("")}</div>
+        <div class="diagram-row ${rowClass}">${p.steps.map(chordCard).join("")}</div>
+        <div class="practice"><strong>Practice:</strong> ${p.practice}</div>
+      </div>
+    </article>`;
+  }).join("");
+}
+function renderLibrary(){
+  const used=[];
+  DATA.progressions.forEach(p=>p.steps.forEach(k=>{if(!used.includes(k))used.push(k)}));
+  document.getElementById("libraryGrid").innerHTML=used.map(k=>`<div class="library-card">${chordCard(k)}</div>`).join("");
+}
+document.getElementById("search").addEventListener("input",renderProgressions);
+renderFilters();renderProgressions();renderLibrary();
+</script>
+</body>
+</html>
