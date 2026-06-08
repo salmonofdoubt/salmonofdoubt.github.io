@@ -7,6 +7,65 @@
   <title>André Baumann | Research, Art, Music, Demos</title>
   <meta name="description" content="André Baumann. Research, visual art, music, and interactive demos." />
   <link rel="stylesheet" href="assets/css/site.css" />
+
+<style>
+/* platform-links:start */
+.platform-links {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 2rem auto;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.72);
+}
+.platform-links__inner {
+  max-width: 860px;
+}
+.platform-links__eyebrow {
+  margin: 0 0 0.35rem;
+  color: #7dd3fc;
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.platform-links h2 {
+  margin: 0 0 0.5rem;
+}
+.platform-links p {
+  margin-top: 0;
+}
+.platform-links__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+.platform-links__actions a {
+  min-height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  background: rgba(125, 211, 252, 0.14);
+  color: inherit;
+  font-weight: 800;
+  text-decoration: none;
+}
+@media (max-width: 560px) {
+  .platform-links {
+    width: min(100% - 1rem, 1120px);
+    border-radius: 18px;
+  }
+  .platform-links__actions a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+/* platform-links:end */
+</style>
+
 </head>
 <body>
   <header class="site-header">
@@ -160,7 +219,20 @@
         </article>
       </div>
     </section>
-  </main>
+  
+<section class="platform-links" aria-labelledby="platform-links-title">
+  <div class="platform-links__inner">
+    <p class="platform-links__eyebrow">Platform</p>
+    <h2 id="platform-links-title">Live monitors and operations</h2>
+    <p>Dynamic demos now share a monitor hub and a job-health page, keeping public pages simpler while preserving daily and hourly data pipelines.</p>
+    <div class="platform-links__actions">
+      <a href="monitors/">Open monitor hub</a>
+      <a href="ops/">Open operations page</a>
+    </div>
+  </div>
+</section>
+
+</main>
 
   <footer class="site-footer">
     <div class="container">

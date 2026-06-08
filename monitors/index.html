@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Live Monitors | Salmon of Doubt</title>
+  <meta name="description" content="Public monitor hub for research demos, live data jobs and evidence watch items.">
+  <link rel="stylesheet" href="monitor.css">
+</head>
+<body>
+  <header class="page-shell hero">
+    <nav class="topnav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../demos/">Demos</a>
+      <a href="../ops/">Ops</a>
+    </nav>
+
+    <p class="eyebrow">Monitor hub</p>
+    <h1>Live research monitors without the clutter</h1>
+    <p class="hero__lede">
+      A single public interface for dynamic watch items, freshness, confidence and caveats.
+      Demo pages remain curated; operational complexity lives here.
+    </p>
+
+    <div class="hero__actions">
+      <a class="button" href="../ops/">View system status</a>
+      <a class="button button--ghost" href="../data/monitor-items.json">Raw monitor data</a>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">System status</p>
+          <h2>Freshness overview</h2>
+        </div>
+        <p data-generated-at></p>
+      </div>
+      <div class="status-strip" data-status-strip>
+        <p class="muted">Loading job status…</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Find items</p>
+          <h2>Monitor intelligence</h2>
+        </div>
+      </div>
+
+      <div class="filters" aria-label="Monitor filters">
+        <label>
+          <span>Search</span>
+          <input type="search" data-search placeholder="hydrogen, funding, river, storage…">
+        </label>
+        <label>
+          <span>Monitor</span>
+          <select data-monitor-filter>
+            <option value="">All monitors</option>
+          </select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select data-status-filter>
+            <option value="">All statuses</option>
+          </select>
+        </label>
+        <label>
+          <span>Confidence</span>
+          <select data-confidence-filter>
+            <option value="">All confidence levels</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="cards" data-items>
+        <p class="muted">Loading monitor items…</p>
+      </div>
+    </section>
+
+    <section class="panel panel--quiet">
+      <p class="eyebrow">Operating rule</p>
+      <h2>What this hub does not do</h2>
+      <p>
+        It does not treat every watch item as evidence, every proposed project as operational, or every map as a decision.
+        Items are classified by status, confidence and caveat so public interpretation stays proportionate.
+      </p>
+    </section>
+  </main>
+
+  <script src="monitor.js" defer></script>
+</body>
+</html>

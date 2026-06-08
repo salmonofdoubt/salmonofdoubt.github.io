@@ -1,0 +1,29 @@
+{
+  "generated_at": "2026-06-08T17:53:03+00:00",
+  "schema_version": "1.0.0",
+  "items": [
+    {
+      "id": "rathrush-green-energy-park-carlow",
+      "monitor": "ietm",
+      "lane": "storage-flexibility",
+      "title": "Rathrush Green Energy Park",
+      "summary": "Proposed 600 MW long-duration green hydrogen storage project in Co. Carlow.",
+      "status": "proposed",
+      "importance": "high",
+      "confidence": "medium",
+      "location": "Rathoe / Tullow area, Co. Carlow",
+      "source_name": "RTÉ",
+      "source_url": "https://www.rte.ie/news/2026/0608/1577361-energy-firm-unveils-2bn-carlow-storage-project/",
+      "published_at": "2026-06-08",
+      "updated_at": "2026-06-08",
+      "tags": [
+        "storage",
+        "hydrogen",
+        "grid-flexibility",
+        "LDES"
+      ],
+      "counting_rule": "Do not count as connected renewable generation.",
+      "caveat": "Planning, licensing, efficiency and environmental assessment remain material uncertainties."
+    }
+  ]
+}

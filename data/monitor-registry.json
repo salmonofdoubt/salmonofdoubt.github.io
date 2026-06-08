@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-06-08T17:53:03+00:00",
+  "schema_version": "1.0.0",
+  "site_role": "Public research demos, live monitors, decision tools and operational dashboards",
+  "freshness_rules": {
+    "hourly": {
+      "fresh_hours": 2,
+      "stale_hours": 6
+    },
+    "daily": {
+      "fresh_hours": 36,
+      "stale_hours": 72
+    },
+    "weekly": {
+      "fresh_hours": 216,
+      "stale_hours": 336
+    },
+    "manual": {
+      "fresh_hours": 2160,
+      "stale_hours": 4320
+    }
+  },
+  "monitors": [
+    {
+      "id": "ietm",
+      "name": "Irish Energy Transition Monitor",
+      "category": "Energy",
+      "maturity": "Monitor",
+      "frequency": "hourly",
+      "public": true,
+      "summary": "Electricity transition, RES-E gap, capacity watch, storage and grid flexibility.",
+      "landing_page": "demos/ietm/",
+      "data_files": [
+        "demos/ietm/data/latest.json",
+        "demos/ietm/data/storage-flexibility.json",
+        "demos/ietm/data/validation.json"
+      ],
+      "caveat": "Proposed capacity, storage and connected generation must remain analytically separate."
+    },
+    {
+      "id": "urbanforest",
+      "name": "UrbanForest Radar",
+      "category": "Nature-based solutions",
+      "maturity": "Monitor",
+      "frequency": "daily",
+      "public": true,
+      "summary": "Urban forest practice, funding, research and design risk intelligence.",
+      "landing_page": "demos/urbanforest/",
+      "data_files": [
+        "demos/urbanforest/news/data/news.json",
+        "demos/urbanforest/news/data/validation.json"
+      ],
+      "caveat": "News and funding items are watch signals, not endorsements."
+    },
+    {
+      "id": "ndrt",
+      "name": "NDRT River Radar",
+      "category": "Rivers and catchments",
+      "maturity": "Monitor",
+      "frequency": "daily",
+      "public": true,
+      "summary": "River trust watch items covering grants, septic tanks, slurry timing, invasive species and practical catchment issues.",
+      "landing_page": "demos/ndrt/",
+      "data_files": [
+        "demos/ndrt/news/data/news.json",
+        "demos/ndrt/news/data/validation.json"
+      ],
+      "caveat": "Treat as an intelligence radar requiring field and stakeholder verification."
+    },
+    {
+      "id": "birds",
+      "name": "Bird Sound Atlas",
+      "category": "Biodiversity",
+      "maturity": "Demo",
+      "frequency": "daily",
+      "public": true,
+      "summary": "Ear-training demo using likely nearby birds and sound examples.",
+      "landing_page": "demos/birds/",
+      "data_files": [
+        "demos/birds/data/recent-observations.json",
+        "demos/birds/data/catalogue.json"
+      ],
+      "caveat": "Species likelihood depends on data coverage, season, location and source availability."
+    },
+    {
+      "id": "ilpf",
+      "name": "Irish Life Pension Funds",
+      "category": "Personal finance utility",
+      "maturity": "Personal utility",
+      "frequency": "daily",
+      "public": false,
+      "summary": "Fund valuation scrape and display utility.",
+      "landing_page": "demos/ilpf/",
+      "data_files": [
+        "demos/ilpf/data/funds.json",
+        "demos/ilpf/data/validation.json"
+      ],
+      "caveat": "Personal utility. Not financial advice."
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "generated_at": "2026-06-08T17:53:32+00:00",
+  "schema_version": "1.0.0",
+  "job_count": 5,
+  "jobs": [
+    {
+      "job_id": "ietm",
+      "name": "Irish Energy Transition Monitor",
+      "category": "Energy",
+      "frequency": "hourly",
+      "public": true,
+      "maturity": "Monitor",
+      "status": "fresh",
+      "message": "Data is within the expected freshness window.",
+      "last_success_at": "2026-06-08T17:39:41+00:00",
+      "data_age_hours": 0.23,
+      "landing_page": "demos/ietm/",
+      "files": [
+        {
+          "path": "demos/ietm/data/latest.json",
+          "exists": false,
+          "parse_ok": false,
+          "timestamp": "",
+          "message": "missing"
+        },
+        {
+          "path": "demos/ietm/data/storage-flexibility.json",
+          "exists": true,
+          "parse_ok": true,
+          "timestamp": "2026-06-08T17:39:41.838249+00:00",
+          "message": "ok"
+        },
+        {
+          "path": "demos/ietm/data/validation.json",
+          "exists": false,
+          "parse_ok": false,
+          "timestamp": "",
+          "message": "missing"
+        }
+      ],
+      "caveat": "Proposed capacity, storage and connected generation must remain analytically separate."
+    },
+    {
+      "job_id": "urbanforest",
+      "name": "UrbanForest Radar",
+      "category": "Nature-based solutions",
+      "frequency": "daily",
+      "public": true,
+      "maturity": "Monitor",
+      "status": "fresh",
+      "message": "Data is within the expected freshness window.",
+      "last_success_at": "2026-06-08T10:07:06+00:00",
+      "data_age_hours": 7.77,
+      "landing_page": "demos/urbanforest/",
+      "files": [
+        {
+          "path": "demos/urbanforest/news/data/news.json",
+          "exists": true,
+          "parse_ok": true,
+          "timestamp": "2026-06-08T10:07:06.274395+00:00",
+          "message": "ok"
+        },
+        {
+          "path": "demos/urbanforest/news/data/validation.json",
+          "exists": true,
+          "parse_ok": true,
+          "timestamp": "2026-06-08T10:07:06.411193+00:00",
+          "message": "ok"
+        }
+      ],
+      "caveat": "News and funding items are watch signals, not endorsements."
+    },
+    {
+      "job_id": "ndrt",
+      "name": "NDRT River Radar",
+      "category": "Rivers and catchments",
+      "frequency": "daily",
+      "public": true,
+      "maturity": "Monitor",
+      "status": "fresh",
+      "message": "Data is within the expected freshness window.",
+      "last_success_at": "2026-06-08T09:58:03+00:00",
+      "data_age_hours": 7.92,
+      "landing_page": "demos/ndrt/",
+      "files": [
+        {
+          "path": "demos/ndrt/news/data/news.json",
+          "exists": true,
+          "parse_ok": true,
+          "timestamp": "2026-06-08T09:58:03.532264+00:00",
+          "message": "ok"
+        },
+        {
+          "path": "demos/ndrt/news/data/validation.json",
+          "exists": false,
+          "parse_ok": false,
+          "timestamp": "",
+          "message": "missing"
+        }
+      ],
+      "caveat": "Treat as an intelligence radar requiring field and stakeholder verification."
+    },
+    {
+      "job_id": "birds",
+      "name": "Bird Sound Atlas",
+      "category": "Biodiversity",
+      "frequency": "daily",
+      "public": true,
+      "maturity": "Demo",
+      "status": "fresh",
+      "message": "Data is within the expected freshness window.",
+      "last_success_at": "2026-06-08T09:58:26+00:00",
+      "data_age_hours": 7.92,
+      "landing_page": "demos/birds/",
+      "files": [
+        {
+          "path": "demos/birds/data/recent-observations.json",
+          "exists": true,
+          "parse_ok": true,
+          "timestamp": "2026-06-08T09:58:26.899302+00:00",
+          "message": "ok"
+        },
+        {
+          "path": "demos/birds/data/catalogue.json",
+          "exists": false,
+          "parse_ok": false,
+          "timestamp": "",
+          "message": "missing"
+        }
+      ],
+      "caveat": "Species likelihood depends on data coverage, season, location and source availability."
+    },
+    {
+      "job_id": "ilpf",
+      "name": "Irish Life Pension Funds",
+      "category": "Personal finance utility",
+      "frequency": "daily",
+      "public": false,
+      "maturity": "Personal utility",
+      "status": "offline",
+      "message": "Data is older than the accepted stale window.",
+      "last_success_at": "2026-05-20T15:07:41+00:00",
+      "data_age_hours": 458.76,
+      "landing_page": "demos/ilpf/",
+      "files": [
+        {
+          "path": "demos/ilpf/data/funds.json",
+          "exists": true,
+          "parse_ok": true,
+          "timestamp": "2026-05-20T15:07:41+00:00",
+          "message": "ok"
+        },
+        {
+          "path": "demos/ilpf/data/validation.json",
+          "exists": false,
+          "parse_ok": false,
+          "timestamp": "",
+          "message": "missing"
+        }
+      ],
+      "caveat": "Personal utility. Not financial advice."
+    }
+  ]
+}

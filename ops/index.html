@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Operations | Salmon of Doubt</title>
+  <meta name="description" content="Operational status for live website monitors and data jobs.">
+  <link rel="stylesheet" href="ops.css">
+</head>
+<body>
+  <header class="shell hero">
+    <nav class="topnav" aria-label="Primary">
+      <a href="../">Home</a>
+      <a href="../monitors/">Monitors</a>
+      <a href="../demos/">Demos</a>
+    </nav>
+
+    <p class="eyebrow">Operations</p>
+    <h1>Job health, data freshness and caveats</h1>
+    <p>
+      This page exposes whether the hourly and daily monitor jobs have produced fresh, parseable data.
+      It is intentionally plain: an operational cockpit, not a brochure.
+    </p>
+  </header>
+
+  <main class="shell">
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Status</p>
+          <h2>Configured jobs</h2>
+        </div>
+        <p data-generated-at></p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Job</th>
+              <th>Frequency</th>
+              <th>Status</th>
+              <th>Last success</th>
+              <th>Data age</th>
+              <th>Output files</th>
+            </tr>
+          </thead>
+          <tbody data-job-table>
+            <tr><td colspan="6">Loading job status…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="eyebrow">Registry</p>
+      <h2>Monitor catalogue</h2>
+      <div class="registry" data-registry></div>
+    </section>
+
+    <section class="panel panel--quiet">
+      <p class="eyebrow">Freshness rules</p>
+      <h2>Meaning of states</h2>
+      <ul>
+        <li><strong>Fresh:</strong> updated within the expected window.</li>
+        <li><strong>Stale:</strong> missed one expected window but still usable with caution.</li>
+        <li><strong>Warning:</strong> data exists but timestamp or validation quality is uncertain.</li>
+        <li><strong>Offline:</strong> data is too old for public interpretation.</li>
+        <li><strong>Missing:</strong> configured output has not appeared yet.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="ops.js" defer></script>
+</body>
+</html>
