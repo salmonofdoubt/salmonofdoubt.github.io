@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>3D Chess Learning Lab</title>
+  <meta name="description" content="Interactive 3D chess learning demo for tactics, coordinates, piece movement, candidate moves, and board vision.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="demo-back" href="../">← Demos</a>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="3D Chess Learning Lab home">
+      <span class="brand-mark">♞</span>
+      <span>3D Chess Lab</span>
+    </a>
+    <nav aria-label="Page navigation">
+      <a href="#board">Board</a>
+      <a href="#lessons">Lessons</a>
+      <a href="#trainer">Trainer</a>
+      <a href="#theory">Theory</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="launch-card">
+      <div>
+        <p class="eyebrow">Board vision · tactics · candidate moves</p>
+        <h1>Learn chess as a spatial language.</h1>
+        <p>
+          Rotate the board, inspect legal movement, train coordinates, compare candidate moves,
+          and build pattern recognition without turning chess into memorised fog.
+        </p>
+      </div>
+      <div class="launch-actions">
+        <button class="primary" type="button" id="startLesson">Start lesson</button>
+        <button type="button" id="flipBoard">Flip board</button>
+        <button type="button" id="resetBoard">Reset</button>
+      </div>
+    </section>
+
+    <section class="principles" aria-label="Learning principles">
+      <article>
+        <h2>See geometry</h2>
+        <p>Every move is also a line, square, vector, constraint, or tempo problem.</p>
+      </article>
+      <article>
+        <h2>Ask better questions</h2>
+        <p>What is attacked? What is loose? What changed after the last move?</p>
+      </article>
+      <article>
+        <h2>Think in candidates</h2>
+        <p>Good chess begins before calculation: generate plausible moves, then test them.</p>
+      </article>
+    </section>
+
+    <section class="workspace" id="board">
+      <section class="panel board-panel">
+        <div class="panel-title">
+          <div>
+            <p class="eyebrow">Interactive board</p>
+            <h2>3D board vision</h2>
+          </div>
+          <div class="view-controls">
+            <label>Pitch <input id="pitch" type="range" min="20" max="68" value="52"></label>
+            <label>Turn <input id="turn" type="range" min="-40" max="40" value="0"></label>
+          </div>
+        </div>
+
+        <div class="scene-wrap">
+          <div class="scene" id="scene">
+            <div class="board3d" id="board3d" aria-label="Interactive chess board"></div>
+          </div>
+        </div>
+
+        <p class="board-note" id="boardNote">
+          Select a lesson, then click pieces or highlighted squares. The board is intentionally inspectable rather than game-engine complete.
+        </p>
+      </section>
+
+      <aside class="side-rail">
+        <section class="panel status-card">
+          <h2>Focus</h2>
+          <strong id="focusTitle">Coordinate fluency</strong>
+          <p id="focusText">Name squares quickly. Board literacy is the grammar of chess.</p>
+        </section>
+
+        <section class="panel status-card">
+          <h2>Learning score</h2>
+          <div class="score"><span id="score">0</span><small>/100</small></div>
+          <p id="scoreText">Complete prompts to build the score.</p>
+        </section>
+
+        <section class="panel status-card">
+          <h2>Move lens</h2>
+          <ol class="protocol-list">
+            <li>Checks</li>
+            <li>Captures</li>
+            <li>Threats</li>
+            <li>Loose pieces</li>
+            <li>King safety</li>
+            <li>Pawn breaks</li>
+            <li>Candidate moves</li>
+          </ol>
+        </section>
+      </aside>
+    </section>
+
+    <section class="panel" id="lessons">
+      <p class="eyebrow">Lesson deck</p>
+      <h2>Pick a learning mode</h2>
+      <div class="lesson-grid" id="lessonGrid"></div>
+    </section>
+
+    <section class="panel" id="trainer">
+      <p class="eyebrow">Practice cockpit</p>
+      <h2 id="trainerTitle">Coordinate trainer</h2>
+      <p class="panel-intro" id="trainerIntro">Click the requested square. You are learning the board before learning openings.</p>
+
+      <div class="trainer-box">
+        <div>
+          <span class="prompt-label">Prompt</span>
+          <strong id="prompt">Click e4</strong>
+        </div>
+        <div class="button-row">
+          <button type="button" id="newPrompt">New prompt</button>
+          <button type="button" id="showAnswer">Show answer</button>
+        </div>
+      </div>
+
+      <div class="feedback" id="feedback">Awaiting move, Captain.</div>
+    </section>
+
+    <section class="panel" id="theory">
+      <p class="eyebrow">Chess thinking</p>
+      <h2>What this demo teaches</h2>
+      <div class="theory-grid">
+        <article>
+          <h3>Board coordinates</h3>
+          <p>Fast square recognition reduces cognitive load. You cannot calculate what you cannot locate.</p>
+        </article>
+        <article>
+          <h3>Piece vectors</h3>
+          <p>Bishops, rooks, queens, knights, kings, and pawns each encode different spatial constraints.</p>
+        </article>
+        <article>
+          <h3>Tactical motifs</h3>
+          <p>Forks, pins, skewers, overloads, discovered attacks, and back-rank themes are recurring geometries.</p>
+        </article>
+        <article>
+          <h3>Candidate discipline</h3>
+          <p>Do not marry the first move. Generate, compare, test, then decide.</p>
+        </article>
+        <article>
+          <h3>Human judgement</h3>
+          <p>The engine may be stronger, but the human must learn why a move is reasonable.</p>
+        </article>
+        <article>
+          <h3>Slow is smooth</h3>
+          <p>Accuracy first. Speed emerges after patterns become visible.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="support-float" aria-label="Support this work">
+    <div class="support-panel">
+      <a href="https://github.com/sponsors/salmonofdoubt">
+        <strong>GitHub Sponsors</strong>
+        <span>Support public demos and research tools.</span>
+      </a>
+      <a href="https://www.buymeacoffee.com/salmonofdoubt">
+        <strong>Buy me a coffee</strong>
+        <span>Fuel future experiments. Earl Grey also acceptable.</span>
+      </a>
+    </div>
+    <button class="support-pill" type="button">Support this work</button>
+  </div>
+
+  <a class="doi-pill" href="https://doi.org/10.5281/zenodo.0000000">
+    <b>DOI</b><span>10.5281/zenodo.0000000</span>
+  </a>
+
+  <script src="./app.js"></script>
+</body>
+</html>
