@@ -1,4 +1,5 @@
 import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+import { Chess } from "https://cdn.jsdelivr.net/npm/chess.js@1.4.0/dist/esm/chess.js";
 
 const sceneWrap = document.querySelector(".scene-wrap");
 const oldBoard = document.getElementById("board3d");
@@ -31,7 +32,8 @@ const STARTING_PIECES = {
   a8: "♜", b8: "♞", c8: "♝", d8: "♛", e8: "♚", f8: "♝", g8: "♞", h8: "♜"
 };
 
-let pieces = { ...STARTING_PIECES };
+let game = new Chess();
+let pieces = piecesFromGame();
 let activeLesson = "freeplay";
 let currentTarget = "e4";
 let selectedFrom = null;
@@ -43,6 +45,8 @@ let playAgainstWebsite = true;
 let humanColour = "white";
 let websiteColour = "black";
 let websiteThinking = false;
+const ENGINE_DEPTH = 2;
+let lastCalculation = [];
 
 const lessons = [
   {
@@ -133,6 +137,284 @@ function pieceName(symbol) {
     "♔": "White king", "♕": "White queen", "♖": "White rook", "♗": "White bishop", "♘": "White knight", "♙": "White pawn",
     "♚": "Black king", "♛": "Black queen", "♜": "Black rook", "♝": "Black bishop", "♞": "Black knight", "♟": "Black pawn"
   })[symbol] || "Piece";
+}
+
+
+function colourWord(code) {
+  return code === "w" ? "white" : "black";
+}
+
+function colourCode(word) {
+  return word === "white" ? "w" : "b";
+}
+
+function symbolFromPiece(piece) {
+  if (!piece) return null;
+  const map = {
+    wp: "♙", wn: "♘", wb: "♗", wr: "♖", wq: "♕", wk: "♔",
+    bp: "♟", bn: "♞", bb: "♝", br: "♜", bq: "♛", bk: "♚"
+  };
+  return map[`${piece.color}${piece.type}`] || null;
+}
+
+function piecesFromGame() {
+  const out = {};
+  const rows = game.board();
+
+  rows.forEach((row, rowIndex) => {
+    const rank = 8 - rowIndex;
+
+    row.forEach((piece, fileIndex) => {
+      if (!piece) return;
+
+      const square = `${FILES[fileIndex]}${rank}`;
+      out[square] = symbolFromPiece(piece);
+    });
+  });
+
+  return out;
+}
+
+function syncPiecesFromGame() {
+  pieces = piecesFromGame();
+  turnColour = colourWord(game.turn());
+}
+
+function legalMoves(square) {
+  return game.moves({ square, verbose: true }).map(m => m.to);
+}
+
+
+
+function legalVerboseMoves(square) {
+  return game.moves({ square, verbose: true });
+}
+
+function currentStatusText() {
+  const side = colourWord(game.turn());
+  if (game.isCheckmate()) return `Checkmate. ${side} is mated.`;
+  if (game.isStalemate()) return "Stalemate.";
+  if (game.isDraw()) return "Draw.";
+  if (game.isCheck()) return `${side} is in check.`;
+  return `${side} to move.`;
+}
+
+function ensureStrategyPanel() {
+  if (document.getElementById("strategyPanel")) return;
+
+  const trainer = document.getElementById("trainer");
+  if (!trainer) return;
+
+  trainer.insertAdjacentHTML("afterend", `
+    <section class="panel strategy-panel" id="strategyPanel">
+      <p class="eyebrow">Strategy engine</p>
+      <h2>Calculation cockpit</h2>
+      <p class="panel-intro">
+        The website uses legal moves from chess.js, then evaluates candidate moves with a small transparent search.
+      </p>
+
+      <div class="strategy-grid">
+        <article>
+          <span>Rules status</span>
+          <strong id="rulesStatus">Loading</strong>
+        </article>
+        <article>
+          <span>Search depth</span>
+          <strong id="searchDepth">2 ply</strong>
+        </article>
+        <article>
+          <span>Position score</span>
+          <strong id="positionScore">0</strong>
+        </article>
+      </div>
+
+      <div class="calc-table-wrap">
+        <table class="calc-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Candidate</th>
+              <th>Score</th>
+              <th>Why it likes it</th>
+            </tr>
+          </thead>
+          <tbody id="calculationRows">
+            <tr><td colspan="4">No calculation yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="coach-box">
+        <strong>Coach note</strong>
+        <p id="coachNote">Make a move. The website will reply and explain its candidate list.</p>
+      </div>
+
+      <details class="fen-box">
+        <summary>FEN / PGN</summary>
+        <code id="fenOutput"></code>
+        <pre id="pgnOutput"></pre>
+      </details>
+    </section>
+  `);
+}
+
+const pieceValues = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 0 };
+
+function centreBonus(square) {
+  const f = FILES.indexOf(square[0]);
+  const r = Number(square[1]) - 1;
+  const d = Math.abs(f - 3.5) + Math.abs(r - 3.5);
+  return Math.round((7 - d) * 6);
+}
+
+function evaluatePosition() {
+  if (game.isCheckmate()) {
+    return colourWord(game.turn()) === websiteColour ? -999999 : 999999;
+  }
+
+  if (game.isDraw() || game.isStalemate()) return 0;
+
+  let score = 0;
+
+  for (const row of game.board()) {
+    for (const piece of row) {
+      if (!piece) continue;
+      const sign = colourWord(piece.color) === websiteColour ? 1 : -1;
+      score += sign * (pieceValues[piece.type] || 0);
+      score += sign * centreBonus(piece.square);
+
+      if ((piece.type === "n" || piece.type === "b") && ["b1","g1","b8","g8","c1","f1","c8","f8"].includes(piece.square)) {
+        score -= sign * 18;
+      }
+    }
+  }
+
+  const turnBefore = game.turn();
+  const mobility = game.moves().length;
+  score += colourWord(turnBefore) === websiteColour ? mobility * 2 : -mobility * 2;
+
+  if (game.isCheck()) {
+    score += colourWord(game.turn()) === websiteColour ? -70 : 70;
+  }
+
+  return Math.round(score);
+}
+
+function search(depth, alpha, beta) {
+  if (game.isCheckmate()) {
+    return colourWord(game.turn()) === websiteColour ? -999999 + depth : 999999 - depth;
+  }
+  if (game.isDraw() || game.isStalemate()) return 0;
+  if (depth === 0) return evaluatePosition();
+
+  const moves = game.moves({ verbose: true });
+  const websiteToMove = colourWord(game.turn()) === websiteColour;
+
+  if (websiteToMove) {
+    let best = -Infinity;
+    for (const move of moves) {
+      game.move(move);
+      best = Math.max(best, search(depth - 1, alpha, beta));
+      game.undo();
+      alpha = Math.max(alpha, best);
+      if (beta <= alpha) break;
+    }
+    return best;
+  }
+
+  let best = Infinity;
+  for (const move of moves) {
+    game.move(move);
+    best = Math.min(best, search(depth - 1, alpha, beta));
+    game.undo();
+    beta = Math.min(beta, best);
+    if (beta <= alpha) break;
+  }
+  return best;
+}
+
+function moveTags(move, score) {
+  const tags = [];
+
+  if (move.captured) tags.push(`wins material: captures ${move.captured}`);
+  if (move.san.includes("+")) tags.push("gives check");
+  if (move.san.includes("#")) tags.push("checkmate");
+  if (["e4", "d4", "e5", "d5", "c4", "f4", "c5", "f5"].includes(move.to)) tags.push("claims central space");
+  if ((move.piece === "n" || move.piece === "b") && ["b8","g8","b1","g1","c8","f8","c1","f1"].includes(move.from)) tags.push("develops a minor piece");
+  if (move.flags && move.flags.includes("k")) tags.push("castles king-side");
+  if (move.flags && move.flags.includes("q")) tags.push("castles queen-side");
+  if (Math.abs(score) > 600) tags.push("large tactical swing");
+  if (!tags.length) tags.push("improves position according to material, centre, mobility, and king safety");
+
+  return tags.join("; ");
+}
+
+function analyseRoot(depth = ENGINE_DEPTH) {
+  const moves = game.moves({ verbose: true });
+  const rows = [];
+
+  for (const move of moves) {
+    game.move(move);
+    const score = search(depth - 1, -Infinity, Infinity);
+    game.undo();
+
+    rows.push({
+      move,
+      san: move.san,
+      from: move.from,
+      to: move.to,
+      score,
+      why: moveTags(move, score)
+    });
+  }
+
+  rows.sort((a, b) => b.score - a.score);
+  lastCalculation = rows.slice(0, 6);
+  return lastCalculation;
+}
+
+function renderStrategyPanel() {
+  ensureStrategyPanel();
+
+  const rulesStatus = document.getElementById("rulesStatus");
+  const searchDepth = document.getElementById("searchDepth");
+  const positionScore = document.getElementById("positionScore");
+  const calculationRows = document.getElementById("calculationRows");
+  const coachNote = document.getElementById("coachNote");
+  const fenOutput = document.getElementById("fenOutput");
+  const pgnOutput = document.getElementById("pgnOutput");
+
+  if (!rulesStatus) return;
+
+  const evalScore = evaluatePosition();
+  rulesStatus.textContent = currentStatusText();
+  searchDepth.textContent = `${ENGINE_DEPTH} ply`;
+  positionScore.textContent = `${evalScore > 0 ? "+" : ""}${evalScore}`;
+
+  if (fenOutput) fenOutput.textContent = game.fen();
+  if (pgnOutput) pgnOutput.textContent = game.pgn() || "No moves yet.";
+
+  if (calculationRows) {
+    if (!lastCalculation.length) {
+      calculationRows.innerHTML = `<tr><td colspan="4">No calculation yet.</td></tr>`;
+    } else {
+      calculationRows.innerHTML = lastCalculation.map((row, i) => `
+        <tr>
+          <td>${i + 1}</td>
+          <td><strong>${row.san}</strong><small>${row.from}→${row.to}</small></td>
+          <td>${row.score > 0 ? "+" : ""}${row.score}</td>
+          <td>${row.why}</td>
+        </tr>
+      `).join("");
+    }
+  }
+
+  if (coachNote) {
+    if (game.isCheckmate()) coachNote.textContent = "The position is checkmate. The rules engine, not the visual board, determines this.";
+    else if (game.isCheck()) coachNote.textContent = "The side to move is in check. Only moves that resolve check are legal.";
+    else if (lastCalculation[0]) coachNote.textContent = `Website preference: ${lastCalculation[0].san}. It is ranking candidate moves, not guessing.`;
+    else coachNote.textContent = "Make a move. The website will calculate candidate replies.";
+  }
 }
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -525,6 +807,7 @@ function createStandingPiece(symbol) {
 }
 
 function renderPieces() {
+  syncPiecesFromGame();
   for (const mesh of pieceMeshes.values()) {
     boardGroup.remove(mesh);
   }
@@ -605,67 +888,8 @@ function inBounds(file, rank) {
   return file >= 0 && file < 8 && rank >= 1 && rank <= 8;
 }
 
-function legalMoves(square) {
-  const piece = pieces[square];
-  if (!piece) return [];
 
-  const file = FILES.indexOf(square[0]);
-  const rank = Number(square[1]);
-  const colour = colourOfPiece(piece);
-  const moves = [];
 
-  const add = (f, r) => {
-    if (!inBounds(f, r)) return false;
-    const target = occupant(f, r);
-    if (!target) {
-      moves.push(squareName(f, r));
-      return true;
-    }
-    if (colourOfPiece(target) !== colour) moves.push(squareName(f, r));
-    return false;
-  };
-
-  const ray = (df, dr) => {
-    for (let step = 1; step < 8; step++) {
-      const nf = file + df * step;
-      const nr = rank + dr * step;
-      if (!inBounds(nf, nr)) break;
-      if (!add(nf, nr)) break;
-    }
-  };
-
-  if ("♘♞".includes(piece)) {
-    [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]].forEach(([df, dr]) => add(file + df, rank + dr));
-  } else if ("♗♝".includes(piece)) {
-    [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df, dr]) => ray(df, dr));
-  } else if ("♖♜".includes(piece)) {
-    [[1,0],[-1,0],[0,1],[0,-1]].forEach(([df, dr]) => ray(df, dr));
-  } else if ("♕♛".includes(piece)) {
-    [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df, dr]) => ray(df, dr));
-  } else if ("♔♚".includes(piece)) {
-    [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df, dr]) => add(file + df, rank + dr));
-  } else if (piece === "♙") {
-    if (inBounds(file, rank + 1) && !occupant(file, rank + 1)) {
-      moves.push(squareName(file, rank + 1));
-      if (rank === 2 && !occupant(file, rank + 2)) moves.push(squareName(file, rank + 2));
-    }
-    [[-1,1],[1,1]].forEach(([df, dr]) => {
-      const target = occupant(file + df, rank + dr);
-      if (target && colourOfPiece(target) === "black") moves.push(squareName(file + df, rank + dr));
-    });
-  } else if (piece === "♟") {
-    if (inBounds(file, rank - 1) && !occupant(file, rank - 1)) {
-      moves.push(squareName(file, rank - 1));
-      if (rank === 7 && !occupant(file, rank - 2)) moves.push(squareName(file, rank - 2));
-    }
-    [[-1,-1],[1,-1]].forEach(([df, dr]) => {
-      const target = occupant(file + df, rank + dr);
-      if (target && colourOfPiece(target) === "white") moves.push(squareName(file + df, rank + dr));
-    });
-  }
-
-  return moves;
-}
 
 function setPrompt() {
   clearMarkers();
@@ -674,7 +898,8 @@ function setPrompt() {
 
   if (activeLesson === "freeplay") {
     promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
-    feedback.textContent = "Click one of your standing pieces, then click a highlighted destination.";
+    feedback.textContent = currentStatusText() + " Click one of your standing pieces, then click a highlighted destination.";
+    renderStrategyPanel();
   } else if (activeLesson === "coordinates") {
     currentTarget = randomSquare();
     promptEl.textContent = `Click ${currentTarget}`;
@@ -746,12 +971,14 @@ function handleSquareClick(square) {
 }
 
 function handleFreePlay(square) {
+  syncPiecesFromGame();
+
   if (playAgainstWebsite && turnColour === websiteColour) {
     scheduleWebsiteMove();
     return;
   }
 
-  const piece = pieces[square];
+  const piece = game.get(square);
 
   if (!selectedFrom) {
     if (!piece) {
@@ -759,8 +986,8 @@ function handleFreePlay(square) {
       return;
     }
 
-    if (colourOfPiece(piece) !== turnColour) {
-      feedback.textContent = `It is ${turnColour}'s move. That piece is ${colourOfPiece(piece)}.`;
+    if (colourWord(piece.color) !== turnColour) {
+      feedback.textContent = `It is ${turnColour}'s move. That piece is ${colourWord(piece.color)}.`;
       return;
     }
 
@@ -768,7 +995,8 @@ function handleFreePlay(square) {
     clearMarkers();
     mark(square, "target");
     legalMoves(square).forEach(s => mark(s));
-    feedback.textContent = `${pieceName(piece)} selected on ${square}. Choose a highlighted square.`;
+    feedback.textContent = `${pieceName(pieces[square])} selected on ${square}. Choose a legal highlighted square.`;
+    renderStrategyPanel();
     return;
   }
 
@@ -776,18 +1004,24 @@ function handleFreePlay(square) {
     selectedFrom = null;
     clearMarkers();
     feedback.textContent = "Selection cancelled.";
+    renderStrategyPanel();
     return;
   }
 
-  const allowed = legalMoves(selectedFrom);
+  const selectedPieceData = game.get(selectedFrom);
+  const clickedPieceData = game.get(square);
 
-  if (!allowed.includes(square)) {
-    if (piece && colourOfPiece(piece) === turnColour) {
-      selectedFrom = null;
-      handleFreePlay(square);
-      return;
-    }
-    feedback.textContent = `${square} is not a legal destination for ${pieceName(pieces[selectedFrom])} on ${selectedFrom}.`;
+  if (clickedPieceData && selectedPieceData && clickedPieceData.color === selectedPieceData.color) {
+    selectedFrom = null;
+    handleFreePlay(square);
+    return;
+  }
+
+  const move = legalVerboseMoves(selectedFrom).find(m => m.to === square);
+
+  if (!move) {
+    feedback.textContent = `${square} is not legal from ${selectedFrom}. If you are in check, the move must resolve check.`;
+    renderStrategyPanel();
     return;
   }
 
@@ -795,58 +1029,47 @@ function handleFreePlay(square) {
 }
 
 
+
 function executeMove(from, to, byWebsite = false) {
-  const movedPiece = pieces[from];
-  const captured = pieces[to];
+  const move = game.move({ from, to, promotion: "q" });
 
-  pieces[to] = movedPiece;
-  delete pieces[from];
+  if (!move) {
+    feedback.textContent = `${from} to ${to} is illegal in the current position.`;
+    renderStrategyPanel();
+    return false;
+  }
 
-  selectedFrom = null;
-  selectedPiece = null;
-  turnColour = turnColour === "white" ? "black" : "white";
-
+  syncPiecesFromGame();
   renderPieces();
   clearMarkers();
 
-  promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
+  selectedFrom = null;
+  selectedPiece = null;
+  promptEl.textContent = currentStatusText();
 
   if (byWebsite) {
-    feedback.textContent = captured
-      ? `Website played ${pieceName(movedPiece)} ${from} to ${to}, capturing ${pieceName(captured)}. Your move.`
-      : `Website played ${pieceName(movedPiece)} ${from} to ${to}. Your move.`;
+    feedback.textContent = `Website played ${move.san}. ${currentStatusText()}`;
   } else {
-    feedback.textContent = captured
-      ? `${pieceName(movedPiece)} moved ${from} to ${to} and captured ${pieceName(captured)}.`
-      : `${pieceName(movedPiece)} moved ${from} to ${to}.`;
+    feedback.textContent = `You played ${move.san}. ${currentStatusText()}`;
   }
 
   score = Math.min(100, score + (byWebsite ? 2 : 3));
   updateScore();
+  renderStrategyPanel();
 
-  if (!byWebsite && activeLesson === "freeplay" && playAgainstWebsite && turnColour === websiteColour) {
+  if (!byWebsite && activeLesson === "freeplay" && playAgainstWebsite && turnColour === websiteColour && !game.isGameOver()) {
     scheduleWebsiteMove();
   }
+
+  return true;
 }
+
 
 function allLegalMoves(colour) {
-  const moves = [];
-
-  for (const [from, piece] of Object.entries(pieces)) {
-    if (colourOfPiece(piece) !== colour) continue;
-
-    for (const to of legalMoves(from)) {
-      moves.push({
-        from,
-        to,
-        piece,
-        capture: pieces[to] || null
-      });
-    }
-  }
-
-  return moves;
+  if (turnColour !== colour) return [];
+  return game.moves({ verbose: true });
 }
+
 
 function moveValue(move) {
   const values = {
@@ -892,12 +1115,12 @@ function moveValue(move) {
 }
 
 function chooseWebsiteMove() {
-  const moves = allLegalMoves(websiteColour);
-  if (!moves.length) return null;
-
-  moves.sort((a, b) => moveValue(b) - moveValue(a));
-  return moves[0];
+  if (game.isGameOver()) return null;
+  const lines = analyseRoot(ENGINE_DEPTH);
+  renderStrategyPanel();
+  return lines[0]?.move || null;
 }
+
 
 function scheduleWebsiteMove() {
   if (!playAgainstWebsite || activeLesson !== "freeplay") return;
@@ -917,17 +1140,25 @@ function makeWebsiteMove() {
     return;
   }
 
+  if (game.isGameOver()) {
+    websiteThinking = false;
+    renderStrategyPanel();
+    return;
+  }
+
   const move = chooseWebsiteMove();
 
   if (!move) {
     websiteThinking = false;
-    feedback.textContent = "Website has no pseudo-legal move. This is not yet checkmate logic, merely exhaustion.";
+    feedback.textContent = "Website has no legal move.";
+    renderStrategyPanel();
     return;
   }
 
   websiteThinking = false;
   executeMove(move.from, move.to, true);
 }
+
 
 
 function onPointerDown(event) {
@@ -1031,7 +1262,8 @@ if (playWebsite) {
 
 
 resetBoard.addEventListener("click", () => {
-  pieces = { ...STARTING_PIECES };
+  game.reset();
+  syncPiecesFromGame();
   turnColour = "white";
   selectedFrom = null;
   selectedPiece = null;
@@ -1071,6 +1303,7 @@ window.addEventListener("resize", () => {
   setCamera();
 });
 
+ensureStrategyPanel();
 resize();
 createBoard();
 setCamera();
@@ -1078,4 +1311,5 @@ renderLessons();
 syncWebsiteButton();
 selectLesson("freeplay");
 updateScore();
+renderStrategyPanel();
 animate();

@@ -1338,3 +1338,126 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   }
 }
 /* real-standing-3d:end */
+
+
+/* strategy-engine:start */
+.strategy-panel {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(242, 196, 109, 0.10), transparent 22rem),
+    radial-gradient(circle at 0% 0%, rgba(24, 198, 216, 0.12), transparent 20rem),
+    var(--panel);
+}
+
+.strategy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.strategy-grid article,
+.coach-box,
+.fen-box {
+  border: 1px solid var(--line2);
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.30);
+  padding: 0.9rem;
+}
+
+.strategy-grid span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.strategy-grid strong {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--accent2);
+  font-size: 1.1rem;
+}
+
+.calc-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line2);
+  border-radius: 16px;
+  margin: 1rem 0;
+}
+
+.calc-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.calc-table th,
+.calc-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--line2);
+  text-align: left;
+  vertical-align: top;
+}
+
+.calc-table th {
+  color: var(--accent2);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.calc-table td {
+  color: var(--muted);
+}
+
+.calc-table strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.calc-table small {
+  display: block;
+  color: var(--gold);
+  font-family: var(--mono);
+  margin-top: 0.2rem;
+}
+
+.coach-box strong {
+  color: var(--accent2);
+}
+
+.coach-box p {
+  margin-bottom: 0;
+}
+
+.fen-box {
+  color: var(--muted);
+}
+
+.fen-box summary {
+  cursor: pointer;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.fen-box code {
+  display: block;
+  margin-top: 0.8rem;
+  word-break: break-all;
+  color: var(--accent2);
+}
+
+.fen-box pre {
+  white-space: pre-wrap;
+  color: var(--muted);
+}
+
+@media (max-width: 760px) {
+  .strategy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* strategy-engine:end */
