@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Storage Watcher | Ireland Energy Transition Monitor</title>
-  <meta name="description" content="Storage and grid-flexibility watcher for the Ireland Energy Transition Monitor.">
+  <meta name="description" content="Ranked storage and grid-flexibility watcher for the Ireland Energy Transition Monitor.">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="storage-watcher.css">
 </head>
@@ -14,66 +14,68 @@
       <a href="./">Back to IETM</a>
       <a href="../../monitors/">Monitor hub</a>
       <a href="../../ops/">Ops</a>
-      <a href="data/storage-flexibility.json">Raw storage data</a>
+      <a href="data/storage-ranked.json">Ranked JSON</a>
+      <a href="data/storage-ranked.csv">CSV</a>
     </nav>
 
     <header class="storage-watcher__hero">
       <p class="mini-kicker">Ireland Energy Transition Monitor</p>
       <h1>Storage Watcher</h1>
       <p>
-        Tracking storage and grid-flexibility projects separately from renewable generation.
-        Proposed storage can support a high-renewables system, but it must not be counted as connected renewable capacity.
+        Ranked storage and grid-flexibility intelligence for Ireland, and for projects relevant to Ireland.
+        The public view shows the decision list first: Promising and Watch. Background and noise are retained for audit.
       </p>
     </header>
 
     <section class="storage-watcher__summary" aria-label="Storage watcher summary">
-      <article>
-        <span>Projects tracked</span>
-        <strong data-storage-count>0</strong>
-      </article>
-      <article>
-        <span>Proposed capacity</span>
-        <strong data-storage-capacity>0 MW</strong>
-      </article>
-      <article>
-        <span>Stated storage</span>
-        <strong data-storage-energy>0 GWh</strong>
-      </article>
-      <article>
-        <span>Data status</span>
-        <strong data-storage-status>Loading</strong>
-      </article>
-    </section>
-
-    <section class="storage-watcher__controls" aria-label="Storage watcher controls">
-      <label>
-        <span>Search</span>
-        <input type="search" data-storage-search placeholder="hydrogen, battery, Carlow, grid…">
-      </label>
-      <label>
-        <span>Status</span>
-        <select data-storage-status-filter>
-          <option value="">All statuses</option>
-        </select>
-      </label>
-      <label>
-        <span>Type</span>
-        <select data-storage-type-filter>
-          <option value="">All types</option>
-        </select>
-      </label>
+      <article><span>Total discovered</span><strong data-summary-total>0</strong></article>
+      <article><span>Promising</span><strong data-summary-promising>0</strong></article>
+      <article><span>Watch</span><strong data-summary-watch>0</strong></article>
+      <article><span>Hidden audit items</span><strong data-summary-hidden>0</strong></article>
     </section>
 
     <section class="storage-watcher__note">
       <h2>Counting rule</h2>
       <p>
-        Storage, hydrogen and flexibility projects are enabling infrastructure. They are not counted in renewable
-        generation totals unless they are explicitly connected renewable generation assets.
+        Storage, hydrogen and flexibility projects are enabling infrastructure. They are not counted as connected
+        renewable generation unless the asset is explicitly a connected renewable generator.
       </p>
     </section>
 
+    <section class="storage-watcher__controls" aria-label="Storage watcher controls">
+      <label>
+        <span>Search</span>
+        <input type="search" data-search placeholder="hydrogen, battery, Carlow, EirGrid…">
+      </label>
+      <label>
+        <span>View</span>
+        <select data-bucket-filter>
+          <option value="decision" selected>Decision list: Promising + Watch</option>
+          <option value="Promising">Promising only</option>
+          <option value="Watch">Watch only</option>
+          <option value="Background">Background</option>
+          <option value="Reject/noise">Reject/noise</option>
+          <option value="all">All ranked items</option>
+        </select>
+      </label>
+      <label>
+        <span>Relevance</span>
+        <select data-relevance-filter>
+          <option value="">All relevance</option>
+        </select>
+      </label>
+      <label>
+        <span>Type</span>
+        <select data-type-filter>
+          <option value="">All types</option>
+        </select>
+      </label>
+    </section>
+
+    <div class="storage-watcher__result-note" data-result-note>Loading ranked storage items…</div>
+
     <section class="storage-watcher__cards" data-storage-list>
-      <p>Loading storage watcher data…</p>
+      <p>Loading Storage Watcher…</p>
     </section>
   </main>
 

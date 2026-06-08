@@ -27,7 +27,7 @@
 }
 
 .storage-watcher__hero {
-  max-width: 860px;
+  max-width: 880px;
   margin-bottom: 1.4rem;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .storage-watcher__hero p {
-  max-width: 760px;
+  max-width: 780px;
   line-height: 1.6;
 }
 
@@ -53,6 +53,7 @@
 .storage-watcher__summary article,
 .storage-watcher__controls,
 .storage-watcher__note,
+.storage-watcher__result-note,
 .storage-card {
   border: 1px solid rgba(148, 163, 184, 0.24);
   border-radius: 18px;
@@ -63,7 +64,9 @@
   padding: 0.9rem;
 }
 
-.storage-watcher__summary span {
+.storage-watcher__summary span,
+.storage-card__label,
+.storage-watcher__controls label span {
   display: block;
   margin-bottom: 0.3rem;
   opacity: 0.76;
@@ -76,36 +79,6 @@
 .storage-watcher__summary strong {
   display: block;
   font-size: clamp(1.25rem, 3vw, 1.9rem);
-}
-
-.storage-watcher__controls {
-  display: grid;
-  grid-template-columns: 1.5fr repeat(2, minmax(180px, 0.7fr));
-  gap: 0.75rem;
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-.storage-watcher__controls label span {
-  display: block;
-  margin-bottom: 0.35rem;
-  opacity: 0.76;
-  font-size: 0.78rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.storage-watcher__controls input,
-.storage-watcher__controls select {
-  width: 100%;
-  min-height: 2.6rem;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  border-radius: 12px;
-  background: rgba(2, 6, 23, 0.42);
-  color: inherit;
-  font: inherit;
 }
 
 .storage-watcher__note {
@@ -122,6 +95,32 @@
 .storage-watcher__note p {
   margin: 0;
   line-height: 1.55;
+}
+
+.storage-watcher__controls {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, minmax(160px, 0.7fr));
+  gap: 0.75rem;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.storage-watcher__controls input,
+.storage-watcher__controls select {
+  width: 100%;
+  min-height: 2.6rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 12px;
+  background: rgba(2, 6, 23, 0.42);
+  color: inherit;
+  font: inherit;
+}
+
+.storage-watcher__result-note {
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  font-weight: 800;
 }
 
 .storage-watcher__cards {
@@ -157,6 +156,29 @@
   font-weight: 900;
 }
 
+.storage-pill[data-bucket="Promising"] {
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.38);
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.storage-pill[data-bucket="Watch"] {
+  color: #fde68a;
+  border-color: rgba(253, 230, 138, 0.38);
+  background: rgba(234, 179, 8, 0.1);
+}
+
+.storage-pill[data-bucket="Background"] {
+  color: #bae6fd;
+  border-color: rgba(125, 211, 252, 0.32);
+}
+
+.storage-pill[data-bucket="Reject/noise"] {
+  color: #fca5a5;
+  border-color: rgba(252, 165, 165, 0.35);
+  background: rgba(239, 68, 68, 0.1);
+}
+
 .storage-card h2 {
   margin: 0 0 0.35rem;
   font-size: clamp(1.35rem, 3vw, 2rem);
@@ -180,29 +202,34 @@
   background: rgba(2, 6, 23, 0.28);
 }
 
-.storage-card__facts span {
-  display: block;
-  margin-bottom: 0.25rem;
-  opacity: 0.72;
-  font-size: 0.75rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
 .storage-card__facts strong {
   display: block;
-  font-size: clamp(1.15rem, 2.8vw, 1.65rem);
+  font-size: clamp(1.05rem, 2.5vw, 1.5rem);
 }
 
-.storage-card__warning {
+.storage-card__warning,
+.storage-card__reasoning {
   padding: 0.85rem;
   border-radius: 14px;
-  background: rgba(251, 191, 36, 0.1);
-  border: 1px solid rgba(251, 191, 36, 0.26);
+  border: 1px solid rgba(251, 191, 36, 0.24);
+  background: rgba(251, 191, 36, 0.08);
 }
 
-@media (max-width: 860px) {
+.storage-card__reasoning {
+  border-color: rgba(125, 211, 252, 0.22);
+  background: rgba(125, 211, 252, 0.07);
+}
+
+.storage-card__reasoning ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.storage-card__reasoning li + li {
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 900px) {
   .storage-watcher__summary,
   .storage-watcher__controls,
   .storage-card__facts {
@@ -219,24 +246,4 @@
   .storage-card__sources a {
     width: 100%;
   }
-}
-
-.storage-card__updates {
-  padding: 0.85rem;
-  border-radius: 14px;
-  border: 1px solid rgba(125, 211, 252, 0.22);
-  background: rgba(125, 211, 252, 0.07);
-}
-
-.storage-card__updates ul {
-  margin: 0.5rem 0 0;
-  padding-left: 1.1rem;
-}
-
-.storage-card__updates li + li {
-  margin-top: 0.4rem;
-}
-
-.storage-card__updates small {
-  opacity: 0.72;
 }
