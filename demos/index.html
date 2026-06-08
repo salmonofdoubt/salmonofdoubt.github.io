@@ -241,6 +241,82 @@
       }
     }
   </style>
+
+<style>
+/* demo-platform-links:start */
+.demo-platform-links {
+  width: min(1120px, calc(100% - 2rem));
+  margin: clamp(1.5rem, 4vw, 3rem) auto;
+  padding: clamp(1rem, 3vw, 1.4rem);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, 0.16), transparent 28rem),
+    rgba(15, 23, 42, 0.72);
+}
+
+.demo-platform-links__inner {
+  max-width: 880px;
+}
+
+.demo-platform-links__eyebrow {
+  margin: 0 0 0.35rem;
+  color: #7dd3fc;
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.demo-platform-links h2 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.demo-platform-links p {
+  margin-top: 0;
+  line-height: 1.6;
+}
+
+.demo-platform-links__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+.demo-platform-links__actions a {
+  min-height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  background: rgba(125, 211, 252, 0.14);
+  color: inherit;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.demo-platform-links__actions a:hover,
+.demo-platform-links__actions a:focus-visible {
+  background: rgba(125, 211, 252, 0.22);
+}
+
+@media (max-width: 560px) {
+  .demo-platform-links {
+    width: min(100% - 1rem, 1120px);
+    border-radius: 18px;
+  }
+
+  .demo-platform-links__actions a {
+    width: 100%;
+  }
+}
+/* demo-platform-links:end */
+</style>
+
 </head>
 <body>
   <header class="wrap">
@@ -282,7 +358,24 @@
 
     <section id="demoList" class="demo-list" aria-label="Demo list"></section>
     <section id="empty" class="empty">No matching demos found.</section>
-  </main>
+  
+<section class="demo-platform-links" aria-labelledby="demo-platform-links-title">
+  <div class="demo-platform-links__inner">
+    <p class="demo-platform-links__eyebrow">Platform layer</p>
+    <h2 id="demo-platform-links-title">Live monitors and operations</h2>
+    <p>
+      The demos now sit beside a shared monitor hub and an operations dashboard.
+      Use these when you want the live watch items, job freshness, caveats, and pipeline health rather than an individual demo.
+    </p>
+    <div class="demo-platform-links__actions">
+      <a href="../monitors/">Open monitor hub</a>
+      <a href="../ops/">Open operations page</a>
+      <a href="../data/job-status.json">View job status JSON</a>
+    </div>
+  </div>
+</section>
+
+</main>
 
   <footer class="wrap">
     These demos are public-facing prototypes. They are intended to make environmental information easier to inspect, discuss, and improve.
