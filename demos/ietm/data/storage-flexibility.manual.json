@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-06-08T17:39:41.838249+00:00",
+  "monitor": "Irish Energy Transition Monitor",
+  "lane": "Storage, hydrogen and grid flexibility",
+  "classification_note": "These assets support renewable integration and security of supply. They must not be counted as connected renewable generation capacity.",
+  "items": [
+    {
+      "id": "rathrush-green-energy-park-carlow",
+      "name": "Rathrush Green Energy Park",
+      "developer": "Net Zero Energy (NZE)",
+      "location": "Rathoe / Tullow area, Co. Carlow",
+      "planning_reference": "PC01.319679",
+      "technology": "Long-duration energy storage using green hydrogen and lined underground rock caverns",
+      "asset_type": "LDES / green hydrogen storage",
+      "capacity_mw": 600,
+      "duration_hours": 70,
+      "energy_gwh": 42,
+      "investment_eur_bn": 2,
+      "status": "Proposed / pre-application consultation",
+      "counting_rule": "Do not include in renewable generation totals. Track as enabling infrastructure.",
+      "watch_flags": [
+        "Planning permission not yet granted",
+        "Industrial Emissions Directive licence likely required",
+        "Hydrogen round-trip efficiency and environmental assessment should be tracked",
+        "Useful for RES-E integration but not equivalent to new renewable generation"
+      ],
+      "sources": [
+        {
+          "label": "RTÉ News, 8 Jun 2026",
+          "url": "https://www.rte.ie/news/2026/0608/1577361-energy-firm-unveils-2bn-carlow-storage-project/"
+        },
+        {
+          "label": "An Coimisiún Pleanála case PC01.319679",
+          "url": "https://www.pleanala.ie/en-ie/case/319679"
+        }
+      ]
+    }
+  ],
+  "query_terms": [
+    "long duration energy storage",
+    "LDES",
+    "green hydrogen",
+    "hydrogen storage",
+    "underground caverns",
+    "lined rock caverns",
+    "Rathrush Green Energy Park",
+    "Net Zero Energy",
+    "NZE",
+    "Carlow storage",
+    "grid flexibility",
+    "surplus renewable electricity"
+  ]
+}

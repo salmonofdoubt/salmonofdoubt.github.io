@@ -220,3 +220,23 @@
     width: 100%;
   }
 }
+
+.storage-card__updates {
+  padding: 0.85rem;
+  border-radius: 14px;
+  border: 1px solid rgba(125, 211, 252, 0.22);
+  background: rgba(125, 211, 252, 0.07);
+}
+
+.storage-card__updates ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.storage-card__updates li + li {
+  margin-top: 0.4rem;
+}
+
+.storage-card__updates small {
+  opacity: 0.72;
+}

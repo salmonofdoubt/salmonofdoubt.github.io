@@ -74,6 +74,26 @@
     `;
   }
 
+
+  function renderUpdates(item) {
+    const updates = Array.isArray(item.latest_updates) ? item.latest_updates : [];
+
+    if (!updates.length) return "";
+
+    const rows = updates.slice(0, 5).map((update) => {
+      const label = [update.source, update.published_at].filter(Boolean).join(" · ");
+      const title = escapeHtml(update.title || "Related update");
+
+      if (update.url) {
+        return `<li><a href="${escapeHtml(update.url)}" target="_blank" rel="noopener noreferrer">${title}</a>${label ? ` <small>${escapeHtml(label)}</small>` : ""}</li>`;
+      }
+
+      return `<li>${title}${label ? ` <small>${escapeHtml(label)}</small>` : ""}</li>`;
+    }).join("");
+
+    return `<div class="storage-card__updates"><strong>Latest related updates</strong><ul>${rows}</ul></div>`;
+  }
+
   function renderItem(item) {
     const sources = (item.sources || [])
       .map((source) => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}</a>`)
@@ -110,6 +130,8 @@
         <p class="storage-card__warning"><strong>Counting rule:</strong> ${escapeHtml(item.counting_rule || "Track separately from renewable generation.")}</p>
 
         ${warnings ? `<div><strong>Watch flags</strong><ul>${warnings}</ul></div>` : ""}
+
+        ${renderUpdates(item)}
 
         <div class="storage-card__sources">${sources}</div>
       </article>
