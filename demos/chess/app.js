@@ -1,5 +1,7 @@
-const board = document.getElementById("board3d");
-const scene = document.getElementById("scene");
+import * as THREE from "https://unpkg.com/three@0.160.0/build/three.module.js";
+
+const sceneWrap = document.querySelector(".scene-wrap");
+const oldBoard = document.getElementById("board3d");
 const pitch = document.getElementById("pitch");
 const turn = document.getElementById("turn");
 const flipBoard = document.getElementById("flipBoard");
@@ -18,13 +20,9 @@ const focusTitle = document.getElementById("focusTitle");
 const focusText = document.getElementById("focusText");
 const boardNote = document.getElementById("boardNote");
 
-const FILES = ["a","b","c","d","e","f","g","h"];
-let flipped = false;
-let score = 0;
-let activeLesson = "coordinates";
-let currentTarget = "e4";
-let selectedPiece = null;
+if (oldBoard) oldBoard.remove();
 
+const FILES = ["a","b","c","d","e","f","g","h"];
 const STARTING_PIECES = {
   a1: "♖", b1: "♘", c1: "♗", d1: "♕", e1: "♔", f1: "♗", g1: "♘", h1: "♖",
   a2: "♙", b2: "♙", c2: "♙", d2: "♙", e2: "♙", f2: "♙", g2: "♙", h2: "♙",
@@ -33,55 +31,21 @@ const STARTING_PIECES = {
 };
 
 let pieces = { ...STARTING_PIECES };
-let turnColour = "white";
+let activeLesson = "freeplay";
+let currentTarget = "e4";
 let selectedFrom = null;
-
-function isWhitePiece(piece) {
-  return "♔♕♖♗♘♙".includes(piece);
-}
-
-function isBlackPiece(piece) {
-  return "♚♛♜♝♞♟".includes(piece);
-}
-
-function colourOfPiece(piece) {
-  if (isWhitePiece(piece)) return "white";
-  if (isBlackPiece(piece)) return "black";
-  return null;
-}
-
-const pieceColour = square => colourOfPiece(pieces[square]) || "white";
-
-function pieceClass(symbol) {
-  return ({
-    "♔": "king", "♚": "king",
-    "♕": "queen", "♛": "queen",
-    "♖": "rook", "♜": "rook",
-    "♗": "bishop", "♝": "bishop",
-    "♘": "knight", "♞": "knight",
-    "♙": "pawn", "♟": "pawn"
-  })[symbol] || "pawn";
-}
-
-function pieceMarkup() {
-  return `
-    <i class="piece-shadow"></i>
-    <i class="piece-base"></i>
-    <i class="piece-stem"></i>
-    <i class="piece-head"></i>
-    <i class="piece-crown"></i>
-    <i class="piece-cut"></i>
-  `;
-}
-
+let selectedPiece = null;
+let turnColour = "white";
+let flipped = false;
+let score = 0;
 
 const lessons = [
   {
     id: "freeplay",
     title: "Free play",
-    summary: "Click a piece, then click a highlighted destination. White moves first.",
+    summary: "Click a standing piece, then click a highlighted destination. White moves first.",
     focus: "Play the position",
-    text: "This is a teaching board with pseudo-legal movement, not yet a tournament engine.",
+    text: "This is now a real 3D teaching board with procedural standing pieces.",
     intro: "White to move. Click a piece, inspect the legal destinations, then move."
   },
   {
@@ -134,58 +98,459 @@ const lessons = [
   }
 ];
 
-function squareName(fileIndex, rank) {
+function isWhitePiece(piece) {
+  return "♔♕♖♗♘♙".includes(piece);
+}
+
+function isBlackPiece(piece) {
+  return "♚♛♜♝♞♟".includes(piece);
+}
+
+function colourOfPiece(piece) {
+  if (isWhitePiece(piece)) return "white";
+  if (isBlackPiece(piece)) return "black";
+  return null;
+}
+
+function pieceKind(symbol) {
+  return ({
+    "♔": "king", "♚": "king",
+    "♕": "queen", "♛": "queen",
+    "♖": "rook", "♜": "rook",
+    "♗": "bishop", "♝": "bishop",
+    "♘": "knight", "♞": "knight",
+    "♙": "pawn", "♟": "pawn"
+  })[symbol] || "pawn";
+}
+
+function pieceName(symbol) {
+  return ({
+    "♔": "White king", "♕": "White queen", "♖": "White rook", "♗": "White bishop", "♘": "White knight", "♙": "White pawn",
+    "♚": "Black king", "♛": "Black queen", "♜": "Black rook", "♝": "Black bishop", "♞": "Black knight", "♟": "Black pawn"
+  })[symbol] || "Piece";
+}
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+sceneWrap.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = null;
+
+const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+camera.position.set(0, 8.5, 9.5);
+camera.lookAt(0, 0, 0);
+
+const boardGroup = new THREE.Group();
+scene.add(boardGroup);
+
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+
+const squareMeshes = new Map();
+const pieceMeshes = new Map();
+const markerMeshes = [];
+const boardSize = 8;
+const squareSize = 1;
+const boardOffset = 3.5;
+
+const matLight = new THREE.MeshStandardMaterial({
+  color: 0xe7d5b4,
+  roughness: 0.42,
+  metalness: 0.08
+});
+
+const matDark = new THREE.MeshStandardMaterial({
+  color: 0x273247,
+  roughness: 0.52,
+  metalness: 0.10
+});
+
+const matEdge = new THREE.MeshStandardMaterial({
+  color: 0x111722,
+  roughness: 0.38,
+  metalness: 0.22
+});
+
+const matWhite = new THREE.MeshPhysicalMaterial({
+  color: 0xf5e6c8,
+  roughness: 0.34,
+  metalness: 0.06,
+  clearcoat: 0.72,
+  clearcoatRoughness: 0.18
+});
+
+const matBlack = new THREE.MeshPhysicalMaterial({
+  color: 0x151b28,
+  roughness: 0.36,
+  metalness: 0.18,
+  clearcoat: 0.82,
+  clearcoatRoughness: 0.20
+});
+
+const matWhiteTrim = new THREE.MeshStandardMaterial({
+  color: 0xd6bd8e,
+  roughness: 0.28,
+  metalness: 0.34
+});
+
+const matBlackTrim = new THREE.MeshStandardMaterial({
+  color: 0x5be7ff,
+  roughness: 0.22,
+  metalness: 0.42,
+  emissive: 0x0a5d70,
+  emissiveIntensity: 0.16
+});
+
+const matLegal = new THREE.MeshBasicMaterial({
+  color: 0x18c6d8,
+  transparent: true,
+  opacity: 0.38,
+  depthWrite: false
+});
+
+const matTarget = new THREE.MeshBasicMaterial({
+  color: 0xf2c46d,
+  transparent: true,
+  opacity: 0.52,
+  depthWrite: false
+});
+
+scene.add(new THREE.HemisphereLight(0xdff8ff, 0x080a10, 2.2));
+
+const key = new THREE.DirectionalLight(0xffffff, 3.6);
+key.position.set(-4, 8, 6);
+key.castShadow = true;
+key.shadow.mapSize.width = 2048;
+key.shadow.mapSize.height = 2048;
+scene.add(key);
+
+const rim = new THREE.DirectionalLight(0x66eaff, 2.4);
+rim.position.set(5, 5, -5);
+scene.add(rim);
+
+const warm = new THREE.PointLight(0xf2c46d, 1.8, 20);
+warm.position.set(0, 4, 3.8);
+scene.add(warm);
+
+function squareToWorld(square) {
+  const file = FILES.indexOf(square[0]);
+  const rank = Number(square[1]) - 1;
+  const x = file - boardOffset;
+  const z = flipped ? rank - boardOffset : boardOffset - rank;
+  return { x, z };
+}
+
+function worldToSquareName(fileIndex, rank) {
   return `${FILES[fileIndex]}${rank}`;
 }
 
-function renderBoard() {
-  board.innerHTML = "";
-  const ranks = flipped ? [1,2,3,4,5,6,7,8] : [8,7,6,5,4,3,2,1];
-  const files = flipped ? [...FILES].reverse() : FILES;
+function createBoard() {
+  boardGroup.clear();
+  squareMeshes.clear();
+  pieceMeshes.clear();
+  markerMeshes.length = 0;
 
-  ranks.forEach(rank => {
-    files.forEach(file => {
-      const sq = `${file}${rank}`;
-      const fileIndex = FILES.indexOf(file);
-      const isLight = (fileIndex + rank) % 2 === 1;
-      const cell = document.createElement("button");
-      cell.type = "button";
-      cell.className = `square ${isLight ? "light" : "dark"}`;
-      cell.dataset.square = sq;
-      cell.setAttribute("aria-label", `Square ${sq}`);
+  const slab = new THREE.Mesh(
+    new THREE.BoxGeometry(8.65, 0.32, 8.65),
+    matEdge
+  );
+  slab.position.y = -0.2;
+  slab.receiveShadow = true;
+  slab.castShadow = true;
+  boardGroup.add(slab);
 
-      if (pieces[sq]) {
-        const symbol = pieces[sq];
-        const p = document.createElement("span");
-        p.className = `piece ${pieceColour(sq)} ${pieceClass(symbol)}`;
-        p.setAttribute("aria-hidden", "true");
-        p.innerHTML = pieceMarkup(symbol);
-        cell.appendChild(p);
+  for (let rank = 1; rank <= 8; rank++) {
+    for (let file = 0; file < 8; file++) {
+      const sq = `${FILES[file]}${rank}`;
+      const { x, z } = squareToWorld(sq);
+      const isLight = (file + rank) % 2 === 1;
+
+      const square = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 0.12, 1),
+        isLight ? matLight : matDark
+      );
+      square.position.set(x, 0, z);
+      square.receiveShadow = true;
+      square.userData.square = sq;
+      square.userData.type = "square";
+      boardGroup.add(square);
+      squareMeshes.set(sq, square);
+    }
+  }
+
+  renderPieces();
+}
+
+function makeLathe(points, material) {
+  const geometry = new THREE.LatheGeometry(
+    points.map(([x, y]) => new THREE.Vector2(x, y)),
+    56
+  );
+  geometry.computeVertexNormals();
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  return mesh;
+}
+
+function addCylinder(group, radius, height, y, material, segments = 64) {
+  const mesh = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius, height, segments), material);
+  mesh.position.y = y;
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  group.add(mesh);
+  return mesh;
+}
+
+function addSphere(group, radius, y, material, scale = [1, 1, 1]) {
+  const mesh = new THREE.Mesh(new THREE.SphereGeometry(radius, 48, 24), material);
+  mesh.scale.set(...scale);
+  mesh.position.y = y;
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  group.add(mesh);
+  return mesh;
+}
+
+function addBox(group, size, pos, material) {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(size[0], size[1], size[2]), material);
+  mesh.position.set(pos[0], pos[1], pos[2]);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+  group.add(mesh);
+  return mesh;
+}
+
+function pieceProfile(kind) {
+  const common = [
+    [0.00, 0.00],
+    [0.36, 0.00],
+    [0.42, 0.06],
+    [0.42, 0.12],
+    [0.34, 0.18],
+    [0.26, 0.22]
+  ];
+
+  if (kind === "pawn") {
+    return [
+      ...common,
+      [0.20, 0.40],
+      [0.22, 0.58],
+      [0.30, 0.68],
+      [0.22, 0.80],
+      [0.00, 0.82]
+    ];
+  }
+
+  if (kind === "rook") {
+    return [
+      ...common,
+      [0.25, 0.42],
+      [0.31, 0.56],
+      [0.30, 0.70],
+      [0.38, 0.74],
+      [0.38, 0.88],
+      [0.00, 0.88]
+    ];
+  }
+
+  if (kind === "bishop") {
+    return [
+      ...common,
+      [0.22, 0.42],
+      [0.30, 0.58],
+      [0.24, 0.80],
+      [0.10, 1.02],
+      [0.00, 1.07]
+    ];
+  }
+
+  if (kind === "queen") {
+    return [
+      ...common,
+      [0.24, 0.42],
+      [0.31, 0.60],
+      [0.23, 0.82],
+      [0.33, 0.98],
+      [0.22, 1.12],
+      [0.00, 1.14]
+    ];
+  }
+
+  if (kind === "king") {
+    return [
+      ...common,
+      [0.25, 0.44],
+      [0.32, 0.64],
+      [0.24, 0.86],
+      [0.30, 1.02],
+      [0.18, 1.16],
+      [0.00, 1.18]
+    ];
+  }
+
+  return [
+    ...common,
+    [0.25, 0.46],
+    [0.18, 0.78],
+    [0.00, 0.88]
+  ];
+}
+
+function createKnight(material, trim) {
+  const group = new THREE.Group();
+
+  addCylinder(group, 0.38, 0.12, 0.06, material);
+  addCylinder(group, 0.30, 0.10, 0.18, trim);
+  addCylinder(group, 0.22, 0.38, 0.40, material);
+
+  const body = new THREE.Mesh(
+    new THREE.CapsuleGeometry(0.22, 0.42, 10, 20),
+    material
+  );
+  body.position.set(0.02, 0.68, 0);
+  body.rotation.z = -0.28;
+  body.castShadow = true;
+  body.receiveShadow = true;
+  group.add(body);
+
+  const head = new THREE.Mesh(
+    new THREE.BoxGeometry(0.34, 0.42, 0.24),
+    material
+  );
+  head.position.set(0.08, 0.98, 0);
+  head.rotation.z = -0.52;
+  head.castShadow = true;
+  head.receiveShadow = true;
+  group.add(head);
+
+  const nose = new THREE.Mesh(
+    new THREE.ConeGeometry(0.16, 0.34, 4),
+    material
+  );
+  nose.position.set(0.22, 0.96, 0);
+  nose.rotation.z = -Math.PI / 2.7;
+  nose.rotation.y = Math.PI / 4;
+  nose.castShadow = true;
+  group.add(nose);
+
+  const mane = new THREE.Mesh(
+    new THREE.BoxGeometry(0.08, 0.45, 0.28),
+    trim
+  );
+  mane.position.set(-0.09, 0.88, 0);
+  mane.rotation.z = -0.18;
+  mane.castShadow = true;
+  group.add(mane);
+
+  return group;
+}
+
+function createStandingPiece(symbol) {
+  const kind = pieceKind(symbol);
+  const colour = colourOfPiece(symbol);
+  const material = colour === "white" ? matWhite : matBlack;
+  const trim = colour === "white" ? matWhiteTrim : matBlackTrim;
+
+  const group = new THREE.Group();
+  group.userData.symbol = symbol;
+  group.userData.kind = kind;
+  group.userData.colour = colour;
+
+  if (kind === "knight") {
+    const knight = createKnight(material, trim);
+    group.add(knight);
+  } else {
+    const body = makeLathe(pieceProfile(kind), material);
+    group.add(body);
+
+    if (kind === "rook") {
+      for (let i = 0; i < 6; i++) {
+        const a = i * Math.PI / 3;
+        const tooth = addBox(group, [0.12, 0.16, 0.12], [Math.cos(a) * 0.28, 0.96, Math.sin(a) * 0.28], trim);
+        tooth.rotation.y = a;
       }
+    }
 
-      cell.addEventListener("click", () => handleSquareClick(sq));
-      board.appendChild(cell);
-    });
+    if (kind === "bishop") {
+      const cut = new THREE.Mesh(
+        new THREE.BoxGeometry(0.06, 0.36, 0.08),
+        trim
+      );
+      cut.position.set(0.08, 0.94, 0);
+      cut.rotation.z = -0.65;
+      cut.castShadow = true;
+      group.add(cut);
+    }
+
+    if (kind === "queen") {
+      for (let i = 0; i < 6; i++) {
+        const a = i * Math.PI / 3;
+        addSphere(group, 0.055, 1.22, trim).position.set(Math.cos(a) * 0.27, 1.22, Math.sin(a) * 0.27);
+      }
+      addSphere(group, 0.07, 1.29, trim);
+    }
+
+    if (kind === "king") {
+      addBox(group, [0.08, 0.32, 0.08], [0, 1.32, 0], trim);
+      addBox(group, [0.26, 0.07, 0.07], [0, 1.40, 0], trim);
+    }
+
+    if (kind === "pawn") {
+      addSphere(group, 0.19, 0.86, material);
+    }
+  }
+
+  const scale = kind === "pawn" ? 0.72 : kind === "king" ? 0.84 : kind === "queen" ? 0.82 : 0.78;
+  group.scale.setScalar(scale);
+
+  group.traverse(obj => {
+    if (obj.isMesh) {
+      obj.userData.type = "piece";
+      obj.userData.parentPiece = group;
+      obj.castShadow = true;
+      obj.receiveShadow = true;
+    }
   });
-  applyLessonDecorations();
+
+  return group;
 }
 
-function setSceneTransform() {
-  scene.style.transform = `rotateX(${pitch.value}deg) rotateZ(${turn.value}deg)`;
-  document.querySelectorAll(".piece").forEach(piece => {
-    piece.style.transform = `translateZ(46px) rotateX(-${pitch.value}deg)`;
-  });
+function renderPieces() {
+  for (const mesh of pieceMeshes.values()) {
+    boardGroup.remove(mesh);
+  }
+  pieceMeshes.clear();
+
+  for (const [sq, symbol] of Object.entries(pieces)) {
+    const piece = createStandingPiece(symbol);
+    const { x, z } = squareToWorld(sq);
+    piece.position.set(x, 0.07, z);
+    piece.userData.square = sq;
+    piece.rotation.y = colourOfPiece(symbol) === "white" ? 0 : Math.PI;
+    boardGroup.add(piece);
+    pieceMeshes.set(sq, piece);
+  }
 }
 
-function clearMarks() {
-  document.querySelectorAll(".square").forEach(s => {
-    s.classList.remove("target", "legal", "answer");
-  });
+function clearMarkers() {
+  markerMeshes.forEach(m => boardGroup.remove(m));
+  markerMeshes.length = 0;
 }
 
-function mark(square, cls) {
-  const el = document.querySelector(`[data-square="${square}"]`);
-  if (el) el.classList.add(cls);
+function mark(square, mode = "legal") {
+  const { x, z } = squareToWorld(square);
+  const mesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(mode === "target" ? 0.44 : 0.24, mode === "target" ? 0.44 : 0.24, 0.025, 64),
+    mode === "target" ? matTarget : matLegal
+  );
+  mesh.position.set(x, 0.095, z);
+  mesh.userData.type = "marker";
+  boardGroup.add(mesh);
+  markerMeshes.push(mesh);
 }
 
 function randomSquare() {
@@ -194,146 +559,45 @@ function randomSquare() {
   return `${f}${r}`;
 }
 
-function setPrompt() {
-  clearMarks();
-  selectedPiece = null;
-
-  if (activeLesson === "freeplay") {
-    promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
-    feedback.textContent = "Click one of your pieces, then click a highlighted destination.";
-  } else if (activeLesson === "coordinates") {
-    currentTarget = randomSquare();
-    promptEl.textContent = `Click ${currentTarget}`;
-    feedback.textContent = "Awaiting square selection.";
-  } else if (activeLesson === "movement") {
-    promptEl.textContent = "Click any piece";
-    feedback.textContent = "Movement vectors will appear.";
-  } else if (activeLesson === "tactics") {
-    currentTarget = "c7";
-    promptEl.textContent = "Find the knight fork square: c7";
-    mark("c7", "target");
-    feedback.textContent = "A knight on c7 would fork king and rook in a common motif pattern.";
-  } else if (activeLesson === "candidates") {
-    promptEl.textContent = "List candidates: checks, captures, threats";
-    ["e4", "d4", "g1", "f7"].forEach(s => mark(s, "target"));
-    feedback.textContent = "The board highlights candidate zones, not final answers.";
-  } else if (activeLesson === "king") {
-    promptEl.textContent = "Inspect weak king lines";
-    ["e1", "e8", "f7", "g8", "h7"].forEach(s => mark(s, "target"));
-    feedback.textContent = "Open lines and weak escape squares determine king safety.";
-  } else {
-    promptEl.textContent = "Study pawn race geometry";
-    ["a4", "a5", "h4", "h5", "e5"].forEach(s => mark(s, "target"));
-    feedback.textContent = "Endgames are often distance problems with tempo attached.";
-  }
+function setCamera() {
+  const p = Number(pitch.value);
+  const t = Number(turn.value) * Math.PI / 180;
+  const radius = 11.2;
+  const y = 4.3 + (p / 68) * 6;
+  camera.position.set(Math.sin(t) * radius, y, Math.cos(t) * radius);
+  if (flipped) camera.position.multiplyScalar(-1);
+  camera.lookAt(0, 0, 0);
 }
 
-function handleSquareClick(square) {
-  if (activeLesson === "freeplay") {
-    handleFreePlay(square);
-    return;
-  }
-
-  if (activeLesson === "coordinates") {
-    if (square === currentTarget) {
-      score = Math.min(100, score + 10);
-      feedback.textContent = `Correct: ${square}. Efficient navigation, Captain.`;
-      updateScore();
-      setTimeout(setPrompt, 520);
-    } else {
-      feedback.textContent = `Not ${square}. Recalibrate. Target is ${currentTarget}.`;
-    }
-    return;
-  }
-
-  if (activeLesson === "movement") {
-    if (!pieces[square]) {
-      feedback.textContent = `${square} is empty. Click a piece.`;
-      return;
-    }
-    selectedPiece = square;
-    clearMarks();
-    mark(square, "target");
-    legalMoves(square).forEach(s => mark(s, "legal"));
-    const name = pieceName(pieces[square]);
-    feedback.textContent = `${name} on ${square}: movement geometry highlighted.`;
-    score = Math.min(100, score + 4);
-    updateScore();
-    return;
-  }
-
-  if (document.querySelector(`[data-square="${square}"]`)?.classList.contains("target")) {
-    score = Math.min(100, score + 6);
-    feedback.textContent = `${square} is relevant to this lesson. Pattern recognised.`;
-    updateScore();
-  } else {
-    feedback.textContent = `${square} may be legal in chess, but it is not the current lesson signal.`;
-  }
+function resize() {
+  const rect = sceneWrap.getBoundingClientRect();
+  renderer.setSize(rect.width, rect.height, false);
+  camera.aspect = rect.width / rect.height;
+  camera.updateProjectionMatrix();
 }
 
-function handleFreePlay(square) {
-  const piece = pieces[square];
+function render() {
+  renderer.render(scene, camera);
+}
 
-  if (!selectedFrom) {
-    if (!piece) {
-      feedback.textContent = `${square} is empty. Select a ${turnColour} piece.`;
-      return;
-    }
-
-    if (colourOfPiece(piece) !== turnColour) {
-      feedback.textContent = `It is ${turnColour}'s move. That piece is ${colourOfPiece(piece)}.`;
-      return;
-    }
-
-    selectedFrom = square;
-    clearMarks();
-    mark(square, "target");
-    const moves = legalMoves(square);
-    moves.forEach(s => mark(s, "legal"));
-    feedback.textContent = `${pieceName(piece)} selected on ${square}. Choose a highlighted square.`;
-    return;
+function animate() {
+  for (const piece of pieceMeshes.values()) {
+    piece.rotation.y += 0;
   }
+  render();
+  requestAnimationFrame(animate);
+}
 
-  if (square === selectedFrom) {
-    selectedFrom = null;
-    clearMarks();
-    feedback.textContent = "Selection cancelled.";
-    return;
-  }
+function squareName(fileIndex, rank) {
+  return `${FILES[fileIndex]}${rank}`;
+}
 
-  const allowed = legalMoves(selectedFrom);
+function occupant(file, rank) {
+  return pieces[squareName(file, rank)];
+}
 
-  if (!allowed.includes(square)) {
-    if (piece && colourOfPiece(piece) === turnColour) {
-      selectedFrom = null;
-      handleFreePlay(square);
-      return;
-    }
-
-    feedback.textContent = `${square} is not a legal destination for ${pieceName(pieces[selectedFrom])} on ${selectedFrom}.`;
-    return;
-  }
-
-  const movedPiece = pieces[selectedFrom];
-  const captured = pieces[square];
-
-  pieces[square] = movedPiece;
-  delete pieces[selectedFrom];
-
-  const from = selectedFrom;
-  selectedFrom = null;
-  turnColour = turnColour === "white" ? "black" : "white";
-
-  renderBoard();
-  clearMarks();
-
-  promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
-  feedback.textContent = captured
-    ? `${pieceName(movedPiece)} moved ${from} to ${square} and captured ${pieceName(captured)}.`
-    : `${pieceName(movedPiece)} moved ${from} to ${square}.`;
-
-  score = Math.min(100, score + 3);
-  updateScore();
+function inBounds(file, rank) {
+  return file >= 0 && file < 8 && rank >= 1 && rank <= 8;
 }
 
 function legalMoves(square) {
@@ -344,9 +608,6 @@ function legalMoves(square) {
   const rank = Number(square[1]);
   const colour = colourOfPiece(piece);
   const moves = [];
-
-  const occupant = (f, r) => pieces[squareName(f, r)];
-  const inBounds = (f, r) => f >= 0 && f < 8 && r >= 1 && r <= 8;
 
   const add = (f, r) => {
     if (!inBounds(f, r)) return false;
@@ -401,11 +662,165 @@ function legalMoves(square) {
   return moves;
 }
 
-function pieceName(symbol) {
-  return ({
-    "♔": "White king", "♕": "White queen", "♖": "White rook", "♗": "White bishop", "♘": "White knight", "♙": "White pawn",
-    "♚": "Black king", "♛": "Black queen", "♜": "Black rook", "♝": "Black bishop", "♞": "Black knight", "♟": "Black pawn"
-  })[symbol] || "Piece";
+function setPrompt() {
+  clearMarkers();
+  selectedPiece = null;
+  selectedFrom = null;
+
+  if (activeLesson === "freeplay") {
+    promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
+    feedback.textContent = "Click one of your standing pieces, then click a highlighted destination.";
+  } else if (activeLesson === "coordinates") {
+    currentTarget = randomSquare();
+    promptEl.textContent = `Click ${currentTarget}`;
+    feedback.textContent = "Awaiting square selection.";
+  } else if (activeLesson === "movement") {
+    promptEl.textContent = "Click any piece";
+    feedback.textContent = "Movement vectors will appear.";
+  } else if (activeLesson === "tactics") {
+    currentTarget = "c7";
+    promptEl.textContent = "Find the knight fork square: c7";
+    mark("c7", "target");
+    feedback.textContent = "A knight on c7 would fork king and rook in a common motif pattern.";
+  } else if (activeLesson === "candidates") {
+    promptEl.textContent = "List candidates: checks, captures, threats";
+    ["e4", "d4", "g1", "f7"].forEach(s => mark(s, "target"));
+    feedback.textContent = "The board highlights candidate zones, not final answers.";
+  } else if (activeLesson === "king") {
+    promptEl.textContent = "Inspect weak king lines";
+    ["e1", "e8", "f7", "g8", "h7"].forEach(s => mark(s, "target"));
+    feedback.textContent = "Open lines and weak escape squares determine king safety.";
+  } else {
+    promptEl.textContent = "Study pawn race geometry";
+    ["a4", "a5", "h4", "h5", "e5"].forEach(s => mark(s, "target"));
+    feedback.textContent = "Endgames are often distance problems with tempo attached.";
+  }
+}
+
+function handleSquareClick(square) {
+  if (activeLesson === "freeplay") {
+    handleFreePlay(square);
+    return;
+  }
+
+  if (activeLesson === "coordinates") {
+    if (square === currentTarget) {
+      score = Math.min(100, score + 10);
+      feedback.textContent = `Correct: ${square}. Efficient navigation, Captain.`;
+      updateScore();
+      setTimeout(setPrompt, 520);
+    } else {
+      feedback.textContent = `Not ${square}. Recalibrate. Target is ${currentTarget}.`;
+    }
+    return;
+  }
+
+  if (activeLesson === "movement") {
+    if (!pieces[square]) {
+      feedback.textContent = `${square} is empty. Click a piece.`;
+      return;
+    }
+    selectedPiece = square;
+    clearMarkers();
+    mark(square, "target");
+    legalMoves(square).forEach(s => mark(s));
+    feedback.textContent = `${pieceName(pieces[square])} on ${square}: movement geometry highlighted.`;
+    score = Math.min(100, score + 4);
+    updateScore();
+    return;
+  }
+
+  score = Math.min(100, score + 4);
+  feedback.textContent = `${square} inspected. Pattern recognition improving.`;
+  updateScore();
+}
+
+function handleFreePlay(square) {
+  const piece = pieces[square];
+
+  if (!selectedFrom) {
+    if (!piece) {
+      feedback.textContent = `${square} is empty. Select a ${turnColour} piece.`;
+      return;
+    }
+
+    if (colourOfPiece(piece) !== turnColour) {
+      feedback.textContent = `It is ${turnColour}'s move. That piece is ${colourOfPiece(piece)}.`;
+      return;
+    }
+
+    selectedFrom = square;
+    clearMarkers();
+    mark(square, "target");
+    legalMoves(square).forEach(s => mark(s));
+    feedback.textContent = `${pieceName(piece)} selected on ${square}. Choose a highlighted square.`;
+    return;
+  }
+
+  if (square === selectedFrom) {
+    selectedFrom = null;
+    clearMarkers();
+    feedback.textContent = "Selection cancelled.";
+    return;
+  }
+
+  const allowed = legalMoves(selectedFrom);
+
+  if (!allowed.includes(square)) {
+    if (piece && colourOfPiece(piece) === turnColour) {
+      selectedFrom = null;
+      handleFreePlay(square);
+      return;
+    }
+    feedback.textContent = `${square} is not a legal destination for ${pieceName(pieces[selectedFrom])} on ${selectedFrom}.`;
+    return;
+  }
+
+  const movedPiece = pieces[selectedFrom];
+  const captured = pieces[square];
+  pieces[square] = movedPiece;
+  delete pieces[selectedFrom];
+
+  const from = selectedFrom;
+  selectedFrom = null;
+  turnColour = turnColour === "white" ? "black" : "white";
+
+  renderPieces();
+  clearMarkers();
+  promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
+
+  feedback.textContent = captured
+    ? `${pieceName(movedPiece)} moved ${from} to ${square} and captured ${pieceName(captured)}.`
+    : `${pieceName(movedPiece)} moved ${from} to ${square}.`;
+
+  score = Math.min(100, score + 3);
+  updateScore();
+}
+
+function onPointerDown(event) {
+  const rect = renderer.domElement.getBoundingClientRect();
+  pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+  raycaster.setFromCamera(pointer, camera);
+  const objects = [];
+  boardGroup.traverse(obj => {
+    if (obj.isMesh && obj.userData.type !== "marker") objects.push(obj);
+  });
+
+  const hits = raycaster.intersectObjects(objects, true);
+  if (!hits.length) return;
+
+  let target = hits[0].object;
+
+  if (target.userData.type === "piece" && target.userData.parentPiece) {
+    handleSquareClick(target.userData.parentPiece.userData.square);
+    return;
+  }
+
+  if (target.userData.type === "square") {
+    handleSquareClick(target.userData.square);
+  }
 }
 
 function renderLessons() {
@@ -435,12 +850,6 @@ function selectLesson(id) {
   setPrompt();
 }
 
-function applyLessonDecorations() {
-  if (activeLesson !== "coordinates") {
-    setPrompt();
-  }
-}
-
 function updateScore() {
   scoreEl.textContent = score;
   if (score < 30) scoreText.textContent = "Early pattern acquisition.";
@@ -448,24 +857,34 @@ function updateScore() {
   else scoreText.textContent = "Strong session. The neurons appear cooperative.";
 }
 
-pitch.addEventListener("input", setSceneTransform);
-turn.addEventListener("input", setSceneTransform);
+pitch.addEventListener("input", () => {
+  setCamera();
+  render();
+});
+
+turn.addEventListener("input", () => {
+  setCamera();
+  render();
+});
 
 flipBoard.addEventListener("click", () => {
   flipped = !flipped;
-  renderBoard();
+  createBoard();
+  setCamera();
+  setPrompt();
 });
 
 resetBoard.addEventListener("click", () => {
-  score = 0;
-  flipped = false;
+  pieces = { ...STARTING_PIECES };
   turnColour = "white";
   selectedFrom = null;
-  pieces = { ...STARTING_PIECES };
+  selectedPiece = null;
+  score = 0;
+  flipped = false;
   pitch.value = 52;
   turn.value = 0;
-  renderBoard();
-  setSceneTransform();
+  createBoard();
+  setCamera();
   updateScore();
   selectLesson("freeplay");
 });
@@ -479,18 +898,26 @@ newPrompt.addEventListener("click", setPrompt);
 
 showAnswer.addEventListener("click", () => {
   if (activeLesson === "coordinates") {
-    mark(currentTarget, "answer");
+    mark(currentTarget, "target");
     feedback.textContent = `Answer shown: ${currentTarget}. Observe, then repeat without assistance.`;
   } else if (selectedPiece) {
-    legalMoves(selectedPiece).forEach(s => mark(s, "answer"));
+    legalMoves(selectedPiece).forEach(s => mark(s));
     feedback.textContent = `Answer geometry shown for ${selectedPiece}.`;
   } else {
     feedback.textContent = "No single answer for this lesson. Chess resists lazy certainty.";
   }
 });
 
+renderer.domElement.addEventListener("pointerdown", onPointerDown);
+window.addEventListener("resize", () => {
+  resize();
+  setCamera();
+});
+
+resize();
+createBoard();
+setCamera();
+renderLessons();
 selectLesson("freeplay");
-renderBoard();
-setSceneTransform();
-setPrompt();
 updateScore();
+animate();
