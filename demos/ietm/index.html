@@ -491,7 +491,28 @@
         </article>
       </div>
     </section>
-  </main>
+  
+<section class="storage-watch" id="storage-flexibility-monitor" aria-labelledby="storage-flexibility-title">
+  <div class="storage-watch__header">
+    <p class="storage-watch__eyebrow">Storage & grid flexibility monitor</p>
+    <h2 id="storage-flexibility-title">Enabling infrastructure watch</h2>
+    <p>
+      Long-duration storage, hydrogen and grid-flexibility assets that help Ireland absorb more wind and solar.
+      These are tracked separately from connected renewable generation so the RES-E arithmetic stays clean.
+    </p>
+  </div>
+
+  <div class="storage-watch__grid" data-storage-flexibility-list data-storage-source="data/storage-flexibility.json">
+    <p class="storage-watch__empty">Loading storage flexibility projects…</p>
+  </div>
+
+  <details class="storage-watch__terms">
+    <summary>Monitor query terms</summary>
+    <div class="storage-watch__term-list" data-storage-query-terms></div>
+  </details>
+</section>
+
+</main>
 
   <footer class="footer">
     <p>Ireland Energy Transition Monitor · open civic prototype · built for GitHub Pages</p>
@@ -501,5 +522,6 @@
   <script src="app.js?v=dashboard-version-20260520074233" defer></script>
   <script src="renewable-capacity.js?v=dashboard-version-20260517161000" defer></script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
+  <script src="storage-flexibility.js" defer></script>
 </body>
 </html>
