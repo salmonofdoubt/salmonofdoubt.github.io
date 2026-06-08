@@ -1,32 +1,17 @@
 {
-  "generated_at": "2026-06-07T08:33:09+00:00",
+  "generated_at": "2026-06-08T09:59:38+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
-      "id": "research_ireland_goipg",
-      "name": "Research Ireland Government of Ireland Postgraduate Scholarship",
-      "registry_state": "closed",
-      "page_state": "upcoming",
-      "state_source": "page_status_upcoming",
-      "deadline_text": "23rd October 2025"
-    }
-  ],
-  "fetch_failures_using_last_known_good": [
-    {
-      "id": "heritage_community_grant",
-      "name": "Heritage Council Community Heritage Grant Scheme",
-      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=10)",
-      "last_successful_fetch_at": "2026-06-06T08:05:34+00:00",
-      "programme_state": "closed"
-    },
-    {
       "id": "ifi_habitats_conservation",
       "name": "IFI Habitats & Conservation Funding Call",
-      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
-      "last_successful_fetch_at": "2026-06-06T08:03:27+00:00",
-      "programme_state": "closed"
+      "registry_state": "open",
+      "page_state": "closed",
+      "state_source": "deadline_past_recurring",
+      "deadline_text": "December 11th 2025"
     }
   ],
+  "fetch_failures_using_last_known_good": [],
   "fetch_failures_using_registry_fallback": [
     {
       "id": "seai_community_grant",
@@ -54,13 +39,11 @@
     }
   ],
   "state_source_counts": {
-    "registry_fallback": 28,
-    "last_known_good": 2,
-    "page_status_upcoming": 1,
+    "registry_fallback": 29,
+    "deadline_past_recurring": 3,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 3,
     "page_status_open": 2,
-    "deadline_past_recurring": 1,
     "page_status_closed": 1
   },
   "public_visible_count": 40,
