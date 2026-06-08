@@ -13,8 +13,9 @@
   <script defer src="/demos/shared/demo-doi.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css" />
   <script defer src="/demos/shared/demo-support.js"></script>
+  <link rel="stylesheet" href="ietm-subpages.css">
 </head>
-<body>
+<body >
   <a class="back-link" href="/demos/">← Back to Demos</a>
 
   <header class="hero">
@@ -28,7 +29,9 @@
       <a href="#prices">Prices</a>
       <a href="#counties">Counties</a>
       <a href="#method">Method</a>
-    </nav>
+        <a href="../../monitors/">Monitors</a>
+        <a href="../../ops/">Ops</a>
+      </nav>
 
     <div class="hero-grid">
       <section>
@@ -168,10 +171,25 @@
       </div>
 
   </header>
+<main>
 
+<section class="ietm-compact-watch" aria-labelledby="ietm-storage-teaser-title">
+  <div>
+    <p class="mini-kicker">Storage & flexibility</p>
+    <h2 id="ietm-storage-teaser-title">H₂ storage watch</h2>
+    <p>
+      Rathrush Green Energy Park is tracked as proposed enabling infrastructure, not renewable generation capacity.
+    </p>
+  </div>
+  <dl>
+    <div><dt>Capacity</dt><dd>600 MW proposed</dd></div>
+    <div><dt>Duration</dt><dd>70 h stated</dd></div>
+    <div><dt>Storage</dt><dd>42 GWh stated</dd></div>
+  </dl>
+  <a href="storage.html">Open storage page</a>
+</section>
 
-  <main>
-    <section id="pulse" class="section pulse-section">
+<section id="pulse" class="section pulse-section">
       <div class="section-head pulse-head">
         <p class="eyebrow">Daily civic briefing</p>
         <h2>Today at a glance</h2>
@@ -491,27 +509,6 @@
         </article>
       </div>
     </section>
-  
-<section class="storage-watch" id="storage-flexibility-monitor" aria-labelledby="storage-flexibility-title">
-  <div class="storage-watch__header">
-    <p class="storage-watch__eyebrow">Storage & grid flexibility monitor</p>
-    <h2 id="storage-flexibility-title">Enabling infrastructure watch</h2>
-    <p>
-      Long-duration storage, hydrogen and grid-flexibility assets that help Ireland absorb more wind and solar.
-      These are tracked separately from connected renewable generation so the RES-E arithmetic stays clean.
-    </p>
-  </div>
-
-  <div class="storage-watch__grid" data-storage-flexibility-list data-storage-source="data/storage-flexibility.json">
-    <p class="storage-watch__empty">Loading storage flexibility projects…</p>
-  </div>
-
-  <details class="storage-watch__terms">
-    <summary>Monitor query terms</summary>
-    <div class="storage-watch__term-list" data-storage-query-terms></div>
-  </details>
-</section>
-
 </main>
 
   <footer class="footer">
@@ -522,6 +519,5 @@
   <script src="app.js?v=dashboard-version-20260608174150" defer></script>
   <script src="renewable-capacity.js?v=dashboard-version-20260517161000" defer></script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
-  <script src="storage-flexibility.js" defer></script>
 </body>
 </html>

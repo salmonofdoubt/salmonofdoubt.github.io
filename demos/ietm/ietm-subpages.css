@@ -1,0 +1,173 @@
+/* ietm-subpages:start */
+.ietm-compact-watch {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 1.5rem auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.7fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.58);
+}
+
+.ietm-compact-watch h2 {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+}
+
+.ietm-compact-watch p {
+  margin: 0;
+  max-width: 64ch;
+  line-height: 1.5;
+}
+
+.ietm-compact-watch dl {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.ietm-compact-watch dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 12px;
+  background: rgba(2, 6, 23, 0.28);
+}
+
+.ietm-compact-watch dt {
+  font-weight: 800;
+  opacity: 0.78;
+}
+
+.ietm-compact-watch dd {
+  margin: 0;
+  font-weight: 900;
+}
+
+.ietm-compact-watch > a {
+  min-height: 2.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  border-radius: 999px;
+  background: rgba(125, 211, 252, 0.12);
+  color: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.storage-page {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+.storage-page__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.storage-page__nav a,
+.storage-card a {
+  min-height: 2.35rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid rgba(125, 211, 252, 0.35);
+  border-radius: 999px;
+  background: rgba(125, 211, 252, 0.12);
+  color: inherit;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.storage-page__hero {
+  max-width: 840px;
+  margin-bottom: 1.5rem;
+}
+
+.storage-page__hero h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(2rem, 6vw, 4.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.storage-page__hero p {
+  line-height: 1.6;
+}
+
+.storage-card {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.35rem);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 22px;
+  background: rgba(15, 23, 42, 0.68);
+}
+
+.storage-card__metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.storage-card__metrics div {
+  padding: 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 16px;
+  background: rgba(2, 6, 23, 0.28);
+}
+
+.storage-card__metrics span {
+  display: block;
+  margin-bottom: 0.25rem;
+  opacity: 0.75;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.storage-card__metrics strong {
+  display: block;
+  font-size: clamp(1.25rem, 3vw, 1.8rem);
+}
+
+.storage-card__note {
+  padding: 0.85rem;
+  border-left: 4px solid rgba(125, 211, 252, 0.65);
+  background: rgba(125, 211, 252, 0.08);
+  border-radius: 12px;
+}
+
+@media (max-width: 860px) {
+  .ietm-compact-watch,
+  .storage-card__metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .ietm-compact-watch,
+  .storage-page {
+    width: min(100% - 1rem, 1120px);
+  }
+
+  .ietm-compact-watch > a,
+  .storage-page__nav a {
+    width: 100%;
+  }
+}
+/* ietm-subpages:end */

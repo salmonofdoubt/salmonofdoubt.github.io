@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Storage & Flexibility | Ireland Energy Transition Monitor</title>
+  <meta name="description" content="Storage and grid flexibility watch for the Ireland Energy Transition Monitor.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="ietm-subpages.css">
+</head>
+<body>
+  <main class="storage-page">
+    <nav class="storage-page__nav" aria-label="Storage page navigation">
+      <a href="./">Back to IETM</a>
+      <a href="../../monitors/">Monitor hub</a>
+      <a href="../../ops/">Ops</a>
+      <a href="data/storage-flexibility.json">Storage JSON</a>
+    </nav>
+
+    <section class="storage-page__hero">
+      <p class="mini-kicker">Ireland Energy Transition Monitor</p>
+      <h1>Storage & flexibility</h1>
+      <p>
+        This page tracks storage, hydrogen and grid-flexibility projects separately from renewable generation.
+        Proposed storage can support a high-renewables system, but it is not the same thing as connected renewable capacity.
+      </p>
+    </section>
+
+    <section class="storage-card" aria-labelledby="rathrush-title">
+      <div>
+        <p class="mini-kicker">H₂ storage watch</p>
+        <h2 id="rathrush-title">Rathrush Green Energy Park</h2>
+        <p>
+          Proposed long-duration green hydrogen storage project in Co. Carlow. The item is retained as a watch signal
+          because it may be important for grid flexibility, but its planning, licensing, efficiency and environmental
+          assessment status require continued monitoring.
+        </p>
+      </div>
+
+      <div class="storage-card__metrics">
+        <div><span>Capacity</span><strong>600 MW</strong></div>
+        <div><span>Duration</span><strong>70 h</strong></div>
+        <div><span>Stored energy</span><strong>42 GWh</strong></div>
+        <div><span>Status</span><strong>Proposed</strong></div>
+      </div>
+
+      <p class="storage-card__note">
+        Counting rule: do not include this in connected renewable generation totals. Track it as enabling infrastructure.
+      </p>
+
+      <div class="storage-page__nav">
+        <a href="data/storage-flexibility.json">Open storage data</a>
+        <a href="../../monitors/">View in monitor hub</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
