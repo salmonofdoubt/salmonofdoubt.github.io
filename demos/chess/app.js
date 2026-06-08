@@ -6,6 +6,7 @@ const pitch = document.getElementById("pitch");
 const turn = document.getElementById("turn");
 const flipBoard = document.getElementById("flipBoard");
 const resetBoard = document.getElementById("resetBoard");
+const playWebsite = document.getElementById("playWebsite");
 const startLesson = document.getElementById("startLesson");
 const lessonGrid = document.getElementById("lessonGrid");
 const trainerTitle = document.getElementById("trainerTitle");
@@ -38,15 +39,19 @@ let selectedPiece = null;
 let turnColour = "white";
 let flipped = false;
 let score = 0;
+let playAgainstWebsite = true;
+let humanColour = "white";
+let websiteColour = "black";
+let websiteThinking = false;
 
 const lessons = [
   {
     id: "freeplay",
     title: "Free play",
-    summary: "Click a standing piece, then click a highlighted destination. White moves first.",
+    summary: "Play White against the website. Click a standing piece, then a highlighted destination.",
     focus: "Play the position",
     text: "This is now a real 3D teaching board with procedural standing pieces.",
-    intro: "White to move. Click a piece, inspect the legal destinations, then move."
+    intro: "You play White. The website replies as Black using a lightweight tactical heuristic."
   },
   {
     id: "coordinates",
@@ -698,6 +703,11 @@ function setPrompt() {
 }
 
 function handleSquareClick(square) {
+  if (websiteThinking) {
+    feedback.textContent = "The website is thinking. A modest silicon meditation is in progress.";
+    return;
+  }
+
   if (activeLesson === "freeplay") {
     handleFreePlay(square);
     return;
@@ -736,6 +746,11 @@ function handleSquareClick(square) {
 }
 
 function handleFreePlay(square) {
+  if (playAgainstWebsite && turnColour === websiteColour) {
+    scheduleWebsiteMove();
+    return;
+  }
+
   const piece = pieces[square];
 
   if (!selectedFrom) {
@@ -776,26 +791,144 @@ function handleFreePlay(square) {
     return;
   }
 
-  const movedPiece = pieces[selectedFrom];
-  const captured = pieces[square];
-  pieces[square] = movedPiece;
-  delete pieces[selectedFrom];
+  executeMove(selectedFrom, square, false);
+}
 
-  const from = selectedFrom;
+
+function executeMove(from, to, byWebsite = false) {
+  const movedPiece = pieces[from];
+  const captured = pieces[to];
+
+  pieces[to] = movedPiece;
+  delete pieces[from];
+
   selectedFrom = null;
+  selectedPiece = null;
   turnColour = turnColour === "white" ? "black" : "white";
 
   renderPieces();
   clearMarkers();
+
   promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
 
-  feedback.textContent = captured
-    ? `${pieceName(movedPiece)} moved ${from} to ${square} and captured ${pieceName(captured)}.`
-    : `${pieceName(movedPiece)} moved ${from} to ${square}.`;
+  if (byWebsite) {
+    feedback.textContent = captured
+      ? `Website played ${pieceName(movedPiece)} ${from} to ${to}, capturing ${pieceName(captured)}. Your move.`
+      : `Website played ${pieceName(movedPiece)} ${from} to ${to}. Your move.`;
+  } else {
+    feedback.textContent = captured
+      ? `${pieceName(movedPiece)} moved ${from} to ${to} and captured ${pieceName(captured)}.`
+      : `${pieceName(movedPiece)} moved ${from} to ${to}.`;
+  }
 
-  score = Math.min(100, score + 3);
+  score = Math.min(100, score + (byWebsite ? 2 : 3));
   updateScore();
+
+  if (!byWebsite && activeLesson === "freeplay" && playAgainstWebsite && turnColour === websiteColour) {
+    scheduleWebsiteMove();
+  }
 }
+
+function allLegalMoves(colour) {
+  const moves = [];
+
+  for (const [from, piece] of Object.entries(pieces)) {
+    if (colourOfPiece(piece) !== colour) continue;
+
+    for (const to of legalMoves(from)) {
+      moves.push({
+        from,
+        to,
+        piece,
+        capture: pieces[to] || null
+      });
+    }
+  }
+
+  return moves;
+}
+
+function moveValue(move) {
+  const values = {
+    pawn: 100,
+    knight: 320,
+    bishop: 330,
+    rook: 500,
+    queen: 900,
+    king: 10000
+  };
+
+  const kind = pieceKind(move.piece);
+  const targetKind = move.capture ? pieceKind(move.capture) : null;
+
+  let v = 0;
+
+  if (move.capture) {
+    v += (values[targetKind] || 0) * 5;
+    v -= (values[kind] || 0) * 0.25;
+  }
+
+  const file = FILES.indexOf(move.to[0]);
+  const rank = Number(move.to[1]);
+  const centreDistance = Math.abs(file - 3.5) + Math.abs(rank - 4.5);
+  v += (7 - centreDistance) * 18;
+
+  if (kind === "knight" || kind === "bishop") {
+    if (["b8", "g8", "b1", "g1", "c8", "f8", "c1", "f1"].includes(move.from)) {
+      v += 70;
+    }
+  }
+
+  if (kind === "queen") v -= 18;
+  if (kind === "king") v -= 120;
+
+  if (kind === "pawn") {
+    v += websiteColour === "black" ? (8 - rank) * 8 : rank * 8;
+  }
+
+  v += Math.random() * 42;
+
+  return v;
+}
+
+function chooseWebsiteMove() {
+  const moves = allLegalMoves(websiteColour);
+  if (!moves.length) return null;
+
+  moves.sort((a, b) => moveValue(b) - moveValue(a));
+  return moves[0];
+}
+
+function scheduleWebsiteMove() {
+  if (!playAgainstWebsite || activeLesson !== "freeplay") return;
+  if (turnColour !== websiteColour) return;
+  if (websiteThinking) return;
+
+  websiteThinking = true;
+  promptEl.textContent = "Website thinking";
+  feedback.textContent = "Website is calculating a reply. Crude, but enthusiastic.";
+
+  setTimeout(makeWebsiteMove, 650);
+}
+
+function makeWebsiteMove() {
+  if (!playAgainstWebsite || activeLesson !== "freeplay" || turnColour !== websiteColour) {
+    websiteThinking = false;
+    return;
+  }
+
+  const move = chooseWebsiteMove();
+
+  if (!move) {
+    websiteThinking = false;
+    feedback.textContent = "Website has no pseudo-legal move. This is not yet checkmate logic, merely exhaustion.";
+    return;
+  }
+
+  websiteThinking = false;
+  executeMove(move.from, move.to, true);
+}
+
 
 function onPointerDown(event) {
   const rect = renderer.domElement.getBoundingClientRect();
@@ -874,11 +1007,35 @@ flipBoard.addEventListener("click", () => {
   setPrompt();
 });
 
+
+function syncWebsiteButton() {
+  if (!playWebsite) return;
+  playWebsite.textContent = playAgainstWebsite ? "Website: Black" : "Human vs human";
+  playWebsite.classList.toggle("primary", playAgainstWebsite);
+}
+
+if (playWebsite) {
+  playWebsite.addEventListener("click", () => {
+    playAgainstWebsite = !playAgainstWebsite;
+    websiteThinking = false;
+    selectedFrom = null;
+    clearMarkers();
+    syncWebsiteButton();
+    setPrompt();
+
+    if (playAgainstWebsite && activeLesson === "freeplay" && turnColour === websiteColour) {
+      scheduleWebsiteMove();
+    }
+  });
+}
+
+
 resetBoard.addEventListener("click", () => {
   pieces = { ...STARTING_PIECES };
   turnColour = "white";
   selectedFrom = null;
   selectedPiece = null;
+  websiteThinking = false;
   score = 0;
   flipped = false;
   pitch.value = 52;
@@ -918,6 +1075,7 @@ resize();
 createBoard();
 setCamera();
 renderLessons();
+syncWebsiteButton();
 selectLesson("freeplay");
 updateScore();
 animate();
