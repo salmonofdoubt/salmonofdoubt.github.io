@@ -25,19 +25,42 @@ let activeLesson = "coordinates";
 let currentTarget = "e4";
 let selectedPiece = null;
 
-const pieces = {
+const STARTING_PIECES = {
   a1: "♖", b1: "♘", c1: "♗", d1: "♕", e1: "♔", f1: "♗", g1: "♘", h1: "♖",
   a2: "♙", b2: "♙", c2: "♙", d2: "♙", e2: "♙", f2: "♙", g2: "♙", h2: "♙",
   a7: "♟", b7: "♟", c7: "♟", d7: "♟", e7: "♟", f7: "♟", g7: "♟", h7: "♟",
   a8: "♜", b8: "♞", c8: "♝", d8: "♛", e8: "♚", f8: "♝", g8: "♞", h8: "♜"
 };
 
-const pieceColour = square => {
-  const rank = Number(square[1]);
-  return rank <= 2 ? "white" : "black";
-};
+let pieces = { ...STARTING_PIECES };
+let turnColour = "white";
+let selectedFrom = null;
+
+function isWhitePiece(piece) {
+  return "♔♕♖♗♘♙".includes(piece);
+}
+
+function isBlackPiece(piece) {
+  return "♚♛♜♝♞♟".includes(piece);
+}
+
+function colourOfPiece(piece) {
+  if (isWhitePiece(piece)) return "white";
+  if (isBlackPiece(piece)) return "black";
+  return null;
+}
+
+const pieceColour = square => colourOfPiece(pieces[square]) || "white";
 
 const lessons = [
+  {
+    id: "freeplay",
+    title: "Free play",
+    summary: "Click a piece, then click a highlighted destination. White moves first.",
+    focus: "Play the position",
+    text: "This is a teaching board with pseudo-legal movement, not yet a tournament engine.",
+    intro: "White to move. Click a piece, inspect the legal destinations, then move."
+  },
   {
     id: "coordinates",
     title: "Coordinate fluency",
@@ -150,7 +173,10 @@ function setPrompt() {
   clearMarks();
   selectedPiece = null;
 
-  if (activeLesson === "coordinates") {
+  if (activeLesson === "freeplay") {
+    promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
+    feedback.textContent = "Click one of your pieces, then click a highlighted destination.";
+  } else if (activeLesson === "coordinates") {
     currentTarget = randomSquare();
     promptEl.textContent = `Click ${currentTarget}`;
     feedback.textContent = "Awaiting square selection.";
@@ -178,6 +204,11 @@ function setPrompt() {
 }
 
 function handleSquareClick(square) {
+  if (activeLesson === "freeplay") {
+    handleFreePlay(square);
+    return;
+  }
+
   if (activeLesson === "coordinates") {
     if (square === currentTarget) {
       score = Math.min(100, score + 10);
@@ -215,45 +246,131 @@ function handleSquareClick(square) {
   }
 }
 
+function handleFreePlay(square) {
+  const piece = pieces[square];
+
+  if (!selectedFrom) {
+    if (!piece) {
+      feedback.textContent = `${square} is empty. Select a ${turnColour} piece.`;
+      return;
+    }
+
+    if (colourOfPiece(piece) !== turnColour) {
+      feedback.textContent = `It is ${turnColour}'s move. That piece is ${colourOfPiece(piece)}.`;
+      return;
+    }
+
+    selectedFrom = square;
+    clearMarks();
+    mark(square, "target");
+    const moves = legalMoves(square);
+    moves.forEach(s => mark(s, "legal"));
+    feedback.textContent = `${pieceName(piece)} selected on ${square}. Choose a highlighted square.`;
+    return;
+  }
+
+  if (square === selectedFrom) {
+    selectedFrom = null;
+    clearMarks();
+    feedback.textContent = "Selection cancelled.";
+    return;
+  }
+
+  const allowed = legalMoves(selectedFrom);
+
+  if (!allowed.includes(square)) {
+    if (piece && colourOfPiece(piece) === turnColour) {
+      selectedFrom = null;
+      handleFreePlay(square);
+      return;
+    }
+
+    feedback.textContent = `${square} is not a legal destination for ${pieceName(pieces[selectedFrom])} on ${selectedFrom}.`;
+    return;
+  }
+
+  const movedPiece = pieces[selectedFrom];
+  const captured = pieces[square];
+
+  pieces[square] = movedPiece;
+  delete pieces[selectedFrom];
+
+  const from = selectedFrom;
+  selectedFrom = null;
+  turnColour = turnColour === "white" ? "black" : "white";
+
+  renderBoard();
+  clearMarks();
+
+  promptEl.textContent = `${turnColour === "white" ? "White" : "Black"} to move`;
+  feedback.textContent = captured
+    ? `${pieceName(movedPiece)} moved ${from} to ${square} and captured ${pieceName(captured)}.`
+    : `${pieceName(movedPiece)} moved ${from} to ${square}.`;
+
+  score = Math.min(100, score + 3);
+  updateScore();
+}
+
 function legalMoves(square) {
   const piece = pieces[square];
+  if (!piece) return [];
+
   const file = FILES.indexOf(square[0]);
   const rank = Number(square[1]);
+  const colour = colourOfPiece(piece);
   const moves = [];
 
+  const occupant = (f, r) => pieces[squareName(f, r)];
+  const inBounds = (f, r) => f >= 0 && f < 8 && r >= 1 && r <= 8;
+
   const add = (f, r) => {
-    if (f >= 0 && f < 8 && r >= 1 && r <= 8) moves.push(squareName(f, r));
+    if (!inBounds(f, r)) return false;
+    const target = occupant(f, r);
+    if (!target) {
+      moves.push(squareName(f, r));
+      return true;
+    }
+    if (colourOfPiece(target) !== colour) moves.push(squareName(f, r));
+    return false;
   };
 
   const ray = (df, dr) => {
     for (let step = 1; step < 8; step++) {
       const nf = file + df * step;
       const nr = rank + dr * step;
-      if (nf < 0 || nf > 7 || nr < 1 || nr > 8) break;
-      moves.push(squareName(nf, nr));
+      if (!inBounds(nf, nr)) break;
+      if (!add(nf, nr)) break;
     }
   };
 
   if ("♘♞".includes(piece)) {
-    [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]].forEach(([df,dr]) => add(file + df, rank + dr));
+    [[1,2],[2,1],[2,-1],[1,-2],[-1,-2],[-2,-1],[-2,1],[-1,2]].forEach(([df, dr]) => add(file + df, rank + dr));
   } else if ("♗♝".includes(piece)) {
-    [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df,dr]) => ray(df, dr));
+    [[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df, dr]) => ray(df, dr));
   } else if ("♖♜".includes(piece)) {
-    [[1,0],[-1,0],[0,1],[0,-1]].forEach(([df,dr]) => ray(df, dr));
+    [[1,0],[-1,0],[0,1],[0,-1]].forEach(([df, dr]) => ray(df, dr));
   } else if ("♕♛".includes(piece)) {
-    [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df,dr]) => ray(df, dr));
+    [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df, dr]) => ray(df, dr));
   } else if ("♔♚".includes(piece)) {
-    [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df,dr]) => add(file + df, rank + dr));
+    [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].forEach(([df, dr]) => add(file + df, rank + dr));
   } else if (piece === "♙") {
-    add(file, rank + 1);
-    if (rank === 2) add(file, rank + 2);
-    add(file - 1, rank + 1);
-    add(file + 1, rank + 1);
+    if (inBounds(file, rank + 1) && !occupant(file, rank + 1)) {
+      moves.push(squareName(file, rank + 1));
+      if (rank === 2 && !occupant(file, rank + 2)) moves.push(squareName(file, rank + 2));
+    }
+    [[-1,1],[1,1]].forEach(([df, dr]) => {
+      const target = occupant(file + df, rank + dr);
+      if (target && colourOfPiece(target) === "black") moves.push(squareName(file + df, rank + dr));
+    });
   } else if (piece === "♟") {
-    add(file, rank - 1);
-    if (rank === 7) add(file, rank - 2);
-    add(file - 1, rank - 1);
-    add(file + 1, rank - 1);
+    if (inBounds(file, rank - 1) && !occupant(file, rank - 1)) {
+      moves.push(squareName(file, rank - 1));
+      if (rank === 7 && !occupant(file, rank - 2)) moves.push(squareName(file, rank - 2));
+    }
+    [[-1,-1],[1,-1]].forEach(([df, dr]) => {
+      const target = occupant(file + df, rank + dr);
+      if (target && colourOfPiece(target) === "white") moves.push(squareName(file + df, rank + dr));
+    });
   }
 
   return moves;
@@ -317,12 +434,15 @@ flipBoard.addEventListener("click", () => {
 resetBoard.addEventListener("click", () => {
   score = 0;
   flipped = false;
+  turnColour = "white";
+  selectedFrom = null;
+  pieces = { ...STARTING_PIECES };
   pitch.value = 52;
   turn.value = 0;
   renderBoard();
   setSceneTransform();
   updateScore();
-  selectLesson("coordinates");
+  selectLesson("freeplay");
 });
 
 startLesson.addEventListener("click", () => {
@@ -344,7 +464,7 @@ showAnswer.addEventListener("click", () => {
   }
 });
 
-renderLessons();
+selectLesson("freeplay");
 renderBoard();
 setSceneTransform();
 setPrompt();
