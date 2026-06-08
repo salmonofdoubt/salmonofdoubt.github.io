@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated_at": "2026-06-07T23:48:18+00:00",
-    "row_count": 55,
+    "generated_at": "2026-06-08T02:03:53+00:00",
+    "row_count": 56,
     "mode": "daily-snapshot-history",
     "warm_start_window_days": 30,
     "estimated_backfill_rows": 28,
-    "observed_rows": 27,
+    "observed_rows": 28,
     "caveat": "Some early rows may be estimated warm-start rows for sparklines. Rows with estimated_backfill=true are visual placeholders only, not observed historical data. As real daily snapshots accumulate, estimated rows age out of the 30-day display window."
   },
   "daily": [
@@ -1097,6 +1097,26 @@
       "imports_percent": 32.0,
       "residual_percent": 40.3,
       "co2_g_per_kwh": 157.0,
+      "co2_available": true,
+      "target_gap_pp": 38.7,
+      "target_status": "Off track",
+      "household_electricity_c_per_kwh": 31.72,
+      "household_gas_c_per_kwh": 12.33,
+      "electricity_system_price_eur_per_mwh": null,
+      "electricity_system_price_c_per_kwh_equiv": null,
+      "gas_balancing_price_c_per_kwh": 3.84
+    },
+    {
+      "date": "2026-06-08",
+      "captured_at": "2026-06-08T02:03:53+00:00",
+      "demand_mw": 3757.0,
+      "demand_gw": 3.76,
+      "renewables_percent": 32.2,
+      "wind_percent": 32.1,
+      "solar_percent": 0.1,
+      "imports_percent": 37.2,
+      "residual_percent": 30.7,
+      "co2_g_per_kwh": 177.0,
       "co2_available": true,
       "target_gap_pp": 38.7,
       "target_status": "Off track",
