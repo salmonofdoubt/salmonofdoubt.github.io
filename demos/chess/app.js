@@ -52,6 +52,29 @@ function colourOfPiece(piece) {
 
 const pieceColour = square => colourOfPiece(pieces[square]) || "white";
 
+function pieceClass(symbol) {
+  return ({
+    "♔": "king", "♚": "king",
+    "♕": "queen", "♛": "queen",
+    "♖": "rook", "♜": "rook",
+    "♗": "bishop", "♝": "bishop",
+    "♘": "knight", "♞": "knight",
+    "♙": "pawn", "♟": "pawn"
+  })[symbol] || "pawn";
+}
+
+function pieceMarkup() {
+  return `
+    <i class="piece-shadow"></i>
+    <i class="piece-base"></i>
+    <i class="piece-stem"></i>
+    <i class="piece-head"></i>
+    <i class="piece-crown"></i>
+    <i class="piece-cut"></i>
+  `;
+}
+
+
 const lessons = [
   {
     id: "freeplay",
@@ -132,9 +155,11 @@ function renderBoard() {
       cell.setAttribute("aria-label", `Square ${sq}`);
 
       if (pieces[sq]) {
+        const symbol = pieces[sq];
         const p = document.createElement("span");
-        p.className = `piece ${pieceColour(sq)}`;
-        p.textContent = pieces[sq];
+        p.className = `piece ${pieceColour(sq)} ${pieceClass(symbol)}`;
+        p.setAttribute("aria-hidden", "true");
+        p.innerHTML = pieceMarkup(symbol);
         cell.appendChild(p);
       }
 
