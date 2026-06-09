@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Geo Radar",
-    "generated_at": "2026-06-08T10:02:10+00:00",
+    "generated_at": "2026-06-09T08:49:51+00:00",
     "generator": "geo-radar-demo 1.0.0",
     "available_purposes": [
       "energy systems",
@@ -59,7 +59,7 @@
         "subsurface storage"
       ],
       "note": "Core German investigator-led funding route for doctorate-holding researchers with proposals accepted at any time.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -76,7 +76,7 @@
         "wetland interfaces"
       ],
       "note": "Network-building route for topic-focused collaboration across sites, including international members.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -93,7 +93,7 @@
         "hydrogen"
       ],
       "note": "Higher-risk route for outstanding researchers with a strong scientific track record.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -109,7 +109,7 @@
         "environmental research"
       ],
       "note": "Career-advancement route for researchers already qualified for appointment to a permanent professorship.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -126,7 +126,7 @@
         "environmental research"
       ],
       "note": "Flagship frontier-funding route for established research leaders via annual ERC calls.",
-      "last_checked": "2026-06-08T09:59:07+00:00",
+      "last_checked": "2026-06-09T07:30:57+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -143,7 +143,7 @@
         "energy systems"
       ],
       "note": "Cluster 5 energy call relevant to subsurface energy systems, hydrogen storage and infrastructure themes.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official call page monitoring",
       "fetch_status": "ok"
     },
@@ -160,7 +160,7 @@
         "energy systems"
       ],
       "note": "Large consortium call covering hydrogen production, storage, distribution and demonstration.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official call page monitoring",
       "fetch_status": "ok"
     },
@@ -177,7 +177,7 @@
         "environmental research"
       ],
       "note": "Federal applied-energy-research route covering hydrogen production, derivatives, fuel cells and reconversion.",
-      "last_checked": "2026-06-08T10:02:15+00:00",
+      "last_checked": "2026-06-09T08:49:56+00:00",
       "discovery_method": "official funding priority page monitoring",
       "fetch_status": "ok"
     },
@@ -193,9 +193,10 @@
         "wetland interfaces"
       ],
       "note": "Potsdam-based bridge fellowship for experienced sustainability actors with science-policy reach.",
-      "last_checked": "2026-06-08T10:02:15+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official fellowship page monitoring",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x7fe4a7080a50>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=10)'))"
     },
     {
       "id": "gfz_jobs_board",
@@ -210,9 +211,10 @@
         "environmental research"
       ],
       "note": "Official GFZ vacancies board covering scientific positions, doctoral roles and fellow programmes in Potsdam.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official GFZ careers page monitoring",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7fe4a7174350>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))"
     },
     {
       "id": "gfz_klaus_toepfer",
@@ -226,9 +228,10 @@
         "environmental research"
       ],
       "note": "GFZ-hosted RIFS fellowship page for the Klaus Töpfer Sustainability Fellowship.",
-      "last_checked": "2026-06-08T10:02:10+00:00",
+      "last_checked": "2026-06-09T08:49:51+00:00",
       "discovery_method": "official GFZ fellowship page monitoring",
-      "fetch_status": "ok"
+      "fetch_status": "error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7fe4a7175f90>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))"
     }
   ],
   "opportunities": [
@@ -630,146 +633,6 @@
         "universities"
       ],
       "cta_label": "Open PtJ Applied Energy Research: Hydrogen and Derivatives"
-    },
-    {
-      "id": "rifs_klaus_toepfer_rifs_klaus_t_pfer_sustainability_fellowship_2027",
-      "source_id": "rifs_klaus_toepfer",
-      "source_name": "RIFS Klaus Töpfer Sustainability Fellowship",
-      "title": "RIFS Klaus Töpfer Sustainability Fellowship 2027",
-      "programme": "RIFS Fellow Programme",
-      "url": "https://www.rifs-potsdam.de/en/node/11996",
-      "summary": "Potsdam-based bridge fellowship for highly talented mid-career professionals with at least ten years on sustainability issues.",
-      "status": "closed",
-      "change_type": "none",
-      "changed_at": "2026-06-07T08:35:23+00:00",
-      "deadline_iso": null,
-      "deadline_text": null,
-      "region": "Potsdam / Germany",
-      "audience": [
-        "experienced researchers",
-        "mid-career professionals",
-        "sustainability leaders"
-      ],
-      "applicant_types": [
-        "experienced researchers",
-        "mid-career professionals",
-        "sustainability leaders"
-      ],
-      "access_route": "direct",
-      "scale": "medium",
-      "purposes": [
-        "sustainability transitions",
-        "environmental research",
-        "scientific networking",
-        "wetland interfaces"
-      ],
-      "keywords": [
-        "environmental research",
-        "experienced researchers",
-        "mid-career professionals",
-        "rifs klaus töpfer sustainability fellowship",
-        "scientific networking",
-        "sustainability leaders",
-        "sustainability transitions",
-        "wetland interfaces"
-      ],
-      "cta_label": "Open RIFS Klaus Töpfer Sustainability Fellowship"
-    },
-    {
-      "id": "gfz_jobs_board_gfz_scientific_vacancies_watch",
-      "source_id": "gfz_jobs_board",
-      "source_name": "GFZ Scientific Jobs Board",
-      "title": "GFZ scientific vacancies watch",
-      "programme": "GFZ Helmholtz Centre for Geosciences careers",
-      "url": "https://www.gfz.de/karriere/stellenangebote",
-      "summary": "Official GFZ careers board for scientific, doctoral and fellowship opportunities relevant to an experienced Potsdam-based geoscience profile.",
-      "status": "open",
-      "change_type": "none",
-      "changed_at": "2026-06-07T08:35:23+00:00",
-      "deadline_iso": null,
-      "deadline_text": null,
-      "region": "Potsdam, Germany",
-      "audience": [
-        "experienced researchers",
-        "researchers",
-        "institutes",
-        "universities"
-      ],
-      "applicant_types": [
-        "experienced researchers",
-        "researchers",
-        "institutes",
-        "universities"
-      ],
-      "access_route": "direct",
-      "scale": "medium",
-      "purposes": [
-        "geoscience",
-        "geochemistry",
-        "research career",
-        "geothermal",
-        "environmental research"
-      ],
-      "keywords": [
-        "environmental research",
-        "experienced researchers",
-        "geochemistry",
-        "geoscience",
-        "geothermal",
-        "gfz scientific jobs board",
-        "institutes",
-        "research career",
-        "researchers",
-        "universities"
-      ],
-      "cta_label": "Open GFZ Scientific Jobs Board"
-    },
-    {
-      "id": "gfz_klaus_toepfer_gfz_klaus_t_pfer_sustainability_fellowship_2027",
-      "source_id": "gfz_klaus_toepfer",
-      "source_name": "GFZ Klaus Töpfer Sustainability Fellowship",
-      "title": "GFZ Klaus Töpfer Sustainability Fellowship 2027",
-      "programme": "RIFS at GFZ Fellow Programme",
-      "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
-      "summary": "Mid-career fellowship hosted within the GFZ environment via RIFS, suitable for sustainability-linked bridge work beyond a standard project grant.",
-      "status": "closed",
-      "change_type": "none",
-      "changed_at": "2026-06-07T08:35:23+00:00",
-      "deadline_iso": null,
-      "deadline_text": null,
-      "region": "Potsdam, Germany",
-      "audience": [
-        "mid-career professionals",
-        "experienced researchers",
-        "sustainability leaders",
-        "institutes"
-      ],
-      "applicant_types": [
-        "mid-career professionals",
-        "experienced researchers",
-        "sustainability leaders",
-        "institutes"
-      ],
-      "access_route": "direct",
-      "scale": "medium",
-      "purposes": [
-        "sustainability transitions",
-        "research career",
-        "geoscience",
-        "environmental research"
-      ],
-      "keywords": [
-        "environmental research",
-        "experienced researchers",
-        "geoscience",
-        "gfz klaus töpfer sustainability fellowship",
-        "institutes",
-        "mid-career professionals",
-        "research career",
-        "sustainability leaders",
-        "sustainability transitions"
-      ],
-      "cta_label": "Open GFZ Klaus Töpfer Sustainability Fellowship"
     }
   ]
 }
