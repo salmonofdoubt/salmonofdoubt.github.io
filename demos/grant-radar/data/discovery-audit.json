@@ -1,32 +1,31 @@
 {
-  "generated_at": "2026-06-10T09:00:52+00:00",
+  "generated_at": "2026-06-11T09:44:45+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 2,
-  "links_seen": 4714,
-  "funding_like_links": 484,
+  "seed_pages_failed": 6,
+  "links_seen": 3807,
+  "funding_like_links": 408,
   "candidate_fetches": 300,
-  "pending_review_count": 83,
+  "pending_review_count": 81,
   "status_counts": {
-    "pending_review": 83,
-    "suppressed_non_actionable": 68,
+    "pending_review": 81,
+    "suppressed_non_actionable": 45,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 15,
+    "suppressed_existing": 12,
     "suppressed_stale": 7,
-    "suppressed_generic_page": 6,
-    "suppressed_fetch_error": 62
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 27
   },
   "candidate_type_counts": {
-    "recurring_programme": 100,
-    "funding_call": 35,
+    "recurring_programme": 85,
+    "funding_call": 36,
     "scholarship": 29,
-    "generic_funding_hub": 8,
-    "tender": 13,
-    "unknown": 62
+    "generic_funding_hub": 5,
+    "unknown": 27
   },
   "seeds": [
     {
@@ -45,9 +44,9 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 80,
-      "funding_like_links": 13,
-      "candidates_fetched": 13
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "lawpro_funding_hub",
@@ -55,9 +54,9 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 113,
-      "funding_like_links": 11,
-      "candidates_fetched": 11
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "epa_research_funding_hub",
@@ -104,7 +103,7 @@
       "name": "Waterways Ireland heritage watch",
       "url": "https://www.waterwaysireland.org/about-us/heritage",
       "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.waterwaysireland.org', port=443) at 0x7f5872265c50>, 'Connection to www.waterwaysireland.org timed out. (connect timeout=12)'))",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -113,11 +112,11 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 121,
-      "funding_like_links": 48,
-      "candidates_fetched": 48
+      "status": "fetch_error",
+      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals-2023_en",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "horizon_cluster6_watch",
@@ -135,7 +134,7 @@
       "url": "https://farmingforwater.ie/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 91,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -145,7 +144,7 @@
       "url": "https://farmingforwater.ie/measures/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 146,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -207,7 +206,7 @@
       "fetch_error": null,
       "links_seen": 596,
       "funding_like_links": 57,
-      "candidates_fetched": 0
+      "candidates_fetched": 57
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -217,7 +216,7 @@
       "fetch_error": null,
       "links_seen": 600,
       "funding_like_links": 59,
-      "candidates_fetched": 0
+      "candidates_fetched": 15
     },
     {
       "id": "geo_erc_advanced_watch",
@@ -263,30 +262,30 @@
       "id": "geo_rifs_klaus_toepfer_watch",
       "name": "Geo watch: RIFS Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.rifs-potsdam.de/en/node/11996",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 44,
-      "funding_like_links": 2,
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x7f58727dbd50>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     },
     {
       "id": "geo_gfz_jobs_board_watch",
       "name": "Geo watch: GFZ Scientific Jobs Board",
       "url": "https://www.gfz.de/karriere/stellenangebote",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 156,
-      "funding_like_links": 1,
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f5873ac2810>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     },
     {
       "id": "geo_gfz_klaus_toepfer_watch",
       "name": "Geo watch: GFZ Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 156,
-      "funding_like_links": 1,
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f5872c12350>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     }
   ]
