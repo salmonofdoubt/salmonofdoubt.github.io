@@ -419,6 +419,52 @@
         flex-direction: column;
       }
     }
+  
+    .tech-bridge-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(155, 231, 255, 0.16), transparent 18rem),
+        linear-gradient(180deg, var(--panel-strong), var(--panel));
+      border-radius: 26px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .tech-bridge-card h3 {
+      margin: 0 0 8px;
+      font-size: clamp(1.45rem, 3vw, 2.35rem);
+    }
+
+    .tech-bridge-card p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+    }
+
+    .tech-bridge-card .mini-kicker {
+      margin: 0 0 8px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 850;
+      font-size: 0.74rem;
+    }
+
+    @media (max-width: 760px) {
+      .tech-bridge-card {
+        grid-template-columns: 1fr;
+      }
+
+      .tech-bridge-card .button {
+        width: fit-content;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -499,6 +545,27 @@
       </div>
 
       <div class="track-grid" id="trackGrid"></div>
+    </section>
+
+    
+    <section class="section music-tech-bridge" id="music-tech">
+      <div class="section-head">
+        <h2>Music tech</h2>
+        <p>
+          A single interactive branch from the archive. The music page stays for listening; the guitar demo stays for hands-on sound exploration.
+        </p>
+      </div>
+
+      <article class="tech-bridge-card">
+        <div>
+          <p class="mini-kicker">Interactive demo</p>
+          <h3>Guitar Lab</h3>
+          <p>
+            Open the guitar bench for a more tactile music technology space: chords, interaction, and sound experimentation without turning this archive into a cockpit.
+          </p>
+        </div>
+        <a class="button" href="/demos/guitar/">Open Guitar Lab</a>
+      </article>
     </section>
 
     <section class="section" id="method">
