@@ -1377,6 +1377,117 @@
 }
 </style>
 
+
+
+
+
+
+
+
+
+
+
+
+<style id="guitar-source-clean-css">
+  .gaa-source-clean {
+    width: 100%;
+    max-width: 100%;
+    clear: both;
+    grid-column: 1 / -1;
+    flex: 0 0 100%;
+    margin: 14px 0 12px;
+    padding: 14px;
+    border: 1px solid rgba(74, 220, 240, 0.30);
+    background: rgba(255, 255, 255, 0.035);
+    border-radius: 16px;
+    position: static !important;
+  }
+
+  .gaa-source-clean-title {
+    margin: 0 0 10px;
+    font-weight: 850;
+    font-size: 0.96rem;
+  }
+
+  .gaa-source-clean-grid {
+    display: grid;
+    grid-template-columns: minmax(230px, 1fr) minmax(230px, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+
+  .gaa-source-clean-card {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.18);
+    border-radius: 14px;
+  }
+
+  .gaa-source-clean-card label {
+    display: block;
+    margin: 0 0 7px;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+
+  .gaa-source-clean-card input[type="file"],
+  .gaa-source-clean-card select {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .gaa-source-clean-card select {
+    border: 1px solid rgba(74, 220, 240, 0.48);
+    background: rgba(0,0,0,0.28);
+    color: inherit;
+    border-radius: 10px;
+    padding: 9px 10px;
+    font: inherit;
+  }
+
+  .gaa-source-clean-card input[type="file"] {
+    color: inherit;
+    font: inherit;
+  }
+
+  .gaa-source-clean-card input[type="file"]::file-selector-button {
+    margin-right: 10px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.08);
+    color: inherit;
+    border-radius: 10px;
+    padding: 8px 11px;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .gaa-source-clean-card input[type="file"]::file-selector-button:hover {
+    border-color: rgba(74, 220, 240, 0.74);
+    background: rgba(74, 220, 240, 0.14);
+  }
+
+  .gaa-source-clean-help,
+  .gaa-source-clean-status {
+    margin: 7px 0 0;
+    font-size: 0.82rem;
+    opacity: 0.78;
+    line-height: 1.3;
+  }
+
+  .gaa-source-clean-status:empty {
+    display: none;
+  }
+
+  @media (max-width: 760px) {
+    .gaa-source-clean-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 </head>
 <body>
   <a class="demo-back" href="../">← Back to demos</a>
@@ -2449,6 +2560,241 @@ renderFilters();renderProgressions();renderLibrary();
     <div class="music-return-link">
       <a href="/music/">← Back to Music Lab</a>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="guitar-source-clean-script">
+(function () {
+  if (window.__guitarSourceCleanRewrite) return;
+  window.__guitarSourceCleanRewrite = true;
+
+  function norm(text) {
+    return (text || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function durationLabel(seconds) {
+    if (!Number.isFinite(seconds) || seconds <= 0) return "unknown";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.round(seconds % 60);
+    return `${mins}:${String(secs).padStart(2, "0")}`;
+  }
+
+  function loadTracks() {
+    return new Promise((resolve, reject) => {
+      if (Array.isArray(window.MUSIC_TRACKS)) {
+        resolve(window.MUSIC_TRACKS);
+        return;
+      }
+
+      const s = document.createElement("script");
+      s.src = "/music/tracks.js?v=" + Date.now();
+      s.onload = () => {
+        if (Array.isArray(window.MUSIC_TRACKS)) resolve(window.MUSIC_TRACKS);
+        else reject(new Error("Music catalogue did not expose MUSIC_TRACKS."));
+      };
+      s.onerror = () => reject(new Error("Could not load /music/tracks.js."));
+      document.head.appendChild(s);
+    });
+  }
+
+  function sourcePath(track) {
+    const src = track.mp3 || track.wav || "";
+    if (/^(https?:)?\/\//.test(src) || src.startsWith("/")) return src;
+    return "/music/" + src.replace(/^\.\//, "");
+  }
+
+  function fileNameFromPath(path) {
+    return path.split("/").pop().split("?")[0] || "music-lab-audio";
+  }
+
+  function mimeFromPath(path) {
+    const lower = path.toLowerCase();
+    if (lower.endsWith(".mp3")) return "audio/mpeg";
+    if (lower.endsWith(".wav")) return "audio/wav";
+    return "audio/*";
+  }
+
+  function findFileInput() {
+    const inputs = Array.from(document.querySelectorAll('input[type="file"]'));
+    return inputs.find(input => {
+      const accept = (input.getAttribute("accept") || "").toLowerCase();
+      return accept.includes("audio") || accept.includes(".wav") || accept.includes(".mp3") || accept === "";
+    }) || inputs[0] || null;
+  }
+
+  function findOldFileBlock(input) {
+    let el = input ? input.parentElement : null;
+
+    while (el && el !== document.body) {
+      const text = norm(el.textContent);
+      const hasFile = el.querySelectorAll('input[type="file"]').length === 1;
+      const hasButtons = el.querySelectorAll('button').length > 0;
+      const hasAudio = el.querySelectorAll('audio').length > 0;
+      const hasManySelects = el.querySelectorAll('select').length > 1;
+
+      if (text.includes("audio file") && hasFile && !hasButtons && !hasAudio && !hasManySelects) {
+        return el;
+      }
+
+      el = el.parentElement;
+    }
+
+    return input ? input.parentElement : null;
+  }
+
+  function findActionRow() {
+    const buttons = Array.from(document.querySelectorAll("button"));
+    const record = buttons.find(button => norm(button.textContent) === "record live");
+    const analyse = buttons.find(button => norm(button.textContent) === "analyze audio");
+    const start = record || analyse;
+
+    if (!start) return null;
+
+    let el = start.parentElement;
+    while (el && el !== document.body) {
+      const buttonCount = el.querySelectorAll("button").length;
+      const audioCount = el.querySelectorAll("audio").length;
+      if (buttonCount >= 2 && audioCount === 0) return el;
+      el = el.parentElement;
+    }
+
+    return start;
+  }
+
+  function removeEmptyOldBlock(block) {
+    if (!block || block === document.body) return;
+
+    const text = norm(block.textContent);
+    const hasControls =
+      block.querySelector("input, select, button, audio, canvas, textarea") !== null;
+
+    if (!hasControls && text === "audio file") {
+      block.remove();
+    }
+  }
+
+  async function loadIntoFileInput(fileInput, track, status) {
+    const path = sourcePath(track);
+    status.textContent = "Loading " + track.title + "...";
+
+    const response = await fetch(path);
+    if (!response.ok) throw new Error("Could not fetch " + path);
+
+    const blob = await response.blob();
+    const file = new File([blob], fileNameFromPath(path), {
+      type: blob.type || mimeFromPath(path),
+      lastModified: Date.now()
+    });
+
+    const transfer = new DataTransfer();
+    transfer.items.add(file);
+    fileInput.files = transfer.files;
+
+    fileInput.dispatchEvent(new Event("input", { bubbles: true }));
+    fileInput.dispatchEvent(new Event("change", { bubbles: true }));
+
+    status.textContent = "Loaded " + track.title + ". Now click Analyze audio.";
+  }
+
+  async function buildSource() {
+    const fileInput = findFileInput();
+    const actionRow = findActionRow();
+
+    if (!fileInput || !actionRow) return;
+
+    if (!fileInput.id) fileInput.id = "guitar-audio-file-input";
+
+    const oldBlock = findOldFileBlock(fileInput);
+
+    const section = document.createElement("div");
+    section.className = "gaa-source-clean";
+    section.innerHTML = `
+      <div class="gaa-source-clean-title">Audio source</div>
+      <div class="gaa-source-clean-grid">
+        <div class="gaa-source-clean-card">
+          <label for="${escapeHTML(fileInput.id)}">Upload audio file</label>
+          <div class="gaa-file-slot"></div>
+          <p class="gaa-source-clean-help">Use your own WAV or MP3 attempt.</p>
+        </div>
+        <div class="gaa-source-clean-card">
+          <label for="music-lab-source-select">Music Lab sample</label>
+          <select id="music-lab-source-select">
+            <option value="">Loading /music/ catalogue...</option>
+          </select>
+          <p class="gaa-source-clean-help">Or use one of the hosted recordings from /music/.</p>
+          <p class="gaa-source-clean-status" id="music-lab-source-status"></p>
+        </div>
+      </div>
+    `;
+
+    actionRow.parentElement.insertBefore(section, actionRow);
+    section.querySelector(".gaa-file-slot").appendChild(fileInput);
+    removeEmptyOldBlock(oldBlock);
+
+    const select = section.querySelector("#music-lab-source-select");
+    const status = section.querySelector("#music-lab-source-status");
+
+    try {
+      const tracks = await loadTracks();
+      const usable = tracks.filter(track => track && (track.mp3 || track.wav));
+
+      select.innerHTML = `
+        <option value="">Choose from /music/ instead...</option>
+        ${usable.map((track, index) => `
+          <option value="${index}">
+            ${escapeHTML(track.title)} · ${escapeHTML(track.category)} · ${durationLabel(track.duration)}
+          </option>
+        `).join("")}
+      `;
+
+      select.addEventListener("change", async () => {
+        status.textContent = "";
+
+        if (select.value === "") return;
+
+        const track = usable[Number(select.value)];
+
+        try {
+          await loadIntoFileInput(fileInput, track, status);
+        } catch (error) {
+          status.textContent = "Could not load sample: " + error.message;
+        }
+      });
+    } catch (error) {
+      select.innerHTML = `<option>${escapeHTML(error.message)}</option>`;
+    }
+  }
+
+  function run() {
+    if (document.querySelector(".gaa-source-clean")) return;
+    buildSource();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+})();
+</script>
 
 </body>
 </html>
