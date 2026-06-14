@@ -14,7 +14,7 @@
         <h1>Emergence Lab</h1>
         <p class="lede">
           Simple local rules can create organised behaviour: waves, synchrony, adaptation,
-          and apparent paradoxes such as faster-than-light group velocity without faster-than-light energy transfer.
+          deterministic chaos, and apparent faster-than-light group velocity without faster-than-light energy transfer.
         </p>
       </div>
 
@@ -26,16 +26,13 @@
       </div>
     </header>
 
-    <section class="experiment-library" aria-label="Experiment library">
+    <section class="experiment-library">
       <div class="library-header">
         <div>
           <p class="section-kicker">Choose an experiment</p>
-          <h2>Five routes into emergence</h2>
+          <h2>Six routes into emergence</h2>
         </div>
-        <p>
-          Each exhibit runs one simple rule-set. The simulation stage below shows how patterns arise from timing,
-          coupling, selection, or wave reshaping.
-        </p>
+        <p>One stage, six exhibits. Each simulation runs from a small rule-set and shows how complex behaviour appears.</p>
       </div>
 
       <div class="cards">
@@ -70,15 +67,21 @@
         <button class="card" type="button" data-experiment="fastlight">
           <span class="card-number">05</span>
           <strong>Fast-light pulse</strong>
-          <small>Apparent superluminal group velocity without superluminal energy or information.</small>
+          <small>Apparent superluminal group velocity without superluminal energy.</small>
           <em>Peak motion is not signal motion</em>
+        </button>
+
+        <button class="card" type="button" data-experiment="double">
+          <span class="card-number">06</span>
+          <strong>Double pendulum array</strong>
+          <small>Slightly different starts diverge into chaotic braided trajectories.</small>
+          <em>Small differences amplify</em>
         </button>
       </div>
     </section>
 
     <section class="stage-card">
-      <canvas id="stage" aria-label="Emergence simulation canvas"></canvas>
-
+      <canvas id="stage"></canvas>
       <div class="readout">
         <div><span>Experiment</span><strong id="experimentReadout">Pendulum wave</strong></div>
         <div><span>Time</span><strong id="timeReadout">0.00 s</strong></div>
@@ -95,19 +98,17 @@
       <span id="statusLine">Ready</span>
     </section>
 
-    <section id="controls" class="controls" aria-label="Experiment controls"></section>
+    <section id="controls" class="controls"></section>
 
     <section class="notes">
       <article>
         <h2 id="noteTitle">Pendulum wave principle</h2>
         <p id="noteBody"></p>
       </article>
-
       <article>
         <h2>What to notice</h2>
         <p id="seeingBody"></p>
       </article>
-
       <article class="wide">
         <h2>Debug</h2>
         <pre id="debugText">Waiting for simulation...</pre>

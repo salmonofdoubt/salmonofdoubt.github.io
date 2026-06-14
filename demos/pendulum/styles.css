@@ -21,7 +21,6 @@ body {
   background:
     radial-gradient(circle at 12% 0%, rgba(103,232,249,0.18), transparent 30rem),
     radial-gradient(circle at 92% 3%, rgba(248,208,106,0.13), transparent 28rem),
-    radial-gradient(circle at 55% 55%, rgba(96,165,250,0.07), transparent 34rem),
     linear-gradient(135deg, #020407, var(--bg));
   color: var(--text);
 }
@@ -58,7 +57,7 @@ h1 {
 }
 
 .lede {
-  max-width: 930px;
+  max-width: 960px;
   margin: 14px 0 0;
   color: var(--muted);
   font-size: clamp(1rem, 1.8vw, 1.2rem);
@@ -219,9 +218,7 @@ button.primary,
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 30px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04)),
-    rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.04);
   box-shadow: var(--shadow);
 }
 
@@ -314,17 +311,6 @@ output {
   font-weight: 900;
 }
 
-select {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--panel);
-  color: var(--text);
-  padding: 10px 12px;
-  font: inherit;
-  font-weight: 850;
-}
-
 .notes {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -392,12 +378,6 @@ article pre {
   .controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .readout > div:nth-child(2) { border-right: 0; }
-
-  .readout > div:nth-child(-n + 2) {
-    border-bottom: 1px solid var(--line);
-  }
 }
 
 @media (max-width: 540px) {
@@ -416,9 +396,7 @@ article pre {
     grid-template-columns: 1fr;
   }
 
-  .card {
-    min-height: 150px;
-  }
+  .card { min-height: 150px; }
 
   canvas {
     height: 54vh;
