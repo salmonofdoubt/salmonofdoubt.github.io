@@ -120,7 +120,8 @@
     trails: [],
     generation: 0,
     targetGenome: [],
-    dnaStats: { best: 0, average: 0, diversity: 0 }
+    dnaStats: { best: 0, average: 0, diversity: 0 },
+    dnaHistory: []
   };
 
   function n(key) { return Number(state.params[key]); }
@@ -282,6 +283,7 @@
 
     state.generation = 0;
     state.targetGenome = randomGenome(genomeLength);
+    state.dnaHistory = [];
 
     state.objects = Array.from({ length: population }, (_, i) => ({
       i,
@@ -291,6 +293,7 @@
     }));
 
     evaluateDNA();
+    recordDNAHistory();
   }
 
   function evaluateDNA() {
@@ -405,6 +408,8 @@
 
       state.objects = nextPopulation;
       state.generation += 1;
+      evaluateDNA();
+      recordDNAHistory();
     }
 
     evaluateDNA();
@@ -769,49 +774,249 @@
     });
   }
 
-  function drawDNA(w, h) {
-    const pad = Math.max(20, w * 0.035);
-    const top = Math.max(58, h * 0.12);
-    const gridTop = top + 58;
-    const cols = Math.ceil(Math.sqrt(state.objects.length * (w / Math.max(1, h))));
-    const rows = Math.ceil(state.objects.length / cols);
-    const cellW = (w - pad * 2) / cols;
-    const cellH = (h - gridTop - 34) / rows;
-    const r = Math.max(1.7, Math.min(cellW, cellH) * 0.34);
-    const points = [];
 
-    ctx.fillStyle = "rgba(238,244,255,0.84)";
-    ctx.font = "800 13px system-ui, sans-serif";
-    ctx.textAlign = "left";
-    ctx.fillText(`target DNA · ${state.targetGenome.join("")}`, pad, 20);
-    drawGenomeStrip(state.targetGenome, pad, 34, Math.min(w - pad * 2, 520), 14);
+  function recordDNAHistory() {
+    if (state.experiment !== "dna") return;
 
-    const best = state.objects.reduce((a, b) => (a.fitness > b.fitness ? a : b), state.objects[0]);
-
-    ctx.fillStyle = "rgba(169,184,204,0.95)";
-    ctx.fillText(
-      `generation ${state.generation} · best ${(state.dnaStats.best * 100).toFixed(0)}% · average ${(state.dnaStats.average * 100).toFixed(0)}% · diversity ${(state.dnaStats.diversity * 100).toFixed(0)}%`,
-      pad,
-      top + 20
-    );
-
-    if (best) drawGenomeStrip(best.genome, pad, top + 32, Math.min(w - pad * 2, 520), 12);
-
-    state.objects.forEach((o, i) => {
-      const col = i % cols;
-      const row = Math.floor(i / cols);
-      const x = pad + cellW * col + cellW / 2;
-      const y = gridTop + cellH * row + cellH / 2;
-      const colour = fitnessColour(o.fitness);
-      points.push({ x, y, colour, r: 1.3 });
-
-      ctx.fillStyle = colour;
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, TAU);
-      ctx.fill();
+    state.dnaHistory.push({
+      generation: state.generation,
+      best: state.dnaStats.best,
+      average: state.dnaStats.average,
+      diversity: state.dnaStats.diversity
     });
 
-    drawTrails(points);
+    if (state.dnaHistory.length > 180) {
+      state.dnaHistory.shift();
+    }
+  }
+
+  function consensusGenome() {
+    const length = state.targetGenome.length;
+    if (!length || state.objects.length === 0) return [];
+
+    const consensus = [];
+
+    for (let i = 0; i < length; i += 1) {
+      const counts = { A: 0, C: 0, G: 0, T: 0 };
+      state.objects.forEach((o) => {
+        counts[o.genome[i]] += 1;
+      });
+
+      consensus.push(
+        BASES.slice().sort((a, b) => counts[b] - counts[a])[0]
+      );
+    }
+
+    return consensus;
+  }
+
+  function alleleFrequencies() {
+    const length = state.targetGenome.length;
+    const population = Math.max(1, state.objects.length);
+    const freqs = [];
+
+    for (let i = 0; i < length; i += 1) {
+      const counts = { A: 0, C: 0, G: 0, T: 0 };
+      state.objects.forEach((o) => {
+        counts[o.genome[i]] += 1;
+      });
+
+      freqs.push({
+        A: counts.A / population,
+        C: counts.C / population,
+        G: counts.G / population,
+        T: counts.T / population
+      });
+    }
+
+    return freqs;
+  }
+
+  function bestGenome() {
+    if (!state.objects.length) return [];
+    return state.objects.reduce((a, b) => (a.fitness > b.fitness ? a : b), state.objects[0]).genome;
+  }
+
+  function drawPanel(x, y, w, h, title) {
+    ctx.save();
+    ctx.fillStyle = "rgba(255,255,255,0.055)";
+    ctx.strokeStyle = "rgba(255,255,255,0.14)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    if (ctx.roundRect) {
+      ctx.roundRect(x, y, w, h, 18);
+    } else {
+      ctx.rect(x, y, w, h);
+    }
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(238,244,255,0.86)";
+    ctx.font = "850 13px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(title, x + 14, y + 23);
+    ctx.restore();
+  }
+
+  function drawLineGraph(history, key, x, y, w, h, colour, label) {
+    ctx.save();
+
+    ctx.strokeStyle = "rgba(255,255,255,0.11)";
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x, y, w, h);
+
+    ctx.fillStyle = "rgba(169,184,204,0.88)";
+    ctx.font = "800 11px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(label, x, y - 7);
+
+    if (history.length > 1) {
+      ctx.strokeStyle = colour;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+
+      history.forEach((p, i) => {
+        const px = x + (i / Math.max(1, history.length - 1)) * w;
+        const py = y + h - p[key] * h;
+
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      });
+
+      ctx.stroke();
+    }
+
+    ctx.restore();
+  }
+
+  function drawDNA(w, h) {
+    const pad = Math.max(18, w * 0.025);
+    const gap = 14;
+    const top = 18;
+    const leftW = Math.min(430, w * 0.38);
+    const rightX = pad + leftW + gap;
+    const rightW = w - rightX - pad;
+    const panelH = h - top - 22;
+
+    const best = bestGenome();
+    const consensus = consensusGenome();
+    const freqs = alleleFrequencies();
+    const sorted = state.objects.slice().sort((a, b) => b.fitness - a.fitness);
+
+    drawPanel(pad, top, leftW, panelH, "Evolution dashboard");
+    drawPanel(rightX, top, rightW, panelH, "Population structure");
+
+    const labelX = pad + 16;
+    let y = top + 52;
+    const stripW = leftW - 32;
+    const stripH = 13;
+
+    ctx.fillStyle = "rgba(169,184,204,0.95)";
+    ctx.font = "850 12px system-ui, sans-serif";
+    ctx.textAlign = "left";
+
+    ctx.fillText("target genome", labelX, y);
+    drawGenomeStrip(state.targetGenome, labelX, y + 8, stripW, stripH);
+
+    y += 44;
+    ctx.fillText("best genome", labelX, y);
+    drawGenomeStrip(best, labelX, y + 8, stripW, stripH);
+
+    y += 44;
+    ctx.fillText("population consensus", labelX, y);
+    drawGenomeStrip(consensus, labelX, y + 8, stripW, stripH);
+
+    y += 50;
+    ctx.fillStyle = "rgba(238,244,255,0.88)";
+    ctx.font = "900 15px system-ui, sans-serif";
+    ctx.fillText(
+      `generation ${state.generation}`,
+      labelX,
+      y
+    );
+
+    y += 24;
+    ctx.fillStyle = "rgba(169,184,204,0.95)";
+    ctx.font = "850 12px system-ui, sans-serif";
+    ctx.fillText(
+      `best ${(state.dnaStats.best * 100).toFixed(0)}% · average ${(state.dnaStats.average * 100).toFixed(0)}% · diversity ${(state.dnaStats.diversity * 100).toFixed(0)}%`,
+      labelX,
+      y
+    );
+
+    y += 40;
+    drawLineGraph(state.dnaHistory, "best", labelX, y, stripW, 58, "#67e8f9", "best fitness");
+    y += 84;
+    drawLineGraph(state.dnaHistory, "average", labelX, y, stripW, 58, "#a3e635", "average fitness");
+    y += 84;
+    drawLineGraph(state.dnaHistory, "diversity", labelX, y, stripW, 58, "#f8d06a", "diversity");
+
+    // Allele frequency panel.
+    const heatX = rightX + 16;
+    let heatY = top + 50;
+    const heatW = rightW - 32;
+    const freqH = Math.min(124, panelH * 0.24);
+    const colW = heatW / Math.max(1, freqs.length);
+
+    ctx.fillStyle = "rgba(169,184,204,0.95)";
+    ctx.font = "850 12px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText("allele frequency by genome position", heatX, heatY - 10);
+
+    freqs.forEach((f, i) => {
+      let yy = heatY + freqH;
+      BASES.forEach((base) => {
+        const bh = f[base] * freqH;
+        yy -= bh;
+        ctx.fillStyle = baseColour(base);
+        ctx.fillRect(heatX + i * colW, yy, Math.max(1, colW - 1), Math.max(1, bh));
+      });
+    });
+
+    ctx.strokeStyle = "rgba(255,255,255,0.14)";
+    ctx.strokeRect(heatX, heatY, heatW, freqH);
+
+    // Population heatmap, sorted by fitness.
+    const popY = heatY + freqH + 48;
+    const popH = top + panelH - popY - 18;
+    const visibleRows = Math.min(sorted.length, Math.floor(popH / 4));
+    const rowH = Math.max(2, popH / Math.max(1, visibleRows));
+    const baseW = heatW / Math.max(1, state.targetGenome.length);
+
+    ctx.fillStyle = "rgba(169,184,204,0.95)";
+    ctx.font = "850 12px system-ui, sans-serif";
+    ctx.fillText("population genomes sorted by fitness", heatX, popY - 12);
+
+    for (let r = 0; r < visibleRows; r += 1) {
+      const o = sorted[Math.floor((r / Math.max(1, visibleRows - 1)) * (sorted.length - 1))];
+      const rowY = popY + r * rowH;
+
+      o.genome.forEach((base, i) => {
+        const match = base === state.targetGenome[i];
+        ctx.fillStyle = match ? baseColour(base) : "rgba(255,255,255,0.13)";
+        ctx.fillRect(
+          heatX + i * baseW,
+          rowY,
+          Math.max(1, baseW - 1),
+          Math.max(1, rowH - 0.5)
+        );
+      });
+    }
+
+    ctx.strokeStyle = "rgba(255,255,255,0.14)";
+    ctx.strokeRect(heatX, popY, heatW, popH);
+
+    // Legend.
+    const legendY = top + panelH - 14;
+    let lx = labelX;
+    BASES.forEach((base) => {
+      ctx.fillStyle = baseColour(base);
+      ctx.fillRect(lx, legendY - 10, 10, 10);
+      ctx.fillStyle = "rgba(169,184,204,0.95)";
+      ctx.font = "800 11px system-ui, sans-serif";
+      ctx.fillText(base, lx + 15, legendY);
+      lx += 44;
+    });
   }
 
   function drawFastLight(w, h) {
