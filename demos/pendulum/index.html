@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Physics Oscillation Lab</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Interactive physics · oscillation lab</p>
+        <h1>Physics Oscillation Lab</h1>
+        <p class="lede">
+          A growing collection of browser-based oscillator experiments: pendulum waves, spring–mass arrays,
+          phase drift, damping, and calibrated motion.
+        </p>
+      </div>
+
+      <div class="hero-actions">
+        <button id="playPause" class="primary" type="button">Pause</button>
+        <button id="reset" type="button">Reset</button>
+      </div>
+    </header>
+
+    <nav class="experiment-tabs" aria-label="Experiment selector">
+      <button class="tab active" type="button" data-experiment="pendulum">Pendulum wave</button>
+      <button class="tab" type="button" data-experiment="spring">Spring–mass array</button>
+    </nav>
+
+    <section class="stage-card">
+      <canvas id="stage" aria-label="Physics simulation canvas"></canvas>
+
+      <div class="readout">
+        <div><span>Experiment</span><strong id="experimentReadout">Pendulum wave</strong></div>
+        <div><span>Time</span><strong id="timeReadout">0.00 s</strong></div>
+        <div><span>System</span><strong id="systemReadout">18 pendulums</strong></div>
+        <div><span>Parameter</span><strong id="parameterReadout">cycle 60 s</strong></div>
+      </div>
+    </section>
+
+    <section id="controls" class="controls" aria-label="Experiment controls"></section>
+
+    <section class="notes">
+      <details open>
+        <summary id="noteTitle">Pendulum wave principle</summary>
+        <p id="noteBody">
+          The pendulum wave uses calibrated lengths. Each pendulum completes a different integer number
+          of oscillations within the same cycle window, so the array repeatedly slips out of phase and re-aligns.
+        </p>
+      </details>
+
+      <details>
+        <summary>Useful correction</summary>
+        <p id="correctionBody">
+          In an ideal simple pendulum, the period is controlled mainly by length, not by bob mass:
+          <code>T ≈ 2π√(L/g)</code>. The bob sizes are visual cues unless damping or non-ideal effects are added.
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
