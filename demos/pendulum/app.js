@@ -105,16 +105,16 @@
     },
     double: {
       title: "Double pendulum array",
-      defaults: { count: 24, energy: 78, spread: 16, damping: 2, lengthRatio: 100, speed: 100 },
-      note: "A double pendulum is deterministic but highly sensitive to initial conditions. In an array, small differences become rapidly different paths.",
-      seeing: "This is deterministic chaos: no random forcing after release, just nonlinear dynamics amplifying small differences.",
+      defaults: { count: 32, energy: 145, spread: 32, damping: 0, lengthRatio: 100, speed: 85 },
+      note: "A double pendulum is deterministic but highly sensitive to initial conditions. This array starts almost coherently, then small differences in angle, velocity, and arm geometry rapidly separate into chaotic braided paths.",
+      seeing: "This is deterministic chaos. No random forcing is added after release. The apparent disorder is produced by nonlinear dynamics amplifying tiny initial differences.",
       controls: [
-        ["count", "Number of double pendulums", 6, 48, 24, 1, ""],
-        ["energy", "Initial energy", 20, 120, 78, 1, ""],
-        ["spread", "Initial spread", 0, 45, 16, 1, "°"],
-        ["damping", "Damping", 0, 30, 2, 1, ""],
-        ["lengthRatio", "Lower arm length", 60, 140, 100, 5, "%"],
-        ["speed", "Speed", 10, 220, 100, 5, ""]
+        ["count", "Number of double pendulums", 6, 64, 32, 1, ""],
+        ["energy", "Initial energy", 40, 220, 145, 1, ""],
+        ["spread", "Initial spread", 0, 75, 32, 1, "°"],
+        ["damping", "Damping", 0, 10, 0, 1, ""],
+        ["lengthRatio", "Lower arm length", 55, 150, 100, 5, "%"],
+        ["speed", "Speed", 10, 180, 85, 5, ""]
       ]
     }
   };
@@ -230,17 +230,27 @@
   }
 
   function buildDouble() {
-    const count = n("count"), energy = n("energy") / 100, spread = n("spread") * Math.PI / 180, ratio = n("lengthRatio") / 100;
+    const count = n("count");
+    const energy = n("energy") / 100;
+    const spread = n("spread") * Math.PI / 180;
+    const ratio = n("lengthRatio") / 100;
+
     state.objects = Array.from({ length: count }, (_, i) => {
       const f = count <= 1 ? 0.5 : i / (count - 1);
-      const phase = (f - 0.5) * spread;
+      const wave = Math.sin(f * Math.PI * 2);
+      const tiny = Math.sin((i + 1) * 12.9898) * 0.018 + Math.cos((i + 1) * 7.233) * 0.011;
+      const localSpread = (f - 0.5) * spread + wave * spread * 0.22 + tiny;
+
       return {
         i,
-        theta1: Math.PI * (0.52 + 0.18 * energy) + phase,
-        theta2: Math.PI * (0.46 + 0.12 * energy) - phase * 0.75,
-        omega1: 0.05 * Math.sin(i * 1.7),
-        omega2: 0.05 * Math.cos(i * 1.3),
-        l2: ratio,
+        theta1: Math.PI * 0.93 + energy * 0.34 + localSpread,
+        theta2: Math.PI * 0.66 - energy * 0.22 - localSpread * 0.72,
+        omega1: 0.18 * Math.sin(i * 1.73) + tiny * 2.8,
+        omega2: 0.22 * Math.cos(i * 1.31) - tiny * 2.1,
+        l1: 1,
+        l2: ratio * (0.94 + 0.12 * ((i % 5) / 4)),
+        m1: 1,
+        m2: 0.85 + 0.35 * ((i % 7) / 6),
         colour: colours[i % colours.length]
       };
     });
@@ -355,21 +365,90 @@
     next.forEach((phase, i) => state.objects[i].phase = ((phase % TAU) + TAU) % TAU);
   }
 
+  function doubleDerivatives(p, y) {
+    const g = 9.80665;
+    const m1 = p.m1;
+    const m2 = p.m2;
+    const l1 = p.l1;
+    const l2 = p.l2;
+    const t1 = y[0];
+    const t2 = y[1];
+    const w1 = y[2];
+    const w2 = y[3];
+    const d = t1 - t2;
+
+    const den = 2 * m1 + m2 - m2 * Math.cos(2 * d);
+
+    const a1 = (
+      -g * (2 * m1 + m2) * Math.sin(t1)
+      - m2 * g * Math.sin(t1 - 2 * t2)
+      - 2 * Math.sin(d) * m2 * (w2 * w2 * l2 + w1 * w1 * l1 * Math.cos(d))
+    ) / (l1 * den);
+
+    const a2 = (
+      2 * Math.sin(d) * (
+        w1 * w1 * l1 * (m1 + m2)
+        + g * (m1 + m2) * Math.cos(t1)
+        + w2 * w2 * l2 * m2 * Math.cos(d)
+      )
+    ) / (l2 * den);
+
+    return [w1, w2, a1, a2];
+  }
+
+  function rk4DoubleStep(p, h) {
+    const y0 = [p.theta1, p.theta2, p.omega1, p.omega2];
+
+    const k1 = doubleDerivatives(p, y0);
+    const y1 = y0.map((v, i) => v + k1[i] * h * 0.5);
+
+    const k2 = doubleDerivatives(p, y1);
+    const y2 = y0.map((v, i) => v + k2[i] * h * 0.5);
+
+    const k3 = doubleDerivatives(p, y2);
+    const y3 = y0.map((v, i) => v + k3[i] * h);
+
+    const k4 = doubleDerivatives(p, y3);
+
+    p.theta1 += h * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]) / 6;
+    p.theta2 += h * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1]) / 6;
+    p.omega1 += h * (k1[2] + 2 * k2[2] + 2 * k3[2] + k4[2]) / 6;
+    p.omega2 += h * (k1[3] + 2 * k2[3] + 2 * k3[3] + k4[3]) / 6;
+
+    p.theta1 = ((p.theta1 % TAU) + TAU) % TAU;
+    p.theta2 = ((p.theta2 % TAU) + TAU) % TAU;
+    p.omega1 = Math.max(-22, Math.min(22, p.omega1));
+    p.omega2 = Math.max(-22, Math.min(22, p.omega2));
+  }
+
   function stepDouble(dt) {
-    const damping = n("damping") / 1000, h = dt / 5;
-    for (let s = 0; s < 5; s++) {
+    const damping = n("damping") / 1000;
+    const substeps = Math.max(8, Math.min(42, Math.ceil(dt / 0.004)));
+    const h = dt / substeps;
+    const dampingFactor = Math.exp(-damping * h);
+
+    for (let s = 0; s < substeps; s++) {
       state.objects.forEach(p => {
-        const m1 = 1, m2 = 1, l1 = 1, l2 = p.l2, g = 9.80665;
-        const t1 = p.theta1, t2 = p.theta2, w1 = p.omega1, w2 = p.omega2, d = t1 - t2;
-        const den = 2 * m1 + m2 - m2 * Math.cos(2 * d);
-        const a1 = (-g * (2 * m1 + m2) * Math.sin(t1) - m2 * g * Math.sin(t1 - 2 * t2) - 2 * Math.sin(d) * m2 * (w2 * w2 * l2 + w1 * w1 * l1 * Math.cos(d))) / (l1 * den);
-        const a2 = (2 * Math.sin(d) * (w1 * w1 * l1 * (m1 + m2) + g * (m1 + m2) * Math.cos(t1) + w2 * w2 * l2 * m2 * Math.cos(d))) / (l2 * den);
-        p.omega1 = (p.omega1 + a1 * h) * (1 - damping);
-        p.omega2 = (p.omega2 + a2 * h) * (1 - damping);
-        p.theta1 += p.omega1 * h;
-        p.theta2 += p.omega2 * h;
+        rk4DoubleStep(p, h);
+        p.omega1 *= dampingFactor;
+        p.omega2 *= dampingFactor;
       });
     }
+  }
+
+  function doubleChaosMetric() {
+    if (state.experiment !== "double" || !state.objects.length) return 0;
+
+    let sx = 0;
+    let sy = 0;
+
+    state.objects.forEach(p => {
+      sx += Math.cos(p.theta2);
+      sy += Math.sin(p.theta2);
+    });
+
+    const order = Math.sqrt(sx * sx + sy * sy) / state.objects.length;
+    return 1 - order;
   }
 
   function phaseOrder() {
@@ -393,7 +472,7 @@
     if (state.experiment === "phase") { ui.systemReadout.textContent = `${n("count")} phases`; ui.orderReadout.textContent = `order ${phaseOrder().toFixed(2)}`; }
     if (state.experiment === "dna") { ui.systemReadout.textContent = `gen ${state.generation} · ${n("population")} genomes`; ui.orderReadout.textContent = `best ${(state.dnaStats.best * 100).toFixed(0)}% · avg ${(state.dnaStats.average * 100).toFixed(0)}%`; }
     if (state.experiment === "fastlight") { ui.systemReadout.textContent = `peak ${(n("group") / 100).toFixed(2)}c · front ≤ c`; ui.orderReadout.textContent = "no superluminal energy"; }
-    if (state.experiment === "double") { ui.systemReadout.textContent = `${n("count")} double pendulums`; ui.orderReadout.textContent = "sensitive dependence"; }
+    if (state.experiment === "double") { ui.systemReadout.textContent = `${n("count")} double pendulums`; ui.orderReadout.textContent = `chaos ${doubleChaosMetric().toFixed(2)}`; }
   }
 
   function canvasSize() {
@@ -529,16 +608,68 @@
   }
 
   function drawDouble(w, h) {
-    const count = state.objects.length, railY = Math.max(54, h * 0.12), left = w * 0.06, right = w * 0.94, span = right - left, len = Math.min(h * 0.21, span / Math.max(8, count) * 2.8), points = [];
+    const count = state.objects.length;
+    const railY = Math.max(54, h * 0.12);
+    const left = w * 0.055;
+    const right = w * 0.945;
+    const span = right - left;
+    const len = Math.min(h * 0.23, span / Math.max(8, count) * 3.1);
+    const chaos = doubleChaosMetric();
+    const points = [];
+
     drawRail(w, railY);
+
+    ctx.save();
+    ctx.lineCap = "round";
+
     state.objects.forEach((p, i) => {
-      const f = count <= 1 ? 0.5 : i / (count - 1), pivotX = left + span * f, x1 = pivotX + Math.sin(p.theta1) * len, y1 = railY + Math.cos(p.theta1) * len, x2 = x1 + Math.sin(p.theta2) * len * p.l2, y2 = y1 + Math.cos(p.theta2) * len * p.l2;
-      points.push({ x: x2, y: y2, colour: p.colour, r: 1.8 });
-      ctx.strokeStyle = "rgba(238,245,255,0.46)"; ctx.lineWidth = 1.1; ctx.beginPath(); ctx.moveTo(pivotX, railY); ctx.lineTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
-      glowCircle(x1, y1, 4.2, "rgba(238,244,255,0.86)"); glowCircle(x2, y2, 5.8, p.colour);
-      if (ui.labelToggle.checked && count <= 30) { ctx.fillStyle = "rgba(238,244,255,0.64)"; ctx.font = "10px system-ui, sans-serif"; ctx.textAlign = "center"; ctx.fillText(String(i + 1), pivotX, railY + 21); }
+      const f = count <= 1 ? 0.5 : i / (count - 1);
+      const pivotX = left + span * f;
+
+      const x1 = pivotX + Math.sin(p.theta1) * len * p.l1;
+      const y1 = railY + Math.cos(p.theta1) * len * p.l1;
+      const x2 = x1 + Math.sin(p.theta2) * len * p.l2;
+      const y2 = y1 + Math.cos(p.theta2) * len * p.l2;
+
+      points.push({ x: x2, y: y2, colour: p.colour, r: 1.9 });
+
+      ctx.strokeStyle = "rgba(238,245,255,0.42)";
+      ctx.lineWidth = 1.05;
+      ctx.beginPath();
+      ctx.moveTo(pivotX, railY);
+      ctx.lineTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(255,255,255,0.78)";
+      ctx.beginPath();
+      ctx.arc(pivotX, railY, 2.4, 0, TAU);
+      ctx.fill();
+
+      glowCircle(x1, y1, 4.2, "rgba(238,244,255,0.86)");
+      glowCircle(x2, y2, 5.8 + chaos * 2.5, p.colour);
+
+      if (ui.labelToggle.checked && count <= 36) {
+        ctx.fillStyle = "rgba(238,244,255,0.64)";
+        ctx.font = "10px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(String(i + 1), pivotX, railY + 21);
+      }
     });
+
+    ctx.restore();
     drawTrails(points);
+
+    ctx.save();
+    ctx.fillStyle = "rgba(169,184,204,0.92)";
+    ctx.font = "800 12px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(
+      `chaos divergence ${chaos.toFixed(2)} · deterministic dynamics, no random forcing after release`,
+      Math.max(18, w * 0.035),
+      h - 22
+    );
+    ctx.restore();
   }
 
   function draw() {
