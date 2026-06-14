@@ -3,22 +3,30 @@
 
   const G = 9.80665;
   const TAU = Math.PI * 2;
+  const BASES = ["A", "C", "G", "T"];
 
   const canvas = document.getElementById("stage");
   const ctx = canvas.getContext("2d");
 
   const ui = {
     controls: document.getElementById("controls"),
-    tabs: Array.from(document.querySelectorAll(".tab")),
+    cards: Array.from(document.querySelectorAll(".card")),
     playPause: document.getElementById("playPause"),
     reset: document.getElementById("reset"),
+    kick: document.getElementById("kick"),
+    trailToggle: document.getElementById("trailToggle"),
+    glowToggle: document.getElementById("glowToggle"),
+    labelToggle: document.getElementById("labelToggle"),
+    slowToggle: document.getElementById("slowToggle"),
+    statusLine: document.getElementById("statusLine"),
     experimentReadout: document.getElementById("experimentReadout"),
     timeReadout: document.getElementById("timeReadout"),
     systemReadout: document.getElementById("systemReadout"),
-    parameterReadout: document.getElementById("parameterReadout"),
+    orderReadout: document.getElementById("orderReadout"),
     noteTitle: document.getElementById("noteTitle"),
     noteBody: document.getElementById("noteBody"),
-    correctionBody: document.getElementById("correctionBody")
+    seeingBody: document.getElementById("seeingBody"),
+    debugText: document.getElementById("debugText")
   };
 
   const colours = [
@@ -26,189 +34,396 @@
     "#22d3ee", "#4dabf7", "#748ffc", "#b197fc", "#f783ac"
   ];
 
-  const state = {
-    experiment: "pendulum",
-    running: true,
-    time: 0,
-    lastFrame: performance.now(),
-    params: {},
-    objects: [],
-    trails: []
-  };
-
   const experiments = {
     pendulum: {
       title: "Pendulum wave",
-      noteTitle: "Pendulum wave principle",
-      noteBody:
-        "The pendulum wave uses calibrated lengths. Each pendulum completes a different integer number of oscillations within the same cycle window, so the array repeatedly slips out of phase and re-aligns.",
-      correction:
-        "In an ideal simple pendulum, the period is controlled mainly by length, not bob mass: T ≈ 2π√(L/g).",
-      defaults: {
-        count: 18,
-        baseSwings: 51,
-        cycle: 60,
-        angle: 16,
-        damping: 3,
-        speed: 100
-      },
+      defaults: { count: 28, baseSwings: 51, cycle: 60, angle: 16, damping: 2, speed: 100 },
+      note: "A pendulum wave looks complex, but it is built from calibrated periods. Each bob completes a different integer number of swings in the same cycle window.",
+      seeing: "Watch for diagonal bands, apparent travelling waves, and re-alignment. The whole pattern is an emergent phase relation, not a separately programmed wave.",
       controls: [
-        ["count", "Number of pendulums", 6, 40, 18, 1, ""],
+        ["count", "Number of pendulums", 8, 64, 28, 1, ""],
         ["baseSwings", "Slowest swings per cycle", 20, 90, 51, 1, ""],
         ["cycle", "Cycle window", 20, 120, 60, 1, " s"],
         ["angle", "Release angle", 2, 28, 16, 1, "°"],
-        ["damping", "Damping", 0, 40, 3, 1, ""],
+        ["damping", "Damping", 0, 40, 2, 1, ""],
         ["speed", "Speed", 10, 300, 100, 5, ""]
       ]
     },
 
     spring: {
-      title: "Spring–mass array",
-      noteTitle: "Spring–mass oscillator principle",
-      noteBody:
-        "The spring–mass array uses vertical oscillators. Each hanging mass has a different spring constant, so the masses move up and down at different frequencies.",
-      correction:
-        "For a spring–mass oscillator, angular frequency is ω = √(k/m). Stronger springs oscillate faster; heavier masses oscillate more slowly.",
-      defaults: {
-        count: 18,
-        baseK: 8,
-        stepK: 0.6,
-        mass: 1.4,
-        amplitude: 34,
-        damping: 10,
-        speed: 100
-      },
+      title: "Spring mass array",
+      defaults: { count: 42, baseK: 8, stepK: 0.32, mass: 1.4, amplitude: 34, damping: 8, speed: 100 },
+      note: "A spring mass oscillator follows angular frequency ω = √(k/m). Small differences in spring stiffness create visible frequency differences.",
+      seeing: "The masses start together, then local timing differences create waves across the array. It looks choreographed, but the rule is simple.",
       controls: [
-        ["count", "Number of oscillators", 4, 32, 18, 1, ""],
+        ["count", "Number of oscillators", 8, 96, 42, 1, ""],
         ["baseK", "Base spring constant", 2, 20, 8, 0.5, ""],
-        ["stepK", "Spring increment", 0.1, 2, 0.6, 0.1, ""],
+        ["stepK", "Spring increment", 0.05, 1.2, 0.32, 0.05, ""],
         ["mass", "Mass", 0.5, 4, 1.4, 0.1, ""],
         ["amplitude", "Initial displacement", 8, 80, 34, 1, " px"],
-        ["damping", "Damping", 0, 120, 10, 1, ""],
+        ["damping", "Damping", 0, 120, 8, 1, ""],
+        ["speed", "Speed", 10, 300, 100, 5, ""]
+      ]
+    },
+
+    phase: {
+      title: "Coupled phase field",
+      defaults: { count: 260, coupling: 85, disorder: 42, radius: 5, speed: 100, topology: "field" },
+      note: "Each point is a small oscillator with its own phase. It only responds to neighbours. With enough coupling, clusters and synchrony emerge.",
+      seeing: "No central conductor is present. Local phase adjustment produces waves, rotating clusters, and synchrony that appear global.",
+      controls: [
+        ["count", "Oscillators", 48, 520, 260, 4, ""],
+        ["coupling", "Coupling strength", 0, 180, 85, 1, ""],
+        ["disorder", "Frequency disorder", 0, 120, 42, 1, ""],
+        ["radius", "Interaction radius", 1, 12, 5, 1, ""],
+        ["speed", "Speed", 10, 300, 100, 5, ""],
+        ["topology", "Topology", "select", [["ring", "Ring"], ["field", "Field"], ["lattice", "Lattice"]]]
+      ]
+    },
+
+    dna: {
+      title: "DNA evolution",
+      defaults: { population: 420, genomeLength: 18, mutation: 18, selection: 55, recombination: 70, environment: 8, speed: 100 },
+      note: "This is a toy genetic algorithm. Individuals carry short DNA-like genomes made from A, C, G, and T. Mutation creates variation, recombination mixes inherited sequences, and selection changes which genomes become common.",
+      seeing: "Look for the population shifting from noisy variation toward higher fitness. If the environment drifts, the target changes and the population has to track it.",
+      controls: [
+        ["population", "Population", 80, 900, 420, 10, ""],
+        ["genomeLength", "Genome length", 8, 32, 18, 1, " bases"],
+        ["mutation", "Mutation rate", 0, 80, 18, 1, ""],
+        ["selection", "Selection pressure", 0, 100, 55, 1, ""],
+        ["recombination", "Recombination", 0, 100, 70, 1, ""],
+        ["environment", "Environment drift", 0, 80, 8, 1, ""],
         ["speed", "Speed", 10, 300, 100, 5, ""]
       ]
     }
   };
 
-  function fail(message) {
-    const w = canvas.clientWidth || 900;
-    const h = canvas.clientHeight || 500;
-    ctx.fillStyle = "#12070a";
-    ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = "#fecdd3";
-    ctx.font = "16px system-ui, sans-serif";
-    ctx.fillText("Simulation error:", 24, 38);
-    ctx.fillText(String(message), 24, 66);
-    console.error(message);
-  }
+  const state = {
+    experiment: "pendulum",
+    running: true,
+    time: 0,
+    last: performance.now(),
+    params: {},
+    objects: [],
+    trails: [],
+    generation: 0,
+    targetGenome: [],
+    dnaStats: { best: 0, average: 0, diversity: 0 }
+  };
 
-  function getNumber(key) {
-    return Number(state.params[key]);
-  }
+  function n(key) { return Number(state.params[key]); }
+  function choice(items) { return items[Math.floor(Math.random() * items.length)]; }
+  function randomGenome(length) { return Array.from({ length }, () => choice(BASES)); }
 
   function formatValue(key, value, unit) {
     if (key === "speed") return `${(Number(value) / 100).toFixed(2)}×`;
     if (key === "damping") return (Number(value) / 1000).toFixed(3);
-    if (!Number.isInteger(Number(value))) return `${Number(value).toFixed(1)}${unit}`;
+    if (key === "mutation") return `${(Number(value) / 10).toFixed(1)}%`;
+    if (!Number.isInteger(Number(value))) return `${Number(value).toFixed(2)}${unit}`;
     return `${value}${unit}`;
   }
 
-  function setDefaults() {
-    state.params = { ...experiments[state.experiment].defaults };
-  }
-
   function renderControls() {
+    const ex = experiments[state.experiment];
     ui.controls.innerHTML = "";
 
-    experiments[state.experiment].controls.forEach(([key, label, min, max, start, step, unit]) => {
+    ex.controls.forEach((control) => {
+      const [key, label] = control;
       const card = document.createElement("label");
       card.className = "control";
 
       const title = document.createElement("span");
       title.textContent = label;
+      card.appendChild(title);
 
-      const input = document.createElement("input");
-      input.type = "range";
-      input.min = min;
-      input.max = max;
-      input.step = step;
-      input.value = state.params[key] ?? start;
-
+      let input;
       const output = document.createElement("output");
-      output.textContent = formatValue(key, input.value, unit);
+
+      if (control[2] === "select") {
+        input = document.createElement("select");
+        control[3].forEach(([value, text]) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = text;
+          input.appendChild(option);
+        });
+        input.value = state.params[key];
+        output.textContent = input.options[input.selectedIndex].textContent;
+      } else {
+        const [, , min, max, start, step, unit] = control;
+        input = document.createElement("input");
+        input.type = "range";
+        input.min = min;
+        input.max = max;
+        input.step = step;
+        input.value = state.params[key] ?? start;
+        output.textContent = formatValue(key, input.value, unit);
+      }
 
       input.addEventListener("input", () => {
-        state.params[key] = Number(input.value);
-        output.textContent = formatValue(key, input.value, unit);
+        state.params[key] = input.tagName === "SELECT" ? input.value : Number(input.value);
+        output.textContent = input.tagName === "SELECT"
+          ? input.options[input.selectedIndex].textContent
+          : formatValue(key, input.value, control[6] || "");
+
         buildObjects();
+        clearTrails();
         draw();
       });
 
-      card.appendChild(title);
       card.appendChild(input);
       card.appendChild(output);
       ui.controls.appendChild(card);
     });
   }
 
-  function buildObjects() {
-    if (state.experiment === "pendulum") {
-      const count = getNumber("count");
-      const baseSwings = getNumber("baseSwings");
-      const cycle = getNumber("cycle");
-
-      state.objects = Array.from({ length: count }, (_, i) => {
-        const swings = baseSwings + i;
-        const period = cycle / swings;
-        const lengthMetres = G * Math.pow(period / TAU, 2);
-
-        return {
-          i,
-          swings,
-          period,
-          lengthMetres,
-          omega: TAU / period,
-          visualMass: 1 + (i % 5) * 0.25,
-          colour: colours[i % colours.length]
-        };
-      });
-    }
-
-    if (state.experiment === "spring") {
-      const count = getNumber("count");
-      const baseK = getNumber("baseK");
-      const stepK = getNumber("stepK");
-      const mass = getNumber("mass");
-
-      state.objects = Array.from({ length: count }, (_, i) => {
-        const k = baseK + i * stepK;
-
-        return {
-          i,
-          k,
-          omega: Math.sqrt(k / mass),
-          colour: colours[i % colours.length]
-        };
-      });
-    }
-  }
-
   function switchExperiment(name) {
-    if (!experiments[name]) return;
-
     state.experiment = name;
+    state.params = { ...experiments[name].defaults };
     state.time = 0;
-    state.trails = [];
-
-    setDefaults();
+    state.generation = 0;
+    state.dnaStats = { best: 0, average: 0, diversity: 0 };
+    clearTrails();
     renderControls();
     buildObjects();
     updateText();
 
-    ui.tabs.forEach((tab) => {
-      tab.classList.toggle("active", tab.dataset.experiment === name);
+    ui.cards.forEach((card) => {
+      card.classList.toggle("active", card.dataset.experiment === name);
     });
 
+    draw();
+  }
+
+  function buildObjects() {
+    if (state.experiment === "pendulum") buildPendulums();
+    if (state.experiment === "spring") buildSprings();
+    if (state.experiment === "phase") buildPhaseField();
+    if (state.experiment === "dna") buildDNA();
+  }
+
+  function buildPendulums() {
+    const count = n("count");
+    const baseSwings = n("baseSwings");
+    const cycle = n("cycle");
+
+    state.objects = Array.from({ length: count }, (_, i) => {
+      const swings = baseSwings + i;
+      const period = cycle / swings;
+      const lengthMetres = G * Math.pow(period / TAU, 2);
+      return {
+        i,
+        swings,
+        period,
+        lengthMetres,
+        omega: TAU / period,
+        visualMass: 1 + (i % 5) * 0.25,
+        colour: colours[i % colours.length]
+      };
+    });
+  }
+
+  function buildSprings() {
+    const count = n("count");
+    const baseK = n("baseK");
+    const stepK = n("stepK");
+    const mass = n("mass");
+
+    state.objects = Array.from({ length: count }, (_, i) => {
+      const k = baseK + i * stepK;
+      return { i, k, omega: Math.sqrt(k / mass), colour: colours[i % colours.length] };
+    });
+  }
+
+  function buildPhaseField() {
+    const count = n("count");
+    const disorder = n("disorder") / 100;
+    const topology = state.params.topology;
+
+    state.objects = Array.from({ length: count }, (_, i) => {
+      const golden = 2.399963229728653;
+      const r = Math.sqrt((i + 0.5) / count);
+      const a = i * golden;
+      let x = Math.cos(a) * r;
+      let y = Math.sin(a) * r;
+
+      if (topology === "ring") {
+        x = Math.cos(i / count * TAU);
+        y = Math.sin(i / count * TAU);
+      }
+
+      if (topology === "lattice") {
+        const cols = Math.ceil(Math.sqrt(count));
+        const row = Math.floor(i / cols);
+        const col = i % cols;
+        x = cols <= 1 ? 0 : (col / (cols - 1)) * 2 - 1;
+        y = cols <= 1 ? 0 : (row / (cols - 1)) * 2 - 1;
+      }
+
+      const phase = Math.random() * TAU;
+      const natural = 0.8 + (Math.sin(i * 12.9898) * 0.5 + Math.sin(i * 3.17) * 0.5) * disorder;
+      return { i, x, y, phase, natural, colour: colours[i % colours.length] };
+    });
+  }
+
+  function buildDNA() {
+    const population = n("population");
+    const genomeLength = n("genomeLength");
+
+    state.generation = 0;
+    state.targetGenome = randomGenome(genomeLength);
+
+    state.objects = Array.from({ length: population }, (_, i) => ({
+      i,
+      genome: randomGenome(genomeLength),
+      fitness: 0,
+      age: 0
+    }));
+
+    evaluateDNA();
+  }
+
+  function evaluateDNA() {
+    if (state.experiment !== "dna") return;
+
+    const length = state.targetGenome.length || 1;
+    let total = 0;
+    let best = 0;
+
+    state.objects.forEach((o) => {
+      let matches = 0;
+      for (let i = 0; i < length; i += 1) {
+        if (o.genome[i] === state.targetGenome[i]) matches += 1;
+      }
+      o.fitness = matches / length;
+      total += o.fitness;
+      if (o.fitness > best) best = o.fitness;
+    });
+
+    state.dnaStats.best = best;
+    state.dnaStats.average = total / Math.max(1, state.objects.length);
+    state.dnaStats.diversity = estimateDiversity();
+  }
+
+  function estimateDiversity() {
+    const count = state.objects.length;
+    const length = state.targetGenome.length || 1;
+    if (count < 2) return 0;
+
+    let total = 0;
+    const samples = Math.min(140, count);
+
+    for (let s = 0; s < samples; s += 1) {
+      const a = state.objects[Math.floor(Math.random() * count)].genome;
+      const b = state.objects[Math.floor(Math.random() * count)].genome;
+      let diff = 0;
+      for (let i = 0; i < length; i += 1) {
+        if (a[i] !== b[i]) diff += 1;
+      }
+      total += diff / length;
+    }
+
+    return total / samples;
+  }
+
+  function mutateGenome(genome, mutationRate) {
+    return genome.map((base) => {
+      if (Math.random() > mutationRate) return base;
+      let next = choice(BASES);
+      while (next === base) next = choice(BASES);
+      return next;
+    });
+  }
+
+  function crossover(a, b, recombinationRate) {
+    if (Math.random() > recombinationRate) return a.slice();
+
+    const length = a.length;
+    const cut = 1 + Math.floor(Math.random() * Math.max(1, length - 1));
+    return a.slice(0, cut).concat(b.slice(cut));
+  }
+
+  function pickParent() {
+    const pressure = n("selection") / 100;
+    const tournament = 2 + Math.round(pressure * 7);
+    let best = choice(state.objects);
+
+    for (let i = 1; i < tournament; i += 1) {
+      const candidate = choice(state.objects);
+      if (candidate.fitness > best.fitness) best = candidate;
+    }
+
+    return best;
+  }
+
+  function evolveDNA(steps) {
+    if (state.experiment !== "dna") return;
+
+    const mutationRate = n("mutation") / 1000;
+    const recombinationRate = n("recombination") / 100;
+    const environmentRate = n("environment") / 1000;
+    const population = n("population");
+
+    for (let step = 0; step < steps; step += 1) {
+      evaluateDNA();
+
+      if (Math.random() < environmentRate) {
+        const idx = Math.floor(Math.random() * state.targetGenome.length);
+        let next = choice(BASES);
+        while (next === state.targetGenome[idx]) next = choice(BASES);
+        state.targetGenome[idx] = next;
+      }
+
+      const sorted = state.objects.slice().sort((a, b) => b.fitness - a.fitness);
+      const eliteCount = Math.max(2, Math.round(population * 0.035));
+
+      const nextPopulation = sorted.slice(0, eliteCount).map((o, i) => ({
+        i,
+        genome: o.genome.slice(),
+        fitness: o.fitness,
+        age: o.age + 1
+      }));
+
+      while (nextPopulation.length < population) {
+        const p1 = pickParent();
+        const p2 = pickParent();
+        const childGenome = mutateGenome(crossover(p1.genome, p2.genome, recombinationRate), mutationRate);
+        nextPopulation.push({
+          i: nextPopulation.length,
+          genome: childGenome,
+          fitness: 0,
+          age: 0
+        });
+      }
+
+      state.objects = nextPopulation;
+      state.generation += 1;
+    }
+
+    evaluateDNA();
+  }
+
+  function clearTrails() {
+    state.trails = [];
+  }
+
+  function kickSystem() {
+    if (state.experiment === "phase") {
+      state.objects.forEach((o) => {
+        o.phase = Math.random() * TAU;
+      });
+    } else if (state.experiment === "dna") {
+      state.targetGenome = randomGenome(n("genomeLength"));
+      state.objects.forEach((o) => {
+        o.genome = mutateGenome(o.genome, 0.25);
+      });
+      evaluateDNA();
+    } else {
+      state.time = 0;
+      buildObjects();
+    }
+
+    clearTrails();
     draw();
   }
 
@@ -217,33 +432,37 @@
 
     ui.experimentReadout.textContent = ex.title;
     ui.timeReadout.textContent = `${state.time.toFixed(2)} s`;
-    ui.noteTitle.textContent = ex.noteTitle;
-    ui.noteBody.textContent = ex.noteBody;
-    ui.correctionBody.textContent = ex.correction;
+    ui.noteTitle.textContent = `${ex.title} principle`;
+    ui.noteBody.textContent = ex.note;
+    ui.seeingBody.textContent = ex.seeing;
 
     if (state.experiment === "pendulum") {
-      ui.systemReadout.textContent = `${getNumber("count")} pendulums`;
-      ui.parameterReadout.textContent = `cycle ${getNumber("cycle")} s`;
-    }
-
-    if (state.experiment === "spring") {
-      const maxK = getNumber("baseK") + (getNumber("count") - 1) * getNumber("stepK");
-      ui.systemReadout.textContent = `${getNumber("count")} oscillators`;
-      ui.parameterReadout.textContent = `k ${getNumber("baseK").toFixed(1)} → ${maxK.toFixed(1)}`;
+      ui.systemReadout.textContent = `${n("count")} pendulums`;
+      ui.orderReadout.textContent = `cycle ${n("cycle")} s`;
+    } else if (state.experiment === "spring") {
+      const maxK = n("baseK") + (n("count") - 1) * n("stepK");
+      ui.systemReadout.textContent = `${n("count")} oscillators`;
+      ui.orderReadout.textContent = `k ${n("baseK").toFixed(1)} to ${maxK.toFixed(1)}`;
+    } else if (state.experiment === "phase") {
+      ui.systemReadout.textContent = `${n("count")} phases`;
+      ui.orderReadout.textContent = `order ${phaseOrder().toFixed(2)}`;
+    } else if (state.experiment === "dna") {
+      ui.systemReadout.textContent = `gen ${state.generation} · ${n("population")} genomes`;
+      ui.orderReadout.textContent = `best ${(state.dnaStats.best * 100).toFixed(0)}% · avg ${(state.dnaStats.average * 100).toFixed(0)}%`;
     }
   }
 
-  function resizeCanvas() {
+  function canvasSize() {
     const rect = canvas.getBoundingClientRect();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const cssW = Math.max(1, Math.round(rect.width));
-    const cssH = Math.max(1, Math.round(rect.height));
+    const w = Math.max(1, Math.round(rect.width));
+    const h = Math.max(1, Math.round(rect.height));
 
-    canvas.width = Math.round(cssW * dpr);
-    canvas.height = Math.round(cssH * dpr);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    return { w: cssW, h: cssH };
+    return { w, h, dpr };
   }
 
   function clear(w, h) {
@@ -290,6 +509,7 @@
 
     ctx.lineWidth = 1;
     ctx.strokeStyle = "rgba(255,255,255,0.18)";
+
     for (let x = left; x <= right; x += 22) {
       ctx.beginPath();
       ctx.moveTo(x, y - 9);
@@ -300,37 +520,78 @@
     ctx.restore();
   }
 
+  function glowCircle(x, y, r, colour) {
+    if (ui.glowToggle.checked) {
+      const g = ctx.createRadialGradient(x, y, 1, x, y, r * 3.2);
+      g.addColorStop(0, "rgba(255,255,255,0.92)");
+      g.addColorStop(0.36, colour);
+      g.addColorStop(1, "rgba(0,0,0,0)");
+
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, r * 3.2, 0, TAU);
+      ctx.fill();
+    }
+
+    ctx.fillStyle = colour;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, TAU);
+    ctx.fill();
+  }
+
+  function drawTrails(points) {
+    if (!ui.trailToggle.checked) return;
+
+    state.trails.push(points);
+    if (state.trails.length > 62) state.trails.shift();
+
+    ctx.save();
+
+    state.trails.forEach((frame, frameIndex) => {
+      const alpha = frameIndex / state.trails.length * 0.20;
+
+      frame.forEach((p) => {
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = p.colour;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r || 2.2, 0, TAU);
+        ctx.fill();
+      });
+    });
+
+    ctx.restore();
+  }
+
   function drawPendulums(w, h) {
     const railY = Math.max(46, h * 0.1);
-    const n = state.objects.length;
-    const left = w * 0.1;
-    const right = w * 0.9;
+    const count = state.objects.length;
+    const left = w * 0.08;
+    const right = w * 0.92;
     const lengths = state.objects.map((p) => p.lengthMetres);
     const minL = Math.min(...lengths);
     const maxL = Math.max(...lengths);
     const rangeL = Math.max(0.0001, maxL - minL);
-    const minPx = h * 0.34;
-    const maxPx = h * 0.7;
-    const angle = getNumber("angle") * Math.PI / 180;
-    const damping = getNumber("damping") / 1000;
+    const minPx = h * 0.30;
+    const maxPx = h * 0.70;
+    const angle = n("angle") * Math.PI / 180;
+    const damping = n("damping") / 1000;
+    const points = [];
 
     drawRail(w, railY);
 
-    const currentTrail = [];
-
     state.objects.forEach((p, i) => {
-      const f = n === 1 ? 0.5 : i / (n - 1);
+      const f = count === 1 ? 0.5 : i / (count - 1);
       const pivotX = left + f * (right - left);
       const lengthPx = minPx + ((p.lengthMetres - minL) / rangeL) * (maxPx - minPx);
       const theta = angle * Math.exp((-damping * state.time) / Math.sqrt(p.visualMass)) * Math.cos(p.omega * state.time);
       const bobX = pivotX + Math.sin(theta) * lengthPx * 0.74;
       const bobY = railY + Math.cos(theta) * lengthPx;
-      const radius = 8 + p.visualMass * 3;
+      const radius = 6.5 + p.visualMass * 2.7;
 
-      currentTrail.push({ x: bobX, y: bobY, colour: p.colour });
+      points.push({ x: bobX, y: bobY, colour: p.colour, r: 1.8 });
 
-      ctx.strokeStyle = "rgba(238,245,255,0.54)";
-      ctx.lineWidth = 1.25;
+      ctx.strokeStyle = "rgba(238,245,255,0.46)";
+      ctx.lineWidth = 1.1;
       ctx.beginPath();
       ctx.moveTo(pivotX, railY);
       ctx.lineTo(bobX, bobY);
@@ -338,33 +599,20 @@
 
       ctx.fillStyle = "rgba(255,255,255,0.82)";
       ctx.beginPath();
-      ctx.arc(pivotX, railY, 3.4, 0, TAU);
+      ctx.arc(pivotX, railY, 2.8, 0, TAU);
       ctx.fill();
 
-      const glow = ctx.createRadialGradient(bobX, bobY, 1, bobX, bobY, radius * 3);
-      glow.addColorStop(0, "rgba(255,255,255,0.95)");
-      glow.addColorStop(0.38, p.colour);
-      glow.addColorStop(1, "rgba(0,0,0,0)");
+      glowCircle(bobX, bobY, radius, p.colour);
 
-      ctx.fillStyle = glow;
-      ctx.beginPath();
-      ctx.arc(bobX, bobY, radius * 3, 0, TAU);
-      ctx.fill();
-
-      ctx.fillStyle = p.colour;
-      ctx.beginPath();
-      ctx.arc(bobX, bobY, radius, 0, TAU);
-      ctx.fill();
-
-      if (n <= 24) {
-        ctx.fillStyle = "rgba(238,244,255,0.62)";
-        ctx.font = "11px system-ui, sans-serif";
+      if (ui.labelToggle.checked && count <= 36) {
+        ctx.fillStyle = "rgba(238,244,255,0.68)";
+        ctx.font = "10px system-ui, sans-serif";
         ctx.textAlign = "center";
         ctx.fillText(String(p.swings), pivotX, railY + 22);
       }
     });
 
-    drawTrails(currentTrail);
+    drawTrails(points);
   }
 
   function drawSpring(x, y0, y1) {
@@ -376,8 +624,8 @@
     const stepY = usable / steps;
 
     ctx.save();
-    ctx.strokeStyle = "rgba(238,245,255,0.78)";
-    ctx.lineWidth = 2.2;
+    ctx.strokeStyle = "rgba(238,245,255,0.76)";
+    ctx.lineWidth = 1.8;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
@@ -385,9 +633,9 @@
     ctx.moveTo(x, y0);
     ctx.lineTo(x, y0 + head);
 
-    for (let i = 0; i <= steps; i++) {
+    for (let i = 0; i <= steps; i += 1) {
       const y = y0 + head + i * stepY;
-      const dx = i === steps ? 0 : (i % 2 === 0 ? -8 : 8);
+      const dx = i === steps ? 0 : (i % 2 === 0 ? -7 : 7);
       ctx.lineTo(x + dx, y);
     }
 
@@ -398,120 +646,318 @@
 
   function drawSprings(w, h) {
     const railY = Math.max(54, h * 0.12);
-    const n = state.objects.length;
-    const left = w * 0.08;
-    const right = w * 0.92;
+    const count = state.objects.length;
+    const left = w * 0.06;
+    const right = w * 0.94;
     const baseY = h * 0.52;
-    const spacing = n > 1 ? (right - left) / (n - 1) : 0;
-    const amplitude = getNumber("amplitude");
-    const damping = getNumber("damping") / 1000;
+    const spacing = count > 1 ? (right - left) / (count - 1) : 0;
+    const amplitude = n("amplitude");
+    const damping = n("damping") / 1000;
+    const points = [];
 
     drawRail(w, railY);
 
-    const currentTrail = [];
-
     state.objects.forEach((osc, i) => {
-      const x = n === 1 ? w / 2 : left + i * spacing;
+      const x = count === 1 ? w / 2 : left + i * spacing;
       const displacement = amplitude * Math.exp(-damping * state.time) * Math.cos(osc.omega * state.time);
       const y = baseY + displacement;
-      const blockW = Math.min(40, Math.max(16, spacing * 0.55 || 28));
-      const blockH = Math.max(18, blockW * 0.66);
+      const blockW = Math.min(24, Math.max(8, spacing * 0.52 || 18));
+      const blockH = Math.max(12, blockW * 0.7);
 
-      currentTrail.push({ x, y: y + blockH / 2, colour: osc.colour });
+      points.push({ x, y: y + blockH / 2, colour: osc.colour, r: 1.8 });
 
       drawSpring(x, railY, y);
 
       ctx.fillStyle = osc.colour;
       ctx.fillRect(x - blockW / 2, y, blockW, blockH);
 
-      ctx.fillStyle = "rgba(255,255,255,0.84)";
-      ctx.beginPath();
-      ctx.arc(x, railY, 3, 0, TAU);
-      ctx.fill();
+      if (ui.glowToggle.checked) {
+        ctx.globalAlpha = 0.22;
+        ctx.fillStyle = osc.colour;
+        ctx.beginPath();
+        ctx.arc(x, y + blockH / 2, blockW * 1.15, 0, TAU);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+      }
 
-      if (n <= 20) {
-        ctx.fillStyle = "rgba(238,244,255,0.62)";
-        ctx.font = "11px system-ui, sans-serif";
+      if (ui.labelToggle.checked && count <= 28) {
+        ctx.fillStyle = "rgba(238,244,255,0.64)";
+        ctx.font = "10px system-ui, sans-serif";
         ctx.textAlign = "center";
-        ctx.fillText(`k=${osc.k.toFixed(1)}`, x, railY + 24);
+        ctx.fillText(`k=${osc.k.toFixed(1)}`, x, railY + 22);
       }
     });
 
-    drawTrails(currentTrail);
+    drawTrails(points);
   }
 
-  function drawTrails(points) {
-    state.trails.push(points);
-    if (state.trails.length > 48) state.trails.shift();
+  function updatePhaseField(dt) {
+    const count = state.objects.length;
+    const coupling = n("coupling") / 100;
+    const radius = n("radius");
+    const topology = state.params.topology;
+
+    const next = state.objects.map((o, i) => {
+      let pull = 0;
+      let neighbours = 0;
+
+      if (topology === "ring") {
+        for (let offset = -radius; offset <= radius; offset += 1) {
+          if (offset === 0) continue;
+          const j = (i + offset + count) % count;
+          pull += Math.sin(state.objects[j].phase - o.phase);
+          neighbours += 1;
+        }
+      } else {
+        state.objects.forEach((other, j) => {
+          if (i === j) return;
+
+          const dx = other.x - o.x;
+          const dy = other.y - o.y;
+          const d2 = dx * dx + dy * dy;
+          const threshold = topology === "lattice" ? 0.16 : 0.25;
+
+          if (d2 < threshold * (radius / 4)) {
+            pull += Math.sin(other.phase - o.phase);
+            neighbours += 1;
+          }
+        });
+      }
+
+      const localPull = neighbours > 0 ? pull / neighbours : 0;
+      return o.phase + dt * (o.natural + coupling * localPull * 2.4);
+    });
+
+    next.forEach((phase, i) => {
+      state.objects[i].phase = ((phase % TAU) + TAU) % TAU;
+    });
+  }
+
+  function phaseOrder() {
+    if (state.experiment !== "phase" || state.objects.length === 0) return 0;
+
+    let sx = 0;
+    let sy = 0;
+
+    state.objects.forEach((o) => {
+      sx += Math.cos(o.phase);
+      sy += Math.sin(o.phase);
+    });
+
+    return Math.sqrt(sx * sx + sy * sy) / state.objects.length;
+  }
+
+  function phaseColour(phase) {
+    const t = ((phase % TAU) + TAU) / TAU;
+    return `hsl(${Math.round(185 + t * 255)}, 92%, 64%)`;
+  }
+
+  function drawPhaseField(w, h) {
+    const cx = w / 2;
+    const cy = h / 2;
+    const scale = Math.min(w, h) * 0.38;
+    const points = [];
+    const order = phaseOrder();
+
+    state.objects.forEach((o) => {
+      const x = cx + o.x * scale;
+      const y = cy + o.y * scale;
+      const colour = phaseColour(o.phase);
+      const r = 2.6 + order * 4.5;
+
+      points.push({ x, y, colour, r: 1.7 });
+
+      const arm = 6 + order * 12;
+      ctx.strokeStyle = colour;
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + Math.cos(o.phase) * arm, y + Math.sin(o.phase) * arm);
+      ctx.stroke();
+
+      glowCircle(x, y, r, colour);
+    });
+
+    drawTrails(points);
+
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,255,255,0.13)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(cx, cy, scale + 20, 0, TAU);
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(238,244,255,0.78)";
+    ctx.font = "700 14px system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(`global order: ${order.toFixed(2)}`, cx, cy + scale + 46);
+    ctx.restore();
+  }
+
+  function baseColour(base) {
+    if (base === "A") return "#67e8f9";
+    if (base === "C") return "#a3e635";
+    if (base === "G") return "#f8d06a";
+    return "#f472b6";
+  }
+
+  function fitnessColour(fitness) {
+    const hue = 205 - fitness * 135;
+    const light = 42 + fitness * 22;
+    return `hsl(${hue}, 88%, ${light}%)`;
+  }
+
+  function drawGenomeStrip(genome, x, y, width, height) {
+    const step = width / genome.length;
+
+    genome.forEach((base, i) => {
+      ctx.fillStyle = baseColour(base);
+      ctx.fillRect(x + i * step, y, Math.max(1, step - 1), height);
+    });
+  }
+
+  function drawDNA(w, h) {
+    const pad = Math.max(20, w * 0.035);
+    const top = Math.max(58, h * 0.12);
+    const statsTop = 18;
+    const gridTop = top + 58;
+    const cols = Math.ceil(Math.sqrt(state.objects.length * (w / Math.max(1, h))));
+    const rows = Math.ceil(state.objects.length / cols);
+    const cellW = (w - pad * 2) / cols;
+    const cellH = (h - gridTop - 34) / rows;
+    const r = Math.max(1.7, Math.min(cellW, cellH) * 0.34);
+    const points = [];
 
     ctx.save();
 
-    state.trails.forEach((frame, frameIndex) => {
-      const alpha = frameIndex / state.trails.length * 0.18;
+    ctx.fillStyle = "rgba(238,244,255,0.84)";
+    ctx.font = "800 13px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText(`target DNA · ${state.targetGenome.join("")}`, pad, statsTop + 2);
+    drawGenomeStrip(state.targetGenome, pad, statsTop + 14, Math.min(w - pad * 2, 520), 14);
 
-      frame.forEach((p) => {
-        ctx.globalAlpha = alpha;
-        ctx.fillStyle = p.colour;
+    const best = state.objects.reduce((a, b) => (a.fitness > b.fitness ? a : b), state.objects[0]);
+
+    ctx.fillStyle = "rgba(169,184,204,0.95)";
+    ctx.fillText(
+      `generation ${state.generation} · best ${(state.dnaStats.best * 100).toFixed(0)}% · average ${(state.dnaStats.average * 100).toFixed(0)}% · diversity ${(state.dnaStats.diversity * 100).toFixed(0)}%`,
+      pad,
+      top + 20
+    );
+
+    if (best) {
+      drawGenomeStrip(best.genome, pad, top + 32, Math.min(w - pad * 2, 520), 12);
+    }
+
+    state.objects.forEach((o, i) => {
+      const col = i % cols;
+      const row = Math.floor(i / cols);
+      const x = pad + cellW * col + cellW / 2;
+      const y = gridTop + cellH * row + cellH / 2;
+      const colour = fitnessColour(o.fitness);
+
+      points.push({ x, y, colour, r: 1.3 });
+
+      if (ui.glowToggle.checked && o.fitness > 0.72) {
+        ctx.globalAlpha = 0.25;
+        ctx.fillStyle = colour;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 2.2, 0, TAU);
+        ctx.arc(x, y, r * 2.4, 0, TAU);
         ctx.fill();
-      });
+        ctx.globalAlpha = 1;
+      }
+
+      ctx.fillStyle = colour;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, TAU);
+      ctx.fill();
+
+      if (ui.labelToggle.checked && r > 4.5) {
+        ctx.fillStyle = "rgba(2,4,7,0.75)";
+        ctx.font = "700 8px system-ui, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(String(Math.round(o.fitness * 100)), x, y + 3);
+      }
     });
 
+    drawTrails(points);
     ctx.restore();
   }
 
   function draw() {
-    const { w, h } = resizeCanvas();
-
+    const { w, h, dpr } = canvasSize();
     clear(w, h);
 
     if (state.experiment === "pendulum") drawPendulums(w, h);
     if (state.experiment === "spring") drawSprings(w, h);
+    if (state.experiment === "phase") drawPhaseField(w, h);
+    if (state.experiment === "dna") drawDNA(w, h);
 
     updateText();
+
+    ui.statusLine.textContent = state.running ? "Running" : "Paused";
+    ui.debugText.textContent = [
+      `experiment: ${state.experiment}`,
+      `objects: ${state.objects.length}`,
+      `time: ${state.time.toFixed(3)} s`,
+      `generation: ${state.generation}`,
+      `order: ${phaseOrder().toFixed(3)}`,
+      `bestFitness: ${state.dnaStats.best.toFixed(3)}`,
+      `averageFitness: ${state.dnaStats.average.toFixed(3)}`,
+      `diversity: ${state.dnaStats.diversity.toFixed(3)}`,
+      `canvas: ${w} × ${h}`,
+      `dpr: ${dpr}`
+    ].join("\n");
   }
 
   function frame(now) {
-    const dt = Math.min(0.05, (now - state.lastFrame) / 1000);
-    state.lastFrame = now;
+    const rawDt = Math.min(0.05, (now - state.last) / 1000);
+    state.last = now;
 
     if (state.running) {
-      state.time += dt * (getNumber("speed") / 100);
+      const dt = rawDt * (n("speed") / 100) * (ui.slowToggle.checked ? 0.25 : 1);
+      state.time += dt;
+
+      if (state.experiment === "phase") {
+        updatePhaseField(dt);
+      }
+
+      if (state.experiment === "dna") {
+        evolveDNA(Math.max(1, Math.floor(dt * 11)));
+      }
     }
 
     draw();
     requestAnimationFrame(frame);
   }
 
-  try {
-    if (!canvas || !ctx) throw new Error("Canvas not found.");
-    if (!ui.controls) throw new Error("Controls container not found.");
+  ui.cards.forEach((card) => {
+    card.addEventListener("click", () => switchExperiment(card.dataset.experiment));
+  });
 
-    ui.tabs.forEach((tab) => {
-      tab.addEventListener("click", () => switchExperiment(tab.dataset.experiment));
-    });
+  ui.playPause.addEventListener("click", () => {
+    state.running = !state.running;
+    ui.playPause.textContent = state.running ? "Pause" : "Play";
+  });
 
-    ui.playPause.addEventListener("click", () => {
-      state.running = !state.running;
-      ui.playPause.textContent = state.running ? "Pause" : "Play";
-    });
+  ui.reset.addEventListener("click", () => {
+    switchExperiment(state.experiment);
+  });
 
-    ui.reset.addEventListener("click", () => {
-      state.time = 0;
-      state.trails = [];
-      buildObjects();
+  ui.kick.addEventListener("click", kickSystem);
+
+  [ui.trailToggle, ui.glowToggle, ui.labelToggle, ui.slowToggle].forEach((input) => {
+    input.addEventListener("change", () => {
+      clearTrails();
       draw();
     });
+  });
 
-    window.addEventListener("resize", () => {
-      state.trails = [];
-      draw();
-    }, { passive: true });
+  window.addEventListener("resize", () => {
+    clearTrails();
+    draw();
+  }, { passive: true });
 
-    switchExperiment("pendulum");
-    requestAnimationFrame(frame);
-  } catch (error) {
-    fail(error);
-  }
+  switchExperiment("pendulum");
+  requestAnimationFrame(frame);
 })();
