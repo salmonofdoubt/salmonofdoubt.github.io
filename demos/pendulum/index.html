@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Emergence Oscillation Lab</title>
+  <title>Emergence Lab</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -11,10 +11,10 @@
     <header class="hero">
       <div>
         <p class="eyebrow">Interactive physics · emergence toybox</p>
-        <h1>Emergence Oscillation Lab</h1>
+        <h1>Emergence Lab</h1>
         <p class="lede">
-          Simple oscillators, local rules, collective patterns. Pendulum waves, spring arrays,
-          and coupled phase fields demonstrate how order can emerge without central control.
+          Simple local rules can create organised behaviour: waves, synchrony, adaptation,
+          and apparent paradoxes such as faster-than-light group velocity without faster-than-light energy transfer.
         </p>
       </div>
 
@@ -26,24 +26,54 @@
       </div>
     </header>
 
-    <section class="cards" aria-label="Experiment selector">
-      <button class="card active" type="button" data-experiment="pendulum">
-        <span>Experiment 01</span>
-        <strong>Pendulum wave</strong>
-        <small>Calibrated lengths create phase braids and periodic re-alignment.</small>
-      </button>
+    <section class="experiment-library" aria-label="Experiment library">
+      <div class="library-header">
+        <div>
+          <p class="section-kicker">Choose an experiment</p>
+          <h2>Five routes into emergence</h2>
+        </div>
+        <p>
+          Each exhibit runs one simple rule-set. The simulation stage below shows how patterns arise from timing,
+          coupling, selection, or wave reshaping.
+        </p>
+      </div>
 
-      <button class="card" type="button" data-experiment="spring">
-        <span>Experiment 02</span>
-        <strong>Spring–mass array</strong>
-        <small>Different spring constants create vertical wave patterns.</small>
-      </button>
+      <div class="cards">
+        <button class="card active" type="button" data-experiment="pendulum">
+          <span class="card-number">01</span>
+          <strong>Pendulum wave</strong>
+          <small>Calibrated lengths create phase braids and periodic re-alignment.</small>
+          <em>Timing creates pattern</em>
+        </button>
 
-      <button class="card" type="button" data-experiment="phase">
-        <span>Experiment 03</span>
-        <strong>Coupled phase field</strong>
-        <small>Local neighbour coupling produces synchrony, clusters, and rotating order.</small>
-      </button>
+        <button class="card" type="button" data-experiment="spring">
+          <span class="card-number">02</span>
+          <strong>Spring mass array</strong>
+          <small>Many vertical oscillators create travelling wave patterns.</small>
+          <em>Frequency creates motion</em>
+        </button>
+
+        <button class="card" type="button" data-experiment="phase">
+          <span class="card-number">03</span>
+          <strong>Coupled phase field</strong>
+          <small>Local neighbour coupling produces synchrony and rotating order.</small>
+          <em>Local rules create order</em>
+        </button>
+
+        <button class="card" type="button" data-experiment="dna">
+          <span class="card-number">04</span>
+          <strong>DNA evolution</strong>
+          <small>Mutation, recombination, and selection shift a population over generations.</small>
+          <em>Variation creates adaptation</em>
+        </button>
+
+        <button class="card" type="button" data-experiment="fastlight">
+          <span class="card-number">05</span>
+          <strong>Fast-light pulse</strong>
+          <small>Apparent superluminal group velocity without superluminal energy or information.</small>
+          <em>Peak motion is not signal motion</em>
+        </button>
+      </div>
     </section>
 
     <section class="stage-card">
@@ -52,7 +82,7 @@
       <div class="readout">
         <div><span>Experiment</span><strong id="experimentReadout">Pendulum wave</strong></div>
         <div><span>Time</span><strong id="timeReadout">0.00 s</strong></div>
-        <div><span>System</span><strong id="systemReadout">18 pendulums</strong></div>
+        <div><span>System</span><strong id="systemReadout">28 pendulums</strong></div>
         <div><span>Emergence</span><strong id="orderReadout">phase drift</strong></div>
       </div>
     </section>

@@ -29,17 +29,14 @@
     debugText: document.getElementById("debugText")
   };
 
-  const colours = [
-    "#ff6b6b", "#ffa94d", "#ffd43b", "#94d82d", "#38d9a9",
-    "#22d3ee", "#4dabf7", "#748ffc", "#b197fc", "#f783ac"
-  ];
+  const colours = ["#ff6b6b", "#ffa94d", "#ffd43b", "#94d82d", "#38d9a9", "#22d3ee", "#4dabf7", "#748ffc", "#b197fc", "#f783ac"];
 
   const experiments = {
     pendulum: {
       title: "Pendulum wave",
       defaults: { count: 28, baseSwings: 51, cycle: 60, angle: 16, damping: 2, speed: 100 },
-      note: "A pendulum wave looks complex, but it is built from calibrated periods. Each bob completes a different integer number of swings in the same cycle window.",
-      seeing: "Watch for diagonal bands, apparent travelling waves, and re-alignment. The whole pattern is an emergent phase relation, not a separately programmed wave.",
+      note: "A pendulum wave is built from calibrated periods. Each bob completes a different integer number of swings in the same cycle window.",
+      seeing: "Watch for diagonal bands, travelling waves, and re-alignment. The wave is not separately programmed; it emerges from phase relations.",
       controls: [
         ["count", "Number of pendulums", 8, 64, 28, 1, ""],
         ["baseSwings", "Slowest swings per cycle", 20, 90, 51, 1, ""],
@@ -54,7 +51,7 @@
       title: "Spring mass array",
       defaults: { count: 42, baseK: 8, stepK: 0.32, mass: 1.4, amplitude: 34, damping: 8, speed: 100 },
       note: "A spring mass oscillator follows angular frequency ω = √(k/m). Small differences in spring stiffness create visible frequency differences.",
-      seeing: "The masses start together, then local timing differences create waves across the array. It looks choreographed, but the rule is simple.",
+      seeing: "The masses begin together, then local timing differences create a travelling pattern across the array.",
       controls: [
         ["count", "Number of oscillators", 8, 96, 42, 1, ""],
         ["baseK", "Base spring constant", 2, 20, 8, 0.5, ""],
@@ -69,8 +66,8 @@
     phase: {
       title: "Coupled phase field",
       defaults: { count: 260, coupling: 85, disorder: 42, radius: 5, speed: 100, topology: "field" },
-      note: "Each point is a small oscillator with its own phase. It only responds to neighbours. With enough coupling, clusters and synchrony emerge.",
-      seeing: "No central conductor is present. Local phase adjustment produces waves, rotating clusters, and synchrony that appear global.",
+      note: "Each point is an oscillator with its own phase. It responds only to neighbours. With enough coupling, clusters and synchrony emerge.",
+      seeing: "No central conductor is present. Local phase adjustment creates waves, rotating clusters, and synchrony.",
       controls: [
         ["count", "Oscillators", 48, 520, 260, 4, ""],
         ["coupling", "Coupling strength", 0, 180, 85, 1, ""],
@@ -84,8 +81,8 @@
     dna: {
       title: "DNA evolution",
       defaults: { population: 420, genomeLength: 18, mutation: 18, selection: 55, recombination: 70, environment: 8, speed: 100 },
-      note: "This is a toy genetic algorithm. Individuals carry short DNA-like genomes made from A, C, G, and T. Mutation creates variation, recombination mixes inherited sequences, and selection changes which genomes become common.",
-      seeing: "Look for the population shifting from noisy variation toward higher fitness. If the environment drifts, the target changes and the population has to track it.",
+      note: "A toy genetic algorithm. Individuals carry DNA-like genomes made from A, C, G, and T. Mutation creates variation, recombination mixes inherited sequences, and selection shifts the population.",
+      seeing: "Look for noisy variation becoming higher fitness. Environmental drift changes the target, forcing the population to keep adapting.",
       controls: [
         ["population", "Population", 80, 900, 420, 10, ""],
         ["genomeLength", "Genome length", 8, 32, 18, 1, " bases"],
@@ -93,6 +90,21 @@
         ["selection", "Selection pressure", 0, 100, 55, 1, ""],
         ["recombination", "Recombination", 0, 100, 70, 1, ""],
         ["environment", "Environment drift", 0, 80, 8, 1, ""],
+        ["speed", "Speed", 10, 300, 100, 5, ""]
+      ]
+    },
+
+    fastlight: {
+      title: "Fast-light pulse",
+      defaults: { count: 240, group: 180, width: 34, reshaping: 55, absorption: 38, speed: 100 },
+      note: "The peak of a pulse can appear to move faster than c in a dispersive medium. This does not mean energy or information travels faster than light.",
+      seeing: "The cyan line marks the apparent group-velocity peak. The gold line marks the causal front. The peak can move ahead, but no new signal, energy, or information crosses the causal front.",
+      controls: [
+        ["count", "Trace samples", 80, 420, 240, 10, ""],
+        ["group", "Apparent group velocity", 100, 320, 180, 5, "% c"],
+        ["width", "Pulse width", 14, 78, 34, 1, " px"],
+        ["reshaping", "Pulse reshaping", 0, 100, 55, 1, ""],
+        ["absorption", "Medium absorption", 0, 100, 38, 1, ""],
         ["speed", "Speed", 10, 300, 100, 5, ""]
       ]
     }
@@ -200,6 +212,7 @@
     if (state.experiment === "spring") buildSprings();
     if (state.experiment === "phase") buildPhaseField();
     if (state.experiment === "dna") buildDNA();
+    if (state.experiment === "fastlight") buildFastLight();
   }
 
   function buildPendulums() {
@@ -211,15 +224,7 @@
       const swings = baseSwings + i;
       const period = cycle / swings;
       const lengthMetres = G * Math.pow(period / TAU, 2);
-      return {
-        i,
-        swings,
-        period,
-        lengthMetres,
-        omega: TAU / period,
-        visualMass: 1 + (i % 5) * 0.25,
-        colour: colours[i % colours.length]
-      };
+      return { i, swings, period, lengthMetres, omega: TAU / period, visualMass: 1 + (i % 5) * 0.25, colour: colours[i % colours.length] };
     });
   }
 
@@ -233,6 +238,11 @@
       const k = baseK + i * stepK;
       return { i, k, omega: Math.sqrt(k / mass), colour: colours[i % colours.length] };
     });
+  }
+
+  function buildFastLight() {
+    const count = n("count");
+    state.objects = Array.from({ length: count }, (_, i) => ({ i, x: count <= 1 ? 0 : i / (count - 1) }));
   }
 
   function buildPhaseField() {
@@ -297,7 +307,7 @@
       }
       o.fitness = matches / length;
       total += o.fitness;
-      if (o.fitness > best) best = o.fitness;
+      best = Math.max(best, o.fitness);
     });
 
     state.dnaStats.best = best;
@@ -337,9 +347,7 @@
 
   function crossover(a, b, recombinationRate) {
     if (Math.random() > recombinationRate) return a.slice();
-
-    const length = a.length;
-    const cut = 1 + Math.floor(Math.random() * Math.max(1, length - 1));
+    const cut = 1 + Math.floor(Math.random() * Math.max(1, a.length - 1));
     return a.slice(0, cut).concat(b.slice(cut));
   }
 
@@ -387,10 +395,9 @@
       while (nextPopulation.length < population) {
         const p1 = pickParent();
         const p2 = pickParent();
-        const childGenome = mutateGenome(crossover(p1.genome, p2.genome, recombinationRate), mutationRate);
         nextPopulation.push({
           i: nextPopulation.length,
-          genome: childGenome,
+          genome: mutateGenome(crossover(p1.genome, p2.genome, recombinationRate), mutationRate),
           fitness: 0,
           age: 0
         });
@@ -409,14 +416,10 @@
 
   function kickSystem() {
     if (state.experiment === "phase") {
-      state.objects.forEach((o) => {
-        o.phase = Math.random() * TAU;
-      });
+      state.objects.forEach((o) => { o.phase = Math.random() * TAU; });
     } else if (state.experiment === "dna") {
       state.targetGenome = randomGenome(n("genomeLength"));
-      state.objects.forEach((o) => {
-        o.genome = mutateGenome(o.genome, 0.25);
-      });
+      state.objects.forEach((o) => { o.genome = mutateGenome(o.genome, 0.25); });
       evaluateDNA();
     } else {
       state.time = 0;
@@ -449,6 +452,9 @@
     } else if (state.experiment === "dna") {
       ui.systemReadout.textContent = `gen ${state.generation} · ${n("population")} genomes`;
       ui.orderReadout.textContent = `best ${(state.dnaStats.best * 100).toFixed(0)}% · avg ${(state.dnaStats.average * 100).toFixed(0)}%`;
+    } else if (state.experiment === "fastlight") {
+      ui.systemReadout.textContent = `peak ${(n("group") / 100).toFixed(2)}c · front ≤ c`;
+      ui.orderReadout.textContent = "no superluminal energy";
     }
   }
 
@@ -457,11 +463,9 @@
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const w = Math.max(1, Math.round(rect.width));
     const h = Math.max(1, Math.round(rect.height));
-
     canvas.width = Math.round(w * dpr);
     canvas.height = Math.round(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
     return { w, h, dpr };
   }
 
@@ -470,14 +474,12 @@
     bg.addColorStop(0, "#0b111a");
     bg.addColorStop(0.5, "#05080c");
     bg.addColorStop(1, "#020407");
-
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
 
     ctx.save();
     ctx.strokeStyle = "rgba(255,255,255,0.035)";
     ctx.lineWidth = 1;
-
     const spacing = Math.max(28, Math.min(w, h) / 14);
     for (let x = -spacing; x < w + spacing; x += spacing) {
       ctx.beginPath();
@@ -485,7 +487,6 @@
       ctx.lineTo(x + h * 0.16, h);
       ctx.stroke();
     }
-
     ctx.restore();
   }
 
@@ -493,7 +494,6 @@
     const left = w * 0.06;
     const right = w * 0.94;
     const rail = ctx.createLinearGradient(left, y, right, y);
-
     rail.addColorStop(0, "rgba(248,208,106,0.55)");
     rail.addColorStop(0.5, "rgba(255,255,255,0.42)");
     rail.addColorStop(1, "rgba(103,232,249,0.45)");
@@ -506,17 +506,6 @@
     ctx.moveTo(left, y);
     ctx.lineTo(right, y);
     ctx.stroke();
-
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "rgba(255,255,255,0.18)";
-
-    for (let x = left; x <= right; x += 22) {
-      ctx.beginPath();
-      ctx.moveTo(x, y - 9);
-      ctx.lineTo(x, y + 9);
-      ctx.stroke();
-    }
-
     ctx.restore();
   }
 
@@ -526,7 +515,6 @@
       g.addColorStop(0, "rgba(255,255,255,0.92)");
       g.addColorStop(0.36, colour);
       g.addColorStop(1, "rgba(0,0,0,0)");
-
       ctx.fillStyle = g;
       ctx.beginPath();
       ctx.arc(x, y, r * 3.2, 0, TAU);
@@ -546,10 +534,8 @@
     if (state.trails.length > 62) state.trails.shift();
 
     ctx.save();
-
     state.trails.forEach((frame, frameIndex) => {
       const alpha = frameIndex / state.trails.length * 0.20;
-
       frame.forEach((p) => {
         ctx.globalAlpha = alpha;
         ctx.fillStyle = p.colour;
@@ -558,7 +544,6 @@
         ctx.fill();
       });
     });
-
     ctx.restore();
   }
 
@@ -603,13 +588,6 @@
       ctx.fill();
 
       glowCircle(bobX, bobY, radius, p.colour);
-
-      if (ui.labelToggle.checked && count <= 36) {
-        ctx.fillStyle = "rgba(238,244,255,0.68)";
-        ctx.font = "10px system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(String(p.swings), pivotX, railY + 22);
-      }
     });
 
     drawTrails(points);
@@ -628,7 +606,6 @@
     ctx.lineWidth = 1.8;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
-
     ctx.beginPath();
     ctx.moveTo(x, y0);
     ctx.lineTo(x, y0 + head);
@@ -665,27 +642,10 @@
       const blockH = Math.max(12, blockW * 0.7);
 
       points.push({ x, y: y + blockH / 2, colour: osc.colour, r: 1.8 });
-
       drawSpring(x, railY, y);
 
       ctx.fillStyle = osc.colour;
       ctx.fillRect(x - blockW / 2, y, blockW, blockH);
-
-      if (ui.glowToggle.checked) {
-        ctx.globalAlpha = 0.22;
-        ctx.fillStyle = osc.colour;
-        ctx.beginPath();
-        ctx.arc(x, y + blockH / 2, blockW * 1.15, 0, TAU);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-
-      if (ui.labelToggle.checked && count <= 28) {
-        ctx.fillStyle = "rgba(238,244,255,0.64)";
-        ctx.font = "10px system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(`k=${osc.k.toFixed(1)}`, x, railY + 22);
-      }
     });
 
     drawTrails(points);
@@ -711,12 +671,10 @@
       } else {
         state.objects.forEach((other, j) => {
           if (i === j) return;
-
           const dx = other.x - o.x;
           const dy = other.y - o.y;
           const d2 = dx * dx + dy * dy;
           const threshold = topology === "lattice" ? 0.16 : 0.25;
-
           if (d2 < threshold * (radius / 4)) {
             pull += Math.sin(other.phase - o.phase);
             neighbours += 1;
@@ -735,15 +693,12 @@
 
   function phaseOrder() {
     if (state.experiment !== "phase" || state.objects.length === 0) return 0;
-
     let sx = 0;
     let sy = 0;
-
     state.objects.forEach((o) => {
       sx += Math.cos(o.phase);
       sy += Math.sin(o.phase);
     });
-
     return Math.sqrt(sx * sx + sy * sy) / state.objects.length;
   }
 
@@ -764,7 +719,6 @@
       const y = cy + o.y * scale;
       const colour = phaseColour(o.phase);
       const r = 2.6 + order * 4.5;
-
       points.push({ x, y, colour, r: 1.7 });
 
       const arm = 6 + order * 12;
@@ -809,7 +763,6 @@
 
   function drawGenomeStrip(genome, x, y, width, height) {
     const step = width / genome.length;
-
     genome.forEach((base, i) => {
       ctx.fillStyle = baseColour(base);
       ctx.fillRect(x + i * step, y, Math.max(1, step - 1), height);
@@ -819,7 +772,6 @@
   function drawDNA(w, h) {
     const pad = Math.max(20, w * 0.035);
     const top = Math.max(58, h * 0.12);
-    const statsTop = 18;
     const gridTop = top + 58;
     const cols = Math.ceil(Math.sqrt(state.objects.length * (w / Math.max(1, h))));
     const rows = Math.ceil(state.objects.length / cols);
@@ -828,13 +780,11 @@
     const r = Math.max(1.7, Math.min(cellW, cellH) * 0.34);
     const points = [];
 
-    ctx.save();
-
     ctx.fillStyle = "rgba(238,244,255,0.84)";
     ctx.font = "800 13px system-ui, sans-serif";
     ctx.textAlign = "left";
-    ctx.fillText(`target DNA · ${state.targetGenome.join("")}`, pad, statsTop + 2);
-    drawGenomeStrip(state.targetGenome, pad, statsTop + 14, Math.min(w - pad * 2, 520), 14);
+    ctx.fillText(`target DNA · ${state.targetGenome.join("")}`, pad, 20);
+    drawGenomeStrip(state.targetGenome, pad, 34, Math.min(w - pad * 2, 520), 14);
 
     const best = state.objects.reduce((a, b) => (a.fitness > b.fitness ? a : b), state.objects[0]);
 
@@ -845,9 +795,7 @@
       top + 20
     );
 
-    if (best) {
-      drawGenomeStrip(best.genome, pad, top + 32, Math.min(w - pad * 2, 520), 12);
-    }
+    if (best) drawGenomeStrip(best.genome, pad, top + 32, Math.min(w - pad * 2, 520), 12);
 
     state.objects.forEach((o, i) => {
       const col = i % cols;
@@ -855,33 +803,138 @@
       const x = pad + cellW * col + cellW / 2;
       const y = gridTop + cellH * row + cellH / 2;
       const colour = fitnessColour(o.fitness);
-
       points.push({ x, y, colour, r: 1.3 });
-
-      if (ui.glowToggle.checked && o.fitness > 0.72) {
-        ctx.globalAlpha = 0.25;
-        ctx.fillStyle = colour;
-        ctx.beginPath();
-        ctx.arc(x, y, r * 2.4, 0, TAU);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
 
       ctx.fillStyle = colour;
       ctx.beginPath();
       ctx.arc(x, y, r, 0, TAU);
       ctx.fill();
-
-      if (ui.labelToggle.checked && r > 4.5) {
-        ctx.fillStyle = "rgba(2,4,7,0.75)";
-        ctx.font = "700 8px system-ui, sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText(String(Math.round(o.fitness * 100)), x, y + 3);
-      }
     });
 
     drawTrails(points);
-    ctx.restore();
+  }
+
+  function drawFastLight(w, h) {
+    const pad = Math.max(28, w * 0.04);
+    const top = Math.max(34, h * 0.07);
+    const diagramH = h * 0.44;
+    const diagramBottom = top + diagramH;
+    const x0 = pad;
+    const x1 = w - pad;
+    const vg = n("group") / 100;
+    const progress = (state.time * 0.13) % 1;
+    const frontProgress = progress;
+    const peakProgress = Math.min(1, progress * vg);
+    const frontX = x0 + (x1 - x0) * frontProgress;
+    const peakX = x0 + (x1 - x0) * peakProgress;
+    const timeY = top + diagramH * progress;
+    const groupArrivalY = top + diagramH / Math.max(1, vg);
+    const reshaping = n("reshaping") / 100;
+    const absorption = n("absorption") / 100;
+    const pulseWidth = n("width");
+
+    const mediumA = x0 + (x1 - x0) * 0.38;
+    const mediumB = x0 + (x1 - x0) * 0.76;
+    ctx.fillStyle = "rgba(103,232,249,0.08)";
+    ctx.fillRect(mediumA, top, mediumB - mediumA, diagramH);
+
+    ctx.strokeStyle = "rgba(255,255,255,0.22)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x0, top);
+    ctx.lineTo(x0, diagramBottom);
+    ctx.lineTo(x1, diagramBottom);
+    ctx.stroke();
+
+    ctx.fillStyle = "rgba(244,114,182,0.075)";
+    ctx.beginPath();
+    ctx.moveTo(x0, top);
+    ctx.lineTo(x1, groupArrivalY);
+    ctx.lineTo(x1, diagramBottom);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.strokeStyle = "rgba(248,208,106,0.95)";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(x0, top);
+    ctx.lineTo(x1, diagramBottom);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(103,232,249,0.95)";
+    ctx.lineWidth = 3;
+    ctx.setLineDash([10, 8]);
+    ctx.beginPath();
+    ctx.moveTo(x0, top);
+    ctx.lineTo(x1, groupArrivalY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.strokeStyle = "rgba(255,255,255,0.18)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x0, timeY);
+    ctx.lineTo(x1, timeY);
+    ctx.stroke();
+
+    glowCircle(frontX, timeY, 7, "#f8d06a");
+    glowCircle(peakX, timeY, 7, "#67e8f9");
+
+    ctx.fillStyle = "rgba(248,208,106,0.92)";
+    ctx.font = "800 12px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText("causal front / energy ≤ c", Math.min(frontX + 10, x1 - 160), timeY - 12);
+
+    ctx.fillStyle = "rgba(103,232,249,0.92)";
+    ctx.textAlign = "right";
+    ctx.fillText(`apparent peak vg = ${vg.toFixed(2)}c`, Math.max(peakX - 10, x0 + 190), timeY + 20);
+
+    ctx.fillStyle = "rgba(0,0,0,0.34)";
+    ctx.fillRect(x0, diagramBottom + 12, x1 - x0, 38);
+    ctx.fillStyle = "rgba(238,244,255,0.84)";
+    ctx.font = "800 13px system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("No new information, causal front, or energy transport crosses faster than c.", w / 2, diagramBottom + 36);
+
+    const trackY = diagramBottom + 106;
+    const amp = Math.max(42, h * 0.08);
+    const sigma = pulseWidth / (x1 - x0);
+    const points = [];
+
+    ctx.strokeStyle = "rgba(255,255,255,0.16)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x0, trackY);
+    ctx.lineTo(x1, trackY);
+    ctx.stroke();
+
+    ctx.beginPath();
+    state.objects.forEach((sample, i) => {
+      const xNorm = sample.x;
+      const x = x0 + (x1 - x0) * xNorm;
+      const leadingTail = Math.exp(-Math.pow((xNorm - peakProgress) / Math.max(0.025, sigma), 2) / 2);
+      const causalGate = 1 / (1 + Math.exp((xNorm - frontProgress) * 55));
+      const carrier = Math.sin((xNorm - peakProgress) * 95 - state.time * 7);
+      const mediumLoss = 1 - absorption * 0.55;
+      const reshaped = leadingTail * (0.25 + 0.75 * reshaping) * mediumLoss;
+      const y = trackY - reshaped * carrier * amp * causalGate;
+      points.push({ x, y, colour: "#67e8f9", r: 1.5 });
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+
+    ctx.strokeStyle = "rgba(103,232,249,0.95)";
+    ctx.lineWidth = 2.2;
+    ctx.stroke();
+
+    drawTrails(points);
+
+    ctx.fillStyle = "rgba(169,184,204,0.92)";
+    ctx.font = "800 12px system-ui, sans-serif";
+    ctx.textAlign = "left";
+    ctx.fillText("reshaped pulse envelope", x0, trackY + amp + 26);
+    ctx.textAlign = "right";
+    ctx.fillText("cyan peak can move faster than c; gold front cannot", x1, trackY + amp + 26);
   }
 
   function draw() {
@@ -892,6 +945,7 @@
     if (state.experiment === "spring") drawSprings(w, h);
     if (state.experiment === "phase") drawPhaseField(w, h);
     if (state.experiment === "dna") drawDNA(w, h);
+    if (state.experiment === "fastlight") drawFastLight(w, h);
 
     updateText();
 
@@ -918,13 +972,8 @@
       const dt = rawDt * (n("speed") / 100) * (ui.slowToggle.checked ? 0.25 : 1);
       state.time += dt;
 
-      if (state.experiment === "phase") {
-        updatePhaseField(dt);
-      }
-
-      if (state.experiment === "dna") {
-        evolveDNA(Math.max(1, Math.floor(dt * 11)));
-      }
+      if (state.experiment === "phase") updatePhaseField(dt);
+      if (state.experiment === "dna") evolveDNA(Math.max(1, Math.floor(dt * 11)));
     }
 
     draw();
@@ -940,10 +989,7 @@
     ui.playPause.textContent = state.running ? "Pause" : "Play";
   });
 
-  ui.reset.addEventListener("click", () => {
-    switchExperiment(state.experiment);
-  });
-
+  ui.reset.addEventListener("click", () => switchExperiment(state.experiment));
   ui.kick.addEventListener("click", kickSystem);
 
   [ui.trailToggle, ui.glowToggle, ui.labelToggle, ui.slowToggle].forEach((input) => {
