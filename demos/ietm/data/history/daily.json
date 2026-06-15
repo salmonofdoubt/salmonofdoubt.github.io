@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated_at": "2026-06-14T23:19:13+00:00",
-    "row_count": 62,
+    "generated_at": "2026-06-15T01:42:18+00:00",
+    "row_count": 63,
     "mode": "daily-snapshot-history",
     "warm_start_window_days": 30,
     "estimated_backfill_rows": 28,
-    "observed_rows": 34,
+    "observed_rows": 35,
     "caveat": "Some early rows may be estimated warm-start rows for sparklines. Rows with estimated_backfill=true are visual placeholders only, not observed historical data. As real daily snapshots accumulate, estimated rows age out of the 30-day display window."
   },
   "daily": [
@@ -1244,6 +1244,26 @@
       "household_gas_c_per_kwh": 12.33,
       "electricity_system_price_eur_per_mwh": 80.26,
       "electricity_system_price_c_per_kwh_equiv": 8.03,
+      "gas_balancing_price_c_per_kwh": 3.84
+    },
+    {
+      "date": "2026-06-15",
+      "captured_at": "2026-06-15T01:42:18+00:00",
+      "demand_mw": 3752.0,
+      "demand_gw": 3.75,
+      "renewables_percent": 28.3,
+      "wind_percent": 28.2,
+      "solar_percent": 0.1,
+      "imports_percent": 24.8,
+      "residual_percent": 47.0,
+      "co2_g_per_kwh": 200.0,
+      "co2_available": true,
+      "target_gap_pp": 38.7,
+      "target_status": "Off track",
+      "household_electricity_c_per_kwh": 31.72,
+      "household_gas_c_per_kwh": 12.33,
+      "electricity_system_price_eur_per_mwh": 43.31,
+      "electricity_system_price_c_per_kwh_equiv": 4.33,
       "gas_balancing_price_c_per_kwh": 3.84
     }
   ]
