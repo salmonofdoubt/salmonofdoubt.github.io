@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Geo Radar",
-    "generated_at": "2026-06-15T11:28:30+00:00",
+    "generated_at": "2026-06-16T10:27:00+00:00",
     "generator": "geo-radar-demo 1.0.0",
     "available_purposes": [
       "energy systems",
@@ -59,7 +59,7 @@
         "subsurface storage"
       ],
       "note": "Core German investigator-led funding route for doctorate-holding researchers with proposals accepted at any time.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -76,7 +76,7 @@
         "wetland interfaces"
       ],
       "note": "Network-building route for topic-focused collaboration across sites, including international members.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -93,7 +93,7 @@
         "hydrogen"
       ],
       "note": "Higher-risk route for outstanding researchers with a strong scientific track record.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -109,7 +109,7 @@
         "environmental research"
       ],
       "note": "Career-advancement route for researchers already qualified for appointment to a permanent professorship.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official programme page monitoring",
       "fetch_status": "ok"
     },
@@ -126,10 +126,9 @@
         "environmental research"
       ],
       "note": "Flagship frontier-funding route for established research leaders via annual ERC calls.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T08:41:56+00:00",
       "discovery_method": "official programme page monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://erc.europa.eu/funding/advanced-grants"
+      "fetch_status": "ok"
     },
     {
       "id": "horizon_energy_supply",
@@ -144,10 +143,9 @@
         "energy systems"
       ],
       "note": "Cluster 5 energy call relevant to subsurface energy systems, hydrogen storage and infrastructure themes.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official call page monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en"
+      "fetch_status": "ok"
     },
     {
       "id": "clean_hydrogen_partnership",
@@ -162,10 +160,9 @@
         "energy systems"
       ],
       "note": "Large consortium call covering hydrogen production, storage, distribution and demonstration.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official call page monitoring",
-      "fetch_status": "error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en"
+      "fetch_status": "ok"
     },
     {
       "id": "ptj_hydrogen_derivatives",
@@ -180,7 +177,7 @@
         "environmental research"
       ],
       "note": "Federal applied-energy-research route covering hydrogen production, derivatives, fuel cells and reconversion.",
-      "last_checked": "2026-06-15T11:28:33+00:00",
+      "last_checked": "2026-06-16T10:27:03+00:00",
       "discovery_method": "official funding priority page monitoring",
       "fetch_status": "ok"
     },
@@ -196,7 +193,7 @@
         "wetland interfaces"
       ],
       "note": "Potsdam-based bridge fellowship for experienced sustainability actors with science-policy reach.",
-      "last_checked": "2026-06-15T11:28:34+00:00",
+      "last_checked": "2026-06-16T10:27:04+00:00",
       "discovery_method": "official fellowship page monitoring",
       "fetch_status": "ok"
     },
@@ -213,7 +210,7 @@
         "environmental research"
       ],
       "note": "Official GFZ vacancies board covering scientific positions, doctoral roles and fellow programmes in Potsdam.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official GFZ careers page monitoring",
       "fetch_status": "ok"
     },
@@ -229,7 +226,7 @@
         "environmental research"
       ],
       "note": "GFZ-hosted RIFS fellowship page for the Klaus Töpfer Sustainability Fellowship.",
-      "last_checked": "2026-06-15T11:28:30+00:00",
+      "last_checked": "2026-06-16T10:27:00+00:00",
       "discovery_method": "official GFZ fellowship page monitoring",
       "fetch_status": "ok"
     }
@@ -433,6 +430,156 @@
       "cta_label": "Open DFG Heisenberg Programme"
     },
     {
+      "id": "erc_advanced_erc_advanced_grant_watch",
+      "source_id": "erc_advanced",
+      "source_name": "ERC Advanced Grant",
+      "title": "ERC Advanced Grant watch",
+      "programme": "European Research Council",
+      "url": "https://erc.europa.eu/funding/advanced-grants",
+      "summary": "Bottom-up frontier research funding for established, leading principal investigators with significant research achievements.",
+      "status": "upcoming",
+      "change_type": "new",
+      "changed_at": "2026-06-16T10:27:00+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "European Union and associated countries",
+      "audience": [
+        "established researchers",
+        "PIs",
+        "universities",
+        "institutes"
+      ],
+      "applicant_types": [
+        "established researchers",
+        "PIs",
+        "universities",
+        "institutes"
+      ],
+      "access_route": "via host institution",
+      "scale": "major",
+      "purposes": [
+        "frontier research",
+        "geoscience",
+        "geochemistry",
+        "hydrogen",
+        "environmental research"
+      ],
+      "keywords": [
+        "PIs",
+        "environmental research",
+        "erc advanced grant",
+        "established researchers",
+        "frontier research",
+        "geochemistry",
+        "geoscience",
+        "hydrogen",
+        "institutes",
+        "universities"
+      ],
+      "cta_label": "Open ERC Advanced Grant"
+    },
+    {
+      "id": "horizon_energy_supply_horizon_europe_energy_supply_call",
+      "source_id": "horizon_energy_supply",
+      "source_name": "Horizon Europe Sustainable, Secure and Competitive Energy Supply",
+      "title": "Horizon Europe energy supply call",
+      "programme": "Horizon Europe Cluster 5",
+      "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "summary": "Two-stage energy call with relevance to hydrogen systems, storage, infrastructure and related subsurface or systems research.",
+      "status": "open",
+      "change_type": "new",
+      "changed_at": "2026-06-16T10:27:00+00:00",
+      "deadline_iso": null,
+      "deadline_text": null,
+      "region": "European Union",
+      "audience": [
+        "research consortia",
+        "universities",
+        "institutes",
+        "industry partners"
+      ],
+      "applicant_types": [
+        "research consortia",
+        "universities",
+        "institutes",
+        "industry partners"
+      ],
+      "access_route": "consortium",
+      "scale": "major",
+      "purposes": [
+        "hydrogen",
+        "geothermal",
+        "subsurface storage",
+        "environmental research",
+        "energy systems"
+      ],
+      "keywords": [
+        "energy systems",
+        "environmental research",
+        "geothermal",
+        "horizon europe sustainable, secure and competitive energy supply",
+        "hydrogen",
+        "industry partners",
+        "institutes",
+        "research consortia",
+        "subsurface storage",
+        "universities"
+      ],
+      "cta_label": "Open Horizon Europe Sustainable, Secure and Competitive Energy Supply"
+    },
+    {
+      "id": "clean_hydrogen_partnership_clean_hydrogen_partnership_call_2026",
+      "source_id": "clean_hydrogen_partnership",
+      "source_name": "Clean Hydrogen Partnership Call 2026",
+      "title": "Clean Hydrogen Partnership Call 2026",
+      "programme": "Horizon Europe Clean Hydrogen Partnership",
+      "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
+      "summary": "Large-scale hydrogen call covering production, storage and distribution, transport, heat and power, and hydrogen valleys.",
+      "status": "closed",
+      "change_type": "new",
+      "changed_at": "2026-06-16T10:27:00+00:00",
+      "deadline_iso": null,
+      "deadline_text": "15 April 2026, 17:00 (CEST)",
+      "region": "European Union",
+      "audience": [
+        "research consortia",
+        "universities",
+        "institutes",
+        "industry partners",
+        "public bodies"
+      ],
+      "applicant_types": [
+        "research consortia",
+        "universities",
+        "institutes",
+        "industry partners",
+        "public bodies"
+      ],
+      "access_route": "consortium",
+      "scale": "major",
+      "purposes": [
+        "hydrogen",
+        "subsurface storage",
+        "gas analytics",
+        "environmental research",
+        "energy systems"
+      ],
+      "keywords": [
+        "clean hydrogen partnership call 2026",
+        "energy systems",
+        "environmental research",
+        "gas analytics",
+        "hydrogen",
+        "industry partners",
+        "institutes",
+        "public bodies",
+        "research consortia",
+        "subsurface storage",
+        "universities"
+      ],
+      "cta_label": "Open Clean Hydrogen Partnership Call 2026"
+    },
+    {
       "id": "ptj_hydrogen_derivatives_ptj_hydrogen_and_derivatives_funding_route",
       "source_id": "ptj_hydrogen_derivatives",
       "source_name": "PtJ Applied Energy Research: Hydrogen and Derivatives",
@@ -493,7 +640,7 @@
       "url": "https://www.rifs-potsdam.de/en/node/11996",
       "summary": "Potsdam-based bridge fellowship for highly talented mid-career professionals with at least ten years on sustainability issues.",
       "status": "closed",
-      "change_type": "new",
+      "change_type": "none",
       "changed_at": "2026-06-15T11:28:30+00:00",
       "deadline_iso": null,
       "deadline_text": null,
@@ -537,7 +684,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "summary": "Official GFZ careers board for scientific, doctoral and fellowship opportunities relevant to an experienced Potsdam-based geoscience profile.",
       "status": "open",
-      "change_type": "new",
+      "change_type": "none",
       "changed_at": "2026-06-15T11:28:30+00:00",
       "deadline_iso": null,
       "deadline_text": null,
@@ -586,7 +733,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "summary": "Mid-career fellowship hosted within the GFZ environment via RIFS, suitable for sustainability-linked bridge work beyond a standard project grant.",
       "status": "closed",
-      "change_type": "new",
+      "change_type": "none",
       "changed_at": "2026-06-15T11:28:30+00:00",
       "deadline_iso": null,
       "deadline_text": null,
