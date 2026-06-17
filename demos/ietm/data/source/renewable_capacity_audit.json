@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-17T09:58:03+00:00",
+  "generated_at": "2026-06-17T13:50:20+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
@@ -23,8 +23,8 @@
     },
     "gov_oress": {
       "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/offshore-renewable-electricity-support-scheme-oress/",
-      "status": "failed",
-      "error": "HTTP Error 502: Bad Gateway"
+      "link_count": 28,
+      "status": "loaded"
     },
     "eirgrid_airaa": {
       "url": "https://www.eirgrid.ie/airaa",
@@ -89,11 +89,5 @@
       "source_key": "eirgrid_system_renewable_summary"
     }
   },
-  "errors": [
-    {
-      "source": "gov_oress",
-      "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/offshore-renewable-electricity-support-scheme-oress/",
-      "error": "HTTP Error 502: Bad Gateway"
-    }
-  ]
+  "errors": []
 }
