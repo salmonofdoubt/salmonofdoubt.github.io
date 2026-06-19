@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-19T07:22:44+00:00",
+  "generated_at": "2026-06-19T11:50:00+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
@@ -18,13 +18,13 @@
     },
     "gov_ress": {
       "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/renewable-electricity-support-scheme-ress/",
-      "status": "failed",
-      "error": "The read operation timed out"
+      "link_count": 65,
+      "status": "loaded"
     },
     "gov_oress": {
       "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/offshore-renewable-electricity-support-scheme-oress/",
-      "status": "failed",
-      "error": "The read operation timed out"
+      "link_count": 28,
+      "status": "loaded"
     },
     "eirgrid_airaa": {
       "url": "https://www.eirgrid.ie/airaa",
@@ -89,16 +89,5 @@
       "source_key": "eirgrid_system_renewable_summary"
     }
   },
-  "errors": [
-    {
-      "source": "gov_ress",
-      "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/renewable-electricity-support-scheme-ress/",
-      "error": "The read operation timed out"
-    },
-    {
-      "source": "gov_oress",
-      "url": "https://www.gov.ie/en/department-of-climate-energy-and-the-environment/publications/offshore-renewable-electricity-support-scheme-oress/",
-      "error": "The read operation timed out"
-    }
-  ]
+  "errors": []
 }
