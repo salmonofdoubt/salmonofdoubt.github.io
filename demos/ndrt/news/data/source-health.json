@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-06-20T08:29:15.559431+00:00",
-  "latest_generated_at": "2026-06-20T08:29:02.759702+00:00",
+  "generated_at": "2026-06-21T09:03:26.690475+00:00",
+  "latest_generated_at": "2026-06-21T09:03:14.767923+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 20,
+  "sources_active": 19,
   "sources_checked_no_current_items": 9,
-  "sources_failed": 1,
+  "sources_failed": 2,
   "items_by_section": {
-    "waterbody-evidence-alerts": 29,
-    "grants-opportunities": 17,
-    "ireland-catchment-practice": 13,
+    "waterbody-evidence-alerts": 32,
+    "grants-opportunities": 15,
+    "ireland-catchment-practice": 12,
     "research-papers": 36
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 21,
-    "research_use_type": 53
+    "opportunity_fit": 20,
+    "research_use_type": 54
   },
-  "archive_snapshots": 21,
+  "archive_snapshots": 22,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -29,11 +29,11 @@
       "scope": "nanny-delvin local",
       "url": "https://news.google.com/rss/search?q=%28%22Nanny%20Delvin%22%20OR%20%22Nanny-Delvin%22%20OR%20%22River%20Nanny%22%20OR%20%22River%20Delvin%22%20OR%20%22Nanny%20estuary%22%20OR%20%22Delvin%20river%22%29%20%28water%20OR%20river%20OR%20catchment%20OR%20pollution%20OR%20biodiversity%20OR%20restoration%20OR%20flooding%20OR%20estuary%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 114,
+      "elapsed_ms": 38,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 55,
-      "elapsed_ms": 143,
+      "discovered_hint_count": 58,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 80,
+      "discovered_hint_count": 77,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -78,7 +78,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 74,
-      "elapsed_ms": 141,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 7,
       "discovered_hint_count": 100,
-      "elapsed_ms": 153,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -108,7 +108,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 77,
-      "elapsed_ms": 154,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -123,7 +123,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 60,
-      "elapsed_ms": 135,
+      "elapsed_ms": 51,
       "error": null
     },
     {
@@ -137,8 +137,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 126,
+      "discovered_hint_count": 47,
+      "elapsed_ms": 49,
       "error": null
     },
     {
@@ -149,11 +149,11 @@
       "scope": "funding",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20call%20OR%20scheme%29%20%28river%20OR%20water%20quality%20OR%20biodiversity%20OR%20wetland%20OR%20catchment%20OR%20citizen%20science%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 67,
-      "elapsed_ms": 149,
+      "current_item_count": 0,
+      "discovered_hint_count": 77,
+      "elapsed_ms": 62,
       "error": null
     },
     {
@@ -179,11 +179,11 @@
       "scope": "ireland birds ecology",
       "url": "https://birdwatchireland.ie/news/",
       "host": "birdwatchireland.ie",
-      "status": "checked-no-current-items",
-      "http_status": 307,
-      "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 144,
+      "status": "active",
+      "http_status": 200,
+      "current_item_count": 1,
+      "discovered_hint_count": 347,
+      "elapsed_ms": 2247,
       "error": null
     },
     {
@@ -198,7 +198,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 47,
-      "elapsed_ms": 120,
+      "elapsed_ms": 48,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 158,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 116,
+      "discovered_hint_count": 15,
+      "elapsed_ms": 35,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 108,
+      "elapsed_ms": 34,
       "error": null
     },
     {
@@ -257,8 +257,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 23,
-      "elapsed_ms": 114,
+      "discovered_hint_count": 24,
+      "elapsed_ms": 38,
       "error": null
     },
     {
@@ -269,11 +269,11 @@
       "scope": "ireland agriculture pressure",
       "url": "https://news.google.com/rss/search?q=%28slurry%20spreading%20OR%20manure%20spreading%20OR%20organic%20fertiliser%20OR%20fertilizer%20spreading%29%20%28Ireland%20OR%20Irish%29%20%28rain%20OR%20rainfall%20OR%20weather%20OR%20water%20quality%20OR%20river%20OR%20runoff%20OR%20nitrates%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 47,
-      "elapsed_ms": 114,
+      "current_item_count": 1,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 48,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 8,
+      "current_item_count": 9,
       "discovered_hint_count": 49,
-      "elapsed_ms": 139,
+      "elapsed_ms": 49,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 119,
+      "elapsed_ms": 49,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 145,
-      "elapsed_ms": 1262,
+      "elapsed_ms": 1294,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 110,
-      "elapsed_ms": 990,
+      "elapsed_ms": 782,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 227,
-      "elapsed_ms": 402,
+      "elapsed_ms": 330,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 1085,
+      "elapsed_ms": 1106,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 416,
-      "elapsed_ms": 1155,
+      "elapsed_ms": 966,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 628,
+      "elapsed_ms": 838,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 36,
-      "elapsed_ms": 1912,
+      "elapsed_ms": 1089,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 142,
+      "elapsed_ms": 135,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 92,
-      "elapsed_ms": 89,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 13,
       "discovered_hint_count": 94,
-      "elapsed_ms": 858,
+      "elapsed_ms": 805,
       "error": null
     },
     {
@@ -464,11 +464,11 @@
       "scope": "practice reference",
       "url": "https://www.therrc.co.uk/news",
       "host": "www.therrc.co.uk",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 109,
-      "elapsed_ms": 1040,
+      "status": "failed",
+      "http_status": 403,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 487,
       "error": null
     }
   ]
