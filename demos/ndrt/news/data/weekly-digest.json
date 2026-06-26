@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-06-24T08:34:48.136705+00:00",
-  "latest_generated_at": "2026-06-24T08:34:31.707610+00:00",
+  "generated_at": "2026-06-26T08:36:18.465263+00:00",
+  "latest_generated_at": "2026-06-26T08:36:08.407739+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "waterbody-evidence-alerts": 32,
+    "waterbody-evidence-alerts": 30,
+    "ireland-catchment-practice": 12,
     "grants-opportunities": 17,
-    "ireland-catchment-practice": 10,
     "research-papers": 36
   },
   "top_pressure_categories": [
@@ -16,11 +16,11 @@
     },
     {
       "pressure": "NbS / restoration",
-      "count": 33
+      "count": 32
     },
     {
       "pressure": "policy / governance",
-      "count": 30
+      "count": 31
     },
     {
       "pressure": "agricultural runoff",
@@ -36,15 +36,11 @@
     },
     {
       "pressure": "funding / grant",
-      "count": 22
+      "count": 21
     },
     {
       "pressure": "nutrients",
-      "count": 13
-    },
-    {
-      "pressure": "septic / domestic wastewater",
-      "count": 10
+      "count": 12
     },
     {
       "pressure": "sediment / hydromorphology",
@@ -52,7 +48,11 @@
     },
     {
       "pressure": "incident / alert",
-      "count": 5
+      "count": 7
+    },
+    {
+      "pressure": "septic / domestic wastewater",
+      "count": 7
     },
     {
       "pressure": "general catchment signal",
@@ -60,6 +60,35 @@
     }
   ],
   "items": [
+    {
+      "id": "247bb9eb6be5fc58",
+      "title": "Closed-period slurry spreading linked to river pollution in Meath study - Irish Examiner",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE0wS2Z1QVdEeF8tZU5fQVdMNEw2NGhDNjNGOW5TdThQaEpUQ3F6cWcySGpWaXY2dGdwd1pOMEtlbFJ2MWs0cE9mT25laG9YZ203SHp1M2hodVl2eTVuRTRhSnFKZlBKLVU?oc=5",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "Google News: Meath Louth Fingal catchment signals",
+      "published": "2026-06-24",
+      "score": 100,
+      "practical_score": 152.0,
+      "freshness_label": "2 days old",
+      "pressure_categories": [
+        "manure / slurry timing",
+        "slurry-manure-timing",
+        "agricultural runoff"
+      ],
+      "local_relevance": {
+        "score": 72,
+        "label": "High local relevance",
+        "matched_terms": [
+          "Ireland",
+          "fingal",
+          "louth",
+          "meath"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": null,
+      "action_relevance": "Agricultural timing signal: slurry or manure may be legally spread while rainfall/runoff risk is still high, which is directly relevant to nutrients, sediment pathways, farmer engagement, and catchment messaging."
+    },
     {
       "id": "4f44253263213588",
       "title": "Biodiversity Net Gain",
@@ -288,34 +317,6 @@
       "id": "d2a22c14a8b8f34e",
       "title": "Raw sewage in our rivers",
       "url": "https://theriverstrust.org/about-us/news?c=46810",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "b31cf059b3ab140c",
-      "title": "River Restoration",
-      "url": "https://theriverstrust.org/about-us/news?c=4564",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
