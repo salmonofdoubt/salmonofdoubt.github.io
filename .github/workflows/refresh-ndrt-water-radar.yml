@@ -45,5 +45,12 @@ jobs:
             echo "No NDRT water radar data changes."
           else
             git commit -m "Refresh NDRT water radar"
-            git push
+            for attempt in 1 2 3; do
+              git pull --rebase origin master && git push origin HEAD:master && exit 0
+              echo "Push failed on attempt $attempt. Retrying..."
+              sleep 5
+            done
+
+            echo "Failed to push NDRT water radar refresh after 3 attempts."
+            exit 1
           fi
