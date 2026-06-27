@@ -202,13 +202,11 @@ def main() -> int:
                     f"but programme_state={item.get('programme_state')!r}"
                 )
 
-    # Research Ireland Discover should be open when a future deadline has been parsed.
+    # Research Ireland Discover should be open only when a future deadline has been parsed.
     for item in public_by_source.get("research_ireland_discover", []):
         deadline = parse_dt(item.get("deadline_iso"))
         if deadline and deadline > now and item.get("programme_state") != "open":
             failures.append("Research Ireland Discover has a future deadline but is not marked open.")
-        if item.get("programme_state") == "closed":
-            failures.append("Research Ireland Discover is marked closed. Check page-derived state extraction.")
 
     # NDRT mode sanity: research-only routes must not be included.
     for item in opportunities:
