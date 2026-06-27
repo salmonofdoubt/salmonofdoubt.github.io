@@ -4,6 +4,7 @@ import { createMap, drawFocusArea, fitFocusArea, fitIreland, renderMarkers } fro
 import { renderFocusOptions, renderSignals, renderSources, renderStats } from "./js/panels.js";
 import { selectedHtml } from "./js/view.js";
 import { drawCqChart } from "./js/charts.js";
+import { installDataExplorer, renderDataExplorer } from "./js/dataExplorer.js";
 import { installPwaButton, installShareButton } from "./js/pwa.js";
 
 const state = {
@@ -34,6 +35,12 @@ const els = {
   chartCaption: document.getElementById("chartCaption"),
   chartParameter: document.getElementById("chartParameter"),
   chartScale: document.getElementById("chartScale"),
+  dataScopeFilter: document.getElementById("dataScopeFilter"),
+  dataTypeFilter: document.getElementById("dataTypeFilter"),
+  dataSearchBox: document.getElementById("dataSearchBox"),
+  dataSummaryStrip: document.getElementById("dataSummaryStrip"),
+  dataTableBody: document.getElementById("dataTableBody"),
+  dataLimitNote: document.getElementById("dataLimitNote"),
   focusSelect: document.getElementById("focusAreaSelect"),
   zoomFocus: document.getElementById("zoomFocus"),
   fitIreland: document.getElementById("fitIreland"),
@@ -77,6 +84,7 @@ function refreshPanels() {
   renderStats(els, state.payload, state.records);
   renderSignals(els.signalGrid, state.payload, state.records, state.focusAreas, state.focusAreaId);
   renderSources(els.sourceGrid, state.payload?.sources || []);
+  renderDataExplorer(els, state);
 }
 
 function refreshChart() {
@@ -161,6 +169,7 @@ async function init() {
     refreshMap();
     refreshChart();
     bindControls();
+    installDataExplorer(els, () => state);
   } catch (error) {
     console.error(error);
     if (els.selected) {

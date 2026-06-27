@@ -86,6 +86,7 @@
     <section class="mode-tabs" aria-label="View mode">
       <button type="button" data-panel="mapPanel" class="is-active">Map</button>
       <button type="button" data-panel="signalsPanel">Signals</button>
+      <button type="button" data-panel="dataPanel">Data</button>
       <button type="button" data-panel="chartsPanel">C-Q charts</button>
       <button type="button" data-panel="sourcesPanel">Sources</button>
     </section>
@@ -145,6 +146,69 @@
       </div>
       <div id="signalGrid" class="signal-grid"></div>
     </section>
+
+
+    <section class="panel data-panel" id="dataPanel">
+      <div class="section-heading">
+        <p class="eyebrow mini">Normalised records</p>
+        <h2>Data explorer</h2>
+        <p>
+          This table reads the same normalised <code>latest.json</code> payload as the map.
+          It exposes the records directly: source, type, status, coordinates, parameters and focus-area association.
+        </p>
+      </div>
+
+      <div class="data-toolbar">
+        <label>
+          <span>Scope</span>
+          <select id="dataScopeFilter">
+            <option value="focus">Active focus area</option>
+            <option value="mapped">Mapped records</option>
+            <option value="unmapped">Unmapped records</option>
+            <option value="all">All records</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Record type</span>
+          <select id="dataTypeFilter">
+            <option value="all">All record types</option>
+          </select>
+        </label>
+
+        <label class="search-control">
+          <span>Search records</span>
+          <input id="dataSearchBox" type="search" placeholder="Nanny, Baldoyle, E. coli, OPW, bathing..." autocomplete="off" />
+        </label>
+      </div>
+
+      <section id="dataSummaryStrip" class="stats compact-stats" aria-label="Data explorer summary"></section>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Source</th>
+              <th>Status</th>
+              <th>Observed</th>
+              <th>Coordinates</th>
+              <th>Parameters</th>
+              <th>Focus</th>
+            </tr>
+          </thead>
+          <tbody id="dataTableBody">
+            <tr>
+              <td colspan="8">Loading records…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p id="dataLimitNote" class="chart-caption"></p>
+    </section>
+
 
     <section class="panel" id="chartsPanel">
       <div class="section-heading">

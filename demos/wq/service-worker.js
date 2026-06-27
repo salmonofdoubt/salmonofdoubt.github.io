@@ -13,6 +13,7 @@ const CORE_ASSETS = [
   "./js/charts.js",
   "./js/config.js",
   "./js/debug.js",
+  "./js/dataExplorer.js",
   "./js/format.js",
   "./js/map.js",
   "./js/panels.js",

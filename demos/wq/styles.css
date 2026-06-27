@@ -578,3 +578,79 @@ canvas {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* WQ data explorer v0.2.1 */
+.data-toolbar {
+  display: grid;
+  grid-template-columns: 220px 220px minmax(0, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 0.9rem;
+}
+
+.compact-stats {
+  margin-top: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.data-table-wrap {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: auto;
+  background: rgba(1, 12, 11, 0.62);
+}
+
+.data-table {
+  width: 100%;
+  min-width: 1180px;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid rgba(94, 234, 212, 0.18);
+  padding: 0.72rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table th {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.data-table td {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.data-table td strong {
+  display: block;
+  color: var(--ink);
+}
+
+.data-table td small {
+  display: block;
+  color: var(--muted-2);
+  margin-top: 0.2rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 920px) {
+  .data-toolbar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .data-toolbar .search-control {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .data-toolbar {
+    grid-template-columns: 1fr;
+  }
+}
