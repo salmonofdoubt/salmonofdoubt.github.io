@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Catchment Pulse Ireland</title>
+  <meta name="description" content="Live and latest Irish water-quality signals: hydrometry, bathing quality, WFD context, groundwater and marine shore indicators." />
+
+  <link rel="stylesheet" href="./styles.css?v=0.1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Catchment Pulse" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png" />
+</head>
+
+<body>
+  <main class="shell">
+    <nav class="topnav" aria-label="Demo navigation">
+      <a href="/demos/">← Back to demos</a>
+      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/wq" target="_blank" rel="noopener">Source</a>
+      <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/blob/master/demos/wq/README.md" target="_blank" rel="noopener">README</a>
+      <a href="./attribution.html">Attribution</a>
+      <button id="shareApp" class="topnav-share-button" type="button">Share</button>
+      <button id="installApp" class="topnav-install-button" type="button">Install</button>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-brandline">
+        <img class="hero-app-icon" src="icons/icon-192.png" width="48" height="48" alt="" aria-hidden="true" />
+        <p class="eyebrow">GitHub Lab · water quality · live public data</p>
+      </div>
+
+      <h1>Catchment Pulse Ireland</h1>
+
+      <p class="lede">
+        A map-first monitor for Irish water signals: live hydrometry, bathing-water quality,
+        WFD context, groundwater and marine shore indicators. Built around provenance,
+        thresholds, units and focus areas rather than one-off station maps.
+      </p>
+
+      <div class="hero-actions hero-actions--select">
+        <label class="hero-focus-label">
+          <span>Focus area</span>
+          <select id="focusAreaSelect"></select>
+        </label>
+        <button id="zoomFocus" type="button">Zoom to focus</button>
+        <button id="fitIreland" type="button">Ireland view</button>
+        <a href="#source-notes">Notes v0.1.0</a>
+      </div>
+
+      <section class="stats" aria-label="Water monitor summary">
+        <article>
+          <span id="statRecords">–</span>
+          <strong>mapped records</strong>
+        </article>
+        <article>
+          <span id="statSources">–</span>
+          <strong>source feeds</strong>
+        </article>
+        <article>
+          <span id="statAlerts">–</span>
+          <strong>active alerts</strong>
+        </article>
+        <article>
+          <span id="statUpdated">–</span>
+          <strong>last refresh</strong>
+        </article>
+      </section>
+    </header>
+
+    <section class="mode-tabs" aria-label="View mode">
+      <button type="button" data-panel="mapPanel" class="is-active">Map</button>
+      <button type="button" data-panel="signalsPanel">Signals</button>
+      <button type="button" data-panel="chartsPanel">C-Q charts</button>
+      <button type="button" data-panel="sourcesPanel">Sources</button>
+    </section>
+
+    <section class="panel map-panel is-active" id="mapPanel">
+      <div class="map-toolbar">
+        <label>
+          <span>Layer</span>
+          <select id="layerFilter">
+            <option value="all">All water signals</option>
+            <option value="water_level">Live hydrometry</option>
+            <option value="bathing_water">Bathing locations</option>
+            <option value="bathing_measurement">Bathing measurements</option>
+            <option value="bathing_alert">Bathing alerts</option>
+            <option value="wfd_context">WFD context</option>
+            <option value="groundwater_context">Groundwater context</option>
+            <option value="marine_context">Marine shore context</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Units</span>
+          <select id="unitMode">
+            <option value="native">Native units</option>
+            <option value="mass">Mass units</option>
+            <option value="molar">Molar units where meaningful</option>
+          </select>
+        </label>
+
+        <label class="search-control">
+          <span>Search</span>
+          <input id="searchBox" type="search" placeholder="Baldoyle, Nanny, Portmarnock, nitrate, E. coli..." autocomplete="off" />
+        </label>
+      </div>
+
+      <div class="map-layout">
+        <div id="waterMap" class="water-map" aria-label="Live Irish water-quality map"></div>
+
+        <aside class="side-card" aria-label="Selected water record">
+          <p class="eyebrow mini">Selected signal</p>
+          <div id="selectedRecord">
+            <h2>Click a marker</h2>
+            <p>Choose a station, bathing water, alert or context record to inspect values, units, thresholds and provenance.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="panel" id="signalsPanel">
+      <div class="section-heading">
+        <p class="eyebrow mini">Local and national signals</p>
+        <h2>What looks relevant now?</h2>
+        <p>
+          Signals are grouped by source and freshness. Chemistry samples are latest official results,
+          not continuous sensors unless explicitly stated.
+        </p>
+      </div>
+      <div id="signalGrid" class="signal-grid"></div>
+    </section>
+
+    <section class="panel" id="chartsPanel">
+      <div class="section-heading">
+        <p class="eyebrow mini">Hydrology × chemistry</p>
+        <h2>Flow and concentration analysis</h2>
+        <p>
+          The chart engine is ready for log-log C-Q analysis. It activates when paired
+          discharge and concentration records exist for the same station or defensible waterbody join.
+        </p>
+      </div>
+
+      <div class="chart-controls">
+        <label>
+          <span>Parameter</span>
+          <select id="chartParameter">
+            <option value="all">All available parameters</option>
+            <option value="e_coli">E. coli</option>
+            <option value="intestinal_enterococci">Intestinal enterococci</option>
+            <option value="no3_n">NO₃-N</option>
+            <option value="po4_p">PO₄-P</option>
+            <option value="nh4_n">NH₄-N</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Scale</span>
+          <select id="chartScale">
+            <option value="log">log₁₀(Q) vs log₁₀(C)</option>
+            <option value="linear">Q vs C</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="chart-card">
+        <canvas id="cqChart" width="960" height="430" aria-label="Flow concentration chart"></canvas>
+        <p id="chartCaption" class="chart-caption"></p>
+      </div>
+    </section>
+
+    <section class="panel" id="sourcesPanel">
+      <div class="section-heading">
+        <p class="eyebrow mini">Provenance and freshness</p>
+        <h2>Source health</h2>
+        <p>
+          Every source is shown with status, licence, freshness class and caveats. Failed sources stay visible
+          rather than silently disappearing.
+        </p>
+      </div>
+
+      <div id="sourceGrid" class="source-grid"></div>
+    </section>
+
+    <section class="panel notes" id="source-notes">
+      <h2>Notes v0.1.0</h2>
+
+      <p>
+        This is a public research demo. It distinguishes live hydrometry from latest official chemistry,
+        seasonal bathing-water results, WFD classification context and historical datasets.
+      </p>
+
+      <p>
+        Bathing-water sample status is useful for interpretation, but formal annual classification is based on
+        multiple samples and percentile rules. Single values are therefore shown as screening context, not as a full legal classification.
+      </p>
+
+      <p>
+        Groundwater and WFD chemistry thresholds are not treated as universal magic numbers. The app keeps unit basis,
+        source, waterbody context and caveats visible.
+      </p>
+
+      <p>
+        For safety-critical decisions, flood response, bathing restrictions, compliance, planning or formal reporting,
+        check the official EPA, OPW, local authority and Marine Institute sources.
+      </p>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./app.js?v=0.1.0"></script>
+  <script>
+    if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js").catch(error => {
+          console.warn("Service worker registration failed", error);
+        });
+      });
+    }
+  </script>
+</body>
+</html>

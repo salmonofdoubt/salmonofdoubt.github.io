@@ -1,222 +1,245 @@
 [
-  {
-    "title": "Water NbS Story Radar",
-    "path": "wnbs/",
-    "category": "water",
-    "summary": "Daily shortlist of practical stories for surface water quality, aquatic ecology, and water-related biodiversity.",
-    "detail": "A curation tool for finding Ireland-relevant Water NbS stories and useful practice signals. Built around practical catchment, surface-water, ecological, and biodiversity relevance rather than generic green news.",
-    "tags": [
-      "Water quality",
-      "NbS",
-      "Catchments",
-      "Story radar"
-    ],
-    "status": "Active build",
-    "workflow": "refresh-nbs-story-radar.yml",
-    "doi": "10.5281/zenodo.0000000",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Urban Forest",
-    "path": "urbanforest/",
-    "category": "civic",
-    "summary": "Case-study microsite for the Trinity Urban Forest, with a daily urban-forest news radar.",
-    "detail": "A public-facing case study documenting the Urban Forest intervention, species, milestones, carbon scenario, gallery, wellbeing value, evidence base, README, and the UrbanForest News subsite.",
-    "tags": [
-      "Urban nature",
-      "Trees",
-      "Pocket forests",
-      "News radar"
-    ],
-    "status": "Published v2.0.1",
-    "version": "v2.0.1",
-    "readme": "urbanforest/readme/",
-    "workflow": "refresh-urbanforest-news.yml",
-    "doi": "10.5281/zenodo.19645195",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "European Bird Sounds",
-    "path": "birds/",
-    "category": "civic",
-    "summary": "Educational bird sound explorer for learning calls by place, habitat, and season across Europe.",
-    "detail": "A mobile-first sound explorer for training the ear. It combines public bird sounds, images, habitat-aware local listening decks, and recent observations as educational context. It is not a scientific record or species survey.",
-    "tags": [
-      "Birds",
-      "Europe",
-      "Soundscape",
-      "Education"
-    ],
-    "status": "Europe sound explorer",
-    "workflow": "refresh-birds.yml",
-    "doi": "10.5281/zenodo.20321309",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt",
-    "repository": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/birds",
-    "source_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/birds"
-  },
-  {
-    "title": "Ireland Energy Transition Monitor",
-    "path": "ietm/",
-    "category": "energy",
-    "summary": "Live-style dashboard for Ireland’s electricity mix, demand, interconnection, renewable capacity, and transition indicators.",
-    "detail": "Tracks operational electricity data and transition context in a public dashboard. Designed to make system-level energy signals easier to understand without losing technical integrity.",
-    "tags": [
-      "Electricity",
-      "CO₂",
-      "Renewables",
-      "Ireland"
-    ],
-    "status": "Active data workflow",
-    "workflow": "refresh-energy-monitor.yml",
-    "doi": "10.5281/zenodo.20200900",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Irish Life Pension Funds",
-    "path": "ilpf/",
-    "category": "finance",
-    "summary": "Daily public-data watchlist for selected Irish Life Pension Funds.",
-    "detail": "A static GitHub Pages monitor backed by a scheduled scraper. It tracks public Irish Life/myBline fund rows where available, records coverage diagnostics, and keeps a local history file for daily movement over time.",
-    "tags": [
-      "Pensions",
-      "Irish Life",
-      "Fund prices",
-      "Daily data"
-    ],
-    "status": "Active data workflow",
-    "workflow": "refresh-ilpf.yml",
-    "doi": "10.5281/zenodo.0000000",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Grant Radar",
-    "path": "grant-radar/",
-    "category": "funding",
-    "summary": "Funding and call discovery layer for climate, nature, biodiversity, water, and community environmental work.",
-    "detail": "A source-led catalogue and review workflow for spotting relevant opportunities, separating candidates from promoted items, and reducing missed calls.",
-    "tags": [
-      "Funding",
-      "Grants",
-      "Climate",
-      "Biodiversity"
-    ],
-    "status": "Active workflow",
-    "workflow": "refresh-grant-radar.yml",
-    "doi": "10.5281/zenodo.19633908",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Nanny-Delvin Rivers Trust Microsite",
-    "path": "ndrt/",
-    "category": "water",
-    "summary": "Catchment-facing microsite concept for river restoration, citizen science, monitoring, and practical local action.",
-    "detail": "A public communication space for catchment restoration ideas, field interpretation, citizen science, water quality, and restoration-led engagement.",
-    "tags": [
-      "Rivers",
-      "Citizen science",
-      "CSSI",
-      "Restoration"
-    ],
-    "status": "Prototype",
-    "doi": "10.5281/zenodo.0000000",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "SDSS Concept",
-    "path": "sdss-concept/",
-    "category": "water",
-    "summary": "Spatial Decision Support System concept for prioritising Nature-based Solution portfolios in Irish catchments.",
-    "detail": "A methodological demonstrator for transparent rule formalisation, suitability logic, ranking stability, and explainable catchment-scale NbS planning.",
-    "tags": [
-      "SDSS",
-      "GIS",
-      "NbS portfolios",
-      "Decision support"
-    ],
-    "status": "Concept demo",
-    "doi": "10.5281/zenodo.19487210",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Three Intelligences Explorer",
-    "path": "intelligence/",
-    "category": "systems",
-    "summary": "Exploratory model linking individual, collective, and planetary intelligence.",
-    "detail": "A systems-thinking prototype inspired by planetary intelligence concepts, using indicators to provoke discussion rather than produce simplistic rankings.",
-    "tags": [
-      "Systems thinking",
-      "Planetary intelligence",
-      "Indicators"
-    ],
-    "status": "Exploratory",
-    "workflow": "refresh-intelligence-snapshot.yml",
-    "doi": "10.5281/zenodo.20121017",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Dublin Representative Finder",
-    "path": "td-lookup/",
-    "category": "civic",
-    "summary": "Compact civic lookup tool for finding Dublin political representatives and public-contact routes.",
-    "detail": "A practical civic-information demo for helping people identify relevant Dublin representatives, understand who to contact, and navigate local democratic representation more easily.",
-    "tags": [
-      "Dublin",
-      "Civic tool",
-      "Representatives",
-      "Lookup"
-    ],
-    "status": "Utility demo",
-    "readme": "td-lookup/README.md",
-    "doi": "10.5281/zenodo.0000000",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Geo Radar",
-    "path": "geo-radar/",
-    "category": "systems",
-    "summary": "Geospatial discovery and catalogue-style workflow for spatial data or environmental intelligence.",
-    "detail": "A radar-style prototype for organising geospatially relevant sources and making discovery workflows more systematic.",
-    "tags": [
-      "Geospatial",
-      "Radar",
-      "Data catalogue"
-    ],
-    "status": "Prototype",
-    "readme": "geo-radar/README.md",
-    "workflow": "refresh-geo-radar.yml",
-    "doi": "10.5281/zenodo.0000000",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Colour Lab",
-    "path": "colour-lab/",
-    "category": "systems",
-    "summary": "Small visual experiment for testing interface colour, contrast, and presentation treatments.",
-    "detail": "An experimental design-support page for exploring visual treatments. Kept public as a utility/prototype rather than a formal research output.",
-    "tags": [
-      "Design",
-      "Colour",
-      "Interface",
-      "Experiment"
-    ],
-    "status": "Experimental",
-    "doi": "10.5281/zenodo.0000000",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  },
-  {
-    "title": "Tax Trigger",
-    "path": "tax-trigger/",
-    "category": "civic",
-    "summary": "Experimental public explainer/demo for tax-trigger style reasoning.",
-    "detail": "A lightweight demonstrator for structuring tax-trigger logic. It is not financial, legal, or tax advice and should be treated as an experimental explanatory tool only.",
-    "tags": [
-      "Tax",
-      "Explainer",
-      "Scenario logic",
-      "Experimental"
-    ],
-    "status": "Experimental / not advice",
-    "doi": "10.5281/zenodo.0000000",
-    "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
-  }
+    {
+        "title": "Water NbS Story Radar",
+        "path": "wnbs/",
+        "category": "water",
+        "summary": "Daily shortlist of practical stories for surface water quality, aquatic ecology, and water-related biodiversity.",
+        "detail": "A curation tool for finding Ireland-relevant Water NbS stories and useful practice signals. Built around practical catchment, surface-water, ecological, and biodiversity relevance rather than generic green news.",
+        "tags": [
+            "Water quality",
+            "NbS",
+            "Catchments",
+            "Story radar"
+        ],
+        "status": "Active build",
+        "workflow": "refresh-nbs-story-radar.yml",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Catchment Pulse Ireland",
+        "path": "wq/",
+        "category": "water",
+        "summary": "Live and latest Irish water-quality signals for hydrometry, bathing quality, WFD context, groundwater and marine shore indicators.",
+        "detail": "A map-first GitHub Pages PWA backed by scheduled public-data harvests. It separates live hydrometry from latest chemistry, WFD context and historical groundwater or marine datasets, with Baldoyle Bay, Howth, Portmarnock, Malahide and Nanny-Delvin as configured focus areas.",
+        "tags": [
+            "Water",
+            "EPA",
+            "OPW",
+            "Live data",
+            "Bathing water",
+            "Groundwater",
+            "Marine",
+            "Nanny-Delvin"
+        ],
+        "status": "Active data workflow",
+        "workflow": "refresh-wq.yml",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt",
+        "repository": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/wq",
+        "source_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/wq"
+    },
+    {
+        "title": "Urban Forest",
+        "path": "urbanforest/",
+        "category": "civic",
+        "summary": "Case-study microsite for the Trinity Urban Forest, with a daily urban-forest news radar.",
+        "detail": "A public-facing case study documenting the Urban Forest intervention, species, milestones, carbon scenario, gallery, wellbeing value, evidence base, README, and the UrbanForest News subsite.",
+        "tags": [
+            "Urban nature",
+            "Trees",
+            "Pocket forests",
+            "News radar"
+        ],
+        "status": "Published v2.0.1",
+        "version": "v2.0.1",
+        "readme": "urbanforest/readme/",
+        "workflow": "refresh-urbanforest-news.yml",
+        "doi": "10.5281/zenodo.19645195",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "European Bird Sounds",
+        "path": "birds/",
+        "category": "civic",
+        "summary": "Educational bird sound explorer for learning calls by place, habitat, and season across Europe.",
+        "detail": "A mobile-first sound explorer for training the ear. It combines public bird sounds, images, habitat-aware local listening decks, and recent observations as educational context. It is not a scientific record or species survey.",
+        "tags": [
+            "Birds",
+            "Europe",
+            "Soundscape",
+            "Education"
+        ],
+        "status": "Europe sound explorer",
+        "workflow": "refresh-birds.yml",
+        "doi": "10.5281/zenodo.20321309",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt",
+        "repository": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/birds",
+        "source_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/birds"
+    },
+    {
+        "title": "Ireland Energy Transition Monitor",
+        "path": "ietm/",
+        "category": "energy",
+        "summary": "Live-style dashboard for Ireland\u2019s electricity mix, demand, interconnection, renewable capacity, and transition indicators.",
+        "detail": "Tracks operational electricity data and transition context in a public dashboard. Designed to make system-level energy signals easier to understand without losing technical integrity.",
+        "tags": [
+            "Electricity",
+            "CO\u2082",
+            "Renewables",
+            "Ireland"
+        ],
+        "status": "Active data workflow",
+        "workflow": "refresh-energy-monitor.yml",
+        "doi": "10.5281/zenodo.20200900",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Irish Life Pension Funds",
+        "path": "ilpf/",
+        "category": "finance",
+        "summary": "Daily public-data watchlist for selected Irish Life Pension Funds.",
+        "detail": "A static GitHub Pages monitor backed by a scheduled scraper. It tracks public Irish Life/myBline fund rows where available, records coverage diagnostics, and keeps a local history file for daily movement over time.",
+        "tags": [
+            "Pensions",
+            "Irish Life",
+            "Fund prices",
+            "Daily data"
+        ],
+        "status": "Active data workflow",
+        "workflow": "refresh-ilpf.yml",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Grant Radar",
+        "path": "grant-radar/",
+        "category": "funding",
+        "summary": "Funding and call discovery layer for climate, nature, biodiversity, water, and community environmental work.",
+        "detail": "A source-led catalogue and review workflow for spotting relevant opportunities, separating candidates from promoted items, and reducing missed calls.",
+        "tags": [
+            "Funding",
+            "Grants",
+            "Climate",
+            "Biodiversity"
+        ],
+        "status": "Active workflow",
+        "workflow": "refresh-grant-radar.yml",
+        "doi": "10.5281/zenodo.19633908",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Nanny-Delvin Rivers Trust Microsite",
+        "path": "ndrt/",
+        "category": "water",
+        "summary": "Catchment-facing microsite concept for river restoration, citizen science, monitoring, and practical local action.",
+        "detail": "A public communication space for catchment restoration ideas, field interpretation, citizen science, water quality, and restoration-led engagement.",
+        "tags": [
+            "Rivers",
+            "Citizen science",
+            "CSSI",
+            "Restoration"
+        ],
+        "status": "Prototype",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "SDSS Concept",
+        "path": "sdss-concept/",
+        "category": "water",
+        "summary": "Spatial Decision Support System concept for prioritising Nature-based Solution portfolios in Irish catchments.",
+        "detail": "A methodological demonstrator for transparent rule formalisation, suitability logic, ranking stability, and explainable catchment-scale NbS planning.",
+        "tags": [
+            "SDSS",
+            "GIS",
+            "NbS portfolios",
+            "Decision support"
+        ],
+        "status": "Concept demo",
+        "doi": "10.5281/zenodo.19487210",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Three Intelligences Explorer",
+        "path": "intelligence/",
+        "category": "systems",
+        "summary": "Exploratory model linking individual, collective, and planetary intelligence.",
+        "detail": "A systems-thinking prototype inspired by planetary intelligence concepts, using indicators to provoke discussion rather than produce simplistic rankings.",
+        "tags": [
+            "Systems thinking",
+            "Planetary intelligence",
+            "Indicators"
+        ],
+        "status": "Exploratory",
+        "workflow": "refresh-intelligence-snapshot.yml",
+        "doi": "10.5281/zenodo.20121017",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Dublin Representative Finder",
+        "path": "td-lookup/",
+        "category": "civic",
+        "summary": "Compact civic lookup tool for finding Dublin political representatives and public-contact routes.",
+        "detail": "A practical civic-information demo for helping people identify relevant Dublin representatives, understand who to contact, and navigate local democratic representation more easily.",
+        "tags": [
+            "Dublin",
+            "Civic tool",
+            "Representatives",
+            "Lookup"
+        ],
+        "status": "Utility demo",
+        "readme": "td-lookup/README.md",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Geo Radar",
+        "path": "geo-radar/",
+        "category": "systems",
+        "summary": "Geospatial discovery and catalogue-style workflow for spatial data or environmental intelligence.",
+        "detail": "A radar-style prototype for organising geospatially relevant sources and making discovery workflows more systematic.",
+        "tags": [
+            "Geospatial",
+            "Radar",
+            "Data catalogue"
+        ],
+        "status": "Prototype",
+        "readme": "geo-radar/README.md",
+        "workflow": "refresh-geo-radar.yml",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Colour Lab",
+        "path": "colour-lab/",
+        "category": "systems",
+        "summary": "Small visual experiment for testing interface colour, contrast, and presentation treatments.",
+        "detail": "An experimental design-support page for exploring visual treatments. Kept public as a utility/prototype rather than a formal research output.",
+        "tags": [
+            "Design",
+            "Colour",
+            "Interface",
+            "Experiment"
+        ],
+        "status": "Experimental",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Tax Trigger",
+        "path": "tax-trigger/",
+        "category": "civic",
+        "summary": "Experimental public explainer/demo for tax-trigger style reasoning.",
+        "detail": "A lightweight demonstrator for structuring tax-trigger logic. It is not financial, legal, or tax advice and should be treated as an experimental explanatory tool only.",
+        "tags": [
+            "Tax",
+            "Explainer",
+            "Scenario logic",
+            "Experimental"
+        ],
+        "status": "Experimental / not advice",
+        "doi": "10.5281/zenodo.0000000",
+        "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    }
 ]

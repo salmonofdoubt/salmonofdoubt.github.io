@@ -1,0 +1,70 @@
+{
+    "version": "0.1.0",
+    "default_area": "baldoyle_howth_malahide",
+    "areas": [
+        {
+            "id": "baldoyle_howth_malahide",
+            "name": "Baldoyle Bay \u00b7 Howth \u00b7 Portmarnock \u00b7 Malahide",
+            "description": "Local coastal focus area covering Baldoyle Bay, Sutton, Howth, Portmarnock Strand and Malahide Estuary.",
+            "centre": [
+                53.42,
+                -6.13
+            ],
+            "zoom": 12,
+            "bounds": [
+                [
+                    53.345,
+                    -6.245
+                ],
+                [
+                    53.505,
+                    -6.02
+                ]
+            ],
+            "keywords": [
+                "Baldoyle",
+                "Baldoyle Bay",
+                "Howth",
+                "Sutton",
+                "Portmarnock",
+                "Velvet Strand",
+                "Malahide",
+                "Malahide Estuary"
+            ]
+        },
+        {
+            "id": "nanny_delvin",
+            "name": "Nanny\u2013Delvin Rivers",
+            "description": "River restoration and catchment focus area for the Nanny and Delvin river systems.",
+            "centre": [
+                53.58,
+                -6.25
+            ],
+            "zoom": 10,
+            "bounds": [
+                [
+                    53.43,
+                    -6.68
+                ],
+                [
+                    53.72,
+                    -6.02
+                ]
+            ],
+            "keywords": [
+                "Nanny",
+                "River Nanny",
+                "Delvin",
+                "River Delvin",
+                "Nanny-Delvin",
+                "Nanny Delvin",
+                "Balbriggan",
+                "Gormanston",
+                "Laytown",
+                "Julianstown",
+                "Duleek",
+                "Naul"
+            ]
+        }
+    ]
+}

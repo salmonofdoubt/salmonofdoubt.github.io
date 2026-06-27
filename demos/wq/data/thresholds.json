@@ -1,0 +1,34 @@
+{
+    "version": "0.1.0",
+    "bathing_coastal_transitional": {
+        "basis": "Irish Bathing Water Quality Regulations 2008, Schedule 4. Excellent and Good use 95th percentile; Sufficient uses 90th percentile. Single samples are shown as interpretive screening context only.",
+        "parameters": {
+            "e_coli": {
+                "label": "E. coli",
+                "unit": "cfu/100 mL",
+                "excellent": 250,
+                "good": 500,
+                "sufficient": 500
+            },
+            "intestinal_enterococci": {
+                "label": "Intestinal enterococci",
+                "unit": "cfu/100 mL",
+                "excellent": 100,
+                "good": 200,
+                "sufficient": 185
+            }
+        }
+    },
+    "hydrometry": {
+        "basis": "OPW station-specific level, flow, percentile and threshold context where available.",
+        "note": "There is no universal national water-level threshold. Interpret by station, percentile, trend, local flood context and field conditions."
+    },
+    "wfd_chemistry": {
+        "basis": "Waterbody-type-specific WFD standards and EPA classification context.",
+        "note": "The app does not apply a single national nutrient threshold across all waters."
+    },
+    "groundwater": {
+        "basis": "Groundwater chemical-status standards and threshold values require groundwater body, pollutant and assessment context.",
+        "note": "Groundwater values are interpreted as screening/context until the relevant groundwater body and assessment basis are joined."
+    }
+}

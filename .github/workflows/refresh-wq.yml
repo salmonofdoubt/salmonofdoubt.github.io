@@ -1,0 +1,37 @@
+name: Refresh WQ monitor
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-wq
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Harvest public water-quality data
+        run: |
+          python3 demos/wq/ops/harvest_wq.py
+          python3 demos/wq/ops/validate_wq.py
+          python3 -m json.tool demos/wq/data/latest.json > /tmp/latest.json
+          mv /tmp/latest.json demos/wq/data/latest.json
+
+      - name: Commit changed data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add demos/wq/data/latest.json demos/wq/data/source-status.json
+          git commit -m "Refresh WQ monitor data" || exit 0
+          git pull --rebase origin master
+          git push origin HEAD:master
