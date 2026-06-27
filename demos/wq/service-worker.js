@@ -1,13 +1,26 @@
-const CACHE_NAME = "catchment-pulse-wq-v0-1-0";
+const CACHE_NAME = "catchment-pulse-wq-v0-2-0";
 const CORE_ASSETS = [
   "./",
   "./index.html",
+  "./debug.html",
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
   "./data/latest.json",
   "./data/thresholds.json",
-  "./data/focus-areas.json"
+  "./data/focus-areas.json",
+  "./js/api.js",
+  "./js/charts.js",
+  "./js/config.js",
+  "./js/debug.js",
+  "./js/format.js",
+  "./js/map.js",
+  "./js/panels.js",
+  "./js/pwa.js",
+  "./js/records.js",
+  "./js/thresholds.js",
+  "./js/units.js",
+  "./js/view.js"
 ];
 
 self.addEventListener("install", event => {

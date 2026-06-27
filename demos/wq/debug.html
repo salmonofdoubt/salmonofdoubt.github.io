@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Debug · Catchment Pulse Ireland</title>
+  <link rel="stylesheet" href="./styles.css?v=0.2.0" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topnav" aria-label="Demo navigation">
+      <a href="./">← Back to WQ</a>
+      <a href="/demos/">All demos</a>
+      <a href="./attribution.html">Attribution</a>
+    </nav>
+
+    <section class="hero">
+      <p class="eyebrow">Developer diagnostics</p>
+      <h1>WQ data quality</h1>
+      <p class="lede">Source health, mapped coverage, parameter keys, focus-area hits and unmapped examples computed from the normalised JSON payload.</p>
+    </section>
+
+    <section class="panel is-active">
+      <div id="debugSummary" class="debug-grid"></div>
+    </section>
+
+    <section class="panel is-active">
+      <h2>Diagnostics</h2>
+      <div id="debugDetails"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/debug.js?v=0.2.0"></script>
+</body>
+</html>

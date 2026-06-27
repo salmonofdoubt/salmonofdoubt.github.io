@@ -6,7 +6,7 @@
   <title>Catchment Pulse Ireland</title>
   <meta name="description" content="Live and latest Irish water-quality signals: hydrometry, bathing quality, WFD context, groundwater and marine shore indicators." />
 
-  <link rel="stylesheet" href="./styles.css?v=0.1.0" />
+  <link rel="stylesheet" href="./styles.css?v=0.2.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
@@ -34,6 +34,7 @@
       <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/wq" target="_blank" rel="noopener">Source</a>
       <a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/blob/master/demos/wq/README.md" target="_blank" rel="noopener">README</a>
       <a href="./attribution.html">Attribution</a>
+      <a href="./debug.html">Debug</a>
       <button id="shareApp" class="topnav-share-button" type="button">Share</button>
       <button id="installApp" class="topnav-install-button" type="button">Install</button>
     </nav>
@@ -222,7 +223,7 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./app.js?v=0.1.0"></script>
+  <script type="module" src="./app.js?v=0.2.0"></script>
   <script>
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
       window.addEventListener("load", () => {
