@@ -1,4 +1,4 @@
-const CACHE_NAME = "catchment-pulse-wq-v0-3-3";
+const CACHE_NAME = "catchment-pulse-wq-v0-5-0";
 const CORE_ASSETS = [
   "./",
   "./index.html",

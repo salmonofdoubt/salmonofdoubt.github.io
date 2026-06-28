@@ -6,7 +6,7 @@
   <title>Catchment Pulse Ireland</title>
   <meta name="description" content="Live and latest Irish water-quality signals: hydrometry, bathing quality, WFD context, groundwater and marine shore indicators." />
 
-  <link rel="stylesheet" href="./styles.css?v=0.3.3" />
+  <link rel="stylesheet" href="./styles.css?v=0.5.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
@@ -287,43 +287,115 @@ Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
     </section>
 
 
+
     <section class="panel" id="chartsPanel">
       <div class="section-heading">
-        <p class="eyebrow mini">Hydrology × chemistry</p>
-        <h2>Flow and concentration analysis</h2>
+        <p class="eyebrow mini">Exploratory C-Q workbench</p>
+        <h2>C-Q candidate pairing</h2>
         <p>
-          The chart engine is ready for log-log C-Q analysis. It activates when paired
-          discharge and concentration records exist for the same station or defensible waterbody join.
+          Pair concentration C from chemistry samples with hydrometric Q candidates. This panel separates
+          exploratory candidate pairs from defensible C-Q evidence.
         </p>
       </div>
 
-      <div class="chart-controls">
+      <div class="cq-controls">
+        <label>
+          <span>Period</span>
+          <select id="cqPeriod">
+            <option value="all">All imported chemistry</option>
+            <option value="1">Last 24 h</option>
+            <option value="7">Last 7 days</option>
+            <option value="30">Last 30 days</option>
+            <option value="custom">Custom range</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Start</span>
+          <input id="cqStart" type="date" />
+        </label>
+
+        <label>
+          <span>End</span>
+          <input id="cqEnd" type="date" />
+        </label>
+
         <label>
           <span>Parameter</span>
           <select id="chartParameter">
-            <option value="all">All available parameters</option>
-            <option value="e_coli">E. coli</option>
-            <option value="intestinal_enterococci">Intestinal enterococci</option>
-            <option value="no3_n">NO₃-N</option>
             <option value="po4_p">PO₄-P</option>
+            <option value="no3_n">NO₃-N</option>
             <option value="nh4_n">NH₄-N</option>
+            <option value="no2_n">NO₂-N</option>
+            <option value="ton_n">TON-N</option>
           </select>
         </label>
 
         <label>
-          <span>Scale</span>
-          <select id="chartScale">
-            <option value="log">log₁₀(Q) vs log₁₀(C)</option>
-            <option value="linear">Q vs C</option>
+          <span>C location</span>
+          <select id="cqLocation">
+            <option value="__all__">All focus samples — screening only</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Pairing rule</span>
+          <select id="cqPairing">
+            <option value="imported_q">Imported Q from CSV</option>
+            <option value="nearest">Nearest hydrometric station</option>
+            <option value="within_km">Nearest within distance</option>
+            <option value="same_focus">Same focus area</option>
+            <option value="same_station">Same station name only</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Max distance km</span>
+          <input id="cqDistance" type="number" min="0.1" step="0.1" value="20" />
+        </label>
+
+        <label>
+          <span>Time rule</span>
+          <select id="cqTimeRule">
+            <option value="latest">Same sample row / latest Q where needed</option>
+            <option value="same_day">Same day</option>
+            <option value="24h">±24 h</option>
+            <option value="72h">±72 h</option>
           </select>
         </label>
       </div>
 
-      <div class="chart-card">
-        <canvas id="cqChart" width="960" height="430" aria-label="Flow concentration chart"></canvas>
-        <p id="chartCaption" class="chart-caption"></p>
+      <section id="cqSummary" class="cq-summary" aria-label="C-Q pairing summary"></section>
+
+      <div class="chart-wrap">
+        <canvas id="cqChart" width="960" height="420" aria-label="C-Q candidate chart"></canvas>
+      </div>
+      <p id="chartCaption" class="chart-caption"></p>
+
+      <div class="cq-table-wrap">
+        <table class="cq-table">
+          <thead>
+            <tr>
+              <th>C location</th>
+              <th>C sample</th>
+              <th>Parameter</th>
+              <th>C</th>
+              <th>Q candidate</th>
+              <th>Q proxy</th>
+              <th>Distance</th>
+              <th>Quality</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody id="cqPairTableBody">
+            <tr>
+              <td colspan="9">No candidate pairs calculated yet.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
+
 
     <section class="panel" id="sourcesPanel">
       <div class="section-heading">
@@ -364,7 +436,7 @@ Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script type="module" src="./app.js?v=0.3.3"></script>
+  <script type="module" src="./app.js?v=0.5.0"></script>
   <script>
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
       window.addEventListener("load", () => {

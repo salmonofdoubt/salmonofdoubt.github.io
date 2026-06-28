@@ -43,6 +43,15 @@ const els = {
   chartCaption: document.getElementById("chartCaption"),
   chartParameter: document.getElementById("chartParameter"),
   chartScale: document.getElementById("chartScale"),
+  cqPeriod: document.getElementById("cqPeriod"),
+  cqStart: document.getElementById("cqStart"),
+  cqEnd: document.getElementById("cqEnd"),
+  cqLocation: document.getElementById("cqLocation"),
+  cqPairing: document.getElementById("cqPairing"),
+  cqDistance: document.getElementById("cqDistance"),
+  cqTimeRule: document.getElementById("cqTimeRule"),
+  cqSummary: document.getElementById("cqSummary"),
+  cqPairTableBody: document.getElementById("cqPairTableBody"),
   dataScopeFilter: document.getElementById("dataScopeFilter"),
   dataTypeFilter: document.getElementById("dataTypeFilter"),
   dataSearchBox: document.getElementById("dataSearchBox"),
@@ -110,13 +119,23 @@ function setImportedChemistryRecords(records) {
 }
 
 function refreshChart() {
-  drawCqChart(
-    els.chart,
-    els.chartCaption,
-    state.payload,
-    els.chartParameter?.value || "all",
-    els.chartScale?.value || "log"
-  );
+  drawCqChart({
+    canvas: els.chart,
+    caption: els.chartCaption,
+    records: state.records,
+    focusAreas: state.focusAreas,
+    focusAreaId: state.focusAreaId,
+    parameterSelect: els.chartParameter,
+    locationSelect: els.cqLocation,
+    period: els.cqPeriod?.value || "all",
+    start: els.cqStart?.value || "",
+    end: els.cqEnd?.value || "",
+    pairing: els.cqPairing?.value || "nearest",
+    distanceKm: Number(els.cqDistance?.value || 20),
+    timeRule: els.cqTimeRule?.value || "latest",
+    summary: els.cqSummary,
+    pairTableBody: els.cqPairTableBody
+  });
 }
 
 function installTabs() {
@@ -152,13 +171,24 @@ function bindControls() {
     }
   });
 
-  [els.chartParameter, els.chartScale].forEach(control => {
+  [
+    els.chartParameter,
+    els.chartScale,
+    els.cqPeriod,
+    els.cqStart,
+    els.cqEnd,
+    els.cqPairing,
+    els.cqDistance,
+    els.cqTimeRule
+  ].forEach(control => {
+    control?.addEventListener("input", refreshChart);
     control?.addEventListener("change", refreshChart);
   });
 
   els.focusSelect?.addEventListener("change", () => {
     state.focusAreaId = els.focusSelect.value;
     refreshPanels();
+    refreshChart();
     state.focusLayer = fitFocusArea(state.map, currentFocusArea(), state.focusLayer);
   });
 
