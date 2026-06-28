@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-06-28T06:23:32Z",
+  "generated_at_utc": "2026-06-28T09:42:48Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
@@ -9,7 +9,7 @@
       "id": "opw_waterlevel",
       "status": "ok",
       "records": 2000,
-      "fetched_at_utc": "2026-06-28T06:23:32Z"
+      "fetched_at_utc": "2026-06-28T09:42:48Z"
     },
     {
       "name": "EPA Bathing Water locations",
@@ -17,10 +17,9 @@
       "licence": "CC BY 4.0",
       "caveat": "Location and annual classification data are generally seasonal or annual.",
       "id": "epa_bathing_locations",
-      "status": "partial",
+      "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-28T06:23:32Z",
-      "error": "<urlopen error timed out>"
+      "fetched_at_utc": "2026-06-28T09:42:48Z"
     },
     {
       "name": "EPA Bathing Water measurements",
@@ -28,10 +27,9 @@
       "licence": "CC BY 4.0",
       "caveat": "Samples are latest official results, not continuous live sensors.",
       "id": "epa_bathing_measurements",
-      "status": "partial",
+      "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-28T06:23:32Z",
-      "error": "<urlopen error timed out>"
+      "fetched_at_utc": "2026-06-28T09:42:48Z"
     },
     {
       "name": "EPA Bathing Water alerts",
@@ -39,10 +37,9 @@
       "licence": "CC BY 4.0",
       "caveat": "Alerts are current API records reported by local authorities to EPA.",
       "id": "epa_bathing_alerts",
-      "status": "partial",
+      "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-28T06:23:32Z",
-      "error": "<urlopen error timed out>"
+      "fetched_at_utc": "2026-06-28T09:42:48Z"
     },
     {
       "name": "EPA WFD Open Data context",
@@ -50,10 +47,9 @@
       "licence": "CC BY 4.0",
       "caveat": "WFD data describe catchment and waterbody status/context, not live water chemistry.",
       "id": "epa_wfd",
-      "status": "partial",
+      "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-28T06:23:32Z",
-      "error": "Baldoyle: <urlopen error timed out>; Baldoyle Bay: <urlopen error timed out>; Howth: <urlopen error timed out>"
+      "fetched_at_utc": "2026-06-28T09:42:48Z"
     },
     {
       "name": "EPA Geoportal water quality datasets",
@@ -63,7 +59,7 @@
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-06-28T06:23:32Z"
+      "fetched_at_utc": "2026-06-28T09:42:48Z"
     },
     {
       "name": "Marine Institute ERDDAP context",
@@ -73,7 +69,7 @@
       "id": "marine_institute_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-06-28T06:23:32Z"
+      "fetched_at_utc": "2026-06-28T09:42:48Z"
     }
   ]
 }
