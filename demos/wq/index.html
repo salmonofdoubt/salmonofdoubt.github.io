@@ -6,7 +6,7 @@
   <title>Catchment Pulse Ireland</title>
   <meta name="description" content="Live and latest Irish water-quality signals: hydrometry, bathing quality, WFD context, groundwater and marine shore indicators." />
 
-  <link rel="stylesheet" href="./styles.css?v=0.2.6" />
+  <link rel="stylesheet" href="./styles.css?v=0.3.3" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
@@ -87,6 +87,7 @@
       <button type="button" data-panel="pulsePanel" class="is-active">Pulse</button>
       <button type="button" data-panel="mapPanel">Map</button>
       <button type="button" data-panel="signalsPanel">Signals</button>
+      <button type="button" data-panel="chemistryPanel">Chemistry</button>
       <button type="button" data-panel="dataPanel">Data</button>
       <button type="button" data-panel="chartsPanel">C-Q charts</button>
       <button type="button" data-panel="sourcesPanel">Sources</button>
@@ -181,6 +182,46 @@
         </p>
       </div>
       <div id="signalGrid" class="signal-grid"></div>
+    </section>
+
+
+    
+    <section class="panel chemistry-panel" id="chemistryPanel">
+      <div class="section-heading">
+        <p class="eyebrow mini">Nutrient evidence layer</p>
+        <h2>Import chemistry</h2>
+        <p>
+          Add local CSV chemistry evidence to the app without a server. Imported records stay in this browser
+          and feed the Pulse, Map and Data views using the same normalised record contract as public sources.
+        </p>
+      </div>
+
+      <div class="chemistry-import-card">
+        <div>
+          <h3>CSV import</h3>
+          <p>
+            Supports long format columns such as <code>name, lat, lon, date, parameter, value, unit</code>
+            and wide nutrient columns such as <code>po4_p, no3_n, nh4_n, no2_n, ton_n</code>.
+          </p>
+          <p id="chemistryStatus">No local chemistry records imported yet.</p>
+        </div>
+
+        <div class="chemistry-actions">
+          <label class="file-button">
+            <span>Choose CSV</span>
+            <input id="chemistryFile" type="file" accept=".csv,text/csv" />
+          </label>
+          <button id="clearChemistry" type="button">Clear local chemistry</button>
+        </div>
+      </div>
+
+      <section id="chemistrySummary" class="stats compact-stats" aria-label="Imported chemistry summary"></section>
+
+      <article class="chemistry-help">
+        <h3>Minimal CSV example</h3>
+        <pre><code>name,lat,lon,date,po4_p,no3_n,nh4_n
+Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
+      </article>
     </section>
 
 
@@ -323,7 +364,7 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script type="module" src="./app.js?v=0.2.6"></script>
+  <script type="module" src="./app.js?v=0.3.3"></script>
   <script>
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
       window.addEventListener("load", () => {

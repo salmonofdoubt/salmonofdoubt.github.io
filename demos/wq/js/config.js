@@ -7,7 +7,8 @@ export const TYPE_LABELS = {
   bathing_alert: "Bathing alert",
   wfd_context: "WFD context",
   groundwater_context: "Groundwater context",
-  marine_context: "Marine shore context"
+  marine_context: "Marine shore context",
+  chemistry_sample: "Chemistry sample"
 };
 
 export const TYPE_STYLE = {
@@ -17,5 +18,6 @@ export const TYPE_STYLE = {
   bathing_alert: { radius: 9, color: "#fb7185", fillColor: "#be123c" },
   wfd_context: { radius: 6, color: "#c084fc", fillColor: "#7e22ce" },
   groundwater_context: { radius: 6, color: "#fde68a", fillColor: "#a16207" },
-  marine_context: { radius: 6, color: "#93c5fd", fillColor: "#1d4ed8" }
+  marine_context: { radius: 6, color: "#93c5fd", fillColor: "#1d4ed8" },
+  chemistry_sample: { radius: 8, color: "#fde68a", fillColor: "#ca8a04" }
 };

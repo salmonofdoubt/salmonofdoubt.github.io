@@ -3,6 +3,7 @@ import { formatDate, safeText } from "./format.js";
 
 export function renderFocusOptions(select, focusAreas, focusAreaId) {
   if (!select) return;
+
   const areas = focusAreas?.areas || [];
 
   select.innerHTML = areas.map(area => `
@@ -12,14 +13,26 @@ export function renderFocusOptions(select, focusAreas, focusAreaId) {
   select.value = focusAreaId;
 }
 
-export function renderStats(elements, payload, records) {
-  const summary = payload?.summary || {};
-  const sourceCount = (payload?.sources || []).length;
-  const alertCount = records.filter(record => record.type === "bathing_alert").length;
+function liveSourceCount(payload, records) {
+  const publicSources = new Set((payload?.sources || []).map(source => source.id));
+  const recordSources = new Set((records || []).map(record => record.source).filter(Boolean));
 
-  elements.records.textContent = Number(summary.mapped_records || records.filter(hasCoordinates).length).toLocaleString("en-IE");
-  elements.sources.textContent = Number(sourceCount).toLocaleString("en-IE");
-  elements.alerts.textContent = Number(alertCount).toLocaleString("en-IE");
+  for (const source of recordSources) {
+    publicSources.add(source);
+  }
+
+  return publicSources.size;
+}
+
+export function renderStats(elements, payload, records) {
+  const liveRecords = records || [];
+  const mappedCount = liveRecords.filter(hasCoordinates).length;
+  const alertCount = liveRecords.filter(record => record.type === "bathing_alert").length;
+  const sourceCount = liveSourceCount(payload, liveRecords);
+
+  elements.records.textContent = mappedCount.toLocaleString("en-IE");
+  elements.sources.textContent = sourceCount.toLocaleString("en-IE");
+  elements.alerts.textContent = alertCount.toLocaleString("en-IE");
   elements.updated.textContent = payload?.generated_at_utc
     ? new Date(payload.generated_at_utc).toLocaleTimeString("en-IE", { hour: "2-digit", minute: "2-digit" })
     : "seed";
@@ -31,6 +44,7 @@ export function renderSignals(container, payload, records, focusAreas, focusArea
   const nationalAlerts = records.filter(record => record.type === "bathing_alert");
   const bathingMeasurements = records.filter(record => record.type === "bathing_measurement");
   const hydro = records.filter(record => record.type === "water_level");
+  const chemistry = records.filter(record => record.type === "chemistry_sample");
   const contexts = records.filter(record => ["wfd_context", "groundwater_context", "marine_context"].includes(record.type));
 
   const cards = [
@@ -38,6 +52,11 @@ export function renderSignals(container, payload, records, focusAreas, focusArea
       title: "Active focus records",
       value: focusCount,
       text: area ? `Records associated with ${area.name}.` : "No focus area selected."
+    },
+    {
+      title: "Imported chemistry",
+      value: chemistry.length,
+      text: "Local nutrient chemistry records currently active in this browser."
     },
     {
       title: "Current bathing alerts",
@@ -62,7 +81,7 @@ export function renderSignals(container, payload, records, focusAreas, focusArea
     {
       title: "C-Q readiness",
       value: payload?.analysis?.cq_pairs?.length || 0,
-      text: "Paired flow-concentration records ready for log-log analysis."
+      text: "Formal paired flow-concentration records ready for log-log analysis."
     }
   ];
 

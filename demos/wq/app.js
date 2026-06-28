@@ -6,6 +6,7 @@ import { selectedHtml } from "./js/view.js";
 import { drawCqChart } from "./js/charts.js";
 import { installDataExplorer, renderDataExplorer } from "./js/dataExplorer.js";
 import { installPwaButton, installShareButton } from "./js/pwa.js";
+import { installChemistryImport, loadImportedChemistryRecords, renderChemistryImport } from "./js/chemistryLayer.js";
 import { renderPulse } from "./js/pulse.js";
 
 const state = {
@@ -13,6 +14,8 @@ const state = {
   thresholds: null,
   focusAreas: null,
   records: [],
+  baseRecords: [],
+  importedChemistryRecords: [],
   focusAreaId: null,
   selectedRecord: null,
   map: null,
@@ -46,6 +49,10 @@ const els = {
   dataSummaryStrip: document.getElementById("dataSummaryStrip"),
   dataTableBody: document.getElementById("dataTableBody"),
   dataLimitNote: document.getElementById("dataLimitNote"),
+  chemistryFile: document.getElementById("chemistryFile"),
+  clearChemistry: document.getElementById("clearChemistry"),
+  chemistryStatus: document.getElementById("chemistryStatus"),
+  chemistrySummary: document.getElementById("chemistrySummary"),
   focusSelect: document.getElementById("focusAreaSelect"),
   zoomFocus: document.getElementById("zoomFocus"),
   fitIreland: document.getElementById("fitIreland"),
@@ -91,6 +98,15 @@ function refreshPanels() {
   renderPulse(els, state);
   renderSources(els.sourceGrid, state.payload?.sources || []);
   renderDataExplorer(els, state);
+}
+
+function setImportedChemistryRecords(records) {
+  state.importedChemistryRecords = records || [];
+  state.records = [...state.baseRecords, ...state.importedChemistryRecords];
+  refreshPanels();
+  refreshMap();
+  refreshChart();
+  renderChemistryImport(els, state.importedChemistryRecords);
 }
 
 function refreshChart() {
@@ -164,7 +180,9 @@ async function init() {
     state.payload = data.payload;
     state.thresholds = data.thresholds;
     state.focusAreas = data.focusAreas;
-    state.records = data.records;
+    state.baseRecords = data.records;
+    state.importedChemistryRecords = loadImportedChemistryRecords();
+    state.records = [...state.baseRecords, ...state.importedChemistryRecords];
     state.focusAreaId = data.focusAreas.default_area || data.focusAreas.areas?.[0]?.id || null;
 
     renderFocusOptions(els.focusSelect, state.focusAreas, state.focusAreaId);
@@ -175,6 +193,7 @@ async function init() {
     refreshMap();
     refreshChart();
     bindControls();
+    installChemistryImport(els, setImportedChemistryRecords);
     installDataExplorer(els, () => state);
   } catch (error) {
     console.error(error);
