@@ -11,6 +11,8 @@ import urllib.request
 from pathlib import Path
 from typing import Any
 
+from wq_pipeline.adapters.opw_waterlevel import harvest_opw as harvest_opw_adapter
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 
@@ -286,57 +288,7 @@ def numeric_parameters(props: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def harvest_opw(now: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    url = OPW_LATEST + "?" + urllib.parse.quote(now)
-
-    try:
-        payload = fetch_json(url)
-        features = payload.get("features", []) if isinstance(payload, dict) else []
-    except Exception as exc:
-        return [], make_source_status("opw_waterlevel", "failed", 0, now, str(exc))
-
-    records: list[dict[str, Any]] = []
-
-    for idx, feature in enumerate(features):
-        if not isinstance(feature, dict):
-            continue
-
-        geometry = feature.get("geometry") or {}
-        coords = geometry.get("coordinates") or []
-        props = feature.get("properties") or {}
-
-        if not isinstance(props, dict) or not isinstance(coords, list) or len(coords) < 2:
-            continue
-
-        lon = as_float(coords[0])
-        lat = as_float(coords[1])
-
-        if lat is None or lon is None:
-            continue
-
-        name = pick(props, ["station_name", "name", "StationName", "station", "label"], f"OPW station {idx + 1}")
-        station_ref = pick(props, ["station_ref", "station_ref_no", "station", "station_no", "ref"], "")
-        sensor_ref = pick(props, ["sensor_ref", "sensor", "sensor_no"], "")
-        observed = pick(props, ["datetime", "time", "timestamp", "date", "observed_at"], None)
-
-        records.append({
-            "id": f"opw:{station_ref or idx}:{sensor_ref or 'latest'}",
-            "source": "opw_waterlevel",
-            "source_label": SOURCE_DEFS["opw_waterlevel"]["name"],
-            "type": "water_level",
-            "freshness": "live",
-            "name": str(name),
-            "lat": lat,
-            "lon": lon,
-            "observed_at": observed,
-            "generated_at": now,
-            "status": safe_string(pick(props, ["status", "trend", "quality"], "latest")),
-            "description": "Latest OPW hydrometric reading. Parameter labels are normalised from source fields.",
-            "url": "https://waterlevel.ie/",
-            "parameters": numeric_parameters(props),
-            "raw": props
-        })
-
-    return records, make_source_status("opw_waterlevel", "ok", len(records), now)
+    return harvest_opw_adapter(now, source_defs=SOURCE_DEFS)
 
 
 def harvest_bathing(now: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from typing import Any
 
 
@@ -40,16 +41,31 @@ def as_float(value: Any) -> float | None:
         return None
 
     try:
-        return float(str(value).replace(",", "").strip())
-    except ValueError:
+        number = float(str(value).replace(",", "").strip())
+    except (TypeError, ValueError):
         return None
+
+    if not math.isfinite(number):
+        return None
+
+    return number
 
 
 def pick(mapping: dict[str, Any], keys: list[str], fallback: Any = None) -> Any:
+    if not isinstance(mapping, dict):
+        return fallback
+
+    lower = {str(key).lower(): value for key, value in mapping.items()}
+
     for key in keys:
-        value = mapping.get(key)
-        if value not in (None, ""):
+        if key in mapping:
+            return mapping[key]
+
+        value = lower.get(str(key).lower())
+
+        if value is not None:
             return value
+
     return fallback
 
 
