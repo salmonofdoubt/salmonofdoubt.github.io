@@ -1,0 +1,29 @@
+name: WQ C-Q tests
+
+on:
+  push:
+    paths:
+      - "demos/wq/**"
+      - ".github/workflows/wq-cq-tests.yml"
+  pull_request:
+    paths:
+      - "demos/wq/**"
+      - ".github/workflows/wq-cq-tests.yml"
+  workflow_dispatch:
+
+jobs:
+  cq-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run C-Q engine tests
+        working-directory: demos/wq
+        run: npm run test:cq
