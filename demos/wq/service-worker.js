@@ -1,4 +1,4 @@
-const CACHE_NAME = "catchment-pulse-wq-v0-2-0";
+const CACHE_NAME = "catchment-pulse-wq-v0-2-6";
 const CORE_ASSETS = [
   "./",
   "./index.html",
@@ -18,6 +18,7 @@ const CORE_ASSETS = [
   "./js/map.js",
   "./js/panels.js",
   "./js/pwa.js",
+  "./js/pulse.js",
   "./js/records.js",
   "./js/thresholds.js",
   "./js/units.js",

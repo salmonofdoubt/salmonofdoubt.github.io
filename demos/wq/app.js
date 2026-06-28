@@ -6,6 +6,7 @@ import { selectedHtml } from "./js/view.js";
 import { drawCqChart } from "./js/charts.js";
 import { installDataExplorer, renderDataExplorer } from "./js/dataExplorer.js";
 import { installPwaButton, installShareButton } from "./js/pwa.js";
+import { renderPulse } from "./js/pulse.js";
 
 const state = {
   payload: null,
@@ -30,6 +31,10 @@ const els = {
   unitMode: document.getElementById("unitMode"),
   search: document.getElementById("searchBox"),
   signalGrid: document.getElementById("signalGrid"),
+  pulseHeroGrid: document.getElementById("pulseHeroGrid"),
+  pulseStory: document.getElementById("pulseStory"),
+  pulseSignals: document.getElementById("pulseSignals"),
+  pulseGaps: document.getElementById("pulseGaps"),
   sourceGrid: document.getElementById("sourceGrid"),
   chart: document.getElementById("cqChart"),
   chartCaption: document.getElementById("chartCaption"),
@@ -83,6 +88,7 @@ function refreshMap() {
 function refreshPanels() {
   renderStats(els, state.payload, state.records);
   renderSignals(els.signalGrid, state.payload, state.records, state.focusAreas, state.focusAreaId);
+  renderPulse(els, state);
   renderSources(els.sourceGrid, state.payload?.sources || []);
   renderDataExplorer(els, state);
 }
