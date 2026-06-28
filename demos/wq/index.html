@@ -6,7 +6,7 @@
   <title>Catchment Pulse Ireland</title>
   <meta name="description" content="Live and latest Irish water-quality signals: hydrometry, bathing quality, WFD context, groundwater and marine shore indicators." />
 
-  <link rel="stylesheet" href="./styles.css?v=0.5.0" />
+  <link rel="stylesheet" href="./styles.css?v=0.6.0" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
@@ -365,6 +365,8 @@ Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
         </label>
       </div>
 
+      <div id="cqClassifier" class="cq-classifier-host"></div>
+
       <section id="cqSummary" class="cq-summary" aria-label="C-Q pairing summary"></section>
 
       <div class="chart-wrap">
@@ -436,7 +438,7 @@ Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script type="module" src="./app.js?v=0.5.0"></script>
+  <script type="module" src="./app.js?v=0.6.0"></script>
   <script>
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
       window.addEventListener("load", () => {

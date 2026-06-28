@@ -50,6 +50,7 @@ const els = {
   cqPairing: document.getElementById("cqPairing"),
   cqDistance: document.getElementById("cqDistance"),
   cqTimeRule: document.getElementById("cqTimeRule"),
+  cqClassifier: document.getElementById("cqClassifier"),
   cqSummary: document.getElementById("cqSummary"),
   cqPairTableBody: document.getElementById("cqPairTableBody"),
   dataScopeFilter: document.getElementById("dataScopeFilter"),
@@ -133,6 +134,7 @@ function refreshChart() {
     pairing: els.cqPairing?.value || "nearest",
     distanceKm: Number(els.cqDistance?.value || 20),
     timeRule: els.cqTimeRule?.value || "latest",
+    classifierTarget: els.cqClassifier,
     summary: els.cqSummary,
     pairTableBody: els.cqPairTableBody
   });
