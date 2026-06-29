@@ -12,6 +12,7 @@ const CORE_ASSETS = [
   "./js/api.js",
   "./js/charts.js",
   "./js/cqEngine.js",
+  "./js/freshness.js",
   "./js/chemistryLayer.js",
   "./js/config.js",
   "./js/debug.js",

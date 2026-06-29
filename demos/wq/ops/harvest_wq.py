@@ -150,6 +150,15 @@ def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=False) + "\n", encoding="utf-8")
 
 
+def source_status_output_path(output_path: Path) -> Path:
+    default_output = DATA_DIR / "latest.json"
+
+    if output_path.resolve() == default_output.resolve():
+        return DATA_DIR / "source-status.json"
+
+    return output_path.with_name(f"{output_path.stem}-source-status.json")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default=str(DATA_DIR / "latest.json"))
@@ -181,7 +190,7 @@ def main() -> int:
         for issue in health["issues"]:
             print(f"- {issue}")
 
-    write_json(DATA_DIR / "source-status.json", source_status_payload)
+    write_json(source_status_output_path(output_path), source_status_payload)
 
     print(f"Records: {payload['summary']['records']}; mapped: {payload['summary']['mapped_records']}")
     print(f"Harvest health: {health['status']}")

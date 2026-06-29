@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from wq_pipeline.core.freshness import enrich_source_status
+
 
 def make_source_status(
     source_defs: dict[str, dict[str, Any]],
@@ -13,7 +15,7 @@ def make_source_status(
     error: str | None = None,
     elapsed_ms: int | None = None,
 ) -> dict[str, Any]:
-    base = dict(source_defs.get(source_id, {}))
+    base = enrich_source_status(source_id, dict(source_defs.get(source_id, {})))
 
     source = {
         **base,
