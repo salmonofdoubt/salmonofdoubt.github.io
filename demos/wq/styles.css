@@ -1064,3 +1064,123 @@ canvas {
   font-weight: 900;
   cursor: pointer;
 }
+
+/* Live signal/source separation */
+.live-panel .section-heading p {
+  max-width: 76ch;
+}
+
+.live-signal-layout {
+  display: grid;
+  gap: 1rem;
+}
+
+.live-signal-explainer,
+.live-source-card {
+  border: 1px solid var(--line, rgba(148, 163, 184, 0.28));
+  border-radius: 1rem;
+  background: var(--card, rgba(15, 23, 42, 0.72));
+  box-shadow: var(--shadow-soft, 0 18px 45px rgba(15, 23, 42, 0.16));
+}
+
+.live-signal-explainer {
+  padding: 1rem;
+}
+
+.live-signal-explainer h3,
+.live-source-card h3 {
+  margin: 0.25rem 0 0.45rem;
+}
+
+.live-signal-explainer p,
+.live-source-card p {
+  color: var(--muted, #64748b);
+}
+
+.live-source-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: 0.85rem;
+}
+
+.live-source-card {
+  padding: 0.95rem;
+}
+
+.live-source-card.is-live {
+  border-color: color-mix(in srgb, var(--accent, #0ea5e9) 52%, transparent);
+}
+
+.live-source-card.is-context {
+  opacity: 0.92;
+}
+
+.live-source-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.55rem;
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.7rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--chip, rgba(148, 163, 184, 0.14));
+  color: var(--text, #0f172a);
+}
+
+.live-badge.is-live {
+  background: color-mix(in srgb, var(--accent, #0ea5e9) 18%, transparent);
+}
+
+.live-source-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin: 0.8rem 0 0;
+}
+
+.live-source-card dt {
+  color: var(--muted, #64748b);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.live-source-card dd {
+  margin: 0.18rem 0 0;
+  font-weight: 800;
+}
+
+.empty-note {
+  margin: 0;
+  padding: 0.9rem;
+  border: 1px dashed var(--line, rgba(148, 163, 184, 0.35));
+  border-radius: 0.9rem;
+  color: var(--muted, #64748b);
+}
+
+@media (min-width: 900px) {
+  .live-signal-layout {
+    grid-template-columns: minmax(16rem, 0.85fr) minmax(20rem, 1fr) minmax(20rem, 1fr);
+    align-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .live-source-card-top,
+  .live-source-card dl {
+    grid-template-columns: 1fr;
+  }
+
+  .live-source-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

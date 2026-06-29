@@ -85,6 +85,7 @@
 
     <section class="mode-tabs" aria-label="View mode">
       <button type="button" data-panel="pulsePanel" class="is-active">Pulse</button>
+      <button type="button" data-panel="livePanel">Live signals</button>
       <button type="button" data-panel="mapPanel">Map</button>
       <button type="button" data-panel="signalsPanel">Signals</button>
       <button type="button" data-panel="chemistryPanel">Chemistry</button>
@@ -94,6 +95,45 @@
     </section>
 
     
+    <section class="panel live-panel" id="livePanel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Live signal layer</p>
+          <h2>What is happening now?</h2>
+          <p>
+            This view separates live or near-live signals from WFD and historical context.
+            OPW hydrometry and current bathing alerts can indicate a live pulse; WFD status is background context,
+            not real-time water quality.
+          </p>
+        </div>
+      </div>
+
+      <section id="liveSignalSummary" class="stats compact-stats" aria-label="Live signal summary"></section>
+
+      <div class="live-signal-layout">
+        <article class="live-signal-explainer">
+          <p class="eyebrow mini">Scientific separation</p>
+          <h3>Live does not mean chemically complete</h3>
+          <p>
+            A rising river level is a live hydrological signal. It can suggest mobilisation risk,
+            dilution, connectivity or sampling urgency, but it is not itself nitrate, phosphate,
+            ammonium or E. coli. Chemistry still needs official samples, imported field samples,
+            or a future sensor feed.
+          </p>
+        </article>
+
+        <div>
+          <p class="eyebrow mini">Live / near-live feeds</p>
+          <div id="liveSourceGrid" class="live-source-grid" aria-live="polite"></div>
+        </div>
+
+        <div>
+          <p class="eyebrow mini">Recent, WFD and context layers</p>
+          <div id="contextSourceGrid" class="live-source-grid context-source-grid"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="panel is-active pulse-panel" id="pulsePanel">
       <div class="section-heading">
         <p class="eyebrow mini">Catchment intelligence</p>
@@ -448,5 +488,6 @@ Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
       });
     }
   </script>
+  <script type="module" src="./js/liveSignals.js"></script>
 </body>
 </html>
