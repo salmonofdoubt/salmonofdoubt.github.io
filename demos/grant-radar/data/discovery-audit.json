@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-06-28T08:28:34+00:00",
+  "generated_at": "2026-06-29T09:59:07+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4635,
+  "links_seen": 4627,
   "funding_like_links": 485,
   "candidate_fetches": 300,
-  "pending_review_count": 91,
+  "pending_review_count": 96,
   "status_counts": {
-    "pending_review": 91,
-    "suppressed_non_actionable": 55,
+    "pending_review": 96,
+    "suppressed_non_actionable": 59,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 15,
     "suppressed_stale": 7,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 68
+    "suppressed_generic_page": 6,
+    "suppressed_fetch_error": 57
   },
   "candidate_type_counts": {
-    "recurring_programme": 100,
-    "funding_call": 34,
+    "recurring_programme": 99,
+    "funding_call": 41,
     "scholarship": 30,
-    "generic_funding_hub": 7,
-    "tender": 8,
-    "unknown": 68
+    "generic_funding_hub": 8,
+    "tender": 11,
+    "unknown": 57
   },
   "seeds": [
     {
@@ -185,7 +185,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/research-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 613,
+      "links_seen": 611,
       "funding_like_links": 62,
       "candidates_fetched": 62
     },
@@ -195,7 +195,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 594,
+      "links_seen": 592,
       "funding_like_links": 57,
       "candidates_fetched": 56
     },
@@ -205,7 +205,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/reinhart-koselleck-projects",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 596,
+      "links_seen": 594,
       "funding_like_links": 57,
       "candidates_fetched": 0
     },
@@ -215,7 +215,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/heisenberg",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 600,
+      "links_seen": 598,
       "funding_like_links": 59,
       "candidates_fetched": 0
     },
