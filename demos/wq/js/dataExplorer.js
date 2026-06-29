@@ -1,6 +1,7 @@
 import { TYPE_LABELS } from "./config.js";
 import { formatDate, prettyNumber, safeText } from "./format.js";
 import { activeFocusArea, hasCoordinates, recordWithinArea } from "./records.js";
+import { recordMatchesSourceScope, sourceLookup, sourceScopeLabel } from "./sourceScope.js";
 
 function parameterSummary(record) {
   const params = record.parameters || [];
@@ -81,7 +82,12 @@ function fillTypeFilter(select, records) {
 }
 
 export function installDataExplorer(elements, getState) {
-  [elements.dataTypeFilter, elements.dataScopeFilter, elements.dataSearchBox].forEach(control => {
+  [
+    elements.dataTypeFilter,
+    elements.dataScopeFilter,
+    elements.dataSourceScopeFilter,
+    elements.dataSearchBox
+  ].forEach(control => {
     control?.addEventListener("input", () => renderDataExplorer(elements, getState()));
     control?.addEventListener("change", () => renderDataExplorer(elements, getState()));
   });
@@ -98,9 +104,12 @@ export function renderDataExplorer(elements, state) {
 
   const type = elements.dataTypeFilter?.value || "all";
   const scope = elements.dataScopeFilter?.value || "focus";
+  const sourceScope = elements.dataSourceScopeFilter?.value || "all";
+  const sourceIndex = sourceLookup(state.payload?.sources || []);
   const query = elements.dataSearchBox?.value || "";
 
   let visible = scopedRecords(records, focusAreas, focusAreaId, scope)
+    .filter(record => recordMatchesSourceScope(record, sourceScope, sourceIndex))
     .filter(record => type === "all" || record.type === type)
     .filter(record => matchesSearch(record, query));
 
@@ -121,6 +130,10 @@ export function renderDataExplorer(elements, state) {
       <article>
         <span>${mapped.toLocaleString("en-IE")}</span>
         <strong>mapped total</strong>
+      </article>
+      <article>
+        <span>${sourceScopeLabel(sourceScope)}</span>
+        <strong>source layer</strong>
       </article>
       <article>
         <span>${total.toLocaleString("en-IE")}</span>

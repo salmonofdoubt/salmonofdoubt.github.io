@@ -1,3 +1,4 @@
+import { recordMatchesSourceScope } from "./sourceScope.js";
 export function hasCoordinates(record) {
   const lat = Number(record?.lat);
   const lon = Number(record?.lon);
@@ -20,8 +21,11 @@ export function recordWithinArea(record, area) {
 export function recordMatches(record, filters) {
   const layer = filters.layer || "all";
   const query = String(filters.query || "").trim().toLowerCase();
+  const sourceScope = filters.sourceScope || "all";
+  const sourceIndex = filters.sourceIndex || filters.sources || [];
 
   if (layer !== "all" && record.type !== layer) return false;
+  if (!recordMatchesSourceScope(record, sourceScope, sourceIndex)) return false;
   if (!query) return true;
 
   const haystack = [

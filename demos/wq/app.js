@@ -8,6 +8,7 @@ import { installDataExplorer, renderDataExplorer } from "./js/dataExplorer.js";
 import { installPwaButton, installShareButton } from "./js/pwa.js";
 import { installChemistryImport, loadImportedChemistryRecords, renderChemistryImport } from "./js/chemistryLayer.js";
 import { renderPulse } from "./js/pulse.js";
+import { sourceLookup } from "./js/sourceScope.js";
 
 const state = {
   payload: null,
@@ -31,6 +32,7 @@ const els = {
   map: document.getElementById("waterMap"),
   selected: document.getElementById("selectedRecord"),
   layerFilter: document.getElementById("layerFilter"),
+  sourceScopeFilter: document.getElementById("sourceScopeFilter"),
   unitMode: document.getElementById("unitMode"),
   search: document.getElementById("searchBox"),
   signalGrid: document.getElementById("signalGrid"),
@@ -54,6 +56,7 @@ const els = {
   cqSummary: document.getElementById("cqSummary"),
   cqPairTableBody: document.getElementById("cqPairTableBody"),
   dataScopeFilter: document.getElementById("dataScopeFilter"),
+  dataSourceScopeFilter: document.getElementById("dataSourceScopeFilter"),
   dataTypeFilter: document.getElementById("dataTypeFilter"),
   dataSearchBox: document.getElementById("dataSearchBox"),
   dataSummaryStrip: document.getElementById("dataSummaryStrip"),
@@ -80,6 +83,8 @@ function context() {
 function filters() {
   return {
     layer: els.layerFilter?.value || "all",
+    sourceScope: els.sourceScopeFilter?.value || "all",
+    sourceIndex: sourceLookup(state.payload?.sources || []),
     query: els.search?.value || ""
   };
 }
@@ -161,7 +166,7 @@ function installTabs() {
 }
 
 function bindControls() {
-  [els.layerFilter, els.search].forEach(control => {
+  [els.layerFilter, els.sourceScopeFilter, els.search].forEach(control => {
     control?.addEventListener("input", refreshMap);
     control?.addEventListener("change", refreshMap);
   });

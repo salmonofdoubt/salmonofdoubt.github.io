@@ -2,6 +2,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test:cq": "node tests/cq-smoke.test.mjs && node tests/cq-fixtures.test.mjs && node tests/freshness.test.mjs && node tests/live-signals.test.mjs"
+    "test:cq": "node tests/cq-smoke.test.mjs && node tests/cq-fixtures.test.mjs && node tests/freshness.test.mjs && node tests/live-signals.test.mjs && node tests/source-scope.test.mjs"
   }
 }
