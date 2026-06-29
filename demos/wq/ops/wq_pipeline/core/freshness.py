@@ -92,6 +92,13 @@ SOURCE_TAXONOMY: dict[str, dict[str, Any]] = {
         "is_live_signal": True,
         "display_hint": "Near-real-time coastal met-ocean signal; not nutrient chemistry.",
     },
+    "met_eireann_observations": {
+        "freshness_class": "near_live",
+        "signal_layer": "live_signal",
+        "source_group": "rainfall",
+        "is_live_signal": True,
+        "display_hint": "Near-real-time rainfall/event trigger; not water-quality chemistry.",
+    },
 }
 
 

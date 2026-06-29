@@ -28,4 +28,8 @@ assert.equal(sourceFreshness({ id: "marine_institute_weather_buoys" }), "near_li
 assert.equal(sourceSignalLayer({ id: "marine_institute_weather_buoys" }), "live_signal");
 assert.equal(isLiveSignalSource({ id: "marine_institute_weather_buoys" }), true);
 
+assert.equal(sourceFreshness({ id: "met_eireann_observations" }), "near_live");
+assert.equal(sourceSignalLayer({ id: "met_eireann_observations" }), "live_signal");
+assert.equal(isLiveSignalSource({ id: "met_eireann_observations" }), true);
+
 console.log("WQ freshness taxonomy tests passed.");

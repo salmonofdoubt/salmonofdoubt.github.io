@@ -86,6 +86,13 @@ export const SOURCE_TAXONOMY = {
     isLiveSignal: true,
     displayHint: "Near-real-time coastal met-ocean signal; not nutrient chemistry.",
   },
+  met_eireann_observations: {
+    freshnessClass: "near_live",
+    signalLayer: "live_signal",
+    sourceGroup: "rainfall",
+    isLiveSignal: true,
+    displayHint: "Near-real-time rainfall/event trigger; not water-quality chemistry.",
+  },
 };
 
 export function normaliseFreshnessClass(value) {

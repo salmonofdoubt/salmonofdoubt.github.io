@@ -15,6 +15,7 @@ from wq_pipeline.adapters.epa_bathing import harvest_bathing as harvest_bathing_
 from wq_pipeline.adapters.epa_wfd import harvest_wfd as harvest_wfd_adapter
 from wq_pipeline.adapters.context import planned_context_records as planned_context_records_adapter
 from wq_pipeline.adapters.marine_erddap import harvest_marine_weather_buoys as harvest_marine_weather_buoys_adapter
+from wq_pipeline.adapters.met_eireann_observations import harvest_met_eireann_observations as harvest_met_eireann_observations_adapter
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -62,6 +63,12 @@ SOURCE_DEFS = {
         "freshness_class": "near_live",
         "licence": "check source dataset",
         "caveat": "Near-real-time met-ocean observations from ERDDAP; useful for coastal context, not nutrient chemistry."
+    },
+    "met_eireann_observations": {
+        "name": "Met Éireann current station observations",
+        "freshness_class": "near_live",
+        "licence": "check source terms",
+        "caveat": "Current station rainfall/weather observations are event-driver context, not water-quality chemistry."
     }
 }
 
@@ -108,6 +115,10 @@ def planned_context_records(now: str) -> tuple[list[dict[str, Any]], list[dict[s
 
 def harvest_marine_weather_buoys(now: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     return harvest_marine_weather_buoys_adapter(now, source_defs=SOURCE_DEFS)
+
+
+def harvest_met_eireann_observations(now: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    return harvest_met_eireann_observations_adapter(now, source_defs=SOURCE_DEFS)
 
 
 
@@ -271,6 +282,10 @@ def build_payload() -> dict[str, Any]:
     marine_records, marine_source = harvest_marine_weather_buoys(now)
     records.extend(marine_records)
     sources.append(marine_source)
+
+    rainfall_records, rainfall_source = harvest_met_eireann_observations(now)
+    records.extend(rainfall_records)
+    sources.append(rainfall_source)
 
     records = normalise_payload_records(records)
     sources = normalise_payload_sources(sources)
