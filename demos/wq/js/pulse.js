@@ -268,7 +268,7 @@ export function renderPulse(elements, state) {
   const scoped = localRecords(records, focusAreas, state.focusAreaId);
   const mapped = scoped.filter(hasCoordinates);
   const evidence = evidenceState(scoped);
-  const eventPulse = summariseEventPulse(scoped);
+  const eventPulse = summariseEventPulse(records, area);
   const [source, sourceCount] = dominantSource(scoped);
 
   const typeSummary = Object.entries(countBy(scoped, "type"))

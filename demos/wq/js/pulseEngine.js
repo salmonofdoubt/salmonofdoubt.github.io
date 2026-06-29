@@ -25,6 +25,14 @@ function formatMm(value) {
   return `${formatNumber(value, value < 1 ? 2 : 1)} mm`;
 }
 
+function formatKm(value) {
+  if (!Number.isFinite(value)) return "unknown distance";
+
+  if (value < 1) return `${formatNumber(value * 1000, 0)} m`;
+
+  return `${formatNumber(value, value < 10 ? 1 : 0)} km`;
+}
+
 function parameterValue(record, keys) {
   const wanted = new Set(keys.map(key => key.toLowerCase()));
 
@@ -59,6 +67,118 @@ function byNewestThenName(a, b) {
 
 function rainValue(record) {
   return parameterValue(record, ["rainfall", "rain", "precipitation"]);
+}
+
+function pointFromRecord(record) {
+  const lat = finiteNumber(record.lat);
+  const lon = finiteNumber(record.lon);
+
+  if (lat === null || lon === null) return null;
+
+  return { lat, lon };
+}
+
+function pointFromArea(area) {
+  const centre = area?.centre;
+
+  if (Array.isArray(centre) && centre.length >= 2) {
+    const lat = finiteNumber(centre[0]);
+    const lon = finiteNumber(centre[1]);
+
+    if (lat !== null && lon !== null) {
+      return { lat, lon };
+    }
+  }
+
+  const bounds = area?.bounds;
+
+  if (Array.isArray(bounds) && bounds.length >= 2) {
+    const lat1 = finiteNumber(bounds[0]?.[0]);
+    const lon1 = finiteNumber(bounds[0]?.[1]);
+    const lat2 = finiteNumber(bounds[1]?.[0]);
+    const lon2 = finiteNumber(bounds[1]?.[1]);
+
+    if (lat1 !== null && lon1 !== null && lat2 !== null && lon2 !== null) {
+      return {
+        lat: (lat1 + lat2) / 2,
+        lon: (lon1 + lon2) / 2,
+      };
+    }
+  }
+
+  return null;
+}
+
+function distanceKm(a, b) {
+  const radiusKm = 6371;
+  const toRad = degrees => degrees * Math.PI / 180;
+
+  const dLat = toRad(b.lat - a.lat);
+  const dLon = toRad(b.lon - a.lon);
+  const lat1 = toRad(a.lat);
+  const lat2 = toRad(b.lat);
+
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+
+  return 2 * radiusKm * Math.asin(Math.sqrt(h));
+}
+
+function confidenceForDistance(distance, layer) {
+  const thresholds = {
+    rainfall: [35, 75, 150],
+    hydrology: [20, 50, 100],
+    marine: [50, 120, 250],
+  }[layer] || [25, 75, 150];
+
+  if (!Number.isFinite(distance)) return "unknown";
+  if (distance <= thresholds[0]) return "local";
+  if (distance <= thresholds[1]) return "nearby";
+  if (distance <= thresholds[2]) return "regional";
+  return "distant";
+}
+
+function nearestRecord(records, predicate, focusPoint, layer) {
+  if (!focusPoint) return null;
+
+  const candidates = records
+    .filter(predicate)
+    .map(record => {
+      const point = pointFromRecord(record);
+      if (!point) return null;
+
+      const km = distanceKm(focusPoint, point);
+
+      return {
+        record,
+        distanceKm: km,
+        confidence: confidenceForDistance(km, layer),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.distanceKm - b.distanceKm || byNewestThenName(a.record, b.record));
+
+  return candidates[0] || null;
+}
+
+function rainfallStateForValue(value) {
+  if (value === null) return "missing";
+  if (value >= 5) return "heavy";
+  if (value >= 2) return "trigger";
+  if (value >= 0.2) return "wet";
+  return "dry";
+}
+
+function rainfallCountsFromNearest(value) {
+  const state = rainfallStateForValue(value);
+
+  return {
+    state,
+    wetStations: value !== null && value >= 0.2 ? 1 : 0,
+    triggerStations: value !== null && value >= 2 ? 1 : 0,
+    heavyStations: value !== null && value >= 5 ? 1 : 0,
+  };
 }
 
 export function summariseRainfall(records) {
@@ -113,28 +233,111 @@ export function summariseRainfall(records) {
   };
 }
 
-export function summariseEventPulse(records) {
-  const rainfall = summariseRainfall(records);
+export function summariseSpatialContext(records, area = null) {
+  const focusPoint = pointFromArea(area);
+
+  const rainfall = nearestRecord(
+    records,
+    record => record.type === "rainfall_observation" || record.source === "met_eireann_observations",
+    focusPoint,
+    "rainfall",
+  );
+
+  const hydrology = nearestRecord(
+    records,
+    record => record.type === "water_level" || record.source === "opw_waterlevel",
+    focusPoint,
+    "hydrology",
+  );
+
+  const marine = nearestRecord(
+    records,
+    record => record.type === "marine_observation" || record.source === "marine_institute_weather_buoys",
+    focusPoint,
+    "marine",
+  );
+
+  if (rainfall) {
+    rainfall.rainfall = rainValue(rainfall.record);
+  }
+
+  return {
+    focusPoint,
+    rainfall,
+    hydrology,
+    marine,
+  };
+}
+
+function summariseFocusRainfall(records, spatial) {
+  const national = summariseRainfall(records);
+
+  if (!spatial.rainfall) {
+    return national;
+  }
+
+  const value = spatial.rainfall.rainfall;
+  const counts = rainfallCountsFromNearest(value);
+  const name = spatial.rainfall.record.name || "nearest rainfall station";
+  const distance = formatKm(spatial.rainfall.distanceKm);
+  const confidence = spatial.rainfall.confidence;
+
+  let label = formatMm(value);
+  let text = `Nearest rainfall station: ${name}, ${distance} from focus centre (${confidence}).`;
+
+  if (counts.state === "heavy") {
+    label = `${formatMm(value)} heavy`;
+    text += " This is a strong event trigger.";
+  } else if (counts.state === "trigger") {
+    label = `${formatMm(value)} trigger`;
+    text += " This is a plausible mobilisation trigger.";
+  } else if (counts.state === "wet") {
+    label = `${formatMm(value)} light`;
+    text += " This is a weak/early event signal.";
+  } else if (counts.state === "dry") {
+    label = "Dry nearby";
+    text += " No rainfall trigger at the nearest station.";
+  }
+
+  return {
+    ...national,
+    ...counts,
+    label,
+    text,
+    max: value,
+    top: {
+      record: spatial.rainfall.record,
+      value,
+    },
+  };
+}
+
+export function summariseEventPulse(records, area = null) {
+  const spatial = summariseSpatialContext(records, area);
+  const rainfall = summariseFocusRainfall(records, spatial);
+
   const hydrologyRecords = records.filter(record => record.type === "water_level" || record.source === "opw_waterlevel");
   const marineRecords = records.filter(record => record.type === "marine_observation" || record.source === "marine_institute_weather_buoys");
   const nutrientRecords = records.filter(hasNutrientLikeParameter);
+
+  const hydrologyAvailable = Boolean(spatial.hydrology) || hydrologyRecords.length > 0;
 
   let event = "context_only";
   let label = "Context";
   let summary = "The active view has context, but no combined rainfall/hydrology event signal yet.";
   let action = "Use this as background context. Do not infer water-quality change from context alone.";
 
-  if (rainfall.heavyStations && hydrologyRecords.length) {
+  if (rainfall.heavyStations && hydrologyAvailable) {
     event = "high_mobilisation_watch";
     label = "High mobilisation watch";
-    summary = "Heavy rainfall and live hydrometric evidence are present. Mobilisation, runoff connectivity and dilution may all be active.";
+    summary = "Heavy rainfall and hydrometric evidence are present. Mobilisation, runoff connectivity and dilution may all be active.";
     action = "Prioritise event sampling and check nearby OPW hydrographs before interpreting chemistry.";
-  } else if (rainfall.triggerStations && hydrologyRecords.length) {
+  } else if (rainfall.triggerStations && hydrologyAvailable) {
     event = "mobilisation_watch";
     label = "Mobilisation watch";
-    summary = "Rainfall trigger and live hydrometric evidence are both present. This is a plausible sampling window.";
+    summary = "Rainfall trigger and hydrometric evidence are both present. This is a plausible sampling window.";
     action = "Look for rising stage, concentration response and travel-time mismatch before claiming source mobilisation.";
-  } else if (rainfall.wetStations && hydrologyRecords.length) {
+  } else if (rainfall.wetStations && hydrologyAvailable) {
     event = "sampling_opportunity";
     label = "Sampling opportunity";
     summary = "Light rainfall and hydrometric evidence are present. This may be an early or weak event window.";
@@ -142,14 +345,14 @@ export function summariseEventPulse(records) {
   } else if (rainfall.wetStations) {
     event = "rain_context_only";
     label = "Rain context";
-    summary = "Rainfall is present, but no local hydrometric evidence is visible in the focus view.";
+    summary = "Rainfall is present, but no hydrometric evidence is visible near the active focus.";
     action = "Treat rainfall as a driver proxy. Check whether the relevant OPW station lies outside this focus area.";
-  } else if (rainfall.records && hydrologyRecords.length) {
+  } else if (rainfall.records && hydrologyAvailable) {
     event = "dry_baseline";
     label = "Dry baseline";
-    summary = "Rainfall stations are mostly dry while hydrometric records are present. This is closer to a baseline/movement-only view.";
+    summary = "Nearby rainfall is dry while hydrometric records are present. This is closer to a baseline/movement-only view.";
     action = "Useful for baseline contrast; event-load claims need wet-period chemistry.";
-  } else if (hydrologyRecords.length) {
+  } else if (hydrologyAvailable) {
     event = "flow_only";
     label = "Flow-only";
     summary = "Hydrometric evidence is present, but rainfall context is missing or outside the focus view.";
@@ -158,7 +361,13 @@ export function summariseEventPulse(records) {
 
   const signalCards = [];
 
-  if (rainfall.top) {
+  if (spatial.rainfall) {
+    signalCards.push({
+      level: rainfall.state === "dry" ? "rain dry proximity" : "rain proximity",
+      title: spatial.rainfall.record.name || "Nearest rainfall station",
+      body: `Rainfall: ${formatMm(spatial.rainfall.rainfall)} · ${formatKm(spatial.rainfall.distanceKm)} from focus centre · ${spatial.rainfall.confidence} confidence.`,
+    });
+  } else if (rainfall.top) {
     signalCards.push({
       level: rainfall.state === "dry" ? "rain dry" : "rain",
       title: rainfall.top.record.name || "Rainfall observation",
@@ -166,7 +375,13 @@ export function summariseEventPulse(records) {
     });
   }
 
-  if (hydrologyRecords.length) {
+  if (spatial.hydrology) {
+    signalCards.push({
+      level: "flow proximity",
+      title: spatial.hydrology.record.name || "Nearest OPW hydrometric station",
+      body: `${formatKm(spatial.hydrology.distanceKm)} from focus centre · ${spatial.hydrology.confidence} confidence. Hydrology is movement evidence, not chemistry.`,
+    });
+  } else if (hydrologyRecords.length) {
     const latestHydro = [...hydrologyRecords].sort(byNewestThenName)[0];
     signalCards.push({
       level: "flow",
@@ -175,7 +390,13 @@ export function summariseEventPulse(records) {
     });
   }
 
-  if (marineRecords.length) {
+  if (spatial.marine) {
+    signalCards.push({
+      level: "marine proximity",
+      title: spatial.marine.record.name || "Nearest Marine Institute buoy",
+      body: `${formatKm(spatial.marine.distanceKm)} from focus centre · ${spatial.marine.confidence} confidence. Marine data are coastal met-ocean context, not nutrient chemistry.`,
+    });
+  } else if (marineRecords.length) {
     const latestMarine = [...marineRecords].sort(byNewestThenName)[0];
     signalCards.push({
       level: "marine",
@@ -196,19 +417,24 @@ export function summariseEventPulse(records) {
     summary,
     action,
     rainfall,
+    spatial,
     hydrology: {
       count: hydrologyRecords.length,
-      label: hydrologyRecords.length.toLocaleString("en-IE"),
-      text: hydrologyRecords.length
-        ? "Live OPW hydrometric evidence is available for movement/context."
-        : "No OPW hydrometric record is visible in this focus view.",
+      label: spatial.hydrology ? `${formatKm(spatial.hydrology.distanceKm)}` : hydrologyRecords.length.toLocaleString("en-IE"),
+      text: spatial.hydrology
+        ? `Nearest OPW hydrometric record is ${spatial.hydrology.confidence} to this focus centre.`
+        : hydrologyRecords.length
+          ? "Live OPW hydrometric evidence is available for movement/context."
+          : "No OPW hydrometric record is visible in this focus view.",
     },
     marine: {
       count: marineRecords.length,
-      label: marineRecords.length.toLocaleString("en-IE"),
-      text: marineRecords.length
-        ? "Near-live Marine Institute buoy context is available."
-        : "No Marine Institute buoy context is visible in this focus view.",
+      label: spatial.marine ? `${formatKm(spatial.marine.distanceKm)}` : marineRecords.length.toLocaleString("en-IE"),
+      text: spatial.marine
+        ? `Nearest Marine Institute buoy is ${spatial.marine.confidence} to this focus centre.`
+        : marineRecords.length
+          ? "Near-live Marine Institute buoy context is available."
+          : "No Marine Institute buoy context is visible in this focus view.",
     },
     nutrients: {
       count: nutrientRecords.length,

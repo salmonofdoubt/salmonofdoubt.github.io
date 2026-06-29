@@ -1206,3 +1206,23 @@ canvas {
   border-color: rgba(250, 204, 21, 0.48);
   background: linear-gradient(180deg, rgba(161, 98, 7, 0.20), rgba(1, 12, 11, 0.50));
 }
+
+
+/* WQ spatial Event Pulse confidence v0.4.1 */
+.pulse-signal.proximity {
+  position: relative;
+}
+
+.pulse-signal.proximity::before {
+  content: "nearest";
+  display: inline-flex;
+  margin-bottom: 0.35rem;
+  border: 1px solid rgba(236, 255, 251, 0.22);
+  border-radius: 999px;
+  padding: 0.12rem 0.42rem;
+  color: var(--accent-2);
+  font-size: 0.64rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
