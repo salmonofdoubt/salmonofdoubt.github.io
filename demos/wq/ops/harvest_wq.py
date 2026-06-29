@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from wq_pipeline.core.records import as_float
+from wq_pipeline.core.payload import payload_health
 
 from wq_pipeline.adapters.opw_waterlevel import harvest_opw as harvest_opw_adapter
 from wq_pipeline.adapters.epa_bathing import harvest_bathing as harvest_bathing_adapter
@@ -152,17 +153,38 @@ def write_json(path: Path, payload: Any) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", default=str(DATA_DIR / "latest.json"))
+    parser.add_argument(
+        "--allow-degraded",
+        action="store_true",
+        help="Write the new payload even if health checks fail.",
+    )
     args = parser.parse_args()
 
+    output_path = Path(args.output)
     payload = build_payload()
-    write_json(Path(args.output), payload)
-    write_json(DATA_DIR / "source-status.json", {
-        "generated_at_utc": payload["generated_at_utc"],
-        "sources": payload["sources"]
-    })
+    health = payload_health(payload)
+    payload["harvest_health"] = health
 
-    print(f"Wrote {args.output}")
+    source_status_payload = {
+        "generated_at_utc": payload["generated_at_utc"],
+        "sources": payload["sources"],
+        "harvest_health": health,
+    }
+
+    should_write_latest = health["ok"] or args.allow_degraded or not output_path.exists()
+
+    if should_write_latest:
+        write_json(output_path, payload)
+        print(f"Wrote {output_path}")
+    else:
+        print(f"Rejected degraded WQ payload; preserved existing {output_path}")
+        for issue in health["issues"]:
+            print(f"- {issue}")
+
+    write_json(DATA_DIR / "source-status.json", source_status_payload)
+
     print(f"Records: {payload['summary']['records']}; mapped: {payload['summary']['mapped_records']}")
+    print(f"Harvest health: {health['status']}")
     return 0
 
 
