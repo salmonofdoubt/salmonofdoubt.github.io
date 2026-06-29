@@ -4,44 +4,19 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
-import math
-import time
-import urllib.parse
-import urllib.request
 from pathlib import Path
 from typing import Any
+
+from wq_pipeline.core.records import as_float
 
 from wq_pipeline.adapters.opw_waterlevel import harvest_opw as harvest_opw_adapter
 from wq_pipeline.adapters.epa_bathing import harvest_bathing as harvest_bathing_adapter
 from wq_pipeline.adapters.epa_wfd import harvest_wfd as harvest_wfd_adapter
+from wq_pipeline.adapters.context import planned_context_records as planned_context_records_adapter
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 
-OPW_LATEST = "https://waterlevel.ie/geojson/latest/"
-EPA_BW = "https://data.epa.ie/bw/api/v1"
-WFD_SEARCH = "https://wfdapi.edenireland.ie/api/search"
-
-KNOWN_LOCAL_COORDS = {
-    "baldoyle": (53.397, -6.136),
-    "baldoyle bay": (53.407, -6.132),
-    "howth": (53.388, -6.068),
-    "sutton": (53.390, -6.110),
-    "portmarnock": (53.424, -6.125),
-    "velvet strand": (53.424, -6.125),
-    "malahide": (53.450, -6.135),
-    "malahide estuary": (53.455, -6.155),
-    "nanny": (53.64, -6.23),
-    "river nanny": (53.64, -6.23),
-    "delvin": (53.61, -6.28),
-    "river delvin": (53.61, -6.28),
-    "balbriggan": (53.61, -6.18),
-    "gormanston": (53.64, -6.24),
-    "laytown": (53.68, -6.24),
-    "julianstown": (53.67, -6.30),
-    "duleek": (53.66, -6.42),
-    "naul": (53.59, -6.29)
-}
 
 SOURCE_DEFS = {
     "opw_waterlevel": {
@@ -113,182 +88,6 @@ def focus_keywords() -> list[str]:
     return deduped
 
 
-def fetch_json(url: str, timeout: int = 30) -> Any:
-    request = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "salmonofdoubt-wq/0.1.0 (+https://salmonofdoubt.github.io/demos/wq/)"
-        },
-    )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        data = response.read()
-    return json.loads(data.decode("utf-8"))
-
-
-def extract_items(payload: Any) -> list[Any]:
-    if isinstance(payload, list):
-        return payload
-
-    if isinstance(payload, dict):
-        for key in ("features", "data", "results", "items", "locations", "measurements", "alerts"):
-            value = payload.get(key)
-            if isinstance(value, list):
-                return value
-
-        if payload and all(isinstance(value, dict) for value in payload.values()):
-            return list(payload.values())
-
-    return []
-
-
-def fetch_paged(base_url: str, per_page: int = 1000, max_pages: int = 8) -> tuple[list[Any], str | None]:
-    all_items: list[Any] = []
-    last_error = None
-    seen_pages: set[str] = set()
-
-    for page in range(1, max_pages + 1):
-        separator = "&" if "?" in base_url else "?"
-        url = f"{base_url}{separator}page={page}&per_page={per_page}"
-
-        try:
-            payload = fetch_json(url)
-        except Exception as exc:
-            last_error = str(exc)
-            break
-
-        page_items = extract_items(payload)
-        fingerprint = json.dumps(page_items[:3], sort_keys=True, default=str)
-
-        if fingerprint in seen_pages:
-            break
-
-        seen_pages.add(fingerprint)
-
-        if not page_items:
-            break
-
-        all_items.extend(page_items)
-
-        if len(page_items) < per_page:
-            break
-
-        time.sleep(0.2)
-
-    return all_items, last_error
-
-
-def as_float(value: Any) -> float | None:
-    if value is None or value == "":
-        return None
-
-    try:
-        number = float(str(value).replace(",", "").strip())
-    except (TypeError, ValueError):
-        return None
-
-    if not math.isfinite(number):
-        return None
-
-    return number
-
-
-def safe_string(value: Any) -> str:
-    if value is None:
-        return ""
-    return str(value)
-
-
-def pick(record: dict[str, Any], names: list[str], default: Any = None) -> Any:
-    lower = {str(key).lower(): value for key, value in record.items()}
-
-    for name in names:
-        if name in record:
-            return record[name]
-        value = lower.get(name.lower())
-        if value is not None:
-            return value
-
-    return default
-
-
-def coordinate_from_record(record: dict[str, Any], name_hint: str = "") -> tuple[float | None, float | None]:
-    lat = as_float(pick(record, ["lat", "latitude", "y", "Latitude", "LATITUDE"]))
-    lon = as_float(pick(record, ["lon", "lng", "long", "longitude", "x", "Longitude", "LONGITUDE"]))
-
-    if lat is not None and lon is not None:
-        if -90 <= lat <= 90 and -180 <= lon <= 180:
-            return lat, lon
-
-    text = f"{name_hint} " + " ".join(str(value) for value in record.values() if isinstance(value, str))
-    text = text.lower()
-
-    for key, coords in KNOWN_LOCAL_COORDS.items():
-        if key in text:
-            return coords
-
-    return None, None
-
-
-def normalise_key(value: Any) -> str:
-    return "".join(ch if ch.isalnum() else "_" for ch in str(value or "").strip().lower()).strip("_")
-
-
-def text_contains_focus(value: Any, keywords: list[str]) -> bool:
-    text = json.dumps(value, ensure_ascii=False, default=str).lower()
-    return any(keyword.lower() in text for keyword in keywords)
-
-
-def make_source_status(source_id: str, status: str, records: int, fetched_at: str, error: str | None = None) -> dict[str, Any]:
-    base = dict(SOURCE_DEFS[source_id])
-    base.update({
-        "id": source_id,
-        "status": status,
-        "records": records,
-        "fetched_at_utc": fetched_at
-    })
-
-    if error:
-        base["error"] = error
-
-    return base
-
-
-def numeric_parameters(props: dict[str, Any]) -> list[dict[str, Any]]:
-    params: list[dict[str, Any]] = []
-    skip = {"lat", "latitude", "lon", "lng", "longitude", "x", "y", "station_ref", "station", "id"}
-
-    for key, value in props.items():
-        n = as_float(value)
-        if n is None:
-            continue
-
-        if normalise_key(key) in skip:
-            continue
-
-        label = str(key).replace("_", " ").strip()
-        unit = ""
-
-        low = label.lower()
-        if "temp" in low:
-            unit = "°C"
-        elif "level" in low or "waterlevel" in low or "water level" in low:
-            unit = "m"
-        elif "flow" in low or "discharge" in low:
-            unit = "m³/s"
-        elif "battery" in low:
-            unit = "V"
-
-        params.append({
-            "key": normalise_key(key),
-            "label": label,
-            "value": n,
-            "unit": unit,
-            "basis": "native source field"
-        })
-
-    return params[:8]
-
-
 def harvest_opw(now: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     return harvest_opw_adapter(now, source_defs=SOURCE_DEFS)
 
@@ -302,49 +101,7 @@ def harvest_wfd(now: str, keywords: list[str]) -> tuple[list[dict[str, Any]], di
 
 
 def planned_context_records(now: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    records = [
-        {
-            "id": "groundwater:geoportal-planned",
-            "source": "epa_geoportal_context",
-            "source_label": SOURCE_DEFS["epa_geoportal_context"]["name"],
-            "type": "groundwater_context",
-            "freshness": "historical",
-            "name": "Groundwater quality and monitoring stations",
-            "lat": 53.58,
-            "lon": -6.25,
-            "observed_at": None,
-            "generated_at": now,
-            "status": "planned join",
-            "description": "EPA Geoportal lists groundwater monitoring stations and groundwater quality Excel data. This will be joined as a historical/context layer.",
-            "url": "https://gis.epa.ie/GetData/Download",
-            "parameters": [],
-            "raw": {}
-        },
-        {
-            "id": "marine:erddap-planned",
-            "source": "marine_institute_context",
-            "source_label": SOURCE_DEFS["marine_institute_context"]["name"],
-            "type": "marine_context",
-            "freshness": "planned",
-            "name": "Marine shore indicators",
-            "lat": 53.39,
-            "lon": -6.08,
-            "observed_at": None,
-            "generated_at": now,
-            "status": "planned join",
-            "description": "Marine Institute ERDDAP datasets are planned for tide, sea temperature and coastal water context.",
-            "url": "https://erddap.marine.ie/erddap/index.html",
-            "parameters": [],
-            "raw": {}
-        }
-    ]
-
-    sources = [
-        make_source_status("epa_geoportal_context", "planned", 1, now),
-        make_source_status("marine_institute_context", "planned", 1, now)
-    ]
-
-    return records, sources
+    return planned_context_records_adapter(now, source_defs=SOURCE_DEFS)
 
 
 def build_payload() -> dict[str, Any]:
