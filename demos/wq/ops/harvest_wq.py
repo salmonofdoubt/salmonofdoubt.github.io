@@ -110,6 +110,142 @@ def harvest_marine_weather_buoys(now: str) -> tuple[list[dict[str, Any]], dict[s
     return harvest_marine_weather_buoys_adapter(now, source_defs=SOURCE_DEFS)
 
 
+
+
+def load_previous_payload(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+    return payload if isinstance(payload, dict) else {}
+
+
+def previous_record_generated_at(payload: dict[str, Any]) -> dict[str, str]:
+    cache: dict[str, str] = {}
+
+    for record in payload.get("records", []):
+        if not isinstance(record, dict):
+            continue
+
+        record_id = str(record.get("id") or "").strip()
+        generated_at = str(record.get("generated_at") or "").strip()
+
+        if record_id and generated_at:
+            cache[record_id] = generated_at
+
+    return cache
+
+
+def previous_record_order(payload: dict[str, Any]) -> dict[str, int]:
+    order: dict[str, int] = {}
+
+    for index, record in enumerate(payload.get("records", [])):
+        if not isinstance(record, dict):
+            continue
+
+        record_id = str(record.get("id") or "").strip()
+
+        if record_id and record_id not in order:
+            order[record_id] = index
+
+    return order
+
+
+def previous_source_order(payload: dict[str, Any]) -> dict[str, int]:
+    order: dict[str, int] = {}
+
+    for index, source in enumerate(payload.get("sources", [])):
+        if not isinstance(source, dict):
+            continue
+
+        source_id = str(source.get("id") or "").strip()
+
+        if source_id and source_id not in order:
+            order[source_id] = index
+
+    return order
+
+
+def normalise_payload_records(
+    records: list[dict[str, Any]],
+    *,
+    generated_at_cache: dict[str, str] | None = None,
+    order_cache: dict[str, int] | None = None,
+) -> list[dict[str, Any]]:
+    generated_at_cache = generated_at_cache or {}
+    order_cache = order_cache or {}
+
+    normalised: list[dict[str, Any]] = []
+
+    for record in records:
+        item = dict(record)
+        record_id = str(item.get("id") or "").strip()
+        observed_at = str(item.get("observed_at") or "").strip()
+
+        if record_id and generated_at_cache.get(record_id):
+            item["generated_at"] = generated_at_cache[record_id]
+        elif observed_at:
+            item["generated_at"] = observed_at
+
+        normalised.append(item)
+
+    def sort_key(record: dict[str, Any]) -> tuple[Any, ...]:
+        record_id = str(record.get("id") or "")
+
+        if record_id in order_cache:
+            return (0, order_cache[record_id])
+
+        return (
+            1,
+            str(record.get("source") or ""),
+            str(record.get("type") or ""),
+            record_id,
+            str(record.get("observed_at") or ""),
+            str(record.get("name") or ""),
+        )
+
+    return sorted(normalised, key=sort_key)
+
+
+def normalise_payload_sources(
+    sources: list[dict[str, Any]],
+    *,
+    order_cache: dict[str, int] | None = None,
+) -> list[dict[str, Any]]:
+    order_cache = order_cache or []
+
+    def sort_key(source: dict[str, Any]) -> tuple[Any, ...]:
+        source_id = str(source.get("id") or "")
+
+        if source_id in order_cache:
+            return (0, order_cache[source_id])
+
+        return (
+            1,
+            int(source.get("freshness_sort") or 999),
+            source_id,
+        )
+
+    return sorted((dict(source) for source in sources), key=sort_key)
+
+
+def refresh_payload_summary(payload: dict[str, Any]) -> None:
+    records = payload.get("records", [])
+    mapped = sum(
+        1
+        for record in records
+        if as_float(record.get("lat")) is not None and as_float(record.get("lon")) is not None
+    )
+
+    payload.setdefault("summary", {})
+    payload["summary"]["records"] = len(records)
+    payload["summary"]["mapped_records"] = mapped
+
+
 def build_payload() -> dict[str, Any]:
     now = utc_now()
     keywords = focus_keywords()
@@ -136,6 +272,8 @@ def build_payload() -> dict[str, Any]:
     records.extend(marine_records)
     sources.append(marine_source)
 
+    records = normalise_payload_records(records)
+    sources = normalise_payload_sources(sources)
     mapped = sum(1 for record in records if as_float(record.get("lat")) is not None and as_float(record.get("lon")) is not None)
 
     return {
@@ -180,6 +318,19 @@ def main() -> int:
 
     output_path = Path(args.output)
     payload = build_payload()
+
+    previous_payload = load_previous_payload(output_path)
+    payload["records"] = normalise_payload_records(
+        payload["records"],
+        generated_at_cache=previous_record_generated_at(previous_payload),
+        order_cache=previous_record_order(previous_payload),
+    )
+    payload["sources"] = normalise_payload_sources(
+        payload["sources"],
+        order_cache=previous_source_order(previous_payload),
+    )
+    refresh_payload_summary(payload)
+
     health = payload_health(payload)
     payload["harvest_health"] = health
 
