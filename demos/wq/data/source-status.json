@@ -1,79 +1,146 @@
 {
-  "generated_at_utc": "2026-06-29T14:19:58Z",
+  "generated_at_utc": "2026-06-29T17:17:22Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
       "freshness_class": "live",
       "licence": "CC BY 4.0",
       "caveat": "Latest hydrometric readings are provisional, can lag by station and should not be used as emergency advice.",
+      "freshness_label": "Live signal",
+      "freshness_description": "Latest automated sensor or hydrometric readings.",
+      "freshness_sort": 10,
+      "signal_layer": "live_signal",
+      "source_group": "hydrology",
+      "is_live_signal": true,
+      "display_hint": "Live hydrological pulse; not a chemistry sensor.",
       "id": "opw_waterlevel",
       "status": "ok",
       "records": 2000,
-      "fetched_at_utc": "2026-06-29T14:19:58Z",
-      "elapsed_ms": 2052
+      "fetched_at_utc": "2026-06-29T17:17:22Z",
+      "elapsed_ms": 1552
     },
     {
       "name": "EPA Bathing Water locations",
       "freshness_class": "seasonal",
       "licence": "CC BY 4.0",
       "caveat": "Location and annual classification data are generally seasonal or annual.",
+      "freshness_label": "Seasonal official data",
+      "freshness_description": "Seasonal or annual official monitoring information.",
+      "freshness_sort": 40,
+      "signal_layer": "official_context",
+      "source_group": "public_health",
+      "is_live_signal": false,
+      "display_hint": "Seasonal location/profile/classification context.",
       "id": "epa_bathing_locations",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T14:19:58Z",
-      "elapsed_ms": 2370
+      "fetched_at_utc": "2026-06-29T17:17:22Z",
+      "elapsed_ms": 1704
     },
     {
       "name": "EPA Bathing Water measurements",
-      "freshness_class": "latest",
+      "freshness_class": "recent",
       "licence": "CC BY 4.0",
       "caveat": "Samples are latest official results, not continuous live sensors.",
+      "freshness_label": "Recent official observation",
+      "freshness_description": "Recent official sample or observation, not continuous live sensing.",
+      "freshness_sort": 30,
+      "signal_layer": "recent_observation",
+      "source_group": "public_health",
+      "is_live_signal": false,
+      "display_hint": "Latest official bathing sample, not continuous live sensing.",
       "id": "epa_bathing_measurements",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T14:19:58Z",
-      "elapsed_ms": 1777
+      "fetched_at_utc": "2026-06-29T17:17:22Z",
+      "elapsed_ms": 909
     },
     {
       "name": "EPA Bathing Water alerts",
-      "freshness_class": "current",
+      "freshness_class": "near_live",
       "licence": "CC BY 4.0",
       "caveat": "Alerts are current API records reported by local authorities to EPA.",
+      "freshness_label": "Near-live alert",
+      "freshness_description": "Current alert, restriction, or operational update.",
+      "freshness_sort": 20,
+      "signal_layer": "live_signal",
+      "source_group": "public_health",
+      "is_live_signal": true,
+      "display_hint": "Current bathing-water alert or restriction.",
       "id": "epa_bathing_alerts",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T14:19:58Z",
-      "elapsed_ms": 730
+      "fetched_at_utc": "2026-06-29T17:17:22Z",
+      "elapsed_ms": 583
     },
     {
       "name": "EPA WFD Open Data context",
       "freshness_class": "context",
       "licence": "CC BY 4.0",
       "caveat": "WFD data describe catchment and waterbody status/context, not live water chemistry.",
+      "freshness_label": "WFD/context layer",
+      "freshness_description": "Assessment or regulatory context, not real-time water quality.",
+      "freshness_sort": 60,
+      "signal_layer": "wfd_context",
+      "source_group": "regulatory_context",
+      "is_live_signal": false,
+      "display_hint": "WFD assessment context; not real-time water quality.",
       "id": "epa_wfd",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T14:19:58Z"
+      "fetched_at_utc": "2026-06-29T17:17:22Z",
+      "elapsed_ms": 10160
     },
     {
       "name": "EPA Geoportal water quality datasets",
       "freshness_class": "historical",
       "licence": "CC BY 4.0",
       "caveat": "Groundwater, coastal, transitional and Q-value datasets are planned historical/context joins.",
+      "freshness_label": "Historical context",
+      "freshness_description": "Historical dataset or archived monitoring context.",
+      "freshness_sort": 50,
+      "signal_layer": "historical_context",
+      "source_group": "regulatory_context",
+      "is_live_signal": false,
+      "display_hint": "Historical/context data layer.",
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-06-29T14:19:58Z"
+      "fetched_at_utc": "2026-06-29T17:17:22Z"
     },
     {
       "name": "Marine Institute ERDDAP context",
       "freshness_class": "planned",
       "licence": "check source dataset",
       "caveat": "Marine shore indicators are planned once stable datasets and variable names are selected.",
+      "freshness_label": "Planned source",
+      "freshness_description": "Source identified for future integration.",
+      "freshness_sort": 70,
+      "signal_layer": "planned_near_live",
+      "source_group": "marine",
+      "is_live_signal": false,
+      "display_hint": "Planned marine/near-live integration.",
       "id": "marine_institute_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-06-29T14:19:58Z"
+      "fetched_at_utc": "2026-06-29T17:17:22Z"
     }
-  ]
+  ],
+  "harvest_health": {
+    "ok": true,
+    "status": "ok",
+    "issues": [],
+    "record_count": 2002,
+    "source_count": 7,
+    "records_by_source": {
+      "opw_waterlevel": 2000,
+      "epa_geoportal_context": 1,
+      "marine_institute_context": 1
+    },
+    "minimums": {
+      "records": 100,
+      "opw_records": 1000,
+      "sources": 7
+    }
+  }
 }
