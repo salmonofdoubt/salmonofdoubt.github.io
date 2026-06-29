@@ -32,29 +32,11 @@ def planned_context_records(now: str, *, source_defs: dict[str, dict[str, Any]])
             "url": "https://gis.epa.ie/GetData/Download",
             "parameters": [],
             "raw": {}
-        },
-        {
-            "id": "marine:erddap-planned",
-            "source": "marine_institute_context",
-            "source_label": source_defs["marine_institute_context"]["name"],
-            "type": "marine_context",
-            "freshness": "planned",
-            "name": "Marine shore indicators",
-            "lat": 53.39,
-            "lon": -6.08,
-            "observed_at": None,
-            "generated_at": now,
-            "status": "planned join",
-            "description": "Marine Institute ERDDAP datasets are planned for tide, sea temperature and coastal water context.",
-            "url": "https://erddap.marine.ie/erddap/index.html",
-            "parameters": [],
-            "raw": {}
         }
     ]
 
     sources = [
-        make_source_status("epa_geoportal_context", "planned", 1, now),
-        make_source_status("marine_institute_context", "planned", 1, now)
+        make_source_status("epa_geoportal_context", "planned", 1, now)
     ]
 
     return records, sources

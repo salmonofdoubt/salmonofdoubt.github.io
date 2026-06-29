@@ -24,4 +24,8 @@ assert.equal(isLiveSignalSource({ id: "epa_wfd" }), false);
 assert.equal(sourceFreshness({ id: "epa_bathing_alerts" }), "near_live");
 assert.equal(isLiveSignalSource({ id: "epa_bathing_alerts" }), true);
 
+assert.equal(sourceFreshness({ id: "marine_institute_weather_buoys" }), "near_live");
+assert.equal(sourceSignalLayer({ id: "marine_institute_weather_buoys" }), "live_signal");
+assert.equal(isLiveSignalSource({ id: "marine_institute_weather_buoys" }), true);
+
 console.log("WQ freshness taxonomy tests passed.");

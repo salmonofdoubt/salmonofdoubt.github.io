@@ -85,12 +85,12 @@ SOURCE_TAXONOMY: dict[str, dict[str, Any]] = {
         "is_live_signal": False,
         "display_hint": "Historical/context data layer.",
     },
-    "marine_institute_context": {
-        "freshness_class": "planned",
-        "signal_layer": "planned_near_live",
+    "marine_institute_weather_buoys": {
+        "freshness_class": "near_live",
+        "signal_layer": "live_signal",
         "source_group": "marine",
-        "is_live_signal": False,
-        "display_hint": "Planned marine/near-live integration.",
+        "is_live_signal": True,
+        "display_hint": "Near-real-time coastal met-ocean signal; not nutrient chemistry.",
     },
 }
 

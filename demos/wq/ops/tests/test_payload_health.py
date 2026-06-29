@@ -18,7 +18,7 @@ def payload(opw_status="ok", opw_records=2000, include_opw=True, total_records=2
         "epa_bathing_alerts",
         "epa_wfd",
         "epa_geoportal_context",
-        "marine_institute_context",
+        "marine_institute_weather_buoys",
     ][:source_count]
 
     sources = []

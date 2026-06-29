@@ -8,6 +8,7 @@ export const TYPE_LABELS = {
   wfd_context: "WFD context",
   groundwater_context: "Groundwater context",
   marine_context: "Marine shore context",
+  marine_observation: "Marine buoy observation",
   chemistry_sample: "Chemistry sample"
 };
 
@@ -19,5 +20,6 @@ export const TYPE_STYLE = {
   wfd_context: { radius: 6, color: "#c084fc", fillColor: "#7e22ce" },
   groundwater_context: { radius: 6, color: "#fde68a", fillColor: "#a16207" },
   marine_context: { radius: 6, color: "#93c5fd", fillColor: "#1d4ed8" },
+  marine_observation: { radius: 7, color: "#38bdf8", fillColor: "#0369a1" },
   chemistry_sample: { radius: 8, color: "#fde68a", fillColor: "#ca8a04" }
 };

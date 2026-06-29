@@ -14,6 +14,7 @@ from wq_pipeline.adapters.opw_waterlevel import harvest_opw as harvest_opw_adapt
 from wq_pipeline.adapters.epa_bathing import harvest_bathing as harvest_bathing_adapter
 from wq_pipeline.adapters.epa_wfd import harvest_wfd as harvest_wfd_adapter
 from wq_pipeline.adapters.context import planned_context_records as planned_context_records_adapter
+from wq_pipeline.adapters.marine_erddap import harvest_marine_weather_buoys as harvest_marine_weather_buoys_adapter
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -56,11 +57,11 @@ SOURCE_DEFS = {
         "licence": "CC BY 4.0",
         "caveat": "Groundwater, coastal, transitional and Q-value datasets are planned historical/context joins."
     },
-    "marine_institute_context": {
-        "name": "Marine Institute ERDDAP context",
-        "freshness_class": "planned",
+    "marine_institute_weather_buoys": {
+        "name": "Marine Institute Irish Weather Buoy Network",
+        "freshness_class": "near_live",
         "licence": "check source dataset",
-        "caveat": "Marine shore indicators are planned once stable datasets and variable names are selected."
+        "caveat": "Near-real-time met-ocean observations from ERDDAP; useful for coastal context, not nutrient chemistry."
     }
 }
 
@@ -105,6 +106,10 @@ def planned_context_records(now: str) -> tuple[list[dict[str, Any]], list[dict[s
     return planned_context_records_adapter(now, source_defs=SOURCE_DEFS)
 
 
+def harvest_marine_weather_buoys(now: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    return harvest_marine_weather_buoys_adapter(now, source_defs=SOURCE_DEFS)
+
+
 def build_payload() -> dict[str, Any]:
     now = utc_now()
     keywords = focus_keywords()
@@ -126,6 +131,10 @@ def build_payload() -> dict[str, Any]:
     planned_records, planned_sources = planned_context_records(now)
     records.extend(planned_records)
     sources.extend(planned_sources)
+
+    marine_records, marine_source = harvest_marine_weather_buoys(now)
+    records.extend(marine_records)
+    sources.append(marine_source)
 
     mapped = sum(1 for record in records if as_float(record.get("lat")) is not None and as_float(record.get("lon")) is not None)
 

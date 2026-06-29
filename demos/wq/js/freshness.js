@@ -79,12 +79,12 @@ export const SOURCE_TAXONOMY = {
     isLiveSignal: false,
     displayHint: "Historical/context data layer.",
   },
-  marine_institute_context: {
-    freshnessClass: "planned",
-    signalLayer: "planned_near_live",
+  marine_institute_weather_buoys: {
+    freshnessClass: "near_live",
+    signalLayer: "live_signal",
     sourceGroup: "marine",
-    isLiveSignal: false,
-    displayHint: "Planned marine/near-live integration.",
+    isLiveSignal: true,
+    displayHint: "Near-real-time coastal met-ocean signal; not nutrient chemistry.",
   },
 };
 

@@ -15,7 +15,7 @@ REQUIRED_SOURCE_IDS = (
     "epa_bathing_alerts",
     "epa_wfd",
     "epa_geoportal_context",
-    "marine_institute_context",
+    "marine_institute_weather_buoys",
 )
 
 
