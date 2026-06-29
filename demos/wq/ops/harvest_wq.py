@@ -13,6 +13,7 @@ from typing import Any
 
 from wq_pipeline.adapters.opw_waterlevel import harvest_opw as harvest_opw_adapter
 from wq_pipeline.adapters.epa_bathing import harvest_bathing as harvest_bathing_adapter
+from wq_pipeline.adapters.epa_wfd import harvest_wfd as harvest_wfd_adapter
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -297,66 +298,7 @@ def harvest_bathing(now: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]
 
 
 def harvest_wfd(now: str, keywords: list[str]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    records: list[dict[str, Any]] = []
-    errors: list[str] = []
-
-    for keyword in keywords:
-        query = urllib.parse.urlencode({"v": keyword, "size": 8})
-        url = f"{WFD_SEARCH}?{query}"
-
-        try:
-            payload = fetch_json(url)
-            items = extract_items(payload)
-        except Exception as exc:
-            errors.append(f"{keyword}: {exc}")
-            continue
-
-        for idx, item in enumerate(items):
-            if not isinstance(item, dict):
-                continue
-
-            if not text_contains_focus(item, keywords):
-                continue
-
-            name = safe_string(pick(item, ["name", "Name", "label", "title"], keyword))
-            code = safe_string(pick(item, ["code", "Code", "id", "waterbodyCode"], f"{keyword}_{idx}"))
-            lat, lon = coordinate_from_record(item, name)
-
-            records.append({
-                "id": f"wfd:{code}",
-                "source": "epa_wfd",
-                "source_label": SOURCE_DEFS["epa_wfd"]["name"],
-                "type": "wfd_context",
-                "freshness": "context",
-                "name": name,
-                "lat": lat,
-                "lon": lon,
-                "observed_at": None,
-                "generated_at": now,
-                "status": safe_string(pick(item, ["status", "risk", "category", "type"], "context")),
-                "description": "WFD search result connected to the configured focus keyword set.",
-                "url": "https://www.catchments.ie/",
-                "parameters": [],
-                "raw": item
-            })
-
-        time.sleep(0.15)
-
-    deduped = []
-    seen = set()
-    for record in records:
-        if record["id"] in seen:
-            continue
-        seen.add(record["id"])
-        deduped.append(record)
-
-    return deduped, make_source_status(
-        "epa_wfd",
-        "partial" if errors else "ok",
-        len(deduped),
-        now,
-        "; ".join(errors[:3]) if errors else None
-    )
+    return harvest_wfd_adapter(now, keywords, source_defs=SOURCE_DEFS)
 
 
 def planned_context_records(now: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
