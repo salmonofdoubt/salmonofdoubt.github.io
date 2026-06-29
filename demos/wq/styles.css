@@ -1184,3 +1184,25 @@ canvas {
     flex-direction: column;
   }
 }
+
+
+/* WQ Event Pulse interpretation v0.4.0 */
+.pulse-signal.rain {
+  border-color: rgba(96, 165, 250, 0.52);
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.20), rgba(1, 12, 11, 0.50));
+}
+
+.pulse-signal.rain.dry {
+  border-color: rgba(148, 163, 184, 0.40);
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.pulse-signal.marine {
+  border-color: rgba(56, 189, 248, 0.50);
+  background: linear-gradient(180deg, rgba(3, 105, 161, 0.20), rgba(1, 12, 11, 0.50));
+}
+
+.pulse-signal.action {
+  border-color: rgba(250, 204, 21, 0.48);
+  background: linear-gradient(180deg, rgba(161, 98, 7, 0.20), rgba(1, 12, 11, 0.50));
+}

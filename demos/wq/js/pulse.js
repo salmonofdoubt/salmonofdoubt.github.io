@@ -1,6 +1,7 @@
 import { TYPE_LABELS } from "./config.js";
 import { prettyNumber, safeText } from "./format.js";
 import { activeFocusArea, hasCoordinates, recordWithinArea } from "./records.js";
+import { summariseEventPulse } from "./pulseEngine.js";
 
 const NUTRIENT_PATTERN = /(phosphate|po4|orthophosphate|phosphorus|nitrate|no3|nitrite|no2|ammonium|nh4|ton|nitrogen)/i;
 const IGNORE_PARAMETER_PATTERN = /(sensor|region|err|error|station_ref|station ref|objectid|id$|code$)/i;
@@ -189,8 +190,24 @@ function topSignals(state) {
   return signals.slice(0, 10);
 }
 
-function evidenceGaps(state) {
+function evidenceGaps(state, eventPulse) {
   const gaps = [];
+
+  if (eventPulse.event === "high_mobilisation_watch" || eventPulse.event === "mobilisation_watch") {
+    if (!state.nutrients.length) {
+      gaps.push({
+        title: "Event signal without chemistry",
+        body: "Rainfall and hydrometry suggest a live pulse, but there is no concentration evidence yet. This is a sampling opportunity, not proof of nutrient mobilisation."
+      });
+    }
+  }
+
+  if (eventPulse.rainfall.state === "missing") {
+    gaps.push({
+      title: "Rainfall driver missing",
+      body: "The pulse interpretation cannot test event response properly without near-live rainfall context."
+    });
+  }
 
   if (!state.nutrients.length) {
     gaps.push({
@@ -251,6 +268,7 @@ export function renderPulse(elements, state) {
   const scoped = localRecords(records, focusAreas, state.focusAreaId);
   const mapped = scoped.filter(hasCoordinates);
   const evidence = evidenceState(scoped);
+  const eventPulse = summariseEventPulse(scoped);
   const [source, sourceCount] = dominantSource(scoped);
 
   const typeSummary = Object.entries(countBy(scoped, "type"))
@@ -260,10 +278,10 @@ export function renderPulse(elements, state) {
     .join("; ");
 
   elements.pulseHeroGrid.innerHTML = [
-    metricCard("Pulse state", evidence.label, evidence.text),
-    metricCard("Focus records", scoped.length.toLocaleString("en-IE"), `${mapped.length.toLocaleString("en-IE")} mapped in or associated with the active focus area.`),
-    metricCard("Nutrient records", evidence.nutrients.length.toLocaleString("en-IE"), "Phosphorus or nitrogen-like concentration evidence currently detected."),
-    metricCard("Dominant source", sourceLabel(source), `${sourceDetail(source)} · ${sourceCount.toLocaleString("en-IE")} records.`)
+    metricCard("Event pulse", eventPulse.label, eventPulse.summary),
+    metricCard("Rainfall trigger", eventPulse.rainfall.label, eventPulse.rainfall.text),
+    metricCard("OPW hydrology", eventPulse.hydrology.label, eventPulse.hydrology.text),
+    metricCard("Chemistry evidence", eventPulse.nutrients.label, eventPulse.nutrients.text)
   ].join("");
 
   elements.pulseStory.innerHTML = `
@@ -274,21 +292,26 @@ export function renderPulse(elements, state) {
     </p>
 
     <p>
-      Current interpretation: <strong>${evidence.label}</strong>. ${evidence.text}
+      Event interpretation: <strong>${eventPulse.label}</strong>. ${eventPulse.summary}
     </p>
 
     <p>
-      The app should connect <strong>source → pathway → event → concentration → ecological or public-health meaning</strong>.
-      Right now this focus area is mostly a movement/context view. To become nutrient-flow intelligence,
-      it needs concentration joins and event context.
+      Evidence interpretation: <strong>${evidence.label}</strong>. ${evidence.text}
+      Dominant source: <strong>${sourceLabel(source)}</strong> (${sourceDetail(source)} · ${sourceCount.toLocaleString("en-IE")} records).
+    </p>
+
+    <p>
+      The app connects <strong>source → pathway → event → concentration → ecological or public-health meaning</strong>.
+      Rainfall and hydrology can identify a plausible pulse window, but chemistry is still required before making
+      nutrient-load claims.
     </p>
   `;
 
-  const signals = topSignals(evidence);
+  const signals = [...eventPulse.signalCards, ...topSignals(evidence)].slice(0, 10);
   elements.pulseSignals.innerHTML = signals.length
     ? signals.map(signal => smallCard(`pulse-signal ${signal.level}`, signal.title, signal.body)).join("")
     : smallCard("pulse-signal", "No focused signals yet", "The active focus area has no high-salience records under the current data contract.");
 
-  const gaps = evidenceGaps(evidence);
+  const gaps = evidenceGaps(evidence, eventPulse);
   elements.pulseGaps.innerHTML = gaps.map(gap => smallCard("pulse-gap", gap.title, gap.body)).join("");
 }

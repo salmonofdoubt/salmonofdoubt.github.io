@@ -24,6 +24,7 @@ const CORE_ASSETS = [
   "./js/panels.js",
   "./js/pwa.js",
   "./js/pulse.js",
+  "./js/pulseEngine.js",
   "./js/records.js",
   "./js/thresholds.js",
   "./js/units.js",
