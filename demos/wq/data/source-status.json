@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-06-29T17:17:22Z",
+  "generated_at_utc": "2026-06-29T17:28:13Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
@@ -16,8 +16,8 @@
       "id": "opw_waterlevel",
       "status": "ok",
       "records": 2000,
-      "fetched_at_utc": "2026-06-29T17:17:22Z",
-      "elapsed_ms": 1552
+      "fetched_at_utc": "2026-06-29T17:28:13Z",
+      "elapsed_ms": 651
     },
     {
       "name": "EPA Bathing Water locations",
@@ -34,8 +34,8 @@
       "id": "epa_bathing_locations",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T17:17:22Z",
-      "elapsed_ms": 1704
+      "fetched_at_utc": "2026-06-29T17:28:13Z",
+      "elapsed_ms": 765
     },
     {
       "name": "EPA Bathing Water measurements",
@@ -52,8 +52,8 @@
       "id": "epa_bathing_measurements",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T17:17:22Z",
-      "elapsed_ms": 909
+      "fetched_at_utc": "2026-06-29T17:28:13Z",
+      "elapsed_ms": 292
     },
     {
       "name": "EPA Bathing Water alerts",
@@ -70,8 +70,8 @@
       "id": "epa_bathing_alerts",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T17:17:22Z",
-      "elapsed_ms": 583
+      "fetched_at_utc": "2026-06-29T17:28:13Z",
+      "elapsed_ms": 113
     },
     {
       "name": "EPA WFD Open Data context",
@@ -88,8 +88,8 @@
       "id": "epa_wfd",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-29T17:17:22Z",
-      "elapsed_ms": 10160
+      "fetched_at_utc": "2026-06-29T17:28:13Z",
+      "elapsed_ms": 3016
     },
     {
       "name": "EPA Geoportal water quality datasets",
@@ -106,36 +106,37 @@
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-06-29T17:17:22Z"
+      "fetched_at_utc": "2026-06-29T17:28:13Z"
     },
     {
-      "name": "Marine Institute ERDDAP context",
-      "freshness_class": "planned",
+      "name": "Marine Institute Irish Weather Buoy Network",
+      "freshness_class": "near_live",
       "licence": "check source dataset",
-      "caveat": "Marine shore indicators are planned once stable datasets and variable names are selected.",
-      "freshness_label": "Planned source",
-      "freshness_description": "Source identified for future integration.",
-      "freshness_sort": 70,
-      "signal_layer": "planned_near_live",
+      "caveat": "Near-real-time met-ocean observations from ERDDAP; useful for coastal context, not nutrient chemistry.",
+      "freshness_label": "Near-live alert",
+      "freshness_description": "Current alert, restriction, or operational update.",
+      "freshness_sort": 20,
+      "signal_layer": "live_signal",
       "source_group": "marine",
-      "is_live_signal": false,
-      "display_hint": "Planned marine/near-live integration.",
-      "id": "marine_institute_context",
-      "status": "planned",
-      "records": 1,
-      "fetched_at_utc": "2026-06-29T17:17:22Z"
+      "is_live_signal": true,
+      "display_hint": "Near-real-time coastal met-ocean signal; not nutrient chemistry.",
+      "id": "marine_institute_weather_buoys",
+      "status": "ok",
+      "records": 4,
+      "fetched_at_utc": "2026-06-29T17:28:13Z",
+      "elapsed_ms": 259
     }
   ],
   "harvest_health": {
     "ok": true,
     "status": "ok",
     "issues": [],
-    "record_count": 2002,
+    "record_count": 2005,
     "source_count": 7,
     "records_by_source": {
       "opw_waterlevel": 2000,
       "epa_geoportal_context": 1,
-      "marine_institute_context": 1
+      "marine_institute_weather_buoys": 4
     },
     "minimums": {
       "records": 100,
