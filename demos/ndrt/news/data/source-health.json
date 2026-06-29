@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-06-28T08:30:39.601276+00:00",
-  "latest_generated_at": "2026-06-28T08:30:00.902391+00:00",
+  "generated_at": "2026-06-29T10:00:09.958064+00:00",
+  "latest_generated_at": "2026-06-29T09:59:59.617890+00:00",
   "total_items": 95,
   "total_sources": 30,
   "sources_active": 18,
-  "sources_checked_no_current_items": 10,
-  "sources_failed": 2,
+  "sources_checked_no_current_items": 11,
+  "sources_failed": 1,
   "items_by_section": {
-    "waterbody-evidence-alerts": 36,
-    "ireland-catchment-practice": 9,
-    "grants-opportunities": 14,
+    "waterbody-evidence-alerts": 30,
+    "ireland-catchment-practice": 11,
+    "grants-opportunities": 18,
     "research-papers": 36
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 18,
+    "opportunity_fit": 21,
     "research_use_type": 53
   },
-  "archive_snapshots": 27,
+  "archive_snapshots": 28,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -29,11 +29,11 @@
       "scope": "nanny-delvin local",
       "url": "https://news.google.com/rss/search?q=%28%22Nanny%20Delvin%22%20OR%20%22Nanny-Delvin%22%20OR%20%22River%20Nanny%22%20OR%20%22River%20Delvin%22%20OR%20%22Nanny%20estuary%22%20OR%20%22Delvin%20river%22%29%20%28water%20OR%20river%20OR%20catchment%20OR%20pollution%20OR%20biodiversity%20OR%20restoration%20OR%20flooding%20OR%20estuary%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 10,
-      "elapsed_ms": 277,
+      "current_item_count": 0,
+      "discovered_hint_count": 11,
+      "elapsed_ms": 44,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 58,
-      "elapsed_ms": 427,
+      "discovered_hint_count": 57,
+      "elapsed_ms": 60,
       "error": null
     },
     {
@@ -59,11 +59,11 @@
       "scope": "north fingal local",
       "url": "https://news.google.com/rss/search?q=%28Fingal%20OR%20Balbriggan%20OR%20Balrothery%20OR%20Ballyboghil%20OR%20Naul%20OR%20Garristown%20OR%20Oldtown%20OR%20Stamullen%29%20%28water%20quality%20OR%20river%20OR%20stream%20OR%20biodiversity%20OR%20pollution%20OR%20wetland%20OR%20flooding%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 417,
+      "current_item_count": 1,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -78,7 +78,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 74,
-      "elapsed_ms": 422,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 6,
       "discovered_hint_count": 100,
-      "elapsed_ms": 382,
+      "elapsed_ms": 79,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 31,
-      "elapsed_ms": 369,
+      "current_item_count": 2,
+      "discovered_hint_count": 78,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 60,
-      "elapsed_ms": 316,
+      "discovered_hint_count": 62,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -134,11 +134,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 45,
-      "elapsed_ms": 295,
+      "current_item_count": 0,
+      "discovered_hint_count": 46,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 362,
+      "discovered_hint_count": 74,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 87,
-      "elapsed_ms": 573,
+      "elapsed_ms": 486,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 107,
+      "elapsed_ms": 210,
       "error": null
     },
     {
@@ -194,11 +194,11 @@
       "scope": "ireland river ecology",
       "url": "https://news.google.com/rss/search?q=%28river%20ecology%20OR%20freshwater%20ecology%20OR%20aquatic%20ecology%20OR%20macroinvertebrates%20OR%20fish%20passage%20OR%20habitat%20restoration%29%20%28Ireland%20OR%20Irish%29%20%28river%20OR%20stream%20OR%20catchment%20OR%20water%20quality%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 1,
       "discovered_hint_count": 48,
-      "elapsed_ms": 477,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -209,11 +209,11 @@
       "scope": "ireland birds ecology",
       "url": "https://news.google.com/rss/search?q=%28wetland%20birds%20OR%20waterbirds%20OR%20waders%20OR%20shorebirds%20OR%20estuary%20birds%20OR%20wintering%20birds%29%20%28Ireland%20OR%20Irish%29%20%28estuary%20OR%20river%20OR%20lagoon%20OR%20wetland%20OR%20saltmarsh%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 73,
-      "elapsed_ms": 461,
+      "current_item_count": 0,
+      "discovered_hint_count": 74,
+      "elapsed_ms": 69,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 47,
-      "elapsed_ms": 315,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 55,
       "error": null
     },
     {
@@ -242,8 +242,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 8,
-      "elapsed_ms": 287,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 34,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 26,
-      "elapsed_ms": 290,
+      "elapsed_ms": 42,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 48,
-      "elapsed_ms": 349,
+      "elapsed_ms": 52,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 9,
+      "current_item_count": 10,
       "discovered_hint_count": 50,
-      "elapsed_ms": 287,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 47,
-      "elapsed_ms": 309,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -314,12 +314,12 @@
       "scope": "ireland institutional",
       "url": "https://www.catchments.ie/",
       "host": "www.catchments.ie",
-      "status": "failed",
-      "http_status": null,
-      "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 25352,
-      "error": "HTTPSConnectionPool(host='www.catchments.ie', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.catchments.ie', port=443) at 0x7fa742e3d110>, 'Connection to www.catchments.ie timed out. (c"
+      "status": "active",
+      "http_status": 200,
+      "current_item_count": 5,
+      "discovered_hint_count": 145,
+      "elapsed_ms": 1057,
+      "error": null
     },
     {
       "id": "lawpro",
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 110,
-      "elapsed_ms": 769,
+      "elapsed_ms": 812,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 227,
-      "elapsed_ms": 423,
+      "elapsed_ms": 386,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 718,
+      "elapsed_ms": 971,
       "error": null
     },
     {
@@ -376,9 +376,9 @@
       "host": "www.npws.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
+      "current_item_count": 2,
       "discovered_hint_count": 418,
-      "elapsed_ms": 1013,
+      "elapsed_ms": 1123,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 725,
+      "elapsed_ms": 550,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 36,
-      "elapsed_ms": 803,
+      "elapsed_ms": 1047,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 114,
+      "elapsed_ms": 137,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 93,
-      "elapsed_ms": 77,
+      "elapsed_ms": 72,
       "error": null
     },
     {
@@ -451,9 +451,9 @@
       "host": "theriverstrust.org",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 14,
+      "current_item_count": 13,
       "discovered_hint_count": 94,
-      "elapsed_ms": 775,
+      "elapsed_ms": 888,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 981,
+      "elapsed_ms": 1394,
       "error": null
     }
   ]
