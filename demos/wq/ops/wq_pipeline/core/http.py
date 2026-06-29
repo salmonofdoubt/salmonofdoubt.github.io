@@ -100,9 +100,11 @@ def fetch_paged_json(
     per_page: int = 1000,
     max_pages: int = 8,
     timeout: int = DEFAULT_TIMEOUT_SECONDS,
+    pause_seconds: float = 0.2,
 ) -> tuple[list[Any], str | None, list[FetchResult]]:
     items: list[Any] = []
     results: list[FetchResult] = []
+    seen_pages: set[str] = set()
 
     for page in range(1, max_pages + 1):
         url = page_url(base_url, page, per_page)
@@ -114,6 +116,12 @@ def fetch_paged_json(
 
         results.append(result)
         page_items = extract_items(result.payload)
+        fingerprint = json.dumps(page_items[:3], sort_keys=True, default=str)
+
+        if fingerprint in seen_pages:
+            break
+
+        seen_pages.add(fingerprint)
 
         if not page_items:
             break
@@ -122,5 +130,8 @@ def fetch_paged_json(
 
         if len(page_items) < per_page:
             break
+
+        if pause_seconds > 0:
+            time.sleep(pause_seconds)
 
     return items, None, results

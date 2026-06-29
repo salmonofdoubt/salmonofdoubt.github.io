@@ -71,3 +71,41 @@ def pick(mapping: dict[str, Any], keys: list[str], fallback: Any = None) -> Any:
 
 def missing_record_keys(record: dict[str, Any]) -> list[str]:
     return sorted(key for key in REQUIRED_RECORD_KEYS if key not in record)
+
+
+def numeric_parameters(props: dict[str, Any]) -> list[dict[str, Any]]:
+    params: list[dict[str, Any]] = []
+    skip = {"lat", "latitude", "lon", "lng", "longitude", "x", "y", "station_ref", "station", "id"}
+
+    for key, value in props.items():
+        number = as_float(value)
+
+        if number is None:
+            continue
+
+        if normalise_key(key) in skip:
+            continue
+
+        label = str(key).replace("_", " ").strip()
+        unit = ""
+
+        low = label.lower()
+
+        if "temp" in low:
+            unit = "°C"
+        elif "level" in low or "waterlevel" in low or "water level" in low:
+            unit = "m"
+        elif "flow" in low or "discharge" in low:
+            unit = "m³/s"
+        elif "battery" in low:
+            unit = "V"
+
+        params.append({
+            "key": normalise_key(key),
+            "label": label,
+            "value": number,
+            "unit": unit,
+            "basis": "native source field",
+        })
+
+    return params[:8]
