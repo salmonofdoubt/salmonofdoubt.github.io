@@ -45,10 +45,7 @@ export function sourceLookup(sources = []) {
 
   for (const source of sources || []) {
     const id = source?.id || source?.source;
-
-    if (id) {
-      lookup.set(id, source);
-    }
+    if (id) lookup.set(id, source);
   }
 
   return lookup;
@@ -56,7 +53,6 @@ export function sourceLookup(sources = []) {
 
 function lookupSource(record, sourcesOrLookup) {
   const sourceId = record?.source;
-
   if (!sourceId) return null;
 
   if (sourcesOrLookup instanceof Map) {
@@ -102,6 +98,7 @@ export function recordSourceProfile(record, sourcesOrLookup = []) {
   const signalLayer = sourceSignalLayer(profile);
   const freshness = sourceFreshness(profile);
   const officialWq = isOfficialWqRecord(record, source);
+
   const isLive =
     isLiveSignalSource(profile) ||
     signalLayer === "live_signal" ||
@@ -131,25 +128,11 @@ export function recordMatchesSourceScope(record, scope = "all", sourcesOrLookup 
 
   const profile = recordSourceProfile(record, sourcesOrLookup);
 
-  if (scope === "official_wq") {
-    return profile.isOfficialWq;
-  }
-
-  if (scope === "live_signal") {
-    return profile.isLive;
-  }
-
-  if (scope === "recent_observation") {
-    return profile.isRecent;
-  }
-
-  if (scope === "context") {
-    return profile.isContext;
-  }
-
-  if (scope === "local_import") {
-    return profile.isLocalImport;
-  }
+  if (scope === "official_wq") return profile.isOfficialWq;
+  if (scope === "live_signal") return profile.isLive;
+  if (scope === "recent_observation") return profile.isRecent;
+  if (scope === "context") return profile.isContext;
+  if (scope === "local_import") return profile.isLocalImport;
 
   return true;
 }
