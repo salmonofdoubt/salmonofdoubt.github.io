@@ -6,7 +6,7 @@
   <title>Catchment Pulse Ireland</title>
   <meta name="description" content="Live and latest Irish water-quality signals: hydrometry, bathing quality, WFD context, groundwater and marine shore indicators." />
 
-  <link rel="stylesheet" href="./styles.css?v=0.7.2" />
+  <link rel="stylesheet" href="./styles.css?v=0.7.5" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
@@ -179,12 +179,14 @@
         <label>
           <span>Layer</span>
           <select id="layerFilter">
-            <option value="all">All water signals</option>
+            <option value="all">All record types</option>
             <option value="water_level">Live hydrometry</option>
             <option value="bathing_water">Bathing locations</option>
             <option value="bathing_measurement">Bathing measurements</option>
             <option value="bathing_alert">Bathing alerts</option>
             <option value="wfd_context">WFD context</option>
+            <option value="official_wq_waterbody">Official WQ waterbodies</option>
+            <option value="official_wq_station">Official WQ monitoring stations</option>
             <option value="groundwater_context">Groundwater context</option>
             <option value="marine_context">Marine shore context</option>
             <option value="marine_observation">Marine buoy observations</option>
@@ -197,6 +199,7 @@
           <span>Source layer</span>
           <select id="sourceScopeFilter">
             <option value="all">All source layers</option>
+            <option value="official_wq">Official WQ only</option>
             <option value="live_signal">Live signals</option>
             <option value="recent_observation">Recent official observations</option>
             <option value="context">WFD / context</option>
@@ -215,7 +218,7 @@
 
         <label class="search-control">
           <span>Search</span>
-          <input id="searchBox" type="search" placeholder="Baldoyle, Nanny, Portmarnock, nitrate, E. coli..." autocomplete="off" />
+          <input id="searchBox" type="search" placeholder="Howth, Baldoyle, Broadmeadow, WQ station, nutrients..." autocomplete="off" />
         </label>
       </div>
 
@@ -226,7 +229,7 @@
           <p class="eyebrow mini">Selected signal</p>
           <div id="selectedRecord">
             <h2>Click a marker</h2>
-            <p>Choose a station, bathing water, alert or context record to inspect values, units, thresholds and provenance.</p>
+            <p>Default view shows official EPA WQ records where available. Switch to Live signals for OPW hydrology, rainfall and other context feeds.</p>
           </div>
         </aside>
       </div>
@@ -310,6 +313,7 @@ Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
           <span>Source layer</span>
           <select id="dataSourceScopeFilter">
             <option value="all">All source layers</option>
+            <option value="official_wq">Official WQ only</option>
             <option value="live_signal">Live signals</option>
             <option value="recent_observation">Recent official observations</option>
             <option value="context">WFD / context</option>
@@ -509,7 +513,7 @@ Nanny trial point,53.61,-6.18,2026-06-28,0.042,1.2,0.08</code></pre>
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script type="module" src="./app.js?v=0.7.2"></script>
+  <script type="module" src="./app.js?v=0.7.5"></script>
   <script>
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
       window.addEventListener("load", () => {

@@ -11,6 +11,11 @@ export const SOURCE_SCOPE_OPTIONS = [
     description: "Show every mapped and unmapped source layer.",
   },
   {
+    value: "official_wq",
+    label: "Official WQ",
+    description: "Official EPA WFD waterbody and monitoring-programme records.",
+  },
+  {
     value: "live_signal",
     label: "Live signals",
     description: "OPW hydrometry and current/near-live alerts.",
@@ -32,7 +37,7 @@ export const SOURCE_SCOPE_OPTIONS = [
   },
 ];
 
-const CONTEXT_FRESHNESS = new Set(["context", "seasonal", "historical", "planned"]);
+const CONTEXT_FRESHNESS = new Set(["context", "seasonal", "historical", "official_historic", "planned"]);
 const RECENT_FRESHNESS = new Set(["recent"]);
 
 export function sourceLookup(sources = []) {
@@ -98,6 +103,10 @@ export function recordSourceProfile(record, sourcesOrLookup = []) {
     signalLayer,
     isLive,
     isRecent: RECENT_FRESHNESS.has(freshness) || signalLayer === "recent_observation",
+    isOfficialWq:
+      record?.source === "epa_official_wq" ||
+      String(record?.type || "").startsWith("official_wq_") ||
+      String(source?.source_group || source?.group || "").includes("official_wq"),
     isContext:
       CONTEXT_FRESHNESS.has(freshness) ||
       String(signalLayer || "").includes("context") ||
@@ -110,6 +119,10 @@ export function recordMatchesSourceScope(record, scope = "all", sourcesOrLookup 
   if (scope === "all" || !scope) return true;
 
   const profile = recordSourceProfile(record, sourcesOrLookup);
+
+  if (scope === "official_wq") {
+    return profile.isOfficialWq;
+  }
 
   if (scope === "live_signal") {
     return profile.isLive;

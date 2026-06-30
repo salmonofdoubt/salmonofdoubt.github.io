@@ -94,6 +94,29 @@ function currentFocusArea() {
   return activeFocusArea(state.focusAreas, state.focusAreaId);
 }
 
+function hasOfficialWqRecords() {
+  return state.records.some(record =>
+    record?.source === "epa_official_wq" ||
+    String(record?.type || "").startsWith("official_wq_")
+  );
+}
+
+function applyInitialEvidenceDefaults() {
+  if (!hasOfficialWqRecords()) return;
+
+  if (els.sourceScopeFilter) {
+    els.sourceScopeFilter.value = "official_wq";
+  }
+
+  if (els.dataSourceScopeFilter) {
+    els.dataSourceScopeFilter.value = "official_wq";
+  }
+
+  if (els.dataScopeFilter) {
+    els.dataScopeFilter.value = "mapped";
+  }
+}
+
 function refreshMap() {
   state.markerLayer = renderMarkers({
     map: state.map,
@@ -222,6 +245,7 @@ async function init() {
     state.importedChemistryRecords = loadImportedChemistryRecords();
     state.records = [...state.baseRecords, ...state.importedChemistryRecords];
     state.focusAreaId = data.focusAreas.default_area || data.focusAreas.areas?.[0]?.id || null;
+    applyInitialEvidenceDefaults();
 
     renderFocusOptions(els.focusSelect, state.focusAreas, state.focusAreaId);
     refreshPanels();

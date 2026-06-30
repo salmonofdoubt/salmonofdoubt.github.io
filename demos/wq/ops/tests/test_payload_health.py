@@ -7,22 +7,15 @@ from pathlib import Path
 OPS_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(OPS_DIR))
 
-from wq_pipeline.core.payload import payload_health
+from wq_pipeline.core.payload import REQUIRED_SOURCE_IDS, payload_health
 
 
-def payload(opw_status="ok", opw_records=2000, include_opw=True, total_records=2002, source_count=9):
-    source_ids = [
-        "opw_waterlevel",
-        "epa_bathing_locations",
-        "epa_bathing_measurements",
-        "epa_bathing_alerts",
-        "epa_wfd",
-        "epa_geoportal_context",
-        "marine_institute_weather_buoys",
-        "met_eireann_observations",
-        "local_focus_places",
-    ][:source_count]
+def payload(opw_status="ok", opw_records=2000, include_opw=True, total_records=2002, source_count=None):
+    source_ids = list(REQUIRED_SOURCE_IDS)
+    if source_count is None:
+        source_count = len(source_ids)
 
+    source_ids = source_ids[:source_count]
     sources = []
 
     for source_id in source_ids:
@@ -32,7 +25,7 @@ def payload(opw_status="ok", opw_records=2000, include_opw=True, total_records=2
         sources.append({
             "id": source_id,
             "status": opw_status if source_id == "opw_waterlevel" else "ok",
-            "records": opw_records if source_id == "opw_waterlevel" else 0,
+            "records": opw_records if source_id == "opw_waterlevel" else 1,
         })
 
     records = []

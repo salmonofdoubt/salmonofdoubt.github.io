@@ -6,6 +6,8 @@ export const TYPE_LABELS = {
   bathing_measurement: "Bathing sample",
   bathing_alert: "Bathing alert",
   wfd_context: "WFD context",
+  official_wq_waterbody: "Official WQ waterbody",
+  official_wq_station: "Official WQ monitoring station",
   groundwater_context: "Groundwater context",
   marine_context: "Marine shore context",
   marine_observation: "Marine buoy observation",

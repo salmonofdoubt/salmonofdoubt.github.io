@@ -13,6 +13,7 @@ from wq_pipeline.core.payload import payload_health
 from wq_pipeline.adapters.opw_waterlevel import harvest_opw as harvest_opw_adapter
 from wq_pipeline.adapters.epa_bathing import harvest_bathing as harvest_bathing_adapter
 from wq_pipeline.adapters.epa_wfd import harvest_wfd as harvest_wfd_adapter
+from wq_pipeline.adapters.epa_official_wq import harvest_official_wq as harvest_official_wq_adapter
 from wq_pipeline.adapters.context import planned_context_records as planned_context_records_adapter
 from wq_pipeline.adapters.marine_erddap import harvest_marine_weather_buoys as harvest_marine_weather_buoys_adapter
 from wq_pipeline.adapters.met_eireann_observations import harvest_met_eireann_observations as harvest_met_eireann_observations_adapter
@@ -52,6 +53,12 @@ SOURCE_DEFS = {
         "freshness_class": "context",
         "licence": "CC BY 4.0",
         "caveat": "WFD data describe catchment and waterbody status/context, not live water chemistry."
+    },
+    "epa_official_wq": {
+        "name": "EPA official WFD water-quality records",
+        "freshness_class": "official_historic",
+        "licence": "CC BY 4.0",
+        "caveat": "Official WFD waterbody and monitoring-programme records. Not real-time sensor chemistry; chemistry values may require Catchments.ie downloads."
     },
     "epa_geoportal_context": {
         "name": "EPA Geoportal water quality datasets",
@@ -114,6 +121,10 @@ def harvest_bathing(now: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]
 
 def harvest_wfd(now: str, keywords: list[str]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     return harvest_wfd_adapter(now, keywords, source_defs=SOURCE_DEFS)
+
+
+def harvest_official_wq(now: str, keywords: list[str]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    return harvest_official_wq_adapter(now, keywords, source_defs=SOURCE_DEFS)
 
 
 def planned_context_records(now: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
@@ -289,6 +300,10 @@ def build_payload() -> dict[str, Any]:
     wfd_records, wfd_source = harvest_wfd(now, keywords)
     records.extend(wfd_records)
     sources.append(wfd_source)
+
+    official_wq_records, official_wq_source = harvest_official_wq(now, keywords)
+    records.extend(official_wq_records)
+    sources.append(official_wq_source)
 
     planned_records, planned_sources = planned_context_records(now)
     records.extend(planned_records)
