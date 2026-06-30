@@ -1277,3 +1277,48 @@ canvas {
     grid-template-columns: minmax(0, 1.08fr) repeat(3, minmax(230px, 0.82fr));
   }
 }
+
+
+/* WQ full point inspector v0.7.1 */
+.record-section-title {
+  margin-top: 1rem;
+  margin-bottom: 0.45rem;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.parameter-count-note {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.record-raw-details {
+  margin-top: 0.8rem;
+  border: 1px solid rgba(94, 234, 212, 0.20);
+  border-radius: 16px;
+  background: rgba(1, 12, 11, 0.50);
+  overflow: hidden;
+}
+
+.record-raw-details summary {
+  cursor: pointer;
+  padding: 0.78rem;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.record-json {
+  max-height: 340px;
+  margin: 0;
+  padding: 0.85rem;
+  overflow: auto;
+  border-top: 1px solid rgba(94, 234, 212, 0.16);
+  color: var(--accent);
+  font-size: 0.76rem;
+  line-height: 1.45;
+  white-space: pre;
+}
+
+.record-json code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
