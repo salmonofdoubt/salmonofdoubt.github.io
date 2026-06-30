@@ -16,10 +16,29 @@ export function prettyNumber(value, digits = 3) {
   return num.toLocaleString("en-IE", { maximumFractionDigits: digits });
 }
 
+function looksLikeDateInput(value) {
+  if (value instanceof Date || typeof value === "number") return true;
+
+  const text = String(value || "").trim();
+
+  return (
+    /^\d{4}-\d{2}-\d{2}/.test(text) ||
+    /^\d{4}\/\d{2}\/\d{2}/.test(text) ||
+    /^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}/.test(text) ||
+    /^\d{1,2}\s+[A-Za-z]{3,9}\s+\d{4}/.test(text)
+  );
+}
+
 export function formatDate(value) {
   if (!value) return "unknown";
+
+  if (!looksLikeDateInput(value)) {
+    return String(value);
+  }
+
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return String(value);
+
   return date.toLocaleString("en-IE", {
     dateStyle: "medium",
     timeStyle: "short"
