@@ -31,7 +31,6 @@ if (dialog) {
       reading.innerHTML = link.dataset.reading
         ? `<strong>Reading:</strong> ${escapeHtml(link.dataset.reading)}`
         : "";
-
       source.innerHTML = link.dataset.source
         ? `<a class="text-link" href="${escapeHtml(link.dataset.source)}" target="_blank" rel="noopener">Original archive image</a>`
         : "";
