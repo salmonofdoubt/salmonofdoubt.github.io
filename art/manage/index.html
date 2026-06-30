@@ -380,7 +380,14 @@ function setStatus(message, kind = "") {
 }
 
 function imageOf(item) {
-  return item.thumb || item.image || "";
+  const src = item.thumb || item.image || "";
+
+  if (!src) return "";
+  if (src.startsWith("http://") || src.startsWith("https://") || src.startsWith("/") || src.startsWith("../")) {
+    return src;
+  }
+
+  return "../" + src;
 }
 
 function selectedItem() {
