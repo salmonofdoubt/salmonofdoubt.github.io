@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-06-29T10:11:16.142101+00:00",
-  "latest_generated_at": "2026-06-29T10:11:16.045541+00:00",
+  "generated_at": "2026-06-30T08:43:21.407715+00:00",
+  "latest_generated_at": "2026-06-30T08:43:21.293247+00:00",
   "total_items": 93,
   "total_sources": 20,
   "sources_active": 10,
   "sources_checked_no_current_items": 10,
   "sources_failed": 0,
   "items_by_section": {
-    "ireland-urban-forest-practice": 29,
-    "funding-opportunities": 25,
-    "research-evidence": 35,
+    "ireland-urban-forest-practice": 27,
+    "funding-opportunities": 21,
+    "research-evidence": 41,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
@@ -17,10 +17,10 @@
     "urbanforest_relevance": 93,
     "benefit_categories": 93,
     "local_relevance": 93,
-    "opportunity_fit": 32,
-    "research_use_type": 43
+    "opportunity_fit": 29,
+    "research_use_type": 52
   },
-  "archive_snapshots": 42,
+  "archive_snapshots": 43,
   "sources": [
     {
       "id": "gn-street-tree-survival-drought",
@@ -41,8 +41,8 @@
       "scope": "funding ireland trees biodiversity",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "current_item_count": 1
+      "status": "checked-no-current-items",
+      "current_item_count": 0
     },
     {
       "id": "gn-urbanforest-maintenance-ireland-uk",
@@ -52,8 +52,8 @@
       "scope": "maintenance risk trees",
       "url": "https://news.google.com/rss/search?q=%28urban%20trees%20OR%20street%20trees%20OR%20tree%20canopy%20OR%20tiny%20forest%20OR%20pocket%20forest%20OR%20urban%20forest%29%20%28watering%20OR%20drought%20OR%20survival%20OR%20maintenance%20OR%20aftercare%20OR%20vandalism%20OR%20soil%20OR%20dead%20trees%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-school-garden-tree-funding-ireland",
@@ -75,7 +75,7 @@
       "url": "https://news.google.com/rss/search?q=%28%22urban%20forest%22%20OR%20%22pocket%20forest%22%20OR%20%22tiny%20forest%22%20OR%20Miyawaki%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 10
+      "current_item_count": 9
     },
     {
       "id": "gn-dublin-urban-greening",
@@ -130,7 +130,7 @@
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20call%20OR%20award%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20greening%20OR%20nature-based%20solutions%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 8
+      "current_item_count": 5
     },
     {
       "id": "heritage-council-funding",
@@ -174,7 +174,7 @@
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tiny%20forest%20OR%20Miyawaki%20OR%20street%20trees%29%20%28maintenance%20OR%20survival%20OR%20watering%20OR%20drought%20OR%20aftercare%20OR%20vandalism%20OR%20soil%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 3
+      "current_item_count": 1
     },
     {
       "id": "gn-urban-forest-carbon-claims",
