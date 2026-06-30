@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -85,7 +86,7 @@ class CuratorHandler(SimpleHTTPRequestHandler):
 
 def main() -> None:
     host = "127.0.0.1"
-    port = 8010
+    port = int(os.environ.get("ART_CURATOR_PORT", "8000"))
     print(f"Serving curator from {ROOT}")
     print(f"Open: http://localhost:{port}/art/curate/")
     print("Use Ctrl+C to stop.")
