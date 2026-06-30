@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DiAndré Artwork Manager</title>
+  <style>
+    :root {
+      --bg: #070605;
+      --panel: #100d0a;
+      --line: rgba(212, 174, 108, 0.28);
+      --text: #f1e1c5;
+      --muted: #ad9a7b;
+      --gold: #d4ae6c;
+      --good: #6ee7a8;
+      --bad: #ff7868;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 14px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(1400px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1rem 0 3rem;
+    }
+
+    h1, h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff2d7;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 7vw, 5rem);
+      line-height: .86;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(320px, 1.2fr);
+      gap: 1rem;
+      align-items: end;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .micro {
+      color: var(--gold);
+      font-size: .65rem;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .hint {
+      color: var(--muted);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+      margin: 1rem 0;
+    }
+
+    input, select, textarea, button {
+      border: 1px solid var(--line);
+      background: #0e0b08;
+      color: var(--text);
+      font: inherit;
+      font-size: .86rem;
+    }
+
+    input, select, button {
+      min-height: 34px;
+      border-radius: 999px;
+      padding: .32rem .72rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      box-sizing: border-box;
+      border-radius: 12px;
+      padding: .55rem;
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    button.primary {
+      background: #24190f;
+      border-color: rgba(212, 174, 108, .55);
+      color: #fff2d7;
+    }
+
+    button.danger {
+      border-color: rgba(255, 120, 104, .6);
+      color: #ffb8ae;
+    }
+
+    .status.good { color: var(--good); }
+    .status.bad { color: var(--bad); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 430px;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .grid {
+      columns: 5 170px;
+      column-gap: .75rem;
+    }
+
+    .card {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 .75rem;
+      break-inside: avoid;
+      border: 1px solid rgba(255,255,255,.07);
+      background: var(--panel);
+      cursor: pointer;
+    }
+
+    .card.hidden {
+      opacity: .45;
+    }
+
+    .card.selected {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card div {
+      padding: .5rem;
+    }
+
+    .card strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff2d7;
+      line-height: 1.05;
+    }
+
+    .card span {
+      display: block;
+      margin-top: .28rem;
+      color: var(--gold);
+      font-size: .62rem;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .panel {
+      position: sticky;
+      top: 1rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .box {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: .85rem;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: .55rem;
+    }
+
+    .form-grid input,
+    .form-grid select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+    }
+
+    @media (max-width: 980px) {
+      .top, .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        position: static;
+      }
+
+      .grid {
+        columns: 2 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="top">
+    <div>
+      <p class="micro">Local art manager</p>
+      <h1>Edit and hide works</h1>
+    </div>
+    <p class="hint">
+      Click a work, rewrite its metadata, or hide it from the public gallery.
+      Hidden works remain in <code>artworks.json</code> and can be restored later.
+    </p>
+  </section>
+
+  <div class="controls">
+    <select id="collectionFilter"></select>
+    <select id="statusFilter">
+      <option value="active">Active only</option>
+      <option value="all">All including hidden</option>
+      <option value="hidden">Hidden only</option>
+    </select>
+    <input id="search" placeholder="Search title, collection, image">
+    <a href="../curate/" style="color:#d4ae6c;font-weight:800;text-decoration:none;">Feature curator</a>
+    <a href="../" style="color:#d4ae6c;font-weight:800;text-decoration:none;">Open /art/</a>
+    <span id="status" class="status"></span>
+  </div>
+
+  <section class="layout">
+    <div id="grid" class="grid"></div>
+
+    <aside class="panel">
+      <section class="box">
+        <p class="micro">Selected work</p>
+        <div id="current" class="hint">No work selected.</div>
+      </section>
+
+      <section class="box">
+        <p class="micro">Edit selected work</p>
+        <div class="form-grid">
+          <input id="title" placeholder="Title">
+          <select id="collection"></select>
+          <input id="medium" placeholder="Medium">
+          <input id="subgroup" placeholder="Subgroup">
+          <input id="alt" placeholder="Alt text">
+          <textarea id="text" placeholder="Short caption"></textarea>
+          <textarea id="reading" placeholder="Longer reading / interpretation"></textarea>
+          <select id="workStatus">
+            <option value="active">active</option>
+            <option value="hidden">hidden</option>
+          </select>
+          <div class="button-row">
+            <button class="primary" id="saveEdit">Save edit & rebuild</button>
+            <button id="hideWork">Hide selected</button>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </section>
+</main>
+
+<script>
+const collections = ["Oil Paintings", "Watercolours", "Drawings", "Experimental", "GeoSpatial Imagery"];
+const state = { artworks: [], selectedId: null };
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function setStatus(message, kind = "") {
+  const el = document.getElementById("status");
+  el.textContent = message;
+  el.className = `status ${kind}`;
+}
+
+function imageOf(item) {
+  return item.thumb || item.image || "";
+}
+
+function selectedItem() {
+  return state.artworks.find((item) => item.id === state.selectedId);
+}
+
+function populateSelect(id, values) {
+  document.getElementById(id).innerHTML = values
+    .map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)
+    .join("");
+}
+
+async function loadArtworks() {
+  const response = await fetch("../data/artworks.json?ts=" + Date.now());
+  if (!response.ok) throw new Error("Could not load artworks.json");
+  const data = await response.json();
+  state.artworks = data.artworks || [];
+}
+
+function fillForm(item) {
+  document.getElementById("current").innerHTML = item
+    ? `<strong style="color:#fff2d7;font-family:Georgia,serif;font-size:1.2rem;">${escapeHtml(item.title)}</strong>
+       <p>${escapeHtml(item.collection || "")} · ${escapeHtml(item.subgroup || "")}</p>
+       <p>Status: <code>${escapeHtml(item.status || "active")}</code></p>`
+    : "No work selected.";
+
+  if (!item) return;
+
+  document.getElementById("title").value = item.title || "";
+  document.getElementById("collection").value = item.collection || "Experimental";
+  document.getElementById("medium").value = item.medium || "";
+  document.getElementById("subgroup").value = item.subgroup || "";
+  document.getElementById("alt").value = item.alt || "";
+  document.getElementById("text").value = item.text || "";
+  document.getElementById("reading").value = item.reading || "";
+  document.getElementById("workStatus").value = item.status || "active";
+}
+
+function setSelected(id) {
+  state.selectedId = id;
+  fillForm(selectedItem());
+  setStatus("Selected. Edit fields or hide.", "");
+  render();
+}
+
+function render() {
+  const grid = document.getElementById("grid");
+  const collectionFilter = document.getElementById("collectionFilter").value;
+  const statusFilter = document.getElementById("statusFilter").value;
+  const query = document.getElementById("search").value.trim().toLowerCase();
+
+  const visible = state.artworks.filter((item) => {
+    const status = item.status || "active";
+    const collectionOk = collectionFilter === "All" || item.collection === collectionFilter;
+    const statusOk =
+      statusFilter === "all" ||
+      (statusFilter === "active" && status !== "hidden") ||
+      (statusFilter === "hidden" && status === "hidden");
+    const blob = [item.title, item.collection, item.subgroup, item.medium, item.image, status].join(" ").toLowerCase();
+    return collectionOk && statusOk && (!query || blob.includes(query));
+  });
+
+  grid.innerHTML = visible.map((item) => {
+    const hidden = (item.status || "active") === "hidden";
+    return `
+      <article class="card ${item.id === state.selectedId ? "selected" : ""} ${hidden ? "hidden" : ""}" data-id="${escapeHtml(item.id)}">
+        <img src="${escapeHtml(imageOf(item))}" alt="${escapeHtml(item.alt || item.title)}" loading="lazy">
+        <div>
+          <strong>${escapeHtml(item.title)}</strong>
+          <span>${escapeHtml(item.collection)} · ${escapeHtml(item.subgroup || "")}${hidden ? " · hidden" : ""}</span>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  grid.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("click", () => setSelected(card.dataset.id));
+  });
+}
+
+async function postJson(url, payload) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  });
+  const result = await response.json();
+  if (!response.ok || !result.ok) throw new Error(result.error || result.message || "Request failed");
+  return result;
+}
+
+async function saveEdit() {
+  const item = selectedItem();
+  if (!item) {
+    setStatus("No work selected.", "bad");
+    return;
+  }
+
+  setStatus("Saving edit and rebuilding...", "");
+
+  await postJson("/api/update-artwork", {
+    id: item.id,
+    title: document.getElementById("title").value,
+    collection: document.getElementById("collection").value,
+    medium: document.getElementById("medium").value,
+    subgroup: document.getElementById("subgroup").value,
+    alt: document.getElementById("alt").value,
+    text: document.getElementById("text").value,
+    reading: document.getElementById("reading").value,
+    status: document.getElementById("workStatus").value
+  });
+
+  await loadArtworks();
+  fillForm(selectedItem());
+  render();
+  setStatus("Saved and rebuilt. Refresh /art/.", "good");
+}
+
+async function hideWork() {
+  const item = selectedItem();
+  if (!item) {
+    setStatus("No work selected.", "bad");
+    return;
+  }
+
+  if (!confirm(`Hide "${item.title}" from the public gallery?`)) return;
+
+  setStatus("Hiding and rebuilding...", "");
+  await postJson("/api/hide-artwork", {id: item.id});
+  await loadArtworks();
+  fillForm(selectedItem());
+  render();
+  setStatus("Hidden and rebuilt. Refresh /art/.", "good");
+}
+
+async function init() {
+  populateSelect("collectionFilter", ["All", ...collections]);
+  populateSelect("collection", collections);
+
+  await loadArtworks();
+
+  document.getElementById("collectionFilter").addEventListener("change", render);
+  document.getElementById("statusFilter").addEventListener("change", render);
+  document.getElementById("search").addEventListener("input", render);
+  document.getElementById("saveEdit").addEventListener("click", () => saveEdit().catch((error) => setStatus(error.message, "bad")));
+  document.getElementById("hideWork").addEventListener("click", () => hideWork().catch((error) => setStatus(error.message, "bad")));
+
+  render();
+}
+
+init().catch((error) => {
+  document.body.innerHTML = `<main><h1>Manager failed</h1><p>${escapeHtml(error.message)}</p></main>`;
+});
+</script>
+</body>
+</html>

@@ -31,8 +31,11 @@ def read_json(path: Path, fallback):
 
 
 def load_artworks() -> list[dict]:
-    return read_json(DATA, {"artworks": []}).get("artworks", [])
-
+    records = read_json(DATA, {"artworks": []}).get("artworks", [])
+    return [
+        record for record in records
+        if str(record.get("status", "active")).lower() not in {"hidden", "deleted", "draft"}
+    ]
 
 def load_curation() -> dict:
     return read_json(CURATION, {"homepageHero": {}, "collections": {}})
