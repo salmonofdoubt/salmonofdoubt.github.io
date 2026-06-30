@@ -1,63 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="theme-color" content="#101108" />
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>DiAndré | Ecological Painting, Geospatial Imagery & Climate Culture</title>
-  <meta name="description" content="Curated visual art portfolio by DiAndré: ecological interiorism, oil painting, geospatial imagery, works on paper, exhibitions and climate culture projects." />
-  <meta property="og:title" content="DiAndré | Ecological Visual Systems" />
-  <meta property="og:description" content="Painting, drawing, geospatial imagery and climate culture by DiAndré." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://salmonofdoubt.github.io/images/001-2.jpg" />
-  <link rel="stylesheet" href="../assets/css/site.css" />
-  <style>
-    body {
-      background: radial-gradient(circle at 14% 8%, rgba(240, 98, 45, 0.22), transparent 24%), radial-gradient(circle at 88% 12%, rgba(221, 190, 96, 0.18), transparent 22%), radial-gradient(circle at 44% 98%, rgba(42, 125, 92, 0.24), transparent 34%), linear-gradient(180deg, #111108 0%, #17180d 46%, #09120f 100%);
-    }
-    .art-shell { position: relative; isolation: isolate; }
-    .art-shell::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.42; background: linear-gradient(105deg, transparent 0 16%, rgba(255, 221, 138, 0.07) 17% 18%, transparent 19% 100%), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 92px); mix-blend-mode: screen; }
-    .art-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr); gap: 1.4rem; align-items: stretch; margin: 1.2rem 0 2rem; }
-    .art-panel, .strategy-card, .work-card, .series-card, .exhibition-card, .statement-card { background: rgba(20, 21, 12, 0.84); border: 1px solid rgba(255, 235, 177, 0.18); border-radius: 30px; box-shadow: 0 26px 70px rgba(0, 0, 0, 0.42); overflow: hidden; }
-    .art-copy { padding: clamp(1.4rem, 4vw, 3.4rem); }
-    .art-kicker { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; color: #ffe7a6; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
-    .art-kicker::before { content: ""; width: 0.85rem; height: 0.85rem; border-radius: 50%; background: #f25537; box-shadow: 1.2rem 0 0 #f4bf4d, 2.4rem 0 0 #2b7a5f; }
-    .art-title { margin: 0; max-width: 10ch; font-family: Georgia, "Times New Roman", serif; font-size: clamp(3.6rem, 9vw, 8.4rem); line-height: 0.82; letter-spacing: -0.075em; }
-    .art-subtitle { max-width: 58ch; margin: 1.25rem 0 0; color: #f3ead1; font-size: clamp(1.05rem, 2vw, 1.35rem); }
-    .art-actions, .footer-contact { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.35rem; }
-    .art-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0.78rem 1rem; border-radius: 999px; border: 1px solid rgba(255, 235, 177, 0.22); background: rgba(255, 255, 255, 0.05); color: #fff6dc; font-weight: 800; }
-    .art-button:hover { color: #ffffff; background: rgba(242, 85, 55, 0.14); border-color: rgba(242, 181, 64, 0.42); }
-    .art-button.primary { color: #201107; background: linear-gradient(135deg, #f25537, #f5c04c); border-color: rgba(255, 232, 166, 0.5); }
-    .hero-artwork { min-height: 520px; padding: 0.8rem; }
-    .hero-frame { position: relative; height: 100%; overflow: hidden; border-radius: 28px; background: #15231b; }
-    .hero-frame img { width: 100%; height: 100%; min-height: 500px; object-fit: cover; border-radius: 28px; filter: saturate(1.14) contrast(1.03); }
-    .hero-caption { position: absolute; left: 1rem; right: 1rem; bottom: 1rem; padding: 1rem; border-radius: 22px; background: rgba(8, 14, 10, 0.74); backdrop-filter: blur(14px); border: 1px solid rgba(255, 255, 255, 0.14); }
-    .hero-caption strong { display: block; color: #fff8df; font-size: 1.05rem; }
-    .hero-caption span { color: #dfd2ad; font-size: 0.95rem; }
-    .strategy-strip, .series-grid, .exhibition-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 1rem 0 2.6rem; }
-    .strategy-card, .series-card, .exhibition-card, .statement-card { padding: 1.15rem; }
-    .strategy-card strong, .series-card strong, .exhibition-card strong { display: block; margin-bottom: 0.35rem; color: #fff3c7; }
-    .strategy-card p, .series-card p, .exhibition-card p, .statement-card p { margin: 0; color: #d5c9a9; }
-    .section-heading { margin-bottom: 1rem; max-width: 78ch; }
-    .section-heading h2 { margin-bottom: 0.45rem; font-family: Georgia, "Times New Roman", serif; color: #fff2c3; }
-    .section-heading p { margin: 0; color: #d5c9a9; }
-    .works-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
-    .work-image { min-height: 320px; background: radial-gradient(circle at 30% 20%, rgba(243, 86, 58, 0.42), transparent 25%), radial-gradient(circle at 70% 70%, rgba(48, 130, 92, 0.38), transparent 30%), linear-gradient(135deg, #27150f, #182317); }
-    .work-image img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; border-radius: 0; }
-    .work-copy { padding: 1.15rem; }
-    .work-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.7rem; }
-    .pill { display: inline-flex; align-items: center; min-height: 30px; padding: 0.28rem 0.62rem; border-radius: 999px; background: rgba(242, 192, 76, 0.1); border: 1px solid rgba(242, 192, 76, 0.2); color: #ffe8a7; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
-    .work-copy h3 { margin: 0 0 0.55rem; color: #fff8df; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.35rem, 2.4vw, 2rem); line-height: 1.05; }
-    .work-copy p { margin: 0.7rem 0 0; color: #d8ccb0; }
-    .reading-label { display: block; margin-top: 1rem; color: #f7c85c; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.11em; text-transform: uppercase; }
-    .archive-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1rem; padding: 1.1rem; border-radius: 24px; background: linear-gradient(135deg, rgba(242, 85, 55, 0.14), rgba(43, 122, 95, 0.2)); border: 1px solid rgba(255, 235, 177, 0.16); }
-    .archive-note p { margin: 0; color: #f2e4c4; max-width: 68ch; }
-    .footer-contact a { color: #ffe8a7; font-weight: 800; }
-    @media (max-width: 940px) { .art-hero, .works-grid, .strategy-strip, .series-grid, .exhibition-grid { grid-template-columns: 1fr; } .hero-artwork, .hero-frame img { min-height: 380px; } }
-    @media (max-width: 560px) { .art-title { font-size: 3.5rem; } .hero-caption { position: static; margin-top: 0.8rem; } .hero-frame { display: grid; background: transparent; } .hero-frame img { min-height: 320px; } .work-image, .work-image img { min-height: 260px; } }
-  </style>
+  <meta name="theme-color" content="#070605">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DiAndré | Painter & Visual Artist</title>
+  <meta name="description" content="DiAndré, the visual art practice of André Baumann: oil paintings, watercolours, drawings, experimental work and geospatial imagery.">
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <link rel="stylesheet" href="assets/art-gallery.css">
 </head>
-<body class="art-shell">
+<body class="art-body">
   <header class="site-header">
     <div class="container topbar">
       <a class="brand" href="../index.html">André Baumann</a>
@@ -70,119 +22,82 @@
     </div>
   </header>
 
-  <main class="container">
-    <section class="art-hero" aria-labelledby="art-title">
-      <div class="art-panel art-copy">
-        <span class="art-kicker">Visual artist</span>
-        <h1 id="art-title" class="art-title">DiAndré</h1>
-        <p class="art-subtitle">Ecological visual systems for a warming, mapped and interior world. Painting, drawing, geospatial imagery and climate culture are treated here as one continuous field of perception.</p>
-        <div class="art-actions" aria-label="Portfolio navigation">
-          <a class="art-button primary" href="#works">Enter the works</a>
-          <a class="art-button" href="#exhibitions">Exhibitions and e-zine</a>
-          <a class="art-button" href="https://qiquantum.wordpress.com/" target="_blank" rel="noopener">WordPress archive</a>
-        </div>
+  <main class="art-main">
+    <section class="artist-intro">
+      <div class="intro-copy">
+        <p class="micro">Painter · visual artist · systems thinker</p>
+        <h1>DiAndré</h1>
+        <p>I make oil paintings, watercolours, drawings and spatial images. The work moves between portraits, interiors, flowers, city walls, maps and the atmosphere of places.</p>
+        <p>The environmental and systems background is present, but the work begins with looking, colour, memory and material presence.</p>
       </div>
-
-      <aside class="art-panel hero-artwork" aria-label="Featured artwork">
-        <div class="hero-frame">
-          <img src="../images/001-2.jpg" alt="Large floral painting with orange, red and yellow blooms against a deep green ground" />
-          <div class="hero-caption">
-            <strong>Current direction: Ecological Interiorism</strong>
-            <span>Domestic colour, plant intelligence, heat, shelter and light as a new visual grammar.</span>
-          </div>
-        </div>
-      </aside>
+      <figure class="intro-image">
+        <img src="../images/001-2.jpg" alt="Large floral oil painting with orange, red and yellow flowers on a green ground">
+      </figure>
     </section>
 
-    <section class="strategy-strip" aria-label="Curatorial strategy">
-      <article class="strategy-card"><strong>1. Make climate felt</strong><p>The work begins where data becomes sensation: heat, saturation, pressure, bloom, erosion, glare and shelter.</p></article>
-      <article class="strategy-card"><strong>2. Keep the evidence visible</strong><p>Maps, field layouts and diagrams are not decoration. They reveal how landscapes are measured, governed and misunderstood.</p></article>
-      <article class="strategy-card"><strong>3. Curate, do not dump</strong><p>This page is the selected public portfolio. The WordPress site remains the archive and studio sediment.</p></article>
-    </section>
-
-    <section id="works" class="section" aria-labelledby="works-title">
-      <div class="section-heading">
-        <h2 id="works-title">Selected works</h2>
-        <p>Each piece is presented as an argument in visual form: what it shows, what it asks and why it belongs in the wider ecological practice.</p>
+    <section class="room-index" aria-labelledby="rooms-title">
+      <div class="gallery-heading">
+        <p class="micro">Collections</p>
+        <h2 id="rooms-title">Five rooms.</h2>
+        <p>Each room opens with a selected work, then continues into the wider archive.</p>
       </div>
-
-      <div class="works-grid">
-        <article class="work-card">
-          <div class="work-image"><img src="../images/001-2.jpg" alt="Ecological floral painting with orange, red and yellow flowers on a deep green ground" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">Oil painting</span><span class="pill">Ecological Interiorism</span></div><h3>Nasturtium, heat bloom study</h3><p>A floral interior that is not merely decorative. The flowers become thermal bodies, pushing against the green ground like living sensors of heat, light and room atmosphere.</p><span class="reading-label">Reading</span><p>This is the anchor for the new style: ecological colour as climate perception inside the home.</p></div>
-        </article>
-
-        <article class="work-card">
-          <div class="work-image"><img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20250712_191825.jpg" alt="Large oil painting study connected to shore, sea and underpainting process" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">Oil on canvas</span><span class="pill">Coastal field</span></div><h3>The Shore</h3><p>A coastal painting treated as edge condition: land, sea, weather and memory do not sit in separate compartments. They press into one another.</p><span class="reading-label">Reading</span><p>The shore becomes a threshold between observation and abstraction, close to the way a field site holds both place and process.</p></div>
-        </article>
-
-        <article class="work-card">
-          <div class="work-image"><img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20230623_174524.jpg" alt="Small oil study for Red Hot Metropolis, an overheated city under larger hidden structures" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">A4 oil study</span><span class="pill">Urban heat</span></div><h3>Red Hot Metropolis, number 032</h3><p>The city is shown as an overheated organism, subject to structures larger than itself: climate systems, infrastructure, computation and power.</p><span class="reading-label">Reading</span><p>A compact study with a large question: what does urban life feel like when the governing systems are mostly invisible?</p></div>
-        </article>
-
-        <article class="work-card">
-          <div class="work-image"><img src="https://qiquantum.wordpress.com/wp-content/uploads/2025/05/site3-layout-nopii.png?w=1024" alt="Geospatial field layout image for AgEvaluate with site geometry and environmental monitoring logic" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">Geospatial imagery</span><span class="pill">AgEvaluate</span></div><h3>Field map as score</h3><p>A site layout can be read like a visual score: points, boundaries, flows and sampling decisions become a compositional language.</p><span class="reading-label">Reading</span><p>This series is the bridge between environmental research and art. It asks where evidence ends and interpretation begins.</p></div>
-        </article>
-
-        <article class="work-card">
-          <div class="work-image"><img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/10/original_cc6fdb7d-6842-4e0b-8d2c-03db02e07ba3_20230709_191427-1.jpg" alt="Pencil drawing of Portmarnock coastal landscape with light marks and distant horizon" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">Drawing</span><span class="pill">Coastal study</span></div><h3>Portmarnock study</h3><p>A quiet drawing of coast, weather and distance. The lightness matters: the image holds attention without forcing the landscape into spectacle.</p><span class="reading-label">Reading</span><p>This is the slow counterweight to the data work. It keeps looking human, provisional and hand made.</p></div>
-        </article>
-
-        <article class="work-card">
-          <div class="work-image"><img src="https://qiquantum.wordpress.com/wp-content/uploads/2024/08/screenshot-2024-08-25-at-21.41.19.png?w=1024" alt="Watercolour and diagrammatic work involving decision tree, tipping point and chart logic" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">Watercolour</span><span class="pill">Systems image</span></div><h3>Decision tree, tipping point, bar chart</h3><p>A hybrid between painting and systems diagram. It treats decision logic as something visual, emotional and unstable.</p><span class="reading-label">Reading</span><p>The work belongs with P(HI): maps and charts can assist judgement, but they must not replace it.</p></div>
-        </article>
-
-        <article class="work-card">
-          <div class="work-image"><img src="https://qiquantum.wordpress.com/wp-content/uploads/2024/07/8714b420-4207-11ef-9a3e-49bdfd473a4a.jpg?w=1024" alt="Three framed watercolour works displayed on a wall" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">Watercolour</span><span class="pill">Interior wall</span></div><h3>Three framed watercolours</h3><p>A wall presentation that clarifies scale, domestic presence and display rhythm. These are not only images, they are objects entering a room.</p><span class="reading-label">Reading</span><p>The display logic anticipates Ecological Interiorism: the artwork changes the atmosphere around it.</p></div>
-        </article>
-
-        <article class="work-card">
-          <div class="work-image"><img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20240526_163742.jpg" alt="Experimental artwork from the DiAndré studio archive" loading="lazy" /></div>
-          <div class="work-copy"><div class="work-meta"><span class="pill">Experimental</span><span class="pill">Studio research</span></div><h3>Experimental field</h3><p>A holding space for works where method is still forming: colour tests, digital processes, material accidents and ecological abstractions.</p><span class="reading-label">Reading</span><p>The experimental section should stay alive, but curated. It is the laboratory, not the storage cupboard.</p></div>
-        </article>
+      <div class="room-grid">
+      <a class="room-tile" href="oil-paintings/">
+        <img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20250712_191825.jpg" alt="Mura di Ferrara, heat wall study, oil painting" loading="lazy">
+        <span>Oil on canvas and board</span>
+        <h2>Oil Paintings</h2>
+        <p>Portraits, interiors, flowers, walls, urban heat and other oil works.</p>
+        <small>57 works</small>
+      </a>
+      <a class="room-tile" href="watercolours/">
+        <img src="https://qiquantum.wordpress.com/wp-content/uploads/2024/07/8714b420-4207-11ef-9a3e-49bdfd473a4a.jpg" alt="Decision tree, tipping point, bar chart, watercolour" loading="lazy">
+        <span>Watercolour and paper</span>
+        <h2>Watercolours</h2>
+        <p>Colour studies, portraits where identifiable, systems images and paper works.</p>
+        <small>17 works</small>
+      </a>
+      <a class="room-tile" href="drawings/">
+        <img src="https://qiquantum.wordpress.com/wp-content/uploads/2024/12/20241209_1034373-1-2.jpg" alt="1 2, drawing" loading="lazy">
+        <span>Drawing and observation</span>
+        <h2>Drawings</h2>
+        <p>Portraits, coastal studies, botanical works and other drawings.</p>
+        <small>54 works</small>
+      </a>
+      <a class="room-tile" href="experimental/">
+        <img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/08/wp-1660637866920..jpg" alt="Wp 1660637866920., experimental work" loading="lazy">
+        <span>Studio research</span>
+        <h2>Experimental</h2>
+        <p>Colour tests, digital processes, material accidents and unresolved visual research.</p>
+        <small>19 works</small>
+      </a>
+      <a class="room-tile" href="geospatial-imagery/">
+        <img src="https://qiquantum.wordpress.com/wp-content/uploads/2025/05/site3-layout-nopii.png" alt="Site3 layout nopii, geospatial image" loading="lazy">
+        <span>Maps and spatial images</span>
+        <h2>GeoSpatial Imagery</h2>
+        <p>Geospatial imagery, field layouts and visual systems work.</p>
+        <small>19 works</small>
+      </a>
       </div>
     </section>
 
-    <section class="section" aria-labelledby="series-title">
-      <div class="section-heading"><h2 id="series-title">Series architecture</h2><p>The portfolio is organised by artistic problem, not by file dump. Each series has a clear role in the public presentation.</p></div>
-      <div class="series-grid">
-        <article class="series-card"><strong>Ecological Interiorism</strong><p>Paintings for rooms under climate pressure: flowers, colour, shade, heat, care and repair.</p></article>
-        <article class="series-card"><strong>Field, map, evidence</strong><p>Geospatial imagery and field layouts translated into visual arguments about landscape, governance and measurement.</p></article>
-        <article class="series-card"><strong>Works on paper</strong><p>Drawing and watercolour as fast perception: coast, system, threshold, memory and decision.</p></article>
-      </div>
-    </section>
-
-    <section id="exhibitions" class="section" aria-labelledby="exhibitions-title">
-      <div class="section-heading"><h2 id="exhibitions-title">Exhibitions, publications and public context</h2><p>The practice is being built as a public body of work: local exhibition, university context, climate culture and online archive.</p></div>
-      <div class="exhibition-grid">
-        <article class="exhibition-card"><strong>Baldoyle Art Exhibition and Sale, 2024</strong><p>Community exhibition context. Shown works include Nasturtium, Seaweed and Lightning.</p></article>
-        <article class="exhibition-card"><strong>TCD Visual Arts End of Year Exhibition, 2025</strong><p>Selected works shown in the City Assembly House context, including the Knight of Glin and Daniel O'Connell rooms.</p></article>
-        <article class="exhibition-card"><strong>Climate Culture Zine</strong><p>Contributor and artist in a collaborative Irish climate focused e-zine space for art, poetry, articles and climate feeling.</p></article>
-      </div>
-      <div class="archive-note"><p>Strategy: GitHub is now the curated portfolio. WordPress remains the working archive, useful for chronology, older uploads and studio process.</p><a class="art-button" href="https://qiquantum.wordpress.com/" target="_blank" rel="noopener">Open archive</a></div>
-    </section>
-
-    <section class="section" aria-labelledby="statement-title">
-      <div class="section-heading"><h2 id="statement-title">Artist statement</h2></div>
-      <article class="statement-card">
-        <p>My practice works between ecological observation, urban systems, geospatial imagery and painting. I am interested in the moment when environmental evidence becomes felt experience: when heat becomes colour, when a map becomes a moral problem, when a flower becomes a sensor, and when an interior becomes part of the climate story. The work does not treat nature as scenery. It treats landscape, room, infrastructure and perception as interdependent systems.</p>
-        <p>The current direction, Ecological Interiorism, asks how visual art can change the atmosphere of a space while keeping ecological pressure in view. It is not escapism. It is a practical aesthetics of attention, repair and inhabitation.</p>
-      </article>
+    <section class="about-strip" aria-labelledby="about-title">
+      <p class="micro">About</p>
+      <h2 id="about-title">A painter with a systems eye.</h2>
+      <p>DiAndré is the visual art practice of André Baumann: painter, independent environmental researcher and systems thinker. The work is environmentally inclined, but not reduced to messaging. It is about seeing, presence, pressure, memory and place.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p class="small">© André Baumann / DiAndré. Curated portfolio for ecological painting, geospatial imagery and climate culture.</p>
-      <div class="footer-contact" aria-label="Art links"><a href="mailto:andre.c.baumann@gmail.com">Email</a><a href="https://www.instagram.com/diandre.42/" target="_blank" rel="noopener">Instagram</a><a href="https://qiquantum.wordpress.com/" target="_blank" rel="noopener">WordPress archive</a></div>
+      <p class="small">© André Baumann / DiAndré.</p>
+      <p class="small">
+        <a class="text-link" href="mailto:andre.c.baumann@gmail.com">Email</a>
+        <a class="text-link" href="https://www.instagram.com/diandre.42/" target="_blank" rel="noopener">Instagram</a>
+        <a class="text-link" href="https://qiquantum.wordpress.com/" target="_blank" rel="noopener">WordPress archive</a>
+      </p>
     </div>
   </footer>
+
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
 </body>
 </html>
