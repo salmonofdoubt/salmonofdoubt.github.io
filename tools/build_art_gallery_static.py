@@ -1,10 +1,23 @@
-from pathlib import Path
+from __future__ import annotations
+
 import html
 import json
+import subprocess
+import sys
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "art"
 DATA = ART / "data" / "artworks.json"
+
+def ensure_pillow():
+    try:
+        from PIL import Image, ImageOps  # noqa: F401
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "pillow"])
+
+ensure_pillow()
+from PIL import Image, ImageOps  # noqa: E402
 
 COLLECTIONS = [
     {
@@ -13,6 +26,10 @@ COLLECTIONS = [
         "kicker": "Oil on canvas and board",
         "description": "Portraits, interiors, flowers, walls, urban heat and other oil works.",
         "terms": ["manual-nasturtium", "ferrara", "mura", "red hot metropolis", "portrait"],
+        "preferred_feature_keywords": [
+            "burnt sienna", "sienna", "interior", "window", "curtain", "door", "doorway", "room"
+        ],
+        "feature_mode": "warm_sienna",
     },
     {
         "name": "Watercolours",
@@ -20,6 +37,8 @@ COLLECTIONS = [
         "kicker": "Watercolour and paper",
         "description": "Colour studies, portraits where identifiable, systems images and paper works.",
         "terms": ["decision", "tipping", "watercolour", "portrait", "framed"],
+        "preferred_feature_keywords": [],
+        "feature_mode": "default",
     },
     {
         "name": "Drawings",
@@ -27,6 +46,8 @@ COLLECTIONS = [
         "kicker": "Drawing and observation",
         "description": "Portraits, coastal studies, botanical works and other drawings.",
         "terms": ["portrait", "portmarnock", "botanical", "orto", "coast"],
+        "preferred_feature_keywords": [],
+        "feature_mode": "default",
     },
     {
         "name": "Experimental",
@@ -34,6 +55,8 @@ COLLECTIONS = [
         "kicker": "Studio research",
         "description": "Colour tests, digital processes, material accidents and unresolved visual research.",
         "terms": ["experimental", "colour", "abstract", "studio"],
+        "preferred_feature_keywords": ["cloud", "sky", "blue cloud", "cumulus"],
+        "feature_mode": "blue_cloud",
     },
     {
         "name": "GeoSpatial Imagery",
@@ -41,6 +64,8 @@ COLLECTIONS = [
         "kicker": "Maps and spatial images",
         "description": "Geospatial imagery, field layouts and visual systems work.",
         "terms": ["geospatial", "field", "map", "site", "agevaluate"],
+        "preferred_feature_keywords": [],
+        "feature_mode": "default",
     },
 ]
 
@@ -67,12 +92,15 @@ def by_collection(artworks):
     return grouped
 
 
-def score(item, terms):
-    blob = " ".join(
+def blob_for(item):
+    return " ".join(
         str(item.get(key, ""))
-        for key in ["id", "title", "subgroup", "image", "text", "reading"]
+        for key in ["id", "title", "subgroup", "image", "thumb", "text", "reading", "sourceUrl"]
     ).lower()
 
+
+def base_score(item, terms):
+    blob = blob_for(item)
     value = 0
     title = str(item.get("title", "")).lower()
 
@@ -103,35 +131,126 @@ def score(item, terms):
     return value
 
 
+def local_image_path(raw):
+    if not raw or raw.startswith("http://") or raw.startswith("https://") or raw.startswith("/"):
+        return None
+
+    candidates = [
+        ART / raw,
+        ROOT / raw,
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def image_stats(item):
+    raw = item.get("thumb") or item.get("image")
+    path = local_image_path(raw)
+    if not path:
+        return None
+
+    try:
+        with Image.open(path) as img:
+            img = ImageOps.exif_transpose(img).convert("RGB")
+            img.thumbnail((140, 140))
+            pixels = list(img.getdata())
+    except Exception:
+        return None
+
+    total = max(len(pixels), 1)
+    warm = 0
+    blue = 0
+    white = 0
+    dark = 0
+
+    for r, g, b in pixels:
+        if r > 80 and g > 40 and b < 140 and r > g * 1.04 and g > b * 1.03:
+            warm += 1
+        if b > 120 and b > r * 1.10 and b > g * 1.05:
+            blue += 1
+        if r > 185 and g > 185 and b > 185:
+            white += 1
+        if r < 60 and g < 60 and b < 60:
+            dark += 1
+
+    return {
+        "warm_share": warm / total,
+        "blue_share": blue / total,
+        "white_share": white / total,
+        "dark_share": dark / total,
+    }
+
+
+def visual_feature_score(item, mode):
+    stats = image_stats(item)
+    if not stats:
+        return 0
+
+    if mode == "warm_sienna":
+        return int(
+            1000 * (
+                1.7 * stats["warm_share"]
+                + 0.25 * stats["dark_share"]
+                - 0.2 * stats["blue_share"]
+            )
+        )
+
+    if mode == "blue_cloud":
+        return int(
+            1000 * (
+                1.8 * stats["blue_share"]
+                + 1.0 * stats["white_share"]
+                - 0.2 * stats["dark_share"]
+            )
+        )
+
+    return 0
+
+
+def feature_score(item, collection):
+    score = base_score(item, collection["terms"])
+    blob = blob_for(item)
+
+    for keyword in collection.get("preferred_feature_keywords", []):
+        if keyword and keyword in blob:
+            score += 250
+
+    score += visual_feature_score(item, collection.get("feature_mode", "default"))
+    return score
+
+
 def ordered(items, collection):
-    return sorted(items, key=lambda item: score(item, collection["terms"]), reverse=True)
+    return sorted(items, key=lambda item: feature_score(item, collection), reverse=True)
 
 
 def image_src(item, nested=False, fallback=HOME_HERO):
-    value = item.get("image") or item.get("thumb") if item else fallback
-    if not value:
+    if item:
+        value = item.get("image") or item.get("thumb") or fallback
+    else:
         value = fallback
 
     if value.startswith("http://") or value.startswith("https://") or value.startswith("/"):
         return value
 
-    if nested:
-        return "../" + value
-
-    return value
+    return ("../" + value) if nested else value
 
 
-def thumb_src(item, nested=False):
-    value = item.get("thumb") or item.get("image") or HOME_HERO
+def thumb_src(item, nested=False, fallback=HOME_HERO):
+    if item:
+        value = item.get("thumb") or item.get("image") or fallback
+    else:
+        value = fallback
+
     if value.startswith("http://") or value.startswith("https://") or value.startswith("/"):
         return value
-    if nested:
-        return "../" + value
-    return value
+
+    return ("../" + value) if nested else value
 
 
-def artist_footer(prefix=""):
-    return f'''  <footer class="site-footer">
+def artist_footer():
+    return '''  <footer class="site-footer">
     <div class="container">
       <p class="small">© André Baumann / DiAndré.</p>
       <p class="small">
@@ -173,7 +292,7 @@ def home_page(grouped):
   <link rel="stylesheet" href="../assets/css/site.css">
   <link rel="stylesheet" href="assets/art-gallery.css">
 </head>
-<body class="art-body">
+<body class="art-body art-home">
   <header class="site-header">
     <div class="container topbar">
       <a class="brand" href="../index.html">André Baumann</a>
@@ -320,7 +439,7 @@ def collection_page(collection, items):
     </div>
   </dialog>
 
-{artist_footer("../")}
+{artist_footer()}
   <script src="../assets/art-gallery.js" defer></script>
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}}'></script>
 </body>
@@ -334,17 +453,20 @@ def main():
 
     (ART / "index.html").write_text(home_page(grouped), encoding="utf-8")
 
+    print("Built static gallery.")
     for collection in COLLECTIONS:
+        items = grouped.get(collection["name"], [])
+        ordered_items = ordered(items, collection)
+        lead = ordered_items[0] if ordered_items else None
+        lead_label = (lead or {}).get("title") or "None"
+        print(f"{collection['name']}: {len(items)} works | feature: {lead_label}")
+
         out = ART / collection["slug"]
         out.mkdir(parents=True, exist_ok=True)
         (out / "index.html").write_text(
-            collection_page(collection, grouped.get(collection["name"], [])),
+            collection_page(collection, items),
             encoding="utf-8",
         )
-
-    print("Built static gallery.")
-    for collection in COLLECTIONS:
-        print(f"{collection['name']}: {len(grouped.get(collection['name'], []))} works")
 
 
 if __name__ == "__main__":

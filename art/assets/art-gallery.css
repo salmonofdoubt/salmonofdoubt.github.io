@@ -164,11 +164,13 @@ body.art-body img {
   border: 1px solid rgba(255, 255, 255, 0.045);
 }
 
-.room-tile img {
+.art-home .room-tile img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+  background: #0a0908;
+  padding: 0.35rem;
 }
 
 .room-tile span,
