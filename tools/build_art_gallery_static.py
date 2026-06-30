@@ -7,90 +7,35 @@ import json
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "art"
 DATA = ART / "data" / "artworks.json"
+CURATION = ART / "data" / "art-curation.json"
 
 COLLECTIONS = [
-    {
-        "name": "Oil Paintings",
-        "slug": "oil-paintings",
-        "kicker": "Oil on canvas and board",
-        "description": "Portraits, interiors, flowers, walls, urban heat and other oil works.",
-        "pinned_selectors": [
-            {"all": ["window", "curtain"]},
-            {"all": ["door", "curtain"]},
-            {"any": ["burnt sienna", "sienna", "interior", "doorway", "window", "curtain", "room"]},
-        ],
-        "score_terms": ["interior", "window", "curtain", "door", "room", "ferrara", "mura", "portrait"],
-    },
-    {
-        "name": "Watercolours",
-        "slug": "watercolours",
-        "kicker": "Watercolour and paper",
-        "description": "Colour studies, portraits where identifiable, systems images and paper works.",
-        "pinned_selectors": [],
-        "score_terms": ["watercolour", "portrait", "colour", "study"],
-    },
-    {
-        "name": "Drawings",
-        "slug": "drawings",
-        "kicker": "Drawing and observation",
-        "description": "Portraits, coastal studies, botanical works and other drawings.",
-        "pinned_selectors": [],
-        "score_terms": ["drawing", "portrait", "coast", "botanical", "observation"],
-    },
-    {
-        "name": "Experimental",
-        "slug": "experimental",
-        "kicker": "Studio research",
-        "description": "Colour tests, digital processes, material accidents and unresolved visual research.",
-        "pinned_selectors": [
-            {"all": ["cloud", "blue"]},
-            {"any": ["blue cloud", "cloud", "sky", "cumulus"]},
-        ],
-        "score_terms": ["cloud", "blue", "sky", "experimental", "colour", "abstract"],
-    },
-    {
-        "name": "GeoSpatial Imagery",
-        "slug": "geospatial-imagery",
-        "kicker": "Maps and spatial images",
-        "description": "Geospatial imagery, field layouts and visual systems work.",
-        "pinned_selectors": [],
-        "score_terms": ["geospatial", "map", "field", "site", "spatial"],
-    },
+    {"name": "Oil Paintings", "slug": "oil-paintings", "kicker": "Oil on canvas and board", "description": "Portraits, interiors, flowers, walls, urban heat and other oil works.", "score_terms": ["interior", "window", "curtain", "door", "room", "ferrara", "mura", "portrait"]},
+    {"name": "Watercolours", "slug": "watercolours", "kicker": "Watercolour and paper", "description": "Colour studies, portraits where identifiable, systems images and paper works.", "score_terms": ["watercolour", "portrait", "colour", "study"]},
+    {"name": "Drawings", "slug": "drawings", "kicker": "Drawing and observation", "description": "Portraits, coastal studies, botanical works and other drawings.", "score_terms": ["drawing", "portrait", "coast", "botanical", "observation"]},
+    {"name": "Experimental", "slug": "experimental", "kicker": "Studio research", "description": "Colour tests, digital processes, material accidents and unresolved visual research.", "score_terms": ["cloud", "blue", "sky", "experimental", "colour", "abstract"]},
+    {"name": "GeoSpatial Imagery", "slug": "geospatial-imagery", "kicker": "Maps and spatial images", "description": "Geospatial imagery, field layouts and visual systems work.", "score_terms": ["geospatial", "map", "field", "site", "spatial"]},
 ]
 
 HERO_FALLBACK = "../images/001-2.jpg"
-
-
-CURATED_FEATURES = {
-    "Oil Paintings": {
-        "id": "curated-oil-burnt-sienna-interior",
-        "collection": "Oil Paintings",
-        "collectionOrder": 1,
-        "subgroup": "Interiors and places",
-        "title": "Burnt sienna interior",
-        "medium": "Oil painting",
-        "image": "https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20260628_1839553.jpg",
-        "thumb": "https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20260628_1839553.jpg",
-        "source": "WordPress archive",
-        "sourceUrl": "https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20260628_1839553.jpg",
-        "alt": "Burnt sienna oil painting of an interior with doorway, curtain, bed and warm light",
-        "text": "A burnt-sienna interior: doorway, curtain, bed, wall and warm light held as a quiet domestic threshold.",
-        "reading": "This is the oil painting anchor because it presents atmosphere, interiority, memory and painterly restraint more strongly than a decorative colour signature.",
-        "order": -100
-    }
-}
-
 
 
 def esc(value: object) -> str:
     return html.escape(str(value or ""), quote=True)
 
 
+def read_json(path: Path, fallback):
+    if not path.exists():
+        return fallback
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def load_artworks() -> list[dict]:
-    if not DATA.exists():
-        return []
-    data = json.loads(DATA.read_text(encoding="utf-8"))
-    return data.get("artworks", [])
+    return read_json(DATA, {"artworks": []}).get("artworks", [])
+
+
+def load_curation() -> dict:
+    return read_json(CURATION, {"homepageHero": {}, "collections": {}})
 
 
 def group_by_collection(artworks: list[dict]) -> dict[str, list[dict]]:
@@ -102,100 +47,112 @@ def group_by_collection(artworks: list[dict]) -> dict[str, list[dict]]:
     return grouped
 
 
-def text_blob(item: dict) -> str:
-    fields = [
-        item.get("id"),
-        item.get("title"),
-        item.get("medium"),
-        item.get("subgroup"),
-        item.get("text"),
-        item.get("reading"),
-        item.get("image"),
-        item.get("thumb"),
-        item.get("sourceUrl"),
-    ]
-    return " ".join(str(field or "") for field in fields).lower()
+def blob(item: dict) -> str:
+    return " ".join(str(item.get(k, "")) for k in [
+        "id", "title", "collection", "subgroup", "medium", "image", "thumb",
+        "sourceUrl", "text", "reading", "alt"
+    ]).lower()
 
 
-def score_item(item: dict, score_terms: list[str]) -> int:
-    blob = text_blob(item)
-    title = str(item.get("title", "")).lower()
-    score = 0
+def curated_item(selector: dict, collection_name: str | None = None) -> dict | None:
+    if not selector or not selector.get("image"):
+        return None
 
-    if title and "work " not in title:
-        score += 16
-
-    for term in score_terms:
-        if term in blob:
-            score += 18
-
-    bonus_terms = {
-        "portrait": 18,
-        "ferrara": 24,
-        "mura": 20,
-        "interior": 20,
-        "window": 18,
-        "curtain": 18,
-        "cloud": 24,
-        "blue": 14,
-        "geospatial": 20,
-        "map": 14,
+    return {
+        "id": selector.get("id") or f"curated-{(collection_name or 'feature').lower().replace(' ', '-')}",
+        "collection": collection_name or selector.get("collection") or "",
+        "title": selector.get("title") or selector.get("titleContains") or "Selected work",
+        "medium": selector.get("medium") or "",
+        "subgroup": selector.get("subgroup") or "Curated feature",
+        "image": selector["image"],
+        "thumb": selector.get("thumb") or selector["image"],
+        "sourceUrl": selector.get("sourceUrl") or selector["image"],
+        "alt": selector.get("alt") or selector.get("title") or "Selected artwork",
+        "text": selector.get("text") or "",
+        "reading": selector.get("reading") or "",
+        "order": -999
     }
 
-    for term, points in bonus_terms.items():
-        if term in blob:
-            score += points
 
+def selector_matches(item: dict, selector: dict) -> bool:
+    if not selector:
+        return False
+
+    if selector.get("id") and item.get("id") == selector["id"]:
+        return True
+
+    if selector.get("image"):
+        image = selector["image"]
+        if item.get("image") == image or item.get("thumb") == image or item.get("sourceUrl") == image:
+            return True
+
+    if selector.get("titleContains"):
+        return str(selector["titleContains"]).lower() in str(item.get("title", "")).lower()
+
+    return False
+
+
+def score_item(item: dict, terms: list[str]) -> int:
+    text = blob(item)
+    title = str(item.get("title", "")).lower()
+    score = 0
+    if title and "work " not in title:
+        score += 12
+    for term in terms:
+        if term in text:
+            score += 10
     return score
 
 
-def matches_selector(item: dict, selector: dict) -> bool:
-    blob = text_blob(item)
-    all_terms = selector.get("all", [])
-    any_terms = selector.get("any", [])
-    exclude_terms = selector.get("exclude", [])
+def choose_feature(items: list[dict], collection: dict, curation: dict) -> dict | None:
+    rule = curation.get("collections", {}).get(collection["name"], {}).get("feature", {})
 
-    if any(term in blob for term in exclude_terms):
-        return False
-    if all_terms and not all(term in blob for term in all_terms):
-        return False
-    if any_terms and not any(term in blob for term in any_terms):
-        return False
-    return True
-
-
-def choose_feature(items: list[dict], collection: dict) -> dict | None:
-    curated = CURATED_FEATURES.get(collection["name"])
-    if curated:
-        return curated
+    if rule:
+        for item in items:
+            if selector_matches(item, rule):
+                return item
+        external = curated_item(rule, collection["name"])
+        if external:
+            return external
 
     if not items:
         return None
 
-    for selector in collection.get("pinned_selectors", []):
-        matches = [item for item in items if matches_selector(item, selector)]
-        if matches:
-            return max(matches, key=lambda item: score_item(item, collection["score_terms"]))
-
     return max(items, key=lambda item: score_item(item, collection["score_terms"]))
 
-def ordered_archive(items: list[dict], collection: dict, chosen_feature: dict | None) -> list[dict]:
-    ordered = sorted(items, key=lambda item: score_item(item, collection["score_terms"]), reverse=True)
 
-    if chosen_feature is None:
+def choose_home_hero(grouped: dict[str, list[dict]], curation: dict) -> dict | None:
+    rule = curation.get("homepageHero", {})
+    target_collection = rule.get("collection")
+    candidates = grouped.get(target_collection, []) if target_collection else [item for group in grouped.values() for item in group]
+
+    for item in candidates:
+        if selector_matches(item, rule):
+            return item
+
+    external = curated_item(rule, target_collection)
+    if external:
+        return external
+
+    oil = next(item for item in COLLECTIONS if item["name"] == "Oil Paintings")
+    return choose_feature(grouped.get("Oil Paintings", []), oil, curation)
+
+
+def ordered_archive(items: list[dict], collection: dict, feature: dict | None) -> list[dict]:
+    ordered = sorted(items, key=lambda item: score_item(item, collection["score_terms"]), reverse=True)
+    if not feature:
         return ordered
 
-    feature_id = chosen_feature.get("id")
-    feature_image = chosen_feature.get("image")
-    feature_source = chosen_feature.get("sourceUrl")
-
+    feature_id = feature.get("id")
+    feature_image = feature.get("image")
     return [
         item for item in ordered
         if item.get("id") != feature_id
         and item.get("image") != feature_image
         and item.get("thumb") != feature_image
-        and item.get("sourceUrl") != feature_source
+        and item.get("sourceUrl") != feature_image
     ]
+
 
 def image_path(item: dict | None, nested: bool = False, thumb: bool = False) -> str:
     if item:
@@ -223,11 +180,11 @@ def footer_html() -> str:
 '''
 
 
-def room_tile_html(collection: dict, items: list[dict]) -> str:
-    feature = choose_feature(items, collection)
+def room_tile_html(collection: dict, items: list[dict], curation: dict) -> str:
+    feature = choose_feature(items, collection, curation)
     return f'''      <a class="room-tile" href="{collection["slug"]}/">
         <div class="room-tile-media">
-          <img src="{esc(image_path(feature, nested=False, thumb=True))}" alt="{esc((feature or {}).get("alt") or (feature or {}).get("title") or collection["name"])}" loading="lazy">
+          <img src="{esc(image_path(feature, thumb=True))}" alt="{esc((feature or {}).get("alt") or (feature or {}).get("title") or collection["name"])}" loading="lazy">
         </div>
         <div class="room-tile-copy">
           <p class="micro">{esc(collection["kicker"])}</p>
@@ -238,15 +195,9 @@ def room_tile_html(collection: dict, items: list[dict]) -> str:
       </a>'''
 
 
-def home_page_html(grouped: dict[str, list[dict]]) -> str:
-    oil_collection = next(item for item in COLLECTIONS if item["name"] == "Oil Paintings")
-    oil_feature = choose_feature(grouped.get("Oil Paintings", []), oil_collection)
-    hero_image = image_path(oil_feature, nested=False, thumb=False)
-
-    tiles = "\n".join(
-        room_tile_html(collection, grouped.get(collection["name"], []))
-        for collection in COLLECTIONS
-    )
+def home_page_html(grouped: dict[str, list[dict]], curation: dict) -> str:
+    hero = choose_home_hero(grouped, curation)
+    tiles = "\n".join(room_tile_html(collection, grouped.get(collection["name"], []), curation) for collection in COLLECTIONS)
 
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -281,7 +232,7 @@ def home_page_html(grouped: dict[str, list[dict]]) -> str:
         <p>The environmental and systems background is present, but the work begins with looking, colour, memory and material presence.</p>
       </div>
       <figure class="intro-image">
-        <img src="{esc(hero_image)}" alt="{esc((oil_feature or {}).get("alt") or (oil_feature or {}).get("title") or "Featured oil painting")}">
+        <img src="{esc(image_path(hero))}" alt="{esc((hero or {}).get("alt") or (hero or {}).get("title") or "Featured artwork")}">
       </figure>
     </section>
 
@@ -291,7 +242,6 @@ def home_page_html(grouped: dict[str, list[dict]]) -> str:
         <h2 id="rooms-title">Five rooms.</h2>
         <p>Each room opens with a selected work, then continues into the wider archive.</p>
       </div>
-
       <div class="room-grid">
 {tiles}
       </div>
@@ -314,8 +264,7 @@ def home_page_html(grouped: dict[str, list[dict]]) -> str:
 def work_card_html(item: dict, nested: bool = True) -> str:
     title = item.get("title") or "Untitled"
     meta = " · ".join(part for part in [item.get("medium"), item.get("subgroup")] if part)
-
-    return f'''        <a class="work-card" href="{esc(image_path(item, nested=nested, thumb=False))}"
+    return f'''        <a class="work-card" href="{esc(image_path(item, nested=nested))}"
           data-title="{esc(title)}"
           data-meta="{esc(meta)}"
           data-text="{esc(item.get("text"))}"
@@ -327,12 +276,12 @@ def work_card_html(item: dict, nested: bool = True) -> str:
         </a>'''
 
 
-def collection_page_html(collection: dict, items: list[dict]) -> str:
-    feature = choose_feature(items, collection)
+def collection_page_html(collection: dict, items: list[dict], curation: dict) -> str:
+    feature = choose_feature(items, collection, curation)
     archive_items = ordered_archive(items, collection, feature)
+
     title = (feature or {}).get("title") or collection["name"]
     meta = " · ".join(part for part in [(feature or {}).get("medium"), (feature or {}).get("subgroup")] if part)
-
     wall = "\n".join(work_card_html(item, nested=True) for item in archive_items)
 
     return f'''<!DOCTYPE html>
@@ -370,13 +319,13 @@ def collection_page_html(collection: dict, items: list[dict]) -> str:
     </section>
 
     <section class="lead-work">
-      <a href="{esc(image_path(feature, nested=True, thumb=False))}" class="lead-link"
+      <a href="{esc(image_path(feature, nested=True))}" class="lead-link"
         data-title="{esc(title)}"
         data-meta="{esc(meta)}"
         data-text="{esc((feature or {}).get("text"))}"
         data-reading="{esc((feature or {}).get("reading"))}"
         data-source="{esc((feature or {}).get("sourceUrl"))}">
-        <img src="{esc(image_path(feature, nested=True, thumb=False))}" alt="{esc((feature or {}).get("alt") or title)}">
+        <img src="{esc(image_path(feature, nested=True))}" alt="{esc((feature or {}).get("alt") or title)}">
       </a>
       <p><strong>{esc(title)}</strong>{(" <span>" + esc(meta) + "</span>") if meta else ""}</p>
     </section>
@@ -410,23 +359,20 @@ def collection_page_html(collection: dict, items: list[dict]) -> str:
 
 def main() -> None:
     artworks = load_artworks()
+    curation = load_curation()
     grouped = group_by_collection(artworks)
 
-    (ART / "index.html").write_text(home_page_html(grouped), encoding="utf-8")
+    (ART / "index.html").write_text(home_page_html(grouped, curation), encoding="utf-8")
 
-    print("Built static art gallery.")
+    print("Built configurable art gallery.")
     for collection in COLLECTIONS:
         items = grouped.get(collection["name"], [])
-        feature = choose_feature(items, collection)
-        feature_title = (feature or {}).get("title") or "None"
-        print(f"{collection['name']}: {len(items)} works | feature: {feature_title}")
+        feature = choose_feature(items, collection, curation)
+        print(f"{collection['name']}: {len(items)} works | feature: {(feature or {}).get('title', 'None')}")
 
         out_dir = ART / collection["slug"]
         out_dir.mkdir(parents=True, exist_ok=True)
-        (out_dir / "index.html").write_text(
-            collection_page_html(collection, items),
-            encoding="utf-8",
-        )
+        (out_dir / "index.html").write_text(collection_page_html(collection, items, curation), encoding="utf-8")
 
 
 if __name__ == "__main__":
