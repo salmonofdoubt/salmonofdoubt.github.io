@@ -19,6 +19,11 @@ FRESHNESS_CLASSES: dict[str, dict[str, Any]] = {
         "description": "Recent official sample or observation, not continuous live sensing.",
         "sort": 30,
     },
+    "official_historic": {
+        "label": "Official WQ values / WFD record",
+        "description": "Official EPA/Catchments record. May be historic rather than live.",
+        "sort": 35,
+    },
     "seasonal": {
         "label": "Seasonal official data",
         "description": "Seasonal or annual official monitoring information.",
@@ -77,6 +82,20 @@ SOURCE_TAXONOMY: dict[str, dict[str, Any]] = {
         "source_group": "regulatory_context",
         "is_live_signal": False,
         "display_hint": "WFD assessment context; not real-time water quality.",
+    },
+    "epa_official_wq": {
+        "freshness_class": "official_historic",
+        "signal_layer": "official_context",
+        "source_group": "official_wq",
+        "is_live_signal": False,
+        "display_hint": "Official EPA WFD waterbody and monitoring-programme records; not real-time chemistry values.",
+    },
+    "epa_official_chemistry": {
+        "freshness_class": "official_historic",
+        "signal_layer": "recent_observation",
+        "source_group": "official_wq",
+        "is_live_signal": False,
+        "display_hint": "Official chemistry result values imported from Catchments.ie/EPA chemistry downloads.",
     },
     "epa_geoportal_context": {
         "freshness_class": "historical",

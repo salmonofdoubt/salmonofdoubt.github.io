@@ -8,6 +8,7 @@ export const TYPE_LABELS = {
   wfd_context: "WFD context",
   official_wq_waterbody: "Official WQ waterbody",
   official_wq_station: "Official WQ monitoring station",
+  official_chemistry_result: "Official chemistry result",
   groundwater_context: "Groundwater context",
   marine_context: "Marine shore context",
   marine_observation: "Marine buoy observation",

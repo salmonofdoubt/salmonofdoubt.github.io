@@ -14,6 +14,11 @@ export const FRESHNESS_CLASSES = {
     description: "Recent official sample or observation, not continuous live sensing.",
     sort: 30,
   },
+  official_historic: {
+    label: "Official WQ values / WFD record",
+    description: "Official EPA/Catchments record. May be historic rather than live.",
+    sort: 35,
+  },
   seasonal: {
     label: "Seasonal official data",
     description: "Seasonal or annual official monitoring information.",
@@ -71,6 +76,20 @@ export const SOURCE_TAXONOMY = {
     sourceGroup: "regulatory_context",
     isLiveSignal: false,
     displayHint: "WFD assessment context; not real-time water quality.",
+  },
+  epa_official_wq: {
+    freshnessClass: "official_historic",
+    signalLayer: "official_context",
+    sourceGroup: "official_wq",
+    isLiveSignal: false,
+    displayHint: "Official EPA WFD waterbody and monitoring-programme records; not real-time chemistry values.",
+  },
+  epa_official_chemistry: {
+    freshnessClass: "official_historic",
+    signalLayer: "recent_observation",
+    sourceGroup: "official_wq",
+    isLiveSignal: false,
+    displayHint: "Official chemistry result values imported from Catchments.ie/EPA chemistry downloads.",
   },
   epa_geoportal_context: {
     freshnessClass: "historical",

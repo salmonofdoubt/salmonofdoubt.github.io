@@ -13,6 +13,7 @@ const sources = [
   { id: "epa_bathing_measurements", freshness_class: "recent", signal_layer: "recent_observation" },
   { id: "epa_wfd", freshness_class: "context", signal_layer: "wfd_context" },
   { id: "epa_official_wq", freshness_class: "official_historic", signal_layer: "context", source_group: "official_wq" },
+  { id: "epa_official_chemistry", freshness_class: "official_historic", signal_layer: "recent_observation", source_group: "official_wq" },
   { id: "epa_geoportal_context", freshness_class: "historical", signal_layer: "historical_context" },
 ];
 
@@ -22,6 +23,7 @@ assert.equal(sourceScopeLabel("live_signal"), "Live signals");
 assert.equal(sourceScopeLabel("official_wq"), "Official WQ");
 
 assert.equal(recordMatchesSourceScope({ source: "epa_official_wq", type: "official_wq_station" }, "official_wq", lookup), true);
+assert.equal(recordMatchesSourceScope({ source: "epa_official_chemistry", type: "official_chemistry_result" }, "official_wq", lookup), true);
 assert.equal(recordMatchesSourceScope({ source: "opw_waterlevel", type: "water_level" }, "official_wq", lookup), false);
 
 assert.equal(recordMatchesSourceScope({ source: "opw_waterlevel" }, "live_signal", lookup), true);

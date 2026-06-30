@@ -13,7 +13,7 @@ export const SOURCE_SCOPE_OPTIONS = [
   {
     value: "official_wq",
     label: "Official WQ",
-    description: "Official EPA WFD waterbody and monitoring-programme records.",
+    description: "Official EPA WFD status, monitoring-station and chemistry-value records.",
   },
   {
     value: "live_signal",
@@ -37,8 +37,8 @@ export const SOURCE_SCOPE_OPTIONS = [
   },
 ];
 
-const CONTEXT_FRESHNESS = new Set(["context", "seasonal", "historical", "official_historic", "planned"]);
-const RECENT_FRESHNESS = new Set(["recent"]);
+const CONTEXT_FRESHNESS = new Set(["context", "seasonal", "historical", "planned"]);
+const RECENT_FRESHNESS = new Set(["recent", "official_historic"]);
 
 export function sourceLookup(sources = []) {
   const lookup = new Map();
@@ -78,6 +78,16 @@ export function isLocalImportRecord(record) {
   );
 }
 
+export function isOfficialWqRecord(record, source = null) {
+  return (
+    record?.source === "epa_official_wq" ||
+    record?.source === "epa_official_chemistry" ||
+    String(record?.type || "").startsWith("official_wq_") ||
+    String(record?.type || "").startsWith("official_chemistry_") ||
+    String(source?.source_group || source?.group || "").includes("official_wq")
+  );
+}
+
 export function recordSourceProfile(record, sourcesOrLookup = []) {
   const source = lookupSource(record, sourcesOrLookup);
   const profile = source || {
@@ -91,6 +101,7 @@ export function recordSourceProfile(record, sourcesOrLookup = []) {
 
   const signalLayer = sourceSignalLayer(profile);
   const freshness = sourceFreshness(profile);
+  const officialWq = isOfficialWqRecord(record, source);
   const isLive =
     isLiveSignalSource(profile) ||
     signalLayer === "live_signal" ||
@@ -103,14 +114,14 @@ export function recordSourceProfile(record, sourcesOrLookup = []) {
     signalLayer,
     isLive,
     isRecent: RECENT_FRESHNESS.has(freshness) || signalLayer === "recent_observation",
-    isOfficialWq:
-      record?.source === "epa_official_wq" ||
-      String(record?.type || "").startsWith("official_wq_") ||
-      String(source?.source_group || source?.group || "").includes("official_wq"),
+    isOfficialWq: officialWq,
     isContext:
-      CONTEXT_FRESHNESS.has(freshness) ||
-      String(signalLayer || "").includes("context") ||
-      String(record?.type || "").includes("context"),
+      !officialWq &&
+      (
+        CONTEXT_FRESHNESS.has(freshness) ||
+        String(signalLayer || "").includes("context") ||
+        String(record?.type || "").includes("context")
+      ),
     isLocalImport: isLocalImportRecord(record),
   };
 }
@@ -133,7 +144,7 @@ export function recordMatchesSourceScope(record, scope = "all", sourcesOrLookup 
   }
 
   if (scope === "context") {
-    return !profile.isLive && !profile.isRecent && !profile.isLocalImport;
+    return profile.isContext;
   }
 
   if (scope === "local_import") {

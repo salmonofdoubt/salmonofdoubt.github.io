@@ -37,3 +37,7 @@ assert.equal(sourceSignalLayer({ id: "local_focus_places" }), "context");
 assert.equal(isLiveSignalSource({ id: "local_focus_places" }), false);
 
 console.log("WQ freshness taxonomy tests passed.");
+
+assert.equal(sourceFreshness({ id: "epa_official_chemistry" }), "official_historic");
+assert.equal(sourceSignalLayer({ id: "epa_official_chemistry" }), "recent_observation");
+assert.equal(isLiveSignalSource({ id: "epa_official_chemistry" }), false);
