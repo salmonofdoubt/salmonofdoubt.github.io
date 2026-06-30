@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-06-30T10:08:06Z",
+  "generated_at_utc": "2026-06-30T12:14:06Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
@@ -16,8 +16,8 @@
       "id": "opw_waterlevel",
       "status": "ok",
       "records": 2000,
-      "fetched_at_utc": "2026-06-30T10:08:06Z",
-      "elapsed_ms": 1896
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 701
     },
     {
       "name": "EPA Bathing Water locations",
@@ -34,8 +34,8 @@
       "id": "epa_bathing_locations",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T10:08:06Z",
-      "elapsed_ms": 5843
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 591
     },
     {
       "name": "EPA Bathing Water measurements",
@@ -52,8 +52,8 @@
       "id": "epa_bathing_measurements",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T10:08:06Z",
-      "elapsed_ms": 5453
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 277
     },
     {
       "name": "EPA Bathing Water alerts",
@@ -70,8 +70,8 @@
       "id": "epa_bathing_alerts",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T10:08:06Z",
-      "elapsed_ms": 4597
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 101
     },
     {
       "name": "EPA WFD Open Data context",
@@ -88,8 +88,8 @@
       "id": "epa_wfd",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T10:08:06Z",
-      "elapsed_ms": 14644
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 2794
     },
     {
       "name": "EPA Geoportal water quality datasets",
@@ -106,7 +106,7 @@
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-06-30T10:08:06Z"
+      "fetched_at_utc": "2026-06-30T12:14:06Z"
     },
     {
       "name": "Marine Institute Irish Weather Buoy Network",
@@ -123,8 +123,8 @@
       "id": "marine_institute_weather_buoys",
       "status": "ok",
       "records": 4,
-      "fetched_at_utc": "2026-06-30T10:08:06Z",
-      "elapsed_ms": 1203
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 252
     },
     {
       "name": "Met Éireann current station observations",
@@ -141,26 +141,45 @@
       "id": "met_eireann_observations",
       "status": "ok",
       "records": 7,
-      "fetched_at_utc": "2026-06-30T10:08:06Z",
-      "elapsed_ms": 4710
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 2861
+    },
+    {
+      "name": "Local focus-place anchors",
+      "freshness_class": "context",
+      "licence": "site-defined context",
+      "caveat": "Navigation/context markers for named focus places. These are not monitoring measurements.",
+      "freshness_label": "WFD/context layer",
+      "freshness_description": "Assessment or regulatory context, not real-time water quality.",
+      "freshness_sort": 60,
+      "signal_layer": "context",
+      "source_group": "focus",
+      "is_live_signal": false,
+      "display_hint": "Map navigation anchors for named focus places; not measurements.",
+      "id": "local_focus_places",
+      "status": "ok",
+      "records": 6,
+      "fetched_at_utc": "2026-06-30T12:14:06Z",
+      "elapsed_ms": 0
     }
   ],
   "harvest_health": {
     "ok": true,
     "status": "ok",
     "issues": [],
-    "record_count": 2012,
-    "source_count": 8,
+    "record_count": 2018,
+    "source_count": 9,
     "records_by_source": {
       "opw_waterlevel": 2000,
       "epa_geoportal_context": 1,
       "marine_institute_weather_buoys": 4,
-      "met_eireann_observations": 7
+      "met_eireann_observations": 7,
+      "local_focus_places": 6
     },
     "minimums": {
       "records": 100,
       "opw_records": 1000,
-      "sources": 7
+      "sources": 9
     }
   }
 }

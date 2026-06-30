@@ -32,4 +32,8 @@ assert.equal(sourceFreshness({ id: "met_eireann_observations" }), "near_live");
 assert.equal(sourceSignalLayer({ id: "met_eireann_observations" }), "live_signal");
 assert.equal(isLiveSignalSource({ id: "met_eireann_observations" }), true);
 
+assert.equal(sourceFreshness({ id: "local_focus_places" }), "context");
+assert.equal(sourceSignalLayer({ id: "local_focus_places" }), "context");
+assert.equal(isLiveSignalSource({ id: "local_focus_places" }), false);
+
 console.log("WQ freshness taxonomy tests passed.");

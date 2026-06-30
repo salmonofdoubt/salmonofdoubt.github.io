@@ -99,6 +99,13 @@ SOURCE_TAXONOMY: dict[str, dict[str, Any]] = {
         "is_live_signal": True,
         "display_hint": "Near-real-time rainfall/event trigger; not water-quality chemistry.",
     },
+    "local_focus_places": {
+        "freshness_class": "context",
+        "signal_layer": "context",
+        "source_group": "focus",
+        "is_live_signal": False,
+        "display_hint": "Map navigation anchors for named focus places; not measurements.",
+    },
 }
 
 

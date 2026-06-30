@@ -10,7 +10,7 @@ sys.path.insert(0, str(OPS_DIR))
 from wq_pipeline.core.payload import payload_health
 
 
-def payload(opw_status="ok", opw_records=2000, include_opw=True, total_records=2002, source_count=7):
+def payload(opw_status="ok", opw_records=2000, include_opw=True, total_records=2002, source_count=9):
     source_ids = [
         "opw_waterlevel",
         "epa_bathing_locations",
@@ -19,6 +19,8 @@ def payload(opw_status="ok", opw_records=2000, include_opw=True, total_records=2
         "epa_wfd",
         "epa_geoportal_context",
         "marine_institute_weather_buoys",
+        "met_eireann_observations",
+        "local_focus_places",
     ][:source_count]
 
     sources = []

@@ -93,6 +93,13 @@ export const SOURCE_TAXONOMY = {
     isLiveSignal: true,
     displayHint: "Near-real-time rainfall/event trigger; not water-quality chemistry.",
   },
+  local_focus_places: {
+    freshnessClass: "context",
+    signalLayer: "context",
+    sourceGroup: "focus",
+    isLiveSignal: false,
+    displayHint: "Map navigation anchors for named focus places; not measurements.",
+  },
 };
 
 export function normaliseFreshnessClass(value) {

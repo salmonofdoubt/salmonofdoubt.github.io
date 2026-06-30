@@ -16,6 +16,7 @@ from wq_pipeline.adapters.epa_wfd import harvest_wfd as harvest_wfd_adapter
 from wq_pipeline.adapters.context import planned_context_records as planned_context_records_adapter
 from wq_pipeline.adapters.marine_erddap import harvest_marine_weather_buoys as harvest_marine_weather_buoys_adapter
 from wq_pipeline.adapters.met_eireann_observations import harvest_met_eireann_observations as harvest_met_eireann_observations_adapter
+from wq_pipeline.adapters.focus_places import build_focus_place_records as build_focus_place_records_adapter
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
@@ -69,6 +70,12 @@ SOURCE_DEFS = {
         "freshness_class": "near_live",
         "licence": "check source terms",
         "caveat": "Current station rainfall/weather observations are event-driver context, not water-quality chemistry."
+    },
+    "local_focus_places": {
+        "name": "Local focus-place anchors",
+        "freshness_class": "context",
+        "licence": "site-defined context",
+        "caveat": "Navigation/context markers for named focus places. These are not monitoring measurements."
     }
 }
 
@@ -119,6 +126,10 @@ def harvest_marine_weather_buoys(now: str) -> tuple[list[dict[str, Any]], dict[s
 
 def harvest_met_eireann_observations(now: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     return harvest_met_eireann_observations_adapter(now, source_defs=SOURCE_DEFS)
+
+
+def build_focus_place_records(now: str) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    return build_focus_place_records_adapter(now, source_defs=SOURCE_DEFS)
 
 
 
@@ -227,7 +238,7 @@ def normalise_payload_sources(
     *,
     order_cache: dict[str, int] | None = None,
 ) -> list[dict[str, Any]]:
-    order_cache = order_cache or []
+    order_cache = order_cache or {}
 
     def sort_key(source: dict[str, Any]) -> tuple[Any, ...]:
         source_id = str(source.get("id") or "")
@@ -262,6 +273,10 @@ def build_payload() -> dict[str, Any]:
     keywords = focus_keywords()
     records: list[dict[str, Any]] = []
     sources: list[dict[str, Any]] = []
+
+    focus_place_records, focus_place_source = build_focus_place_records(now)
+    records.extend(focus_place_records)
+    sources.append(focus_place_source)
 
     opw_records, opw_source = harvest_opw(now)
     records.extend(opw_records)

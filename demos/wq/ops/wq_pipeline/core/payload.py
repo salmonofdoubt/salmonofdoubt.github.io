@@ -4,7 +4,7 @@ from collections import Counter
 from typing import Any
 
 
-EXPECTED_SOURCE_COUNT = 7
+EXPECTED_SOURCE_COUNT = 9
 MIN_TOTAL_RECORDS = 100
 MIN_OPW_RECORDS = 1000
 
@@ -16,6 +16,8 @@ REQUIRED_SOURCE_IDS = (
     "epa_wfd",
     "epa_geoportal_context",
     "marine_institute_weather_buoys",
+    "local_focus_places",
+    "met_eireann_observations",
 )
 
 
