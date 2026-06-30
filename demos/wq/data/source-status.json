@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-06-30T01:52:24Z",
+  "generated_at_utc": "2026-06-30T06:16:56Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
@@ -16,8 +16,8 @@
       "id": "opw_waterlevel",
       "status": "ok",
       "records": 2000,
-      "fetched_at_utc": "2026-06-30T01:52:24Z",
-      "elapsed_ms": 1898
+      "fetched_at_utc": "2026-06-30T06:16:56Z",
+      "elapsed_ms": 1718
     },
     {
       "name": "EPA Bathing Water locations",
@@ -34,8 +34,8 @@
       "id": "epa_bathing_locations",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T01:52:24Z",
-      "elapsed_ms": 2073
+      "fetched_at_utc": "2026-06-30T06:16:56Z",
+      "elapsed_ms": 1506
     },
     {
       "name": "EPA Bathing Water measurements",
@@ -52,8 +52,8 @@
       "id": "epa_bathing_measurements",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T01:52:24Z",
-      "elapsed_ms": 1037
+      "fetched_at_utc": "2026-06-30T06:16:56Z",
+      "elapsed_ms": 976
     },
     {
       "name": "EPA Bathing Water alerts",
@@ -70,8 +70,8 @@
       "id": "epa_bathing_alerts",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T01:52:24Z",
-      "elapsed_ms": 855
+      "fetched_at_utc": "2026-06-30T06:16:56Z",
+      "elapsed_ms": 348
     },
     {
       "name": "EPA WFD Open Data context",
@@ -86,10 +86,11 @@
       "is_live_signal": false,
       "display_hint": "WFD assessment context; not real-time water quality.",
       "id": "epa_wfd",
-      "status": "ok",
+      "status": "partial",
       "records": 0,
-      "fetched_at_utc": "2026-06-30T01:52:24Z",
-      "elapsed_ms": 12452
+      "fetched_at_utc": "2026-06-30T06:16:56Z",
+      "error": "Baldoyle: Timeout after 8s",
+      "elapsed_ms": 12233
     },
     {
       "name": "EPA Geoportal water quality datasets",
@@ -106,7 +107,7 @@
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-06-30T01:52:24Z"
+      "fetched_at_utc": "2026-06-30T06:16:56Z"
     },
     {
       "name": "Marine Institute Irish Weather Buoy Network",
@@ -123,8 +124,8 @@
       "id": "marine_institute_weather_buoys",
       "status": "ok",
       "records": 4,
-      "fetched_at_utc": "2026-06-30T01:52:24Z",
-      "elapsed_ms": 880
+      "fetched_at_utc": "2026-06-30T06:16:56Z",
+      "elapsed_ms": 795
     },
     {
       "name": "Met Éireann current station observations",
@@ -141,8 +142,8 @@
       "id": "met_eireann_observations",
       "status": "ok",
       "records": 7,
-      "fetched_at_utc": "2026-06-30T01:52:24Z",
-      "elapsed_ms": 4046
+      "fetched_at_utc": "2026-06-30T06:16:56Z",
+      "elapsed_ms": 3819
     }
   ],
   "harvest_health": {
