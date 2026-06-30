@@ -28,6 +28,13 @@ COLLECTION_SLUGS = {
 }
 
 
+def slugify(value: str) -> str:
+    value = str(value or "").lower().strip()
+    value = re.sub(r"[^\w\s-]", "", value)
+    value = re.sub(r"[\s_-]+", "-", value)
+    return value.strip("-") or "artwork"
+
+
 def read_json(path: Path, fallback):
     if not path.exists():
         return fallback
@@ -39,11 +46,51 @@ def write_json(path: Path, payload) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def slugify(value: str) -> str:
-    value = str(value or "").lower().strip()
-    value = re.sub(r"[^\w\s-]", "", value)
-    value = re.sub(r"[\s_-]+", "-", value)
-    return value.strip("-") or "artwork"
+def ensure_artwork_ids(payload: dict) -> bool:
+    changed = False
+    records = payload.setdefault("artworks", [])
+    used = {record.get("id") for record in records if record.get("id")}
+
+    for index, record in enumerate(records, start=1):
+        if not record.get("id"):
+            base = f"{slugify(record.get('collection', 'art'))}-{slugify(record.get('title', 'untitled'))}"
+            candidate = base
+            counter = 2
+            while candidate in used:
+                candidate = f"{base}-{counter}"
+                counter += 1
+            record["id"] = candidate
+            used.add(candidate)
+            changed = True
+
+        if not record.get("status"):
+            record["status"] = "active"
+            changed = True
+
+        if not record.get("thumb") and record.get("image"):
+            record["thumb"] = record["image"]
+            changed = True
+
+        if not record.get("sourceUrl") and record.get("image"):
+            record["sourceUrl"] = record["image"]
+            changed = True
+
+    return changed
+
+
+def load_artworks_payload(write_back: bool = False) -> dict:
+    payload = read_json(ARTWORKS_PATH, {"artworks": []})
+    changed = ensure_artwork_ids(payload)
+    if changed and write_back:
+        write_json(ARTWORKS_PATH, payload)
+    return payload
+
+
+def load_curation() -> dict:
+    payload = read_json(CURATION_PATH, {"homepageHero": {}, "collections": {}})
+    payload.setdefault("homepageHero", {})
+    payload.setdefault("collections", {})
+    return payload
 
 
 def rebuild_gallery() -> dict:
@@ -52,7 +99,7 @@ def rebuild_gallery() -> dict:
         cwd=str(ROOT),
         text=True,
         capture_output=True,
-        timeout=25,
+        timeout=30,
         check=False,
     )
 
@@ -71,47 +118,17 @@ def rebuild_gallery() -> dict:
     }
 
 
-def decode_data_url(data_url: str) -> tuple[bytes, str]:
-    if "," not in data_url:
-        raise ValueError("Upload payload is not a valid data URL")
+def find_record(records: list[dict], payload: dict) -> dict | None:
+    record_id = payload.get("id")
+    image = payload.get("image")
 
-    header, b64 = data_url.split(",", 1)
-    match = re.search(r"data:([^;]+);base64", header)
-    mime = match.group(1).lower() if match else "image/jpeg"
+    for record in records:
+        if record_id and record.get("id") == record_id:
+            return record
+        if image and record.get("image") == image:
+            return record
 
-    ext_by_mime = {
-        "image/jpeg": ".jpg",
-        "image/jpg": ".jpg",
-        "image/png": ".png",
-        "image/webp": ".webp",
-        "image/gif": ".gif",
-    }
-
-    return base64.b64decode(b64), ext_by_mime.get(mime, ".jpg")
-
-
-def load_artworks_payload() -> dict:
-    payload = read_json(ARTWORKS_PATH, {"artworks": []})
-    payload.setdefault("artworks", [])
-    return payload
-
-
-def save_artworks_payload(payload: dict) -> None:
-    payload.setdefault("artworks", [])
-    write_json(ARTWORKS_PATH, payload)
-
-
-def load_curation() -> dict:
-    payload = read_json(CURATION_PATH, {"homepageHero": {}, "collections": {}})
-    payload.setdefault("homepageHero", {})
-    payload.setdefault("collections", {})
-    return payload
-
-
-def save_curation(payload: dict) -> None:
-    payload.setdefault("homepageHero", {})
-    payload.setdefault("collections", {})
-    write_json(CURATION_PATH, payload)
+    return None
 
 
 def record_selector(record: dict) -> dict:
@@ -131,7 +148,7 @@ def record_selector(record: dict) -> dict:
     }
 
 
-def prune_curation_for_hidden(record: dict) -> None:
+def prune_curation_for_record(record: dict) -> None:
     curation = load_curation()
     record_id = record.get("id")
     record_image = record.get("image")
@@ -140,12 +157,31 @@ def prune_curation_for_hidden(record: dict) -> None:
     if hero.get("id") == record_id or hero.get("image") == record_image:
         curation["homepageHero"] = {}
 
-    for item in curation.get("collections", {}).values():
-        feature = item.get("feature", {})
+    for collection_rule in curation.get("collections", {}).values():
+        feature = collection_rule.get("feature", {})
         if feature.get("id") == record_id or feature.get("image") == record_image:
-            item.pop("feature", None)
+            collection_rule.pop("feature", None)
 
-    save_curation(curation)
+    write_json(CURATION_PATH, curation)
+
+
+def decode_data_url(data_url: str) -> tuple[bytes, str]:
+    if "," not in data_url:
+        raise ValueError("Upload payload is not a valid data URL")
+
+    header, encoded = data_url.split(",", 1)
+    match = re.search(r"data:([^;]+);base64", header)
+    mime = match.group(1).lower() if match else "image/jpeg"
+
+    ext_by_mime = {
+        "image/jpeg": ".jpg",
+        "image/jpg": ".jpg",
+        "image/png": ".png",
+        "image/webp": ".webp",
+        "image/gif": ".gif",
+    }
+
+    return base64.b64decode(encoded), ext_by_mime.get(mime, ".jpg")
 
 
 def create_artwork_from_upload(payload: dict) -> dict:
@@ -170,7 +206,6 @@ def create_artwork_from_upload(payload: dict) -> dict:
     target.write_bytes(image_bytes)
 
     relative_image = str(target.relative_to(ART))
-
     today = time.strftime("%Y-%m-%d")
 
     return {
@@ -193,7 +228,7 @@ def create_artwork_from_upload(payload: dict) -> dict:
     }
 
 
-class CuratorHandler(SimpleHTTPRequestHandler):
+class ArtManagerHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
 
@@ -214,13 +249,20 @@ class CuratorHandler(SimpleHTTPRequestHandler):
     def save_and_rebuild(self, message: str, extra: dict | None = None) -> None:
         build = rebuild_gallery()
         if not build.get("ok"):
-            self.send_json(500, {"ok": False, "message": message, "build": build})
+            self.send_json(500, {"ok": False, "error": build.get("error"), "message": message, "build": build})
             return
 
-        response = {"ok": True, "message": message, "build": build}
+        payload = {"ok": True, "message": message, "build": build}
         if extra:
-            response.update(extra)
-        self.send_json(200, response)
+            payload.update(extra)
+        self.send_json(200, payload)
+
+    def do_GET(self) -> None:
+        path = urlparse(self.path).path
+        if path == "/api/health":
+            self.send_json(200, {"ok": True, "server": "art-manager", "root": str(ROOT)})
+            return
+        super().do_GET()
 
     def do_POST(self) -> None:
         path = urlparse(self.path).path
@@ -236,76 +278,69 @@ class CuratorHandler(SimpleHTTPRequestHandler):
 
             if path == "/api/update-artwork":
                 payload = self.read_payload()
-                record_id = payload.get("id")
-                if not record_id:
-                    self.send_json(400, {"ok": False, "error": "Missing artwork id"})
+                data = load_artworks_payload(write_back=True)
+                record = find_record(data["artworks"], payload)
+
+                if not record:
+                    self.send_json(404, {"ok": False, "error": "No matching artwork found"})
                     return
 
-                data = load_artworks_payload()
                 editable_fields = ["title", "collection", "medium", "subgroup", "alt", "text", "reading", "status"]
 
-                for record in data["artworks"]:
-                    if record.get("id") == record_id:
-                        for field in editable_fields:
-                            if field in payload:
-                                record[field] = payload[field]
-                        record["updatedAt"] = time.strftime("%Y-%m-%d")
-                        save_artworks_payload(data)
+                for field in editable_fields:
+                    if field in payload:
+                        record[field] = payload[field]
 
-                        if str(record.get("status", "active")).lower() == "hidden":
-                            prune_curation_for_hidden(record)
+                record["updatedAt"] = time.strftime("%Y-%m-%d")
 
-                        self.save_and_rebuild("Artwork updated and gallery rebuilt", {"record": record})
-                        return
+                if str(record.get("status", "active")).lower() == "hidden":
+                    prune_curation_for_record(record)
 
-                self.send_json(404, {"ok": False, "error": f"No artwork found with id {record_id}"})
+                write_json(ARTWORKS_PATH, data)
+                self.save_and_rebuild("Artwork updated and gallery rebuilt", {"record": record})
                 return
 
             if path == "/api/hide-artwork":
                 payload = self.read_payload()
-                record_id = payload.get("id")
-                if not record_id:
-                    self.send_json(400, {"ok": False, "error": "Missing artwork id"})
+                data = load_artworks_payload(write_back=True)
+                record = find_record(data["artworks"], payload)
+
+                if not record:
+                    self.send_json(404, {"ok": False, "error": "No matching artwork found"})
                     return
 
-                data = load_artworks_payload()
+                record["status"] = "hidden"
+                record["updatedAt"] = time.strftime("%Y-%m-%d")
 
-                for record in data["artworks"]:
-                    if record.get("id") == record_id:
-                        record["status"] = "hidden"
-                        record["updatedAt"] = time.strftime("%Y-%m-%d")
-                        save_artworks_payload(data)
-                        prune_curation_for_hidden(record)
-                        self.save_and_rebuild("Artwork hidden and gallery rebuilt", {"record": record})
-                        return
-
-                self.send_json(404, {"ok": False, "error": f"No artwork found with id {record_id}"})
+                prune_curation_for_record(record)
+                write_json(ARTWORKS_PATH, data)
+                self.save_and_rebuild("Artwork hidden and gallery rebuilt", {"record": record})
                 return
 
             if path == "/api/add-artwork":
                 payload = self.read_payload()
                 record = create_artwork_from_upload(payload)
 
-                data = load_artworks_payload()
+                data = load_artworks_payload(write_back=True)
                 data["artworks"].append(record)
-                save_artworks_payload(data)
+                write_json(ARTWORKS_PATH, data)
 
                 if payload.get("makeCollectionFeature") or payload.get("makeHomepageHero"):
                     curation = load_curation()
                     selector = record_selector(record)
 
                     if payload.get("makeCollectionFeature"):
-                        curation.setdefault("collections", {}).setdefault(record["collection"], {})["feature"] = selector
+                        curation["collections"].setdefault(record["collection"], {})["feature"] = selector
 
                     if payload.get("makeHomepageHero"):
                         curation["homepageHero"] = selector
 
-                    save_curation(curation)
+                    write_json(CURATION_PATH, curation)
 
                 self.save_and_rebuild("Artwork added and gallery rebuilt", {"record": record})
                 return
 
-            self.send_json(404, {"ok": False, "error": "Unknown endpoint"})
+            self.send_json(404, {"ok": False, "error": f"Unknown API endpoint: {path}"})
 
         except subprocess.TimeoutExpired:
             self.send_json(504, {"ok": False, "error": "Build timed out"})
@@ -314,12 +349,21 @@ class CuratorHandler(SimpleHTTPRequestHandler):
 
 
 def main() -> None:
+    load_artworks_payload(write_back=True)
+
     port = int(os.environ.get("ART_CURATOR_PORT", "8000"))
-    print(f"Serving DiAndré curator from {ROOT}")
-    print(f"Manage art:       http://localhost:{port}/art/manage/")
-    print(f"Preview:          http://localhost:{port}/art/")
-    print("Use Ctrl+C to stop.")
-    ThreadingHTTPServer(("127.0.0.1", port), CuratorHandler).serve_forever()
+
+    print()
+    print("SALMONOFDOUBT local server")
+    print()
+    print(f"Site preview: http://localhost:{port}/")
+    print(f"Art manager:  http://localhost:{port}/art/manage/")
+    print(f"Health check: http://localhost:{port}/api/health")
+    print()
+    print("Press Ctrl+C here when finished.")
+    print()
+
+    ThreadingHTTPServer(("127.0.0.1", port), ArtManagerHandler).serve_forever()
 
 
 if __name__ == "__main__":
