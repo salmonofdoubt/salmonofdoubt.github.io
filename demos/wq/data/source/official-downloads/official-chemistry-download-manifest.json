@@ -1,0 +1,3362 @@
+{
+  "generated_at_epoch": 1782834641,
+  "seed_probe_urls": 355,
+  "candidate_download_urls": 124,
+  "downloaded_files": 0,
+  "chemistry_files_present": [],
+  "events": [
+    {
+      "url": "https://gis.epa.ie/GetData/Download",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/08_1",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/08_3",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/08_4",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/08_5",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/09_17",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/IE_EA_060_0000",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/IE_EA_060_0100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/IE_EA_080_0100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/IE_EA_08B020400",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/chemistry/IE_EA_08D010080",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/08_1/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/08_3/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/08_4/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/08_5/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/09_17/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/IE_EA_060_0000/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/IE_EA_060_0100/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/IE_EA_080_0100/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/IE_EA_08B020400/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://wfdapi.edenireland.ie/api/waterbody/IE_EA_08D010080/chemistry",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/catchments-ie-changes-chemistry-data-downloads/",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/08_1",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/08_3",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/08_4",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/08_5",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/09_17",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/IE_EA_060_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/IE_EA_060_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/IE_EA_080_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/IE_EA_08B020400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/subcatchment/IE_EA_08D010080",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/08_1",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/08_3",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/08_4",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/08_5",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/09_17",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_020_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_030_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_060_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_060_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_070_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_080_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08B020400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08B020600",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08B020700",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08B020800",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08B330980",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08D010080",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08D010250",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08D010300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08D010400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08D030300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08F010500",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08F050930",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08G080700",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08H010200",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08H010280",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08H010400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08M020100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08N010110",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08N010280",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08N010400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08N010500",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08N010700",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08R010150",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08W010050",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08W010070",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08W010300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_08W010610",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_090_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_090_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_090_0200",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_090_0300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_09H230880",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_09M030500",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_09S010300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_09S011100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_09S071100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_002",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_008",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_011",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_012",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_014",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_016",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_020",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_021",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_025",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_028",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_031",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_033",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_039",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_062",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/#/waterbody/IE_EA_G_086",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=08_1",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=08_3",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=08_4",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=08_5",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=09_17",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=IE_EA_060_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=IE_EA_060_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=IE_EA_080_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=IE_EA_08B020400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?code=IE_EA_08D010080",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=08_1",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=08_3",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=08_4",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=08_5",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=09_17",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_020_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_030_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_060_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_060_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_070_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_080_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08B020400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08B020600",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08B020700",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08B020800",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08B330980",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08D010080",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08D010250",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08D010300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08D010400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08D030300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08F010500",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08F050930",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08G080700",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08H010200",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08H010280",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08H010400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08M020100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08N010110",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08N010280",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08N010400",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08N010500",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08N010700",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08R010150",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08W010050",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08W010070",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08W010300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_08W010610",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_090_0000",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_090_0100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_090_0200",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_090_0300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_09H230880",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_09M030500",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_09S010300",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_09S011100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_09S071100",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_002",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_008",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_011",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_012",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_014",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_016",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_020",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_021",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_025",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_028",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_031",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_033",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_039",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_062",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/data/?search=IE_EA_G_086",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/08_1",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/08_3",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/08_4",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/08_5",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/09_17",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_020_0000",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_030_0100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_060_0000",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_060_0100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_070_0000",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_080_0100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08B020400",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08B020600",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08B020700",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08B020800",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08B330980",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08D010080",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08D010250",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08D010300",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08D010400",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08D030300",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08F010500",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08F050930",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08G080700",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08H010200",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08H010280",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08H010400",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08M020100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08N010110",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08N010280",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08N010400",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08N010500",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08N010700",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08R010150",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08W010050",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08W010070",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08W010300",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_08W010610",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_090_0000",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_090_0100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_090_0200",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_090_0300",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_09H230880",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_09M030500",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_09S010300",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_09S011100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_09S071100",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_002",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_008",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_011",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_012",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_014",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_016",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_020",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_021",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_025",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_028",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_031",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_033",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_039",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_062",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/download/chemistry/IE_EA_G_086",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_1.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_1.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_3.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_3.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_4.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_4.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_5.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_5.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/09_17.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/09_17.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_020_0000.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_020_0000.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_030_0100.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_030_0100.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0000.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0000.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0100.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0100.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_070_0000.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_070_0000.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_080_0100.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_080_0100.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020400.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020400.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020600.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020600.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020700.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020700.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020800.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020800.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B330980.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B330980.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010080.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010080.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010250.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010250.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010300.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010300.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010400.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010400.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D030300.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D030300.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F010500.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F010500.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F050930.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F050930.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08G080700.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08G080700.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010200.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010200.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010280.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010280.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010400.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010400.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08M020100.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08M020100.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010110.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010110.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010280.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010280.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010400.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010400.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010500.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010500.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010700.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010700.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08R010150.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08R010150.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010050.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010050.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010070.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010070.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010300.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010300.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010610.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010610.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0000.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0000.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0100.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0100.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0200.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0200.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0300.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0300.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09H230880.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09H230880.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09M030500.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09M030500.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S010300.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S010300.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S011100.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S011100.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S071100.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S071100.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_002.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_002.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_008.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_008.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_011.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_011.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_012.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_012.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_014.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_014.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_016.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_016.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_020.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_020.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_021.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_021.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_025.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_025.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_028.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_028.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_031.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_031.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_033.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_033.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_039.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_039.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_062.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_062.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_086.csv",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_086.xlsx",
+      "status": "not_found",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/epa-water-quality-monitoring-datasets/",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/wfd-data-dashboards/",
+      "status": "failed_scan",
+      "reason": "",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_1.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_1.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_3.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_3.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_4.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_4.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_5.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/08_5.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/09_17.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/09_17.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_020_0000.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_020_0000.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_030_0100.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_030_0100.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0000.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0000.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0100.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_060_0100.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_070_0000.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_070_0000.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_080_0100.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_080_0100.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020400.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020400.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020600.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020600.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020700.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020700.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020800.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B020800.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B330980.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08B330980.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010080.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010080.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010250.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010250.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010300.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010300.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010400.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D010400.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D030300.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08D030300.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F010500.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F010500.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F050930.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08F050930.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08G080700.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08G080700.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010200.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010200.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010280.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010280.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010400.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08H010400.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08M020100.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08M020100.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010110.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010110.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010280.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010280.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010400.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010400.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010500.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010500.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010700.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08N010700.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08R010150.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08R010150.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010050.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010050.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010070.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010070.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010300.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010300.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010610.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_08W010610.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0000.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0000.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0100.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0100.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0200.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0200.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0300.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_090_0300.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09H230880.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09H230880.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09M030500.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09M030500.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S010300.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S010300.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S011100.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S011100.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S071100.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_09S071100.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_002.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_002.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_008.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_008.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_011.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_011.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_012.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_012.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_014.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_014.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_016.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_016.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_020.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_020.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_021.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_021.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_025.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_025.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_028.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_028.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_031.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_031.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_033.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_033.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_039.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_039.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_062.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_062.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_086.csv",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    },
+    {
+      "url": "https://www.catchments.ie/downloads/chemistry/IE_EA_G_086.xlsx",
+      "status": "failed_download",
+      "reason": "HTTP 404",
+      "saved_as": "",
+      "bytes": 0
+    }
+  ]
+}

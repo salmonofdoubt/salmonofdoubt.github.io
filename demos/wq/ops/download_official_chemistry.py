@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 CHEMISTRY_DIR = ROOT / "data" / "source" / "epa-chemistry"
 DOWNLOAD_DIR = ROOT / "data" / "source" / "official-downloads"
 MANIFEST = DOWNLOAD_DIR / "official-chemistry-download-manifest.json"
