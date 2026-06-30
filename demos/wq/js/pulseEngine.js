@@ -269,6 +269,77 @@ export function summariseSpatialContext(records, area = null) {
   };
 }
 
+
+function buildEvidenceLadder({ rainfall, hydrologyAvailable, marineAvailable, nutrientRecords, event }) {
+  const hasRainDriver = rainfall.state !== "missing";
+  const wetRainDriver = rainfall.wetStations > 0;
+  const hasChemistry = nutrientRecords.length > 0;
+
+  const driverLevel = !hasRainDriver ? "missing" : wetRainDriver ? "available" : "context";
+  const movementLevel = hydrologyAvailable ? "available" : "missing";
+  const marineLevel = marineAvailable ? "context" : "missing";
+  const chemistryLevel = hasChemistry ? "available" : "missing";
+
+  let posture = "Context only";
+  let postureLevel = "context";
+  let postureBody = "Use the current view as background evidence. Do not infer a water-quality event from context alone.";
+
+  if ((event === "high_mobilisation_watch" || event === "mobilisation_watch") && !hasChemistry) {
+    posture = "Test first";
+    postureLevel = "test";
+    postureBody = "Rainfall and hydrology create a plausible pulse hypothesis, but chemistry is required before claiming nutrient mobilisation.";
+  } else if ((event === "high_mobilisation_watch" || event === "mobilisation_watch") && hasChemistry) {
+    posture = "Analyse carefully";
+    postureLevel = "available";
+    postureBody = "Driver, movement and concentration evidence are all present. Check timing, distance, source pathway and confounders before making a claim.";
+  } else if (event === "dry_baseline") {
+    posture = "Baseline contrast";
+    postureLevel = "context";
+    postureBody = "Dry-period context can help define contrast, but event-load claims need wet-period concentration evidence.";
+  }
+
+  return [
+    {
+      level: driverLevel,
+      title: "Driver signal",
+      body: hasRainDriver
+        ? `Rainfall context is available: ${rainfall.text}`
+        : "Rainfall driver evidence is missing. No event-response claim should be made."
+    },
+    {
+      level: movementLevel,
+      title: "Movement evidence",
+      body: hydrologyAvailable
+        ? "OPW hydrometric evidence is available as movement/context. It is not chemistry."
+        : "No usable hydrometric movement evidence is visible for this focus."
+    },
+    {
+      level: marineLevel,
+      title: "Coastal context",
+      body: marineAvailable
+        ? "Marine buoy evidence provides coastal met-ocean context. It does not prove inland nutrient transport."
+        : "No near-live marine/coastal context is visible for this focus."
+    },
+    {
+      level: chemistryLevel,
+      title: "Concentration evidence",
+      body: hasChemistry
+        ? `${nutrientRecords.length.toLocaleString("en-IE")} nutrient-like concentration record${nutrientRecords.length === 1 ? "" : "s"} detected.`
+        : "No nutrient concentration evidence is present. This is the main scientific gap."
+    },
+    {
+      level: "not-proven",
+      title: "Impact claim",
+      body: "Ecological or public-health impact is not proven by driver/context data alone. It needs concentration, exposure and biological or regulatory interpretation."
+    },
+    {
+      level: postureLevel,
+      title: `Decision posture: ${posture}`,
+      body: postureBody
+    }
+  ];
+}
+
 function summariseFocusRainfall(records, spatial) {
   const national = summariseRainfall(records);
 
@@ -359,6 +430,14 @@ export function summariseEventPulse(records, area = null) {
     action = "Use as movement evidence only. Add rainfall and concentration before making a catchment-pulse claim.";
   }
 
+  const evidenceLadder = buildEvidenceLadder({
+    rainfall,
+    hydrologyAvailable,
+    marineAvailable: Boolean(spatial.marine) || marineRecords.length > 0,
+    nutrientRecords,
+    event,
+  });
+
   const signalCards = [];
 
   if (spatial.rainfall) {
@@ -443,6 +522,7 @@ export function summariseEventPulse(records, area = null) {
         ? "Nutrient-like concentration evidence is present."
         : "No nutrient concentration evidence is present yet.",
     },
+    evidenceLadder,
     signalCards,
   };
 }

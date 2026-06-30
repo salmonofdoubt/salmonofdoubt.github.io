@@ -123,4 +123,31 @@ const focusArea = {
   assert.ok(pulse.signalCards.some(card => card.body.includes("from focus centre")));
 }
 
+
+{
+  const pulse = summariseEventPulse([rainRecord(2.4), hydroRecord()], focusArea);
+  assert.ok(Array.isArray(pulse.evidenceLadder));
+  assert.ok(pulse.evidenceLadder.length >= 5);
+
+  const driver = pulse.evidenceLadder.find(step => step.title === "Driver signal");
+  const chemistry = pulse.evidenceLadder.find(step => step.title === "Concentration evidence");
+  const impact = pulse.evidenceLadder.find(step => step.title === "Impact claim");
+  const posture = pulse.evidenceLadder.find(step => step.title.startsWith("Decision posture:"));
+
+  assert.equal(driver.level, "available");
+  assert.equal(chemistry.level, "missing");
+  assert.equal(impact.level, "not-proven");
+  assert.equal(posture.level, "test");
+}
+
+{
+  const pulse = summariseEventPulse([rainRecord(5.0), hydroRecord(), nutrientRecord], focusArea);
+
+  const chemistry = pulse.evidenceLadder.find(step => step.title === "Concentration evidence");
+  const posture = pulse.evidenceLadder.find(step => step.title.startsWith("Decision posture:"));
+
+  assert.equal(chemistry.level, "available");
+  assert.equal(posture.level, "available");
+}
+
 console.log("WQ Event Pulse engine tests passed.");

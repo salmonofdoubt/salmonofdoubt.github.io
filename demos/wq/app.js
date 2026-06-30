@@ -38,6 +38,7 @@ const els = {
   signalGrid: document.getElementById("signalGrid"),
   pulseHeroGrid: document.getElementById("pulseHeroGrid"),
   pulseStory: document.getElementById("pulseStory"),
+  pulseConfidence: document.getElementById("pulseConfidence"),
   pulseSignals: document.getElementById("pulseSignals"),
   pulseGaps: document.getElementById("pulseGaps"),
   sourceGrid: document.getElementById("sourceGrid"),

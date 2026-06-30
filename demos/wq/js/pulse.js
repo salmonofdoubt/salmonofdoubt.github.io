@@ -307,6 +307,12 @@ export function renderPulse(elements, state) {
     </p>
   `;
 
+  if (elements.pulseConfidence) {
+    elements.pulseConfidence.innerHTML = (eventPulse.evidenceLadder || [])
+      .map(step => smallCard(`pulse-confidence ${step.level}`, step.title, step.body))
+      .join("");
+  }
+
   const signals = [...eventPulse.signalCards, ...topSignals(evidence)].slice(0, 10);
   elements.pulseSignals.innerHTML = signals.length
     ? signals.map(signal => smallCard(`pulse-signal ${signal.level}`, signal.title, signal.body)).join("")

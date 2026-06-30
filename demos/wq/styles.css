@@ -1226,3 +1226,54 @@ canvas {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+
+
+/* WQ evidence confidence ladder v0.7.0 */
+.confidence-ladder {
+  gap: 0.62rem;
+}
+
+.pulse-confidence {
+  border: 1px solid rgba(94, 234, 212, 0.16);
+  background: rgba(1, 12, 11, 0.48);
+  border-radius: 16px;
+  padding: 0.82rem;
+}
+
+.pulse-confidence strong {
+  display: block;
+  color: var(--ink);
+}
+
+.pulse-confidence p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.pulse-confidence.available {
+  border-color: rgba(134, 239, 172, 0.48);
+  background: linear-gradient(180deg, rgba(22, 101, 52, 0.18), rgba(1, 12, 11, 0.50));
+}
+
+.pulse-confidence.context {
+  border-color: rgba(192, 132, 252, 0.42);
+  background: linear-gradient(180deg, rgba(88, 28, 135, 0.17), rgba(1, 12, 11, 0.50));
+}
+
+.pulse-confidence.missing,
+.pulse-confidence.not-proven {
+  border-color: rgba(251, 113, 133, 0.42);
+  background: linear-gradient(180deg, rgba(159, 18, 57, 0.16), rgba(1, 12, 11, 0.50));
+}
+
+.pulse-confidence.test {
+  border-color: rgba(250, 204, 21, 0.50);
+  background: linear-gradient(180deg, rgba(161, 98, 7, 0.20), rgba(1, 12, 11, 0.50));
+}
+
+@media (min-width: 1081px) {
+  .pulse-layout {
+    grid-template-columns: minmax(0, 1.08fr) repeat(3, minmax(230px, 0.82fr));
+  }
+}
