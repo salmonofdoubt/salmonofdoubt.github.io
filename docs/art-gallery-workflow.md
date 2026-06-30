@@ -24,7 +24,7 @@ Local curation workflow:
 cd /Users/diandre/Downloads/VC/salmonofdoubt.github.io
 ./tools/curate_art.sh
 
-Open http://localhost:8000/art/curate/
+Open http://localhost:8000/art/manage/
 
 Choose target, click artwork, press Save & rebuild, then refresh http://localhost:8000/art/
 

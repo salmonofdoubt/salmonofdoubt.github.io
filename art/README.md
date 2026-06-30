@@ -17,7 +17,7 @@ cd /Users/diandre/Downloads/VC/salmonofdoubt.github.io
 
 Open:
 
-http://localhost:8000/art/curate/
+http://localhost:8000/art/manage/
 
 Then choose a target, click the artwork, press Save & rebuild, and preview:
 
