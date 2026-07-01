@@ -328,9 +328,7 @@
           <select id="collection"></select>
           <input id="medium" placeholder="Medium">
           <input id="subgroup" placeholder="Subgroup">
-          <input id="alt" placeholder="Alt text">
-          <textarea id="text" placeholder="Short caption"></textarea>
-          <textarea id="reading" placeholder="Longer reading / interpretation"></textarea>
+          <textarea id="caption" placeholder="Caption"></textarea>
           <select id="workStatus">
             <option value="active">active</option>
             <option value="hidden">hidden</option>
@@ -351,9 +349,7 @@
           <select id="newCollection"></select>
           <input id="newMedium" placeholder="Medium">
           <input id="newSubgroup" placeholder="Subgroup">
-          <input id="newAlt" placeholder="Alt text">
-          <textarea id="newText" placeholder="Short caption"></textarea>
-          <textarea id="newReading" placeholder="Longer reading / interpretation"></textarea>
+          <textarea id="newCaption" placeholder="Caption"></textarea>
           <div class="checks">
             <label><input id="makeCollectionFeature" type="checkbox"> collection feature</label>
             <label><input id="makeHomepageHero" type="checkbox"> homepage hero</label>
@@ -482,9 +478,7 @@ function fillForm(item) {
   document.getElementById("collection").value = item.collection || "Experimental";
   document.getElementById("medium").value = item.medium || "";
   document.getElementById("subgroup").value = item.subgroup || "";
-  document.getElementById("alt").value = item.alt || "";
-  document.getElementById("text").value = item.text || "";
-  document.getElementById("reading").value = item.reading || "";
+  document.getElementById("caption").value = item.text || item.reading || "";
   document.getElementById("workStatus").value = item.status || "active";
 }
 
@@ -648,9 +642,9 @@ async function saveEdit() {
     collection: document.getElementById("collection").value,
     medium: document.getElementById("medium").value,
     subgroup: document.getElementById("subgroup").value,
-    alt: document.getElementById("alt").value,
-    text: document.getElementById("text").value,
-    reading: document.getElementById("reading").value,
+    alt: document.getElementById("title").value,
+    text: document.getElementById("caption").value,
+    reading: document.getElementById("caption").value,
     status: document.getElementById("workStatus").value
   });
 
@@ -708,9 +702,9 @@ async function addWork() {
     collection: document.getElementById("newCollection").value,
     medium: document.getElementById("newMedium").value,
     subgroup: document.getElementById("newSubgroup").value || "Other",
-    alt: document.getElementById("newAlt").value,
-    text: document.getElementById("newText").value,
-    reading: document.getElementById("newReading").value,
+    alt: document.getElementById("newTitle").value,
+    text: document.getElementById("newCaption").value,
+    reading: document.getElementById("newCaption").value,
     makeCollectionFeature: document.getElementById("makeCollectionFeature").checked,
     makeHomepageHero: document.getElementById("makeHomepageHero").checked
   });
@@ -719,7 +713,7 @@ async function addWork() {
   document.getElementById("newFile").value = "";
   document.getElementById("newPreview").style.display = "none";
 
-  ["newTitle", "newMedium", "newSubgroup", "newAlt", "newText", "newReading"].forEach((id) => {
+  ["newTitle", "newMedium", "newSubgroup", "newCaption"].forEach((id) => {
     document.getElementById(id).value = "";
   });
 

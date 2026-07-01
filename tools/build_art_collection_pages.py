@@ -216,7 +216,9 @@ def art_index_html(grouped: dict[str, list[dict]]) -> str:
     </div>
   </footer>
 
+  <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}}'></script>
+  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 '''
@@ -283,7 +285,10 @@ def collection_page_html(collection: dict, items: list[dict]) -> str:
   </footer>
 
   <script src="../assets/art-gallery.js" defer></script>
+
+  <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}}'></script>
+  <!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 '''
