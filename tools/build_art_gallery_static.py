@@ -963,19 +963,32 @@ def patch_art_homepage_hero_qr_native_share():
       margin-top: .1rem;
     }
 
+    .hero-share-actions button::-moz-focus-inner {
+      border: 0;
+      padding: 0;
+    }
+
     .hero-share-actions a,
     .hero-share-actions button {
       appearance: none;
+      -webkit-appearance: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      height: 30px;
+      min-height: 30px;
+      margin: 0;
       border: 1px solid rgba(212, 174, 108, .55);
       border-radius: 999px;
       background: #24190f;
       color: #fff2d7;
-      min-height: 30px;
-      padding: .25rem .7rem;
-      font: 900 .72rem/1.1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 0 .75rem;
+      font: 900 .72rem/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       letter-spacing: .04em;
       text-decoration: none;
       cursor: pointer;
+      vertical-align: top;
     }
 
     .hero-share-actions a {
