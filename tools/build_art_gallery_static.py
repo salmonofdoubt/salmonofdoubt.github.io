@@ -532,3 +532,238 @@ def build_art_documentation_if_available() -> None:
 
 build_art_documentation_if_available()
 # ART_DOCUMENTATION_BUILD_HOOK_END
+
+
+def patch_art_homepage_share_qr():
+    from pathlib import Path
+    import re
+
+    root = Path(__file__).resolve().parents[1]
+    path = root / "art" / "index.html"
+    if not path.exists():
+        return
+
+    html = path.read_text(encoding="utf-8")
+
+    html = re.sub(
+        r"\n?\s*<!-- ART_SHARE_QR_START -->[\s\S]*?<!-- ART_SHARE_QR_END -->\s*",
+        "\n",
+        html,
+    )
+
+    css = """
+  <!-- ART_SHARE_QR_START -->
+  <style>
+    .portfolio-share-card {
+      margin: 2rem 0;
+      border: 1px solid rgba(212, 174, 108, .28);
+      background:
+        radial-gradient(circle at top right, rgba(212, 174, 108, .10), transparent 18rem),
+        #100d0a;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .portfolio-share-card strong {
+      display: block;
+      color: #fff2d7;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .portfolio-share-card p {
+      margin: .35rem 0 0;
+      color: #ad9a7b;
+      max-width: 46rem;
+    }
+
+    .portfolio-share-card a {
+      color: #d4ae6c;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .portfolio-share-qr {
+      width: 112px;
+      display: grid;
+      gap: .35rem;
+      justify-items: center;
+      color: #ad9a7b;
+      font-size: .68rem;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .portfolio-share-qr img {
+      width: 112px;
+      height: 112px;
+      display: block;
+      border: 1px solid rgba(212, 174, 108, .34);
+      background: #fff2d7;
+      padding: .3rem;
+    }
+
+    @media (max-width: 720px) {
+      .portfolio-share-card {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-share-qr {
+        justify-self: start;
+        width: 96px;
+      }
+
+      .portfolio-share-qr img {
+        width: 96px;
+        height: 96px;
+      }
+    }
+  </style>
+  <!-- ART_SHARE_QR_END -->"""
+
+    block = """
+  <!-- ART_SHARE_QR_START -->
+  <section class="portfolio-share-card" aria-label="Share this portfolio">
+    <div>
+      <strong>Share this portfolio</strong>
+      <p>
+        Quick access for exhibitions, studio visits and conversations:
+        <a href="https://salmonofdoubt.github.io/art/">salmonofdoubt.github.io/art/</a>
+      </p>
+    </div>
+    <a class="portfolio-share-qr" href="https://salmonofdoubt.github.io/art/" aria-label="Open DiAndré art portfolio">
+      <img src="assets/diandre-art-qr.png" alt="QR code linking to the DiAndré art portfolio">
+      <span>Scan</span>
+    </a>
+  </section>
+  <!-- ART_SHARE_QR_END -->"""
+
+    if "</head>" in html:
+        html = html.replace("</head>", css + "\n</head>", 1)
+
+    if "</main>" in html:
+        html = html.replace("</main>", block + "\n</main>", 1)
+    elif "</body>" in html:
+        html = html.replace("</body>", block + "\n</body>", 1)
+
+    path.write_text(html, encoding="utf-8")
+    print("Patched art/index.html with share QR card.")
+
+
+if __name__ == "__main__":
+    patch_art_homepage_share_qr()
+
+
+def patch_art_homepage_hero_qr():
+    from pathlib import Path
+    import re
+
+    root = Path(__file__).resolve().parents[1]
+    path = root / "art" / "index.html"
+    if not path.exists():
+        return
+
+    html = path.read_text(encoding="utf-8")
+
+    # Remove old lower-page QR card/style if present.
+    html = re.sub(
+        r"\n?\s*<!-- ART_SHARE_QR_START -->[\s\S]*?<!-- ART_SHARE_QR_END -->\s*",
+        "\n",
+        html,
+    )
+
+    # Remove any previous hero QR patch before reinserting.
+    html = re.sub(
+        r"\n?\s*<!-- ART_HERO_QR_START -->[\s\S]*?<!-- ART_HERO_QR_END -->\s*",
+        "\n",
+        html,
+    )
+
+    css = """
+  <!-- ART_HERO_QR_START -->
+  <style>
+    .hero-share-qr {
+      margin-top: 1rem;
+      display: inline-grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: .75rem;
+      align-items: center;
+      max-width: 26rem;
+      padding: .65rem;
+      border: 1px solid rgba(212, 174, 108, .28);
+      background: rgba(16, 13, 10, .78);
+    }
+
+    .hero-share-qr img {
+      width: 82px;
+      height: 82px;
+      display: block;
+      background: #fff2d7;
+      padding: .25rem;
+      border: 1px solid rgba(212, 174, 108, .34);
+    }
+
+    .hero-share-qr strong {
+      display: block;
+      color: #fff2d7;
+      font-size: .78rem;
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero-share-qr span {
+      display: block;
+      margin-top: .2rem;
+      color: #ad9a7b;
+      font-size: .78rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 640px) {
+      .hero-share-qr {
+        grid-template-columns: 72px minmax(0, 1fr);
+      }
+
+      .hero-share-qr img {
+        width: 72px;
+        height: 72px;
+      }
+    }
+  </style>
+  <!-- ART_HERO_QR_END -->"""
+
+    block = """
+        <!-- ART_HERO_QR_START -->
+        <a class="hero-share-qr" href="https://salmonofdoubt.github.io/art/" aria-label="Share DiAndré art portfolio">
+          <img src="assets/diandre-art-qr.png" alt="QR code linking to the DiAndré art portfolio">
+          <span>
+            <strong>Share portfolio</strong>
+            <span>Scan for quick access to the DiAndré art rooms.</span>
+          </span>
+        </a>
+        <!-- ART_HERO_QR_END -->"""
+
+    if "</head>" in html:
+        html = html.replace("</head>", css + "\n</head>", 1)
+
+    # Put it immediately after the final hero intro paragraph if possible.
+    target = "The environmental and systems background is present, but the work begins with looking, colour, memory and material presence.</p>"
+    if target in html:
+        html = html.replace(target, target + block, 1)
+    else:
+        # Fallback: insert before the collections section.
+        html = html.replace("<section", block + "\n<section", 1)
+
+    path.write_text(html, encoding="utf-8")
+    print("Patched hero QR into art/index.html.")
+
+
+if __name__ == "__main__":
+    patch_art_homepage_hero_qr()

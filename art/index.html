@@ -49,6 +49,59 @@
     }
   </style>
   <!-- ART_DOCUMENTATION_LINK_END -->
+
+  <!-- ART_HERO_QR_START -->
+  <style>
+    .hero-share-qr {
+      margin-top: 1rem;
+      display: inline-grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: .75rem;
+      align-items: center;
+      max-width: 26rem;
+      padding: .65rem;
+      border: 1px solid rgba(212, 174, 108, .28);
+      background: rgba(16, 13, 10, .78);
+    }
+
+    .hero-share-qr img {
+      width: 82px;
+      height: 82px;
+      display: block;
+      background: #fff2d7;
+      padding: .25rem;
+      border: 1px solid rgba(212, 174, 108, .34);
+    }
+
+    .hero-share-qr strong {
+      display: block;
+      color: #fff2d7;
+      font-size: .78rem;
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero-share-qr span {
+      display: block;
+      margin-top: .2rem;
+      color: #ad9a7b;
+      font-size: .78rem;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 640px) {
+      .hero-share-qr {
+        grid-template-columns: 72px minmax(0, 1fr);
+      }
+
+      .hero-share-qr img {
+        width: 72px;
+        height: 72px;
+      }
+    }
+  </style>
+  <!-- ART_HERO_QR_END -->
 </head>
 <body class="art-body art-home">
   <header class="site-header">
@@ -70,6 +123,15 @@
         <h1>DiAndré</h1>
         <p>I make oil paintings, watercolours, drawings and spatial images. The work moves between portraits, interiors, flowers, city walls, maps and the atmosphere of places.</p>
         <p>The environmental and systems background is present, but the work begins with looking, colour, memory and material presence.</p>
+        <!-- ART_HERO_QR_START -->
+        <a class="hero-share-qr" href="https://salmonofdoubt.github.io/art/" aria-label="Share DiAndré art portfolio">
+          <img src="assets/diandre-art-qr.png" alt="QR code linking to the DiAndré art portfolio">
+          <span>
+            <strong>Share portfolio</strong>
+            <span>Scan for quick access to the DiAndré art rooms.</span>
+          </span>
+        </a>
+        <!-- ART_HERO_QR_END -->
       </div>
       <figure class="intro-image">
         <img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20260628_1839553.jpg" alt="Oil Paintings work 055, oil painting">
