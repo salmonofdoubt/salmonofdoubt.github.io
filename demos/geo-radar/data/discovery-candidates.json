@@ -1,9 +1,9 @@
 {
   "meta": {
-    "generated_at": "2026-06-30T08:42:43+00:00",
+    "generated_at": "2026-07-01T09:00:46+00:00",
     "generator": "geo-radar-discovery 0.2",
     "candidate_count": 84,
-    "high_confidence_count": 10,
+    "high_confidence_count": 9,
     "pending_review_count": 84,
     "domains_seen": {
       "cinea.ec.europa.eu": 9,
@@ -17,55 +17,13 @@
   },
   "candidates": [
     {
-      "id": "cand_clean_hydrogen_partnership_https_www_clean_hydrogen_europa_eu_index_en",
-      "url": "https://www.clean-hydrogen.europa.eu/index_en",
-      "domain": "clean-hydrogen.europa.eu",
-      "title": "Homepage - Clean Hydrogen Partnership - European Union",
-      "snippet": "Homepage - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainability an",
-      "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
-      "discovered_via": "child_link",
-      "source_hint": "Clean Hydrogen Partnership Call 2026",
-      "source_id_hint": "clean_hydrogen_partnership",
-      "candidate_type": "call_page",
-      "confidence": 0.9,
-      "status": "pending_review",
-      "suggested_purposes": [
-        "hydrogen",
-        "subsurface storage",
-        "gas analytics",
-        "environmental research",
-        "energy systems"
-      ],
-      "suggested_applicant_types": [
-        "research consortia",
-        "universities",
-        "institutes",
-        "industry partners",
-        "public bodies"
-      ],
-      "suggested_access_route": "consortium",
-      "suggested_scale": "major",
-      "reason_flags": [
-        "trusted_domain",
-        "opportunity_phrase",
-        "deadline_detected",
-        "watch_term_overlap",
-        "child_page"
-      ],
-      "deadline_hint": "deadline and apply by 26 June to the 2nd Call for Applications for Project Development Assistance (PDA)",
-      "page_hash": "sha256:c0f32fcbf79de2bdf2eeba19c08f52c9efd34ec2a7dffa326bbf7d3d0f963652",
-      "notes": "",
-      "seen_in_latest_run": true
-    },
-    {
       "id": "cand_gfz_jobs_board_https_www_gfz_de_karriere_stellenangebote_details_11367",
       "url": "https://www.gfz.de/karriere/stellenangebote/details/11367",
       "domain": "gfz.de",
       "title": "Start : Geo.X",
       "snippet": "Start : Geo.X Skip to main navigation Skip to main content Skip to page footer The Research Network for Geosciences in Berlin and Potsdam Get to know us Submenu for \"Get to know us\" Mission Partner Organisational Structure Contact persons Get involved Submenu for \"Get involved\" Focus Groups Grow Your Idea ECS Community Grant Exchange and networking Infrastructure and Data Submenu for \"Infrastructure and Data\" LabInfr",
       "first_seen": "2026-06-11T09:50:18+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -95,7 +53,7 @@
         "child_page"
       ],
       "deadline_hint": "Deadline for applications: Sunday, Sept. 13, 2026 (at noon)",
-      "page_hash": "sha256:30204e55feb260b195e7db3c71d9e2c8c7d53b382d28bc3d48e7f59947f5c7ef",
+      "page_hash": "sha256:19618cd2574dab00f6f0a022520e1ee64b7d2f4835c3ccda4cb023d6ba7c788e",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -104,9 +62,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/about-us/vacancies_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Vacancies - Clean Hydrogen Partnership - European Union",
-      "snippet": "Vacancies - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainability a",
+      "snippet": "Vacancies - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The European",
       "first_seen": "2026-04-24T07:16:40+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -137,7 +95,7 @@
         "child_page"
       ],
       "deadline_hint": "deadline for both positions is 15 July 2024.",
-      "page_hash": "sha256:5a39880befe8c2b3e63e7d718a975c231917a029022a6e29430eb6a86cd26dd9",
+      "page_hash": "sha256:2a20bbfa1d698f16fc09b1b5deb1cd05ba6eccf826abe7bdd27b008cb76ff9e3",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -180,7 +138,7 @@
       "deadline_hint": "Deadline model",
       "page_hash": "sha256:88dd3cef7104a81bbf765e5d21b3f7e5b9fc6b1434db98259dee3905d2aea62a",
       "notes": "",
-      "seen_in_latest_run": true
+      "seen_in_latest_run": false
     },
     {
       "id": "cand_horizon_energy_supply_https_cinea_ec_europa_eu_funding_opportunities_calls_proposals_horizon_europe_eu235_million_projects_supporting_sustainable_secure_and_competitive_energy_supply_de",
@@ -392,9 +350,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Call for proposals 2026 – CLOSED - Clean Hydrogen Partnership",
-      "snippet": "Call for proposals 2026 – CLOSED - Clean Hydrogen Partnership Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainabi",
+      "snippet": "Call for proposals 2026 – CLOSED - Clean Hydrogen Partnership Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The Eu",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -424,7 +382,7 @@
         "watch_term_overlap"
       ],
       "deadline_hint": "Deadline model",
-      "page_hash": "sha256:eadd04f6e82e831655751241c2b00314b690ac8be23db5b040ff52ab3fc8852b",
+      "page_hash": "sha256:b2ea2a5039b343fdfea1ad5be6e1c56b21cb5ba32c2ba798869ef3868c2a4742",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -435,7 +393,7 @@
       "title": "Apply for an ERC Grant – Secure Funding for Frontier Research",
       "snippet": "Apply for an ERC Grant – Secure Funding for Frontier Research Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Repor",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -464,7 +422,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:73aa76afce2daf7c2c9ae99f519d3f0f8d08aee7ced4be058f4ce407dbc48548",
+      "page_hash": "sha256:b57b9633c10dce61b30c3481f8e1cd3cd529c590a4407ecbab2f6de0e6eaf780",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -475,7 +433,7 @@
       "title": "ERC Advanced Grant - Funding for Established Research Leaders",
       "snippet": "ERC Advanced Grant - Funding for Established Research Leaders Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Repor",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -505,7 +463,7 @@
         "child_page"
       ],
       "deadline_hint": "deadline by simply submitting a new version, which will overwrite the old one.",
-      "page_hash": "sha256:d39a828af78909e9b5548e359b7617d762f234df5430964d0f719940451f75aa",
+      "page_hash": "sha256:0606094e3d22f88e86543c43f1eef905fb80e7722d36e9c896ba3384c0af589a",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -516,7 +474,7 @@
       "title": "ERC Plus Grant|ERC",
       "snippet": "ERC Plus Grant|ERC Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Reporting Open Science Ethics guidance Intellect",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -546,7 +504,7 @@
         "child_page"
       ],
       "deadline_hint": "deadline by simply submitting a new version, which will overwrite the old one.",
-      "page_hash": "sha256:cadf126cf0b2032cfc60664eb7f0cb5c6f6781bb7a5f0fa65c637353598774ad",
+      "page_hash": "sha256:243647fea114676585f8e4a2580b1e3e7cbc32bfa572ee140f772a17f4e2a6f4",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -557,7 +515,7 @@
       "title": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency",
       "snippet": "Horizon Europe: €23.5 million for projects supporting sustainable, secure and competitive energy supply - European Climate, Infrastructure and Environment Executive Agency Skip to main content en Select your language Close bg български es español cs čeština da dansk de Deutsch et eesti el ελληνικά en English fr français ga Gaeilge hr hrvatski it italiano lv latviešu lt lietuvių hu magyar mt Malti nl Nederlands pl pol",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "Horizon Europe Sustainable, Secure and Competitive Energy Supply",
       "source_id_hint": "horizon_energy_supply",
@@ -629,7 +587,7 @@
       "deadline_hint": null,
       "page_hash": "sha256:e15efad68dddc559887ad654f4d9be457e1c81a88379ccca6a34454726cfb319",
       "notes": "",
-      "seen_in_latest_run": true
+      "seen_in_latest_run": false
     },
     {
       "id": "cand_erc_advanced_https_erc_europa_eu_apply_grant_additional_opportunities",
@@ -638,7 +596,7 @@
       "title": "Additional Research Opportunities with ERC Grants",
       "snippet": "Additional Research Opportunities with ERC Grants Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Reporting Open Sc",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -667,7 +625,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:58fd1de7e9362ab8e5626592735c2391d4dd42be616a7a4b407d37a8539642a3",
+      "page_hash": "sha256:2549003f3c3fdae5a89ce89c40831dcfdc3ba8e8beb2bccfc56df27f368713cf",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -678,7 +636,7 @@
       "title": "Fellow Programme | Research Institute for Sustainability",
       "snippet": "Fellow Programme | Research Institute for Sustainability Skip to main content Meta Navigation Events Press Contact Main navigation Institute About us Our Approach Fellow Programme Jobs Location Output Publications Dossiers Blog Research Sustainability Transformations and Society Transforming Human-Earth Interactions Advancing Transdisciplinarity and Co-Creation Completed Projects People Staff Fellows Affiliate Schola",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "RIFS Klaus Töpfer Sustainability Fellowship",
       "source_id_hint": "rifs_klaus_toepfer",
@@ -705,7 +663,48 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:a2bbbb9563ce012dd22d85598337ab2f07de17b4ef610cb86dbfdb1c23c2b8f8",
+      "page_hash": "sha256:ed73899d194c6d551cfcff4367f6499b2b3aef31f9e82d7a280b802bd3d52aa4",
+      "notes": "",
+      "seen_in_latest_run": true
+    },
+    {
+      "id": "cand_clean_hydrogen_partnership_https_www_clean_hydrogen_europa_eu_index_en",
+      "url": "https://www.clean-hydrogen.europa.eu/index_en",
+      "domain": "clean-hydrogen.europa.eu",
+      "title": "Homepage - Clean Hydrogen Partnership - European Union",
+      "snippet": "Homepage - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The European ",
+      "first_seen": "2026-04-22T15:28:19+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
+      "discovered_via": "child_link",
+      "source_hint": "Clean Hydrogen Partnership Call 2026",
+      "source_id_hint": "clean_hydrogen_partnership",
+      "candidate_type": "call_page",
+      "confidence": 0.66,
+      "status": "pending_review",
+      "suggested_purposes": [
+        "hydrogen",
+        "subsurface storage",
+        "gas analytics",
+        "environmental research",
+        "energy systems"
+      ],
+      "suggested_applicant_types": [
+        "research consortia",
+        "universities",
+        "institutes",
+        "industry partners",
+        "public bodies"
+      ],
+      "suggested_access_route": "consortium",
+      "suggested_scale": "major",
+      "reason_flags": [
+        "trusted_domain",
+        "opportunity_phrase",
+        "watch_term_overlap",
+        "child_page"
+      ],
+      "deadline_hint": null,
+      "page_hash": "sha256:ca98124274fef75bd6aee2d8aaab2e6b6cd8554079e364e856030acd813d0822",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -716,7 +715,7 @@
       "title": "Job Offers: GFZ",
       "snippet": "Job Offers: GFZ skip to main navigation skip to breadcrumbs navigation skip to main content skip to sidebar content skip to footer content GFZ Helmholtz Centre for Geosciences go to search page About us Organisation Structure Organisation chart Facts and Figures History GFZ Profile Our Values Good Scientific Practice Global Network Sustainability at GFZ Prizes and Awards GFZ Friends Directions and Locations Research ",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -745,7 +744,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:851ef7b5ab8a13d947b24019828331343f9daca6f4001c220af137cc89663aaa",
+      "page_hash": "sha256:bf33e1a579452c1a05b98d4a25d66c12965c2be80108191983d8f5a84c8eb8b4",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -754,9 +753,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/about-us/key-documents_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Key documents - Clean Hydrogen Partnership - European Union",
-      "snippet": "Key documents - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainabili",
+      "snippet": "Key documents - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The Euro",
       "first_seen": "2026-04-28T07:45:50+00:00",
-      "last_seen": "2026-06-29T10:02:40+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -786,18 +785,18 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:8f6ed3e3a69d02891de016fc579b89b619712d9e98cbdf114815ed387e248d92",
+      "page_hash": "sha256:023a2f3313de68d1d2b025cd73eb047bda3af188e2f65597689443b9b37b8db4",
       "notes": "",
-      "seen_in_latest_run": false
+      "seen_in_latest_run": true
     },
     {
       "id": "cand_clean_hydrogen_partnership_https_www_clean_hydrogen_europa_eu_about_us_mission_objectives_en",
       "url": "https://www.clean-hydrogen.europa.eu/about-us/mission-objectives_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Mission & Objectives - Clean Hydrogen Partnership - European Union",
-      "snippet": "Mission & Objectives - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Susta",
+      "snippet": "Mission & Objectives - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility T",
       "first_seen": "2026-04-25T06:51:56+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -827,7 +826,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:3aeb9f665e55f3c4f30bde8e65aaead761391fb70ee6b700078e98b3726a55fc",
+      "page_hash": "sha256:b05db806cbb83b568613b36b34fcd1d4e989c52b8454294da54fdf47431c0afe",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -836,9 +835,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/about-us/organisation_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Organisation - Clean Hydrogen Partnership - European Union",
-      "snippet": "Organisation - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainabilit",
+      "snippet": "Organisation - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The Europ",
       "first_seen": "2026-04-24T07:16:40+00:00",
-      "last_seen": "2026-06-29T10:02:40+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -868,18 +867,18 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:b431cf950ff24414c151d0ef92f57698acb0b8bd122c687ab4fa56ea6e3d3117",
+      "page_hash": "sha256:c535ecf6ea4fb9015ab117020a6e03459a141e0a40094d2053d1b959ab42a95b",
       "notes": "",
-      "seen_in_latest_run": false
+      "seen_in_latest_run": true
     },
     {
       "id": "cand_clean_hydrogen_partnership_https_www_clean_hydrogen_europa_eu_about_us_our_story_en",
       "url": "https://www.clean-hydrogen.europa.eu/about-us/our-story_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Our Story - Clean Hydrogen Partnership - European Union",
-      "snippet": "Our Story - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainability a",
+      "snippet": "Our Story - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The European",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-29T10:02:40+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -909,9 +908,9 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:3928bd0e4549fe216a54b473044eb7d8c7fc7780a12eff44122ce4ae116473b8",
+      "page_hash": "sha256:e10f91e0289d483ea65142bf9a4550a05bca8e6267430c242786d88ae2cf143f",
       "notes": "",
-      "seen_in_latest_run": false
+      "seen_in_latest_run": true
     },
     {
       "id": "cand_clean_hydrogen_partnership_https_www_clean_hydrogen_europa_eu_projects_dashboard_our_success_stories_en",
@@ -959,9 +958,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/about-us/privacy-policy_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Privacy Policy - Clean Hydrogen Partnership - European Union",
-      "snippet": "Privacy Policy - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainabil",
+      "snippet": "Privacy Policy - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The Eur",
       "first_seen": "2026-04-28T07:45:50+00:00",
-      "last_seen": "2026-06-29T10:02:40+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -991,9 +990,9 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:87ec9bc70dfa51c0be1e4e48507ab8ee6641f593197c1548167b6d1c8c6b48bf",
+      "page_hash": "sha256:4afc6bae0660a4b583173287f58580723688a4780e49585718fdef4f4e2bc921",
       "notes": "",
-      "seen_in_latest_run": false
+      "seen_in_latest_run": true
     },
     {
       "id": "cand_clean_hydrogen_partnership_https_www_clean_hydrogen_europa_eu_projects_dashboard_project_updates_en",
@@ -1041,9 +1040,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/projects-dashboard_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Projects dashboard - Clean Hydrogen Partnership - European Union",
-      "snippet": "Projects dashboard - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustain",
+      "snippet": "Projects dashboard - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -1073,7 +1072,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:6b91cc9251e4e6b8e2155592a3b7807d5c5dd3581789cd38941615de7584594b",
+      "page_hash": "sha256:33c72ed9b97a4fcc4d33310478d78735d10405a9fbdcf4d1dc7f83d6d8cea7cb",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1082,9 +1081,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/projects-dashboard/projects-repository_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Projects repository - Clean Hydrogen Partnership - European Union",
-      "snippet": "Projects repository - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustai",
+      "snippet": "Projects repository - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility Th",
       "first_seen": "2026-04-24T07:16:40+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -1114,7 +1113,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:4425a9082186f248e3fcaecff7b4fbf968df86bf33061814677ebee8a7ff7cdf",
+      "page_hash": "sha256:998646a4f92cb4659da4fa8218749101a3412b829080c1a75161c2f1fa2eb22d",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1123,9 +1122,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/about-us/reach-us_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Reach us - Clean Hydrogen Partnership - European Union",
-      "snippet": "Reach us - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainability an",
+      "snippet": "Reach us - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The European ",
       "first_seen": "2026-04-30T07:44:04+00:00",
-      "last_seen": "2026-06-29T10:02:40+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -1155,9 +1154,9 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:b604821ab0a07eae9ab6179ceccbee5b539e56da27822e3aab0573819c4b9ec9",
+      "page_hash": "sha256:a19d244b8bb5a2d33e888d52b22b920cf7b4e0006c28d8c582eceb41ab1be90b",
       "notes": "",
-      "seen_in_latest_run": false
+      "seen_in_latest_run": true
     },
     {
       "id": "cand_gfz_klaus_toepfer_https_www_gfz_de_karriere_stellenangebote",
@@ -1166,7 +1165,7 @@
       "title": "Stellenangebote: GFZ",
       "snippet": "Stellenangebote: GFZ springe zum Hauptmenü springe zum Brotkrumen-Menü springe zum Hauptinhalt springe zum Seitenleisteninhalt springe zum Fußbereich GFZ Helmholtz-Zentrum für Geoforschung zur Suchseite Über uns Organisation Struktur Organigramm Zahlen und Fakten Geschichte Profil des GFZ Unsere Werte Gute wissenschaftliche Praxis Internationale Zusammenarbeit Nachhaltigkeit am GFZ Preise und Auszeichnungen GFZ Förde",
       "first_seen": "2026-05-07T08:04:31+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Klaus Töpfer Sustainability Fellowship",
       "source_id_hint": "gfz_klaus_toepfer",
@@ -1194,7 +1193,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:63eae0df4340cc31635bd3198afec432ef6601829b4460913e918edb299261d8",
+      "page_hash": "sha256:416a16a58363b3ad4b057ec9d759ee98a4b41b18856973b724d187c86feb9877",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1203,9 +1202,9 @@
       "url": "https://www.clean-hydrogen.europa.eu/about-us/who-we-are_en",
       "domain": "clean-hydrogen.europa.eu",
       "title": "Who we are - Clean Hydrogen Partnership - European Union",
-      "snippet": "Who we are - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved The European Hydrogen Sustainability ",
+      "snippet": "Who we are - Clean Hydrogen Partnership - European Union Skip to main content European Partnership Search Search Menu Close Menu Back Previous items Next items Home About Us Who We Are Our Story Mission & Objectives Governance Vacancies Key documents Contact Privacy Policy See all Projects Projects repository Project updates Success Stories Project factsheets See all Get involved Hydrogen Valleys Facility The Europea",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-29T10:02:40+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "Clean Hydrogen Partnership Call 2026",
       "source_id_hint": "clean_hydrogen_partnership",
@@ -1235,9 +1234,9 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:8d517c1818fe051ca57cecabd313803bb2692e00365d2f50bba49a863b66dc84",
+      "page_hash": "sha256:b15199190ba87d1cc1ca9f288f01139292363893d7e2dd45e001ce463a8d4e90",
       "notes": "",
-      "seen_in_latest_run": false
+      "seen_in_latest_run": true
     },
     {
       "id": "cand_erc_advanced_https_erc_europa_eu_apply_grant_consolidator_grant",
@@ -1246,7 +1245,7 @@
       "title": "Consolidator Grant|ERC",
       "snippet": "Consolidator Grant|ERC Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Reporting Open Science Ethics guidance Intel",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -1275,7 +1274,7 @@
         "child_page"
       ],
       "deadline_hint": "deadline by simply submitting a new version, which will overwrite the old one.",
-      "page_hash": "sha256:fcbfebd2db9f1d132ba62831da324c3cd6aedc28c28d8a13c31526c15b2e0b90",
+      "page_hash": "sha256:5f9f3e5648cadd72abbf29cca89af21faf744b039c1f59285d482c2235949213",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1326,7 +1325,7 @@
       "title": "Doctoral Researcher (f_m_x) – Hydro-Geophysics: GFZ",
       "snippet": "Doctoral Researcher (f_m_x) – Hydro-Geophysics: GFZ springe zum Hauptmenü springe zum Brotkrumen-Menü springe zum Hauptinhalt springe zum Seitenleisteninhalt springe zum Fußbereich GFZ Helmholtz-Zentrum für Geoforschung zur Suchseite Über uns Organisation Struktur Organigramm Zahlen und Fakten Geschichte Profil des GFZ Unsere Werte Gute wissenschaftliche Praxis Internationale Zusammenarbeit Nachhaltigkeit am GFZ Prei",
       "first_seen": "2026-05-21T08:47:22+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -1406,7 +1405,7 @@
       "title": "ERC Proof of Concept Grant: Bridging Research and Innovation",
       "snippet": "ERC Proof of Concept Grant: Bridging Research and Innovation Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Report",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -1435,7 +1434,7 @@
         "child_page"
       ],
       "deadline_hint": "deadline of the chosen call.",
-      "page_hash": "sha256:46879a0ee03e34dde9064df5f502169aa4e61fec72d262cd01c206a627c41f47",
+      "page_hash": "sha256:651e49c84861370526ee9f1b14d3b7c33b4c871269aa7dd2f79bd8835020282b",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1446,7 +1445,7 @@
       "title": "ERC Starting Grant - Funding Opportunities for Early-Career Researchers",
       "snippet": "ERC Starting Grant - Funding Opportunities for Early-Career Researchers Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Pro",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -1475,7 +1474,7 @@
         "child_page"
       ],
       "deadline_hint": "deadline by simply submitting a new version, which will overwrite the old one.",
-      "page_hash": "sha256:de5582645672bc520d7eb1eda495779b040623c669646c49a67eef31305fb21c",
+      "page_hash": "sha256:a7b5288ca7cb1c11c6d251cb877db094f8855dd6c153f2895af93f77b2d4a1cf",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1486,7 +1485,7 @@
       "title": "ERC Synergy Grant: Collaborative Research Funding Opportunities",
       "snippet": "ERC Synergy Grant: Collaborative Research Funding Opportunities Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Rep",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -1515,7 +1514,7 @@
         "child_page"
       ],
       "deadline_hint": "deadline: The ERC checks whether your proposal meets the call’s eligibility criteria",
-      "page_hash": "sha256:71d04521404a3084fbfc87a9d468d0e9866463c903c0bcda271b2e4eaefb3d28",
+      "page_hash": "sha256:a73115c06063bf27a0d8472768d91826389478ec3373c8f1a774e9dedcf4b5fc",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1726,7 +1725,7 @@
       "title": "ERC Advanced Grant - Funding for Established Research Leaders",
       "snippet": "ERC Advanced Grant - Funding for Established Research Leaders Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Repor",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -1755,7 +1754,7 @@
         "watch_term_overlap"
       ],
       "deadline_hint": "deadline by simply submitting a new version, which will overwrite the old one.",
-      "page_hash": "sha256:d39a828af78909e9b5548e359b7617d762f234df5430964d0f719940451f75aa",
+      "page_hash": "sha256:0606094e3d22f88e86543c43f1eef905fb80e7722d36e9c896ba3384c0af589a",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1766,7 +1765,7 @@
       "title": "All Funding Programmes | DFG",
       "snippet": "All Funding Programmes | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Clos",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -1806,7 +1805,7 @@
       "title": "Alliance of Science Organisations in Germany | DFG",
       "snippet": "Alliance of Science Organisations in Germany | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany S",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -1835,7 +1834,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:b2decba8fed9ec8d86d205da0712d6f0fc538a55c39826d892fbc2aeba6b3561",
+      "page_hash": "sha256:340758f8160bee1938b9700d82adff38a0510a0400edbce1f4beb6b035613445",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1846,7 +1845,7 @@
       "title": "Career | Research Institute for Sustainability",
       "snippet": "Career | Research Institute for Sustainability Skip to main content Meta Navigation Events Press Contact Main navigation Institute About us Our Approach Fellow Programme Jobs Location Output Publications Dossiers Blog Research Sustainability Transformations and Society Transforming Human-Earth Interactions Advancing Transdisciplinarity and Co-Creation Completed Projects People Staff Fellows Affiliate Scholars The Dir",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "RIFS Klaus Töpfer Sustainability Fellowship",
       "source_id_hint": "rifs_klaus_toepfer",
@@ -1873,7 +1872,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:aeb877116d52debc1dc6d6d8dd39c2c69e0af35ab1ed8412d617ece15b911fc3",
+      "page_hash": "sha256:07d6265df58e3365292582a0ed806e1cb2fdd54715c5b33284209d3d76507db4",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1884,7 +1883,7 @@
       "title": "European Research Policy | DFG",
       "snippet": "European Research Policy | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Cl",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -1913,7 +1912,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:5f67f23f9f0f01f0054091926b018f1a173009b7e43e5dfa00ce850d072741bd",
+      "page_hash": "sha256:0bb9eb93c021330637c5a6f52a0c5d7d0358d50574cdd4cd4756439694f5ba6b",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1924,7 +1923,7 @@
       "title": "FAQ – Frequently Asked Questions | DFG",
       "snippet": "FAQ – Frequently Asked Questions | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bod",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -1953,7 +1952,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:133ebd1a4e1dd387a0be1458ca6c0e2bf0bab1f1e05ee967b9471ceb481f41b6",
+      "page_hash": "sha256:2bb3182dbdbb0a775bc5863ecf9d16a09ab87e30c55dfb885a4155a09e340125",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -1964,7 +1963,7 @@
       "title": "Funding Opportunities | DFG",
       "snippet": "Funding Opportunities | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -1993,7 +1992,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:10fc6ceb357e78272e798accbe88f7db2be564d503d3a5da79d2f4aaf8b41d60",
+      "page_hash": "sha256:c417090b2cb2985fcfdcc90b2ffc01438552a048e54745f524557433787b44ca",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2004,7 +2003,7 @@
       "title": "Funding | DFG",
       "snippet": "Funding | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close menu Back Sta",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -2033,7 +2032,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:513f12886cacee14e08df1402b150926ac3e02b107de1280169eea90f839edb2",
+      "page_hash": "sha256:a259b3ee60c004b46f6238673cbfee07fd719e59558839536245094e6a84d619",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2044,7 +2043,7 @@
       "title": "How the DFG Supports Research Careers | DFG",
       "snippet": "How the DFG Supports Research Careers | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutor",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -2073,7 +2072,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:03680efe2430a83727c25633a06da0fcac30f397cb64b8f0774e1991dd89796c",
+      "page_hash": "sha256:3de82ec1f593692a7f39c4e95fc09bf94bda4a2d14a0553ab6117c6bdeb56cc7",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2084,7 +2083,7 @@
       "title": "Independent observers|ERC",
       "snippet": "Independent observers|ERC Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Reporting Open Science Ethics guidance In",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -2113,7 +2112,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:3a21ee4b18eb22fb871998b32c4a6b6807a296e2eace1559129ddb52c0d3e657",
+      "page_hash": "sha256:d79629f2861a7616add7694a94418a650cf85a03c844af2335e3c87f9f736c01",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2124,7 +2123,7 @@
       "title": "Information for Researchers: Calls for Proposals | DFG",
       "snippet": "Information for Researchers: Calls for Proposals | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germa",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -2153,7 +2152,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:a8744da9372fdabd11cb32125d8fc233223a55ce6b8c01a264bea5e3d29496ce",
+      "page_hash": "sha256:ce2b4620f04a2d5120fee0ef5b79603187c832b881beb6600d907d50521341ce",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2203,7 +2202,7 @@
       "title": "Programme Contacts | DFG",
       "snippet": "Programme Contacts | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close me",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -2232,7 +2231,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:5b87995c6166ad3404761703a76e701f754260db892e9e0f5c989d4e3bf6765f",
+      "page_hash": "sha256:3cd801ae6d511251c3464c468084c44a918012ca674910145ee8988d8765f74d",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2323,7 +2322,7 @@
       "title": "Scientific Prizes | DFG",
       "snippet": "Scientific Prizes | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close men",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -2352,7 +2351,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:7c09e3097202abe32b427c7993510ca6472cf6b3248f57ac1039df42a4cbe84d",
+      "page_hash": "sha256:9e9b1086eb3a7b7a1977db0455984c23b51c5eeaf7855583141d3d6b486526b8",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2363,7 +2362,7 @@
       "title": "Your Career at the DFG Head Office | DFG",
       "snippet": "Your Career at the DFG Head Office | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory B",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -2392,7 +2391,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:c213682f6cad95fb780ff40b197c42ac0aab9c2537081c29c7a63bb58fb35c79",
+      "page_hash": "sha256:82f922b42b0b3fa17949a06f74aa0057d38e18a677969a12b2476579058277c6",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2403,7 +2402,7 @@
       "title": "Stellenangebote: GFZ",
       "snippet": "Stellenangebote: GFZ springe zum Hauptmenü springe zum Brotkrumen-Menü springe zum Hauptinhalt springe zum Seitenleisteninhalt springe zum Fußbereich GFZ Helmholtz-Zentrum für Geoforschung zur Suchseite Über uns Organisation Struktur Organigramm Zahlen und Fakten Geschichte Profil des GFZ Unsere Werte Gute wissenschaftliche Praxis Internationale Zusammenarbeit Nachhaltigkeit am GFZ Preise und Auszeichnungen GFZ Förde",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "GFZ Klaus Töpfer Sustainability Fellowship",
       "source_id_hint": "gfz_klaus_toepfer",
@@ -2430,7 +2429,7 @@
         "watch_term_overlap"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:63eae0df4340cc31635bd3198afec432ef6601829b4460913e918edb299261d8",
+      "page_hash": "sha256:416a16a58363b3ad4b057ec9d759ee98a4b41b18856973b724d187c86feb9877",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2479,7 +2478,7 @@
       "title": "Home | Research Institute for Sustainability",
       "snippet": "Home | Research Institute for Sustainability Skip to main content Meta Navigation Events Press Contact Main navigation Institute About us Our Approach Fellow Programme Jobs Location Output Publications Dossiers Blog Research Sustainability Transformations and Society Transforming Human-Earth Interactions Advancing Transdisciplinarity and Co-Creation Completed Projects People Staff Fellows Affiliate Scholars The Direc",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "RIFS Klaus Töpfer Sustainability Fellowship",
       "source_id_hint": "rifs_klaus_toepfer",
@@ -2506,7 +2505,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:cee2650f605080217d67fcb2b159f18c6faa87b7e01c3852c1938e81811767bd",
+      "page_hash": "sha256:c4fe6391d18da3a44567192445640b78b73d9afd9a769d7faf0fb2c758c369b7",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2517,7 +2516,7 @@
       "title": "ERC Grants for Non-European Researchers: Opportunities in Europe",
       "snippet": "ERC Grants for Non-European Researchers: Opportunities in Europe Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Re",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -2545,7 +2544,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:4270f0d8bda30b44f8315425fbe9d3c78c30500b0f03ce7b220d4a1ed79655fe",
+      "page_hash": "sha256:a10807c6581305985e1217cf4507b9c8107473531fcf1e9298e3abb1ce70f548",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2671,7 +2670,7 @@
       "title": "Panel Members | ERC",
       "snippet": "Panel Members | ERC Skip to main content Search Main navigation Home Apply for a grant Starting Grant Consolidator Grant Advanced Grant Proof of Concept Synergy Grant ERC Plus Grant For Non-European Researchers Panel members Independent observers Additional opportunities Science Journalism Initiative ERC for Ukraine Manage your project Set-up & develop your team Project Reporting Open Science Ethics guidance Intellec",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "ERC Advanced Grant",
       "source_id_hint": "erc_advanced",
@@ -2699,7 +2698,7 @@
         "child_page"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:67d618c8976352bf04614a0d272a8b8d1cc0d1a8ecabc072fa0fb5c7b2a84010",
+      "page_hash": "sha256:3eb35e341261ef152b08213f20a5e0573e99b5260a2a6c60cd93c0a1d64eb5c8",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -2710,7 +2709,7 @@
       "title": "Postdoctoral Researcher (f_m_x) - Numerical Modelling of High-Enthalpy Geothermal Systems: GFZ",
       "snippet": "Postdoctoral Researcher (f_m_x) - Numerical Modelling of High-Enthalpy Geothermal Systems: GFZ springe zum Hauptmenü springe zum Brotkrumen-Menü springe zum Hauptinhalt springe zum Seitenleisteninhalt springe zum Fußbereich GFZ Helmholtz-Zentrum für Geoforschung zur Suchseite Über uns Organisation Struktur Organigramm Zahlen und Fakten Geschichte Profil des GFZ Unsere Werte Gute wissenschaftliche Praxis International",
       "first_seen": "2026-06-11T09:50:18+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -2749,7 +2748,7 @@
       "title": "Postdoctoral Researcher (f_m_x) – Adaptive Digital Twin Prototypes for EGS Systems: GFZ",
       "snippet": "Postdoctoral Researcher (f_m_x) – Adaptive Digital Twin Prototypes for EGS Systems: GFZ springe zum Hauptmenü springe zum Brotkrumen-Menü springe zum Hauptinhalt springe zum Seitenleisteninhalt springe zum Fußbereich GFZ Helmholtz-Zentrum für Geoforschung zur Suchseite Über uns Organisation Struktur Organigramm Zahlen und Fakten Geschichte Profil des GFZ Unsere Werte Gute wissenschaftliche Praxis Internationale Zusam",
       "first_seen": "2026-05-21T08:47:22+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -2788,7 +2787,7 @@
       "title": "Postdoctoral researcher (f_m_x) - Experimental rock deformation: GFZ",
       "snippet": "Postdoctoral researcher (f_m_x) - Experimental rock deformation: GFZ springe zum Hauptmenü springe zum Brotkrumen-Menü springe zum Hauptinhalt springe zum Seitenleisteninhalt springe zum Fußbereich GFZ Helmholtz-Zentrum für Geoforschung zur Suchseite Über uns Organisation Struktur Organigramm Zahlen und Fakten Geschichte Profil des GFZ Unsere Werte Gute wissenschaftliche Praxis Internationale Zusammenarbeit Nachhalti",
       "first_seen": "2026-06-18T09:51:53+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -2827,7 +2826,7 @@
       "title": "Research Scientist (f_m_x) - Seismology: GFZ",
       "snippet": "Research Scientist (f_m_x) - Seismology: GFZ springe zum Hauptmenü springe zum Brotkrumen-Menü springe zum Hauptinhalt springe zum Seitenleisteninhalt springe zum Fußbereich GFZ Helmholtz-Zentrum für Geoforschung zur Suchseite Über uns Organisation Struktur Organigramm Zahlen und Fakten Geschichte Profil des GFZ Unsere Werte Gute wissenschaftliche Praxis Internationale Zusammenarbeit Nachhaltigkeit am GFZ Preise und ",
       "first_seen": "2026-06-26T08:38:41+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -2866,7 +2865,7 @@
       "title": "ResearchInfrastructure@GFZ | Regionale Observatorien",
       "snippet": "ResearchInfrastructure@GFZ | Regionale Observatorien GFZ-Startseite Englisch ResearchInfrastructure@GFZ ÜBERSICHT Suchfilter Filter löschen Kategorien Regionale Observatorien Datensysteme Organisationseinheiten GFZ Department 1 Geodäsie Sektion 1.2 Globales Geomonitoring und Schwerefeld Sektion 1.4 Fernerkundung und Geoinformatik Department 2 Geophysik Sektion 2.1 Erdbeben- und Vulkanphysik Sektion 2.2 Geophysikalisc",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -3020,7 +3019,7 @@
       "title": "Heisenberg Programme | DFG",
       "snippet": "Heisenberg Programme | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close ",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "DFG Heisenberg Programme",
       "source_id_hint": "dfg_heisenberg",
@@ -3058,7 +3057,7 @@
       "title": "Individual Research Grants | DFG",
       "snippet": "Individual Research Grants | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ ",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "DFG Individual Research Grants",
       "source_id_hint": "dfg_research_grants",
@@ -3097,7 +3096,7 @@
       "title": "Klaus Töpfer Sustainability Fellowship 2027 (f_m_x) | Research Institute for Sustainability",
       "snippet": "Klaus Töpfer Sustainability Fellowship 2027 (f_m_x) | Research Institute for Sustainability Skip to main content Meta Navigation Events Press Contact Main navigation Institute About us Our Approach Fellow Programme Jobs Location Output Publications Dossiers Blog Research Sustainability Transformations and Society Transforming Human-Earth Interactions Advancing Transdisciplinarity and Co-Creation Completed Projects Pe",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "RIFS Klaus Töpfer Sustainability Fellowship",
       "source_id_hint": "rifs_klaus_toepfer",
@@ -3123,7 +3122,7 @@
         "watch_term_overlap"
       ],
       "deadline_hint": null,
-      "page_hash": "sha256:e3f2496604685a199cca3b9d288dd5a3f2f5c731f0fd46655873ed76a109aa5a",
+      "page_hash": "sha256:9fe50910a90b78b49efb80077c500bd8ef638bb6e3a2bec174744d469d2fc4f5",
       "notes": "",
       "seen_in_latest_run": true
     },
@@ -3134,7 +3133,7 @@
       "title": "Reinhart Koselleck Projects | DFG",
       "snippet": "Reinhart Koselleck Projects | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "DFG Reinhart Koselleck Projects",
       "source_id_hint": "dfg_reinhart_koselleck",
@@ -3173,7 +3172,7 @@
       "title": "Scientific Networks | DFG",
       "snippet": "Scientific Networks | DFG Open menu Close menu Search Close search Search text Search FAQ - Frequently asked questions ﻿ About Us Close menu Back About Us About the DFG ﻿ Close menu Back About the DFG What is the DFG? Statutes History Annual Report Key Figures Portal GEPRIS GERiT RIsources Elan Press DE bluesky mastodon instagram linkedIn youtube Alliance of Science Organisations in Germany Statutory Bodies ﻿ Close m",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "source_page",
       "source_hint": "DFG Scientific Networks",
       "source_id_hint": "dfg_scientific_networks",
@@ -3213,7 +3212,7 @@
       "title": "ResearchInfrastructure@GFZ | Globale Messnetze",
       "snippet": "ResearchInfrastructure@GFZ | Globale Messnetze GFZ-Startseite Englisch ResearchInfrastructure@GFZ ÜBERSICHT Suchfilter Filter löschen Kategorien Globale Messnetze Datendienste Datensysteme Ausgewählte Infrastrukturen GEOFON IAG Services MESI MESI Instrumentensysteme Organisationseinheiten GFZ Department 1 Geodäsie Sektion 1.1 Geodätische Weltraumverfahren Sektion 1.2 Globales Geomonitoring und Schwerefeld Department ",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
@@ -3291,7 +3290,7 @@
       "title": "ResearchInfrastructure@GFZ | Satellitensysteme",
       "snippet": "ResearchInfrastructure@GFZ | Satellitensysteme GFZ-Startseite Englisch ResearchInfrastructure@GFZ ÜBERSICHT Suchfilter Filter löschen Kategorien Satellitensysteme Datendienste Datensysteme MESI MESI Datensysteme MESI Instrumentensysteme Organisationseinheiten GFZ Department 1 Geodäsie Sektion 1.1 Geodätische Weltraumverfahren Sektion 1.2 Globales Geomonitoring und Schwerefeld Sektion 1.4 Fernerkundung und Geoinformat",
       "first_seen": "2026-04-22T15:28:19+00:00",
-      "last_seen": "2026-06-30T08:42:43+00:00",
+      "last_seen": "2026-07-01T09:00:46+00:00",
       "discovered_via": "child_link",
       "source_hint": "GFZ Scientific Jobs Board",
       "source_id_hint": "gfz_jobs_board",
