@@ -317,6 +317,147 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                 self.save_and_rebuild("Artwork hidden and gallery rebuilt", {"record": record})
                 return
 
+            if path == "/api/reorder-artwork":
+                payload = self.read_payload()
+                direction = str(payload.get("direction") or "").strip()
+
+                if direction not in {"earlier", "later"}:
+                    self.send_json(400, {"ok": False, "error": "Direction must be earlier or later"})
+                    return
+
+                data = load_artworks_payload(write_back=True)
+                records = data["artworks"]
+                record = find_record(records, payload)
+
+                if not record:
+                    self.send_json(404, {"ok": False, "error": "No matching artwork found"})
+                    return
+
+                collection = record.get("collection")
+                active_statuses_to_skip = {"hidden", "deleted", "draft"}
+
+                collection_records = [
+                    candidate for candidate in records
+                    if candidate.get("collection") == collection
+                    and str(candidate.get("status", "active")).lower() not in active_statuses_to_skip
+                ]
+
+                def as_int(value, default=999999):
+                    try:
+                        return int(value)
+                    except (TypeError, ValueError):
+                        return default
+
+                collection_records.sort(
+                    key=lambda candidate: (
+                        as_int(candidate.get("sortOrder"), 999999),
+                        str(candidate.get("title", "")).lower(),
+                    )
+                )
+
+                for index, candidate in enumerate(collection_records):
+                    candidate["sortOrder"] = (index + 1) * 10
+
+                index = next(
+                    (position for position, candidate in enumerate(collection_records) if candidate.get("id") == record.get("id")),
+                    None,
+                )
+
+                if index is None:
+                    self.send_json(404, {"ok": False, "error": "Selected artwork is not in the active collection order"})
+                    return
+
+                target_index = index - 1 if direction == "earlier" else index + 1
+
+                if target_index < 0 or target_index >= len(collection_records):
+                    self.send_json(200, {"ok": True, "message": "Artwork is already at the edge of this collection", "record": record})
+                    return
+
+                current = collection_records[index]
+                target = collection_records[target_index]
+
+                current["sortOrder"], target["sortOrder"] = target["sortOrder"], current["sortOrder"]
+                current["updatedAt"] = time.strftime("%Y-%m-%d")
+                target["updatedAt"] = time.strftime("%Y-%m-%d")
+
+                write_json(ARTWORKS_PATH, data)
+                self.save_and_rebuild("Artwork reordered and gallery rebuilt", {"record": current})
+                return
+
+            if path == "/api/reorder-collection":
+                payload = self.read_payload()
+                collection = str(payload.get("collection") or "").strip()
+                ordered_ids = [str(item) for item in (payload.get("orderedIds") or [])]
+
+                if not collection:
+                    self.send_json(400, {"ok": False, "error": "Missing collection"})
+                    return
+
+                if not ordered_ids:
+                    self.send_json(400, {"ok": False, "error": "No orderedIds supplied"})
+                    return
+
+                data = read_json(ARTWORKS_PATH, {"artworks": []})
+                records = data.setdefault("artworks", [])
+
+                ordered_set = set(ordered_ids)
+                rank = {record_id: index for index, record_id in enumerate(ordered_ids)}
+
+                selected_collection = []
+                other_records = []
+
+                for record in records:
+                    if record.get("collection") == collection:
+                        selected_collection.append(record)
+                    else:
+                        other_records.append(record)
+
+                def current_order(record):
+                    try:
+                        return int(record.get("sortOrder", 999999))
+                    except (TypeError, ValueError):
+                        return 999999
+
+                # Put dragged active records in the requested order.
+                ordered_selected = [
+                    record for record in selected_collection
+                    if str(record.get("id")) in ordered_set
+                ]
+                ordered_selected.sort(key=lambda record: rank[str(record.get("id"))])
+
+                # Keep hidden/draft/missing records after the active ordered run,
+                # preserving their previous relative order.
+                leftovers = [
+                    record for record in selected_collection
+                    if str(record.get("id")) not in ordered_set
+                ]
+                leftovers.sort(key=lambda record: (current_order(record), str(record.get("title", "")).lower()))
+
+                rewritten_collection = ordered_selected + leftovers
+
+                for index, record in enumerate(rewritten_collection, start=1):
+                    record["sortOrder"] = index * 10
+                    record["updatedAt"] = time.strftime("%Y-%m-%d")
+
+                # Rebuild the full JSON in collection blocks, preserving other collections.
+                rebuilt = []
+                inserted = False
+
+                for record in records:
+                    if record.get("collection") == collection:
+                        if not inserted:
+                            rebuilt.extend(rewritten_collection)
+                            inserted = True
+                    else:
+                        rebuilt.append(record)
+
+                data["artworks"] = rebuilt
+                write_json(ARTWORKS_PATH, data)
+
+                touched = ordered_selected[0] if ordered_selected else None
+                self.save_and_rebuild("Artwork order saved and gallery rebuilt", {"record": touched})
+                return
+
             if path == "/api/add-artwork":
                 payload = self.read_payload()
                 record = create_artwork_from_upload(payload)

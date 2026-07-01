@@ -134,15 +134,18 @@
     }
 
     .grid {
-      columns: 5 170px;
-      column-gap: .75rem;
+      display: grid;
+      grid-template-display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: .75rem;
+      align-items: start;
     }
 
     .card {
       display: inline-block;
       width: 100%;
       margin: 0 0 .75rem;
-      break-inside: avoid;
+      
       border: 1px solid rgba(255,255,255,.07);
       background: var(--panel);
       cursor: pointer;
@@ -150,6 +153,15 @@
 
     .card.hidden {
       opacity: .45;
+    }
+
+    .card.dragging {
+      opacity: .35;
+    }
+
+    .card.drop-target {
+      outline: 2px dashed var(--gold);
+      outline-offset: 3px;
     }
 
     .card.selected {
@@ -254,7 +266,8 @@
       }
 
       .grid {
-        columns: 2 150px;
+        grid-template-display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       }
     }
   </style>
@@ -325,6 +338,8 @@
           <div class="button-row">
             <button class="primary" id="saveEdit">Save edit & rebuild</button>
             <button id="hideWork">Hide selected</button>
+            <button id="moveEarlier">Move earlier</button>
+            <button id="moveLater">Move later</button>
           </div>
         </div>
       </section>
@@ -354,6 +369,8 @@
 
 <script>
 const collections = ["Oil Paintings", "Watercolours", "Drawings", "Experimental", "GeoSpatial Imagery"];
+
+let draggedArtworkId = null;
 
 const state = {
   artworks: [],
@@ -392,6 +409,26 @@ function imageOf(item) {
 
 function selectedItem() {
   return state.artworks.find((item) => item.id === state.selectedId);
+}
+
+function numericOrder(item) {
+  const value = Number(item.sortOrder ?? item.order ?? 999999);
+  return Number.isFinite(value) ? value : 999999;
+}
+
+function compareArtworks(a, b) {
+  const collectionOrderA = Number(a.collectionOrder ?? 999);
+  const collectionOrderB = Number(b.collectionOrder ?? 999);
+
+  if (collectionOrderA !== collectionOrderB) return collectionOrderA - collectionOrderB;
+
+  const collectionCompare = String(a.collection || "").localeCompare(String(b.collection || ""));
+  if (collectionCompare !== 0) return collectionCompare;
+
+  const orderCompare = numericOrder(a) - numericOrder(b);
+  if (orderCompare !== 0) return orderCompare;
+
+  return String(a.title || "").localeCompare(String(b.title || ""));
 }
 
 function populateSelect(id, values) {
@@ -475,12 +512,12 @@ function render() {
       (statusFilter === "hidden" && status === "hidden");
     const blob = [item.title, item.collection, item.subgroup, item.medium, item.image, status].join(" ").toLowerCase();
     return collectionOk && statusOk && (!query || blob.includes(query));
-  });
+  }).sort(compareArtworks);
 
   grid.innerHTML = visible.map((item) => {
     const hidden = (item.status || "active") === "hidden";
     return `
-      <article class="card ${item.id === state.selectedId ? "selected" : ""} ${hidden ? "hidden" : ""}" data-id="${escapeHtml(item.id)}">
+      <article class="card ${item.id === state.selectedId ? "selected" : ""} ${hidden ? "hidden" : ""}" data-id="${escapeHtml(item.id)}" draggable="true">
         <img src="${escapeHtml(imageOf(item))}" alt="${escapeHtml(item.alt || item.title)}" loading="lazy">
         <div>
           <strong>${escapeHtml(item.title)}</strong>
@@ -492,6 +529,35 @@ function render() {
 
   grid.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", () => setSelected(card.dataset.id));
+
+    card.addEventListener("dragstart", (event) => {
+      draggedArtworkId = card.dataset.id;
+      card.classList.add("dragging");
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", card.dataset.id);
+    });
+
+    card.addEventListener("dragend", () => {
+      draggedArtworkId = null;
+      card.classList.remove("dragging");
+      grid.querySelectorAll(".drop-target").forEach((item) => item.classList.remove("drop-target"));
+    });
+
+    card.addEventListener("dragover", (event) => {
+      if (!draggedArtworkId || draggedArtworkId === card.dataset.id) return;
+      event.preventDefault();
+      card.classList.add("drop-target");
+    });
+
+    card.addEventListener("dragleave", () => {
+      card.classList.remove("drop-target");
+    });
+
+    card.addEventListener("drop", (event) => {
+      event.preventDefault();
+      card.classList.remove("drop-target");
+      saveDraggedOrder(card.dataset.id).catch((error) => setStatus(error.message, "bad"));
+    });
   });
 }
 
@@ -504,6 +570,45 @@ async function postJson(url, payload) {
   const result = await response.json();
   if (!response.ok || !result.ok) throw new Error(result.error || result.message || "Request failed");
   return result;
+}
+
+async function saveDraggedOrder(targetId) {
+  if (!draggedArtworkId || draggedArtworkId === targetId) return;
+
+  const dragged = state.artworks.find((item) => item.id === draggedArtworkId);
+  const target = state.artworks.find((item) => item.id === targetId);
+
+  if (!dragged || !target) return;
+
+  if (dragged.collection !== target.collection) {
+    setStatus("Drag within the same collection only.", "bad");
+    return;
+  }
+
+  const ordered = state.artworks
+    .filter((item) => item.collection === dragged.collection && (item.status || "active") !== "hidden")
+    .sort(compareArtworks);
+
+  const fromIndex = ordered.findIndex((item) => item.id === dragged.id);
+  const toIndex = ordered.findIndex((item) => item.id === target.id);
+
+  if (fromIndex < 0 || toIndex < 0) return;
+
+  const moved = ordered.splice(fromIndex, 1)[0];
+  ordered.splice(toIndex, 0, moved);
+
+  setStatus("Saving new order and rebuilding...", "");
+
+  const result = await postJson("/api/reorder-collection", {
+    collection: dragged.collection,
+    orderedIds: ordered.map((item) => item.id)
+  });
+
+  await loadArtworks();
+  state.selectedId = dragged.id;
+  fillForm(selectedItem());
+  render();
+  setStatus("Order saved and gallery rebuilt. Refresh /art/.", "good");
 }
 
 async function saveFeature() {
@@ -575,6 +680,28 @@ async function hideWork() {
   setStatus("Hidden and rebuilt. Refresh /art/.", "good");
 }
 
+async function reorderSelected(direction) {
+  const item = selectedItem();
+  if (!item) {
+    setStatus("No work selected.", "bad");
+    return;
+  }
+
+  setStatus(direction === "earlier" ? "Moving earlier..." : "Moving later...", "");
+
+  const result = await postJson("/api/reorder-artwork", {
+    id: item.id,
+    image: item.image,
+    direction
+  });
+
+  await loadArtworks();
+  state.selectedId = result.record && result.record.id ? result.record.id : item.id;
+  fillForm(selectedItem());
+  render();
+  setStatus("Order saved and gallery rebuilt. Refresh /art/.", "good");
+}
+
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -644,6 +771,8 @@ async function init() {
   document.getElementById("saveFeature").addEventListener("click", () => saveFeature().catch((error) => setStatus(error.message, "bad")));
   document.getElementById("saveEdit").addEventListener("click", () => saveEdit().catch((error) => setStatus(error.message, "bad")));
   document.getElementById("hideWork").addEventListener("click", () => hideWork().catch((error) => setStatus(error.message, "bad")));
+  document.getElementById("moveEarlier").addEventListener("click", () => reorderSelected("earlier").catch((error) => setStatus(error.message, "bad")));
+  document.getElementById("moveLater").addEventListener("click", () => reorderSelected("later").catch((error) => setStatus(error.message, "bad")));
   document.getElementById("addWork").addEventListener("click", () => addWork().catch((error) => setStatus(error.message, "bad")));
 
   document.getElementById("newFile").addEventListener("change", async (event) => {
