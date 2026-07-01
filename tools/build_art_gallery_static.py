@@ -32,13 +32,58 @@ def read_json(path: Path, fallback):
 
 def load_artworks() -> list[dict]:
     records = read_json(DATA, {"artworks": []}).get("artworks", [])
-    return [
+
+    def as_int(value, default=999999):
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    visible = [
         record for record in records
         if str(record.get("status", "active")).lower() not in {"hidden", "deleted", "draft"}
     ]
 
+    return sorted(
+        visible,
+        key=lambda record: (
+            as_int(record.get("collectionOrder"), 999),
+            str(record.get("collection", "")),
+            as_int(record.get("sortOrder"), 999999),
+            str(record.get("title", "")).lower(),
+        ),
+    )
+
 def load_curation() -> dict:
     return read_json(CURATION, {"homepageHero": {}, "collections": {}})
+
+
+def ordered_archive_items(items: list[dict], feature: dict | None = None) -> list[dict]:
+    feature = feature or {}
+    feature_id = feature.get("id")
+    feature_image = feature.get("image")
+
+    def as_int(value, default=999999):
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
+
+    archive = []
+    for item in items:
+        if feature_id and item.get("id") == feature_id:
+            continue
+        if feature_image and item.get("image") == feature_image:
+            continue
+        archive.append(item)
+
+    return sorted(
+        archive,
+        key=lambda item: (
+            as_int(item.get("sortOrder"), 999999),
+            str(item.get("title", "")).lower(),
+        ),
+    )
 
 
 def group_by_collection(artworks: list[dict]) -> dict[str, list[dict]]:
@@ -142,20 +187,19 @@ def choose_home_hero(grouped: dict[str, list[dict]], curation: dict) -> dict | N
 
 
 def ordered_archive(items: list[dict], collection: dict, feature: dict | None) -> list[dict]:
-    ordered = sorted(items, key=lambda item: score_item(item, collection["score_terms"]), reverse=True)
-    if not feature:
-        return ordered
+    def as_int(value, default=999999):
+        try:
+            return int(value)
+        except (TypeError, ValueError):
+            return default
 
-    feature_id = feature.get("id")
-    feature_image = feature.get("image")
-    return [
-        item for item in ordered
-        if item.get("id") != feature_id
-        and item.get("image") != feature_image
-        and item.get("thumb") != feature_image
-        and item.get("sourceUrl") != feature_image
-    ]
-
+    return sorted(
+        items,
+        key=lambda item: (
+            as_int(item.get("sortOrder"), 999999),
+            str(item.get("title", "")).lower(),
+        ),
+    )
 
 def image_path(item: dict | None, nested: bool = False, thumb: bool = False) -> str:
     if item:
@@ -380,3 +424,91 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# ART_ARCHIVE_ROW_ORDER_POSTPROCESS_START
+def force_public_archive_row_order() -> None:
+    """Force generated public collection archive walls to match manager row-wise order."""
+    from pathlib import Path
+    import re
+
+    pages = [
+        Path("art/oil-paintings/index.html"),
+        Path("art/watercolours/index.html"),
+        Path("art/drawings/index.html"),
+        Path("art/experimental/index.html"),
+        Path("art/geospatial-imagery/index.html"),
+    ]
+
+    forced_style = (
+        "display:grid !important;"
+        "grid-template-columns:repeat(auto-fill,minmax(170px,1fr)) !important;"
+        "gap:.75rem !important;"
+        "align-items:start !important;"
+        "columns:unset !important;"
+        "column-count:initial !important;"
+        "column-width:auto !important;"
+        "column-gap:normal !important;"
+    )
+
+    forced_script = """
+<script>
+(function () {
+  function forceArchiveWallRowOrder() {
+    document.querySelectorAll('.archive-wall').forEach(function (wall) {
+      wall.style.setProperty('display', 'grid', 'important');
+      wall.style.setProperty('grid-template-columns', 'repeat(auto-fill, minmax(170px, 1fr))', 'important');
+      wall.style.setProperty('gap', '.75rem', 'important');
+      wall.style.setProperty('align-items', 'start', 'important');
+      wall.style.setProperty('columns', 'unset', 'important');
+      wall.style.setProperty('column-count', 'initial', 'important');
+      wall.style.setProperty('column-width', 'auto', 'important');
+      wall.style.setProperty('column-gap', 'normal', 'important');
+
+      Array.from(wall.children).forEach(function (card) {
+        card.style.setProperty('display', 'block', 'important');
+        card.style.setProperty('width', 'auto', 'important');
+        card.style.setProperty('max-width', 'none', 'important');
+        card.style.setProperty('margin', '0', 'important');
+        card.style.setProperty('break-inside', 'auto', 'important');
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', forceArchiveWallRowOrder);
+  forceArchiveWallRowOrder();
+})();
+</script>
+"""
+
+    for page in pages:
+        if not page.exists():
+            continue
+
+        html = page.read_text(encoding="utf-8")
+
+        html = re.sub(
+            r'<section class="archive-wall([^"]*)"',
+            lambda match: (
+                '<section class="archive-wall'
+                + match.group(1)
+                + '" style="'
+                + forced_style
+                + '"'
+            ),
+            html,
+            count=1,
+        )
+
+        html = re.sub(
+            r'<script>\s*\(function \(\) \{\s*function forceArchiveWallRowOrder\(\)[\s\S]*?\}\)\(\);\s*</script>',
+            '',
+            html,
+        )
+
+        html = html.replace("</body>", forced_script + "\n</body>")
+
+        page.write_text(html, encoding="utf-8")
+
+
+force_public_archive_row_order()
+# ART_ARCHIVE_ROW_ORDER_POSTPROCESS_END
