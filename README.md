@@ -1,63 +1,63 @@
-# Three Intelligences Explorer
+# salmonofdoubt.github.io
 
-Static GitHub Pages demo intended to live at:
+Public GitHub Pages site for André Baumann / DiAndré projects, art archives, research demos and web experiments.
 
-`https://salmonofdoubt.github.io/demos/intelligence/`
+Live site:
 
-## Purpose
+    https://salmonofdoubt.github.io/
 
-This demo visualises three interacting layers:
+Main areas:
 
-1. **Individual intelligence**: human-capital and capability proxies.
-2. **Collective intelligence**: governance, coordination, and institutional-quality proxies.
-3. **Planetary intelligence**: stewardship, emissions pressure, and ecological-system proxies.
+    /art/                     DiAndré art portfolio
+    /art/manage/              Local art manager for updating the art portfolio
+    /art/documentation/       Art books, journals, process PDFs and provenance archive
+    /demos/                   Public demos and experiments
 
-It is intentionally transparent. It is not a formal country ranking.
-
-## Deployment
-
-Copy the `demos/intelligence/` folder into the repo.
-
-Then update `demos/index.html` by adding the card supplied in:
-
-`snippets/demos-index-card.html`
-
-Alternatively, replace `demos/index.html` with the full updated version in:
-
-`demos/index.html`
-
-## Data behaviour
-
-The browser first attempts to fetch public World Bank API data live. If the request fails, it uses:
-
-`data/country_scores_fallback.csv`
-
-The fallback data are illustrative only. Live API mode is the intended mode.
-
-## Main files
-
-- `index.html`: page structure using the existing site header/footer style.
-- `styles.css`: local scoped styling for the explorer.
-- `app.js`: fetches World Bank API values, computes scores, renders Plotly 3D.
-- `data/countries.json`: country list.
-- `data/indicators.json`: model logic and indicator weights.
-- `data/sources.json`: source and modelling notes.
-- `ops/build_worldbank_snapshot.py`: optional local script for creating frozen snapshots later.
-
-## Suggested local test
+## Local server
 
 From the repository root:
 
-```bash
-python3 -m http.server 8000
-```
+    ./serve.sh
 
 Then open:
 
-```text
-http://localhost:8000/demos/intelligence/
-```
+    http://localhost:8000/
 
-## Notes
+Do not test pages by double-clicking HTML files. Several pages rely on local fetches, generated assets and repo-relative paths.
 
-Because the page uses browser fetch requests, do not test it by double-clicking the HTML file. Use a local Python server.
+## Updating the art site
+
+Use the local manager:
+
+    http://localhost:8000/art/manage/
+
+Detailed instructions are in:
+
+    art/README.md
+
+Short workflow:
+
+    1. Start ./serve.sh
+    2. Open /art/manage/
+    3. Upload, hide, edit, order or feature works
+    4. Rebuild from the manager or run the builder
+    5. Check locally
+    6. Commit and push
+
+Manual rebuild commands:
+
+    python3 tools/build_art_gallery_static.py
+    python3 tools/build_art_documentation.py
+
+Publish:
+
+    git status --short
+    git add -A art tools
+    git commit -m "Describe the change"
+    git push origin master
+
+GitHub Pages publishes from master.
+
+## Important rule
+
+Generated collection pages should not be manually edited as the normal workflow. For the art section, update the source data through /art/manage/ and rebuild.
