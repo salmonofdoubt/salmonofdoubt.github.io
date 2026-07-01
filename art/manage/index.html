@@ -282,6 +282,14 @@
       line-height: 1.35;
     }
 </style>
+
+  <!-- ART_PWA_START -->
+  <link rel="manifest" href="/art/manifest.webmanifest">
+  <meta name="theme-color" content="#050403">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="DiAndré">
+  <link rel="apple-touch-icon" href="/art/assets/diandre-app-icon-192.png">
+  <!-- ART_PWA_END -->
 </head>
 <body>
 <main>
@@ -777,5 +785,67 @@ init().catch((error) => {
 });
 </script>
 
+
+  <!-- ART_PWA_START -->
+  <button class="art-install-app" type="button" hidden>Install app</button>
+  <style>
+    .art-install-app {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 50;
+      min-height: 38px;
+      border: 1px solid rgba(212, 174, 108, .62);
+      border-radius: 999px;
+      padding: .35rem .9rem;
+      background: #24190f;
+      color: #fff2d7;
+      box-shadow: 0 14px 40px rgba(0,0,0,.32);
+      font: 900 .82rem/1.1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      cursor: pointer;
+    }
+
+    @media (max-width: 640px) {
+      .art-install-app {
+        right: .75rem;
+        bottom: .75rem;
+      }
+    }
+  </style>
+  <script>
+    (function () {
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/art/sw.js").catch(function () {});
+        });
+      }
+
+      var installPrompt = null;
+      var button = document.querySelector(".art-install-app");
+
+      window.addEventListener("beforeinstallprompt", function (event) {
+        event.preventDefault();
+        installPrompt = event;
+        if (button) button.hidden = false;
+      });
+
+      if (button) {
+        button.addEventListener("click", function () {
+          if (!installPrompt) return;
+          installPrompt.prompt();
+          installPrompt.userChoice.finally(function () {
+            installPrompt = null;
+            button.hidden = true;
+          });
+        });
+      }
+
+      window.addEventListener("appinstalled", function () {
+        if (button) button.hidden = true;
+        installPrompt = null;
+      });
+    }());
+  </script>
+  <!-- ART_PWA_END -->
 </body>
 </html>
