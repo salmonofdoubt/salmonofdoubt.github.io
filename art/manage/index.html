@@ -270,7 +270,18 @@
       grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       }
     }
-  </style>
+  
+    .batch-upload-note {
+      display: block;
+      margin-top: .3rem;
+      color: var(--muted, #ad9a7b);
+      font-size: .72rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1.35;
+    }
+</style>
 </head>
 <body>
 <main>
@@ -341,9 +352,9 @@
       </section>
 
       <section class="box">
-        <h2>Upload new work</h2>
+        <h2>Upload new work(s)<span class="batch-upload-note">Select several files to add a batch with the same category and medium.</span></h2>
         <div class="form-grid">
-          <input id="newFile" type="file" accept="image/*">
+          <input id="newFile" type="file" accept="image/*" multiple>
           <img id="newPreview" class="preview" alt="">
           <input id="newTitle" placeholder="Title">
           <select id="newCollection"></select>
@@ -354,7 +365,7 @@
             <label><input id="makeCollectionFeature" type="checkbox"> collection feature</label>
             <label><input id="makeHomepageHero" type="checkbox"> homepage hero</label>
           </div>
-          <button class="primary" id="addWork">Add work & rebuild</button>
+          <button class="primary" id="addWork">Add work(s) & rebuild</button>
         </div>
       </section>
     </aside>
@@ -765,5 +776,6 @@ init().catch((error) => {
   document.body.innerHTML = `<main><h1>Manager failed</h1><p>${escapeHtml(error.message)}</p></main>`;
 });
 </script>
+
 </body>
 </html>
