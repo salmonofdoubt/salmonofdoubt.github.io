@@ -338,8 +338,6 @@
           <div class="button-row">
             <button class="primary" id="saveEdit">Save edit & rebuild</button>
             <button id="hideWork">Hide selected</button>
-            <button id="moveEarlier">Move earlier</button>
-            <button id="moveLater">Move later</button>
           </div>
         </div>
       </section>
@@ -680,28 +678,6 @@ async function hideWork() {
   setStatus("Hidden and rebuilt. Refresh /art/.", "good");
 }
 
-async function reorderSelected(direction) {
-  const item = selectedItem();
-  if (!item) {
-    setStatus("No work selected.", "bad");
-    return;
-  }
-
-  setStatus(direction === "earlier" ? "Moving earlier..." : "Moving later...", "");
-
-  const result = await postJson("/api/reorder-artwork", {
-    id: item.id,
-    image: item.image,
-    direction
-  });
-
-  await loadArtworks();
-  state.selectedId = result.record && result.record.id ? result.record.id : item.id;
-  fillForm(selectedItem());
-  render();
-  setStatus("Order saved and gallery rebuilt. Refresh /art/.", "good");
-}
-
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -771,9 +747,7 @@ async function init() {
   document.getElementById("saveFeature").addEventListener("click", () => saveFeature().catch((error) => setStatus(error.message, "bad")));
   document.getElementById("saveEdit").addEventListener("click", () => saveEdit().catch((error) => setStatus(error.message, "bad")));
   document.getElementById("hideWork").addEventListener("click", () => hideWork().catch((error) => setStatus(error.message, "bad")));
-  document.getElementById("moveEarlier").addEventListener("click", () => reorderSelected("earlier").catch((error) => setStatus(error.message, "bad")));
-  document.getElementById("moveLater").addEventListener("click", () => reorderSelected("later").catch((error) => setStatus(error.message, "bad")));
-  document.getElementById("addWork").addEventListener("click", () => addWork().catch((error) => setStatus(error.message, "bad")));
+document.getElementById("addWork").addEventListener("click", () => addWork().catch((error) => setStatus(error.message, "bad")));
 
   document.getElementById("newFile").addEventListener("change", async (event) => {
     const file = event.target.files && event.target.files[0];
