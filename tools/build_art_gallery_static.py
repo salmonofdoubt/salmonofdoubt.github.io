@@ -883,3 +883,200 @@ def patch_art_pwa_metadata():
 
 if __name__ == "__main__":
     patch_art_pwa_metadata()
+
+
+def patch_art_homepage_hero_qr_native_share():
+    from pathlib import Path
+    import re
+
+    root = Path(__file__).resolve().parents[1]
+    path = root / "art" / "index.html"
+    if not path.exists():
+        return
+
+    html = path.read_text(encoding="utf-8")
+
+    html = re.sub(
+        r"\n?\s*<!-- ART_SHARE_QR_START -->[\s\S]*?<!-- ART_SHARE_QR_END -->\s*",
+        "\n",
+        html,
+    )
+
+    html = re.sub(
+        r"\n?\s*<!-- ART_HERO_QR_START -->[\s\S]*?<!-- ART_HERO_QR_END -->\s*",
+        "\n",
+        html,
+    )
+
+    css = """
+  <!-- ART_HERO_QR_START -->
+  <style>
+    .hero-share-qr {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr);
+      gap: .75rem;
+      align-items: center;
+      max-width: 28rem;
+      padding: .65rem;
+      border: 1px solid rgba(212, 174, 108, .28);
+      background: rgba(16, 13, 10, .78);
+    }
+
+    .hero-share-qr img {
+      width: 82px;
+      height: 82px;
+      display: block;
+      background: #fff2d7;
+      padding: .25rem;
+      border: 1px solid rgba(212, 174, 108, .34);
+    }
+
+    .hero-share-copy {
+      min-width: 0;
+      display: grid;
+      gap: .45rem;
+      align-content: center;
+    }
+
+    .hero-share-copy strong {
+      display: block;
+      color: #fff2d7;
+      font-size: .78rem;
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero-share-copy span {
+      display: block;
+      color: #ad9a7b;
+      font-size: .78rem;
+      line-height: 1.35;
+    }
+
+    .hero-share-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      align-items: center;
+      margin-top: .1rem;
+    }
+
+    .hero-share-actions a,
+    .hero-share-actions button {
+      appearance: none;
+      border: 1px solid rgba(212, 174, 108, .55);
+      border-radius: 999px;
+      background: #24190f;
+      color: #fff2d7;
+      min-height: 30px;
+      padding: .25rem .7rem;
+      font: 900 .72rem/1.1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: .04em;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .hero-share-actions a {
+      color: #d4ae6c;
+      background: transparent;
+    }
+
+    .hero-share-status {
+      color: #ad9a7b;
+      font-size: .72rem;
+      min-height: 1em;
+    }
+
+    @media (max-width: 640px) {
+      .hero-share-qr {
+        grid-template-columns: 72px minmax(0, 1fr);
+      }
+
+      .hero-share-qr img {
+        width: 72px;
+        height: 72px;
+      }
+    }
+  </style>
+  <!-- ART_HERO_QR_END -->"""
+
+    block = """
+        <!-- ART_HERO_QR_START -->
+        <section class="hero-share-qr" aria-label="Share DiAndré art portfolio">
+          <a href="https://salmonofdoubt.github.io/art/" aria-label="Open DiAndré art portfolio">
+            <img src="assets/diandre-art-qr.png" alt="QR code linking to the DiAndré art portfolio">
+          </a>
+          <div class="hero-share-copy">
+            <strong>Share portfolio</strong>
+            <span>Scan, copy, or use your device share sheet.</span>
+            <div class="hero-share-actions">
+              <button type="button" data-art-share>Share</button>
+              <a href="https://salmonofdoubt.github.io/art/">Open</a>
+            </div>
+            <span class="hero-share-status" aria-live="polite"></span>
+          </div>
+        </section>
+        <!-- ART_HERO_QR_END -->"""
+
+    script = """
+  <!-- ART_HERO_QR_START -->
+  <script>
+    (function () {
+      var url = "https://salmonofdoubt.github.io/art/";
+      var title = "DiAndré Art";
+      var text = "DiAndré art portfolio, collections and documentation archive.";
+      var button = document.querySelector("[data-art-share]");
+      var status = document.querySelector(".hero-share-status");
+
+      function setStatus(message) {
+        if (status) status.textContent = message || "";
+      }
+
+      async function copyFallback() {
+        try {
+          await navigator.clipboard.writeText(url);
+          setStatus("Link copied.");
+        } catch (error) {
+          window.location.href = "mailto:?subject=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(text + "\\n\\n" + url);
+        }
+      }
+
+      if (!button) return;
+
+      button.addEventListener("click", async function () {
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: title, text: text, url: url });
+            setStatus("");
+            return;
+          } catch (error) {
+            if (error && error.name === "AbortError") return;
+          }
+        }
+
+        copyFallback();
+      });
+    }());
+  </script>
+  <!-- ART_HERO_QR_END -->"""
+
+    if "</head>" in html:
+        html = html.replace("</head>", css + "\n</head>", 1)
+
+    target = "The environmental and systems background is present, but the work begins with looking, colour, memory and material presence.</p>"
+    if target in html:
+        html = html.replace(target, target + block, 1)
+    else:
+        html = html.replace("<section", block + "\n<section", 1)
+
+    if "</body>" in html:
+        html = html.replace("</body>", script + "\n</body>", 1)
+
+    path.write_text(html, encoding="utf-8")
+    print("Patched art homepage QR card with native share button.")
+
+
+if __name__ == "__main__":
+    patch_art_homepage_hero_qr_native_share()

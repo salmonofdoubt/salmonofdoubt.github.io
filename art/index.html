@@ -49,16 +49,23 @@
     }
   </style>
   <!-- ART_DOCUMENTATION_LINK_END -->
+<!-- ART_PWA_START -->
+  <link rel="manifest" href="/art/manifest.webmanifest">
+  <meta name="theme-color" content="#050403">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="DiAndré">
+  <link rel="apple-touch-icon" href="/art/assets/diandre-app-icon-192.png">
+  <!-- ART_PWA_END -->
 
   <!-- ART_HERO_QR_START -->
   <style>
     .hero-share-qr {
       margin-top: 1rem;
-      display: inline-grid;
+      display: grid;
       grid-template-columns: 82px minmax(0, 1fr);
       gap: .75rem;
       align-items: center;
-      max-width: 26rem;
+      max-width: 28rem;
       padding: .65rem;
       border: 1px solid rgba(212, 174, 108, .28);
       background: rgba(16, 13, 10, .78);
@@ -73,7 +80,14 @@
       border: 1px solid rgba(212, 174, 108, .34);
     }
 
-    .hero-share-qr strong {
+    .hero-share-copy {
+      min-width: 0;
+      display: grid;
+      gap: .45rem;
+      align-content: center;
+    }
+
+    .hero-share-copy strong {
       display: block;
       color: #fff2d7;
       font-size: .78rem;
@@ -82,12 +96,45 @@
       text-transform: uppercase;
     }
 
-    .hero-share-qr span {
+    .hero-share-copy span {
       display: block;
-      margin-top: .2rem;
       color: #ad9a7b;
       font-size: .78rem;
       line-height: 1.35;
+    }
+
+    .hero-share-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      align-items: center;
+      margin-top: .1rem;
+    }
+
+    .hero-share-actions a,
+    .hero-share-actions button {
+      appearance: none;
+      border: 1px solid rgba(212, 174, 108, .55);
+      border-radius: 999px;
+      background: #24190f;
+      color: #fff2d7;
+      min-height: 30px;
+      padding: .25rem .7rem;
+      font: 900 .72rem/1.1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: .04em;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .hero-share-actions a {
+      color: #d4ae6c;
+      background: transparent;
+    }
+
+    .hero-share-status {
+      color: #ad9a7b;
+      font-size: .72rem;
+      min-height: 1em;
     }
 
     @media (max-width: 640px) {
@@ -102,14 +149,6 @@
     }
   </style>
   <!-- ART_HERO_QR_END -->
-
-  <!-- ART_PWA_START -->
-  <link rel="manifest" href="/art/manifest.webmanifest">
-  <meta name="theme-color" content="#050403">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="DiAndré">
-  <link rel="apple-touch-icon" href="/art/assets/diandre-app-icon-192.png">
-  <!-- ART_PWA_END -->
 </head>
 <body class="art-body art-home">
   <header class="site-header">
@@ -132,15 +171,22 @@
         <p>I make oil paintings, watercolours, drawings and spatial images. The work moves between portraits, interiors, flowers, city walls, maps and the atmosphere of places.</p>
         <p>The environmental and systems background is present, but the work begins with looking, colour, memory and material presence.</p>
         <!-- ART_HERO_QR_START -->
-        <a class="hero-share-qr" href="https://salmonofdoubt.github.io/art/" aria-label="Share DiAndré art portfolio">
-          <img src="assets/diandre-art-qr.png" alt="QR code linking to the DiAndré art portfolio">
-          <span>
+        <section class="hero-share-qr" aria-label="Share DiAndré art portfolio">
+          <a href="https://salmonofdoubt.github.io/art/" aria-label="Open DiAndré art portfolio">
+            <img src="assets/diandre-art-qr.png" alt="QR code linking to the DiAndré art portfolio">
+          </a>
+          <div class="hero-share-copy">
             <strong>Share portfolio</strong>
-            <span>Scan for quick access to the DiAndré art rooms.</span>
-          </span>
-        </a>
+            <span>Scan, copy, or use your device share sheet.</span>
+            <div class="hero-share-actions">
+              <button type="button" data-art-share>Share</button>
+              <a href="https://salmonofdoubt.github.io/art/">Open</a>
+            </div>
+            <span class="hero-share-status" aria-live="polite"></span>
+          </div>
+        </section>
         <!-- ART_HERO_QR_END -->
-      </div>
+</div>
       <figure class="intro-image">
         <img src="https://qiquantum.wordpress.com/wp-content/uploads/2022/10/20260628_1839553.jpg" alt="Oil Paintings work 055, oil painting">
       </figure>
@@ -305,5 +351,46 @@
     }());
   </script>
   <!-- ART_PWA_END -->
+
+  <!-- ART_HERO_QR_START -->
+  <script>
+    (function () {
+      var url = "https://salmonofdoubt.github.io/art/";
+      var title = "DiAndré Art";
+      var text = "DiAndré art portfolio, collections and documentation archive.";
+      var button = document.querySelector("[data-art-share]");
+      var status = document.querySelector(".hero-share-status");
+
+      function setStatus(message) {
+        if (status) status.textContent = message || "";
+      }
+
+      async function copyFallback() {
+        try {
+          await navigator.clipboard.writeText(url);
+          setStatus("Link copied.");
+        } catch (error) {
+          window.location.href = "mailto:?subject=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(text + "\n\n" + url);
+        }
+      }
+
+      if (!button) return;
+
+      button.addEventListener("click", async function () {
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: title, text: text, url: url });
+            setStatus("");
+            return;
+          } catch (error) {
+            if (error && error.name === "AbortError") return;
+          }
+        }
+
+        copyFallback();
+      });
+    }());
+  </script>
+  <!-- ART_HERO_QR_END -->
 </body>
 </html>
