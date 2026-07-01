@@ -518,3 +518,17 @@ def force_public_archive_row_order() -> None:
 
 force_public_archive_row_order()
 # ART_ARCHIVE_ROW_ORDER_POSTPROCESS_END
+
+# ART_DOCUMENTATION_BUILD_HOOK_START
+def build_art_documentation_if_available() -> None:
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    script = Path(__file__).with_name("build_art_documentation.py")
+    if script.exists():
+        subprocess.run([sys.executable, str(script)], check=True)
+
+
+build_art_documentation_if_available()
+# ART_DOCUMENTATION_BUILD_HOOK_END

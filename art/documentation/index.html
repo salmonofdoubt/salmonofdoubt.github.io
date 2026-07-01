@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation · DiAndré Art</title>
+  <meta name="description" content="DiAndré art books, art journals, process documents and visual research archive.">
+  <style>
+    :root {
+      --bg: #050403;
+      --panel: #100d0a;
+      --line: rgba(212, 174, 108, 0.28);
+      --text: #f1e1c5;
+      --muted: #ad9a7b;
+      --gold: #d4ae6c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(156, 58, 22, .12), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font: 15px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(1320px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.8rem 0 4rem;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .back {
+      display: inline-flex;
+      margin-bottom: 1.1rem;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .hero {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1.5rem 0 1.4rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .6rem;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: #fff2d7;
+      letter-spacing: -.045em;
+      line-height: .92;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3.4rem, 10vw, 8.5rem);
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2.1rem, 5.5vw, 4.5rem);
+    }
+
+    h3 {
+      margin: .25rem 0 .6rem;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    h3 span {
+      display: block;
+      margin-top: .2rem;
+      color: var(--gold);
+      font-size: .95em;
+    }
+
+    .intro {
+      margin: 0;
+      color: var(--muted);
+      max-width: 68rem;
+    }
+
+    .micro {
+      margin: 0 0 .45rem;
+      color: var(--gold);
+      font-size: .68rem;
+      font-weight: 950;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .doc-section {
+      margin-top: 2.4rem;
+    }
+
+    .section-head {
+      margin-bottom: 1rem;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .journal-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .doc-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      min-width: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .cover {
+      display: block;
+      aspect-ratio: 4 / 3;
+      background: #050403;
+      border-bottom: 1px solid rgba(212, 174, 108, .18);
+      overflow: hidden;
+    }
+
+    .cover img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      background: #050403;
+    }
+
+    .doc-copy {
+      padding: .9rem;
+      display: grid;
+      align-content: start;
+      min-height: 10.8rem;
+    }
+
+    .doc-copy p {
+      margin: 0 0 .8rem;
+      color: var(--muted);
+    }
+
+    .missing {
+      color: #ffb8ae !important;
+    }
+
+    .doc-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: .2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      border: 1px solid rgba(212, 174, 108, .6);
+      border-radius: 999px;
+      padding: .28rem .75rem;
+      color: #fff2d7;
+      font-size: .82rem;
+      font-weight: 950;
+      background: #24190f;
+    }
+
+    .button.ghost {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .button.disabled {
+      opacity: .4;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1020px) {
+      .doc-grid,
+      .journal-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        width: min(100% - 1rem, 1320px);
+        padding-top: 1rem;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 17vw, 5.5rem);
+      }
+
+      .doc-grid,
+      .journal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="../">← Back to art</a>
+
+  <section class="hero">
+    <div>
+      <p class="micro">Archive / process / provenance</p>
+      <h1>Documentation</h1>
+    </div>
+    <p class="intro">
+      Art books, process journals, slide-derived PDFs and visual research documents.
+      The portfolio rooms stay curated; this archive preserves the working record behind them.
+    </p>
+  </section>
+
+
+    <section class="doc-section" aria-labelledby="art-books">
+      <div class="section-head">
+        <p class="micro">Documentation</p>
+        <h2 id="art-books">Art Books</h2>
+      </div>
+      <div class="doc-grid">
+
+        <article class="doc-card art-books">
+          <a class="cover" href="../assets/docs/diandre-art-book-001-summer-2022.pdf" target="_blank" rel="noopener">
+            <img src="../assets/docs/covers/diandre-art-book-001-summer-2022-thumb.png" alt="DiAndré Art Book #001 Summer 2022 cover" loading="lazy">
+          </a>
+          <div class="doc-copy">
+            <p class="micro">Art book · 2022</p>
+            <h3>DiAndré Art Book #001<span>Summer 2022</span></h3>
+            <p>Early art book documenting drawings, underpaintings, studio process and the emergence of the DiAndré visual language.</p>
+            
+            <div class="doc-actions">
+              <a class="button" href="../assets/docs/diandre-art-book-001-summer-2022.pdf" target="_blank" rel="noopener">Open PDF</a>
+              <a class="button ghost" href="../assets/docs/diandre-art-book-001-summer-2022.pdf" download>Download</a>
+            </div>
+          </div>
+        </article>
+    
+
+        <article class="doc-card art-books">
+          <a class="cover" href="../assets/docs/diandre-art-book-002-2023.pdf" target="_blank" rel="noopener">
+            <img src="../assets/docs/covers/diandre-art-book-002-2023-thumb.png" alt="DiAndré Art Book #002 2023 cover" loading="lazy">
+          </a>
+          <div class="doc-copy">
+            <p class="micro">Art book · 2023</p>
+            <h3>DiAndré Art Book #002<span>2023</span></h3>
+            <p>A 2023 art book around studio work, La Stanza, Ferrara, Venice, lichen, drawings and atmospheric painting.</p>
+            
+            <div class="doc-actions">
+              <a class="button" href="../assets/docs/diandre-art-book-002-2023.pdf" target="_blank" rel="noopener">Open PDF</a>
+              <a class="button ghost" href="../assets/docs/diandre-art-book-002-2023.pdf" download>Download</a>
+            </div>
+          </div>
+        </article>
+    
+
+        <article class="doc-card art-books">
+          <a class="cover" href="../assets/docs/diandre-art-book-003-2024.pdf" target="_blank" rel="noopener">
+            <img src="../assets/docs/covers/diandre-art-book-003-2024-thumb.png" alt="DiAndré Art Book #003 2024 cover" loading="lazy">
+          </a>
+          <div class="doc-copy">
+            <p class="micro">Art book · 2024</p>
+            <h3>DiAndré Art Book #003<span>2024</span></h3>
+            <p>A 2024 art book connecting Venice, watercolours, exhibition material, pavement studies, QGIS and visual research.</p>
+            
+            <div class="doc-actions">
+              <a class="button" href="../assets/docs/diandre-art-book-003-2024.pdf" target="_blank" rel="noopener">Open PDF</a>
+              <a class="button ghost" href="../assets/docs/diandre-art-book-003-2024.pdf" download>Download</a>
+            </div>
+          </div>
+        </article>
+    
+      </div>
+    </section>
+    
+
+    <section class="doc-section" aria-labelledby="art-journals">
+      <div class="section-head">
+        <p class="micro">Documentation</p>
+        <h2 id="art-journals">Art Journals</h2>
+      </div>
+      <div class="doc-grid journal-grid">
+
+        <article class="doc-card art-journals">
+          <a class="cover" href="../assets/docs/diandre-art-journal-2022.pdf" target="_blank" rel="noopener">
+            <img src="../assets/docs/covers/diandre-art-journal-2022-thumb.png" alt="DiAndré Art Journal 2022 cover" loading="lazy">
+          </a>
+          <div class="doc-copy">
+            <p class="micro">Art journal · 2022</p>
+            <h3>DiAndré Art Journal<span>2022</span></h3>
+            <p>A process journal capturing early studies, sketches, colour decisions and studio documentation.</p>
+            
+            <div class="doc-actions">
+              <a class="button" href="../assets/docs/diandre-art-journal-2022.pdf" target="_blank" rel="noopener">Open PDF</a>
+              <a class="button ghost" href="../assets/docs/diandre-art-journal-2022.pdf" download>Download</a>
+            </div>
+          </div>
+        </article>
+    
+
+        <article class="doc-card art-journals">
+          <a class="cover" href="../assets/docs/diandre-art-journal-2023.pdf" target="_blank" rel="noopener">
+            <img src="../assets/docs/covers/diandre-art-journal-2023-thumb.png" alt="DiAndré Art Journal 2023 cover" loading="lazy">
+          </a>
+          <div class="doc-copy">
+            <p class="micro">Art journal · 2023</p>
+            <h3>DiAndré Art Journal<span>2023</span></h3>
+            <p>A 2023 process journal on abstraction, colour theory, drawings, transformations, Ferrara, Venice and unrealised work.</p>
+            
+            <div class="doc-actions">
+              <a class="button" href="../assets/docs/diandre-art-journal-2023.pdf" target="_blank" rel="noopener">Open PDF</a>
+              <a class="button ghost" href="../assets/docs/diandre-art-journal-2023.pdf" download>Download</a>
+            </div>
+          </div>
+        </article>
+    
+
+        <article class="doc-card art-journals">
+          <a class="cover" href="../assets/docs/diandre-art-journal-2024.pdf" target="_blank" rel="noopener">
+            <img src="../assets/docs/covers/diandre-art-journal-2024-thumb.png" alt="DiAndré Art Journal 2024 cover" loading="lazy">
+          </a>
+          <div class="doc-copy">
+            <p class="micro">Art journal · 2024</p>
+            <h3>DiAndré Art Journal<span>2024</span></h3>
+            <p>A 2024 process journal covering abstraction, colour, painting modes, Venice, Ferrara, watercolours and experimental work.</p>
+            
+            <div class="doc-actions">
+              <a class="button" href="../assets/docs/diandre-art-journal-2024.pdf" target="_blank" rel="noopener">Open PDF</a>
+              <a class="button ghost" href="../assets/docs/diandre-art-journal-2024.pdf" download>Download</a>
+            </div>
+          </div>
+        </article>
+    
+
+        <article class="doc-card art-journals">
+          <a class="cover" href="../assets/docs/diandre-art-journal-2025.pdf" target="_blank" rel="noopener">
+            <img src="../assets/docs/covers/diandre-art-journal-2025-thumb.png" alt="DiAndré Art Journal 2025 cover" loading="lazy">
+          </a>
+          <div class="doc-copy">
+            <p class="micro">Art journal · 2025</p>
+            <h3>DiAndré Art Journal<span>2025</span></h3>
+            <p>A 2025 process journal connecting principles, TCD exhibition material, Mirror or Door, light phenomena and future systems art.</p>
+            
+            <div class="doc-actions">
+              <a class="button" href="../assets/docs/diandre-art-journal-2025.pdf" target="_blank" rel="noopener">Open PDF</a>
+              <a class="button ghost" href="../assets/docs/diandre-art-journal-2025.pdf" download>Download</a>
+            </div>
+          </div>
+        </article>
+    
+      </div>
+    </section>
+    
+</main>
+
+  <!-- Cloudflare Web Analytics -->
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>

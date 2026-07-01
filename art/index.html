@@ -8,6 +8,47 @@
   <meta name="description" content="DiAndré, the visual art practice of André Baumann: oil paintings, watercolours, drawings, experimental work and geospatial imagery.">
   <link rel="stylesheet" href="../assets/css/site.css">
   <link rel="stylesheet" href="assets/art-gallery.css">
+
+  <!-- ART_DOCUMENTATION_LINK_START -->
+  <style>
+    .documentation-callout {
+      margin: 2rem 0;
+      border: 1px solid rgba(212, 174, 108, .28);
+      background: #100d0a;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+    }
+    .documentation-callout p { margin: .25rem 0 0; color: #ad9a7b; }
+    .documentation-callout strong {
+      display: block;
+      color: #fff2d7;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+    .documentation-callout a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      border: 1px solid rgba(212, 174, 108, .55);
+      border-radius: 999px;
+      padding: .3rem .85rem;
+      color: #fff2d7;
+      background: #24190f;
+      font-size: .82rem;
+      font-weight: 900;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    @media (max-width: 760px) {
+      .documentation-callout { grid-template-columns: 1fr; }
+    }
+  </style>
+  <!-- ART_DOCUMENTATION_LINK_END -->
 </head>
 <body class="art-body art-home">
   <header class="site-header">
@@ -105,7 +146,17 @@
       <h2 id="about-title">A painter with a systems eye.</h2>
       <p>DiAndré is the visual art practice of André Baumann: painter, independent environmental researcher and systems thinker. The work is environmentally inclined, but not reduced to messaging. It is about seeing, presence, pressure, memory and place.</p>
     </section>
-  </main>
+
+  <!-- ART_DOCUMENTATION_LINK_START -->
+  <section class="documentation-callout" aria-label="Documentation archive">
+    <div>
+      <strong>Documentation archive</strong>
+      <p>Art books, process journals, slide-derived PDFs and visual research behind the portfolio.</p>
+    </div>
+    <a href="documentation/">Open documentation</a>
+  </section>
+  <!-- ART_DOCUMENTATION_LINK_END -->
+</main>
 
   <footer class="site-footer">
     <div class="container">
