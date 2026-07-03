@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-07-02T08:25:23+00:00",
+  "generated_at": "2026-07-03T08:28:07+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4638,
+  "links_seen": 4643,
   "funding_like_links": 485,
   "candidate_fetches": 300,
-  "pending_review_count": 92,
+  "pending_review_count": 93,
   "status_counts": {
-    "pending_review": 92,
-    "suppressed_non_actionable": 60,
+    "pending_review": 93,
+    "suppressed_non_actionable": 59,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 15,
@@ -22,10 +22,10 @@
   },
   "candidate_type_counts": {
     "recurring_programme": 99,
-    "funding_call": 36,
+    "funding_call": 38,
     "scholarship": 30,
     "generic_funding_hub": 8,
-    "tender": 13,
+    "tender": 11,
     "unknown": 61
   },
   "seeds": [
@@ -135,7 +135,7 @@
       "url": "https://farmingforwater.ie/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 92,
+      "links_seen": 95,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 162,
+      "links_seen": 163,
       "funding_like_links": 1,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 162,
+      "links_seen": 163,
       "funding_like_links": 1,
       "candidates_fetched": 0
     }
