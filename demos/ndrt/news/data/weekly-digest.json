@@ -1,12 +1,13 @@
 {
-  "generated_at": "2026-07-02T08:26:11.386351+00:00",
-  "latest_generated_at": "2026-07-02T08:26:02.944973+00:00",
+  "generated_at": "2026-07-03T08:29:25.889432+00:00",
+  "latest_generated_at": "2026-07-03T08:29:13.956759+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
     "waterbody-evidence-alerts": 27,
-    "ireland-catchment-practice": 16,
-    "grants-opportunities": 16
+    "ireland-catchment-practice": 15,
+    "grants-opportunities": 17,
+    "research-papers": 36
   },
   "top_pressure_categories": [
     {
@@ -14,31 +15,39 @@
       "count": 32
     },
     {
-      "pressure": "funding / grant",
-      "count": 21
-    },
-    {
       "pressure": "habitat / biodiversity",
-      "count": 18
-    },
-    {
-      "pressure": "citizen science / monitoring",
-      "count": 17
+      "count": 30
     },
     {
       "pressure": "NbS / restoration",
-      "count": 15
+      "count": 30
+    },
+    {
+      "pressure": "agricultural runoff",
+      "count": 26
+    },
+    {
+      "pressure": "citizen science / monitoring",
+      "count": 25
+    },
+    {
+      "pressure": "water quality",
+      "count": 23
+    },
+    {
+      "pressure": "funding / grant",
+      "count": 21
     },
     {
       "pressure": "nutrients",
       "count": 12
     },
     {
-      "pressure": "septic / domestic wastewater",
-      "count": 7
+      "pressure": "sediment / hydromorphology",
+      "count": 8
     },
     {
-      "pressure": "agricultural runoff",
+      "pressure": "septic / domestic wastewater",
       "count": 6
     },
     {
@@ -48,14 +57,6 @@
     {
       "pressure": "incident / alert",
       "count": 5
-    },
-    {
-      "pressure": "manure / slurry timing",
-      "count": 2
-    },
-    {
-      "pressure": "slurry-manure-timing",
-      "count": 2
     }
   ],
   "items": [
@@ -68,7 +69,7 @@
       "published": "2026-06-24",
       "score": 100,
       "practical_score": 152.0,
-      "freshness_label": "8 days old",
+      "freshness_label": "9 days old",
       "pressure_categories": [
         "manure / slurry timing",
         "slurry-manure-timing",
