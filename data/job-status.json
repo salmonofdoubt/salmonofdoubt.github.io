@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-04T07:13:44+00:00",
+  "generated_at": "2026-07-04T08:13:31+00:00",
   "schema_version": "1.0.0",
   "job_count": 5,
   "jobs": [
@@ -10,10 +10,10 @@
       "frequency": "hourly",
       "public": true,
       "maturity": "Monitor",
-      "status": "offline",
-      "message": "Data is older than the accepted stale window.",
-      "last_success_at": "2026-07-03T08:38:28+00:00",
-      "data_age_hours": 22.59,
+      "status": "fresh",
+      "message": "Data is within the expected freshness window.",
+      "last_success_at": "2026-07-04T08:13:30+00:00",
+      "data_age_hours": 0.0,
       "landing_page": "demos/ietm/",
       "files": [
         {
@@ -27,7 +27,7 @@
           "path": "demos/ietm/data/storage-flexibility.json",
           "exists": true,
           "parse_ok": true,
-          "timestamp": "2026-07-03T08:38:28+00:00",
+          "timestamp": "2026-07-04T08:13:30+00:00",
           "message": "ok"
         },
         {
@@ -49,22 +49,22 @@
       "maturity": "Monitor",
       "status": "fresh",
       "message": "Data is within the expected freshness window.",
-      "last_success_at": "2026-07-03T08:36:53+00:00",
-      "data_age_hours": 22.61,
+      "last_success_at": "2026-07-04T08:12:16+00:00",
+      "data_age_hours": 0.02,
       "landing_page": "demos/urbanforest/",
       "files": [
         {
           "path": "demos/urbanforest/news/data/news.json",
           "exists": true,
           "parse_ok": true,
-          "timestamp": "2026-07-03T08:36:53.439335+00:00",
+          "timestamp": "2026-07-04T08:12:16.460409+00:00",
           "message": "ok"
         },
         {
           "path": "demos/urbanforest/news/data/validation.json",
           "exists": true,
           "parse_ok": true,
-          "timestamp": "2026-07-03T08:36:53.554059+00:00",
+          "timestamp": "2026-07-04T08:12:16.596648+00:00",
           "message": "ok"
         }
       ],
@@ -79,15 +79,15 @@
       "maturity": "Monitor",
       "status": "fresh",
       "message": "Data is within the expected freshness window.",
-      "last_success_at": "2026-07-03T08:29:13+00:00",
-      "data_age_hours": 22.74,
+      "last_success_at": "2026-07-04T08:05:53+00:00",
+      "data_age_hours": 0.13,
       "landing_page": "demos/ndrt/",
       "files": [
         {
           "path": "demos/ndrt/news/data/news.json",
           "exists": true,
           "parse_ok": true,
-          "timestamp": "2026-07-03T08:29:13.956759+00:00",
+          "timestamp": "2026-07-04T08:05:53.675808+00:00",
           "message": "ok"
         },
         {
@@ -109,15 +109,15 @@
       "maturity": "Demo",
       "status": "fresh",
       "message": "Data is within the expected freshness window.",
-      "last_success_at": "2026-07-03T08:29:56+00:00",
-      "data_age_hours": 22.73,
+      "last_success_at": "2026-07-04T08:06:32+00:00",
+      "data_age_hours": 0.12,
       "landing_page": "demos/birds/",
       "files": [
         {
           "path": "demos/birds/data/recent-observations.json",
           "exists": true,
           "parse_ok": true,
-          "timestamp": "2026-07-03T08:29:56.489635+00:00",
+          "timestamp": "2026-07-04T08:06:32.863759+00:00",
           "message": "ok"
         },
         {
@@ -140,7 +140,7 @@
       "status": "offline",
       "message": "Data is older than the accepted stale window.",
       "last_success_at": "2026-05-20T15:07:41+00:00",
-      "data_age_hours": 1072.1,
+      "data_age_hours": 1073.1,
       "landing_page": "demos/ilpf/",
       "files": [
         {
