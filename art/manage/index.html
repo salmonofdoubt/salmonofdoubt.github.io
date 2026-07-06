@@ -430,11 +430,6 @@ function numericOrder(item) {
 }
 
 function compareArtworks(a, b) {
-  const collectionOrderA = Number(a.collectionOrder ?? 999);
-  const collectionOrderB = Number(b.collectionOrder ?? 999);
-
-  if (collectionOrderA !== collectionOrderB) return collectionOrderA - collectionOrderB;
-
   const collectionCompare = String(a.collection || "").localeCompare(String(b.collection || ""));
   if (collectionCompare !== 0) return collectionCompare;
 
