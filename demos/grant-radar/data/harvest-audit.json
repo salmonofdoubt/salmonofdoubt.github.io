@@ -1,15 +1,7 @@
 {
-  "generated_at": "2026-07-07T08:46:59+00:00",
+  "generated_at": "2026-07-08T07:45:10+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
-    {
-      "id": "ifi_habitats_conservation",
-      "name": "IFI Habitats & Conservation Funding Call",
-      "registry_state": "open",
-      "page_state": "closed",
-      "state_source": "deadline_past_recurring",
-      "deadline_text": "December 11th 2025"
-    },
     {
       "id": "research_ireland_discover",
       "name": "Research Ireland Discover Programme",
@@ -33,6 +25,20 @@
       "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-climate-energy-and-the-environment/campaigns/climate-action-in-our-communities/",
       "last_successful_fetch_at": "2026-06-11T09:48:55+00:00",
       "programme_state": "upcoming"
+    },
+    {
+      "id": "heritage_community_grant",
+      "name": "Heritage Council Community Heritage Grant Scheme",
+      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding/community-heritage-grant-scheme-2 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7fa24b972090>, 'Connection to www.heritagecouncil.ie timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-07-07T08:46:59+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "ifi_habitats_conservation",
+      "name": "IFI Habitats & Conservation Funding Call",
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "last_successful_fetch_at": "2026-07-07T08:44:27+00:00",
+      "programme_state": "closed"
     },
     {
       "id": "leader_programme",
@@ -83,9 +89,9 @@
     }
   ],
   "state_source_counts": {
-    "last_known_good": 5,
-    "registry_fallback": 24,
-    "deadline_past_recurring": 4,
+    "last_known_good": 7,
+    "registry_fallback": 23,
+    "deadline_past_recurring": 3,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 2,
     "page_status_open": 2,
