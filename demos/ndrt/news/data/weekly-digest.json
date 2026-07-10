@@ -1,65 +1,99 @@
 {
-  "generated_at": "2026-07-09T08:45:54.990344+00:00",
-  "latest_generated_at": "2026-07-09T08:45:45.638104+00:00",
+  "generated_at": "2026-07-10T08:45:52.352057+00:00",
+  "latest_generated_at": "2026-07-10T08:44:23.346446+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "waterbody-evidence-alerts": 31,
-    "grants-opportunities": 17,
-    "ireland-catchment-practice": 11,
+    "grants-opportunities": 20,
+    "waterbody-evidence-alerts": 25,
+    "ireland-catchment-practice": 14,
     "research-papers": 36
   },
   "top_pressure_categories": [
     {
-      "pressure": "NbS / restoration",
-      "count": 33
+      "pressure": "agricultural runoff",
+      "count": 27
     },
     {
       "pressure": "habitat / biodiversity",
-      "count": 32
+      "count": 26
+    },
+    {
+      "pressure": "funding / grant",
+      "count": 25
     },
     {
       "pressure": "policy / governance",
-      "count": 31
-    },
-    {
-      "pressure": "agricultural runoff",
-      "count": 27
+      "count": 25
     },
     {
       "pressure": "water quality",
       "count": 25
     },
     {
+      "pressure": "NbS / restoration",
+      "count": 20
+    },
+    {
       "pressure": "citizen science / monitoring",
-      "count": 24
+      "count": 14
     },
     {
-      "pressure": "funding / grant",
-      "count": 21
-    },
-    {
-      "pressure": "nutrients",
-      "count": 12
+      "pressure": "septic / domestic wastewater",
+      "count": 11
     },
     {
       "pressure": "sediment / hydromorphology",
       "count": 8
     },
     {
-      "pressure": "septic / domestic wastewater",
-      "count": 7
+      "pressure": "general catchment signal",
+      "count": 6
     },
     {
       "pressure": "incident / alert",
       "count": 5
     },
     {
-      "pressure": "general catchment signal",
+      "pressure": "river ecology",
       "count": 4
     }
   ],
   "items": [
+    {
+      "id": "c15944002653fd1a",
+      "title": "Louth TD Erin McGreehan urges expansion of septic tank repair grants - Irish Independent",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQjI2U3E3Nnl4a3d2bUdhdVdOcXdEZjJoWEx2OUpna2xNdElaa2duTEgxZlBpSHBwNERWYXBPbUlBeGt6R2huT3A0SUNHNTVsd25KdVlyLUo2bDZQMHBFd1ZSU3h0UDl1WS1PRm9ieEwxZzNqNDFEb1RiRE8xU0xYWUVTS1RETTl4RnhZN3JpTWZWLVlZQUE2NnZWbXFZb1VDdVpfWGtWcDVLTWZiZlZWdDdWRFgyekEwTkNaRFZaTENLVTQ?oc=5",
+      "section": "grants-opportunities",
+      "source_name": "Google News: Meath Louth Fingal catchment signals",
+      "published": "2026-07-10",
+      "score": 100,
+      "practical_score": 154.0,
+      "freshness_label": "0 days old",
+      "pressure_categories": [
+        "septic / domestic wastewater",
+        "funding / grant",
+        "policy / governance"
+      ],
+      "local_relevance": {
+        "score": 72,
+        "label": "High local relevance",
+        "matched_terms": [
+          "Ireland",
+          "fingal",
+          "louth",
+          "meath"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      },
+      "research_use_type": null,
+      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
+    },
     {
       "id": "247bb9eb6be5fc58",
       "title": "Closed-period slurry spreading linked to river pollution in Meath study - Irish Examiner",
@@ -69,7 +103,7 @@
       "published": "2026-06-24",
       "score": 100,
       "practical_score": 152.0,
-      "freshness_label": "15 days old",
+      "freshness_label": "16 days old",
       "pressure_categories": [
         "manure / slurry timing",
         "slurry-manure-timing",
@@ -98,7 +132,7 @@
       "published": "2026-06-04",
       "score": 100,
       "practical_score": 147.0,
-      "freshness_label": "35 days old",
+      "freshness_label": "36 days old",
       "pressure_categories": [
         "river ecology",
         "funding / grant",
@@ -121,27 +155,148 @@
       "action_relevance": "Funding signal for the Trust: check whether this can support river ecology, funding / grant, NbS / restoration, citizen science, engagement, or small catchment actions."
     },
     {
-      "id": "4f44253263213588",
-      "title": "Biodiversity Net Gain",
-      "url": "https://theriverstrust.org/about-us/news?c=101202",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
+      "id": "01007cc0fd14cb7f",
+      "title": "Minister Muir announces £380,000 in funding to improve water quality - Department of Agriculture, Environment and Rural Affairs",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQN1I2allLUjA0SVJ3M1pGYkhHVmdDYTRMR2RVY243QzNVbGtYY3Z5Nk9QVGxZeDdNdnRjNGY0cHBoRGdJNmpHM1hKdldEc2t5ZzBfRGlXZTVsUWRPM2YxNjNOWW1EMFNueHNMNGt5RUtkU1Q1TER5bm0xQTFGbVIxbmNUQkUxaUpDMlpydWdpUTBCSHFjYjVvTXl5OA?oc=5",
+      "section": "grants-opportunities",
+      "source_name": "Google News: water and biodiversity grants Ireland",
+      "published": "2026-05-21",
+      "score": 93,
+      "practical_score": 147.0,
+      "freshness_label": "50 days old",
       "pressure_categories": [
-        "nutrients",
+        "agricultural runoff",
         "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
+        "funding / grant",
+        "policy / governance"
       ],
       "local_relevance": {
         "score": 10,
         "label": "Ireland-wide relevance",
         "matched_terms": [
           "Ireland"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 77,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      },
+      "research_use_type": null,
+      "action_relevance": "Funding signal for the Trust: check whether this can support agricultural runoff, habitat / biodiversity, funding / grant, citizen science, engagement, or small catchment actions."
+    },
+    {
+      "id": "fafd7c3c87c66b20",
+      "title": "Meath projects to benefit from €73,000 water quality funding - Irish Independent",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPblVYRUdOTmFCSW9RNzZtMG8xV1E4Q1hsWXlwMVU5MUZaUzZ3Zl92S1VkWnd0UTNId0tMZllHbF8wbUt6dEdfN3k1N1pES2NtMGd1N25VcDd1eTBBeU9DeTRNSmh1LWhnNlFodmNhdkExdFRtVWtaUDQ1VUdiUnY0eE54VS1icWQ1OTIzOURNemp0SWxzeGM2b21yOGtEMFJFUXBYZXRqTjdfMTFzUm9VMWJORnNwUQ?oc=5",
+      "section": "grants-opportunities",
+      "source_name": "Google News: Meath Louth Fingal catchment signals",
+      "published": "2026-04-27",
+      "score": 100,
+      "practical_score": 142.0,
+      "freshness_label": "74 days old",
+      "pressure_categories": [
+        "funding / grant"
+      ],
+      "local_relevance": {
+        "score": 72,
+        "label": "High local relevance",
+        "matched_terms": [
+          "Ireland",
+          "fingal",
+          "louth",
+          "meath"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      },
+      "research_use_type": null,
+      "action_relevance": "Funding signal for the Trust: check whether this can support funding / grant, citizen science, engagement, or small catchment actions."
+    },
+    {
+      "id": "ab3daa42de6cd1a0",
+      "title": "Wetlands of International Importance: Status, Threats, and Future Protection",
+      "url": "https://doi.org/10.3390/ijerph16101818",
+      "section": "research-papers",
+      "source_name": "International Journal of Environmental Research and Public Health",
+      "published": "2019-05-22",
+      "score": 100,
+      "practical_score": 142.0,
+      "freshness_label": "2019 · 358 citations · open access",
+      "pressure_categories": [
+        "agricultural runoff",
+        "NbS / restoration",
+        "citizen science / monitoring",
+        "estuary / lagoon",
+        "habitat / biodiversity"
+      ],
+      "local_relevance": null,
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for agricultural runoff, NbS / restoration, citizen science / monitoring."
+    },
+    {
+      "id": "705818fa30aacdfd",
+      "title": "Water Quality in Ireland 2016 – 2021",
+      "url": "https://www.epa.ie/publications/monitoring--assessment/freshwater--marine/water-quality-in-ireland-2016--2021-summary-report.php",
+      "section": "grants-opportunities",
+      "source_name": "EPA Ireland Water",
+      "published": null,
+      "score": 100,
+      "practical_score": 142.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "citizen science / monitoring",
+        "funding / grant",
+        "policy / governance"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 75,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      },
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Funding signal for the Trust: check whether this can support citizen science / monitoring, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
+    },
+    {
+      "id": "ndrt-site-home",
+      "title": "Nanny-Delvin Rivers Trust case-study homepage",
+      "url": "https://salmonofdoubt.github.io/demos/ndrt/",
+      "section": "ireland-catchment-practice",
+      "source_name": "NDRT microsite",
+      "published": null,
+      "score": 100,
+      "practical_score": 141.0,
+      "freshness_label": "Site reference",
+      "pressure_categories": [
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 100,
+        "label": "High local relevance",
+        "matched_terms": [
+          "Ireland",
+          "delvin",
+          "delvin river",
+          "nanny",
+          "nanny-delvin",
+          "nanny-delvin rivers trust",
+          "ndrt"
         ]
       },
       "opportunity_fit": null,
@@ -149,200 +304,46 @@
       "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
     },
     {
-      "id": "e7c5419887f19cb2",
-      "title": "Community Engagement",
-      "url": "https://theriverstrust.org/about-us/news?c=5235",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
+      "id": "a004ebb6ae505845",
+      "title": "A novel hybrid coagulation-constructed wetland system for the treatment of dairy wastewater",
+      "url": "https://doi.org/10.1016/j.scitotenv.2022.157567",
+      "section": "research-papers",
+      "source_name": "The Science of The Total Environment",
+      "published": "2022-07-23",
       "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
+      "practical_score": 139.0,
+      "freshness_label": "2022 · 21 citations · open access",
       "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
+        "water quality",
+        "agricultural runoff",
+        "sediment / hydromorphology",
         "NbS / restoration"
       ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
+      "local_relevance": null,
       "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+      "research_use_type": "NbS effectiveness",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff, sediment / hydromorphology."
     },
     {
-      "id": "eb715ea248c86af1",
-      "title": "Nature-Based Solutions",
-      "url": "https://theriverstrust.org/about-us/news?c=33585",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
+      "id": "077e7fb5ac577045",
+      "title": "Assessing the potential impacts of a revised set of on-farm nutrient and sediment ‘basic’ control measures for reducing agricultural diffuse pollution across England",
+      "url": "https://doi.org/10.1016/j.scitotenv.2017.10.078",
+      "section": "research-papers",
+      "source_name": "The Science of The Total Environment",
+      "published": "2017-10-18",
       "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
+      "practical_score": 139.0,
+      "freshness_label": "2017 · 55 citations · open access",
       "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
+        "water quality",
+        "agricultural runoff",
+        "sediment / hydromorphology",
         "NbS / restoration"
       ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
+      "local_relevance": null,
       "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "88af00feef889694",
-      "title": "Northern Ireland",
-      "url": "https://theriverstrust.org/about-us/news?c=46717",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "ec8f30afea9b62a7",
-      "title": "Nutrient Neutrality",
-      "url": "https://theriverstrust.org/about-us/news?c=46939",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "b573912aa50f6be0",
-      "title": "Planning and Infrastructure Bill",
-      "url": "https://theriverstrust.org/about-us/news?c=101203",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "635a732b3168613b",
-      "title": "Plastic Pollution",
-      "url": "https://theriverstrust.org/about-us/news?c=46709",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "5439804a3bae6e06",
-      "title": "Policy & Advocacy",
-      "url": "https://theriverstrust.org/about-us/news?c=98799",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff, sediment / hydromorphology."
     }
   ]
 }
