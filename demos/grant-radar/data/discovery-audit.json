@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-07-09T08:44:46+00:00",
+  "generated_at": "2026-07-10T08:41:29+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4637,
-  "funding_like_links": 485,
+  "links_seen": 4639,
+  "funding_like_links": 486,
   "candidate_fetches": 300,
-  "pending_review_count": 93,
+  "pending_review_count": 96,
   "status_counts": {
-    "pending_review": 93,
+    "pending_review": 96,
     "suppressed_non_actionable": 59,
     "rejected": 3,
     "promoted": 3,
@@ -21,8 +21,8 @@
     "suppressed_fetch_error": 58
   },
   "candidate_type_counts": {
-    "recurring_programme": 99,
-    "funding_call": 38,
+    "recurring_programme": 101,
+    "funding_call": 39,
     "scholarship": 30,
     "generic_funding_hub": 8,
     "tender": 11,
@@ -45,9 +45,9 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 80,
-      "funding_like_links": 13,
-      "candidates_fetched": 13
+      "links_seen": 82,
+      "funding_like_links": 14,
+      "candidates_fetched": 14
     },
     {
       "id": "lawpro_funding_hub",
@@ -197,7 +197,7 @@
       "fetch_error": null,
       "links_seen": 594,
       "funding_like_links": 57,
-      "candidates_fetched": 56
+      "candidates_fetched": 55
     },
     {
       "id": "geo_dfg_reinhart_koselleck_watch",
