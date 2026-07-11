@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-07-10T08:45:52.350503+00:00",
-  "latest_generated_at": "2026-07-10T08:44:23.346446+00:00",
+  "generated_at": "2026-07-11T07:22:27.665069+00:00",
+  "latest_generated_at": "2026-07-11T07:21:22.761817+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 17,
-  "sources_checked_no_current_items": 7,
-  "sources_failed": 6,
+  "sources_active": 16,
+  "sources_checked_no_current_items": 9,
+  "sources_failed": 5,
   "items_by_section": {
-    "grants-opportunities": 20,
-    "waterbody-evidence-alerts": 25,
-    "ireland-catchment-practice": 14,
+    "grants-opportunities": 16,
+    "waterbody-evidence-alerts": 30,
+    "ireland-catchment-practice": 13,
     "research-papers": 36
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 25,
-    "research_use_type": 43
+    "opportunity_fit": 19,
+    "research_use_type": 54
   },
-  "archive_snapshots": 39,
+  "archive_snapshots": 40,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -31,9 +31,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
+      "current_item_count": 1,
       "discovered_hint_count": 10,
-      "elapsed_ms": 41,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 54,
-      "elapsed_ms": 57,
+      "discovered_hint_count": 53,
+      "elapsed_ms": 68,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 76,
-      "elapsed_ms": 69,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
-      "discovered_hint_count": 72,
-      "elapsed_ms": 66,
+      "current_item_count": 4,
+      "discovered_hint_count": 74,
+      "elapsed_ms": 75,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 7,
       "discovered_hint_count": 100,
-      "elapsed_ms": 78,
+      "elapsed_ms": 87,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 67,
-      "elapsed_ms": 65,
+      "current_item_count": 2,
+      "discovered_hint_count": 63,
+      "elapsed_ms": 69,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 59,
-      "elapsed_ms": 61,
+      "discovered_hint_count": 60,
+      "elapsed_ms": 68,
       "error": null
     },
     {
@@ -134,11 +134,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 0,
       "discovered_hint_count": 46,
-      "elapsed_ms": 55,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 66,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -168,8 +168,8 @@
       "http_status": null,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 25336,
-      "error": "HTTPSConnectionPool(host='biodiversityireland.ie', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='biodiversityireland.ie', port=443) at 0x7fb66356d350>, 'Connection to biodiversityireland.i"
+      "elapsed_ms": 25152,
+      "error": "HTTPSConnectionPool(host='biodiversityireland.ie', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='biodiversityireland.ie', port=443) at 0x7f35bd638350>, 'Connection to biodiversityireland.i"
     },
     {
       "id": "birdwatch-ireland-news",
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 230,
+      "elapsed_ms": 39,
       "error": null
     },
     {
@@ -196,9 +196,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 56,
+      "current_item_count": 1,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 62,
       "error": null
     },
     {
@@ -209,11 +209,11 @@
       "scope": "ireland birds ecology",
       "url": "https://news.google.com/rss/search?q=%28wetland%20birds%20OR%20waterbirds%20OR%20waders%20OR%20shorebirds%20OR%20estuary%20birds%20OR%20wintering%20birds%29%20%28Ireland%20OR%20Irish%29%20%28estuary%20OR%20river%20OR%20lagoon%20OR%20wetland%20OR%20saltmarsh%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 2,
+      "current_item_count": 0,
       "discovered_hint_count": 75,
-      "elapsed_ms": 69,
+      "elapsed_ms": 75,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 54,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -242,8 +242,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 35,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 43,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 24,
-      "elapsed_ms": 43,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 48,
-      "elapsed_ms": 54,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 10,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 55,
+      "current_item_count": 9,
+      "discovered_hint_count": 45,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 55,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 145,
-      "elapsed_ms": 1022,
+      "elapsed_ms": 1396,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 112,
-      "elapsed_ms": 772,
+      "elapsed_ms": 1097,
       "error": null
     },
     {
@@ -346,9 +346,9 @@
       "host": "www.epa.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 6,
+      "current_item_count": 4,
       "discovered_hint_count": 227,
-      "elapsed_ms": 290,
+      "elapsed_ms": 643,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": null,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 5376,
+      "elapsed_ms": 5474,
       "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
@@ -376,9 +376,9 @@
       "host": "www.npws.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
+      "current_item_count": 2,
       "discovered_hint_count": 419,
-      "elapsed_ms": 2137,
+      "elapsed_ms": 1211,
       "error": null
     },
     {
@@ -393,8 +393,8 @@
       "http_status": null,
       "current_item_count": 1,
       "discovered_hint_count": 0,
-      "elapsed_ms": 25018,
-      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7fb6632c9750>, 'Connection to www.heritageco"
+      "elapsed_ms": 25239,
+      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Max retries exceeded with url: /funding (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.heritagecouncil.ie', port=443) at 0x7f35bcd39110>, 'Connection to www.heritageco"
     },
     {
       "id": "community-foundation-ireland-grants",
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 35,
-      "elapsed_ms": 1207,
+      "elapsed_ms": 1148,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 327,
+      "elapsed_ms": 173,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 95,
-      "elapsed_ms": 379,
+      "elapsed_ms": 375,
       "error": null
     },
     {
@@ -449,12 +449,12 @@
       "scope": "practice rivers trust",
       "url": "https://theriverstrust.org/about-us/news",
       "host": "theriverstrust.org",
-      "status": "failed",
-      "http_status": null,
-      "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 25053,
-      "error": "HTTPSConnectionPool(host='theriverstrust.org', port=443): Read timed out. (read timeout=25)"
+      "status": "active",
+      "http_status": 200,
+      "current_item_count": 13,
+      "discovered_hint_count": 94,
+      "elapsed_ms": 1005,
+      "error": null
     },
     {
       "id": "uk-river-restoration-centre",
@@ -468,7 +468,7 @@
       "http_status": 403,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 671,
+      "elapsed_ms": 631,
       "error": null
     }
   ]
