@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-11T23:32:32+00:00",
+    "generated_at": "2026-07-12T01:07:31+00:00",
     "mode": "source-model-and-freshness-gate",
     "project": "Ireland Energy Transition Monitor"
   },
@@ -11,8 +11,8 @@
     "status": "live",
     "values_are_live": true,
     "values_are_current": true,
-    "latest_interval": "2026-07-11T23:30:00+00:00",
-    "age_hours": 0.04,
+    "latest_interval": "2026-07-12T01:00:00+00:00",
+    "age_hours": 0.13,
     "public_badge": "Live grid source",
     "public_title": "Current grid pulse",
     "public_caveat": "Core grid values are treated as live because the mapped source interval is within two hours.",
@@ -42,11 +42,11 @@
     "items": [
       {
         "label": "Electricity system price",
-        "status": "mapped",
-        "source": "EirGrid Smart Grid Dashboard imbalance settlement price",
-        "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
-        "period": "2026-07-11",
-        "freshness": "latest settlement period visible on Smart Grid Dashboard",
+        "status": "not-parsed",
+        "source": "EirGrid Smart Grid Dashboard / SEMOpx market data",
+        "source_url": "https://www.semopx.com/market-data/market-results",
+        "period": "2026-07-12",
+        "freshness": "unavailable in current run",
         "is_household_tariff": false,
         "public_caveat": "System/market signal, not a household tariff."
       },
