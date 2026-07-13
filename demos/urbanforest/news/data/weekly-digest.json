@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-07-11T07:25:41.785947+00:00",
-  "latest_generated_at": "2026-07-11T07:25:41.683641+00:00",
+  "generated_at": "2026-07-13T08:34:55.680889+00:00",
+  "latest_generated_at": "2026-07-13T08:34:55.577660+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 23,
+    "ireland-urban-forest-practice": 26,
     "funding-opportunities": 23,
-    "research-evidence": 41,
-    "design-maintenance-risk": 3,
+    "research-evidence": 39,
+    "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
@@ -17,18 +17,26 @@
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 27
+      "count": 26
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 24
+      "count": 21
+    },
+    {
+      "benefit": "School / education",
+      "count": 15
     },
     {
       "benefit": "Monitoring / evaluation",
-      "count": 16
+      "count": 15
     },
     {
       "benefit": "Urban forest / NbS",
+      "count": 14
+    },
+    {
+      "benefit": "Planning / policy",
       "count": 14
     },
     {
@@ -36,24 +44,16 @@
       "count": 14
     },
     {
-      "benefit": "Planning / policy",
-      "count": 13
-    },
-    {
-      "benefit": "School / education",
-      "count": 13
-    },
-    {
       "benefit": "Community stewardship",
       "count": 12
     },
     {
       "benefit": "Urban heat / shade",
-      "count": 11
+      "count": 12
     },
     {
       "benefit": "Risk / safety",
-      "count": 11
+      "count": 10
     },
     {
       "benefit": "Soil health",
@@ -154,33 +154,6 @@
       },
       "research_use_type": "Review / evidence synthesis",
       "urbanforest_relevance": "Opportunity signal: may help fund stormwater / suds, tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
-      "id": "03352798bbf1df92",
-      "title": "News Releases | Sherrill Administration Rounds Out Earth Week, Celebrates Arbor Day by Announcing Availability of Municipal Tree Maintenance Grants (26/P018) - New Jersey Department of Environmental Protection (.gov)",
-      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5xVTRYRF81MXk0VVl6WTdTRHpCRGxaem1qc1RWUl9BcVVJUmJiWG56ZlJsR0RFS2ZBRnhrSEx4Ti1uV3RibGwxczJLdw?oc=5",
-      "section": "funding-opportunities",
-      "source_name": "Google News: urban forest survival and maintenance",
-      "published": "2026-04-27",
-      "score": 100,
-      "practical_score": 130.0,
-      "benefit_categories": [
-        "Tree survival / maintenance",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Low",
-        "score": 45,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Survival / maintenance evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "073b2523d843a620",
@@ -293,6 +266,29 @@
         "Urban heat / shade",
         "Biodiversity / habitat",
         "Tree survival / maintenance"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Survival / maintenance evidence",
+      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
+    },
+    {
+      "id": "9952dfab698c078b",
+      "title": "Shade, cooling and survival: why we need more trees - East Anglia Bylines",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQZGhfd0hJWUxUTjJiLVNvSzBxaWpkYjQyYjQtNlBNd1F3UzJKOHByQzk1SFVya1pCRFpzX1NBaG9Ka3pkY3BNZVVJMG0yekY4SGViQ3ppc3hlbkp0WURHWDNnbTZtQXBkemMtUFMwMnRhQzdFbjdaeUxIRHpKUlZadlNVU1VFLVBCWkF4bzJZNWM5RVRwQmM0SDJxeFY3c2xLcVo2QQ?oc=5",
+      "section": "design-maintenance-risk",
+      "source_name": "Google News: street-tree survival and drought",
+      "published": "2026-07-11",
+      "score": 94,
+      "practical_score": 124.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Tree survival / maintenance",
+        "Risk / safety"
       ],
       "local_relevance": {
         "score": 0,
