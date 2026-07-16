@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-15T07:27:17+00:00",
+  "generated_at": "2026-07-16T07:36:09+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -35,6 +35,13 @@
       "programme_state": "upcoming"
     },
     {
+      "id": "heritage_community_grant",
+      "name": "Heritage Council Community Heritage Grant Scheme",
+      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=10)",
+      "last_successful_fetch_at": "2026-07-15T07:27:17+00:00",
+      "programme_state": "closed"
+    },
+    {
       "id": "leader_programme",
       "name": "LEADER Programme",
       "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development/",
@@ -54,6 +61,13 @@
       "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-browne-announces-fourfold-increase-in-investment-in-water-quality-initiatives-in-2026/",
       "last_successful_fetch_at": "2026-06-11T09:48:55+00:00",
       "programme_state": "upcoming"
+    },
+    {
+      "id": "geo_ptj_hydrogen_derivatives",
+      "name": "PtJ Applied Energy Research: Hydrogen and Derivatives",
+      "error": "HTTPSConnectionPool(host='www.ptj.de', port=443): Max retries exceeded with url: /projekfoerderung/angewandte-energieforschung/8-efp/produktion-von-wasserstoff-und-derivaten-brennstoffzellen-wiederverstromung (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.ptj.de', port=443) at 0x7fe1696de750>, 'Connection to www.ptj.de timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-07-15T07:27:45+00:00",
+      "programme_state": "open"
     }
   ],
   "fetch_failures_using_registry_fallback": [
@@ -83,8 +97,8 @@
     }
   ],
   "state_source_counts": {
-    "last_known_good": 5,
-    "registry_fallback": 25,
+    "last_known_good": 7,
+    "registry_fallback": 23,
     "deadline_past_recurring": 3,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 2,
