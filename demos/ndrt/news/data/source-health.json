@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-07-16T07:32:33.664133+00:00",
-  "latest_generated_at": "2026-07-16T07:32:23.489551+00:00",
+  "generated_at": "2026-07-17T07:30:10.610092+00:00",
+  "latest_generated_at": "2026-07-17T07:29:59.509535+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 16,
-  "sources_checked_no_current_items": 13,
+  "sources_active": 19,
+  "sources_checked_no_current_items": 10,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 18,
-    "waterbody-evidence-alerts": 26,
-    "ireland-catchment-practice": 15,
+    "grants-opportunities": 20,
+    "waterbody-evidence-alerts": 25,
+    "ireland-catchment-practice": 14,
     "research-papers": 36
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 21,
-    "research_use_type": 54
+    "opportunity_fit": 23,
+    "research_use_type": 53
   },
-  "archive_snapshots": 45,
+  "archive_snapshots": 46,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +33,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 12,
-      "elapsed_ms": 48,
+      "elapsed_ms": 49,
       "error": null
     },
     {
@@ -48,7 +48,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 53,
-      "elapsed_ms": 63,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -63,7 +63,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 76,
-      "elapsed_ms": 69,
+      "elapsed_ms": 74,
       "error": null
     },
     {
@@ -77,8 +77,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 3,
-      "discovered_hint_count": 72,
-      "elapsed_ms": 70,
+      "discovered_hint_count": 73,
+      "elapsed_ms": 74,
       "error": null
     },
     {
@@ -91,9 +91,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 9,
+      "current_item_count": 8,
       "discovered_hint_count": 100,
-      "elapsed_ms": 79,
+      "elapsed_ms": 85,
       "error": null
     },
     {
@@ -108,7 +108,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 68,
-      "elapsed_ms": 69,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 62,
-      "elapsed_ms": 65,
+      "discovered_hint_count": 61,
+      "elapsed_ms": 68,
       "error": null
     },
     {
@@ -138,7 +138,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 45,
-      "elapsed_ms": 57,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -151,9 +151,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
+      "current_item_count": 1,
       "discovered_hint_count": 76,
-      "elapsed_ms": 70,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 87,
-      "elapsed_ms": 585,
+      "elapsed_ms": 727,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 243,
+      "elapsed_ms": 178,
       "error": null
     },
     {
@@ -194,11 +194,11 @@
       "scope": "ireland river ecology",
       "url": "https://news.google.com/rss/search?q=%28river%20ecology%20OR%20freshwater%20ecology%20OR%20aquatic%20ecology%20OR%20macroinvertebrates%20OR%20fish%20passage%20OR%20habitat%20restoration%29%20%28Ireland%20OR%20Irish%29%20%28river%20OR%20stream%20OR%20catchment%20OR%20water%20quality%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 1,
       "discovered_hint_count": 48,
-      "elapsed_ms": 57,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -213,7 +213,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 76,
-      "elapsed_ms": 68,
+      "elapsed_ms": 79,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 51,
-      "elapsed_ms": 59,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 64,
       "error": null
     },
     {
@@ -242,7 +242,7 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 10,
+      "discovered_hint_count": 9,
       "elapsed_ms": 43,
       "error": null
     },
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 24,
-      "elapsed_ms": 49,
+      "elapsed_ms": 51,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 48,
-      "elapsed_ms": 58,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -287,8 +287,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 6,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 60,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 47,
-      "elapsed_ms": 59,
+      "elapsed_ms": 60,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 145,
-      "elapsed_ms": 1287,
+      "elapsed_ms": 1551,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 111,
-      "elapsed_ms": 864,
+      "elapsed_ms": 851,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 227,
-      "elapsed_ms": 335,
+      "elapsed_ms": 352,
       "error": null
     },
     {
@@ -361,9 +361,9 @@
       "host": "www.fisheriesireland.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
+      "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 936,
+      "elapsed_ms": 854,
       "error": null
     },
     {
@@ -377,8 +377,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 419,
-      "elapsed_ms": 1075,
+      "discovered_hint_count": 420,
+      "elapsed_ms": 1112,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 698,
+      "elapsed_ms": 658,
       "error": null
     },
     {
@@ -404,11 +404,11 @@
       "scope": "funding ireland",
       "url": "https://www.communityfoundation.ie/grants/",
       "host": "www.communityfoundation.ie",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 1,
       "discovered_hint_count": 35,
-      "elapsed_ms": 1012,
+      "elapsed_ms": 1326,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 95,
+      "elapsed_ms": 75,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 95,
-      "elapsed_ms": 68,
+      "elapsed_ms": 136,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 12,
       "discovered_hint_count": 94,
-      "elapsed_ms": 626,
+      "elapsed_ms": 879,
       "error": null
     },
     {
@@ -464,11 +464,11 @@
       "scope": "practice reference",
       "url": "https://www.therrc.co.uk/news",
       "host": "www.therrc.co.uk",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 1,
       "discovered_hint_count": 110,
-      "elapsed_ms": 1087,
+      "elapsed_ms": 1060,
       "error": null
     }
   ]
