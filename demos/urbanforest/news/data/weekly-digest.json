@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-07-16T07:37:15.511042+00:00",
-  "latest_generated_at": "2026-07-16T07:37:15.399118+00:00",
+  "generated_at": "2026-07-17T07:33:56.762383+00:00",
+  "latest_generated_at": "2026-07-17T07:33:56.651432+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 26,
-    "funding-opportunities": 20,
+    "ireland-urban-forest-practice": 25,
+    "funding-opportunities": 21,
     "research-evidence": 41,
     "design-maintenance-risk": 3,
     "transferable-urbanforest-practice": 2
@@ -13,35 +13,35 @@
   "top_benefit_categories": [
     {
       "benefit": "Funding / grants",
-      "count": 29
+      "count": 30
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 28
+      "count": 27
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 24
-    },
-    {
-      "benefit": "School / education",
-      "count": 18
+      "count": 23
     },
     {
       "benefit": "Monitoring / evaluation",
       "count": 16
     },
     {
-      "benefit": "Urban forest / NbS",
+      "benefit": "School / education",
       "count": 15
     },
     {
-      "benefit": "Stormwater / SuDS",
+      "benefit": "Urban forest / NbS",
       "count": 14
     },
     {
       "benefit": "Planning / policy",
-      "count": 12
+      "count": 14
+    },
+    {
+      "benefit": "Stormwater / SuDS",
+      "count": 14
     },
     {
       "benefit": "Urban heat / shade",
@@ -89,39 +89,6 @@
       "opportunity_fit": {
         "fit": "High",
         "score": 97,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Review / evidence synthesis",
-      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
-      "id": "e635bd17dbf4acfb",
-      "title": "Funding watch: Heritage Council Funding",
-      "url": "https://www.heritagecouncil.ie/funding",
-      "section": "funding-opportunities",
-      "source_name": "Heritage Council Funding",
-      "published": null,
-      "score": 100,
-      "practical_score": 148.0,
-      "benefit_categories": [
-        "Biodiversity / habitat",
-        "School / education",
-        "Community stewardship",
-        "Tree survival / maintenance",
-        "Funding / grants",
-        "Planning / policy"
-      ],
-      "local_relevance": {
-        "score": 8,
-        "label": "Transferable relevance",
-        "matched_terms": [
-          "school"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "High",
-        "score": 87,
         "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
         "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
       },
@@ -331,6 +298,35 @@
       "opportunity_fit": null,
       "research_use_type": "Survival / maintenance evidence",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
+    },
+    {
+      "id": "60b7faa9f1338a32",
+      "title": "The Benefits and Limits of Urban Tree Planting for Environmental and Human Health",
+      "url": "https://doi.org/10.3389/fevo.2021.603757",
+      "section": "research-evidence",
+      "source_name": "Frontiers in Ecology and Evolution",
+      "published": "2021-04-08",
+      "score": 92,
+      "practical_score": 123.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Stormwater / SuDS",
+        "Wellbeing / health",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": {
+        "fit": "Low",
+        "score": 35,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Heat / shade evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, stormwater / suds, wellbeing / health, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     }
   ]
 }
