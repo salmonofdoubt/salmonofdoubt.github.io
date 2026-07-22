@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-21T07:55:49.705921+00:00",
-  "latest_generated_at": "2026-07-21T07:55:49.590778+00:00",
+  "generated_at": "2026-07-22T07:56:02.050820+00:00",
+  "latest_generated_at": "2026-07-22T07:56:01.940086+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 25,
-    "funding-opportunities": 23,
-    "research-evidence": 38,
+    "ireland-urban-forest-practice": 24,
+    "funding-opportunities": 22,
+    "research-evidence": 40,
     "design-maintenance-risk": 4,
     "transferable-urbanforest-practice": 2
   },
@@ -17,14 +17,18 @@
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 23
+      "count": 24
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 22
+      "count": 24
     },
     {
       "benefit": "Urban forest / NbS",
+      "count": 16
+    },
+    {
+      "benefit": "Monitoring / evaluation",
       "count": 15
     },
     {
@@ -32,11 +36,7 @@
       "count": 14
     },
     {
-      "benefit": "Planning / policy",
-      "count": 14
-    },
-    {
-      "benefit": "Monitoring / evaluation",
+      "benefit": "Urban heat / shade",
       "count": 14
     },
     {
@@ -44,7 +44,7 @@
       "count": 14
     },
     {
-      "benefit": "Urban heat / shade",
+      "benefit": "Planning / policy",
       "count": 13
     },
     {
@@ -57,7 +57,7 @@
     },
     {
       "benefit": "Soil health",
-      "count": 9
+      "count": 10
     }
   ],
   "items": [
@@ -94,6 +94,36 @@
       },
       "research_use_type": "Review / evidence synthesis",
       "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "c3b846abd3021b59",
+      "title": "Comparative growth, biodiversity and cooling effects of native and adaptive Miyawaki microforests and a constructed wetland in a urban park (Reggio Emilia, Italy)",
+      "url": "https://doi.org/10.1007/s11252-026-02066-5",
+      "section": "research-evidence",
+      "source_name": "Urban Ecosystems",
+      "published": "2026-07-20",
+      "score": 96,
+      "practical_score": 137.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Biodiversity / habitat",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 59,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Monitoring method",
+      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, biodiversity / habitat, tree survival / maintenance, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "6f4e0ae82572a3f1",
@@ -298,35 +328,6 @@
       "opportunity_fit": null,
       "research_use_type": "Survival / maintenance evidence",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
-    },
-    {
-      "id": "60b7faa9f1338a32",
-      "title": "The Benefits and Limits of Urban Tree Planting for Environmental and Human Health",
-      "url": "https://doi.org/10.3389/fevo.2021.603757",
-      "section": "research-evidence",
-      "source_name": "Frontiers in Ecology and Evolution",
-      "published": "2021-04-08",
-      "score": 92,
-      "practical_score": 123.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Stormwater / SuDS",
-        "Wellbeing / health",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Low",
-        "score": 35,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Heat / shade evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, stormwater / suds, wellbeing / health, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     }
   ]
 }
