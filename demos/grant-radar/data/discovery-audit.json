@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-07-23T07:44:11+00:00",
+  "generated_at": "2026-07-24T07:41:55+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4478,
-  "funding_like_links": 469,
+  "links_seen": 4477,
+  "funding_like_links": 467,
   "candidate_fetches": 300,
-  "pending_review_count": 94,
+  "pending_review_count": 93,
   "status_counts": {
-    "pending_review": 94,
-    "suppressed_non_actionable": 54,
+    "pending_review": 93,
+    "suppressed_non_actionable": 55,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 11,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 59
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 58
   },
   "candidate_type_counts": {
     "recurring_programme": 88,
-    "funding_call": 40,
+    "funding_call": 38,
     "scholarship": 30,
-    "generic_funding_hub": 6,
-    "tender": 11,
-    "unknown": 59
+    "generic_funding_hub": 5,
+    "tender": 13,
+    "unknown": 58
   },
   "seeds": [
     {
@@ -125,7 +125,7 @@
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 133,
+      "links_seen": 134,
       "funding_like_links": 45,
       "candidates_fetched": 45
     },
@@ -225,8 +225,8 @@
       "url": "https://erc.europa.eu/funding/advanced-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 167,
-      "funding_like_links": 22,
+      "links_seen": 165,
+      "funding_like_links": 20,
       "candidates_fetched": 0
     },
     {
