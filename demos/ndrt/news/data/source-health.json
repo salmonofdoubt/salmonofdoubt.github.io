@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-07-23T07:47:00.236602+00:00",
-  "latest_generated_at": "2026-07-23T07:45:54.601862+00:00",
+  "generated_at": "2026-07-24T07:43:11.696377+00:00",
+  "latest_generated_at": "2026-07-24T07:42:58.655728+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 15,
-  "sources_checked_no_current_items": 9,
-  "sources_failed": 6,
+  "sources_active": 18,
+  "sources_checked_no_current_items": 11,
+  "sources_failed": 1,
   "items_by_section": {
-    "waterbody-evidence-alerts": 30,
-    "ireland-catchment-practice": 16,
-    "grants-opportunities": 13,
+    "waterbody-evidence-alerts": 26,
+    "ireland-catchment-practice": 17,
+    "grants-opportunities": 16,
     "research-papers": 36
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 16,
+    "opportunity_fit": 19,
     "research_use_type": 53
   },
-  "archive_snapshots": 52,
+  "archive_snapshots": 53,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +33,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 12,
-      "elapsed_ms": 50,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 54,
-      "elapsed_ms": 66,
+      "discovered_hint_count": 53,
+      "elapsed_ms": 69,
       "error": null
     },
     {
@@ -63,7 +63,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 76,
-      "elapsed_ms": 75,
+      "elapsed_ms": 78,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 72,
-      "elapsed_ms": 71,
+      "current_item_count": 2,
+      "discovered_hint_count": 73,
+      "elapsed_ms": 80,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 10,
       "discovered_hint_count": 100,
-      "elapsed_ms": 85,
+      "elapsed_ms": 92,
       "error": null
     },
     {
@@ -107,8 +107,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 3,
-      "discovered_hint_count": 70,
-      "elapsed_ms": 76,
+      "discovered_hint_count": 69,
+      "elapsed_ms": 79,
       "error": null
     },
     {
@@ -121,9 +121,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 61,
-      "elapsed_ms": 68,
+      "current_item_count": 2,
+      "discovered_hint_count": 63,
+      "elapsed_ms": 75,
       "error": null
     },
     {
@@ -138,7 +138,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 47,
-      "elapsed_ms": 60,
+      "elapsed_ms": 64,
       "error": null
     },
     {
@@ -153,7 +153,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 75,
-      "elapsed_ms": 73,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -164,12 +164,12 @@
       "scope": "ireland biodiversity invasive ecology",
       "url": "https://biodiversityireland.ie/",
       "host": "biodiversityireland.ie",
-      "status": "failed",
-      "http_status": null,
+      "status": "checked-no-current-items",
+      "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 25112,
-      "error": "HTTPSConnectionPool(host='biodiversityireland.ie', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPSConnection(host='biodiversityireland.ie', port=443) at 0x7fad3b7e1410>, 'Connection to biodiversityireland.i"
+      "discovered_hint_count": 87,
+      "elapsed_ms": 834,
+      "error": null
     },
     {
       "id": "birdwatch-ireland-news",
@@ -180,10 +180,10 @@
       "url": "https://birdwatchireland.ie/news/",
       "host": "birdwatchireland.ie",
       "status": "checked-no-current-items",
-      "http_status": 307,
+      "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 155,
+      "discovered_hint_count": 340,
+      "elapsed_ms": 1131,
       "error": null
     },
     {
@@ -194,11 +194,11 @@
       "scope": "ireland river ecology",
       "url": "https://news.google.com/rss/search?q=%28river%20ecology%20OR%20freshwater%20ecology%20OR%20aquatic%20ecology%20OR%20macroinvertebrates%20OR%20fish%20passage%20OR%20habitat%20restoration%29%20%28Ireland%20OR%20Irish%29%20%28river%20OR%20stream%20OR%20catchment%20OR%20water%20quality%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 389,
+      "current_item_count": 0,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 73,
-      "elapsed_ms": 385,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -228,7 +228,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 50,
-      "elapsed_ms": 368,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -242,8 +242,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 314,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 23,
-      "elapsed_ms": 307,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 49,
-      "elapsed_ms": 338,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 8,
-      "discovered_hint_count": 50,
-      "elapsed_ms": 438,
+      "current_item_count": 5,
+      "discovered_hint_count": 52,
+      "elapsed_ms": 65,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 340,
+      "elapsed_ms": 65,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1275,
+      "elapsed_ms": 1745,
       "error": null
     },
     {
@@ -329,11 +329,11 @@
       "scope": "ireland institutional",
       "url": "https://lawaters.ie/",
       "host": "lawaters.ie",
-      "status": "failed",
-      "http_status": 415,
-      "current_item_count": 1,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 406,
+      "status": "active",
+      "http_status": 200,
+      "current_item_count": 3,
+      "discovered_hint_count": 116,
+      "elapsed_ms": 1076,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 227,
-      "elapsed_ms": 530,
+      "elapsed_ms": 473,
       "error": null
     },
     {
@@ -359,12 +359,12 @@
       "scope": "ireland institutional",
       "url": "https://www.fisheriesireland.ie/news",
       "host": "www.fisheriesireland.ie",
-      "status": "failed",
-      "http_status": null,
-      "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 5240,
-      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      "status": "active",
+      "http_status": 200,
+      "current_item_count": 1,
+      "discovered_hint_count": 179,
+      "elapsed_ms": 997,
+      "error": null
     },
     {
       "id": "npws",
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 420,
-      "elapsed_ms": 1049,
+      "elapsed_ms": 1222,
       "error": null
     },
     {
@@ -389,12 +389,12 @@
       "scope": "funding ireland",
       "url": "https://www.heritagecouncil.ie/funding",
       "host": "www.heritagecouncil.ie",
-      "status": "failed",
-      "http_status": null,
-      "current_item_count": 1,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 25312,
-      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=25)"
+      "status": "active",
+      "http_status": 200,
+      "current_item_count": 2,
+      "discovered_hint_count": 82,
+      "elapsed_ms": 697,
+      "error": null
     },
     {
       "id": "community-foundation-ireland-grants",
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 35,
-      "elapsed_ms": 952,
+      "elapsed_ms": 1285,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 268,
+      "elapsed_ms": 43,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 95,
-      "elapsed_ms": 269,
+      "elapsed_ms": 73,
       "error": null
     },
     {
@@ -451,9 +451,9 @@
       "host": "theriverstrust.org",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 13,
+      "current_item_count": 12,
       "discovered_hint_count": 96,
-      "elapsed_ms": 803,
+      "elapsed_ms": 811,
       "error": null
     },
     {
@@ -464,11 +464,11 @@
       "scope": "practice reference",
       "url": "https://www.therrc.co.uk/news",
       "host": "www.therrc.co.uk",
-      "status": "failed",
-      "http_status": 403,
-      "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 564,
+      "status": "active",
+      "http_status": 200,
+      "current_item_count": 1,
+      "discovered_hint_count": 110,
+      "elapsed_ms": 1260,
       "error": null
     }
   ]
