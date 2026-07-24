@@ -1,66 +1,134 @@
 {
-  "generated_at": "2026-07-23T07:59:00.943346+00:00",
-  "latest_generated_at": "2026-07-23T07:59:00.835532+00:00",
+  "generated_at": "2026-07-24T07:57:37.108785+00:00",
+  "latest_generated_at": "2026-07-24T07:57:36.999626+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 26,
-    "funding-opportunities": 22,
-    "research-evidence": 38,
-    "design-maintenance-risk": 4,
+    "ireland-urban-forest-practice": 3,
+    "research-evidence": 69,
+    "design-maintenance-risk": 5,
+    "funding-opportunities": 13,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
-      "benefit": "Funding / grants",
-      "count": 31
-    },
-    {
       "benefit": "Biodiversity / habitat",
-      "count": 24
+      "count": 41
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 24
-    },
-    {
-      "benefit": "Urban forest / NbS",
-      "count": 17
+      "count": 41
     },
     {
       "benefit": "Monitoring / evaluation",
-      "count": 15
+      "count": 34
     },
     {
-      "benefit": "Community stewardship",
-      "count": 14
-    },
-    {
-      "benefit": "Planning / policy",
-      "count": 14
-    },
-    {
-      "benefit": "Urban heat / shade",
-      "count": 13
+      "benefit": "Funding / grants",
+      "count": 27
     },
     {
       "benefit": "Stormwater / SuDS",
-      "count": 13
+      "count": 21
     },
     {
-      "benefit": "School / education",
-      "count": 12
-    },
-    {
-      "benefit": "Risk / safety",
-      "count": 12
+      "benefit": "Planning / policy",
+      "count": 18
     },
     {
       "benefit": "Soil health",
+      "count": 18
+    },
+    {
+      "benefit": "Wellbeing / health",
+      "count": 17
+    },
+    {
+      "benefit": "Community stewardship",
+      "count": 16
+    },
+    {
+      "benefit": "Urban heat / shade",
+      "count": 14
+    },
+    {
+      "benefit": "School / education",
+      "count": 11
+    },
+    {
+      "benefit": "Risk / safety",
       "count": 9
     }
   ],
   "items": [
+    {
+      "id": "4f1e6f18cf3de104",
+      "title": "Funding watch: Google News: UrbanForest tree grants Ireland",
+      "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "funding-opportunities",
+      "source_name": "Google News: UrbanForest tree grants Ireland",
+      "published": null,
+      "score": 100,
+      "practical_score": 161.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 26,
+        "label": "Strong Ireland relevance",
+        "matched_terms": [
+          "ireland",
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 97,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "acc7517efc45ad0b",
+      "title": "Funding watch: Google News: school garden tree funding Ireland",
+      "url": "https://news.google.com/rss/search?q=%28school%20garden%20OR%20school%20trees%20OR%20school%20biodiversity%20OR%20outdoor%20classroom%29%20%28grant%20OR%20funding%20OR%20scheme%20OR%20award%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "funding-opportunities",
+      "source_name": "Google News: school garden tree funding Ireland",
+      "published": null,
+      "score": 100,
+      "practical_score": 161.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 26,
+        "label": "Strong Ireland relevance",
+        "matched_terms": [
+          "ireland",
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 97,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
     {
       "id": "54c7447c1fa8e4d6",
       "title": "Funding watch: Community Foundation Ireland Grants",
@@ -89,6 +157,39 @@
       "opportunity_fit": {
         "fit": "High",
         "score": 97,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "c6abd6dc31cc6e60",
+      "title": "Funding watch: Google News: urban forest and biodiversity grants",
+      "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20call%20OR%20award%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20greening%20OR%20nature-based%20solutions%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "funding-opportunities",
+      "source_name": "Google News: urban forest and biodiversity grants",
+      "published": null,
+      "score": 100,
+      "practical_score": 153.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 8,
+        "label": "Transferable relevance",
+        "matched_terms": [
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 87,
         "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
         "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
       },
@@ -126,37 +227,6 @@
       "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, biodiversity / habitat, tree survival / maintenance, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
-      "id": "6f4e0ae82572a3f1",
-      "title": "New Ross School Wins National Pollinator Award for Community Wildflower Project - South East Radio",
-      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORlIteGpqajlCVE1EcXZCUnQ3TXpfeS1hVEpiVjFFVUVoVDZtcW9UZ3lHcmZ1NmtiNy1KM3NmRjdrRDJraEhUUTQyZXVqc3dwcXRjWjlzZTBzMVlSVjR4a0RpR2Z5ZkZEeTlENnFsZWFpOGwzSzNYaTEyOVBfZ0tkSmFHczBsOTBiUTlzb0RCeTB1V0xmeU56a1VSY3dyRDdtalNtMXJtemxWUjJYRjI3OGZtdGFuYWQ0QWxMT3VZV0k?oc=5",
-      "section": "funding-opportunities",
-      "source_name": "Google News: school garden tree funding Ireland",
-      "published": "2026-06-08",
-      "score": 86,
-      "practical_score": 133.0,
-      "benefit_categories": [
-        "Biodiversity / habitat",
-        "School / education",
-        "Community stewardship",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 8,
-        "label": "Transferable relevance",
-        "matched_terms": [
-          "school"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "High",
-        "score": 77,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Biodiversity evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
       "id": "72c194e792f74f13",
       "title": "Maintenance in sustainable stormwater management: issues, barriers and challenges",
       "url": "https://doi.org/10.1080/09640568.2024.2325041",
@@ -184,60 +254,6 @@
       },
       "research_use_type": "Review / evidence synthesis",
       "urbanforest_relevance": "Opportunity signal: may help fund stormwater / suds, tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
-      "id": "03352798bbf1df92",
-      "title": "News Releases | Sherrill Administration Rounds Out Earth Week, Celebrates Arbor Day by Announcing Availability of Municipal Tree Maintenance Grants (26/P018) - New Jersey Department of Environmental Protection (.gov)",
-      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5xVTRYRF81MXk0VVl6WTdTRHpCRGxaem1qc1RWUl9BcVVJUmJiWG56ZlJsR0RFS2ZBRnhrSEx4Ti1uV3RibGwxczJLdw?oc=5",
-      "section": "funding-opportunities",
-      "source_name": "Google News: urban forest survival and maintenance",
-      "published": "2026-04-27",
-      "score": 100,
-      "practical_score": 130.0,
-      "benefit_categories": [
-        "Tree survival / maintenance",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Low",
-        "score": 45,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Survival / maintenance evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
-      "id": "073b2523d843a620",
-      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - NYC.gov",
-      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPN3NOaGR2RVkwS09NWkNtNFNGeGtVbjc3NHgwZXQ1bE0xZlI5anNNNHRhcGRhQmMtVmQ1MzB3RzZoMkxTUGI1VEdCTGQ1UXBJNDNXNWxNYk9lU09kaGtmdnRUaFJzZUdmRU1nNjVJU1dRckxBMWJ0Q25BbC1ZNlVCY2xLVXljaUhQVG82dm1Gemg5TXZGSTJQWDZ3U1plLVBWVEdNNkFfR0lmM2Y3Q1Z2X1o0dTVlME5HZTJXeGpJRndwdXZlVTBZ?oc=5",
-      "section": "funding-opportunities",
-      "source_name": "Google News: urban forest carbon and climate claims",
-      "published": "2026-04-23",
-      "score": 100,
-      "practical_score": 130.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Low",
-        "score": 35,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Heat / shade evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "urbanforest-site-case-study",
@@ -311,18 +327,21 @@
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "e71eafacd7687633",
-      "title": "Cooling efficacy of trees across cities is determined by background climate, urban morphology, and tree trait",
-      "url": "https://doi.org/10.1038/s43247-024-01908-4",
-      "section": "research-evidence",
-      "source_name": "Communications Earth & Environment",
-      "published": "2024-12-10",
-      "score": 96,
-      "practical_score": 125.0,
+      "id": "91322ffbb831afee",
+      "title": "Design and maintenance watch: Google News: street-tree survival and drought",
+      "url": "https://news.google.com/rss/search?q=%28street%20trees%20OR%20urban%20trees%20OR%20tree%20planting%29%20%28drought%20OR%20watering%20OR%20survival%20OR%20maintenance%20OR%20aftercare%20OR%20establishment%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
+      "section": "design-maintenance-risk",
+      "source_name": "Google News: street-tree survival and drought",
+      "published": null,
+      "score": 100,
+      "practical_score": 127.0,
       "benefit_categories": [
-        "Urban heat / shade",
-        "Biodiversity / habitat",
-        "Tree survival / maintenance"
+        "Soil health",
+        "Wellbeing / health",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Monitoring / evaluation",
+        "Carbon / climate claims"
       ],
       "local_relevance": {
         "score": 0,
@@ -330,7 +349,7 @@
         "matched_terms": []
       },
       "opportunity_fit": null,
-      "research_use_type": "Survival / maintenance evidence",
+      "research_use_type": "Monitoring method",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     }
   ]
