@@ -39,6 +39,7 @@ const elements = {
   saveLocally: document.getElementById("saveLocally"),
   statusBox: document.querySelector(".status-box"),
   statusText: document.getElementById("statusText"),
+  comparisonPanel: document.querySelector(".comparison-panel"),
   comparisonStage: document.getElementById("comparisonStage"),
   stageLoader: document.getElementById("stageLoader"),
   translatedLabel: document.getElementById("translatedLabel"),
@@ -322,34 +323,6 @@ function updateViewUi() {
   const isUvProxy = state.viewMode === "uv-proxy";
   const isColourBlind = state.viewMode === "colour-blind";
 
-  elements.quickViewButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const key = button.dataset.quickView;
-      if (key === "bee") {
-        state.profileId = "apis-mellifera";
-        state.viewMode = "observer";
-      } else if (key === "dragonfly") {
-        state.profileId = "sympetrum";
-        state.viewMode = "observer";
-      } else if (key === "night-moth") {
-        state.profileId = "deilephila-elpenor";
-        state.viewMode = "observer";
-      } else if (key === "uv-proxy") {
-        if (state.profileId === "deilephila-elpenor" || state.profileId === "sympetrum" || state.profileId === "apis-mellifera") {
-          // preserve the currently selected animal profile behind the UV clue.
-        } else {
-          state.profileId = "apis-mellifera";
-        }
-        state.viewMode = "uv-proxy";
-      } else if (key === "colour-blind") {
-        state.cvdType = "deuteranopia";
-        state.viewMode = "colour-blind";
-      }
-      updateViewUi();
-      scheduleRerender();
-    });
-  });
-
   elements.viewButtons.forEach((button) => {
     const active = button.dataset.view === state.viewMode;
     button.classList.toggle("is-active", active);
@@ -406,9 +379,9 @@ function updateViewUi() {
 
   if (elements.simpleHelp) {
     if (state.viewMode === "uv-proxy") {
-      elements.simpleHelp.textContent = "UV clue highlights likely ultraviolet structure, but it is still an AI-style clue rather than a measured UV photograph.";
+      elements.simpleHelp.textContent = "UV clue highlights possible ultraviolet-related structure inferred from the visible photo. It is not a measured UV photograph.";
     } else if (state.viewMode === "colour-blind") {
-      elements.simpleHelp.textContent = "Colour-blind shows a simple red-green colour-vision-difference impression.";
+      elements.simpleHelp.textContent = "Colour vision shows a common red-green colour-vision-difference impression.";
     } else {
       elements.simpleHelp.textContent = `Now showing ${getActiveProfile().commonName.toLowerCase()} view.`;
     }
@@ -514,7 +487,10 @@ async function loadPhotoBlob(blob, metadata = {}) {
     await renderObserverView(token);
     elements.downloadComparison.disabled = false;
     setStageLoading(false);
-    setStatus(`${metadata.name || "Image"} is ready. Move the divider to compare views.`, "ready");
+    setStatus(`${metadata.name || "Photo"} is ready.`, "ready");
+    if (metadata.name && metadata.name !== "Built-in flower sample") {
+      elements.choosePhoto.innerHTML = '<span aria-hidden="true">📷</span> Change photo';
+    }
   } catch (error) {
     console.error(error);
     setStageLoading(false);
@@ -612,7 +588,7 @@ function scheduleRerender() {
   window.clearTimeout(rerenderTimer);
   rerenderTimer = window.setTimeout(async () => {
     if (!state.current) return;
-    setStageLoading(true, "Updating model…");
+    setStageLoading(true, "Changing the view…");
     await renderObserverView();
     setStageLoading(false);
     setStatus(`${getCurrentViewLabel()} updated.`, "ready");
@@ -676,6 +652,13 @@ async function compressForStorage(file) {
   }
 }
 
+function showUpdatedPhoto() {
+  if (!elements.comparisonPanel) return;
+  window.requestAnimationFrame(() => {
+    elements.comparisonPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+}
+
 async function processUploadedFile(file) {
   if (!file || !file.type.startsWith("image/")) {
     setStatus("Please choose a supported image file.", "error");
@@ -711,6 +694,7 @@ async function processUploadedFile(file) {
     }
 
     await loadPhotoBlob(record.blob, record);
+    showUpdatedPhoto();
   } catch (error) {
     console.error(error);
     setStageLoading(false);

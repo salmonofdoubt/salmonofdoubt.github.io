@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "umwelt-lens-shell";
-const CACHE_VERSION = "v4";
+const CACHE_VERSION = "v7";
 const CACHE_NAME = `${CACHE_PREFIX}-${CACHE_VERSION}`;
 
 const APP_SHELL = [

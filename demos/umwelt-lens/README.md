@@ -78,3 +78,31 @@ All added observers remain educational translations rather than calibrated multi
 - Local saving simplified to an automatic private-local note
 - Focused set of quick views: Bee, Dragonfly, Night moth, UV clue, Colour-blind
 - Service-worker cache bumped again to reduce stale localhost confusion
+
+
+## Version 5 mobile-first redesign
+
+- The picture is the first and largest element on a phone.
+- Five views use a balanced 3+2 grid of large buttons.
+- Lighting remains one three-way control.
+- Upload is one large primary action.
+- Model metrics, local library and scientific method are collapsed until requested.
+- Desktop remains a balanced viewer-plus-controls layout.
+
+
+## Version 6 changes
+
+- The photo chooser is now above the comparison image on every viewport.
+- A selected photo automatically brings the comparison into view.
+- The chooser becomes “Change photo” after loading an image.
+- Removed accidental repeated click-handler registration from the view update function.
+- Mobile layout now follows the actual task order: choose photo, see result, then explore views.
+
+
+## Version 7 corrections
+
+- Replaced the accumulated mobile CSS patches with one coherent responsive stylesheet.
+- Photo chooser is the first actionable control.
+- Comparison and control panels are guaranteed full width on phones.
+- Added a header back button and removed fixed bottom controls from the mobile content area.
+- Removed duplicate event-handler registration that accumulated on each view change.
