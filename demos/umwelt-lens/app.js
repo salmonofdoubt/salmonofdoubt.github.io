@@ -8,17 +8,25 @@ const STORE_NAME = "photos";
 const state = {
   profileId: DEFAULT_PROFILE_ID,
   mode: "sunny",
+  viewMode: "observer",
+  cvdType: "deuteranopia",
   distanceCm: 50,
   reveal: 50,
   current: null,
   decodedSource: null,
   renderToken: 0,
   db: null,
+  installPrompt: null,
   thumbnailUrls: new Map()
 };
 
 const elements = {
   speciesSelect: document.getElementById("speciesSelect"),
+  observerHelp: document.getElementById("observerHelp"),
+  viewButtons: [...document.querySelectorAll("[data-view]")],
+  viewHelp: document.getElementById("viewHelp"),
+  humanVisionField: document.getElementById("humanVisionField"),
+  humanVisionSelect: document.getElementById("humanVisionSelect"),
   modeButtons: [...document.querySelectorAll("[data-mode]")],
   distanceRange: document.getElementById("distanceRange"),
   distanceOutput: document.getElementById("distanceOutput"),
@@ -31,6 +39,7 @@ const elements = {
   statusText: document.getElementById("statusText"),
   comparisonStage: document.getElementById("comparisonStage"),
   stageLoader: document.getElementById("stageLoader"),
+  translatedLabel: document.getElementById("translatedLabel"),
   humanCanvas: document.getElementById("humanCanvas"),
   beeCanvas: document.getElementById("beeCanvas"),
   revealRange: document.getElementById("revealRange"),
@@ -38,6 +47,12 @@ const elements = {
   downloadComparison: document.getElementById("downloadComparison"),
   modeExplanation: document.getElementById("modeExplanation"),
   observerMetric: document.getElementById("observerMetric"),
+  observerMetricHelp: document.getElementById("observerMetricHelp"),
+  uvMetricTitle: document.getElementById("uvMetricTitle"),
+  uvMetricValue: document.getElementById("uvMetricValue"),
+  uvMetricHelp: document.getElementById("uvMetricHelp"),
+  confidenceMetric: document.getElementById("confidenceMetric"),
+  confidenceHelp: document.getElementById("confidenceHelp"),
   photoCount: document.getElementById("photoCount"),
   storageUse: document.getElementById("storageUse"),
   protectStorage: document.getElementById("protectStorage"),
@@ -46,7 +61,10 @@ const elements = {
   emptyLibrary: document.getElementById("emptyLibrary"),
   libraryNotice: document.getElementById("libraryNotice"),
   doiPill: document.getElementById("doiPill"),
-  doiText: document.getElementById("doiText")
+  doiText: document.getElementById("doiText"),
+  installApp: document.getElementById("installApp"),
+  installDialog: document.getElementById("installDialog"),
+  installInstructions: document.getElementById("installInstructions")
 };
 
 const humanContext = elements.humanCanvas.getContext("2d", { alpha: false, willReadFrequently: true });
@@ -85,6 +103,111 @@ function deterministicNoise(pixelIndex) {
   hash = Math.imul(hash, 2246822519) >>> 0;
   hash ^= hash >>> 13;
   return ((hash & 1023) / 1023) - 0.5;
+}
+
+const COLOUR_VISION_PROFILES = Object.freeze({
+  deuteranopia: Object.freeze({
+    label: "Deuteranopia",
+    shortLabel: "Deuteranopia",
+    description: "Approximate reduced red–green discrimination using a common accessibility-oriented simulation.",
+    matrix: Object.freeze([
+      0.367322, 0.860646, -0.227968,
+      0.280085, 0.672501, 0.047413,
+      -0.011820, 0.042940, 0.968881
+    ])
+  }),
+  protanopia: Object.freeze({
+    label: "Protanopia",
+    shortLabel: "Protanopia",
+    description: "Approximate reduced long-wavelength discrimination with muted reds and changed yellow–green relationships.",
+    matrix: Object.freeze([
+      0.152286, 1.052583, -0.204868,
+      0.114503, 0.786281, 0.099216,
+      -0.003882, -0.048116, 1.051998
+    ])
+  }),
+  tritanopia: Object.freeze({
+    label: "Tritanopia",
+    shortLabel: "Tritanopia",
+    description: "Approximate reduced blue–yellow discrimination using a compact accessibility-oriented transform.",
+    matrix: Object.freeze([
+      1.255528, -0.076749, -0.178779,
+      -0.078411, 0.930809, 0.147602,
+      0.004733, 0.691367, 0.303900
+    ])
+  })
+});
+
+function getActiveProfile() {
+  return OBSERVER_PROFILES[state.profileId] || OBSERVER_PROFILES[DEFAULT_PROFILE_ID];
+}
+
+function getColourVisionProfile() {
+  return COLOUR_VISION_PROFILES[state.cvdType] || COLOUR_VISION_PROFILES.deuteranopia;
+}
+
+function getCurrentViewLabel() {
+  if (state.viewMode === "uv-proxy") return "UV proxy";
+  if (state.viewMode === "colour-blind") return getColourVisionProfile().shortLabel;
+  return `${getActiveProfile().commonName} model`;
+}
+
+function smoothstep(edge0, edge1, value) {
+  if (edge1 <= edge0) return value >= edge1 ? 1 : 0;
+  const x = clamp((value - edge0) / (edge1 - edge0));
+  return x * x * (3 - 2 * x);
+}
+
+function quantileFromHistogram(histogram, quantile, total) {
+  const target = total * quantile;
+  let cumulative = 0;
+  for (let index = 0; index < histogram.length; index += 1) {
+    cumulative += histogram[index];
+    if (cumulative >= target) return index / (histogram.length - 1);
+  }
+  return 1;
+}
+
+function applyColourVisionTransform(red, green, blue, type) {
+  const matrix = getColourVisionProfile(type)?.matrix || getColourVisionProfile().matrix;
+  return [
+    clamp(matrix[0] * red + matrix[1] * green + matrix[2] * blue),
+    clamp(matrix[3] * red + matrix[4] * green + matrix[5] * blue),
+    clamp(matrix[6] * red + matrix[7] * green + matrix[8] * blue)
+  ];
+}
+
+function buildSignalBuffers(source, profile, mode) {
+  const pixelCount = source.length / 4;
+  const uvSignals = new Float32Array(pixelCount);
+  const blueSignals = new Float32Array(pixelCount);
+  const greenSignals = new Float32Array(pixelCount);
+  const histogram = new Uint32Array(256);
+
+  const uvMatrix = profile.receptorModel.uvProxy;
+  const blueMatrix = profile.receptorModel.blue;
+  const greenMatrix = profile.receptorModel.green;
+
+  for (let offset = 0, pixelIndex = 0; offset < source.length; offset += 4, pixelIndex += 1) {
+    const red = SRGB_TO_LINEAR[source[offset]];
+    const green = SRGB_TO_LINEAR[source[offset + 1]];
+    const blue = SRGB_TO_LINEAR[source[offset + 2]];
+
+    const uvBase = uvMatrix[0] * red + uvMatrix[1] * green + uvMatrix[2] * blue;
+    const uvProxy = clamp((uvBase + 0.045 * (1 - red) + 0.03 * Math.max(0, blue - green)) * mode.uvGain);
+    const blueResponse = clamp(blueMatrix[0] * red + blueMatrix[1] * green + blueMatrix[2] * blue) * mode.blueGain;
+    const greenResponse = clamp(greenMatrix[0] * red + greenMatrix[1] * green + greenMatrix[2] * blue) * mode.greenGain;
+
+    uvSignals[pixelIndex] = uvProxy;
+    blueSignals[pixelIndex] = blueResponse;
+    greenSignals[pixelIndex] = greenResponse;
+    histogram[Math.max(0, Math.min(255, Math.round(uvProxy * 255)))] += 1;
+  }
+
+  const uvLow = quantileFromHistogram(histogram, 0.04, pixelCount);
+  const uvHigh = Math.max(uvLow + 0.08, quantileFromHistogram(histogram, 0.97, pixelCount));
+
+  return { uvSignals, blueSignals, greenSignals, uvLow, uvHigh };
 }
 
 function formatBytes(bytes) {
@@ -143,7 +266,7 @@ function updateReveal(value) {
 }
 
 function updateModeUi() {
-  const profile = OBSERVER_PROFILES[state.profileId];
+  const profile = getActiveProfile();
   const mode = profile.modes[state.mode];
 
   elements.modeButtons.forEach((button) => {
@@ -152,8 +275,90 @@ function updateModeUi() {
     button.setAttribute("aria-pressed", String(active));
   });
 
-  elements.modeExplanation.innerHTML = `<strong>${mode.label}</strong><span>${mode.description}</span>`;
-  elements.observerMetric.textContent = profile.scientificName;
+  if (state.viewMode === "colour-blind") {
+    elements.modeExplanation.innerHTML = `<strong>${getColourVisionProfile().label}</strong><span>Accessibility-oriented approximation from the uploaded RGB photograph. The insect illumination and distance assumptions are not the main driver here.</span>`;
+  } else {
+    elements.modeExplanation.innerHTML = `<strong>${mode.label}</strong><span>${mode.description}</span>`;
+  }
+}
+
+function updateObserverUi() {
+  const profile = getActiveProfile();
+  elements.speciesSelect.value = profile.id;
+  elements.observerHelp.textContent = `${profile.commonName} · ${profile.distinction}`;
+
+  if (state.viewMode === "colour-blind") {
+    const humanProfile = getColourVisionProfile();
+    elements.observerMetric.textContent = `Human viewer · ${humanProfile.label}`;
+    elements.observerMetricHelp.textContent = humanProfile.description;
+  } else {
+    elements.observerMetric.textContent = profile.scientificName;
+    elements.observerMetricHelp.textContent = profile.summary;
+  }
+}
+
+function updateViewUi() {
+  const profile = getActiveProfile();
+  const humanProfile = getColourVisionProfile();
+  const isUvProxy = state.viewMode === "uv-proxy";
+  const isColourBlind = state.viewMode === "colour-blind";
+
+  elements.viewButtons.forEach((button) => {
+    const active = button.dataset.view === state.viewMode;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+
+  elements.humanVisionField.hidden = !isColourBlind;
+
+  if (isUvProxy) {
+    elements.translatedLabel.textContent = "Estimated UV proxy";
+    elements.beeCanvas.setAttribute(
+      "aria-label",
+      "Violet false-colour display of an ultraviolet proxy inferred from the visible photograph"
+    );
+    elements.viewHelp.textContent =
+      "No UV was photographed. Brighter violet indicates a higher RGB-derived UV hypothesis, not measured ultraviolet reflectance.";
+    elements.uvMetricTitle.textContent = "UV source";
+    elements.uvMetricValue.textContent = "RGB-derived hypothesis";
+    elements.uvMetricHelp.textContent =
+      "The phone image supplied no ultraviolet channel. This panel is a contrast-preserving educational proxy, not evidence of actual UV reflectance.";
+    elements.confidenceMetric.textContent = "Low";
+    elements.confidenceHelp.textContent =
+      "Useful for exploratory comparison only. Dark areas are not proof of UV absorption, and bright areas are not proof of UV reflection.";
+  } else if (isColourBlind) {
+    elements.translatedLabel.textContent = `${humanProfile.shortLabel} impression`;
+    elements.beeCanvas.setAttribute(
+      "aria-label",
+      `Approximate ${humanProfile.label.toLowerCase()} rendering of the uploaded photograph`
+    );
+    elements.viewHelp.textContent = `${humanProfile.description}`;
+    elements.uvMetricTitle.textContent = "Source";
+    elements.uvMetricValue.textContent = "Human RGB only";
+    elements.uvMetricHelp.textContent =
+      "This accessibility view is derived directly from the uploaded photograph rather than from the insect observer model.";
+    elements.confidenceMetric.textContent = "Interpretive";
+    elements.confidenceHelp.textContent =
+      "Colour-vision-difference simulations are approximations. They help communication and design checking but are not individual diagnoses.";
+  } else {
+    elements.translatedLabel.textContent = `${profile.commonName} model`;
+    elements.beeCanvas.setAttribute(
+      "aria-label",
+      `Human-visible false-colour simulation of visual information for ${profile.commonName}`
+    );
+    elements.viewHelp.textContent =
+      `Human-visible false-colour translation for ${profile.commonName}. ${profile.summary}`;
+    elements.uvMetricTitle.textContent = "UV information";
+    elements.uvMetricValue.textContent = "Proxy only";
+    elements.uvMetricHelp.textContent =
+      "Ordinary RGB photographs do not record ultraviolet reflectance, so the UV-like channel remains a labelled approximation.";
+    elements.confidenceMetric.textContent = "Illustrative";
+    elements.confidenceHelp.textContent =
+      `Observer-specific, scientifically informed, but not calibrated multispectral imaging. ${profile.distinction}`;
+  }
+
+  updateObserverUi();
+  updateModeUi();
 }
 
 function updateDistanceUi() {
@@ -262,7 +467,7 @@ async function loadPhotoBlob(blob, metadata = {}) {
 async function renderObserverView(expectedToken = state.renderToken) {
   if (!state.current || !state.decodedSource) return;
 
-  const profile = OBSERVER_PROFILES[state.profileId];
+  const profile = getActiveProfile();
   const mode = profile.modes[state.mode];
   const width = elements.humanCanvas.width;
   const height = elements.humanCanvas.height;
@@ -271,38 +476,45 @@ async function renderObserverView(expectedToken = state.renderToken) {
   const source = sourceImage.data;
   const output = outputImage.data;
 
-  const uvMatrix = profile.receptorModel.uvProxy;
-  const blueMatrix = profile.receptorModel.blue;
-  const greenMatrix = profile.receptorModel.green;
   const displayRed = profile.displayModel.redFrom;
   const displayGreen = profile.displayModel.greenFrom;
   const displayBlue = profile.displayModel.blueFrom;
   const isNight = state.mode === "night";
+  const signals = buildSignalBuffers(source, profile, mode);
 
   for (let offset = 0, pixelIndex = 0; offset < source.length; offset += 4, pixelIndex += 1) {
     const red = SRGB_TO_LINEAR[source[offset]];
     const green = SRGB_TO_LINEAR[source[offset + 1]];
     const blue = SRGB_TO_LINEAR[source[offset + 2]];
 
-    const uvBase = uvMatrix[0] * red + uvMatrix[1] * green + uvMatrix[2] * blue;
-    const uvProxy = clamp(uvBase + 0.065 * (1 - red)) * mode.uvGain;
-    const blueResponse = clamp(blueMatrix[0] * red + blueMatrix[1] * green + blueMatrix[2] * blue) * mode.blueGain;
-    const greenResponse = clamp(greenMatrix[0] * red + greenMatrix[1] * green + greenMatrix[2] * blue) * mode.greenGain;
+    const uvProxy = signals.uvSignals[pixelIndex];
+    const blueResponse = signals.blueSignals[pixelIndex];
+    const greenResponse = signals.greenSignals[pixelIndex];
+    const uvNormalized = smoothstep(signals.uvLow, signals.uvHigh, uvProxy);
+    const uvDisplay = clamp(0.45 * uvProxy + 0.55 * Math.pow(uvNormalized, 0.84));
     const noise = deterministicNoise(pixelIndex) * mode.noise;
 
     let mappedRed;
     let mappedGreen;
     let mappedBlue;
 
-    if (isNight) {
-      const lowLightSignal = clamp((0.10 * uvProxy + 0.18 * blueResponse + 0.72 * greenResponse) * mode.exposure + noise);
-      mappedRed = lowLightSignal * 0.20;
-      mappedGreen = lowLightSignal * 0.54;
-      mappedBlue = lowLightSignal * 0.43;
+    if (state.viewMode === "colour-blind") {
+      [mappedRed, mappedGreen, mappedBlue] = applyColourVisionTransform(red, green, blue, state.cvdType);
+    } else if (state.viewMode === "uv-proxy") {
+      const floor = state.mode === "night" ? 0.03 : state.mode === "overcast" ? 0.06 : 0.08;
+      const proxySignal = clamp(floor + Math.pow(uvNormalized, 0.88) * (0.94 - floor) + noise * 0.18);
+      mappedRed = clamp(0.06 + proxySignal * 0.58);
+      mappedGreen = clamp(0.03 + proxySignal * 0.18);
+      mappedBlue = clamp(0.12 + proxySignal * 0.84);
+    } else if (isNight) {
+      const lowLightSignal = clamp((0.16 * uvDisplay + 0.24 * blueResponse + 0.60 * greenResponse) * mode.exposure + noise);
+      mappedRed = lowLightSignal * 0.24;
+      mappedGreen = lowLightSignal * 0.56;
+      mappedBlue = lowLightSignal * 0.45;
     } else {
-      mappedRed = displayRed[0] * uvProxy + displayRed[1] * blueResponse + displayRed[2] * greenResponse;
-      mappedGreen = displayGreen[0] * uvProxy + displayGreen[1] * blueResponse + displayGreen[2] * greenResponse;
-      mappedBlue = displayBlue[0] * uvProxy + displayBlue[1] * blueResponse + displayBlue[2] * greenResponse;
+      mappedRed = displayRed[0] * uvDisplay + displayRed[1] * blueResponse + displayRed[2] * greenResponse;
+      mappedGreen = displayGreen[0] * uvDisplay + displayGreen[1] * blueResponse + displayGreen[2] * greenResponse;
+      mappedBlue = displayBlue[0] * uvDisplay + displayBlue[1] * blueResponse + displayBlue[2] * greenResponse;
 
       const luminance = 0.24 * mappedRed + 0.56 * mappedGreen + 0.20 * mappedBlue;
       mappedRed = luminance + (mappedRed - luminance) * mode.chroma;
@@ -326,11 +538,13 @@ async function renderObserverView(expectedToken = state.renderToken) {
 
   const spatial = profile.spatialModel;
   const distanceFactor = Math.pow(state.distanceCm / spatial.referenceDistanceCm, spatial.distanceExponent);
-  const blur = Math.min(8, spatial.baseBlurPx * distanceFactor * mode.blurMultiplier);
+  const blur = state.viewMode === "colour-blind"
+    ? 0
+    : Math.min(8, spatial.baseBlurPx * distanceFactor * mode.blurMultiplier);
 
   beeContext.clearRect(0, 0, width, height);
   beeContext.save();
-  beeContext.filter = `blur(${blur.toFixed(2)}px)`;
+  beeContext.filter = blur > 0 ? `blur(${blur.toFixed(2)}px)` : "none";
   beeContext.drawImage(workCanvas, 0, 0);
   beeContext.restore();
 }
@@ -343,7 +557,7 @@ function scheduleRerender() {
     setStageLoading(true, "Updating model…");
     await renderObserverView();
     setStageLoading(false);
-    setStatus("Model updated.", "ready");
+    setStatus(`${getCurrentViewLabel()} updated.`, "ready");
   }, 80);
 }
 
@@ -780,7 +994,8 @@ function downloadComparison() {
   context.fillStyle = "rgba(3,7,12,0.72)";
   context.fillRect(14, 14, labelSize * 6.6, labelSize * 1.65);
   context.fillStyle = "#eef8f7";
-  context.fillText("Bee model", 24, 22);
+  const translatedName = getCurrentViewLabel();
+  context.fillText(translatedName, 24, 22);
 
   const humanLabelWidth = labelSize * 6.7;
   context.fillStyle = "rgba(3,7,12,0.72)";
@@ -794,10 +1009,116 @@ function downloadComparison() {
     const anchor = document.createElement("a");
     const baseName = state.current.name.replace(/\.[^.]+$/, "").replace(/[^a-z0-9-_]+/gi, "-").replace(/^-|-$/g, "") || "umwelt-lens";
     anchor.href = url;
-    anchor.download = `${baseName}-${state.mode}-bee-comparison.jpg`;
+    anchor.download = `${baseName}-${state.mode}-${state.viewMode}-${getCurrentViewLabel().toLowerCase().replace(/[^a-z0-9]+/g, "-")}-comparison.jpg`;
     anchor.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
   }, "image/jpeg", 0.92);
+}
+
+
+function isStandaloneDisplay() {
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
+function showInstallInstructions() {
+  const userAgent = navigator.userAgent || "";
+  const isAppleMobile = /iphone|ipad|ipod/i.test(userAgent);
+  const isAndroid = /android/i.test(userAgent);
+
+  if (isAppleMobile) {
+    elements.installInstructions.innerHTML = `
+      <p>In Safari, tap <strong>Share</strong>, then choose <strong>Add to Home Screen</strong>.</p>
+      <ol>
+        <li>Open this page in Safari.</li>
+        <li>Tap the Share icon.</li>
+        <li>Scroll to “Add to Home Screen”, then confirm.</li>
+      </ol>
+    `;
+  } else if (isAndroid) {
+    elements.installInstructions.innerHTML = `
+      <p>Open the browser menu and choose <strong>Install app</strong> or <strong>Add to Home screen</strong>.</p>
+      <p>If no install command is shown yet, reload once after the page has finished caching.</p>
+    `;
+  } else {
+    elements.installInstructions.innerHTML = `
+      <p>Use the install icon in your browser’s address bar, or open the browser menu and choose <strong>Install Umwelt Lens</strong>.</p>
+      <p>The web version remains fully usable when installation is unavailable.</p>
+    `;
+  }
+
+  if (typeof elements.installDialog.showModal === "function") {
+    elements.installDialog.showModal();
+  } else {
+    elements.installDialog.setAttribute("open", "");
+  }
+}
+
+async function requestInstall() {
+  if (isStandaloneDisplay()) {
+    setStatus("Umwelt Lens is already running as an installed app.", "ready");
+    return;
+  }
+
+  if (!state.installPrompt) {
+    showInstallInstructions();
+    return;
+  }
+
+  const promptEvent = state.installPrompt;
+  state.installPrompt = null;
+  await promptEvent.prompt();
+  const choice = await promptEvent.userChoice;
+
+  if (choice.outcome === "accepted") {
+    elements.installApp.hidden = true;
+    setStatus("Umwelt Lens was added to this device.", "ready");
+  } else {
+    setStatus("Installation was cancelled. The browser version remains available.", "ready");
+  }
+}
+
+function initialiseInstallExperience() {
+  if (isStandaloneDisplay()) {
+    elements.installApp.hidden = true;
+  }
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    state.installPrompt = event;
+    elements.installApp.hidden = false;
+    elements.installApp.classList.add("is-ready");
+  });
+
+  window.addEventListener("appinstalled", () => {
+    state.installPrompt = null;
+    elements.installApp.hidden = true;
+    setStatus("Umwelt Lens is installed and remains available offline.", "ready");
+  });
+
+  elements.installApp.addEventListener("click", requestInstall);
+}
+
+function populateObserverOptions() {
+  const options = Object.values(OBSERVER_PROFILES).map((profile) => {
+    const option = document.createElement("option");
+    option.value = profile.id;
+    option.textContent = `${profile.commonName} · ${profile.scientificName}`;
+    return option;
+  });
+  elements.speciesSelect.innerHTML = "";
+  options.forEach((option) => elements.speciesSelect.appendChild(option));
+  elements.speciesSelect.value = state.profileId;
+}
+
+function populateHumanVisionOptions() {
+  elements.humanVisionSelect.innerHTML = "";
+  Object.entries(COLOUR_VISION_PROFILES).forEach(([id, profile]) => {
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = profile.label;
+    elements.humanVisionSelect.appendChild(option);
+  });
+  elements.humanVisionSelect.value = state.cvdType;
 }
 
 function bindEvents() {
@@ -823,6 +1144,20 @@ function bindEvents() {
     processUploadedFile(event.dataTransfer?.files?.[0]);
   });
 
+  elements.viewButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      state.viewMode = button.dataset.view;
+      updateViewUi();
+      scheduleRerender();
+    });
+  });
+
+  elements.humanVisionSelect.addEventListener("change", () => {
+    state.cvdType = elements.humanVisionSelect.value;
+    updateViewUi();
+    scheduleRerender();
+  });
+
   elements.modeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       state.mode = button.dataset.mode;
@@ -833,7 +1168,8 @@ function bindEvents() {
 
   elements.speciesSelect.addEventListener("change", () => {
     state.profileId = elements.speciesSelect.value;
-    updateModeUi();
+    updateObserverUi();
+    updateViewUi();
     scheduleRerender();
   });
 
@@ -873,10 +1209,14 @@ function registerServiceWorker() {
 
 async function initialise() {
   configureDoi();
+  populateObserverOptions();
+  populateHumanVisionOptions();
   bindEvents();
   updateReveal(state.reveal);
-  updateModeUi();
+  updateObserverUi();
+  updateViewUi();
   updateDistanceUi();
+  initialiseInstallExperience();
   registerServiceWorker();
   await Promise.allSettled([initialiseStorage(), loadSample()]);
 }

@@ -4,8 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#05070d">
-  <title>Umwelt Lens · Bee Vision</title>
-  <meta name="description" content="Upload a photograph and compare human-visible colour with an educational model of Western honey bee vision under sun, overcast light, and night conditions.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Umwelt Lens">
+  <title>Umwelt Lens · Animal Vision</title>
+  <meta name="description" content="Upload a photograph and compare human-visible colour with educational models of insect vision, a clearly labelled UV proxy, and a colour-vision-difference impression.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -17,11 +25,16 @@
       <span class="brand-mark" aria-hidden="true">⬡</span>
       <span>Umwelt Lens</span>
     </a>
-    <nav aria-label="Page navigation">
-      <a href="#viewer">Viewer</a>
-      <a href="#library">Local library</a>
-      <a href="#method">Method</a>
-    </nav>
+    <div class="header-actions">
+      <nav aria-label="Page navigation">
+        <a href="#viewer">Viewer</a>
+        <a href="#library">Local library</a>
+        <a href="#method">Method</a>
+      </nav>
+      <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
+        <span aria-hidden="true">↓</span> Install app
+      </button>
+    </div>
   </header>
 
   <main>
@@ -30,14 +43,14 @@
         <p class="eyebrow">Animal vision · browser-local processing</p>
         <h1>See a familiar scene through another visual system.</h1>
         <p class="hero-copy">
-          Upload a photograph, move the comparison divider, and explore an educational model of
-          Western honey bee vision in sunlight, overcast conditions, and very low light.
+          Upload a photograph, move the comparison divider, and explore educational models of
+          multiple insect observers, a clearly labelled UV proxy, and a human colour-vision-difference impression.
         </p>
       </div>
       <div class="hero-facts" aria-label="Application characteristics">
         <div><strong>Local</strong><span>Photos stay on this device</span></div>
         <div><strong>100</strong><span>Compressed photos per browser</span></div>
-        <div><strong>Honest</strong><span>False-colour model, not literal perception</span></div>
+        <div><strong>6</strong><span>Observer profiles plus accessibility views</span></div>
       </div>
     </section>
 
@@ -49,10 +62,37 @@
         </div>
 
         <label class="field-label" for="speciesSelect">Observer</label>
-        <select id="speciesSelect" class="select-control">
-          <option value="apis-mellifera">Western honey bee · Apis mellifera</option>
-        </select>
-        <p class="field-help">The profile system is ready for additional insects and animals later.</p>
+        <select id="speciesSelect" class="select-control"></select>
+        <p class="field-help">Choose an educational insect observer. The same uploaded photo is translated through different visual assumptions.</p>
+        <p class="observer-note" id="observerHelp">Western honey bee · a classic UV-blue-green pollinator model.</p>
+
+        <fieldset class="view-fieldset">
+          <legend>Human-visible translation</legend>
+          <div class="view-buttons" role="group" aria-label="Translated view">
+            <button class="view-button is-active" type="button" data-view="observer" aria-pressed="true">
+              Observer view
+            </button>
+            <button class="view-button" type="button" data-view="uv-proxy" aria-pressed="false">
+              UV proxy
+            </button>
+            <button class="view-button" type="button" data-view="colour-blind" aria-pressed="false">
+              Colour-blind
+            </button>
+          </div>
+          <p class="view-help" id="viewHelp">
+            Translate the uploaded photograph into a human-visible rendering of the selected observer.
+          </p>
+        </fieldset>
+
+        <div class="conditional-field" id="humanVisionField" hidden>
+          <label class="field-label" for="humanVisionSelect">Colour-vision difference</label>
+          <select id="humanVisionSelect" class="select-control">
+            <option value="deuteranopia">Deuteranopia</option>
+            <option value="protanopia">Protanopia</option>
+            <option value="tritanopia">Tritanopia</option>
+          </select>
+          <p class="field-help">An accessibility-oriented approximation of how the uploaded photograph may appear under a common colour-vision difference.</p>
+        </div>
 
         <fieldset class="mode-fieldset">
           <legend>Illumination</legend>
@@ -104,7 +144,7 @@
       <section class="comparison-panel panel" aria-labelledby="comparison-title">
         <div class="comparison-header">
           <div>
-            <p class="eyebrow">Human ↔ bee comparison</p>
+            <p class="eyebrow">Human ↔ translated comparison</p>
             <h2 id="comparison-title">Move the divider</h2>
           </div>
           <div class="comparison-actions">
@@ -117,7 +157,7 @@
           <canvas id="humanCanvas" aria-label="Original human-visible photograph"></canvas>
           <canvas id="beeCanvas" aria-label="Human-visible false-colour simulation of bee visual information"></canvas>
           <div class="image-label label-human">Human RGB</div>
-          <div class="image-label label-bee">Bee model</div>
+          <div class="image-label label-bee" id="translatedLabel">Honey bee model</div>
           <input
             id="revealRange"
             class="reveal-range"
@@ -132,6 +172,7 @@
           </div>
           <div class="stage-loader" id="stageLoader">Preparing image…</div>
         </div>
+        <p class="touch-hint">Drag anywhere across the image to move the divider.</p>
 
         <div class="mode-explanation" id="modeExplanation">
           <strong>Sunny daylight</strong>
@@ -140,19 +181,19 @@
 
         <div class="model-metrics" aria-label="Current model status">
           <article>
-            <span>UV information</span>
-            <strong>Proxy only</strong>
-            <small>Ordinary RGB photographs do not record ultraviolet reflectance.</small>
+            <span id="uvMetricTitle">UV information</span>
+            <strong id="uvMetricValue">Proxy only</strong>
+            <small id="uvMetricHelp">Ordinary RGB photographs do not record ultraviolet reflectance.</small>
           </article>
           <article>
             <span>Observer</span>
             <strong id="observerMetric">Apis mellifera</strong>
-            <small>UV, blue and green receptor-inspired transformation.</small>
+            <small id="observerMetricHelp">UV, blue and green receptor-inspired transformation.</small>
           </article>
           <article>
             <span>Confidence</span>
-            <strong>Illustrative</strong>
-            <small>Scientifically informed, not calibrated multispectral imaging.</small>
+            <strong id="confidenceMetric">Illustrative</strong>
+            <small id="confidenceHelp">Scientifically informed, not calibrated multispectral imaging.</small>
           </article>
         </div>
       </section>
@@ -185,9 +226,9 @@
           <h2 id="method-title">A translation of visual information, not a bee’s inner experience.</h2>
         </div>
         <p>
-          Phone cameras record human-oriented red, green and blue channels. Honey bees use ultraviolet,
-          blue and green photoreceptors. Because ordinary photographs contain no measured UV channel,
-          this demo uses a clearly labelled proxy and returns the result as false colour that humans can view.
+          Phone cameras record human-oriented red, green and blue channels. Different insects organise visual information differently,
+          and many of them use ultraviolet sensitivities that an ordinary phone camera does not measure at all.
+          This demo therefore provides labelled educational translations, a cautious UV proxy, and a separate colour-vision-difference impression.
         </p>
       </div>
 
@@ -199,8 +240,8 @@
         </article>
         <article>
           <span class="step-number">02</span>
-          <h3>Estimate receptor signals</h3>
-          <p>RGB values are transformed into UV-proxy, blue and green receptor-inspired channels.</p>
+          <h3>Estimate observer signals</h3>
+          <p>RGB values are translated into observer-specific receptor-inspired channels or a human accessibility transform.</p>
         </article>
         <article>
           <span class="step-number">03</span>
@@ -237,6 +278,21 @@
     <span>Umwelt Lens · Public ecological education prototype</span>
     <span>Processing and photo storage remain in the visitor’s browser.</span>
   </footer>
+
+
+  <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
+    <form method="dialog">
+      <button class="dialog-close" type="submit" value="close" aria-label="Close install instructions">×</button>
+      <p class="eyebrow">Installable web app</p>
+      <h2 id="installDialogTitle">Keep Umwelt Lens on this device.</h2>
+      <div id="installInstructions" class="install-instructions">
+        <p>Use your browser’s install or “Add to Home Screen” command.</p>
+      </div>
+      <div class="dialog-actions">
+        <button class="primary-button" type="submit" value="close">Got it</button>
+      </div>
+    </form>
+  </dialog>
 
   <a class="doi-pill is-placeholder" id="doiPill" href="#" aria-label="Zenodo DOI placeholder">
     <b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span>

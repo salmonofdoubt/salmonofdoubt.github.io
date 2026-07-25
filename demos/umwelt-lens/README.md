@@ -48,3 +48,24 @@ The page deliberately reuses the existing shared support widget:
 - `demos/shared/demo-support.js`
 
 No framework, package manager, build step or remote image service is required.
+
+
+## Version 2 additions
+
+- Installable Progressive Web App manifest and app icons
+- Offline application-shell caching
+- In-app install control with iOS/Android/desktop guidance
+- Mobile-first viewer ordering and larger touch controls
+- Separate **UV proxy** view for visitors without UV photography
+
+The UV proxy is deliberately described as an RGB-derived hypothesis. It is not measured ultraviolet reflectance and must not be used as scientific evidence.
+
+
+## Version 3 additions
+
+- Improved UV proxy tonemapping so the view is less crushed into black
+- Six observer profiles (honey bee, bumblebee, butterfly, hoverfly, dragonfly, hawk moth)
+- Separate colour-vision-difference impression with deuteranopia, protanopia and tritanopia options
+- Better observer notes and clearer limitations in the UI
+
+All added observers remain educational translations rather than calibrated multispectral reconstructions.
