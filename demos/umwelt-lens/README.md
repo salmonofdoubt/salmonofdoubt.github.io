@@ -69,3 +69,12 @@ The UV proxy is deliberately described as an RGB-derived hypothesis. It is not m
 - Better observer notes and clearer limitations in the UI
 
 All added observers remain educational translations rather than calibrated multispectral reconstructions.
+
+
+## Version 4 additions
+
+- Child-friendlier simple top controls with five big quick-view buttons
+- Distance control hidden from the main interface
+- Local saving simplified to an automatic private-local note
+- Focused set of quick views: Bee, Dragonfly, Night moth, UV clue, Colour-blind
+- Service-worker cache bumped again to reduce stale localhost confusion

@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Umwelt Lens">
-  <title>Umwelt Lens · Animal Vision</title>
-  <meta name="description" content="Upload a photograph and compare human-visible colour with educational models of insect vision, a clearly labelled UV proxy, and a colour-vision-difference impression.">
+  <title>Umwelt Lens · Animal Vision Explorer</title>
+  <meta name="description" content="Upload a photograph and let children explore simple animal-vision views, a UV clue view and a colour-blind impression with a small number of big buttons.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png">
@@ -43,14 +43,14 @@
         <p class="eyebrow">Animal vision · browser-local processing</p>
         <h1>See a familiar scene through another visual system.</h1>
         <p class="hero-copy">
-          Upload a photograph, move the comparison divider, and explore educational models of
-          multiple insect observers, a clearly labelled UV proxy, and a human colour-vision-difference impression.
+          Upload a photograph, move the divider, and quickly explore how a bee, a dragonfly,
+          a night moth, a colour-blind person, or a UV clue view might interpret the same scene.
         </p>
       </div>
       <div class="hero-facts" aria-label="Application characteristics">
         <div><strong>Local</strong><span>Photos stay on this device</span></div>
         <div><strong>100</strong><span>Compressed photos per browser</span></div>
-        <div><strong>6</strong><span>Observer profiles plus accessibility views</span></div>
+        <div><strong>5</strong><span>Easy view buttons for children</span></div>
       </div>
     </section>
 
@@ -61,38 +61,45 @@
           <h2 id="viewer-title">Build the view</h2>
         </div>
 
-        <label class="field-label" for="speciesSelect">Observer</label>
-        <select id="speciesSelect" class="select-control"></select>
-        <p class="field-help">Choose an educational insect observer. The same uploaded photo is translated through different visual assumptions.</p>
-        <p class="observer-note" id="observerHelp">Western honey bee · a classic UV-blue-green pollinator model.</p>
-
-        <fieldset class="view-fieldset">
-          <legend>Human-visible translation</legend>
-          <div class="view-buttons" role="group" aria-label="Translated view">
-            <button class="view-button is-active" type="button" data-view="observer" aria-pressed="true">
-              Observer view
-            </button>
-            <button class="view-button" type="button" data-view="uv-proxy" aria-pressed="false">
-              UV proxy
-            </button>
-            <button class="view-button" type="button" data-view="colour-blind" aria-pressed="false">
-              Colour-blind
-            </button>
+        <div class="simple-picker" aria-labelledby="simple-picker-title">
+          <p class="field-label simple-picker-title" id="simple-picker-title">Pick a view</p>
+          <div class="quick-view-buttons" role="group" aria-label="Quick view">
+            <button class="quick-view-button is-active" type="button" data-quick-view="bee" aria-pressed="true">🐝 Bee</button>
+            <button class="quick-view-button" type="button" data-quick-view="dragonfly" aria-pressed="false">🪽 Dragonfly</button>
+            <button class="quick-view-button" type="button" data-quick-view="night-moth" aria-pressed="false">🌙 Night moth</button>
+            <button class="quick-view-button" type="button" data-quick-view="uv-proxy" aria-pressed="false">🔵 UV clue</button>
+            <button class="quick-view-button" type="button" data-quick-view="colour-blind" aria-pressed="false">👁 Colour-blind</button>
           </div>
-          <p class="view-help" id="viewHelp">
-            Translate the uploaded photograph into a human-visible rendering of the selected observer.
-          </p>
-        </fieldset>
-
-        <div class="conditional-field" id="humanVisionField" hidden>
-          <label class="field-label" for="humanVisionSelect">Colour-vision difference</label>
-          <select id="humanVisionSelect" class="select-control">
-            <option value="deuteranopia">Deuteranopia</option>
-            <option value="protanopia">Protanopia</option>
-            <option value="tritanopia">Tritanopia</option>
-          </select>
-          <p class="field-help">An accessibility-oriented approximation of how the uploaded photograph may appear under a common colour-vision difference.</p>
+          <p class="observer-note" id="observerHelp">Honey bee view: a pollinator model using UV-, blue- and green-inspired signals.</p>
         </div>
+
+        <div class="visually-hidden-controls" aria-hidden="true">
+          <label class="field-label" for="speciesSelect">Observer</label>
+          <select id="speciesSelect" class="select-control"></select>
+          <p class="field-help">Choose an educational insect observer. The same uploaded photo is translated through different visual assumptions.</p>
+
+          <fieldset class="view-fieldset">
+            <legend>Human-visible translation</legend>
+            <div class="view-buttons" role="group" aria-label="Translated view">
+              <button class="view-button is-active" type="button" data-view="observer" aria-pressed="true">Observer view</button>
+              <button class="view-button" type="button" data-view="uv-proxy" aria-pressed="false">UV proxy</button>
+              <button class="view-button" type="button" data-view="colour-blind" aria-pressed="false">Colour-blind</button>
+            </div>
+            <p class="view-help" id="viewHelp">Translate the uploaded photograph into a human-visible rendering of the selected observer.</p>
+          </fieldset>
+
+          <div class="conditional-field" id="humanVisionField" hidden>
+            <label class="field-label" for="humanVisionSelect">Colour-vision difference</label>
+            <select id="humanVisionSelect" class="select-control">
+              <option value="deuteranopia">Deuteranopia</option>
+              <option value="protanopia">Protanopia</option>
+              <option value="tritanopia">Tritanopia</option>
+            </select>
+            <p class="field-help">An accessibility-oriented approximation of how the uploaded photograph may appear under a common colour-vision difference.</p>
+          </div>
+        </div>
+
+        <div class="simple-help" id="simpleHelp">Tap one big button to swap views.</div>
 
         <fieldset class="mode-fieldset">
           <legend>Illumination</legend>
@@ -109,12 +116,14 @@
           </div>
         </fieldset>
 
-        <label class="field-label range-label" for="distanceRange">
-          Viewing distance
-          <output id="distanceOutput" for="distanceRange">50 cm</output>
-        </label>
-        <input id="distanceRange" type="range" min="10" max="200" step="10" value="50">
-        <p class="field-help">Greater distance reduces modelled spatial detail.</p>
+        <div class="visually-hidden-controls" aria-hidden="true">
+          <label class="field-label range-label" for="distanceRange">
+            Viewing distance
+            <output id="distanceOutput" for="distanceRange">50 cm</output>
+          </label>
+          <input id="distanceRange" type="range" min="10" max="200" step="10" value="50">
+          <p class="field-help">Greater distance reduces modelled spatial detail.</p>
+        </div>
 
         <div class="upload-zone" id="uploadZone">
           <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
@@ -127,13 +136,14 @@
           </div>
         </div>
 
-        <label class="cache-choice" for="saveLocally">
-          <input id="saveLocally" type="checkbox" checked>
-          <span>
-            <strong>Keep uploads in the local library</strong>
-            <small>Compressed copies are stored only in this browser, up to 100 photos.</small>
-          </span>
-        </label>
+        <div class="simple-note">
+          <strong>Private and local</strong>
+          <span>Photos stay on this device and can be kept in the local library automatically.</span>
+          <label class="cache-choice cache-choice-hidden" for="saveLocally">
+            <input id="saveLocally" type="checkbox" checked>
+            <span><strong>Keep uploads in the local library</strong><small>Compressed copies are stored only in this browser, up to 100 photos.</small></span>
+          </label>
+        </div>
 
         <div class="status-box" aria-live="polite">
           <span class="status-dot" aria-hidden="true"></span>
@@ -144,7 +154,7 @@
       <section class="comparison-panel panel" aria-labelledby="comparison-title">
         <div class="comparison-header">
           <div>
-            <p class="eyebrow">Human ↔ translated comparison</p>
+            <p class="eyebrow">Compare the same scene</p>
             <h2 id="comparison-title">Move the divider</h2>
           </div>
           <div class="comparison-actions">
@@ -172,7 +182,7 @@
           </div>
           <div class="stage-loader" id="stageLoader">Preparing image…</div>
         </div>
-        <p class="touch-hint">Drag anywhere across the image to move the divider.</p>
+        <p class="touch-hint">Drag anywhere across the picture to reveal more or less of the translated view.</p>
 
         <div class="mode-explanation" id="modeExplanation">
           <strong>Sunny daylight</strong>

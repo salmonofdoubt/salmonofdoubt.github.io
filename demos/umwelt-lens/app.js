@@ -23,10 +23,12 @@ const state = {
 const elements = {
   speciesSelect: document.getElementById("speciesSelect"),
   observerHelp: document.getElementById("observerHelp"),
+  quickViewButtons: [...document.querySelectorAll("[data-quick-view]")],
   viewButtons: [...document.querySelectorAll("[data-view]")],
   viewHelp: document.getElementById("viewHelp"),
   humanVisionField: document.getElementById("humanVisionField"),
   humanVisionSelect: document.getElementById("humanVisionSelect"),
+  simpleHelp: document.getElementById("simpleHelp"),
   modeButtons: [...document.querySelectorAll("[data-mode]")],
   distanceRange: document.getElementById("distanceRange"),
   distanceOutput: document.getElementById("distanceOutput"),
@@ -150,6 +152,23 @@ function getCurrentViewLabel() {
   if (state.viewMode === "uv-proxy") return "UV proxy";
   if (state.viewMode === "colour-blind") return getColourVisionProfile().shortLabel;
   return `${getActiveProfile().commonName} model`;
+}
+
+function getQuickViewKey() {
+  if (state.viewMode === "uv-proxy") return "uv-proxy";
+  if (state.viewMode === "colour-blind") return "colour-blind";
+  if (state.profileId === "sympetrum") return "dragonfly";
+  if (state.profileId === "deilephila-elpenor") return "night-moth";
+  return "bee";
+}
+
+function updateQuickViewButtons() {
+  const activeKey = getQuickViewKey();
+  elements.quickViewButtons.forEach((button) => {
+    const active = button.dataset.quickView === activeKey;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
 }
 
 function smoothstep(edge0, edge1, value) {
@@ -285,7 +304,7 @@ function updateModeUi() {
 function updateObserverUi() {
   const profile = getActiveProfile();
   elements.speciesSelect.value = profile.id;
-  elements.observerHelp.textContent = `${profile.commonName} · ${profile.distinction}`;
+  elements.observerHelp.textContent = `${profile.commonName} view: ${profile.distinction}`;
 
   if (state.viewMode === "colour-blind") {
     const humanProfile = getColourVisionProfile();
@@ -302,6 +321,34 @@ function updateViewUi() {
   const humanProfile = getColourVisionProfile();
   const isUvProxy = state.viewMode === "uv-proxy";
   const isColourBlind = state.viewMode === "colour-blind";
+
+  elements.quickViewButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const key = button.dataset.quickView;
+      if (key === "bee") {
+        state.profileId = "apis-mellifera";
+        state.viewMode = "observer";
+      } else if (key === "dragonfly") {
+        state.profileId = "sympetrum";
+        state.viewMode = "observer";
+      } else if (key === "night-moth") {
+        state.profileId = "deilephila-elpenor";
+        state.viewMode = "observer";
+      } else if (key === "uv-proxy") {
+        if (state.profileId === "deilephila-elpenor" || state.profileId === "sympetrum" || state.profileId === "apis-mellifera") {
+          // preserve the currently selected animal profile behind the UV clue.
+        } else {
+          state.profileId = "apis-mellifera";
+        }
+        state.viewMode = "uv-proxy";
+      } else if (key === "colour-blind") {
+        state.cvdType = "deuteranopia";
+        state.viewMode = "colour-blind";
+      }
+      updateViewUi();
+      scheduleRerender();
+    });
+  });
 
   elements.viewButtons.forEach((button) => {
     const active = button.dataset.view === state.viewMode;
@@ -357,7 +404,18 @@ function updateViewUi() {
       `Observer-specific, scientifically informed, but not calibrated multispectral imaging. ${profile.distinction}`;
   }
 
+  if (elements.simpleHelp) {
+    if (state.viewMode === "uv-proxy") {
+      elements.simpleHelp.textContent = "UV clue highlights likely ultraviolet structure, but it is still an AI-style clue rather than a measured UV photograph.";
+    } else if (state.viewMode === "colour-blind") {
+      elements.simpleHelp.textContent = "Colour-blind shows a simple red-green colour-vision-difference impression.";
+    } else {
+      elements.simpleHelp.textContent = `Now showing ${getActiveProfile().commonName.toLowerCase()} view.`;
+    }
+  }
+
   updateObserverUi();
+  updateQuickViewButtons();
   updateModeUi();
 }
 
@@ -1142,6 +1200,34 @@ function bindEvents() {
 
   elements.uploadZone.addEventListener("drop", (event) => {
     processUploadedFile(event.dataTransfer?.files?.[0]);
+  });
+
+  elements.quickViewButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const key = button.dataset.quickView;
+      if (key === "bee") {
+        state.profileId = "apis-mellifera";
+        state.viewMode = "observer";
+      } else if (key === "dragonfly") {
+        state.profileId = "sympetrum";
+        state.viewMode = "observer";
+      } else if (key === "night-moth") {
+        state.profileId = "deilephila-elpenor";
+        state.viewMode = "observer";
+      } else if (key === "uv-proxy") {
+        if (state.profileId === "deilephila-elpenor" || state.profileId === "sympetrum" || state.profileId === "apis-mellifera") {
+          // preserve the currently selected animal profile behind the UV clue.
+        } else {
+          state.profileId = "apis-mellifera";
+        }
+        state.viewMode = "uv-proxy";
+      } else if (key === "colour-blind") {
+        state.cvdType = "deuteranopia";
+        state.viewMode = "colour-blind";
+      }
+      updateViewUi();
+      scheduleRerender();
+    });
   });
 
   elements.viewButtons.forEach((button) => {
