@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#05070d">
+  <title>Umwelt Lens · Bee Vision</title>
+  <meta name="description" content="Upload a photograph and compare human-visible colour with an educational model of Western honey bee vision under sun, overcast light, and night conditions.">
+  <link rel="stylesheet" href="../shared/demo-support.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="demo-back" href="../">← Demos</a>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Umwelt Lens home">
+      <span class="brand-mark" aria-hidden="true">⬡</span>
+      <span>Umwelt Lens</span>
+    </a>
+    <nav aria-label="Page navigation">
+      <a href="#viewer">Viewer</a>
+      <a href="#library">Local library</a>
+      <a href="#method">Method</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Animal vision · browser-local processing</p>
+        <h1>See a familiar scene through another visual system.</h1>
+        <p class="hero-copy">
+          Upload a photograph, move the comparison divider, and explore an educational model of
+          Western honey bee vision in sunlight, overcast conditions, and very low light.
+        </p>
+      </div>
+      <div class="hero-facts" aria-label="Application characteristics">
+        <div><strong>Local</strong><span>Photos stay on this device</span></div>
+        <div><strong>100</strong><span>Compressed photos per browser</span></div>
+        <div><strong>Honest</strong><span>False-colour model, not literal perception</span></div>
+      </div>
+    </section>
+
+    <section class="viewer-grid" id="viewer" aria-labelledby="viewer-title">
+      <aside class="control-panel panel">
+        <div class="section-heading">
+          <p class="eyebrow">Observer settings</p>
+          <h2 id="viewer-title">Build the view</h2>
+        </div>
+
+        <label class="field-label" for="speciesSelect">Observer</label>
+        <select id="speciesSelect" class="select-control">
+          <option value="apis-mellifera">Western honey bee · Apis mellifera</option>
+        </select>
+        <p class="field-help">The profile system is ready for additional insects and animals later.</p>
+
+        <fieldset class="mode-fieldset">
+          <legend>Illumination</legend>
+          <div class="mode-buttons" role="group" aria-label="Illumination mode">
+            <button class="mode-button is-active" type="button" data-mode="sunny" aria-pressed="true">
+              <span aria-hidden="true">☀</span> Sun
+            </button>
+            <button class="mode-button" type="button" data-mode="overcast" aria-pressed="false">
+              <span aria-hidden="true">☁</span> Overcast
+            </button>
+            <button class="mode-button" type="button" data-mode="night" aria-pressed="false">
+              <span aria-hidden="true">◐</span> Night
+            </button>
+          </div>
+        </fieldset>
+
+        <label class="field-label range-label" for="distanceRange">
+          Viewing distance
+          <output id="distanceOutput" for="distanceRange">50 cm</output>
+        </label>
+        <input id="distanceRange" type="range" min="10" max="200" step="10" value="50">
+        <p class="field-help">Greater distance reduces modelled spatial detail.</p>
+
+        <div class="upload-zone" id="uploadZone">
+          <input id="photoInput" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+          <div class="upload-icon" aria-hidden="true">＋</div>
+          <strong>Drop a photograph here</strong>
+          <span>JPEG, PNG, WebP or AVIF · up to 30 MB</span>
+          <div class="upload-actions">
+            <button class="primary-button" type="button" id="choosePhoto">Choose photo</button>
+            <button class="secondary-button" type="button" id="loadSample">Use sample</button>
+          </div>
+        </div>
+
+        <label class="cache-choice" for="saveLocally">
+          <input id="saveLocally" type="checkbox" checked>
+          <span>
+            <strong>Keep uploads in the local library</strong>
+            <small>Compressed copies are stored only in this browser, up to 100 photos.</small>
+          </span>
+        </label>
+
+        <div class="status-box" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="statusText">Loading the sample scene…</span>
+        </div>
+      </aside>
+
+      <section class="comparison-panel panel" aria-labelledby="comparison-title">
+        <div class="comparison-header">
+          <div>
+            <p class="eyebrow">Human ↔ bee comparison</p>
+            <h2 id="comparison-title">Move the divider</h2>
+          </div>
+          <div class="comparison-actions">
+            <button class="secondary-button compact" type="button" id="centreDivider">Centre</button>
+            <button class="secondary-button compact" type="button" id="downloadComparison" disabled>Save image</button>
+          </div>
+        </div>
+
+        <div class="comparison-stage is-loading" id="comparisonStage" style="--reveal: 50%; aspect-ratio: 16 / 10;">
+          <canvas id="humanCanvas" aria-label="Original human-visible photograph"></canvas>
+          <canvas id="beeCanvas" aria-label="Human-visible false-colour simulation of bee visual information"></canvas>
+          <div class="image-label label-human">Human RGB</div>
+          <div class="image-label label-bee">Bee model</div>
+          <input
+            id="revealRange"
+            class="reveal-range"
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            aria-label="Reveal bee vision comparison"
+          >
+          <div class="divider" id="divider" aria-hidden="true">
+            <span>↔</span>
+          </div>
+          <div class="stage-loader" id="stageLoader">Preparing image…</div>
+        </div>
+
+        <div class="mode-explanation" id="modeExplanation">
+          <strong>Sunny daylight</strong>
+          <span>Strongest colour signal and the highest modelled spatial detail.</span>
+        </div>
+
+        <div class="model-metrics" aria-label="Current model status">
+          <article>
+            <span>UV information</span>
+            <strong>Proxy only</strong>
+            <small>Ordinary RGB photographs do not record ultraviolet reflectance.</small>
+          </article>
+          <article>
+            <span>Observer</span>
+            <strong id="observerMetric">Apis mellifera</strong>
+            <small>UV, blue and green receptor-inspired transformation.</small>
+          </article>
+          <article>
+            <span>Confidence</span>
+            <strong>Illustrative</strong>
+            <small>Scientifically informed, not calibrated multispectral imaging.</small>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section class="library-panel panel" id="library" aria-labelledby="library-title">
+      <div class="library-header">
+        <div>
+          <p class="eyebrow">Private browser storage</p>
+          <h2 id="library-title">Local photo library</h2>
+          <p>Uploads remain on the current device. They are not sent to GitHub, Zenodo, or any server.</p>
+        </div>
+        <div class="library-controls">
+          <div class="library-count"><strong id="photoCount">0 / 100</strong><span id="storageUse">Checking storage…</span></div>
+          <button class="secondary-button compact" type="button" id="protectStorage">Protect library</button>
+          <button class="danger-button compact" type="button" id="clearLibrary" disabled>Clear all</button>
+        </div>
+      </div>
+      <div class="library-notice" id="libraryNotice" aria-live="polite">
+        Browser storage can be cleared by the visitor. Private browsing may retain images only temporarily.
+      </div>
+      <div class="photo-grid" id="photoGrid"></div>
+      <div class="empty-library" id="emptyLibrary">No stored photographs yet. New uploads will appear here.</div>
+    </section>
+
+    <section class="method-panel panel" id="method" aria-labelledby="method-title">
+      <div class="method-intro">
+        <div>
+          <p class="eyebrow">Model boundary</p>
+          <h2 id="method-title">A translation of visual information, not a bee’s inner experience.</h2>
+        </div>
+        <p>
+          Phone cameras record human-oriented red, green and blue channels. Honey bees use ultraviolet,
+          blue and green photoreceptors. Because ordinary photographs contain no measured UV channel,
+          this demo uses a clearly labelled proxy and returns the result as false colour that humans can view.
+        </p>
+      </div>
+
+      <div class="method-grid">
+        <article>
+          <span class="step-number">01</span>
+          <h3>Linearise RGB</h3>
+          <p>The uploaded camera image is converted from display RGB into approximate linear light values.</p>
+        </article>
+        <article>
+          <span class="step-number">02</span>
+          <h3>Estimate receptor signals</h3>
+          <p>RGB values are transformed into UV-proxy, blue and green receptor-inspired channels.</p>
+        </article>
+        <article>
+          <span class="step-number">03</span>
+          <h3>Apply illumination</h3>
+          <p>Signal strength, contrast, chromatic information and noise change between sun, cloud and night.</p>
+        </article>
+        <article>
+          <span class="step-number">04</span>
+          <h3>Reduce spatial detail</h3>
+          <p>Viewing distance and illumination alter the visible detail before the image is mapped back for humans.</p>
+        </article>
+      </div>
+
+      <details class="references">
+        <summary>Scientific basis and references</summary>
+        <div>
+          <p>
+            The implementation is an educational approximation influenced by research on bee receptor sensitivity,
+            colour constancy, spatial acuity, low-light activity and quantitative colour-pattern analysis.
+          </p>
+          <ul>
+            <li>Arnold, S. E. J., &amp; Chittka, L. (2012). <i>Journal of Experimental Biology, 215</i>, 2173–2180. <a href="https://doi.org/10.1242/jeb.065565">https://doi.org/10.1242/jeb.065565</a></li>
+            <li>Kelber, A., et al. (2006). <i>Behavioral Ecology, 17</i>, 63–72. <a href="https://doi.org/10.1093/beheco/arj001">https://doi.org/10.1093/beheco/arj001</a></li>
+            <li>Rigosi, E., Wiederman, S. D., &amp; O’Carroll, D. C. (2017). <i>Scientific Reports, 7</i>, 45972. <a href="https://doi.org/10.1038/srep45972">https://doi.org/10.1038/srep45972</a></li>
+            <li>Skorupski, P., &amp; Chittka, L. (2010). <i>PLOS ONE, 5</i>, e12049. <a href="https://doi.org/10.1371/journal.pone.0012049">https://doi.org/10.1371/journal.pone.0012049</a></li>
+            <li>van den Berg, C. P., et al. (2020). <i>Methods in Ecology and Evolution, 11</i>, 316–332. <a href="https://doi.org/10.1111/2041-210X.13328">https://doi.org/10.1111/2041-210X.13328</a></li>
+          </ul>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Umwelt Lens · Public ecological education prototype</span>
+    <span>Processing and photo storage remain in the visitor’s browser.</span>
+  </footer>
+
+  <a class="doi-pill is-placeholder" id="doiPill" href="#" aria-label="Zenodo DOI placeholder">
+    <b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span>
+  </a>
+
+  <script src="../shared/demo-support.js"></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
