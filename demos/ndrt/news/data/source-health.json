@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-07-24T07:43:11.696377+00:00",
-  "latest_generated_at": "2026-07-24T07:42:58.655728+00:00",
+  "generated_at": "2026-07-25T07:29:06.959190+00:00",
+  "latest_generated_at": "2026-07-25T07:28:56.918068+00:00",
   "total_items": 95,
   "total_sources": 30,
   "sources_active": 18,
   "sources_checked_no_current_items": 11,
   "sources_failed": 1,
   "items_by_section": {
-    "waterbody-evidence-alerts": 26,
+    "waterbody-evidence-alerts": 27,
     "ireland-catchment-practice": 17,
-    "grants-opportunities": 16,
+    "grants-opportunities": 15,
     "research-papers": 36
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 19,
-    "research_use_type": 53
+    "opportunity_fit": 17,
+    "research_use_type": 54
   },
-  "archive_snapshots": 53,
+  "archive_snapshots": 54,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +33,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 12,
-      "elapsed_ms": 53,
+      "elapsed_ms": 52,
       "error": null
     },
     {
@@ -48,7 +48,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 53,
-      "elapsed_ms": 69,
+      "elapsed_ms": 73,
       "error": null
     },
     {
@@ -63,7 +63,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 76,
-      "elapsed_ms": 78,
+      "elapsed_ms": 85,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 73,
-      "elapsed_ms": 80,
+      "current_item_count": 3,
+      "discovered_hint_count": 74,
+      "elapsed_ms": 82,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 10,
       "discovered_hint_count": 100,
-      "elapsed_ms": 92,
+      "elapsed_ms": 97,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 69,
-      "elapsed_ms": 79,
+      "current_item_count": 2,
+      "discovered_hint_count": 64,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 63,
-      "elapsed_ms": 75,
+      "discovered_hint_count": 64,
+      "elapsed_ms": 77,
       "error": null
     },
     {
@@ -137,8 +137,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 47,
-      "elapsed_ms": 64,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 76,
+      "discovered_hint_count": 77,
+      "elapsed_ms": 85,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 87,
-      "elapsed_ms": 834,
+      "elapsed_ms": 616,
       "error": null
     },
     {
@@ -180,10 +180,10 @@
       "url": "https://birdwatchireland.ie/news/",
       "host": "birdwatchireland.ie",
       "status": "checked-no-current-items",
-      "http_status": 200,
+      "http_status": 307,
       "current_item_count": 0,
-      "discovered_hint_count": 340,
-      "elapsed_ms": 1131,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 57,
       "error": null
     },
     {
@@ -197,8 +197,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 66,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 76,
+      "discovered_hint_count": 74,
+      "elapsed_ms": 83,
       "error": null
     },
     {
@@ -228,7 +228,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 50,
-      "elapsed_ms": 66,
+      "elapsed_ms": 71,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 23,
-      "elapsed_ms": 56,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -287,8 +287,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 5,
-      "discovered_hint_count": 52,
-      "elapsed_ms": 65,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 65,
+      "elapsed_ms": 71,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1745,
+      "elapsed_ms": 1256,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 116,
-      "elapsed_ms": 1076,
+      "elapsed_ms": 869,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 227,
-      "elapsed_ms": 473,
+      "elapsed_ms": 342,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 997,
+      "elapsed_ms": 961,
       "error": null
     },
     {
@@ -376,9 +376,9 @@
       "host": "www.npws.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 420,
-      "elapsed_ms": 1222,
+      "current_item_count": 1,
+      "discovered_hint_count": 421,
+      "elapsed_ms": 1029,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 697,
+      "elapsed_ms": 546,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 35,
-      "elapsed_ms": 1285,
+      "elapsed_ms": 999,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 43,
+      "elapsed_ms": 150,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 95,
-      "elapsed_ms": 73,
+      "elapsed_ms": 86,
       "error": null
     },
     {
@@ -451,9 +451,9 @@
       "host": "theriverstrust.org",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 12,
+      "current_item_count": 13,
       "discovered_hint_count": 96,
-      "elapsed_ms": 811,
+      "elapsed_ms": 865,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 110,
-      "elapsed_ms": 1260,
+      "elapsed_ms": 825,
       "error": null
     }
   ]
