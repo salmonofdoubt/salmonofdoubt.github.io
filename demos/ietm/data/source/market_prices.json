@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-25T01:13:24+00:00",
+    "generated_at": "2026-07-25T04:32:34+00:00",
     "mode": "system-market-price-layer",
     "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
     "sources": [
@@ -12,23 +12,25 @@
   "market_prices": [
     {
       "label": "Electricity system price",
-      "value": "n/a",
-      "numeric_value": null,
+      "value": "232.99 \u20ac/MWh",
+      "numeric_value": 232.99,
       "unit": "\u20ac/MWh",
-      "equivalent_value": null,
-      "numeric_value_c_per_kwh": null,
-      "status": "not-parsed",
+      "equivalent_value": "23.30 c/kWh",
+      "numeric_value_c_per_kwh": 23.3,
+      "status": "mapped",
       "period": "2026-07-25",
-      "freshness": "unavailable in current run",
-      "source": "EirGrid Smart Grid Dashboard / SEMOpx market data",
-      "source_url": "https://www.semopx.com/market-data/market-results",
-      "detail": "Electricity system price layer is installed, but no latest Smart Grid Dashboard value was parsed in this run. Do not substitute SEAI household prices here.",
-      "errors": [
-        "https://www.smartgriddashboard.com/roi/market-pricing/: latest imbalance settlement price not parsed or implausible: None",
-        "https://www.smartgriddashboard.com/demand/market-pricing/: latest imbalance settlement price not parsed or implausible: None",
-        "https://www.smartgriddashboard.com/kWh/market-pricing/: latest imbalance settlement price not parsed or implausible: None",
-        "https://www.smartgriddashboard.com/market-pricing/: latest imbalance settlement price not parsed or implausible: None"
-      ]
+      "freshness": "latest settlement period visible on Smart Grid Dashboard",
+      "source": "EirGrid Smart Grid Dashboard imbalance settlement price",
+      "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
+      "detail": "Latest electricity imbalance settlement price. This is a system/market signal, not a household electricity tariff.",
+      "stats": {
+        "latest_eur_per_mwh": 232.99,
+        "latest_c_per_kwh_equivalent": 23.3,
+        "dashboard_date": "25/07/2026",
+        "latest_line": "232.99",
+        "daily_min_eur_per_mwh": 151.25,
+        "daily_max_eur_per_mwh": 232.99
+      }
     },
     {
       "label": "Gas balancing price",
