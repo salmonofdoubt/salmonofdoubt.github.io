@@ -1,5 +1,6 @@
-const CACHE_PREFIX = "umwelt-lens-shell";
-const CACHE_VERSION = "v7";
+const CACHE_PREFIX = "envlens-shell";
+const LEGACY_CACHE_PREFIX = "umwelt-lens-shell";
+const CACHE_VERSION = "v8";
 const CACHE_NAME = `${CACHE_PREFIX}-${CACHE_VERSION}`;
 
 const APP_SHELL = [
@@ -32,7 +33,7 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((keys) =>
       Promise.all(
         keys
-          .filter((key) => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
+          .filter((key) => (key.startsWith(CACHE_PREFIX) || key.startsWith(LEGACY_CACHE_PREFIX)) && key !== CACHE_NAME)
           .map((key) => caches.delete(key))
       )
     )

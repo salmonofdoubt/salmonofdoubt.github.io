@@ -1,7 +1,8 @@
 import { SITE_CONFIG } from "./site-config.js";
 import { DEFAULT_PROFILE_ID, OBSERVER_PROFILES } from "./profiles.js";
 
-const DB_NAME = "umwelt-lens-local-library";
+const DB_NAME = "envlens-local-library";
+const LEGACY_DB_NAME = "umwelt-lens-local-library";
 const DB_VERSION = 1;
 const STORE_NAME = "photos";
 
@@ -789,14 +790,14 @@ async function loadSample() {
   });
 }
 
-function openDatabase() {
+function openDatabase(databaseName = DB_NAME) {
   return new Promise((resolve, reject) => {
     if (!("indexedDB" in window)) {
       reject(new Error("IndexedDB is not available in this browser."));
       return;
     }
 
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
+    const request = indexedDB.open(databaseName, DB_VERSION);
 
     request.onupgradeneeded = () => {
       const database = request.result;
@@ -809,6 +810,55 @@ function openDatabase() {
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error || new Error("Local storage could not be opened."));
   });
+}
+
+async function legacyDatabaseExists() {
+  if (!indexedDB.databases) return false;
+
+  try {
+    const databases = await indexedDB.databases();
+    return databases.some((database) => database.name === LEGACY_DB_NAME);
+  } catch {
+    return false;
+  }
+}
+
+function readAllFromDatabase(database) {
+  return new Promise((resolve, reject) => {
+    if (!database.objectStoreNames.contains(STORE_NAME)) {
+      resolve([]);
+      return;
+    }
+
+    const transaction = database.transaction(STORE_NAME, "readonly");
+    const request = transaction.objectStore(STORE_NAME).getAll();
+
+    transaction.oncomplete = () => resolve(request.result || []);
+    transaction.onerror = () => reject(transaction.error || request.error || new Error("Legacy library could not be read."));
+    transaction.onabort = () => reject(transaction.error || new Error("Legacy library migration was aborted."));
+  });
+}
+
+async function migrateLegacyLibrary() {
+  if (!(await legacyDatabaseExists())) return 0;
+
+  const legacyDatabase = await openDatabase(LEGACY_DB_NAME);
+  try {
+    const records = await readAllFromDatabase(legacyDatabase);
+    if (records.length === 0) return 0;
+
+    const existing = await getAllPhotos();
+    const existingIds = new Set(existing.map((record) => record.id));
+    const recordsToMove = records.filter((record) => !existingIds.has(record.id));
+
+    for (const record of recordsToMove) {
+      await putPhoto(record);
+    }
+
+    return recordsToMove.length;
+  } finally {
+    legacyDatabase.close();
+  }
 }
 
 function databaseRequest(mode, operation) {
@@ -984,8 +1034,13 @@ async function protectStorage() {
 async function initialiseStorage() {
   try {
     state.db = await openDatabase();
+    const migratedPhotos = await migrateLegacyLibrary();
     await trimLibrary();
     await refreshLibrary();
+
+    if (migratedPhotos > 0) {
+      elements.libraryNotice.textContent = `${migratedPhotos} photo${migratedPhotos === 1 ? "" : "s"} moved into the renamed EnvLens library.`;
+    }
 
     if (navigator.storage?.persisted) {
       const persisted = await navigator.storage.persisted();
@@ -1049,7 +1104,7 @@ function downloadComparison() {
     if (!blob) return;
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
-    const baseName = state.current.name.replace(/\.[^.]+$/, "").replace(/[^a-z0-9-_]+/gi, "-").replace(/^-|-$/g, "") || "umwelt-lens";
+    const baseName = state.current.name.replace(/\.[^.]+$/, "").replace(/[^a-z0-9-_]+/gi, "-").replace(/^-|-$/g, "") || "envlens";
     anchor.href = url;
     anchor.download = `${baseName}-${state.mode}-${state.viewMode}-${getCurrentViewLabel().toLowerCase().replace(/[^a-z0-9]+/g, "-")}-comparison.jpg`;
     anchor.click();
@@ -1083,7 +1138,7 @@ function showInstallInstructions() {
     `;
   } else {
     elements.installInstructions.innerHTML = `
-      <p>Use the install icon in your browser’s address bar, or open the browser menu and choose <strong>Install Umwelt Lens</strong>.</p>
+      <p>Use the install icon in your browser’s address bar, or open the browser menu and choose <strong>Install EnvLens</strong>.</p>
       <p>The web version remains fully usable when installation is unavailable.</p>
     `;
   }
@@ -1097,7 +1152,7 @@ function showInstallInstructions() {
 
 async function requestInstall() {
   if (isStandaloneDisplay()) {
-    setStatus("Umwelt Lens is already running as an installed app.", "ready");
+    setStatus("EnvLens is already running as an installed app.", "ready");
     return;
   }
 
@@ -1113,7 +1168,7 @@ async function requestInstall() {
 
   if (choice.outcome === "accepted") {
     elements.installApp.hidden = true;
-    setStatus("Umwelt Lens was added to this device.", "ready");
+    setStatus("EnvLens was added to this device.", "ready");
   } else {
     setStatus("Installation was cancelled. The browser version remains available.", "ready");
   }
@@ -1134,7 +1189,7 @@ function initialiseInstallExperience() {
   window.addEventListener("appinstalled", () => {
     state.installPrompt = null;
     elements.installApp.hidden = true;
-    setStatus("Umwelt Lens is installed and remains available offline.", "ready");
+    setStatus("EnvLens is installed and remains available offline.", "ready");
   });
 
   elements.installApp.addEventListener("click", requestInstall);
@@ -1257,7 +1312,7 @@ function bindEvents() {
   elements.protectStorage.addEventListener("click", protectStorage);
 
   elements.clearLibrary.addEventListener("click", async () => {
-    const confirmed = window.confirm("Remove every photograph from this browser’s Umwelt Lens library?");
+    const confirmed = window.confirm("Remove every photograph from this browser’s EnvLens library?");
     if (!confirmed) return;
     await clearPhotos();
     await refreshLibrary();

@@ -1,4 +1,4 @@
-# Umwelt Lens
+# EnvLens
 
 A static, browser-only GitHub Pages demo for comparing an uploaded RGB photograph with a human-visible false-colour model of Western honey bee visual information.
 
@@ -106,3 +106,8 @@ All added observers remain educational translations rather than calibrated multi
 - Comparison and control panels are guaranteed full width on phones.
 - Added a header back button and removed fixed bottom controls from the mobile content area.
 - Removed duplicate event-handler registration that accumulated on each view change.
+
+
+## Rename compatibility
+
+EnvLens uses a new application and cache name. On browsers that expose the IndexedDB database list, existing photos from the former local library are copied into the EnvLens library automatically. The old database is left untouched as a safety copy.
