@@ -578,7 +578,7 @@ button:disabled {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
 
-.quick-view-button:nth-child(5) {
+.quick-view-button.is-wide {
   grid-column: 1 / -1;
 }
 
@@ -1201,6 +1201,10 @@ button:disabled {
     grid-column: span 3;
   }
 
+  .quick-view-button.is-wide {
+    grid-column: span 3;
+  }
+
   .observer-note {
     margin-top: 0.5rem;
     padding: 0.58rem 0.62rem;
@@ -1286,7 +1290,7 @@ button:disabled {
     grid-column: auto;
   }
 
-  .quick-view-button:nth-child(5) {
+  .quick-view-button.is-wide {
     grid-column: 1 / -1;
   }
 }

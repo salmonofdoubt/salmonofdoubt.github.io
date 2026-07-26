@@ -59,6 +59,16 @@ function createProfile(config) {
     summary: config.summary,
     distinction: config.distinction,
     activityClass: config.activityClass,
+    modelFamily: config.modelFamily || "insect",
+    dichromatModel: config.dichromatModel
+      ? Object.freeze({
+          short: Object.freeze(config.dichromatModel.short),
+          long: Object.freeze(config.dichromatModel.long),
+          displayRed: Object.freeze(config.dichromatModel.displayRed),
+          displayGreen: Object.freeze(config.dichromatModel.displayGreen),
+          displayBlue: Object.freeze(config.dichromatModel.displayBlue)
+        })
+      : null,
     receptorModel: Object.freeze({
       uvProxy: Object.freeze(config.receptorModel.uvProxy),
       blue: Object.freeze(config.receptorModel.blue),
@@ -426,7 +436,140 @@ export const OBSERVER_PROFILES = Object.freeze({
         noise: 0.045
       }
     }
+  }),
+  "canis-familiaris": createProfile({
+    id: "canis-familiaris",
+    commonName: "Dog",
+    scientificName: "Canis familiaris",
+    summary: "A blue-and-yellow dichromatic approximation with reduced red–green separation and lower spatial detail than human vision.",
+    distinction: "Reds and greens become much harder to distinguish, while blue–yellow differences remain more useful; fine detail is softened.",
+    activityClass: "Day and low-light adapted",
+    modelFamily: "mammal-dichromat",
+    dichromatModel: {
+      short: [0.04, 0.16, 0.80],
+      long: [0.46, 0.49, 0.05],
+      displayRed: [0.05, 0.90, 0.05],
+      displayGreen: [0.14, 0.76, 0.10],
+      displayBlue: [0.86, 0.08, 0.06]
+    },
+    receptorModel: {
+      uvProxy: [0.00, 0.00, 1.00],
+      blue: [0.04, 0.16, 0.80],
+      green: [0.46, 0.49, 0.05]
+    },
+    displayModel: {
+      redFrom: [0.00, 0.05, 0.95],
+      greenFrom: [0.00, 0.16, 0.84],
+      blueFrom: [0.00, 0.90, 0.10]
+    },
+    spatialModel: {
+      baseBlurPx: 0.92,
+      distanceExponent: 0.76,
+      referenceDistanceCm: 50
+    },
+    modes: {
+      sunny: {
+        description: "Blue–yellow colour differences remain visible, red and green separate poorly, and fine detail is softened.",
+        exposure: 1.00,
+        contrast: 0.98,
+        chroma: 0.58,
+        uvGain: 0.00,
+        blueGain: 1.00,
+        greenGain: 1.00,
+        blurMultiplier: 1.00,
+        noise: 0.004
+      },
+      overcast: {
+        description: "A slightly flatter, less saturated dog-view approximation under diffuse light.",
+        exposure: 0.90,
+        contrast: 0.91,
+        chroma: 0.44,
+        uvGain: 0.00,
+        blueGain: 0.98,
+        greenGain: 0.98,
+        blurMultiplier: 1.08,
+        noise: 0.010
+      },
+      night: {
+        description: "Colour falls away, but the scene remains more usable than a human daylight-style view because dogs are comparatively effective in dim light.",
+        exposure: 0.50,
+        contrast: 0.82,
+        chroma: 0.14,
+        uvGain: 0.00,
+        blueGain: 0.70,
+        greenGain: 0.78,
+        blurMultiplier: 1.22,
+        noise: 0.040
+      }
+    }
+  }),
+  "felis-catus": createProfile({
+    id: "felis-catus",
+    commonName: "Cat",
+    scientificName: "Felis catus",
+    summary: "A muted blue–green dichromatic approximation with strong low-light emphasis, limited red discrimination and softened fine detail.",
+    distinction: "Colours are subdued, red detail is weak, and the night view stays brighter than the dog or human-style views.",
+    activityClass: "Crepuscular and low-light adapted",
+    modelFamily: "mammal-dichromat",
+    dichromatModel: {
+      short: [0.05, 0.20, 0.75],
+      long: [0.18, 0.72, 0.10],
+      displayRed: [0.10, 0.66, 0.24],
+      displayGreen: [0.18, 0.72, 0.10],
+      displayBlue: [0.76, 0.16, 0.08]
+    },
+    receptorModel: {
+      uvProxy: [0.00, 0.00, 1.00],
+      blue: [0.05, 0.20, 0.75],
+      green: [0.18, 0.72, 0.10]
+    },
+    displayModel: {
+      redFrom: [0.00, 0.10, 0.90],
+      greenFrom: [0.00, 0.22, 0.78],
+      blueFrom: [0.00, 0.84, 0.16]
+    },
+    spatialModel: {
+      baseBlurPx: 1.02,
+      distanceExponent: 0.74,
+      referenceDistanceCm: 50
+    },
+    modes: {
+      sunny: {
+        description: "A muted blue–green view with weak red separation and less fine detail than human vision.",
+        exposure: 0.98,
+        contrast: 0.96,
+        chroma: 0.48,
+        uvGain: 0.00,
+        blueGain: 1.00,
+        greenGain: 1.00,
+        blurMultiplier: 1.00,
+        noise: 0.004
+      },
+      overcast: {
+        description: "Colours flatten further, while broad shapes and movement-relevant contrast remain clear.",
+        exposure: 0.92,
+        contrast: 0.91,
+        chroma: 0.34,
+        uvGain: 0.00,
+        blueGain: 0.99,
+        greenGain: 0.99,
+        blurMultiplier: 1.06,
+        noise: 0.008
+      },
+      night: {
+        description: "A brighter, mostly achromatic low-light impression reflecting the cat eye’s strong rod and tapetal adaptations.",
+        exposure: 0.68,
+        contrast: 0.88,
+        chroma: 0.09,
+        uvGain: 0.00,
+        blueGain: 0.78,
+        greenGain: 0.84,
+        blurMultiplier: 1.16,
+        noise: 0.026
+      }
+    }
   })
+
 });
 
 export const DEFAULT_PROFILE_ID = "apis-mellifera";

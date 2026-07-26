@@ -1,6 +1,6 @@
 const CACHE_PREFIX = "envlens-shell";
 const LEGACY_CACHE_PREFIX = "umwelt-lens-shell";
-const CACHE_VERSION = "v8";
+const CACHE_VERSION = "v9";
 const CACHE_NAME = `${CACHE_PREFIX}-${CACHE_VERSION}`;
 
 const APP_SHELL = [

@@ -111,3 +111,14 @@ All added observers remain educational translations rather than calibrated multi
 ## Rename compatibility
 
 EnvLens uses a new application and cache name. On browsers that expose the IndexedDB database list, existing photos from the former local library are copied into the EnvLens library automatically. The old database is left untouched as a safety copy.
+
+
+## Version 9 additions
+
+- Dog view based on canine dichromacy, reduced red–green separation and softened acuity
+- Cat view with muted blue–green colour, weak red separation and stronger low-light emphasis
+- Seven mobile quick views arranged as a compact 3 + 2 + 2 grid
+- Mammal views bypass the insect UV proxy and use dedicated dichromatic transforms
+- Service-worker cache bumped to v9
+
+Dog and cat outputs remain educational approximations mapped back onto a human RGB screen. They do not reproduce an animal's subjective experience.

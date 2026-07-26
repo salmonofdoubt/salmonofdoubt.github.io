@@ -161,6 +161,8 @@ function getQuickViewKey() {
   if (state.viewMode === "colour-blind") return "colour-blind";
   if (state.profileId === "sympetrum") return "dragonfly";
   if (state.profileId === "deilephila-elpenor") return "night-moth";
+  if (state.profileId === "canis-familiaris") return "dog";
+  if (state.profileId === "felis-catus") return "cat";
   return "bee";
 }
 
@@ -196,6 +198,28 @@ function applyColourVisionTransform(red, green, blue, type) {
     clamp(matrix[3] * red + matrix[4] * green + matrix[5] * blue),
     clamp(matrix[6] * red + matrix[7] * green + matrix[8] * blue)
   ];
+}
+
+function applyMammalDichromatTransform(red, green, blue, profile, mode, noise) {
+  const model = profile.dichromatModel;
+  const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+  const shortSignal = clamp(model.short[0] * red + model.short[1] * green + model.short[2] * blue);
+  const longSignal = clamp(model.long[0] * red + model.long[1] * green + model.long[2] * blue);
+
+  let mappedRed = model.displayRed[0] * shortSignal + model.displayRed[1] * longSignal + model.displayRed[2] * luminance;
+  let mappedGreen = model.displayGreen[0] * shortSignal + model.displayGreen[1] * longSignal + model.displayGreen[2] * luminance;
+  let mappedBlue = model.displayBlue[0] * shortSignal + model.displayBlue[1] * longSignal + model.displayBlue[2] * luminance;
+
+  const mappedLuminance = 0.24 * mappedRed + 0.58 * mappedGreen + 0.18 * mappedBlue;
+  mappedRed = mappedLuminance + (mappedRed - mappedLuminance) * mode.chroma;
+  mappedGreen = mappedLuminance + (mappedGreen - mappedLuminance) * mode.chroma;
+  mappedBlue = mappedLuminance + (mappedBlue - mappedLuminance) * mode.chroma;
+
+  mappedRed = ((mappedRed - 0.5) * mode.contrast + 0.5) * mode.exposure + noise;
+  mappedGreen = ((mappedGreen - 0.5) * mode.contrast + 0.5) * mode.exposure + noise;
+  mappedBlue = ((mappedBlue - 0.5) * mode.contrast + 0.5) * mode.exposure + noise;
+
+  return [clamp(mappedRed), clamp(mappedGreen), clamp(mappedBlue)];
 }
 
 function buildSignalBuffers(source, profile, mode) {
@@ -297,7 +321,7 @@ function updateModeUi() {
   });
 
   if (state.viewMode === "colour-blind") {
-    elements.modeExplanation.innerHTML = `<strong>${getColourVisionProfile().label}</strong><span>Accessibility-oriented approximation from the uploaded RGB photograph. The insect illumination and distance assumptions are not the main driver here.</span>`;
+    elements.modeExplanation.innerHTML = `<strong>${getColourVisionProfile().label}</strong><span>Accessibility-oriented approximation from the uploaded RGB photograph. Animal-light and distance assumptions are not the main driver here.</span>`;
   } else {
     elements.modeExplanation.innerHTML = `<strong>${mode.label}</strong><span>${mode.description}</span>`;
   }
@@ -362,20 +386,23 @@ function updateViewUi() {
     elements.confidenceHelp.textContent =
       "Colour-vision-difference simulations are approximations. They help communication and design checking but are not individual diagnoses.";
   } else {
+    const isMammal = profile.modelFamily === "mammal-dichromat";
     elements.translatedLabel.textContent = `${profile.commonName} model`;
     elements.beeCanvas.setAttribute(
       "aria-label",
-      `Human-visible false-colour simulation of visual information for ${profile.commonName}`
+      `Human-visible educational simulation of visual information for ${profile.commonName}`
     );
     elements.viewHelp.textContent =
-      `Human-visible false-colour translation for ${profile.commonName}. ${profile.summary}`;
-    elements.uvMetricTitle.textContent = "UV information";
-    elements.uvMetricValue.textContent = "Proxy only";
-    elements.uvMetricHelp.textContent =
-      "Ordinary RGB photographs do not record ultraviolet reflectance, so the UV-like channel remains a labelled approximation.";
+      `Human-visible educational translation for ${profile.commonName}. ${profile.summary}`;
+    elements.uvMetricTitle.textContent = isMammal ? "Colour system" : "UV information";
+    elements.uvMetricValue.textContent = isMammal ? "Dichromatic model" : "Proxy only";
+    elements.uvMetricHelp.textContent = isMammal
+      ? "This view compresses human RGB into two broad colour channels and then maps them back onto a human screen."
+      : "Ordinary RGB photographs do not record ultraviolet reflectance, so the UV-like channel remains a labelled approximation.";
     elements.confidenceMetric.textContent = "Illustrative";
-    elements.confidenceHelp.textContent =
-      `Observer-specific, scientifically informed, but not calibrated multispectral imaging. ${profile.distinction}`;
+    elements.confidenceHelp.textContent = isMammal
+      ? `Research-informed approximation rather than a literal inner experience. ${profile.distinction}`
+      : `Observer-specific, scientifically informed, but not calibrated multispectral imaging. ${profile.distinction}`;
   }
 
   if (elements.simpleHelp) {
@@ -515,18 +542,19 @@ async function renderObserverView(expectedToken = state.renderToken) {
   const displayGreen = profile.displayModel.greenFrom;
   const displayBlue = profile.displayModel.blueFrom;
   const isNight = state.mode === "night";
-  const signals = buildSignalBuffers(source, profile, mode);
+  const isMammalDichromat = profile.modelFamily === "mammal-dichromat";
+  const signals = isMammalDichromat ? null : buildSignalBuffers(source, profile, mode);
 
   for (let offset = 0, pixelIndex = 0; offset < source.length; offset += 4, pixelIndex += 1) {
     const red = SRGB_TO_LINEAR[source[offset]];
     const green = SRGB_TO_LINEAR[source[offset + 1]];
     const blue = SRGB_TO_LINEAR[source[offset + 2]];
 
-    const uvProxy = signals.uvSignals[pixelIndex];
-    const blueResponse = signals.blueSignals[pixelIndex];
-    const greenResponse = signals.greenSignals[pixelIndex];
-    const uvNormalized = smoothstep(signals.uvLow, signals.uvHigh, uvProxy);
-    const uvDisplay = clamp(0.45 * uvProxy + 0.55 * Math.pow(uvNormalized, 0.84));
+    const uvProxy = signals ? signals.uvSignals[pixelIndex] : 0;
+    const blueResponse = signals ? signals.blueSignals[pixelIndex] : 0;
+    const greenResponse = signals ? signals.greenSignals[pixelIndex] : 0;
+    const uvNormalized = signals ? smoothstep(signals.uvLow, signals.uvHigh, uvProxy) : 0;
+    const uvDisplay = signals ? clamp(0.45 * uvProxy + 0.55 * Math.pow(uvNormalized, 0.84)) : 0;
     const noise = deterministicNoise(pixelIndex) * mode.noise;
 
     let mappedRed;
@@ -541,6 +569,15 @@ async function renderObserverView(expectedToken = state.renderToken) {
       mappedRed = clamp(0.06 + proxySignal * 0.58);
       mappedGreen = clamp(0.03 + proxySignal * 0.18);
       mappedBlue = clamp(0.12 + proxySignal * 0.84);
+    } else if (isMammalDichromat) {
+      [mappedRed, mappedGreen, mappedBlue] = applyMammalDichromatTransform(
+        red,
+        green,
+        blue,
+        profile,
+        mode,
+        noise
+      );
     } else if (isNight) {
       const lowLightSignal = clamp((0.16 * uvDisplay + 0.24 * blueResponse + 0.60 * greenResponse) * mode.exposure + noise);
       mappedRed = lowLightSignal * 0.24;
@@ -1252,6 +1289,12 @@ function bindEvents() {
         state.viewMode = "observer";
       } else if (key === "night-moth") {
         state.profileId = "deilephila-elpenor";
+        state.viewMode = "observer";
+      } else if (key === "dog") {
+        state.profileId = "canis-familiaris";
+        state.viewMode = "observer";
+      } else if (key === "cat") {
+        state.profileId = "felis-catus";
         state.viewMode = "observer";
       } else if (key === "uv-proxy") {
         if (state.profileId === "deilephila-elpenor" || state.profileId === "sympetrum" || state.profileId === "apis-mellifera") {
