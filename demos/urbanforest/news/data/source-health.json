@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-07-26T07:56:07.165879+00:00",
-  "latest_generated_at": "2026-07-26T07:56:07.054795+00:00",
+  "generated_at": "2026-07-27T08:56:48.258675+00:00",
+  "latest_generated_at": "2026-07-27T08:56:48.153244+00:00",
   "total_items": 92,
   "total_sources": 20,
-  "sources_active": 11,
-  "sources_checked_no_current_items": 9,
+  "sources_active": 12,
+  "sources_checked_no_current_items": 8,
   "sources_failed": 0,
   "items_by_section": {
-    "ireland-urban-forest-practice": 30,
-    "funding-opportunities": 19,
+    "ireland-urban-forest-practice": 29,
+    "funding-opportunities": 20,
     "research-evidence": 38,
     "design-maintenance-risk": 3,
     "transferable-urbanforest-practice": 2
@@ -17,10 +17,10 @@
     "urbanforest_relevance": 92,
     "benefit_categories": 92,
     "local_relevance": 92,
-    "opportunity_fit": 28,
-    "research_use_type": 47
+    "opportunity_fit": 29,
+    "research_use_type": 49
   },
-  "archive_snapshots": 66,
+  "archive_snapshots": 67,
   "sources": [
     {
       "id": "gn-street-tree-survival-drought",
@@ -41,8 +41,8 @@
       "scope": "funding ireland trees biodiversity",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-urbanforest-maintenance-ireland-uk",
@@ -64,7 +64,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20garden%20OR%20school%20trees%20OR%20school%20biodiversity%20OR%20outdoor%20classroom%29%20%28grant%20OR%20funding%20OR%20scheme%20OR%20award%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 7
+      "current_item_count": 9
     },
     {
       "id": "gn-ireland-urban-forest",
@@ -75,7 +75,7 @@
       "url": "https://news.google.com/rss/search?q=%28%22urban%20forest%22%20OR%20%22pocket%20forest%22%20OR%20%22tiny%20forest%22%20OR%20Miyawaki%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 12
+      "current_item_count": 11
     },
     {
       "id": "gn-dublin-urban-greening",
@@ -130,7 +130,7 @@
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20call%20OR%20award%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20greening%20OR%20nature-based%20solutions%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 5
     },
     {
       "id": "heritage-council-funding",
@@ -141,7 +141,7 @@
       "url": "https://www.heritagecouncil.ie/funding",
       "host": "www.heritagecouncil.ie",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 1
     },
     {
       "id": "community-foundation-ireland-grants",
