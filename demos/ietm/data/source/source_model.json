@@ -1,18 +1,18 @@
 {
   "meta": {
-    "generated_at": "2026-07-30T22:29:57+00:00",
+    "generated_at": "2026-07-30T23:34:39+00:00",
     "mode": "source-model-and-freshness-gate",
     "project": "Ireland Energy Transition Monitor"
   },
   "electricity": {
     "role": "core_grid_values",
     "selected_source": "Smart Grid Dashboard API",
-    "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=30-Jul-2026&dateTo=30-Jul-2026&areas=demandactual",
+    "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=31-Jul-2026&dateTo=31-Jul-2026&areas=demandactual",
     "status": "live",
     "values_are_live": true,
     "values_are_current": true,
-    "latest_interval": "2026-07-30T22:15:00+00:00",
-    "age_hours": 0.25,
+    "latest_interval": "2026-07-30T23:30:00+00:00",
+    "age_hours": 0.08,
     "public_badge": "Live grid source",
     "public_title": "Current grid pulse",
     "public_caveat": "Core grid values are treated as live because the mapped source interval is within two hours.",
