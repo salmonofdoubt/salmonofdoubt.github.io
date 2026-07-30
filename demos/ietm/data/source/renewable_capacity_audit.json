@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30T15:25:07+00:00",
+  "generated_at": "2026-07-30T17:04:58+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
@@ -53,22 +53,22 @@
     },
     "esb_dso_contracted_renewable": {
       "status": "loaded",
-      "url": "https://media.esbnetworks.ie/media/docs/default-source/publications/dso-contracted-renewable-generators-q1-2026.pdf?sfvrsn=5e5bb2f4_20",
-      "bytes": 582513,
+      "url": "https://media.esbnetworks.ie/media/docs/default-source/publications/dso-contracted-renewable-generators_doc-300424-hxx_accessible_q2_2026.pdf?sfvrsn=5e5bb2f4_26",
+      "bytes": 519950,
       "pages": 7,
       "source_key": "esb_dso_contracted_renewable",
-      "records": 295,
-      "source_correct_as_of": "01/04/2026",
+      "records": 262,
+      "source_correct_as_of": "01/07/2026",
       "parser": "pdf_line_window_v1"
     },
     "esb_dso_energised_renewable": {
       "status": "loaded",
-      "url": "https://media.esbnetworks.ie/media/docs/default-source/publications/dso-energised-renewable-generators-q1-2026.pdf?sfvrsn=19be3394_23",
-      "bytes": 1228874,
-      "pages": 22,
+      "url": "https://media.esbnetworks.ie/media/docs/default-source/publications/dso-energised-renewable-generators_doc-300424-hxv_accessible_q2_2026.pdf?sfvrsn=19be3394_29",
+      "bytes": 1150350,
+      "pages": 19,
       "source_key": "esb_dso_energised_renewable",
-      "records": 536,
-      "source_correct_as_of": "01/04/2026",
+      "records": 584,
+      "source_correct_as_of": "01/07/2026",
       "parser": "pdf_line_window_v1"
     },
     "eirgrid_system_renewable_summary": {
