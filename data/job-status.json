@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-31T09:59:16+00:00",
+  "generated_at": "2026-07-31T12:16:06+00:00",
   "schema_version": "1.0.0",
   "job_count": 5,
   "jobs": [
@@ -10,10 +10,10 @@
       "frequency": "hourly",
       "public": true,
       "maturity": "Monitor",
-      "status": "fresh",
-      "message": "Data is within the expected freshness window.",
+      "status": "stale",
+      "message": "Data missed the fresh window but is not yet offline.",
       "last_success_at": "2026-07-31T08:20:09+00:00",
-      "data_age_hours": 1.65,
+      "data_age_hours": 3.93,
       "landing_page": "demos/ietm/",
       "files": [
         {
@@ -50,7 +50,7 @@
       "status": "fresh",
       "message": "Data is within the expected freshness window.",
       "last_success_at": "2026-07-31T08:18:19+00:00",
-      "data_age_hours": 1.68,
+      "data_age_hours": 3.96,
       "landing_page": "demos/urbanforest/",
       "files": [
         {
@@ -80,7 +80,7 @@
       "status": "fresh",
       "message": "Data is within the expected freshness window.",
       "last_success_at": "2026-07-31T08:10:17+00:00",
-      "data_age_hours": 1.82,
+      "data_age_hours": 4.1,
       "landing_page": "demos/ndrt/",
       "files": [
         {
@@ -110,7 +110,7 @@
       "status": "fresh",
       "message": "Data is within the expected freshness window.",
       "last_success_at": "2026-07-31T08:11:20+00:00",
-      "data_age_hours": 1.8,
+      "data_age_hours": 4.08,
       "landing_page": "demos/birds/",
       "files": [
         {
@@ -140,7 +140,7 @@
       "status": "offline",
       "message": "Data is older than the accepted stale window.",
       "last_success_at": "2026-05-20T15:07:41+00:00",
-      "data_age_hours": 1722.86,
+      "data_age_hours": 1725.14,
       "landing_page": "demos/ilpf/",
       "files": [
         {
