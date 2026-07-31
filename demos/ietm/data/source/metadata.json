@@ -13,8 +13,8 @@
     "SEAI Energy Price Trends page",
     "SEAI official fallback price snapshot"
   ],
-  "last_eirgrid_harvest_at": "2026-07-31T14:41:28+00:00",
-  "last_seai_price_harvest_at": "2026-07-31T14:41:50+00:00",
-  "seai_price_status": "SEAI price harvester succeeded using live page parse.",
-  "seai_price_mode": "live-page-parse"
+  "last_eirgrid_harvest_at": "2026-07-31T16:26:32+00:00",
+  "last_seai_price_harvest_at": "2026-07-31T16:27:20+00:00",
+  "seai_price_status": "SEAI live fetch/parse failed; official fallback snapshot used. Reason: HTTP Error 403: Forbidden",
+  "seai_price_mode": "official-fallback-snapshot"
 }
