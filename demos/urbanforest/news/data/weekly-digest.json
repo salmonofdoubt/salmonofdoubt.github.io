@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-08-01T07:49:05.675024+00:00",
-  "latest_generated_at": "2026-08-01T07:49:05.570886+00:00",
+  "generated_at": "2026-08-02T07:51:09.289784+00:00",
+  "latest_generated_at": "2026-08-02T07:51:09.178222+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 28,
+    "ireland-urban-forest-practice": 29,
     "funding-opportunities": 21,
-    "research-evidence": 39,
+    "research-evidence": 38,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
@@ -17,26 +17,26 @@
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 27
+      "count": 28
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 21
+      "count": 22
     },
     {
       "benefit": "School / education",
-      "count": 19
+      "count": 18
     },
     {
       "benefit": "Community stewardship",
       "count": 15
     },
     {
-      "benefit": "Urban forest / NbS",
-      "count": 14
+      "benefit": "Monitoring / evaluation",
+      "count": 15
     },
     {
-      "benefit": "Monitoring / evaluation",
+      "benefit": "Urban forest / NbS",
       "count": 14
     },
     {
@@ -49,7 +49,7 @@
     },
     {
       "benefit": "Urban heat / shade",
-      "count": 12
+      "count": 11
     },
     {
       "benefit": "Wellbeing / health",
@@ -186,6 +186,33 @@
       "urbanforest_relevance": "Opportunity signal: may help fund stormwater / suds, tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
+      "id": "03352798bbf1df92",
+      "title": "News Releases | Sherrill Administration Rounds Out Earth Week, Celebrates Arbor Day by Announcing Availability of Municipal Tree Maintenance Grants (26/P018) - New Jersey Department of Environmental Protection (.gov)",
+      "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5xVTRYRF81MXk0VVl6WTdTRHpCRGxaem1qc1RWUl9BcVVJUmJiWG56ZlJsR0RFS2ZBRnhrSEx4Ti1uV3RibGwxczJLdw?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: urban forest survival and maintenance",
+      "published": "2026-04-27",
+      "score": 100,
+      "practical_score": 130.0,
+      "benefit_categories": [
+        "Tree survival / maintenance",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": {
+        "fit": "Low",
+        "score": 45,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Survival / maintenance evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
       "id": "073b2523d843a620",
       "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - NYC.gov",
       "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPN3NOaGR2RVkwS09NWkNtNFNGeGtVbjc3NHgwZXQ1bE0xZlI5anNNNHRhcGRhQmMtVmQ1MzB3RzZoMkxTUGI1VEdCTGQ1UXBJNDNXNWxNYk9lU09kaGtmdnRUaFJzZUdmRU1nNjVJU1dRckxBMWJ0Q25BbC1ZNlVCY2xLVXljaUhQVG82dm1Gemg5TXZGSTJQWDZ3U1plLVBWVEdNNkFfR0lmM2Y3Q1Z2X1o0dTVlME5HZTJXeGpJRndwdXZlVTBZ?oc=5",
@@ -305,35 +332,6 @@
       "opportunity_fit": null,
       "research_use_type": "Survival / maintenance evidence",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
-    },
-    {
-      "id": "60b7faa9f1338a32",
-      "title": "The Benefits and Limits of Urban Tree Planting for Environmental and Human Health",
-      "url": "https://doi.org/10.3389/fevo.2021.603757",
-      "section": "research-evidence",
-      "source_name": "Frontiers in Ecology and Evolution",
-      "published": "2021-04-08",
-      "score": 92,
-      "practical_score": 123.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Stormwater / SuDS",
-        "Wellbeing / health",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Low",
-        "score": 35,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Heat / shade evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, stormwater / suds, wellbeing / health, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     }
   ]
 }
