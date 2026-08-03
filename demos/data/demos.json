@@ -81,11 +81,11 @@
         "title": "Ireland Energy Transition Monitor",
         "path": "ietm/",
         "category": "energy",
-        "summary": "Live-style dashboard for Ireland\u2019s electricity mix, demand, interconnection, renewable capacity, and transition indicators.",
+        "summary": "Live-style dashboard for Ireland’s electricity mix, demand, interconnection, renewable capacity, and transition indicators.",
         "detail": "Tracks operational electricity data and transition context in a public dashboard. Designed to make system-level energy signals easier to understand without losing technical integrity.",
         "tags": [
             "Electricity",
-            "CO\u2082",
+            "CO₂",
             "Renewables",
             "Ireland"
         ],
@@ -143,6 +143,23 @@
         "status": "Prototype",
         "doi": "10.5281/zenodo.0000000",
         "sponsor_url": "https://github.com/sponsors/salmonofdoubt"
+    },
+    {
+        "title": "Current Nanny-Delvin Rivers Trust Website",
+        "path": "https://nanny-delvin-river-trust.github.io/",
+        "category": "water",
+        "summary": "Forward to the dedicated Trust-hosted website; the original Salmon of Doubt prototype remains available separately.",
+        "detail": "The continuing Nanny-Delvin Rivers Trust website in its dedicated GitHub organisation, separate from the original Salmon of Doubt prototype.",
+        "tags": [
+            "Rivers",
+            "Catchment restoration",
+            "Nanny-Delvin",
+            "Current site"
+        ],
+        "status": "Current Trust-hosted site",
+        "doi": "10.5281/zenodo.21777313",
+        "repository": "https://github.com/nanny-delvin-river-trust/nanny-delvin-river-trust.github.io",
+        "source_url": "https://github.com/nanny-delvin-river-trust/nanny-delvin-river-trust.github.io"
     },
     {
         "title": "SDSS Concept",
