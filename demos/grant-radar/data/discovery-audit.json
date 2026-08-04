@@ -1,31 +1,32 @@
 {
-  "generated_at": "2026-08-03T08:43:12+00:00",
+  "generated_at": "2026-08-04T07:47:45+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 5,
-  "links_seen": 4354,
-  "funding_like_links": 420,
+  "seed_pages_failed": 4,
+  "links_seen": 4549,
+  "funding_like_links": 468,
   "candidate_fetches": 300,
   "pending_review_count": 95,
   "status_counts": {
     "pending_review": 95,
-    "suppressed_non_actionable": 44,
+    "suppressed_non_actionable": 56,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 12,
+    "suppressed_existing": 11,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 27
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 58
   },
   "candidate_type_counts": {
-    "recurring_programme": 91,
-    "funding_call": 39,
+    "recurring_programme": 41,
+    "funding_call": 88,
     "scholarship": 31,
-    "generic_funding_hub": 5,
-    "unknown": 27
+    "generic_funding_hub": 6,
+    "tender": 12,
+    "unknown": 58
   },
   "seeds": [
     {
@@ -112,11 +113,11 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "fetch_error",
-      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals-2023_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 119,
+      "funding_like_links": 48,
+      "candidates_fetched": 48
     },
     {
       "id": "horizon_cluster6_watch",
@@ -184,7 +185,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/research-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 615,
+      "links_seen": 632,
       "funding_like_links": 62,
       "candidates_fetched": 62
     },
@@ -194,7 +195,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 596,
+      "links_seen": 613,
       "funding_like_links": 57,
       "candidates_fetched": 57
     },
@@ -204,9 +205,9 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/reinhart-koselleck-projects",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 598,
+      "links_seen": 615,
       "funding_like_links": 57,
-      "candidates_fetched": 57
+      "candidates_fetched": 14
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -214,9 +215,9 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/heisenberg",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 602,
+      "links_seen": 619,
       "funding_like_links": 59,
-      "candidates_fetched": 5
+      "candidates_fetched": 0
     },
     {
       "id": "geo_erc_advanced_watch",
@@ -274,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 156,
+      "links_seen": 160,
       "funding_like_links": 1,
       "candidates_fetched": 0
     },
@@ -284,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 156,
+      "links_seen": 160,
       "funding_like_links": 1,
       "candidates_fetched": 0
     }
