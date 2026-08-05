@@ -1,29 +1,33 @@
 {
-  "generated_at": "2026-08-04T07:48:36.919945+00:00",
-  "latest_generated_at": "2026-08-04T07:48:24.541263+00:00",
+  "generated_at": "2026-08-05T07:49:55.516968+00:00",
+  "latest_generated_at": "2026-08-05T07:49:43.645920+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "waterbody-evidence-alerts": 25,
-    "ireland-catchment-practice": 18,
-    "research-papers": 36,
-    "grants-opportunities": 16
+    "grants-opportunities": 18,
+    "waterbody-evidence-alerts": 24,
+    "ireland-catchment-practice": 17,
+    "research-papers": 36
   },
   "top_pressure_categories": [
     {
       "pressure": "policy / governance",
-      "count": 32
+      "count": 31
     },
     {
       "pressure": "habitat / biodiversity",
-      "count": 27
+      "count": 28
     },
     {
       "pressure": "NbS / restoration",
-      "count": 27
+      "count": 26
     },
     {
       "pressure": "citizen science / monitoring",
+      "count": 25
+    },
+    {
+      "pressure": "water quality",
       "count": 24
     },
     {
@@ -31,16 +35,16 @@
       "count": 22
     },
     {
-      "pressure": "water quality",
-      "count": 21
-    },
-    {
       "pressure": "funding / grant",
-      "count": 19
+      "count": 20
     },
     {
       "pressure": "nutrients",
       "count": 12
+    },
+    {
+      "pressure": "septic / domestic wastewater",
+      "count": 8
     },
     {
       "pressure": "incident / alert",
@@ -53,10 +57,6 @@
     {
       "pressure": "general catchment signal",
       "count": 7
-    },
-    {
-      "pressure": "septic / domestic wastewater",
-      "count": 6
     }
   ],
   "items": [
@@ -69,7 +69,7 @@
       "published": "2026-06-24",
       "score": 100,
       "practical_score": 152.0,
-      "freshness_label": "41 days old",
+      "freshness_label": "42 days old",
       "pressure_categories": [
         "manure / slurry timing",
         "slurry-manure-timing",
@@ -88,6 +88,38 @@
       "opportunity_fit": null,
       "research_use_type": null,
       "action_relevance": "Agricultural timing signal: slurry or manure may be legally spread while rainfall/runoff risk is still high, which is directly relevant to nutrients, sediment pathways, farmer engagement, and catchment messaging."
+    },
+    {
+      "id": "c15944002653fd1a",
+      "title": "Louth TD Erin McGreehan urges expansion of septic tank repair grants - Irish Independent",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQjI2U3E3Nnl4a3d2bUdhdVdOcXdEZjJoWEx2OUpna2xNdElaa2duTEgxZlBpSHBwNERWYXBPbUlBeGt6R2huT3A0SUNHNTVsd25KdVlyLUo2bDZQMHBFd1ZSU3h0UDl1WS1PRm9ieEwxZzNqNDFEb1RiRE8xU0xYWUVTS1RETTl4RnhZN3JpTWZWLVlZQUE2NnZWbXFZb1VDdVpfWGtWcDVLTWZiZlZWdDdWRFgyekEwTkNaRFZaTENLVTQ?oc=5",
+      "section": "grants-opportunities",
+      "source_name": "Google News: septic tanks and domestic wastewater Ireland",
+      "published": "2026-07-10",
+      "score": 100,
+      "practical_score": 148.0,
+      "freshness_label": "26 days old",
+      "pressure_categories": [
+        "septic / domestic wastewater",
+        "funding / grant",
+        "policy / governance"
+      ],
+      "local_relevance": {
+        "score": 32,
+        "label": "Moderate local relevance",
+        "matched_terms": [
+          "Ireland",
+          "louth"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      },
+      "research_use_type": null,
+      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
     },
     {
       "id": "4f44253263213588",
@@ -289,34 +321,6 @@
       "id": "5439804a3bae6e06",
       "title": "Policy & Advocacy",
       "url": "https://theriverstrust.org/about-us/news?c=98799",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "d2a22c14a8b8f34e",
-      "title": "Raw sewage in our rivers",
-      "url": "https://theriverstrust.org/about-us/news?c=46810",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
