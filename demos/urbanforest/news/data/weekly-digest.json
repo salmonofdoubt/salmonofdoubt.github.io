@@ -1,31 +1,31 @@
 {
-  "generated_at": "2026-08-04T08:03:33.618284+00:00",
-  "latest_generated_at": "2026-08-04T08:03:33.510358+00:00",
+  "generated_at": "2026-08-05T08:04:10.825830+00:00",
+  "latest_generated_at": "2026-08-05T08:04:10.715288+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
     "ireland-urban-forest-practice": 28,
-    "funding-opportunities": 22,
-    "research-evidence": 38,
-    "design-maintenance-risk": 2,
+    "funding-opportunities": 25,
+    "research-evidence": 34,
+    "design-maintenance-risk": 3,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
       "benefit": "Funding / grants",
-      "count": 31
+      "count": 32
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 28
+      "count": 26
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 21
+      "count": 23
     },
     {
       "benefit": "School / education",
-      "count": 19
+      "count": 21
     },
     {
       "benefit": "Urban forest / NbS",
@@ -33,30 +33,30 @@
     },
     {
       "benefit": "Community stewardship",
-      "count": 14
-    },
-    {
-      "benefit": "Planning / policy",
-      "count": 14
-    },
-    {
-      "benefit": "Monitoring / evaluation",
-      "count": 14
+      "count": 13
     },
     {
       "benefit": "Stormwater / SuDS",
       "count": 13
     },
     {
+      "benefit": "Planning / policy",
+      "count": 12
+    },
+    {
       "benefit": "Urban heat / shade",
       "count": 12
     },
     {
-      "benefit": "Wellbeing / health",
-      "count": 10
+      "benefit": "Monitoring / evaluation",
+      "count": 11
     },
     {
       "benefit": "Risk / safety",
+      "count": 11
+    },
+    {
+      "benefit": "Wellbeing / health",
       "count": 10
     }
   ],
@@ -89,6 +89,39 @@
       "opportunity_fit": {
         "fit": "High",
         "score": 97,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "e635bd17dbf4acfb",
+      "title": "Funding watch: Heritage Council Funding",
+      "url": "https://www.heritagecouncil.ie/funding",
+      "section": "funding-opportunities",
+      "source_name": "Heritage Council Funding",
+      "published": null,
+      "score": 100,
+      "practical_score": 148.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Planning / policy"
+      ],
+      "local_relevance": {
+        "score": 8,
+        "label": "Transferable relevance",
+        "matched_terms": [
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 87,
         "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
         "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
       },
@@ -214,7 +247,7 @@
     },
     {
       "id": "073b2523d843a620",
-      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - comptroller.nyc.gov",
+      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - NYC.gov",
       "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPN3NOaGR2RVkwS09NWkNtNFNGeGtVbjc3NHgwZXQ1bE0xZlI5anNNNHRhcGRhQmMtVmQ1MzB3RzZoMkxTUGI1VEdCTGQ1UXBJNDNXNWxNYk9lU09kaGtmdnRUaFJzZUdmRU1nNjVJU1dRckxBMWJ0Q25BbC1ZNlVCY2xLVXljaUhQVG82dm1Gemg5TXZGSTJQWDZ3U1plLVBWVEdNNkFfR0lmM2Y3Q1Z2X1o0dTVlME5HZTJXeGpJRndwdXZlVTBZ?oc=5",
       "section": "funding-opportunities",
       "source_name": "Google News: urban forest carbon and climate claims",
@@ -308,29 +341,6 @@
       },
       "opportunity_fit": null,
       "research_use_type": "Review / evidence synthesis",
-      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
-    },
-    {
-      "id": "e71eafacd7687633",
-      "title": "Cooling efficacy of trees across cities is determined by background climate, urban morphology, and tree trait",
-      "url": "https://doi.org/10.1038/s43247-024-01908-4",
-      "section": "research-evidence",
-      "source_name": "Communications Earth & Environment",
-      "published": "2024-12-10",
-      "score": 96,
-      "practical_score": 125.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Biodiversity / habitat",
-        "Tree survival / maintenance"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Survival / maintenance evidence",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     }
   ]
