@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b14" />
+  <title>River Basin Boundary Explorer | André Baumann</title>
+  <meta
+    name="description"
+    content="An interactive demonstration of fractal basin boundaries, with an optional Irish river analogy and Google Maps context."
+  />
+  <link rel="stylesheet" href="../../assets/css/site.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="file:///mnt/data/fractal-river-v2/demos/shared/demo-return.css" />
+  <script defer src="file:///mnt/data/fractal-river-v2/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="file:///mnt/data/fractal-river-v2/demos/shared/demo-doi.css" />
+  <script defer src="file:///mnt/data/fractal-river-v2/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="file:///mnt/data/fractal-river-v2/demos/shared/demo-support.css" />
+  <script defer src="file:///mnt/data/fractal-river-v2/demos/shared/demo-support.js"></script>
+</head>
+<body data-demo-mode="learn">
+  <header class="site-header">
+    <div class="container topbar">
+      <a class="brand" href="../../index.html">André Baumann</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="../../index.html">Home</a>
+        <a href="../../art/">Art</a>
+        <a href="../../music/">Music</a>
+        <a href="../index.html" aria-current="page">Demos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container fractal-demo">
+    <section class="hero fractal-hero">
+      <div class="panel hero-copy">
+        <span class="eyebrow">Complexity and chaos demonstrator</span>
+        <h1>River Basin Boundary Explorer</h1>
+        <p class="lead">
+          See how two almost identical starting conditions can end in different futures.
+        </p>
+        <p>
+          The coloured field is a genuine mathematical fractal. The optional river view adds geographic context and an ecological analogy, but does not claim that an Irish river has measured fractal dynamics.
+        </p>
+
+        <div class="model-status-strip" aria-label="Model status">
+          <span class="model-status-pill">Genuine Newton fractal</span>
+          <span class="model-status-pill">Runs in your browser</span>
+          <span class="model-status-pill caution">River interpretation is conceptual</span>
+        </div>
+
+        <div class="button-row">
+          <a class="button" href="../index.html">Back to Demos</a>
+          <a class="button primary" href="#explorer">Start the experiment</a>
+          <a class="button" href="#how-it-works">How it works</a>
+        </div>
+      </div>
+
+      <aside class="panel quick-facts">
+        <div>
+          <strong>The colours</strong>
+          <span>Each colour represents a different final outcome.</span>
+        </div>
+        <div>
+          <strong>The fractal</strong>
+          <span>It is the fine, interwoven edge between the large colour regions.</span>
+        </div>
+        <div>
+          <strong>The surprise</strong>
+          <span>Nearby starting points can reach different outcomes.</span>
+        </div>
+        <div>
+          <strong>The river map</strong>
+          <span>It provides place and analogy, not model input data.</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="explorer" class="section explorer-section">
+      <div class="mode-switch-wrap">
+        <div class="mode-switch" role="group" aria-label="Choose demonstration mode">
+          <button id="learnModeButton" class="mode-button is-active" type="button" aria-pressed="true">
+            Learn the fractal
+          </button>
+          <button id="riverModeButton" class="mode-button" type="button" aria-pressed="false">
+            Explore the river analogy
+          </button>
+        </div>
+        <div class="render-status" id="renderStatus" aria-live="polite">Preparing outcome map…</div>
+      </div>
+
+      <section class="panel guided-panel mode-learn-only" aria-labelledby="guidedHeading">
+        <div class="guided-copy">
+          <span class="eyebrow">Twenty-second experiment</span>
+          <h2 id="guidedHeading">Can two nearly identical starting points produce different futures?</h2>
+          <p>
+            Press <strong>Show me</strong>. The demo will locate a sensitive edge, place points A and B extremely close together, and reveal their different final outcomes.
+          </p>
+          <div class="button-row guided-buttons">
+            <button id="showPairButton" class="button primary" type="button">Show me</button>
+            <button id="zoomDeeperButton" class="button" type="button" disabled>Zoom deeper into the edge</button>
+          </div>
+        </div>
+
+        <div id="guideResult" class="guide-result" aria-live="polite">
+          <div class="guide-result-placeholder">
+            <strong>What to watch:</strong>
+            <span>The large colour regions are predictable. The multicoloured lace between them is the fractal boundary.</span>
+          </div>
+          <div class="guide-result-content" hidden>
+            <div class="pair-result pair-a">
+              <span class="pair-badge">A</span>
+              <div><small>Starting point A reaches</small><strong id="pairAOutcome">Outcome</strong></div>
+            </div>
+            <div class="pair-result pair-b">
+              <span class="pair-badge">B</span>
+              <div><small>Starting point B reaches</small><strong id="pairBOutcome">Outcome</strong></div>
+            </div>
+            <p id="pairDifferenceText" class="pair-difference"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel river-intro mode-river-only" aria-labelledby="riverIntroHeading">
+        <div>
+          <span class="eyebrow">River analogy</span>
+          <h2 id="riverIntroHeading">The map chooses a place. The fractal explores possible futures.</h2>
+          <p>
+            Select an illustrative reach, then apply a small storm pulse or intervention. The marker moves through the mathematical outcome map. Crossing a coloured edge changes the final outcome.
+          </p>
+        </div>
+        <div class="river-disclaimer">
+          <strong>Important distinction</strong>
+          <p>The Google map and reach names do not supply scientific model data. This remains an educational analogy.</p>
+        </div>
+      </section>
+
+      <div class="explorer-grid">
+        <aside class="panel concept-panel mode-learn-only" aria-labelledby="readGraphicHeading">
+          <span class="eyebrow">How to read the graphic</span>
+          <h3 id="readGraphicHeading">Three things only</h3>
+
+          <ol class="plain-steps">
+            <li>
+              <span>1</span>
+              <div><strong>Every pixel is a starting condition.</strong><p>Its colour tells you which final outcome it reaches.</p></div>
+            </li>
+            <li>
+              <span>2</span>
+              <div><strong>Solid colour means relative predictability.</strong><p>Nearby points generally reach the same outcome.</p></div>
+            </li>
+            <li>
+              <span>3</span>
+              <div><strong>The coloured lace is the fractal edge.</strong><p>Near it, tiny changes can switch the outcome.</p></div>
+            </li>
+          </ol>
+
+          <div class="concept-note">
+            <strong>Where is the fractality?</strong>
+            <p>Zoom into the intricate boundary. Instead of becoming a clean line, it reveals more curls, islands and interwoven colours.</p>
+          </div>
+        </aside>
+
+        <aside class="panel map-panel mode-river-only" aria-labelledby="mapHeading">
+          <div class="panel-heading">
+            <div>
+              <span class="eyebrow">Geographic context</span>
+              <h3 id="mapHeading">Irish river reach</h3>
+            </div>
+            <a id="openMapLink" class="button compact" href="#" target="_blank" rel="noopener">Open map</a>
+          </div>
+
+          <div class="map-frame-wrap">
+            <iframe
+              id="mapFrame"
+              title="Google map showing the selected Irish river context"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="about:blank">
+            </iframe>
+          </div>
+
+          <div class="reach-selector" role="group" aria-label="Select an illustrative river reach">
+            <button class="reach-button" type="button" data-reach="upper-nanny">Upper Nanny</button>
+            <button class="reach-button" type="button" data-reach="middle-nanny">Middle Nanny</button>
+            <button class="reach-button is-active" type="button" data-reach="lower-nanny">Lower Nanny</button>
+            <button class="reach-button" type="button" data-reach="delvin">Delvin</button>
+          </div>
+
+          <div class="reach-card">
+            <span class="reach-kicker">Selected context</span>
+            <h4 id="reachName">Lower Nanny</h4>
+            <p id="reachDescription">A lower-catchment context near Julianstown, used only to anchor the mathematical demonstration geographically.</p>
+          </div>
+
+          <div class="action-stack">
+            <button id="stormButton" type="button" class="button primary">Apply small storm pulse</button>
+            <button id="interventionButton" type="button" class="button">Apply illustrative intervention</button>
+            <button id="resetReachButton" type="button" class="button">Reset starting condition</button>
+          </div>
+        </aside>
+
+        <section class="panel fractal-panel" aria-labelledby="fractalHeading">
+          <div class="panel-heading fractal-heading-row">
+            <div>
+              <span class="eyebrow">Mathematical outcome map</span>
+              <h3 id="fractalHeading">Map of possible outcomes</h3>
+              <p id="fractalSubheading" class="fractal-subheading">Each colour is a different final outcome. The intricate edge between the colours is the fractal boundary.</p>
+            </div>
+            <div class="canvas-coordinate" id="canvasCoordinate">x 0.000 · y 0.000</div>
+          </div>
+
+          <div class="simple-toolbar">
+            <button id="sensitiveEdgeButton" class="button compact primary" type="button">Find a sensitive edge</button>
+            <button id="resetViewButton" class="button compact" type="button">Reset view</button>
+          </div>
+
+          <details class="advanced-controls">
+            <summary>Advanced controls</summary>
+            <div class="advanced-controls-body">
+              <div class="advanced-button-row">
+                <button id="zoomInButton" class="button compact" type="button">Zoom in</button>
+                <button id="zoomOutButton" class="button compact" type="button">Zoom out</button>
+              </div>
+
+              <label for="iterationRange">
+                Detail level
+                <span id="iterationValue">42</span>
+              </label>
+              <input id="iterationRange" type="range" min="18" max="80" step="1" value="42" />
+
+              <label class="toggle-row" for="emphasiseBoundary">
+                <input id="emphasiseBoundary" type="checkbox" checked />
+                <span>Highlight the fractal edge</span>
+              </label>
+
+              <label class="toggle-row" for="showRoutes">
+                <input id="showRoutes" type="checkbox" />
+                <span>Show mathematical routes to the outcomes</span>
+              </label>
+            </div>
+          </details>
+
+          <div class="canvas-shell" id="canvasShell">
+            <canvas id="fractalCanvas" width="620" height="620" aria-label="Interactive map of three mathematical outcome basins"></canvas>
+            <div id="edgeCallout" class="edge-callout" hidden>Fractal edge: tiny changes can switch the outcome</div>
+            <div class="canvas-hint">Click to inspect · double-click or scroll to zoom</div>
+          </div>
+
+          <div class="basin-legend" aria-label="Outcome legend">
+            <span><i class="legend-swatch recovery"></i><span id="legendA">Outcome A</span></span>
+            <span><i class="legend-swatch fragile"></i><span id="legendB">Outcome B</span></span>
+            <span><i class="legend-swatch degraded"></i><span id="legendC">Outcome C</span></span>
+          </div>
+
+          <p id="visualSummary" class="visual-summary">
+            Large solid regions are comparatively predictable. The thin multicoloured structures are sensitive boundaries.
+          </p>
+        </section>
+      </div>
+
+      <div class="result-grid">
+        <article class="panel result-card">
+          <span class="eyebrow">Selected starting condition</span>
+          <h3 id="selectedOutcome">Click anywhere in the coloured field</h3>
+          <p id="selectedOutcomeText">The selected point will be classified by the final outcome it reaches.</p>
+          <dl class="result-list">
+            <div><dt>Starting coordinate</dt><dd id="selectedCoordinate">–</dd></div>
+            <div><dt>Final outcome</dt><dd id="selectedAttractor">–</dd></div>
+            <div><dt>Calculation steps</dt><dd id="selectedIterations">–</dd></div>
+          </dl>
+        </article>
+
+        <article class="panel result-card boundary-card">
+          <span class="eyebrow">Sensitivity around this point</span>
+          <h3 id="boundaryAssessment">Select or find an edge</h3>
+          <p id="boundaryAssessmentText">
+            The demo samples a small neighbourhood to see whether nearby starting conditions share one outcome or split between several.
+          </p>
+          <div class="boundary-meter" aria-hidden="true"><span id="boundaryMeterFill"></span></div>
+          <p class="small muted" id="boundaryMetric">No local sample yet.</p>
+        </article>
+
+        <article class="panel result-card mode-river-only">
+          <span class="eyebrow">Illustrative river state</span>
+          <h3 id="currentOutcome">Calculating…</h3>
+          <p id="currentOutcomeText">The selected reach marker will be classified against the three mathematical outcomes.</p>
+          <dl class="result-list">
+            <div><dt>State coordinate</dt><dd id="stateCoordinate">0.000, 0.000</dd></div>
+            <div><dt>Calculation steps</dt><dd id="stateIterations">–</dd></div>
+            <div><dt>Last change</dt><dd id="lastAction">Initial illustrative position</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section">
+      <div class="panel explanation-panel">
+        <span class="eyebrow">What the demonstration proves</span>
+        <h2>The fractal is in the outcome boundary, not in the shape of the river</h2>
+        <div class="explanation-grid">
+          <article>
+            <span class="step-number">01</span>
+            <h3>Starting conditions</h3>
+            <p>Each pixel represents one mathematical starting point.</p>
+          </article>
+          <article>
+            <span class="step-number">02</span>
+            <h3>Final outcomes</h3>
+            <p>The colour identifies which of three stable roots the calculation eventually reaches.</p>
+          </article>
+          <article>
+            <span class="step-number">03</span>
+            <h3>Fractal boundary</h3>
+            <p>The interface keeps revealing finer interwoven structure under magnification instead of resolving into a simple line.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="panel sdss-panel">
+        <div>
+          <span class="eyebrow">Possible SDSS extension</span>
+          <h2>Keep the interface, replace the toy mathematics</h2>
+          <p class="section-intro">
+            A later SDSS version could replace Newton's equation with a calibrated nonlinear river model. The interface could then examine recovery basins, intervention robustness and proximity to undesirable outcome boundaries.
+          </p>
+        </div>
+        <div class="sdss-caution">
+          <strong>Current limitation</strong>
+          <p>This prototype demonstrates fractal basin logic. It does not establish that the Nanny, Delvin or any Irish river has a fractal ecological basin boundary.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© André Baumann · River Basin Boundary Explorer</p>
+    </div>
+  </footer>
+
+  <script src="app.js?v=20260805-2" defer></script>
+  
+</body>
+</html>
