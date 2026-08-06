@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-08-05T07:49:55.515653+00:00",
-  "latest_generated_at": "2026-08-05T07:49:43.645920+00:00",
+  "generated_at": "2026-08-06T07:49:43.439297+00:00",
+  "latest_generated_at": "2026-08-06T07:49:31.562509+00:00",
   "total_items": 95,
   "total_sources": 30,
   "sources_active": 15,
   "sources_checked_no_current_items": 14,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 18,
+    "grants-opportunities": 19,
     "waterbody-evidence-alerts": 24,
-    "ireland-catchment-practice": 17,
+    "ireland-catchment-practice": 16,
     "research-papers": 36
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 19,
+    "opportunity_fit": 21,
     "research_use_type": 53
   },
-  "archive_snapshots": 65,
+  "archive_snapshots": 66,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -29,11 +29,11 @@
       "scope": "nanny-delvin local",
       "url": "https://news.google.com/rss/search?q=%28%22Nanny%20Delvin%22%20OR%20%22Nanny-Delvin%22%20OR%20%22River%20Nanny%22%20OR%20%22River%20Delvin%22%20OR%20%22Nanny%20estuary%22%20OR%20%22Delvin%20river%22%29%20%28water%20OR%20river%20OR%20catchment%20OR%20pollution%20OR%20biodiversity%20OR%20restoration%20OR%20flooding%20OR%20estuary%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 0,
       "discovered_hint_count": 13,
-      "elapsed_ms": 104,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 63,
-      "elapsed_ms": 111,
+      "discovered_hint_count": 62,
+      "elapsed_ms": 77,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 77,
-      "elapsed_ms": 116,
+      "discovered_hint_count": 78,
+      "elapsed_ms": 84,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
+      "current_item_count": 2,
       "discovered_hint_count": 73,
-      "elapsed_ms": 127,
+      "elapsed_ms": 80,
       "error": null
     },
     {
@@ -91,9 +91,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 12,
+      "current_item_count": 10,
       "discovered_hint_count": 100,
-      "elapsed_ms": 154,
+      "elapsed_ms": 94,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 135,
+      "current_item_count": 3,
+      "discovered_hint_count": 73,
+      "elapsed_ms": 77,
       "error": null
     },
     {
@@ -123,7 +123,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 63,
-      "elapsed_ms": 129,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -137,8 +137,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 106,
+      "discovered_hint_count": 43,
+      "elapsed_ms": 68,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 77,
-      "elapsed_ms": 130,
+      "discovered_hint_count": 78,
+      "elapsed_ms": 84,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 87,
-      "elapsed_ms": 729,
+      "elapsed_ms": 794,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 306,
+      "elapsed_ms": 187,
       "error": null
     },
     {
@@ -194,11 +194,11 @@
       "scope": "ireland river ecology",
       "url": "https://news.google.com/rss/search?q=%28river%20ecology%20OR%20freshwater%20ecology%20OR%20aquatic%20ecology%20OR%20macroinvertebrates%20OR%20fish%20passage%20OR%20habitat%20restoration%29%20%28Ireland%20OR%20Irish%29%20%28river%20OR%20stream%20OR%20catchment%20OR%20water%20quality%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 2,
       "discovered_hint_count": 49,
-      "elapsed_ms": 116,
+      "elapsed_ms": 68,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 131,
+      "discovered_hint_count": 76,
+      "elapsed_ms": 79,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 105,
+      "discovered_hint_count": 47,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -242,8 +242,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 85,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 49,
       "error": null
     },
     {
@@ -257,8 +257,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 20,
-      "elapsed_ms": 100,
+      "discovered_hint_count": 21,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 49,
-      "elapsed_ms": 104,
+      "elapsed_ms": 69,
       "error": null
     },
     {
@@ -288,7 +288,7 @@
       "http_status": 200,
       "current_item_count": 8,
       "discovered_hint_count": 52,
-      "elapsed_ms": 129,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 98,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -316,9 +316,9 @@
       "host": "www.catchments.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
+      "current_item_count": 5,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1811,
+      "elapsed_ms": 1052,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 117,
-      "elapsed_ms": 999,
+      "elapsed_ms": 1176,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 227,
-      "elapsed_ms": 392,
+      "elapsed_ms": 492,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 179,
-      "elapsed_ms": 863,
+      "elapsed_ms": 1232,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 421,
-      "elapsed_ms": 1121,
+      "elapsed_ms": 1247,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 712,
+      "elapsed_ms": 846,
       "error": null
     },
     {
@@ -407,8 +407,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 35,
-      "elapsed_ms": 1101,
+      "discovered_hint_count": 37,
+      "elapsed_ms": 1161,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 112,
+      "elapsed_ms": 39,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 98,
-      "elapsed_ms": 89,
+      "elapsed_ms": 77,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 11,
       "discovered_hint_count": 96,
-      "elapsed_ms": 615,
+      "elapsed_ms": 1031,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 110,
-      "elapsed_ms": 896,
+      "elapsed_ms": 1108,
       "error": null
     }
   ]
