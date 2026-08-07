@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-06T07:52:01+00:00",
+  "generated_at": "2026-08-07T06:22:45+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -54,6 +54,27 @@
       "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-browne-announces-fourfold-increase-in-investment-in-water-quality-initiatives-in-2026/",
       "last_successful_fetch_at": "2026-06-11T09:48:55+00:00",
       "programme_state": "upcoming"
+    },
+    {
+      "id": "geo_rifs_klaus_toepfer",
+      "name": "RIFS Klaus Töpfer Sustainability Fellowship",
+      "error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x7f09351fa190>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-08-06T07:52:22+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "geo_gfz_jobs_board",
+      "name": "GFZ Scientific Jobs Board",
+      "error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f0934dda390>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-08-06T07:52:01+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "geo_gfz_klaus_toepfer",
+      "name": "GFZ Klaus Töpfer Sustainability Fellowship",
+      "error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x7f0934d64810>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-08-06T07:52:01+00:00",
+      "programme_state": "closed"
     }
   ],
   "fetch_failures_using_registry_fallback": [
@@ -78,13 +99,13 @@
     {
       "id": "waterways_heritage_biodiversity",
       "name": "Waterways Ireland Community Heritage and Biodiversity Grant Programme",
-      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.waterwaysireland.org', port=443) at 0x7f09348327d0>, 'Connection to www.waterwaysireland.org timed out. (connect timeout=10)'))",
       "programme_state": "archived"
     }
   ],
   "state_source_counts": {
-    "last_known_good": 5,
-    "registry_fallback": 25,
+    "last_known_good": 8,
+    "registry_fallback": 22,
     "deadline_past_recurring": 3,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 2,
