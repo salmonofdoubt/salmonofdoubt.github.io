@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-07T15:39:08+00:00",
+    "generated_at": "2026-08-07T16:36:31+00:00",
     "row_count": 116,
     "mode": "daily-snapshot-history",
     "warm_start_window_days": 30,
@@ -2308,22 +2308,22 @@
     },
     {
       "date": "2026-08-07",
-      "captured_at": "2026-08-07T15:39:07+00:00",
-      "demand_mw": 4428.0,
-      "demand_gw": 4.43,
-      "renewables_percent": 45.3,
-      "wind_percent": 26.0,
-      "solar_percent": 19.3,
-      "imports_percent": 26.0,
-      "residual_percent": 28.8,
-      "co2_g_per_kwh": 154.0,
+      "captured_at": "2026-08-07T16:36:31+00:00",
+      "demand_mw": 4676.0,
+      "demand_gw": 4.68,
+      "renewables_percent": 48.7,
+      "wind_percent": 30.3,
+      "solar_percent": 18.4,
+      "imports_percent": 0.0,
+      "residual_percent": 51.3,
+      "co2_g_per_kwh": 151.0,
       "co2_available": true,
       "target_gap_pp": 38.7,
       "target_status": "Off track",
       "household_electricity_c_per_kwh": 31.72,
       "household_gas_c_per_kwh": 12.33,
-      "electricity_system_price_eur_per_mwh": 21.24,
-      "electricity_system_price_c_per_kwh_equiv": 2.12,
+      "electricity_system_price_eur_per_mwh": 37.9,
+      "electricity_system_price_c_per_kwh_equiv": 3.79,
       "gas_balancing_price_c_per_kwh": 3.84
     }
   ]
