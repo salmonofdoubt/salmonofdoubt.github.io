@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b14" />
+  <title>Simple Rules Explorer | André Baumann</title>
+  <meta name="description" content="Interactive laboratory for order, complexity, deterministic chaos and fractals using flocking, the logistic map, the Sierpiński chaos game and Newton basins." />
+  <link rel="stylesheet" href="../../assets/css/site.css" />
+  <link rel="stylesheet" href="styles.css?v=20260807-1" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container topbar">
+      <a class="brand" href="../../index.html">André Baumann</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="../../index.html">Home</a>
+        <a href="../../art/">Art</a>
+        <a href="../../music/">Music</a>
+        <a href="../index.html" aria-current="page">Demos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container simple-rules-demo">
+    <section class="hero rules-hero">
+      <div class="panel hero-copy">
+        <span class="eyebrow">Interactive complexity laboratory</span>
+        <h1>Simple Rules Explorer</h1>
+        <p class="lead">How can elementary rules produce order, emergent collective behaviour, deterministic chaos and fractal structure?</p>
+        <p>
+          They are related ideas, but they are <strong>not stages on one ladder</strong>. A flock can be complex without being chaotic; a one-variable equation can be chaotic without having many interacting agents; and fractals can arise from several kinds of iterative rule.
+        </p>
+        <div class="truth-strip" aria-label="Three distinctions to remember">
+          <span>Complexity ≠ chaos</span>
+          <span>Disorder ≠ proof of chaos</span>
+          <span>Pattern ≠ automatically fractal</span>
+        </div>
+        <div class="button-row">
+          <a class="button primary" href="#laboratory">Open the laboratory</a>
+          <button id="resetEverything" class="button" type="button">Reset all experiments</button>
+        </div>
+      </div>
+      <aside class="panel hero-map">
+        <span class="eyebrow">One question, four lenses</span>
+        <div class="lens-row"><strong>1 · Order</strong><span>Local rules settle into coherent motion.</span></div>
+        <div class="lens-row"><strong>2 · Complexity</strong><span>Many local interactions create emergent patterns.</span></div>
+        <div class="lens-row"><strong>3 · Chaos</strong><span>Tiny deterministic differences can grow rapidly.</span></div>
+        <div class="lens-row"><strong>4 · Fractals</strong><span>Iteration can produce structure across scales.</span></div>
+        <p class="small muted">The controls deliberately let you disturb each system. The useful question is not merely “what does it look like?” but “what does the rule do after perturbation?”</p>
+      </aside>
+    </section>
+
+    <section id="laboratory" class="section lab-section">
+      <div class="lab-tabs" role="tablist" aria-label="Simple rules experiments">
+        <button class="lab-tab active" type="button" role="tab" aria-selected="true" aria-controls="panel-order" data-tab="order">
+          <span class="tab-number">01</span><strong>Order</strong><small>coherent flock</small>
+        </button>
+        <button class="lab-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-complexity" data-tab="complexity">
+          <span class="tab-number">02</span><strong>Complexity</strong><small>emergent flock</small>
+        </button>
+        <button class="lab-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-chaos" data-tab="chaos">
+          <span class="tab-number">03</span><strong>Chaos</strong><small>logistic map</small>
+        </button>
+        <button class="lab-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-fractals" data-tab="fractals">
+          <span class="tab-number">04</span><strong>Fractals</strong><small>iteration & basins</small>
+        </button>
+      </div>
+
+      <section id="panel-order" class="lab-panel active" role="tabpanel" data-panel="order">
+        <div class="concept-banner">
+          <div><span class="eyebrow">Order</span><h2>Local rules can damp differences and preserve coherence.</h2></div>
+          <p>These boids have no leader. Each sees only nearby neighbours and applies separation, alignment and cohesion. In this preset, alignment dominates noise, so perturbations tend to be absorbed rather than amplified.</p>
+        </div>
+        <div class="experiment-grid">
+          <div class="visual-panel panel canvas-card">
+            <div class="canvas-toolbar">
+              <div><strong>Ordered flock</strong><span id="orderStateLabel">coherent regime</span></div>
+              <div class="live-dot"><i></i><span id="orderRunLabel">running</span></div>
+            </div>
+            <canvas id="orderCanvas" class="boid-canvas" aria-label="Ordered boids flock simulation"></canvas>
+            <div class="canvas-caption">Every bird follows only local rules. There is no central flight plan.</div>
+          </div>
+          <aside class="panel controls-card">
+            <div class="do-this">
+              <strong>Try this first</strong>
+              <ol><li>Watch the flock align.</li><li>Press <b>Gust disturbance</b>.</li><li>See whether collective order re-forms.</li></ol>
+            </div>
+            <div class="button-grid">
+              <button id="orderToggle" class="button primary" type="button">Pause</button>
+              <button id="orderDisturb" class="button" type="button">Gust disturbance</button>
+              <button id="orderPreset" class="button" type="button">Restore ordered preset</button>
+              <button id="orderNew" class="button" type="button">New flock</button>
+            </div>
+            <details class="advanced-controls">
+              <summary>Play with the local rules</summary>
+              <div class="slider-row"><label for="orderSep">Separation <output id="orderSepOut"></output></label><input id="orderSep" type="range" min="0" max="2.5" step="0.05" /></div>
+              <div class="slider-row"><label for="orderAli">Alignment <output id="orderAliOut"></output></label><input id="orderAli" type="range" min="0" max="2.5" step="0.05" /></div>
+              <div class="slider-row"><label for="orderCoh">Cohesion <output id="orderCohOut"></output></label><input id="orderCoh" type="range" min="0" max="2.5" step="0.05" /></div>
+              <div class="slider-row"><label for="orderNoise">Noise <output id="orderNoiseOut"></output></label><input id="orderNoise" type="range" min="0" max="0.8" step="0.01" /></div>
+              <div class="slider-row"><label for="orderPerception">Neighbourhood <output id="orderPerceptionOut"></output></label><input id="orderPerception" type="range" min="30" max="130" step="1" /></div>
+            </details>
+            <div class="metric-grid four">
+              <div class="metric-card"><span>Alignment</span><strong id="orderPolar">0%</strong></div>
+              <div class="metric-card"><span>Clusters</span><strong id="orderClusters">0</strong></div>
+              <div class="metric-card"><span>Mean neighbours</span><strong id="orderNeighbours">0</strong></div>
+              <div class="metric-card"><span>Spread</span><strong id="orderSpread">0%</strong></div>
+            </div>
+            <div id="orderInterpretation" class="interpretation">The flock is settling. Disturb it when the alignment score becomes high.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="panel-complexity" class="lab-panel" role="tabpanel" data-panel="complexity" hidden>
+        <div class="concept-banner">
+          <div><span class="eyebrow">Complexity</span><h2>Many local interactions can create organised behaviour nobody designed.</h2></div>
+          <p>The same three flocking rules now operate with weaker global coherence, larger local variation and disturbances. Splitting, merging and coordinated turns are emergent properties of the interacting flock, not instructions stored in any one bird.</p>
+        </div>
+        <div class="experiment-grid">
+          <div class="visual-panel panel canvas-card">
+            <div class="canvas-toolbar">
+              <div><strong>Emergent flock</strong><span id="complexityStateLabel">adaptive regime</span></div>
+              <label class="mini-toggle"><input id="complexityTrails" type="checkbox" checked /> show recent paths</label>
+            </div>
+            <canvas id="complexityCanvas" class="boid-canvas" aria-label="Complex boids flock simulation"></canvas>
+            <div class="canvas-caption">Watch for spontaneous clusters, splitting, merging and collective turns. Visual richness alone is not proof of mathematical chaos.</div>
+          </div>
+          <aside class="panel controls-card">
+            <div class="do-this">
+              <strong>Try this first</strong>
+              <ol><li>Let several clusters form.</li><li>Press <b>Predator pulse</b>.</li><li>Watch whether local interactions reorganise the flock.</li></ol>
+            </div>
+            <div class="preset-row" aria-label="Complexity presets">
+              <button class="chip active" type="button" data-complexity-preset="emergent">Emergent</button>
+              <button class="chip" type="button" data-complexity-preset="split">Split & reform</button>
+              <button class="chip" type="button" data-complexity-preset="edge">Edge of coherence</button>
+            </div>
+            <div class="button-grid">
+              <button id="complexityToggle" class="button primary" type="button">Pause</button>
+              <button id="complexityDisturb" class="button" type="button">Predator pulse</button>
+              <button id="complexityScatter" class="button" type="button">Scatter flock</button>
+              <button id="complexityNew" class="button" type="button">New flock</button>
+            </div>
+            <details class="advanced-controls">
+              <summary>Play with the local rules</summary>
+              <div class="slider-row"><label for="complexitySep">Separation <output id="complexitySepOut"></output></label><input id="complexitySep" type="range" min="0" max="2.5" step="0.05" /></div>
+              <div class="slider-row"><label for="complexityAli">Alignment <output id="complexityAliOut"></output></label><input id="complexityAli" type="range" min="0" max="2.5" step="0.05" /></div>
+              <div class="slider-row"><label for="complexityCoh">Cohesion <output id="complexityCohOut"></output></label><input id="complexityCoh" type="range" min="0" max="2.5" step="0.05" /></div>
+              <div class="slider-row"><label for="complexityNoise">Noise <output id="complexityNoiseOut"></output></label><input id="complexityNoise" type="range" min="0" max="0.8" step="0.01" /></div>
+              <div class="slider-row"><label for="complexityPerception">Neighbourhood <output id="complexityPerceptionOut"></output></label><input id="complexityPerception" type="range" min="30" max="130" step="1" /></div>
+            </details>
+            <div class="metric-grid four">
+              <div class="metric-card"><span>Alignment</span><strong id="complexityPolar">0%</strong></div>
+              <div class="metric-card"><span>Clusters</span><strong id="complexityClusters">0</strong></div>
+              <div class="metric-card"><span>Mean neighbours</span><strong id="complexityNeighbours">0</strong></div>
+              <div class="metric-card"><span>Spread</span><strong id="complexitySpread">0%</strong></div>
+            </div>
+            <div id="complexityInterpretation" class="interpretation">Emergence is visible when organised flock-level behaviour appears although each bird uses only local information.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="panel-chaos" class="lab-panel" role="tabpanel" data-panel="chaos" hidden>
+        <div class="concept-banner">
+          <div><span class="eyebrow">Deterministic chaos</span><h2>A one-variable rule can be chaotic. Many agents are not required.</h2></div>
+          <p>The logistic map uses one equation: <code>xₙ₊₁ = r xₙ(1 − xₙ)</code>. Two trajectories start almost identically and follow exactly the same deterministic rule. In chaotic regimes their separation can grow rapidly.</p>
+        </div>
+        <div class="experiment-grid chaos-grid">
+          <div class="visual-panel panel canvas-card">
+            <div class="canvas-toolbar">
+              <div><strong>Nearby trajectories</strong><span id="chaosRegime">evaluating regime…</span></div>
+              <div class="equation">xₙ₊₁ = r xₙ(1 − xₙ)</div>
+            </div>
+            <canvas id="chaosCanvas" class="chaos-canvas" aria-label="Logistic map nearby trajectory plot"></canvas>
+            <div class="plot-legend"><span class="line-a">trajectory A</span><span class="line-b">trajectory B</span><span class="line-d">log separation</span></div>
+          </div>
+          <aside class="panel controls-card">
+            <div class="do-this">
+              <strong>Try this first</strong>
+              <ol><li>Choose <b>Stable</b> and run.</li><li>Choose <b>Chaotic</b> and run again.</li><li>Make the initial difference even smaller. The divergence does not vanish.</li></ol>
+            </div>
+            <div class="preset-row" aria-label="Logistic map presets">
+              <button class="chip" type="button" data-chaos-preset="stable">Stable</button>
+              <button class="chip" type="button" data-chaos-preset="periodic">Periodic</button>
+              <button class="chip" type="button" data-chaos-preset="edge">Near transition</button>
+              <button class="chip active" type="button" data-chaos-preset="chaotic">Chaotic</button>
+            </div>
+            <div class="slider-row"><label for="chaosR">Growth parameter r <output id="chaosROut"></output></label><input id="chaosR" type="range" min="2.5" max="4" step="0.001" /></div>
+            <div class="slider-row"><label for="chaosX">Initial x₀ <output id="chaosXOut"></output></label><input id="chaosX" type="range" min="0.05" max="0.95" step="0.001" /></div>
+            <div class="slider-row"><label for="chaosEps">Initial difference 10<sup><output id="chaosEpsOut"></output></sup></label><input id="chaosEps" type="range" min="-12" max="-2" step="1" /></div>
+            <div class="button-grid">
+              <button id="chaosRun" class="button primary" type="button">Run 80 steps</button>
+              <button id="chaosKick" class="button" type="button">Tiny parameter kick</button>
+              <button id="chaosReset" class="button" type="button">Reset</button>
+            </div>
+            <div class="metric-grid four">
+              <div class="metric-card"><span>Finite-time λ</span><strong id="chaosLambda">0</strong></div>
+              <div class="metric-card"><span>Final separation</span><strong id="chaosSeparation">0</strong></div>
+              <div class="metric-card"><span>Visible steps</span><strong id="chaosSteps">0</strong></div>
+              <div class="metric-card"><span>Rule</span><strong>deterministic</strong></div>
+            </div>
+            <div id="chaosInterpretation" class="interpretation">A positive finite-time Lyapunov estimate indicates local exponential separation along this orbit; it is a diagnostic, not a substitute for a full proof of chaos.</div>
+          </aside>
+        </div>
+        <div class="panel bifurcation-card">
+          <div class="section-heading-inline"><div><span class="eyebrow">Route to chaos</span><h3>Logistic-map bifurcation diagram</h3></div><p>The vertical marker follows your current <em>r</em>. Period doubling, chaotic bands and periodic windows coexist.</p></div>
+          <canvas id="bifurcationCanvas" aria-label="Logistic map bifurcation diagram"></canvas>
+        </div>
+      </section>
+
+      <section id="panel-fractals" class="lab-panel" role="tabpanel" data-panel="fractals" hidden>
+        <div class="concept-banner">
+          <div><span class="eyebrow">Fractals</span><h2>Repeated rules can create structure that persists across scales.</h2></div>
+          <p>Two different mechanisms are shown here. The Sierpiński chaos game builds a fractal attractor from repeated geometric choices. The Newton map partitions starting points by which root an iterative solver reaches, creating intricate basin boundaries.</p>
+        </div>
+        <div class="fractal-switch" role="tablist" aria-label="Fractal experiments">
+          <button type="button" class="chip active" data-fractal-tab="sierpinski">Sierpiński chaos game</button>
+          <button type="button" class="chip" data-fractal-tab="newton">Newton basin</button>
+        </div>
+
+        <div id="fractal-sierpinski" class="fractal-panel active" data-fractal-panel="sierpinski">
+          <div class="experiment-grid">
+            <div class="visual-panel panel canvas-card square-card">
+              <div class="canvas-toolbar"><div><strong>Sierpiński chaos game</strong><span>random choices, deterministic geometry</span></div><div class="live-dot"><i></i><span id="sierRunLabel">running</span></div></div>
+              <canvas id="sierCanvas" class="fractal-canvas" aria-label="Sierpiński chaos game"></canvas>
+              <div class="canvas-caption">At the classic ratio ½, repeatedly move halfway toward a randomly chosen corner. The triangle appears even though no triangle-with-holes is explicitly drawn.</div>
+            </div>
+            <aside class="panel controls-card">
+              <div class="do-this"><strong>Try this first</strong><ol><li>Reset and watch the pattern grow.</li><li>Press <b>Jump current point</b>.</li><li>The same rule pulls the sequence back onto the same fractal attractor.</li></ol></div>
+              <div class="slider-row"><label for="sierRatio">Move fraction <output id="sierRatioOut"></output></label><input id="sierRatio" type="range" min="0.30" max="0.70" step="0.01" /></div>
+              <div class="slider-row"><label for="sierSpeed">Points per frame <output id="sierSpeedOut"></output></label><input id="sierSpeed" type="range" min="1" max="500" step="1" /></div>
+              <div class="button-grid">
+                <button id="sierToggle" class="button primary" type="button">Pause</button>
+                <button id="sierJump" class="button" type="button">Jump current point</button>
+                <button id="sierReset" class="button" type="button">Reset pattern</button>
+                <button id="sierNewSeed" class="button" type="button">New random sequence</button>
+              </div>
+              <div class="metric-grid four">
+                <div class="metric-card"><span>Points drawn</span><strong id="sierCount">0</strong></div>
+                <div class="metric-card"><span>Classic ratio</span><strong id="sierClassic">yes</strong></div>
+                <div class="metric-card"><span>Vertices</span><strong>3</strong></div>
+                <div class="metric-card"><span>Global planner</span><strong>none</strong></div>
+              </div>
+              <div id="sierInterpretation" class="interpretation">The pattern is a geometric attractor produced by iteration. Random vertex choice does not mean the geometry itself is unstructured.</div>
+            </aside>
+          </div>
+        </div>
+
+        <div id="fractal-newton" class="fractal-panel" data-fractal-panel="newton" hidden>
+          <div class="experiment-grid">
+            <div class="visual-panel panel canvas-card square-card">
+              <div class="canvas-toolbar"><div><strong>Newton basin for z³ = 1</strong><span>colour = final root reached</span></div><div id="newtonZoomLabel" class="zoom-label">zoom ×1.0</div></div>
+              <canvas id="newtonCanvas" class="fractal-canvas" aria-label="Newton fractal basin map"></canvas>
+              <div class="canvas-caption">Click anywhere to choose a starting point. Near the coloured boundary, a tiny displacement can lead to a different root.</div>
+            </div>
+            <aside class="panel controls-card">
+              <div class="do-this"><strong>Try this first</strong><ol><li>Press <b>Find sensitive edge</b>.</li><li>Press <b>Tiny perturbation</b>.</li><li>Zoom in and see whether intricate outcome boundaries persist.</li></ol></div>
+              <div class="button-grid">
+                <button id="newtonFind" class="button primary" type="button">Find sensitive edge</button>
+                <button id="newtonPerturb" class="button" type="button">Tiny perturbation</button>
+                <button id="newtonZoomIn" class="button" type="button">Zoom in</button>
+                <button id="newtonReset" class="button" type="button">Reset view</button>
+              </div>
+              <div class="slider-row"><label for="newtonIterations">Maximum iterations <output id="newtonIterationsOut"></output></label><input id="newtonIterations" type="range" min="12" max="60" step="1" /></div>
+              <div class="metric-grid four">
+                <div class="metric-card"><span>Selected root</span><strong id="newtonRoot">—</strong></div>
+                <div class="metric-card"><span>Perturbed root</span><strong id="newtonRoot2">—</strong></div>
+                <div class="metric-card"><span>Point separation</span><strong id="newtonDelta">—</strong></div>
+                <div class="metric-card"><span>Boundary</span><strong id="newtonBoundary">unselected</strong></div>
+              </div>
+              <div id="newtonInterpretation" class="interpretation">The coloured regions are basins of attraction. The fractal structure is in their repeatedly folded boundaries, not merely in the fact that the picture looks intricate.</div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="section synthesis-section">
+      <div class="panel synthesis-panel">
+        <span class="eyebrow">Do not collapse the concepts</span>
+        <h2>Four phenomena, four different tests</h2>
+        <div class="synthesis-grid">
+          <article><strong>Order</strong><p>Does a disturbance decay and coherent behaviour persist or return?</p></article>
+          <article><strong>Complexity</strong><p>Do many local interactions generate system-level organisation or adaptation that no agent contains?</p></article>
+          <article><strong>Chaos</strong><p>Do nearby deterministic trajectories separate sensitively over time?</p></article>
+          <article><strong>Fractality</strong><p>Does structure or boundary complexity persist as scale changes, according to an iterative rule or dynamical set?</p></article>
+        </div>
+        <p class="section-intro">A real ecosystem can contain all four kinds of behaviour in different variables, places and times. The existence of one does not prove the others.</p>
+      </div>
+    </section>
+
+    <section class="section references-section">
+      <div class="panel">
+        <span class="eyebrow">References</span>
+        <h2>Mathematical and computational foundations</h2>
+        <div class="references-list">
+          <p>Devaney, R. L. (1989). <em>An introduction to chaotic dynamical systems</em> (2nd ed.). Addison-Wesley.</p>
+          <p>Grebogi, C., Ott, E., &amp; Yorke, J. A. (1983). Fractal basin boundaries, long-lived chaotic transients, and unstable-unstable pair bifurcation. <em>Physical Review Letters, 50</em>(13), 935–938. https://doi.org/10.1103/PhysRevLett.50.935</p>
+          <p>May, R. M. (1976). Simple mathematical models with very complicated dynamics. <em>Nature, 261</em>, 459–467. https://doi.org/10.1038/261459a0</p>
+          <p>Reynolds, C. W. (1987). Flocks, herds, and schools: A distributed behavioral model. <em>Computer Graphics, 21</em>(4), 25–34. https://doi.org/10.1145/37402.37406</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row"><p>© André Baumann · Simple Rules Explorer</p></div>
+  </footer>
+
+  <script src="app.js?v=20260807-1" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
+</body>
+</html>
