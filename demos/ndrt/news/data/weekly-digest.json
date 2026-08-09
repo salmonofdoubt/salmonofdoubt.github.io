@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-08-08T05:57:45.658297+00:00",
-  "latest_generated_at": "2026-08-08T05:57:33.922258+00:00",
+  "generated_at": "2026-08-09T05:59:57.947621+00:00",
+  "latest_generated_at": "2026-08-09T05:59:18.320736+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "grants-opportunities": 19,
-    "waterbody-evidence-alerts": 24,
-    "ireland-catchment-practice": 16,
+    "grants-opportunities": 15,
+    "waterbody-evidence-alerts": 26,
+    "ireland-catchment-practice": 18,
     "research-papers": 36
   },
   "top_pressure_categories": [
     {
       "pressure": "policy / governance",
-      "count": 32
+      "count": 31
     },
     {
       "pressure": "NbS / restoration",
-      "count": 29
+      "count": 28
     },
     {
       "pressure": "habitat / biodiversity",
@@ -24,19 +24,19 @@
     },
     {
       "pressure": "citizen science / monitoring",
-      "count": 24
-    },
-    {
-      "pressure": "funding / grant",
-      "count": 22
+      "count": 25
     },
     {
       "pressure": "agricultural runoff",
-      "count": 22
+      "count": 21
     },
     {
       "pressure": "water quality",
       "count": 21
+    },
+    {
+      "pressure": "funding / grant",
+      "count": 18
     },
     {
       "pressure": "nutrients",
@@ -47,29 +47,29 @@
       "count": 8
     },
     {
-      "pressure": "incident / alert",
-      "count": 8
+      "pressure": "general catchment signal",
+      "count": 7
     },
     {
       "pressure": "sediment / hydromorphology",
-      "count": 8
+      "count": 7
     },
     {
-      "pressure": "general catchment signal",
-      "count": 5
+      "pressure": "incident / alert",
+      "count": 7
     }
   ],
   "items": [
     {
       "id": "247bb9eb6be5fc58",
-      "title": "Closed-period slurry spreading linked to river pollution in Meath study - Irish Examiner",
+      "title": "Closed-period slurry spreading linked to river pollution in Meath study - irishexaminer.com",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE0wS2Z1QVdEeF8tZU5fQVdMNEw2NGhDNjNGOW5TdThQaEpUQ3F6cWcySGpWaXY2dGdwd1pOMEtlbFJ2MWs0cE9mT25laG9YZ203SHp1M2hodVl2eTVuRTRhSnFKZlBKLVU?oc=5",
       "section": "waterbody-evidence-alerts",
       "source_name": "Google News: Meath Louth Fingal catchment signals",
       "published": "2026-06-24",
       "score": 100,
       "practical_score": 152.0,
-      "freshness_label": "45 days old",
+      "freshness_label": "46 days old",
       "pressure_categories": [
         "manure / slurry timing",
         "slurry-manure-timing",
@@ -98,7 +98,7 @@
       "published": "2026-07-10",
       "score": 100,
       "practical_score": 148.0,
-      "freshness_label": "29 days old",
+      "freshness_label": "30 days old",
       "pressure_categories": [
         "septic / domestic wastewater",
         "funding / grant",
@@ -130,38 +130,7 @@
       "published": "2026-06-17",
       "score": 100,
       "practical_score": 147.0,
-      "freshness_label": "52 days old",
-      "pressure_categories": [
-        "river ecology",
-        "funding / grant",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 63,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      },
-      "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support river ecology, funding / grant, NbS / restoration, citizen science, engagement, or small catchment actions."
-    },
-    {
-      "id": "38ead0bdd3ed16af",
-      "title": "Funding Available for Small Dam Removal and River Restoration - fundsforNGOs",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOeGkyWWU2a0lRbGsyMU1PNGItUC13elJDdm95VU9LZnNFbXdVYUFPdHg3Z2JKMWh1QTFUNzRRMlY4NUIwa2JkRGNpcm5HbjR1aEhQbXFGMmprNGgtMDZWRFc4b0NUZG1lYlNaa2Fqekc3RDh0UVB5dEllNldnSjVOVC1adUpzbmY2MzIwQUY3aldYdFlHYkdWMnhQaUhwMUctbkR2QTYxLUlEZ9IBrwFBVV95cUxQSVktMUx2T0dCVXhEaG9sNEdJMmdSMXdxSncyYUdGQ2JQU0RhODV0TTlXNFNxcmZUM2k0UFZOTkkxdmtYcUhYZmxSeGNVRlBiajVhejlmOUNnOGc1WDI0UmlqSlYtWldzTHhUWVd1bEowWjVxY29CaEZxakg1QnhiekZST1NPLXRCRDF5QUV2VkxBSzZGRnVELW5nWVAyTmp0SlppT1R1Q0ZuUS1SSXRz?oc=5",
-      "section": "grants-opportunities",
-      "source_name": "Google News: river ecology Ireland",
-      "published": "2026-06-04",
-      "score": 100,
-      "practical_score": 147.0,
-      "freshness_label": "65 days old",
+      "freshness_label": "53 days old",
       "pressure_categories": [
         "river ecology",
         "funding / grant",
@@ -327,6 +296,34 @@
       "id": "b573912aa50f6be0",
       "title": "Planning and Infrastructure Bill",
       "url": "https://theriverstrust.org/about-us/news?c=101203",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "The Rivers Trust News",
+      "published": null,
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "nutrients",
+        "habitat / biodiversity",
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+    },
+    {
+      "id": "635a732b3168613b",
+      "title": "Plastic Pollution",
+      "url": "https://theriverstrust.org/about-us/news?c=46709",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
