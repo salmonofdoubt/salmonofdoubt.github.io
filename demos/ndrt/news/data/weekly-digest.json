@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-08-09T05:59:57.947621+00:00",
-  "latest_generated_at": "2026-08-09T05:59:18.320736+00:00",
+  "generated_at": "2026-08-10T06:43:32.707832+00:00",
+  "latest_generated_at": "2026-08-10T06:43:14.974922+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "grants-opportunities": 15,
-    "waterbody-evidence-alerts": 26,
-    "ireland-catchment-practice": 18,
+    "grants-opportunities": 18,
+    "waterbody-evidence-alerts": 24,
+    "ireland-catchment-practice": 17,
     "research-papers": 36
   },
   "top_pressure_categories": [
     {
       "pressure": "policy / governance",
-      "count": 31
+      "count": 33
     },
     {
       "pressure": "NbS / restoration",
-      "count": 28
+      "count": 30
     },
     {
       "pressure": "habitat / biodiversity",
@@ -28,6 +28,10 @@
     },
     {
       "pressure": "agricultural runoff",
+      "count": 23
+    },
+    {
+      "pressure": "funding / grant",
       "count": 21
     },
     {
@@ -35,41 +39,37 @@
       "count": 21
     },
     {
-      "pressure": "funding / grant",
-      "count": 18
-    },
-    {
       "pressure": "nutrients",
       "count": 12
     },
     {
-      "pressure": "septic / domestic wastewater",
-      "count": 8
-    },
-    {
-      "pressure": "general catchment signal",
-      "count": 7
-    },
-    {
       "pressure": "sediment / hydromorphology",
+      "count": 9
+    },
+    {
+      "pressure": "septic / domestic wastewater",
       "count": 7
     },
     {
       "pressure": "incident / alert",
       "count": 7
+    },
+    {
+      "pressure": "general catchment signal",
+      "count": 6
     }
   ],
   "items": [
     {
       "id": "247bb9eb6be5fc58",
-      "title": "Closed-period slurry spreading linked to river pollution in Meath study - irishexaminer.com",
+      "title": "Closed-period slurry spreading linked to river pollution in Meath study - Irish Examiner",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE0wS2Z1QVdEeF8tZU5fQVdMNEw2NGhDNjNGOW5TdThQaEpUQ3F6cWcySGpWaXY2dGdwd1pOMEtlbFJ2MWs0cE9mT25laG9YZ203SHp1M2hodVl2eTVuRTRhSnFKZlBKLVU?oc=5",
       "section": "waterbody-evidence-alerts",
       "source_name": "Google News: Meath Louth Fingal catchment signals",
       "published": "2026-06-24",
       "score": 100,
       "practical_score": 152.0,
-      "freshness_label": "46 days old",
+      "freshness_label": "47 days old",
       "pressure_categories": [
         "manure / slurry timing",
         "slurry-manure-timing",
@@ -98,7 +98,7 @@
       "published": "2026-07-10",
       "score": 100,
       "practical_score": 148.0,
-      "freshness_label": "30 days old",
+      "freshness_label": "31 days old",
       "pressure_categories": [
         "septic / domestic wastewater",
         "funding / grant",
@@ -130,7 +130,7 @@
       "published": "2026-06-17",
       "score": 100,
       "practical_score": 147.0,
-      "freshness_label": "53 days old",
+      "freshness_label": "54 days old",
       "pressure_categories": [
         "river ecology",
         "funding / grant",
@@ -151,6 +151,27 @@
       },
       "research_use_type": null,
       "action_relevance": "Funding signal for the Trust: check whether this can support river ecology, funding / grant, NbS / restoration, citizen science, engagement, or small catchment actions."
+    },
+    {
+      "id": "a49c4a02dbbd63e4",
+      "title": "A Soil Erosion Indicator for Supporting Agricultural, Environmental and Climate Policies in the European Union",
+      "url": "https://doi.org/10.3390/rs12091365",
+      "section": "research-papers",
+      "source_name": "Remote Sensing",
+      "published": "2020-04-26",
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "2020 · 219 citations · open access",
+      "pressure_categories": [
+        "agricultural runoff",
+        "sediment / hydromorphology",
+        "NbS / restoration",
+        "citizen science / monitoring"
+      ],
+      "local_relevance": null,
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for agricultural runoff, sediment / hydromorphology, NbS / restoration."
     },
     {
       "id": "4f44253263213588",
@@ -296,34 +317,6 @@
       "id": "b573912aa50f6be0",
       "title": "Planning and Infrastructure Bill",
       "url": "https://theriverstrust.org/about-us/news?c=101203",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "635a732b3168613b",
-      "title": "Plastic Pollution",
-      "url": "https://theriverstrust.org/about-us/news?c=46709",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
