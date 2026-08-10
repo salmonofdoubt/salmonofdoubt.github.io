@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-08-09T05:57:50+00:00",
+  "generated_at": "2026-08-10T06:42:24+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4549,
-  "funding_like_links": 470,
+  "links_seen": 4114,
+  "funding_like_links": 457,
   "candidate_fetches": 300,
-  "pending_review_count": 96,
+  "pending_review_count": 88,
   "status_counts": {
-    "pending_review": 96,
-    "suppressed_non_actionable": 61,
+    "pending_review": 88,
+    "suppressed_non_actionable": 56,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 11,
+    "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 54
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 56
   },
   "candidate_type_counts": {
-    "recurring_programme": 42,
-    "funding_call": 88,
+    "recurring_programme": 32,
+    "funding_call": 85,
     "scholarship": 32,
-    "generic_funding_hub": 6,
-    "tender": 16,
-    "unknown": 54
+    "generic_funding_hub": 5,
+    "tender": 15,
+    "unknown": 56
   },
   "seeds": [
     {
@@ -45,9 +45,9 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 80,
-      "funding_like_links": 13,
-      "candidates_fetched": 13
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "lawpro_funding_hub",
@@ -55,7 +55,7 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 115,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -135,7 +135,7 @@
       "url": "https://farmingforwater.ie/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 91,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -145,7 +145,7 @@
       "url": "https://farmingforwater.ie/measures/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 149,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 615,
       "funding_like_links": 57,
-      "candidates_fetched": 12
+      "candidates_fetched": 25
     },
     {
       "id": "geo_dfg_heisenberg_watch",
