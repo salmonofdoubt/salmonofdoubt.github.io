@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11T15:06:57+00:00",
+  "generated_at": "2026-08-11T16:08:30+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
@@ -42,9 +42,14 @@
       "parser": "pdf_line_window_v1"
     },
     "eirgrid_tso_contracted_non_wind": {
-      "status": "failed",
+      "status": "loaded",
       "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Non-Wind-Report-28-11-2025.pdf",
-      "error": "HTTP Error 304: Not Modified"
+      "bytes": 320055,
+      "pages": 8,
+      "source_key": "eirgrid_tso_contracted_non_wind",
+      "records": 100,
+      "source_correct_as_of": "28/11/2025",
+      "parser": "pdf_line_window_v1"
     },
     "esb_dso_contracted_renewable": {
       "status": "loaded",
@@ -84,11 +89,5 @@
       "source_key": "eirgrid_system_renewable_summary"
     }
   },
-  "errors": [
-    {
-      "source": "eirgrid_tso_contracted_non_wind",
-      "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Non-Wind-Report-28-11-2025.pdf",
-      "error": "HTTP Error 304: Not Modified"
-    }
-  ]
+  "errors": []
 }
