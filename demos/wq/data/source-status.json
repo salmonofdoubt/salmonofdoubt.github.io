@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-12T07:44:00Z",
+  "generated_at_utc": "2026-08-12T08:53:55Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
@@ -16,8 +16,8 @@
       "id": "opw_waterlevel",
       "status": "ok",
       "records": 2007,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 2085
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "elapsed_ms": 2026
     },
     {
       "name": "EPA Bathing Water locations",
@@ -32,10 +32,10 @@
       "is_live_signal": false,
       "display_hint": "Seasonal location/profile/classification context.",
       "id": "epa_bathing_locations",
-      "status": "ok",
+      "status": "partial",
       "records": 0,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 2793
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "error": "URL error: timed out"
     },
     {
       "name": "EPA Bathing Water measurements",
@@ -50,10 +50,10 @@
       "is_live_signal": false,
       "display_hint": "Latest official bathing sample, not continuous live sensing.",
       "id": "epa_bathing_measurements",
-      "status": "ok",
+      "status": "partial",
       "records": 0,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 1755
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "error": "URL error: timed out"
     },
     {
       "name": "EPA Bathing Water alerts",
@@ -68,10 +68,10 @@
       "is_live_signal": true,
       "display_hint": "Current bathing-water alert or restriction.",
       "id": "epa_bathing_alerts",
-      "status": "ok",
+      "status": "partial",
       "records": 0,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 743
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "error": "URL error: timed out"
     },
     {
       "name": "EPA WFD Open Data context",
@@ -86,10 +86,10 @@
       "is_live_signal": false,
       "display_hint": "WFD assessment context; not real-time water quality.",
       "id": "epa_wfd",
-      "status": "ok",
+      "status": "partial",
       "records": 0,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 19495
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "error": "Baldoyle: URL error: timed out; Baldoyle Bay: URL error: timed out; Howth: URL error: timed out"
     },
     {
       "name": "EPA Geoportal water quality datasets",
@@ -106,7 +106,7 @@
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-08-12T07:44:00Z"
+      "fetched_at_utc": "2026-08-12T08:53:55Z"
     },
     {
       "name": "Marine Institute Irish Weather Buoy Network",
@@ -123,8 +123,8 @@
       "id": "marine_institute_weather_buoys",
       "status": "ok",
       "records": 4,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 1394
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "elapsed_ms": 1101
     },
     {
       "name": "Met Éireann current station observations",
@@ -141,8 +141,8 @@
       "id": "met_eireann_observations",
       "status": "ok",
       "records": 7,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 2019
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "elapsed_ms": 2135
     },
     {
       "name": "Local focus-place anchors",
@@ -159,7 +159,7 @@
       "id": "local_focus_places",
       "status": "ok",
       "records": 6,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
       "elapsed_ms": 0
     },
     {
@@ -175,10 +175,10 @@
       "is_live_signal": false,
       "display_hint": "Official EPA WFD waterbody and monitoring-programme records; not real-time chemistry values.",
       "id": "epa_official_wq",
-      "status": "ok",
-      "records": 164,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
-      "elapsed_ms": 85852
+      "status": "failed",
+      "records": 0,
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
+      "error": "subcatchment 08_3: URL error: timed out; subcatchment 09_17: URL error: timed out; subcatchment 08_1: URL error: timed out; subcatchment 08_4: URL error: timed out"
     },
     {
       "name": "EPA/Catchments official chemistry values",
@@ -195,7 +195,7 @@
       "id": "epa_official_chemistry",
       "status": "empty",
       "records": 0,
-      "fetched_at_utc": "2026-08-12T07:44:00Z",
+      "fetched_at_utc": "2026-08-12T08:53:55Z",
       "files": 0,
       "directory": "data/source/epa-chemistry"
     }
@@ -204,13 +204,12 @@
     "ok": true,
     "status": "ok",
     "issues": [],
-    "record_count": 2189,
+    "record_count": 2025,
     "source_count": 11,
     "records_by_source": {
       "opw_waterlevel": 2007,
       "epa_geoportal_context": 1,
       "local_focus_places": 6,
-      "epa_official_wq": 164,
       "met_eireann_observations": 7,
       "marine_institute_weather_buoys": 4
     },
