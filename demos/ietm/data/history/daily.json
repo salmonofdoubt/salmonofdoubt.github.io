@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-15T20:31:48+00:00",
+    "generated_at": "2026-08-15T20:51:35+00:00",
     "row_count": 124,
     "mode": "daily-snapshot-history",
     "warm_start_window_days": 30,
@@ -2468,14 +2468,14 @@
     },
     {
       "date": "2026-08-15",
-      "captured_at": "2026-08-15T20:31:48+00:00",
-      "demand_mw": 4695.0,
-      "demand_gw": 4.7,
+      "captured_at": "2026-08-15T20:51:35+00:00",
+      "demand_mw": 4625.0,
+      "demand_gw": 4.62,
       "renewables_percent": 1.5,
       "wind_percent": 1.5,
       "solar_percent": 0.0,
-      "imports_percent": 46.4,
-      "residual_percent": 52.1,
+      "imports_percent": 47.3,
+      "residual_percent": 51.1,
       "co2_g_per_kwh": 229.0,
       "co2_available": true,
       "target_gap_pp": 38.7,
