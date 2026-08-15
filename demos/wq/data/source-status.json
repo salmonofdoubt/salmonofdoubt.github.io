@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-08-15T13:19:32Z",
+  "generated_at_utc": "2026-08-15T13:52:41Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
@@ -16,8 +16,8 @@
       "id": "opw_waterlevel",
       "status": "ok",
       "records": 2007,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 1669
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 1728
     },
     {
       "name": "EPA Bathing Water locations",
@@ -34,8 +34,8 @@
       "id": "epa_bathing_locations",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 4013
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 1430
     },
     {
       "name": "EPA Bathing Water measurements",
@@ -52,8 +52,8 @@
       "id": "epa_bathing_measurements",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 1280
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 878
     },
     {
       "name": "EPA Bathing Water alerts",
@@ -70,8 +70,8 @@
       "id": "epa_bathing_alerts",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 713
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 418
     },
     {
       "name": "EPA WFD Open Data context",
@@ -88,8 +88,8 @@
       "id": "epa_wfd",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 11236
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 8963
     },
     {
       "name": "EPA Geoportal water quality datasets",
@@ -106,7 +106,7 @@
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-08-15T13:19:32Z"
+      "fetched_at_utc": "2026-08-15T13:52:41Z"
     },
     {
       "name": "Marine Institute Irish Weather Buoy Network",
@@ -123,8 +123,8 @@
       "id": "marine_institute_weather_buoys",
       "status": "ok",
       "records": 4,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 897
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 760
     },
     {
       "name": "Met Éireann current station observations",
@@ -141,8 +141,8 @@
       "id": "met_eireann_observations",
       "status": "ok",
       "records": 7,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 1666
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 1323
     },
     {
       "name": "Local focus-place anchors",
@@ -159,7 +159,7 @@
       "id": "local_focus_places",
       "status": "ok",
       "records": 6,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
       "elapsed_ms": 0
     },
     {
@@ -177,8 +177,8 @@
       "id": "epa_official_wq",
       "status": "ok",
       "records": 164,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
-      "elapsed_ms": 55499
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
+      "elapsed_ms": 51037
     },
     {
       "name": "EPA/Catchments official chemistry values",
@@ -195,7 +195,7 @@
       "id": "epa_official_chemistry",
       "status": "empty",
       "records": 0,
-      "fetched_at_utc": "2026-08-15T13:19:32Z",
+      "fetched_at_utc": "2026-08-15T13:52:41Z",
       "files": 0,
       "directory": "data/source/epa-chemistry"
     }
