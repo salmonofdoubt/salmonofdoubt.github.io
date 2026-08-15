@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-08-15T23:48:41+00:00",
+    "generated_at": "2026-08-15T23:59:21+00:00",
     "schema_version": "transition_pathway_v2",
     "builder": "build_transition_pathway.py",
     "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -56,7 +56,7 @@
     },
     "latest_snapshot": {
       "datetime": "2026-08-16T00:45:00+01:00",
-      "value": 6.0,
+      "value": 5.1,
       "unit": "%",
       "basis": "latest_grid_snapshot",
       "source_label": "Smart Grid Dashboard API",
@@ -688,7 +688,7 @@
       },
       {
         "date": "2026-08-15",
-        "captured_at": "2026-08-15T23:48:40+00:00",
+        "captured_at": "2026-08-15T23:59:20+00:00",
         "value": 1.6,
         "weight_mw": 3965.0,
         "estimated_backfill": false
