@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-14T06:43:30.303956+00:00",
-  "latest_generated_at": "2026-08-14T06:43:20.641952+00:00",
+  "generated_at": "2026-08-15T05:43:03.082685+00:00",
+  "latest_generated_at": "2026-08-15T05:42:46.227948+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
@@ -12,7 +12,7 @@
   "top_pressure_categories": [
     {
       "pressure": "policy / governance",
-      "count": 36
+      "count": 35
     },
     {
       "pressure": "NbS / restoration",
@@ -24,7 +24,7 @@
     },
     {
       "pressure": "citizen science / monitoring",
-      "count": 25
+      "count": 26
     },
     {
       "pressure": "agricultural runoff",
@@ -32,7 +32,7 @@
     },
     {
       "pressure": "water quality",
-      "count": 21
+      "count": 23
     },
     {
       "pressure": "funding / grant",
@@ -61,6 +61,40 @@
   ],
   "items": [
     {
+      "id": "c15944002653fd1a",
+      "title": "Louth TD Erin McGreehan urges expansion of septic tank repair grants - Irish Independent",
+      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQjI2U3E3Nnl4a3d2bUdhdVdOcXdEZjJoWEx2OUpna2xNdElaa2duTEgxZlBpSHBwNERWYXBPbUlBeGt6R2huT3A0SUNHNTVsd25KdVlyLUo2bDZQMHBFd1ZSU3h0UDl1WS1PRm9ieEwxZzNqNDFEb1RiRE8xU0xYWUVTS1RETTl4RnhZN3JpTWZWLVlZQUE2NnZWbXFZb1VDdVpfWGtWcDVLTWZiZlZWdDdWRFgyekEwTkNaRFZaTENLVTQ?oc=5",
+      "section": "grants-opportunities",
+      "source_name": "Google News: Meath Louth Fingal catchment signals",
+      "published": "2026-07-10",
+      "score": 100,
+      "practical_score": 154.0,
+      "freshness_label": "36 days old",
+      "pressure_categories": [
+        "septic / domestic wastewater",
+        "funding / grant",
+        "policy / governance"
+      ],
+      "local_relevance": {
+        "score": 72,
+        "label": "High local relevance",
+        "matched_terms": [
+          "Ireland",
+          "fingal",
+          "louth",
+          "meath"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      },
+      "research_use_type": null,
+      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
+    },
+    {
       "id": "247bb9eb6be5fc58",
       "title": "Closed-period slurry spreading linked to river pollution in Meath study - Irish Examiner",
       "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE0wS2Z1QVdEeF8tZU5fQVdMNEw2NGhDNjNGOW5TdThQaEpUQ3F6cWcySGpWaXY2dGdwd1pOMEtlbFJ2MWs0cE9mT25laG9YZ203SHp1M2hodVl2eTVuRTRhSnFKZlBKLVU?oc=5",
@@ -69,7 +103,7 @@
       "published": "2026-06-24",
       "score": 100,
       "practical_score": 152.0,
-      "freshness_label": "51 days old",
+      "freshness_label": "52 days old",
       "pressure_categories": [
         "manure / slurry timing",
         "slurry-manure-timing",
@@ -90,38 +124,6 @@
       "action_relevance": "Agricultural timing signal: slurry or manure may be legally spread while rainfall/runoff risk is still high, which is directly relevant to nutrients, sediment pathways, farmer engagement, and catchment messaging."
     },
     {
-      "id": "c15944002653fd1a",
-      "title": "Louth TD Erin McGreehan urges expansion of septic tank repair grants - Irish Independent",
-      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQjI2U3E3Nnl4a3d2bUdhdVdOcXdEZjJoWEx2OUpna2xNdElaa2duTEgxZlBpSHBwNERWYXBPbUlBeGt6R2huT3A0SUNHNTVsd25KdVlyLUo2bDZQMHBFd1ZSU3h0UDl1WS1PRm9ieEwxZzNqNDFEb1RiRE8xU0xYWUVTS1RETTl4RnhZN3JpTWZWLVlZQUE2NnZWbXFZb1VDdVpfWGtWcDVLTWZiZlZWdDdWRFgyekEwTkNaRFZaTENLVTQ?oc=5",
-      "section": "grants-opportunities",
-      "source_name": "Google News: septic tanks and domestic wastewater Ireland",
-      "published": "2026-07-10",
-      "score": 100,
-      "practical_score": 148.0,
-      "freshness_label": "35 days old",
-      "pressure_categories": [
-        "septic / domestic wastewater",
-        "funding / grant",
-        "policy / governance"
-      ],
-      "local_relevance": {
-        "score": 32,
-        "label": "Moderate local relevance",
-        "matched_terms": [
-          "Ireland",
-          "louth"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 63,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      },
-      "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
-    },
-    {
       "id": "8f45785b40bb515c",
       "title": "Inland Fisheries Ireland funds two Sligo river restoration projects - Irish Independent",
       "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOTE1GeXRZV0ZmeTloRVM1NUx6Q1pCdGU2VGdjVEo0bDhHamtGSlhtOUViRDlqQ0ZfN0kzV0ZUNGdJdDlOSjFENkNic2dfb0tSQV80QXY1VUd5bHVsNHdBRHRwVER4ZUowTFRHTlQ2ZmZiMGRZazRpaTBhdmFReGI2RlJZanBmSDVyMEJmenFoZ0xxUXlKeTBiYy1vd2U2X0lwMGJfN0RHXzNhVDVGU3VaYUxSSHVweklWSjJYODRwaUdCdw?oc=5",
@@ -130,7 +132,7 @@
       "published": "2026-06-17",
       "score": 100,
       "practical_score": 147.0,
-      "freshness_label": "58 days old",
+      "freshness_label": "59 days old",
       "pressure_categories": [
         "river ecology",
         "funding / grant",
