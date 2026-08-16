@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07111a">
+  <meta name="description" content="Moon Shadows: an interactive Sun-view laboratory for lunar-shadow geometry, eclipse hunting, counterfactual orbital experiments, and solar-eclipse statistics.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Moon Shadows">
+  <title>Moon Shadows · André Baumann</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <link rel="stylesheet" href="/demos/shared/demo-return.css">
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css">
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css">
+  <script defer src="/demos/shared/demo-support.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-shell header-inner">
+      <div>
+        <div class="eyebrow">Astronomy · geometry · statistics · sandbox</div>
+        <h1>Moon Shadows</h1>
+        <p class="lede">Stand on the Sun. Watch the Moon's real shadow sweep a plane through Earth, hunt eclipses, exaggerate the geometry, and change the system to discover which parameters make eclipses common or rare.</p>
+      </div>
+      <div class="header-actions">
+        <button id="installButton" class="button install-button" type="button" hidden>Install Moon Shadows</button>
+        <a class="button" href="#methods">Method</a>
+        <a class="button" href="../">Demos</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="status-strip" aria-label="Model status">
+      <span>Sun's-eye view</span>
+      <span>True scale available</span>
+      <span>18.6-year nodal cycle</span>
+      <span>231 physical shadow passes</span>
+      <span>42 actual solar eclipses</span>
+      <span>What-if mode clearly separated</span>
+    </section>
+
+    <section class="experiment-strip" aria-label="Quick experiments">
+      <button class="experiment-card" type="button" data-experiment="band">
+        <b>1</b><span><strong>Why a narrow band?</strong><small>Show the whole lunar-distance canvas, then exaggerate only the vertical display.</small></span>
+      </button>
+      <button class="experiment-card" type="button" data-experiment="eclipse">
+        <b>2</b><span><strong>Find a real eclipse</strong><small>Jump to an eclipse-producing pass and zoom into Earth.</small></span>
+      </button>
+      <button class="experiment-card" type="button" data-experiment="miss">
+        <b>3</b><span><strong>Compare a miss</strong><small>Put an ordinary near-miss beside the eclipse geometry.</small></span>
+      </button>
+      <button class="experiment-card" type="button" data-experiment="flat">
+        <b>4</b><span><strong>What if the orbit were flat?</strong><small>Set inclination to 0° and watch the synthetic eclipse rate change.</small></span>
+      </button>
+    </section>
+
+    <section class="mode-tabs" role="tablist" aria-label="Moon Shadows mode">
+      <button class="mode-tab is-active" data-mode="real" type="button" aria-selected="true">Real system</button>
+      <button class="mode-tab" data-mode="roulette" type="button" aria-selected="false">Eclipse roulette</button>
+      <button class="mode-tab" data-mode="sandbox" type="button" aria-selected="false">What if?</button>
+    </section>
+
+    <section class="workspace" id="explorer">
+      <aside class="control-panel panel">
+        <div class="panel-heading">
+          <div>
+            <div class="eyebrow" id="controlEyebrow">Explorer</div>
+            <h2 id="controlTitle">Move through scale and time</h2>
+          </div>
+          <button id="resetButton" class="icon-button" type="button" title="Reset view">Reset</button>
+        </div>
+
+        <div id="realControls" class="mode-controls">
+          <label class="field">
+            <span>View half-width</span>
+            <strong id="viewLabel">430,000 km</strong>
+            <input id="zoomSlider" type="range" min="0" max="1000" value="1000" aria-label="Zoom">
+          </label>
+
+          <div class="preset-grid" aria-label="Zoom presets">
+            <button data-zoom="430000" type="button">Lunar scale</button>
+            <button data-zoom="100000" type="button">100,000 km</button>
+            <button data-zoom="30000" type="button">Near Earth</button>
+            <button data-zoom="15000" type="button">Eclipse scale</button>
+          </div>
+
+          <label class="field">
+            <span>Vertical display exaggeration <em>visual only</em></span>
+            <strong id="verticalLabel">1×</strong>
+            <input id="verticalSlider" type="range" min="1" max="12" step="0.25" value="1" aria-label="Vertical display exaggeration">
+          </label>
+
+          <label class="field">
+            <span>Earth display magnification <em>visual only</em></span>
+            <strong id="earthMagLabel">1×</strong>
+            <input id="earthMagSlider" type="range" min="1" max="12" step="0.5" value="1" aria-label="Earth display magnification">
+          </label>
+
+          <label class="field">
+            <span>Shadow pass</span>
+            <strong id="trackLabel">Loading…</strong>
+            <input id="trackSlider" type="range" min="0" max="0" value="0" aria-label="Shadow pass">
+          </label>
+
+          <div class="jump-grid">
+            <button id="randomButton" type="button">Random pass</button>
+            <button id="nextEclipseButton" type="button">Next eclipse</button>
+            <button id="nextMissButton" type="button">Next miss</button>
+          </div>
+
+          <label class="field">
+            <span>Position within this pass</span>
+            <strong id="timeLabel">—</strong>
+            <input id="passTimeSlider" type="range" min="0" max="0" value="0" aria-label="Time within selected shadow pass">
+          </label>
+
+          <div class="button-row">
+            <button id="playButton" class="button primary" type="button">Play pass</button>
+            <button id="closestButton" class="button" type="button">Closest approach</button>
+          </div>
+
+          <label class="field">
+            <span>Accumulation</span>
+            <select id="accumulationSelect">
+              <option value="one">Selected pass only</option>
+              <option value="year">About one year</option>
+              <option value="cycle" selected>Full 18.6-year cycle</option>
+            </select>
+          </label>
+
+          <div class="toggles">
+            <label><input id="showAll" type="checkbox" checked> Physical shadow-axis paths</label>
+            <label><input id="showEclipseTracks" type="checkbox" checked> Actual eclipse intervals</label>
+            <label><input id="showPenumbra" type="checkbox" checked> Current penumbra</label>
+            <label><input id="showCentral" type="checkbox" checked> Current umbra / antumbra</label>
+            <label><input id="showLens" type="checkbox" checked> Statistical lens</label>
+          </div>
+        </div>
+
+        <div id="rouletteControls" class="mode-controls" hidden>
+          <div class="roulette-intro">
+            <strong>Can you spot an eclipse?</strong>
+            <p>A random physical shadow pass is shown without telling you whether Earth is hit. Inspect it, zoom, then make your call.</p>
+          </div>
+          <div class="roulette-score">
+            <div><span>Score</span><strong id="rouletteScore">0 / 0</strong></div>
+            <div><span>Current pass</span><strong id="roulettePass">—</strong></div>
+          </div>
+          <div class="guess-grid">
+            <button id="guessHit" class="guess hit" type="button">Eclipse</button>
+            <button id="guessMiss" class="guess miss" type="button">Miss</button>
+          </div>
+          <button id="newRouletteButton" class="button primary wide" type="button">New random pass</button>
+          <div id="rouletteResult" class="roulette-result" aria-live="polite">Make a prediction.</div>
+          <div class="button-row">
+            <button id="rouletteRevealButton" class="button" type="button">Reveal closest approach</button>
+            <button id="roulettePlayButton" class="button" type="button">Play it</button>
+          </div>
+        </div>
+
+        <div id="sandboxControls" class="mode-controls" hidden>
+          <div class="sandbox-warning">
+            <strong>Teaching sandbox, not ephemeris.</strong>
+            <span>The real calculated tracks are transformed to expose cause and effect. Statistics below this panel are synthetic while this mode is active.</span>
+          </div>
+
+          <label class="field">
+            <span>Lunar orbital inclination</span>
+            <strong id="inclinationLabel">5.145°</strong>
+            <input id="inclinationSlider" type="range" min="0" max="12" step="0.05" value="5.145" aria-label="Synthetic lunar orbital inclination">
+          </label>
+
+          <label class="field">
+            <span>Mean lunar distance</span>
+            <strong id="distanceLabel">384,400 km</strong>
+            <input id="distanceSlider" type="range" min="300000" max="500000" step="1000" value="384400" aria-label="Synthetic lunar distance">
+          </label>
+
+          <label class="field">
+            <span>Earth radius multiplier</span>
+            <strong id="earthScaleLabel">1.00×</strong>
+            <input id="earthScaleSlider" type="range" min="0.25" max="4" step="0.05" value="1" aria-label="Synthetic Earth radius multiplier">
+          </label>
+
+          <div class="sandbox-metrics">
+            <div><span>Axis-hit passes</span><strong id="sandboxAxisHits">—</strong></div>
+            <div><span>Penumbra-hit passes</span><strong id="sandboxPenHits">—</strong></div>
+          </div>
+
+          <div class="button-row">
+            <button class="button" type="button" data-sandbox-preset="real">Real system</button>
+            <button class="button" type="button" data-sandbox-preset="flat">0° tilt</button>
+            <button class="button" type="button" data-sandbox-preset="double">10.29° tilt</button>
+          </div>
+        </div>
+
+        <div class="readout">
+          <div><span>Current axis</span><strong id="axisReadout">—</strong></div>
+          <div><span>Moon distance</span><strong id="moonReadout">—</strong></div>
+          <div><span>Shadow state</span><strong id="shadowReadout">—</strong></div>
+          <div><span>Cursor on plane</span><strong id="cursorReadout">move over canvas</strong></div>
+        </div>
+      </aside>
+
+      <section class="visual-panel panel">
+        <div class="canvas-head">
+          <div>
+            <div class="eyebrow">The canvas through Earth</div>
+            <h2 id="visualTitle">What the Sun would see</h2>
+          </div>
+          <div class="mini-legend">
+            <span><i class="line all"></i>physical shadow paths</span>
+            <span><i class="line eclipse"></i>actual eclipse intervals</span>
+            <span><i class="dot current"></i>current shadow axis</span>
+          </div>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="shadowCanvas" aria-label="Interactive Moon shadow geometry"></canvas>
+          <div class="scale-note">
+            <strong id="scaleNoteTitle">True scale</strong>
+            <span id="scaleNoteText">Earth is deliberately tiny at lunar scale.</span>
+          </div>
+          <div class="canvas-tip">Wheel / pinch to zoom · click Earth to zoom in · move pointer for coordinates</div>
+        </div>
+
+        <div class="canvas-footer">
+          <p id="interpretationText"><strong>Interpretation:</strong> the Moon's orbit is only about 5.145° from the ecliptic, so from the Sun the physical shadow passes occupy a narrow band. Zooming toward the centre reveals why only some new Moons become eclipses.</p>
+          <p class="muted">Display exaggeration changes only the drawing. The real-mode statistics always use the unmodified physical coordinates.</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="stats-section" id="statistics">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Statistics</div>
+          <h2 id="statsTitle">How rare is a hit?</h2>
+          <p id="statsSubtitle">The analysis radius follows the zoom. At close range it locks to one Earth radius, so the penumbra statistic approaches the frequency of solar eclipses somewhere on Earth.</p>
+        </div>
+        <div class="lens-badge">
+          Statistical lens
+          <strong id="lensRadiusLabel">—</strong>
+        </div>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric">
+          <span>Physical passes</span>
+          <strong id="metricPasses">231</strong>
+          <small>sunward half-lunations in one nodal cycle</small>
+        </article>
+        <article class="metric">
+          <span>Axis enters lens</span>
+          <strong id="metricAxis">—</strong>
+          <small id="metricAxisPct">—</small>
+        </article>
+        <article class="metric">
+          <span>Penumbra reaches lens</span>
+          <strong id="metricPen">—</strong>
+          <small id="metricPenPct">—</small>
+        </article>
+        <article class="metric">
+          <span>Actual solar eclipses</span>
+          <strong id="metricEclipses">42</strong>
+          <small id="metricEclipseRate">—</small>
+        </article>
+      </div>
+
+      <div class="chart-grid">
+        <article class="panel chart-card">
+          <div class="chart-heading">
+            <h3>Closest shadow-axis approach</h3>
+            <p>One minimum for every physical shadow pass.</p>
+          </div>
+          <canvas id="histogramCanvas" aria-label="Histogram of closest lunar shadow-axis approaches"></canvas>
+        </article>
+
+        <article class="panel chart-card">
+          <div class="chart-heading">
+            <h3>Interception probability by radius</h3>
+            <p>As the target shrinks toward Earth, successful shadow encounters become rarer.</p>
+          </div>
+          <canvas id="cumulativeCanvas" aria-label="Cumulative probability of lunar shadow interception"></canvas>
+        </article>
+
+        <article class="panel chart-card">
+          <div class="chart-heading">
+            <h3>Actual eclipses by type</h3>
+            <p>Swiss Ephemeris eclipse catalogue for this same 18.6-year interval.</p>
+          </div>
+          <canvas id="typeCanvas" aria-label="Counts of actual eclipses by type"></canvas>
+        </article>
+
+        <article class="panel chart-card">
+          <div class="chart-heading">
+            <h3>Play with the logic</h3>
+          </div>
+          <div class="explain-list">
+            <div><b>Exaggerate Y</b><span>Reveal the band structure without altering the underlying calculation.</span></div>
+            <div><b>Eclipse roulette</b><span>Predict whether a physical pass actually hits Earth before revealing the answer.</span></div>
+            <div><b>Flatten the orbit</b><span>In the sandbox, reducing inclination toward 0° makes Earth much harder for the shadow to miss.</span></div>
+            <div><b>Resize Earth</b><span>A larger target converts near-misses into hits; a smaller target does the opposite.</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="methods-section" id="methods">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Method & reproducibility</div>
+          <h2>Calculated, not illustrated</h2>
+        </div>
+      </div>
+
+      <div class="method-grid">
+        <article class="panel">
+          <h3>Geometry</h3>
+          <p>For each ephemeris time step, the app uses a plane through Earth's centre perpendicular to the instantaneous Earth-to-Sun vector. A ray is extended from the Sun through the Moon. The point where that ray reaches the plane is retained only when it lies downstream of the Moon, meaning a physical lunar shadow can actually reach the plane.</p>
+        </article>
+        <article class="panel">
+          <h3>Shadow size</h3>
+          <p>Penumbra and central-cone radii are calculated from similar-triangle geometry using the Sun, Moon, and Earth-Moon/Sun-Moon distances. The signed central radius distinguishes umbra from antumbra.</p>
+        </article>
+        <article class="panel">
+          <h3>Real vs what-if</h3>
+          <p><strong>Real system</strong> uses the exported ephemeris coordinates directly. <strong>What if?</strong> intentionally transforms those coordinates to explore sensitivity to inclination, mean lunar distance, and target size. Its synthetic rates are pedagogical and are never labelled as ephemeris predictions.</p>
+        </article>
+        <article class="panel">
+          <h3>R analysis</h3>
+          <p>The same exported lunation and eclipse tables are included under <code>analysis/</code>. Run <code>Rscript moon-shadows.R</code> there to reproduce the distribution, cumulative-interception, eclipse-type, and annual-frequency graphics using base R.</p>
+        </article>
+      </div>
+
+      <div class="reference-panel panel">
+        <h3>References</h3>
+        <p>Espenak, F. (2012). <em>Eclipses and the Moon's orbit</em>. NASA Goddard Space Flight Center.</p>
+        <p>Astrodienst. (2026). <em>Swiss Ephemeris documentation</em>.</p>
+        <p>MDN Web Docs. (2026). <em>Making PWAs installable</em>.</p>
+        <p class="muted">Zenodo DOI: <strong>pending</strong>. The shared demo DOI control will expose the final DOI when the demo manifest is updated.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="app-shell footer-inner">
+      <span>Moon Shadows · André Baumann / Salmon of Doubt</span>
+      <span>Interactive scientific demonstrator · static GitHub Pages compatible · offline-capable PWA</span>
+    </div>
+  </footer>
+
+  <div id="iosInstallHint" class="install-hint" hidden>
+    <button id="closeInstallHint" type="button" aria-label="Close install instructions">×</button>
+    <strong>Install on this device</strong>
+    <span>Use your browser's Share menu and choose <em>Add to Home Screen</em> or <em>Add to Dock</em>.</span>
+  </div>
+
+  <script src="stats.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

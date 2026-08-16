@@ -1,0 +1,26 @@
+{
+  "name": "Moon Shadows",
+  "short_name": "Moon Shadows",
+  "description": "Interactive Sun-view lunar-shadow geometry and solar-eclipse statistics.",
+  "id": "/demos/moon-shadows/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050a0f",
+  "theme_color": "#07111a",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

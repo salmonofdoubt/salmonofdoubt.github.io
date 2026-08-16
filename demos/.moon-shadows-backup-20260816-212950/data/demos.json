@@ -318,15 +318,14 @@
   },
   {
     "path": "moon-shadows/",
-    "summary": "Play with the Moon's real shadow geometry from the Sun's point of view, hunt eclipses, and test orbital what-ifs.",
-    "detail": "A true-scale astronomy playground built from precomputed ephemeris geometry across one 18.6-year lunar nodal cycle. Scrub physical shadow passes, play eclipse roulette, jump between hits and misses, zoom into Earth, and use a clearly labelled sensitivity sandbox for inclination, lunar distance, and Earth size. Includes reproducible R statistics and an installable offline-capable PWA.",
+    "summary": "Explore the Moon's physical shadow paths from the Sun's point of view, then zoom into Earth to see why solar eclipses are rare.",
+    "detail": "A true-scale astronomy demonstrator using precomputed Sun/Moon ephemeris geometry across one 18.6-year lunar nodal cycle, with actual eclipse intervals, interactive zoom, and reproducible R statistics.",
     "tags": [
       "Astronomy",
       "Moon",
       "Solar eclipses",
       "Statistics",
-      "PWA",
-      "Interactive"
+      "PWA"
     ],
     "title": "Moon Shadows",
     "number": "MS",
