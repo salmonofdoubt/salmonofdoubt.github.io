@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07131a">
+  <meta name="color-scheme" content="dark light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AIE Requester">
+  <title>AIE Requester · Build an Irish environmental information request</title>
+  <meta name="description" content="A requester-centred Irish AIE tool for building an initial request, an Article 11 internal review request, or an OCEI appeal draft. Nothing is sent from the page.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icons/icon-512.png">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="../shared/demo-return.css">
+  <link rel="stylesheet" href="../shared/demo-support.css">
+  <link rel="stylesheet" href="../shared/demo-doi.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#builder">Skip to request builder</a>
+
+  <header class="app-header">
+    <a class="brand" href="./" aria-label="AIE Requester home">
+      <span class="brand-mark" aria-hidden="true">AIE</span>
+      <span>
+        <strong>AIE Requester</strong>
+        <small>Ireland · requester-side decision support</small>
+      </span>
+    </a>
+    <div class="header-actions">
+      <button class="ghost-button" type="button" id="installApp">Install</button>
+      <a class="ghost-button" href="./manual/AIE_Ireland_Requester_Manual_Zenodo_v2.3.pdf" target="_blank" rel="noopener">Manual</a>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero panel" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Access to Information on the Environment</p>
+        <h1 id="page-title">Build the right draft for the stage you are actually at.</h1>
+        <p class="lede">Choose an <strong>initial AIE request</strong>, an <strong>Article 11 internal review</strong>, or an <strong>OCEI appeal</strong>. The tool turns your selections into an editable email draft and keeps the legal stages separate.</p>
+      </div>
+      <div class="hero-note" role="note">
+        <strong>Nothing is sent from this page.</strong>
+        <span>Your entries stay in this browser unless you choose “Remember this draft”. Copy the result into your own email or the OCEI online form.</span>
+      </div>
+    </section>
+
+    <section class="stage-strip" aria-label="AIE route">
+      <button type="button" class="stage-card is-active" data-stage="initial" aria-pressed="true">
+        <span>1</span><strong>Initial request</strong><small>Ask the public authority for environmental information.</small>
+      </button>
+      <button type="button" class="stage-card" data-stage="review" aria-pressed="false">
+        <span>2</span><strong>Internal review</strong><small>Article 11: fresh reconsideration by the authority.</small>
+      </button>
+      <button type="button" class="stage-card" data-stage="ocei" aria-pressed="false">
+        <span>3</span><strong>OCEI appeal</strong><small>Article 12: independent review by the Commissioner.</small>
+      </button>
+    </section>
+
+    <section class="route-warning panel compact" id="routeWarning" aria-live="polite">
+      <strong>Route check:</strong>
+      <span id="routeWarningText">Start here if you have not yet made an AIE request.</span>
+    </section>
+
+    <div class="builder-layout" id="builder">
+      <form class="builder panel" id="aieForm" novalidate>
+        <div class="section-heading">
+          <p class="eyebrow" id="formEyebrow">Stage 1</p>
+          <h2 id="formTitle">Initial AIE request</h2>
+          <p id="formIntro">Describe the environmental question and choose only the information that would help answer it.</p>
+        </div>
+
+        <fieldset>
+          <legend>Who are you in relation to the issue?</legend>
+          <p class="field-help">Your role does not change the basic AIE right. It is used here only to suggest useful information and next actions. It is omitted from the email unless you choose to include it.</p>
+          <div class="field-grid two">
+            <label>
+              <span>Requester role</span>
+              <select id="role" name="role">
+                <option value="resident">Resident / neighbour</option>
+                <option value="landowner">Landowner</option>
+                <option value="tenant">Tenant / occupier</option>
+                <option value="farmer">Farmer / land manager</option>
+                <option value="business">Business owner</option>
+                <option value="river">River / angling group</option>
+                <option value="biodiversity">Biodiversity / ecology group</option>
+                <option value="heritage">Heritage group</option>
+                <option value="school">School / parent group</option>
+                <option value="community">Community / campaign group</option>
+                <option value="researcher">Researcher / citizen scientist</option>
+                <option value="journalist">Journalist</option>
+                <option value="representative">Councillor / public representative</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <label class="checkbox-card inline-check">
+              <input type="checkbox" id="includeRole">
+              <span><b>Include my role in the draft</b><small>Usually unnecessary. Reasons or standing are not required merely to make an AIE request.</small></span>
+            </label>
+          </div>
+          <button class="mini-button" type="button" id="applyRoleSuggestions">Suggest information for this role</button>
+        </fieldset>
+
+        <fieldset>
+          <legend>Public authority and subject</legend>
+          <div class="field-grid two">
+            <label>
+              <span>Public authority <em>required</em></span>
+              <input id="authority" name="authority" autocomplete="organization" placeholder="e.g. Example County Council">
+            </label>
+            <label>
+              <span>Authority email</span>
+              <input id="authorityEmail" name="authorityEmail" type="email" inputmode="email" placeholder="e.g. aie@example.ie">
+            </label>
+            <label>
+              <span>Project, plan, place or activity <em>required</em></span>
+              <input id="subjectMatter" name="subjectMatter" placeholder="e.g. proposed road scheme / river catchment / licence">
+            </label>
+            <label>
+              <span>Location / waterbody / property area</span>
+              <input id="location" name="location" placeholder="Optional geographic scope">
+            </label>
+          </div>
+          <div class="field-grid two">
+            <label>
+              <span>Authority structure</span>
+              <select id="authorityStructure">
+                <option value="direct">The public authority itself</option>
+                <option value="shared">Shared service / programme office</option>
+                <option value="consultant">Consultant or service provider may hold information</option>
+                <option value="unclear">I am not sure who holds it</option>
+              </select>
+            </label>
+            <label id="structureNameWrap" hidden>
+              <span>Shared service / programme / consultant name</span>
+              <input id="structureName" placeholder="e.g. programme office or consultant">
+            </label>
+          </div>
+          <div class="guidance-box" id="structureGuidance" hidden></div>
+        </fieldset>
+
+        <fieldset class="initial-only">
+          <legend>Is AIE the right route?</legend>
+          <p class="field-help">Tick the environmental connections that fit. AIE concerns <em>environmental information</em>, not only documents with an environmental title.</p>
+          <div class="choice-grid statutory-grid" id="statutoryCategories">
+            <label class="checkbox-card"><input type="checkbox" value="elements"><span><b>State of the environment</b><small>Water, air, soil, land, landscape, biodiversity, natural sites.</small></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="factors"><span><b>Factors affecting it</b><small>Noise, emissions, discharges, waste, energy, substances.</small></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="measures"><span><b>Measures or activities</b><small>Plans, policies, projects, licences, mitigation, infrastructure.</small></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="implementation"><span><b>Implementation reports</b><small>Monitoring or reports on environmental obligations.</small></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="economics"><span><b>Economic analysis / assumptions</b><small>Where used within environmentally relevant measures or activities.</small></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="human"><span><b>Health, life, heritage / built environment</b><small>Insofar as affected through environmental factors or measures.</small></span></label>
+          </div>
+          <div class="fit-result" id="fitResult" aria-live="polite">Choose at least one connection. If your request is purely administrative or for personal records, FOI may be the more suitable route.</div>
+        </fieldset>
+
+        <fieldset class="initial-only">
+          <legend>What environmental information would help?</legend>
+          <p class="field-help">Choose only what serves your question. The generated list remains editable.</p>
+          <div class="choice-grid" id="infoModules"></div>
+          <label class="full-width">
+            <span>Anything else you specifically need</span>
+            <textarea id="customInfo" rows="3" placeholder="Add a focused item in your own words. Ask for information that may already be held, rather than asking the authority to create a new analysis."></textarea>
+          </label>
+        </fieldset>
+
+        <fieldset class="initial-only">
+          <legend>Scope and form</legend>
+          <div class="field-grid two">
+            <label>
+              <span>Date range / project stage</span>
+              <input id="scopePeriod" placeholder="e.g. Phase 2; 1 Jan 2025 to present">
+            </label>
+            <label>
+              <span>Preferred form</span>
+              <select id="preferredForm">
+                <option value="electronic">Electronic form, in existing formats</option>
+                <option value="searchable">Searchable PDF plus underlying data where held</option>
+                <option value="data">Native data formats where held (CSV/XLSX/GIS/model outputs)</option>
+                <option value="custom">Custom wording below</option>
+              </select>
+            </label>
+          </div>
+          <div class="choice-grid compact-grid" id="formatChoices">
+            <label class="checkbox-card"><input type="checkbox" value="searchable PDF"><span><b>Searchable PDF</b></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="spreadsheet / CSV / XLSX"><span><b>Spreadsheet / CSV</b></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="native GIS / georeferenced data"><span><b>GIS / georeferenced data</b></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="model inputs and outputs"><span><b>Model files / outputs</b></span></label>
+            <label class="checkbox-card"><input type="checkbox" value="metadata / methods / QA-QC"><span><b>Metadata / methods</b></span></label>
+          </div>
+          <label class="full-width" id="customFormWrap" hidden>
+            <span>Custom form wording</span>
+            <input id="customForm" placeholder="e.g. native shapefile/geodatabase plus data dictionary">
+          </label>
+        </fieldset>
+
+        <fieldset class="review-only" hidden>
+          <legend>Original AIE decision</legend>
+          <div class="field-grid two">
+            <label><span>AIE reference</span><input id="reviewRef" placeholder="e.g. AIE 00-26"></label>
+            <label><span>Decision date</span><input id="reviewDecisionDate" type="date"></label>
+            <label><span>Original request date</span><input id="reviewRequestDate" type="date"></label>
+            <label><span>Review scope</span><select id="reviewScope"><option value="selected">Selected parts of the decision</option><option value="whole">The whole decision</option></select></label>
+          </div>
+          <p class="deadline-note">Normally request internal review within one month of receiving the initial decision. There is no internal-review fee. Verify the current deadline for your case.</p>
+        </fieldset>
+
+        <fieldset class="review-only" hidden>
+          <legend>Why are you seeking internal review?</legend>
+          <p class="field-help">Tick only the problems that genuinely arise from the original request and decision. Internal review should not silently broaden the original request.</p>
+          <div class="choice-grid" id="reviewIssues"></div>
+          <label class="full-width"><span>Short factual clarification</span><textarea id="reviewCustom" rows="3" placeholder="Optional: identify a contradiction, omitted attachment, particular record/category, or other bounded issue."></textarea></label>
+        </fieldset>
+
+        <fieldset class="ocei-only" hidden>
+          <legend>Internal review details</legend>
+          <div class="field-grid two">
+            <label><span>Public authority AIE reference</span><input id="oceiRef" placeholder="e.g. AIE 00-26"></label>
+            <label><span>Internal review decision date</span><input id="oceiDecisionDate" type="date"></label>
+            <label><span>Initial request date</span><input id="oceiRequestDate" type="date"></label>
+            <label><span>Internal review request date</span><input id="oceiReviewRequestDate" type="date"></label>
+          </div>
+          <label class="checkbox-card inline-check full-width">
+            <input type="checkbox" id="noReviewDecision">
+            <span><b>No internal-review decision was notified within the required period</b><small>OCEI guidance also provides for appeal where the internal-review decision was due but not notified.</small></span>
+          </label>
+          <p class="deadline-note">As a general rule, an OCEI appeal should be initiated within one month of receiving the internal-review decision, or the date by which it should have been notified. OCEI can extend time in appropriate circumstances.</p>
+        </fieldset>
+
+        <fieldset class="ocei-only" hidden>
+          <legend>What remains unresolved?</legend>
+          <div class="choice-grid" id="oceiIssues"></div>
+          <label class="full-width"><span>Short factual clarification</span><textarea id="oceiCustom" rows="3" placeholder="Optional: keep this tied to the environmental information originally requested and the internal-review outcome."></textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Your contact details</legend>
+          <div class="field-grid two">
+            <label><span>Name <em>required</em></span><input id="requesterName" autocomplete="name" placeholder="Your name"></label>
+            <label><span>Email / contact</span><input id="requesterEmail" type="email" autocomplete="email" placeholder="your@email.ie"></label>
+            <label class="full-width"><span>Postal address</span><textarea id="requesterAddress" rows="2" autocomplete="street-address" placeholder="A postal address can be relevant to a valid AIE request. Use the current authority guidance for exact requirements."></textarea></label>
+          </div>
+        </fieldset>
+
+        <div class="form-actions">
+          <label class="remember"><input type="checkbox" id="rememberDraft"> Remember this draft on this device</label>
+          <button type="button" class="danger-link" id="resetForm">Clear form</button>
+        </div>
+      </form>
+
+      <aside class="output-stack">
+        <section class="output panel" aria-labelledby="draft-title">
+          <div class="section-heading output-heading">
+            <div>
+              <p class="eyebrow">Generated draft</p>
+              <h2 id="draft-title">Email template</h2>
+            </div>
+            <span class="status-chip" id="draftStatus">Needs details</span>
+          </div>
+
+          <label>
+            <span>To</span>
+            <input id="draftTo" readonly>
+          </label>
+          <label>
+            <span>Subject</span>
+            <textarea id="draftSubject" rows="2" readonly></textarea>
+          </label>
+          <label>
+            <span>Body</span>
+            <textarea id="draftBody" class="draft-body" rows="22" readonly></textarea>
+          </label>
+
+          <div class="copy-actions">
+            <button type="button" class="primary-button" id="copyDraft">Copy complete draft</button>
+            <button type="button" class="secondary-button" id="copyBody">Copy body</button>
+            <button type="button" class="secondary-button" id="downloadDraft">Download .txt</button>
+          </div>
+          <div class="copy-status" id="copyStatus" aria-live="polite"></div>
+          <p class="privacy-note">This tool deliberately has no “Send” button. Review the draft, verify names, dates, addresses and legal deadlines, then use your own email or OCEI submission route.</p>
+        </section>
+
+        <section class="panel action-panel" aria-labelledby="next-title">
+          <p class="eyebrow">After the response</p>
+          <h2 id="next-title">What could you do with the result?</h2>
+          <div id="roleActions"></div>
+        </section>
+
+        <section class="panel source-panel" aria-labelledby="source-title">
+          <p class="eyebrow">Legal reference layer</p>
+          <h2 id="source-title">Use official sources for current procedure</h2>
+          <p>This app is a requester-side reasoning tool, not a replacement for official guidance. Legal/procedural links were checked on <strong>16 August 2026</strong>.</p>
+          <div class="source-links">
+            <a href="https://www.gov.ie/en/department-of-climate-energy-and-the-environment/organisation-information/access-to-information-on-the-environment-aie/" target="_blank" rel="noopener">Department AIE guidance</a>
+            <a href="https://www.ocei.ie/en/collection/1c199-make-an-aie-request-to-the-ocei/" target="_blank" rel="noopener">OCEI AIE guidance</a>
+            <a href="https://ocei.ie/en/collection/fc0ff-make-an-appeal/" target="_blank" rel="noopener">OCEI appeal guidance</a>
+            <a href="https://www.irishstatutebook.ie/eli/2007/si/133/made/en/print" target="_blank" rel="noopener">AIE Regulations</a>
+          </div>
+          <details>
+            <summary>Current route in one minute</summary>
+            <ol>
+              <li><b>Initial request:</b> ask the relevant public authority for environmental information held by or for it.</li>
+              <li><b>Internal review:</b> if the initial decision is unsatisfactory or the request was not properly dealt with, Article 11 provides a fresh review by the authority. This is normally the necessary step before OCEI.</li>
+              <li><b>OCEI appeal:</b> if a genuine access issue remains after internal review, appeal to the Commissioner under Article 12. OCEI's online form is the easiest route; its published information also permits appeals by email to <code>info@ocei.ie</code> or by post.</li>
+            </ol>
+          </details>
+        </section>
+
+        <section class="panel zenodo-panel" aria-labelledby="zenodo-title">
+          <p class="eyebrow">Methodology</p>
+          <h2 id="zenodo-title">Requester Manual v2.3</h2>
+          <p>The website implements the reasoning model documented in the companion manual: role → information need → route → response interpretation → provenance → review → practical action.</p>
+          <div class="zenodo-actions">
+            <a class="secondary-button" href="./manual/AIE_Ireland_Requester_Manual_Zenodo_v2.3.pdf" target="_blank" rel="noopener">Read local manual</a>
+            <span class="doi-placeholder">Zenodo DOI pending</span>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="panel about-panel">
+      <p class="eyebrow">Important limits</p>
+      <h2>AIE is an information-access route, not the decision on the underlying project.</h2>
+      <div class="about-grid">
+        <article><strong>Preserve the baseline.</strong><p>An initial decision records what the authority said it held, found, released or refused at that point. It is not automatically proof that an assessment never happened.</p></article>
+        <article><strong>Located later ≠ created later.</strong><p>If information appears on review, record when it was actually created and whether it existed at the date of the original request.</p></article>
+        <article><strong>Review has a trade-off.</strong><p>Internal review can improve disclosure and can also improve the authority's search and documentary organisation. Preserve both stages.</p></article>
+        <article><strong>Use the right forum.</strong><p>Use AIE evidence in consultation, research, regulation, representation or professional advice as appropriate. OCEI reviews information-access decisions, not whether the underlying project should proceed.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>AIE Requester · public civic-tech prototype by André C. Baumann / Salmon of Doubt.</span>
+    <span>Not legal advice. No form data is transmitted by this site.</span>
+  </footer>
+
+  <dialog id="installDialog" class="install-dialog" aria-labelledby="installTitle">
+    <form method="dialog">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <p class="eyebrow">Installable web app</p>
+      <h2 id="installTitle">Keep AIE Requester on this device.</h2>
+      <div id="installInstructions"><p>Use your browser's Install app or Add to Home Screen command.</p></div>
+      <button class="primary-button" value="close">Got it</button>
+    </form>
+  </dialog>
+
+  <script src="./app.js"></script>
+  <script src="../shared/demo-return.js"></script>
+  <script src="../shared/demo-support.js"></script>
+  <script src="../shared/demo-doi.js"></script>
+</body>
+</html>
