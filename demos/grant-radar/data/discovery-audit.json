@@ -1,43 +1,43 @@
 {
-  "generated_at": "2026-08-15T05:41:47+00:00",
+  "generated_at": "2026-08-16T05:43:31+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 4,
-  "links_seen": 4548,
-  "funding_like_links": 470,
+  "seed_pages_failed": 5,
+  "links_seen": 4451,
+  "funding_like_links": 431,
   "candidate_fetches": 300,
-  "pending_review_count": 103,
+  "pending_review_count": 92,
   "status_counts": {
-    "pending_review": 103,
-    "suppressed_non_actionable": 43,
+    "pending_review": 92,
     "rejected": 3,
     "promoted": 3,
-    "suppressed_existing": 11,
+    "suppressed_existing": 8,
+    "suppressed_non_actionable": 29,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 65
+    "suppressed_fetch_error": 49
   },
   "candidate_type_counts": {
-    "recurring_programme": 56,
-    "funding_call": 82,
-    "scholarship": 18,
-    "generic_funding_hub": 6,
-    "tender": 11,
-    "unknown": 65
+    "recurring_programme": 37,
+    "funding_call": 89,
+    "scholarship": 2,
+    "tender": 12,
+    "generic_funding_hub": 5,
+    "unknown": 49
   },
   "seeds": [
     {
       "id": "research_ireland_funding_hub",
       "name": "Research Ireland funding hub",
       "url": "https://www.researchireland.ie/funding/",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 97,
-      "funding_like_links": 39,
-      "candidates_fetched": 39
+      "status": "fetch_error",
+      "fetch_error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "heritage_council_funding_hub",
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 615,
       "funding_like_links": 57,
-      "candidates_fetched": 12
+      "candidates_fetched": 51
     },
     {
       "id": "geo_dfg_heisenberg_watch",
