@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-08-15T05:43:03.081031+00:00",
-  "latest_generated_at": "2026-08-15T05:42:46.227948+00:00",
+  "generated_at": "2026-08-16T05:50:38.061535+00:00",
+  "latest_generated_at": "2026-08-16T05:47:40.988810+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 17,
-  "sources_checked_no_current_items": 12,
-  "sources_failed": 1,
+  "sources_active": 8,
+  "sources_checked_no_current_items": 2,
+  "sources_failed": 20,
   "items_by_section": {
-    "grants-opportunities": 17,
-    "waterbody-evidence-alerts": 24,
-    "ireland-catchment-practice": 18,
-    "research-papers": 36
+    "research-papers": 36,
+    "ireland-catchment-practice": 10,
+    "grants-opportunities": 16,
+    "waterbody-evidence-alerts": 33
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 19,
-    "research_use_type": 53
+    "opportunity_fit": 21,
+    "research_use_type": 58
   },
-  "archive_snapshots": 75,
+  "archive_snapshots": 76,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -29,11 +29,11 @@
       "scope": "nanny-delvin local",
       "url": "https://news.google.com/rss/search?q=%28%22Nanny%20Delvin%22%20OR%20%22Nanny-Delvin%22%20OR%20%22River%20Nanny%22%20OR%20%22River%20Delvin%22%20OR%20%22Nanny%20estuary%22%20OR%20%22Delvin%20river%22%29%20%28water%20OR%20river%20OR%20catchment%20OR%20pollution%20OR%20biodiversity%20OR%20restoration%20OR%20flooding%20OR%20estuary%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 14,
-      "elapsed_ms": 56,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 8963,
       "error": null
     },
     {
@@ -44,11 +44,11 @@
       "scope": "east meath local",
       "url": "https://news.google.com/rss/search?q=%28%22East%20Meath%22%20OR%20Laytown%20OR%20Bettystown%20OR%20Mornington%20OR%20Julianstown%20OR%20Gormanston%20OR%20Stamullen%20OR%20Duleek%20OR%20Sonairte%29%20%28water%20quality%20OR%20river%20OR%20estuary%20OR%20biodiversity%20OR%20pollution%20OR%20wetland%20OR%20flooding%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 54,
-      "elapsed_ms": 76,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 9552,
       "error": null
     },
     {
@@ -59,11 +59,11 @@
       "scope": "north fingal local",
       "url": "https://news.google.com/rss/search?q=%28Fingal%20OR%20Balbriggan%20OR%20Balrothery%20OR%20Ballyboghil%20OR%20Naul%20OR%20Garristown%20OR%20Oldtown%20OR%20Stamullen%29%20%28water%20quality%20OR%20river%20OR%20stream%20OR%20biodiversity%20OR%20pollution%20OR%20wetland%20OR%20flooding%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 88,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 5228,
       "error": null
     },
     {
@@ -74,11 +74,11 @@
       "scope": "meath louth fingal regional",
       "url": "https://news.google.com/rss/search?q=%28Meath%20OR%20Louth%20OR%20Fingal%29%20%28catchment%20OR%20river%20OR%20stream%20OR%20estuary%20OR%20lagoon%20OR%20water%20quality%20OR%20septic%20OR%20slurry%20OR%20invasive%20OR%20Spartina%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 85,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 7411,
       "error": null
     },
     {
@@ -89,11 +89,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28river%20OR%20catchment%20OR%20stream%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%20OR%20monitoring%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 10,
-      "discovered_hint_count": 100,
-      "elapsed_ms": 97,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 7830,
       "error": null
     },
     {
@@ -104,11 +104,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28nature-based%20solutions%20OR%20wetland%20OR%20riparian%20buffer%20OR%20pond%20OR%20rewetting%20OR%20river%20restoration%29%20%28water%20OR%20catchment%20OR%20river%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 76,
-      "elapsed_ms": 84,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 9658,
       "error": null
     },
     {
@@ -119,11 +119,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28estuary%20OR%20lagoon%20OR%20coastal%20wetland%20OR%20saltmarsh%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 68,
-      "elapsed_ms": 81,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 8238,
       "error": null
     },
     {
@@ -134,11 +134,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 55,
-      "elapsed_ms": 76,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 8417,
       "error": null
     },
     {
@@ -149,11 +149,11 @@
       "scope": "funding",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20call%20OR%20scheme%29%20%28river%20OR%20water%20quality%20OR%20biodiversity%20OR%20wetland%20OR%20catchment%20OR%20citizen%20science%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 85,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 6863,
       "error": null
     },
     {
@@ -167,8 +167,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 89,
-      "elapsed_ms": 823,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 778,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 123,
+      "elapsed_ms": 254,
       "error": null
     },
     {
@@ -194,11 +194,11 @@
       "scope": "ireland river ecology",
       "url": "https://news.google.com/rss/search?q=%28river%20ecology%20OR%20freshwater%20ecology%20OR%20aquatic%20ecology%20OR%20macroinvertebrates%20OR%20fish%20passage%20OR%20habitat%20restoration%29%20%28Ireland%20OR%20Irish%29%20%28river%20OR%20stream%20OR%20catchment%20OR%20water%20quality%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 73,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 8749,
       "error": null
     },
     {
@@ -209,11 +209,11 @@
       "scope": "ireland birds ecology",
       "url": "https://news.google.com/rss/search?q=%28wetland%20birds%20OR%20waterbirds%20OR%20waders%20OR%20shorebirds%20OR%20estuary%20birds%20OR%20wintering%20birds%29%20%28Ireland%20OR%20Irish%29%20%28estuary%20OR%20river%20OR%20lagoon%20OR%20wetland%20OR%20saltmarsh%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 86,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 5999,
       "error": null
     },
     {
@@ -224,11 +224,11 @@
       "scope": "ireland estuary invasive",
       "url": "https://news.google.com/rss/search?q=%28spartina%20OR%20cordgrass%20OR%20saltmarsh%20OR%20salt%20marsh%29%20%28Ireland%20OR%20Irish%29%20%28estuary%20OR%20lagoon%20OR%20coastal%20wetland%20OR%20biodiversity%20OR%20invasive%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 52,
-      "elapsed_ms": 74,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 9077,
       "error": null
     },
     {
@@ -239,11 +239,11 @@
       "scope": "ireland invasive ecology",
       "url": "https://news.google.com/rss/search?q=%28invasive%20species%20OR%20invasive%20plant%20OR%20invasive%20aquatic%20OR%20spartina%20OR%20japanese%20knotweed%20OR%20himalayan%20balsam%20OR%20zebra%20mussel%29%20%28river%20OR%20estuary%20OR%20lagoon%20OR%20wetland%20OR%20water%29%20%28Ireland%20OR%20Irish%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 10,
-      "elapsed_ms": 50,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 9474,
       "error": null
     },
     {
@@ -254,11 +254,11 @@
       "scope": "ireland agriculture policy",
       "url": "https://news.google.com/rss/search?q=%28Nitrates%20Action%20Programme%20OR%20nitrates%20derogation%20OR%20closed%20period%20OR%20slurry%20spreading%20dates%20OR%20fertiliser%20spreading%20dates%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20rain%20OR%20runoff%20OR%20farmers%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 22,
-      "elapsed_ms": 55,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 6210,
       "error": null
     },
     {
@@ -269,11 +269,11 @@
       "scope": "ireland agriculture pressure",
       "url": "https://news.google.com/rss/search?q=%28slurry%20spreading%20OR%20manure%20spreading%20OR%20organic%20fertiliser%20OR%20fertilizer%20spreading%29%20%28Ireland%20OR%20Irish%29%20%28rain%20OR%20rainfall%20OR%20weather%20OR%20water%20quality%20OR%20river%20OR%20runoff%20OR%20nitrates%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 77,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 9001,
       "error": null
     },
     {
@@ -284,11 +284,11 @@
       "scope": "ireland wastewater pressure",
       "url": "https://news.google.com/rss/search?q=%28septic%20tank%20grant%20OR%20septic%20tank%20grants%20OR%20domestic%20wastewater%20grant%20OR%20wastewater%20treatment%20grant%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 6,
-      "discovered_hint_count": 51,
-      "elapsed_ms": 74,
+      "status": "failed",
+      "http_status": 503,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 6096,
       "error": null
     },
     {
@@ -299,11 +299,11 @@
       "scope": "ireland wastewater pressure",
       "url": "https://news.google.com/rss/search?q=%28septic%20tank%20OR%20septic%20tanks%20OR%20domestic%20wastewater%20OR%20on-site%20wastewater%20OR%20onsite%20wastewater%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20pollution%20OR%20river%20OR%20lake%20OR%20groundwater%20OR%20grant%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 503,
       "current_item_count": 0,
-      "discovered_hint_count": 46,
-      "elapsed_ms": 70,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 9203,
       "error": null
     },
     {
@@ -316,9 +316,9 @@
       "host": "www.catchments.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
+      "current_item_count": 10,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1133,
+      "elapsed_ms": 1354,
       "error": null
     },
     {
@@ -331,9 +331,9 @@
       "host": "lawaters.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 117,
-      "elapsed_ms": 1198,
+      "current_item_count": 1,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 633,
       "error": null
     },
     {
@@ -346,9 +346,9 @@
       "host": "www.epa.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
+      "current_item_count": 14,
       "discovered_hint_count": 227,
-      "elapsed_ms": 655,
+      "elapsed_ms": 501,
       "error": null
     },
     {
@@ -359,12 +359,12 @@
       "scope": "ireland institutional",
       "url": "https://www.fisheriesireland.ie/news",
       "host": "www.fisheriesireland.ie",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 179,
-      "elapsed_ms": 1026,
-      "error": null
+      "status": "failed",
+      "http_status": null,
+      "current_item_count": 0,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 5318,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
     },
     {
       "id": "npws",
@@ -374,11 +374,11 @@
       "scope": "ireland institutional",
       "url": "https://www.npws.ie/news",
       "host": "www.npws.ie",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 5,
       "discovered_hint_count": 421,
-      "elapsed_ms": 1230,
+      "elapsed_ms": 1261,
       "error": null
     },
     {
@@ -389,12 +389,12 @@
       "scope": "funding ireland",
       "url": "https://www.heritagecouncil.ie/funding",
       "host": "www.heritagecouncil.ie",
-      "status": "active",
-      "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 82,
-      "elapsed_ms": 694,
-      "error": null
+      "status": "failed",
+      "http_status": null,
+      "current_item_count": 1,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 25475,
+      "error": "HTTPSConnectionPool(host='www.heritagecouncil.ie', port=443): Read timed out. (read timeout=25)"
     },
     {
       "id": "community-foundation-ireland-grants",
@@ -404,11 +404,11 @@
       "scope": "funding ireland",
       "url": "https://www.communityfoundation.ie/grants/",
       "host": "www.communityfoundation.ie",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 2,
       "discovered_hint_count": 37,
-      "elapsed_ms": 2337,
+      "elapsed_ms": 2162,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 121,
+      "elapsed_ms": 330,
       "error": null
     },
     {
@@ -436,9 +436,9 @@
       "host": "www.researchireland.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 4,
       "discovered_hint_count": 99,
-      "elapsed_ms": 107,
+      "elapsed_ms": 606,
       "error": null
     },
     {
@@ -451,9 +451,9 @@
       "host": "theriverstrust.org",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 11,
+      "current_item_count": 17,
       "discovered_hint_count": 94,
-      "elapsed_ms": 993,
+      "elapsed_ms": 1194,
       "error": null
     },
     {
@@ -466,9 +466,9 @@
       "host": "www.therrc.co.uk",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 3,
       "discovered_hint_count": 110,
-      "elapsed_ms": 4926,
+      "elapsed_ms": 1038,
       "error": null
     }
   ]
