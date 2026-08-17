@@ -2,13 +2,16 @@
 """
 Optional SmartGrid visible-page cross-check.
 
-This file intentionally does NOT populate canonical electricity_now values.
 The structured SmartGrid API harvester is authoritative for live electricity.
 
-The visible page is scraped only as a public-facing cross-check. If its HTML
-changes or renders incompletely, this script records diagnostics and exits
-non-zero. run_pipeline.py marks this step optional and continues to the
-normalisation and validation gates.
+The visible page is primarily a public-facing cross-check. If the structured
+API cannot prove interconnection, the visible Generation-page NET IMPORT %
+may fill only the missing interconnection fields as a labelled fallback.
+Generation, wind, solar and renewable values are never overwritten.
+
+If the page changes or renders incompletely, this script records diagnostics
+and exits non-zero. run_pipeline.py marks this step optional and continues to
+the normalisation and validation gates.
 """
 
 from __future__ import annotations
@@ -206,11 +209,145 @@ def cross_check_payload(overview: dict) -> dict:
     }
 
 
+def _num(value):
+    try:
+        value = float(value)
+        if math.isfinite(value):
+            return value
+    except Exception:
+        pass
+    return None
+
+
+def _apply_visible_fallbacks(data: dict, overview: dict) -> list[str]:
+    # Fill only fields the structured SmartGrid API left unavailable.
+    # Allowed visible-page fallbacks:
+    #   - generation_mw from LATEST SYSTEM GENERATION
+    #   - interconnection from NET IMPORT %
+    # Wind, solar and renewable values remain API-authoritative.
+    e = data.setdefault("electricity_now", {})
+    fallback_fields: list[str] = []
+
+    current_generation = _num(e.get("generation_mw"))
+    visible_generation = _num(overview.get("generation_mw"))
+
+    if (
+        (current_generation is None or current_generation <= 0)
+        and visible_generation is not None
+        and visible_generation > 0
+    ):
+        e["generation_mw"] = round(visible_generation)
+        e["generation_basis"] = "smartgrid_visible_system_generation_fallback"
+        e["generation_fallback"] = {
+            "source": "SmartGrid visible LATEST SYSTEM GENERATION",
+            "source_url": URL,
+            "harvested_at": now_iso(),
+            "reason": (
+                "Structured SmartGrid generation API did not provide a proven "
+                "current generation value."
+            ),
+        }
+        current_generation = visible_generation
+        fallback_fields.append("generation_mw")
+
+        warnings = list(e.get("consistency_warnings") or [])
+        warnings.append(
+            "Generation API unavailable; using visible LATEST SYSTEM "
+            "GENERATION as a labelled fallback."
+        )
+        e["consistency_warnings"] = warnings
+
+    current_mw = _num(e.get("interconnection_mw"))
+    current_pct = _num(e.get("net_import_percent"))
+
+    interconnection_proven = (
+        e.get("interconnection_available") is True
+        and current_mw is not None
+        and current_pct is not None
+    )
+
+    net_import_percent = _num(overview.get("net_import_percent"))
+
+    if (
+        not interconnection_proven
+        and current_generation is not None
+        and current_generation > 0
+        and net_import_percent is not None
+    ):
+        interconnection_mw = current_generation * net_import_percent / 100.0
+
+        e.update(
+            {
+                "net_import_percent": round(net_import_percent, 2),
+                "interconnection_percent": round(net_import_percent, 2),
+                "interconnection_mw": round(interconnection_mw),
+                "imports_mw": round(max(interconnection_mw, 0.0)),
+                "exports_mw": round(max(-interconnection_mw, 0.0)),
+                "imports_percent": round(max(net_import_percent, 0.0), 2),
+                "exports_percent": round(max(-net_import_percent, 0.0), 2),
+                "interconnection_direction": (
+                    "exporting"
+                    if interconnection_mw < -0.5
+                    else "importing"
+                    if interconnection_mw > 0.5
+                    else "near balanced"
+                ),
+                "interconnection_available": True,
+                "imports_available": True,
+                "interconnection_basis": (
+                    "smartgrid_visible_generation_net_import_percent_fallback"
+                ),
+                "interconnection_fallback": {
+                    "source": "SmartGrid visible System Generation NET IMPORT %",
+                    "source_url": URL,
+                    "harvested_at": now_iso(),
+                    "reason": (
+                        "Structured SmartGrid interconnection API did not provide "
+                        "a proven current net-flow value."
+                    ),
+                },
+            }
+        )
+
+        fallback_fields.append("interconnection")
+
+        warnings = list(e.get("consistency_warnings") or [])
+        old_warning = (
+            "Interconnection API endpoint did not return a valid latest value; "
+            "imports shown as 0."
+        )
+        warnings = [item for item in warnings if item != old_warning]
+        warnings.append(
+            "Interconnection API unavailable; using visible System Generation "
+            "NET IMPORT % as a labelled fallback."
+        )
+        e["consistency_warnings"] = warnings
+
+        rows = data.get("fuel_mix_24h")
+        if isinstance(rows, list):
+            wind_pct = _num(e.get("wind_percent")) or 0.0
+            solar_pct = _num(e.get("solar_percent")) or 0.0
+            imports_pct = max(net_import_percent, 0.0)
+            uncovered = max(
+                0.0,
+                100.0 - min(100.0, wind_pct + solar_pct + imports_pct),
+            )
+
+            for item in rows:
+                label = str(item.get("label") or "").lower()
+                if label == "imports":
+                    item["percent"] = round(imports_pct, 1)
+                    item["available"] = True
+                elif label == "uncovered":
+                    item["percent"] = round(uncovered, 1)
+                    item["available"] = True
+
+    return fallback_fields
+
 def patch_success(path: Path, overview: dict) -> None:
     data = read_json(path)
     e = data.setdefault("electricity_now", {})
 
-    # Remove legacy fields that made the visible page look authoritative.
     for key in (
         "thermal_generation_percent",
         "interconnection_note",
@@ -220,23 +357,30 @@ def patch_success(path: Path, overview: dict) -> None:
         e.pop(key, None)
 
     e["smartgrid_visible_overview"] = cross_check_payload(overview)
+    fallback_fields = _apply_visible_fallbacks(data, overview)
 
     data.setdefault("source_status", {})
     data["source_status"]["smartgrid_visible_overview"] = {
         "source": "SmartGrid Dashboard visible System Generation page",
         "source_url": URL,
         "harvested_at": now_iso(),
-        "mode": "optional-visible-page-cross-check",
+        "mode": (
+            "visible-page-field-fallback"
+            if fallback_fields
+            else "optional-visible-page-cross-check"
+        ),
         "available": True,
+        "fallback_applied": bool(fallback_fields),
+        "fallback_fields": fallback_fields,
         "caveat": (
-            "Visible HTML is used only as a cross-check. Canonical live "
-            "electricity values come from the structured SmartGrid API and are "
-            "not overwritten by this page scraper."
+            "Visible HTML never overwrites valid structured API values. "
+            "LATEST SYSTEM GENERATION may fill a missing generation value, and "
+            "NET IMPORT % may fill missing interconnection fields. Wind, solar "
+            "and renewable values remain API-authoritative."
         ),
     }
 
     write_json(path, data)
-
 
 def patch_failure(path: Path, error: str) -> None:
     if not path.exists():
