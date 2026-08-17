@@ -2,13 +2,13 @@
   "meta": {
     "countries_with_any_value": 30,
     "country_count": 30,
-    "failed_indicator_count": 6,
-    "generated_at": "2026-08-10T06:47:26.517652+00:00",
+    "failed_indicator_count": 7,
+    "generated_at": "2026-08-17T05:58:19.893901+00:00",
     "indicator_count": 14,
-    "loaded_indicator_count": 8,
+    "loaded_indicator_count": 7,
     "source": "World Bank API",
     "title": "Three Intelligences Explorer World Bank snapshot",
-    "value_count": 240,
+    "value_count": 210,
     "years": "2010:2026"
   },
   "rawValues": {
@@ -18,6 +18,12 @@
         "label": "Forest area",
         "value": 47.2402653902084,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 36.0,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -37,12 +43,6 @@
         "value": 29.6,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.746739745140076,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -54,12 +54,6 @@
         "label": "Tertiary enrolment",
         "value": 92.6126708984375,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 81.9951219512195,
-        "year": 2024
       }
     },
     "AU": {
@@ -68,6 +62,12 @@
         "label": "Forest area",
         "value": 17.4213145571644,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 12.3,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -87,12 +87,6 @@
         "value": 33.5,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.770239531993866,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -104,12 +98,6 @@
         "label": "Tertiary enrolment",
         "value": 108.421989440918,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 83.0512195121951,
-        "year": 2024
       }
     },
     "BE": {
@@ -118,6 +106,12 @@
         "label": "Forest area",
         "value": 22.604446776415,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 11.7,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -137,12 +131,6 @@
         "value": 18.6,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.76041966676712,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -154,12 +142,6 @@
         "label": "Tertiary enrolment",
         "value": 82.1475601196289,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 82.3,
-        "year": 2024
       }
     },
     "BR": {
@@ -168,6 +150,12 @@
         "label": "Forest area",
         "value": 58.9818729765235,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 46.5,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -187,12 +175,6 @@
         "value": 29.4,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.551497936248779,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -204,12 +186,6 @@
         "label": "Tertiary enrolment",
         "value": 69.7317733764648,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 76.023,
-        "year": 2024
       }
     },
     "CA": {
@@ -218,6 +194,12 @@
         "label": "Forest area",
         "value": 39.4617117321106,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 23.8,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -237,12 +219,6 @@
         "value": 11.6,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.797520101070404,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -254,12 +230,6 @@
         "label": "Tertiary enrolment",
         "value": 76.2666931152344,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 82.1080487804878,
-        "year": 2024
       }
     },
     "CH": {
@@ -268,6 +238,12 @@
         "label": "Forest area",
         "value": 32.3827380818297,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 27.7,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -287,12 +263,6 @@
         "value": 12.5,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.756115138530731,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -304,12 +274,6 @@
         "label": "Tertiary enrolment",
         "value": 73.5430526733398,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 84.4073170731707,
-        "year": 2024
       }
     },
     "CL": {
@@ -318,6 +282,12 @@
         "label": "Forest area",
         "value": 25.0116461113584,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 24.2,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -337,12 +307,6 @@
         "value": 37.9,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.651604175567627,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -354,12 +318,6 @@
         "label": "Tertiary enrolment",
         "value": 110.176902770996,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 81.359,
-        "year": 2024
       }
     },
     "CN": {
@@ -368,6 +326,12 @@
         "label": "Forest area",
         "value": 24.0319389958256,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 15.2,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -387,12 +351,6 @@
         "value": 14.7,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.65310263633728,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -404,12 +362,6 @@
         "label": "Tertiary enrolment",
         "value": 76.8757843123403,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 78.017,
-        "year": 2024
       }
     },
     "DE": {
@@ -418,6 +370,12 @@
         "label": "Forest area",
         "value": 32.6789342643734,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 17.6,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -437,12 +395,6 @@
         "value": 40.0,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.751162469387054,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -454,12 +406,6 @@
         "label": "Tertiary enrolment",
         "value": 76.7096862792969,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 80.7926829268293,
-        "year": 2024
       }
     },
     "DK": {
@@ -468,6 +414,12 @@
         "label": "Forest area",
         "value": 15.7815,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 39.5,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -487,12 +439,6 @@
         "value": 23.8,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.755094826221466,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -504,12 +450,6 @@
         "label": "Tertiary enrolment",
         "value": 78.9604110717773,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 82.2536585365854,
-        "year": 2024
       }
     },
     "EE": {
@@ -518,6 +458,12 @@
         "label": "Forest area",
         "value": 57.0652937046572,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 38.0,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -537,12 +483,6 @@
         "value": 20.5,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.77720320224762,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -554,12 +494,6 @@
         "label": "Tertiary enrolment",
         "value": 65.6692276000977,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 79.2951219512195,
-        "year": 2024
       }
     },
     "ES": {
@@ -568,6 +502,12 @@
         "label": "Forest area",
         "value": 37.1925889548355,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 19.0,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -587,12 +527,6 @@
         "value": 22.1,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.728255033493042,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -604,12 +538,6 @@
         "label": "Tertiary enrolment",
         "value": 93.7689666748047,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 83.8878048780488,
-        "year": 2024
       }
     },
     "FI": {
@@ -618,6 +546,12 @@
         "label": "Forest area",
         "value": 73.7235162521384,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 50.2,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -637,12 +571,6 @@
         "value": 13.5,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.796001017093658,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -654,12 +582,6 @@
         "label": "Tertiary enrolment",
         "value": 110.304496765137,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 82.3365853658537,
-        "year": 2024
       }
     },
     "FR": {
@@ -668,6 +590,12 @@
         "label": "Forest area",
         "value": 32.4764820484275,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 16.2,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -687,12 +615,6 @@
         "value": 36.7,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.762737214565277,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -704,12 +626,6 @@
         "label": "Tertiary enrolment",
         "value": 71.5346908569336,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 82.9804878048781,
-        "year": 2024
       }
     },
     "GB": {
@@ -718,6 +634,12 @@
         "label": "Forest area",
         "value": 13.2907130161617,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 12.2,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -737,12 +659,6 @@
         "value": 42.1,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.782942950725555,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -754,12 +670,6 @@
         "label": "Tertiary enrolment",
         "value": 80.4146499633789,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 81.3868536585366,
-        "year": 2024
       }
     },
     "IE": {
@@ -768,6 +678,12 @@
         "label": "Forest area",
         "value": 11.5259108724053,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 12.7,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -787,12 +703,6 @@
         "value": 4.0,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.792599022388458,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -804,12 +714,6 @@
         "label": "Tertiary enrolment",
         "value": 77.5933380126953,
         "year": 2022
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 83.009756097561,
-        "year": 2024
       }
     },
     "IN": {
@@ -818,6 +722,12 @@
         "label": "Forest area",
         "value": 24.5390304689576,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 34.9,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -837,12 +747,6 @@
         "value": 4.5,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.493510901927948,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -854,12 +758,6 @@
         "label": "Tertiary enrolment",
         "value": 34.4465039692543,
         "year": 2025
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 72.235,
-        "year": 2024
       }
     },
     "IT": {
@@ -868,6 +766,12 @@
         "label": "Forest area",
         "value": 32.8944947923712,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 17.5,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -887,12 +791,6 @@
         "value": 14.8,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.727819681167603,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -904,12 +802,6 @@
         "label": "Tertiary enrolment",
         "value": 75.9496536254883,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 83.9512195121951,
-        "year": 2024
       }
     },
     "JP": {
@@ -918,6 +810,12 @@
         "label": "Forest area",
         "value": 68.3957811364628,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 8.8,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -937,12 +835,6 @@
         "value": 15.1,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.804714262485504,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -954,12 +846,6 @@
         "label": "Tertiary enrolment",
         "value": 64.4907608032227,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 84.0363414634146,
-        "year": 2024
       }
     },
     "KR": {
@@ -968,6 +854,12 @@
         "label": "Forest area",
         "value": 64.108606557377,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 3.6,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -987,12 +879,6 @@
         "value": 5.9,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.798776268959045,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1004,12 +890,6 @@
         "label": "Tertiary enrolment",
         "value": 111.853302001953,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 83.6292682926829,
-        "year": 2024
       }
     },
     "MX": {
@@ -1018,6 +898,12 @@
         "label": "Forest area",
         "value": 33.5959176419147,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 13.0,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1037,12 +923,6 @@
         "value": 19.9,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.612949848175049,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1054,12 +934,6 @@
         "label": "Tertiary enrolment",
         "value": 48.203441619873,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 75.264,
-        "year": 2024
       }
     },
     "NL": {
@@ -1068,6 +942,12 @@
         "label": "Forest area",
         "value": 11.0574428274428,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 12.2,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1087,12 +967,6 @@
         "value": 29.8,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.789915025234222,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1104,12 +978,6 @@
         "label": "Tertiary enrolment",
         "value": 86.5938262939453,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 81.9658536585366,
-        "year": 2024
       }
     },
     "NO": {
@@ -1118,6 +986,12 @@
         "label": "Forest area",
         "value": 33.5009745518434,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 61.4,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1137,12 +1011,6 @@
         "value": 5.4,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.771051168441772,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1154,12 +1022,6 @@
         "label": "Tertiary enrolment",
         "value": 95.4987564086914,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 83.1609756097561,
-        "year": 2024
       }
     },
     "NZ": {
@@ -1168,6 +1030,12 @@
         "label": "Forest area",
         "value": 37.7892841137822,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 28.9,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1187,12 +1055,6 @@
         "value": 30.6,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.775932431221008,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1204,12 +1066,6 @@
         "label": "Tertiary enrolment",
         "value": 77.2406463623047,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 82.009756097561,
-        "year": 2024
       }
     },
     "PL": {
@@ -1218,6 +1074,12 @@
         "label": "Forest area",
         "value": 31.0804192379273,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 15.2,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1237,12 +1099,6 @@
         "value": 38.1,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.753088593482971,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1254,12 +1110,6 @@
         "label": "Tertiary enrolment",
         "value": 80.9149627685547,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 78.409756097561,
-        "year": 2024
       }
     },
     "PT": {
@@ -1268,6 +1118,12 @@
         "label": "Forest area",
         "value": 36.154994891142,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 32.3,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1287,12 +1143,6 @@
         "value": 17.2,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.768949568271637,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1304,12 +1154,6 @@
         "label": "Tertiary enrolment",
         "value": 77.6778182983398,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 82.3829268292683,
-        "year": 2024
       }
     },
     "SE": {
@@ -1318,6 +1162,12 @@
         "label": "Forest area",
         "value": 68.7013529108454,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 57.9,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1337,12 +1187,6 @@
         "value": 15.9,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.79535710811615,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1354,12 +1198,6 @@
         "label": "Tertiary enrolment",
         "value": 83.9988098144531,
         "year": 2024
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 84.0634146341463,
-        "year": 2024
       }
     },
     "SG": {
@@ -1368,6 +1206,12 @@
         "label": "Forest area",
         "value": 20.933147632312,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 1.1,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1387,12 +1231,6 @@
         "value": 2.1,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.879125714302063,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1404,12 +1242,6 @@
         "label": "Tertiary enrolment",
         "value": 97.2886546863037,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 83.3463414634146,
-        "year": 2024
       }
     },
     "US": {
@@ -1418,6 +1250,12 @@
         "label": "Forest area",
         "value": 33.8669264120375,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 10.9,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1437,12 +1275,6 @@
         "value": 15.8,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.701764345169067,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1454,12 +1286,6 @@
         "label": "Tertiary enrolment",
         "value": 79.361930847168,
         "year": 2022
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 78.890243902439,
-        "year": 2024
       }
     },
     "ZA": {
@@ -1468,6 +1294,12 @@
         "label": "Forest area",
         "value": 13.965072665672,
         "year": 2023
+      },
+      "EG.FEC.RNEW.ZS": {
+        "indicator": "EG.FEC.RNEW.ZS",
+        "label": "Renewable energy consumption",
+        "value": 9.7,
+        "year": 2021
       },
       "EN.ATM.PM25.MC.M3": {
         "indicator": "EN.ATM.PM25.MC.M3",
@@ -1487,12 +1319,6 @@
         "value": 12.9,
         "year": 2025
       },
-      "HD.HCI.OVRL": {
-        "indicator": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "value": 0.425453394651413,
-        "year": 2020
-      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1504,18 +1330,24 @@
         "label": "Tertiary enrolment",
         "value": 23.493768799339,
         "year": 2023
-      },
-      "SP.DYN.LE00.IN": {
-        "indicator": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "value": 66.312,
-        "year": 2024
       }
     }
   },
   "report": {
     "countriesWithAnyValue": 30,
     "failed": [
+      {
+        "code": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "layer": "individual",
+        "reason": "TimeoutError: The read operation timed out"
+      },
+      {
+        "code": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "layer": "individual",
+        "reason": "HTTPError: HTTP Error 400: Bad Request"
+      },
       {
         "code": "GE.EST",
         "label": "Government effectiveness",
@@ -1545,24 +1377,10 @@
         "label": "Regulatory quality",
         "layer": "collective",
         "reason": "payload did not contain a data array for URL https://api.worldbank.org/v2/country/IE;IT;DE;FR;NL;DK;SE;FI;EE;GB;US;CA;AU;NZ;JP;KR;SG;ES;PT;PL;CL;MX;BR;ZA;IN;CN;NO;CH;AT;BE/indicator/RQ.EST?format=json&per_page=20000&date=2010%3A2026&source=1181 | payload did not contain a data array for URL https://api.worldbank.org/v2/country/IE;IT;DE;FR;NL;DK;SE;FI;EE;GB;US;CA;AU;NZ;JP;KR;SG;ES;PT;PL;CL;MX;BR;ZA;IN;CN;NO;CH;AT;BE/indicator/RQ.EST?format=json&per_page=20000&date=2010%3A2026"
-      },
-      {
-        "code": "EG.FEC.RNEW.ZS",
-        "label": "Renewable energy consumption",
-        "layer": "planetary",
-        "reason": "HTTPError: HTTP Error 400: Bad Request"
       }
     ],
-    "generated_at": "2026-08-10T06:47:26.517652+00:00",
+    "generated_at": "2026-08-17T05:58:19.893901+00:00",
     "loaded": [
-      {
-        "code": "HD.HCI.OVRL",
-        "countryValues": 30,
-        "label": "Human Capital Index",
-        "layer": "individual",
-        "sourceRoute": "default World Bank API",
-        "usableRows": 118
-      },
       {
         "code": "IT.NET.USER.ZS",
         "countryValues": 30,
@@ -1580,12 +1398,12 @@
         "usableRows": 404
       },
       {
-        "code": "SP.DYN.LE00.IN",
+        "code": "EG.FEC.RNEW.ZS",
         "countryValues": 30,
-        "label": "Life expectancy",
-        "layer": "individual",
+        "label": "Renewable energy consumption",
+        "layer": "planetary",
         "sourceRoute": "default World Bank API",
-        "usableRows": 450
+        "usableRows": 360
       },
       {
         "code": "ER.PTD.TOTL.ZS",
@@ -1621,7 +1439,7 @@
       }
     ],
     "total": 14,
-    "values": 240,
+    "values": 210,
     "years": "2010:2026"
   }
 }
