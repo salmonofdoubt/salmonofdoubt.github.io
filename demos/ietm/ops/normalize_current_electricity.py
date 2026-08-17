@@ -11,7 +11,6 @@ MONITOR = ROOT / "data" / "monitor.json"
 SOURCE_ELECTRICITY = ROOT / "data" / "source" / "electricity.json"
 
 DEMAND_BALANCE_TOLERANCE_MW = 300.0
-INTERCONNECTION_TOLERANCE_MW = 20.0
 
 
 def now_iso() -> str:
@@ -66,10 +65,8 @@ def normalise_electricity(e: dict) -> dict:
         renewables = round(clamp(raw_renewables), 2)
 
     # Keep wind and solar as children of renewable generation.
-    # Some live source intervals can report wind + solar above the renewable
-    # total, usually because public feed values are not perfectly synchronous
-    # or not using the same denominator. For the public generation-mix model,
-    # preserve the renewable total and scale the child components into it.
+    # If source intervals are slightly asynchronous, scale child components
+    # into the parent total instead of allowing impossible accounting.
     component_sum = raw_wind + raw_solar
     mix_reconciled = False
 
@@ -84,8 +81,6 @@ def normalise_electricity(e: dict) -> dict:
         solar = round(raw_solar, 2)
         other_renewables = round(max(0.0, renewables - wind - solar), 2)
 
-    # Rebuild the parent total from its children after rounding. This keeps the
-    # downstream contract exact: wind + solar + other renewables = renewables.
     renewables = round(wind + solar + other_renewables, 2)
     thermal_other = round(max(0.0, 100.0 - renewables), 2)
 
@@ -95,9 +90,7 @@ def normalise_electricity(e: dict) -> dict:
     e["other_renewables_percent"] = other_renewables
     e["thermal_other_percent"] = thermal_other
 
-    # Legacy aliases: older frontend sections and history code may still read
-    # residual_percent / gas_percent. Keep them aligned with the canonical
-    # generation-accounting value so visible tiles cannot diverge.
+    # Legacy aliases used by older frontend sections.
     e["residual_percent"] = thermal_other
     e["gas_percent"] = thermal_other
     e["gas_is_residual_proxy"] = True
@@ -105,7 +98,9 @@ def normalise_electricity(e: dict) -> dict:
     if mix_reconciled:
         e["generation_mix_reconciliation"] = {
             "mode": "scaled_children_to_renewable_total",
-            "reason": "Source wind plus solar exceeded renewable total for this interval.",
+            "reason": (
+                "Source wind plus solar exceeded renewable total for this interval."
+            ),
             "raw_wind_percent": round2(raw_wind),
             "raw_solar_percent": round2(raw_solar),
             "raw_renewables_percent": round2(raw_renewables),
@@ -120,6 +115,12 @@ def normalise_electricity(e: dict) -> dict:
         "thermal_other": thermal_other,
         "sum": round2(wind + solar + other_renewables + thermal_other),
     }
+
+    # Preserve the upstream source provenance. The normaliser reconciles fields;
+    # it does not get to relabel an API value as a visible-page scrape.
+    upstream_interconnection_basis = str(
+        e.get("interconnection_basis") or "upstream_net_import_percent"
+    )
 
     net_import_percent = num(e.get("net_import_percent"))
     if net_import_percent is None:
@@ -136,33 +137,48 @@ def normalise_electricity(e: dict) -> dict:
         e["imports_percent"] = round2(max(net_import_percent, 0.0))
         e["exports_percent"] = round2(max(-net_import_percent, 0.0))
         e["interconnection_direction"] = (
-            "exporting" if interconnection_mw < -0.5
-            else "importing" if interconnection_mw > 0.5
+            "exporting"
+            if interconnection_mw < -0.5
+            else "importing"
+            if interconnection_mw > 0.5
             else "near balanced"
         )
-        e["interconnection_basis"] = "smartgrid_visible_generation_overview_net_import_percent"
+        e["interconnection_basis"] = upstream_interconnection_basis
+        e["interconnection_normalisation"] = (
+            "reconciled_from_generation_and_net_import_percent"
+        )
 
     interconnection_mw = num(e.get("interconnection_mw"))
 
-    if demand_mw is not None and generation_mw is not None and interconnection_mw is not None:
+    if (
+        demand_mw is not None
+        and generation_mw is not None
+        and interconnection_mw is not None
+    ):
         expected_demand_mw = generation_mw + interconnection_mw
         gap_mw = demand_mw - expected_demand_mw
         coherent = abs(gap_mw) <= DEMAND_BALANCE_TOLERANCE_MW
 
         e["demand_balance_expected_mw"] = round(expected_demand_mw)
         e["demand_balance_gap_mw"] = round(gap_mw)
-        e["demand_balance_tolerance_mw"] = round(DEMAND_BALANCE_TOLERANCE_MW)
-        e["demand_balance_status"] = "coherent" if coherent else "withheld_balance_mismatch"
+        e["demand_balance_tolerance_mw"] = round(
+            DEMAND_BALANCE_TOLERANCE_MW
+        )
+        e["demand_balance_status"] = (
+            "coherent" if coherent else "withheld_balance_mismatch"
+        )
         e["show_demand_card"] = bool(coherent)
     else:
         e["demand_balance_expected_mw"] = None
         e["demand_balance_gap_mw"] = None
-        e["demand_balance_tolerance_mw"] = round(DEMAND_BALANCE_TOLERANCE_MW)
+        e["demand_balance_tolerance_mw"] = round(
+            DEMAND_BALANCE_TOLERANCE_MW
+        )
         e["demand_balance_status"] = "missing_required_fields"
         e["show_demand_card"] = False
 
     e["normalised_at"] = now_iso()
-    e["normalisation_version"] = "current-electricity-v1"
+    e["normalisation_version"] = "current-electricity-v2"
 
     return e
 
@@ -178,9 +194,12 @@ def patch_file(path: Path) -> None:
         "mode": "post-build-normalisation",
         "generated_at": now_iso(),
         "caveat": (
-            "Generation mix is normalised so wind + solar + other renewables + thermal/other = 100. "
-            "Interconnection MW is derived from visible SmartGrid net-import percentage and generation. "
-            "Demand is withheld from top accounting cards when it fails the generation + net-flow balance check."
+            "Generation mix is normalised so wind + solar + other renewables + "
+            "thermal/other = 100. Interconnection is reconciled from the "
+            "upstream SmartGrid/API net-flow fields while preserving upstream "
+            "provenance in electricity_now.interconnection_basis. Demand is "
+            "withheld from top accounting cards when it fails the generation "
+            "+ net-flow balance check."
         ),
     }
 
@@ -207,6 +226,7 @@ def main() -> int:
         "thermal_other_percent",
         "net_import_percent",
         "interconnection_mw",
+        "interconnection_basis",
         "demand_balance_gap_mw",
         "demand_balance_status",
         "show_demand_card",
