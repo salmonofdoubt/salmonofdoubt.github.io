@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: refresh-wq
+  group: repo-master-writes
   cancel-in-progress: false
 
 jobs:
@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Harvest public water-quality data
         run: |
@@ -32,6 +34,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add demos/wq/data/latest.json demos/wq/data/source-status.json
-          git commit -m "Refresh WQ monitor data" || exit 0
-          git pull --rebase origin master
-          git push origin HEAD:master
+          git diff --cached --quiet && exit 0
+          git commit -m "Refresh WQ monitor data"
+          bash scripts/ci/safe-rebase-push.sh master
