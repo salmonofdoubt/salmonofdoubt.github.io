@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: monitor-health
+  group: repo-master-writes
   cancel-in-progress: false
 
 jobs:
@@ -39,5 +39,4 @@ jobs:
 
           git add data/monitor-items.json data/job-status.json
           git commit -m "Update monitor health data"
-          git pull --rebase --autostash origin master
-          git push origin HEAD:master
+          bash scripts/ci/safe-rebase-push.sh master
