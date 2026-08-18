@@ -2,11 +2,13 @@ import * as THREE from 'three';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
 
 const TARGET_RADIUS = 1.55;
-const MAX_TRACE_POINTS = 30000;
+const MAX_TRACE_POINTS = 42000;
 const Z_BINS = 18;
 const PHI_BINS = 36;
 const COVERAGE_BIN_COUNT = Z_BINS * PHI_BINS;
 const DEG = Math.PI / 180;
+const TWO_PI = Math.PI * 2;
+const MAX_EXPOSURES_PER_FRAME = 48;
 
 const canvas = document.getElementById('sceneCanvas');
 const stage = document.getElementById('stage');
@@ -63,9 +65,9 @@ const shapeNames = {
 
 const presets = {
   stop: { x: false, y: false, z: false, sx: 0, sy: 0, sz: 0 },
-  x: { x: true, y: false, z: false, sx: 52, sy: 0, sz: 0 },
-  xy: { x: true, y: true, z: false, sx: 43, sy: 61, sz: 0 },
-  xyz: { x: true, y: true, z: true, sx: 41, sy: 58, sz: 71 }
+  x: { x: true, y: false, z: false, sx: 180, sy: 0, sz: 0 },
+  xy: { x: true, y: true, z: false, sx: 240, sy: 337, sz: 0 },
+  xyz: { x: true, y: true, z: true, sx: 1080, sy: 1523, sz: 1949 }
 };
 
 let renderer;
@@ -84,15 +86,16 @@ let outerPoints = [];
 let currentShape = 'cube';
 let paused = false;
 let lastTime = performance.now();
-let traceAccumulator = 0;
 let traceWriteIndex = 0;
 let traceCount = 0;
 let visitedBins = new Uint8Array(COVERAGE_BIN_COUNT);
 let visitedCount = 0;
+
 const angles = { x: 0, y: 0, z: 0 };
 const tracePositions = new Float32Array(MAX_TRACE_POINTS * 3);
 const tempVector = new THREE.Vector3();
 const tempQuaternion = new THREE.Quaternion();
+const tempEuler = new THREE.Euler(0, 0, 0, 'XYZ');
 
 function buildGeometry(kind) {
   switch (kind) {
@@ -155,15 +158,20 @@ function extractOuterPoints(geometry) {
   for (const point of candidates) {
     if (point.radius < threshold) continue;
     const key = `${point.x.toFixed(4)},${point.y.toFixed(4)},${point.z.toFixed(4)}`;
-    if (!unique.has(key)) unique.set(key, new THREE.Vector3(point.x, point.y, point.z));
+    if (!unique.has(key)) {
+      unique.set(key, new THREE.Vector3(point.x, point.y, point.z));
+    }
   }
 
   let points = Array.from(unique.values());
-  const maxTracers = currentShape === 'sphere' ? 72 : 96;
+  const maxTracers = currentShape === 'sphere' ? 96 : 128;
+
   if (points.length > maxTracers) {
     const sampled = [];
     const step = points.length / maxTracers;
-    for (let i = 0; i < maxTracers; i += 1) sampled.push(points[Math.floor(i * step)]);
+    for (let i = 0; i < maxTracers; i += 1) {
+      sampled.push(points[Math.floor(i * step)]);
+    }
     points = sampled;
   }
 
@@ -176,8 +184,11 @@ function disposeObject() {
   objectGroup.traverse(child => {
     if (child.geometry) child.geometry.dispose();
     if (child.material) {
-      if (Array.isArray(child.material)) child.material.forEach(material => material.dispose());
-      else child.material.dispose();
+      if (Array.isArray(child.material)) {
+        child.material.forEach(material => material.dispose());
+      } else {
+        child.material.dispose();
+      }
     }
   });
 }
@@ -196,15 +207,22 @@ function createObject(kind) {
     metalness: 0.12,
     transparent: true,
     opacity: 0.78,
-    side: THREE.DoubleSide
+    side: THREE.DoubleSide,
+    depthWrite: false
   });
+
   solidMesh = new THREE.Mesh(geometry, material);
   objectGroup.add(solidMesh);
 
   const edgesGeometry = new THREE.EdgesGeometry(geometry, 22);
   edgeLines = new THREE.LineSegments(
     edgesGeometry,
-    new THREE.LineBasicMaterial({ color: 0xe9f8f8, transparent: true, opacity: 0.82 })
+    new THREE.LineBasicMaterial({
+      color: 0xe9f8f8,
+      transparent: true,
+      opacity: 0.82,
+      depthWrite: false
+    })
   );
   objectGroup.add(edgeLines);
   scene.add(objectGroup);
@@ -213,11 +231,17 @@ function createObject(kind) {
   applyAngles();
   applyDisplayVisibility();
   clearEnvelope();
+  updateVisualPersistence();
 }
 
 function initScene() {
   try {
-    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
   } catch (error) {
     console.error(error);
     webglError.hidden = false;
@@ -242,9 +266,11 @@ function initScene() {
   controls.target.set(0, 0, 0);
 
   scene.add(new THREE.HemisphereLight(0xbdeff5, 0x061018, 2.0));
+
   const key = new THREE.DirectionalLight(0xffffff, 3.0);
   key.position.set(4, 5, 5);
   scene.add(key);
+
   const rim = new THREE.DirectionalLight(0x7c6cff, 2.2);
   rim.position.set(-4, 1, -3);
   scene.add(rim);
@@ -277,15 +303,17 @@ function initScene() {
   traceAttribute.setUsage(THREE.DynamicDrawUsage);
   traceGeometry.setAttribute('position', traceAttribute);
   traceGeometry.setDrawRange(0, 0);
+
   tracePoints = new THREE.Points(
     traceGeometry,
     new THREE.PointsMaterial({
       color: 0xf0fbff,
-      size: 0.027,
+      size: 0.03,
       sizeAttenuation: true,
       transparent: true,
-      opacity: 0.48,
-      depthWrite: false
+      opacity: 0.42,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
     })
   );
   scene.add(tracePoints);
@@ -299,6 +327,7 @@ function resetCamera() {
   if (!camera) return;
   camera.position.set(4.5, 3.15, 5.4);
   camera.lookAt(0, 0, 0);
+
   if (controls) {
     controls.target.set(0, 0, 0);
     controls.update();
@@ -307,6 +336,7 @@ function resetCamera() {
 
 function resizeRenderer() {
   if (!renderer || !camera) return;
+
   const rect = stage.getBoundingClientRect();
   const width = Math.max(1, Math.floor(rect.width));
   const height = Math.max(1, Math.floor(rect.height));
@@ -328,7 +358,20 @@ function speedValue(axis) {
 }
 
 function activeAxisCount() {
-  return ['X', 'Y', 'Z'].reduce((count, axis) => count + (ui[`axis${axis}`].checked && Number(ui[`speed${axis}`].value) !== 0 ? 1 : 0), 0);
+  return ['X', 'Y', 'Z'].reduce(
+    (count, axis) =>
+      count +
+      (ui[`axis${axis}`].checked && Number(ui[`speed${axis}`].value) !== 0 ? 1 : 0),
+    0
+  );
+}
+
+function maxSpeed() {
+  return Math.max(
+    Math.abs(speedValue('x')),
+    Math.abs(speedValue('y')),
+    Math.abs(speedValue('z'))
+  );
 }
 
 function applyAngles() {
@@ -340,40 +383,102 @@ function applyAngles() {
 function setCoverageBin(point) {
   const radius = point.length();
   if (radius < 1e-8) return;
+
   const y = THREE.MathUtils.clamp(point.y / radius, -1, 1);
   const phi = Math.atan2(point.z, point.x);
-  const zIndex = Math.min(Z_BINS - 1, Math.floor(((y + 1) * 0.5) * Z_BINS));
-  const phiIndex = Math.min(PHI_BINS - 1, Math.floor(((phi + Math.PI) / (2 * Math.PI)) * PHI_BINS));
+  const zIndex = Math.min(
+    Z_BINS - 1,
+    Math.floor(((y + 1) * 0.5) * Z_BINS)
+  );
+  const phiIndex = Math.min(
+    PHI_BINS - 1,
+    Math.floor(((phi + Math.PI) / TWO_PI) * PHI_BINS)
+  );
   const index = zIndex * PHI_BINS + phiIndex;
+
   if (!visitedBins[index]) {
     visitedBins[index] = 1;
     visitedCount += 1;
   }
 }
 
-function addTraceSample() {
-  if (!objectGroup || !outerPoints.length) return;
-  objectGroup.getWorldQuaternion(tempQuaternion);
+function writeTracePoint(point) {
+  const offset = traceWriteIndex * 3;
+  tracePositions[offset] = point.x;
+  tracePositions[offset + 1] = point.y;
+  tracePositions[offset + 2] = point.z;
+
+  traceWriteIndex = (traceWriteIndex + 1) % MAX_TRACE_POINTS;
+  traceCount = Math.min(MAX_TRACE_POINTS, traceCount + 1);
+  setCoverageBin(point);
+}
+
+function addTraceAtOrientation(x, y, z) {
+  if (!outerPoints.length || !traceAttribute) return;
+
+  tempEuler.set(x, y, z, 'XYZ');
+  tempQuaternion.setFromEuler(tempEuler);
 
   for (const source of outerPoints) {
     tempVector.copy(source).applyQuaternion(tempQuaternion);
-    const offset = traceWriteIndex * 3;
-    tracePositions[offset] = tempVector.x;
-    tracePositions[offset + 1] = tempVector.y;
-    tracePositions[offset + 2] = tempVector.z;
-    traceWriteIndex = (traceWriteIndex + 1) % MAX_TRACE_POINTS;
-    traceCount = Math.min(MAX_TRACE_POINTS, traceCount + 1);
-    setCoverageBin(tempVector);
+    writeTracePoint(tempVector);
+  }
+}
+
+function commitTraceUpdate() {
+  if (!traceAttribute || !traceGeometry) return;
+  traceAttribute.needsUpdate = true;
+  traceGeometry.setDrawRange(0, traceCount);
+}
+
+function exposureCountForFrame(dx, dy, dz) {
+  const travelDegrees =
+    (Math.abs(dx) + Math.abs(dy) + Math.abs(dz)) / DEG;
+
+  const density = Number(ui.traceRate.value);
+  const densityFactor = [0, 0.45, 0.65, 0.85, 1.0, 1.25][density] || 0.85;
+
+  return THREE.MathUtils.clamp(
+    Math.ceil((travelDegrees / 3) * densityFactor),
+    1,
+    MAX_EXPOSURES_PER_FRAME
+  );
+}
+
+function integrateFrame(dt) {
+  const sx = speedValue('x') * DEG;
+  const sy = speedValue('y') * DEG;
+  const sz = speedValue('z') * DEG;
+
+  const dx = sx * dt;
+  const dy = sy * dt;
+  const dz = sz * dt;
+
+  const startX = angles.x;
+  const startY = angles.y;
+  const startZ = angles.z;
+  const exposures = exposureCountForFrame(dx, dy, dz);
+
+  for (let i = 1; i <= exposures; i += 1) {
+    const t = i / exposures;
+    addTraceAtOrientation(
+      startX + dx * t,
+      startY + dy * t,
+      startZ + dz * t
+    );
   }
 
-  traceAttribute.needsUpdate = true;
-  traceGeometry.setDrawRange(0, traceCount < MAX_TRACE_POINTS ? traceCount : MAX_TRACE_POINTS);
+  angles.x = (startX + dx) % TWO_PI;
+  angles.y = (startY + dy) % TWO_PI;
+  angles.z = (startZ + dz) % TWO_PI;
+
+  applyAngles();
+  commitTraceUpdate();
 }
 
 function clearEnvelope() {
   traceWriteIndex = 0;
   traceCount = 0;
-  traceAccumulator = 0;
   visitedBins = new Uint8Array(COVERAGE_BIN_COUNT);
   visitedCount = 0;
   traceGeometry?.setDrawRange(0, 0);
@@ -388,12 +493,6 @@ function resetOrientation() {
   clearEnvelope();
 }
 
-function traceInterval() {
-  const level = Number(ui.traceRate.value);
-  const intervals = { 1: 0.14, 2: 0.09, 3: 0.055, 4: 0.035, 5: 0.022 };
-  return intervals[level] || 0.055;
-}
-
 function updateSpeedOutputs() {
   for (const axis of ['X', 'Y', 'Z']) {
     const input = ui[`speed${axis}`];
@@ -401,15 +500,34 @@ function updateSpeedOutputs() {
     const hud = ui[`hud${axis}`];
     const enabled = ui[`axis${axis}`].checked;
     const value = Number(input.value);
+
     out.textContent = `${value}°/s`;
     hud.textContent = enabled ? `${value}°/s` : 'off';
     input.disabled = !enabled;
   }
+
+  updateVisualPersistence();
+}
+
+function updateVisualPersistence() {
+  if (!solidMesh || !edgeLines || !tracePoints) return;
+
+  const speed = maxSpeed();
+  const fade = THREE.MathUtils.smoothstep(speed, 360, 1500);
+
+  solidMesh.material.opacity = THREE.MathUtils.lerp(0.78, 0.08, fade);
+  edgeLines.material.opacity = ui.showEdges.checked
+    ? THREE.MathUtils.lerp(0.82, 0.08, fade)
+    : 0;
+
+  tracePoints.material.opacity = THREE.MathUtils.lerp(0.34, 0.58, fade);
+  tracePoints.material.size = THREE.MathUtils.lerp(0.027, 0.034, fade);
 }
 
 function updateMetrics() {
   const coverage = (visitedCount / COVERAGE_BIN_COUNT) * 100;
   const axes = activeAxisCount();
+
   ui.coverage.textContent = `${coverage.toFixed(coverage < 10 ? 1 : 0)}%`;
   ui.samples.textContent = traceCount.toLocaleString();
   ui.axes.textContent = String(axes);
@@ -422,38 +540,54 @@ function regimeLabel(axes) {
   if (axes === 0) return 'static geometry';
   if (axes === 1) return 'single-axis revolution';
   if (axes === 2) return 'two-phase sweep';
+  if (maxSpeed() >= 720) return 'high-speed perceptual integration';
   return 'three-phase sphere search';
 }
 
 function interpretationText(axes, coverage) {
   if (currentShape === 'sphere') {
-    return 'A sphere is already invariant under rotation. The object looks unchanged while its sampled surface directions are already highly symmetric.';
+    return 'A sphere is already invariant under rotation. Its appearance is unchanged while the sampled directions remain spherical.';
   }
+
   if (axes === 0) {
-    return 'No active rotation: the object and its outer extrema remain fixed. There is no rotational envelope yet.';
+    return 'No active rotation: the object and its outer extrema remain fixed.';
   }
+
   if (axes === 1) {
-    return 'One active axis makes outer points sweep circular or ring-like paths. This creates a surface of revolution, not generally a sphere.';
+    return 'One active axis makes the outer points sweep rings. Speed makes those rings appear sooner, but a single axis does not explore all directions.';
   }
+
   if (axes === 2) {
     return coverage > 55
-      ? 'Two evolving angular phases are spreading the outer extrema through a broad set of directions. The envelope is becoming much less axis-bound.'
-      : 'Two angular phases create a woven envelope. Let it run, or change the speed ratio, and watch the directional coverage grow.';
+      ? 'Two angular phases now occupy a broad set of outer directions, but the sweep remains more structured than full three-axis integration.'
+      : 'Two angular phases weave the envelope through more directions. Increase speed or add the third axis to approach spherical coverage.';
   }
-  if (coverage > 85) {
-    return 'The outer extrema have now visited most sampled solid-angle bins. The accumulated outer envelope is strongly sphere-like even though the instantaneous object is not.';
+
+  if (coverage > 95) {
+    return 'The accumulated outer positions now cover almost the entire directional sphere. The instantaneous object is still present, but its many orientations have fused into a stable spherical envelope.';
   }
-  if (coverage > 55) {
-    return 'The three-phase sweep is filling large parts of the reference sphere. The object remains unchanged; its accumulated outer directions are becoming approximately isotropic.';
+
+  if (coverage > 80) {
+    return 'The high-speed exposure is now strongly sphere-like. What you see is persistence across many intermediate orientations, not a single blurred frame.';
   }
-  return 'Three angular phases are active. The outer tracers should spread progressively across the reference sphere.';
+
+  if (maxSpeed() >= 720) {
+    return 'High-speed integration is sampling many intermediate orientations per screen frame. The flickering object fades while the persistent spherical envelope builds.';
+  }
+
+  return 'Three angular phases are active. Increase their speeds to make temporal integration fill the spherical envelope more rapidly.';
 }
 
 function applyDisplayVisibility() {
   if (tracePoints) tracePoints.visible = ui.showTrail.checked;
   if (referenceSphere) referenceSphere.visible = ui.showSphere.checked;
   if (axesHelper) axesHelper.visible = ui.showAxes.checked;
-  if (edgeLines) edgeLines.visible = ui.showEdges.checked;
+
+  if (edgeLines) {
+    edgeLines.visible = ui.showEdges.checked;
+  }
+
+  updateVisualPersistence();
 }
 
 function setPaused(value) {
@@ -466,31 +600,53 @@ function setPaused(value) {
 function applyPreset(name) {
   const preset = presets[name];
   if (!preset) return;
+
   ui.axisX.checked = preset.x;
   ui.axisY.checked = preset.y;
   ui.axisZ.checked = preset.z;
   ui.speedX.value = String(preset.sx);
   ui.speedY.value = String(preset.sy);
   ui.speedZ.value = String(preset.sz);
+
   document.querySelectorAll('[data-preset]').forEach(button => {
     button.classList.toggle('active', button.dataset.preset === name);
   });
+
+  if (name === 'xyz') {
+    ui.traceRate.value = '5';
+    ui.showTrail.checked = true;
+    ui.showSphere.checked = false;
+  }
+
+  updateTraceRateLabel();
   updateSpeedOutputs();
+  applyDisplayVisibility();
   resetOrientation();
   setPaused(false);
   updateMetrics();
 }
 
 function markCustomProgramme() {
-  document.querySelectorAll('[data-preset]').forEach(button => button.classList.remove('active'));
+  document
+    .querySelectorAll('[data-preset]')
+    .forEach(button => button.classList.remove('active'));
+
   updateSpeedOutputs();
   clearEnvelope();
   updateMetrics();
 }
 
 function updateTraceRateLabel() {
-  const labels = { 1: 'very low', 2: 'low', 3: 'medium', 4: 'high', 5: 'very high' };
-  ui.traceRateOut.textContent = labels[Number(ui.traceRate.value)] || 'medium';
+  const labels = {
+    1: 'very low',
+    2: 'low',
+    3: 'medium',
+    4: 'high',
+    5: 'maximum'
+  };
+
+  ui.traceRateOut.textContent =
+    labels[Number(ui.traceRate.value)] || 'medium';
 }
 
 function bindEvents() {
@@ -510,11 +666,20 @@ function bindEvents() {
   ui.resetOrientation.addEventListener('click', resetOrientation);
   ui.resetCamera.addEventListener('click', resetCamera);
 
-  for (const checkbox of [ui.showTrail, ui.showSphere, ui.showAxes, ui.showEdges]) {
+  for (const checkbox of [
+    ui.showTrail,
+    ui.showSphere,
+    ui.showAxes,
+    ui.showEdges
+  ]) {
     checkbox.addEventListener('change', applyDisplayVisibility);
   }
 
-  ui.traceRate.addEventListener('input', updateTraceRateLabel);
+  ui.traceRate.addEventListener('input', () => {
+    updateTraceRateLabel();
+    clearEnvelope();
+  });
+
   window.addEventListener('resize', resizeRenderer, { passive: true });
 
   if ('ResizeObserver' in window) {
@@ -524,25 +689,16 @@ function bindEvents() {
 
 function animate(now) {
   requestAnimationFrame(animate);
+
   if (!renderer || !scene || !camera) return;
 
   resizeRenderer();
-  const dt = Math.min(0.05, Math.max(0, (now - lastTime) / 1000));
+  const dt = Math.min(0.04, Math.max(0, (now - lastTime) / 1000));
   lastTime = now;
 
   if (!paused) {
-    angles.x = (angles.x + speedValue('x') * DEG * dt) % (Math.PI * 2);
-    angles.y = (angles.y + speedValue('y') * DEG * dt) % (Math.PI * 2);
-    angles.z = (angles.z + speedValue('z') * DEG * dt) % (Math.PI * 2);
-    applyAngles();
-
-    traceAccumulator += dt;
-    const interval = traceInterval();
-    if (traceAccumulator >= interval) {
-      traceAccumulator %= interval;
-      addTraceSample();
-      updateMetrics();
-    }
+    integrateFrame(dt);
+    updateMetrics();
   }
 
   controls?.update();
@@ -554,11 +710,16 @@ function start() {
   updateSpeedOutputs();
   updateTraceRateLabel();
 
-  const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const reduceMotion =
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
   if (initScene()) {
     applyPreset('xyz');
-    if (reduceMotion) setPaused(true);
+
+    if (reduceMotion) {
+      setPaused(true);
+    }
+
     requestAnimationFrame(animate);
   }
 }
