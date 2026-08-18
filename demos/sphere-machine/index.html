@@ -4,20 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050a0f">
-  <title>Sphere Machine | Rotational Envelope Lab</title>
-  <meta name="description" content="An interactive geometry laboratory for exploring how rotating solids and thin 2D forms generate rings, surfaces of revolution, and increasingly spherical time-integrated forms.">
+  <title>Sphere Machine | Spherism Probability Lab</title>
+  <meta name="description" content="Interactive rotational superposition and occupancy-probability laboratory inspired by Spherism, with a careful bridge to quantum-mechanical probability.">
   <link rel="stylesheet" href="../../assets/css/site.css">
-  <link rel="stylesheet" href="styles.css?v=20260818-1">
+  <link rel="stylesheet" href="styles.css?v=20260818-4">
   <link rel="stylesheet" href="/demos/shared/demo-return.css">
   <script defer src="/demos/shared/demo-return.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css">
   <script defer src="/demos/shared/demo-support.js"></script>
   <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js"
-      }
-    }
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js"}}
   </script>
 </head>
 <body>
@@ -36,56 +32,49 @@
   <main class="container sphere-demo">
     <section class="hero-grid">
       <div class="hero-copy panel">
-        <span class="eyebrow">Rotational geometry laboratory</span>
+        <span class="eyebrow">Spherism probability laboratory</span>
         <h1>Sphere Machine</h1>
-        <p class="lead">Take a cube, pyramid, torus, sphere, or an almost two-dimensional plate. Rotate it about the axes you choose. As RPM rises, many orientations are integrated into one visible form.</p>
-        <p>
-          At low speed you can still see the individual object. At high speed the demo overlays many complete orientations of that same object, approximating the simultaneous-view idea in <em>Spherism</em>.
-        </p>
-        <div class="truth-strip" aria-label="Scientific distinctions">
-          <span>low RPM → individual form</span>
-          <span>one axis → revolution</span>
-          <span>rich high-RPM rotation → sphere-like form</span>
+        <p class="lead">At low RPM you see the object. At high RPM many complete orientations are superposed into one visible form. The same orientations are then used to estimate the probability that each point in space is occupied.</p>
+        <p>This extends the Infinite Camera idea in <em>Spherism</em>: not just “does the object look spherical?”, but “what spatial probability field is produced when orientation is averaged away?”</p>
+        <div class="truth-strip">
+          <span>0–360 RPM</span>
+          <span>form superposition</span>
+          <span>occupancy probability p(x)</span>
+          <span>QM analogy, not equivalence</span>
         </div>
         <div class="button-row">
           <a class="button primary" href="#laboratory">Run the experiment</a>
-          <a class="button" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Concept paper · Zenodo 16985564</a>
+          <a class="button" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Open Spherism paper</a>
         </div>
       </div>
 
-      <aside class="panel premise-card" aria-label="What the demo tests">
-        <span class="eyebrow">The proposition</span>
+      <aside class="panel premise-card">
+        <span class="eyebrow">What the simulation does</span>
         <div class="premise-flow">
-          <div><strong>1</strong><span>Pick a geometry</span></div>
-          <i aria-hidden="true">→</i>
-          <div><strong>2</strong><span>Choose X, Y, Z rotation</span></div>
-          <i aria-hidden="true">→</i>
-          <div><strong>3</strong><span>Raise the RPM</span></div>
-          <i aria-hidden="true">→</i>
-          <div><strong>4</strong><span>Watch many orientations fuse</span></div>
+          <div><strong>1</strong><span>Choose a shape</span></div><i>→</i>
+          <div><strong>2</strong><span>Choose X/Y/Z rotation</span></div><i>→</i>
+          <div><strong>3</strong><span>Superpose many orientations</span></div><i>→</i>
+          <div><strong>4</strong><span>Estimate occupancy probability</span></div>
         </div>
-        <p class="small muted">This is a perceptual and kinematic geometry experiment, not a rigid-body torque simulation.</p>
+        <p class="small muted">The quantum connection is introduced through probability and rotational averaging. This remains a classical simulation; it does not model quantum phase or interference.</p>
       </aside>
     </section>
 
     <section id="laboratory" class="section">
       <div class="section-heading">
         <span class="eyebrow">Interactive laboratory</span>
-        <h2>Make the sphere appear</h2>
-        <p>Start with <strong>X only</strong>, then press <strong>SPHERISE</strong>. Drag the scene to orbit the camera. Scroll or pinch to zoom.</p>
+        <h2>Make the sphere and the probability field appear</h2>
+        <p>Try <strong>X only</strong>, then <strong>XY weave</strong>, then <strong>SPHERISE</strong>. At high three-axis RPM the superposed form should become sphere-like while the probability cloud becomes radially organised.</p>
       </div>
 
       <div class="lab-grid">
         <section class="panel stage-panel" aria-labelledby="stage-title">
           <div class="stage-toolbar">
-            <div>
-              <strong id="stage-title">Rotating cube</strong>
-              <span id="stageRegime">high-RPM spherical integration</span>
-            </div>
+            <div><strong id="stage-title">Rotating cube</strong><span id="stageRegime">SO(3)-like rotational averaging</span></div>
             <div class="run-state"><i id="runDot"></i><span id="runState">running</span></div>
           </div>
 
-          <div id="stage" class="stage" role="img" aria-label="Interactive three-dimensional rotational integration experiment">
+          <div id="stage" class="stage" role="img" aria-label="Rotational superposition and occupancy probability experiment">
             <canvas id="sceneCanvas"></canvas>
             <div class="stage-hud stage-hud-left">
               <span><b>X</b> <output id="hudX">180 rpm</output></span>
@@ -93,32 +82,16 @@
               <span><b>Z</b> <output id="hudZ">325 rpm</output></span>
             </div>
             <div class="stage-hud stage-hud-right">drag · orbit<br>pinch/scroll · zoom</div>
-            <div id="webglError" class="webgl-error" hidden>
-              This browser could not start the 3D renderer. Try a current browser with WebGL enabled.
-            </div>
           </div>
 
           <div class="metric-grid">
-            <div class="metric-card">
-              <span>Outer-direction coverage</span>
-              <strong id="coverageValue">0%</strong>
-              <small>equal solid-angle bins visited by outer tracers</small>
-            </div>
-            <div class="metric-card">
-              <span>Trace samples</span>
-              <strong id="sampleValue">0</strong>
-              <small>positions accumulated in this run</small>
-            </div>
-            <div class="metric-card">
-              <span>Active axes</span>
-              <strong id="axisValue">3</strong>
-              <small>independently evolving rotational phases</small>
-            </div>
+            <div class="metric-card"><span>Integrated form</span><strong id="integratedForm">sphere-like</strong><small>visible superposition regime</small></div>
+            <div class="metric-card"><span>Core occupancy</span><strong id="coreProbability">0.00</strong><small>mean p(x) near centre</small></div>
+            <div class="metric-card"><span>Outer occupancy</span><strong id="outerProbability">0.00</strong><small>mean p(x) near edge</small></div>
+            <div class="metric-card"><span>Directional coverage</span><strong id="coverageValue">0%</strong><small>outer directions sampled</small></div>
           </div>
 
-          <div id="interpretation" class="interpretation" aria-live="polite">
-            Raise the RPM and many complete orientations of the object will fuse into one rounded integrated form.
-          </div>
+          <div id="interpretation" class="interpretation" aria-live="polite">Three-axis averaging is active.</div>
         </section>
 
         <aside class="panel controls-panel" aria-label="Experiment controls">
@@ -126,91 +99,43 @@
             <label for="shapeSelect">Object</label>
             <select id="shapeSelect">
               <optgroup label="3D solids">
-                <option value="cube">Cube</option>
-                <option value="pyramid">Square pyramid</option>
-                <option value="tetrahedron">Tetrahedron</option>
-                <option value="octahedron">Octahedron</option>
-                <option value="icosahedron">Icosahedron</option>
-                <option value="sphere">Sphere</option>
-                <option value="cylinder">Cylinder</option>
-                <option value="cone">Cone</option>
-                <option value="torus">Torus</option>
+                <option value="cube">Cube</option><option value="pyramid">Square pyramid</option><option value="tetrahedron">Tetrahedron</option><option value="octahedron">Octahedron</option><option value="icosahedron">Icosahedron</option><option value="sphere">Sphere</option><option value="cylinder">Cylinder</option><option value="cone">Cone</option><option value="torus">Torus</option>
               </optgroup>
-              <optgroup label="Thin 2D forms">
-                <option value="triangle">Thin triangle</option>
-                <option value="circle">Thin circle</option>
-                <option value="rectangle">Thin rectangle</option>
+              <optgroup label="Thin forms">
+                <option value="triangle">Thin triangle</option><option value="circle">Thin circle</option><option value="rectangle">Thin rectangle</option>
               </optgroup>
             </select>
           </div>
 
-          <fieldset class="axis-controls">
-            <legend>Rotation programme</legend>
-
-            <div class="axis-row axis-x">
-              <label class="axis-toggle" for="axisX"><input id="axisX" type="checkbox" checked><span>X axis</span></label>
-              <div class="range-wrap">
-                <input id="speedX" type="range" min="0" max="360" step="1" value="180">
-                <output id="speedXOut" for="speedX">180 rpm</output>
-              </div>
-            </div>
-
-            <div class="axis-row axis-y">
-              <label class="axis-toggle" for="axisY"><input id="axisY" type="checkbox" checked><span>Y axis</span></label>
-              <div class="range-wrap">
-                <input id="speedY" type="range" min="0" max="360" step="1" value="254">
-                <output id="speedYOut" for="speedY">254 rpm</output>
-              </div>
-            </div>
-
-            <div class="axis-row axis-z">
-              <label class="axis-toggle" for="axisZ"><input id="axisZ" type="checkbox" checked><span>Z axis</span></label>
-              <div class="range-wrap">
-                <input id="speedZ" type="range" min="0" max="360" step="1" value="325">
-                <output id="speedZOut" for="speedZ">325 rpm</output>
-              </div>
-            </div>
+          <fieldset class="axis-controls"><legend>Rotation programme</legend>
+            <div class="axis-row axis-x"><label class="axis-toggle"><input id="axisX" type="checkbox" checked><span>X axis</span></label><div class="range-wrap"><input id="speedX" type="range" min="0" max="360" step="1" value="180"><output id="speedXOut">180 rpm</output></div></div>
+            <div class="axis-row axis-y"><label class="axis-toggle"><input id="axisY" type="checkbox" checked><span>Y axis</span></label><div class="range-wrap"><input id="speedY" type="range" min="0" max="360" step="1" value="254"><output id="speedYOut">254 rpm</output></div></div>
+            <div class="axis-row axis-z"><label class="axis-toggle"><input id="axisZ" type="checkbox" checked><span>Z axis</span></label><div class="range-wrap"><input id="speedZ" type="range" min="0" max="360" step="1" value="325"><output id="speedZOut">325 rpm</output></div></div>
           </fieldset>
 
-          <div class="preset-block">
-            <span class="control-label">Quick experiments</span>
-            <div class="preset-grid">
-              <button type="button" class="chip" data-preset="stop">Still</button>
-              <button type="button" class="chip" data-preset="x">X only</button>
-              <button type="button" class="chip" data-preset="xy">XY weave</button>
-              <button type="button" class="chip active" data-preset="xyz">SPHERISE</button>
-            </div>
-          </div>
+          <div class="preset-block"><span class="control-label">Quick experiments</span><div class="preset-grid">
+            <button type="button" class="chip" data-preset="stop">Still</button><button type="button" class="chip" data-preset="x">X only</button><button type="button" class="chip" data-preset="xy">XY weave</button><button type="button" class="chip active" data-preset="xyz">SPHERISE</button>
+          </div></div>
 
           <div class="button-grid">
-            <button id="pauseButton" class="button primary" type="button">Pause</button>
-            <button id="clearButton" class="button" type="button">Clear envelope</button>
-            <button id="resetOrientationButton" class="button" type="button">Reset orientation</button>
-            <button id="cameraButton" class="button" type="button">Reset camera</button>
+            <button id="pauseButton" class="button primary" type="button">Pause</button><button id="resetOrientationButton" class="button" type="button">Reset orientation</button><button id="cameraButton" class="button" type="button">Reset camera</button>
           </div>
 
-          <details class="advanced-controls">
-            <summary>Display options</summary>
+          <details class="advanced-controls" open><summary>Display and probability</summary>
             <div class="check-list">
-              <label><input id="showTrail" type="checkbox" checked> Show accumulated envelope</label>
+              <label><input id="showSuperposition" type="checkbox" checked> Show superposed form</label>
+              <label><input id="showProbability" type="checkbox" checked> Show probability cloud</label>
               <label><input id="showSphere" type="checkbox"> Show reference sphere</label>
-              <label><input id="showAxes" type="checkbox" checked> Show X/Y/Z axes</label>
-              <label><input id="showEdges" type="checkbox" checked> Show object edges</label>
+              <label><input id="showAxes" type="checkbox" checked> Show axes</label>
+              <label><input id="showEdges" type="checkbox" checked> Show current-object edges</label>
             </div>
-            <div class="slider-block">
-              <label for="traceRate">Trace density <output id="traceRateOut">maximum</output></label>
-              <input id="traceRate" type="range" min="1" max="5" step="1" value="5">
-            </div>
+            <div class="slider-block"><label for="probabilityResolution">Probability sampling <output id="probabilityResolutionOut">medium</output></label><input id="probabilityResolution" type="range" min="1" max="5" step="1" value="3"></div>
           </details>
 
           <div class="try-card">
-            <strong>Try this</strong>
-            <ol>
-              <li>Choose <b>Cube</b> and <b>X only</b>. Increase RPM and watch the cube become a surface of revolution.</li>
-              <li>Switch to <b>XY weave</b>. The integrated form becomes more rounded.</li>
-              <li>Press <b>SPHERISE</b>. Many complete cube orientations are now overlaid at once, producing a sphere-like visible form.</li>
-              <li>Repeat with a <b>thin rectangle</b> or <b>triangle</b> and compare how quickly the integrated form becomes round.</li>
-            </ol>
+            <strong>Radial probability</strong>
+            <p class="small muted">Cyan = local occupancy probability p(r). Violet = relative probability mass in a spherical shell.</p>
+            <canvas id="radialPlot" width="520" height="260" style="width:100%;height:auto;border-radius:12px"></canvas>
           </div>
         </aside>
       </div>
@@ -218,44 +143,42 @@
 
     <section class="section explanation-grid">
       <article class="panel">
-        <span class="eyebrow">What is actually happening?</span>
-        <h2>Many orientations become one visible form.</h2>
-        <p>For any point fixed in the object, rotation changes its direction from the centre but not its distance from the centre. Its possible positions therefore lie on a sphere of that radius.</p>
-        <p>At high RPM the renderer shows many complete orientations of the geometry over the same visible moment. The separate profiles progressively merge into a rounded time-integrated form, while the outer trace measures how completely the extreme points have sampled direction.</p>
+        <span class="eyebrow">A) How the sphere is built</span>
+        <h2>Average the object over rotations.</h2>
+        <p>Let <strong>B</strong> be the object and 1<sub>B</sub>(x) its indicator: 1 inside the object and 0 outside. Define the rotational occupancy field:</p>
+        <div class="formula">P<sub>S</sub>(x) = ∫<sub>SO(3)</sub> 1<sub>B</sub>(R<sup>−1</sup>x) dμ(R)</div>
+        <p>Because the averaging measure over rotations is itself rotationally invariant, P<sub>S</sub>(Qx) = P<sub>S</sub>(x) for every rotation Q. Therefore the averaged field can depend only on radius:</p>
+        <div class="formula">P<sub>S</sub>(x) = p(r), &nbsp; r = ‖x‖</div>
+        <p>That is the precise reason the superposition becomes sphere-like: orientation information is averaged away and radial structure remains.</p>
       </article>
 
       <article class="panel caution-panel">
-        <span class="eyebrow">Instantaneous vs integrated form</span>
-        <h2>The sphere is the synthesis.</h2>
-        <p>At any single instant a cube is still geometrically a cube. The sphere-like appearance in this experiment is the <strong>simultaneous visual integration of many orientations</strong>.</p>
-        <p>That is the part that corresponds most directly to the paper’s Infinite Camera thought experiment: many partial perspectives are brought together rather than viewed one after another.</p>
+        <span class="eyebrow">B) Probability and the QM bridge</span>
+        <h2>Borrow the probability language, not quantum mystique.</h2>
+        <p>In this simulation p(x) is classical: it is the fraction of sampled orientations for which a spatial point lies inside the object.</p>
+        <div class="formula">p(x) = (# sampled orientations occupying x) / (# orientations sampled)</div>
+        <p>Quantum mechanics also represents spatial presence probabilistically. For a density operator ρ:</p>
+        <div class="formula">P<sub>Q</sub>(x) = ⟨x|ρ|x⟩</div>
+        <p>A rotationally averaged quantum state can be written as:</p>
+        <div class="formula">ρ̄ = ∫<sub>SO(3)</sub> U(R)ρU(R)<sup>†</sup> dμ(R)</div>
+        <p>The analogy is therefore <strong>symmetry averaging → radial probability structure</strong>. The important difference is that genuine quantum superposition involves amplitudes, phase and interference. Sphere Machine does not simulate those.</p>
       </article>
     </section>
 
     <section class="section formula-panel panel">
-      <div>
-        <span class="eyebrow">The compact mathematics</span>
-        <h2>A rotation cannot change distance from the origin.</h2>
-      </div>
-      <div class="formula" aria-label="Norm of R x equals norm of x because R transpose R equals identity">
-        ‖R(t)x‖² = xᵀR(t)ᵀR(t)x = xᵀx = ‖x‖²
-      </div>
-      <p>Each material point therefore remains on a spherical shell determined by its radius. The visual question is how completely the chosen rotational programme samples orientation during the integrated exposure.</p>
+      <div><span class="eyebrow">Quantum comparison</span><h2>Hydrogen 1s is the clean reference case.</h2></div>
+      <div class="formula">|ψ<sub>1s</sub>(r)|² = (1 / πa₀³) e<sup>−2r/a₀</sup></div>
+      <p>The local probability density is spherically symmetric and highest at the centre. The radial-shell probability differs because a shell contains more volume as r increases. That is why this demo shows both local occupancy and relative shell mass.</p>
     </section>
 
     <section class="section reference-panel panel">
       <span class="eyebrow">Concept reference</span>
-      <h2>From proposition to experiment</h2>
-      <p>This demonstrator is an interactive companion to André Baumann’s <em>Spherism: Seeing the Sphere as Reality Beyond Appearances</em>. Its high-RPM mode approximates the paper’s Infinite Camera intuition by overlaying many complete orientations of an object into one visible synthesis.</p>
-      <div class="button-row">
-        <a class="button primary" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Open the paper on Zenodo</a>
-        <a class="button" href="../index.html">Back to all demos</a>
-      </div>
+      <h2>Spherism → rotational probability</h2>
+      <p>This demonstrator extends the Infinite Camera argument in André Baumann’s <em>Spherism: Seeing the Sphere as Reality Beyond Appearances</em> into a numerical occupancy-probability experiment.</p>
+      <div class="button-row"><a class="button primary" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Open the paper on Zenodo</a><a class="button" href="../index.html">Back to all demos</a></div>
     </section>
   </main>
 
-  <noscript><p class="container noscript">This demo needs JavaScript to run the geometry experiment.</p></noscript>
-
-  <script type="module" src="app.js?v=20260818-3"></script>
+  <script type="module" src="app.js?v=20260818-5"></script>
 </body>
 </html>
