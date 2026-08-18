@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: ietm-storage-watcher
+  group: repo-master-writes
   cancel-in-progress: false
 
 jobs:
@@ -41,5 +41,4 @@ jobs:
 
           git add demos/ietm/data/storage-flexibility.json demos/ietm/data/storage-ranked.json demos/ietm/data/storage-ranked.csv demos/ietm/data/storage-ranked.md data/monitor-items.json data/job-status.json
           git commit -m "Update IETM storage watcher"
-          git pull --rebase --autostash origin master
-          git push origin HEAD:master
+          bash scripts/ci/safe-rebase-push.sh master
