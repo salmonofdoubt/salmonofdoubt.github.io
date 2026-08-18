@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050a0f">
   <title>Sphere Machine | Rotational Envelope Lab</title>
-  <meta name="description" content="An interactive geometry laboratory for exploring how rotating solids and thin 2D forms generate rings, surfaces of revolution, and increasingly spherical outer envelopes.">
+  <meta name="description" content="An interactive geometry laboratory for exploring how rotating solids and thin 2D forms generate rings, surfaces of revolution, and increasingly spherical time-integrated forms.">
   <link rel="stylesheet" href="../../assets/css/site.css">
   <link rel="stylesheet" href="styles.css?v=20260818-1">
   <link rel="stylesheet" href="/demos/shared/demo-return.css">
@@ -38,14 +38,14 @@
       <div class="hero-copy panel">
         <span class="eyebrow">Rotational geometry laboratory</span>
         <h1>Sphere Machine</h1>
-        <p class="lead">Take a cube, pyramid, torus, sphere, or an almost two-dimensional plate. Rotate it about the axes you choose. Watch what its <em>outer rotational envelope</em> becomes.</p>
+        <p class="lead">Take a cube, pyramid, torus, sphere, or an almost two-dimensional plate. Rotate it about the axes you choose. As RPM rises, many orientations are integrated into one visible form.</p>
         <p>
-          The object itself never stops being what it is. The experiment asks a different question: as its orientation changes, which directions can its outermost points occupy?
+          At low speed you can still see the individual object. At high speed the demo overlays many complete orientations of that same object, approximating the simultaneous-view idea in <em>Spherism</em>.
         </p>
         <div class="truth-strip" aria-label="Scientific distinctions">
-          <span>shape ≠ envelope</span>
-          <span>one axis → rings</span>
-          <span>rich rotation → spherical symmetry</span>
+          <span>low RPM → individual form</span>
+          <span>one axis → revolution</span>
+          <span>rich high-RPM rotation → sphere-like form</span>
         </div>
         <div class="button-row">
           <a class="button primary" href="#laboratory">Run the experiment</a>
@@ -58,13 +58,13 @@
         <div class="premise-flow">
           <div><strong>1</strong><span>Pick a geometry</span></div>
           <i aria-hidden="true">→</i>
-          <div><strong>2</strong><span>Give X, Y, Z their own angular phases</span></div>
+          <div><strong>2</strong><span>Choose X, Y, Z rotation</span></div>
           <i aria-hidden="true">→</i>
-          <div><strong>3</strong><span>Accumulate its outermost positions</span></div>
+          <div><strong>3</strong><span>Raise the RPM</span></div>
           <i aria-hidden="true">→</i>
-          <div><strong>4</strong><span>Compare the trace with a sphere</span></div>
+          <div><strong>4</strong><span>Watch many orientations fuse</span></div>
         </div>
-        <p class="small muted">This is a kinematic geometry experiment, not a rigid-body torque simulation.</p>
+        <p class="small muted">This is a perceptual and kinematic geometry experiment, not a rigid-body torque simulation.</p>
       </aside>
     </section>
 
@@ -72,7 +72,7 @@
       <div class="section-heading">
         <span class="eyebrow">Interactive laboratory</span>
         <h2>Make the sphere appear</h2>
-        <p>Start with <strong>X only</strong>, then try <strong>XYZ sphere search</strong>. Drag the scene to orbit the camera. Scroll or pinch to zoom.</p>
+        <p>Start with <strong>X only</strong>, then press <strong>SPHERISE</strong>. Drag the scene to orbit the camera. Scroll or pinch to zoom.</p>
       </div>
 
       <div class="lab-grid">
@@ -80,17 +80,17 @@
           <div class="stage-toolbar">
             <div>
               <strong id="stage-title">Rotating cube</strong>
-              <span id="stageRegime">three-axis sweep</span>
+              <span id="stageRegime">high-RPM spherical integration</span>
             </div>
             <div class="run-state"><i id="runDot"></i><span id="runState">running</span></div>
           </div>
 
-          <div id="stage" class="stage" role="img" aria-label="Interactive three-dimensional rotational envelope experiment">
+          <div id="stage" class="stage" role="img" aria-label="Interactive three-dimensional rotational integration experiment">
             <canvas id="sceneCanvas"></canvas>
             <div class="stage-hud stage-hud-left">
-              <span><b>X</b> <output id="hudX">41°/s</output></span>
-              <span><b>Y</b> <output id="hudY">58°/s</output></span>
-              <span><b>Z</b> <output id="hudZ">71°/s</output></span>
+              <span><b>X</b> <output id="hudX">180 rpm</output></span>
+              <span><b>Y</b> <output id="hudY">254 rpm</output></span>
+              <span><b>Z</b> <output id="hudZ">325 rpm</output></span>
             </div>
             <div class="stage-hud stage-hud-right">drag · orbit<br>pinch/scroll · zoom</div>
             <div id="webglError" class="webgl-error" hidden>
@@ -112,12 +112,12 @@
             <div class="metric-card">
               <span>Active axes</span>
               <strong id="axisValue">3</strong>
-              <small>independently evolving Euler phases</small>
+              <small>independently evolving rotational phases</small>
             </div>
           </div>
 
           <div id="interpretation" class="interpretation" aria-live="polite">
-            Three angular phases are active. The outer tracers should spread progressively across the reference sphere.
+            Raise the RPM and many complete orientations of the object will fuse into one rounded integrated form.
           </div>
         </section>
 
@@ -150,24 +150,24 @@
             <div class="axis-row axis-x">
               <label class="axis-toggle" for="axisX"><input id="axisX" type="checkbox" checked><span>X axis</span></label>
               <div class="range-wrap">
-                <input id="speedX" type="range" min="-2160" max="2160" step="1" value="41">
-                <output id="speedXOut" for="speedX">41°/s</output>
+                <input id="speedX" type="range" min="0" max="360" step="1" value="180">
+                <output id="speedXOut" for="speedX">180 rpm</output>
               </div>
             </div>
 
             <div class="axis-row axis-y">
               <label class="axis-toggle" for="axisY"><input id="axisY" type="checkbox" checked><span>Y axis</span></label>
               <div class="range-wrap">
-                <input id="speedY" type="range" min="-2160" max="2160" step="1" value="58">
-                <output id="speedYOut" for="speedY">58°/s</output>
+                <input id="speedY" type="range" min="0" max="360" step="1" value="254">
+                <output id="speedYOut" for="speedY">254 rpm</output>
               </div>
             </div>
 
             <div class="axis-row axis-z">
               <label class="axis-toggle" for="axisZ"><input id="axisZ" type="checkbox" checked><span>Z axis</span></label>
               <div class="range-wrap">
-                <input id="speedZ" type="range" min="-2160" max="2160" step="1" value="71">
-                <output id="speedZOut" for="speedZ">71°/s</output>
+                <input id="speedZ" type="range" min="0" max="360" step="1" value="325">
+                <output id="speedZOut" for="speedZ">325 rpm</output>
               </div>
             </div>
           </fieldset>
@@ -178,7 +178,7 @@
               <button type="button" class="chip" data-preset="stop">Still</button>
               <button type="button" class="chip" data-preset="x">X only</button>
               <button type="button" class="chip" data-preset="xy">XY weave</button>
-              <button type="button" class="chip active" data-preset="xyz">XYZ sphere search</button>
+              <button type="button" class="chip active" data-preset="xyz">SPHERISE</button>
             </div>
           </div>
 
@@ -193,23 +193,23 @@
             <summary>Display options</summary>
             <div class="check-list">
               <label><input id="showTrail" type="checkbox" checked> Show accumulated envelope</label>
-              <label><input id="showSphere" type="checkbox" checked> Show reference sphere</label>
+              <label><input id="showSphere" type="checkbox"> Show reference sphere</label>
               <label><input id="showAxes" type="checkbox" checked> Show X/Y/Z axes</label>
               <label><input id="showEdges" type="checkbox" checked> Show object edges</label>
             </div>
             <div class="slider-block">
-              <label for="traceRate">Trace density <output id="traceRateOut">medium</output></label>
-              <input id="traceRate" type="range" min="1" max="5" step="1" value="3">
+              <label for="traceRate">Trace density <output id="traceRateOut">maximum</output></label>
+              <input id="traceRate" type="range" min="1" max="5" step="1" value="5">
             </div>
           </details>
 
           <div class="try-card">
             <strong>Try this</strong>
             <ol>
-              <li>Choose <b>Cube</b> and <b>X only</b>. The corners draw circular tracks.</li>
-              <li>Switch to <b>XY weave</b>. The tracks spread into a wider rotational envelope.</li>
-              <li>Choose <b>XYZ sphere search</b> and let it run. The outer directions progressively occupy the reference sphere.</li>
-              <li>Repeat with a <b>thin rectangle</b> or <b>triangle</b>. Dimensional thinness does not stop the outer sweep becoming spherical.</li>
+              <li>Choose <b>Cube</b> and <b>X only</b>. Increase RPM and watch the cube become a surface of revolution.</li>
+              <li>Switch to <b>XY weave</b>. The integrated form becomes more rounded.</li>
+              <li>Press <b>SPHERISE</b>. Many complete cube orientations are now overlaid at once, producing a sphere-like visible form.</li>
+              <li>Repeat with a <b>thin rectangle</b> or <b>triangle</b> and compare how quickly the integrated form becomes round.</li>
             </ol>
           </div>
         </aside>
@@ -219,16 +219,16 @@
     <section class="section explanation-grid">
       <article class="panel">
         <span class="eyebrow">What is actually happening?</span>
-        <h2>Rotation preserves radius.</h2>
+        <h2>Many orientations become one visible form.</h2>
         <p>For any point fixed in the object, rotation changes its direction from the centre but not its distance from the centre. Its possible positions therefore lie on a sphere of that radius.</p>
-        <p>The bright trace follows points at the object’s maximum radius. With only one rotational degree of freedom, those points usually draw circles. As the orientation programme explores more independent angular phases, those same fixed-radius points can occupy many more directions.</p>
+        <p>At high RPM the renderer shows many complete orientations of the geometry over the same visible moment. The separate profiles progressively merge into a rounded time-integrated form, while the outer trace measures how completely the extreme points have sampled direction.</p>
       </article>
 
       <article class="panel caution-panel">
-        <span class="eyebrow">Important limitation</span>
-        <h2>The cube never becomes a sphere.</h2>
-        <p>Its instantaneous geometry remains a cube. Its mass distribution also remains cube-like. What can become spherical is the <strong>set or time-distribution of positions reached by selected points</strong>, and in particular the outer directional envelope under sufficiently rich orientation sampling.</p>
-        <p>This distinction matters. “Everything is basically a sphere” is most defensible here as a statement about rotational orbits, envelopes and symmetry, not about erasing the underlying geometry.</p>
+        <span class="eyebrow">Instantaneous vs integrated form</span>
+        <h2>The sphere is the synthesis.</h2>
+        <p>At any single instant a cube is still geometrically a cube. The sphere-like appearance in this experiment is the <strong>simultaneous visual integration of many orientations</strong>.</p>
+        <p>That is the part that corresponds most directly to the paper’s Infinite Camera thought experiment: many partial perspectives are brought together rather than viewed one after another.</p>
       </article>
     </section>
 
@@ -240,13 +240,13 @@
       <div class="formula" aria-label="Norm of R x equals norm of x because R transpose R equals identity">
         ‖R(t)x‖² = xᵀR(t)ᵀR(t)x = xᵀx = ‖x‖²
       </div>
-      <p>So each material point travels on a spherical shell determined by its own radius. Whether the trace is merely a circle, a band, or becomes broadly sphere-filling depends on which orientations are actually sampled.</p>
+      <p>Each material point therefore remains on a spherical shell determined by its radius. The visual question is how completely the chosen rotational programme samples orientation during the integrated exposure.</p>
     </section>
 
     <section class="section reference-panel panel">
       <span class="eyebrow">Concept reference</span>
       <h2>From proposition to experiment</h2>
-      <p>This demonstrator was built to provide an interactive geometric test-bed alongside André Baumann’s Zenodo record 16985564. The demo deliberately separates the stronger mathematical statement about rotational orbits from the looser visual intuition that “everything is basically a sphere.”</p>
+      <p>This demonstrator is an interactive companion to André Baumann’s <em>Spherism: Seeing the Sphere as Reality Beyond Appearances</em>. Its high-RPM mode approximates the paper’s Infinite Camera intuition by overlaying many complete orientations of an object into one visible synthesis.</p>
       <div class="button-row">
         <a class="button primary" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Open the paper on Zenodo</a>
         <a class="button" href="../index.html">Back to all demos</a>
@@ -256,7 +256,6 @@
 
   <noscript><p class="container noscript">This demo needs JavaScript to run the geometry experiment.</p></noscript>
 
-  <script type="module" src="app.js?v=20260818-1"></script>
-  <script type="module" src="speed-boost.js?v=20260818-1"></script>
+  <script type="module" src="app.js?v=20260818-3"></script>
 </body>
 </html>
