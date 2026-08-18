@@ -8,9 +8,11 @@ on:
 permissions:
   contents: write
 
+# All workflows that commit to master share this group. This prevents separate
+# scheduled jobs from racing each other between rebase and push.
 concurrency:
-  group: ietm-refresh
-  cancel-in-progress: true
+  group: repo-master-writes
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -51,6 +53,4 @@ jobs:
           git add demos/ietm/data demos/ietm/VERSION demos/ietm/index.html
           git commit -m "Refresh Ireland Energy Transition Monitor data"
 
-          git fetch origin master
-          git pull --rebase origin master
-          git push origin HEAD:master
+          bash scripts/ci/safe-rebase-push.sh master
