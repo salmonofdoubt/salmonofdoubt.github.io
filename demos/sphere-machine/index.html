@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050a0f">
   <title>Sphere Machine | Spherism Probability Lab</title>
-  <meta name="description" content="Interactive rotational superposition and occupancy-probability laboratory inspired by Spherism, with a careful bridge to quantum-mechanical probability.">
+  <meta name="description" content="Interactive rotational superposition, occupancy probability and quantum symmetry laboratory inspired by Spherism.">
   <link rel="stylesheet" href="../../assets/css/site.css">
-  <link rel="stylesheet" href="styles.css?v=20260818-4">
+  <link rel="stylesheet" href="styles.css?v=20260818-8">
   <link rel="stylesheet" href="/demos/shared/demo-return.css">
   <script defer src="/demos/shared/demo-return.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css">
@@ -29,48 +29,80 @@
     </div>
   </header>
 
-  <main class="container sphere-demo">
-    <section class="hero-grid">
+  <main class="container sphere-demo ux-v2">
+    <section class="hero-grid compact-hero">
       <div class="hero-copy panel">
         <span class="eyebrow">Spherism probability laboratory</span>
         <h1>Sphere Machine</h1>
-        <p class="lead">At low RPM you see the object. At high RPM many complete orientations are superposed into one visible form. The same orientations are then used to estimate the probability that each point in space is occupied.</p>
-        <p>This extends the Infinite Camera idea in <em>Spherism</em>: not just “does the object look spherical?”, but “what spatial probability field is produced when orientation is averaged away?”</p>
+        <p class="lead">Start with a familiar object. Rotate it through more orientations until the visible form becomes sphere-like. Then inspect the probability field that the superposition creates and compare that structure with quantum probability.</p>
         <div class="truth-strip">
-          <span>0–360 RPM</span>
-          <span>form superposition</span>
-          <span>occupancy probability p(x)</span>
-          <span>quantum comparison</span>
-        </div>
-        <div class="button-row">
-          <a class="button primary" href="#laboratory">Run the experiment</a>
-          <a class="button" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Open Spherism paper</a>
+          <span>form → sphere</span>
+          <span>sphere → probability</span>
+          <span>probability → quantum comparison</span>
         </div>
       </div>
 
-      <aside class="panel premise-card">
-        <span class="eyebrow">What the simulation does</span>
-        <div class="premise-flow">
-          <div><strong>1</strong><span>Choose a shape</span></div><i>→</i>
-          <div><strong>2</strong><span>Choose X/Y/Z rotation</span></div><i>→</i>
-          <div><strong>3</strong><span>Superpose many orientations</span></div><i>→</i>
-          <div><strong>4</strong><span>Compare its probability field with quantum states</span></div>
-        </div>
-        <p class="small muted">The quantum connection is probability plus symmetry averaging. Sphere Machine remains a classical simulation; it does not turn a rotating object into a quantum system.</p>
+      <aside class="panel premise-card compact-premise">
+        <span class="eyebrow">Use it in this order</span>
+        <ol class="journey-list">
+          <li><strong>Choose an object</strong><span>Cube is the clearest starting point.</span></li>
+          <li><strong>Change the rotation</strong><span>Compare one axis, two axes, then SPHERISE.</span></li>
+          <li><strong>Read the probability</strong><span>The graph sits directly below the simulation.</span></li>
+          <li><strong>Compare with QM</strong><span>1s, 2s and 2p show what spherical probability does—and does not—mean.</span></li>
+        </ol>
       </aside>
     </section>
 
-    <section id="laboratory" class="section">
-      <div class="section-heading">
-        <span class="eyebrow">Interactive laboratory</span>
-        <h2>First: make the sphere</h2>
-        <p>Try <strong>X only</strong>, then <strong>XY weave</strong>, then <strong>SPHERISE</strong>. At high three-axis RPM the bright integrated form closes into a sphere-like envelope. The probability analysis explains what is inside that sphere.</p>
+    <section id="laboratory" class="section experiment-section">
+      <div class="section-heading experiment-heading">
+        <div>
+          <span class="eyebrow">1 · Build the sphere</span>
+          <h2>Make the object lose its preferred orientation.</h2>
+        </div>
+        <a class="button subtle-button" href="#quantum-bridge">Jump to quantum comparison ↓</a>
       </div>
 
-      <div class="lab-grid">
-        <section class="panel stage-panel" aria-labelledby="stage-title">
+      <div class="experiment-commandbar panel" aria-label="Primary experiment controls">
+        <div class="command-object">
+          <label for="shapeSelect">Object</label>
+          <select id="shapeSelect">
+            <optgroup label="3D solids">
+              <option value="cube">Cube</option>
+              <option value="pyramid">Square pyramid</option>
+              <option value="tetrahedron">Tetrahedron</option>
+              <option value="octahedron">Octahedron</option>
+              <option value="icosahedron">Icosahedron</option>
+              <option value="sphere">Sphere</option>
+              <option value="cylinder">Cylinder</option>
+              <option value="cone">Cone</option>
+              <option value="torus">Torus</option>
+            </optgroup>
+            <optgroup label="Thin forms">
+              <option value="triangle">Thin triangle</option>
+              <option value="circle">Thin circle</option>
+              <option value="rectangle">Thin rectangle</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="command-presets">
+          <span class="control-label">Rotation experiment</span>
+          <div class="preset-grid preset-grid-primary">
+            <button type="button" class="chip" data-preset="stop">Still</button>
+            <button type="button" class="chip" data-preset="x">X only</button>
+            <button type="button" class="chip" data-preset="xy">XY weave</button>
+            <button type="button" class="chip active spherise-chip" data-preset="xyz">SPHERISE</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lab-grid lab-grid-v2">
+        <section class="panel stage-panel stage-panel-v2" aria-labelledby="stage-title">
           <div class="stage-toolbar">
-            <div><strong id="stage-title">Rotating cube</strong><span id="stageRegime">three-axis sphere formation</span></div>
+            <div>
+              <strong id="stage-title">Rotating cube</strong>
+              <span id="stageRegime">three-axis sphere formation</span>
+            </div>
             <div class="run-state"><i id="runDot"></i><span id="runState">running</span></div>
           </div>
 
@@ -84,136 +116,180 @@
             <div class="stage-hud stage-hud-right">drag · orbit<br>pinch/scroll · zoom</div>
           </div>
 
-          <div class="metric-grid">
-            <div class="metric-card"><span>Integrated form</span><strong id="integratedForm">sphere-like</strong><small>visible superposition regime</small></div>
+          <div class="metric-grid metric-grid-v2">
+            <div class="metric-card"><span>Integrated form</span><strong id="integratedForm">sphere-like</strong><small>what the superposition looks like</small></div>
             <div class="metric-card"><span>Core occupancy</span><strong id="coreProbability">0.00</strong><small>mean p(x) near centre</small></div>
             <div class="metric-card"><span>Outer occupancy</span><strong id="outerProbability">0.00</strong><small>mean p(x) near edge</small></div>
             <div class="metric-card"><span>Directional coverage</span><strong id="coverageValue">0%</strong><small>outer directions sampled</small></div>
           </div>
 
-          <div id="interpretation" class="interpretation" aria-live="polite">Three-axis averaging is active.</div>
+          <div class="analysis-dock">
+            <div class="analysis-copy">
+              <span class="eyebrow">2 · Read the probability</span>
+              <h3>What is inside the sphere?</h3>
+              <p>The cyan curve is the probability that a point at radius <em>r</em> is occupied by the object across the sampled orientations. The violet curve adds the increasing volume of spherical shells.</p>
+              <div id="interpretation" class="interpretation" aria-live="polite">Three-axis averaging is active.</div>
+            </div>
+            <div class="analysis-chart">
+              <div class="chart-heading">
+                <strong>Classical radial probability</strong>
+                <span>cyan p(r) · violet shell mass</span>
+              </div>
+              <canvas id="radialPlot" width="620" height="280"></canvas>
+            </div>
+          </div>
         </section>
 
-        <aside class="panel controls-panel" aria-label="Experiment controls">
-          <div class="control-group">
-            <label for="shapeSelect">Object</label>
-            <select id="shapeSelect">
-              <optgroup label="3D solids">
-                <option value="cube">Cube</option><option value="pyramid">Square pyramid</option><option value="tetrahedron">Tetrahedron</option><option value="octahedron">Octahedron</option><option value="icosahedron">Icosahedron</option><option value="sphere">Sphere</option><option value="cylinder">Cylinder</option><option value="cone">Cone</option><option value="torus">Torus</option>
-              </optgroup>
-              <optgroup label="Thin forms">
-                <option value="triangle">Thin triangle</option><option value="circle">Thin circle</option><option value="rectangle">Thin rectangle</option>
-              </optgroup>
-            </select>
+        <aside class="panel controls-panel controls-panel-v2" aria-label="Fine tune experiment">
+          <div class="sidebar-heading">
+            <span class="eyebrow">Fine tune</span>
+            <h3>Rotation details</h3>
+            <p>Use these only when you want to move beyond the four main experiments.</p>
           </div>
 
-          <fieldset class="axis-controls"><legend>Rotation programme</legend>
-            <div class="axis-row axis-x"><label class="axis-toggle"><input id="axisX" type="checkbox" checked><span>X axis</span></label><div class="range-wrap"><input id="speedX" type="range" min="0" max="360" step="1" value="180"><output id="speedXOut">180 rpm</output></div></div>
-            <div class="axis-row axis-y"><label class="axis-toggle"><input id="axisY" type="checkbox" checked><span>Y axis</span></label><div class="range-wrap"><input id="speedY" type="range" min="0" max="360" step="1" value="254"><output id="speedYOut">254 rpm</output></div></div>
-            <div class="axis-row axis-z"><label class="axis-toggle"><input id="axisZ" type="checkbox" checked><span>Z axis</span></label><div class="range-wrap"><input id="speedZ" type="range" min="0" max="360" step="1" value="325"><output id="speedZOut">325 rpm</output></div></div>
+          <fieldset class="axis-controls"><legend>Axis speeds</legend>
+            <div class="axis-row axis-x">
+              <label class="axis-toggle"><input id="axisX" type="checkbox" checked><span>X axis</span></label>
+              <div class="range-wrap"><input id="speedX" type="range" min="0" max="360" step="1" value="180"><output id="speedXOut">180 rpm</output></div>
+            </div>
+            <div class="axis-row axis-y">
+              <label class="axis-toggle"><input id="axisY" type="checkbox" checked><span>Y axis</span></label>
+              <div class="range-wrap"><input id="speedY" type="range" min="0" max="360" step="1" value="254"><output id="speedYOut">254 rpm</output></div>
+            </div>
+            <div class="axis-row axis-z">
+              <label class="axis-toggle"><input id="axisZ" type="checkbox" checked><span>Z axis</span></label>
+              <div class="range-wrap"><input id="speedZ" type="range" min="0" max="360" step="1" value="325"><output id="speedZOut">325 rpm</output></div>
+            </div>
           </fieldset>
 
-          <div class="preset-block"><span class="control-label">Quick experiments</span><div class="preset-grid">
-            <button type="button" class="chip" data-preset="stop">Still</button><button type="button" class="chip" data-preset="x">X only</button><button type="button" class="chip" data-preset="xy">XY weave</button><button type="button" class="chip active" data-preset="xyz">SPHERISE</button>
-          </div></div>
-
-          <div class="button-grid">
-            <button id="pauseButton" class="button primary" type="button">Pause</button><button id="resetOrientationButton" class="button" type="button">Reset orientation</button><button id="cameraButton" class="button" type="button">Reset camera</button>
+          <div class="button-grid utility-grid">
+            <button id="pauseButton" class="button primary" type="button">Pause</button>
+            <button id="resetOrientationButton" class="button" type="button">Reset object</button>
+            <button id="cameraButton" class="button" type="button">Reset camera</button>
           </div>
 
-          <details class="advanced-controls" open><summary>Display and probability</summary>
+          <details class="advanced-controls">
+            <summary>Visual analysis options</summary>
             <div class="check-list">
-              <label><input id="showSuperposition" type="checkbox" checked> Show sphere-forming superposition</label>
-              <label><input id="showProbability" type="checkbox"> Show 3D probability cloud</label>
-              <label><input id="showSphere" type="checkbox"> Show reference sphere</label>
-              <label><input id="showAxes" type="checkbox" checked> Show axes</label>
-              <label><input id="showEdges" type="checkbox" checked> Show current-object edges</label>
+              <label><input id="showSuperposition" type="checkbox" checked> Sphere-forming superposition</label>
+              <label><input id="showProbability" type="checkbox"> 3D probability cloud</label>
+              <label><input id="showSphere" type="checkbox"> Reference sphere</label>
+              <label><input id="showAxes" type="checkbox" checked> X/Y/Z axes</label>
+              <label><input id="showEdges" type="checkbox" checked> Current-object edges</label>
             </div>
-            <div class="slider-block"><label for="probabilityResolution">Probability sampling <output id="probabilityResolutionOut">medium</output></label><input id="probabilityResolution" type="range" min="1" max="5" step="1" value="3"></div>
+            <div class="slider-block">
+              <label for="probabilityResolution">Probability sampling <output id="probabilityResolutionOut">medium</output></label>
+              <input id="probabilityResolution" type="range" min="1" max="5" step="1" value="3">
+            </div>
           </details>
 
-          <div class="try-card">
-            <strong>Classical radial probability</strong>
-            <p class="small muted">Cyan = local occupancy probability p(r). Violet = relative probability mass in a spherical shell.</p>
-            <canvas id="radialPlot" width="520" height="260" style="width:100%;height:auto;border-radius:12px"></canvas>
+          <div class="sidebar-note">
+            <strong>Best first experiment</strong>
+            <p>Leave <strong>Cube</strong> selected. Press <strong>X only</strong>, then <strong>XY weave</strong>, then <strong>SPHERISE</strong>. The visual progression is the argument.</p>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="section" id="quantum-bridge">
-      <div class="section-heading">
-        <span class="eyebrow">Next stage · probability → quantum mechanics</span>
-        <h2>Now compare the classical sphere with quantum probability.</h2>
-        <p>The left-hand simulation asks how often a point is occupied under many classical orientations. Quantum mechanics instead assigns a probability through the state itself. Use the hydrogen examples below to see where spherical symmetry survives, where nodes appear, and where directional structure returns.</p>
+    <section class="section quantum-section" id="quantum-bridge">
+      <div class="section-heading quantum-heading">
+        <span class="eyebrow">3 · Compare with quantum probability</span>
+        <h2>Same language of probability. Different physics.</h2>
+        <p>Keep the classical result above in mind. Now change the hydrogen state and watch what spherical symmetry, nodes and directional structure look like in quantum mechanics.</p>
       </div>
 
-      <div class="explanation-grid">
-        <article class="panel">
-          <span class="eyebrow">Quantum spatial density</span>
-          <h2 id="quantumStateName">Hydrogen 1s</h2>
-          <div class="control-group">
-            <label for="quantumStateSelect">Quantum state</label>
-            <select id="quantumStateSelect">
-              <option value="1s">1s · spherical ground state</option>
-              <option value="2s">2s · spherical with radial node</option>
-              <option value="2pz">2p_z · directional with nodal plane</option>
-              <option value="2pavg">2p shell average · isotropic mixed state</option>
-            </select>
-          </div>
-          <div class="truth-strip">
+      <div class="quantum-commandbar panel">
+        <div>
+          <label for="quantumStateSelect">Quantum state</label>
+          <select id="quantumStateSelect">
+            <option value="1s">1s · spherical ground state</option>
+            <option value="2s">2s · spherical with radial node</option>
+            <option value="2pz">2p_z · directional with nodal plane</option>
+            <option value="2pavg">2p shell average · isotropic mixed state</option>
+          </select>
+        </div>
+        <div class="quantum-status">
+          <strong id="quantumStateName">Hydrogen 1s</strong>
+          <div class="truth-strip compact-truth-strip">
             <span id="quantumSymmetry">spherical</span>
             <span id="quantumNode">no finite radial node</span>
           </div>
-          <canvas id="quantumDensityCanvas" width="520" height="340" style="width:100%;height:auto;border-radius:14px;border:1px solid rgba(148,163,184,.18);background:#07131d"></canvas>
+        </div>
+      </div>
+
+      <div class="quantum-workbench">
+        <article class="panel quantum-card">
+          <div class="chart-heading">
+            <div><span class="eyebrow">Spatial view</span><strong>Where is the probability?</strong></div>
+            <span>2D slice through |ψ|²</span>
+          </div>
+          <canvas id="quantumDensityCanvas" width="560" height="380"></canvas>
           <p id="quantumExplanation" class="small muted"></p>
         </article>
 
-        <article class="panel">
-          <span class="eyebrow">Classical vs quantum radial structure</span>
-          <h2>Same word “probability”; different physics.</h2>
-          <p>For the rotating object, probability means the fraction of sampled orientations that occupy a point. For a pure quantum state, position probability is obtained from the Born rule, |ψ(x)|². The curves below are normalised for shape comparison, not placed on a shared physical scale.</p>
-          <canvas id="quantumRadialCanvas" width="520" height="340" style="width:100%;height:auto;border-radius:14px;border:1px solid rgba(148,163,184,.18);background:#07131d"></canvas>
-          <div class="formula">classical: p<sub>S</sub>(x) = ⟨1<sub>B</sub>(R<sup>−1</sup>x)⟩<sub>R</sub><br><br>quantum: p<sub>Q</sub>(x) = |ψ(x)|² &nbsp; (pure state)</div>
-          <p class="small muted">The 2p shell-average option is deliberately an <strong>incoherent equal mixture</strong> of the three m sublevels, not a coherent sum of amplitudes. Averaging the m sublevels removes the preferred direction and restores isotropic spatial density.</p>
+        <article class="panel quantum-card">
+          <div class="chart-heading">
+            <div><span class="eyebrow">Radial view</span><strong>How does probability change with radius?</strong></div>
+            <span>normalised shape comparison</span>
+          </div>
+          <canvas id="quantumRadialCanvas" width="560" height="380"></canvas>
+          <div class="compare-formulas">
+            <div><span>Classical occupancy</span><strong>p<sub>S</sub>(x) = ⟨1<sub>B</sub>(R<sup>−1</sup>x)⟩<sub>R</sub></strong></div>
+            <div><span>Quantum position probability</span><strong>p<sub>Q</sub>(x) = |ψ(x)|²</strong></div>
+          </div>
         </article>
+      </div>
+
+      <div class="bridge-note panel">
+        <strong>The useful bridge</strong>
+        <p>Sphere Machine averages <em>classical occupancies</em> across orientations. Quantum mechanics assigns probabilities from a state and, for pure states, from amplitudes through the Born rule. The connection is <strong>symmetry + probability + averaging</strong>; the mechanisms are not identical.</p>
       </div>
     </section>
 
-    <section class="section explanation-grid">
-      <article class="panel">
-        <span class="eyebrow">A) How the sphere is built</span>
-        <h2>Average the object over rotations.</h2>
-        <p>Let <strong>B</strong> be the object and 1<sub>B</sub>(x) its indicator: 1 inside the object and 0 outside. Define the rotational occupancy field:</p>
-        <div class="formula">P<sub>S</sub>(x) = ∫<sub>SO(3)</sub> 1<sub>B</sub>(R<sup>−1</sup>x) dμ(R)</div>
-        <p>Because the averaging measure over rotations is itself rotationally invariant, P<sub>S</sub>(Qx) = P<sub>S</sub>(x) for every rotation Q. Therefore the fully averaged field can depend only on radius:</p>
-        <div class="formula">P<sub>S</sub>(x) = p(r), &nbsp; r = ‖x‖</div>
-        <p>That is the precise reason the rotational average becomes spherical: directional information is removed and radial structure remains.</p>
-      </article>
+    <section class="section theory-section">
+      <div class="section-heading">
+        <span class="eyebrow">4 · Why it works</span>
+        <h2>The mathematics, after you have seen the effect.</h2>
+      </div>
 
-      <article class="panel caution-panel">
-        <span class="eyebrow">B) What is borrowed from quantum mechanics</span>
-        <h2>Probability and symmetry averaging — not quantum identity.</h2>
-        <p>In Sphere Machine, p(x) is classical: it is the fraction of sampled orientations for which a spatial point lies inside the object.</p>
-        <div class="formula">p(x) = (# orientations occupying x) / (# orientations sampled)</div>
-        <p>For a quantum density operator ρ, position probability is:</p>
-        <div class="formula">P<sub>Q</sub>(x) = ⟨x|ρ|x⟩</div>
-        <p>A rotationally averaged quantum state can be written as:</p>
-        <div class="formula">ρ̄ = ∫<sub>SO(3)</sub> U(R)ρU(R)<sup>†</sup> dμ(R)</div>
-        <p>The bridge is therefore <strong>symmetry averaging → invariant probability structure</strong>. Genuine quantum superposition additionally contains complex amplitudes, relative phase and interference; the rotating-object simulation does not.</p>
-      </article>
-    </section>
+      <div class="explanation-grid theory-grid">
+        <article class="panel">
+          <span class="eyebrow">A · Building the sphere</span>
+          <h2>Average the object over rotations.</h2>
+          <p>Let <strong>B</strong> be the object and 1<sub>B</sub>(x) its indicator: 1 inside the object and 0 outside.</p>
+          <div class="formula">P<sub>S</sub>(x) = ∫<sub>SO(3)</sub> 1<sub>B</sub>(R<sup>−1</sup>x) dμ(R)</div>
+          <p>Because the rotation measure is invariant, P<sub>S</sub>(Qx) = P<sub>S</sub>(x) for every rotation Q. A fully averaged field can therefore depend only on radius:</p>
+          <div class="formula">P<sub>S</sub>(x) = p(r), &nbsp; r = ‖x‖</div>
+        </article>
 
-    <section class="section formula-panel panel">
-      <div><span class="eyebrow">Why the 2p average becomes spherical</span><h2>Angular information can disappear under an equal mixture.</h2></div>
-      <div class="formula">ρ<sub>2p,mix</sub> = ⅓ Σ<sub>m=−1</sub><sup>1</sup> |2,1,m⟩⟨2,1,m|<br><br>Σ<sub>m=−l</sub><sup>l</sup> |Y<sub>lm</sub>(θ,φ)|² = (2l+1)/(4π)</div>
-      <p>The spherical-harmonic addition theorem makes the angular sum independent of direction. This is a particularly clean quantum analogue of the classical rotational-averaging idea: the individual 2p states can be directional, while an equal incoherent mixture across the full m multiplet has isotropic spatial density.</p>
-    </section>
+        <article class="panel caution-panel">
+          <span class="eyebrow">B · Borrowing from QM</span>
+          <h2>Probability and symmetry averaging—not quantum identity.</h2>
+          <p>For a quantum density operator ρ:</p>
+          <div class="formula">P<sub>Q</sub>(x) = ⟨x|ρ|x⟩</div>
+          <p>A rotationally averaged quantum state is:</p>
+          <div class="formula">ρ̄ = ∫<sub>SO(3)</sub> U(R)ρU(R)<sup>†</sup> dμ(R)</div>
+          <p>Quantum superposition additionally contains complex amplitude, phase and interference. Sphere Machine does not simulate those.</p>
+        </article>
+      </div>
 
-    <section class="section formula-panel panel">
-      <div><span class="eyebrow">Hydrogen reference</span><h2>1s and 2s are already spherically symmetric.</h2></div>
-      <div class="formula">|ψ<sub>1s</sub>(r)|² ∝ e<sup>−2r/a₀</sup><br><br>|ψ<sub>2s</sub>(r)|² ∝ (2 − r/a₀)²e<sup>−r/a₀</sup></div>
-      <p>The 2s state adds an important lesson: spherical symmetry does not imply featureless probability. It contains a spherical radial node at r = 2a₀. The 2p states instead introduce angular nodes and directional structure.</p>
+      <details class="theory-details panel">
+        <summary>Why does the equal 2p mixture become spherical?</summary>
+        <div class="details-body">
+          <div class="formula">ρ<sub>2p,mix</sub> = ⅓ Σ<sub>m=−1</sub><sup>1</sup> |2,1,m⟩⟨2,1,m|</div>
+          <div class="formula">Σ<sub>m=−l</sub><sup>l</sup> |Y<sub>lm</sub>(θ,φ)|² = (2l+1)/(4π)</div>
+          <p>The spherical-harmonic addition theorem makes the angular sum independent of direction. Individual 2p states can be directional; the equal incoherent mixture across the full m multiplet is isotropic.</p>
+        </div>
+      </details>
+
+      <details class="theory-details panel">
+        <summary>Hydrogen 1s and 2s reference</summary>
+        <div class="details-body">
+          <div class="formula">|ψ<sub>1s</sub>(r)|² ∝ e<sup>−2r/a₀</sup></div>
+          <div class="formula">|ψ<sub>2s</sub>(r)|² ∝ (2 − r/a₀)²e<sup>−r/a₀</sup></div>
+          <p>The 2s state is still spherically symmetric but has a radial node at r = 2a₀. Spherical symmetry therefore does not imply uniform or featureless probability.</p>
+        </div>
+      </details>
     </section>
 
     <section class="section reference-panel panel">
@@ -222,7 +298,7 @@
       <p>This demonstrator extends the Infinite Camera argument in André Baumann’s <em>Spherism: Seeing the Sphere as Reality Beyond Appearances</em> into a numerical occupancy-probability experiment, then compares that classical construction with standard hydrogenic probability structures.</p>
       <div class="button-row">
         <a class="button primary" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Open Spherism on Zenodo</a>
-        <a class="button" href="https://dlmf.nist.gov/18.39" target="_blank" rel="noopener">NIST DLMF · Coulomb / hydrogen radial states</a>
+        <a class="button" href="https://dlmf.nist.gov/18.39" target="_blank" rel="noopener">NIST DLMF · hydrogen radial states</a>
         <a class="button" href="https://dlmf.nist.gov/14.30" target="_blank" rel="noopener">NIST DLMF · spherical harmonics</a>
         <a class="button" href="../index.html">Back to all demos</a>
       </div>
