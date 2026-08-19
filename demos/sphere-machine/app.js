@@ -96,6 +96,7 @@ let axesHelper;
 let trailPoints;
 let trailGeometry;
 let trailPosition;
+let trailTexture;
 let shadowPlane;
 let outerPoints = [];
 
@@ -128,6 +129,32 @@ function maxRpm() {
 
 function currentQuaternion(target = tempQuaternion) {
   return target.setFromEuler(state.angles);
+}
+
+function historyVisibilityFactor() {
+  // The long-history integrated form is deliberately absent in Slow mode.
+  // At low RPM the user should see the causal source object laying down points,
+  // not a pile of old translucent full-object copies. It fades in only as the
+  // experiment transitions from inspection to integration.
+  return THREE.MathUtils.smoothstep(maxRpm(), 12, 90);
+}
+
+function createRoundPointTexture() {
+  const sprite = document.createElement('canvas');
+  sprite.width = 64;
+  sprite.height = 64;
+  const ctx = sprite.getContext('2d');
+  const gradient = ctx.createRadialGradient(32, 32, 2, 32, 32, 30);
+  gradient.addColorStop(0, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.48, 'rgba(235,252,255,.95)');
+  gradient.addColorStop(0.78, 'rgba(180,242,250,.55)');
+  gradient.addColorStop(1, 'rgba(180,242,250,0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 64, 64);
+  const texture = new THREE.CanvasTexture(sprite);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
 }
 
 function setupPerceptionControls() {
@@ -221,9 +248,11 @@ function createObject(kind) {
   disposeObject();
   state.shape = kind;
   currentGeometry = createShapeGeometry(kind);
-  outerPoints = getOuterPoints(kind, 20);
+  outerPoints = getOuterPoints(kind, 20).map(point => point.clone().normalize());
 
   objectGroup = new THREE.Group();
+  objectGroup.renderOrder = 10;
+
   solidMesh = new THREE.Mesh(
     currentGeometry,
     new THREE.MeshPhysicalMaterial({
@@ -233,10 +262,12 @@ function createObject(kind) {
       transparent: true,
       opacity: 0.9,
       side: THREE.DoubleSide,
-      depthWrite: true
+      depthWrite: true,
+      blending: THREE.NormalBlending
     })
   );
   solidMesh.castShadow = true;
+  solidMesh.renderOrder = 10;
   objectGroup.add(solidMesh);
 
   edgeLines = new THREE.LineSegments(
@@ -248,6 +279,7 @@ function createObject(kind) {
       depthWrite: false
     })
   );
+  edgeLines.renderOrder = 11;
   objectGroup.add(edgeLines);
 
   orientationMarker = new THREE.Mesh(
@@ -256,6 +288,7 @@ function createObject(kind) {
   );
   const markerPoint = outerPoints[0] || new THREE.Vector3(1, 0, 0);
   orientationMarker.position.copy(markerPoint).multiplyScalar(1.035);
+  orientationMarker.renderOrder = 12;
   objectGroup.add(orientationMarker);
   scene.add(objectGroup);
 
@@ -264,7 +297,7 @@ function createObject(kind) {
     new THREE.MeshBasicMaterial({
       color: 0x43d8ea,
       transparent: true,
-      opacity: 0.025,
+      opacity: 0.02,
       side: THREE.DoubleSide,
       depthWrite: false,
       blending: THREE.AdditiveBlending
@@ -273,6 +306,7 @@ function createObject(kind) {
   );
   historyMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   historyMesh.frustumCulled = false;
+  historyMesh.renderOrder = 1;
   scene.add(historyMesh);
 
   retinalMesh = new THREE.InstancedMesh(
@@ -289,6 +323,7 @@ function createObject(kind) {
   );
   retinalMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   retinalMesh.frustumCulled = false;
+  retinalMesh.renderOrder = 4;
   scene.add(retinalMesh);
 
   ui.stageTitle.textContent = `Rotating ${SHAPE_NAMES[kind].toLowerCase()}`;
@@ -305,19 +340,24 @@ function initTrail() {
   trailGeometry.setAttribute('position', trailPosition);
   trailGeometry.setDrawRange(0, 0);
 
+  trailTexture = createRoundPointTexture();
   trailPoints = new THREE.Points(
     trailGeometry,
     new THREE.PointsMaterial({
-      color: 0xf1fdff,
-      size: 0.028,
+      color: 0xeafcff,
+      size: 0.019,
       sizeAttenuation: true,
+      map: trailTexture,
+      alphaTest: 0.04,
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.58,
       depthWrite: false,
+      depthTest: true,
       blending: THREE.AdditiveBlending
     })
   );
   trailPoints.frustumCulled = false;
+  trailPoints.renderOrder = 8;
   scene.add(trailPoints);
 }
 
@@ -339,11 +379,19 @@ function initProbeShell() {
 function updateHistoryMesh() {
   if (!historyMesh) return;
   const history = state.history;
-  const count = Math.min(MAX_HISTORY_INSTANCES, history.length);
+  const visibility = historyVisibilityFactor();
+
+  if (history.length <= 1 || visibility <= 0.001) {
+    historyMesh.count = 0;
+    historyMesh.visible = false;
+    return;
+  }
+
+  const desiredCount = Math.round(THREE.MathUtils.lerp(10, MAX_HISTORY_INSTANCES, visibility));
+  const count = Math.min(desiredCount, history.length, MAX_HISTORY_INSTANCES);
   historyMesh.count = count;
   historyMesh.visible = count > 1;
 
-  if (!count) return;
   const step = history.length / count;
   for (let i = 0; i < count; i += 1) {
     const quaternion = history[Math.min(history.length - 1, Math.floor(i * step))];
@@ -353,7 +401,8 @@ function updateHistoryMesh() {
     dummy.updateMatrix();
     historyMesh.setMatrixAt(i, dummy.matrix);
   }
-  historyMesh.material.opacity = Math.max(0.012, Math.min(0.036, 1.9 / Math.max(18, count)));
+
+  historyMesh.material.opacity = THREE.MathUtils.lerp(0.006, 0.022, visibility);
   historyMesh.instanceMatrix.needsUpdate = true;
 }
 
@@ -390,7 +439,7 @@ function updateRetinalMesh() {
     retinalMesh.setMatrixAt(i, dummy.matrix);
   }
 
-  retinalMesh.material.opacity = THREE.MathUtils.clamp(0.22 / Math.sqrt(count), 0.026, 0.075);
+  retinalMesh.material.opacity = THREE.MathUtils.clamp(0.20 / Math.sqrt(count), 0.022, 0.065);
   retinalMesh.instanceMatrix.needsUpdate = true;
 }
 
@@ -435,6 +484,9 @@ function sampleCurrentOrientation(now, force = false) {
 
   for (const source of outerPoints) {
     tempVector.copy(source).applyQuaternion(quaternion);
+    // These are extrema by definition. Constrain them to the exact unit shell
+    // so finite geometry precision cannot create visually detached spikes.
+    if (tempVector.lengthSq() > 1e-12) tempVector.normalize();
     appendTrailPoint(tempVector);
     markCoverage(tempVector);
   }
@@ -512,10 +564,18 @@ function updateTheoreticalMetrics() {
 function updateVisuals() {
   if (!solidMesh || !edgeLines || !objectGroup) return;
   objectGroup.rotation.copy(state.angles);
-  solidMesh.material.opacity = state.perceptionMode === 'human' ? 0.58 : 0.92;
-  edgeLines.material.opacity = state.perceptionMode === 'human' ? 0.48 : 0.96;
+
+  const slowInspection = maxRpm() <= 8;
+  solidMesh.material.opacity = state.perceptionMode === 'human'
+    ? (slowInspection ? 0.84 : 0.68)
+    : 0.96;
+  edgeLines.material.opacity = state.perceptionMode === 'human'
+    ? (slowInspection ? 0.82 : 0.58)
+    : 0.98;
   edgeLines.visible = true;
   trailPoints.visible = true;
+  trailPoints.material.size = slowInspection ? 0.017 : 0.021;
+  trailPoints.material.opacity = slowInspection ? 0.5 : 0.62;
   orientationMarker.visible = state.showOrientationMarker;
 
   updateHistoryMesh();
@@ -560,7 +620,7 @@ function updateInterpretation() {
   const core = Number(ui.coreProbability?.textContent || 0);
 
   if (state.shape === 'torus') {
-    ui.interpretation.textContent = `The torus keeps an empty centre under every rigid rotation: full p(0)=${core.toFixed(2)}. Its outer point cloud can still approach a spherical envelope. The orientation marker reveals continuous rotation even when the symmetric outline appears to wobble.`;
+    ui.interpretation.textContent = `The torus keeps an empty centre under every rigid rotation: full p(0)=${core.toFixed(2)}. In Slow mode the source torus and its outer observations are shown without a long-history ghost volume; the integrated form fades in only as RPM rises.`;
     return;
   }
   if (axes === 0) {
