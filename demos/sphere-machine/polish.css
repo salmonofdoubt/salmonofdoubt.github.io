@@ -1,0 +1,111 @@
+/* Final Sphere Machine page polish: concise mobile intro and dedicated software Zenodo floater. */
+
+.intro-hero {
+  display: block;
+}
+
+.intro-hero .hero-copy {
+  max-width: none;
+  padding-block: 1rem;
+}
+
+.intro-hero .lead {
+  max-width: 76ch;
+  margin-bottom: 0.75rem;
+}
+
+.intro-route {
+  margin: 0.65rem 0 0;
+  color: var(--sphere-muted);
+  font-size: 0.86rem;
+}
+
+.software-zenodo-note {
+  margin-top: 0.85rem;
+  color: var(--sphere-muted);
+  font-size: 0.86rem;
+}
+
+.software-zenodo-pill {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  min-height: 36px;
+  padding: 0.48rem 0.68rem;
+  border-radius: 999px;
+  border: 1px solid rgba(24, 198, 216, 0.42);
+  background: rgba(5, 12, 18, 0.88);
+  color: #e9f8f8;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), 0 0 18px rgba(24, 198, 216, 0.12);
+  backdrop-filter: blur(12px);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.software-zenodo-pill strong {
+  font-size: 0.76rem;
+  line-height: 1;
+}
+
+.software-zenodo-pill span {
+  color: rgba(233, 248, 248, 0.62);
+  font-size: 0.66rem;
+  line-height: 1;
+}
+
+.software-zenodo-pill:hover,
+.software-zenodo-pill:focus {
+  color: #031014;
+  background: linear-gradient(135deg, #18c6d8, #91fff2);
+  border-color: rgba(24, 198, 216, 0.7);
+  outline: none;
+}
+
+.software-zenodo-pill:hover span,
+.software-zenodo-pill:focus span {
+  color: rgba(3, 16, 20, 0.72);
+}
+
+@media (max-width: 620px) {
+  .intro-hero .hero-copy {
+    padding: 0.85rem;
+  }
+
+  .intro-hero h1 {
+    margin-bottom: 0.45rem;
+  }
+
+  .intro-hero .lead {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.48;
+  }
+
+  .intro-hero .truth-strip {
+    display: none;
+  }
+
+  .intro-route {
+    margin-top: 0.55rem;
+    font-size: 0.78rem;
+  }
+
+  .software-zenodo-pill {
+    right: 10px;
+    bottom: 8px;
+    min-height: 34px;
+    padding: 0.42rem 0.58rem;
+  }
+
+  .software-zenodo-pill strong {
+    font-size: 0.7rem;
+  }
+
+  .software-zenodo-pill span {
+    font-size: 0.61rem;
+  }
+}
