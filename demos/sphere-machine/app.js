@@ -18,6 +18,7 @@ const OBSERVED_RADII = 96;
 const Z_BINS = 18;
 const PHI_BINS = 36;
 const COVERAGE_BIN_COUNT = Z_BINS * PHI_BINS;
+const DEFAULT_CAMERA_POSITION = new THREE.Vector3(1.95, 1.35, 2.35);
 
 const canvas = document.getElementById('sceneCanvas');
 const stage = document.getElementById('stage');
@@ -132,10 +133,6 @@ function currentQuaternion(target = tempQuaternion) {
 }
 
 function historyVisibilityFactor() {
-  // The long-history integrated form is deliberately absent in Slow mode.
-  // At low RPM the user should see the causal source object laying down points,
-  // not a pile of old translucent full-object copies. It fades in only as the
-  // experiment transitions from inspection to integration.
   return THREE.MathUtils.smoothstep(maxRpm(), 12, 90);
 }
 
@@ -212,6 +209,14 @@ function setupPerceptionControls() {
     markerButton.textContent = `Orientation marker · ${state.showOrientationMarker ? 'on' : 'off'}`;
     updateVisuals();
   });
+}
+
+function lockOuterSphereControl() {
+  if (!ui.showSphere) return;
+  ui.showSphere.checked = true;
+  ui.showSphere.disabled = true;
+  const label = ui.showSphere.closest('label');
+  if (label) label.remove();
 }
 
 function updatePerceptionHint(hint = document.getElementById('perceptionHint')) {
@@ -484,8 +489,6 @@ function sampleCurrentOrientation(now, force = false) {
 
   for (const source of outerPoints) {
     tempVector.copy(source).applyQuaternion(quaternion);
-    // These are extrema by definition. Constrain them to the exact unit shell
-    // so finite geometry precision cannot create visually detached spikes.
     if (tempVector.lengthSq() > 1e-12) tempVector.normalize();
     appendTrailPoint(tempVector);
     markCoverage(tempVector);
@@ -580,7 +583,7 @@ function updateVisuals() {
 
   updateHistoryMesh();
   updateRetinalMesh();
-  referenceSphere.visible = Boolean(ui.showSphere?.checked);
+  referenceSphere.visible = true;
   axesHelper.visible = ui.showAxes ? ui.showAxes.checked : true;
 
   ui.integratedForm.textContent = classifyIntegratedForm();
@@ -684,7 +687,7 @@ function resetOrientation() {
 }
 
 function resetCamera() {
-  camera.position.set(4.5, 3.1, 5.4);
+  camera.position.copy(DEFAULT_CAMERA_POSITION);
   controls.target.set(0, 0, 0);
   controls.update();
 }
@@ -716,7 +719,6 @@ function bindEvents() {
   ui.pause.addEventListener('click', () => setPaused(!state.paused));
   ui.resetOrientation.addEventListener('click', resetOrientation);
   ui.resetCamera.addEventListener('click', resetCamera);
-  ui.showSphere?.addEventListener('change', updateVisuals);
   ui.showAxes?.addEventListener('change', updateVisuals);
   ui.probabilityResolution?.addEventListener('input', () => {
     updateProbabilityResolutionLabel();
@@ -773,14 +775,14 @@ function start() {
 
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-  camera.position.set(4.5, 3.1, 5.4);
+  camera.position.copy(DEFAULT_CAMERA_POSITION);
 
   controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = 0.07;
   controls.enablePan = false;
-  controls.minDistance = 3;
-  controls.maxDistance = 9;
+  controls.minDistance = 2.45;
+  controls.maxDistance = 8;
   controls.target.set(0, 0, 0);
 
   scene.add(new THREE.HemisphereLight(0xbdeff5, 0x061018, 1.7));
@@ -825,11 +827,13 @@ function start() {
     new THREE.SphereGeometry(1, 36, 24),
     new THREE.MeshBasicMaterial({ color: 0x67e8f9, wireframe: true, transparent: true, opacity: 0.09, depthWrite: false })
   );
+  referenceSphere.visible = true;
   scene.add(referenceSphere);
 
   initTrail();
   initProbeShell();
   setupPerceptionControls();
+  lockOuterSphereControl();
   createObject(state.shape);
   bindEvents();
   updateProbabilityResolutionLabel();
