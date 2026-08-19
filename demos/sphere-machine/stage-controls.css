@@ -1,4 +1,4 @@
-/* Keep the primary rotation controls physically attached to the simulation. */
+/* Sphere Machine workbench: the causal controls live with the object. */
 
 .stage-workbench {
   display: grid;
@@ -77,15 +77,21 @@
 }
 
 .source-swatch {
-  border: 1px solid #e9f8f8;
-  background: rgba(55, 200, 216, 0.75);
+  border: 1px solid #f4ffff;
+  background: rgba(55, 200, 216, 0.78);
   border-radius: 2px;
 }
 
 .point-swatch {
   border-radius: 50%;
-  background: #e9fbff;
-  box-shadow: 0 0 5px rgba(233, 251, 255, 0.85);
+  background: #f1fdff;
+  box-shadow: 0 0 5px rgba(241, 253, 255, 0.85);
+}
+
+.probe-swatch {
+  border-radius: 50%;
+  border: 1px solid #f6c96b;
+  background: rgba(246, 201, 107, 0.15);
 }
 
 .preset-grid-primary {
@@ -97,8 +103,55 @@
   background: rgba(246, 201, 107, 0.08);
 }
 
-.controls-panel-v2 > .axis-controls {
-  display: none !important;
+.classical-summary,
+.probe-readout {
+  margin: 0.75rem 0 0;
+  padding: 0.65rem 0.72rem;
+  border: 1px solid var(--sphere-line-soft);
+  border-radius: 12px;
+  color: var(--sphere-muted);
+  background: rgba(255, 255, 255, 0.018);
+  font-size: 0.82rem;
+}
+
+.probe-readout {
+  border-color: rgba(246, 201, 107, 0.25);
+  color: #f3dfb2;
+}
+
+#radialPlot {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.quantum-mode-toggle {
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0 0 0.65rem;
+  padding: 0.28rem;
+  border: 1px solid var(--sphere-line-soft);
+  border-radius: 12px;
+  background: rgba(255,255,255,.018);
+}
+
+.quantum-mode-toggle button {
+  min-height: 36px;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--sphere-muted);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.quantum-mode-toggle button.active {
+  color: var(--sphere-ink);
+  border-color: rgba(102, 228, 255, 0.35);
+  background: rgba(102, 228, 255, 0.09);
 }
 
 @media (max-width: 980px) {
@@ -125,6 +178,10 @@
 }
 
 @media (max-width: 720px) {
+  .sphere-demo {
+    padding-bottom: 7.5rem;
+  }
+
   .preset-grid-primary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -165,7 +222,16 @@
   }
 
   .source-point-key span {
-    font-size: 0.64rem;
+    font-size: 0.62rem;
+  }
+
+  /* Keep shared floating controls out of graphs/formulas on small screens. */
+  .demo-return-pill {
+    bottom: max(12px, env(safe-area-inset-bottom)) !important;
+  }
+
+  .demo-support-widget {
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 44px) !important;
   }
 }
 
@@ -181,5 +247,9 @@
 
   .axis-controls-near-stage .range-wrap output {
     font-size: 0.78rem;
+  }
+
+  .quantum-mode-toggle {
+    width: 100%;
   }
 }
