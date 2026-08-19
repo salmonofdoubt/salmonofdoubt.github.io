@@ -10,14 +10,14 @@ import { getClassicalRadialProfile } from './classical-profile.js';
 
 const TWO_PI = Math.PI * 2;
 const MAX_RPM = 360;
-const MAX_SUPERPOSITIONS = 96;
+const MAX_HISTORY_INSTANCES = 96;
+const MAX_RETINAL_INSTANCES = 32;
 const MAX_TRAIL_POINTS = 30000;
 const MAX_HISTORY = 720;
 const OBSERVED_RADII = 96;
 const Z_BINS = 18;
 const PHI_BINS = 36;
 const COVERAGE_BIN_COUNT = Z_BINS * PHI_BINS;
-const GOLDEN = 0.6180339887498949;
 
 const canvas = document.getElementById('sceneCanvas');
 const stage = document.getElementById('stage');
@@ -65,7 +65,10 @@ const state = {
   coverageBins: new Uint8Array(COVERAGE_BIN_COUNT),
   coverageCount: 0,
   trailWrite: 0,
-  trailFilled: false
+  trailFilled: false,
+  perceptionMode: 'human',
+  exposureMs: 20,
+  showOrientationMarker: true
 };
 
 const presets = {
@@ -83,14 +86,17 @@ let controls;
 let objectGroup;
 let solidMesh;
 let edgeLines;
+let orientationMarker;
 let currentGeometry;
-let superpositionMesh;
+let historyMesh;
+let retinalMesh;
 let referenceSphere;
 let probeShell;
 let axesHelper;
 let trailPoints;
 let trailGeometry;
 let trailPosition;
+let shadowPlane;
 let outerPoints = [];
 
 const dummy = new THREE.Object3D();
@@ -99,10 +105,6 @@ const inverseQuaternion = new THREE.Quaternion();
 const tempVector = new THREE.Vector3();
 const tempEuler = new THREE.Euler(0, 0, 0, 'XYZ');
 const worldProbe = new THREE.Vector3();
-
-function fract(value) {
-  return value - Math.floor(value);
-}
 
 function activeAxes() {
   return ['x', 'y', 'z'].filter(axis => {
@@ -124,53 +126,94 @@ function maxRpm() {
   return Math.max(rpmValue('x'), rpmValue('y'), rpmValue('z'));
 }
 
-function persistenceIntensity() {
-  if (activeAxes().length === 0) return 0;
-  return THREE.MathUtils.smoothstep(maxRpm(), 0, 280);
-}
-
-function exposureWindow() {
-  return THREE.MathUtils.lerp(0.1, 0.82, persistenceIntensity());
-}
-
-function visualSampleCount() {
-  if (activeAxes().length === 0) return 0;
-  return THREE.MathUtils.clamp(
-    Math.round(THREE.MathUtils.lerp(2, MAX_SUPERPOSITIONS, persistenceIntensity())),
-    2,
-    MAX_SUPERPOSITIONS
-  );
-}
-
-function orientationAtExposure(index, count, target) {
-  if (count <= 0 || activeAxes().length === 0) return target.identity();
-  const phase = fract((index + 0.5) * GOLDEN);
-  const t = (phase - 0.5) * exposureWindow();
-  tempEuler.set(
-    state.angles.x + angularVelocity('x') * t,
-    state.angles.y + angularVelocity('y') * t,
-    state.angles.z + angularVelocity('z') * t,
-    'XYZ'
-  );
-  return target.setFromEuler(tempEuler);
-}
-
 function currentQuaternion(target = tempQuaternion) {
   return target.setFromEuler(state.angles);
 }
 
+function setupPerceptionControls() {
+  const host = document.querySelector('.axis-controls-near-stage');
+  if (!host || host.querySelector('.perception-block')) return;
+
+  const block = document.createElement('div');
+  block.className = 'perception-block';
+  block.innerHTML = `
+    <div class="perception-heading">
+      <span>Perception</span>
+      <small>How the moving source object is displayed</small>
+    </div>
+    <div class="perception-toggle" role="group" aria-label="Perception rendering mode">
+      <button type="button" data-perception="crisp">Crisp frames</button>
+      <button type="button" data-perception="human" class="active">Human exposure</button>
+    </div>
+    <label class="exposure-control" for="exposureMs">
+      <span>Exposure <output id="exposureOut">20 ms</output></span>
+      <input id="exposureMs" type="range" min="5" max="50" step="1" value="20">
+    </label>
+    <button id="orientationMarkerButton" type="button" class="marker-toggle active" aria-pressed="true">Orientation marker · on</button>
+    <p id="perceptionHint" class="perception-hint">Averages several intermediate orientations over 20 ms. This is a display-exposure approximation, not a biological retina model.</p>
+  `;
+  host.append(block);
+
+  const exposure = block.querySelector('#exposureMs');
+  const exposureOut = block.querySelector('#exposureOut');
+  const hint = block.querySelector('#perceptionHint');
+  const markerButton = block.querySelector('#orientationMarkerButton');
+
+  block.querySelectorAll('[data-perception]').forEach(button => {
+    button.addEventListener('click', () => {
+      state.perceptionMode = button.dataset.perception;
+      block.querySelectorAll('[data-perception]').forEach(candidate => {
+        candidate.classList.toggle('active', candidate === button);
+      });
+      block.classList.toggle('is-crisp', state.perceptionMode === 'crisp');
+      updatePerceptionHint(hint);
+      updateVisuals();
+    });
+  });
+
+  exposure.addEventListener('input', () => {
+    state.exposureMs = Number(exposure.value);
+    exposureOut.textContent = `${state.exposureMs} ms`;
+    updatePerceptionHint(hint);
+    updateVisuals();
+  });
+
+  markerButton.addEventListener('click', () => {
+    state.showOrientationMarker = !state.showOrientationMarker;
+    markerButton.classList.toggle('active', state.showOrientationMarker);
+    markerButton.setAttribute('aria-pressed', String(state.showOrientationMarker));
+    markerButton.textContent = `Orientation marker · ${state.showOrientationMarker ? 'on' : 'off'}`;
+    updateVisuals();
+  });
+}
+
+function updatePerceptionHint(hint = document.getElementById('perceptionHint')) {
+  if (!hint) return;
+  if (state.perceptionMode === 'crisp') {
+    hint.textContent = 'One instantaneous source-object orientation per display frame. Symmetric shapes can look as if they wobble or reverse.';
+  } else {
+    hint.textContent = `Averages several intermediate orientations over ${state.exposureMs} ms. The marker shows the true continuous direction even when the symmetric outline is ambiguous.`;
+  }
+}
+
 function disposeObject() {
   if (objectGroup) scene.remove(objectGroup);
-  if (superpositionMesh) scene.remove(superpositionMesh);
+  if (historyMesh) scene.remove(historyMesh);
+  if (retinalMesh) scene.remove(retinalMesh);
   solidMesh?.material?.dispose();
   edgeLines?.geometry?.dispose();
   edgeLines?.material?.dispose();
-  superpositionMesh?.material?.dispose();
+  orientationMarker?.geometry?.dispose();
+  orientationMarker?.material?.dispose();
+  historyMesh?.material?.dispose();
+  retinalMesh?.material?.dispose();
   currentGeometry?.dispose();
   objectGroup = null;
   solidMesh = null;
   edgeLines = null;
-  superpositionMesh = null;
+  orientationMarker = null;
+  historyMesh = null;
+  retinalMesh = null;
   currentGeometry = null;
 }
 
@@ -185,14 +228,15 @@ function createObject(kind) {
     currentGeometry,
     new THREE.MeshPhysicalMaterial({
       color: 0x37c8d8,
-      roughness: 0.32,
-      metalness: 0.1,
+      roughness: 0.3,
+      metalness: 0.08,
       transparent: true,
       opacity: 0.9,
       side: THREE.DoubleSide,
-      depthWrite: false
+      depthWrite: true
     })
   );
+  solidMesh.castShadow = true;
   objectGroup.add(solidMesh);
 
   edgeLines = new THREE.LineSegments(
@@ -205,24 +249,47 @@ function createObject(kind) {
     })
   );
   objectGroup.add(edgeLines);
+
+  orientationMarker = new THREE.Mesh(
+    new THREE.SphereGeometry(0.055, 16, 12),
+    new THREE.MeshBasicMaterial({ color: 0xffc861 })
+  );
+  const markerPoint = outerPoints[0] || new THREE.Vector3(1, 0, 0);
+  orientationMarker.position.copy(markerPoint).multiplyScalar(1.035);
+  objectGroup.add(orientationMarker);
   scene.add(objectGroup);
 
-  superpositionMesh = new THREE.InstancedMesh(
+  historyMesh = new THREE.InstancedMesh(
     currentGeometry,
     new THREE.MeshBasicMaterial({
-      color: 0x49dce9,
+      color: 0x43d8ea,
       transparent: true,
-      opacity: 0.045,
+      opacity: 0.025,
       side: THREE.DoubleSide,
       depthWrite: false,
       blending: THREE.AdditiveBlending
     }),
-    MAX_SUPERPOSITIONS
+    MAX_HISTORY_INSTANCES
   );
-  superpositionMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-  superpositionMesh.count = 0;
-  superpositionMesh.frustumCulled = false;
-  scene.add(superpositionMesh);
+  historyMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  historyMesh.frustumCulled = false;
+  scene.add(historyMesh);
+
+  retinalMesh = new THREE.InstancedMesh(
+    currentGeometry,
+    new THREE.MeshBasicMaterial({
+      color: 0x8cecf5,
+      transparent: true,
+      opacity: 0.05,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    }),
+    MAX_RETINAL_INSTANCES
+  );
+  retinalMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  retinalMesh.frustumCulled = false;
+  scene.add(retinalMesh);
 
   ui.stageTitle.textContent = `Rotating ${SHAPE_NAMES[kind].toLowerCase()}`;
   resetAccumulation();
@@ -269,23 +336,62 @@ function initProbeShell() {
   scene.add(probeShell);
 }
 
-function updateSuperpositionMesh() {
-  if (!superpositionMesh) return;
-  const count = visualSampleCount();
-  const intensity = persistenceIntensity();
-  superpositionMesh.visible = count > 0;
-  superpositionMesh.count = count;
-  superpositionMesh.material.opacity = THREE.MathUtils.lerp(0.018, 0.052, intensity);
+function updateHistoryMesh() {
+  if (!historyMesh) return;
+  const history = state.history;
+  const count = Math.min(MAX_HISTORY_INSTANCES, history.length);
+  historyMesh.count = count;
+  historyMesh.visible = count > 1;
 
+  if (!count) return;
+  const step = history.length / count;
   for (let i = 0; i < count; i += 1) {
-    orientationAtExposure(i, count, tempQuaternion);
+    const quaternion = history[Math.min(history.length - 1, Math.floor(i * step))];
+    dummy.position.set(0, 0, 0);
+    dummy.scale.set(1, 1, 1);
+    dummy.quaternion.copy(quaternion);
+    dummy.updateMatrix();
+    historyMesh.setMatrixAt(i, dummy.matrix);
+  }
+  historyMesh.material.opacity = Math.max(0.012, Math.min(0.036, 1.9 / Math.max(18, count)));
+  historyMesh.instanceMatrix.needsUpdate = true;
+}
+
+function retinalSampleCount() {
+  if (state.perceptionMode !== 'human' || activeAxes().length === 0) return 0;
+  const maxOmega = Math.max(angularVelocity('x'), angularVelocity('y'), angularVelocity('z'));
+  const angularTravel = maxOmega * (state.exposureMs / 1000);
+  const fourDegrees = THREE.MathUtils.degToRad(4);
+  return THREE.MathUtils.clamp(Math.ceil(angularTravel / fourDegrees) + 1, 3, MAX_RETINAL_INSTANCES);
+}
+
+function updateRetinalMesh() {
+  if (!retinalMesh) return;
+  const count = retinalSampleCount();
+  retinalMesh.count = count;
+  retinalMesh.visible = state.perceptionMode === 'human' && count > 0;
+  if (!retinalMesh.visible) return;
+
+  const exposureSeconds = state.exposureMs / 1000;
+  for (let i = 0; i < count; i += 1) {
+    const fraction = count === 1 ? 0 : i / (count - 1);
+    const t = -exposureSeconds * (1 - fraction);
+    tempEuler.set(
+      state.angles.x + angularVelocity('x') * t,
+      state.angles.y + angularVelocity('y') * t,
+      state.angles.z + angularVelocity('z') * t,
+      'XYZ'
+    );
+    tempQuaternion.setFromEuler(tempEuler);
     dummy.position.set(0, 0, 0);
     dummy.scale.set(1, 1, 1);
     dummy.quaternion.copy(tempQuaternion);
     dummy.updateMatrix();
-    superpositionMesh.setMatrixAt(i, dummy.matrix);
+    retinalMesh.setMatrixAt(i, dummy.matrix);
   }
-  superpositionMesh.instanceMatrix.needsUpdate = true;
+
+  retinalMesh.material.opacity = THREE.MathUtils.clamp(0.22 / Math.sqrt(count), 0.026, 0.075);
+  retinalMesh.instanceMatrix.needsUpdate = true;
 }
 
 function markCoverage(point) {
@@ -336,6 +442,7 @@ function sampleCurrentOrientation(now, force = false) {
   trailPosition.needsUpdate = true;
   trailGeometry.setDrawRange(0, state.trailFilled ? MAX_TRAIL_POINTS : state.trailWrite);
   ui.coverage.textContent = `${Math.round(state.coverageCount / COVERAGE_BIN_COUNT * 100)}%`;
+  updateHistoryMesh();
 
   if (force || now - state.lastObservedDispatch > 260) {
     state.lastObservedDispatch = now;
@@ -357,7 +464,7 @@ function dispatchObservedProfile() {
       if (containsShapePoint(state.shape, worldProbe)) hits += 1;
     }
     radii.push(r);
-    occupancy.push(history.length ? hits / history.length : (containsShapePoint(state.shape, worldProbe.set(r, 0, 0)) ? 1 : 0));
+    occupancy.push(history.length ? hits / history.length : 0);
   }
 
   window.dispatchEvent(new CustomEvent('sphere-observed-profile', {
@@ -380,6 +487,7 @@ function resetAccumulation() {
   state.lastTrailSample = 0;
   state.lastObservedDispatch = 0;
   if (trailGeometry) trailGeometry.setDrawRange(0, 0);
+  if (historyMesh) historyMesh.count = 0;
   if (ui.coverage) ui.coverage.textContent = '0%';
   sampleCurrentOrientation(performance.now(), true);
 }
@@ -404,15 +512,14 @@ function updateTheoreticalMetrics() {
 function updateVisuals() {
   if (!solidMesh || !edgeLines || !objectGroup) return;
   objectGroup.rotation.copy(state.angles);
-
-  const intensity = persistenceIntensity();
-  // The source object is causal evidence. It never fades away completely.
-  solidMesh.material.opacity = THREE.MathUtils.lerp(0.92, 0.42, intensity);
-  edgeLines.material.opacity = THREE.MathUtils.lerp(0.96, 0.32, intensity);
+  solidMesh.material.opacity = state.perceptionMode === 'human' ? 0.58 : 0.92;
+  edgeLines.material.opacity = state.perceptionMode === 'human' ? 0.48 : 0.96;
   edgeLines.visible = true;
   trailPoints.visible = true;
+  orientationMarker.visible = state.showOrientationMarker;
 
-  updateSuperpositionMesh();
+  updateHistoryMesh();
+  updateRetinalMesh();
   referenceSphere.visible = Boolean(ui.showSphere?.checked);
   axesHelper.visible = ui.showAxes ? ui.showAxes.checked : true;
 
@@ -422,51 +529,57 @@ function updateVisuals() {
 
 function classifyIntegratedForm() {
   const axes = activeAxes().length;
+  const coverage = state.coverageCount / COVERAGE_BIN_COUNT;
   const rpm = maxRpm();
   if (axes === 0) return 'single object';
   if (rpm <= 8 && axes === 3) return 'slow accumulation';
-  if (axes === 1) return rpm < 100 ? 'rotating form' : 'surface of revolution';
-  if (axes === 2) return rpm < 120 ? 'woven form' : 'rounded superposition';
-  if (rpm < 90) return 'multi-axis form';
-  if (rpm < 220) return 'near-spherical';
+  if (axes === 1) return 'surface of revolution';
+  if (axes === 2) return coverage < 0.45 ? 'woven form' : 'rounded superposition';
+  if (coverage < 0.35) return 'multi-axis form';
+  if (coverage < 0.75) return 'near-spherical';
   return 'sphere-like';
 }
 
 function regimeLabel() {
   const axes = activeAxes().length;
-  if (axes === 0) return 'instantaneous geometry';
-  if (maxRpm() <= 8 && axes === 3) return 'watching observations accumulate';
-  if (axes === 1) return 'one-axis exposure';
-  if (axes === 2) return 'two-axis exposure';
-  return 'three-axis sphere formation';
+  const perception = state.perceptionMode === 'human' ? `human exposure · ${state.exposureMs} ms` : 'crisp frames';
+  if (axes === 0) return `instantaneous geometry · ${perception}`;
+  if (axes === 1) return `one-axis sampling · ${perception}`;
+  if (axes === 2) return `two-axis sampling · ${perception}`;
+  return `three-axis sampling · ${perception}`;
+}
+
+function updateProbabilityResolutionLabel() {
+  const labels = ['quick', 'low', 'medium', 'high', 'maximum'];
+  ui.probabilityResolutionOut.textContent = labels[Number(ui.probabilityResolution.value) - 1] || 'medium';
 }
 
 function updateInterpretation() {
   const axes = activeAxes().length;
-  const core = Number(ui.coreProbability.textContent || 0);
-  const coverage = Math.round(state.coverageCount / COVERAGE_BIN_COUNT * 100);
+  const coverage = state.coverageCount / COVERAGE_BIN_COUNT;
+  const core = Number(ui.coreProbability?.textContent || 0);
 
   if (state.shape === 'torus') {
-    ui.interpretation.textContent = `The torus keeps its central hole under rigid rotation: p(0)=${core.toFixed(2)}. Its outer envelope can become spherical while its radial occupancy remains hollow. Current observed directional coverage: ${coverage}%.`;
+    ui.interpretation.textContent = `The torus keeps an empty centre under every rigid rotation: full p(0)=${core.toFixed(2)}. Its outer point cloud can still approach a spherical envelope. The orientation marker reveals continuous rotation even when the symmetric outline appears to wobble.`;
     return;
   }
   if (axes === 0) {
-    ui.interpretation.textContent = 'Still mode shows the source object before rotational averaging. The generated points are the observations accumulated so far.';
+    ui.interpretation.textContent = 'Still mode shows one orientation. The source object and its current outer points remain visible.';
     return;
   }
   if (maxRpm() <= 8) {
-    ui.interpretation.textContent = `Slow mode: watch the source object deposit its outer points. The dashed observed probability learns from these visited orientations. Coverage is currently ${coverage}%.`;
+    ui.interpretation.textContent = 'Slow mode lets you watch the source object deposit observations. Coverage and the observed probability curve build from those visited orientations.';
     return;
   }
   if (axes === 1) {
-    ui.interpretation.textContent = `One active axis produces a surface of revolution, not full spherical sampling. Current directional coverage: ${coverage}%.`;
+    ui.interpretation.textContent = 'One axis samples a restricted family of orientations. The accumulated form is a surface of revolution rather than the full rotational limit.';
     return;
   }
   if (axes === 2) {
-    ui.interpretation.textContent = `Two axes broaden the sampled orientation set, but full rotational symmetry is not yet represented. Current directional coverage: ${coverage}%.`;
+    ui.interpretation.textContent = 'Two axes broaden the observed orientation set, but complete three-dimensional rotational symmetry is not yet sampled.';
     return;
   }
-  ui.interpretation.textContent = `Three-axis rotation is building the spherical envelope. The source object remains visible while its accumulated points fill direction space. Current coverage: ${coverage}%.`;
+  ui.interpretation.textContent = `Three-axis sampling has visited ${Math.round(coverage * 100)}% of the outer direction bins. The accumulated points and history superposition approach the spherical rotational limit as coverage grows.`;
 }
 
 function updateSpeedOutputs() {
@@ -477,12 +590,6 @@ function updateSpeedOutputs() {
     ui[`hud${axis}`].textContent = enabled ? `${value} rpm` : 'off';
     ui[`speed${axis}`].disabled = !enabled;
   }
-}
-
-function updateProbabilityResolutionLabel() {
-  if (!ui.probabilityResolutionOut || !ui.probabilityResolution) return;
-  const labels = ['quick', 'low', 'medium', 'high', 'maximum'];
-  ui.probabilityResolutionOut.textContent = labels[Number(ui.probabilityResolution.value) - 1] || 'medium';
 }
 
 function applyPreset(name) {
@@ -500,7 +607,7 @@ function applyPreset(name) {
   updateSpeedOutputs();
   resetAccumulation();
   updateVisuals();
-  updateTheoreticalMetrics();
+  updateInterpretation();
 }
 
 function setPaused(value) {
@@ -520,16 +627,6 @@ function resetCamera() {
   camera.position.set(4.5, 3.1, 5.4);
   controls.target.set(0, 0, 0);
   controls.update();
-}
-
-function resizeRenderer() {
-  const rect = stage.getBoundingClientRect();
-  const width = Math.max(1, Math.floor(rect.width));
-  const height = Math.max(1, Math.floor(rect.height));
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setSize(width, height, false);
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
 }
 
 function bindEvents() {
@@ -569,12 +666,22 @@ function bindEvents() {
   window.addEventListener('sphere-radius-probe', event => {
     const radius = Number(event.detail?.radius);
     if (!Number.isFinite(radius)) return;
-    probeShell.scale.setScalar(Math.max(radius, 0.001));
-    probeShell.visible = radius > 0.003;
+    probeShell.scale.setScalar(Math.max(0.001, radius));
+    probeShell.visible = radius > 0.002;
   });
 
   window.addEventListener('resize', resizeRenderer, { passive: true });
   if ('ResizeObserver' in window) new ResizeObserver(resizeRenderer).observe(stage);
+}
+
+function resizeRenderer() {
+  const rect = stage.getBoundingClientRect();
+  const width = Math.max(1, Math.floor(rect.width));
+  const height = Math.max(1, Math.floor(rect.height));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(width, height, false);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
 }
 
 function animate(now) {
@@ -586,8 +693,9 @@ function animate(now) {
     state.angles.x = (state.angles.x + angularVelocity('x') * dt) % TWO_PI;
     state.angles.y = (state.angles.y + angularVelocity('y') * dt) % TWO_PI;
     state.angles.z = (state.angles.z + angularVelocity('z') * dt) % TWO_PI;
-    updateVisuals();
     sampleCurrentOrientation(now);
+    updateVisuals();
+    updateInterpretation();
   }
 
   controls.update();
@@ -600,6 +708,8 @@ function start() {
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
@@ -613,16 +723,35 @@ function start() {
   controls.maxDistance = 9;
   controls.target.set(0, 0, 0);
 
-  scene.add(new THREE.HemisphereLight(0xbdeff5, 0x061018, 2));
-  const key = new THREE.DirectionalLight(0xffffff, 3);
+  scene.add(new THREE.HemisphereLight(0xbdeff5, 0x061018, 1.7));
+
+  const key = new THREE.DirectionalLight(0xffffff, 3.2);
   key.position.set(4, 5, 5);
+  key.castShadow = true;
+  key.shadow.mapSize.set(1024, 1024);
+  key.shadow.camera.left = -4;
+  key.shadow.camera.right = 4;
+  key.shadow.camera.top = 4;
+  key.shadow.camera.bottom = -4;
+  key.shadow.camera.near = 0.5;
+  key.shadow.camera.far = 15;
   scene.add(key);
-  const rim = new THREE.DirectionalLight(0x7c6cff, 1.8);
+
+  const rim = new THREE.DirectionalLight(0x7c6cff, 1.5);
   rim.position.set(-4, 1, -3);
   scene.add(rim);
 
+  shadowPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(7.5, 7.5),
+    new THREE.ShadowMaterial({ color: 0x000000, opacity: 0.26 })
+  );
+  shadowPlane.rotation.x = -Math.PI / 2;
+  shadowPlane.position.y = -1.79;
+  shadowPlane.receiveShadow = true;
+  scene.add(shadowPlane);
+
   const floor = new THREE.GridHelper(8, 16, 0x1b8d9c, 0x173743);
-  floor.position.y = -1.8;
+  floor.position.y = -1.775;
   floor.material.transparent = true;
   floor.material.opacity = 0.2;
   scene.add(floor);
@@ -636,11 +765,11 @@ function start() {
     new THREE.SphereGeometry(1, 36, 24),
     new THREE.MeshBasicMaterial({ color: 0x67e8f9, wireframe: true, transparent: true, opacity: 0.09, depthWrite: false })
   );
-  referenceSphere.visible = Boolean(ui.showSphere?.checked);
   scene.add(referenceSphere);
 
   initTrail();
   initProbeShell();
+  setupPerceptionControls();
   createObject(state.shape);
   bindEvents();
   updateProbabilityResolutionLabel();
