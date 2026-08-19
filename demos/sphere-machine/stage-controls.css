@@ -154,6 +154,101 @@
   background: rgba(102, 228, 255, 0.09);
 }
 
+.perception-block {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--sphere-line-soft);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.perception-heading {
+  display: grid;
+  gap: 0.12rem;
+}
+
+.perception-heading > span {
+  color: var(--sphere-ink);
+  font-weight: 900;
+  font-size: 0.9rem;
+}
+
+.perception-heading small {
+  color: var(--sphere-muted);
+  line-height: 1.35;
+}
+
+.perception-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem;
+  padding: 0.28rem;
+  border: 1px solid var(--sphere-line-soft);
+  border-radius: 12px;
+  background: rgba(255,255,255,.018);
+}
+
+.perception-toggle button,
+.marker-toggle {
+  min-height: 36px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--sphere-muted);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.perception-toggle button.active,
+.marker-toggle.active {
+  color: var(--sphere-ink);
+  border-color: rgba(102, 228, 255, 0.35);
+  background: rgba(102, 228, 255, 0.09);
+}
+
+.exposure-control {
+  display: grid;
+  gap: 0.32rem;
+}
+
+.exposure-control > span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  color: var(--sphere-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.exposure-control output {
+  color: var(--sphere-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.perception-block.is-crisp .exposure-control {
+  opacity: 0.42;
+}
+
+.perception-block.is-crisp .exposure-control input {
+  pointer-events: none;
+}
+
+.marker-toggle {
+  width: 100%;
+  border-color: var(--sphere-line-soft);
+  background: rgba(255,255,255,.012);
+}
+
+.perception-hint {
+  margin: 0;
+  color: var(--sphere-muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
 @media (max-width: 980px) {
   .stage-workbench {
     grid-template-columns: 1fr;
@@ -174,6 +269,17 @@
 
   .axis-controls-near-stage .axis-row + .axis-row {
     margin-top: 0;
+  }
+
+  .perception-block {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(150px, 0.6fr) minmax(220px, 1fr);
+    align-items: start;
+  }
+
+  .perception-heading,
+  .perception-hint {
+    grid-column: 1 / -1;
   }
 }
 
@@ -225,6 +331,15 @@
     font-size: 0.62rem;
   }
 
+  .perception-block {
+    grid-template-columns: 1fr;
+  }
+
+  .perception-heading,
+  .perception-hint {
+    grid-column: auto;
+  }
+
   /* Keep shared floating controls out of graphs/formulas on small screens. */
   .demo-return-pill {
     bottom: max(12px, env(safe-area-inset-bottom)) !important;
@@ -249,7 +364,8 @@
     font-size: 0.78rem;
   }
 
-  .quantum-mode-toggle {
+  .quantum-mode-toggle,
+  .perception-toggle {
     width: 100%;
   }
 }
