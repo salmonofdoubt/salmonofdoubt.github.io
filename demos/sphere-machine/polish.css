@@ -24,14 +24,20 @@
   letter-spacing: -0.01em;
 }
 
-.intro-route {
-  max-width: 84ch;
-  margin: 0.65rem 0 0;
-  padding-left: 0.75rem;
-  border-left: 2px solid rgba(24, 198, 216, 0.45);
-  color: var(--sphere-muted);
-  font-size: 0.86rem;
-  line-height: 1.45;
+.intro-thesis {
+  max-width: 86ch;
+  margin: 0.62rem 0 0;
+  color: var(--sphere-ink);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.intro-thesis + .intro-thesis {
+  margin-top: 0.48rem;
+}
+
+.intro-thesis strong {
+  color: var(--sphere-accent);
 }
 
 .software-zenodo-note {
@@ -109,11 +115,14 @@
     display: none;
   }
 
-  .intro-route {
-    margin-top: 0.45rem;
-    padding-left: 0.6rem;
-    font-size: 0.76rem;
-    line-height: 1.4;
+  .intro-thesis {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.43;
+  }
+
+  .intro-thesis + .intro-thesis {
+    margin-top: 0.42rem;
   }
 
   .software-zenodo-pill {
