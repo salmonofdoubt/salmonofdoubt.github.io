@@ -1,0 +1,26 @@
+{
+  "name": "Sphere Machine",
+  "short_name": "Sphere Machine",
+  "description": "A Spherism thought experiment in perspective, rotational occupancy probability and quantum symmetry.",
+  "id": "/demos/sphere-machine/",
+  "start_url": "/demos/sphere-machine/",
+  "scope": "/demos/sphere-machine/",
+  "display": "standalone",
+  "background_color": "#050a0f",
+  "theme_color": "#050a0f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
