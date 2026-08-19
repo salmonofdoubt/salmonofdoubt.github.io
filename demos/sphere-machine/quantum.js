@@ -1,3 +1,5 @@
+import './radial-probability.js';
+
 const stateSelect = document.getElementById('quantumStateSelect');
 const densityCanvas = document.getElementById('quantumDensityCanvas');
 const radialCanvas = document.getElementById('quantumRadialCanvas');
