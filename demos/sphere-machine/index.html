@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#050a0f">
-  <title>Sphere Machine | Spherism Probability Lab</title>
-  <meta name="description" content="Interactive rotational superposition, occupancy probability and quantum symmetry laboratory inspired by Spherism.">
+  <title>Sphere Machine | Perspective, Probability and Spherism</title>
+  <meta name="description" content="An interactive Spherism experiment about perspective: combine many views, watch a spherical limit emerge, and connect geometry with probability, democracy, propaganda, Zen and quantum symmetry.">
   <link rel="stylesheet" href="../../assets/css/site.css">
   <link rel="stylesheet" href="styles.css?v=20260818-8">
   <link rel="stylesheet" href="ux.css?v=20260818-1">
   <link rel="stylesheet" href="stage-controls.css?v=20260819-2">
+  <link rel="stylesheet" href="polish.css?v=20260819-2">
   <link rel="stylesheet" href="/demos/shared/demo-return.css">
   <script defer src="/demos/shared/demo-return.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css">
@@ -32,36 +33,27 @@
   </header>
 
   <main class="container sphere-demo ux-v2">
-    <section class="hero-grid compact-hero">
+    <section class="hero-grid compact-hero intro-hero">
       <div class="hero-copy panel">
-        <span class="eyebrow">Spherism probability laboratory</span>
+        <span class="eyebrow">Spherism · perspective laboratory</span>
         <h1>Sphere Machine</h1>
-        <p class="lead">Start with a familiar object. Rotate it through more orientations until the visible form becomes sphere-like. Watch the generated points accumulate, compare what has actually been observed with the full rotational limit, then connect that probability structure with quantum mechanics.</p>
+        <p class="lead">Look at an object from one point. Then another. Now imagine an octopus wrapping sensor-covered arms around it — and finally, every possible viewpoint at once. Superimpose those observations and the privileged edges begin to fade. <strong>What remains when no single perspective is allowed to define reality?</strong></p>
         <div class="truth-strip">
-          <span>object → observations</span>
-          <span>observations → spherical limit</span>
-          <span>probability → quantum comparison</span>
+          <span>one view → appearance</span>
+          <span>many views → invariants</span>
+          <span>evidence → what survives</span>
         </div>
+        <p class="intro-route">Sphere Machine makes that question visible in geometry first, then follows it into probability and quantum symmetry.</p>
       </div>
-
-      <aside class="panel premise-card compact-premise">
-        <span class="eyebrow">Use it in this order</span>
-        <ol class="journey-list">
-          <li><strong>Choose an object</strong><span>Cube is the clearest starting point; torus is the crucial counter-example.</span></li>
-          <li><strong>Try Slow · 5 rpm</strong><span>Watch the source object generate its observation points.</span></li>
-          <li><strong>SPHERISE</strong><span>Increase orientation coverage until the outer envelope becomes sphere-like.</span></li>
-          <li><strong>Drag the probability graph</strong><span>Inspect the corresponding spherical shell in the 3D scene.</span></li>
-        </ol>
-      </aside>
     </section>
 
     <section id="laboratory" class="section experiment-section">
       <div class="section-heading experiment-heading">
         <div>
-          <span class="eyebrow">1 · Build the sphere</span>
-          <h2>Make the object lose its preferred orientation.</h2>
+          <span class="eyebrow">1 · See beyond one view</span>
+          <h2>Make the object lose its privileged orientation.</h2>
         </div>
-        <a class="button subtle-button" href="#quantum-bridge">Jump to quantum comparison ↓</a>
+        <a class="button subtle-button" href="#meaning">Why this matters ↓</a>
       </div>
 
       <div class="experiment-commandbar panel" aria-label="Primary experiment controls">
@@ -88,9 +80,9 @@
         </div>
 
         <div class="command-presets">
-          <span class="control-label">Rotation experiment</span>
+          <span class="control-label">Perspective experiment</span>
           <div class="preset-grid preset-grid-primary">
-            <button type="button" class="chip" data-preset="stop">Still</button>
+            <button type="button" class="chip" data-preset="stop">One view</button>
             <button type="button" class="chip slow-chip" data-preset="slow">Slow · 5 rpm</button>
             <button type="button" class="chip" data-preset="x">X only</button>
             <button type="button" class="chip" data-preset="xy">XY weave</button>
@@ -104,23 +96,23 @@
           <div class="stage-toolbar">
             <div>
               <strong id="stage-title">Rotating cube</strong>
-              <span id="stageRegime">three-axis sphere formation</span>
+              <span id="stageRegime">three-axis sampling</span>
             </div>
             <div class="run-state"><i id="runDot"></i><span id="runState">running</span></div>
           </div>
 
           <div class="stage-workbench">
-            <div id="stage" class="stage" role="img" aria-label="Rotational superposition and accumulated observation points">
+            <div id="stage" class="stage" role="img" aria-label="A source object seen through accumulating rotational perspectives">
               <canvas id="sceneCanvas"></canvas>
               <div class="stage-hud stage-hud-left">
                 <span><b>X</b> <output id="hudX">180 rpm</output></span>
                 <span><b>Y</b> <output id="hudY">254 rpm</output></span>
                 <span><b>Z</b> <output id="hudZ">325 rpm</output></span>
               </div>
-              <div class="stage-hud stage-hud-right">drag · orbit<br>pinch/scroll · zoom</div>
+              <div class="stage-hud stage-hud-right">drag · change viewpoint<br>pinch/scroll · zoom</div>
               <div class="source-point-key">
                 <span><i class="source-swatch"></i>source object</span>
-                <span><i class="point-swatch"></i>generated observation points</span>
+                <span><i class="point-swatch"></i>accumulated observations</span>
                 <span><i class="probe-swatch"></i>selected radial shell</span>
               </div>
             </div>
@@ -142,7 +134,7 @@
           </div>
 
           <div class="metric-grid metric-grid-v2">
-            <div class="metric-card"><span>Integrated form</span><strong id="integratedForm">sphere-like</strong><small>current visible superposition</small></div>
+            <div class="metric-card"><span>Integrated form</span><strong id="integratedForm">sphere-like</strong><small>what the accumulated views suggest</small></div>
             <div class="metric-card"><span>Centre occupancy limit</span><strong id="coreProbability">1.00</strong><small>full rotational p(0)</small></div>
             <div class="metric-card"><span>Outer occupancy limit</span><strong id="outerProbability">0.00</strong><small>mean full p(r), 0.78–0.95</small></div>
             <div class="metric-card"><span>Observed coverage</span><strong id="coverageValue">0%</strong><small>directions actually visited</small></div>
@@ -150,9 +142,9 @@
 
           <div class="analysis-dock">
             <div class="analysis-copy">
-              <span class="eyebrow">2 · Read the probability</span>
-              <h3>Observed versus rotational limit</h3>
-              <p>The dashed observed curve learns from orientations actually visited; the smooth limit is what complete rotational averaging predicts.</p>
+              <span class="eyebrow">2 · Ask what survives</span>
+              <h3>Observed view versus rotational limit</h3>
+              <p>The dashed curve records the perspectives actually visited. The smooth curve asks what remains when rotational perspective is no longer privileged.</p>
               <p id="classicalSummary" class="classical-summary"></p>
               <div id="probeReadout" class="probe-readout">Drag the graph to inspect a spherical shell.</div>
               <div id="interpretation" class="interpretation" aria-live="polite">Three-axis averaging is active.</div>
@@ -160,7 +152,7 @@
             <div class="analysis-chart">
               <div class="chart-heading">
                 <strong>Classical radial probability</strong>
-                <span>observed → full rotational limit</span>
+                <span>observed → rotational limit</span>
               </div>
               <canvas id="radialPlot" width="620" height="300" aria-label="Classical occupancy probability by radius"></canvas>
             </div>
@@ -171,7 +163,7 @@
           <div class="sidebar-heading">
             <span class="eyebrow">Secondary controls</span>
             <h3>View & reset</h3>
-            <p>The experiment controls stay with the object. These settings are optional.</p>
+            <p>Change how you inspect the experiment without changing its underlying geometry.</p>
           </div>
 
           <div class="button-grid utility-grid">
@@ -183,7 +175,6 @@
           <details class="advanced-controls">
             <summary>Display extras</summary>
             <div class="check-list">
-              <label><input id="showSphere" type="checkbox"> Reference outer sphere</label>
               <label><input id="showAxes" type="checkbox" checked> X/Y/Z axes</label>
             </div>
             <div class="slider-block">
@@ -193,18 +184,27 @@
           </details>
 
           <div class="sidebar-note">
-            <strong>What never disappears</strong>
-            <p>The source object and the points it has generated are always shown. They are the causal evidence for the sphere-like envelope.</p>
+            <strong>The outer sphere stays visible</strong>
+            <p>It is the common reference: the boundary approached as directional preference is removed.</p>
           </div>
         </aside>
       </div>
     </section>
 
+    <section class="section bridge-note panel" id="meaning">
+      <span class="eyebrow">3 · The larger idea</span>
+      <h2>A perspective can be true and still be incomplete.</h2>
+      <p>A cube can look square from one position and hexagonal from another. Neither view is false; neither is the whole object. The same caution applies to people, processes, opinions, histories and public narratives.</p>
+      <p><strong>Democracy</strong> works best when no government, party, institution, expert or majority can define the whole without challenge from other perspectives and evidence. <strong>Propaganda</strong> does the opposite: it tries to make one projection feel like reality itself.</p>
+      <p>The idea is also close to <strong>Zen</strong>: do not mistake the frame, category or story your mind has settled on for the thing itself. More perspectives do not make every claim equally true; they make claims testable against one another and against evidence.</p>
+      <p><strong>What survives that process of challenge may be closer to the invariant structure underneath appearances.</strong></p>
+    </section>
+
     <section class="section quantum-section" id="quantum-bridge">
       <div class="section-heading quantum-heading">
-        <span class="eyebrow">3 · Compare with quantum probability</span>
-        <h2>Same language of probability. Different physics.</h2>
-        <p>The selected classical object is carried into the quantum radial graph, so changing Cube → Torus remains visible while you compare it with different hydrogen states.</p>
+        <span class="eyebrow">4 · Follow the probability</span>
+        <h2>From classical perspective to quantum symmetry.</h2>
+        <p>The classical experiment asks how occupancy changes across orientations. Quantum mechanics also uses symmetry and probability, but its physics is fundamentally different.</p>
       </div>
 
       <div class="quantum-commandbar panel">
@@ -250,30 +250,30 @@
       </div>
 
       <div class="bridge-note panel">
-        <strong>The useful bridge</strong>
-        <p>Sphere Machine averages <em>classical occupancies</em> across orientations. Quantum mechanics assigns probabilities from a state and, for pure states, from amplitudes through the Born rule. The connection is <strong>symmetry + probability + averaging</strong>; the mechanisms are not identical.</p>
+        <strong>The bridge, carefully stated</strong>
+        <p>Sphere Machine averages <em>classical occupancies</em> across orientations. Quantum mechanics assigns probabilities from quantum states and, for pure states, from amplitudes through the Born rule. The connection is <strong>symmetry + probability + averaging</strong>; a rotating cube is not a quantum superposition.</p>
       </div>
     </section>
 
     <section class="section theory-section">
       <div class="section-heading">
-        <span class="eyebrow">4 · Why it works</span>
-        <h2>The mathematics, after you have seen the effect.</h2>
+        <span class="eyebrow">5 · Why the sphere appears</span>
+        <h2>The mathematics underneath the metaphor.</h2>
       </div>
 
       <div class="explanation-grid theory-grid">
         <article class="panel">
-          <span class="eyebrow">A · Building the sphere</span>
+          <span class="eyebrow">A · Removing directional privilege</span>
           <h2>Average the object over rotations.</h2>
           <p>Let <strong>B</strong> be the object and 1<sub>B</sub>(x) its indicator: 1 inside the object and 0 outside.</p>
           <div class="formula">P<sub>S</sub>(x) = ∫<sub>SO(3)</sub> 1<sub>B</sub>(R<sup>−1</sup>x) dμ(R)</div>
-          <p>Because the rotation measure is invariant, P<sub>S</sub>(Qx) = P<sub>S</sub>(x) for every rotation Q. A fully averaged field can therefore depend only on radius:</p>
+          <p>Because the rotation measure is invariant, P<sub>S</sub>(Qx) = P<sub>S</sub>(x) for every rotation Q. Once no direction is privileged, the fully averaged field can depend only on radius:</p>
           <div class="formula">P<sub>S</sub>(x) = p(r), &nbsp; r = ‖x‖</div>
-          <p>The sphere-like outer envelope and the radial probability field are related but not identical. A torus can have a spherical outer envelope while retaining p(0)=0.</p>
+          <p>This does not mean every object literally becomes a solid sphere. A torus, for example, can approach a spherical outer envelope while retaining p(0)=0.</p>
         </article>
 
         <article class="panel caution-panel">
-          <span class="eyebrow">B · Borrowing from QM</span>
+          <span class="eyebrow">B · Where the analogy stops</span>
           <h2>Probability and symmetry averaging—not quantum identity.</h2>
           <p>For a quantum density operator ρ:</p>
           <div class="formula">P<sub>Q</sub>(x) = ⟨x|ρ|x⟩</div>
@@ -302,10 +302,11 @@
       </details>
     </section>
 
-    <section class="section reference-panel panel">
-      <span class="eyebrow">Concept and mathematical references</span>
-      <h2>Spherism → rotational probability → quantum symmetry</h2>
-      <p>This demonstrator extends the Infinite Camera argument in André Baumann’s <em>Spherism: Seeing the Sphere as Reality Beyond Appearances</em> into a numerical occupancy-probability experiment, then compares that classical construction with standard hydrogenic probability structures.</p>
+    <section class="section reference-panel panel" id="software-zenodo">
+      <span class="eyebrow">Concept, software and mathematical references</span>
+      <h2>Spherism → perspective → probability → symmetry</h2>
+      <p>This demonstrator extends the Infinite Camera argument in André Baumann’s <em>Spherism: Seeing the Sphere as Reality Beyond Appearances</em> into an interactive experiment about what changes — and what remains — as perspective is varied.</p>
+      <p class="software-zenodo-note"><strong>Sphere Machine software record:</strong> Zenodo DOI pending. This is separate from the Spherism paper DOI.</p>
       <div class="button-row">
         <a class="button primary" href="https://zenodo.org/records/16985564" target="_blank" rel="noopener">Open Spherism on Zenodo</a>
         <a class="button" href="https://dlmf.nist.gov/18.39" target="_blank" rel="noopener">NIST DLMF · hydrogen radial states</a>
@@ -315,7 +316,9 @@
     </section>
   </main>
 
-  <script type="module" src="app.js?v=20260819-1"></script>
+  <a class="software-zenodo-pill" data-software-zenodo-pill href="#software-zenodo" aria-label="Sphere Machine software Zenodo record, DOI pending"><strong>Software Zenodo</strong><span>DOI pending</span></a>
+
+  <script type="module" src="app.js?v=20260819-2"></script>
   <script type="module" src="quantum.js?v=20260819-2"></script>
 </body>
 </html>
