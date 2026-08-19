@@ -1,14 +1,19 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
+import {
+  SHAPE_NAMES,
+  createShapeGeometry,
+  containsShapePoint,
+  getOuterPoints
+} from './shape-model.js';
+import { getClassicalRadialProfile } from './classical-profile.js';
 
 const TWO_PI = Math.PI * 2;
 const MAX_RPM = 360;
 const MAX_SUPERPOSITIONS = 96;
-const MAX_ENVELOPE_SAMPLES = 384;
-const MAX_OUTER_POINTS = 64;
-const MAX_ENVELOPE_POINTS = MAX_ENVELOPE_SAMPLES * MAX_OUTER_POINTS;
-const PROBABILITY_POINTS = 1800;
-const MAX_ANALYSIS_ORIENTATIONS = 128;
+const MAX_TRAIL_POINTS = 30000;
+const MAX_HISTORY = 720;
+const OBSERVED_RADII = 96;
 const Z_BINS = 18;
 const PHI_BINS = 36;
 const COVERAGE_BIN_COUNT = Z_BINS * PHI_BINS;
@@ -34,11 +39,8 @@ const ui = {
   pause: document.getElementById('pauseButton'),
   resetOrientation: document.getElementById('resetOrientationButton'),
   resetCamera: document.getElementById('cameraButton'),
-  showSuperposition: document.getElementById('showSuperposition'),
-  showProbability: document.getElementById('showProbability'),
   showSphere: document.getElementById('showSphere'),
   showAxes: document.getElementById('showAxes'),
-  showEdges: document.getElementById('showEdges'),
   probabilityResolution: document.getElementById('probabilityResolution'),
   probabilityResolutionOut: document.getElementById('probabilityResolutionOut'),
   coverage: document.getElementById('coverageValue'),
@@ -49,8 +51,7 @@ const ui = {
   stageRegime: document.getElementById('stageRegime'),
   interpretation: document.getElementById('interpretation'),
   runState: document.getElementById('runState'),
-  runDot: document.getElementById('runDot'),
-  radialPlot: document.getElementById('radialPlot')
+  runDot: document.getElementById('runDot')
 };
 
 const state = {
@@ -58,28 +59,18 @@ const state = {
   paused: false,
   angles: new THREE.Euler(0, 0, 0, 'XYZ'),
   lastTime: performance.now(),
-  coverage: 0,
-  localProfile: [],
-  shellProfile: []
-};
-
-const shapeNames = {
-  cube: 'Cube',
-  pyramid: 'Square pyramid',
-  tetrahedron: 'Tetrahedron',
-  octahedron: 'Octahedron',
-  icosahedron: 'Icosahedron',
-  sphere: 'Sphere',
-  cylinder: 'Cylinder',
-  cone: 'Cone',
-  torus: 'Torus',
-  triangle: 'Thin triangle',
-  circle: 'Thin circle',
-  rectangle: 'Thin rectangle'
+  lastTrailSample: 0,
+  lastObservedDispatch: 0,
+  history: [],
+  coverageBins: new Uint8Array(COVERAGE_BIN_COUNT),
+  coverageCount: 0,
+  trailWrite: 0,
+  trailFilled: false
 };
 
 const presets = {
   stop: { x: false, y: false, z: false, sx: 0, sy: 0, sz: 0 },
+  slow: { x: true, y: true, z: true, sx: 5, sy: 5, sz: 5 },
   x: { x: true, y: false, z: false, sx: 180, sy: 0, sz: 0 },
   xy: { x: true, y: true, z: false, sx: 180, sy: 254, sz: 0 },
   xyz: { x: true, y: true, z: true, sx: 180, sy: 254, sz: 325 }
@@ -94,139 +85,23 @@ let solidMesh;
 let edgeLines;
 let currentGeometry;
 let superpositionMesh;
-let envelopePoints;
-let envelopeGeometry;
-let envelopePosition;
 let referenceSphere;
+let probeShell;
 let axesHelper;
-let probabilityCloud;
-let probabilityGeometry;
-let probabilityColor;
+let trailPoints;
+let trailGeometry;
+let trailPosition;
 let outerPoints = [];
-let probabilitySamples = [];
 
 const dummy = new THREE.Object3D();
 const tempQuaternion = new THREE.Quaternion();
 const inverseQuaternion = new THREE.Quaternion();
 const tempVector = new THREE.Vector3();
 const tempEuler = new THREE.Euler(0, 0, 0, 'XYZ');
+const worldProbe = new THREE.Vector3();
 
 function fract(value) {
   return value - Math.floor(value);
-}
-
-function buildGeometry(kind) {
-  switch (kind) {
-    case 'cube': return new THREE.BoxGeometry(2, 2, 2);
-    case 'pyramid': return new THREE.ConeGeometry(1.45, 2.4, 4, 1, false, Math.PI / 4);
-    case 'tetrahedron': return new THREE.TetrahedronGeometry(1.6, 0);
-    case 'octahedron': return new THREE.OctahedronGeometry(1.6, 0);
-    case 'icosahedron': return new THREE.IcosahedronGeometry(1.6, 0);
-    case 'sphere': return new THREE.SphereGeometry(1.5, 36, 24);
-    case 'cylinder': return new THREE.CylinderGeometry(1.25, 1.25, 2.15, 36, 1, false);
-    case 'cone': return new THREE.ConeGeometry(1.35, 2.5, 36, 1, false);
-    case 'torus': return new THREE.TorusGeometry(1.05, 0.42, 18, 56);
-    case 'triangle': return new THREE.CylinderGeometry(1.5, 1.5, 0.065, 3, 1, false, Math.PI / 2);
-    case 'circle': return new THREE.CylinderGeometry(1.45, 1.45, 0.065, 64, 1, false);
-    case 'rectangle': return new THREE.BoxGeometry(2.55, 0.065, 1.5);
-    default: return new THREE.BoxGeometry(2, 2, 2);
-  }
-}
-
-function normaliseGeometry(geometry) {
-  geometry.computeBoundingBox();
-  geometry.center();
-  geometry.computeBoundingSphere();
-  const radius = geometry.boundingSphere?.radius || 1;
-  geometry.scale(1 / radius, 1 / radius, 1 / radius);
-  geometry.computeBoundingBox();
-  geometry.computeBoundingSphere();
-  return geometry;
-}
-
-function extractOuterPoints(geometry) {
-  const position = geometry.getAttribute('position');
-  const unique = new Map();
-  let maxRadius = 0;
-
-  for (let i = 0; i < position.count; i += 1) {
-    maxRadius = Math.max(maxRadius, Math.hypot(position.getX(i), position.getY(i), position.getZ(i)));
-  }
-
-  const threshold = maxRadius * 0.995;
-  for (let i = 0; i < position.count; i += 1) {
-    const x = position.getX(i);
-    const y = position.getY(i);
-    const z = position.getZ(i);
-    if (Math.hypot(x, y, z) < threshold) continue;
-    const key = `${x.toFixed(4)},${y.toFixed(4)},${z.toFixed(4)}`;
-    if (!unique.has(key)) unique.set(key, new THREE.Vector3(x, y, z));
-  }
-
-  let points = Array.from(unique.values());
-  if (points.length > MAX_OUTER_POINTS) {
-    const sampled = [];
-    const step = points.length / MAX_OUTER_POINTS;
-    for (let i = 0; i < MAX_OUTER_POINTS; i += 1) sampled.push(points[Math.floor(i * step)]);
-    points = sampled;
-  }
-
-  return points.length ? points : [new THREE.Vector3(1, 0, 0)];
-}
-
-function pointInTriangle2D(x, z) {
-  const ax = 0, az = 1;
-  const bx = -0.8660254, bz = -0.5;
-  const cx = 0.8660254, cz = -0.5;
-  const v0x = cx - ax, v0z = cz - az;
-  const v1x = bx - ax, v1z = bz - az;
-  const v2x = x - ax, v2z = z - az;
-  const dot00 = v0x * v0x + v0z * v0z;
-  const dot01 = v0x * v1x + v0z * v1z;
-  const dot02 = v0x * v2x + v0z * v2z;
-  const dot11 = v1x * v1x + v1z * v1z;
-  const dot12 = v1x * v2x + v1z * v2z;
-  const inv = 1 / (dot00 * dot11 - dot01 * dot01);
-  const u = (dot11 * dot02 - dot01 * dot12) * inv;
-  const v = (dot00 * dot12 - dot01 * dot02) * inv;
-  return u >= 0 && v >= 0 && u + v <= 1;
-}
-
-function containsPoint(kind, p) {
-  switch (kind) {
-    case 'cube': {
-      const h = 1 / Math.sqrt(3);
-      return Math.max(Math.abs(p.x), Math.abs(p.y), Math.abs(p.z)) <= h;
-    }
-    case 'sphere': return p.lengthSq() <= 1;
-    case 'octahedron': return Math.abs(p.x) + Math.abs(p.y) + Math.abs(p.z) <= 1;
-    case 'tetrahedron':
-    case 'icosahedron':
-      return currentGeometry?.boundingBox?.containsPoint(p) && p.lengthSq() <= 1;
-    case 'cylinder': return Math.abs(p.y) <= 0.652 && Math.hypot(p.x, p.z) <= 0.757;
-    case 'cone': {
-      const halfHeight = 0.68;
-      const y = p.y + halfHeight;
-      if (y < 0 || y > 2 * halfHeight) return false;
-      const radius = 0.733 * (1 - y / (2 * halfHeight));
-      return Math.hypot(p.x, p.z) <= radius;
-    }
-    case 'pyramid': {
-      const halfHeight = 0.68;
-      const y = p.y + halfHeight;
-      if (y < 0 || y > 2 * halfHeight) return false;
-      const halfSide = 0.59 * (1 - y / (2 * halfHeight));
-      return Math.abs(p.x) <= halfSide && Math.abs(p.z) <= halfSide;
-    }
-    case 'torus': {
-      const q = Math.hypot(p.x, p.z) - 0.70;
-      return q * q + p.y * p.y <= 0.28 * 0.28;
-    }
-    case 'triangle': return Math.abs(p.y) <= 0.025 && pointInTriangle2D(p.x, p.z);
-    case 'circle': return Math.abs(p.y) <= 0.025 && Math.hypot(p.x, p.z) <= 0.999;
-    case 'rectangle': return Math.abs(p.x) <= 0.82 && Math.abs(p.z) <= 0.48 && Math.abs(p.y) <= 0.025;
-    default: return false;
-  }
 }
 
 function activeAxes() {
@@ -251,23 +126,20 @@ function maxRpm() {
 
 function persistenceIntensity() {
   if (activeAxes().length === 0) return 0;
-  return THREE.MathUtils.smoothstep(maxRpm(), 20, 300);
+  return THREE.MathUtils.smoothstep(maxRpm(), 0, 280);
 }
 
 function exposureWindow() {
-  return THREE.MathUtils.lerp(0.08, 0.82, persistenceIntensity());
+  return THREE.MathUtils.lerp(0.1, 0.82, persistenceIntensity());
 }
 
 function visualSampleCount() {
-  const intensity = persistenceIntensity();
-  if (intensity <= 0.001) return 0;
-  return THREE.MathUtils.clamp(Math.round(THREE.MathUtils.lerp(3, MAX_SUPERPOSITIONS, intensity)), 3, MAX_SUPERPOSITIONS);
-}
-
-function envelopeSampleCount() {
-  const intensity = persistenceIntensity();
-  if (intensity <= 0.001) return 0;
-  return THREE.MathUtils.clamp(Math.round(THREE.MathUtils.lerp(12, MAX_ENVELOPE_SAMPLES, intensity)), 12, MAX_ENVELOPE_SAMPLES);
+  if (activeAxes().length === 0) return 0;
+  return THREE.MathUtils.clamp(
+    Math.round(THREE.MathUtils.lerp(2, MAX_SUPERPOSITIONS, persistenceIntensity())),
+    2,
+    MAX_SUPERPOSITIONS
+  );
 }
 
 function orientationAtExposure(index, count, target) {
@@ -281,6 +153,10 @@ function orientationAtExposure(index, count, target) {
     'XYZ'
   );
   return target.setFromEuler(tempEuler);
+}
+
+function currentQuaternion(target = tempQuaternion) {
+  return target.setFromEuler(state.angles);
 }
 
 function disposeObject() {
@@ -301,8 +177,8 @@ function disposeObject() {
 function createObject(kind) {
   disposeObject();
   state.shape = kind;
-  currentGeometry = normaliseGeometry(buildGeometry(kind));
-  outerPoints = extractOuterPoints(currentGeometry);
+  currentGeometry = createShapeGeometry(kind);
+  outerPoints = getOuterPoints(kind, 20);
 
   objectGroup = new THREE.Group();
   solidMesh = new THREE.Mesh(
@@ -312,7 +188,7 @@ function createObject(kind) {
       roughness: 0.32,
       metalness: 0.1,
       transparent: true,
-      opacity: 0.88,
+      opacity: 0.9,
       side: THREE.DoubleSide,
       depthWrite: false
     })
@@ -322,9 +198,9 @@ function createObject(kind) {
   edgeLines = new THREE.LineSegments(
     new THREE.EdgesGeometry(currentGeometry, 22),
     new THREE.LineBasicMaterial({
-      color: 0xe9f8f8,
+      color: 0xf4ffff,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.92,
       depthWrite: false
     })
   );
@@ -348,83 +224,58 @@ function createObject(kind) {
   superpositionMesh.frustumCulled = false;
   scene.add(superpositionMesh);
 
-  ui.stageTitle.textContent = `Rotating ${shapeNames[kind].toLowerCase()}`;
+  ui.stageTitle.textContent = `Rotating ${SHAPE_NAMES[kind].toLowerCase()}`;
+  resetAccumulation();
+  updateTheoreticalMetrics();
   updateVisuals();
-  recalculateProbability();
 }
 
-function initEnvelope() {
-  const positions = new Float32Array(MAX_ENVELOPE_POINTS * 3);
-  envelopeGeometry = new THREE.BufferGeometry();
-  envelopePosition = new THREE.BufferAttribute(positions, 3);
-  envelopePosition.setUsage(THREE.DynamicDrawUsage);
-  envelopeGeometry.setAttribute('position', envelopePosition);
-  envelopeGeometry.setDrawRange(0, 0);
-  envelopePoints = new THREE.Points(
-    envelopeGeometry,
+function initTrail() {
+  const positions = new Float32Array(MAX_TRAIL_POINTS * 3);
+  trailGeometry = new THREE.BufferGeometry();
+  trailPosition = new THREE.BufferAttribute(positions, 3);
+  trailPosition.setUsage(THREE.DynamicDrawUsage);
+  trailGeometry.setAttribute('position', trailPosition);
+  trailGeometry.setDrawRange(0, 0);
+
+  trailPoints = new THREE.Points(
+    trailGeometry,
     new THREE.PointsMaterial({
-      color: 0xe9fbff,
-      size: 0.026,
+      color: 0xf1fdff,
+      size: 0.028,
       sizeAttenuation: true,
-      transparent: true,
-      opacity: 0.56,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    })
-  );
-  scene.add(envelopePoints);
-}
-
-function initProbabilityCloud() {
-  probabilitySamples = [];
-  const positions = new Float32Array(PROBABILITY_POINTS * 3);
-  const colors = new Float32Array(PROBABILITY_POINTS * 3);
-
-  for (let i = 0; i < PROBABILITY_POINTS; i += 1) {
-    let x, y, z;
-    do {
-      x = Math.random() * 2 - 1;
-      y = Math.random() * 2 - 1;
-      z = Math.random() * 2 - 1;
-    } while (x * x + y * y + z * z > 1);
-
-    probabilitySamples.push(new THREE.Vector3(x, y, z));
-    positions[i * 3] = x;
-    positions[i * 3 + 1] = y;
-    positions[i * 3 + 2] = z;
-    colors[i * 3] = 0.2;
-    colors[i * 3 + 1] = 0.8;
-    colors[i * 3 + 2] = 1;
-  }
-
-  probabilityGeometry = new THREE.BufferGeometry();
-  probabilityGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  probabilityColor = new THREE.BufferAttribute(colors, 3);
-  probabilityGeometry.setAttribute('color', probabilityColor);
-
-  probabilityCloud = new THREE.Points(
-    probabilityGeometry,
-    new THREE.PointsMaterial({
-      size: 0.038,
-      vertexColors: true,
       transparent: true,
       opacity: 0.72,
       depthWrite: false,
       blending: THREE.AdditiveBlending
     })
   );
-  probabilityCloud.visible = ui.showProbability.checked;
-  scene.add(probabilityCloud);
+  trailPoints.frustumCulled = false;
+  scene.add(trailPoints);
+}
+
+function initProbeShell() {
+  probeShell = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 40, 28),
+    new THREE.MeshBasicMaterial({
+      color: 0xf6c96b,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.32,
+      depthWrite: false
+    })
+  );
+  probeShell.visible = false;
+  scene.add(probeShell);
 }
 
 function updateSuperpositionMesh() {
   if (!superpositionMesh) return;
   const count = visualSampleCount();
   const intensity = persistenceIntensity();
-
-  superpositionMesh.visible = ui.showSuperposition.checked && count > 0;
+  superpositionMesh.visible = count > 0;
   superpositionMesh.count = count;
-  superpositionMesh.material.opacity = THREE.MathUtils.lerp(0.025, 0.055, intensity);
+  superpositionMesh.material.opacity = THREE.MathUtils.lerp(0.018, 0.052, intensity);
 
   for (let i = 0; i < count; i += 1) {
     orientationAtExposure(i, count, tempQuaternion);
@@ -437,35 +288,117 @@ function updateSuperpositionMesh() {
   superpositionMesh.instanceMatrix.needsUpdate = true;
 }
 
-function updateEnvelope() {
-  if (!envelopePoints || !envelopePosition) return;
-  const count = envelopeSampleCount();
-  if (!ui.showSuperposition.checked || count === 0) {
-    envelopeGeometry.setDrawRange(0, 0);
-    envelopePoints.visible = false;
-    return;
+function markCoverage(point) {
+  const r = point.length();
+  if (r < 1e-8) return;
+  const y = THREE.MathUtils.clamp(point.y / r, -1, 1);
+  const phi = Math.atan2(point.z, point.x);
+  const zIndex = Math.min(Z_BINS - 1, Math.floor(((y + 1) * 0.5) * Z_BINS));
+  const phiIndex = Math.min(PHI_BINS - 1, Math.floor(((phi + Math.PI) / TWO_PI) * PHI_BINS));
+  const index = zIndex * PHI_BINS + phiIndex;
+  if (!state.coverageBins[index]) {
+    state.coverageBins[index] = 1;
+    state.coverageCount += 1;
+  }
+}
+
+function appendTrailPoint(point) {
+  const offset = state.trailWrite * 3;
+  trailPosition.array[offset] = point.x;
+  trailPosition.array[offset + 1] = point.y;
+  trailPosition.array[offset + 2] = point.z;
+  state.trailWrite += 1;
+  if (state.trailWrite >= MAX_TRAIL_POINTS) {
+    state.trailWrite = 0;
+    state.trailFilled = true;
+  }
+}
+
+function sampleCurrentOrientation(now, force = false) {
+  const axes = activeAxes();
+  if (!force && axes.length === 0) return;
+
+  const rpm = maxRpm();
+  const interval = rpm <= 8 ? 120 : rpm <= 60 ? 75 : 40;
+  if (!force && now - state.lastTrailSample < interval) return;
+  state.lastTrailSample = now;
+
+  const quaternion = currentQuaternion(new THREE.Quaternion());
+  state.history.push(quaternion);
+  if (state.history.length > MAX_HISTORY) state.history.shift();
+
+  for (const source of outerPoints) {
+    tempVector.copy(source).applyQuaternion(quaternion);
+    appendTrailPoint(tempVector);
+    markCoverage(tempVector);
   }
 
-  envelopePoints.visible = true;
-  const array = envelopePosition.array;
-  let write = 0;
+  trailPosition.needsUpdate = true;
+  trailGeometry.setDrawRange(0, state.trailFilled ? MAX_TRAIL_POINTS : state.trailWrite);
+  ui.coverage.textContent = `${Math.round(state.coverageCount / COVERAGE_BIN_COUNT * 100)}%`;
 
-  for (let i = 0; i < count && write < MAX_ENVELOPE_POINTS; i += 1) {
-    orientationAtExposure(i, count, tempQuaternion);
-    for (const source of outerPoints) {
-      if (write >= MAX_ENVELOPE_POINTS) break;
-      tempVector.copy(source).applyQuaternion(tempQuaternion);
-      const offset = write * 3;
-      array[offset] = tempVector.x;
-      array[offset + 1] = tempVector.y;
-      array[offset + 2] = tempVector.z;
-      write += 1;
+  if (force || now - state.lastObservedDispatch > 260) {
+    state.lastObservedDispatch = now;
+    dispatchObservedProfile();
+  }
+}
+
+function dispatchObservedProfile() {
+  const radii = [];
+  const occupancy = [];
+  const history = state.history;
+
+  for (let i = 0; i < OBSERVED_RADII; i += 1) {
+    const r = i / (OBSERVED_RADII - 1);
+    let hits = 0;
+    for (const quaternion of history) {
+      inverseQuaternion.copy(quaternion).invert();
+      worldProbe.set(r, 0, 0).applyQuaternion(inverseQuaternion);
+      if (containsShapePoint(state.shape, worldProbe)) hits += 1;
     }
+    radii.push(r);
+    occupancy.push(history.length ? hits / history.length : (containsShapePoint(state.shape, worldProbe.set(r, 0, 0)) ? 1 : 0));
   }
 
-  envelopePosition.needsUpdate = true;
-  envelopeGeometry.setDrawRange(0, write);
-  envelopePoints.material.opacity = THREE.MathUtils.lerp(0.28, 0.68, persistenceIntensity());
+  window.dispatchEvent(new CustomEvent('sphere-observed-profile', {
+    detail: {
+      shape: state.shape,
+      radii,
+      occupancy,
+      sampleCount: history.length,
+      coverage: state.coverageCount / COVERAGE_BIN_COUNT
+    }
+  }));
+}
+
+function resetAccumulation() {
+  state.history = [];
+  state.coverageBins = new Uint8Array(COVERAGE_BIN_COUNT);
+  state.coverageCount = 0;
+  state.trailWrite = 0;
+  state.trailFilled = false;
+  state.lastTrailSample = 0;
+  state.lastObservedDispatch = 0;
+  if (trailGeometry) trailGeometry.setDrawRange(0, 0);
+  if (ui.coverage) ui.coverage.textContent = '0%';
+  sampleCurrentOrientation(performance.now(), true);
+}
+
+function updateTheoreticalMetrics() {
+  const level = Number(ui.probabilityResolution?.value || 3);
+  const profile = getClassicalRadialProfile(state.shape, level);
+  const core = profile.occupancy[0] ?? 0;
+  let outerTotal = 0;
+  let outerCount = 0;
+  profile.radii.forEach((r, index) => {
+    if (r >= 0.78 && r <= 0.95) {
+      outerTotal += profile.occupancy[index];
+      outerCount += 1;
+    }
+  });
+  ui.coreProbability.textContent = core.toFixed(2);
+  ui.outerProbability.textContent = (outerCount ? outerTotal / outerCount : 0).toFixed(2);
+  updateInterpretation();
 }
 
 function updateVisuals() {
@@ -473,15 +406,15 @@ function updateVisuals() {
   objectGroup.rotation.copy(state.angles);
 
   const intensity = persistenceIntensity();
-  solidMesh.material.opacity = THREE.MathUtils.lerp(0.88, 0.24, intensity);
-  edgeLines.visible = ui.showEdges.checked;
-  edgeLines.material.opacity = ui.showEdges.checked ? THREE.MathUtils.lerp(0.9, 0.16, intensity) : 0;
+  // The source object is causal evidence. It never fades away completely.
+  solidMesh.material.opacity = THREE.MathUtils.lerp(0.92, 0.42, intensity);
+  edgeLines.material.opacity = THREE.MathUtils.lerp(0.96, 0.32, intensity);
+  edgeLines.visible = true;
+  trailPoints.visible = true;
 
   updateSuperpositionMesh();
-  updateEnvelope();
-  referenceSphere.visible = ui.showSphere.checked;
-  axesHelper.visible = ui.showAxes.checked;
-  probabilityCloud.visible = ui.showProbability.checked;
+  referenceSphere.visible = Boolean(ui.showSphere?.checked);
+  axesHelper.visible = ui.showAxes ? ui.showAxes.checked : true;
 
   ui.integratedForm.textContent = classifyIntegratedForm();
   ui.stageRegime.textContent = regimeLabel();
@@ -491,6 +424,7 @@ function classifyIntegratedForm() {
   const axes = activeAxes().length;
   const rpm = maxRpm();
   if (axes === 0) return 'single object';
+  if (rpm <= 8 && axes === 3) return 'slow accumulation';
   if (axes === 1) return rpm < 100 ? 'rotating form' : 'surface of revolution';
   if (axes === 2) return rpm < 120 ? 'woven form' : 'rounded superposition';
   if (rpm < 90) return 'multi-axis form';
@@ -501,188 +435,38 @@ function classifyIntegratedForm() {
 function regimeLabel() {
   const axes = activeAxes().length;
   if (axes === 0) return 'instantaneous geometry';
+  if (maxRpm() <= 8 && axes === 3) return 'watching observations accumulate';
   if (axes === 1) return 'one-axis exposure';
   if (axes === 2) return 'two-axis exposure';
   return 'three-axis sphere formation';
 }
 
-function analysisOrientationCount() {
-  const level = Number(ui.probabilityResolution.value);
-  return [24, 40, 64, 96, MAX_ANALYSIS_ORIENTATIONS][level - 1] || 64;
-}
-
-function updateProbabilityResolutionLabel() {
-  const labels = ['quick', 'low', 'medium', 'high', 'maximum'];
-  ui.probabilityResolutionOut.textContent = labels[Number(ui.probabilityResolution.value) - 1] || 'medium';
-}
-
-function recalculateProbability() {
-  if (!currentGeometry || !probabilityCloud) return;
-
-  const axes = activeAxes();
-  const count = analysisOrientationCount();
-  const hits = new Uint16Array(PROBABILITY_POINTS);
-  const bins = 24;
-  const radialSum = new Array(bins).fill(0);
-  const radialCount = new Array(bins).fill(0);
-  const shellSum = new Array(bins).fill(0);
-  const visited = new Uint8Array(COVERAGE_BIN_COUNT);
-  let visitedCount = 0;
-
-  for (let j = 0; j < count; j += 1) {
-    orientationAtExposure(j, count, tempQuaternion);
-    inverseQuaternion.copy(tempQuaternion).invert();
-
-    for (let i = 0; i < PROBABILITY_POINTS; i += 1) {
-      tempVector.copy(probabilitySamples[i]).applyQuaternion(inverseQuaternion);
-      if (containsPoint(state.shape, tempVector)) hits[i] += 1;
-    }
-
-    for (const point of outerPoints) {
-      tempVector.copy(point).applyQuaternion(tempQuaternion);
-      const r = tempVector.length();
-      if (r < 1e-8) continue;
-      const y = THREE.MathUtils.clamp(tempVector.y / r, -1, 1);
-      const phi = Math.atan2(tempVector.z, tempVector.x);
-      const zIndex = Math.min(Z_BINS - 1, Math.floor(((y + 1) * 0.5) * Z_BINS));
-      const phiIndex = Math.min(PHI_BINS - 1, Math.floor(((phi + Math.PI) / TWO_PI) * PHI_BINS));
-      const index = zIndex * PHI_BINS + phiIndex;
-      if (!visited[index]) {
-        visited[index] = 1;
-        visitedCount += 1;
-      }
-    }
-  }
-
-  let coreTotal = 0;
-  let coreCount = 0;
-  let outerTotal = 0;
-  let outerCount = 0;
-
-  for (let i = 0; i < PROBABILITY_POINTS; i += 1) {
-    const probability = axes.length === 0
-      ? (containsPoint(state.shape, probabilitySamples[i]) ? 1 : 0)
-      : hits[i] / count;
-
-    const r = probabilitySamples[i].length();
-    const bin = Math.min(bins - 1, Math.floor(r * bins));
-    radialSum[bin] += probability;
-    radialCount[bin] += 1;
-    shellSum[bin] += probability;
-
-    if (r <= 0.2) {
-      coreTotal += probability;
-      coreCount += 1;
-    }
-    if (r >= 0.78 && r <= 0.95) {
-      outerTotal += probability;
-      outerCount += 1;
-    }
-
-    const offset = i * 3;
-    const brightness = Math.pow(probability, 0.65);
-    probabilityColor.array[offset] = 0.16 + 0.18 * brightness;
-    probabilityColor.array[offset + 1] = 0.28 + 0.72 * brightness;
-    probabilityColor.array[offset + 2] = 0.36 + 0.64 * brightness;
-  }
-
-  probabilityColor.needsUpdate = true;
-
-  state.localProfile = radialSum.map((sum, index) => radialCount[index] ? sum / radialCount[index] : 0);
-  const maxShell = Math.max(...shellSum, 1e-9);
-  state.shellProfile = shellSum.map(value => value / maxShell);
-  state.coverage = visitedCount / COVERAGE_BIN_COUNT;
-
-  ui.coreProbability.textContent = (coreCount ? coreTotal / coreCount : 0).toFixed(2);
-  ui.outerProbability.textContent = (outerCount ? outerTotal / outerCount : 0).toFixed(2);
-  ui.coverage.textContent = `${Math.round(state.coverage * 100)}%`;
-
-  drawRadialPlot();
-  updateInterpretation();
-}
-
-function drawRadialPlot() {
-  const ctx = ui.radialPlot.getContext('2d');
-  const width = ui.radialPlot.width;
-  const height = ui.radialPlot.height;
-  const left = 44;
-  const right = 18;
-  const top = 24;
-  const bottom = 34;
-
-  ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = '#07131d';
-  ctx.fillRect(0, 0, width, height);
-  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-  ctx.lineWidth = 1;
-
-  for (let i = 0; i <= 4; i += 1) {
-    const y = top + (height - top - bottom) * i / 4;
-    ctx.beginPath();
-    ctx.moveTo(left, y);
-    ctx.lineTo(width - right, y);
-    ctx.stroke();
-  }
-
-  function drawSeries(data, strokeStyle) {
-    ctx.beginPath();
-    data.forEach((value, index) => {
-      const x = left + (width - left - right) * index / Math.max(1, data.length - 1);
-      const y = top + (1 - value) * (height - top - bottom);
-      if (index === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.strokeStyle = strokeStyle;
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-  }
-
-  drawSeries(state.localProfile, '#66e4ff');
-  drawSeries(state.shellProfile, '#a391ff');
-
-  ctx.fillStyle = 'rgba(225,242,250,0.82)';
-  ctx.font = '12px system-ui, sans-serif';
-  ctx.fillText('1', 24, top + 4);
-  ctx.fillText('0', 24, height - bottom + 4);
-  ctx.fillText('0', left - 3, height - 12);
-  ctx.fillText('r / rmax', width - 58, height - 12);
-  ctx.fillStyle = '#66e4ff';
-  ctx.fillRect(left, 9, 18, 3);
-  ctx.fillStyle = '#dceef7';
-  ctx.fillText('local occupancy p(r)', left + 24, 15);
-  ctx.fillStyle = '#a391ff';
-  ctx.fillRect(left + 180, 9, 18, 3);
-  ctx.fillStyle = '#dceef7';
-  ctx.fillText('relative shell mass', left + 204, 15);
-}
-
 function updateInterpretation() {
   const axes = activeAxes().length;
   const core = Number(ui.coreProbability.textContent || 0);
-  const outer = Number(ui.outerProbability.textContent || 0);
-  const rpm = maxRpm();
+  const coverage = Math.round(state.coverageCount / COVERAGE_BIN_COUNT * 100);
 
   if (state.shape === 'torus') {
-    ui.interpretation.textContent = 'The torus is an important counter-example: the rotational envelope can be spherical while the centre remains low-probability. The probability field therefore adds information beyond the outer sphere.';
+    ui.interpretation.textContent = `The torus keeps its central hole under rigid rotation: p(0)=${core.toFixed(2)}. Its outer envelope can become spherical while its radial occupancy remains hollow. Current observed directional coverage: ${coverage}%.`;
     return;
   }
   if (axes === 0) {
-    ui.interpretation.textContent = 'No rotational averaging yet. You are seeing the instantaneous object.';
+    ui.interpretation.textContent = 'Still mode shows the source object before rotational averaging. The generated points are the observations accumulated so far.';
+    return;
+  }
+  if (maxRpm() <= 8) {
+    ui.interpretation.textContent = `Slow mode: watch the source object deposit its outer points. The dashed observed probability learns from these visited orientations. Coverage is currently ${coverage}%.`;
     return;
   }
   if (axes === 1) {
-    ui.interpretation.textContent = 'One active axis builds a surface of revolution, not a full sphere. Increase RPM to strengthen the exposure, then add more axes.';
+    ui.interpretation.textContent = `One active axis produces a surface of revolution, not full spherical sampling. Current directional coverage: ${coverage}%.`;
     return;
   }
   if (axes === 2) {
-    ui.interpretation.textContent = 'Two active axes produce a much rounder integrated form, but the exposure still does not sample full three-dimensional orientation.';
+    ui.interpretation.textContent = `Two axes broaden the sampled orientation set, but full rotational symmetry is not yet represented. Current directional coverage: ${coverage}%.`;
     return;
   }
-  if (rpm >= 220) {
-    ui.interpretation.textContent = `The visible object has become a sphere-like time-integrated form. Under the same exposure, the core occupancy is ${core.toFixed(2)} and the outer occupancy is ${outer.toFixed(2)}: the sphere therefore carries a radial probability structure rather than uniform presence.`;
-    return;
-  }
-  ui.interpretation.textContent = 'Three axes are active. Raise RPM and the visible superposition will progressively close into a sphere-like form.';
+  ui.interpretation.textContent = `Three-axis rotation is building the spherical envelope. The source object remains visible while its accumulated points fill direction space. Current coverage: ${coverage}%.`;
 }
 
 function updateSpeedOutputs() {
@@ -693,6 +477,12 @@ function updateSpeedOutputs() {
     ui[`hud${axis}`].textContent = enabled ? `${value} rpm` : 'off';
     ui[`speed${axis}`].disabled = !enabled;
   }
+}
+
+function updateProbabilityResolutionLabel() {
+  if (!ui.probabilityResolutionOut || !ui.probabilityResolution) return;
+  const labels = ['quick', 'low', 'medium', 'high', 'maximum'];
+  ui.probabilityResolutionOut.textContent = labels[Number(ui.probabilityResolution.value) - 1] || 'medium';
 }
 
 function applyPreset(name) {
@@ -708,8 +498,9 @@ function applyPreset(name) {
     button.classList.toggle('active', button.dataset.preset === name);
   });
   updateSpeedOutputs();
+  resetAccumulation();
   updateVisuals();
-  recalculateProbability();
+  updateTheoreticalMetrics();
 }
 
 function setPaused(value) {
@@ -721,8 +512,8 @@ function setPaused(value) {
 
 function resetOrientation() {
   state.angles.set(0, 0, 0, 'XYZ');
+  resetAccumulation();
   updateVisuals();
-  recalculateProbability();
 }
 
 function resetCamera() {
@@ -748,14 +539,16 @@ function bindEvents() {
     ui[`axis${axis}`].addEventListener('change', () => {
       document.querySelectorAll('[data-preset]').forEach(button => button.classList.remove('active'));
       updateSpeedOutputs();
+      resetAccumulation();
       updateVisuals();
-      recalculateProbability();
+      updateInterpretation();
     });
     ui[`speed${axis}`].addEventListener('input', () => {
       document.querySelectorAll('[data-preset]').forEach(button => button.classList.remove('active'));
       updateSpeedOutputs();
+      resetAccumulation();
       updateVisuals();
-      recalculateProbability();
+      updateInterpretation();
     });
   }
 
@@ -766,15 +559,18 @@ function bindEvents() {
   ui.pause.addEventListener('click', () => setPaused(!state.paused));
   ui.resetOrientation.addEventListener('click', resetOrientation);
   ui.resetCamera.addEventListener('click', resetCamera);
-
-  ui.showSuperposition.addEventListener('change', updateVisuals);
-  ui.showProbability.addEventListener('change', updateVisuals);
-  ui.showSphere.addEventListener('change', updateVisuals);
-  ui.showAxes.addEventListener('change', updateVisuals);
-  ui.showEdges.addEventListener('change', updateVisuals);
-  ui.probabilityResolution.addEventListener('input', () => {
+  ui.showSphere?.addEventListener('change', updateVisuals);
+  ui.showAxes?.addEventListener('change', updateVisuals);
+  ui.probabilityResolution?.addEventListener('input', () => {
     updateProbabilityResolutionLabel();
-    recalculateProbability();
+    updateTheoreticalMetrics();
+  });
+
+  window.addEventListener('sphere-radius-probe', event => {
+    const radius = Number(event.detail?.radius);
+    if (!Number.isFinite(radius)) return;
+    probeShell.scale.setScalar(Math.max(radius, 0.001));
+    probeShell.visible = radius > 0.003;
   });
 
   window.addEventListener('resize', resizeRenderer, { passive: true });
@@ -791,6 +587,7 @@ function animate(now) {
     state.angles.y = (state.angles.y + angularVelocity('y') * dt) % TWO_PI;
     state.angles.z = (state.angles.z + angularVelocity('z') * dt) % TWO_PI;
     updateVisuals();
+    sampleCurrentOrientation(now);
   }
 
   controls.update();
@@ -839,10 +636,11 @@ function start() {
     new THREE.SphereGeometry(1, 36, 24),
     new THREE.MeshBasicMaterial({ color: 0x67e8f9, wireframe: true, transparent: true, opacity: 0.09, depthWrite: false })
   );
+  referenceSphere.visible = Boolean(ui.showSphere?.checked);
   scene.add(referenceSphere);
 
-  initEnvelope();
-  initProbabilityCloud();
+  initTrail();
+  initProbeShell();
   createObject(state.shape);
   bindEvents();
   updateProbabilityResolutionLabel();
