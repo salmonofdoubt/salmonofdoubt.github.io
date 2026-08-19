@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../../assets/css/site.css">
   <link rel="stylesheet" href="styles.css?v=20260818-8">
   <link rel="stylesheet" href="ux.css?v=20260818-1">
+  <link rel="stylesheet" href="stage-controls.css?v=20260819-2">
   <link rel="stylesheet" href="/demos/shared/demo-return.css">
   <script defer src="/demos/shared/demo-return.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css">
@@ -35,10 +36,10 @@
       <div class="hero-copy panel">
         <span class="eyebrow">Spherism probability laboratory</span>
         <h1>Sphere Machine</h1>
-        <p class="lead">Start with a familiar object. Rotate it through more orientations until the visible form becomes sphere-like. Then inspect the probability field that the superposition creates and compare that structure with quantum probability.</p>
+        <p class="lead">Start with a familiar object. Rotate it through more orientations until the visible form becomes sphere-like. Watch the generated points accumulate, compare what has actually been observed with the full rotational limit, then connect that probability structure with quantum mechanics.</p>
         <div class="truth-strip">
-          <span>form → sphere</span>
-          <span>sphere → probability</span>
+          <span>object → observations</span>
+          <span>observations → spherical limit</span>
           <span>probability → quantum comparison</span>
         </div>
       </div>
@@ -46,10 +47,10 @@
       <aside class="panel premise-card compact-premise">
         <span class="eyebrow">Use it in this order</span>
         <ol class="journey-list">
-          <li><strong>Choose an object</strong><span>Cube is the clearest starting point.</span></li>
-          <li><strong>Change the rotation</strong><span>Compare one axis, two axes, then SPHERISE.</span></li>
-          <li><strong>Read the probability</strong><span>The graph sits directly below the simulation.</span></li>
-          <li><strong>Compare with QM</strong><span>1s, 2s and 2p show what spherical probability does—and does not—mean.</span></li>
+          <li><strong>Choose an object</strong><span>Cube is the clearest starting point; torus is the crucial counter-example.</span></li>
+          <li><strong>Try Slow · 5 rpm</strong><span>Watch the source object generate its observation points.</span></li>
+          <li><strong>SPHERISE</strong><span>Increase orientation coverage until the outer envelope becomes sphere-like.</span></li>
+          <li><strong>Drag the probability graph</strong><span>Inspect the corresponding spherical shell in the 3D scene.</span></li>
         </ol>
       </aside>
     </section>
@@ -78,10 +79,10 @@
               <option value="cone">Cone</option>
               <option value="torus">Torus</option>
             </optgroup>
-            <optgroup label="Thin forms">
-              <option value="triangle">Thin triangle</option>
-              <option value="circle">Thin circle</option>
-              <option value="rectangle">Thin rectangle</option>
+            <optgroup label="Thin plates">
+              <option value="triangle">Thin triangle plate</option>
+              <option value="circle">Thin circular plate</option>
+              <option value="rectangle">Thin rectangular plate</option>
             </optgroup>
           </select>
         </div>
@@ -90,6 +91,7 @@
           <span class="control-label">Rotation experiment</span>
           <div class="preset-grid preset-grid-primary">
             <button type="button" class="chip" data-preset="stop">Still</button>
+            <button type="button" class="chip slow-chip" data-preset="slow">Slow · 5 rpm</button>
             <button type="button" class="chip" data-preset="x">X only</button>
             <button type="button" class="chip" data-preset="xy">XY weave</button>
             <button type="button" class="chip active spherise-chip" data-preset="xyz">SPHERISE</button>
@@ -107,86 +109,92 @@
             <div class="run-state"><i id="runDot"></i><span id="runState">running</span></div>
           </div>
 
-          <div id="stage" class="stage" role="img" aria-label="Rotational superposition and occupancy probability experiment">
-            <canvas id="sceneCanvas"></canvas>
-            <div class="stage-hud stage-hud-left">
-              <span><b>X</b> <output id="hudX">180 rpm</output></span>
-              <span><b>Y</b> <output id="hudY">254 rpm</output></span>
-              <span><b>Z</b> <output id="hudZ">325 rpm</output></span>
+          <div class="stage-workbench">
+            <div id="stage" class="stage" role="img" aria-label="Rotational superposition and accumulated observation points">
+              <canvas id="sceneCanvas"></canvas>
+              <div class="stage-hud stage-hud-left">
+                <span><b>X</b> <output id="hudX">180 rpm</output></span>
+                <span><b>Y</b> <output id="hudY">254 rpm</output></span>
+                <span><b>Z</b> <output id="hudZ">325 rpm</output></span>
+              </div>
+              <div class="stage-hud stage-hud-right">drag · orbit<br>pinch/scroll · zoom</div>
+              <div class="source-point-key">
+                <span><i class="source-swatch"></i>source object</span>
+                <span><i class="point-swatch"></i>generated observation points</span>
+                <span><i class="probe-swatch"></i>selected radial shell</span>
+              </div>
             </div>
-            <div class="stage-hud stage-hud-right">drag · orbit<br>pinch/scroll · zoom</div>
+
+            <fieldset class="axis-controls axis-controls-near-stage"><legend>Axis speeds</legend>
+              <div class="axis-row axis-x">
+                <label class="axis-toggle"><input id="axisX" type="checkbox" checked><span>X axis</span></label>
+                <div class="range-wrap"><input id="speedX" type="range" min="0" max="360" step="1" value="180"><output id="speedXOut">180 rpm</output></div>
+              </div>
+              <div class="axis-row axis-y">
+                <label class="axis-toggle"><input id="axisY" type="checkbox" checked><span>Y axis</span></label>
+                <div class="range-wrap"><input id="speedY" type="range" min="0" max="360" step="1" value="254"><output id="speedYOut">254 rpm</output></div>
+              </div>
+              <div class="axis-row axis-z">
+                <label class="axis-toggle"><input id="axisZ" type="checkbox" checked><span>Z axis</span></label>
+                <div class="range-wrap"><input id="speedZ" type="range" min="0" max="360" step="1" value="325"><output id="speedZOut">325 rpm</output></div>
+              </div>
+            </fieldset>
           </div>
 
           <div class="metric-grid metric-grid-v2">
-            <div class="metric-card"><span>Integrated form</span><strong id="integratedForm">sphere-like</strong><small>what the superposition looks like</small></div>
-            <div class="metric-card"><span>Core occupancy</span><strong id="coreProbability">0.00</strong><small>mean p(x) near centre</small></div>
-            <div class="metric-card"><span>Outer occupancy</span><strong id="outerProbability">0.00</strong><small>mean p(x) near edge</small></div>
-            <div class="metric-card"><span>Directional coverage</span><strong id="coverageValue">0%</strong><small>outer directions sampled</small></div>
+            <div class="metric-card"><span>Integrated form</span><strong id="integratedForm">sphere-like</strong><small>current visible superposition</small></div>
+            <div class="metric-card"><span>Centre occupancy limit</span><strong id="coreProbability">1.00</strong><small>full rotational p(0)</small></div>
+            <div class="metric-card"><span>Outer occupancy limit</span><strong id="outerProbability">0.00</strong><small>mean full p(r), 0.78–0.95</small></div>
+            <div class="metric-card"><span>Observed coverage</span><strong id="coverageValue">0%</strong><small>directions actually visited</small></div>
           </div>
 
           <div class="analysis-dock">
             <div class="analysis-copy">
               <span class="eyebrow">2 · Read the probability</span>
-              <h3>What is inside the sphere?</h3>
-              <p>The cyan curve is the probability that a point at radius <em>r</em> is occupied by the object across the sampled orientations. The violet curve adds the increasing volume of spherical shells.</p>
+              <h3>Observed versus rotational limit</h3>
+              <p>The dashed observed curve learns from orientations actually visited; the smooth limit is what complete rotational averaging predicts.</p>
+              <p id="classicalSummary" class="classical-summary"></p>
+              <div id="probeReadout" class="probe-readout">Drag the graph to inspect a spherical shell.</div>
               <div id="interpretation" class="interpretation" aria-live="polite">Three-axis averaging is active.</div>
             </div>
             <div class="analysis-chart">
               <div class="chart-heading">
                 <strong>Classical radial probability</strong>
-                <span>cyan p(r) · violet shell mass</span>
+                <span>observed → full rotational limit</span>
               </div>
-              <canvas id="radialPlot" width="620" height="280"></canvas>
+              <canvas id="radialPlot" width="620" height="300" aria-label="Classical occupancy probability by radius"></canvas>
             </div>
           </div>
         </section>
 
-        <aside class="panel controls-panel controls-panel-v2" aria-label="Fine tune experiment">
+        <aside class="panel controls-panel controls-panel-v2" aria-label="Secondary experiment controls">
           <div class="sidebar-heading">
-            <span class="eyebrow">Fine tune</span>
-            <h3>Rotation details</h3>
-            <p>Use these only when you want to move beyond the four main experiments.</p>
+            <span class="eyebrow">Secondary controls</span>
+            <h3>View & reset</h3>
+            <p>The experiment controls stay with the object. These settings are optional.</p>
           </div>
-
-          <fieldset class="axis-controls"><legend>Axis speeds</legend>
-            <div class="axis-row axis-x">
-              <label class="axis-toggle"><input id="axisX" type="checkbox" checked><span>X axis</span></label>
-              <div class="range-wrap"><input id="speedX" type="range" min="0" max="360" step="1" value="180"><output id="speedXOut">180 rpm</output></div>
-            </div>
-            <div class="axis-row axis-y">
-              <label class="axis-toggle"><input id="axisY" type="checkbox" checked><span>Y axis</span></label>
-              <div class="range-wrap"><input id="speedY" type="range" min="0" max="360" step="1" value="254"><output id="speedYOut">254 rpm</output></div>
-            </div>
-            <div class="axis-row axis-z">
-              <label class="axis-toggle"><input id="axisZ" type="checkbox" checked><span>Z axis</span></label>
-              <div class="range-wrap"><input id="speedZ" type="range" min="0" max="360" step="1" value="325"><output id="speedZOut">325 rpm</output></div>
-            </div>
-          </fieldset>
 
           <div class="button-grid utility-grid">
             <button id="pauseButton" class="button primary" type="button">Pause</button>
-            <button id="resetOrientationButton" class="button" type="button">Reset object</button>
+            <button id="resetOrientationButton" class="button" type="button">Reset object & observations</button>
             <button id="cameraButton" class="button" type="button">Reset camera</button>
           </div>
 
           <details class="advanced-controls">
-            <summary>Visual analysis options</summary>
+            <summary>Display extras</summary>
             <div class="check-list">
-              <label><input id="showSuperposition" type="checkbox" checked> Sphere-forming superposition</label>
-              <label><input id="showProbability" type="checkbox"> 3D probability cloud</label>
-              <label><input id="showSphere" type="checkbox"> Reference sphere</label>
+              <label><input id="showSphere" type="checkbox"> Reference outer sphere</label>
               <label><input id="showAxes" type="checkbox" checked> X/Y/Z axes</label>
-              <label><input id="showEdges" type="checkbox" checked> Current-object edges</label>
             </div>
             <div class="slider-block">
-              <label for="probabilityResolution">Probability sampling <output id="probabilityResolutionOut">medium</output></label>
+              <label for="probabilityResolution">Limit calculation <output id="probabilityResolutionOut">medium</output></label>
               <input id="probabilityResolution" type="range" min="1" max="5" step="1" value="3">
             </div>
           </details>
 
           <div class="sidebar-note">
-            <strong>Best first experiment</strong>
-            <p>Leave <strong>Cube</strong> selected. Press <strong>X only</strong>, then <strong>XY weave</strong>, then <strong>SPHERISE</strong>. The visual progression is the argument.</p>
+            <strong>What never disappears</strong>
+            <p>The source object and the points it has generated are always shown. They are the causal evidence for the sphere-like envelope.</p>
           </div>
         </aside>
       </div>
@@ -196,7 +204,7 @@
       <div class="section-heading quantum-heading">
         <span class="eyebrow">3 · Compare with quantum probability</span>
         <h2>Same language of probability. Different physics.</h2>
-        <p>Keep the classical result above in mind. Now change the hydrogen state and watch what spherical symmetry, nodes and directional structure look like in quantum mechanics.</p>
+        <p>The selected classical object is carried into the quantum radial graph, so changing Cube → Torus remains visible while you compare it with different hydrogen states.</p>
       </div>
 
       <div class="quantum-commandbar panel">
@@ -221,7 +229,7 @@
       <div class="quantum-workbench">
         <article class="panel quantum-card">
           <div class="chart-heading">
-            <div><span class="eyebrow">Spatial view</span><strong>Where is the probability?</strong></div>
+            <div><span class="eyebrow">Spatial view</span><strong>Where is the quantum probability?</strong></div>
             <span>2D slice through |ψ|²</span>
           </div>
           <canvas id="quantumDensityCanvas" width="560" height="380"></canvas>
@@ -230,8 +238,8 @@
 
         <article class="panel quantum-card">
           <div class="chart-heading">
-            <div><span class="eyebrow">Radial view</span><strong>How does probability change with radius?</strong></div>
-            <span>normalised shape comparison</span>
+            <div><span class="eyebrow">Radial comparison</span><strong>Classical shape versus quantum state</strong></div>
+            <span>different physical radius scales · curves normalised for shape</span>
           </div>
           <canvas id="quantumRadialCanvas" width="560" height="380"></canvas>
           <div class="compare-formulas">
@@ -261,6 +269,7 @@
           <div class="formula">P<sub>S</sub>(x) = ∫<sub>SO(3)</sub> 1<sub>B</sub>(R<sup>−1</sup>x) dμ(R)</div>
           <p>Because the rotation measure is invariant, P<sub>S</sub>(Qx) = P<sub>S</sub>(x) for every rotation Q. A fully averaged field can therefore depend only on radius:</p>
           <div class="formula">P<sub>S</sub>(x) = p(r), &nbsp; r = ‖x‖</div>
+          <p>The sphere-like outer envelope and the radial probability field are related but not identical. A torus can have a spherical outer envelope while retaining p(0)=0.</p>
         </article>
 
         <article class="panel caution-panel">
@@ -306,7 +315,7 @@
     </section>
   </main>
 
-  <script type="module" src="app.js?v=20260818-7"></script>
-  <script type="module" src="quantum.js?v=20260818-1"></script>
+  <script type="module" src="app.js?v=20260819-1"></script>
+  <script type="module" src="quantum.js?v=20260819-2"></script>
 </body>
 </html>
