@@ -25,7 +25,7 @@ const quantumStates = {
       return r * r * Math.exp(-2 * r);
     },
     explanation:
-      'The 1s probability density depends only on radius. Every direction is equivalent. This is the cleanest quantum comparison with the radially symmetric field produced by complete rotational averaging.'
+      'The 1s local probability density |ψ|² is maximal at the centre. The radial-shell probability nevertheless starts at zero because a spherical shell at r = 0 has zero volume. These are different quantities.'
   },
   '2s': {
     name: 'Hydrogen 2s',
@@ -45,7 +45,7 @@ const quantumStates = {
       return r * r * amplitude * amplitude * Math.exp(-r);
     },
     explanation:
-      'The 2s state is still perfectly spherical, but it contains a spherical nodal surface at r = 2a₀. Spherical symmetry therefore does not mean a uniform or featureless probability distribution.'
+      'The 2s state is still perfectly spherical, but it contains a spherical nodal surface at r = 2a₀. As with 1s, local density and radial-shell probability are different quantities.'
   },
   '2pz': {
     name: 'Hydrogen 2p_z',
@@ -62,7 +62,7 @@ const quantumStates = {
       return r ** 4 * Math.exp(-r);
     },
     explanation:
-      'A single 2p_z state has a preferred axis and a nodal plane. This is the counter-example that prevents “quantum probability is always spherical” from becoming the claim. Directional quantum structure is real.'
+      'A single 2p_z state has a preferred axis and a nodal plane. Its local density is zero at the origin because the 2p wavefunction itself vanishes there; that is different from the 1s case.'
   },
   '2pavg': {
     name: 'Hydrogen 2p shell average',
@@ -79,7 +79,7 @@ const quantumStates = {
       return r ** 4 * Math.exp(-r);
     },
     explanation:
-      'This is an equal incoherent mixture of m = −1, 0, +1 for l = 1. The spherical-harmonic addition theorem makes the summed angular density independent of direction. Individual 2p states are directional; the complete m-mixture is isotropic.'
+      'This is an equal incoherent mixture of m = −1, 0, +1 for l = 1. The spherical-harmonic addition theorem makes the summed angular density independent of direction. The density is isotropic, but it still vanishes at the origin because all 2p states do.'
   }
 };
 
@@ -134,7 +134,7 @@ function drawDensity(state) {
   ctx.fillText('z', width / 2 + 8, 16);
   ctx.fillText('x', width - 18, height / 2 - 8);
   ctx.fillStyle = 'rgba(190,216,230,.74)';
-  ctx.fillText('2D slice of |ψ(x,z)|² · coordinates in a₀', 12, height - 12);
+  ctx.fillText('2D slice of local probability density |ψ(x,z)|² · coordinates in a₀', 12, height - 12);
 }
 
 function drawRadial(state) {
@@ -143,8 +143,8 @@ function drawRadial(state) {
   const height = radialCanvas.height;
   const left = 48;
   const right = 20;
-  const top = 28;
-  const bottom = 42;
+  const top = 40;
+  const bottom = 50;
   const maxR = 12;
   const count = 240;
   const local = [];
@@ -196,20 +196,45 @@ function drawRadial(state) {
   series(localNorm, '#66e4ff');
   series(shellNorm, '#a391ff');
 
+  ctx.font = '12px system-ui, sans-serif';
   ctx.fillStyle = '#66e4ff';
   ctx.fillRect(left, 10, 18, 3);
   ctx.fillStyle = '#dceef7';
-  ctx.font = '12px system-ui, sans-serif';
-  ctx.fillText('local |ψ|²', left + 24, 16);
+  ctx.fillText('local density |ψ(r)|²', left + 24, 16);
   ctx.fillStyle = '#a391ff';
-  ctx.fillRect(left + 120, 10, 18, 3);
+  ctx.fillRect(left + 175, 10, 18, 3);
   ctx.fillStyle = '#dceef7';
-  ctx.fillText('radial-shell probability', left + 144, 16);
+  ctx.fillText('probability in shell 4πr²|ψ|²', left + 199, 16);
+
+  // The origin is the point most likely to be confused: local 1s density can
+  // be maximal there even though shell probability must be zero because the
+  // shell has zero volume at r = 0.
+  const originX = left;
+  const originLocalY = top + (1 - localNorm[0]) * (height - top - bottom);
+  const originShellY = top + (1 - shellNorm[0]) * (height - top - bottom);
+
+  ctx.fillStyle = '#66e4ff';
+  ctx.beginPath();
+  ctx.arc(originX, originLocalY, 3.2, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = '#a391ff';
+  ctx.beginPath();
+  ctx.arc(originX, originShellY, 3.2, 0, Math.PI * 2);
+  ctx.fill();
+
+  if (state === quantumStates['1s']) {
+    ctx.fillStyle = 'rgba(220,238,247,.82)';
+    ctx.font = '11px system-ui, sans-serif';
+    ctx.fillText('centre: local density is maximum', left + 8, top + 12);
+    ctx.fillText('shell probability = 0 because shell volume = 0', left + 8, height - bottom - 8);
+  }
 
   ctx.fillStyle = 'rgba(220,238,247,.75)';
-  ctx.fillText('0', left - 4, height - 16);
-  ctx.fillText('12 a₀', width - 54, height - 16);
-  ctx.fillText('normalised for shape comparison', left, height - 2);
+  ctx.font = '12px system-ui, sans-serif';
+  ctx.fillText('0', left - 4, height - 20);
+  ctx.fillText('12 a₀', width - 54, height - 20);
+  ctx.fillText('normalised for shape comparison', left, height - 4);
 }
 
 function updateQuantumState() {
