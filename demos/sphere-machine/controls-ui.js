@@ -9,7 +9,7 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
 
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = './controls-ui.css?v=20260820-1';
+  stylesheet.href = './controls-ui.css?v=20260820-2';
   stylesheet.dataset.sphereControlsUi = 'true';
   document.head.appendChild(stylesheet);
 
@@ -17,6 +17,7 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
   const presetGrid = experiment.querySelector('.preset-grid-primary');
   const stagePanel = experiment.querySelector('.stage-panel-v2');
   const stageWorkbench = experiment.querySelector('.stage-workbench');
+  const stage = stagePanel?.querySelector('.stage');
   const axisControls = experiment.querySelector('.axis-controls-near-stage');
   const secondary = experiment.querySelector('.controls-panel-v2');
   const utilityGrid = secondary?.querySelector('.utility-grid');
@@ -27,6 +28,8 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
   const pauseButton = document.getElementById('pauseButton');
   const restartButton = document.getElementById('resetOrientationButton');
   const resetViewButton = document.getElementById('cameraButton');
+  const speedHud = stage?.querySelector('.stage-hud-left');
+  const stageLegend = stage?.querySelector('.source-point-key');
 
   // 1. Presets remain the primary interaction. Detailed axis controls become Custom.
   const customButton = document.createElement('button');
@@ -66,7 +69,38 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
     control.addEventListener('change', markCustom);
   });
 
-  // 2. Secondary actions become one compact utility row directly below the stage.
+  // 2. Standard visualisation pattern: keep explanatory/status labels outside the canvas.
+  // The 3D stage is the data area; controls, status and legend should not cover it.
+  if (speedHud && stageWorkbench && stage) {
+    const statusStrip = document.createElement('div');
+    statusStrip.className = 'stage-status-strip';
+    statusStrip.setAttribute('aria-label', 'Current rotation speeds');
+    speedHud.classList.add('stage-speed-status');
+    statusStrip.appendChild(speedHud);
+    stageWorkbench.insertBefore(statusStrip, stage);
+  }
+
+  if (stageLegend && stage) {
+    stageLegend.classList.add('stage-legend');
+    const legendItems = [
+      ['.source-swatch', 'Source', 'Source object'],
+      ['.point-swatch', 'Observations', 'Accumulated observations'],
+      ['.probe-swatch', 'Radial shell', 'Selected radial shell']
+    ];
+
+    legendItems.forEach(([selector, shortLabel, fullLabel]) => {
+      const icon = stageLegend.querySelector(selector);
+      const item = icon?.closest('span');
+      if (!item || !icon) return;
+      item.replaceChildren(icon, document.createTextNode(shortLabel));
+      item.setAttribute('aria-label', fullLabel);
+      item.title = fullLabel;
+    });
+
+    stage.insertAdjacentElement('afterend', stageLegend);
+  }
+
+  // 3. Secondary actions become one compact utility row directly below the stage.
   const utilityBar = document.createElement('div');
   utilityBar.className = 'stage-utility-bar';
   utilityBar.setAttribute('aria-label', 'Experiment utilities');
@@ -81,7 +115,7 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
     utilityBar.appendChild(resetViewButton);
   }
 
-  // 3. Perceptual/display options belong under one View disclosure.
+  // 4. Perceptual/display options belong under one View disclosure.
   const viewDetails = document.createElement('details');
   viewDetails.className = 'view-controls';
   const viewSummary = document.createElement('summary');
@@ -116,12 +150,6 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
 
   sidebarNote?.remove();
   secondary?.remove();
-
-  // Avoid repeating the same X/Y/Z numbers beside the Custom sliders while it is open.
-  const hud = stagePanel?.querySelector('.stage-hud-left');
-  const syncHud = () => hud?.classList.toggle('is-suppressed', !customDrawer.hidden);
-  customButton.addEventListener('click', syncHud);
-  presetGrid?.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', syncHud));
 
   // Ensure the startup state visually reflects the app's canonical Slow preset.
   requestAnimationFrame(() => {
