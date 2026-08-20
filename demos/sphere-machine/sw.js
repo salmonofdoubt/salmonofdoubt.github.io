@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sphere-machine-v6';
+const CACHE_NAME = 'sphere-machine-v7';
 const APP_SHELL = [
   './',
   './index.html',
@@ -11,6 +11,7 @@ const APP_SHELL = [
   './quantum.js?v=20260819-2',
   './controls-ui.js',
   './startup-slow.js',
+  './zenodo-doi.js',
   './radial-probability.js',
   './classical-profile.js',
   './shape-model.js',
