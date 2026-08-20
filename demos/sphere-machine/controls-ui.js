@@ -9,7 +9,7 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
 
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = './controls-ui.css?v=20260820-2';
+  stylesheet.href = './controls-ui.css?v=20260820-3';
   stylesheet.dataset.sphereControlsUi = 'true';
   document.head.appendChild(stylesheet);
 
@@ -30,6 +30,16 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
   const resetViewButton = document.getElementById('cameraButton');
   const speedHud = stage?.querySelector('.stage-hud-left');
   const stageLegend = stage?.querySelector('.source-point-key');
+  const shapeSelect = document.getElementById('shapeSelect');
+
+  // Sofa is a first-class geometry. Add it to the existing object selector.
+  if (shapeSelect && !shapeSelect.querySelector('option[value="sofa"]')) {
+    const solids = shapeSelect.querySelector('optgroup[label="3D solids"]') || shapeSelect;
+    const sofaOption = document.createElement('option');
+    sofaOption.value = 'sofa';
+    sofaOption.textContent = 'Sofa · Douglas Adams';
+    solids.appendChild(sofaOption);
+  }
 
   // 1. Presets remain the primary interaction. Detailed axis controls become Custom.
   const customButton = document.createElement('button');
@@ -39,6 +49,13 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
   customButton.setAttribute('aria-expanded', 'false');
   customButton.setAttribute('aria-controls', 'customRotationDrawer');
   presetGrid?.appendChild(customButton);
+
+  const adamsButton = document.createElement('button');
+  adamsButton.type = 'button';
+  adamsButton.className = 'chip adams-chip';
+  adamsButton.textContent = 'Adams sofa';
+  adamsButton.setAttribute('aria-label', 'Douglas Adams sofa mode');
+  presetGrid?.appendChild(adamsButton);
 
   const customDrawer = document.createElement('div');
   customDrawer.id = 'customRotationDrawer';
@@ -56,7 +73,19 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
   customButton.addEventListener('click', () => setCustomOpen(customDrawer.hidden));
 
   presetGrid?.querySelectorAll('[data-preset]').forEach(button => {
-    button.addEventListener('click', () => setCustomOpen(false));
+    button.addEventListener('click', () => {
+      setCustomOpen(false);
+      if (shapeSelect?.value !== 'sofa') adamsButton.classList.remove('active');
+    });
+  });
+
+  adamsButton.addEventListener('click', () => {
+    if (!shapeSelect) return;
+    setCustomOpen(false);
+    shapeSelect.value = 'sofa';
+    shapeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    presetGrid?.querySelector('[data-preset="slow"]')?.click();
+    adamsButton.classList.add('active');
   });
 
   axisControls?.querySelectorAll('input').forEach(control => {
@@ -147,6 +176,19 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
   referenceCaption.className = 'reference-sphere-caption';
   referenceCaption.innerHTML = '<span aria-hidden="true"></span>Outer wireframe = rotational reference sphere';
   utilityBar.insertAdjacentElement('afterend', referenceCaption);
+
+  const adamsNote = document.createElement('p');
+  adamsNote.className = 'adams-dedication';
+  adamsNote.innerHTML = '<strong>Douglas Adams mode.</strong> Inspired by the famously immovable sofa in <em>Dirk Gently’s Holistic Detective Agency</em> — perhaps it merely needed more rotational freedom.';
+  referenceCaption.insertAdjacentElement('afterend', adamsNote);
+
+  function syncAdamsState() {
+    const active = shapeSelect?.value === 'sofa';
+    adamsNote.hidden = !active;
+    adamsButton.classList.toggle('active', active);
+  }
+  shapeSelect?.addEventListener('change', syncAdamsState);
+  syncAdamsState();
 
   sidebarNote?.remove();
   secondary?.remove();
