@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sphere-machine-v2';
+const CACHE_NAME = 'sphere-machine-v3';
 const APP_SHELL = [
   './',
   './index.html',
@@ -6,13 +6,15 @@ const APP_SHELL = [
   './ux.css?v=20260818-1',
   './stage-controls.css?v=20260819-2',
   './polish.css?v=20260819-4',
+  './controls-ui.css?v=20260820-1',
   './app.js?v=20260819-2',
   './quantum.js?v=20260819-2',
+  './controls-ui.js',
+  './startup-slow.js',
   './radial-probability.js',
   './classical-profile.js',
   './shape-model.js',
   './pwa.js',
-  './startup-slow.js',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
