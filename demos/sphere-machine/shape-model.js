@@ -13,12 +13,85 @@ export const SHAPE_NAMES = {
   cylinder: 'Cylinder',
   cone: 'Cone',
   torus: 'Torus',
+  sofa: 'Sofa',
   triangle: 'Thin triangle plate',
   circle: 'Thin circular plate',
   rectangle: 'Thin rectangular plate'
 };
 
 export const THIN_SHAPES = new Set(['triangle', 'circle', 'rectangle']);
+
+// One source of truth for both the rendered sofa and its occupancy test.
+// Coordinates are deliberately symmetric about the origin before normalisation.
+const SOFA_PARTS = [
+  { size: [2.60, 0.50, 1.15], centre: [0, -0.45, 0] },
+  { size: [2.50, 1.45, 0.22], centre: [0, 0, -0.50] },
+  { size: [0.32, 0.95, 1.22], centre: [-1.32, -0.25, 0] },
+  { size: [0.32, 0.95, 1.22], centre: [1.32, -0.25, 0] },
+  { size: [1.20, 0.24, 0.92], centre: [-0.58, -0.10, 0.06] },
+  { size: [1.20, 0.24, 0.92], centre: [0.58, -0.10, 0.06] },
+  { size: [1.12, 0.72, 0.16], centre: [-0.58, 0.18, -0.34] },
+  { size: [1.12, 0.72, 0.16], centre: [0.58, 0.18, -0.34] }
+];
+
+function sofaRawRadius() {
+  let maxRadiusSq = 0;
+  for (const { size, centre } of SOFA_PARTS) {
+    const [sx, sy, sz] = size;
+    const [cx, cy, cz] = centre;
+    for (const dx of [-sx / 2, sx / 2]) {
+      for (const dy of [-sy / 2, sy / 2]) {
+        for (const dz of [-sz / 2, sz / 2]) {
+          maxRadiusSq = Math.max(maxRadiusSq, (cx + dx) ** 2 + (cy + dy) ** 2 + (cz + dz) ** 2);
+        }
+      }
+    }
+  }
+  return Math.sqrt(maxRadiusSq);
+}
+
+const SOFA_RAW_RADIUS = sofaRawRadius();
+
+function boxPart(size, centre) {
+  const [sx, sy, sz] = size;
+  const [cx, cy, cz] = centre;
+  const indexed = new THREE.BoxGeometry(sx, sy, sz);
+  const geometry = indexed.toNonIndexed();
+  indexed.dispose();
+  geometry.translate(cx, cy, cz);
+  return geometry;
+}
+
+function mergeNonIndexedGeometries(geometries) {
+  const positions = [];
+  const normals = [];
+  const uvs = [];
+
+  for (const geometry of geometries) {
+    const position = geometry.getAttribute('position');
+    const normal = geometry.getAttribute('normal');
+    const uv = geometry.getAttribute('uv');
+
+    for (let i = 0; i < position.count; i += 1) {
+      positions.push(position.getX(i), position.getY(i), position.getZ(i));
+      normals.push(normal.getX(i), normal.getY(i), normal.getZ(i));
+      uvs.push(uv.getX(i), uv.getY(i));
+    }
+    geometry.dispose();
+  }
+
+  const merged = new THREE.BufferGeometry();
+  merged.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  merged.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+  merged.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+  merged.computeBoundingBox();
+  merged.computeBoundingSphere();
+  return merged;
+}
+
+function sofaGeometry() {
+  return mergeNonIndexedGeometries(SOFA_PARTS.map(part => boxPart(part.size, part.centre)));
+}
 
 function rawGeometry(kind) {
   switch (kind) {
@@ -31,6 +104,7 @@ function rawGeometry(kind) {
     case 'cylinder': return new THREE.CylinderGeometry(1.25, 1.25, 2.15, 36, 1, false);
     case 'cone': return new THREE.ConeGeometry(1.35, 2.5, 36, 1, false);
     case 'torus': return new THREE.TorusGeometry(1.05, 0.42, 18, 56);
+    case 'sofa': return sofaGeometry();
     case 'triangle': return new THREE.CylinderGeometry(1.5, 1.5, 0.065, 3, 1, false, Math.PI / 2);
     case 'circle': return new THREE.CylinderGeometry(1.45, 1.45, 0.065, 64, 1, false);
     case 'rectangle': return new THREE.BoxGeometry(2.55, 0.065, 1.5);
@@ -103,11 +177,27 @@ function getDefinition(kind) {
   const definition = {
     kind,
     thin: THIN_SHAPES.has(kind),
-    planes: kind === 'sphere' || kind === 'torus' ? null : buildConvexPlanes(geometry)
+    planes: kind === 'sphere' || kind === 'torus' || kind === 'sofa' ? null : buildConvexPlanes(geometry)
   };
   geometry.dispose();
   definitionCache.set(kind, definition);
   return definition;
+}
+
+function insideRawBox(x, y, z, part) {
+  const [sx, sy, sz] = part.size;
+  const [cx, cy, cz] = part.centre;
+  return Math.abs(x - cx) <= sx / 2 + 1e-9
+    && Math.abs(y - cy) <= sy / 2 + 1e-9
+    && Math.abs(z - cz) <= sz / 2 + 1e-9;
+}
+
+function containsSofaPoint(point) {
+  // The raw sofa is centred before scaling, so invert the common radius scale.
+  const x = point.x * SOFA_RAW_RADIUS;
+  const y = point.y * SOFA_RAW_RADIUS;
+  const z = point.z * SOFA_RAW_RADIUS;
+  return SOFA_PARTS.some(part => insideRawBox(x, y, z, part));
 }
 
 export function containsShapePoint(kind, point) {
@@ -121,6 +211,8 @@ export function containsShapePoint(kind, point) {
     const q = Math.hypot(point.x, point.y) - major;
     return q * q + point.z * point.z <= tube * tube + 1e-10;
   }
+
+  if (kind === 'sofa') return containsSofaPoint(point);
 
   const planes = getDefinition(kind).planes || [];
   for (const plane of planes) {
@@ -171,6 +263,9 @@ export function shapeDescription(kind) {
   }
   if (kind === 'torus') {
     return 'The torus contains a central hole, so rigid rotation about its centre never makes the origin occupied.';
+  }
+  if (kind === 'sofa') {
+    return 'The sofa is modelled as the union of its seat, back, arms and cushions, so its non-convex occupancy is sampled directly rather than replaced by a convex hull.';
   }
   return `${SHAPE_NAMES[kind]} is treated as a solid body centred at the origin.`;
 }
