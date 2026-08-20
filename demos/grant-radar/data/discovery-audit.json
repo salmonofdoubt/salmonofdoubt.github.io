@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-08-19T05:46:43+00:00",
+  "generated_at": "2026-08-20T05:46:12+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4539,
-  "funding_like_links": 469,
+  "links_seen": 4540,
+  "funding_like_links": 470,
   "candidate_fetches": 300,
-  "pending_review_count": 105,
+  "pending_review_count": 103,
   "status_counts": {
-    "pending_review": 105,
-    "suppressed_non_actionable": 37,
+    "pending_review": 103,
+    "suppressed_non_actionable": 43,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 11,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 67
+    "suppressed_fetch_error": 64
   },
   "candidate_type_counts": {
     "recurring_programme": 55,
-    "funding_call": 84,
+    "funding_call": 82,
     "scholarship": 18,
     "generic_funding_hub": 6,
-    "tender": 6,
-    "unknown": 67
+    "tender": 12,
+    "unknown": 64
   },
   "seeds": [
     {
@@ -245,8 +245,8 @@
       "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 84,
-      "funding_like_links": 9,
+      "links_seen": 85,
+      "funding_like_links": 10,
       "candidates_fetched": 0
     },
     {
