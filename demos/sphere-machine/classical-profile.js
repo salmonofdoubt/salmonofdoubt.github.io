@@ -85,6 +85,8 @@ function convexProfile(kind, directions, radialCount) {
 function nonConvexProfile(kind, directions, radialCount) {
   const radii = [];
   const occupancy = [];
+  let guaranteedRadius = 0;
+
   for (let i = 0; i < radialCount; i += 1) {
     const r = i / (radialCount - 1);
     let hits = 0;
@@ -92,10 +94,12 @@ function nonConvexProfile(kind, directions, radialCount) {
       tempPoint.copy(direction).multiplyScalar(r);
       if (containsShapePoint(kind, tempPoint)) hits += 1;
     }
+    const probability = hits / directions.length;
     radii.push(r);
-    occupancy.push(hits / directions.length);
+    occupancy.push(probability);
+    if (probability >= 1 - 1e-12) guaranteedRadius = r;
   }
-  return { radii, occupancy, guaranteedRadius: 0 };
+  return { radii, occupancy, guaranteedRadius };
 }
 
 export function getClassicalRadialProfile(kind, level = 3) {
@@ -107,7 +111,7 @@ export function getClassicalRadialProfile(kind, level = 3) {
   validationGeometry.dispose();
 
   const directions = fibonacciDirections(settings.directions);
-  const profile = kind === 'torus'
+  const profile = kind === 'torus' || kind === 'sofa'
     ? nonConvexProfile(kind, directions, settings.radii)
     : convexProfile(kind, directions, settings.radii);
 
