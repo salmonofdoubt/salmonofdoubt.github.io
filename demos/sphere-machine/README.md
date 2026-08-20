@@ -1,6 +1,6 @@
 # Sphere Machine · Rotational Envelope Lab
 
-Interactive GitHub Pages demo for exploring rotational orbits and outer envelopes of standard 3D solids and thin 2D forms.
+Interactive GitHub Pages demo for exploring rotational orbits and outer envelopes of standard 3D solids, a Douglas Adams-inspired sofa, and thin 2D forms.
 
 ## Scientific idea
 
@@ -10,10 +10,11 @@ A rigid rotation preserves the distance of every material point from the rotatio
 
 Therefore, any chosen point moves on a spherical shell of fixed radius. A single rotation axis normally produces a circle or ring. A richer orientation programme can send fixed-radius outer points through many more directions, making the accumulated outer envelope approximately spherical.
 
-The interface deliberately distinguishes the instantaneous object from its accumulated rotational envelope. It does **not** claim that a cube literally becomes a sphere.
+The interface deliberately distinguishes the instantaneous object from its accumulated rotational envelope. It does **not** claim that an object literally becomes a sphere.
 
 ## Shapes
 
+- Sofa · Douglas Adams mode
 - Cube
 - Square pyramid
 - Tetrahedron
@@ -29,12 +30,11 @@ The interface deliberately distinguishes the instantaneous object from its accum
 
 ## Controls
 
-- Independent X/Y/Z axis toggles
-- Independent angular velocity from -180 to +180 degrees per second
-- Still, X-only, XY weave, and XYZ sphere-search presets
-- Clear envelope, reset orientation, and reset camera
-- Toggle trail, reference sphere, axes, and object edges
-- Trace-density control
+- Slow mode is the default startup state
+- One-view, Slow, X-only, XY weave, SPHERISE, and Custom motion presets
+- Independent X/Y/Z axis toggles and angular velocities under Custom
+- Pause, restart experiment, and reset view
+- Perception/display options grouped under View
 
 ## Implementation
 
@@ -43,8 +43,13 @@ The interface deliberately distinguishes the instantaneous object from its accum
 - OrbitControls for camera manipulation
 - 30,000-point bounded trace buffer
 - Equal-solid-angle directional occupancy approximation using uniform z and azimuth bins
-- Responsive desktop/mobile layout and reduced-motion handling
+- Responsive desktop/mobile layout
+- Installable PWA with offline app-shell caching
+
+## Software record
+
+Sphere Machine: https://doi.org/10.5281/zenodo.22035417
 
 ## Concept reference
 
-https://zenodo.org/records/16985564
+Spherism: https://zenodo.org/records/16985564
