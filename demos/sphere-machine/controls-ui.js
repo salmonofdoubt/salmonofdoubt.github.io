@@ -170,6 +170,7 @@ if (experiment && !experiment.dataset.controlsStreamlined) {
   const adamsNote = document.createElement('p');
   adamsNote.className = 'adams-dedication';
   adamsNote.innerHTML = 'A nod to Douglas Adams’ famously immovable stairwell sofa in <em>Dirk Gently’s Holistic Detective Agency</em>.';
+  adamsNote.style.cssText = 'margin:.45rem 0 0;color:rgba(220,238,247,.62);font-size:.72rem;font-style:italic;opacity:.82;padding:0;border:0;background:none;';
   referenceCaption.insertAdjacentElement('afterend', adamsNote);
 
   function syncSofaDedication() {
