@@ -1,5 +1,6 @@
 import './pwa.js';
 import './startup-slow.js';
+import './controls-ui.js';
 import './radial-probability.js';
 import { getClassicalRadialProfile } from './classical-profile.js';
 
