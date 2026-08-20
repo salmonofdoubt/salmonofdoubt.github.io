@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sphere-machine-v1';
+const CACHE_NAME = 'sphere-machine-v2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -12,6 +12,7 @@ const APP_SHELL = [
   './classical-profile.js',
   './shape-model.js',
   './pwa.js',
+  './startup-slow.js',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
@@ -44,7 +45,6 @@ self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
   const request = event.request;
-  const url = new URL(request.url);
   const isNavigation = request.mode === 'navigate';
 
   if (isNavigation) {
