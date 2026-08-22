@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-08-21T05:48:27+00:00",
+  "generated_at": "2026-08-22T05:42:42+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4539,
+  "links_seen": 4540,
   "funding_like_links": 470,
   "candidate_fetches": 300,
-  "pending_review_count": 109,
+  "pending_review_count": 104,
   "status_counts": {
-    "pending_review": 109,
-    "suppressed_non_actionable": 44,
+    "pending_review": 104,
+    "suppressed_non_actionable": 39,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 11,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 56
+    "suppressed_fetch_error": 68
   },
   "candidate_type_counts": {
     "recurring_programme": 55,
-    "funding_call": 88,
+    "funding_call": 81,
     "scholarship": 18,
     "generic_funding_hub": 6,
-    "tender": 13,
-    "unknown": 56
+    "tender": 10,
+    "unknown": 68
   },
   "seeds": [
     {
@@ -65,7 +65,7 @@
       "url": "https://www.epa.ie/our-services/research/epa--research-funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 238,
+      "links_seen": 239,
       "funding_like_links": 16,
       "candidates_fetched": 16
     },
