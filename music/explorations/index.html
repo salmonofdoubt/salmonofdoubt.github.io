@@ -1,0 +1,1666 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guitar Explorations · André Baumann</title>
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg:#090a0c;
+  --panel:#111318;
+  --line:#252932;
+  --text:#f2f2f2;
+  --muted:#9299a6;
+  --accent:#d6ff67;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:
+    radial-gradient(circle at 10% 0%, #1a1d22 0, transparent 35%),
+    var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+main {
+  width:min(1180px,92vw);
+  margin:auto;
+  padding:70px 0 100px;
+}
+
+.back {
+  color:var(--muted);
+  text-decoration:none;
+  font-size:.9rem;
+}
+
+.hero {
+  padding:65px 0 45px;
+  border-bottom:1px solid var(--line);
+}
+
+.eyebrow {
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:var(--accent);
+  font-size:.72rem;
+}
+
+h1 {
+  font-size:clamp(3rem,8vw,7rem);
+  line-height:.88;
+  letter-spacing:-.06em;
+  margin:.18em 0;
+  max-width:900px;
+}
+
+.intro {
+  max-width:650px;
+  color:var(--muted);
+  line-height:1.65;
+  font-size:1.05rem;
+}
+
+.controls {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:35px 0 20px;
+}
+
+input, select {
+  background:#111318;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 14px;
+  color:var(--text);
+  font:inherit;
+}
+
+input {
+  flex:1;
+  min-width:230px;
+}
+
+.count {
+  color:var(--muted);
+  margin:15px 0 30px;
+  font-size:.85rem;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.track {
+  background:rgba(17,19,24,.82);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+  transition:.18s ease;
+}
+
+.track:hover {
+  transform:translateY(-2px);
+  border-color:#414652;
+}
+
+.meta {
+  min-height:68px;
+}
+
+.category {
+  color:var(--accent);
+  font-size:.68rem;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+h2 {
+  font-size:1rem;
+  font-weight:500;
+  margin:.45rem 0 1rem;
+}
+
+audio {
+  width:100%;
+  height:36px;
+}
+
+footer {
+  border-top:1px solid var(--line);
+  margin-top:70px;
+  padding-top:25px;
+  color:var(--muted);
+  font-size:.8rem;
+}
+
+@media(max-width:720px) {
+  main { padding-top:35px; }
+  .grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<a class="back" href="../">← Music Lab</a>
+
+<section class="hero">
+  <div class="eyebrow">A32 archive · selected recordings</div>
+  <h1>Guitar<br>Explorations</h1>
+  <p class="intro">
+    Fragments, motifs, sketches and extended takes retained from a much larger
+    archive of guitar recordings. Not finished songs so much as moments worth
+    keeping.
+  </p>
+</section>
+
+<div class="controls">
+  <input id="search" type="search" placeholder="Search the archive…">
+  <select id="filter">
+    <option value="all">All recordings</option>
+    <option value="Sketches">Sketches</option>
+    <option value="Takes">Takes</option>
+    <option value="Lisa">Lisa</option>
+    <option value="Named pieces">Named pieces</option>
+  </select>
+</div>
+
+<div class="count"><span id="shown">144</span> of 144 recordings</div>
+
+<section class="grid" id="tracks">
+
+    <article class="track" data-title="bach organ" data-category="Named pieces">
+      <div class="meta">
+        <span class="category">Named pieces</span>
+        <h2>Bach Organ</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/bach-organ.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="canaletto sonata" data-category="Named pieces">
+      <div class="meta">
+        <span class="category">Named pieces</span>
+        <h2>Canaletto Sonata</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/canaletto-sonata.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="cortez" data-category="Named pieces">
+      <div class="meta">
+        <span class="category">Named pieces</span>
+        <h2>Cortez</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/cortez.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="cranberries 121" data-category="Named pieces">
+      <div class="meta">
+        <span class="category">Named pieces</span>
+        <h2>Cranberries 121</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/cranberries-121.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 125" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 125</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-125.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 131" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 131</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-131.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 167" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 167</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-167.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 181" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 181</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-181.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 219 spoon" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 219 Spoon</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-219-spoon.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 223" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 223</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-223.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 225" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 225</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-225.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 243" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 243</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-243.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 25" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 25</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-25.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 263" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 263</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-263.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 285" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 285</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-285.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 287" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 287</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-287.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 309" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 309</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-309.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 31" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 31</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-31.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 317" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 317</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-317.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 325" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 325</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-325.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 329" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 329</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-329.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 333" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 333</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-333.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 337" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 337</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-337.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 351" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 351</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-351.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 353" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 353</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-353.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 405" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 405</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-405.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 407" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 407</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-407.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 409" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 409</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-409.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 425" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 425</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-425.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 429" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 429</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-429.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 435" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 435</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-435.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 439" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 439</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-439.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 446" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 446</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-446.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 448" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 448</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-448.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 449" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 449</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-449.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 451" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 451</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-451.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 453" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 453</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-453.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 454" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 454</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-454.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 455" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 455</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-455.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 456" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 456</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-456.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 458" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 458</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-458.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 459" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 459</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-459.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 460" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 460</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-460.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 461" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 461</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-461.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 465" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 465</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-465.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 490" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 490</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-490.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 495" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 495</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-495.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 73" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 73</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-73.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 77" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 77</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-77.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 81" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 81</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-81.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 83" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 83</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-83.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 87" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 87</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-87.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 89" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 89</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-89.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar sketch 93" data-category="Sketches">
+      <div class="meta">
+        <span class="category">Sketches</span>
+        <h2>Guitar Sketch 93</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-sketch-93.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 109" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 109</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-109.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 113" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 113</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-113.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 115" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 115</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-115.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 123" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 123</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-123.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 129" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 129</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-129.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 133" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 133</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-133.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 135" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 135</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-135.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 137" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 137</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-137.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 163" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 163</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-163.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 165" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 165</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-165.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 171" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 171</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-171.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 179" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 179</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-179.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 183" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 183</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-183.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 185" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 185</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-185.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 187" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 187</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-187.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 189" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 189</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-189.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 191" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 191</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-191.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 195" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 195</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-195.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 197" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 197</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-197.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 199" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 199</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-199.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 203" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 203</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-203.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 205" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 205</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-205.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 207" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 207</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-207.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 209" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 209</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-209.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 211" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 211</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-211.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 213" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 213</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-213.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 215" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 215</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-215.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 221" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 221</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-221.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 23" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 23</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-23.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 241 vocal" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 241 Vocal</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-241-vocal.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 247" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 247</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-247.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 249" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 249</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-249.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 253" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 253</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-253.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 255" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 255</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-255.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 257" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 257</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-257.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 259" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 259</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-259.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 261" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 261</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-261.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 273" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 273</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-273.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 29" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 29</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-29.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 291" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 291</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-291.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 305" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 305</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-305.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 319" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 319</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-319.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 331" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 331</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-331.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 339" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 339</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-339.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 341" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 341</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-341.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 343" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 343</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-343.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 345" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 345</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-345.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 347" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 347</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-347.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 349" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 349</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-349.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 357" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 357</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-357.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 359" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 359</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-359.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 361" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 361</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-361.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 395" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 395</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-395.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 399" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 399</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-399.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 417" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 417</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-417.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 421" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 421</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-421.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 437" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 437</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-437.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 444" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 444</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-444.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 452" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 452</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-452.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 463" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 463</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-463.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 483" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 483</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-483.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 49" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 49</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-49.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 492" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 492</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-492.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 493" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 493</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-493.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 496" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 496</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-496.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 497 bond" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 497 Bond</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-497-bond.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 53" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 53</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-53.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 55" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 55</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-55.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 57" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 57</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-57.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 59 pj" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 59 Pj</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-59-pj.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 61" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 61</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-61.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 71" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 71</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-71.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 75" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 75</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-75.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 79" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 79</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-79.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 85" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 85</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-85.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 9" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 9</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-9.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 91" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 91</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-91.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="guitar take 95" data-category="Takes">
+      <div class="meta">
+        <span class="category">Takes</span>
+        <h2>Guitar Take 95</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/guitar-take-95.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 1" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 1</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-1.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 2" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 2</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-2.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 3" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 3</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-3.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 4" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 4</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-4.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 5 2" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 5 2</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-5-2.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 5" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 5</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-5.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 6" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 6</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-6.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 7" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 7</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-7.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="lisa 8" data-category="Lisa">
+      <div class="meta">
+        <span class="category">Lisa</span>
+        <h2>Lisa 8</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/lisa-8.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="ny montezuma" data-category="Named pieces">
+      <div class="meta">
+        <span class="category">Named pieces</span>
+        <h2>NY Montezuma</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/ny-montezuma.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="oi" data-category="Named pieces">
+      <div class="meta">
+        <span class="category">Named pieces</span>
+        <h2>Oi</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/oi.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+    <article class="track" data-title="seemann" data-category="Named pieces">
+      <div class="meta">
+        <span class="category">Named pieces</span>
+        <h2>Seemann</h2>
+      </div>
+      <audio controls preload="none">
+        <source src="audio/seemann.mp3" type="audio/mpeg">
+      </audio>
+    </article>
+    
+</section>
+
+<footer>
+  André Baumann · Guitar archive
+</footer>
+
+</main>
+
+<script>
+const search = document.getElementById('search');
+const filter = document.getElementById('filter');
+const tracks = [...document.querySelectorAll('.track')];
+const shown = document.getElementById('shown');
+
+function update() {
+  const q = search.value.toLowerCase().trim();
+  const cat = filter.value;
+  let n = 0;
+
+  tracks.forEach(track => {
+    const matchesText = track.dataset.title.includes(q);
+    const matchesCat = cat === 'all' || track.dataset.category === cat;
+    const visible = matchesText && matchesCat;
+
+    track.hidden = !visible;
+    if (visible) n++;
+  });
+
+  shown.textContent = n;
+}
+
+search.addEventListener('input', update);
+filter.addEventListener('change', update);
+
+document.querySelectorAll('audio').forEach(player => {
+  player.addEventListener('play', () => {
+    document.querySelectorAll('audio').forEach(other => {
+      if (other !== player) other.pause();
+    });
+  });
+});
+</script>
+
+</body>
+</html>
