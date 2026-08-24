@@ -2,13 +2,13 @@
   "meta": {
     "countries_with_any_value": 30,
     "country_count": 30,
-    "failed_indicator_count": 7,
-    "generated_at": "2026-08-17T05:58:19.893901+00:00",
+    "failed_indicator_count": 5,
+    "generated_at": "2026-08-24T05:59:24.345903+00:00",
     "indicator_count": 14,
-    "loaded_indicator_count": 7,
+    "loaded_indicator_count": 9,
     "source": "World Bank API",
     "title": "Three Intelligences Explorer World Bank snapshot",
-    "value_count": 210,
+    "value_count": 270,
     "years": "2010:2026"
   },
   "rawValues": {
@@ -43,6 +43,12 @@
         "value": 29.6,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.746739745140076,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -53,6 +59,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 92.6126708984375,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 81.9951219512195,
         "year": 2024
       }
     },
@@ -87,6 +99,12 @@
         "value": 33.5,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.770239531993866,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -97,6 +115,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 108.421989440918,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 83.0512195121951,
         "year": 2024
       }
     },
@@ -131,6 +155,12 @@
         "value": 18.6,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.76041966676712,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -142,6 +172,12 @@
         "label": "Tertiary enrolment",
         "value": 82.1475601196289,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 82.3,
+        "year": 2024
       }
     },
     "BR": {
@@ -175,6 +211,12 @@
         "value": 29.4,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.551497936248779,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -185,6 +227,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 69.7317733764648,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 76.023,
         "year": 2024
       }
     },
@@ -219,6 +267,12 @@
         "value": 11.6,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.797520101070404,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -230,6 +284,12 @@
         "label": "Tertiary enrolment",
         "value": 76.2666931152344,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 82.1080487804878,
+        "year": 2024
       }
     },
     "CH": {
@@ -263,6 +323,12 @@
         "value": 12.5,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.756115138530731,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -273,6 +339,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 73.5430526733398,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 84.4073170731707,
         "year": 2024
       }
     },
@@ -307,6 +379,12 @@
         "value": 37.9,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.651604175567627,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -317,6 +395,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 110.176902770996,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 81.359,
         "year": 2024
       }
     },
@@ -351,6 +435,12 @@
         "value": 14.7,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.65310263633728,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -361,6 +451,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 76.8757843123403,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 78.017,
         "year": 2024
       }
     },
@@ -395,6 +491,12 @@
         "value": 40.0,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.751162469387054,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -405,6 +507,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 76.7096862792969,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 80.7926829268293,
         "year": 2024
       }
     },
@@ -439,6 +547,12 @@
         "value": 23.8,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.755094826221466,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -449,6 +563,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 78.9604110717773,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 82.2536585365854,
         "year": 2024
       }
     },
@@ -483,6 +603,12 @@
         "value": 20.5,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.77720320224762,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -493,6 +619,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 65.6692276000977,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 79.2951219512195,
         "year": 2024
       }
     },
@@ -527,6 +659,12 @@
         "value": 22.1,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.728255033493042,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -537,6 +675,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 93.7689666748047,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 83.8878048780488,
         "year": 2024
       }
     },
@@ -571,6 +715,12 @@
         "value": 13.5,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.796001017093658,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -581,6 +731,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 110.304496765137,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 82.3365853658537,
         "year": 2024
       }
     },
@@ -615,6 +771,12 @@
         "value": 36.7,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.762737214565277,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -625,6 +787,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 71.5346908569336,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 82.9804878048781,
         "year": 2024
       }
     },
@@ -659,6 +827,12 @@
         "value": 42.1,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.782942950725555,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -670,6 +844,12 @@
         "label": "Tertiary enrolment",
         "value": 80.4146499633789,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 81.3868536585366,
+        "year": 2024
       }
     },
     "IE": {
@@ -703,6 +883,12 @@
         "value": 4.0,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.792599022388458,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -714,6 +900,12 @@
         "label": "Tertiary enrolment",
         "value": 77.5933380126953,
         "year": 2022
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 83.009756097561,
+        "year": 2024
       }
     },
     "IN": {
@@ -747,6 +939,12 @@
         "value": 4.5,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.493510901927948,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -758,6 +956,12 @@
         "label": "Tertiary enrolment",
         "value": 34.4465039692543,
         "year": 2025
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 72.235,
+        "year": 2024
       }
     },
     "IT": {
@@ -791,6 +995,12 @@
         "value": 14.8,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.727819681167603,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -802,6 +1012,12 @@
         "label": "Tertiary enrolment",
         "value": 75.9496536254883,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 83.9512195121951,
+        "year": 2024
       }
     },
     "JP": {
@@ -835,6 +1051,12 @@
         "value": 15.1,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.804714262485504,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -846,6 +1068,12 @@
         "label": "Tertiary enrolment",
         "value": 64.4907608032227,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 84.0363414634146,
+        "year": 2024
       }
     },
     "KR": {
@@ -879,6 +1107,12 @@
         "value": 5.9,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.798776268959045,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -889,6 +1123,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 111.853302001953,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 83.6292682926829,
         "year": 2024
       }
     },
@@ -923,6 +1163,12 @@
         "value": 19.9,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.612949848175049,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -933,6 +1179,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 48.203441619873,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 75.264,
         "year": 2024
       }
     },
@@ -967,6 +1219,12 @@
         "value": 29.8,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.789915025234222,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -978,6 +1236,12 @@
         "label": "Tertiary enrolment",
         "value": 86.5938262939453,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 81.9658536585366,
+        "year": 2024
       }
     },
     "NO": {
@@ -1011,6 +1275,12 @@
         "value": 5.4,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.771051168441772,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1021,6 +1291,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 95.4987564086914,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 83.1609756097561,
         "year": 2024
       }
     },
@@ -1055,6 +1331,12 @@
         "value": 30.6,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.775932431221008,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1065,6 +1347,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 77.2406463623047,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 82.009756097561,
         "year": 2024
       }
     },
@@ -1099,6 +1387,12 @@
         "value": 38.1,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.753088593482971,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1109,6 +1403,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 80.9149627685547,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 78.409756097561,
         "year": 2024
       }
     },
@@ -1143,6 +1443,12 @@
         "value": 17.2,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.768949568271637,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1154,6 +1460,12 @@
         "label": "Tertiary enrolment",
         "value": 77.6778182983398,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 82.3829268292683,
+        "year": 2024
       }
     },
     "SE": {
@@ -1187,6 +1499,12 @@
         "value": 15.9,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.79535710811615,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1197,6 +1515,12 @@
         "indicator": "SE.TER.ENRR",
         "label": "Tertiary enrolment",
         "value": 83.9988098144531,
+        "year": 2024
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 84.0634146341463,
         "year": 2024
       }
     },
@@ -1231,6 +1555,12 @@
         "value": 2.1,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.879125714302063,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1242,6 +1572,12 @@
         "label": "Tertiary enrolment",
         "value": 97.2886546863037,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 83.3463414634146,
+        "year": 2024
       }
     },
     "US": {
@@ -1275,6 +1611,12 @@
         "value": 15.8,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.701764345169067,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1286,6 +1628,12 @@
         "label": "Tertiary enrolment",
         "value": 79.361930847168,
         "year": 2022
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 78.890243902439,
+        "year": 2024
       }
     },
     "ZA": {
@@ -1319,6 +1667,12 @@
         "value": 12.9,
         "year": 2025
       },
+      "HD.HCI.OVRL": {
+        "indicator": "HD.HCI.OVRL",
+        "label": "Human Capital Index",
+        "value": 0.425453394651413,
+        "year": 2020
+      },
       "IT.NET.USER.ZS": {
         "indicator": "IT.NET.USER.ZS",
         "label": "Internet users",
@@ -1330,24 +1684,18 @@
         "label": "Tertiary enrolment",
         "value": 23.493768799339,
         "year": 2023
+      },
+      "SP.DYN.LE00.IN": {
+        "indicator": "SP.DYN.LE00.IN",
+        "label": "Life expectancy",
+        "value": 66.312,
+        "year": 2024
       }
     }
   },
   "report": {
     "countriesWithAnyValue": 30,
     "failed": [
-      {
-        "code": "HD.HCI.OVRL",
-        "label": "Human Capital Index",
-        "layer": "individual",
-        "reason": "TimeoutError: The read operation timed out"
-      },
-      {
-        "code": "SP.DYN.LE00.IN",
-        "label": "Life expectancy",
-        "layer": "individual",
-        "reason": "HTTPError: HTTP Error 400: Bad Request"
-      },
       {
         "code": "GE.EST",
         "label": "Government effectiveness",
@@ -1379,8 +1727,16 @@
         "reason": "payload did not contain a data array for URL https://api.worldbank.org/v2/country/IE;IT;DE;FR;NL;DK;SE;FI;EE;GB;US;CA;AU;NZ;JP;KR;SG;ES;PT;PL;CL;MX;BR;ZA;IN;CN;NO;CH;AT;BE/indicator/RQ.EST?format=json&per_page=20000&date=2010%3A2026&source=1181 | payload did not contain a data array for URL https://api.worldbank.org/v2/country/IE;IT;DE;FR;NL;DK;SE;FI;EE;GB;US;CA;AU;NZ;JP;KR;SG;ES;PT;PL;CL;MX;BR;ZA;IN;CN;NO;CH;AT;BE/indicator/RQ.EST?format=json&per_page=20000&date=2010%3A2026"
       }
     ],
-    "generated_at": "2026-08-17T05:58:19.893901+00:00",
+    "generated_at": "2026-08-24T05:59:24.345903+00:00",
     "loaded": [
+      {
+        "code": "HD.HCI.OVRL",
+        "countryValues": 30,
+        "label": "Human Capital Index",
+        "layer": "individual",
+        "sourceRoute": "default World Bank API",
+        "usableRows": 118
+      },
       {
         "code": "IT.NET.USER.ZS",
         "countryValues": 30,
@@ -1396,6 +1752,14 @@
         "layer": "individual",
         "sourceRoute": "default World Bank API",
         "usableRows": 404
+      },
+      {
+        "code": "SP.DYN.LE00.IN",
+        "countryValues": 30,
+        "label": "Life expectancy",
+        "layer": "individual",
+        "sourceRoute": "default World Bank API",
+        "usableRows": 450
       },
       {
         "code": "EG.FEC.RNEW.ZS",
@@ -1439,7 +1803,7 @@
       }
     ],
     "total": 14,
-    "values": 210,
+    "values": 270,
     "years": "2010:2026"
   }
 }
