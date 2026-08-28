@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-08-27T16:31:34+00:00",
+  "generated_at": "2026-08-28T17:27:13+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 4,
-  "links_seen": 4539,
-  "funding_like_links": 470,
+  "links_seen": 4533,
+  "funding_like_links": 469,
   "candidate_fetches": 300,
-  "pending_review_count": 106,
+  "pending_review_count": 105,
   "status_counts": {
-    "pending_review": 106,
+    "pending_review": 105,
     "suppressed_existing": 11,
-    "suppressed_non_actionable": 39,
+    "suppressed_non_actionable": 50,
     "rejected": 3,
     "promoted": 3,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 65
+    "suppressed_fetch_error": 55
   },
   "candidate_type_counts": {
     "recurring_programme": 55,
-    "funding_call": 85,
+    "funding_call": 84,
     "scholarship": 18,
     "generic_funding_hub": 6,
-    "tender": 8,
-    "unknown": 65
+    "tender": 19,
+    "unknown": 55
   },
   "seeds": [
     {
@@ -225,8 +225,8 @@
       "url": "https://erc.europa.eu/funding/advanced-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 164,
-      "funding_like_links": 20,
+      "links_seen": 162,
+      "funding_like_links": 19,
       "candidates_fetched": 0
     },
     {
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 153,
+      "links_seen": 151,
       "funding_like_links": 1,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 153,
+      "links_seen": 151,
       "funding_like_links": 1,
       "candidates_fetched": 0
     }
