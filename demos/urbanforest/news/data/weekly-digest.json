@@ -1,30 +1,30 @@
 {
-  "generated_at": "2026-08-30T10:38:32.922211+00:00",
-  "latest_generated_at": "2026-08-30T10:38:32.834371+00:00",
+  "generated_at": "2026-08-31T11:48:14.125418+00:00",
+  "latest_generated_at": "2026-08-31T11:48:13.998764+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 24,
-    "funding-opportunities": 25,
-    "research-evidence": 39,
-    "design-maintenance-risk": 2,
+    "ireland-urban-forest-practice": 23,
+    "funding-opportunities": 17,
+    "research-evidence": 47,
+    "design-maintenance-risk": 3,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
-      "benefit": "Funding / grants",
-      "count": 35
+      "benefit": "Biodiversity / habitat",
+      "count": 32
     },
     {
-      "benefit": "Biodiversity / habitat",
-      "count": 31
+      "benefit": "Funding / grants",
+      "count": 28
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 20
+      "count": 24
     },
     {
-      "benefit": "School / education",
+      "benefit": "Monitoring / evaluation",
       "count": 17
     },
     {
@@ -36,27 +36,27 @@
       "count": 14
     },
     {
-      "benefit": "Monitoring / evaluation",
+      "benefit": "Stormwater / SuDS",
       "count": 14
     },
     {
-      "benefit": "Community stewardship",
-      "count": 13
-    },
-    {
-      "benefit": "Stormwater / SuDS",
-      "count": 13
-    },
-    {
       "benefit": "Urban heat / shade",
-      "count": 11
+      "count": 12
+    },
+    {
+      "benefit": "Community stewardship",
+      "count": 12
     },
     {
       "benefit": "Risk / safety",
-      "count": 10
+      "count": 11
     },
     {
-      "benefit": "Wellbeing / health",
+      "benefit": "Soil health",
+      "count": 11
+    },
+    {
+      "benefit": "School / education",
       "count": 10
     }
   ],
@@ -124,37 +124,6 @@
       },
       "research_use_type": "Monitoring method",
       "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, biodiversity / habitat, tree survival / maintenance, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
-      "id": "6f4e0ae82572a3f1",
-      "title": "New Ross School Wins National Pollinator Award for Community Wildflower Project - South East Radio",
-      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORlIteGpqajlCVE1EcXZCUnQ3TXpfeS1hVEpiVjFFVUVoVDZtcW9UZ3lHcmZ1NmtiNy1KM3NmRjdrRDJraEhUUTQyZXVqc3dwcXRjWjlzZTBzMVlSVjR4a0RpR2Z5ZkZEeTlENnFsZWFpOGwzSzNYaTEyOVBfZ0tkSmFHczBsOTBiUTlzb0RCeTB1V0xmeU56a1VSY3dyRDdtalNtMXJtemxWUjJYRjI3OGZtdGFuYWQ0QWxMT3VZV0k?oc=5",
-      "section": "funding-opportunities",
-      "source_name": "Google News: school garden tree funding Ireland",
-      "published": "2026-06-08",
-      "score": 86,
-      "practical_score": 133.0,
-      "benefit_categories": [
-        "Biodiversity / habitat",
-        "School / education",
-        "Community stewardship",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 8,
-        "label": "Transferable relevance",
-        "matched_terms": [
-          "school"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "High",
-        "score": 77,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Biodiversity evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "72c194e792f74f13",
@@ -334,6 +303,28 @@
       },
       "research_use_type": "Heat / shade evidence",
       "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, stormwater / suds, wellbeing / health, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "776497ddc1662d20",
+      "title": "The Role of Urban Green Spaces in Mitigating the Urban Heat Island Effect: A Systematic Review from the Perspective of Types and Mechanisms",
+      "url": "https://doi.org/10.3390/su17136132",
+      "section": "research-evidence",
+      "source_name": "Sustainability",
+      "published": "2025-07-04",
+      "score": 100,
+      "practical_score": 122.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Community stewardship"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Climate-adaptation signal: useful for explaining shade, cooling, heat exposure, and tree-canopy value in practical urban design."
     }
   ]
 }
