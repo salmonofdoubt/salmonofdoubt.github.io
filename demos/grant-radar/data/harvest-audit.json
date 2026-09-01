@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-31T11:39:17+00:00",
+  "generated_at": "2026-09-01T10:10:33+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -35,6 +35,13 @@
       "programme_state": "upcoming"
     },
     {
+      "id": "gsi_geoheritage",
+      "name": "Geological Survey Ireland Geoheritage Grant Scheme",
+      "error": "404 Client Error: Not Found for url: https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
+      "last_successful_fetch_at": "2026-07-22T14:32:35+00:00",
+      "programme_state": "upcoming"
+    },
+    {
       "id": "leader_programme",
       "name": "LEADER Programme",
       "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-rural-and-community-development-and-the-gaeltacht/policy-information/leader-rural-development/",
@@ -47,6 +54,13 @@
       "error": "403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-housing-local-government-and-heritage/press-releases/minister-osullivan-announces-over-1-million-to-support-community-conservation-projects/",
       "last_successful_fetch_at": "2026-06-11T09:48:55+00:00",
       "programme_state": "archived"
+    },
+    {
+      "id": "geoheritage_grant_funding",
+      "name": "Geoheritage Grant Funding",
+      "error": "404 Client Error: Not Found for url: https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/activities/geotourism/Pages/GSI-Geoheritage-Grant-Funding-.aspx",
+      "last_successful_fetch_at": "2026-07-22T14:32:35+00:00",
+      "programme_state": "closed"
     },
     {
       "id": "water_quality_capital_programme_2026",
@@ -83,8 +97,8 @@
     }
   ],
   "state_source_counts": {
-    "last_known_good": 5,
-    "registry_fallback": 26,
+    "last_known_good": 7,
+    "registry_fallback": 24,
     "deadline_past_recurring": 3,
     "registry_fallback_after_fetch_error": 4,
     "page_status_open": 2,
