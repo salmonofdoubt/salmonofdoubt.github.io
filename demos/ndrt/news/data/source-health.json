@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-08-31T11:37:46.247027+00:00",
-  "latest_generated_at": "2026-08-31T11:37:32.730518+00:00",
-  "total_items": 95,
+  "generated_at": "2026-09-01T10:09:15.616467+00:00",
+  "latest_generated_at": "2026-09-01T10:09:03.408756+00:00",
+  "total_items": 94,
   "total_sources": 30,
-  "sources_active": 16,
-  "sources_checked_no_current_items": 13,
+  "sources_active": 17,
+  "sources_checked_no_current_items": 12,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 17,
-    "waterbody-evidence-alerts": 22,
-    "ireland-catchment-practice": 20,
-    "research-papers": 36
+    "grants-opportunities": 18,
+    "waterbody-evidence-alerts": 23,
+    "ireland-catchment-practice": 18,
+    "research-papers": 35
   },
   "annotation_coverage": {
-    "action_relevance": 95,
-    "pressure_categories": 95,
+    "action_relevance": 94,
+    "pressure_categories": 94,
     "local_relevance": 59,
     "opportunity_fit": 20,
-    "research_use_type": 53
+    "research_use_type": 52
   },
-  "archive_snapshots": 91,
+  "archive_snapshots": 92,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -31,9 +31,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 12,
-      "elapsed_ms": 55,
+      "current_item_count": 1,
+      "discovered_hint_count": 13,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 59,
-      "elapsed_ms": 78,
+      "discovered_hint_count": 55,
+      "elapsed_ms": 99,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 86,
+      "discovered_hint_count": 73,
+      "elapsed_ms": 104,
       "error": null
     },
     {
@@ -77,8 +77,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 4,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 81,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 107,
       "error": null
     },
     {
@@ -91,9 +91,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 10,
+      "current_item_count": 9,
       "discovered_hint_count": 100,
-      "elapsed_ms": 96,
+      "elapsed_ms": 119,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 68,
-      "elapsed_ms": 78,
+      "current_item_count": 4,
+      "discovered_hint_count": 70,
+      "elapsed_ms": 101,
       "error": null
     },
     {
@@ -123,7 +123,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 59,
-      "elapsed_ms": 70,
+      "elapsed_ms": 98,
       "error": null
     },
     {
@@ -138,7 +138,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 47,
-      "elapsed_ms": 67,
+      "elapsed_ms": 82,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 76,
-      "elapsed_ms": 81,
+      "discovered_hint_count": 77,
+      "elapsed_ms": 107,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 92,
-      "elapsed_ms": 934,
+      "elapsed_ms": 792,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 99,
+      "elapsed_ms": 113,
       "error": null
     },
     {
@@ -197,8 +197,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 68,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 84,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 80,
+      "discovered_hint_count": 73,
+      "elapsed_ms": 104,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 50,
-      "elapsed_ms": 64,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 83,
       "error": null
     },
     {
@@ -242,8 +242,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 10,
-      "elapsed_ms": 46,
+      "discovered_hint_count": 9,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 24,
-      "elapsed_ms": 54,
+      "elapsed_ms": 74,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 65,
+      "elapsed_ms": 83,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 6,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 64,
+      "current_item_count": 4,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 85,
       "error": null
     },
     {
@@ -302,8 +302,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 65,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 90,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1093,
+      "elapsed_ms": 1152,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 113,
-      "elapsed_ms": 1051,
+      "elapsed_ms": 1079,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 224,
-      "elapsed_ms": 478,
+      "elapsed_ms": 440,
       "error": null
     },
     {
@@ -361,9 +361,9 @@
       "host": "www.fisheriesireland.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 2,
       "discovered_hint_count": 179,
-      "elapsed_ms": 1334,
+      "elapsed_ms": 1251,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 421,
-      "elapsed_ms": 1275,
+      "elapsed_ms": 1132,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 876,
+      "elapsed_ms": 754,
       "error": null
     },
     {
@@ -404,11 +404,11 @@
       "scope": "funding ireland",
       "url": "https://www.communityfoundation.ie/grants/",
       "host": "www.communityfoundation.ie",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 1,
       "discovered_hint_count": 38,
-      "elapsed_ms": 2353,
+      "elapsed_ms": 1647,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 40,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 100,
-      "elapsed_ms": 76,
+      "elapsed_ms": 162,
       "error": null
     },
     {
@@ -451,9 +451,9 @@
       "host": "theriverstrust.org",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 11,
+      "current_item_count": 12,
       "discovered_hint_count": 94,
-      "elapsed_ms": 1142,
+      "elapsed_ms": 780,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 110,
-      "elapsed_ms": 1344,
+      "elapsed_ms": 1089,
       "error": null
     }
   ]
