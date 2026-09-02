@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-01T10:23:11.678348+00:00",
-  "latest_generated_at": "2026-09-01T10:23:11.568668+00:00",
+  "generated_at": "2026-09-02T09:51:45.366563+00:00",
+  "latest_generated_at": "2026-09-02T09:51:45.261737+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 25,
-    "funding-opportunities": 24,
+    "ireland-urban-forest-practice": 22,
+    "funding-opportunities": 27,
     "research-evidence": 39,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
@@ -13,11 +13,11 @@
   "top_benefit_categories": [
     {
       "benefit": "Funding / grants",
-      "count": 34
+      "count": 37
     },
     {
       "benefit": "Biodiversity / habitat",
-      "count": 31
+      "count": 29
     },
     {
       "benefit": "Tree survival / maintenance",
@@ -25,22 +25,22 @@
     },
     {
       "benefit": "School / education",
-      "count": 18
+      "count": 19
+    },
+    {
+      "benefit": "Community stewardship",
+      "count": 15
     },
     {
       "benefit": "Urban forest / NbS",
-      "count": 15
-    },
-    {
-      "benefit": "Planning / policy",
-      "count": 15
+      "count": 14
     },
     {
       "benefit": "Monitoring / evaluation",
       "count": 14
     },
     {
-      "benefit": "Community stewardship",
+      "benefit": "Planning / policy",
       "count": 13
     },
     {
@@ -187,7 +187,7 @@
     },
     {
       "id": "073b2523d843a620",
-      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - NYC.gov",
+      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - comptroller.nyc.gov",
       "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPN3NOaGR2RVkwS09NWkNtNFNGeGtVbjc3NHgwZXQ1bE0xZlI5anNNNHRhcGRhQmMtVmQ1MzB3RzZoMkxTUGI1VEdCTGQ1UXBJNDNXNWxNYk9lU09kaGtmdnRUaFJzZUdmRU1nNjVJU1dRckxBMWJ0Q25BbC1ZNlVCY2xLVXljaUhQVG82dm1Gemg5TXZGSTJQWDZ3U1plLVBWVEdNNkFfR0lmM2Y3Q1Z2X1o0dTVlME5HZTJXeGpJRndwdXZlVTBZ?oc=5",
       "section": "funding-opportunities",
       "source_name": "Google News: urban forest carbon and climate claims",
@@ -307,18 +307,16 @@
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "60b7faa9f1338a32",
-      "title": "The Benefits and Limits of Urban Tree Planting for Environmental and Human Health",
-      "url": "https://doi.org/10.3389/fevo.2021.603757",
-      "section": "research-evidence",
-      "source_name": "Frontiers in Ecology and Evolution",
-      "published": "2021-04-08",
-      "score": 92,
+      "id": "83e4e3fa7d76da98",
+      "title": "North East Community Forest confirms climate funding to 2030 - BBC",
+      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1xek01blhXaXpCYnNZZUhSay1hU0RxeFM3dlJRVkE0TDNzT3pzYnF3dG9oalVaeEhJTmJIOHNVVG9uWERGdHRqOWlWUnlVdHRaLUk5enQyb1lnUQ?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: urban forest and biodiversity grants",
+      "published": "2026-08-16",
+      "score": 95,
       "practical_score": 123.0,
       "benefit_categories": [
-        "Urban heat / shade",
-        "Stormwater / SuDS",
-        "Wellbeing / health",
+        "Community stewardship",
         "Funding / grants"
       ],
       "local_relevance": {
@@ -328,12 +326,12 @@
       },
       "opportunity_fit": {
         "fit": "Low",
-        "score": 35,
+        "score": 51,
         "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
         "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
       },
-      "research_use_type": "Heat / shade evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, stormwater / suds, wellbeing / health, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+      "research_use_type": null,
+      "urbanforest_relevance": "Opportunity signal: may help fund community stewardship, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     }
   ]
 }
