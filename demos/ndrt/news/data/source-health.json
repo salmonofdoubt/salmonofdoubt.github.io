@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-09-02T09:40:11.941232+00:00",
-  "latest_generated_at": "2026-09-02T09:39:59.593624+00:00",
+  "generated_at": "2026-09-03T09:53:23.637060+00:00",
+  "latest_generated_at": "2026-09-03T09:53:13.927379+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 20,
-  "sources_checked_no_current_items": 9,
+  "sources_active": 21,
+  "sources_checked_no_current_items": 8,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 20,
-    "waterbody-evidence-alerts": 26,
-    "ireland-catchment-practice": 13,
-    "research-papers": 36
+    "grants-opportunities": 19,
+    "ireland-catchment-practice": 17,
+    "research-papers": 36,
+    "waterbody-evidence-alerts": 23
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 24,
-    "research_use_type": 53
+    "opportunity_fit": 22,
+    "research_use_type": 54
   },
-  "archive_snapshots": 93,
+  "archive_snapshots": 94,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -32,8 +32,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 12,
-      "elapsed_ms": 114,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 31,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 55,
-      "elapsed_ms": 129,
+      "discovered_hint_count": 54,
+      "elapsed_ms": 48,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 73,
-      "elapsed_ms": 142,
+      "discovered_hint_count": 76,
+      "elapsed_ms": 52,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
-      "discovered_hint_count": 75,
-      "elapsed_ms": 167,
+      "current_item_count": 3,
+      "discovered_hint_count": 78,
+      "elapsed_ms": 52,
       "error": null
     },
     {
@@ -91,9 +91,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
-      "discovered_hint_count": 31,
-      "elapsed_ms": 113,
+      "current_item_count": 9,
+      "discovered_hint_count": 100,
+      "elapsed_ms": 60,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 65,
-      "elapsed_ms": 140,
+      "current_item_count": 2,
+      "discovered_hint_count": 64,
+      "elapsed_ms": 49,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 58,
-      "elapsed_ms": 112,
+      "discovered_hint_count": 56,
+      "elapsed_ms": 46,
       "error": null
     },
     {
@@ -134,11 +134,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 114,
+      "current_item_count": 1,
+      "discovered_hint_count": 35,
+      "elapsed_ms": 37,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 77,
-      "elapsed_ms": 124,
+      "discovered_hint_count": 78,
+      "elapsed_ms": 52,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 92,
-      "elapsed_ms": 858,
+      "elapsed_ms": 480,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 267,
+      "elapsed_ms": 117,
       "error": null
     },
     {
@@ -197,8 +197,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 117,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 45,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 129,
+      "discovered_hint_count": 77,
+      "elapsed_ms": 52,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 110,
+      "discovered_hint_count": 27,
+      "elapsed_ms": 34,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 105,
+      "elapsed_ms": 33,
       "error": null
     },
     {
@@ -257,8 +257,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 23,
-      "elapsed_ms": 101,
+      "discovered_hint_count": 14,
+      "elapsed_ms": 30,
       "error": null
     },
     {
@@ -269,11 +269,11 @@
       "scope": "ireland agriculture pressure",
       "url": "https://news.google.com/rss/search?q=%28slurry%20spreading%20OR%20manure%20spreading%20OR%20organic%20fertiliser%20OR%20fertilizer%20spreading%29%20%28Ireland%20OR%20Irish%29%20%28rain%20OR%20rainfall%20OR%20weather%20OR%20water%20quality%20OR%20river%20OR%20runoff%20OR%20nitrates%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 109,
+      "current_item_count": 0,
+      "discovered_hint_count": 50,
+      "elapsed_ms": 44,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
-      "discovered_hint_count": 50,
-      "elapsed_ms": 112,
+      "current_item_count": 2,
+      "discovered_hint_count": 35,
+      "elapsed_ms": 39,
       "error": null
     },
     {
@@ -299,11 +299,11 @@
       "scope": "ireland wastewater pressure",
       "url": "https://news.google.com/rss/search?q=%28septic%20tank%20OR%20septic%20tanks%20OR%20domestic%20wastewater%20OR%20on-site%20wastewater%20OR%20onsite%20wastewater%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20pollution%20OR%20river%20OR%20lake%20OR%20groundwater%20OR%20grant%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 114,
+      "current_item_count": 1,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 46,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1356,
+      "elapsed_ms": 960,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 113,
-      "elapsed_ms": 934,
+      "elapsed_ms": 768,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 224,
-      "elapsed_ms": 337,
+      "elapsed_ms": 284,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 179,
-      "elapsed_ms": 751,
+      "elapsed_ms": 1091,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 421,
-      "elapsed_ms": 1066,
+      "elapsed_ms": 936,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 732,
+      "elapsed_ms": 604,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 38,
-      "elapsed_ms": 1701,
+      "elapsed_ms": 1575,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 133,
+      "elapsed_ms": 201,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 100,
-      "elapsed_ms": 101,
+      "elapsed_ms": 55,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 12,
       "discovered_hint_count": 94,
-      "elapsed_ms": 1015,
+      "elapsed_ms": 868,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 110,
-      "elapsed_ms": 886,
+      "elapsed_ms": 854,
       "error": null
     }
   ]
