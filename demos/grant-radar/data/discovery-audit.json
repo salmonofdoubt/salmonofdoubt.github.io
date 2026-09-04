@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T09:51:38+00:00",
+  "generated_at": "2026-09-04T09:40:23+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
@@ -7,26 +7,26 @@
   "seed_pages_attempted": 26,
   "seed_pages_failed": 5,
   "links_seen": 4540,
-  "funding_like_links": 471,
+  "funding_like_links": 475,
   "candidate_fetches": 300,
-  "pending_review_count": 108,
+  "pending_review_count": 109,
   "status_counts": {
-    "pending_review": 108,
+    "pending_review": 109,
     "suppressed_existing": 11,
     "suppressed_non_actionable": 42,
     "rejected": 3,
     "promoted": 3,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 62
+    "suppressed_fetch_error": 60
   },
   "candidate_type_counts": {
     "recurring_programme": 56,
     "funding_call": 86,
     "scholarship": 18,
     "generic_funding_hub": 6,
-    "tender": 11,
-    "unknown": 62
+    "tender": 12,
+    "unknown": 60
   },
   "seeds": [
     {
@@ -186,8 +186,8 @@
       "status": "ok",
       "fetch_error": null,
       "links_seen": 632,
-      "funding_like_links": 62,
-      "candidates_fetched": 62
+      "funding_like_links": 63,
+      "candidates_fetched": 63
     },
     {
       "id": "geo_dfg_scientific_networks_watch",
@@ -196,8 +196,8 @@
       "status": "ok",
       "fetch_error": null,
       "links_seen": 613,
-      "funding_like_links": 57,
-      "candidates_fetched": 57
+      "funding_like_links": 58,
+      "candidates_fetched": 58
     },
     {
       "id": "geo_dfg_reinhart_koselleck_watch",
@@ -206,8 +206,8 @@
       "status": "ok",
       "fetch_error": null,
       "links_seen": 615,
-      "funding_like_links": 57,
-      "candidates_fetched": 12
+      "funding_like_links": 58,
+      "candidates_fetched": 10
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -216,7 +216,7 @@
       "status": "ok",
       "fetch_error": null,
       "links_seen": 619,
-      "funding_like_links": 59,
+      "funding_like_links": 60,
       "candidates_fetched": 0
     },
     {
