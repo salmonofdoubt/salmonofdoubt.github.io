@@ -462,20 +462,24 @@ body.art-body img {
   }
 
   .lightbox-inner {
+    grid-template-rows: minmax(0, 1fr);
     height: 100%;
     min-height: 0;
     max-height: none;
   }
 
   .lightbox-image-wrap {
+    position: relative;
     min-width: 0;
     min-height: 0;
     overflow: hidden;
   }
 
   .lightbox-image-wrap img {
-    max-width: 100%;
-    max-height: 100%;
+    position: absolute;
+    inset: 0;
+    max-width: none;
+    max-height: none;
   }
 
   .lightbox-copy {
