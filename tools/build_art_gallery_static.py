@@ -255,7 +255,7 @@ def home_page_html(grouped: dict[str, list[dict]], curation: dict) -> str:
   <title>DiAndré | Painter & Visual Artist</title>
   <meta name="description" content="DiAndré, the visual art practice of André Baumann: oil paintings, watercolours, drawings, experimental work and geospatial imagery.">
   <link rel="stylesheet" href="../assets/css/site.css">
-  <link rel="stylesheet" href="assets/art-gallery.css">
+  <link rel="stylesheet" href="assets/art-gallery.css?v=20260904-2">
 </head>
 <body class="art-body art-home">
   <header class="site-header">
@@ -362,7 +362,7 @@ def collection_page_html(collection: dict, items: list[dict], curation: dict) ->
   <title>DiAndré | {esc(collection["name"])}</title>
   <meta name="description" content="{esc(collection["description"])}">
   <link rel="stylesheet" href="../../assets/css/site.css">
-  <link rel="stylesheet" href="../assets/art-gallery.css">
+  <link rel="stylesheet" href="../assets/art-gallery.css?v=20260904-2">
 </head>
 <body class="art-body">
   <header class="site-header">

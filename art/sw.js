@@ -1,4 +1,4 @@
-const CACHE_NAME = "diandre-art-v1";
+const CACHE_NAME = "diandre-art-v2";
 
 const CORE_ASSETS = [
   "/art/",
