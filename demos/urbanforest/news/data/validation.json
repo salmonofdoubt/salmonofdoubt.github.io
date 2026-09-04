@@ -1,16 +1,18 @@
 {
-  "generated_at": "2026-09-03T10:03:15.916553+00:00",
+  "generated_at": "2026-09-04T09:55:57.203194+00:00",
   "status": "pass",
-  "total_items": 93,
+  "total_items": 92,
   "items_by_section": {
-    "ireland-urban-forest-practice": 21,
-    "funding-opportunities": 27,
-    "research-evidence": 41,
-    "design-maintenance-risk": 2,
+    "ireland-urban-forest-practice": 3,
+    "research-evidence": 70,
+    "design-maintenance-risk": 4,
+    "funding-opportunities": 13,
     "transferable-urbanforest-practice": 2
   },
-  "watch_source_count": 4,
-  "watch_source_ratio": 0.043,
+  "watch_source_count": 10,
+  "watch_source_ratio": 0.1087,
   "errors": [],
-  "warnings": []
+  "warnings": [
+    "Research lane dominates current output: 70/92."
+  ]
 }
