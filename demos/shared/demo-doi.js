@@ -2,6 +2,12 @@
   const placeholderDoi = "10.5281/zenodo.0000000";
   const path = window.location.pathname.replace(/\/index\.html$/, "/");
 
+  // Direct DOI registrations cover newly published demos even before the metadata
+  // catalogue is regenerated. Normal demos.json metadata remains the primary source.
+  const knownDoiByPath = {
+    "/demos/nbs-field-guide/": "10.5281/zenodo.20965789"
+  };
+
   // Do not show the DOI pill on the demos index itself.
   if (path === "/demos/" || path.endsWith("/demos/")) return;
 
@@ -60,14 +66,15 @@
 
       const payload = await response.json();
       const demos = Array.isArray(payload) ? payload : payload.demos;
-      if (!Array.isArray(demos)) return;
+      if (!Array.isArray(demos)) throw new Error("Invalid demos metadata");
 
       const demo = currentDemoFromManifest(demos);
-      if (!demo) return;
-
-      document.body.appendChild(makePill(demo.doi || placeholderDoi));
+      const doi = demo?.doi || knownDoiByPath[path] || placeholderDoi;
+      document.body.appendChild(makePill(doi));
     } catch (error) {
-      console.warn("Could not load DOI metadata", error);
+      const doi = knownDoiByPath[path];
+      if (doi) document.body.appendChild(makePill(doi));
+      else console.warn("Could not load DOI metadata", error);
     }
   }
 
