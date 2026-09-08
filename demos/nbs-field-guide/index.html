@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#08130f" />
+  <meta name="description" content="A practical Nature-based Solutions field guide: move from landscape pressure to intervention options, monitoring signals, trade-offs, and evidence checks." />
+  <title>NbS Field Guide | From Landscape Pressure to Practical Action</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-doi.css" />
+  <script defer src="/demos/shared/demo-doi.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero" id="top">
+      <div class="hero-topline">
+        <a class="back-to-demos" href="/demos/" aria-label="Back to demos">← Back to demos</a>
+        <span class="field-mark">FIELD NOTE 15 · NbS</span>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Nature-based Solutions · practical decision support</p>
+          <h1>From landscape pressure to practical action.</h1>
+          <p class="lede">
+            Choose an intervention from the pressure you actually face, understand the mechanism it relies on,
+            monitor whether that mechanism is operating, and keep the trade-offs visible.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#interventions">Explore interventions</a>
+            <a class="button" href="#credibility">Test an NbS claim</a>
+          </div>
+        </div>
+
+        <aside class="field-card" aria-label="Field principle">
+          <span class="field-card-label">Field principle</span>
+          <p>
+            An NbS is not simply a green object placed in a landscape. Its performance emerges from
+            hydrology, soils, vegetation, organisms, maintenance, governance, and time.
+          </p>
+          <div class="field-rule"></div>
+          <small>Start with pressure → pathway → function → evidence.</small>
+        </aside>
+      </div>
+
+      <div class="definition-note">
+        <strong>Working definition.</strong>
+        UNEA Resolution 5/5 defines NbS as actions that protect, conserve, restore, sustainably use, and
+        manage natural or modified ecosystems while addressing societal challenges and providing human
+        well-being, ecosystem-service, resilience, and biodiversity benefits.
+      </div>
+    </header>
+
+    <nav class="section-nav" aria-label="Field guide sections">
+      <a href="#interventions">Interventions</a>
+      <a href="#monitoring">Monitoring logic</a>
+      <a href="#credibility">Credibility screen</a>
+      <a href="#limits">Limits</a>
+      <a href="#evidence">Evidence</a>
+    </nav>
+
+    <main>
+      <section class="section" id="interventions">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 · Pressure first</p>
+            <h2>Filter by the problem, not by the fashion.</h2>
+          </div>
+          <p>
+            The same intervention can deliver several benefits, but not every benefit is equally likely,
+            equally large, or equally measurable at every site.
+          </p>
+        </div>
+
+        <div class="filter-panel" aria-label="Filter interventions by pressure">
+          <div class="filter-label">Landscape pressure</div>
+          <div class="filters" id="pressureFilters">
+            <button class="filter is-active" type="button" data-pressure="all" aria-pressed="true">All</button>
+            <button class="filter" type="button" data-pressure="nutrients" aria-pressed="false">Nutrients</button>
+            <button class="filter" type="button" data-pressure="sediment" aria-pressed="false">Sediment</button>
+            <button class="filter" type="button" data-pressure="flooding" aria-pressed="false">Flooding</button>
+            <button class="filter" type="button" data-pressure="drought" aria-pressed="false">Water retention</button>
+            <button class="filter" type="button" data-pressure="biodiversity" aria-pressed="false">Biodiversity</button>
+            <button class="filter" type="button" data-pressure="carbon" aria-pressed="false">Carbon / peat</button>
+          </div>
+          <p class="result-line" id="resultCount" aria-live="polite"></p>
+        </div>
+
+        <div class="intervention-grid" id="interventionGrid"></div>
+      </section>
+
+      <section class="section panel" id="monitoring">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">02 · Monitoring logic</p>
+            <h2>Baseline → pathway → response → adapt.</h2>
+          </div>
+          <p>
+            Monitoring becomes useful when it tests the mechanism behind the intervention, not merely whether
+            the intervention still exists.
+          </p>
+        </div>
+
+        <div class="monitor-flow" aria-label="Baseline to adaptive management monitoring sequence">
+          <article>
+            <span class="flow-num">1</span>
+            <h3>Baseline</h3>
+            <p>Record the pre-intervention condition, hydrology, seasonality, pressures, and relevant context.</p>
+          </article>
+          <article>
+            <span class="flow-num">2</span>
+            <h3>Pressure + pathway</h3>
+            <p>Confirm how the pressure is generated, mobilised, transported, and delivered to the receptor.</p>
+          </article>
+          <article>
+            <span class="flow-num">3</span>
+            <h3>Response indicator</h3>
+            <p>Measure a process or outcome that can reveal whether the intended function is actually occurring.</p>
+          </article>
+          <article>
+            <span class="flow-num">4</span>
+            <h3>Adapt</h3>
+            <p>Inspect, maintain, modify, relocate, or stop when the evidence contradicts the original assumption.</p>
+          </article>
+        </div>
+
+        <div class="callout">
+          <strong>Field rule:</strong> pair at least one implementation indicator
+          <span>(condition, vegetation, hydraulic function)</span> with at least one outcome indicator
+          <span>(water quality, flow response, habitat, or other target response)</span> where proportionate.
+        </div>
+      </section>
+
+      <section class="section credibility-section" id="credibility">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">03 · Credibility screen</p>
+            <h2>Five questions before you believe the claim.</h2>
+          </div>
+          <p>
+            This is a lightweight field screen inspired by core NbS quality principles. It is not an IUCN
+            certification or substitute for the full IUCN Global Standard self-assessment.
+          </p>
+        </div>
+
+        <div class="credibility-grid">
+          <form class="checklist" id="credibilityChecklist">
+            <label>
+              <input type="checkbox" />
+              <span><strong>1. Pressure.</strong> Is the societal or environmental challenge clearly specified?</span>
+            </label>
+            <label>
+              <input type="checkbox" />
+              <span><strong>2. Mechanism and scale.</strong> Is there a plausible biophysical pathway at the spatial and temporal scale being claimed?</span>
+            </label>
+            <label>
+              <input type="checkbox" />
+              <span><strong>3. Evidence.</strong> Is there a baseline and a measurable response indicator?</span>
+            </label>
+            <label>
+              <input type="checkbox" />
+              <span><strong>4. Whole-system effects.</strong> Are biodiversity, governance, maintenance, equity, and trade-offs visible?</span>
+            </label>
+            <label>
+              <input type="checkbox" />
+              <span><strong>5. Strength of claim.</strong> Does the evidence distinguish a plausible mechanism from a site-specific demonstrated effect?</span>
+            </label>
+          </form>
+
+          <aside class="score-card" aria-live="polite">
+            <span class="score-kicker">Current field score</span>
+            <div class="score-value"><span id="scoreValue">0</span><small>/5</small></div>
+            <h3 id="scoreTitle">Claim needs work</h3>
+            <p id="scoreText">Start by specifying the pressure and the mechanism you expect the intervention to change.</p>
+            <button class="reset-button" id="resetChecklist" type="button">Reset screen</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section panel" id="limits">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">04 · Limits and trade-offs</p>
+            <h2>Green does not mean consequence-free.</h2>
+          </div>
+          <p>
+            Good NbS practice makes uncertainty, maintenance burden, land-use implications, and possible
+            adverse effects explicit before implementation.
+          </p>
+        </div>
+
+        <div class="limits-grid">
+          <article>
+            <h3>Right measure, right place</h3>
+            <p>Hydrological connectivity and landscape context can determine whether an intervention intercepts the pressure at all.</p>
+          </article>
+          <article>
+            <h3>Local ≠ catchment-scale</h3>
+            <p>A visible local effect should not automatically be translated into a large downstream or catchment-wide benefit.</p>
+          </article>
+          <article>
+            <h3>Maintenance is part of performance</h3>
+            <p>Sediment accumulation, blocked structures, vegetation change, and damaged buffers can change function through time.</p>
+          </article>
+          <article>
+            <h3>Co-benefits need evidence too</h3>
+            <p>Biodiversity, carbon, amenity, drought, and flood claims should be treated as testable propositions, not decorative labels.</p>
+          </article>
+        </div>
+
+        <div class="disclaimer">
+          <strong>Demo boundary.</strong> This guide supports early-stage thinking and field discussion. It is not
+          engineering design, flood-risk advice, ecological assessment, regulatory approval, or a substitute for
+          site-specific professional judgement.
+        </div>
+      </section>
+
+      <section class="section evidence-section" id="evidence">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">05 · Evidence spine</p>
+            <h2>Start authoritative. Then get site-specific.</h2>
+          </div>
+          <p>
+            The intervention notes are intentionally cautious. They draw on internationally recognised NbS
+            principles and water-management evidence, with Irish riparian evidence included where directly relevant.
+          </p>
+        </div>
+
+        <ol class="references">
+          <li>
+            International Union for Conservation of Nature. (2020).
+            <em>Global standard for nature-based solutions: A user-friendly framework for the verification,
+            design and scaling up of NbS</em> (1st ed.). IUCN.
+            <a href="https://doi.org/10.2305/IUCN.CH.2020.08.en" target="_blank" rel="noopener noreferrer">https://doi.org/10.2305/IUCN.CH.2020.08.en</a>
+          </li>
+          <li>
+            United Nations Environment Assembly. (2022).
+            <em>Nature-based solutions for supporting sustainable development</em> (UNEP/EA.5/Res.5).
+            United Nations Environment Programme.
+            <a href="https://www.unep.org/resources/resolutions-treaties-and-decisions/UN-Environment-Assembly-5-2" target="_blank" rel="noopener noreferrer">UNEA 5.2 resolutions</a>
+          </li>
+          <li>
+            European Commission, Joint Research Centre. (n.d.).
+            <em>Nature-based solutions for better water management</em>. Knowledge Hub for Water.
+            <a href="https://water.jrc.ec.europa.eu/nbs.html" target="_blank" rel="noopener noreferrer">Knowledge Hub for Water</a>
+          </li>
+          <li>
+            Ó hUallacháin, D., Mellander, P.-E., Parker, S., Baggaley, N., Wilkinson, M. E., Lilly, A., &amp; Stutter, M. (2025).
+            <em>Specific management and robust targeting of riparian buffer zones</em> (Research Report 485).
+            Environmental Protection Agency.
+            <a href="https://www.epa.ie/publications/research/water/research-485-specific-management-and-robust-targeting-of-riparian-buffer-zones.php" target="_blank" rel="noopener noreferrer">EPA Research 485</a>
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <strong>NbS Field Guide</strong>
+        <span>André Baumann · Salmon of Doubt · public research demonstrator</span>
+      </div>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+  </div>
+</body>
+</html>
