@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-09-09T06:44:27Z",
+  "generated_at_utc": "2026-09-09T11:57:37Z",
   "sources": [
     {
       "name": "OPW waterlevel.ie latest readings",
@@ -15,9 +15,9 @@
       "display_hint": "Live hydrological pulse; not a chemistry sensor.",
       "id": "opw_waterlevel",
       "status": "ok",
-      "records": 2016,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "elapsed_ms": 1873
+      "records": 2017,
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 1636
     },
     {
       "name": "EPA Bathing Water locations",
@@ -34,8 +34,8 @@
       "id": "epa_bathing_locations",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "elapsed_ms": 1920
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 1518
     },
     {
       "name": "EPA Bathing Water measurements",
@@ -52,8 +52,8 @@
       "id": "epa_bathing_measurements",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "elapsed_ms": 1494
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 1216
     },
     {
       "name": "EPA Bathing Water alerts",
@@ -70,8 +70,8 @@
       "id": "epa_bathing_alerts",
       "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "elapsed_ms": 553
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 794
     },
     {
       "name": "EPA WFD Open Data context",
@@ -86,11 +86,10 @@
       "is_live_signal": false,
       "display_hint": "WFD assessment context; not real-time water quality.",
       "id": "epa_wfd",
-      "status": "partial",
+      "status": "ok",
       "records": 0,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "error": "Baldoyle: Timeout after 8s",
-      "elapsed_ms": 16201
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 10712
     },
     {
       "name": "EPA Geoportal water quality datasets",
@@ -107,7 +106,7 @@
       "id": "epa_geoportal_context",
       "status": "planned",
       "records": 1,
-      "fetched_at_utc": "2026-09-09T06:44:27Z"
+      "fetched_at_utc": "2026-09-09T11:57:37Z"
     },
     {
       "name": "Marine Institute Irish Weather Buoy Network",
@@ -124,8 +123,8 @@
       "id": "marine_institute_weather_buoys",
       "status": "ok",
       "records": 4,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "elapsed_ms": 1104
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 723
     },
     {
       "name": "Met Éireann current station observations",
@@ -142,8 +141,8 @@
       "id": "met_eireann_observations",
       "status": "ok",
       "records": 7,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "elapsed_ms": 2015
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 1431
     },
     {
       "name": "Local focus-place anchors",
@@ -160,7 +159,7 @@
       "id": "local_focus_places",
       "status": "ok",
       "records": 6,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
       "elapsed_ms": 0
     },
     {
@@ -178,8 +177,8 @@
       "id": "epa_official_wq",
       "status": "ok",
       "records": 164,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
-      "elapsed_ms": 65947
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
+      "elapsed_ms": 57978
     },
     {
       "name": "EPA/Catchments official chemistry values",
@@ -196,7 +195,7 @@
       "id": "epa_official_chemistry",
       "status": "empty",
       "records": 0,
-      "fetched_at_utc": "2026-09-09T06:44:27Z",
+      "fetched_at_utc": "2026-09-09T11:57:37Z",
       "files": 0,
       "directory": "data/source/epa-chemistry"
     }
@@ -205,10 +204,10 @@
     "ok": true,
     "status": "ok",
     "issues": [],
-    "record_count": 2198,
+    "record_count": 2199,
     "source_count": 11,
     "records_by_source": {
-      "opw_waterlevel": 2016,
+      "opw_waterlevel": 2017,
       "epa_geoportal_context": 1,
       "local_focus_places": 6,
       "epa_official_wq": 164,
