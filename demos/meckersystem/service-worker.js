@@ -1,4 +1,4 @@
-const CACHE_NAME = 'meckergesellschaft-v2';
+const CACHE_NAME = 'meckergesellschaft-v3';
 const APP_SHELL = [
   './',
   './?lang=de',
