@@ -1,118 +1,68 @@
 (() => {
   'use strict';
 
-  const CORE_VERSION = '20260910-2042';
+  const CORE_VERSION = '20260910-2315';
   const VALID_LANGS = new Set(['de', 'en']);
   let deferredInstallPrompt = null;
 
-  function currentUrl() { return new URL(window.location.href); }
+  function currentUrl() {
+    return new URL(window.location.href);
+  }
+
   function requestedLanguage() {
     const lang = currentUrl().searchParams.get('lang');
     return VALID_LANGS.has(lang) ? lang : 'de';
-  }
-
-  function loadSiteConfig() {
-    return new Promise((resolve) => {
-      const script = document.createElement('script');
-      script.src = './site-config.js';
-      script.onload = resolve;
-      script.onerror = resolve;
-      document.head.appendChild(script);
-    });
   }
 
   function config() {
     return window.MECKER_SITE_CONFIG || { doi: '10.5281/zenodo.0000000', doiUrl: '' };
   }
 
-  function setInitialSimulationState() {
-    const clusterControl = document.getElementById('clusterTotal');
-    const clusterOutput = document.getElementById('clusterTotalOut');
-    const activeClusters = document.getElementById('activeClusters');
-    if (clusterControl) clusterControl.value = '1';
-    if (clusterOutput) clusterOutput.value = '1';
-    if (activeClusters) activeClusters.textContent = '0/1';
-  }
-
-  function ensurePwaMetadata() {
-    const addLink = (rel, href, type) => {
-      if (document.querySelector(`link[rel="${rel}"]`)) return;
-      const link = document.createElement('link');
-      link.rel = rel; link.href = href; if (type) link.type = type;
-      document.head.appendChild(link);
-    };
-    addLink('manifest', './manifest.webmanifest');
-    addLink('icon', './icon.svg', 'image/svg+xml');
-    addLink('stylesheet', './pwa-ui.css?v=20260910-2235');
-
-    const addMeta = (name, content) => {
-      if (document.querySelector(`meta[name="${name}"]`)) return;
-      const meta = document.createElement('meta'); meta.name = name; meta.content = content; document.head.appendChild(meta);
-    };
-    addMeta('mobile-web-app-capable', 'yes');
-    addMeta('apple-mobile-web-app-capable', 'yes');
-    addMeta('apple-mobile-web-app-status-bar-style', 'black-translucent');
-    addMeta('apple-mobile-web-app-title', 'MeckerGesellschaft');
-  }
-
   function isStandaloneDisplay() {
     return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   }
 
-  function buildEnvLensStyleUtilityUi() {
-    const heroTools = document.querySelector('.hero-tools');
-    if (!heroTools) return;
+  function syncUrl(lang) {
+    if (!VALID_LANGS.has(lang)) return;
+    const url = currentUrl();
+    url.searchParams.set('lang', lang);
+    history.replaceState({ lang }, '', `${url.pathname}${url.search}${url.hash}`);
+  }
 
-    const installButton = document.createElement('button');
-    installButton.type = 'button';
-    installButton.id = 'installApp';
-    installButton.className = 'install-button';
-    installButton.innerHTML = '<span aria-hidden="true">↓</span><span class="install-label" data-de="Installieren" data-en="Install">Installieren</span>';
-    heroTools.prepend(installButton);
+  function syncDocumentMeta(lang) {
+    document.title = lang === 'en'
+      ? 'Grumble Society · Emergence Lab | André Baumann'
+      : 'MeckerGesellschaft · Emergence Lab | André Baumann';
 
-    const dialog = document.createElement('dialog');
-    dialog.className = 'install-dialog';
-    dialog.id = 'installDialog';
-    dialog.innerHTML = `
-      <form method="dialog">
-        <button class="dialog-close" type="submit" value="close" aria-label="Close">×</button>
-        <p class="eyebrow" data-de="Installierbare Web-App" data-en="Installable web app">Installierbare Web-App</p>
-        <h2 data-de="MeckerGesellschaft auf diesem Gerät behalten." data-en="Keep Grumble Society on this device.">MeckerGesellschaft auf diesem Gerät behalten.</h2>
-        <div id="installInstructions" class="install-instructions"></div>
-        <div class="dialog-actions"><button class="button primary" type="submit" value="close" data-de="Verstanden" data-en="Got it">Verstanden</button></div>
-      </form>`;
-    document.body.appendChild(dialog);
-
-    const doiBadge = document.createElement('a');
-    doiBadge.className = 'doi-badge';
-    doiBadge.id = 'doiPill';
-    doiBadge.innerHTML = `<b>DOI</b><span id="doiText"></span>`;
-    document.body.appendChild(doiBadge);
-
-    configureDoi();
-    initialiseInstallExperience();
+    const description = document.querySelector('meta[name="description"]');
+    if (description) {
+      description.content = lang === 'en'
+        ? 'Interactive agent-based emergence simulation: multiple grumble clusters interact through local networks, spillover, feedback, and autonomous or manual grumble export.'
+        : 'Interaktive Agenten-Simulation zu Emergenz: mehrere MeckerCluster koppeln lokale MeckerSysteme und Na-wird-schon-Systeme über Netzwerke, Überschwappen und autonomen oder manuellen Meckerexport.';
+    }
   }
 
   function configureDoi() {
     const c = config();
-    const badge = document.getElementById('doiPill');
-    const textNode = document.getElementById('doiText');
-    if (!badge || !textNode) return;
-    textNode.textContent = c.doi;
+    const doi = document.getElementById('doiPill');
+    const text = document.getElementById('doiText');
+    if (!doi || !text) return;
+
+    text.textContent = c.doi;
     const hasRealDoi = Boolean(c.doiUrl) && !c.doi.includes('0000000');
+
     if (hasRealDoi) {
-      badge.href = c.doiUrl;
-      badge.target = '_blank';
-      badge.rel = 'noopener noreferrer';
-      badge.setAttribute('aria-label', `Open Zenodo DOI ${c.doi}`);
+      doi.href = c.doiUrl;
+      doi.classList.remove('is-placeholder');
+      doi.setAttribute('aria-label', `Open Zenodo DOI ${c.doi}`);
       return;
     }
-    badge.href = 'https://zenodo.org/records/0000000';
-    badge.target = '_blank';
-    badge.rel = 'noopener noreferrer';
-    badge.classList.add('is-placeholder');
-    badge.title = 'Zenodo DOI placeholder';
-    badge.setAttribute('aria-label', `Zenodo DOI placeholder ${c.doi}`);
+
+    doi.href = '#';
+    doi.classList.add('is-placeholder');
+    doi.title = 'Zenodo DOI will be added after publication.';
+    doi.setAttribute('aria-label', `Zenodo DOI placeholder ${c.doi}`);
+    doi.addEventListener('click', (event) => event.preventDefault());
   }
 
   function showInstallInstructions() {
@@ -139,27 +89,24 @@
 
     const dialog = document.getElementById('installDialog');
     if (typeof dialog?.showModal === 'function') dialog.showModal();
-    else dialog?.setAttribute('open', '');
   }
 
   async function requestInstall() {
-    if (isStandaloneDisplay()) {
-      showInstallInstructions();
-      return;
-    }
     if (!deferredInstallPrompt) {
       showInstallInstructions();
       return;
     }
+
     const promptEvent = deferredInstallPrompt;
     deferredInstallPrompt = null;
-    await promptEvent.prompt();
+    promptEvent.prompt();
     await promptEvent.userChoice;
   }
 
   function initialiseInstallExperience() {
     const button = document.getElementById('installApp');
     if (!button) return;
+
     if (isStandaloneDisplay()) button.hidden = true;
 
     window.addEventListener('beforeinstallprompt', (event) => {
@@ -168,66 +115,48 @@
       button.hidden = false;
       button.classList.add('is-ready');
     });
+
     window.addEventListener('appinstalled', () => {
       deferredInstallPrompt = null;
       button.hidden = true;
     });
+
     button.addEventListener('click', requestInstall);
   }
 
   async function registerServiceWorker() {
     if (!('serviceWorker' in navigator) || window.location.protocol === 'file:') return;
-    try { await navigator.serviceWorker.register('./service-worker.js', { scope: './' }); }
-    catch (error) { console.warn('Offline shell registration failed:', error); }
-  }
-
-  function syncUrl(lang) {
-    if (!VALID_LANGS.has(lang)) return;
-    const url = currentUrl();
-    url.searchParams.set('lang', lang);
-    history.replaceState({ lang }, '', `${url.pathname}${url.search}${url.hash}`);
-  }
-
-  function syncDocumentMeta(lang) {
-    document.title = lang === 'en' ? 'Grumble Society · Emergence Lab | André Baumann' : 'MeckerGesellschaft · Emergence Lab | André Baumann';
-    const description = document.querySelector('meta[name="description"]');
-    if (description) description.content = lang === 'en'
-      ? 'Interactive agent-based emergence simulation: multiple grumble clusters interact through local networks, spillover, feedback, and autonomous or manual grumble export.'
-      : 'Interaktive Agenten-Simulation zu Emergenz: mehrere MeckerCluster koppeln lokale MeckerSysteme und Na-wird-schon-Systeme über Netzwerke, Überschwappen und autonomen oder manuellen Meckerexport.';
-  }
-
-  function activateLanguage(lang, { updateUrl = false } = {}) {
-    const button = document.querySelector(`.lang-button[data-lang="${lang}"]`);
-    if (!button) return;
-    if (!button.classList.contains('is-active')) button.click();
-    syncDocumentMeta(lang);
-    if (updateUrl) syncUrl(lang);
+    try {
+      await navigator.serviceWorker.register('./service-worker.js', { scope: './' });
+    } catch (error) {
+      console.warn('Offline shell registration failed:', error);
+    }
   }
 
   function initialiseLanguageRouting() {
     const url = currentUrl();
     const rawLang = url.searchParams.get('lang');
     const initialLang = requestedLanguage();
+
     document.querySelectorAll('.lang-button').forEach((button) => {
       button.addEventListener('click', () => {
         const lang = VALID_LANGS.has(button.dataset.lang) ? button.dataset.lang : 'de';
-        syncUrl(lang); syncDocumentMeta(lang);
+        syncUrl(lang);
+        syncDocumentMeta(lang);
       });
     });
+
     if (rawLang && !VALID_LANGS.has(rawLang)) {
       url.searchParams.delete('lang');
       history.replaceState({}, '', `${url.pathname}${url.search}${url.hash}`);
     }
-    activateLanguage(initialLang, { updateUrl: Boolean(rawLang) });
+
+    const button = document.querySelector(`.lang-button[data-lang="${initialLang}"]`);
+    if (button && !button.classList.contains('is-active')) button.click();
+    syncDocumentMeta(initialLang);
   }
 
-  async function boot() {
-    setInitialSimulationState();
-    ensurePwaMetadata();
-    await loadSiteConfig();
-    buildEnvLensStyleUtilityUi();
-    registerServiceWorker();
-
+  function loadSimulation() {
     const core = document.createElement('script');
     core.src = `simulation.js?v=${CORE_VERSION}`;
     core.async = false;
@@ -236,5 +165,8 @@
     document.head.appendChild(core);
   }
 
-  boot();
+  configureDoi();
+  initialiseInstallExperience();
+  registerServiceWorker();
+  loadSimulation();
 })();
