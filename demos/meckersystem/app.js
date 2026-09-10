@@ -13,6 +13,16 @@
     return VALID_LANGS.has(lang) ? lang : 'de';
   }
 
+  function setInitialSimulationState() {
+    const clusterControl = document.getElementById('clusterTotal');
+    const clusterOutput = document.getElementById('clusterTotalOut');
+    const activeClusters = document.getElementById('activeClusters');
+
+    if (clusterControl) clusterControl.value = '1';
+    if (clusterOutput) clusterOutput.value = '1';
+    if (activeClusters) activeClusters.textContent = '0/1';
+  }
+
   function syncUrl(lang) {
     if (!VALID_LANGS.has(lang)) return;
     const url = currentUrl();
@@ -64,6 +74,8 @@
 
     activateLanguage(initialLang, { updateUrl: Boolean(rawLang) });
   }
+
+  setInitialSimulationState();
 
   const core = document.createElement('script');
   core.src = `simulation.js?v=${CORE_VERSION}`;
