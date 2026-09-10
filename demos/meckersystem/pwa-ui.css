@@ -20,7 +20,8 @@
 @media(max-width:700px){
   .install-button{min-height:34px;padding:.42rem .58rem;font-size:.74rem}
   .hero-tools{flex-wrap:wrap;justify-content:flex-end}
-  .doi-pill{position:static;width:fit-content;margin:.7rem auto 1rem}
+  .doi-pill{position:fixed;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));width:auto;max-width:calc(100vw - 120px);margin:0;font-size:9px;padding:6px 8px;gap:6px}
+  .doi-pill span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .install-dialog form{padding:1rem}
   .install-dialog h2{font-size:1.15rem}
   .install-instructions{font-size:.76rem}
