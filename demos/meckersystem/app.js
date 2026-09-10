@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const CORE_VERSION = '20260910-1815';
+  const CORE_VERSION = '20260910-1848';
   const VALID_LANGS = new Set(['de', 'en']);
 
   function currentUrl() {
