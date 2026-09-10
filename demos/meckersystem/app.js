@@ -43,7 +43,7 @@
     };
     addLink('manifest', './manifest.webmanifest');
     addLink('icon', './icon.svg', 'image/svg+xml');
-    addLink('stylesheet', './pwa-ui.css?v=20260910-2208');
+    addLink('stylesheet', './pwa-ui.css?v=20260910-2235');
 
     const addMeta = (name, content) => {
       if (document.querySelector(`meta[name="${name}"]`)) return;
@@ -83,11 +83,11 @@
       </form>`;
     document.body.appendChild(dialog);
 
-    const doiPill = document.createElement('a');
-    doiPill.className = 'doi-pill';
-    doiPill.id = 'doiPill';
-    doiPill.innerHTML = `<b>DOI</b><span id="doiText"></span>`;
-    document.body.appendChild(doiPill);
+    const doiBadge = document.createElement('a');
+    doiBadge.className = 'doi-badge';
+    doiBadge.id = 'doiPill';
+    doiBadge.innerHTML = `<b>DOI</b><span id="doiText"></span>`;
+    document.body.appendChild(doiBadge);
 
     configureDoi();
     initialiseInstallExperience();
@@ -95,24 +95,24 @@
 
   function configureDoi() {
     const c = config();
-    const pill = document.getElementById('doiPill');
+    const badge = document.getElementById('doiPill');
     const textNode = document.getElementById('doiText');
-    if (!pill || !textNode) return;
+    if (!badge || !textNode) return;
     textNode.textContent = c.doi;
     const hasRealDoi = Boolean(c.doiUrl) && !c.doi.includes('0000000');
     if (hasRealDoi) {
-      pill.href = c.doiUrl;
-      pill.target = '_blank';
-      pill.rel = 'noopener noreferrer';
-      pill.setAttribute('aria-label', `Open Zenodo DOI ${c.doi}`);
+      badge.href = c.doiUrl;
+      badge.target = '_blank';
+      badge.rel = 'noopener noreferrer';
+      badge.setAttribute('aria-label', `Open Zenodo DOI ${c.doi}`);
       return;
     }
-    pill.href = 'https://zenodo.org/records/0000000';
-    pill.target = '_blank';
-    pill.rel = 'noopener noreferrer';
-    pill.classList.add('is-placeholder');
-    pill.title = 'Zenodo DOI placeholder';
-    pill.setAttribute('aria-label', `Zenodo DOI placeholder ${c.doi}`);
+    badge.href = 'https://zenodo.org/records/0000000';
+    badge.target = '_blank';
+    badge.rel = 'noopener noreferrer';
+    badge.classList.add('is-placeholder');
+    badge.title = 'Zenodo DOI placeholder';
+    badge.setAttribute('aria-label', `Zenodo DOI placeholder ${c.doi}`);
   }
 
   function showInstallInstructions() {
