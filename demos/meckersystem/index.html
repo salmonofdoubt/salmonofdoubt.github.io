@@ -2,17 +2,25 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#080b13" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MeckerGesellschaft" />
   <meta name="description" content="Interaktive Agenten-Simulation zu Emergenz: mehrere MeckerCluster koppeln lokale MeckerSysteme und Na-wird-schon-Systeme über Netzwerke, Überschwappen und autonomen oder manuellen Meckerexport." />
   <title>MeckerGesellschaft · Emergence Lab | André Baumann</title>
 
-  <link rel="stylesheet" href="styles.css?v=20260910-2240" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <link rel="stylesheet" href="styles.css?v=20260910-2315" />
+  <link rel="stylesheet" href="pwa-ui.css?v=20260910-2315" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
   <script defer src="/demos/shared/demo-return.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css" />
   <script defer src="/demos/shared/demo-support.js"></script>
-  <script defer src="app.js?v=20260910-2240"></script>
+  <script defer src="site-config.js?v=20260910-2315"></script>
+  <script defer src="app.js?v=20260910-2315"></script>
 </head>
 <body>
   <div class="page-shell">
@@ -20,6 +28,9 @@
       <div class="hero-topline">
         <a class="back-to-demos" href="/demos/" data-de="← Demos" data-en="← Demos">← Demos</a>
         <div class="hero-tools">
+          <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
+            <span aria-hidden="true">↓</span><span class="install-label" data-de="Installieren" data-en="Install">Installieren</span>
+          </button>
           <div class="language-toggle" role="group" aria-label="Language / Sprache">
             <button class="lang-button is-active" type="button" data-lang="de" aria-pressed="true">DE</button>
             <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -78,8 +89,8 @@
             </div>
 
             <label class="slider-row" for="clusterTotal">
-              <span><strong data-de="MeckerCluster" data-en="Grumble clusters">MeckerCluster</strong><output id="clusterTotalOut">3</output></span>
-              <input id="clusterTotal" type="range" min="1" max="5" step="1" value="3" />
+              <span><strong data-de="MeckerCluster" data-en="Grumble clusters">MeckerCluster</strong><output id="clusterTotalOut">1</output></span>
+              <input id="clusterTotal" type="range" min="1" max="5" step="1" value="1" />
             </label>
 
             <label class="select-row" for="eventCluster">
@@ -157,7 +168,7 @@
               <div class="live-metrics" aria-label="Aktuelle Systemmetriken">
                 <div><span data-de="Meckerer aktiv" data-en="Active grumblers">Meckerer aktiv</span><strong id="activeMecker">0</strong></div>
                 <div><span data-de="Beruhiger aktiv" data-en="Active calmers">Beruhiger aktiv</span><strong id="activeCalm">0</strong></div>
-                <div><span data-de="aktive Cluster" data-en="Active clusters">aktive Cluster</span><strong id="activeClusters">0/3</strong></div>
+                <div><span data-de="aktive Cluster" data-en="Active clusters">aktive Cluster</span><strong id="activeClusters">0/1</strong></div>
                 <div><span data-de="Genervtheit" data-en="Annoyance">Genervtheit</span><strong id="annoyanceValue">0</strong></div>
               </div>
             </div>
@@ -256,5 +267,17 @@
       <a href="#top" data-de="Nach oben ↑" data-en="Back to top ↑">Nach oben ↑</a>
     </footer>
   </div>
+
+  <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
+    <form method="dialog">
+      <button class="dialog-close" type="submit" value="close" aria-label="Close">×</button>
+      <p class="eyebrow" data-de="Installierbare Web-App" data-en="Installable web app">Installierbare Web-App</p>
+      <h2 id="installDialogTitle" data-de="MeckerGesellschaft auf diesem Gerät behalten." data-en="Keep Grumble Society on this device.">MeckerGesellschaft auf diesem Gerät behalten.</h2>
+      <div id="installInstructions" class="install-instructions"><p data-de="Nutze die Installieren- oder Zum-Home-Bildschirm-Funktion deines Browsers." data-en="Use your browser's Install or Add to Home Screen command.">Nutze die Installieren- oder Zum-Home-Bildschirm-Funktion deines Browsers.</p></div>
+      <div class="dialog-actions"><button class="button primary" type="submit" value="close" data-de="Verstanden" data-en="Got it">Verstanden</button></div>
+    </form>
+  </dialog>
+
+  <a class="doi-pill is-placeholder" id="doiPill" href="https://zenodo.org/records/0000000" target="_blank" rel="noopener noreferrer" aria-label="Zenodo DOI placeholder 10.5281/zenodo.0000000"><b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span></a>
 </body>
 </html>
