@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#080b13" />
-  <meta name="description" content="Interaktive Emergenz-Simulation: Ein MeckerSystem und ein Na-wird-schon-System koppeln sich über Feedback, Schwellenwerte und Verzögerung." />
-  <title>MeckerSystem · Emergence Lab | André Baumann</title>
+  <meta name="description" content="Interaktive Agenten-Simulation zu Emergenz: Eine MeckerGesellschaft koppelt viele MeckerSysteme und Na-wird-schon-Systeme über lokale Netzwerke, Feedback und Verzögerung." />
+  <title>MeckerGesellschaft · Emergence Lab | André Baumann</title>
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
@@ -24,43 +24,42 @@
 
       <div class="hero-grid">
         <div>
-          <p class="eyebrow">Emergenz · Feedback · unnötige Aufregung</p>
-          <h1>Mecker<wbr>System</h1>
+          <p class="eyebrow">Emergenz · Agenten · Rückkopplung</p>
+          <h1>Mecker<wbr>Gesellschaft</h1>
           <p class="lede">
-            Zwei simple Systeme, zwei Energieströme, keine zentrale Steuerung. Ändere Schwellen,
-            Verzögerung und Beruhigungsstärke und beobachte, ob Ruhe, Dauergemecker oder Oszillation entsteht.
+            Nicht mehr ein Meckerer gegen ein „Na wird schon“. Viele autonome Systeme reagieren gleichzeitig,
+            aber nur auf ihre Nachbarn. Das globale Muster kennt keiner von ihnen.
           </p>
           <div class="hero-actions">
             <button class="button primary" id="heroEvent" type="button">MeckereiWürdiges Ereignis!</button>
-            <a class="button" href="#lab">System öffnen</a>
+            <a class="button" href="#lab">Simulation öffnen</a>
           </div>
         </div>
 
-        <aside class="principle-card" aria-label="Grundregel des Systems">
-          <span>Grundregel</span>
-          <p>Meckern erzeugt MeckerEnergie. MeckerEnergie kann „Na wird schon“-Energie auslösen. Diese wirkt zurück.</p>
-          <strong>Mehr ist nicht automatisch besser.</strong>
+        <aside class="principle-card" aria-label="Emergenzprinzip">
+          <span>Emergenzprinzip</span>
+          <p>Lokale Regeln + Unterschiede + Netzwerk + Verzögerung → kollektive Muster.</p>
+          <strong>Kein Agent kennt „Kaskade“, „Cluster“ oder „gesellschaftliche Ruhe“.</strong>
         </aside>
       </div>
     </header>
 
     <nav class="section-nav" aria-label="Seitennavigation">
       <a href="#lab">Simulation</a>
-      <a href="#signals">Signale</a>
       <a href="#logic">Systemlogik</a>
-      <a href="#about">Emergenz?</a>
+      <a href="#about">Warum Emergenz?</a>
     </nav>
 
     <main>
-      <section class="section" id="lab">
-        <div class="section-heading">
+      <section class="section lab-section" id="lab">
+        <div class="section-heading compact-title">
           <div>
             <p class="eyebrow">01 · Das Experiment</p>
             <h2>Störe das System. Dann lass es sich selbst sortieren.</h2>
           </div>
           <p>
-            Die Simulation läuft kontinuierlich. Ein Ereignis erzeugt einen Reiz; danach entscheiden nur noch
-            interne Zustände, Schwellen, Verzögerungen und Rückkopplung über den Verlauf.
+            Ein Ereignis trifft nur einen Teil der Population. Danach laufen ausschließlich lokale Interaktionen.
+            Beobachte, ob der Reiz verlischt, sich ausbreitet oder als Welle zurückkehrt.
           </p>
         </div>
 
@@ -75,28 +74,33 @@
             </div>
 
             <label class="slider-row" for="severity">
-              <span><strong>Ereignisstärke</strong><output id="severityOut">62</output></span>
-              <input id="severity" type="range" min="10" max="100" step="1" value="62" />
+              <span><strong>Ereignisstärke</strong><output id="severityOut">72</output></span>
+              <input id="severity" type="range" min="10" max="100" step="1" value="72" />
             </label>
 
-            <label class="slider-row" for="sensitivity">
-              <span><strong>Meckerempfindlichkeit</strong><output id="sensitivityOut">58</output></span>
-              <input id="sensitivity" type="range" min="10" max="100" step="1" value="58" />
+            <label class="slider-row" for="reach">
+              <span><strong>Direkt betroffen</strong><output id="reachOut">28%</output></span>
+              <input id="reach" type="range" min="5" max="80" step="1" value="28" />
             </label>
 
-            <label class="slider-row" for="responseThreshold">
-              <span><strong>„Na wird schon“-Schwelle</strong><output id="responseThresholdOut">34</output></span>
-              <input id="responseThreshold" type="range" min="5" max="85" step="1" value="34" />
+            <label class="slider-row" for="connectivity">
+              <span><strong>Vernetzung</strong><output id="connectivityOut">6</output></span>
+              <input id="connectivity" type="range" min="2" max="12" step="1" value="6" />
+            </label>
+
+            <label class="slider-row" for="socialInfluence">
+              <span><strong>Mecker-Ansteckung</strong><output id="socialInfluenceOut">64</output></span>
+              <input id="socialInfluence" type="range" min="0" max="100" step="1" value="64" />
             </label>
 
             <label class="slider-row" for="calmStrength">
-              <span><strong>Beruhigungsstärke</strong><output id="calmStrengthOut">54</output></span>
-              <input id="calmStrength" type="range" min="5" max="100" step="1" value="54" />
+              <span><strong>„Na wird schon“-Kraft</strong><output id="calmStrengthOut">58</output></span>
+              <input id="calmStrength" type="range" min="0" max="100" step="1" value="58" />
             </label>
 
             <label class="slider-row" for="delay">
-              <span><strong>Reaktionsverzögerung</strong><output id="delayOut">1.2 s</output></span>
-              <input id="delay" type="range" min="0" max="40" step="1" value="12" />
+              <span><strong>Reaktionsverzögerung</strong><output id="delayOut">0.8 s</output></span>
+              <input id="delay" type="range" min="0" max="30" step="1" value="8" />
             </label>
 
             <div class="control-actions">
@@ -105,153 +109,90 @@
               <button class="button" id="resetButton" type="button">Reset</button>
               <button class="button chaos" id="chaosButton" type="button">CHAOS</button>
             </div>
-
-            <p class="control-note">CHAOS würfelt Parameter, nicht Naturgesetze.</p>
+            <p class="control-note">Vernetzung baut das soziale Netzwerk neu auf. Die Agenten bleiben lokal, der Gesamtzustand entsteht global.</p>
           </aside>
 
-          <div class="system-stage panel" id="systemStage" aria-label="Visualisierung des gekoppelten Systems">
-            <div class="stage-status">
-              <span>Emergenter Zustand</span>
-              <strong id="stateLabel">Ruhe</strong>
-              <small id="stateNote">Beide Systeme sind unter ihren Reaktionsschwellen.</small>
+          <div class="system-stage panel" id="systemStage" aria-label="MeckerGesellschaft als Agentennetzwerk">
+            <div class="stage-top">
+              <div class="stage-status">
+                <span>Emergenter Zustand</span>
+                <strong id="stateLabel">Gesellschaftliche Ruhe</strong>
+                <small id="stateNote">Kein Agent kennt diesen Zustand. Er wird aus der Population abgeleitet.</small>
+              </div>
+              <div class="live-metrics" aria-label="Aktuelle Systemmetriken">
+                <div><span>Meckerer aktiv</span><strong id="activeMecker">0</strong></div>
+                <div><span>Beruhiger aktiv</span><strong id="activeCalm">0</strong></div>
+                <div><span>Mecker-Cluster</span><strong id="clusterCount">0</strong></div>
+                <div><span>Genervtheit</span><strong id="annoyanceValue">0</strong></div>
+              </div>
             </div>
 
-            <div class="systems-grid">
-              <article class="system-card mecker-card" id="meckerCard">
-                <div class="system-icon" aria-hidden="true">M</div>
-                <div class="system-title">
-                  <span>Agent A</span>
-                  <h3>MeckerSystem</h3>
-                </div>
-                <div class="meter" aria-label="Meckerpegel">
-                  <i id="meckerMeter"></i>
-                </div>
-                <div class="system-value"><strong id="meckerValue">0</strong><span>/ 100</span></div>
-                <p id="meckerSpeech">…</p>
-              </article>
+            <div class="network-wrap">
+              <canvas id="networkCanvas" aria-label="Agentennetzwerk mit lokalen Mecker- und Beruhigungssignalen"></canvas>
+              <div class="network-key" aria-hidden="true">
+                <span><i class="key-mecker"></i> MeckerSystem</span>
+                <span><i class="key-calm"></i> Na wird schon</span>
+                <span><i class="key-hit"></i> direkt getroffen</span>
+              </div>
+              <div class="event-flash" id="eventFlash" aria-live="polite"></div>
+            </div>
 
-              <div class="exchange" aria-label="Energieaustausch">
-                <div class="channel channel-out">
-                  <span class="channel-label">MeckerEnergie →</span>
-                  <div class="track" id="meckerTrack"></div>
+            <div class="history-inline" aria-label="Direkte Zeitreihe des Gesamtsystems">
+              <div class="history-head">
+                <div>
+                  <span class="mini-label">Gesamtsystem · live</span>
+                  <strong>Population im Zeitverlauf</strong>
                 </div>
-                <div class="exchange-core">
-                  <span>FEEDBACK</span>
-                  <strong id="feedbackValue">0.00</strong>
-                </div>
-                <div class="channel channel-back">
-                  <span class="channel-label">← Nicht-so-schlimm-Energie</span>
-                  <div class="track" id="calmTrack"></div>
+                <div class="legend">
+                  <span><i class="legend-mecker"></i> aktive Meckerer</span>
+                  <span><i class="legend-calm"></i> aktive Beruhiger</span>
+                  <span><i class="legend-annoyance"></i> Genervtheit</span>
                 </div>
               </div>
-
-              <article class="system-card calm-card" id="calmCard">
-                <div class="system-icon" aria-hidden="true">N</div>
-                <div class="system-title">
-                  <span>Agent B</span>
-                  <h3>Na wird schon</h3>
-                </div>
-                <div class="meter" aria-label="Belastung des Na-wird-schon-Systems">
-                  <i id="calmMeter"></i>
-                </div>
-                <div class="system-value"><strong id="calmValue">0</strong><span>/ 100</span></div>
-                <p id="calmSpeech">„Nicht so schlimm.“</p>
-              </article>
+              <div class="chart-wrap"><canvas id="historyCanvas" aria-label="Zeitreihe direkt unter dem Agentennetzwerk"></canvas></div>
             </div>
-
-            <div class="event-flash" id="eventFlash" aria-live="polite"></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="signals">
-        <div class="section-heading compact">
-          <div>
-            <p class="eyebrow">02 · Signale</p>
-            <h2>Was das Gesamtsystem gerade tut.</h2>
-          </div>
-          <p>Die Kennzahlen werden aus dem laufenden Zustand abgeleitet. „Gesamtgenervtheit“ ist keine Eingabegröße.</p>
-        </div>
-
-        <div class="metrics-grid">
-          <article class="metric-card">
-            <span>Meckerpegel</span>
-            <strong id="metricMecker">0</strong>
-            <small>interner Zustand A</small>
-          </article>
-          <article class="metric-card">
-            <span>Na-wird-schon-Last</span>
-            <strong id="metricCalm">0</strong>
-            <small>interner Zustand B</small>
-          </article>
-          <article class="metric-card highlight">
-            <span>Gesamtgenervtheit</span>
-            <strong id="metricAnnoyance">0</strong>
-            <small>abgeleitete Systemeigenschaft</small>
-          </article>
-          <article class="metric-card">
-            <span>Netto-Feedback</span>
-            <strong id="metricFeedback">0.00</strong>
-            <small>Beruhigung minus Verstärkung</small>
-          </article>
-        </div>
-
-        <div class="chart-panel panel">
-          <div class="chart-head">
-            <div>
-              <span class="mini-label">Zeitreihe</span>
-              <h3>Systemzustände</h3>
-            </div>
-            <div class="legend" aria-label="Diagrammlegende">
-              <span><i class="legend-mecker"></i> Meckern</span>
-              <span><i class="legend-calm"></i> Na wird schon</span>
-              <span><i class="legend-annoyance"></i> Genervtheit</span>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="chart" aria-label="Zeitreihe der Simulationszustände"></canvas>
           </div>
         </div>
       </section>
 
       <section class="section panel logic-section" id="logic">
-        <div class="section-heading compact">
+        <div class="section-heading compact-title">
           <div>
-            <p class="eyebrow">03 · Systemlogik</p>
-            <h2>Wenig Regeln. Viel Theater.</h2>
+            <p class="eyebrow">02 · Systemlogik</p>
+            <h2>Jeder Agent ist simpel. Die Gesellschaft nicht.</h2>
           </div>
-          <p>Keine Zustandsfolge ist vorab abgespielt. Jeder Tick berechnet den nächsten Zustand aus dem aktuellen.</p>
+          <p>Die Agenten kennen nur ihren eigenen Zustand und Signale aus ihrer unmittelbaren Nachbarschaft.</p>
         </div>
 
-        <div class="logic-flow" aria-label="Logik der Rückkopplung">
-          <article><span>1</span><h3>Ereignis</h3><p>Ein MeckereiWürdiges Ereignis setzt einen zeitlich abklingenden Reiz.</p></article>
-          <article><span>2</span><h3>Meckern</h3><p>Übersteigt der interne Meckerpegel die Sprachschwelle, wird MeckerEnergie ausgestrahlt.</p></article>
-          <article><span>3</span><h3>Verzögerung</h3><p>Das Na-wird-schon-System empfängt das Signal nicht sofort. Verzögerung kann Schwingungen erzeugen.</p></article>
-          <article><span>4</span><h3>Gegenkopplung</h3><p>Ab seiner Schwelle sendet es beruhigende Energie zurück und senkt den Meckerpegel.</p></article>
+        <div class="logic-flow">
+          <article><span>1</span><h3>Heterogenität</h3><p>Jeder Agent erhält leicht andere Reiz-, Mecker- oder Beruhigungsschwellen.</p></article>
+          <article><span>2</span><h3>Lokale Kontakte</h3><p>Signale laufen nur entlang der sichtbaren Netzwerkverbindungen, nicht an „die Gesellschaft“.</p></article>
+          <article><span>3</span><h3>Verzögerung</h3><p>Agenten reagieren auf ältere Signale. Das kann Gegenkopplung zu spät eintreffen lassen.</p></article>
+          <article><span>4</span><h3>Makromuster</h3><p>Kaskaden, Cluster und kollektive Ruhe werden erst aus allen lokalen Zuständen sichtbar.</p></article>
         </div>
 
         <div class="equation-row">
-          <div><span>MeckerSystem</span><code>M(t+1) = M(t) + Reiz + Frust − Beruhigung − Abklingen</code></div>
-          <div><span>Na wird schon</span><code>N(t+1) = N(t) + verzögerte MeckerEnergie − Erholung</code></div>
+          <div><span>Mecker-Agent i</span><code>Mᵢ(t+1) ← eigener Reiz + Meckern der Nachbarn − Beruhigung der Nachbarn − Abklingen</code></div>
+          <div><span>Na-wird-schon-Agent j</span><code>Nⱼ(t+1) ← verzögertes Meckersignal der Nachbarn − eigene Erholung</code></div>
         </div>
       </section>
 
       <section class="section" id="about">
         <div class="about-grid">
           <div>
-            <p class="eyebrow">04 · Ist das schon Emergenz?</p>
-            <h2>Die Regeln gehören den Teilen. Das Muster gehört dem Ganzen.</h2>
+            <p class="eyebrow">03 · Warum ist das stärker?</p>
+            <h2>Das Interessante existiert erst auf der Ebene des Kollektivs.</h2>
           </div>
           <div class="about-copy">
             <p>
-              Das Modell ist absichtlich klein. Trotzdem kann dieselbe Regelmenge je nach Parametern in Ruhe,
-              stabile Rückkopplung, Eskalation oder wiederholte Schwingungen kippen. Diese Verlaufsmuster werden
-              nicht als Animation ausgewählt, sondern entstehen aus der Kopplung der beiden Systeme.
+              Ein einzelner Agent kann nur meckern, schweigen oder beruhigen. Er besitzt keine Regel für eine
+              „Mecker-Kaskade“, eine „Clusterbildung“ oder eine „synchronisierte Welle“. Solche Zustände können
+              nur entstehen, wenn viele unterschiedliche Agenten über ein Netzwerk gekoppelt sind.
             </p>
             <p>
-              Das ist eine spielerische Demonstration von Systemdynamik, nicht der Nachweis einer philosophisch
-              „starken“ Emergenz. Aber als Modell für Feedback, Schwellenwerte und Verzögerungen ist es erstaunlich
-              brauchbar. Und erheblich günstiger als eine Paartherapie.
+              Das ist weiterhin ein bewusst vereinfachtes agentenbasiertes Modell. Es demonstriert schwache
+              Emergenz: Makroverhalten, das aus Mikroregeln berechnet werden kann, aber nicht als Makroregel im
+              einzelnen Agenten steckt. Genau dafür ist die MeckerGesellschaft nun gebaut.
             </p>
           </div>
         </div>
@@ -260,8 +201,8 @@
 
     <footer>
       <div>
-        <strong>MeckerSystem · Emergence Lab</strong>
-        <span>André Baumann · Salmon of Doubt · browser-native systems experiment</span>
+        <strong>MeckerGesellschaft · Emergence Lab</strong>
+        <span>André Baumann · Salmon of Doubt · browser-native agent-based systems experiment</span>
       </div>
       <a href="#top">Nach oben ↑</a>
     </footer>
