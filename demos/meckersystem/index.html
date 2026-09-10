@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080b13" />
+  <meta name="description" content="Interaktive Emergenz-Simulation: Ein MeckerSystem und ein Na-wird-schon-System koppeln sich über Feedback, Schwellenwerte und Verzögerung." />
+  <title>MeckerSystem · Emergence Lab | André Baumann</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/demos/shared/demo-return.css" />
+  <script defer src="/demos/shared/demo-return.js"></script>
+  <link rel="stylesheet" href="/demos/shared/demo-support.css" />
+  <script defer src="/demos/shared/demo-support.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero" id="top">
+      <div class="hero-topline">
+        <a class="back-to-demos" href="/demos/" aria-label="Zurück zu den Demos">← Demos</a>
+        <span class="demo-mark">SYSTEM LAB · 16</span>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Emergenz · Feedback · unnötige Aufregung</p>
+          <h1>Mecker<wbr>System</h1>
+          <p class="lede">
+            Zwei simple Systeme, zwei Energieströme, keine zentrale Steuerung. Ändere Schwellen,
+            Verzögerung und Beruhigungsstärke und beobachte, ob Ruhe, Dauergemecker oder Oszillation entsteht.
+          </p>
+          <div class="hero-actions">
+            <button class="button primary" id="heroEvent" type="button">MeckereiWürdiges Ereignis!</button>
+            <a class="button" href="#lab">System öffnen</a>
+          </div>
+        </div>
+
+        <aside class="principle-card" aria-label="Grundregel des Systems">
+          <span>Grundregel</span>
+          <p>Meckern erzeugt MeckerEnergie. MeckerEnergie kann „Na wird schon“-Energie auslösen. Diese wirkt zurück.</p>
+          <strong>Mehr ist nicht automatisch besser.</strong>
+        </aside>
+      </div>
+    </header>
+
+    <nav class="section-nav" aria-label="Seitennavigation">
+      <a href="#lab">Simulation</a>
+      <a href="#signals">Signale</a>
+      <a href="#logic">Systemlogik</a>
+      <a href="#about">Emergenz?</a>
+    </nav>
+
+    <main>
+      <section class="section" id="lab">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">01 · Das Experiment</p>
+            <h2>Störe das System. Dann lass es sich selbst sortieren.</h2>
+          </div>
+          <p>
+            Die Simulation läuft kontinuierlich. Ein Ereignis erzeugt einen Reiz; danach entscheiden nur noch
+            interne Zustände, Schwellen, Verzögerungen und Rückkopplung über den Verlauf.
+          </p>
+        </div>
+
+        <div class="lab-layout">
+          <aside class="controls panel" aria-label="Simulationssteuerung">
+            <div class="controls-head">
+              <div>
+                <span class="mini-label">Kontrollraum</span>
+                <h3>Parameter</h3>
+              </div>
+              <span class="run-dot" id="runDot" aria-hidden="true"></span>
+            </div>
+
+            <label class="slider-row" for="severity">
+              <span><strong>Ereignisstärke</strong><output id="severityOut">62</output></span>
+              <input id="severity" type="range" min="10" max="100" step="1" value="62" />
+            </label>
+
+            <label class="slider-row" for="sensitivity">
+              <span><strong>Meckerempfindlichkeit</strong><output id="sensitivityOut">58</output></span>
+              <input id="sensitivity" type="range" min="10" max="100" step="1" value="58" />
+            </label>
+
+            <label class="slider-row" for="responseThreshold">
+              <span><strong>„Na wird schon“-Schwelle</strong><output id="responseThresholdOut">34</output></span>
+              <input id="responseThreshold" type="range" min="5" max="85" step="1" value="34" />
+            </label>
+
+            <label class="slider-row" for="calmStrength">
+              <span><strong>Beruhigungsstärke</strong><output id="calmStrengthOut">54</output></span>
+              <input id="calmStrength" type="range" min="5" max="100" step="1" value="54" />
+            </label>
+
+            <label class="slider-row" for="delay">
+              <span><strong>Reaktionsverzögerung</strong><output id="delayOut">1.2 s</output></span>
+              <input id="delay" type="range" min="0" max="40" step="1" value="12" />
+            </label>
+
+            <div class="control-actions">
+              <button class="button primary" id="eventButton" type="button">Ereignis auslösen</button>
+              <button class="button" id="pauseButton" type="button">Pause</button>
+              <button class="button" id="resetButton" type="button">Reset</button>
+              <button class="button chaos" id="chaosButton" type="button">CHAOS</button>
+            </div>
+
+            <p class="control-note">CHAOS würfelt Parameter, nicht Naturgesetze.</p>
+          </aside>
+
+          <div class="system-stage panel" id="systemStage" aria-label="Visualisierung des gekoppelten Systems">
+            <div class="stage-status">
+              <span>Emergenter Zustand</span>
+              <strong id="stateLabel">Ruhe</strong>
+              <small id="stateNote">Beide Systeme sind unter ihren Reaktionsschwellen.</small>
+            </div>
+
+            <div class="systems-grid">
+              <article class="system-card mecker-card" id="meckerCard">
+                <div class="system-icon" aria-hidden="true">M</div>
+                <div class="system-title">
+                  <span>Agent A</span>
+                  <h3>MeckerSystem</h3>
+                </div>
+                <div class="meter" aria-label="Meckerpegel">
+                  <i id="meckerMeter"></i>
+                </div>
+                <div class="system-value"><strong id="meckerValue">0</strong><span>/ 100</span></div>
+                <p id="meckerSpeech">…</p>
+              </article>
+
+              <div class="exchange" aria-label="Energieaustausch">
+                <div class="channel channel-out">
+                  <span class="channel-label">MeckerEnergie →</span>
+                  <div class="track" id="meckerTrack"></div>
+                </div>
+                <div class="exchange-core">
+                  <span>FEEDBACK</span>
+                  <strong id="feedbackValue">0.00</strong>
+                </div>
+                <div class="channel channel-back">
+                  <span class="channel-label">← Nicht-so-schlimm-Energie</span>
+                  <div class="track" id="calmTrack"></div>
+                </div>
+              </div>
+
+              <article class="system-card calm-card" id="calmCard">
+                <div class="system-icon" aria-hidden="true">N</div>
+                <div class="system-title">
+                  <span>Agent B</span>
+                  <h3>Na wird schon</h3>
+                </div>
+                <div class="meter" aria-label="Belastung des Na-wird-schon-Systems">
+                  <i id="calmMeter"></i>
+                </div>
+                <div class="system-value"><strong id="calmValue">0</strong><span>/ 100</span></div>
+                <p id="calmSpeech">„Nicht so schlimm.“</p>
+              </article>
+            </div>
+
+            <div class="event-flash" id="eventFlash" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="signals">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">02 · Signale</p>
+            <h2>Was das Gesamtsystem gerade tut.</h2>
+          </div>
+          <p>Die Kennzahlen werden aus dem laufenden Zustand abgeleitet. „Gesamtgenervtheit“ ist keine Eingabegröße.</p>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <span>Meckerpegel</span>
+            <strong id="metricMecker">0</strong>
+            <small>interner Zustand A</small>
+          </article>
+          <article class="metric-card">
+            <span>Na-wird-schon-Last</span>
+            <strong id="metricCalm">0</strong>
+            <small>interner Zustand B</small>
+          </article>
+          <article class="metric-card highlight">
+            <span>Gesamtgenervtheit</span>
+            <strong id="metricAnnoyance">0</strong>
+            <small>abgeleitete Systemeigenschaft</small>
+          </article>
+          <article class="metric-card">
+            <span>Netto-Feedback</span>
+            <strong id="metricFeedback">0.00</strong>
+            <small>Beruhigung minus Verstärkung</small>
+          </article>
+        </div>
+
+        <div class="chart-panel panel">
+          <div class="chart-head">
+            <div>
+              <span class="mini-label">Zeitreihe</span>
+              <h3>Systemzustände</h3>
+            </div>
+            <div class="legend" aria-label="Diagrammlegende">
+              <span><i class="legend-mecker"></i> Meckern</span>
+              <span><i class="legend-calm"></i> Na wird schon</span>
+              <span><i class="legend-annoyance"></i> Genervtheit</span>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="chart" aria-label="Zeitreihe der Simulationszustände"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <section class="section panel logic-section" id="logic">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">03 · Systemlogik</p>
+            <h2>Wenig Regeln. Viel Theater.</h2>
+          </div>
+          <p>Keine Zustandsfolge ist vorab abgespielt. Jeder Tick berechnet den nächsten Zustand aus dem aktuellen.</p>
+        </div>
+
+        <div class="logic-flow" aria-label="Logik der Rückkopplung">
+          <article><span>1</span><h3>Ereignis</h3><p>Ein MeckereiWürdiges Ereignis setzt einen zeitlich abklingenden Reiz.</p></article>
+          <article><span>2</span><h3>Meckern</h3><p>Übersteigt der interne Meckerpegel die Sprachschwelle, wird MeckerEnergie ausgestrahlt.</p></article>
+          <article><span>3</span><h3>Verzögerung</h3><p>Das Na-wird-schon-System empfängt das Signal nicht sofort. Verzögerung kann Schwingungen erzeugen.</p></article>
+          <article><span>4</span><h3>Gegenkopplung</h3><p>Ab seiner Schwelle sendet es beruhigende Energie zurück und senkt den Meckerpegel.</p></article>
+        </div>
+
+        <div class="equation-row">
+          <div><span>MeckerSystem</span><code>M(t+1) = M(t) + Reiz + Frust − Beruhigung − Abklingen</code></div>
+          <div><span>Na wird schon</span><code>N(t+1) = N(t) + verzögerte MeckerEnergie − Erholung</code></div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="about-grid">
+          <div>
+            <p class="eyebrow">04 · Ist das schon Emergenz?</p>
+            <h2>Die Regeln gehören den Teilen. Das Muster gehört dem Ganzen.</h2>
+          </div>
+          <div class="about-copy">
+            <p>
+              Das Modell ist absichtlich klein. Trotzdem kann dieselbe Regelmenge je nach Parametern in Ruhe,
+              stabile Rückkopplung, Eskalation oder wiederholte Schwingungen kippen. Diese Verlaufsmuster werden
+              nicht als Animation ausgewählt, sondern entstehen aus der Kopplung der beiden Systeme.
+            </p>
+            <p>
+              Das ist eine spielerische Demonstration von Systemdynamik, nicht der Nachweis einer philosophisch
+              „starken“ Emergenz. Aber als Modell für Feedback, Schwellenwerte und Verzögerungen ist es erstaunlich
+              brauchbar. Und erheblich günstiger als eine Paartherapie.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <strong>MeckerSystem · Emergence Lab</strong>
+        <span>André Baumann · Salmon of Doubt · browser-native systems experiment</span>
+      </div>
+      <a href="#top">Nach oben ↑</a>
+    </footer>
+  </div>
+</body>
+</html>
