@@ -4,62 +4,66 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#080b13" />
-  <meta name="description" content="Interaktive Agenten-Simulation zu Emergenz: mehrere MeckerCluster koppeln lokale MeckerSysteme und Na-wird-schon-Systeme über Netzwerke, Überschwappen und gezielten Meckerexport." />
+  <meta name="description" content="Interaktive Agenten-Simulation zu Emergenz: mehrere MeckerCluster koppeln lokale MeckerSysteme und Na-wird-schon-Systeme über Netzwerke, Überschwappen und autonomen oder manuellen Meckerexport." />
   <title>MeckerGesellschaft · Emergence Lab | André Baumann</title>
 
-  <link rel="stylesheet" href="styles.css?v=20260910-1708" />
+  <link rel="stylesheet" href="styles.css?v=20260910-1740" />
   <link rel="stylesheet" href="/demos/shared/demo-return.css" />
   <script defer src="/demos/shared/demo-return.js"></script>
   <link rel="stylesheet" href="/demos/shared/demo-support.css" />
   <script defer src="/demos/shared/demo-support.js"></script>
-  <script defer src="app.js?v=20260910-1708"></script>
+  <script defer src="app.js?v=20260910-1740"></script>
 </head>
 <body>
   <div class="page-shell">
     <header class="hero" id="top">
       <div class="hero-topline">
-        <a class="back-to-demos" href="/demos/" aria-label="Zurück zu den Demos">← Demos</a>
-        <span class="demo-mark">SYSTEM LAB · 16</span>
+        <a class="back-to-demos" href="/demos/" data-de="← Demos" data-en="← Demos">← Demos</a>
+        <div class="hero-tools">
+          <div class="language-toggle" role="group" aria-label="Language / Sprache">
+            <button class="lang-button is-active" type="button" data-lang="de" aria-pressed="true">DE</button>
+            <button class="lang-button" type="button" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+          <span class="demo-mark">SYSTEM LAB · 16</span>
+        </div>
       </div>
 
       <div class="hero-grid">
         <div>
-          <p class="eyebrow">Emergenz · Cluster · Rückkopplung</p>
-          <h1>Mecker<wbr>Gesellschaft</h1>
-          <p class="lede">
-            Bis zu fünf getrennte MeckerCluster. Innerhalb jedes Clusters laufen lokale Reaktionen;
-            über wenige Brücken kann Meckerenergie überschwappen. Und ja: Man kann Gemecker gezielt exportieren.
+          <p class="eyebrow" data-de="Emergenz · Cluster · Rückkopplung" data-en="Emergence · clusters · feedback">Emergenz · Cluster · Rückkopplung</p>
+          <h1 data-de="MeckerGesellschaft" data-en="Grumble Society">MeckerGesellschaft</h1>
+          <p class="lede" data-de="Bis zu fünf getrennte MeckerCluster. Innerhalb jedes Clusters laufen lokale Reaktionen; über wenige Brücken kann Meckerenergie überschwappen. Und bei genügend Druck exportieren Grenz-Agenten Gemecker sogar von selbst." data-en="Up to five separate grumble clusters. Local reactions unfold inside each cluster; a few bridges let grumble energy spill across. Under enough pressure, boundary agents can even export grumbling on their own.">
+            Bis zu fünf getrennte MeckerCluster. Innerhalb jedes Clusters laufen lokale Reaktionen; über wenige Brücken kann Meckerenergie überschwappen. Und bei genügend Druck exportieren Grenz-Agenten Gemecker sogar von selbst.
           </p>
           <div class="hero-actions">
-            <button class="button primary" id="heroEvent" type="button">MeckereiWürdiges Ereignis!</button>
-            <a class="button" href="#lab">Simulation öffnen</a>
+            <button class="button primary" id="heroEvent" type="button" data-de="MeckereiWürdiges Ereignis!" data-en="Trigger a grumble-worthy event!">MeckereiWürdiges Ereignis!</button>
+            <a class="button" href="#lab" data-de="Simulation öffnen" data-en="Open simulation">Simulation öffnen</a>
           </div>
         </div>
 
         <aside class="principle-card" aria-label="Emergenzprinzip">
-          <span>Emergenzprinzip</span>
-          <p>Lokale Regeln + getrennte Gruppen + schwache Brücken + Verzögerung → Kaskaden zwischen Clustern.</p>
-          <strong>Kein Agent kennt „Überschwappen“, „Export“ oder „Flächenbrand“.</strong>
+          <span data-de="Emergenzprinzip" data-en="Emergence principle">Emergenzprinzip</span>
+          <p data-de="Lokale Regeln + getrennte Gruppen + schwache Brücken + Verzögerung → Kaskaden zwischen Clustern." data-en="Local rules + separate groups + weak bridges + delay → cascades between clusters.">Lokale Regeln + getrennte Gruppen + schwache Brücken + Verzögerung → Kaskaden zwischen Clustern.</p>
+          <strong data-de="Kein Agent kennt „Überschwappen“, „Export“ oder „Flächenbrand“." data-en="No agent knows about ‘spillover’, ‘export’, or a ‘wildfire’.">Kein Agent kennt „Überschwappen“, „Export“ oder „Flächenbrand“.</strong>
         </aside>
       </div>
     </header>
 
     <nav class="section-nav" aria-label="Seitennavigation">
-      <a href="#lab">Simulation</a>
-      <a href="#logic">Systemlogik</a>
-      <a href="#about">Warum Emergenz?</a>
+      <a href="#lab" data-de="Simulation" data-en="Simulation">Simulation</a>
+      <a href="#logic" data-de="Systemlogik" data-en="System logic">Systemlogik</a>
+      <a href="#about" data-de="Warum Emergenz?" data-en="Why emergence?">Warum Emergenz?</a>
     </nav>
 
     <main>
       <section class="section lab-section" id="lab">
         <div class="section-heading compact-title">
           <div>
-            <p class="eyebrow">01 · Das Experiment</p>
-            <h2>Störe einen Cluster. Beobachte den Rest.</h2>
+            <p class="eyebrow" data-de="01 · Das Experiment" data-en="01 · The experiment">01 · Das Experiment</p>
+            <h2 data-de="Störe einen Cluster. Beobachte den Rest." data-en="Disturb one cluster. Watch the rest.">Störe einen Cluster. Beobachte den Rest.</h2>
           </div>
-          <p>
-            Das Ereignis trifft nur einen Cluster. Danach entscheidet die Netzwerkstruktur, ob das Gemecker lokal bleibt,
-            über Brücken überspringt oder durch gezielten Export in einen anderen Cluster getragen wird.
+          <p data-de="Das Ereignis trifft nur einen Cluster. Danach entscheidet die Netzwerkstruktur, ob das Gemecker lokal bleibt, über Brücken überspringt oder von hoch belasteten Grenz-Agenten aktiv weitergetragen wird." data-en="The event hits only one cluster. After that, network structure determines whether the grumbling stays local, spills across bridges, or is actively carried onward by highly stressed boundary agents.">
+            Das Ereignis trifft nur einen Cluster. Danach entscheidet die Netzwerkstruktur, ob das Gemecker lokal bleibt, über Brücken überspringt oder von hoch belasteten Grenz-Agenten aktiv weitergetragen wird.
           </p>
         </div>
 
@@ -67,88 +71,104 @@
           <aside class="controls panel" aria-label="Simulationssteuerung">
             <div class="controls-head">
               <div>
-                <span class="mini-label">Kontrollraum</span>
-                <h3>Parameter</h3>
+                <span class="mini-label" data-de="Kontrollraum" data-en="Control room">Kontrollraum</span>
+                <h3 data-de="Parameter" data-en="Parameters">Parameter</h3>
               </div>
               <span class="run-dot" id="runDot" aria-hidden="true"></span>
             </div>
 
             <label class="slider-row" for="clusterTotal">
-              <span><strong>MeckerCluster</strong><output id="clusterTotalOut">3</output></span>
+              <span><strong data-de="MeckerCluster" data-en="Grumble clusters">MeckerCluster</strong><output id="clusterTotalOut">3</output></span>
               <input id="clusterTotal" type="range" min="1" max="5" step="1" value="3" />
             </label>
 
             <label class="select-row" for="eventCluster">
-              <span>Ereignis trifft</span>
-              <select id="eventCluster"><option value="random">Zufälliger Cluster</option></select>
+              <span data-de="Ereignis trifft" data-en="Event hits">Ereignis trifft</span>
+              <select id="eventCluster"></select>
             </label>
 
             <label class="slider-row" for="severity">
-              <span><strong>Ereignisstärke</strong><output id="severityOut">72</output></span>
+              <span><strong data-de="Ereignisstärke" data-en="Event strength">Ereignisstärke</strong><output id="severityOut">72</output></span>
               <input id="severity" type="range" min="10" max="100" step="1" value="72" />
             </label>
 
             <label class="slider-row" for="reach">
-              <span><strong>Direkt betroffen</strong><output id="reachOut">42%</output></span>
+              <span><strong data-de="Direkt betroffen" data-en="Directly affected">Direkt betroffen</strong><output id="reachOut">42%</output></span>
               <input id="reach" type="range" min="5" max="100" step="1" value="42" />
             </label>
 
             <label class="slider-row" for="connectivity">
-              <span><strong>Vernetzung intern</strong><output id="connectivityOut">5</output></span>
+              <span><strong data-de="Vernetzung intern" data-en="Internal connectivity">Vernetzung intern</strong><output id="connectivityOut">5</output></span>
               <input id="connectivity" type="range" min="2" max="10" step="1" value="5" />
             </label>
 
             <label class="slider-row" for="socialInfluence">
-              <span><strong>Mecker-Ansteckung</strong><output id="socialInfluenceOut">68</output></span>
+              <span><strong data-de="Mecker-Ansteckung" data-en="Grumble contagion">Mecker-Ansteckung</strong><output id="socialInfluenceOut">68</output></span>
               <input id="socialInfluence" type="range" min="0" max="100" step="1" value="68" />
             </label>
 
             <label class="slider-row" for="spillover">
-              <span><strong>Cluster-Durchlässigkeit</strong><output id="spilloverOut">38%</output></span>
+              <span><strong data-de="Cluster-Durchlässigkeit" data-en="Cluster permeability">Cluster-Durchlässigkeit</strong><output id="spilloverOut">38%</output></span>
               <input id="spillover" type="range" min="0" max="100" step="1" value="38" />
             </label>
 
             <label class="slider-row" for="calmStrength">
-              <span><strong>„Na wird schon“-Kraft</strong><output id="calmStrengthOut">56</output></span>
+              <span><strong data-de="„Na wird schon“-Kraft" data-en="‘It’ll be fine’ strength">„Na wird schon“-Kraft</strong><output id="calmStrengthOut">56</output></span>
               <input id="calmStrength" type="range" min="0" max="100" step="1" value="56" />
             </label>
 
             <label class="slider-row" for="delay">
-              <span><strong>Reaktionsverzögerung</strong><output id="delayOut">0.8 s</output></span>
+              <span><strong data-de="Reaktionsverzögerung" data-en="Response delay">Reaktionsverzögerung</strong><output id="delayOut">0.8 s</output></span>
               <input id="delay" type="range" min="0" max="30" step="1" value="8" />
             </label>
 
+            <div class="auto-export-control">
+              <label class="switch-row" for="autoExportEnabled">
+                <span><strong data-de="Autonomer MeckerExport" data-en="Autonomous grumble export">Autonomer MeckerExport</strong><small id="autoExportStatus">aktiv · 0 Exporte</small></span>
+                <input id="autoExportEnabled" type="checkbox" checked />
+              </label>
+              <label class="slider-row auto-threshold" for="autoExportThreshold">
+                <span><strong data-de="Export-Schwelle" data-en="Export threshold">Export-Schwelle</strong><output id="autoExportThresholdOut">65</output></span>
+                <input id="autoExportThreshold" type="range" min="35" max="95" step="1" value="65" />
+              </label>
+              <p class="auto-note" data-de="Nur Grenz-Meckerer können automatisch exportieren. Sie reagieren auf ihren eigenen Pegel und eine reale Brückenverbindung, nicht auf einen globalen Gesellschaftswert." data-en="Only boundary grumblers can export automatically. They react to their own level and a real bridge connection, not to a global society-wide value.">
+                Nur Grenz-Meckerer können automatisch exportieren. Sie reagieren auf ihren eigenen Pegel und eine reale Brückenverbindung, nicht auf einen globalen Gesellschaftswert.
+              </p>
+            </div>
+
             <div class="control-actions">
-              <button class="button primary" id="eventButton" type="button">Ereignis auslösen</button>
-              <button class="button" id="pauseButton" type="button">Pause</button>
-              <button class="button" id="resetButton" type="button">Reset</button>
+              <button class="button primary" id="eventButton" type="button" data-de="Ereignis auslösen" data-en="Trigger event">Ereignis auslösen</button>
+              <button class="button" id="pauseButton" type="button" data-de="Pause" data-en="Pause">Pause</button>
+              <button class="button" id="resetButton" type="button" data-de="Reset" data-en="Reset">Reset</button>
               <button class="button chaos" id="chaosButton" type="button">CHAOS</button>
             </div>
-            <p class="control-note">Clusteranzahl baut Population und Netzwerk neu auf. Durchlässigkeit verändert nur das automatische Überschwappen.</p>
+            <p class="control-note" data-de="Clusteranzahl baut Population und Netzwerk neu auf. Durchlässigkeit steuert kontinuierliches Überschwappen; Auto-Export erzeugt diskrete Transfers über Grenz-Agenten." data-en="Changing cluster count rebuilds the population and network. Permeability controls continuous spillover; auto-export creates discrete transfers through boundary agents.">
+              Clusteranzahl baut Population und Netzwerk neu auf. Durchlässigkeit steuert kontinuierliches Überschwappen; Auto-Export erzeugt diskrete Transfers über Grenz-Agenten.
+            </p>
           </aside>
 
           <div class="system-stage panel" id="systemStage" aria-label="MeckerGesellschaft mit mehreren Clustern">
             <div class="stage-top">
               <div class="stage-status">
-                <span>Emergenter Zustand</span>
+                <span data-de="Emergenter Zustand" data-en="Emergent state">Emergenter Zustand</span>
                 <strong id="stateLabel">Gesellschaftliche Ruhe</strong>
                 <small id="stateNote">Alle Cluster sind unter ihren Meckerschwellen.</small>
               </div>
               <div class="live-metrics" aria-label="Aktuelle Systemmetriken">
-                <div><span>Meckerer aktiv</span><strong id="activeMecker">0</strong></div>
-                <div><span>Beruhiger aktiv</span><strong id="activeCalm">0</strong></div>
-                <div><span>aktive Cluster</span><strong id="activeClusters">0/3</strong></div>
-                <div><span>Genervtheit</span><strong id="annoyanceValue">0</strong></div>
+                <div><span data-de="Meckerer aktiv" data-en="Active grumblers">Meckerer aktiv</span><strong id="activeMecker">0</strong></div>
+                <div><span data-de="Beruhiger aktiv" data-en="Active calmers">Beruhiger aktiv</span><strong id="activeCalm">0</strong></div>
+                <div><span data-de="aktive Cluster" data-en="Active clusters">aktive Cluster</span><strong id="activeClusters">0/3</strong></div>
+                <div><span data-de="Genervtheit" data-en="Annoyance">Genervtheit</span><strong id="annoyanceValue">0</strong></div>
               </div>
             </div>
 
             <div class="network-wrap">
               <canvas id="networkCanvas" aria-label="Mehrere Agentencluster mit lokalen und clusterübergreifenden Signalen"></canvas>
               <div class="network-key" aria-hidden="true">
-                <span><i class="key-mecker"></i> MeckerSystem</span>
-                <span><i class="key-calm"></i> Na wird schon</span>
-                <span><i class="key-hit"></i> direkt getroffen</span>
-                <span><i class="key-bridge"></i> Clusterbrücke</span>
+                <span><i class="key-mecker"></i><b data-de="MeckerSystem" data-en="Grumble system">MeckerSystem</b></span>
+                <span><i class="key-calm"></i><b data-de="Na wird schon" data-en="It’ll be fine">Na wird schon</b></span>
+                <span><i class="key-hit"></i><b data-de="direkt getroffen" data-en="directly hit">direkt getroffen</b></span>
+                <span><i class="key-bridge"></i><b data-de="Clusterbrücke" data-en="cluster bridge">Clusterbrücke</b></span>
               </div>
               <div class="event-flash" id="eventFlash" aria-live="polite"></div>
             </div>
@@ -157,27 +177,27 @@
 
             <div class="export-panel" aria-label="Meckerenergie zwischen Clustern exportieren">
               <div class="export-title">
-                <span class="mini-label">gezielter Eingriff</span>
-                <strong>Meckerexport</strong>
+                <span class="mini-label" data-de="manueller Eingriff" data-en="manual intervention">manueller Eingriff</span>
+                <strong data-de="Meckerexport" data-en="Grumble export">Meckerexport</strong>
               </div>
-              <label>Quelle<select id="exportSource"></select></label>
+              <label><span data-de="Quelle" data-en="Source">Quelle</span><select id="exportSource"></select></label>
               <span class="export-arrow" aria-hidden="true">→</span>
-              <label>Ziel<select id="exportTarget"></select></label>
-              <label class="export-amount">Exportmenge <output id="exportAmountOut">45%</output><input id="exportAmount" type="range" min="10" max="100" step="5" value="45" /></label>
-              <button class="button export-button" id="exportButton" type="button">Meckern exportieren</button>
-              <small id="exportStatus">Export verschiebt tatsächlich Meckerenergie zwischen Clustern.</small>
+              <label><span data-de="Ziel" data-en="Target">Ziel</span><select id="exportTarget"></select></label>
+              <label class="export-amount"><span data-de="Exportmenge" data-en="Export amount">Exportmenge</span> <output id="exportAmountOut">45%</output><input id="exportAmount" type="range" min="10" max="100" step="5" value="45" /></label>
+              <button class="button export-button" id="exportButton" type="button" data-de="Meckern exportieren" data-en="Export grumbling">Meckern exportieren</button>
+              <small id="exportStatus">Manueller Export verschiebt tatsächlich Meckerenergie zwischen Clustern.</small>
             </div>
 
             <div class="history-inline" aria-label="Direkte Zeitreihe des Gesamtsystems">
               <div class="history-head">
                 <div>
-                  <span class="mini-label">Gesamtsystem · live</span>
-                  <strong>Population im Zeitverlauf</strong>
+                  <span class="mini-label" data-de="Gesamtsystem · live" data-en="Whole system · live">Gesamtsystem · live</span>
+                  <strong data-de="Population im Zeitverlauf" data-en="Population over time">Population im Zeitverlauf</strong>
                 </div>
                 <div class="legend">
-                  <span><i class="legend-mecker"></i> aktive Meckerer</span>
-                  <span><i class="legend-calm"></i> aktive Beruhiger</span>
-                  <span><i class="legend-annoyance"></i> Genervtheit</span>
+                  <span><i class="legend-mecker"></i><b data-de="aktive Meckerer" data-en="active grumblers">aktive Meckerer</b></span>
+                  <span><i class="legend-calm"></i><b data-de="aktive Beruhiger" data-en="active calmers">aktive Beruhiger</b></span>
+                  <span><i class="legend-annoyance"></i><b data-de="Genervtheit" data-en="annoyance">Genervtheit</b></span>
                 </div>
               </div>
               <div class="chart-wrap"><canvas id="historyCanvas" aria-label="Zeitreihe direkt unter dem Agentennetzwerk"></canvas></div>
@@ -189,40 +209,39 @@
       <section class="section panel logic-section" id="logic">
         <div class="section-heading compact-title">
           <div>
-            <p class="eyebrow">02 · Systemlogik</p>
-            <h2>Lokales Gemecker kann Grenzen überwinden.</h2>
+            <p class="eyebrow" data-de="02 · Systemlogik" data-en="02 · System logic">02 · Systemlogik</p>
+            <h2 data-de="Lokales Gemecker kann Grenzen überwinden." data-en="Local grumbling can cross boundaries.">Lokales Gemecker kann Grenzen überwinden.</h2>
           </div>
-          <p>Die Cluster sind dicht nach innen und nur schwach nach außen gekoppelt. Genau diese Asymmetrie macht die Übergänge sichtbar.</p>
+          <p data-de="Die Cluster sind dicht nach innen und nur schwach nach außen gekoppelt. Genau diese Asymmetrie macht Übergänge, Kaskaden und Rückschwappen sichtbar." data-en="Clusters are densely connected internally and only weakly coupled externally. That asymmetry makes transitions, cascades, and backflow visible.">
+            Die Cluster sind dicht nach innen und nur schwach nach außen gekoppelt. Genau diese Asymmetrie macht Übergänge, Kaskaden und Rückschwappen sichtbar.
+          </p>
         </div>
 
         <div class="logic-flow">
-          <article><span>1</span><h3>Cluster</h3><p>Jede Gruppe besitzt ihr eigenes dichtes Nachbarschaftsnetz aus Meckerern und Beruhigern.</p></article>
-          <article><span>2</span><h3>Brücken</h3><p>Wenige gestrichelte Verbindungen tragen Signale zwischen Clustern. Ihre Wirkung folgt der Durchlässigkeit.</p></article>
-          <article><span>3</span><h3>Export</h3><p>Gezielter Export nimmt einem Quellcluster Meckerenergie und speist sie als neuen Reiz in einen Zielcluster ein.</p></article>
-          <article><span>4</span><h3>Makromuster</h3><p>Lokale Herde, Überschwappen, Gegenkopplung und Flächenbrand entstehen erst aus allen Wechselwirkungen.</p></article>
+          <article><span>1</span><h3 data-de="Cluster" data-en="Clusters">Cluster</h3><p data-de="Jede Gruppe besitzt ihr eigenes dichtes Nachbarschaftsnetz aus Meckerern und Beruhigern." data-en="Each group has its own dense neighbourhood network of grumblers and calmers.">Jede Gruppe besitzt ihr eigenes dichtes Nachbarschaftsnetz aus Meckerern und Beruhigern.</p></article>
+          <article><span>2</span><h3 data-de="Brücken" data-en="Bridges">Brücken</h3><p data-de="Wenige gestrichelte Verbindungen tragen Signale zwischen Clustern. Ihre Wirkung folgt der Durchlässigkeit." data-en="A few dashed links carry signals between clusters. Their effect follows permeability.">Wenige gestrichelte Verbindungen tragen Signale zwischen Clustern. Ihre Wirkung folgt der Durchlässigkeit.</p></article>
+          <article><span>3</span><h3 data-de="Autonomer Export" data-en="Autonomous export">Autonomer Export</h3><p data-de="Ein Grenz-Meckerer oberhalb seiner Export-Schwelle kann einen diskreten Impuls über eine reale Clusterbrücke schicken. Das entlastet ihn etwas und belastet den Empfänger." data-en="A boundary grumbler above its export threshold can send a discrete pulse across a real cluster bridge. This relieves it slightly and burdens the receiver.">Ein Grenz-Meckerer oberhalb seiner Export-Schwelle kann einen diskreten Impuls über eine reale Clusterbrücke schicken. Das entlastet ihn etwas und belastet den Empfänger.</p></article>
+          <article><span>4</span><h3 data-de="Makromuster" data-en="Macro patterns">Makromuster</h3><p data-de="Lokale Herde, Überschwappen, Gegenkopplung und Flächenbrand entstehen erst aus allen Wechselwirkungen." data-en="Local hotspots, spillover, counter-feedback, and society-wide flare-ups arise only from the interactions.">Lokale Herde, Überschwappen, Gegenkopplung und Flächenbrand entstehen erst aus allen Wechselwirkungen.</p></article>
         </div>
 
         <div class="equation-row">
-          <div><span>Mecker-Agent i</span><code>Mᵢ(t+1) ← eigener Reiz + lokales Meckern + Grenzsignal − lokale Beruhigung − Abklingen</code></div>
-          <div><span>Clustergrenze</span><code>Grenzsignal ← Nachbarsignal × Cluster-Durchlässigkeit</code></div>
+          <div><span data-de="Mecker-Agent i" data-en="Grumble agent i">Mecker-Agent i</span><code data-de="Mᵢ(t+1) ← eigener Reiz + lokales Meckern + Grenzsignal − lokale Beruhigung − Abklingen" data-en="Mᵢ(t+1) ← own stimulus + local grumbling + boundary signal − local calming − decay">Mᵢ(t+1) ← eigener Reiz + lokales Meckern + Grenzsignal − lokale Beruhigung − Abklingen</code></div>
+          <div><span data-de="Auto-Export" data-en="Auto-export">Auto-Export</span><code data-de="wenn Mᵢ > Schwelle UND Brücke vorhanden → Impuls an Grenznachbar" data-en="if Mᵢ > threshold AND bridge exists → pulse to boundary neighbour">wenn Mᵢ &gt; Schwelle UND Brücke vorhanden → Impuls an Grenznachbar</code></div>
         </div>
       </section>
 
       <section class="section" id="about">
         <div class="about-grid">
           <div>
-            <p class="eyebrow">03 · Warum ist das Emergenz?</p>
-            <h2>Kein Cluster hat einen Plan für die Gesamtgesellschaft.</h2>
+            <p class="eyebrow" data-de="03 · Warum ist das Emergenz?" data-en="03 · Why is this emergence?">03 · Warum ist das Emergenz?</p>
+            <h2 data-de="Kein Cluster hat einen Plan für die Gesamtgesellschaft." data-en="No cluster has a plan for the whole society.">Kein Cluster hat einen Plan für die Gesamtgesellschaft.</h2>
           </div>
           <div class="about-copy">
-            <p>
-              Ein Agent kennt nur seinen eigenen Zustand und die Signale seiner Nachbarn. Ein Cluster kennt gar nichts:
-              Er ist lediglich eine räumlich und sozial dichtere Gruppe. Trotzdem können auf der Gesamtebene mehrere
-              Herde, Kaskaden über Gruppengrenzen oder synchronisierte Wellen entstehen.
+            <p data-de="Ein Agent kennt nur seinen eigenen Zustand und die Signale seiner Nachbarn. Ein Cluster kennt gar nichts: Er ist lediglich eine dichter verbundene Gruppe. Trotzdem können auf der Gesamtebene mehrere Herde, Kaskaden über Gruppengrenzen oder synchronisierte Wellen entstehen." data-en="An agent knows only its own state and signals from its neighbours. A cluster knows nothing at all: it is simply a more densely connected group. Yet multiple hotspots, cross-group cascades, or synchronised waves can emerge at the system level.">
+              Ein Agent kennt nur seinen eigenen Zustand und die Signale seiner Nachbarn. Ein Cluster kennt gar nichts: Er ist lediglich eine dichter verbundene Gruppe. Trotzdem können auf der Gesamtebene mehrere Herde, Kaskaden über Gruppengrenzen oder synchronisierte Wellen entstehen.
             </p>
-            <p>
-              Der manuelle Export ist der bewusste externe Eingriff im Modell. Danach übernimmt wieder die Dynamik.
-              Ob der importierte Reiz im Zielcluster verpufft, eskaliert oder sogar zurücküberschwappt, wird nicht vorgegeben.
+            <p data-de="Der manuelle Export bleibt als externer Eingriff erhalten. Der autonome Export ist dagegen eine Mikroregel einzelner Grenz-Agenten. Ob daraus ein zweiter Meckerherd, Rückschwappen oder gar nichts entsteht, wird nicht vorgegeben." data-en="Manual export remains as an external intervention. Autonomous export, by contrast, is a micro-rule of individual boundary agents. Whether it creates a second hotspot, backflow, or nothing at all is not predetermined.">
+              Der manuelle Export bleibt als externer Eingriff erhalten. Der autonome Export ist dagegen eine Mikroregel einzelner Grenz-Agenten. Ob daraus ein zweiter Meckerherd, Rückschwappen oder gar nichts entsteht, wird nicht vorgegeben.
             </p>
           </div>
         </div>
@@ -232,9 +251,9 @@
     <footer>
       <div>
         <strong>MeckerGesellschaft · Emergence Lab</strong>
-        <span>André Baumann · Salmon of Doubt · browser-native agent-based systems experiment</span>
+        <span data-de="André Baumann · Salmon of Doubt · browserbasiertes agentenbasiertes Systemexperiment" data-en="André Baumann · Salmon of Doubt · browser-native agent-based systems experiment">André Baumann · Salmon of Doubt · browserbasiertes agentenbasiertes Systemexperiment</span>
       </div>
-      <a href="#top">Nach oben ↑</a>
+      <a href="#top" data-de="Nach oben ↑" data-en="Back to top ↑">Nach oben ↑</a>
     </footer>
   </div>
 </body>
