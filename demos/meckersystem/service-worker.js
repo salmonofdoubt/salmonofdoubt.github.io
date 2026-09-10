@@ -1,19 +1,19 @@
-const CACHE_NAME = 'meckergesellschaft-v1';
+const CACHE_NAME = 'meckergesellschaft-v2';
 const APP_SHELL = [
   './',
   './?lang=de',
   './?lang=en',
   './styles.css',
+  './pwa-ui.css',
   './app.js',
   './simulation.js',
+  './site-config.js',
   './manifest.webmanifest',
   './icon.svg'
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
-  );
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
   self.skipWaiting();
 });
 
@@ -28,7 +28,6 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-
   const requestUrl = new URL(event.request.url);
   if (requestUrl.origin !== self.location.origin) return;
 
@@ -42,11 +41,7 @@ self.addEventListener('fetch', (event) => {
       .catch(async () => {
         const cached = await caches.match(event.request);
         if (cached) return cached;
-
-        if (event.request.mode === 'navigate') {
-          return caches.match('./?lang=de') || caches.match('./');
-        }
-
+        if (event.request.mode === 'navigate') return caches.match('./?lang=de') || caches.match('./');
         throw new Error('Offline resource unavailable');
       })
   );
