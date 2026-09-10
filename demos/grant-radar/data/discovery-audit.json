@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-09-09T09:47:34+00:00",
+  "generated_at": "2026-09-10T09:45:38+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 5,
-  "links_seen": 4536,
+  "links_seen": 4538,
   "funding_like_links": 475,
   "candidate_fetches": 300,
   "pending_review_count": 109,
@@ -18,15 +18,15 @@
     "promoted": 3,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 50
+    "suppressed_fetch_error": 52
   },
   "candidate_type_counts": {
     "recurring_programme": 56,
-    "funding_call": 87,
+    "funding_call": 86,
     "scholarship": 18,
     "generic_funding_hub": 6,
-    "tender": 12,
-    "unknown": 50
+    "tender": 13,
+    "unknown": 52
   },
   "seeds": [
     {
@@ -225,7 +225,7 @@
       "url": "https://erc.europa.eu/funding/advanced-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 165,
+      "links_seen": 167,
       "funding_like_links": 20,
       "candidates_fetched": 0
     },
