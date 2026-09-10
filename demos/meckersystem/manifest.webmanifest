@@ -1,0 +1,19 @@
+{
+  "name": "MeckerGesellschaft · Emergence Lab",
+  "short_name": "MeckerGesellschaft",
+  "description": "Agent-based emergence simulation with local feedback, cluster spillover and autonomous grumble export.",
+  "start_url": "/demos/meckersystem/?lang=de",
+  "scope": "/demos/meckersystem/",
+  "display": "standalone",
+  "background_color": "#070911",
+  "theme_color": "#080b13",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
