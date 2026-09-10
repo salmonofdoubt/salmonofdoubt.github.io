@@ -15,7 +15,7 @@
   }
 
   function config() {
-    return window.MECKER_SITE_CONFIG || { doi: '10.5281/zenodo.0000000', doiUrl: '' };
+    return window.MECKER_SITE_CONFIG || { doi: '10.5281/zenodo.0000000', doiUrl: 'https://zenodo.org/records/0000000' };
   }
 
   function isStandaloneDisplay() {
@@ -49,20 +49,13 @@
     if (!doi || !text) return;
 
     text.textContent = c.doi;
-    const hasRealDoi = Boolean(c.doiUrl) && !c.doi.includes('0000000');
-
-    if (hasRealDoi) {
-      doi.href = c.doiUrl;
-      doi.classList.remove('is-placeholder');
-      doi.setAttribute('aria-label', `Open Zenodo DOI ${c.doi}`);
-      return;
-    }
-
-    doi.href = '#';
-    doi.classList.add('is-placeholder');
-    doi.title = 'Zenodo DOI will be added after publication.';
-    doi.setAttribute('aria-label', `Zenodo DOI placeholder ${c.doi}`);
-    doi.addEventListener('click', (event) => event.preventDefault());
+    const target = c.doiUrl || 'https://zenodo.org/records/0000000';
+    doi.href = target;
+    doi.target = '_blank';
+    doi.rel = 'noopener noreferrer';
+    doi.classList.toggle('is-placeholder', c.doi.includes('0000000'));
+    doi.title = c.doi.includes('0000000') ? 'Zenodo placeholder record' : `Open Zenodo DOI ${c.doi}`;
+    doi.setAttribute('aria-label', c.doi.includes('0000000') ? `Zenodo placeholder ${c.doi}` : `Open Zenodo DOI ${c.doi}`);
   }
 
   function showInstallInstructions() {
