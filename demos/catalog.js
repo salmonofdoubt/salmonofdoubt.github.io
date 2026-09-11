@@ -1,4 +1,5 @@
 window.DEMOS = [
+  {number:"TPL",title:"Demo Template",path:"demo-template/",summary:"Canonical blank production scaffold for future Salmon of Doubt demos, with PWA install, shared controls, responsive shell, and Zenodo DOI placeholder already wired.",tags:["Template","PWA","Reference","Production scaffold"],kind:"main"},
   {number:"MS",title:"Moon Shadows",path:"moon-shadows/",summary:"Play with the Moon's real shadow geometry from the Sun's point of view, hunt eclipses, and test orbital what-ifs.",tags:["Astronomy","Moon","Solar eclipses","Statistics","PWA","Interactive"],kind:"main"},
   {number:"SM",title:"Sphere Machine",path:"sphere-machine/",summary:"A Spherism thought experiment: combine many viewpoints, watch a spherical rotational limit emerge, and ask what survives when no single perspective is privileged.",tags:["Geometry","Perspective","Probability","Quantum mechanics","Spherism","PWA"],kind:"main"},
   {number:"AIE",title:"AIE Requester",path:"aie/",summary:"Build focused Irish AIE requests, Article 11 internal-review drafts, and OCEI appeal drafts without sending anything.",tags:["Civic","AIE","Environmental information","OCEI"],kind:"main"},
