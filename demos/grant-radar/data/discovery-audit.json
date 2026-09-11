@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-09-10T09:45:38+00:00",
+  "generated_at": "2026-09-11T09:42:24+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 5,
-  "links_seen": 4538,
-  "funding_like_links": 475,
+  "links_seen": 4543,
+  "funding_like_links": 480,
   "candidate_fetches": 300,
-  "pending_review_count": 109,
+  "pending_review_count": 111,
   "status_counts": {
-    "pending_review": 109,
+    "pending_review": 111,
     "suppressed_existing": 11,
-    "suppressed_non_actionable": 43,
+    "suppressed_non_actionable": 46,
     "rejected": 3,
     "promoted": 3,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 52
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 59
   },
   "candidate_type_counts": {
-    "recurring_programme": 56,
+    "recurring_programme": 59,
     "funding_call": 86,
-    "scholarship": 18,
-    "generic_funding_hub": 6,
+    "scholarship": 20,
+    "generic_funding_hub": 5,
     "tender": 13,
-    "unknown": 52
+    "unknown": 59
   },
   "seeds": [
     {
@@ -35,9 +35,9 @@
       "url": "https://www.researchireland.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 98,
-      "funding_like_links": 40,
-      "candidates_fetched": 40
+      "links_seen": 103,
+      "funding_like_links": 45,
+      "candidates_fetched": 45
     },
     {
       "id": "heritage_council_funding_hub",
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 615,
       "funding_like_links": 58,
-      "candidates_fetched": 10
+      "candidates_fetched": 5
     },
     {
       "id": "geo_dfg_heisenberg_watch",
