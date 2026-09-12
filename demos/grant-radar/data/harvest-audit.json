@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-11T09:45:07+00:00",
+  "generated_at": "2026-09-12T09:25:41+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -92,7 +92,7 @@
     {
       "id": "waterways_heritage_biodiversity",
       "name": "Waterways Ireland Community Heritage and Biodiversity Grant Programme",
-      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage/community-heritage-and-biodiversity-grant-programme (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.waterwaysireland.org', port=443) at 0x7fa35fc61110>, 'Connection to www.waterwaysireland.org timed out. (connect timeout=10)'))",
       "programme_state": "archived"
     }
   ],
