@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-09-13T10:18:17+00:00",
+  "generated_at": "2026-09-14T10:40:54+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 5,
-  "links_seen": 4544,
-  "funding_like_links": 481,
+  "links_seen": 4538,
+  "funding_like_links": 479,
   "candidate_fetches": 300,
-  "pending_review_count": 115,
+  "pending_review_count": 114,
   "status_counts": {
-    "pending_review": 115,
+    "pending_review": 114,
     "suppressed_existing": 11,
-    "suppressed_non_actionable": 50,
+    "suppressed_non_actionable": 43,
     "rejected": 3,
     "promoted": 3,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 50
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 61
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 90,
+    "funding_call": 88,
     "scholarship": 20,
-    "generic_funding_hub": 6,
-    "tender": 17,
-    "unknown": 50
+    "generic_funding_hub": 5,
+    "tender": 11,
+    "unknown": 61
   },
   "seeds": [
     {
@@ -275,8 +275,8 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 151,
-      "funding_like_links": 1,
+      "links_seen": 148,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     },
     {
@@ -285,8 +285,8 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 151,
-      "funding_like_links": 1,
+      "links_seen": 148,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     }
   ]
