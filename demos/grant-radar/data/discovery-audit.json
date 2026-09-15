@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T10:40:54+00:00",
+  "generated_at": "2026-09-15T10:05:34+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
@@ -13,20 +13,20 @@
   "status_counts": {
     "pending_review": 114,
     "suppressed_existing": 11,
-    "suppressed_non_actionable": 43,
+    "suppressed_non_actionable": 47,
     "rejected": 3,
     "promoted": 3,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 61
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 56
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 88,
+    "funding_call": 89,
     "scholarship": 20,
-    "generic_funding_hub": 5,
-    "tender": 11,
-    "unknown": 61
+    "generic_funding_hub": 6,
+    "tender": 14,
+    "unknown": 56
   },
   "seeds": [
     {
