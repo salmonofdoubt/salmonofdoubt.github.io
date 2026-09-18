@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-and-render:
@@ -18,6 +18,9 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          fetch-depth: 0
 
       - name: Unit-test EPA normalisation
         run: python3 -m unittest -v demos/dark-rivers/ops/test_build_dark_rivers.py
@@ -47,3 +50,13 @@ jobs:
           name: dark-rivers-official-json
           path: demos/dark-rivers/data/official.json
           retention-days: 7
+
+      - name: Commit validated official dataset to PR branch
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add demos/dark-rivers/data/official.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Add validated Dark Rivers EPA dataset"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
