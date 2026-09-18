@@ -1,11 +1,11 @@
-const CACHE_NAME = 'salmon-dark-rivers-v4';
+const CACHE_NAME = 'salmon-dark-rivers-v5';
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css?v=20260918-4',
-  './app.js?v=20260918-4',
-  './data.js?v=20260918-4',
-  './site-config.js?v=20260918-4',
+  './styles.css?v=20260918-5',
+  './app.js?v=20260918-5',
+  './data.js?v=20260918-5',
+  './site-config.js?v=20260918-5',
   './manifest.webmanifest',
   './icon.svg'
 ];
