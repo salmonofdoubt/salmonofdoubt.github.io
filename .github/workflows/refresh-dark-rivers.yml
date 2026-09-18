@@ -15,6 +15,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -22,17 +23,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Test Dark Rivers
+      - name: Unit-test EPA normalisation
         run: |
-          python3 -m unittest -v \
-            demos/dark-rivers/ops/test_build_dark_rivers.py \
-            demos/dark-rivers/ops/test_asset_integrity.py
+          python3 -m unittest -v demos/dark-rivers/ops/test_build_dark_rivers.py
 
-      - name: Build official EPA dataset
+      - name: Build compact official EPA dataset
         run: |
           python3 demos/dark-rivers/ops/build_dark_rivers.py
-          python3 -m json.tool demos/dark-rivers/data/official.json > /tmp/dark-rivers-official.json
-          mv /tmp/dark-rivers-official.json demos/dark-rivers/data/official.json
+
+      - name: Production contract tests
+        run: |
+          python3 -m unittest -v demos/dark-rivers/ops/test_production_contract.py
+
+      - name: Render refreshed official data in headless Chrome
+        run: |
+          bash demos/dark-rivers/ops/smoke_render.sh
 
       - name: Commit changed data
         run: |
