@@ -7,18 +7,24 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 DEMO = ROOT / "demos" / "dark-rivers"
 INDEX = (DEMO / "index.html").read_text(encoding="utf-8")
-APP = (DEMO / "app.20260918-8.js").read_text(encoding="utf-8")
-CSS = (DEMO / "styles.20260918-8.css").read_text(encoding="utf-8")
-SW = (DEMO / "service-worker.20260918-8.js").read_text(encoding="utf-8")
+
+BUILD_MATCH = re.search(r'data-dark-rivers-version="([^"]+)"', INDEX)
+if not BUILD_MATCH:
+    raise RuntimeError("Dark Rivers build fingerprint missing from index.html")
+BUILD = BUILD_MATCH.group(1)
+
+APP = (DEMO / f"app.{BUILD}.js").read_text(encoding="utf-8")
+CSS = (DEMO / f"styles.{BUILD}.css").read_text(encoding="utf-8")
+SW = (DEMO / f"service-worker.{BUILD}.js").read_text(encoding="utf-8")
 
 
 class DarkRiversProductionContractTests(unittest.TestCase):
     def test_fingerprinted_assets_are_loaded_without_query_versioning(self):
         for asset in (
-            "styles.20260918-8.css",
-            "app.20260918-8.js",
-            "data.20260918-8.js",
-            "site-config.20260918-8.js",
+            f"styles.{BUILD}.css",
+            f"app.{BUILD}.js",
+            f"data.{BUILD}.js",
+            f"site-config.{BUILD}.js",
         ):
             self.assertIn(asset, INDEX)
         self.assertNotIn("styles.css?v=", INDEX)
@@ -34,11 +40,21 @@ class DarkRiversProductionContractTests(unittest.TestCase):
 
     def test_renderer_exposes_browser_verified_health_state(self):
         for token in (
-            'dataset.darkRiversVersion=BUILD',
+            "dataset.darkRiversVersion=BUILD",
             'dataset.darkRiversRender=pass?"pass":"fail"',
-            'dataset.darkRiversVisible=String(visiblyColoured.length)',
+            "dataset.darkRiversVisible=String(visiblyColoured.length)",
             "getComputedStyle(path)",
             'new URLSearchParams(location.search).has("smoke")',
+        ):
+            self.assertIn(token, APP)
+
+    def test_renderer_supports_compact_official_data(self):
+        for token in (
+            'dark-rivers-compact-v1',
+            "normalizeOfficial",
+            "networkPath",
+            "stationLon",
+            "stationLat",
         ):
             self.assertIn(token, APP)
 
@@ -50,8 +66,9 @@ class DarkRiversProductionContractTests(unittest.TestCase):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, block)
 
-    def test_service_worker_is_fresh_and_purges_old_dark_rivers_caches(self):
-        self.assertIn('salmon-dark-rivers-v8', SW)
+    def test_service_worker_matches_build_and_purges_old_caches(self):
+        cache_suffix = BUILD.split("-")[-1]
+        self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)
         self.assertIn('key.startsWith("salmon-dark-rivers-")', SW)
         self.assertIn("self.skipWaiting()", SW)
         self.assertIn("self.clients.claim()", SW)
