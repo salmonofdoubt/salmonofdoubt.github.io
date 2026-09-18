@@ -1,0 +1,31 @@
+name: Dark Rivers browser smoke
+
+on:
+  pull_request:
+    paths:
+      - "demos/dark-rivers/**"
+      - ".github/workflows/dark-rivers-ci.yml"
+  push:
+    branches: [master]
+    paths:
+      - "demos/dark-rivers/**"
+      - ".github/workflows/dark-rivers-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Dark Rivers contract tests
+        run: |
+          python3 -m unittest -v demos/dark-rivers/ops/test_production_contract.py
+
+      - name: Run Dark Rivers in headless Chrome
+        run: |
+          bash demos/dark-rivers/ops/smoke_render.sh
