@@ -29,8 +29,8 @@ a{color:inherit}
 .island{fill:#040709;stroke:rgba(115,137,145,.12);stroke-width:2;transition:opacity .3s ease}
 .has-official-data .island{opacity:0}
 .river-base{fill:none;stroke:#11191e;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round;opacity:.72;pointer-events:none}
-.river-reach{fill:none;stroke:var(--river-dark);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;cursor:pointer;transition:stroke .55s ease,stroke-width .16s ease,opacity .65s ease;opacity:.76}
-.river-reach:hover,.river-reach:focus{stroke-width:7;opacity:.95;outline:none}
+.river-reach{cursor:pointer;transition:stroke .55s ease,stroke-width .16s ease,opacity .65s ease}
+.river-reach:hover,.river-reach:focus{outline:none}
 .sample-flash{fill:#edf3f4;stroke:#edf3f4;stroke-width:1.5;filter:url(#flashGlow);pointer-events:none}
 
 .map-status{position:absolute;top:14px;left:14px;display:grid;grid-template-columns:repeat(3,minmax(90px,auto));gap:3px;padding:5px;border:1px solid rgba(120,147,156,.13);border-radius:12px;background:rgba(2,5,7,.58);backdrop-filter:blur(9px)}
