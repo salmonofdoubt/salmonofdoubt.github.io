@@ -13,14 +13,14 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20260918-2">
+  <link rel="stylesheet" href="./styles.css?v=20260918-3">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=20260918-2"></script>
-  <script defer src="./data.js?v=20260918-2"></script>
-  <script defer src="./app.js?v=20260918-2"></script>
+  <script defer src="./site-config.js?v=20260918-3"></script>
+  <script defer src="./data.js?v=20260918-3"></script>
+  <script defer src="./app.js?v=20260918-3"></script>
 </head>
 <body>
   <header class="site-header">
@@ -36,10 +36,10 @@
   <main class="demo-stage">
     <section class="demo-canvas" aria-labelledby="demoTitle">
       <div class="story-panel">
-        <p class="eyebrow">Ireland · biological river monitoring · 1971–2025</p>
+        <p class="eyebrow">Ireland · biological river monitoring · <span data-min-year>1971</span>–<span data-max-year>2025</span></p>
         <h1 id="demoTitle">Every flash is an observation.</h1>
         <p class="lede">The river network begins almost dark. Sampling briefly reveals a place; its reach keeps the latest observed Q-value colour, then quietly recedes as that observation ages.</p>
-        <p class="prototype-note"><strong>Prototype:</strong> river geometry and sampling events shown here are illustrative. Q-value classes follow the EPA system; synthetic events are not presented as EPA observations.</p>
+        <p class="prototype-note" id="dataModeNote"><strong>Prototype:</strong> river geometry and sampling events shown here are illustrative. Q-value classes follow the EPA system; synthetic events are not presented as EPA observations.</p>
       </div>
 
       <div class="map-shell">
@@ -53,6 +53,7 @@
             </filter>
           </defs>
           <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
+          <g id="riverBase" aria-hidden="true"></g>
           <g id="riverNetwork" aria-label="River reaches"></g>
           <g id="flashLayer" aria-hidden="true"></g>
         </svg>
@@ -84,11 +85,12 @@
           </label>
         </div>
         <div class="timeline-row">
-          <span>1971</span>
+          <span data-min-year>1971</span>
           <input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year">
-          <span>2025</span>
+          <span data-max-year>2025</span>
         </div>
         <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year. Colour shows the latest revealed class; brightness quietly indicates how recent that observation is.</p>
+        <p class="data-provenance" id="dataProvenance">Illustrative interaction data · awaiting generated EPA dataset</p>
       </div>
 
       <div class="legend" aria-label="Biological Q-value classes">
