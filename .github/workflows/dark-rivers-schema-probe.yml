@@ -1,0 +1,19 @@
+name: Dark Rivers EPA schema probe
+
+on:
+  pull_request:
+    paths:
+      - "demos/dark-rivers/ops/**"
+      - ".github/workflows/dark-rivers-schema-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe live EPA WFS schema
+        run: python3 demos/dark-rivers/ops/probe_epa_schema.py
