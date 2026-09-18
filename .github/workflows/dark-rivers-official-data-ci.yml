@@ -1,0 +1,49 @@
+name: Dark Rivers official data validation
+
+on:
+  pull_request:
+    paths:
+      - "demos/dark-rivers/ops/build_dark_rivers.py"
+      - "demos/dark-rivers/ops/test_build_dark_rivers.py"
+      - "demos/dark-rivers/ops/smoke_render.sh"
+      - ".github/workflows/dark-rivers-official-data-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unit-test EPA normalisation
+        run: python3 -m unittest -v demos/dark-rivers/ops/test_build_dark_rivers.py
+
+      - name: Build official EPA dataset
+        run: |
+          python3 demos/dark-rivers/ops/build_dark_rivers.py
+          ls -lh demos/dark-rivers/data/official.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("demos/dark-rivers/data/official.json")
+          d=json.loads(p.read_text())
+          print(json.dumps(d["meta"], indent=2, sort_keys=True))
+          print("fileBytes", p.stat().st_size)
+          PY
+
+      - name: Production contract tests
+        run: python3 -m unittest -v demos/dark-rivers/ops/test_production_contract.py
+
+      - name: Render official data in headless Chrome
+        run: bash demos/dark-rivers/ops/smoke_render.sh
+
+      - name: Upload generated official dataset
+        uses: actions/upload-artifact@v4
+        with:
+          name: dark-rivers-official-json
+          path: demos/dark-rivers/data/official.json
+          retention-days: 7
