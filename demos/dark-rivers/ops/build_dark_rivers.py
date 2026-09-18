@@ -20,6 +20,12 @@ HISTORIC_Q_LAYER = "EPA:MON_Waterstations_MON_QRecords_71_18"
 RECENT_Q_LAYER = "EPA:MON_QRecords_Version2"
 RIVER_WATERBODY_LAYER = "EPA:WFD_RIVERWATERBODIES_CYCLE3"
 
+LAYER_SORTS = {
+    HISTORIC_Q_LAYER: "StationID A",
+    RECENT_Q_LAYER: "StationCode A,Year A",
+    RIVER_WATERBODY_LAYER: "EU_CD A",
+}
+
 SOURCE_URLS = {
     "q_map": "https://gis.epa.ie/EPAMaps/Water",
     "q_downloads": "https://gis.epa.ie/GetData/Download",
@@ -249,13 +255,15 @@ def clip_local_reach(
     return simplify_radial(clipped, 40) if len(clipped) >= 2 else None
 
 
-def wfs_url(layer: str, *, count: int, start_index: int) -> str:
-    query = urllib.parse.urlencode({
+def wfs_url(layer: str, *, count: int, start_index: int, sort_by: str | None = None) -> str:
+    params = {
         "service": "WFS", "version": "2.0.0", "request": "GetFeature",
         "typeNames": layer, "count": count, "startIndex": start_index,
         "outputFormat": "application/json", "srsName": "EPSG:4326",
-    })
-    return f"{WFS_URL}?{query}"
+    }
+    if sort_by:
+        params["sortBy"] = sort_by
+    return f"{WFS_URL}?{urllib.parse.urlencode(params)}"
 
 
 def fetch_json(url: str, timeout: int = 120, attempts: int = 3) -> dict[str, Any]:
@@ -284,7 +292,12 @@ def fetch_json(url: str, timeout: int = 120, attempts: int = 3) -> dict[str, Any
 def fetch_wfs(layer: str, *, page_size: int = 1000, max_pages: int = 30) -> list[dict[str, Any]]:
     features: list[dict[str, Any]] = []
     for page in range(max_pages):
-        payload = fetch_json(wfs_url(layer, count=page_size, start_index=page * page_size))
+        payload = fetch_json(wfs_url(
+            layer,
+            count=page_size,
+            start_index=page * page_size,
+            sort_by=LAYER_SORTS.get(layer),
+        ))
         page_features = payload.get("features") or []
         if not isinstance(page_features, list):
             raise RuntimeError(f"WFS layer {layer} returned no feature list")
