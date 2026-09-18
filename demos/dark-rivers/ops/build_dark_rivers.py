@@ -7,7 +7,9 @@ import math
 import re
 import sys
 import urllib.parse
+import urllib.error
 import urllib.request
+import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -256,13 +258,30 @@ def wfs_url(layer: str, *, count: int, start_index: int) -> str:
     return f"{WFS_URL}?{query}"
 
 
-def fetch_json(url: str, timeout: int = 120) -> dict[str, Any]:
+def fetch_json(url: str, timeout: int = 120, attempts: int = 3) -> dict[str, Any]:
     request = urllib.request.Request(url, headers={"User-Agent": "SalmonOfDoubt-DarkRivers/2.0"})
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        return json.load(response)
+    last_error: Exception | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", "replace")[:1200]
+            if 500 <= exc.code < 600 and attempt < attempts:
+                last_error = exc
+                time.sleep(attempt * 2)
+                continue
+            raise RuntimeError(f"EPA WFS HTTP {exc.code} for {url}: {body}") from exc
+        except (urllib.error.URLError, TimeoutError) as exc:
+            last_error = exc
+            if attempt < attempts:
+                time.sleep(attempt * 2)
+                continue
+            raise RuntimeError(f"EPA WFS request failed after {attempts} attempts: {url}: {exc}") from exc
+    raise RuntimeError(f"EPA WFS request failed: {url}: {last_error}")
 
 
-def fetch_wfs(layer: str, *, page_size: int = 5000, max_pages: int = 20) -> list[dict[str, Any]]:
+def fetch_wfs(layer: str, *, page_size: int = 1000, max_pages: int = 30) -> list[dict[str, Any]]:
     features: list[dict[str, Any]] = []
     for page in range(max_pages):
         payload = fetch_json(wfs_url(layer, count=page_size, start_index=page * page_size))
