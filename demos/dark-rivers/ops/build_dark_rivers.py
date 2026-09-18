@@ -14,35 +14,20 @@ from pathlib import Path
 from typing import Any, Iterable
 
 WFS_URL = "https://gis.epa.ie/geoserver/EPA/ows"
-STATION_LAYER = "EPA:MON_WaterStations"
 HISTORIC_Q_LAYER = "EPA:MON_Waterstations_MON_QRecords_71_18"
-LATEST_Q_LAYER = "EPA:MON_QRecords_Version2"
+RECENT_Q_LAYER = "EPA:MON_QRecords_Version2"
 RIVER_WATERBODY_LAYER = "EPA:WFD_RIVERWATERBODIES_CYCLE3"
 
 SOURCE_URLS = {
-    "stations": "https://data.gov.ie/dataset/water-monitoring-stations",
-    "river_network": "https://data.gov.ie/dataset/inspire-water-framework-directive-river-network-routes",
     "q_map": "https://gis.epa.ie/EPAMaps/Water",
     "q_downloads": "https://gis.epa.ie/GetData/Download",
+    "q_surveys": "https://epawebapp.epa.ie/qvalue/webusers/",
 }
 
-Q_KEY_CANDIDATES = [
-    "QValue", "Q_Value", "QVAL", "Q", "BioticIndex", "BiologicalQValue",
-    "QRating", "Q_Rating", "Result", "QScore",
-]
-YEAR_KEY_CANDIDATES = [
-    "Year", "SampleYear", "SurveyYear", "MonitoringYear", "QYear", "SampleDate",
-    "SurveyDate", "Date", "ObservedAt", "ResultDate",
-]
-STATION_KEY_CANDIDATES = [
-    "EPALink", "StationID", "StationId", "StationCode", "Code", "MON_STATION_ID",
-]
-STATION_NAME_CANDIDATES = ["StationName", "Name", "Station", "MON_STATION_NAME"]
-WATERBODY_KEY_CANDIDATES = [
-    "WBWFDWISECODE", "WFDWISECODE", "EU_CD", "WaterbodyCode", "WaterBodyCode",
-    "WBCode", "Code",
-]
-ENTITY_NAME_CANDIDATES = ["EntityName", "WaterbodyName", "WaterBodyName", "RiverName", "NAME", "Name"]
+STATION_KEY_CANDIDATES = ["StationID", "StationCode", "EPALink"]
+STATION_NAME_CANDIDATES = ["StationName", "Station"]
+WATERBODY_KEY_CANDIDATES = ["WBWFDWISECODE", "EU_CD", "WaterbodyCode", "WaterBodyCode"]
+ENTITY_NAME_CANDIDATES = ["RiverWaterbodyName", "EntityName", "WaterbodyName", "WaterBodyName", "RiverName", "NAME", "Name"]
 
 
 def utc_now() -> str:
@@ -60,29 +45,19 @@ def property_index(props: dict[str, Any]) -> dict[str, Any]:
 def pick(props: dict[str, Any], candidates: Iterable[str], default: Any = None) -> Any:
     indexed = property_index(props)
     for candidate in candidates:
-        key = norm_key(candidate)
-        if key in indexed and indexed[key] not in (None, ""):
-            return indexed[key]
+        value = indexed.get(norm_key(candidate))
+        if value not in (None, ""):
+            return value
     return default
 
 
 def text(value: Any, default: str = "") -> str:
-    if value is None:
-        return default
-    value = str(value).strip()
-    return value if value else default
+    value = "" if value is None else str(value).strip()
+    return value or default
 
 
-def station_keys(props: dict[str, Any]) -> list[str]:
-    keys: list[str] = []
-    indexed = property_index(props)
-    for candidate in STATION_KEY_CANDIDATES:
-        value = indexed.get(norm_key(candidate))
-        if value not in (None, ""):
-            key = norm_key(value)
-            if key and key not in keys:
-                keys.append(key)
-    return keys
+def station_id(props: dict[str, Any]) -> str:
+    return text(pick(props, STATION_KEY_CANDIDATES))
 
 
 def parse_year(value: Any) -> int | None:
@@ -92,22 +67,8 @@ def parse_year(value: Any) -> int | None:
     return int(match.group(1)) if match else None
 
 
-def find_year(props: dict[str, Any]) -> int | None:
-    value = pick(props, YEAR_KEY_CANDIDATES)
-    year = parse_year(value)
-    if year:
-        return year
-    for key, value in props.items():
-        nk = norm_key(key)
-        if "year" in nk or "date" in nk:
-            year = parse_year(value)
-            if year:
-                return year
-    return None
-
-
 def normalize_q_value(value: Any) -> str | None:
-    if value is None or value == "":
+    if value in (None, ""):
         return None
     if isinstance(value, (int, float)):
         numeric = float(value)
@@ -129,22 +90,9 @@ def normalize_q_value(value: Any) -> str | None:
     if second is None:
         return f"Q{first}"
     if abs(second - first) != 1:
-        return None
+        return f"Q{first}"
     low, high = sorted((first, second))
     return f"Q{low}-{high}"
-
-
-def find_q_value(props: dict[str, Any]) -> str | None:
-    q = normalize_q_value(pick(props, Q_KEY_CANDIDATES))
-    if q:
-        return q
-    for key, value in props.items():
-        nk = norm_key(key)
-        if nk == "q" or (nk.startswith("q") and any(part in nk for part in ("value", "rating", "score", "biotic"))):
-            q = normalize_q_value(value)
-            if q:
-                return q
-    return None
 
 
 def q_status(q_value: str | None) -> str | None:
@@ -156,12 +104,15 @@ def q_status(q_value: str | None) -> str | None:
 
 def geometry_point(feature: dict[str, Any]) -> tuple[float, float] | None:
     geometry = feature.get("geometry") or {}
-    if geometry.get("type") != "Point":
-        return None
+    kind = geometry.get("type")
     coords = geometry.get("coordinates") or []
-    if len(coords) < 2:
+    if kind == "Point" and len(coords) >= 2:
+        candidate = coords
+    elif kind == "MultiPoint" and coords and isinstance(coords[0], list) and len(coords[0]) >= 2:
+        candidate = coords[0]
+    else:
         return None
-    lon, lat = float(coords[0]), float(coords[1])
+    lon, lat = float(candidate[0]), float(candidate[1])
     return (lon, lat) if -11.5 <= lon <= -5.0 and 50.5 <= lat <= 56.0 else None
 
 
@@ -172,6 +123,59 @@ def geometry_lines(feature: dict[str, Any]) -> list[list[list[float]]]:
     if geometry.get("type") == "MultiLineString":
         return geometry.get("coordinates") or []
     return []
+
+
+def event_base(feature: dict[str, Any]) -> dict[str, Any] | None:
+    props = feature.get("properties") or {}
+    sid = station_id(props)
+    point = geometry_point(feature)
+    if not sid or not point:
+        return None
+    return {
+        "stationId": sid,
+        "stationName": text(pick(props, STATION_NAME_CANDIDATES), sid),
+        "waterbodyCode": text(pick(props, WATERBODY_KEY_CANDIDATES)),
+        "entityName": text(pick(props, ENTITY_NAME_CANDIDATES)),
+        "lon": round(point[0], 6),
+        "lat": round(point[1], 6),
+    }
+
+
+def historical_events_from_feature(feature: dict[str, Any]) -> list[dict[str, Any]]:
+    base = event_base(feature)
+    if not base:
+        return []
+    props = feature.get("properties") or {}
+    events = []
+    for key, raw_value in props.items():
+        match = re.fullmatch(r"QV(\d{2})", str(key), flags=re.IGNORECASE)
+        if not match or raw_value in (None, ""):
+            continue
+        yy = int(match.group(1))
+        year = 1900 + yy if yy >= 71 else 2000 + yy
+        if not 1971 <= year <= 2020:
+            continue
+        q = normalize_q_value(raw_value)
+        status = q_status(q)
+        if not q or not status:
+            continue
+        events.append({**base, "year": year, "q": q, "status": status})
+    return events
+
+
+def recent_event_from_feature(feature: dict[str, Any]) -> dict[str, Any] | None:
+    base = event_base(feature)
+    if not base:
+        return None
+    props = feature.get("properties") or {}
+    year = parse_year(pick(props, ["Year"]))
+    if year is None or year <= 2020:
+        return None
+    q = normalize_q_value(pick(props, ["QValueScore", "QValue", "Q_Value"]))
+    status = q_status(q)
+    if not q or not status:
+        return None
+    return {**base, "year": year, "q": q, "status": status}
 
 
 def haversine_m(a: list[float] | tuple[float, float], b: list[float] | tuple[float, float]) -> float:
@@ -240,7 +244,7 @@ def clip_local_reach(
         walked += haversine_m(coords[end], coords[end + 1])
         end += 1
     clipped = coords[start:end + 1]
-    return simplify_radial(clipped, 35) if len(clipped) >= 2 else None
+    return simplify_radial(clipped, 40) if len(clipped) >= 2 else None
 
 
 def wfs_url(layer: str, *, count: int, start_index: int) -> str:
@@ -252,13 +256,13 @@ def wfs_url(layer: str, *, count: int, start_index: int) -> str:
     return f"{WFS_URL}?{query}"
 
 
-def fetch_json(url: str, timeout: int = 60) -> dict[str, Any]:
-    request = urllib.request.Request(url, headers={"User-Agent": "SalmonOfDoubt-DarkRivers/1.0"})
+def fetch_json(url: str, timeout: int = 120) -> dict[str, Any]:
+    request = urllib.request.Request(url, headers={"User-Agent": "SalmonOfDoubt-DarkRivers/2.0"})
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return json.load(response)
 
 
-def fetch_wfs(layer: str, *, page_size: int = 5000, max_pages: int = 100) -> list[dict[str, Any]]:
+def fetch_wfs(layer: str, *, page_size: int = 5000, max_pages: int = 20) -> list[dict[str, Any]]:
     features: list[dict[str, Any]] = []
     for page in range(max_pages):
         payload = fetch_json(wfs_url(layer, count=page_size, start_index=page * page_size))
@@ -271,117 +275,75 @@ def fetch_wfs(layer: str, *, page_size: int = 5000, max_pages: int = 100) -> lis
     raise RuntimeError(f"WFS layer {layer} exceeded {max_pages * page_size:,} features")
 
 
-def build_station_index(features: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    index: dict[str, dict[str, Any]] = {}
-    for feature in features:
-        props = feature.get("properties") or {}
-        record = {
-            "point": geometry_point(feature),
-            "name": text(pick(props, STATION_NAME_CANDIDATES), "Monitoring station"),
-            "waterbody": text(pick(props, WATERBODY_KEY_CANDIDATES)),
-            "entity": text(pick(props, ENTITY_NAME_CANDIDATES)),
-        }
-        for key in station_keys(props):
-            index.setdefault(key, record)
-    return index
+def dedupe_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    unique: dict[tuple[str, int, str], dict[str, Any]] = {}
+    for event in events:
+        unique[(event["stationId"], int(event["year"]), event["q"])] = event
+    return sorted(unique.values(), key=lambda item: (int(item["year"]), item["stationId"], item["q"]))
 
 
 def build_waterbody_index(features: list[dict[str, Any]]) -> tuple[dict[str, list[list[list[float]]]], list[list[list[float]]]]:
     index: dict[str, list[list[list[float]]]] = defaultdict(list)
     network: list[list[list[float]]] = []
     for feature in features:
-        props = feature.get("properties") or {}
         lines = geometry_lines(feature)
         if not lines:
             continue
+        props = feature.get("properties") or {}
+        code = text(pick(props, ["EU_CD"]))
         for line in lines:
             if len(line) >= 2:
-                network.append(simplify_radial(line, 180))
-        code = text(pick(props, WATERBODY_KEY_CANDIDATES))
+                network.append(simplify_radial(line, 220))
         if code:
             index[norm_key(code)].extend(lines)
     return dict(index), network
 
 
-def event_from_feature(feature: dict[str, Any], station_index: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
-    props = feature.get("properties") or {}
-    q = find_q_value(props)
-    year = find_year(props)
-    status = q_status(q)
-    if not q or not year or not status:
-        return None
-
-    keys = station_keys(props)
-    station = next((station_index[key] for key in keys if key in station_index), None)
-    point = geometry_point(feature) or (station or {}).get("point")
-    if not point:
-        return None
-
-    station_id = keys[0] if keys else norm_key(pick(props, STATION_NAME_CANDIDATES, f"{point[0]}:{point[1]}"))
-    return {
-        "year": year,
-        "stationId": station_id,
-        "stationName": text(pick(props, STATION_NAME_CANDIDATES), (station or {}).get("name", "Monitoring station")),
-        "waterbodyCode": text(pick(props, WATERBODY_KEY_CANDIDATES), (station or {}).get("waterbody", "")),
-        "entityName": text(pick(props, ENTITY_NAME_CANDIDATES), (station or {}).get("entity", "")),
-        "q": q,
-        "status": status,
-        "lon": round(float(point[0]), 6),
-        "lat": round(float(point[1]), 6),
-    }
-
-
-def dedupe_events(events: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    unique = {}
-    for event in events:
-        unique[(event["stationId"], event["year"], event["q"])] = event
-    return sorted(unique.values(), key=lambda item: (item["year"], item["stationId"], item["q"]))
-
-
 def build_payload(
-    station_features: list[dict[str, Any]],
     historic_q_features: list[dict[str, Any]],
-    latest_q_features: list[dict[str, Any]],
+    recent_q_features: list[dict[str, Any]],
     river_features: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    station_index = build_station_index(station_features)
-    waterbody_index, network = build_waterbody_index(river_features)
-
-    events = []
-    for feature in [*historic_q_features, *latest_q_features]:
-        event = event_from_feature(feature, station_index)
+    events: list[dict[str, Any]] = []
+    for feature in historic_q_features:
+        events.extend(historical_events_from_feature(feature))
+    for feature in recent_q_features:
+        event = recent_event_from_feature(feature)
         if event:
             events.append(event)
     events = dedupe_events(events)
     if not events:
-        raise RuntimeError("No valid Q-value events could be normalised from EPA WFS layers")
+        raise RuntimeError("No valid EPA Q-value events were normalised")
+
+    waterbody_index, network = build_waterbody_index(river_features)
+    by_station: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for event in events:
+        by_station[event["stationId"]].append(event)
 
     reaches: dict[str, dict[str, Any]] = {}
-    for event in events:
-        reach_id = event["stationId"]
-        event["reachId"] = None
-        if reach_id in reaches:
-            event["reachId"] = reach_id
-            continue
-        code = norm_key(event.get("waterbodyCode"))
+    for sid, station_events in by_station.items():
+        station_events.sort(key=lambda e: int(e["year"]))
+        source = next((e for e in reversed(station_events) if e.get("waterbodyCode")), station_events[-1])
+        code = norm_key(source.get("waterbodyCode"))
         lines = waterbody_index.get(code, []) if code else []
-        clipped = clip_local_reach((event["lon"], event["lat"]), lines) if lines else None
-        if clipped:
-            reaches[reach_id] = {
-                "id": reach_id,
-                "name": event.get("entityName") or event.get("stationName") or "Observed reach",
-                "stationId": event["stationId"],
-                "stationName": event["stationName"],
-                "waterbodyCode": event.get("waterbodyCode", ""),
-                "coordinates": clipped,
-            }
-            event["reachId"] = reach_id
+        clipped = clip_local_reach((source["lon"], source["lat"]), lines) if lines else None
+        if not clipped:
+            continue
+        reaches[sid] = {
+            "id": sid,
+            "name": source.get("entityName") or source.get("stationName") or "Observed reach",
+            "stationId": sid,
+            "stationName": source.get("stationName") or sid,
+            "waterbodyCode": source.get("waterbodyCode", ""),
+            "coordinates": clipped,
+        }
 
     for event in events:
-        if event["stationId"] in reaches:
-            event["reachId"] = event["stationId"]
+        event["reachId"] = event["stationId"] if event["stationId"] in reaches else None
 
-    years = [event["year"] for event in events]
+    years = [int(event["year"]) for event in events]
+    unique_stations = len(by_station)
+    matched_stations = len(reaches)
     unmatched_events = sum(1 for event in events if not event.get("reachId"))
     return {
         "meta": {
@@ -389,14 +351,17 @@ def build_payload(
             "generatedAt": utc_now(),
             "minYear": min(years),
             "maxYear": max(years),
-            "sourceLabel": "EPA River Ecology Monitoring Programme",
+            "sourceLabel": "EPA Biological Q Stations and Records",
             "licence": "Creative Commons Attribution 4.0",
-            "qLayers": [HISTORIC_Q_LAYER, LATEST_Q_LAYER],
-            "stationLayer": STATION_LAYER,
+            "historicQLayer": HISTORIC_Q_LAYER,
+            "recentQLayer": RECENT_Q_LAYER,
             "riverLayer": RIVER_WATERBODY_LAYER,
-            "reachAssociation": "Monitoring station → WFD river waterbody code → local ~5 km mapped section around the station",
+            "historyRule": "1971-2020 from QV71..QV20; 2021 onward from Year + QValueScore",
+            "reachAssociation": "Q monitoring station → WBWFDWISECODE → local ~5 km section of Cycle 3 river-waterbody geometry",
             "eventCount": len(events),
-            "reachCount": len(reaches),
+            "stationCount": unique_stations,
+            "reachCount": matched_stations,
+            "matchedStationRatio": round(matched_stations / unique_stations, 4) if unique_stations else 0,
             "unmatchedEvents": unmatched_events,
             "sources": SOURCE_URLS,
         },
@@ -410,36 +375,52 @@ def validate_payload(payload: dict[str, Any]) -> None:
     meta = payload.get("meta") or {}
     events = payload.get("events") or []
     reaches = payload.get("reaches") or []
+    network = payload.get("network") or []
+
     if meta.get("official") is not True:
         raise RuntimeError("Output is not marked official")
-    if not events:
-        raise RuntimeError("Output contains no observations")
-    if not payload.get("network"):
-        raise RuntimeError("Output contains no river network geometry")
-    if not reaches:
-        raise RuntimeError("Output contains no station-associated local reaches")
+    if len(events) < 10_000:
+        raise RuntimeError(f"Suspiciously few Q observations: {len(events):,}")
+    if int(meta.get("minYear", 9999)) > 1971:
+        raise RuntimeError(f"Historical coverage does not reach 1971: {meta.get('minYear')}")
+    if int(meta.get("maxYear", 0)) < 2025:
+        raise RuntimeError(f"Recent coverage does not reach 2025: {meta.get('maxYear')}")
+    if len(network) < 3_000:
+        raise RuntimeError(f"Suspiciously small river network: {len(network):,} lines")
+    if len(reaches) < 1_000:
+        raise RuntimeError(f"Suspiciously few station-associated reaches: {len(reaches):,}")
+    if float(meta.get("matchedStationRatio", 0)) < 0.65:
+        raise RuntimeError(f"Station/reach match ratio too low: {meta.get('matchedStationRatio')}")
+
+    allowed = {"High", "Good", "Moderate", "Poor", "Bad"}
     for event in events:
-        if event.get("status") not in {"High", "Good", "Moderate", "Poor", "Bad"}:
+        if event.get("status") not in allowed:
             raise RuntimeError(f"Unexpected status in event: {event}")
-        if not 1900 <= int(event.get("year", 0)) <= 2100:
+        if not 1971 <= int(event.get("year", 0)) <= 2025:
             raise RuntimeError(f"Unexpected year in event: {event}")
+        lon, lat = float(event["lon"]), float(event["lat"])
+        if not (-11.5 <= lon <= -5.0 and 50.5 <= lat <= 56.0):
+            raise RuntimeError(f"Observation outside Ireland bounds: {event}")
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build static official data for the Dark Rivers demo")
+    parser = argparse.ArgumentParser(description="Build static official EPA data for Dark Rivers")
     parser.add_argument("--output", default="demos/dark-rivers/data/official.json")
     args = parser.parse_args()
 
-    print("Fetching EPA monitoring stations…", file=sys.stderr)
-    stations = fetch_wfs(STATION_LAYER)
-    print("Fetching EPA historical Q values…", file=sys.stderr)
+    print("Fetching EPA historical Q station records (1971-2020)…", file=sys.stderr)
     historic = fetch_wfs(HISTORIC_Q_LAYER)
-    print("Fetching EPA latest Q values…", file=sys.stderr)
-    latest = fetch_wfs(LATEST_Q_LAYER)
+    print(f"Fetched {len(historic):,} historical station rows", file=sys.stderr)
+
+    print("Fetching EPA recent Q records…", file=sys.stderr)
+    recent = fetch_wfs(RECENT_Q_LAYER)
+    print(f"Fetched {len(recent):,} recent Q rows", file=sys.stderr)
+
     print("Fetching EPA Cycle 3 river waterbodies…", file=sys.stderr)
     rivers = fetch_wfs(RIVER_WATERBODY_LAYER)
+    print(f"Fetched {len(rivers):,} river waterbodies", file=sys.stderr)
 
-    payload = build_payload(stations, historic, latest, rivers)
+    payload = build_payload(historic, recent, rivers)
     validate_payload(payload)
 
     output = Path(args.output)
@@ -448,9 +429,13 @@ def main() -> int:
     temp.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     temp.replace(output)
 
+    size_mb = output.stat().st_size / (1024 * 1024)
+    meta = payload["meta"]
     print(
-        f"Wrote {len(payload['events']):,} events, {len(payload['reaches']):,} local reaches, "
-        f"{len(payload['network']):,} network lines to {output}",
+        "Dark Rivers official data: "
+        f"{meta['eventCount']:,} observations, {meta['stationCount']:,} stations, "
+        f"{meta['reachCount']:,} matched reaches ({meta['matchedStationRatio']:.1%}), "
+        f"{len(payload['network']):,} network lines, {size_mb:.2f} MiB",
         file=sys.stderr,
     )
     return 0
