@@ -1,7 +1,7 @@
 :root{
   --bg:#020406;--panel:#071019;--line:rgba(112,142,153,.17);--line-strong:rgba(112,142,153,.3);
-  --ink:#e5edef;--muted:#87999e;--accent:#9bc7ce;--river-dark:#11191e;
-  --high:#559aa5;--good:#638f76;--moderate:#aa985f;--poor:#a97858;--bad:#975b60;
+  --ink:#e5edef;--muted:#87999e;--accent:#9bc7ce;--river-dark:#162127;
+  --high:#6babb6;--good:#769c84;--moderate:#b5a36d;--poor:#b18163;--bad:#a3656a;
   --radius:20px;--font:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
 }
 *{box-sizing:border-box}
@@ -26,7 +26,7 @@ a{color:inherit}
 
 .map-shell{position:relative;margin:0 clamp(10px,2vw,22px);min-height:clamp(470px,67dvh,760px);overflow:hidden;border:1px solid rgba(100,126,136,.14);border-radius:17px;background:radial-gradient(circle at 50% 42%,rgba(28,42,48,.08),transparent 23rem),#010304}
 .river-map{display:block;width:100%;height:clamp(470px,67dvh,760px)}
-.island{fill:#040709;stroke:rgba(115,137,145,.12);stroke-width:2;transition:opacity .3s ease}\n.has-official-data .island{opacity:0}\n.river-base{fill:none;stroke:#0b1216;stroke-width:1.05;stroke-linecap:round;stroke-linejoin:round;opacity:.72;pointer-events:none}
+.island{fill:#040709;stroke:rgba(115,137,145,.12);stroke-width:2;transition:opacity .3s ease}\n.has-official-data .island{opacity:0}\n.river-base{fill:none;stroke:#11191e;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round;opacity:.72;pointer-events:none}
 .river-reach{fill:none;stroke:var(--river-dark);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;cursor:pointer;transition:stroke .55s ease,stroke-width .16s ease,opacity .65s ease;opacity:.76}
 .river-reach:hover,.river-reach:focus{stroke-width:7;opacity:.95;outline:none}
 .river-reach[data-status="High"]{stroke:var(--high)}
@@ -34,10 +34,10 @@ a{color:inherit}
 .river-reach[data-status="Moderate"]{stroke:var(--moderate)}
 .river-reach[data-status="Poor"]{stroke:var(--poor)}
 .river-reach[data-status="Bad"]{stroke:var(--bad)}
-.river-reach[data-age="fresh"]{opacity:.88}
-.river-reach[data-age="recent"]{opacity:.72}
-.river-reach[data-age="aged"]{opacity:.54}
-.river-reach[data-age="old"]{opacity:.37}
+.river-reach[data-age="fresh"]{opacity:.94}
+.river-reach[data-age="recent"]{opacity:.82}
+.river-reach[data-age="aged"]{opacity:.68}
+.river-reach[data-age="old"]{opacity:.54}
 .river-reach.is-selected{stroke-width:8;opacity:1}
 .river-reach.is-just-observed{stroke-width:6.5;opacity:1}
 .sample-flash{fill:#edf3f4;stroke:#edf3f4;stroke-width:1.5;filter:url(#flashGlow);pointer-events:none}
