@@ -50,6 +50,25 @@ def sample(layer: str) -> dict:
     return json.loads(payload)
 
 
+def hit_count(layer: str, cql_filter: str | None = None) -> int | None:
+    params = {
+        "service": "WFS", "version": "2.0.0", "request": "GetFeature",
+        "typeNames": layer, "resultType": "hits",
+    }
+    if cql_filter:
+        params["CQL_FILTER"] = cql_filter
+    payload = get(url(**params))
+    root = ET.fromstring(payload)
+    for key in ("numberMatched", "numberOfFeatures"):
+        for attr_name, value in root.attrib.items():
+            if attr_name.endswith(key):
+                try:
+                    return int(value)
+                except ValueError:
+                    pass
+    return None
+
+
 def main() -> None:
     names = capabilities()
     interesting = [
@@ -89,10 +108,26 @@ def main() -> None:
             feats = payload.get("features") or []
             print("numberReturned:", payload.get("numberReturned"))
             for i, feat in enumerate(feats[:3]):
-                print(f"sample_{i+1}_geometry:", (feat.get("geometry") or {}).get("type"))
+                geom = feat.get("geometry") or {}
+                print(f"sample_{i+1}_geometry:", geom.get("type"))
+                print(f"sample_{i+1}_coordinates_head:", json.dumps(geom.get("coordinates"), ensure_ascii=False)[:260])
                 print(f"sample_{i+1}_properties:", json.dumps(feat.get("properties") or {}, ensure_ascii=False, sort_keys=True))
         except Exception as exc:
             print("sample_error:", repr(exc))
+
+    print("\n=== COUNTS ===")
+    for key, layer in selected.items():
+        try:
+            print(f"{key}: {hit_count(layer)}")
+        except Exception as exc:
+            print(f"{key}: count_error={exc!r}")
+    if "q" in selected:
+        print("\n=== RECENT Q YEAR COUNTS ===")
+        for year in range(2019, 2026):
+            try:
+                print(f"{year}: {hit_count(selected['q'], f'Year={year}')}")
+            except Exception as exc:
+                print(f"{year}: count_error={exc!r}")
 
     print("\n=== SELECTED ===")
     print(json.dumps(selected, indent=2, sort_keys=True))
