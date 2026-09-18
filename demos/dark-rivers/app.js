@@ -9,14 +9,36 @@ const pathFromCoords=coords=>coords.map((p,i)=>{const [x,y]=project(p[0],p[1]);r
 const latestAt=year=>{const m=new Map();data.events.filter(e=>e.year<=year&&e.reachId).forEach(e=>m.set(e.reachId,e));return m};
 const latestFor=id=>data.events.filter(e=>e.reachId===id&&e.year<=state.year).at(-1)||null;
 const ageBand=year=>{const age=state.year-year;if(age<=1)return"fresh";if(age<=5)return"recent";if(age<=15)return"aged";return"old"};
+const STATUS_STROKES=Object.freeze({High:"#6babb6",Good:"#769c84",Moderate:"#b5a36d",Poor:"#b18163",Bad:"#a3656a"});
+const AGE_OPACITY=Object.freeze({fresh:.96,recent:.88,aged:.78,old:.68});
+const UNOBSERVED_STROKE="#18242b";
+function applyReachVisual(path,obs,selected=false){
+  const age=obs?ageBand(obs.year):null;
+  path.style.fill="none";
+  path.style.stroke=obs?(STATUS_STROKES[obs.status]||"#829399"):UNOBSERVED_STROKE;
+  path.style.opacity=String(selected?1:(obs?(AGE_OPACITY[age]||.82):.82));
+  path.style.strokeWidth=selected?"7.5":(obs?"5.5":"4.25");
+  path.style.strokeLinecap="round";
+  path.style.strokeLinejoin="round";
+  path.style.vectorEffect="non-scaling-stroke";
+  path.dataset.rendered=obs?"observed":"unobserved";
+}
+function assertRendered(latest){
+  if(!latest.size)return;
+  const visible=[...els.network.querySelectorAll('.river-reach[data-rendered="observed"]')]
+    .filter(path=>Number.parseFloat(path.style.opacity||"0")>0&&Boolean(path.style.stroke));
+  if(visible.length!==latest.size){
+    console.error("Dark Rivers render mismatch",{expected:latest.size,visible:visible.length,year:state.year});
+  }
+}
 function validOfficial(payload){return payload&&payload.meta?.official===true&&Array.isArray(payload.events)&&payload.events.length>0&&Array.isArray(payload.network)&&payload.network.length>0}
 async function loadData(){try{const response=await fetch("./data/official.json",{cache:"no-cache"});if(response.ok){const payload=await response.json();if(validOfficial(payload))return payload}}catch(error){console.warn("Dark Rivers official data unavailable; using illustrative fallback.",error)}return fallbackData}
 function makePath(className,d){const p=document.createElementNS(NS,"path");p.setAttribute("d",d);p.setAttribute("class",className);return p}
 function addBaseNetwork(){els.base.replaceChildren();if(!data.meta?.official||!Array.isArray(data.network))return;const d=data.network.filter(line=>Array.isArray(line)&&line.length>=2).map(pathFromCoords).filter(Boolean).join(" ");if(d)els.base.appendChild(makePath("river-base",d))}
-function addReach(r){const d=r.d||pathFromCoords(r.coordinates||[]);if(!d)return;const p=makePath("river-reach",d);p.setAttribute("tabindex","0");p.setAttribute("role","button");p.dataset.id=r.id;p.addEventListener("click",()=>select(r.id));p.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(r.id)}});els.network.appendChild(p);paths.set(r.id,p)}
-function render(flash=false){const latest=latestAt(state.year);for(const r of data.reaches){const p=paths.get(r.id);if(!p)continue;const obs=latest.get(r.id);p.classList.toggle("is-selected",state.selected===r.id);if(obs){p.dataset.status=obs.status;p.dataset.age=ageBand(obs.year);p.setAttribute("aria-label",`${r.name}, ${obs.status}, ${obs.q}, observed ${obs.year}`)}else{delete p.dataset.status;delete p.dataset.age;p.setAttribute("aria-label",`${r.name}, no revealed observation`)}}els.year.textContent=state.year;els.range.value=state.year;els.count.textContent=`${latest.size} / ${data.reaches.length}`;els.samples.textContent=data.events.filter(e=>e.year<=state.year).length;if(flash)data.events.filter(e=>e.year===state.year).forEach(showFlash);renderDetail()}
+function addReach(r){const d=r.d||pathFromCoords(r.coordinates||[]);if(!d)return;const p=makePath("river-reach",d);p.setAttribute("tabindex","0");p.setAttribute("role","button");p.dataset.id=r.id;applyReachVisual(p,null,false);p.addEventListener("click",()=>select(r.id));p.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(r.id)}});els.network.appendChild(p);paths.set(r.id,p)}
+function render(flash=false){const latest=latestAt(state.year);for(const r of data.reaches){const p=paths.get(r.id);if(!p)continue;const obs=latest.get(r.id),selected=state.selected===r.id;applyReachVisual(p,obs,selected);p.classList.toggle("is-selected",selected);if(obs){p.dataset.status=obs.status;p.dataset.age=ageBand(obs.year);p.setAttribute("aria-label",`${r.name}, ${obs.status}, ${obs.q}, observed ${obs.year}`)}else{delete p.dataset.status;delete p.dataset.age;p.setAttribute("aria-label",`${r.name}, no revealed observation`)}}els.year.textContent=state.year;els.range.value=state.year;els.count.textContent=`${latest.size} / ${data.reaches.length}`;els.samples.textContent=data.events.filter(e=>e.year<=state.year).length;assertRendered(latest);if(flash)data.events.filter(e=>e.year===state.year).forEach(showFlash);renderDetail()}
 function eventPoint(e){if(Number.isFinite(Number(e.lon))&&Number.isFinite(Number(e.lat)))return project(e.lon,e.lat);const p=paths.get(e.reachId);if(p&&typeof p.getPointAtLength==="function"){const pt=p.getPointAtLength(p.getTotalLength()/2);return[pt.x,pt.y]}return null}
-function showFlash(e){const point=eventPoint(e);if(!point)return;const p=e.reachId?paths.get(e.reachId):null;if(p){p.classList.add("is-just-observed");setTimeout(()=>p.classList.remove("is-just-observed"),850)}const c=document.createElementNS(NS,"circle");c.setAttribute("cx",point[0]);c.setAttribute("cy",point[1]);c.setAttribute("r","3");c.setAttribute("class","sample-flash");els.flashes.appendChild(c);if(c.animate&&!matchMedia("(prefers-reduced-motion: reduce)").matches){const a=c.animate([{opacity:0,r:2},{opacity:.92,r:5,offset:.22},{opacity:.55,r:9,offset:.58},{opacity:0,r:13}],{duration:720,easing:"ease-out"});a.onfinish=()=>c.remove()}else setTimeout(()=>c.remove(),350)}
+function showFlash(e){const point=eventPoint(e);if(!point)return;const p=e.reachId?paths.get(e.reachId):null;if(p){p.style.strokeWidth="6.5";p.style.opacity="1";setTimeout(()=>render(false),780)}const c=document.createElementNS(NS,"circle");c.setAttribute("cx",point[0]);c.setAttribute("cy",point[1]);c.setAttribute("r","3");c.setAttribute("class","sample-flash");els.flashes.appendChild(c);if(c.animate&&!matchMedia("(prefers-reduced-motion: reduce)").matches){const a=c.animate([{opacity:0,r:2},{opacity:.92,r:5,offset:.22},{opacity:.55,r:9,offset:.58},{opacity:0,r:13}],{duration:720,easing:"ease-out"});a.onfinish=()=>c.remove()}else setTimeout(()=>c.remove(),350)}
 function select(id){state.selected=id;render()}
 function renderDetail(){if(!state.selected)return;const r=reachById.get(state.selected),e=latestFor(state.selected);els.detail.innerHTML=e?`<p class="detail-kicker">${escapeHtml(r.name)}</p><h2>${escapeHtml(e.status)} · ${escapeHtml(e.q)}</h2><p>Latest observation revealed by the selected year. The dimming reflects age of observation, not a change in ecological condition.</p><div class="detail-grid"><div><span>Observation</span><strong>${e.year}</strong></div><div><span>Sampling point</span><strong>${escapeHtml(e.stationName||e.station||"EPA station")}</strong></div></div>`:`<p class="detail-kicker">${escapeHtml(r.name)}</p><h2>Still dark in ${state.year}</h2><p>No observation has been revealed for this reach by the selected year.</p>`}
 function escapeHtml(value){return String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
