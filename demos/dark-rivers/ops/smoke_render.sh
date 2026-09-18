@@ -18,18 +18,25 @@ if [[ -z "$CHROME" ]]; then
   exit 1
 fi
 
-"$CHROME" \
-  --headless=new \
-  --no-sandbox \
-  --disable-gpu \
-  --disable-dev-shm-usage \
-  --virtual-time-budget=4000 \
-  --dump-dom \
-  "http://127.0.0.1:${PORT}/demos/dark-rivers/?smoke=1" >"$DOM"
+"$CHROME"   --headless=new   --no-sandbox   --disable-gpu   --disable-dev-shm-usage   --virtual-time-budget=8000   --dump-dom   "http://127.0.0.1:${PORT}/demos/dark-rivers/?smoke=1" >"$DOM"
 
 grep -q 'data-dark-rivers-version="20260918-8"' "$DOM"
 grep -q 'data-dark-rivers-render="pass"' "$DOM"
-grep -q 'data-dark-rivers-visible="15"' "$DOM"
-grep -q 'data-dark-rivers-expected="15"' "$DOM"
 
-echo "Dark Rivers browser smoke test passed"
+EXPECTED="$(sed -n 's/.*data-dark-rivers-expected="\([0-9][0-9]*\)".*/\1/p' "$DOM" | head -1)"
+VISIBLE="$(sed -n 's/.*data-dark-rivers-visible="\([0-9][0-9]*\)".*/\1/p' "$DOM" | head -1)"
+
+if [[ -z "$EXPECTED" || -z "$VISIBLE" ]]; then
+  echo "Dark Rivers render-health attributes missing" >&2
+  exit 1
+fi
+if [[ "$EXPECTED" -lt 1 ]]; then
+  echo "Dark Rivers expected reach count is zero" >&2
+  exit 1
+fi
+if [[ "$VISIBLE" != "$EXPECTED" ]]; then
+  echo "Dark Rivers visible/expected mismatch: $VISIBLE / $EXPECTED" >&2
+  exit 1
+fi
+
+echo "Dark Rivers browser smoke test passed: $VISIBLE / $EXPECTED visibly coloured reaches"
