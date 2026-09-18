@@ -11,7 +11,6 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections import defaultdict
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -46,9 +45,6 @@ SVG_RIGHT = 855.0
 SVG_TOP = 45.0
 SVG_BOTTOM = 680.0
 
-
-def utc_now() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def norm_key(value: Any) -> str:
@@ -436,7 +432,6 @@ def build_payload(
         "meta": {
             "official": True,
             "format": "dark-rivers-compact-v1",
-            "generatedAt": utc_now(),
             "minYear": min(years),
             "maxYear": max(years),
             "sourceLabel": "EPA Biological Q Stations and Records",
