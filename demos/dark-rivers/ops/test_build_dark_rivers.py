@@ -12,6 +12,7 @@ from build_dark_rivers import (
     clip_local_reach,
     geometry_point,
     historical_events_from_feature,
+    merge_connected_lines,
     normalize_q_value,
     parse_year,
     q_status,
@@ -83,6 +84,17 @@ class DarkRiversBuilderTests(unittest.TestCase):
         self.assertIsNotNone(event)
         self.assertEqual(event["year"], 2025)
         self.assertEqual(event["q"], "Q3")
+
+    def test_merge_connected_lines_stops_at_branch_junctions(self):
+        lines = [
+            [[-6.60, 53.60], [-6.58, 53.60]],
+            [[-6.58, 53.60], [-6.56, 53.60]],
+            [[-6.56, 53.60], [-6.54, 53.60]],
+            [[-6.56, 53.60], [-6.56, 53.62]],
+        ]
+        merged = merge_connected_lines(lines)
+        self.assertLess(len(merged), len(lines))
+        self.assertGreaterEqual(len(merged), 3)
 
     def test_local_reach_clipping(self):
         line = [[-6.60, 53.60], [-6.58, 53.60], [-6.56, 53.60], [-6.54, 53.60]]
