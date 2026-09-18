@@ -14,21 +14,39 @@ const AGE_OPACITY=Object.freeze({fresh:.96,recent:.88,aged:.78,old:.68});
 const UNOBSERVED_STROKE="#18242b";
 function applyReachVisual(path,obs,selected=false){
   const age=obs?ageBand(obs.year):null;
-  path.setAttribute("fill","none");
-  path.setAttribute("stroke",obs?(STATUS_STROKES[obs.status]||"#829399"):UNOBSERVED_STROKE);
-  path.setAttribute("opacity",String(selected?1:(obs?(AGE_OPACITY[age]||.82):.82)));
-  path.setAttribute("stroke-width",selected?"7.5":(obs?"5.5":"4.25"));
-  path.setAttribute("stroke-linecap","round");
-  path.setAttribute("stroke-linejoin","round");
-  path.setAttribute("vector-effect","non-scaling-stroke");
+  const stroke=obs?(STATUS_STROKES[obs.status]||"#829399"):UNOBSERVED_STROKE;
+  const opacity=String(selected?1:(obs?(AGE_OPACITY[age]||.82):.82));
+  const width=selected?"7.5":(obs?"5.5":"4.25");
+  path.setAttribute("style",[
+    "fill:none",
+    `stroke:${stroke}`,
+    `opacity:${opacity}`,
+    `stroke-width:${width}`,
+    "stroke-linecap:round",
+    "stroke-linejoin:round",
+    "vector-effect:non-scaling-stroke"
+  ].join(";"));
   path.setAttribute("data-rendered",obs?"observed":"unobserved");
 }
 function assertRendered(latest){
   if(!latest.size)return;
-  const visible=[...els.network.querySelectorAll('.river-reach[data-rendered="observed"]')]
-    .filter(path=>Number.parseFloat(path.getAttribute("opacity")||"0")>0&&Boolean(path.getAttribute("stroke")));
+  const observed=[...els.network.querySelectorAll('.river-reach[data-rendered="observed"]')];
+  const visible=observed.filter(path=>{
+    const computed=getComputedStyle(path);
+    return Number.parseFloat(computed.opacity||"0")>0&&computed.stroke!=="none"&&computed.stroke!=="rgb(24, 36, 43)";
+  });
   if(visible.length!==latest.size){
-    console.error("Dark Rivers render mismatch",{expected:latest.size,visible:visible.length,year:state.year});
+    console.error("Dark Rivers render mismatch",{
+      expected:latest.size,
+      markedObserved:observed.length,
+      visiblyColoured:visible.length,
+      year:state.year,
+      sample:observed[0]?{
+        inline:observed[0].getAttribute("style"),
+        computedStroke:getComputedStyle(observed[0]).stroke,
+        computedOpacity:getComputedStyle(observed[0]).opacity
+      }:null
+    });
   }
 }
 function validOfficial(payload){return payload&&payload.meta?.official===true&&Array.isArray(payload.events)&&payload.events.length>0&&Array.isArray(payload.network)&&payload.network.length>0}
@@ -38,7 +56,7 @@ function addBaseNetwork(){els.base.replaceChildren();if(!data.meta?.official||!A
 function addReach(r){const d=r.d||pathFromCoords(r.coordinates||[]);if(!d)return;const p=makePath("river-reach",d);p.setAttribute("tabindex","0");p.setAttribute("role","button");p.dataset.id=r.id;applyReachVisual(p,null,false);p.addEventListener("click",()=>select(r.id));p.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(r.id)}});els.network.appendChild(p);paths.set(r.id,p)}
 function render(flash=false){const latest=latestAt(state.year);for(const r of data.reaches){const p=paths.get(r.id);if(!p)continue;const obs=latest.get(r.id),selected=state.selected===r.id;applyReachVisual(p,obs,selected);p.classList.toggle("is-selected",selected);if(obs){p.dataset.status=obs.status;p.dataset.age=ageBand(obs.year);p.setAttribute("aria-label",`${r.name}, ${obs.status}, ${obs.q}, observed ${obs.year}`)}else{delete p.dataset.status;delete p.dataset.age;p.setAttribute("aria-label",`${r.name}, no revealed observation`)}}els.year.textContent=state.year;els.range.value=state.year;els.count.textContent=`${latest.size} / ${data.reaches.length}`;els.samples.textContent=data.events.filter(e=>e.year<=state.year).length;assertRendered(latest);if(flash)data.events.filter(e=>e.year===state.year).forEach(showFlash);renderDetail()}
 function eventPoint(e){if(Number.isFinite(Number(e.lon))&&Number.isFinite(Number(e.lat)))return project(e.lon,e.lat);const p=paths.get(e.reachId);if(p&&typeof p.getPointAtLength==="function"){const pt=p.getPointAtLength(p.getTotalLength()/2);return[pt.x,pt.y]}return null}
-function showFlash(e){const point=eventPoint(e);if(!point)return;const p=e.reachId?paths.get(e.reachId):null;if(p){p.setAttribute("stroke-width","6.5");p.setAttribute("opacity","1");setTimeout(()=>render(false),780)}const c=document.createElementNS(NS,"circle");c.setAttribute("cx",point[0]);c.setAttribute("cy",point[1]);c.setAttribute("r","3");c.setAttribute("class","sample-flash");els.flashes.appendChild(c);if(c.animate&&!matchMedia("(prefers-reduced-motion: reduce)").matches){const a=c.animate([{opacity:0,r:2},{opacity:.92,r:5,offset:.22},{opacity:.55,r:9,offset:.58},{opacity:0,r:13}],{duration:720,easing:"ease-out"});a.onfinish=()=>c.remove()}else setTimeout(()=>c.remove(),350)}
+function showFlash(e){const point=eventPoint(e);if(!point)return;const p=e.reachId?paths.get(e.reachId):null;if(p){p.style.setProperty("stroke-width","6.5");p.style.setProperty("opacity","1");setTimeout(()=>render(false),780)}const c=document.createElementNS(NS,"circle");c.setAttribute("cx",point[0]);c.setAttribute("cy",point[1]);c.setAttribute("r","3");c.setAttribute("class","sample-flash");els.flashes.appendChild(c);if(c.animate&&!matchMedia("(prefers-reduced-motion: reduce)").matches){const a=c.animate([{opacity:0,r:2},{opacity:.92,r:5,offset:.22},{opacity:.55,r:9,offset:.58},{opacity:0,r:13}],{duration:720,easing:"ease-out"});a.onfinish=()=>c.remove()}else setTimeout(()=>c.remove(),350)}
 function select(id){state.selected=id;render()}
 function renderDetail(){if(!state.selected)return;const r=reachById.get(state.selected),e=latestFor(state.selected);els.detail.innerHTML=e?`<p class="detail-kicker">${escapeHtml(r.name)}</p><h2>${escapeHtml(e.status)} · ${escapeHtml(e.q)}</h2><p>Latest observation revealed by the selected year. The dimming reflects age of observation, not a change in ecological condition.</p><div class="detail-grid"><div><span>Observation</span><strong>${e.year}</strong></div><div><span>Sampling point</span><strong>${escapeHtml(e.stationName||e.station||"EPA station")}</strong></div></div>`:`<p class="detail-kicker">${escapeHtml(r.name)}</p><h2>Still dark in ${state.year}</h2><p>No observation has been revealed for this reach by the selected year.</p>`}
 function escapeHtml(value){return String(value??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
