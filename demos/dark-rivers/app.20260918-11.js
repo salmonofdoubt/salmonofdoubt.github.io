@@ -165,11 +165,15 @@ function measureReachWeights(){
 
 function assertRendered(latest){
   const observed=[...els.network.querySelectorAll('.river-reach[data-rendered="observed"]')];
-  const pass=observed.length===latest.size;
+  const visiblyColoured=observed.filter(path=>{
+    const c=getComputedStyle(path);
+    return Number.parseFloat(c.opacity||"0")>.01&&c.stroke!=="none"&&c.stroke!=="rgb(28, 48, 56)";
+  });
+  const pass=observed.length===latest.size&&visiblyColoured.length===latest.size;
   document.documentElement.dataset.darkRiversRender=pass?"pass":"fail";
   document.documentElement.dataset.darkRiversExpected=String(latest.size);
-  document.documentElement.dataset.darkRiversVisible=String(observed.length);
-  if(!pass)console.error("Dark Rivers render mismatch",{expected:latest.size,markedObserved:observed.length,year:state.year,build:BUILD});
+  document.documentElement.dataset.darkRiversVisible=String(visiblyColoured.length);
+  if(!pass)console.error("Dark Rivers render mismatch",{expected:latest.size,markedObserved:observed.length,visiblyColoured:visiblyColoured.length,year:state.year,build:BUILD});
 }
 
 function render(flash=false){
