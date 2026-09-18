@@ -133,6 +133,57 @@ def geometry_lines(feature: dict[str, Any]) -> list[list[list[float]]]:
     return []
 
 
+def merge_connected_lines(lines: list[list[list[float]]], precision: int = 6) -> list[list[list[float]]]:
+    """Merge simple degree-2 segment chains without crossing branch junctions."""
+    clean = [line for line in lines if isinstance(line, list) and len(line) >= 2]
+    if len(clean) <= 1:
+        return clean
+
+    def key(point: list[float]) -> tuple[float, float]:
+        return (round(float(point[0]), precision), round(float(point[1]), precision))
+
+    adjacency: dict[tuple[float, float], list[int]] = defaultdict(list)
+    for idx, line in enumerate(clean):
+        adjacency[key(line[0])].append(idx)
+        adjacency[key(line[-1])].append(idx)
+
+    unused = set(range(len(clean)))
+    merged: list[list[list[float]]] = []
+
+    def extend(chain: list[list[float]], at_end: bool) -> None:
+        while True:
+            endpoint = chain[-1] if at_end else chain[0]
+            endpoint_key = key(endpoint)
+            attached = adjacency.get(endpoint_key, [])
+            if len(attached) != 2:
+                return
+            candidates = [idx for idx in attached if idx in unused]
+            if len(candidates) != 1:
+                return
+            idx = candidates[0]
+            unused.remove(idx)
+            segment = clean[idx]
+            if key(segment[0]) == endpoint_key:
+                oriented = segment
+            elif key(segment[-1]) == endpoint_key:
+                oriented = list(reversed(segment))
+            else:
+                return
+            if at_end:
+                chain.extend(oriented[1:])
+            else:
+                chain[:0] = list(reversed(oriented[1:]))
+
+    while unused:
+        seed = unused.pop()
+        chain = list(clean[seed])
+        extend(chain, True)
+        extend(chain, False)
+        merged.append(chain)
+
+    return merged
+
+
 def event_base(feature: dict[str, Any]) -> dict[str, Any] | None:
     props = feature.get("properties") or {}
     sid = station_id(props)
@@ -318,9 +369,10 @@ def build_waterbody_index(features: list[dict[str, Any]]) -> tuple[dict[str, lis
     index: dict[str, list[list[list[float]]]] = defaultdict(list)
     network: list[list[list[float]]] = []
     for feature in features:
-        lines = geometry_lines(feature)
-        if not lines:
+        raw_lines = geometry_lines(feature)
+        if not raw_lines:
             continue
+        lines = merge_connected_lines(raw_lines)
         props = feature.get("properties") or {}
         code = text(pick(props, ["EU_CD"]))
         for line in lines:
