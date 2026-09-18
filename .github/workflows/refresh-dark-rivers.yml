@@ -22,9 +22,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Test Dark Rivers data builder
+      - name: Test Dark Rivers
         run: |
-          python3 -m unittest -v demos/dark-rivers/ops/test_build_dark_rivers.py
+          python3 -m unittest -v \
+            demos/dark-rivers/ops/test_build_dark_rivers.py \
+            demos/dark-rivers/ops/test_asset_integrity.py
 
       - name: Build official EPA dataset
         run: |
