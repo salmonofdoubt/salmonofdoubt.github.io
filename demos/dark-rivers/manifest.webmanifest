@@ -1,0 +1,18 @@
+{
+  "name": "Dark Rivers · Salmon of Doubt",
+  "short_name": "Dark Rivers",
+  "description": "A visual prototype for biological river sampling through time.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#030609",
+  "theme_color": "#05080c",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

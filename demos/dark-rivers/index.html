@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#05080c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Dark Rivers">
+  <title>Dark Rivers · Salmon of Doubt</title>
+  <meta name="description" content="Watch river observations appear through time: every sample flashes, and observed reaches retain their latest biological Q-value colour.">
+
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css?v=20260918-1">
+  <link rel="stylesheet" href="../shared/demo-return.css">
+  <link rel="stylesheet" href="../shared/demo-support.css">
+  <script defer src="../shared/demo-return.js"></script>
+  <script defer src="../shared/demo-support.js"></script>
+  <script defer src="./site-config.js?v=20260918-1"></script>
+  <script defer src="./data.js?v=20260918-1"></script>
+  <script defer src="./app.js?v=20260918-1"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Dark Rivers home">
+      <span class="brand-mark" aria-hidden="true">≋</span>
+      <span>Dark Rivers</span>
+    </a>
+    <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
+      <span aria-hidden="true">↓</span><span>Install</span>
+    </button>
+  </header>
+
+  <main class="demo-stage">
+    <section class="demo-canvas" aria-labelledby="demoTitle">
+      <div class="story-panel">
+        <p class="eyebrow">Ireland · biological river monitoring · 1971–2025</p>
+        <h1 id="demoTitle">Every flash is an observation.</h1>
+        <p class="lede">Unsampled reaches stay dark. When a sample appears on the timeline, its reach takes the colour of the observed biological Q-value class.</p>
+        <p class="prototype-note"><strong>Prototype:</strong> river geometry and sampling events shown here are illustrative. The Q-value class semantics follow the EPA system. No synthetic event is presented as an EPA observation.</p>
+      </div>
+
+      <div class="map-shell">
+        <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" role="img" aria-labelledby="mapTitle mapDesc">
+          <title id="mapTitle">Dark Rivers prototype map of Ireland</title>
+          <desc id="mapDesc">A stylised river network. Reaches remain dark until a sampling event is revealed on the timeline, then take the colour of the latest revealed Q-value class.</desc>
+          <defs>
+            <filter id="riverGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="flashGlow" x="-160%" y="-160%" width="420%" height="420%">
+              <feGaussianBlur stdDeviation="12" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
+          <g id="riverNetwork" aria-label="River reaches"></g>
+          <g id="flashLayer" aria-hidden="true"></g>
+        </svg>
+
+        <div class="map-status" aria-live="polite">
+          <div><span>Year</span><strong id="yearDisplay">1971</strong></div>
+          <div><span>Observed reaches</span><strong id="reachCount">0 / 15</strong></div>
+          <div><span>Samples revealed</span><strong id="sampleCount">0</strong></div>
+        </div>
+
+        <aside class="reach-detail" id="reachDetail" aria-live="polite">
+          <p class="detail-kicker">Select a reach</p>
+          <h2>What do we know here?</h2>
+          <p>Click or tap a river reach to inspect its latest revealed observation. Dark means no observation has yet been revealed for that reach.</p>
+        </aside>
+      </div>
+
+      <div class="timeline-panel">
+        <div class="playback-controls">
+          <button class="primary-button" id="playButton" type="button" aria-pressed="false">▶ Play</button>
+          <button class="secondary-button" id="resetButton" type="button">↺ Reset</button>
+          <label class="speed-control">Speed
+            <select id="speedSelect">
+              <option value="1">1 year / beat</option>
+              <option value="3" selected>3 years / beat</option>
+              <option value="6">6 years / beat</option>
+              <option value="12">12 years / beat</option>
+            </select>
+          </label>
+        </div>
+        <div class="timeline-row">
+          <span>1971</span>
+          <input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year">
+          <span>2025</span>
+        </div>
+        <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year. Playback flashes events as they are crossed.</p>
+      </div>
+
+      <div class="legend" aria-label="Biological Q-value classes">
+        <span class="legend-title">Latest revealed observation</span>
+        <span><i class="swatch swatch-dark"></i>Unobserved</span>
+        <span><i class="swatch swatch-high"></i>High</span>
+        <span><i class="swatch swatch-good"></i>Good</span>
+        <span><i class="swatch swatch-moderate"></i>Moderate</span>
+        <span><i class="swatch swatch-poor"></i>Poor</span>
+        <span><i class="swatch swatch-bad"></i>Bad</span>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
+    <form method="dialog">
+      <button class="dialog-close" type="submit" value="close" aria-label="Close">×</button>
+      <p class="eyebrow">Installable web app</p>
+      <h2 id="installDialogTitle">Keep Dark Rivers on this device.</h2>
+      <div id="installInstructions" class="install-instructions"><p>Use your browser’s Install or Add to Home Screen command.</p></div>
+      <div class="dialog-actions"><button class="primary-button" type="submit" value="close">Got it</button></div>
+    </form>
+  </dialog>
+
+  <a class="doi-pill is-placeholder" id="doiPill" href="https://zenodo.org/records/0000000" target="_blank" rel="noopener noreferrer" aria-label="Zenodo DOI placeholder 10.5281/zenodo.0000000">
+    <b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span>
+  </a>
+</body>
+</html>
