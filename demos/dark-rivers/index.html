@@ -13,14 +13,14 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20260918-1">
+  <link rel="stylesheet" href="./styles.css?v=20260918-2">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=20260918-1"></script>
-  <script defer src="./data.js?v=20260918-1"></script>
-  <script defer src="./app.js?v=20260918-1"></script>
+  <script defer src="./site-config.js?v=20260918-2"></script>
+  <script defer src="./data.js?v=20260918-2"></script>
+  <script defer src="./app.js?v=20260918-2"></script>
 </head>
 <body>
   <header class="site-header">
@@ -38,21 +38,17 @@
       <div class="story-panel">
         <p class="eyebrow">Ireland · biological river monitoring · 1971–2025</p>
         <h1 id="demoTitle">Every flash is an observation.</h1>
-        <p class="lede">Unsampled reaches stay dark. When a sample appears on the timeline, its reach takes the colour of the observed biological Q-value class.</p>
-        <p class="prototype-note"><strong>Prototype:</strong> river geometry and sampling events shown here are illustrative. The Q-value class semantics follow the EPA system. No synthetic event is presented as an EPA observation.</p>
+        <p class="lede">The river network begins almost dark. Sampling briefly reveals a place; its reach keeps the latest observed Q-value colour, then quietly recedes as that observation ages.</p>
+        <p class="prototype-note"><strong>Prototype:</strong> river geometry and sampling events shown here are illustrative. Q-value classes follow the EPA system; synthetic events are not presented as EPA observations.</p>
       </div>
 
       <div class="map-shell">
         <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" role="img" aria-labelledby="mapTitle mapDesc">
           <title id="mapTitle">Dark Rivers prototype map of Ireland</title>
-          <desc id="mapDesc">A stylised river network. Reaches remain dark until a sampling event is revealed on the timeline, then take the colour of the latest revealed Q-value class.</desc>
+          <desc id="mapDesc">A stylised river network. Reaches remain dark until a sampling event is revealed on the timeline, then take the colour of the latest revealed Q-value class. Older observations fade.</desc>
           <defs>
-            <filter id="riverGlow" x="-80%" y="-80%" width="260%" height="260%">
-              <feGaussianBlur stdDeviation="5" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="flashGlow" x="-160%" y="-160%" width="420%" height="420%">
-              <feGaussianBlur stdDeviation="12" result="blur"/>
+            <filter id="flashGlow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
               <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
@@ -70,7 +66,7 @@
         <aside class="reach-detail" id="reachDetail" aria-live="polite">
           <p class="detail-kicker">Select a reach</p>
           <h2>What do we know here?</h2>
-          <p>Click or tap a river reach to inspect its latest revealed observation. Dark means no observation has yet been revealed for that reach.</p>
+          <p>Click or tap a river reach to inspect its latest revealed observation. Darkness means the timeline has not yet revealed an observation there.</p>
         </aside>
       </div>
 
@@ -92,7 +88,7 @@
           <input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year">
           <span>2025</span>
         </div>
-        <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year. Playback flashes events as they are crossed.</p>
+        <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year. Colour shows the latest revealed class; brightness quietly indicates how recent that observation is.</p>
       </div>
 
       <div class="legend" aria-label="Biological Q-value classes">
@@ -103,6 +99,7 @@
         <span><i class="swatch swatch-moderate"></i>Moderate</span>
         <span><i class="swatch swatch-poor"></i>Poor</span>
         <span><i class="swatch swatch-bad"></i>Bad</span>
+        <span class="age-note">Older observations are dimmer.</span>
       </div>
     </section>
   </main>
