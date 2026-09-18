@@ -43,3 +43,20 @@ Built from `/demos/demo-template/` conventions:
 - fixed bottom-right Zenodo DOI placeholder
 - mobile safe-area handling
 - versioned local assets and unique PWA cache
+
+
+## Official data pipeline
+
+The production path is now implemented in `ops/build_dark_rivers.py`.
+
+It retrieves official EPA Web Feature Service layers for:
+
+- water monitoring stations,
+- historical and latest biological Q-value records,
+- Cycle 3 river waterbody geometry.
+
+The builder normalises Q values, joins observations to monitoring stations, uses the Water Framework Directive waterbody identifier where available, and clips a short local mapped reach around the monitoring station. This avoids presenting one station observation as if it directly measured an entire river.
+
+Generated data is written to `data/official.json`. The browser prefers this validated static file and falls back to `data.js` only when an official build is unavailable.
+
+A scheduled GitHub Actions workflow refreshes the official file weekly and preserves the last good file when the upstream build fails.
