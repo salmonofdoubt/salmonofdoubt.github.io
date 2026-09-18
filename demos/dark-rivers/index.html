@@ -1,8 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-dark-rivers-version="20260918-8">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="theme-color" content="#05080c">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,114 +13,79 @@
   <meta name="apple-mobile-web-app-title" content="Dark Rivers">
   <title>Dark Rivers · Salmon of Doubt</title>
   <meta name="description" content="Watch river observations appear through time: every sample flashes, and observed reaches retain their latest biological Q-value colour.">
-
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20260918-7">
+  <link rel="stylesheet" href="./styles.20260918-8.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=20260918-7"></script>
-  <script defer src="./data.js?v=20260918-7"></script>
-  <script defer src="./app.js?v=20260918-7"></script>
+  <script defer src="./site-config.20260918-8.js"></script>
+  <script defer src="./data.20260918-8.js"></script>
+  <script defer src="./app.20260918-8.js"></script>
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="./" aria-label="Dark Rivers home">
-      <span class="brand-mark" aria-hidden="true">≋</span>
-      <span>Dark Rivers</span>
-    </a>
-    <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
-      <span aria-hidden="true">↓</span><span>Install</span>
-    </button>
+    <a class="brand" href="./" aria-label="Dark Rivers home"><span class="brand-mark" aria-hidden="true">≋</span><span>Dark Rivers</span></a>
+    <button class="install-button" type="button" id="installApp" aria-haspopup="dialog"><span aria-hidden="true">↓</span><span>Install</span></button>
   </header>
-
   <main class="demo-stage">
     <section class="demo-canvas" aria-labelledby="demoTitle">
       <div class="story-panel">
         <p class="eyebrow">Ireland · biological river monitoring · <span data-min-year>1971</span>–<span data-max-year>2025</span></p>
         <h1 id="demoTitle">Every flash is an observation.</h1>
         <p class="lede">The river network begins almost dark. Sampling briefly reveals a place; its reach keeps the latest observed Q-value colour, then quietly recedes as that observation ages.</p>
-        <p class="prototype-note" id="dataModeNote"><strong>Prototype:</strong> river geometry and sampling events shown here are illustrative. Q-value classes follow the EPA system; synthetic events are not presented as EPA observations.</p>
+        <p class="prototype-note" id="dataModeNote"><strong>Prototype:</strong> geometry and sampling events are illustrative; Q-value class semantics follow the EPA system.</p>
       </div>
-
       <div class="map-shell">
         <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" role="img" aria-labelledby="mapTitle mapDesc">
-          <title id="mapTitle">Dark Rivers prototype map of Ireland</title>
-          <desc id="mapDesc">A stylised river network. Reaches remain dark until a sampling event is revealed on the timeline, then take the colour of the latest revealed Q-value class. Older observations fade.</desc>
-          <defs>
-            <filter id="flashGlow" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="3" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
+          <title id="mapTitle">Dark Rivers map of Ireland</title>
+          <desc id="mapDesc">River reaches become coloured when observations are revealed through time.</desc>
+          <defs><filter id="flashGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
           <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
           <g id="riverBase" aria-hidden="true"></g>
-          <g id="riverNetwork" aria-label="River reaches"></g>
+          <g id="riverNetwork" aria-label="River reaches">
+            <path class="river-reach" data-reach-id="r01" data-rendered="unobserved" d="M398 143 C373 171 356 198 344 235 C333 268 318 292 294 320" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r02" data-rendered="observed" d="M452 135 C445 179 434 218 419 256 C404 292 389 322 371 352" style="fill:none;stroke:#769c84;opacity:.98;stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r03" data-rendered="unobserved" d="M584 137 C604 172 619 207 623 244 C627 280 645 303 677 329" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r04" data-rendered="unobserved" d="M686 226 C672 258 674 294 693 330 C707 358 714 391 706 424" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r05" data-rendered="unobserved" d="M365 278 C395 298 418 326 432 360 C449 400 475 424 507 447" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r06" data-rendered="unobserved" d="M603 275 C569 294 545 320 530 350 C515 379 507 412 507 447" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r07" data-rendered="unobserved" d="M292 335 C329 349 357 374 376 405 C394 434 417 454 452 468" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r08" data-rendered="unobserved" d="M371 352 C411 348 450 352 486 367 C525 383 558 387 594 378" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r09" data-rendered="unobserved" d="M594 378 C627 397 647 424 653 456 C660 492 678 516 710 531" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r10" data-rendered="unobserved" d="M507 447 C516 482 511 514 493 548 C478 576 466 602 466 626" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r11" data-rendered="unobserved" d="M452 468 C423 486 398 511 383 540 C366 571 344 590 314 596" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r12" data-rendered="unobserved" d="M376 405 C348 428 326 453 313 483 C301 511 286 532 266 547" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r13" data-rendered="unobserved" d="M486 214 C477 252 480 286 494 316 C505 340 513 352 530 350" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r14" data-rendered="unobserved" d="M747 314 C725 321 707 328 693 330 C666 334 635 352 594 378" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+            <path class="river-reach" data-reach-id="r15" data-rendered="unobserved" d="M573 535 C545 532 517 538 493 548 C466 560 445 578 428 602" style="fill:none;stroke:#223039;opacity:.88;stroke-width:4.25;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke"/>
+          </g>
           <g id="flashLayer" aria-hidden="true"></g>
         </svg>
-
         <div class="map-status" aria-live="polite">
           <div><span>Year</span><strong id="yearDisplay">1971</strong></div>
-          <div><span>Observed reaches</span><strong id="reachCount">0 / 15</strong></div>
-          <div><span>Samples revealed</span><strong id="sampleCount">0</strong></div>
+          <div><span>Observed reaches</span><strong id="reachCount">1 / 15</strong></div>
+          <div><span>Samples revealed</span><strong id="sampleCount">1</strong></div>
         </div>
-
-        <aside class="reach-detail" id="reachDetail" aria-live="polite">
-          <p class="detail-kicker">Select a reach</p>
-          <h2>What do we know here?</h2>
-          <p>Click or tap a river reach to inspect its latest revealed observation. Darkness means the timeline has not yet revealed an observation there.</p>
-        </aside>
+        <aside class="reach-detail" id="reachDetail" aria-live="polite"><p class="detail-kicker">Select a reach</p><h2>What do we know here?</h2><p>Click or tap a river reach to inspect its latest revealed observation.</p></aside>
       </div>
-
       <div class="timeline-panel">
         <div class="playback-controls">
           <button class="primary-button" id="playButton" type="button" aria-pressed="false">▶ Play</button>
           <button class="secondary-button" id="resetButton" type="button">↺ Reset</button>
-          <label class="speed-control">Speed
-            <select id="speedSelect">
-              <option value="1">1 year / beat</option>
-              <option value="3" selected>3 years / beat</option>
-              <option value="6">6 years / beat</option>
-              <option value="12">12 years / beat</option>
-            </select>
-          </label>
+          <label class="speed-control">Speed<select id="speedSelect"><option value="1">1 year / beat</option><option value="3" selected>3 years / beat</option><option value="6">6 years / beat</option><option value="12">12 years / beat</option></select></label>
         </div>
-        <div class="timeline-row">
-          <span data-min-year>1971</span>
-          <input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year">
-          <span data-max-year>2025</span>
-        </div>
-        <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year. Colour shows the latest revealed class; brightness quietly indicates how recent that observation is.</p>
+        <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
+        <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year. Colour shows the latest revealed class; brightness indicates observation age.</p>
         <p class="data-provenance" id="dataProvenance">Illustrative interaction data · awaiting generated EPA dataset</p>
       </div>
-
       <div class="legend" aria-label="Biological Q-value classes">
-        <span class="legend-title">Latest revealed observation</span>
-        <span><i class="swatch swatch-dark"></i>Unobserved</span>
-        <span><i class="swatch swatch-high"></i>High</span>
-        <span><i class="swatch swatch-good"></i>Good</span>
-        <span><i class="swatch swatch-moderate"></i>Moderate</span>
-        <span><i class="swatch swatch-poor"></i>Poor</span>
-        <span><i class="swatch swatch-bad"></i>Bad</span>
-        <span class="age-note">Older observations are dimmer.</span>
+        <span class="legend-title">Latest revealed observation</span><span><i class="swatch swatch-dark"></i>Unobserved</span><span><i class="swatch swatch-high"></i>High</span><span><i class="swatch swatch-good"></i>Good</span><span><i class="swatch swatch-moderate"></i>Moderate</span><span><i class="swatch swatch-poor"></i>Poor</span><span><i class="swatch swatch-bad"></i>Bad</span><span class="age-note">Older observations are dimmer.</span>
       </div>
     </section>
   </main>
-
-  <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
-    <form method="dialog">
-      <button class="dialog-close" type="submit" value="close" aria-label="Close">×</button>
-      <p class="eyebrow">Installable web app</p>
-      <h2 id="installDialogTitle">Keep Dark Rivers on this device.</h2>
-      <div id="installInstructions" class="install-instructions"><p>Use your browser’s Install or Add to Home Screen command.</p></div>
-      <div class="dialog-actions"><button class="primary-button" type="submit" value="close">Got it</button></div>
-    </form>
-  </dialog>
-
-  <a class="doi-pill is-placeholder" id="doiPill" href="https://zenodo.org/records/0000000" target="_blank" rel="noopener noreferrer" aria-label="Zenodo DOI placeholder 10.5281/zenodo.0000000">
-    <b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span>
-  </a>
+  <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle"><form method="dialog"><button class="dialog-close" type="submit" value="close" aria-label="Close">×</button><p class="eyebrow">Installable web app</p><h2 id="installDialogTitle">Keep Dark Rivers on this device.</h2><div id="installInstructions" class="install-instructions"><p>Use your browser’s Install or Add to Home Screen command.</p></div><div class="dialog-actions"><button class="primary-button" type="submit" value="close">Got it</button></div></form></dialog>
+  <a class="doi-pill is-placeholder" id="doiPill" href="https://zenodo.org/records/0000000" target="_blank" rel="noopener noreferrer" aria-label="Zenodo DOI placeholder 10.5281/zenodo.0000000"><b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span></a>
 </body>
 </html>
