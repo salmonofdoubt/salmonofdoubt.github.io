@@ -15,21 +15,26 @@ class DarkRiversAssetIntegrityTests(unittest.TestCase):
 
     def test_required_river_selectors_exist(self):
         text = CSS.read_text(encoding="utf-8")
-        for selector in (
-            ".river-base",
-            ".river-reach",
-            '.river-reach[data-status="High"]',
-            '.river-reach[data-status="Good"]',
-            '.river-reach[data-status="Moderate"]',
-            '.river-reach[data-status="Poor"]',
-            '.river-reach[data-status="Bad"]',
+        self.assertIn(".river-base", text)
+        self.assertIn(".river-reach", text)
+
+    def test_renderer_owns_dynamic_reach_visibility(self):
+        app = (ROOT / "demos" / "dark-rivers" / "app.js").read_text(encoding="utf-8")
+        for token in (
+            "STATUS_STROKES",
+            "AGE_OPACITY",
+            "applyReachVisual",
+            'path.style.stroke=',
+            'path.style.opacity=',
+            'path.dataset.rendered=',
+            "assertRendered",
         ):
-            with self.subTest(selector=selector):
-                self.assertIn(selector, text)
+            with self.subTest(token=token):
+                self.assertIn(token, app)
 
     def test_html_loads_current_versioned_assets(self):
         text = HTML.read_text(encoding="utf-8")
-        self.assertIn("./styles.css?v=20260918-4", text)
+        self.assertIn("./styles.css?v=20260918-5", text)
         self.assertIn("./app.js?v=20260918-4", text)
         self.assertIn("./data.js?v=20260918-4", text)
 
