@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-09-17T10:01:03.967035+00:00",
-  "latest_generated_at": "2026-09-17T10:00:53.087700+00:00",
+  "generated_at": "2026-09-18T09:48:11.945812+00:00",
+  "latest_generated_at": "2026-09-18T09:47:59.887042+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
     "waterbody-evidence-alerts": 25,
-    "ireland-catchment-practice": 16,
     "research-papers": 36,
+    "ireland-catchment-practice": 16,
     "grants-opportunities": 18
   },
   "top_pressure_categories": [
     {
-      "pressure": "habitat / biodiversity",
-      "count": 33
+      "pressure": "NbS / restoration",
+      "count": 31
     },
     {
       "pressure": "policy / governance",
-      "count": 32
+      "count": 30
     },
     {
-      "pressure": "NbS / restoration",
+      "pressure": "habitat / biodiversity",
       "count": 28
     },
     {
@@ -28,15 +28,15 @@
     },
     {
       "pressure": "agricultural runoff",
-      "count": 24
+      "count": 25
+    },
+    {
+      "pressure": "water quality",
+      "count": 22
     },
     {
       "pressure": "funding / grant",
       "count": 21
-    },
-    {
-      "pressure": "water quality",
-      "count": 20
     },
     {
       "pressure": "nutrients",
@@ -44,19 +44,19 @@
     },
     {
       "pressure": "sediment / hydromorphology",
-      "count": 9
-    },
-    {
-      "pressure": "septic / domestic wastewater",
-      "count": 7
+      "count": 10
     },
     {
       "pressure": "incident / alert",
       "count": 7
     },
     {
+      "pressure": "septic / domestic wastewater",
+      "count": 6
+    },
+    {
       "pressure": "general catchment signal",
-      "count": 5
+      "count": 6
     }
   ],
   "items": [
@@ -69,7 +69,7 @@
       "published": "2026-06-24",
       "score": 100,
       "practical_score": 152.0,
-      "freshness_label": "85 days old",
+      "freshness_label": "86 days old",
       "pressure_categories": [
         "manure / slurry timing",
         "slurry-manure-timing",
@@ -98,7 +98,7 @@
       "published": "2026-07-10",
       "score": 97,
       "practical_score": 144.0,
-      "freshness_label": "69 days old",
+      "freshness_label": "70 days old",
       "pressure_categories": [
         "septic / domestic wastewater",
         "funding / grant",
@@ -121,6 +121,27 @@
       },
       "research_use_type": null,
       "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
+    },
+    {
+      "id": "a49c4a02dbbd63e4",
+      "title": "A Soil Erosion Indicator for Supporting Agricultural, Environmental and Climate Policies in the European Union",
+      "url": "https://doi.org/10.3390/rs12091365",
+      "section": "research-papers",
+      "source_name": "Remote Sensing",
+      "published": "2020-04-26",
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "2020 · 221 citations · open access",
+      "pressure_categories": [
+        "agricultural runoff",
+        "sediment / hydromorphology",
+        "NbS / restoration",
+        "citizen science / monitoring"
+      ],
+      "local_relevance": null,
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for agricultural runoff, sediment / hydromorphology, NbS / restoration."
     },
     {
       "id": "4f44253263213588",
@@ -294,34 +315,6 @@
       "id": "635a732b3168613b",
       "title": "Plastic Pollution",
       "url": "https://theriverstrust.org/about-us/news?c=46709",
-      "section": "waterbody-evidence-alerts",
-      "source_name": "The Rivers Trust News",
-      "published": null,
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "Date unknown",
-      "pressure_categories": [
-        "nutrients",
-        "habitat / biodiversity",
-        "citizen science / monitoring",
-        "policy / governance",
-        "NbS / restoration"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
-    },
-    {
-      "id": "5439804a3bae6e06",
-      "title": "Policy & Advocacy",
-      "url": "https://theriverstrust.org/about-us/news?c=98799",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
