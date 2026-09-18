@@ -24,17 +24,27 @@ class DarkRiversAssetIntegrityTests(unittest.TestCase):
             "STATUS_STROKES",
             "AGE_OPACITY",
             "applyReachVisual",
-            'path.setAttribute("stroke"',
-            'path.setAttribute("opacity"',
+            'path.setAttribute("style"',
             'path.setAttribute("data-rendered"',
+            "getComputedStyle(path)",
             "assertRendered",
         ):
             with self.subTest(token=token):
                 self.assertIn(token, app)
 
+    def test_base_css_does_not_override_dynamic_reach_visuals(self):
+        import re
+        text = CSS.read_text(encoding="utf-8")
+        match = re.search(r"\.river-reach\{([^}]*)\}", text)
+        self.assertIsNotNone(match)
+        block = match.group(1)
+        for forbidden in ("stroke:", "stroke-width:", "opacity:", "fill:"):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, block)
+
     def test_html_loads_current_versioned_assets(self):
         text = HTML.read_text(encoding="utf-8")
-        self.assertIn("./styles.css?v=20260918-6", text)
+        self.assertIn("./styles.css?v=20260918-7", text)
         self.assertIn("./app.js?v=20260918-4", text)
         self.assertIn("./data.js?v=20260918-4", text)
 
