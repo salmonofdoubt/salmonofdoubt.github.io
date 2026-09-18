@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260918-10">
+<html lang="en" data-dark-rivers-version="20260918-11">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="theme-color" content="#05080c">
+  <meta name="theme-color" content="#020609">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,95 +15,103 @@
   <meta name="description" content="Watch river observations appear through time: every sample flashes, and observed reaches retain their latest biological Q-value colour.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260918-10.css">
+  <link rel="stylesheet" href="./styles.20260918-11.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260918-9.js"></script>
   <script defer src="./data.20260918-9.js"></script>
-  <script defer src="./app.20260918-10.js"></script>
+  <script defer src="./app.20260918-11.js"></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="./" aria-label="Dark Rivers home"><span class="brand-mark" aria-hidden="true">≋</span><span>Dark Rivers</span></a>
-    <button class="install-button" type="button" id="installApp" aria-haspopup="dialog"><span aria-hidden="true">↓</span><span>Install</span></button>
-  </header>
-
   <main class="demo-stage">
     <section class="demo-canvas" aria-labelledby="demoTitle">
-      <div class="story-panel">
-        <p class="eyebrow">Ireland · biological river monitoring · <span data-min-year>1971</span>–<span data-max-year>2025</span></p>
-        <h1 id="demoTitle">Every flash is an observation.</h1>
-        <p class="lede">The river network begins almost dark. Sampling briefly reveals a place; its reach keeps the latest observed Q-value colour, then quietly recedes as that observation ages.</p>
-        <p class="prototype-note" id="dataModeNote"><strong>Prototype:</strong> geometry and sampling events are illustrative; Q-value class semantics follow the EPA system.</p>
-      </div>
+      <header class="topbar">
+        <div class="top-meta">Dark Rivers &nbsp;/&nbsp; Ireland’s river observations &nbsp;/&nbsp; <span data-min-year>1971</span>–<span data-max-year>2025</span></div>
+        <nav class="topnav" aria-label="Dark Rivers sections">
+          <a class="is-active" href="#explore">Explore</a>
+          <a href="#about">About</a>
+          <a href="#dataProvenance">Data</a>
+          <a href="#methodology">Methodology</a>
+          <button class="share-button" id="shareButton" type="button">⌯&nbsp; Share</button>
+        </nav>
+      </header>
 
-      <div class="viz-grid">
-        <div class="map-shell">
-          <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" role="img" aria-labelledby="mapTitle mapDesc">
-            <title id="mapTitle">Dark Rivers map of Ireland</title>
-            <desc id="mapDesc">A fine river network becomes coloured as biological observations are revealed through time.</desc>
-            <defs>
-              <filter id="flashGlow" x="-120%" y="-120%" width="340%" height="340%">
-                <feGaussianBlur stdDeviation="3.2" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-              <filter id="networkGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="1.2" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-              <filter id="selectedGlow" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="2" result="blur"/>
-                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-
-            <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
-
-            <g id="riverBase" aria-hidden="true"></g>
-            <g id="riverNetwork" aria-label="River reaches">
-              <path class="river-reach" data-reach-id="r01" d="M398 143 C373 171 356 198 344 235 C333 268 318 292 294 320"/>
-              <path class="river-reach" data-reach-id="r02" d="M452 135 C445 179 434 218 419 256 C404 292 389 322 371 352"/>
-              <path class="river-reach" data-reach-id="r03" d="M584 137 C604 172 619 207 623 244 C627 280 645 303 677 329"/>
-              <path class="river-reach" data-reach-id="r04" d="M686 226 C672 258 674 294 693 330 C707 358 714 391 706 424"/>
-              <path class="river-reach" data-reach-id="r05" d="M365 278 C395 298 418 326 432 360 C449 400 475 424 507 447"/>
-              <path class="river-reach" data-reach-id="r06" d="M603 275 C569 294 545 320 530 350 C515 379 507 412 507 447"/>
-              <path class="river-reach" data-reach-id="r07" d="M292 335 C329 349 357 374 376 405 C394 434 417 454 452 468"/>
-              <path class="river-reach" data-reach-id="r08" d="M371 352 C411 348 450 352 486 367 C525 383 558 387 594 378"/>
-              <path class="river-reach" data-reach-id="r09" d="M594 378 C627 397 647 424 653 456 C660 492 678 516 710 531"/>
-              <path class="river-reach" data-reach-id="r10" d="M507 447 C516 482 511 514 493 548 C478 576 466 602 466 626"/>
-              <path class="river-reach" data-reach-id="r11" d="M452 468 C423 486 398 511 383 540 C366 571 344 590 314 596"/>
-              <path class="river-reach" data-reach-id="r12" d="M376 405 C348 428 326 453 313 483 C301 511 286 532 266 547"/>
-              <path class="river-reach" data-reach-id="r13" d="M486 214 C477 252 480 286 494 316 C505 340 513 352 530 350"/>
-              <path class="river-reach" data-reach-id="r14" d="M747 314 C725 321 707 328 693 330 C666 334 635 352 594 378"/>
-              <path class="river-reach" data-reach-id="r15" d="M573 535 C545 532 517 538 493 548 C466 560 445 578 428 602"/>
-            </g>
-            <g id="flashLayer" aria-hidden="true"></g>
-
-            <g aria-hidden="true">
-              <text class="map-annotation" x="72" y="240">ATLANTIC</text>
-              <text class="map-annotation" x="88" y="257">OCEAN</text>
-              <text class="map-annotation" x="837" y="350">IRISH</text>
-              <text class="map-annotation" x="844" y="367">SEA</text>
-              <text class="map-annotation" x="687" y="665">CELTIC SEA</text>
-              <text class="map-annotation" x="39" y="103">N</text>
-              <line class="north-line" x1="44" y1="112" x2="44" y2="146"/>
-              <path class="north-arrow" d="M44 105 L37 121 L44 117 L51 121 Z"/>
-            </g>
-          </svg>
-
-          <div class="map-status" aria-live="polite">
-            <div><span>Year</span><strong id="yearDisplay">1971</strong></div>
-            <div><span>Observed reaches</span><strong id="reachCount">1 / 15</strong></div>
-            <div><span>Samples revealed</span><strong id="sampleCount">1</strong></div>
+      <div class="content-grid" id="explore">
+        <div class="left-column">
+          <div class="story-panel">
+            <h1 id="demoTitle">Every flash is an observation.</h1>
+            <p class="lede">The river network begins almost dark. Sampling briefly reveals a place; its reach keeps the latest observed Q-value colour, then quietly recedes as that observation ages.</p>
+            <p class="prototype-note" id="dataModeNote"><span><strong>Prototype:</strong> geometry and sampling events are illustrative; Q-value class semantics follow the EPA system.</span></p>
           </div>
 
-          <aside class="reach-detail" id="reachDetail" aria-live="polite">
-            <p class="detail-kicker">Select a reach</p>
-            <h2>What do we know here?</h2>
-            <p>Click or tap a river reach to inspect its latest revealed observation.</p>
-          </aside>
+          <div class="map-shell">
+            <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" role="img" aria-labelledby="mapTitle mapDesc">
+              <title id="mapTitle">Dark Rivers map of Ireland</title>
+              <desc id="mapDesc">A fine capillary-like river network becomes coloured as biological observations are revealed through time.</desc>
+              <defs>
+                <filter id="flashGlow" x="-150%" y="-150%" width="400%" height="400%">
+                  <feGaussianBlur stdDeviation="4" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <filter id="selectedGlow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="1.7" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+
+              <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
+
+              <g id="riverBase" aria-hidden="true"></g>
+              <g id="riverNetwork" aria-label="River reaches">
+                <path class="river-reach" data-reach-id="r01" d="M398 143 C373 171 356 198 344 235 C333 268 318 292 294 320"/>
+                <path class="river-reach" data-reach-id="r02" d="M452 135 C445 179 434 218 419 256 C404 292 389 322 371 352"/>
+                <path class="river-reach" data-reach-id="r03" d="M584 137 C604 172 619 207 623 244 C627 280 645 303 677 329"/>
+                <path class="river-reach" data-reach-id="r04" d="M686 226 C672 258 674 294 693 330 C707 358 714 391 706 424"/>
+                <path class="river-reach" data-reach-id="r05" d="M365 278 C395 298 418 326 432 360 C449 400 475 424 507 447"/>
+                <path class="river-reach" data-reach-id="r06" d="M603 275 C569 294 545 320 530 350 C515 379 507 412 507 447"/>
+                <path class="river-reach" data-reach-id="r07" d="M292 335 C329 349 357 374 376 405 C394 434 417 454 452 468"/>
+                <path class="river-reach" data-reach-id="r08" d="M371 352 C411 348 450 352 486 367 C525 383 558 387 594 378"/>
+                <path class="river-reach" data-reach-id="r09" d="M594 378 C627 397 647 424 653 456 C660 492 678 516 710 531"/>
+                <path class="river-reach" data-reach-id="r10" d="M507 447 C516 482 511 514 493 548 C478 576 466 602 466 626"/>
+                <path class="river-reach" data-reach-id="r11" d="M452 468 C423 486 398 511 383 540 C366 571 344 590 314 596"/>
+                <path class="river-reach" data-reach-id="r12" d="M376 405 C348 428 326 453 313 483 C301 511 286 532 266 547"/>
+                <path class="river-reach" data-reach-id="r13" d="M486 214 C477 252 480 286 494 316 C505 340 513 352 530 350"/>
+                <path class="river-reach" data-reach-id="r14" d="M747 314 C725 321 707 328 693 330 C666 334 635 352 594 378"/>
+                <path class="river-reach" data-reach-id="r15" d="M573 535 C545 532 517 538 493 548 C466 560 445 578 428 602"/>
+              </g>
+              <g id="flashLayer" aria-hidden="true"></g>
+
+              <g aria-hidden="true">
+                <text class="map-annotation" x="78" y="265">ATLANTIC</text>
+                <text class="map-annotation" x="91" y="283">OCEAN</text>
+                <text class="map-annotation" x="846" y="378">IRISH</text>
+                <text class="map-annotation" x="851" y="396">SEA</text>
+                <text class="map-annotation" x="698" y="670">CELTIC SEA</text>
+
+                <text class="map-annotation" x="44" y="112">N</text>
+                <line class="north-line" x1="49" y1="122" x2="49" y2="153"/>
+                <path class="north-arrow" d="M49 114 L42 132 L49 128 L56 132 Z"/>
+
+                <line class="scale-line" x1="30" y1="690" x2="185" y2="690"/>
+                <line class="scale-line" x1="30" y1="684" x2="30" y2="696"/>
+                <line class="scale-line" x1="108" y1="684" x2="108" y2="696"/>
+                <line class="scale-line" x1="185" y1="684" x2="185" y2="696"/>
+                <text class="scale-text" x="26" y="680">0</text>
+                <text class="scale-text" x="99" y="680">50</text>
+                <text class="scale-text" x="174" y="680">100 km</text>
+              </g>
+            </svg>
+
+            <aside class="reach-detail" id="reachDetail" hidden aria-live="polite"></aside>
+
+            <div class="runtime-status" aria-hidden="true">
+              <span id="yearDisplay">1971</span>
+              <span id="reachCount">0</span>
+              <span id="sampleCount">0</span>
+            </div>
+          </div>
         </div>
 
         <aside class="analytics-panel" aria-label="Live river network statistics">
@@ -111,22 +119,22 @@
             <div class="card-head"><h2>River network state</h2><span id="stateBasis">mapped reach share</span></div>
             <div class="state-bar" id="stateBar" aria-label="Current mapped river network state"></div>
             <ul class="state-legend" id="stateLegend"></ul>
-            <div class="state-total"><span>Total mapped share</span><strong>100%</strong></div>
+            <div class="state-total"><span>Total</span><strong>100%</strong></div>
           </section>
 
           <section class="metric-card">
-            <div class="card-head"><h2>Live stats</h2><span>current year</span></div>
+            <div class="card-head"><h2>Live stats</h2><span>selected year</span></div>
             <div class="live-grid">
               <div class="live-stat"><span>Year</span><strong id="statYear">1971</strong></div>
               <div class="live-stat"><span>Observations this beat</span><strong id="statBeat">0</strong></div>
-              <div class="live-stat"><span>Mapped reach revealed</span><strong id="statRevealed">0%</strong></div>
+              <div class="live-stat"><span>Reach share revealed</span><strong id="statRevealed">0%</strong></div>
               <div class="live-stat"><span>Median observation age</span><strong id="statMedianAge">—</strong></div>
               <div class="live-stat"><span>Active stations</span><strong id="statStations">0</strong></div>
             </div>
           </section>
 
           <section class="metric-card chart-card">
-            <div class="card-head"><h2>Observations through time</h2><span id="chartYearLabel">1971–2025</span></div>
+            <div class="card-head"><h2>Observations through time</h2><span><span data-min-year>1971</span>–<span data-max-year>2025</span></span></div>
             <div class="chart-wrap"><svg id="historyChart" class="history-chart" viewBox="0 0 320 148" role="img" aria-label="Observation counts by year"></svg></div>
             <div class="chart-axis"><span data-min-year>1971</span><span id="chartMidYear">1998</span><span data-max-year>2025</span></div>
             <p class="chart-caption">Bars show observations revealed in each year. The bright bar marks the selected year.</p>
@@ -134,10 +142,10 @@
         </aside>
       </div>
 
-      <div class="timeline-panel">
+      <section class="timeline-panel" aria-label="Playback controls">
         <div class="playback-controls">
-          <button class="primary-button" id="playButton" type="button" aria-pressed="false">▶ Play</button>
-          <button class="secondary-button" id="resetButton" type="button">↺ Reset</button>
+          <button class="primary-button" id="playButton" type="button" aria-pressed="false">▶&nbsp; Play</button>
+          <button class="secondary-button" id="resetButton" type="button">↻&nbsp; Reset</button>
           <label class="speed-control">Speed
             <select id="speedSelect">
               <option value="1">1 year / beat</option>
@@ -148,33 +156,30 @@
           </label>
         </div>
         <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
-        <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year. Colour shows the latest revealed class; brightness indicates observation age.</p>
+        <p class="timeline-help">Scrub backward to reconstruct what had been observed by that year.<br>Colour shows the latest revealed class; brightness indicates observation age.</p>
         <p class="data-provenance" id="dataProvenance">Illustrative interaction data · awaiting generated EPA dataset</p>
-      </div>
+      </section>
 
-      <div class="legend" aria-label="Biological Q-value classes">
-        <span class="legend-title">Latest revealed observation</span>
-        <span><i class="swatch swatch-dark"></i>Unobserved</span>
-        <span><i class="swatch swatch-high"></i>High</span>
-        <span><i class="swatch swatch-good"></i>Good</span>
-        <span><i class="swatch swatch-moderate"></i>Moderate</span>
-        <span><i class="swatch swatch-poor"></i>Poor</span>
-        <span><i class="swatch swatch-bad"></i>Bad</span>
-        <span class="age-note">Older observations are dimmer.</span>
-      </div>
+      <section id="about" hidden></section>
+      <section id="methodology" hidden></section>
+
+      <footer class="site-footer">
+        <span>Environmental Protection Agency &nbsp;|&nbsp; Ireland’s rivers, healthier together</span>
+        <span class="footer-links"><a href="#about">About</a><a href="#dataProvenance">Data</a><a href="#methodology">Accessibility</a><span class="footer-mark">◒ EPA</span></span>
+      </footer>
     </section>
   </main>
 
   <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
     <form method="dialog">
       <button class="dialog-close" type="submit" value="close" aria-label="Close">×</button>
-      <p class="eyebrow">Installable web app</p>
       <h2 id="installDialogTitle">Keep Dark Rivers on this device.</h2>
       <div id="installInstructions" class="install-instructions"><p>Use your browser’s Install or Add to Home Screen command.</p></div>
-      <div class="dialog-actions"><button class="primary-button" type="submit" value="close">Got it</button></div>
+      <div class="dialog-actions"><button class="secondary-button" type="submit" value="close">Got it</button></div>
     </form>
   </dialog>
 
+  <button id="installApp" type="button" hidden>Install</button>
   <a class="doi-pill is-placeholder" id="doiPill" href="https://zenodo.org/records/0000000" target="_blank" rel="noopener noreferrer" aria-label="Zenodo DOI placeholder 10.5281/zenodo.0000000"><b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span></a>
 </body>
 </html>
