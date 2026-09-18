@@ -24,9 +24,9 @@ class DarkRiversAssetIntegrityTests(unittest.TestCase):
             "STATUS_STROKES",
             "AGE_OPACITY",
             "applyReachVisual",
-            'path.style.stroke=',
-            'path.style.opacity=',
-            'path.dataset.rendered=',
+            'path.setAttribute("stroke"',
+            'path.setAttribute("opacity"',
+            'path.setAttribute("data-rendered"',
             "assertRendered",
         ):
             with self.subTest(token=token):
@@ -34,7 +34,7 @@ class DarkRiversAssetIntegrityTests(unittest.TestCase):
 
     def test_html_loads_current_versioned_assets(self):
         text = HTML.read_text(encoding="utf-8")
-        self.assertIn("./styles.css?v=20260918-5", text)
+        self.assertIn("./styles.css?v=20260918-6", text)
         self.assertIn("./app.js?v=20260918-4", text)
         self.assertIn("./data.js?v=20260918-4", text)
 

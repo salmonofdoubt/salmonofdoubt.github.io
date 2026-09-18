@@ -26,7 +26,9 @@ a{color:inherit}
 
 .map-shell{position:relative;margin:0 clamp(10px,2vw,22px);min-height:clamp(470px,67dvh,760px);overflow:hidden;border:1px solid rgba(100,126,136,.14);border-radius:17px;background:radial-gradient(circle at 50% 42%,rgba(28,42,48,.08),transparent 23rem),#010304}
 .river-map{display:block;width:100%;height:clamp(470px,67dvh,760px)}
-.island{fill:#040709;stroke:rgba(115,137,145,.12);stroke-width:2;transition:opacity .3s ease}\n.has-official-data .island{opacity:0}\n.river-base{fill:none;stroke:#11191e;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round;opacity:.72;pointer-events:none}
+.island{fill:#040709;stroke:rgba(115,137,145,.12);stroke-width:2;transition:opacity .3s ease}
+.has-official-data .island{opacity:0}
+.river-base{fill:none;stroke:#11191e;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round;opacity:.72;pointer-events:none}
 .river-reach{fill:none;stroke:var(--river-dark);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;cursor:pointer;transition:stroke .55s ease,stroke-width .16s ease,opacity .65s ease;opacity:.76}
 .river-reach:hover,.river-reach:focus{stroke-width:7;opacity:.95;outline:none}
 .sample-flash{fill:#edf3f4;stroke:#edf3f4;stroke-width:1.5;filter:url(#flashGlow);pointer-events:none}
@@ -54,7 +56,9 @@ a{color:inherit}
 .speed-control select{min-height:39px;padding:.42rem 2rem .42rem .68rem;border:1px solid var(--line);border-radius:999px;color:#aebdc0;background:#050b0f}
 .timeline-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;color:#687a80;font:750 .68rem/1 var(--font)}
 #yearRange{width:100%;accent-color:#789ba2}
-.timeline-help{margin:0;color:#65787d;font-size:.69rem;line-height:1.4}\n.data-provenance{margin:0;color:#55676c;font-size:.63rem;line-height:1.4}\n.data-provenance a{color:#6d858b;text-underline-offset:2px}
+.timeline-help{margin:0;color:#65787d;font-size:.69rem;line-height:1.4}
+.data-provenance{margin:0;color:#55676c;font-size:.63rem;line-height:1.4}
+.data-provenance a{color:#6d858b;text-underline-offset:2px}
 
 .legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:0 clamp(16px,3vw,28px) 25px;color:#7d8f94;font-size:.69rem;font-weight:750}
 .legend-title{width:100%;color:#5e7075;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase}
