@@ -368,6 +368,104 @@ def build_waterbody_index_and_network_path(
     return dict(index), "".join(network_parts), segment_count
 
 
+
+def vertex_key(point: list[float]) -> tuple[int, int]:
+    """Shared source vertices within about one metre, never arbitrary proximity."""
+    return (round(float(point[0]) * 100000), round(float(point[1]) * 100000))
+
+
+def build_connected_systems(
+    features: list[dict[str, Any]],
+) -> tuple[list[list[Any]], dict[str, list[str]]]:
+    """Connect river geometry only where mapped vertices actually meet.
+
+    The result is a *connected drainage component*, not a single named river or
+    a model of flow direction. Keep path geometry in the separate lazy-loaded
+    systems file so the interactive timeline does not download it twice.
+    """
+    segments: list[tuple[str, list[list[float]], str]] = []
+    per_code: dict[str, list[int]] = defaultdict(list)
+    endpoints: dict[tuple[int, int], list[int]] = defaultdict(list)
+
+    for feature in features:
+        props = feature.get("properties") or {}
+        code = norm_key(text(pick(props, ["EU_CD"])))
+        label = text(pick(props, ["NAME", "RiverWaterbodyName", "RiverName"]))
+        for original in geometry_lines(feature):
+            coords = [
+                [float(p[0]), float(p[1])] for p in original
+                if isinstance(p, (list, tuple)) and len(p) >= 2
+            ]
+            if len(coords) < 2:
+                continue
+            sid = len(segments)
+            segments.append((code, coords, label))
+            if code:
+                per_code[code].append(sid)
+            endpoints[vertex_key(coords[0])].append(sid)
+            endpoints[vertex_key(coords[-1])].append(sid)
+
+    parent = list(range(len(segments)))
+    rank = [0] * len(segments)
+
+    def find(i: int) -> int:
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    def union(a: int, b: int) -> None:
+        ra, rb = find(a), find(b)
+        if ra == rb:
+            return
+        if rank[ra] < rank[rb]:
+            ra, rb = rb, ra
+        parent[rb] = ra
+        if rank[ra] == rank[rb]:
+            rank[ra] += 1
+
+    # First join exact/snap-matched endpoints. Then match endpoints that meet
+    # interior vertices of another mapped line (T-shaped confluences).
+    for ids in endpoints.values():
+        for sid in ids[1:]:
+            union(ids[0], sid)
+    for sid, (_code, coords, _label) in enumerate(segments):
+        for point in coords[1:-1]:
+            attached = endpoints.get(vertex_key(point))
+            if attached:
+                union(sid, attached[0])
+
+    components: dict[int, list[int]] = defaultdict(list)
+    for sid in range(len(segments)):
+        components[find(sid)].append(sid)
+
+    systems: list[list[Any]] = []
+    segment_system: dict[int, str] = {}
+    for i, members in enumerate(
+        sorted(components.values(), key=lambda ids: (-len(ids), ids[0])), start=1
+    ):
+        system_id = f"sys_{i:05d}"
+        # Do not label a multi-river drainage network as a single river.
+        distinct_names = {segments[sid][2] for sid in members if segments[sid][2]}
+        label = next(iter(distinct_names)) if len(distinct_names) == 1 else "Connected drainage network"
+        paths = [
+            svg_path_from_coords(segments[sid][1], min_distance_m=260)
+            for sid in members
+        ]
+        path = "".join(p for p in paths if p)
+        if not path:
+            continue
+        systems.append([system_id, label, path, len(members)])
+        for sid in members:
+            segment_system[sid] = system_id
+
+    code_systems = {
+        code: [segment_system.get(sid, "") for sid in ids]
+        for code, ids in per_code.items()
+    }
+    return systems, code_systems
+
+
 def build_payload(
     historic_q_features: list[dict[str, Any]],
     recent_q_features: list[dict[str, Any]],
@@ -385,6 +483,7 @@ def build_payload(
         raise RuntimeError("No valid EPA Q-value events were normalised")
 
     waterbody_index, network_path, network_segment_count = build_waterbody_index_and_network_path(river_features)
+    systems, code_systems = build_connected_systems(river_features)
     by_station: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for event in expanded_events:
         by_station[event["stationId"]].append(event)
@@ -396,9 +495,14 @@ def build_payload(
         source = next((e for e in reversed(station_events) if e.get("waterbodyCode")), station_events[-1])
         code = norm_key(source.get("waterbodyCode"))
         lines = waterbody_index.get(code, []) if code else []
-        clipped = clip_local_reach((source["lon"], source["lat"]), lines) if lines else None
+        nearest = nearest_line_position((source["lon"], source["lat"]), lines) if lines else None
+        clipped = clip_local_reach((source["lon"], source["lat"]), lines) if nearest else None
         if not clipped:
             continue
+        # Match this station to the connected component of its actual
+        # nearest waterbody part, not merely the first component sharing EU_CD.
+        alternatives = code_systems.get(code, [])
+        system_id = alternatives[nearest[0]] if nearest and nearest[0] < len(alternatives) else ""
         d = svg_path_from_coords(clipped)
         if not d:
             continue
@@ -411,6 +515,7 @@ def build_payload(
             source["lon"],
             source["lat"],
             d,
+            system_id,
         ])
 
     event_rows: list[list[Any]] = []
@@ -448,9 +553,12 @@ def build_payload(
             "unmatchedEvents": unmatched_events,
             "networkSegmentCount": network_segment_count,
             "networkPathChars": len(network_path),
+            "systemCount": len(systems),
+            "systemTopology": "Connected source vertices; no assumed flow direction or inferred ecological status",
             "sources": SOURCE_URLS,
         },
         "networkPath": network_path,
+        "systems": systems,
         "reaches": reach_rows,
         "events": event_rows,
     }
@@ -477,6 +585,14 @@ def validate_payload(payload: dict[str, Any]) -> None:
     if float(meta.get("matchedStationRatio", 0)) < 0.65:
         raise RuntimeError(f"Station/reach match ratio too low: {meta.get('matchedStationRatio')}")
 
+    systems = payload.get("systems") or []
+    system_ids = {row[0] for row in systems}
+    if not system_ids:
+        raise RuntimeError("No connected drainage components were produced")
+    for row in reaches:
+        if len(row) >= 8 and row[7] and row[7] not in system_ids:
+            raise RuntimeError(f"Station references unknown connected system: {row[0]}")
+
     reach_ids = {row[0] for row in reaches if len(row) >= 7}
     if len(reach_ids) != len(reaches):
         raise RuntimeError("Reach IDs are not unique or a reach row is malformed")
@@ -502,6 +618,7 @@ def validate_payload(payload: dict[str, Any]) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build compact static official EPA data for Dark Rivers")
     parser.add_argument("--output", default="demos/dark-rivers/data/official.json")
+    parser.add_argument("--systems-output", default="demos/dark-rivers/data/systems.json")
     args = parser.parse_args()
 
     print("Fetching EPA historical Q station records (1971-2020)…", file=sys.stderr)
@@ -522,8 +639,20 @@ def main() -> int:
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     temp = output.with_suffix(output.suffix + ".tmp")
-    temp.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    # Store only lightweight system IDs beside Q observations. Full connected
+    # SVG paths live in a separate file and are fetched only on river selection.
+    system_payload = {
+        "format": "dark-rivers-connected-systems-v1",
+        "systems": payload["systems"],
+    }
+    main_payload = {key: value for key, value in payload.items() if key != "systems"}
+    temp.write_text(json.dumps(main_payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     temp.replace(output)
+    systems_output = Path(args.systems_output)
+    systems_output.parent.mkdir(parents=True, exist_ok=True)
+    systems_temp = systems_output.with_suffix(systems_output.suffix + ".tmp")
+    systems_temp.write_text(json.dumps(system_payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    systems_temp.replace(systems_output)
 
     size_mb = output.stat().st_size / (1024 * 1024)
     if size_mb > 15:
@@ -535,6 +664,7 @@ def main() -> int:
         f"{meta['eventCount']:,} observations, {meta['stationCount']:,} stations, "
         f"{meta['reachCount']:,} matched reaches ({meta['matchedStationRatio']:.1%}), "
         f"{meta['networkSegmentCount']:,} source line fragments, "
+        f"{meta['systemCount']:,} connected drainage components, "
         f"{meta['networkPathChars']:,} projected path chars, {size_mb:.2f} MiB",
         file=sys.stderr,
     )

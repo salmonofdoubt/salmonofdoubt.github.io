@@ -9,6 +9,7 @@ sys.path.insert(0, str(OPS_DIR))
 
 from build_dark_rivers import (
     build_payload,
+    build_connected_systems,
     clip_local_reach,
     geometry_point,
     historical_events_from_feature,
@@ -98,6 +99,26 @@ class DarkRiversBuilderTests(unittest.TestCase):
         self.assertIsNotNone(clipped)
         self.assertGreaterEqual(len(clipped), 2)
 
+    def test_connected_systems_join_shared_vertices_but_not_nearby_streams(self):
+        rivers = [
+            {"geometry": {"type": "LineString", "coordinates": [
+                [-7.0, 53.0], [-6.99, 53.0], [-6.98, 53.0],
+            ]}, "properties": {"EU_CD": "IE_TEST_A", "NAME": "River A"}},
+            {"geometry": {"type": "LineString", "coordinates": [
+                [-6.99, 52.99], [-6.99, 53.0],
+            ]}, "properties": {"EU_CD": "IE_TEST_B", "NAME": "River B"}},
+            {"geometry": {"type": "LineString", "coordinates": [
+                [-6.989, 53.001], [-6.989, 53.002],
+            ]}, "properties": {"EU_CD": "IE_TEST_C", "NAME": "Another stream"}},
+        ]
+        systems, code_systems = build_connected_systems(rivers)
+        self.assertEqual(len(systems), 2)
+        self.assertEqual(code_systems["ietesta"][0], code_systems["ietestb"][0])
+        self.assertNotEqual(code_systems["ietesta"][0], code_systems["ietestc"][0])
+        joined = next(row for row in systems if row[0] == code_systems["ietesta"][0])
+        self.assertEqual(joined[1], "Connected drainage network")
+        self.assertEqual(joined[3], 2)
+
     def test_build_payload_uses_compact_rows_and_projected_paths(self):
         historic = [{
             "type": "Feature",
@@ -138,6 +159,8 @@ class DarkRiversBuilderTests(unittest.TestCase):
         self.assertEqual(payload["events"][0][1], "RS10G010200")
         self.assertEqual(payload["events"][-1][3], "Poor")
         self.assertEqual(payload["reaches"][0][0], "RS10G010200")
+        self.assertEqual(len(payload["systems"]), 1)
+        self.assertEqual(payload["reaches"][0][7], payload["systems"][0][0])
         self.assertTrue(payload["reaches"][0][6].startswith("M"))
 
 

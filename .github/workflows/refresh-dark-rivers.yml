@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: "17 4 * * 1"
   workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - "demos/dark-rivers/ops/build_dark_rivers.py"
 
 permissions:
   contents: write
@@ -15,7 +19,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
 
     steps:
       - name: Checkout repository
@@ -43,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add demos/dark-rivers/data/official.json
+          git add demos/dark-rivers/data/official.json demos/dark-rivers/data/systems.json
           git diff --cached --quiet && exit 0
-          git commit -m "Refresh Dark Rivers EPA data"
+          git commit -m "Refresh Dark Rivers EPA data and connected systems"
           bash scripts/ci/safe-rebase-push.sh master

@@ -66,6 +66,14 @@ class DarkRiversProductionContractTests(unittest.TestCase):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, block)
 
+    def test_connected_system_selection_uses_lazy_single_path(self):
+        self.assertIn('systems:$("riverSystems")', APP)
+        self.assertIn('fetch("./data/systems.json",{cache:"no-store"})', APP)
+        self.assertIn('els.systems.replaceChildren(path)', APP)
+        self.assertIn('for(const layer of [els.base,els.systems,els.network,els.flashes])', APP)
+        self.assertIn('<g id="riverSystems" aria-hidden="true"></g>', INDEX)
+        self.assertIn('.river-system{', CSS)
+
     def test_service_worker_matches_build_and_purges_old_caches(self):
         cache_suffix = BUILD.split("-")[-1]
         self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)

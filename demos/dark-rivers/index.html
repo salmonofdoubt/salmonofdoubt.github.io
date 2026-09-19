@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260919-16">
+<html lang="en" data-dark-rivers-version="20260919-17">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch river observations appear through time: every sample flashes, and observed reaches retain their latest biological Q-value colour.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260919-16.css">
+  <link rel="stylesheet" href="./styles.20260919-17.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.20260919-16.js"></script>
-  <script defer src="./data.20260919-16.js"></script>
-  <script defer src="./app.20260919-16.js"></script>
+  <script defer src="./site-config.20260919-17.js"></script>
+  <script defer src="./data.20260919-17.js"></script>
+  <script defer src="./app.20260919-17.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -64,6 +64,7 @@
               <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
 
               <g id="riverBase" aria-hidden="true"></g>
+              <g id="riverSystems" aria-hidden="true"></g>
               <g id="riverNetwork" aria-label="River reaches">
                 <path class="river-reach" data-rendered="unobserved" data-reach-id="r01" d="M398 143 C373 171 356 198 344 235 C333 268 318 292 294 320"/>
                 <path class="river-reach" data-reach-id="r02" data-rendered="observed" d="M452 135 C445 179 434 218 419 256 C404 292 389 322 371 352"/>
@@ -123,7 +124,7 @@
 
         <aside class="analytics-panel" aria-label="Live river network statistics">
           <section class="metric-card">
-            <div class="card-head"><h2>River network state</h2><span id="stateBasis">mapped reach share</span></div>
+            <div class="card-head"><h2>River network state</h2><span id="stateBasis">station-associated reach share</span></div>
             <div class="state-bar" id="stateBar" aria-label="Current mapped river network state"></div>
             <ul class="state-legend" id="stateLegend"></ul>
             <div class="state-total"><span>Total</span><strong>100%</strong></div>
