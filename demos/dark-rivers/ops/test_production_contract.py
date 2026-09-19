@@ -70,7 +70,7 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('systems:$("riverSystems")', APP)
         self.assertIn('fetch("./data/systems.json",{cache:"no-store"})', APP)
         self.assertIn('els.systems.replaceChildren(path)', APP)
-        self.assertIn('for(const layer of [els.base,els.systems,els.network,els.flashes])', APP)
+        self.assertIn('els.world.setAttribute("transform",transform);', APP)
         self.assertIn('<g id="riverSystems" aria-hidden="true"></g>', INDEX)
         self.assertIn('.river-system{', CSS)
 
