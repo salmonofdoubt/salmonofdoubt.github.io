@@ -74,6 +74,16 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('<g id="riverSystems" aria-hidden="true"></g>', INDEX)
         self.assertIn('.river-system{', CSS)
 
+    def test_recorded_colour_persists_and_flashes_are_staggered(self):
+        self.assertIn("const opacity=selected?1:.88;", APP)
+        self.assertNotIn("opacityMap={fresh:", APP)
+        self.assertIn('scheduleFlashes(batch,690)', APP)
+        self.assertIn('choosePulseEvents(events,6)', APP)
+        self.assertIn('const beatMs=790;', APP)
+        self.assertIn("historical evidence, not a measurement", APP)
+        self.assertNotIn("filter:drop-shadow", re.search(r"\\.river-reach\\{([^}]*)\\}", CSS).group(1))
+        self.assertIn("flashes show up to six real observations", INDEX)
+
     def test_service_worker_matches_build_and_purges_old_caches(self):
         cache_suffix = BUILD.split("-")[-1]
         self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)
