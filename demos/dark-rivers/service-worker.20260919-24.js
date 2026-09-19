@@ -1,6 +1,6 @@
 const CACHE_NAME="salmon-dark-rivers-v24";
 const OFFLINE_ASSETS=["./","./styles.20260919-22.css","./app.20260919-24.js",
-"./data.20260919-22.js","./site-config.20260919-22.js","./manifest.webmanifest","./icon.svg"];
+"./data.20260919-21.js","./site-config.20260919-21.js","./manifest.webmanifest","./icon.svg"];
 self.addEventListener("install",event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(OFFLINE_ASSETS)));
   self.skipWaiting();
