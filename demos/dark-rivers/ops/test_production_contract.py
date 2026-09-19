@@ -13,20 +13,34 @@ if not BUILD_MATCH:
     raise RuntimeError("Dark Rivers build fingerprint missing from index.html")
 BUILD = BUILD_MATCH.group(1)
 
-APP = (DEMO / f"app.{BUILD}.js").read_text(encoding="utf-8")
-CSS = (DEMO / f"styles.{BUILD}.css").read_text(encoding="utf-8")
+def linked_asset(pattern: str) -> str:
+    match = re.search(pattern, INDEX)
+    if not match:
+        raise RuntimeError(f"Dark Rivers asset reference missing: {pattern}")
+    name = match.group(1)
+    if not (DEMO / name).is_file():
+        raise RuntimeError(f"Dark Rivers linked asset does not exist: {name}")
+    return name
+
+
+ASSETS = {
+    "app": linked_asset(r'src="\\./(app\\.[^"/]+\\.js)"'),
+    "styles": linked_asset(r'href="\\./(styles\\.[^"/]+\\.css)"'),
+    "data": linked_asset(r'src="\\./(data\\.[^"/]+\\.js)"'),
+    "site-config": linked_asset(r'src="\\./(site-config\\.[^"/]+\\.js)"'),
+}
+APP = (DEMO / ASSETS["app"]).read_text(encoding="utf-8")
+CSS = (DEMO / ASSETS["styles"]).read_text(encoding="utf-8")
 SW = (DEMO / f"service-worker.{BUILD}.js").read_text(encoding="utf-8")
 
 
 class DarkRiversProductionContractTests(unittest.TestCase):
     def test_fingerprinted_assets_are_loaded_without_query_versioning(self):
-        for asset in (
-            f"styles.{BUILD}.css",
-            f"app.{BUILD}.js",
-            f"data.{BUILD}.js",
-            f"site-config.{BUILD}.js",
-        ):
+        for asset in ASSETS.values():
             self.assertIn(asset, INDEX)
+            self.assertTrue((DEMO / asset).is_file(), asset)
+        self.assertEqual(ASSETS["app"], f"app.{BUILD}.js")
+        self.assertIn(f'const BUILD="{BUILD}"', APP)
         self.assertNotIn("styles.css?v=", INDEX)
         self.assertNotIn("app.js?v=", INDEX)
         self.assertNotIn("data.js?v=", INDEX)
@@ -118,6 +132,8 @@ class DarkRiversProductionContractTests(unittest.TestCase):
     def test_service_worker_matches_build_and_purges_old_caches(self):
         cache_suffix = BUILD.split("-")[-1]
         self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)
+        for asset in ASSETS.values():
+            self.assertIn(f'"./{asset}"', SW)
         self.assertIn('key.startsWith("salmon-dark-rivers-")', SW)
         self.assertIn("self.skipWaiting()", SW)
         self.assertIn("self.clients.claim()", SW)
