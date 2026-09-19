@@ -146,6 +146,31 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn("self.skipWaiting()", SW)
         self.assertIn("self.clients.claim()", SW)
 
+    def test_recorded_q_history_is_next_to_playback_and_above_map(self):
+        self.assertEqual(INDEX.count('id="qualityChart"'), 1)
+        self.assertEqual(INDEX.count('id="playButton"'), 1)
+        self.assertEqual(INDEX.count('id="yearRange"'), 1)
+        self.assertLess(INDEX.index('id="playButton"'), INDEX.index('id="qualityChart"'))
+        self.assertLess(INDEX.index('id="qualityChart"'), INDEX.index('id="riverMap"'))
+        self.assertIn('id="playbackDeck"', INDEX)
+        self.assertIn('Unobserved rivers excluded', INDEX)
+        self.assertIn('Latest recorded class per sampled reach', INDEX)
+
+    def test_quality_history_reuses_latest_observation_per_reach(self):
+        self.assertIn('function prepareQualityTimeline(){', APP)
+        self.assertIn('lastByReach.set(e.reachId,e.status)', APP)
+        self.assertIn('qualityTimeline.push({year,counts,count:lastByReach.size});', APP)
+        self.assertIn('prepareQualityTimeline();', APP)
+        self.assertIn('renderQualityTimeline();', APP)
+        self.assertIn('dataset.darkRiversQualityHistory=pass?"pass":"fail"', APP)
+
+    def test_mobile_playback_is_placed_before_map_with_compact_controls(self):
+        self.assertIn('@media(max-width:650px)', CSS)
+        self.assertIn('.playback-deck .playback-controls{display:grid;', CSS)
+        self.assertIn('grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(102px,1.12fr)', CSS)
+        self.assertIn('.quality-chart-wrap,.quality-chart{height:70px}', CSS)
+        self.assertIn('.map-shell{height:min(67svh,530px);min-height:340px}', CSS)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
