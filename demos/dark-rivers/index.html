@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260919-18">
+<html lang="en" data-dark-rivers-version="20260919-19">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: local sampling pulses reveal persistent Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260919-18.css">
+  <link rel="stylesheet" href="./styles.20260919-19.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.20260919-18.js"></script>
-  <script defer src="./data.20260919-18.js"></script>
-  <script defer src="./app.20260919-18.js"></script>
+  <script defer src="./site-config.20260919-19.js"></script>
+  <script defer src="./data.20260919-19.js"></script>
+  <script defer src="./app.20260919-19.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -49,7 +49,7 @@
           <div class="map-shell">
             <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapTitle mapDesc">
               <title id="mapTitle">Dark Rivers map of Ireland</title>
-              <desc id="mapDesc">A fine capillary-like river network becomes coloured as biological observations are revealed through time.</desc>
+              <desc id="mapDesc">A north-up coastline and connected river network. Pan and zoom to inspect recorded observations; legend and compass stay fixed.</desc>
               <defs>
                 <filter id="flashGlow" x="-150%" y="-150%" width="400%" height="400%">
                   <feGaussianBlur stdDeviation="4" result="blur"/>
@@ -61,7 +61,10 @@
                 </filter>
               </defs>
 
-              <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
+              <g id="mapWorld">
+                <path id="irelandCoastline" class="coastline" d="M316.5 618.8L319.0 616.3L311.2 615.1L265.8 621.4L250.1 626.7L234.4 628.2L241.6 620.1L261.9 609.0L272.8 603.8L279.5 601.7L287.1 595.2L308.5 587.8L239.5 603.1L221.4 601.2L217.2 596.9L203.1 598.9L197.7 588.6L218.6 573.0L230.8 566.3L245.2 562.7L259.2 557.5L264.3 551.1L257.8 549.1L216.1 550.7L196.1 549.3L197.2 544.3L200.9 538.7L221.5 529.1L232.7 527.6L242.7 528.5L252.5 530.9L260.4 534.1L283.9 532.3L274.1 526.2L272.3 513.8L264.8 509.6L274.4 503.9L285.4 500.4L303.7 488.5L310.2 486.7L346.5 483.8L385.5 477.5L424.3 468.9L404.4 464.1L394.9 457.7L379.6 470.6L368.6 475.5L337.5 478.1L327.7 476.7L313.8 472.7L309.5 474.2L305.5 477.3L285.0 483.6L263.3 485.1L288.5 473.5L320.4 453.9L327.5 447.7L337.6 436.9L334.5 432.1L327.9 429.4L351.0 407.2L359.2 403.1L374.0 402.5L384.8 399.0L389.6 398.9L393.9 397.6L403.4 391.0L388.7 386.8L373.6 384.6L326.7 386.9L320.5 386.4L314.7 384.3L310.9 381.4L308.1 373.9L304.6 372.2L294.0 372.2L283.6 374.5L276.3 374.3L269.1 371.0L280.6 363.2L265.8 361.4L250.9 362.9L238.5 360.6L238.2 355.8L243.8 350.9L236.4 346.4L234.9 340.6L242.7 337.7L251.3 338.7L268.8 334.4L291.2 332.3L272.0 328.1L264.3 324.5L264.0 318.9L265.5 314.2L287.7 306.2L311.4 302.6L309.6 297.4L311.3 291.6L287.4 290.0L263.7 294.0L266.2 283.1L271.9 273.3L273.0 266.8L271.9 259.8L260.8 262.8L259.5 253.0L254.8 246.3L238.3 250.9L238.8 242.0L243.5 235.8L252.1 233.1L260.6 234.3L276.4 234.2L291.7 229.5L313.7 228.3L348.7 229.8L372.8 242.9L379.0 240.6L388.6 232.3L393.2 231.4L429.5 235.0L452.0 239.8L458.0 238.3L454.8 229.1L447.0 222.7L456.8 214.3L468.6 208.6L476.5 205.8L494.8 202.3L502.8 199.0L508.1 188.2L516.6 179.3L470.7 183.9L427.0 173.3L433.9 165.8L443.2 161.5L459.1 158.3L460.6 154.4L468.6 151.1L481.9 142.5L477.0 131.4L479.7 123.2L489.2 117.9L492.2 110.2L496.5 104.6L515.9 102.6L534.6 97.4L541.4 97.9L563.4 96.7L570.9 98.8L569.2 89.5L582.8 88.3L588.1 90.2L590.4 96.7L596.6 100.9L598.5 108.2L594.3 113.8L587.4 118.1L593.7 122.5L584.0 130.5L594.5 127.1L609.6 119.3L608.8 112.9L606.2 104.8L602.0 97.6L604.0 89.6L612.4 84.6L634.7 82.1L625.5 73.0L633.7 72.2L642.5 74.1L655.4 81.2L668.9 86.7L682.9 91.1L669.5 99.9L653.0 106.0L646.5 112.6L652.1 117.8L663.2 119.1L673.1 114.3L685.0 99.3L693.3 98.3L702.4 99.5L720.3 97.7L752.0 90.6L766.2 90.5L786.2 94.2L801.2 94.1L814.4 104.9L821.5 121.8L838.1 138.6L859.7 153.2L860.6 162.1L852.8 166.9L836.7 172.8L836.7 179.2L847.4 176.0L856.6 174.5L878.8 175.9L886.5 182.4L891.9 192.1L894.7 200.0L892.8 208.7L886.8 205.9L880.8 198.2L874.0 194.6L866.2 192.7L869.8 203.3L868.4 217.5L871.8 218.9L882.3 219.1L875.3 233.6L861.0 237.6L844.2 239.1L840.1 244.2L837.1 250.9L828.3 260.7L816.8 266.3L802.5 265.2L788.5 260.8L794.5 266.0L797.2 271.4L786.7 273.4L775.8 272.3L770.5 275.8L770.1 282.6L773.8 291.3L781.1 297.5L787.0 311.4L791.8 326.9L799.4 336.3L800.9 347.9L799.8 353.6L801.2 363.8L798.0 367.5L800.4 377.1L809.2 397.0L813.1 408.1L815.6 432.3L809.3 441.4L800.9 450.0L795.5 460.2L791.2 471.3L788.7 489.0L770.5 509.9L762.7 515.1L753.7 518.2L773.4 532.8L757.3 539.3L739.8 541.4L720.5 537.7L708.4 538.2L697.4 542.9L693.1 545.7L689.6 544.4L682.4 532.4L677.0 544.7L665.9 548.7L646.8 547.8L614.9 551.1L602.6 554.6L597.5 560.1L593.7 566.5L588.8 570.3L583.1 572.2L558.5 576.9L553.7 578.8L542.2 589.1L527.3 595.0L514.9 596.8L503.9 590.8L499.4 587.2L494.3 585.4L477.4 585.7L482.7 587.5L486.2 591.7L487.8 599.8L485.9 607.7L477.6 611.8L467.6 612.5L452.0 620.7L431.2 623.0L420.0 630.5L351.4 643.3L347.5 643.5L338.0 640.2L327.8 638.8L317.5 639.8L288.8 647.0L274.9 645.5L292.6 627.8L316.5 618.8M801.2 -11.2L788.9 -7.4L775.3 -0.3L770.6 -2.8L766.3 -2.5L760.8 0.0L756.3 3.3L753.8 6.9L753.3 12.7L749.1 21.1L749.7 23.2L755.3 22.2L772.1 11.9L776.7 10.9L778.8 12.1L776.6 18.7L781.2 27.2L775.9 34.8L776.2 36.6L783.5 36.5L807.0 29.1L811.6 23.5L811.3 19.5L806.3 7.8L801.2 -11.2M231.6 273.1L225.8 271.4L213.8 277.2L242.7 279.8L247.7 285.7L258.2 290.9L258.9 286.7L257.7 275.8L252.0 273.4L231.6 273.1"/>
+                <path class="nearby-coastline" d="M975.4 624.4L943.8 612.7L937.6 607.5L937.8 597.6L933.0 589.7L924.3 586.9L935.5 576.7L949.0 569.8L978.8 563.1M982.6 152.0L977.2 159.9L974.1 172.1L956.9 161.5L942.3 147.3L937.3 138.3L937.0 128.3L944.9 124.4L953.6 128.0L966.4 104.1M976.9 23.0L977.2 10.9M906.7 12.5L882.5 68.7L877.9 74.3L873.7 77.3L869.7 78.0L857.7 76.9L852.4 72.7L852.5 67.9L854.7 60.7L864.7 34.1L869.1 26.7L875.6 19.8M880.0 9.3L876.0 8.5"/>
+                <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
 
               <g id="riverBase" aria-hidden="true"></g>
               <g id="riverSystems" aria-hidden="true"></g>
@@ -83,33 +86,23 @@
                 <path class="river-reach" data-rendered="unobserved" data-reach-id="r15" d="M573 535 C545 532 517 538 493 548 C466 560 445 578 428 602"/>
               </g>
               <g id="flashLayer" aria-hidden="true"></g>
-
-              <g aria-hidden="true">
-                <text class="map-annotation" x="78" y="265">ATLANTIC</text>
-                <text class="map-annotation" x="91" y="283">OCEAN</text>
-                <text class="map-annotation" x="846" y="378">IRISH</text>
-                <text class="map-annotation" x="851" y="396">SEA</text>
-                <text class="map-annotation" x="698" y="670">CELTIC SEA</text>
-
-                <text class="map-annotation" x="44" y="112">N</text>
-                <line class="north-line" x1="49" y1="122" x2="49" y2="153"/>
-                <path class="north-arrow" d="M49 114 L42 132 L49 128 L56 132 Z"/>
-
-                <line class="scale-line" x1="30" y1="690" x2="185" y2="690"/>
-                <line class="scale-line" x1="30" y1="684" x2="30" y2="696"/>
-                <line class="scale-line" x1="108" y1="684" x2="108" y2="696"/>
-                <line class="scale-line" x1="185" y1="684" x2="185" y2="696"/>
-                <text class="scale-text" x="26" y="680">0</text>
-                <text class="scale-text" x="99" y="680">50</text>
-                <text class="scale-text" x="174" y="680">100 km</text>
               </g>
+
+
             </svg>
+
+                        <div class="map-hud" aria-hidden="true">
+              <div class="map-compass"><span>N</span><span class="map-compass-arrow">↑</span></div>
+              <div class="sea-label sea-label-atlantic">ATLANTIC<br>OCEAN</div>
+              <div class="sea-label sea-label-irish">IRISH<br>SEA</div>
+              <div class="sea-label sea-label-celtic">CELTIC SEA</div>
+            </div>
 
             <div class="map-tools" aria-label="Map zoom controls">
               <button type="button" id="mapZoomIn" aria-label="Zoom in">+</button>
               <button type="button" id="mapZoomOut" aria-label="Zoom out">−</button>
               <button type="button" id="mapZoomReset" aria-label="Reset map view">↺</button>
-              <span id="mapZoomLabel" aria-live="polite">130%</span>
+              <span id="mapZoomLabel" aria-live="polite">105%</span>
             </div>
 
             <aside class="reach-detail" id="reachDetail" hidden aria-live="polite"></aside>
@@ -166,6 +159,7 @@
         <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
         <p class="timeline-help">Scrub backward to reconstruct the recorded evidence by year.<br>Colour remains after sampling; flashes show up to six real observations per beat, staggered for readability. Historical Q-values do not establish present-day river condition.</p>
         <p class="data-provenance" id="dataProvenance">Illustrative interaction data · awaiting generated EPA dataset</p>
+        <p class="data-provenance">Coastline: <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener">Natural Earth 1:50m · public domain</a>.</p>
       </section>
 
       <section id="about" hidden></section>

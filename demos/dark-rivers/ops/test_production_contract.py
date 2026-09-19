@@ -84,6 +84,18 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertNotIn("filter:drop-shadow", CSS.split(".river-reach{", 1)[1].split("}", 1)[0])
         self.assertIn("flashes show up to six real observations", INDEX)
 
+    def test_map_navigation_uses_fixed_hud_real_coastline_and_responsive_zoom(self):
+        self.assertIn('id="irelandCoastline"', INDEX)
+        self.assertIn('id="mapWorld"', INDEX)
+        self.assertIn('class="map-hud"', INDEX)
+        self.assertIn('mapViewportHeight=Math.max(720', APP)
+        self.assertIn('const INITIAL_MAP_ZOOM=1.05,MIN_MAP_ZOOM=.72,MAX_MAP_ZOOM=12;', APP)
+        self.assertIn('point.matrixTransform(matrix.inverse())', APP)
+        self.assertIn('els.world.setAttribute("transform",transform);', APP)
+        self.assertIn('.map-shell.is-zoomed .sea-label{opacity:0}', CSS)
+        self.assertNotIn('class="map-annotation"', INDEX)
+        self.assertIn('Natural Earth 1:50m', INDEX)
+
     def test_service_worker_matches_build_and_purges_old_caches(self):
         cache_suffix = BUILD.split("-")[-1]
         self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)
