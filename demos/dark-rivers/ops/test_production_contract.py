@@ -81,7 +81,7 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('choosePulseEvents(events,6)', APP)
         self.assertIn('const beatMs=790;', APP)
         self.assertIn("historical evidence, not a measurement", APP)
-        self.assertNotIn("filter:drop-shadow", re.search(r"\\.river-reach\\{([^}]*)\\}", CSS).group(1))
+        self.assertNotIn("filter:drop-shadow", CSS.split(".river-reach{", 1)[1].split("}", 1)[0])
         self.assertIn("flashes show up to six real observations", INDEX)
 
     def test_service_worker_matches_build_and_purges_old_caches(self):
