@@ -415,7 +415,11 @@ function setupMapNavigation(){
     mapResizeObserver=new ResizeObserver(()=>{
       const previous=mapViewportHeight;
       updateMapViewport();
-      if(Math.abs(previous-mapViewportHeight)<1)return;
+      if(Math.abs(previous-mapViewportHeight)<1){
+        // Pixel anchors still move when the shell resizes at a fixed ratio.
+        updateSeaLabels();
+        return;
+      }
       if(data.meta?.official===true)fitOfficialGeometry();else resetHydroView();
     });
     mapResizeObserver.observe(els.shell);
