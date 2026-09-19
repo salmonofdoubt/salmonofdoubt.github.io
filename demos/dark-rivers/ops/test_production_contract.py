@@ -96,6 +96,17 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertNotIn('class="map-annotation"', INDEX)
         self.assertIn('Natural Earth 1:50m', INDEX)
 
+    def test_revealed_capillaries_are_neutral_and_incremental(self):
+        self.assertIn('<g id="riverContinuity" aria-hidden="true"></g>', INDEX)
+        self.assertIn('continuity:$("riverContinuity")', APP)
+        self.assertIn('contextMain:typeof r[8]==="string"?r[8]:""', APP)
+        self.assertIn('contextBranches:typeof r[9]==="string"?r[9]:""', APP)
+        self.assertIn('if(contextualReachIds.has(id))continue;', APP)
+        self.assertIn('renderContinuity(latest);', APP)
+        self.assertIn('.river-continuity-main{', CSS)
+        self.assertIn('.river-continuity-branches{', CSS)
+        self.assertIn('not measured ecological quality', INDEX)
+
     def test_service_worker_matches_build_and_purges_old_caches(self):
         cache_suffix = BUILD.split("-")[-1]
         self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)

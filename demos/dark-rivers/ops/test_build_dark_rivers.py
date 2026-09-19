@@ -10,6 +10,8 @@ sys.path.insert(0, str(OPS_DIR))
 from build_dark_rivers import (
     build_payload,
     build_connected_systems,
+    build_continuity_index,
+    connected_station_context,
     clip_local_reach,
     geometry_point,
     historical_events_from_feature,
@@ -119,6 +121,25 @@ class DarkRiversBuilderTests(unittest.TestCase):
         self.assertEqual(joined[1], "Connected drainage network")
         self.assertEqual(joined[3], 2)
 
+    def test_continuity_follows_actual_confluences_only(self):
+        trunk = [[-7.06, 53.00],[-7.03, 53.00],[-7.00, 53.00],
+                 [-6.97,53.00],[-6.94,53.00]]
+        tributary = [[-7.00, 53.03],[-7.00,53.00]]
+        disconnected = [[-6.99,53.021],[-6.99,53.001]]
+        rivers = [
+            {"geometry":{"type":"LineString","coordinates":trunk},"properties":{"EU_CD":"A"}},
+            {"geometry":{"type":"LineString","coordinates":tributary},"properties":{"EU_CD":"B"}},
+            {"geometry":{"type":"LineString","coordinates":disconnected},"properties":{"EU_CD":"C"}},
+        ]
+        index = build_continuity_index(rivers)
+        main, branches = connected_station_context(
+            (-7.0,53.0),[trunk],(0,2,0.0,0.0),index
+        )
+        self.assertTrue(main.startswith("M"))
+        self.assertTrue(branches.startswith("M"))
+        self.assertIn(svg_path_from_coords(tributary),branches)
+        self.assertNotIn(svg_path_from_coords(disconnected),branches)
+
     def test_build_payload_uses_compact_rows_and_projected_paths(self):
         historic = [{
             "type": "Feature",
@@ -162,6 +183,8 @@ class DarkRiversBuilderTests(unittest.TestCase):
         self.assertEqual(len(payload["systems"]), 1)
         self.assertEqual(payload["reaches"][0][7], payload["systems"][0][0])
         self.assertTrue(payload["reaches"][0][6].startswith("M"))
+        self.assertTrue(payload["reaches"][0][8].startswith("M"))
+        self.assertEqual(payload["reaches"][0][9], "")
 
 
 if __name__ == "__main__":

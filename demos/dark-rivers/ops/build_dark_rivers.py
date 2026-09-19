@@ -466,6 +466,61 @@ def build_connected_systems(
     return systems, code_systems
 
 
+
+def build_continuity_index(
+    features: list[dict[str, Any]],
+) -> dict[tuple[int, int], list[list[list[float]]]]:
+    """Index real river-line endpoints; no proximity joins or fictional edges."""
+    endpoint_lines: dict[tuple[int, int], list[list[list[float]]]] = defaultdict(list)
+    for feature in features:
+        for line in geometry_lines(feature):
+            if len(line) < 2:
+                continue
+            endpoint_lines[vertex_key(line[0])].append(line)
+            endpoint_lines[vertex_key(line[-1])].append(line)
+    return dict(endpoint_lines)
+
+
+def connected_station_context(
+    station: tuple[float, float],
+    source_lines: list[list[list[float]]],
+    nearest: tuple[int, int, float, float],
+    endpoint_lines: dict[tuple[int, int], list[list[list[float]]]],
+) -> tuple[str, str]:
+    """Give each station a short mapped main-thread and true confluence branches.
+
+    These neutral strands illustrate mapped connectivity; only the separate
+    measured reach carries Q-value colour. Stop at actual mapped geometry.
+    """
+    line=source_lines[nearest[0]]
+    trunk=clip_local_reach(station, [line], radius_m=9500, max_match_distance_m=1500)
+    if not trunk:
+        return "", ""
+    main=svg_path_from_coords(trunk, min_distance_m=140)
+    branches=[]
+    used={id(line)}
+    # A tributary can join at an interior vertex of the source line: use all
+    # source vertices retained in the trunk, not merely its two endpoints.
+    for vertex in trunk:
+        for connected in endpoint_lines.get(vertex_key(vertex), []):
+            if id(connected) in used:
+                continue
+            used.add(id(connected))
+            branch=clip_local_reach(
+                (vertex[0],vertex[1]), [connected],
+                radius_m=3300, max_match_distance_m=12,
+            )
+            if branch:
+                d=svg_path_from_coords(branch, min_distance_m=180)
+                if d:
+                    branches.append(d)
+            if len(branches)>=4:
+                break
+        if len(branches)>=4:
+            break
+    return main, "".join(branches)
+
+
 def build_payload(
     historic_q_features: list[dict[str, Any]],
     recent_q_features: list[dict[str, Any]],
@@ -484,6 +539,7 @@ def build_payload(
 
     waterbody_index, network_path, network_segment_count = build_waterbody_index_and_network_path(river_features)
     systems, code_systems = build_connected_systems(river_features)
+    endpoint_lines = build_continuity_index(river_features)
     by_station: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for event in expanded_events:
         by_station[event["stationId"]].append(event)
@@ -506,6 +562,9 @@ def build_payload(
         d = svg_path_from_coords(clipped)
         if not d:
             continue
+        context_main, context_branches = connected_station_context(
+            (source["lon"],source["lat"]), lines, nearest, endpoint_lines
+        )
         matched_station_ids.add(sid)
         reach_rows.append([
             sid,
@@ -516,6 +575,8 @@ def build_payload(
             source["lat"],
             d,
             system_id,
+            context_main,
+            context_branches,
         ])
 
     event_rows: list[list[Any]] = []
@@ -555,6 +616,8 @@ def build_payload(
             "networkPathChars": len(network_path),
             "systemCount": len(systems),
             "systemTopology": "Connected source vertices; no assumed flow direction or inferred ecological status",
+            "continuityMeaning": "Neutral mapped connections near stations; Q-value colour limited to sampled sections",
+            "continuityRadiusM": 9500,
             "sources": SOURCE_URLS,
         },
         "networkPath": network_path,
@@ -592,6 +655,12 @@ def validate_payload(payload: dict[str, Any]) -> None:
     for row in reaches:
         if len(row) >= 8 and row[7] and row[7] not in system_ids:
             raise RuntimeError(f"Station references unknown connected system: {row[0]}")
+
+    for row in reaches:
+        if len(row) >= 10 and row[8] and not row[8].startswith("M"):
+            raise RuntimeError(f"Malformed continuity geometry: {row[0]}")
+        if len(row) >= 10 and row[9] and not row[9].startswith("M"):
+            raise RuntimeError(f"Malformed tributary geometry: {row[0]}")
 
     reach_ids = {row[0] for row in reaches if len(row) >= 7}
     if len(reach_ids) != len(reaches):

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260919-19">
+<html lang="en" data-dark-rivers-version="20260919-20">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: local sampling pulses reveal persistent Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260919-19.css">
+  <link rel="stylesheet" href="./styles.20260919-20.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.20260919-19.js"></script>
-  <script defer src="./data.20260919-19.js"></script>
-  <script defer src="./app.20260919-19.js"></script>
+  <script defer src="./site-config.20260919-20.js"></script>
+  <script defer src="./data.20260919-20.js"></script>
+  <script defer src="./app.20260919-20.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -67,6 +67,7 @@
                 <path class="island" d="M432 61 C376 78 348 122 328 163 C305 207 272 231 263 276 C254 319 277 350 254 390 C232 428 238 471 278 497 C310 518 314 554 349 587 C388 625 444 651 501 650 C557 649 599 627 646 602 C689 579 728 548 745 511 C759 480 749 451 770 421 C792 389 817 350 808 311 C798 269 766 245 748 213 C727 175 721 128 682 101 C647 76 606 78 570 67 C523 53 477 47 432 61 Z"/>
 
               <g id="riverBase" aria-hidden="true"></g>
+              <g id="riverContinuity" aria-hidden="true"></g>
               <g id="riverSystems" aria-hidden="true"></g>
               <g id="riverNetwork" aria-label="River reaches">
                 <path class="river-reach" data-rendered="unobserved" data-reach-id="r01" d="M398 143 C373 171 356 198 344 235 C333 268 318 292 294 320"/>
@@ -157,7 +158,7 @@
           </label>
         </div>
         <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
-        <p class="timeline-help">Scrub backward to reconstruct the recorded evidence by year.<br>Colour remains after sampling; flashes show up to six real observations per beat, staggered for readability. Historical Q-values do not establish present-day river condition.</p>
+        <p class="timeline-help">Scrub backward to reconstruct the recorded evidence by year.<br>Bright colour marks a sampled section. Fine blue-green threads trace its mapped connections, not measured ecological quality. Flashes show up to six real observations per beat.</p>
         <p class="data-provenance" id="dataProvenance">Illustrative interaction data · awaiting generated EPA dataset</p>
         <p class="data-provenance">Coastline: <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener">Natural Earth 1:50m · public domain</a>.</p>
       </section>
