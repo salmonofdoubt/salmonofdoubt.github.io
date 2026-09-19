@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260920-26">
+<html lang="en" data-dark-rivers-version="20260920-27">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: local sampling pulses reveal persistent Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260920-26.css">
+  <link rel="stylesheet" href="./styles.20260920-27.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260919-21.js"></script>
   <script defer src="./data.20260919-21.js"></script>
-  <script defer src="./app.20260920-26.js"></script>
+  <script defer src="./app.20260920-27.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -45,6 +45,29 @@
             <p class="lede">Ireland’s connected rivers begin almost dark. Each sample sends a brief signal through its local reach; the last recorded Q-value stays visible as evidence accumulates through time.</p>
             <p class="prototype-note" id="dataModeNote"><span><strong>Prototype:</strong> geometry and sampling events are illustrative; Q-value class semantics follow the EPA system.</span></p>
           </div>
+
+          <section class="timeline-panel playback-deck" id="playbackDeck" aria-label="River map playback and recorded Q-class history">
+            <div class="playback-controls">
+          <button class="primary-button" id="playButton" type="button" aria-pressed="false">▶&nbsp; Play</button>
+          <button class="secondary-button" id="resetButton" type="button">↻&nbsp; Reset</button>
+          <label class="speed-control">Speed
+            <select id="speedSelect">
+              <option value="1">1 year / beat</option>
+              <option value="3">3 years / beat</option>
+              <option value="6" selected>6 years / beat</option>
+              <option value="12">12 years / beat</option>
+            </select>
+          </label>
+        </div>
+            <div class="quality-panel">
+              <div class="quality-heading"><h2>Recorded Q classes through time</h2><span id="qualityYear" aria-live="off">1971</span></div>
+              <div class="quality-chart-wrap"><svg id="qualityChart" class="quality-chart" viewBox="0 0 330 82" preserveAspectRatio="none" role="img" aria-label="Recorded Q-class history up to the selected year"><title>Recorded Q-class history</title></svg></div>
+              <div class="quality-axis"><span data-min-year>1971</span><span id="qualitySummary" aria-live="polite">Awaiting observations</span><span data-max-year>2025</span></div>
+              <div class="quality-legend" aria-label="Biological Q class colours"><span class="quality-key"><i class="quality-dot quality-high"></i>High</span><span class="quality-key"><i class="quality-dot quality-good"></i>Good</span><span class="quality-key"><i class="quality-dot quality-moderate"></i>Moderate</span><span class="quality-key"><i class="quality-dot quality-poor"></i>Poor</span><span class="quality-key"><i class="quality-dot quality-bad"></i>Bad</span></div>
+              <p class="quality-method">Latest recorded class per sampled reach; older records persist until replaced. Unobserved rivers excluded. Changes may reflect sampling coverage.</p>
+            </div>
+            <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
+          </section>
 
           <div class="map-shell">
             <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapTitle mapDesc">
@@ -143,20 +166,7 @@
         </aside>
       </div>
 
-      <section class="timeline-panel" aria-label="Playback controls">
-        <div class="playback-controls">
-          <button class="primary-button" id="playButton" type="button" aria-pressed="false">▶&nbsp; Play</button>
-          <button class="secondary-button" id="resetButton" type="button">↻&nbsp; Reset</button>
-          <label class="speed-control">Speed
-            <select id="speedSelect">
-              <option value="1">1 year / beat</option>
-              <option value="3">3 years / beat</option>
-              <option value="6" selected>6 years / beat</option>
-              <option value="12">12 years / beat</option>
-            </select>
-          </label>
-        </div>
-        <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
+      <section class="method-note" aria-label="Playback explanation and data provenance">
         <p class="timeline-help">Scrub backward to reconstruct the recorded evidence by year.<br>Bright colour marks a sampled section. Fine blue-green threads trace its mapped connections, not measured ecological quality. Flashes show up to six real observations per beat.</p>
         <p class="data-provenance" id="dataProvenance">Illustrative interaction data · awaiting generated EPA dataset</p>
         <p class="data-provenance">Coastline: <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener">Natural Earth 1:10m · public domain</a>.</p>
