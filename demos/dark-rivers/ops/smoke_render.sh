@@ -35,6 +35,11 @@ fi
   "http://127.0.0.1:${PORT}/demos/dark-rivers/?smoke=1" >"$DOM"
 
 grep -q "data-dark-rivers-version=\"$BUILD\"" "$DOM"
+if ! grep -q 'data-dark-rivers-coast-fit="pass"' "$DOM"; then
+  echo "Dark Rivers coastline clips the overview map" >&2
+  grep -o 'data-dark-rivers-coast-fit="[^"]*"' "$DOM" >&2 || true
+  exit 1
+fi
 if ! grep -q 'data-dark-rivers-render="pass"' "$DOM"; then
   echo "Dark Rivers render health did not pass" >&2
   grep -o 'data-dark-rivers-render="[^"]*"\|data-dark-rivers-expected="[^"]*"\|data-dark-rivers-visible="[^"]*"' "$DOM" >&2 || true
