@@ -114,6 +114,9 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('.map-shell.is-zoomed .sea-label{opacity:0}', CSS)
         self.assertNotIn('class="map-annotation"', INDEX)
         self.assertRegex(INDEX, r'Natural Earth 1:(?:10|50)m')
+        # Map must not imply a complete island-wide river dataset with an island outline.
+        self.assertIn(".has-official-data .coastline{opacity:0}", CSS)
+        self.assertIn(".has-official-data .nearby-coastline{opacity:0}", CSS)
 
     def test_revealed_capillaries_are_neutral_and_incremental(self):
         self.assertIn('<g id="riverContinuity" aria-hidden="true"></g>', INDEX)
