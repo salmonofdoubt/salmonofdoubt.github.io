@@ -24,10 +24,10 @@ def linked_asset(pattern: str) -> str:
 
 
 ASSETS = {
-    "app": linked_asset(r'src="\\./(app\\.[^"/]+\\.js)"'),
-    "styles": linked_asset(r'href="\\./(styles\\.[^"/]+\\.css)"'),
-    "data": linked_asset(r'src="\\./(data\\.[^"/]+\\.js)"'),
-    "site-config": linked_asset(r'src="\\./(site-config\\.[^"/]+\\.js)"'),
+    "app": linked_asset(r'src="\./(app\.[^"/]+\.js)"'),
+    "styles": linked_asset(r'href="\./(styles\.[^"/]+\.css)"'),
+    "data": linked_asset(r'src="\./(data\.[^"/]+\.js)"'),
+    "site-config": linked_asset(r'src="\./(site-config\.[^"/]+\.js)"'),
 }
 APP = (DEMO / ASSETS["app"]).read_text(encoding="utf-8")
 CSS = (DEMO / ASSETS["styles"]).read_text(encoding="utf-8")
