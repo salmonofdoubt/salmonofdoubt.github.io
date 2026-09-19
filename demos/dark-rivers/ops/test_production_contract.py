@@ -107,6 +107,14 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('.river-continuity-branches{', CSS)
         self.assertIn('not measured ecological quality', INDEX)
 
+    def test_state_bar_uses_complete_network_denominator(self):
+        self.assertIn("let fullNetworkWeight=0;", APP)
+        self.assertIn('base?.getTotalLength?.()', APP)
+        self.assertIn("totals.Dark=Math.max(0,total-coloured);", APP)
+        self.assertIn("complete mapped network share", INDEX)
+        self.assertIn("Mapped network revealed", INDEX)
+        self.assertNotIn("station-associated reach share", INDEX)
+
     def test_service_worker_matches_build_and_purges_old_caches(self):
         cache_suffix = BUILD.split("-")[-1]
         self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)
