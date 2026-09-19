@@ -540,6 +540,7 @@ def build_payload(
     waterbody_index, network_path, network_segment_count = build_waterbody_index_and_network_path(river_features)
     systems, code_systems = build_connected_systems(river_features)
     endpoint_lines = build_continuity_index(river_features)
+    # Connectivity is source-vertex based, never proximity-only or Q interpolation.
     by_station: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for event in expanded_events:
         by_station[event["stationId"]].append(event)
