@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260920-29">
+<html lang="en" data-dark-rivers-version="20260920-30">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: local sampling pulses reveal persistent Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260920-29.css">
+  <link rel="stylesheet" href="./styles.20260920-30.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260919-21.js"></script>
   <script defer src="./data.20260919-21.js"></script>
-  <script defer src="./app.20260920-29.js"></script>
+  <script defer src="./app.20260920-30.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -75,7 +75,7 @@
           <div class="map-shell">
             <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapTitle mapDesc">
               <title id="mapTitle">Dark Rivers map of Ireland</title>
-              <desc id="mapDesc">A north-up coastline and connected river network. Pan and zoom to inspect recorded observations; legend and compass stay fixed.</desc>
+              <desc id="mapDesc">A north-up coastline and connected river network. Use Move map to pan by touch, or swipe normally to scroll the page; zoom controls stay fixed.</desc>
               <defs>
                 <filter id="flashGlow" x="-150%" y="-150%" width="400%" height="400%">
                   <feGaussianBlur stdDeviation="4" result="blur"/>
@@ -124,6 +124,7 @@
               <div class="sea-label sea-label-celtic" data-sea-lon="-8.30" data-sea-lat="51.14" hidden>CELTIC SEA</div>
             </div>
 
+            <button class="map-gesture-button" id="mapTouchPan" type="button" aria-pressed="false" aria-controls="riverMap" title="Switch between page scrolling and moving the map">Move map</button>
             <div class="map-tools" aria-label="Map zoom controls">
               <button type="button" id="mapZoomIn" aria-label="Zoom in">+</button>
               <button type="button" id="mapZoomOut" aria-label="Zoom out">−</button>
