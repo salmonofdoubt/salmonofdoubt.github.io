@@ -219,6 +219,19 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('if(updateLabels)updateSeaLabels();', APP)
         self.assertIn('.map-shell{height:min(53svh,430px);min-height:320px}', CSS)
 
+    def test_mobile_river_network_uses_raster_instead_of_heavy_svg(self):
+        self.assertEqual(INDEX.count('id="mobileRiverRaster"'), 1)
+        self.assertIn('href="./data/network-mobile.png"', INDEX)
+        self.assertTrue((DEMO / "data" / "network-mobile.png").is_file())
+        self.assertIn('rasterNetworkActive=official&&!rasterNetworkFailed', APP)
+        self.assertIn('if(rasterNetworkActive)return;', APP)
+        self.assertIn('MOBILE_NETWORK_SVG_LENGTH=124271.55', APP)
+        self.assertIn('fullNetworkWeight=rasterNetworkActive?MOBILE_NETWORK_SVG_LENGTH:0', APP)
+        self.assertIn('document.documentElement.dataset.darkRiversRaster=rasterNetworkActive?"on":"off"', APP)
+        self.assertIn('addBaseNetwork();\n      measureReachWeights();', APP)
+        self.assertIn('body.use-raster-network .mobile-river-raster{display:block}', CSS)
+        self.assertIn('"./data/network-mobile.png"', SW)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
