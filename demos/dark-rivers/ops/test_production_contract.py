@@ -171,6 +171,16 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('.quality-chart-wrap,.quality-chart{height:70px}', CSS)
         self.assertIn('.map-shell{height:min(67svh,530px);min-height:340px}', CSS)
 
+    def test_quality_year_axis_matches_real_dates_and_mobile(self):
+        self.assertEqual(INDEX.count('id="qualityAxis"'), 1)
+        self.assertEqual(INDEX.count('id="qualitySummary"'), 1)
+        self.assertIn('function renderQualityAxis(){', APP)
+        self.assertIn('for(let year=Math.ceil((min+1)/10)*10;year<max;year+=10)', APP)
+        self.assertIn('((year-min)/span*100).toFixed(2)', APP)
+        self.assertIn('  renderQualityAxis();', APP)
+        self.assertIn('.quality-tick.is-decade:nth-child(even){display:none}', CSS)
+        self.assertIn('.quality-tick.is-end{transform:translateX(-100%)}', CSS)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
