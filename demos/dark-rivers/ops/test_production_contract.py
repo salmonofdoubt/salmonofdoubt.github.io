@@ -91,7 +91,7 @@ class DarkRiversProductionContractTests(unittest.TestCase):
     def test_recorded_colour_persists_and_flashes_are_staggered(self):
         self.assertIn("const opacity=selected?1:.88;", APP)
         self.assertNotIn("opacityMap={fresh:", APP)
-        self.assertIn('scheduleFlashes(batch,690)', APP)
+        self.assertIn('scheduleFlashes(batch,matchMedia("(max-width:650px)").matches?420:690)', APP)
         self.assertIn('choosePulseEvents(events,6)', APP)
         self.assertIn('const beatMs=790;', APP)
         self.assertIn("historical evidence, not a measurement", APP)
@@ -180,6 +180,21 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('  renderQualityAxis();', APP)
         self.assertIn('.quality-tick.is-decade:nth-child(even){display:none}', CSS)
         self.assertIn('.quality-tick.is-end{transform:translateX(-100%)}', CSS)
+
+    def test_mobile_playback_pwa_and_zenodo_floater(self):
+        self.assertIn('buildObservationIndex();', APP)
+        self.assertIn('state.carry+=delta>3000?0:delta;', APP)
+        self.assertIn('const interval=matchMedia("(max-width:650px)").matches?520:beatMs;', APP)
+        self.assertIn('advanceBeat(elapsedBeats);', APP)
+        self.assertIn('value="24"', INDEX)
+        self.assertEqual(INDEX.count('id="installApp"'), 1)
+        self.assertIn('id="installApp" type="button"', INDEX)
+        self.assertIn('els.install.hidden=installed();', APP)
+        self.assertIn('Add to Home Screen', APP)
+        self.assertIn('.install-cta[hidden]{display:none!important}', CSS)
+        self.assertIn('.doi-pill{display:flex;right:9px;', CSS)
+        self.assertNotIn('.doi-pill{display:none}', CSS)
+        self.assertIn('Zenodo · DOI pending', APP)
 
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
