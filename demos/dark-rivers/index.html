@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260920-31">
+<html lang="en" data-dark-rivers-version="20260920-32">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -12,17 +12,17 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Dark Rivers">
   <title>Dark Rivers · Salmon of Doubt</title>
-  <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: local sampling pulses reveal persistent Q-value colours.">
+  <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: sampled reaches retain the latest recorded Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260920-31.css">
+  <link rel="stylesheet" href="./styles.20260920-32.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260919-21.js"></script>
   <script defer src="./data.20260919-21.js"></script>
-  <script defer src="./app.20260920-31.js"></script>
+  <script defer src="./app.20260920-32.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -42,8 +42,8 @@
       <div class="content-grid" id="explore">
         <div class="left-column">
           <div class="story-panel">
-            <h1 id="demoTitle">Every flash is an observation.</h1>
-            <p class="lede">Ireland’s connected rivers begin almost dark. Each sample sends a brief signal through its local reach; the last recorded Q-value stays visible as evidence accumulates through time.</p>
+            <h1 id="demoTitle">Every colour is an observation.</h1>
+            <p class="lede">Ireland’s connected rivers begin almost dark. Each sample reveals its local reach; the last recorded Q-value stays visible as evidence accumulates through time.</p>
             <p class="prototype-note" id="dataModeNote"><span><strong>Prototype:</strong> geometry and sampling events are illustrative; Q-value class semantics follow the EPA system.</span></p>
           </div>
 
@@ -77,10 +77,6 @@
               <title id="mapTitle">Dark Rivers map of Ireland</title>
               <desc id="mapDesc">A north-up coastline and connected river network. Use Move map to pan by touch, or swipe normally to scroll the page; zoom controls stay fixed.</desc>
               <defs>
-                <filter id="flashGlow" x="-150%" y="-150%" width="400%" height="400%">
-                  <feGaussianBlur stdDeviation="4" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
                 <filter id="selectedGlow" x="-80%" y="-80%" width="260%" height="260%">
                   <feGaussianBlur stdDeviation="1.7" result="blur"/>
                   <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -112,7 +108,6 @@
                 <path class="river-reach" data-rendered="unobserved" data-reach-id="r14" d="M747 314 C725 321 707 328 693 330 C666 334 635 352 594 378"/>
                 <path class="river-reach" data-rendered="unobserved" data-reach-id="r15" d="M573 535 C545 532 517 538 493 548 C466 560 445 578 428 602"/>
               </g>
-              <g id="flashLayer" aria-hidden="true"></g>
               </g>
 
 
@@ -172,7 +167,7 @@
       </div>
 
       <section class="method-note" aria-label="Playback explanation and data provenance">
-        <p class="timeline-help">Scrub backward to reconstruct the recorded evidence by year.<br>Bright colour marks a sampled section. Fine blue-green threads trace its mapped connections, not measured ecological quality. Flashes show up to six real observations per beat.</p>
+        <p class="timeline-help">Scrub backward to reconstruct the recorded evidence by year.<br>Bright colour marks a sampled section. Fine blue-green threads trace its mapped connections, not measured ecological quality.</p>
         <p class="data-provenance" id="dataProvenance">Illustrative interaction data · awaiting generated EPA dataset</p>
         <p class="data-provenance">Coastline: <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener">Natural Earth 1:10m · public domain</a>.</p>
       </section>
