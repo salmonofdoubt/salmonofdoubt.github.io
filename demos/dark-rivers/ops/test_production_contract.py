@@ -196,6 +196,17 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertNotIn('.doi-pill{display:none}', CSS)
         self.assertIn('Zenodo · DOI pending', APP)
 
+    def test_pwa_has_raster_install_icons_and_offline_cache(self):
+        import json
+        manifest = json.loads((DEMO / "manifest.webmanifest").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["display"], "standalone")
+        icons = manifest["icons"]
+        for name, size in (("icon-192.png", "192x192"), ("icon-512.png", "512x512")):
+            self.assertTrue((DEMO / name).is_file(), name)
+            self.assertTrue(any(icon["src"] == f"./{name}" and icon["sizes"] == size
+                                and icon["type"] == "image/png" for icon in icons))
+            self.assertIn(f'"./{name}"', SW)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
