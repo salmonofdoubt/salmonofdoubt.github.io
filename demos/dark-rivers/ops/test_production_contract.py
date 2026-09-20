@@ -88,15 +88,20 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('<g id="riverSystems" aria-hidden="true"></g>', INDEX)
         self.assertIn('.river-system{', CSS)
 
-    def test_recorded_colour_persists_and_flashes_are_staggered(self):
+    def test_recorded_colour_persists_without_flash_animations(self):
         self.assertIn("const opacity=selected?1:.88;", APP)
         self.assertNotIn("opacityMap={fresh:", APP)
-        self.assertIn('scheduleFlashes(batch,matchMedia("(max-width:650px)").matches?420:690)', APP)
-        self.assertIn('choosePulseEvents(events,6)', APP)
         self.assertIn('const beatMs=790;', APP)
         self.assertIn("historical evidence, not a measurement", APP)
         self.assertNotIn("filter:drop-shadow", CSS.split(".river-reach{", 1)[1].split("}", 1)[0])
-        self.assertIn("Flashes show up to six real observations", INDEX)
+        self.assertIn("Every colour is an observation.", INDEX)
+        self.assertNotIn("flashLayer", INDEX)
+        self.assertNotIn('id="flashGlow"', INDEX)
+        for token in ("scheduleFlashes(", "showFlash(", "pulseGeometry(", "clearFlashTimers(", "flashTimers", "observation-pulse", "sample-flash"):
+            with self.subTest(token=token):
+                self.assertNotIn(token, APP)
+        for token in (".observation-pulse{", ".sample-flash-core{", ".sample-flash-ring{"):
+            self.assertNotIn(token, CSS)
 
     def test_map_navigation_uses_fixed_hud_real_coastline_and_responsive_zoom(self):
         self.assertIn('id="irelandCoastline"', INDEX)
