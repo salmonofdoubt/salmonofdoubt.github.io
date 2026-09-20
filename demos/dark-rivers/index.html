@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260920-27">
+<html lang="en" data-dark-rivers-version="20260920-28">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: local sampling pulses reveal persistent Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260920-27.css">
+  <link rel="stylesheet" href="./styles.20260920-28.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260919-21.js"></script>
   <script defer src="./data.20260919-21.js"></script>
-  <script defer src="./app.20260920-27.js"></script>
+  <script defer src="./app.20260920-28.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -62,7 +62,8 @@
             <div class="quality-panel">
               <div class="quality-heading"><h2>Recorded Q classes through time</h2><span id="qualityYear" aria-live="off">1971</span></div>
               <div class="quality-chart-wrap"><svg id="qualityChart" class="quality-chart" viewBox="0 0 330 82" preserveAspectRatio="none" role="img" aria-label="Recorded Q-class history up to the selected year"><title>Recorded Q-class history</title></svg></div>
-              <div class="quality-axis"><span data-min-year>1971</span><span id="qualitySummary" aria-live="polite">Awaiting observations</span><span data-max-year>2025</span></div>
+              <div class="quality-axis" id="qualityAxis" aria-label="Years on the Q-class history graph"><span class="quality-tick is-start" style="left:0.00%">1971</span><span class="quality-tick is-decade" style="left:16.67%">1980</span><span class="quality-tick is-decade" style="left:35.19%">1990</span><span class="quality-tick is-decade" style="left:53.70%">2000</span><span class="quality-tick is-decade" style="left:72.22%">2010</span><span class="quality-tick is-decade" style="left:90.74%">2020</span><span class="quality-tick is-end" style="left:100.00%">2025</span></div>
+              <div class="quality-summary" id="qualitySummary" aria-live="polite">Awaiting observations</div>
               <div class="quality-legend" aria-label="Biological Q class colours"><span class="quality-key"><i class="quality-dot quality-high"></i>High</span><span class="quality-key"><i class="quality-dot quality-good"></i>Good</span><span class="quality-key"><i class="quality-dot quality-moderate"></i>Moderate</span><span class="quality-key"><i class="quality-dot quality-poor"></i>Poor</span><span class="quality-key"><i class="quality-dot quality-bad"></i>Bad</span></div>
               <p class="quality-method">Latest recorded class per sampled reach; older records persist until replaced. Unobserved rivers excluded. Changes may reflect sampling coverage.</p>
             </div>
