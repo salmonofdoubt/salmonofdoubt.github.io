@@ -207,6 +207,18 @@ class DarkRiversProductionContractTests(unittest.TestCase):
                                 and icon["type"] == "image/png" for icon in icons))
             self.assertIn(f'"./{name}"', SW)
 
+    def test_mobile_map_swipes_scroll_page_until_move_mode_enabled(self):
+        self.assertEqual(INDEX.count('id="mapTouchPan"'), 1)
+        self.assertIn('Use Move map to pan by touch', INDEX)
+        self.assertIn('touch-action:pan-y;', CSS)
+        self.assertIn('.river-map.is-touch-panning{touch-action:none;', CSS)
+        self.assertIn('if(touch&&!state.mapTouchPanEnabled)return;', APP)
+        self.assertIn('els.map.classList.toggle("is-touch-panning",state.mapTouchPanEnabled);', APP)
+        self.assertIn('const next=state.mapPanPending;', APP)
+        self.assertIn('applyHydroTransform(false);', APP)
+        self.assertIn('if(updateLabels)updateSeaLabels();', APP)
+        self.assertIn('.map-shell{height:min(53svh,430px);min-height:320px}', CSS)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
