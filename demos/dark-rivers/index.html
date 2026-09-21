@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260921-33">
+<html lang="en" data-dark-rivers-version="20260921-34">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: sampled reaches retain the latest recorded Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260921-33.css">
+  <link rel="stylesheet" href="./styles.20260921-34.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260919-21.js"></script>
   <script defer src="./data.20260919-21.js"></script>
-  <script defer src="./app.20260921-33.js"></script>
+  <script defer src="./app.20260921-34.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -69,6 +69,7 @@
               <div class="quality-legend" aria-label="Biological Q class colours"><span class="quality-key"><i class="quality-dot quality-high"></i>High</span><span class="quality-key"><i class="quality-dot quality-good"></i>Good</span><span class="quality-key"><i class="quality-dot quality-moderate"></i>Moderate</span><span class="quality-key"><i class="quality-dot quality-poor"></i>Poor</span><span class="quality-key"><i class="quality-dot quality-bad"></i>Bad</span></div>
               <p class="quality-method">Latest recorded class per sampled reach; older records persist until replaced. Unobserved rivers excluded. Changes may reflect sampling coverage.</p>
             </div>
+            <div class="mobile-dashboard" id="mobileDashboard" aria-label="Live observation and coverage charts"></div>
             <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
           </section>
 
@@ -143,6 +144,7 @@
           <section class="metric-card">
             <div class="card-head"><h2>River network state</h2><span id="stateBasis">complete mapped network share</span></div>
             <div class="state-bar" id="stateBar" aria-label="Current mapped river network state"></div>
+            <p class="mobile-coverage-readout" id="mobileCoverage" aria-live="off">0.0% revealed · 100.0% dark</p>
             <ul class="state-legend" id="stateLegend"></ul>
             <div class="state-total"><span>Complete mapped network</span><strong>100%</strong></div>
           </section>
