@@ -237,6 +237,24 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('body.use-raster-network .mobile-river-raster{display:block}', CSS)
         self.assertIn('"./data/network-mobile.png"', SW)
 
+    def test_two_finger_pinch_zoom_preserves_normal_page_scroll(self):
+        self.assertIn('Pinch with two fingers to zoom the map.', INDEX)
+        self.assertIn('class="map-pinch-hint"', INDEX)
+        self.assertIn('touch-action:pan-y;', CSS)
+        self.assertIn('.river-map.is-touch-panning{touch-action:none;', CSS)
+        self.assertIn('els.map.addEventListener("touchstart",event=>{', APP)
+        self.assertIn('els.map.addEventListener("touchmove",event=>{', APP)
+        self.assertIn('},\{passive:false\});'.replace('\\', ''), APP)
+        self.assertIn('if(event.touches.length!==2)', APP)
+        self.assertIn('if(event.cancelable)event.preventDefault();', APP)
+        self.assertIn('function pinchTransform(start,center,distance,base){', APP)
+        self.assertIn('start.zoom*distance/start.distance', APP)
+        self.assertIn('panX:center.x-(base.a*start.sourceX+base.e)*zoom', APP)
+        self.assertIn('pinchFrame=requestAnimationFrame(', APP)
+        self.assertIn('els.map.addEventListener("touchend",stopPinch);', APP)
+        self.assertIn('if(touch&&(!state.mapTouchPanEnabled||pinch))return;', APP)
+        self.assertNotIn('id="flashLayer"', INDEX)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
