@@ -275,6 +275,24 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('body.use-raster-network .mobile-river-raster{display:block}', CSS)
         self.assertIn('.doi-pill{display:flex;right:9px;', CSS)
 
+    def test_mobile_compact_dashboard_keeps_three_graphs_and_map_in_view(self):
+        self.assertEqual(INDEX.count('id="qualityChart"'), 1)
+        self.assertEqual(INDEX.count('id="historyChart"'), 1)
+        self.assertEqual(INDEX.count('id="stateBar"'), 1)
+        self.assertLess(INDEX.index('id="playButton"'), INDEX.index('id="qualityChart"'))
+        self.assertLess(INDEX.index('id="qualityChart"'), INDEX.index('id="mobileDashboard"'))
+        self.assertLess(INDEX.index('id="mobileDashboard"'), INDEX.index('id="yearRange"'))
+        self.assertLess(INDEX.index('id="yearRange"'), INDEX.index('id="riverMap"'))
+        self.assertIn('.story-panel{display:none}', CSS)
+        self.assertIn('.playback-deck .quality-chart-wrap,.playback-deck .quality-chart{height:36px}', CSS)
+        self.assertIn('.mobile-dashboard .chart-wrap,.mobile-dashboard .history-chart{height:36px}', CSS)
+        self.assertIn('.mobile-dashboard .state-bar{height:8px', CSS)
+        self.assertIn('height:clamp(340px,calc(100svh - 294px),690px)', CSS)
+        self.assertIn('.topnav a[href="#about"]{display:inline-flex!important;', CSS)
+        self.assertIn('Pinch with two fingers to zoom the map.', INDEX)
+        self.assertIn('.doi-pill{display:flex;right:9px;', CSS)
+        self.assertIn('id="installApp"', INDEX)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
