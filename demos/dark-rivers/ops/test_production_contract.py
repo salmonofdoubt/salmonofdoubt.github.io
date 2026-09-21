@@ -255,6 +255,26 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('if(touch&&(!state.mapTouchPanEnabled||pinch))return;', APP)
         self.assertNotIn('id="flashLayer"', INDEX)
 
+    def test_mobile_dashboard_reuses_both_real_charts_and_network_state(self):
+        self.assertEqual(INDEX.count('id="mobileDashboard"'), 1)
+        self.assertEqual(INDEX.count('id="historyChart"'), 1)
+        self.assertEqual(INDEX.count('id="qualityChart"'), 1)
+        self.assertEqual(INDEX.count('id="stateBar"'), 1)
+        self.assertLess(INDEX.index('id="qualityChart"'), INDEX.index('id="mobileDashboard"'))
+        self.assertLess(INDEX.index('id="mobileDashboard"'), INDEX.index('id="riverMap"'))
+        self.assertIn('function setupResponsiveDashboard(){', APP)
+        self.assertIn('slot.append(history,network);', APP)
+        self.assertIn('analytics.insertBefore(network,live);', APP)
+        self.assertIn('analytics.append(history);', APP)
+        self.assertIn('setupResponsiveDashboard();', APP)
+        self.assertIn('id="mobileCoverage"', INDEX)
+        self.assertIn('els.mobileCoverage.textContent=', APP)
+        self.assertIn('.mobile-dashboard .chart-wrap{height:66px', CSS)
+        self.assertIn('.mobile-dashboard .state-bar{height:13px', CSS)
+        self.assertIn('.mobile-dashboard .state-legend,.mobile-dashboard .state-total{display:none}', CSS)
+        self.assertIn('body.use-raster-network .mobile-river-raster{display:block}', CSS)
+        self.assertIn('.doi-pill{display:flex;right:9px;', CSS)
+
     def test_no_literal_escaped_newlines_in_css(self):
         self.assertNotIn(r"\n", CSS)
 
