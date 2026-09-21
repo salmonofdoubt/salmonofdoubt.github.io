@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260920-32">
+<html lang="en" data-dark-rivers-version="20260921-33">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,14 +15,14 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: sampled reaches retain the latest recorded Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260920-32.css">
+  <link rel="stylesheet" href="./styles.20260921-33.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260919-21.js"></script>
   <script defer src="./data.20260919-21.js"></script>
-  <script defer src="./app.20260920-32.js"></script>
+  <script defer src="./app.20260921-33.js"></script>
 </head>
 <body>
   <main class="demo-stage">
@@ -75,7 +75,7 @@
           <div class="map-shell">
             <svg id="riverMap" class="river-map" viewBox="0 0 1000 720" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapTitle mapDesc">
               <title id="mapTitle">Dark Rivers map of Ireland</title>
-              <desc id="mapDesc">A north-up coastline and connected river network. Use Move map to pan by touch, or swipe normally to scroll the page; zoom controls stay fixed.</desc>
+              <desc id="mapDesc">A north-up coastline and connected river network. Pinch with two fingers to zoom the map. One-finger swipes scroll the page; select Move map for one-finger panning. Zoom controls stay fixed.</desc>
               <defs>
                 <filter id="selectedGlow" x="-80%" y="-80%" width="260%" height="260%">
                   <feGaussianBlur stdDeviation="1.7" result="blur"/>
@@ -121,6 +121,7 @@
             </div>
 
             <button class="map-gesture-button" id="mapTouchPan" type="button" aria-pressed="false" aria-controls="riverMap" title="Switch between page scrolling and moving the map">Move map</button>
+            <span class="map-pinch-hint" aria-hidden="true">Pinch to zoom</span>
             <div class="map-tools" aria-label="Map zoom controls">
               <button type="button" id="mapZoomIn" aria-label="Zoom in">+</button>
               <button type="button" id="mapZoomOut" aria-label="Zoom out">−</button>
