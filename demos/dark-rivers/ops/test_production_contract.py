@@ -214,7 +214,7 @@ class DarkRiversProductionContractTests(unittest.TestCase):
 
     def test_mobile_map_swipes_scroll_page_until_move_mode_enabled(self):
         self.assertEqual(INDEX.count('id="mapTouchPan"'), 1)
-        self.assertIn('Use Move map to pan by touch', INDEX)
+        self.assertIn('id="mapTouchPan" type="button" aria-pressed="false" aria-controls="riverMap"', INDEX)
         self.assertIn('touch-action:pan-y;', CSS)
         self.assertIn('.river-map.is-touch-panning{touch-action:none;', CSS)
         self.assertIn('if(touch&&!state.mapTouchPanEnabled)return;', APP)
