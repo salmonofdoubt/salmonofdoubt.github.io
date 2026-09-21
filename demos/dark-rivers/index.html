@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-dark-rivers-version="20260921-34">
+<html lang="en" data-dark-rivers-version="20260921-35">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -15,20 +15,20 @@
   <meta name="description" content="Watch Ireland’s recorded biological river observations emerge through time: sampled reaches retain the latest recorded Q-value colours.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.20260921-34.css">
+  <link rel="stylesheet" href="./styles.20260921-35.css">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.20260919-21.js"></script>
   <script defer src="./data.20260919-21.js"></script>
-  <script defer src="./app.20260921-34.js"></script>
+  <script defer src="./app.20260921-35.js"></script>
 </head>
 <body>
   <main class="demo-stage">
     <section class="demo-canvas" aria-labelledby="demoTitle">
       <header class="topbar">
-        <div class="top-meta">Dark Rivers &nbsp;/&nbsp; Ireland’s river observations &nbsp;/&nbsp; <span data-min-year>1971</span>–<span data-max-year>2025</span></div>
+        <div class="top-meta"><span class="mobile-brand">Dark Rivers</span><span class="top-meta-detail"> &nbsp;/&nbsp; Ireland’s river observations &nbsp;/&nbsp; <span data-min-year>1971</span>–<span data-max-year>2025</span></span></div>
         <nav class="topnav" aria-label="Dark Rivers sections">
           <a class="is-active" href="#explore">Explore</a>
           <a href="#about">About</a>
@@ -47,7 +47,7 @@
             <p class="prototype-note" id="dataModeNote"><span><strong>Prototype:</strong> geometry and sampling events are illustrative; Q-value class semantics follow the EPA system.</span></p>
           </div>
 
-          <section class="timeline-panel playback-deck" id="playbackDeck" aria-label="River map playback and recorded Q-class history">
+          <section class="timeline-panel playback-deck" id="playbackDeck" aria-label="Play the river map and compare recorded Q classes, observations and mapped-network coverage">
             <div class="playback-controls">
           <button class="primary-button" id="playButton" type="button" aria-pressed="false">▶&nbsp; Play</button>
           <button class="secondary-button" id="resetButton" type="button">↻&nbsp; Reset</button>
@@ -69,7 +69,7 @@
               <div class="quality-legend" aria-label="Biological Q class colours"><span class="quality-key"><i class="quality-dot quality-high"></i>High</span><span class="quality-key"><i class="quality-dot quality-good"></i>Good</span><span class="quality-key"><i class="quality-dot quality-moderate"></i>Moderate</span><span class="quality-key"><i class="quality-dot quality-poor"></i>Poor</span><span class="quality-key"><i class="quality-dot quality-bad"></i>Bad</span></div>
               <p class="quality-method">Latest recorded class per sampled reach; older records persist until replaced. Unobserved rivers excluded. Changes may reflect sampling coverage.</p>
             </div>
-            <div class="mobile-dashboard" id="mobileDashboard" aria-label="Live observation and coverage charts"></div>
+            <div class="mobile-dashboard" id="mobileDashboard" aria-label="Observations through time and mapped-network coverage"></div>
             <div class="timeline-row"><span data-min-year>1971</span><input id="yearRange" type="range" min="1971" max="2025" value="1971" step="1" aria-label="Observation year"><span data-max-year>2025</span></div>
           </section>
 
