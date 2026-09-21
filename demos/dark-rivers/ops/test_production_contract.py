@@ -244,7 +244,7 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn('.river-map.is-touch-panning{touch-action:none;', CSS)
         self.assertIn('els.map.addEventListener("touchstart",event=>{', APP)
         self.assertIn('els.map.addEventListener("touchmove",event=>{', APP)
-        self.assertIn('},\{passive:false\});'.replace('\\', ''), APP)
+        self.assertIn('},{passive:false});', APP)
         self.assertIn('if(event.touches.length!==2)', APP)
         self.assertIn('if(event.cancelable)event.preventDefault();', APP)
         self.assertIn('function pinchTransform(start,center,distance,base){', APP)
