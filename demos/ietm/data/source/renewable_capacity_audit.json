@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-22T12:05:20+00:00",
+  "generated_at": "2026-09-22T16:51:26+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
@@ -33,22 +33,22 @@
     },
     "eirgrid_tso_contracted_wind": {
       "status": "loaded",
-      "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Wind-Report-28-11-2025.pdf",
-      "bytes": 200808,
-      "pages": 2,
+      "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Wind-Report-05-08-2026.pdf",
+      "bytes": 204969,
+      "pages": 3,
       "source_key": "eirgrid_tso_contracted_wind",
-      "records": 25,
-      "source_correct_as_of": "28/11/2025",
+      "records": 31,
+      "source_correct_as_of": "05/08/2026",
       "parser": "pdf_line_window_v1"
     },
     "eirgrid_tso_contracted_non_wind": {
       "status": "loaded",
-      "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Non-Wind-Report-28-11-2025.pdf",
-      "bytes": 320055,
-      "pages": 8,
+      "url": "https://cms.eirgrid.ie/sites/default/files/publications/TSO-Contracted-Non-Wind-Report-05-08-2026.pdf",
+      "bytes": 328156,
+      "pages": 9,
       "source_key": "eirgrid_tso_contracted_non_wind",
-      "records": 100,
-      "source_correct_as_of": "28/11/2025",
+      "records": 123,
+      "source_correct_as_of": "05/08/2026",
       "parser": "pdf_line_window_v1"
     },
     "esb_dso_contracted_renewable": {
