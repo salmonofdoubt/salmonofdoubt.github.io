@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-09-22T16:51:43+00:00",
+    "generated_at": "2026-09-22T19:55:35+00:00",
     "schema_version": "transition_pathway_v2",
     "builder": "build_transition_pathway.py",
     "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -55,8 +55,8 @@
       "caveat": "Observed grid renewable-cover proxy from local daily history. This is not official annual RES-E and must not be joined silently to the SEAI series."
     },
     "latest_snapshot": {
-      "datetime": "2026-09-22T17:45:00+01:00",
-      "value": 7.4,
+      "datetime": "2026-09-22T20:45:00+01:00",
+      "value": 5.4,
       "unit": "%",
       "basis": "latest_grid_snapshot",
       "source_label": "Smart Grid Dashboard API",
@@ -688,9 +688,9 @@
       },
       {
         "date": "2026-09-22",
-        "captured_at": "2026-09-22T16:51:41+00:00",
-        "value": 7.4,
-        "weight_mw": 5819.0,
+        "captured_at": "2026-09-22T19:55:34+00:00",
+        "value": 5.4,
+        "weight_mw": 5638.0,
         "estimated_backfill": false
       }
     ]
@@ -701,8 +701,7 @@
     "project_count_by_status": {
       "aggregate_observed": 3,
       "connected": 584,
-      "contracted": 416,
-      "removed_from_register_candidate": 2
+      "contracted": 416
     },
     "stock_by_status_technology_mw": [
       {
@@ -769,11 +768,6 @@
         "status": "contracted",
         "technology": "wind_onshore",
         "capacity_mw": 3003.802
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "solar",
-        "capacity_mw": 114.0
       }
     ],
     "expected_cumulative_by_year": {
@@ -1299,22 +1293,6 @@
         "timing_year": 2026,
         "count": 7,
         "capacity_mw": 493.3
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "solar",
-        "timing_basis": "generic_year_weak_not_online_date",
-        "timing_year": 2026,
-        "count": 1,
-        "capacity_mw": 34.0
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "solar",
-        "timing_basis": "raw_line_month_year_weak_not_online_date",
-        "timing_year": 2024,
-        "count": 1,
-        "capacity_mw": 80.0
       }
     ]
   },
