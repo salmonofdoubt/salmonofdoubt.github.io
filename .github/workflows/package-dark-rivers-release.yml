@@ -1,0 +1,39 @@
+name: Package Dark Rivers release
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "Git branch, tag or exact commit to archive (copy Source commit from the run into the draft release)"
+        required: true
+        default: master
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Prepare Dark Rivers v0.1.0 ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout selected source snapshot
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+          persist-credentials: false
+
+      - name: Verify packaging script syntax
+        run: python3 -m py_compile demos/dark-rivers/ops/package_release.py
+
+      - name: Build and verify the dedicated Dark Rivers ZIP
+        run: python3 demos/dark-rivers/ops/package_release.py
+
+      - name: Offer release asset for download
+        uses: actions/upload-artifact@v4
+        with:
+          name: dark-rivers-v0.1.0-${{ github.run_id }}
+          path: dist/dark-rivers-v0.1.0.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
