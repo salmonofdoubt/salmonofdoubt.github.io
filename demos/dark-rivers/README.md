@@ -1,6 +1,6 @@
 # Dark Rivers
 
-**Dark Rivers v0.1.0** is an interactive, time-controlled exploration of Ireland's historical biological river-monitoring observations. It presents the most recently revealed biological Q-value class at locally sampled reaches, an observation history, an observation-based distribution of Q classes, and the proportion of the mapped river network represented by sampled reaches.
+**Dark Rivers v0.1.0** is an interactive, time-controlled exploration of Ireland's historical biological river-monitoring observations. It presents the most recently revealed biological Q-value class at locally sampled reaches, an observation history, an observation-based distribution of Q classes, and the proportion of the mapped river network represented by sampled reaches. 
 
 - Live demonstration: https://salmonofdoubt.github.io/demos/dark-rivers/
 - Preserved release DOI: https://doi.org/10.5281/zenodo.22899198
