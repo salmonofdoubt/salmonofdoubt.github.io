@@ -142,6 +142,16 @@ class DarkRiversProductionContractTests(unittest.TestCase):
         self.assertIn("Mapped network revealed", INDEX)
         self.assertNotIn("station-associated reach share", INDEX)
 
+    def test_page_and_runtime_use_reserved_dark_rivers_doi(self):
+        doi = "10.5281/zenodo.22899198"
+        url = "https://doi.org/" + doi
+        configuration = (DEMO / ASSETS["site-config"]).read_text(encoding="utf-8")
+        self.assertIn(f"doi: '{doi}'", configuration)
+        self.assertIn(f"doiUrl: '{url}'", configuration)
+        self.assertIn(f'id="doiPill" href="{url}"', INDEX)
+        self.assertIn(f'<span id="doiText">{doi}</span>', INDEX)
+        self.assertNotIn('class="doi-pill is-placeholder" id="doiPill"', INDEX)
+
     def test_service_worker_matches_build_and_purges_old_caches(self):
         cache_suffix = BUILD.split("-")[-1]
         self.assertIn(f"salmon-dark-rivers-v{cache_suffix}", SW)
