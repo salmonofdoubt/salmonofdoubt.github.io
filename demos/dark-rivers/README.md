@@ -3,7 +3,7 @@
 **Dark Rivers v0.1.0** is an interactive, time-controlled exploration of Ireland's historical biological river-monitoring observations. It presents the most recently revealed biological Q-value class at locally sampled reaches, an observation history, an observation-based distribution of Q classes, and the proportion of the mapped river network represented by sampled reaches. 
 
 - Live demonstration: https://salmonofdoubt.github.io/demos/dark-rivers/
-- Preserved release DOI: https://doi.org/10.5281/zenodo.22899198
+- Preserved release DOI: https://doi.org/10.5281/zenodo.22900726
 - Project source: https://github.com/salmonofdoubt/salmonofdoubt.github.io/tree/master/demos/dark-rivers
 - Dedicated GitHub release tag: `dark-rivers-v0.1.0`
 
@@ -42,14 +42,10 @@ Then open `http://localhost:8000/demos/dark-rivers/`. Do not open `index.html` d
 
 The release ZIP contains `SNAPSHOT.json` with the Git commit and per-file SHA-256 checksums to distinguish the preserved release from later changes to the live website.
 
-## Packaging and publication
+## Releasing and citing Dark Rivers
 
-From the website repository root:
+The standalone archival repository is [salmonofdoubt/dark-rivers](https://github.com/salmonofdoubt/dark-rivers). The first standalone release is [v0.1.0](https://github.com/salmonofdoubt/dark-rivers/releases/tag/v0.1.0) and its Zenodo release DOI is [10.5281/zenodo.22900726](https://doi.org/10.5281/zenodo.22900726).
 
-```sh
-python3 demos/dark-rivers/ops/package_release.py
-```
+For subsequent versions, update the standalone repository with the intended Dark Rivers application and its required assets, data, processing source, and documentation. Publish a **new release in the standalone repository** after confirming its Zenodo GitHub integration is enabled. Zenodo archives that repository automatically and assigns a DOI for the new release; then update the DOI on the live website. Do not release the entire `salmonofdoubt.github.io` repository for Dark Rivers archiving or use the earlier manual Zenodo draft for this process.
 
-This creates `dist/dark-rivers-v0.1.0.zip` without modifying the live site. The manual GitHub Actions workflow **Package Dark Rivers release** can run the same script and offers the ZIP as a downloadable workflow artifact. Attach the resulting Dark Rivers ZIP to the existing **draft** GitHub release and upload **the same ZIP** to the existing manual Zenodo draft for DOI `10.5281/zenodo.22899198`. Do not enable automatic GitHub-to-Zenodo archiving for this release: that could produce a different deposit and DOI.
-
-Match the release tag's target commit to the `source_commit` recorded in `SNAPSHOT.json` before publishing. The GitHub-generated source archive on the release page covers the whole website repository; it is **not** the dedicated Dark Rivers deposit.
+The website repository retains the older dedicated-ZIP packaging script and workflow for reproducing the historical snapshot. That ZIP is **not** the automatic Zenodo repository archive; the Zenodo release is generated from the standalone repository.
