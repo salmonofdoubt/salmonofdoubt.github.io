@@ -1,118 +1,98 @@
 {
-  "generated_at": "2026-09-23T10:01:47.381982+00:00",
-  "latest_generated_at": "2026-09-23T10:01:37.549639+00:00",
+  "generated_at": "2026-09-24T10:03:46.668233+00:00",
+  "latest_generated_at": "2026-09-24T10:03:34.723030+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "ireland-catchment-practice": 17,
+    "grants-opportunities": 17,
+    "waterbody-evidence-alerts": 27,
     "research-papers": 36,
-    "grants-opportunities": 18,
-    "waterbody-evidence-alerts": 24
+    "ireland-catchment-practice": 15
   },
   "top_pressure_categories": [
     {
-      "pressure": "citizen science / monitoring",
-      "count": 30
+      "pressure": "NbS / restoration",
+      "count": 52
     },
     {
-      "pressure": "policy / governance",
-      "count": 30
-    },
-    {
-      "pressure": "agricultural runoff",
-      "count": 29
+      "pressure": "water quality",
+      "count": 36
     },
     {
       "pressure": "habitat / biodiversity",
       "count": 28
     },
     {
-      "pressure": "NbS / restoration",
-      "count": 26
+      "pressure": "policy / governance",
+      "count": 27
     },
     {
-      "pressure": "water quality",
+      "pressure": "agricultural runoff",
       "count": 24
     },
     {
       "pressure": "funding / grant",
-      "count": 21
+      "count": 20
+    },
+    {
+      "pressure": "citizen science / monitoring",
+      "count": 17
     },
     {
       "pressure": "nutrients",
       "count": 12
     },
     {
-      "pressure": "sediment / hydromorphology",
+      "pressure": "septic / domestic wastewater",
       "count": 10
     },
     {
-      "pressure": "septic / domestic wastewater",
-      "count": 8
-    },
-    {
       "pressure": "incident / alert",
-      "count": 7
+      "count": 9
     },
     {
       "pressure": "general catchment signal",
       "count": 6
+    },
+    {
+      "pressure": "sediment / hydromorphology",
+      "count": 5
     }
   ],
   "items": [
     {
       "id": "c15944002653fd1a",
-      "title": "Louth TD Erin McGreehan urges expansion of septic tank repair grants - independent.ie",
+      "title": "Louth TD Erin McGreehan urges expansion of septic tank repair grants - Irish Independent",
       "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQjI2U3E3Nnl4a3d2bUdhdVdOcXdEZjJoWEx2OUpna2xNdElaa2duTEgxZlBpSHBwNERWYXBPbUlBeGt6R2huT3A0SUNHNTVsd25KdVlyLUo2bDZQMHBFd1ZSU3h0UDl1WS1PRm9ieEwxZzNqNDFEb1RiRE8xU0xYWUVTS1RETTl4RnhZN3JpTWZWLVlZQUE2NnZWbXFZb1VDdVpfWGtWcDVLTWZiZlZWdDdWRFgyekEwTkNaRFZaTENLVTQ?oc=5",
       "section": "grants-opportunities",
       "source_name": "Google News: Meath Louth Fingal catchment signals",
       "published": "2026-07-10",
-      "score": 97,
-      "practical_score": 144.0,
-      "freshness_label": "75 days old",
+      "score": 100,
+      "practical_score": 154.0,
+      "freshness_label": "76 days old",
       "pressure_categories": [
         "septic / domestic wastewater",
         "funding / grant",
         "policy / governance"
       ],
       "local_relevance": {
-        "score": 62,
+        "score": 72,
         "label": "High local relevance",
         "matched_terms": [
+          "Ireland",
           "fingal",
           "louth",
           "meath"
         ]
       },
       "opportunity_fit": {
-        "fit": "Low",
-        "score": 53,
+        "fit": "Medium",
+        "score": 63,
         "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
         "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
       },
       "research_use_type": null,
       "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, funding / grant, policy / governance, citizen science, engagement, or small catchment actions."
-    },
-    {
-      "id": "a49c4a02dbbd63e4",
-      "title": "A Soil Erosion Indicator for Supporting Agricultural, Environmental and Climate Policies in the European Union",
-      "url": "https://doi.org/10.3390/rs12091365",
-      "section": "research-papers",
-      "source_name": "Remote Sensing",
-      "published": "2020-04-26",
-      "score": 100,
-      "practical_score": 143.0,
-      "freshness_label": "2020 · 223 citations · open access",
-      "pressure_categories": [
-        "agricultural runoff",
-        "sediment / hydromorphology",
-        "NbS / restoration",
-        "citizen science / monitoring"
-      ],
-      "local_relevance": null,
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for agricultural runoff, sediment / hydromorphology, NbS / restoration."
     },
     {
       "id": "4f44253263213588",
@@ -314,6 +294,34 @@
       "id": "5439804a3bae6e06",
       "title": "Policy & Advocacy",
       "url": "https://theriverstrust.org/about-us/news?c=98799",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "The Rivers Trust News",
+      "published": null,
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "nutrients",
+        "habitat / biodiversity",
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+    },
+    {
+      "id": "d2a22c14a8b8f34e",
+      "title": "Raw sewage in our rivers",
+      "url": "https://theriverstrust.org/about-us/news?c=46810",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
