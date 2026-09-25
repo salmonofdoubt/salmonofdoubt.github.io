@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-09-24T10:02:37+00:00",
+  "generated_at": "2026-09-25T10:12:40+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
-  "links_seen": 4494,
+  "links_seen": 4496,
   "funding_like_links": 477,
   "candidate_fetches": 300,
-  "pending_review_count": 115,
+  "pending_review_count": 113,
   "status_counts": {
-    "pending_review": 115,
-    "suppressed_non_actionable": 46,
+    "pending_review": 113,
+    "suppressed_non_actionable": 50,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 11,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 55
+    "suppressed_fetch_error": 53
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 90,
+    "funding_call": 88,
     "scholarship": 20,
     "generic_funding_hub": 6,
-    "tender": 13,
-    "unknown": 55
+    "tender": 17,
+    "unknown": 53
   },
   "seeds": [
     {
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 148,
+      "links_seen": 149,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 148,
+      "links_seen": 149,
       "funding_like_links": 0,
       "candidates_fetched": 0
     }
