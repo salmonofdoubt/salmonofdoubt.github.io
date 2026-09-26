@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25T10:15:20+00:00",
+  "generated_at": "2026-09-26T09:56:26+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -105,11 +105,11 @@
   ],
   "state_source_counts": {
     "last_known_good": 8,
-    "registry_fallback": 22,
+    "registry_fallback": 23,
     "deadline_past_recurring": 3,
     "registry_fallback_after_fetch_error": 4,
-    "deadline_future": 2,
     "page_status_open": 2,
+    "deadline_future": 1,
     "page_status_closed": 1
   },
   "public_visible_count": 40,
