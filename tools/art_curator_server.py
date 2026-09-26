@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+import shutil
 
 import base64
 import json
@@ -13,10 +14,24 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse
 
+from art_related import (
+    add_reference_upload,
+    build_public_related,
+    client_reference,
+    delete_reference_record,
+    delete_related_set,
+    load_master,
+    reference_path,
+    save_master,
+    save_reference,
+    save_related_set,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "art"
 ARTWORKS_PATH = ART / "data" / "artworks.json"
 CURATION_PATH = ART / "data" / "art-curation.json"
+RELATED_WORKS_PATH = ART / "data" / "related-works.json"
 BUILD_SCRIPT = ROOT / "tools" / "build_art_gallery_static.py"
 
 COLLECTION_SLUGS = {
@@ -228,6 +243,7 @@ def create_artwork_from_upload(payload: dict) -> dict:
     }
 
 
+
 class ArtManagerHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(ROOT), **kwargs)
@@ -259,9 +275,104 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
+
+        # RELATED_CANONICAL_V1
+        if path == "/api/references":
+            master = load_master()
+            self.send_json(200, {
+                "ok": True,
+                "references": [client_reference(r) for r in master.get("references", [])],
+            })
+            return
+
+        if path.startswith("/api/reference-image/"):
+            ref_id = path.rsplit("/", 1)[-1]
+            target = reference_path(ref_id)
+            if not target:
+                self.send_error(404, "Reference image not found")
+                return
+
+            content_type = {
+                ".jpg":"image/jpeg",".jpeg":"image/jpeg",".png":"image/png",
+                ".webp":"image/webp",".gif":"image/gif",".avif":"image/avif",
+            }.get(target.suffix.lower(),"application/octet-stream")
+
+            payload=target.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type",content_type)
+            self.send_header("Content-Length",str(len(payload)))
+            self.send_header("Cache-Control","no-store")
+            self.end_headers()
+            self.wfile.write(payload)
+            return
+
+        # RELATED_GROUPS_GET_V3
+        if path == "/api/related-groups":
+            master = load_master()
+            groups = master.get("sets", [])
+
+            # One-time recovery fallback from the References-v1 store.
+            recovered_path = ROOT / ".art-private" / "related-groups.json"
+            if not groups and recovered_path.exists():
+                recovered = read_json(
+                    recovered_path,
+                    {"version": 2, "groups": []},
+                )
+                recovered_groups = recovered.get("groups", [])
+                if recovered_groups:
+                    master["sets"] = recovered_groups
+                    save_master(master)
+                    groups = recovered_groups
+
+            self.send_json(
+                200,
+                {
+                    "ok": True,
+                    "related": {
+                        "version": 2,
+                        "groups": groups,
+                    },
+                },
+            )
+            return
+
         if path == "/api/health":
             self.send_json(200, {"ok": True, "server": "art-manager", "root": str(ROOT)})
             return
+
+        if path.startswith("/.art-private/"):
+            self.send_error(404)
+            return
+
+        if path == "/api/related-state":
+            self.send_json(200, {"ok": True, "state": load_master()})
+            return
+
+        if path.startswith("/api/related-reference/"):
+            ref_id = path.rsplit("/", 1)[-1]
+            target = reference_path(ref_id)
+            if not target:
+                self.send_error(404, "Reference image not found")
+                return
+
+            content_type = {
+                ".jpg": "image/jpeg",
+                ".jpeg": "image/jpeg",
+                ".png": "image/png",
+                ".webp": "image/webp",
+                ".gif": "image/gif",
+                ".avif": "image/avif",
+            }.get(target.suffix.lower(), "application/octet-stream")
+
+            body = target.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
+
         super().do_GET()
 
     def do_POST(self) -> None:
@@ -414,6 +525,123 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                 self.save_and_rebuild("Artwork added and gallery rebuilt", {"record": record})
                 return
 
+            if path == "/api/related-state":
+                payload = self.read_payload()
+                state = payload.get("state")
+                if not isinstance(state, dict):
+                    self.send_json(400, {"ok": False, "error": "Missing related-work state"})
+                    return
+
+                state = save_master(state)
+                build_public_related()
+                self.save_and_rebuild("Related works saved and gallery rebuilt", {"state": state})
+                return
+
+            if path == "/api/add-related-reference":
+                payload = self.read_payload()
+                state, reference = add_reference_upload(payload)
+                build_public_related()
+                self.save_and_rebuild(
+                    "Reference added and gallery rebuilt",
+                    {"state": state, "reference": reference},
+                )
+                return
+
+            # RELATED_CANONICAL_V1
+            if path == "/api/save-reference":
+                try:
+                    master, reference = save_reference(self.read_payload())
+                except KeyError as exc:
+                    self.send_json(404, {"ok":False,"error":str(exc).strip("'")})
+                    return
+                except ValueError as exc:
+                    self.send_json(400, {"ok":False,"error":str(exc)})
+                    return
+
+                self.send_json(200,{
+                    "ok":True,
+                    "reference":client_reference(reference),
+                    "references":[client_reference(r) for r in master.get("references",[])],
+                })
+                return
+
+            if path == "/api/delete-reference":
+                ref_id=str(self.read_payload().get("id") or "").strip()
+                if not ref_id:
+                    self.send_json(400,{"ok":False,"error":"Missing reference ID"})
+                    return
+
+                try:
+                    master, affected = delete_reference_record(ref_id)
+                except KeyError as exc:
+                    self.send_json(404,{"ok":False,"error":str(exc).strip("'")})
+                    return
+
+                self.send_json(200,{
+                    "ok":True,
+                    "references":[client_reference(r) for r in master.get("references",[])],
+                    "related":{"version":2,"groups":master.get("sets",[])},
+                    "affectedGroups":affected,
+                })
+                return
+
+            if path == "/api/related-groups":
+                master=load_master()
+                self.send_json(200,{
+                    "ok":True,
+                    "related":{"version":2,"groups":master.get("sets",[])}
+                })
+                return
+
+            if path == "/api/save-related-group":
+                payload=self.read_payload()
+
+                try:
+                    master, group, duplicate = save_related_set(
+                        str(payload.get("groupId") or "").strip(),
+                        str(payload.get("title") or "").strip() or "Related works",
+                        payload.get("members") if payload.get("members") is not None else payload.get("orderedIds") or [],
+                        bool(payload.get("allowDuplicate")),
+                    )
+                except KeyError as exc:
+                    self.send_json(404,{"ok":False,"error":str(exc).strip("'")})
+                    return
+                except ValueError as exc:
+                    self.send_json(400,{"ok":False,"error":str(exc)})
+                    return
+
+                if duplicate and not group:
+                    self.send_json(409,{
+                        "ok":False,
+                        "error":"A related group with the same members already exists",
+                        "duplicateGroup":duplicate,
+                    })
+                    return
+
+                self.send_json(200,{
+                    "ok":True,
+                    "group":group,
+                    "related":{"version":2,"groups":master.get("sets",[])},
+                })
+                return
+
+            if path == "/api/delete-related-group":
+                group_id=str(self.read_payload().get("groupId") or "").strip()
+                if not group_id:
+                    self.send_json(400,{"ok":False,"error":"Missing groupId"})
+                    return
+
+                try:
+                    master=delete_related_set(group_id)
+                except KeyError as exc:
+                    self.send_json(404,{"ok":False,"error":str(exc).strip("'")})
+                    return
+
+                self.send_json(200,{
+                    "ok":True,
+                    "related":{"version":2,"groups":master.get("sets",[])}
+                })
+                return
             self.send_json(404, {"ok": False, "error": f"Unknown API endpoint: {path}"})
 
         except subprocess.TimeoutExpired:

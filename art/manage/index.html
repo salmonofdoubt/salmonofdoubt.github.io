@@ -282,6 +282,176 @@
       line-height: 1.35;
     }
 </style>
+<style>
+  /*
+   * Sticky manager dock
+   * Keeps all artwork-management actions independent of gallery height.
+   */
+
+  .manager-dock {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 640px);
+    gap: .8rem;
+    align-items: center;
+    margin: 0 0 1rem;
+    padding: .6rem;
+    border: 1px solid var(--line);
+    background: rgba(7, 6, 5, .96);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .32);
+    backdrop-filter: blur(10px);
+  }
+
+  .selected-context {
+    min-width: 0;
+    padding: 0 .25rem;
+  }
+
+  .selected-context .micro {
+    margin-bottom: .15rem;
+  }
+
+  #current {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #current strong {
+    display: inline;
+    margin-right: .35rem;
+    font-size: .95rem !important;
+  }
+
+  #current p {
+    display: inline;
+    margin: 0 .35rem 0 0;
+    font-size: .72rem;
+  }
+
+  .action-menus {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: .45rem;
+  }
+
+  .action-menu {
+    position: relative;
+    min-width: 0;
+  }
+
+  .action-menu summary {
+    display: flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    box-sizing: border-box;
+    border: 1px solid rgba(212, 174, 108, .45);
+    border-radius: 999px;
+    padding: .4rem .75rem;
+    background: #17110c;
+    color: #fff2d7;
+    cursor: pointer;
+    font-size: .82rem;
+    font-weight: 900;
+    list-style: none;
+    user-select: none;
+  }
+
+  .action-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .action-menu summary::after {
+    content: "▾";
+    color: var(--gold);
+    font-size: .8rem;
+  }
+
+  .action-menu[open] summary {
+    border-color: var(--gold);
+    background: #24190f;
+  }
+
+  .action-menu[open] summary::after {
+    content: "▴";
+  }
+
+  .action-popover {
+    position: absolute;
+    top: calc(100% + .55rem);
+    z-index: 60;
+    width: min(440px, calc(100vw - 2rem));
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+    box-sizing: border-box;
+    border: 1px solid rgba(212, 174, 108, .5);
+    background: #100d0a;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .55);
+  }
+
+  .action-menu:first-child .action-popover {
+    left: 0;
+  }
+
+  .action-menu:nth-child(2) .action-popover {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .action-menu:last-child .action-popover {
+    right: 0;
+  }
+
+  .action-popover .box {
+    margin: 0;
+    border: 0;
+  }
+
+  /*
+   * The gallery no longer needs to reserve 460px for a side panel.
+   */
+  .layout {
+    display: block;
+  }
+
+  @media (max-width: 760px) {
+    .manager-dock {
+      grid-template-columns: 1fr;
+      gap: .45rem;
+      padding: .5rem;
+    }
+
+    .action-menus {
+      order: 1;
+    }
+
+    .selected-context {
+      order: 2;
+    }
+
+    .action-menu summary {
+      min-height: 44px;
+      padding: .35rem .45rem;
+      font-size: .76rem;
+    }
+
+    .action-popover {
+      width: calc(100vw - 2rem);
+      max-height: calc(100vh - 8rem);
+    }
+
+    #current p {
+      display: none;
+    }
+  }
+</style>
+<link rel="stylesheet" href="../assets/art-related-manager.css?v=20260926-consolidated-1">
 
   <!-- ART_PWA_START -->
   <link rel="manifest" href="/art/manifest.webmanifest">
@@ -316,67 +486,98 @@
     <span id="status" class="status"></span>
   </div>
 
+
+  <section class="manager-dock" aria-label="Artwork manager controls">
+    <div class="selected-context">
+      <p class="micro">Selected work</p>
+      <div id="current" class="hint">No work selected.</div>
+    </div>
+
+    <div class="action-menus">
+
+      <details class="action-menu">
+        <summary>Feature</summary>
+        <div class="action-popover">
+          <section class="box feature">
+            <p class="micro">Feature selected work</p>
+            <div class="form-grid">
+              <select id="featureTarget">
+                <option value="homepageHero">Homepage hero</option>
+                <option value="Oil Paintings">Oil Paintings feature</option>
+                <option value="Watercolours">Watercolours feature</option>
+                <option value="Drawings">Drawings feature</option>
+                <option value="Experimental">Experimental feature</option>
+                <option value="GeoSpatial Imagery">GeoSpatial Imagery feature</option>
+              </select>
+              <button class="primary" id="saveFeature">Save feature & rebuild</button>
+            </div>
+          </section>
+        </div>
+      </details>
+
+      <details class="action-menu">
+        <summary>Edit</summary>
+        <div class="action-popover">
+          <section class="box">
+            <h2>Edit selected work</h2>
+            <div class="form-grid">
+              <input id="title" placeholder="Title">
+              <select id="collection"></select>
+              <input id="medium" placeholder="Medium">
+              <input id="subgroup" placeholder="Subgroup">
+              <textarea id="caption" placeholder="Caption"></textarea>
+              <select id="workStatus">
+                <option value="active">active</option>
+                <option value="hidden">hidden</option>
+              </select>
+              <div class="button-row">
+                <button class="primary" id="saveEdit">Save edit & rebuild</button>
+                <button id="hideWork">Hide selected</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </details>
+
+      <details class="action-menu">
+        <summary>Upload</summary>
+        <div class="action-popover">
+          <section class="box">
+            <h2>
+              Upload new work(s)
+              <span class="batch-upload-note">
+                Select several files to add a batch with the same category and medium.
+              </span>
+            </h2>
+            <div class="form-grid">
+              <input id="newFile" type="file" accept="image/*" multiple>
+              <img id="newPreview" class="preview" alt="">
+              <input id="newTitle" placeholder="Title">
+              <select id="newCollection"></select>
+              <input id="newMedium" placeholder="Medium">
+              <input id="newSubgroup" placeholder="Subgroup">
+              <textarea id="newCaption" placeholder="Caption"></textarea>
+              <div class="checks">
+                <label>
+                  <input id="makeCollectionFeature" type="checkbox">
+                  collection feature
+                </label>
+                <label>
+                  <input id="makeHomepageHero" type="checkbox">
+                  homepage hero
+                </label>
+              </div>
+              <button class="primary" id="addWork">Add work(s) & rebuild</button>
+            </div>
+          </section>
+        </div>
+      </details>
+</div>
+  </section>
+
   <section class="layout">
     <div id="grid" class="grid"></div>
 
-    <aside class="panel">
-      <section class="box feature">
-        <p class="micro">Feature selected work</p>
-        <div class="form-grid">
-          <select id="featureTarget">
-            <option value="homepageHero">Homepage hero</option>
-            <option value="Oil Paintings">Oil Paintings feature</option>
-            <option value="Watercolours">Watercolours feature</option>
-            <option value="Drawings">Drawings feature</option>
-            <option value="Experimental">Experimental feature</option>
-            <option value="GeoSpatial Imagery">GeoSpatial Imagery feature</option>
-          </select>
-          <button class="primary" id="saveFeature">Save feature & rebuild</button>
-        </div>
-      </section>
-
-      <section class="box">
-        <p class="micro">Selected work</p>
-        <div id="current" class="hint">No work selected.</div>
-      </section>
-
-      <section class="box">
-        <h2>Edit selected work</h2>
-        <div class="form-grid">
-          <input id="title" placeholder="Title">
-          <select id="collection"></select>
-          <input id="medium" placeholder="Medium">
-          <input id="subgroup" placeholder="Subgroup">
-          <textarea id="caption" placeholder="Caption"></textarea>
-          <select id="workStatus">
-            <option value="active">active</option>
-            <option value="hidden">hidden</option>
-          </select>
-          <div class="button-row">
-            <button class="primary" id="saveEdit">Save edit & rebuild</button>
-            <button id="hideWork">Hide selected</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="box">
-        <h2>Upload new work(s)<span class="batch-upload-note">Select several files to add a batch with the same category and medium.</span></h2>
-        <div class="form-grid">
-          <input id="newFile" type="file" accept="image/*" multiple>
-          <img id="newPreview" class="preview" alt="">
-          <input id="newTitle" placeholder="Title">
-          <select id="newCollection"></select>
-          <input id="newMedium" placeholder="Medium">
-          <input id="newSubgroup" placeholder="Subgroup">
-          <textarea id="newCaption" placeholder="Caption"></textarea>
-          <div class="checks">
-            <label><input id="makeCollectionFeature" type="checkbox"> collection feature</label>
-            <label><input id="makeHomepageHero" type="checkbox"> homepage hero</label>
-          </div>
-          <button class="primary" id="addWork">Add work(s) & rebuild</button>
-        </div>
-      </section>
-    </aside>
   </section>
 </main>
 
@@ -501,6 +702,7 @@ function setSelected(id) {
   fillForm(selectedItem());
   setStatus("Selected. Feature, edit, hide, or upload.", "");
   render();
+  if (window.refreshRelatedForSelection) window.refreshRelatedForSelection();
 }
 
 function render() {
@@ -773,12 +975,47 @@ document.getElementById("addWork").addEventListener("click", () => addWork().cat
   });
 
   render();
+  window.dispatchEvent(new Event("art-manager-ready"));
 }
 
 init().catch((error) => {
   document.body.innerHTML = `<main><h1>Manager failed</h1><p>${escapeHtml(error.message)}</p></main>`;
 });
 </script>
+<script>
+  /*
+   * Keep the top manager controls behaving like true dropdowns:
+   * only one open at once, click outside to close, Escape to close.
+   */
+  (function () {
+    const menus = [...document.querySelectorAll(".action-menu")];
+
+    menus.forEach((menu) => {
+      menu.addEventListener("toggle", () => {
+        if (!menu.open) return;
+
+        menus.forEach((other) => {
+          if (other !== menu) other.open = false;
+        });
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".action-menu")) return;
+      menus.forEach((menu) => {
+        menu.open = false;
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      menus.forEach((menu) => {
+        menu.open = false;
+      });
+    });
+  }());
+</script>
+<script src="../assets/art-related-manager.js?v=20260926-consolidated-1" defer></script>
 
   <!-- ART_PWA_START -->
   <button class="art-install-app" type="button" hidden>Install app</button>
