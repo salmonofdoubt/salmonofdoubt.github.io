@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T09:56:26+00:00",
+  "generated_at": "2026-09-27T10:37:55+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -70,6 +70,13 @@
       "programme_state": "upcoming"
     },
     {
+      "id": "geo_ptj_hydrogen_derivatives",
+      "name": "PtJ Applied Energy Research: Hydrogen and Derivatives",
+      "error": "HTTPSConnectionPool(host='www.ptj.de', port=443): Read timed out. (read timeout=30)",
+      "last_successful_fetch_at": "2026-09-26T09:56:57+00:00",
+      "programme_state": "open"
+    },
+    {
       "id": "geo_rifs_klaus_toepfer",
       "name": "RIFS Klaus Töpfer Sustainability Fellowship",
       "error": "403 Client Error: Forbidden for url: https://www.rifs-potsdam.de/en/node/11996",
@@ -104,8 +111,8 @@
     }
   ],
   "state_source_counts": {
-    "last_known_good": 8,
-    "registry_fallback": 23,
+    "last_known_good": 9,
+    "registry_fallback": 22,
     "deadline_past_recurring": 3,
     "registry_fallback_after_fetch_error": 4,
     "page_status_open": 2,

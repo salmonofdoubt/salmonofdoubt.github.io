@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-09-26T09:52:39+00:00",
+  "generated_at": "2026-09-27T10:33:49+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 6,
-  "links_seen": 4496,
+  "seed_pages_failed": 7,
+  "links_seen": 4390,
   "funding_like_links": 477,
   "candidate_fetches": 300,
-  "pending_review_count": 114,
+  "pending_review_count": 113,
   "status_counts": {
-    "pending_review": 114,
-    "suppressed_non_actionable": 46,
+    "pending_review": 113,
+    "suppressed_non_actionable": 44,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 11,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 55
+    "suppressed_generic_page": 4,
+    "suppressed_fetch_error": 59
   },
   "candidate_type_counts": {
     "recurring_programme": 60,
-    "funding_call": 88,
+    "funding_call": 87,
     "scholarship": 19,
-    "generic_funding_hub": 6,
-    "tender": 14,
-    "unknown": 55
+    "generic_funding_hub": 5,
+    "tender": 12,
+    "unknown": 59
   },
   "seeds": [
     {
@@ -253,9 +253,9 @@
       "id": "geo_ptj_hydrogen_derivatives_watch",
       "name": "Geo watch: PtJ Applied Energy Research: Hydrogen and Derivatives",
       "url": "https://www.ptj.de/projekfoerderung/angewandte-energieforschung/8-efp/produktion-von-wasserstoff-und-derivaten-brennstoffzellen-wiederverstromung",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 106,
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.ptj.de', port=443): Read timed out. (read timeout=35)",
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
