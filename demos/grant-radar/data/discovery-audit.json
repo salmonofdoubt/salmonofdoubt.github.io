@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-29T11:22:48+00:00",
+  "generated_at": "2026-09-30T11:10:58+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
@@ -7,26 +7,26 @@
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
   "links_seen": 4496,
-  "funding_like_links": 477,
+  "funding_like_links": 476,
   "candidate_fetches": 300,
-  "pending_review_count": 110,
+  "pending_review_count": 112,
   "status_counts": {
-    "pending_review": 110,
-    "suppressed_non_actionable": 42,
+    "pending_review": 112,
+    "suppressed_non_actionable": 41,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 11,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 62
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 63
   },
   "candidate_type_counts": {
-    "recurring_programme": 60,
+    "recurring_programme": 61,
     "funding_call": 84,
-    "scholarship": 19,
-    "generic_funding_hub": 5,
-    "tender": 10,
-    "unknown": 62
+    "scholarship": 18,
+    "generic_funding_hub": 6,
+    "tender": 11,
+    "unknown": 63
   },
   "seeds": [
     {
@@ -35,9 +35,9 @@
       "url": "https://www.researchireland.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 104,
-      "funding_like_links": 46,
-      "candidates_fetched": 46
+      "links_seen": 103,
+      "funding_like_links": 45,
+      "candidates_fetched": 45
     },
     {
       "id": "heritage_council_funding_hub",
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 615,
       "funding_like_links": 58,
-      "candidates_fetched": 4
+      "candidates_fetched": 5
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -245,7 +245,7 @@
       "url": "https://www.clean-hydrogen.europa.eu/call-proposals-2026-open_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 86,
+      "links_seen": 85,
       "funding_like_links": 10,
       "candidates_fetched": 0
     },
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 149,
+      "links_seen": 150,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 149,
+      "links_seen": 150,
       "funding_like_links": 0,
       "candidates_fetched": 0
     }
