@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "openai-cards": {
+      "source_id": "openai-cards",
+      "url": "https://deploymentsafety.openai.com/",
+      "last_attempt": "2026-10-01T17:43:14Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "openai-training": {
+      "source_id": "openai-training",
+      "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed",
+      "last_attempt": "2026-10-01T17:43:21Z",
+      "robots": "checked",
+      "status": "ok",
+      "error": null,
+      "title": "How ChatGPT and our foundation models are developed | OpenAI Help Center",
+      "final_url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed",
+      "http_status": 200,
+      "sha256": "3e47c9977fec7d8733ccab0a057759d73ce5b0cd385bb0b69e731deed9b4bc8d",
+      "last_success": "2026-10-01T17:43:34Z",
+      "language": "en-US",
+      "characters": 12825,
+      "excerpt": "How ChatGPT and our foundation models are developed\nLearn more about how we develop our models and apply them in products like ChatGPT\nUpdated: last month\nOpenAI’s foundation models, including the models that power ChatG",
+      "page_last_modified": null,
+      "review_needed": false
+    },
+    "gemini-cards": {
+      "source_id": "gemini-cards",
+      "url": "https://deepmind.google/models/model-cards/",
+      "last_attempt": "2026-10-01T17:43:34Z",
+      "robots": "checked",
+      "status": "ok",
+      "error": null,
+      "title": "Model cards — Google DeepMind",
+      "final_url": "https://deepmind.google/models/model-cards/",
+      "http_status": 200,
+      "sha256": "61c177165bdb843ccd416ab1ef23afcb9edd72521e502c19e8f95429617704df",
+      "last_success": "2026-10-01T17:43:47Z",
+      "language": "en",
+      "characters": 3505,
+      "excerpt": "Skip to main content\nGoogle DeepMind\nBuild with Gemini\nTry Gemini\nModel cards\nSimple, structured overviews of how an advanced AI model was designed and evaluated.\nGemini\nGenerative models\nRobotics\nGemma\nGemini\nOur most i",
+      "page_last_modified": null,
+      "review_needed": false
+    },
+    "gemini-policy": {
+      "source_id": "gemini-policy",
+      "url": "https://gemini.google/policy-guidelines/",
+      "last_attempt": "2026-10-01T17:43:48Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "claude-transparency": {
+      "source_id": "claude-transparency",
+      "url": "https://www.anthropic.com/transparency",
+      "last_attempt": "2026-10-01T17:43:55Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "claude-constitution": {
+      "source_id": "claude-constitution",
+      "url": "https://www.anthropic.com/constitution",
+      "last_attempt": "2026-10-01T17:44:02Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "america-faq": {
+      "source_id": "america-faq",
+      "url": "https://america.gov/faq",
+      "last_attempt": "2026-10-01T18:21:35Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "america-foia": {
+      "source_id": "america-foia",
+      "url": "https://www.gsa.gov/reference/freedom-of-information-act-foia",
+      "last_attempt": "2026-10-01T18:21:49Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check.",
+      "title": "Freedom of Information Act | GSA Lock",
+      "final_url": "https://www.gsa.gov/reference/freedom-of-information-act-foia",
+      "http_status": 200,
+      "sha256": "1fb40635d43bffdcf2234990491099e07c1d9c0bd0f85c1d48a4683806b8b567",
+      "last_success": "2026-10-01T17:44:35Z",
+      "language": "en",
+      "characters": 12545,
+      "excerpt": "Skip to main content\nAn official website of the United States government\nHere’s how you know\nHere’s how you know\nOfficial websites use .gov\nA .gov website belongs to an official government organization in the United Stat",
+      "page_last_modified": "Thu, 01 Oct 2026 17:27:05 GMT",
+      "review_needed": false
+    },
+    "america-partner": {
+      "source_id": "america-partner",
+      "url": "https://blog.google/company-news/outreach-and-initiatives/public-policy/america-gov-google-public-sector/",
+      "last_attempt": "2026-10-01T18:23:05Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "registry-openai": {
+      "source_id": "registry-openai",
+      "url": "https://developers.openai.com/api/docs/models",
+      "last_attempt": "2026-10-01T19:47:01Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "registry-google": {
+      "source_id": "registry-google",
+      "url": "https://ai.google.dev/gemini-api/docs/models",
+      "last_attempt": "2026-10-01T19:47:08Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "registry-anthropic": {
+      "source_id": "registry-anthropic",
+      "url": "https://platform.claude.com/docs/en/models/overview",
+      "last_attempt": "2026-10-01T19:47:14Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    },
+    "status-openai": {
+      "source_id": "status-openai",
+      "url": "https://status.openai.com/api/v2/summary.json",
+      "last_attempt": "2026-10-01T19:47:21Z",
+      "robots": "no robots file",
+      "status": "ok",
+      "last_success": "2026-10-01T19:47:35Z",
+      "error": null,
+      "operator": {
+        "status": "serving",
+        "reason": "Operator-reported components; not an independent query test",
+        "components": [
+          {
+            "name": "ChatGPT Work",
+            "status": "operational"
+          },
+          {
+            "name": "Codex in ChatGPT Desktop",
+            "status": "operational"
+          }
+        ]
+      }
+    },
+    "status-claude": {
+      "source_id": "status-claude",
+      "url": "https://status.claude.com/api/v2/summary.json",
+      "last_attempt": "2026-10-01T19:47:35Z",
+      "robots": "robots unavailable",
+      "status": "blocked",
+      "error": "Collection stopped by robots policy or unavailable robots check."
+    }
+  },
+  "events": [
+    {
+      "at": "2026-10-01T17:44:35Z",
+      "kind": "baseline_captured",
+      "source_id": "america-foia",
+      "before_sha256": null,
+      "after_sha256": "1fb40635d43bffdcf2234990491099e07c1d9c0bd0f85c1d48a4683806b8b567",
+      "title": "Freedom of Information Act | GSA Lock"
+    },
+    {
+      "at": "2026-10-01T17:43:47Z",
+      "kind": "baseline_captured",
+      "source_id": "gemini-cards",
+      "before_sha256": null,
+      "after_sha256": "61c177165bdb843ccd416ab1ef23afcb9edd72521e502c19e8f95429617704df",
+      "title": "Model cards — Google DeepMind"
+    },
+    {
+      "at": "2026-10-01T17:43:34Z",
+      "kind": "baseline_captured",
+      "source_id": "openai-training",
+      "before_sha256": null,
+      "after_sha256": "3e47c9977fec7d8733ccab0a057759d73ce5b0cd385bb0b69e731deed9b4bc8d",
+      "title": "How ChatGPT and our foundation models are developed | OpenAI Help Center"
+    }
+  ],
+  "last_refresh": "2026-10-01T19:47:42Z",
+  "availability_history": [
+    {
+      "at": "2026-10-01T19:47:41Z",
+      "service_id": "claude",
+      "status": "unknown",
+      "check_status": "blocked",
+      "method": "Operator feed"
+    },
+    {
+      "at": "2026-10-01T19:47:35Z",
+      "service_id": "chatgpt",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    }
+  ]
+}

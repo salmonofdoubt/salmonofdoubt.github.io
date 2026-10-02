@@ -1,0 +1,65 @@
+name: Refresh Model Label evidence
+on:
+  schedule:
+    - cron: '43 5 * * *'
+    - cron: '23 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'demos/model-label/**'
+      - '.github/workflows/refresh-model-label.yml'
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: repo-master-writes
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check collector and frontend syntax
+        run: |
+          PYTHONPATH=demos/model-label/ops python -m unittest discover -s demos/model-label/ops/tests -q
+          node --check demos/model-label/app.js
+          node --check demos/model-label/freshness.js
+      - name: Refresh public evidence or official status
+        env:
+          MODEL_LABEL_DATA_DIR: ${{ github.workspace }}/demos/model-label/data
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          if [ "$SCHEDULE" = '23 * * * *' ]; then
+            python demos/model-label/ops/refresh.py --status-only
+          else
+            python demos/model-label/ops/refresh.py
+          fi
+      - name: Validate published records
+        run: |
+          python -m json.tool demos/model-label/data/monitor.json >/dev/null
+          python -m json.tool demos/model-label/data/catalogue.json >/dev/null
+      - name: Commit updated snapshot
+        id: commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add demos/model-label/data/monitor.json
+          if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            git commit -m 'Refresh Model Label public evidence snapshot'
+            bash scripts/ci/safe-rebase-push.sh master
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Rebuild branch-published GitHub Pages
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"

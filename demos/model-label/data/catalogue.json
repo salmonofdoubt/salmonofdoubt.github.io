@@ -1,0 +1,1092 @@
+{
+  "schema_version": 1,
+  "title": "Model Label",
+  "version": "0.11.0",
+  "seed_date": "2026-10-01",
+  "scope": "Four registered services; public disclosures only. Consumer and API deployments must be audited separately.",
+  "template": {
+    "repository": "salmonofdoubt/salmonofdoubt.github.io",
+    "path": "demos/demo-template",
+    "revision": "18375235df400486fbb40698141dff326f13fafa"
+  },
+  "sources": [
+    {
+      "id": "openai-cards",
+      "title": "OpenAI system cards",
+      "url": "https://deploymentsafety.openai.com/",
+      "publisher": "OpenAI",
+      "purpose": "System-card index and public evaluation updates"
+    },
+    {
+      "id": "openai-training",
+      "title": "How OpenAI models are developed",
+      "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed",
+      "publisher": "OpenAI",
+      "purpose": "Provider explanation of training-data categories"
+    },
+    {
+      "id": "gemini-cards",
+      "title": "Google DeepMind model cards",
+      "url": "https://deepmind.google/models/model-cards/",
+      "publisher": "Google DeepMind",
+      "purpose": "Model-card index; individual cards require separate review"
+    },
+    {
+      "id": "gemini-policy",
+      "title": "Gemini app policy guidelines",
+      "url": "https://gemini.google/policy-guidelines/",
+      "publisher": "Google",
+      "purpose": "Published behavioural policy; language and locale can vary"
+    },
+    {
+      "id": "claude-transparency",
+      "title": "Anthropic transparency hub",
+      "url": "https://www.anthropic.com/transparency",
+      "publisher": "Anthropic",
+      "purpose": "Model reports, training summaries and evaluation disclosures"
+    },
+    {
+      "id": "claude-constitution",
+      "title": "Claude\u2019s Constitution",
+      "url": "https://www.anthropic.com/constitution",
+      "publisher": "Anthropic",
+      "purpose": "Declared principles for behaviour and post-training"
+    },
+    {
+      "id": "america-faq",
+      "title": "America.gov frequently asked questions",
+      "url": "https://america.gov/faq",
+      "publisher": "America.gov",
+      "purpose": "Deployment-specific information; access may be blocked"
+    },
+    {
+      "id": "america-partner",
+      "title": "Google America.gov launch announcement",
+      "url": "https://blog.google/company-news/outreach-and-initiatives/public-policy/america-gov-google-public-sector/",
+      "publisher": "Google",
+      "purpose": "Supplier announcement; does not expose the live configuration"
+    },
+    {
+      "id": "america-foia",
+      "title": "GSA information request route",
+      "url": "https://www.gsa.gov/reference/freedom-of-information-act-foia",
+      "publisher": "U.S. General Services Administration",
+      "purpose": "Public route for requesting applicable records; no guaranteed disclosure"
+    },
+    {
+      "id": "openai-spec",
+      "title": "GPT-5.2 API specification",
+      "publisher": "OpenAI",
+      "purpose": "Specifications for this named API release. Does not identify a consumer chat session.",
+      "url": "https://developers.openai.com/api/docs/models/gpt-5.2"
+    },
+    {
+      "id": "gemini-spec",
+      "title": "Gemini 3.1 Pro API specification",
+      "publisher": "Google",
+      "purpose": "Specifications for this named API release. Does not identify a consumer chat session.",
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview"
+    },
+    {
+      "id": "claude-spec",
+      "title": "Claude Opus 4.6 API specification",
+      "publisher": "Anthropic",
+      "purpose": "Specifications for this named API release. Does not identify a consumer chat session.",
+      "url": "https://platform.claude.com/docs/en/models/opus-4-6/overview"
+    },
+    {
+      "id": "openai-spec-current",
+      "title": "GPT-6.1 Sol API specification",
+      "publisher": "OpenAI",
+      "purpose": "Current named API model specification; does not establish a consumer-session binding.",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol"
+    },
+    {
+      "id": "gemini-spec-current",
+      "title": "Gemini 3.8 Flash API specification",
+      "publisher": "Google",
+      "purpose": "Current named API model specification; does not establish a consumer-session binding.",
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash"
+    },
+    {
+      "id": "claude-spec-current",
+      "title": "Claude Fable 5.1 API specification",
+      "publisher": "Anthropic",
+      "purpose": "Current named API model specification; does not establish a consumer-session binding.",
+      "url": "https://platform.claude.com/docs/en/models/fable-5-1/overview"
+    },
+    {
+      "id": "registry-openai",
+      "title": "OpenAI model catalogue",
+      "publisher": "OpenAI",
+      "url": "https://developers.openai.com/api/docs/models",
+      "kind": "registry",
+      "purpose": "Public evidence monitoring; applicability and coverage remain explicit."
+    },
+    {
+      "id": "registry-google",
+      "title": "Google model catalogue",
+      "publisher": "Google",
+      "url": "https://ai.google.dev/gemini-api/docs/models",
+      "kind": "registry",
+      "purpose": "Public evidence monitoring; applicability and coverage remain explicit."
+    },
+    {
+      "id": "registry-anthropic",
+      "title": "Anthropic model catalogue",
+      "publisher": "Anthropic",
+      "url": "https://platform.claude.com/docs/en/models/overview",
+      "kind": "registry",
+      "purpose": "Public evidence monitoring; applicability and coverage remain explicit."
+    },
+    {
+      "id": "status-openai",
+      "title": "OpenAI operator status",
+      "publisher": "OpenAI",
+      "url": "https://status.openai.com/api/v2/summary.json",
+      "kind": "operator_status",
+      "component_match": "ChatGPT",
+      "service_id": "chatgpt",
+      "purpose": "Public evidence monitoring; applicability and coverage remain explicit."
+    },
+    {
+      "id": "status-claude",
+      "title": "Claude operator status",
+      "publisher": "Anthropic",
+      "url": "https://status.claude.com/api/v2/summary.json",
+      "kind": "operator_status",
+      "component_match": "claude.ai",
+      "service_id": "claude",
+      "purpose": "Public evidence monitoring; applicability and coverage remain explicit."
+    },
+    {
+      "id": "energy-gemini",
+      "title": "Google inference footprint methodology (2025)",
+      "publisher": "Google",
+      "url": "https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference",
+      "purpose": "Public evidence monitoring; applicability and coverage remain explicit."
+    },
+    {
+      "id": "energy-search",
+      "title": "Conventional Google search footprint (2009)",
+      "publisher": "Google",
+      "url": "https://publicpolicy.googleblog.com/2009/01/powering-google-search.html",
+      "purpose": "Public evidence monitoring; applicability and coverage remain explicit."
+    },
+    {
+      "id": "training-bloom",
+      "title": "BLOOM carbon-footprint study (2022)",
+      "publisher": "Luccioni, Viguier & Ligozat",
+      "url": "https://arxiv.org/abs/2211.02001",
+      "purpose": "Primary research estimate of final training and broader hardware/operational footprint. Historical model, not current chatbot proxy."
+    },
+    {
+      "id": "training-llama",
+      "title": "Meta Llama 3.1 model card (2024)",
+      "publisher": "Meta",
+      "url": "https://huggingface.co/meta-llama/Llama-3.1-405B",
+      "purpose": "Provider training emissions and GPU-hour disclosures, distinguishing location-based and market-based accounting."
+    },
+    {
+      "id": "energy-openai-claim",
+      "title": "Altman (2025), The gentle singularity",
+      "url": "https://blog.samaltman.com/the-gentle-singularity",
+      "publisher": "Sam Altman",
+      "purpose": "Historical ChatGPT query claim, without a published measurement boundary."
+    },
+    {
+      "id": "energy-inference-study",
+      "title": "Oviedo et al. (2026), Energy use of AI inference",
+      "url": "https://arxiv.org/abs/2509.20241v2",
+      "publisher": "Oviedo et al. / Joule",
+      "purpose": "Bottom-up inference estimate; generic hardware/model scenarios, not current named API measurements."
+    },
+    {
+      "id": "energy-google-paper",
+      "title": "Elsworth et al. (2025), Gemini production measurement",
+      "url": "https://arxiv.org/html/2508.15734v1",
+      "publisher": "Google researchers",
+      "purpose": "May 2025 Gemini Apps fleet measurement and market-based carbon accounting."
+    },
+    {
+      "id": "energy-mistral-lca",
+      "title": "Mistral AI (2025), Environmental lifecycle assessment",
+      "url": "https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai/",
+      "publisher": "Mistral AI",
+      "purpose": "Large 2 lifecycle disclosure, inference impacts and scope ambiguity."
+    },
+    {
+      "id": "status-gemini",
+      "title": "Google Workspace Gemini status",
+      "publisher": "Google",
+      "url": "https://www.google.com/appsstatus/dashboard/incidents.json",
+      "kind": "operator_status",
+      "status_format": "google_workspace",
+      "component_match": "Gemini",
+      "service_id": "gemini",
+      "purpose": "Gemini web app operator incident feed. Separate from AI Studio and Gemini API."
+    },
+    {
+      "id": "training-estimate-hardware",
+      "title": "NVIDIA H100 specifications",
+      "publisher": "NVIDIA",
+      "url": "https://www.nvidia.com/en-us/data-center/h100/",
+      "purpose": "Hardware reference for the transparent training scenario; GPU-hours, host allowance, grid factor and rental price are assumptions."
+    }
+  ],
+  "services": [
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "provider": "OpenAI",
+      "mark": "CG",
+      "colour": "#68dfbf",
+      "kind": "General-purpose assistant",
+      "source_ids": [
+        "openai-cards",
+        "openai-training",
+        "status-openai"
+      ],
+      "label_reviewed_at": "2026-10-01",
+      "fields": [
+        {
+          "id": "responsibility",
+          "label": "Service responsibility",
+          "description": "Operator, model developer, suppliers and correction contact",
+          "status": "partial",
+          "summary": "OpenAI publishes the linked model-development and system-card material. This catalogue does not establish every supplier or the correction route for a particular deployment.",
+          "source_ids": [
+            "openai-cards",
+            "openai-training"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "identity",
+          "label": "Model identity",
+          "description": "Family, release, routing and fallback behaviour",
+          "status": "partial",
+          "summary": "Public GPT system cards are available. The model serving a particular ChatGPT session must be recorded separately; a card index does not identify that session.",
+          "source_ids": [
+            "openai-cards"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "training",
+          "label": "Training provenance",
+          "description": "Disclosed data sources, periods and exclusions",
+          "status": "partial",
+          "summary": "OpenAI describes broad categories: publicly available information, third-party information, and material supplied or generated by users, trainers and researchers. This is not a complete corpus inventory.",
+          "source_ids": [
+            "openai-training"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "post_training",
+          "label": "Post-training",
+          "description": "Fine-tuning, preference training and declared objectives",
+          "status": "unknown",
+          "summary": "No deployment-specific post-training objective or configuration has been established.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "controls",
+          "label": "Deployment controls",
+          "description": "Instruction policy, moderation, retrieval and tools",
+          "status": "unknown",
+          "summary": "The full serving instructions, filters, retrieval configuration and tools have not been established.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "personalisation",
+          "label": "Personalisation",
+          "description": "Memory, saved instructions and account adaptations",
+          "status": "unknown",
+          "summary": "The memory, saved instructions and regional or account adaptations for the audited session are unknown.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "evaluations",
+          "label": "Evaluations",
+          "description": "Methods, assessors, dates and deployment applicability",
+          "status": "partial",
+          "summary": "OpenAI publishes system-card evaluations. Their applicability to a particular session remains to be checked; no independent audit has been run here.",
+          "source_ids": [
+            "openai-cards"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "governance",
+          "label": "Change governance",
+          "description": "Release history, configuration changes and approvals",
+          "status": "partial",
+          "summary": "The safety hub lists dated system-card updates. Internal deployment decisions and complete configuration history remain unknown.",
+          "source_ids": [
+            "openai-cards"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        }
+      ],
+      "behaviour_grade": "B0",
+      "attribution_grade": "C0",
+      "environment": {
+        "initial_training": "Unknown: release-specific energy and carbon evidence not established",
+        "updates": "Unknown: dated retraining, fine-tuning and configuration footprints not established",
+        "query": "Unknown: current deployment-specific measurement not established",
+        "boundary": "Hardware manufacture, cooling, development experiments and electricity mix: not established for this deployment"
+      },
+      "status_source": "status-openai"
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "provider": "Google",
+      "mark": "G",
+      "colour": "#91aaff",
+      "kind": "General-purpose assistant",
+      "source_ids": [
+        "gemini-cards",
+        "gemini-policy",
+        "status-gemini"
+      ],
+      "label_reviewed_at": "2026-10-01",
+      "fields": [
+        {
+          "id": "responsibility",
+          "label": "Service responsibility",
+          "description": "Operator, model developer, suppliers and correction contact",
+          "status": "partial",
+          "summary": "Google DeepMind publishes the model cards and Google publishes the Gemini app policy. This catalogue does not establish the complete supplier chain or correction route.",
+          "source_ids": [
+            "gemini-cards",
+            "gemini-policy"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "identity",
+          "label": "Model identity",
+          "description": "Family, release, routing and fallback behaviour",
+          "status": "partial",
+          "summary": "Model cards for the Gemini family are publicly indexed. The model, release and routing for a specific Gemini app session remain to be established.",
+          "source_ids": [
+            "gemini-cards"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "training",
+          "label": "Training provenance",
+          "description": "Disclosed data sources, periods and exclusions",
+          "status": "unknown",
+          "summary": "No deployment-specific training inventory has been established through this demo\u2019s recorded sources.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "post_training",
+          "label": "Post-training",
+          "description": "Fine-tuning, preference training and declared objectives",
+          "status": "unknown",
+          "summary": "No deployment-specific post-training objective or configuration has been established.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "controls",
+          "label": "Deployment controls",
+          "description": "Instruction policy, moderation, retrieval and tools",
+          "status": "partial",
+          "summary": "Google publishes behavioural guidelines for the Gemini app. The complete system instructions and live retrieval or moderation configuration are not disclosed by that page.",
+          "source_ids": [
+            "gemini-policy"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "personalisation",
+          "label": "Personalisation",
+          "description": "Memory, saved instructions and account adaptations",
+          "status": "unknown",
+          "summary": "The memory, saved instructions and regional or account adaptations for the audited session are unknown.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "evaluations",
+          "label": "Evaluations",
+          "description": "Methods, assessors, dates and deployment applicability",
+          "status": "partial",
+          "summary": "Google DeepMind provides model cards describing design and evaluations. Each card and its deployment applicability need separate review; no independent audit has been run here.",
+          "source_ids": [
+            "gemini-cards"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "governance",
+          "label": "Change governance",
+          "description": "Release history, configuration changes and approvals",
+          "status": "partial",
+          "summary": "The model-card index includes published or updated dates. It does not establish the app\u2019s complete configuration or approval history.",
+          "source_ids": [
+            "gemini-cards"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        }
+      ],
+      "behaviour_grade": "B0",
+      "attribution_grade": "C0",
+      "environment": {
+        "initial_training": "Unknown: release-specific energy and carbon evidence not established",
+        "updates": "Unknown: dated retraining, fine-tuning and configuration footprints not established",
+        "query": "Unknown: current deployment-specific measurement not established",
+        "boundary": "Hardware manufacture, cooling, development experiments and electricity mix: not established for this deployment"
+      },
+      "status_source": "status-gemini"
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "provider": "Anthropic",
+      "mark": "C",
+      "colour": "#e8b28d",
+      "kind": "General-purpose assistant",
+      "source_ids": [
+        "claude-transparency",
+        "claude-constitution",
+        "status-claude"
+      ],
+      "label_reviewed_at": "2026-10-01",
+      "fields": [
+        {
+          "id": "responsibility",
+          "label": "Service responsibility",
+          "description": "Operator, model developer, suppliers and correction contact",
+          "status": "partial",
+          "summary": "Anthropic publishes the linked model reports and constitution. The complete supplier chain and correction route are not established in this catalogue.",
+          "source_ids": [
+            "claude-transparency"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "identity",
+          "label": "Model identity",
+          "description": "Family, release, routing and fallback behaviour",
+          "status": "partial",
+          "summary": "The transparency hub distinguishes multiple Claude models. The exact snapshot and safeguards serving an individual chat session remain to be established.",
+          "source_ids": [
+            "claude-transparency"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "training",
+          "label": "Training provenance",
+          "description": "Disclosed data sources, periods and exclusions",
+          "status": "partial",
+          "summary": "Anthropic describes a proprietary mix of online information, public and private datasets, user data and synthetic data. Broad categories do not constitute a complete corpus inventory.",
+          "source_ids": [
+            "claude-transparency"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "post_training",
+          "label": "Post-training",
+          "description": "Fine-tuning, preference training and declared objectives",
+          "status": "partial",
+          "summary": "Anthropic describes post-training intended to align behaviour with its published constitution. This is a provider claim, not a causal audit of a particular chat session.",
+          "source_ids": [
+            "claude-transparency",
+            "claude-constitution"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "controls",
+          "label": "Deployment controls",
+          "description": "Instruction policy, moderation, retrieval and tools",
+          "status": "partial",
+          "summary": "The constitution and model reports describe declared principles and safeguards. They do not expose every live serving instruction or service setting.",
+          "source_ids": [
+            "claude-transparency",
+            "claude-constitution"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "personalisation",
+          "label": "Personalisation",
+          "description": "Memory, saved instructions and account adaptations",
+          "status": "unknown",
+          "summary": "The memory, saved instructions and regional or account adaptations for the audited session are unknown.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "evaluations",
+          "label": "Evaluations",
+          "description": "Methods, assessors, dates and deployment applicability",
+          "status": "partial",
+          "summary": "Anthropic publishes assessments and links system cards. Reported evaluations and safeguards require model-specific review; no independent audit has been run here.",
+          "source_ids": [
+            "claude-transparency"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "governance",
+          "label": "Change governance",
+          "description": "Release history, configuration changes and approvals",
+          "status": "partial",
+          "summary": "Dated public model reports are available. Internal approvals and the complete serving configuration history remain unknown.",
+          "source_ids": [
+            "claude-transparency"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        }
+      ],
+      "behaviour_grade": "B0",
+      "attribution_grade": "C0",
+      "environment": {
+        "initial_training": "Unknown: release-specific energy and carbon evidence not established",
+        "updates": "Unknown: dated retraining, fine-tuning and configuration footprints not established",
+        "query": "Unknown: current deployment-specific measurement not established",
+        "boundary": "Hardware manufacture, cooling, development experiments and electricity mix: not established for this deployment"
+      },
+      "status_source": "status-claude"
+    },
+    {
+      "id": "america-gov",
+      "name": "America.gov",
+      "provider": "Government portal",
+      "mark": "US",
+      "colour": "#ffd080",
+      "kind": "Government-services assistant",
+      "source_ids": [
+        "america-faq",
+        "america-partner",
+        "america-foia"
+      ],
+      "label_reviewed_at": "2026-10-01",
+      "fields": [
+        {
+          "id": "responsibility",
+          "label": "Service responsibility",
+          "description": "Operator, model developer, suppliers and correction contact",
+          "status": "partial",
+          "summary": "A Google launch announcement describes its technology partnership for America.gov. The complete operator and supplier chain has not been established in this demo.",
+          "source_ids": [
+            "america-partner"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "identity",
+          "label": "Model identity",
+          "description": "Family, release, routing and fallback behaviour",
+          "status": "partial",
+          "summary": "The launch announcement identifies Gemini technology. The exact deployed release, routing and any additional configuration remain unknown.",
+          "source_ids": [
+            "america-partner"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "training",
+          "label": "Training provenance",
+          "description": "Disclosed data sources, periods and exclusions",
+          "status": "unknown",
+          "summary": "No deployment-specific training inventory has been established through this demo\u2019s recorded sources.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "post_training",
+          "label": "Post-training",
+          "description": "Fine-tuning, preference training and declared objectives",
+          "status": "unknown",
+          "summary": "No deployment-specific post-training objective or configuration has been established.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "controls",
+          "label": "Deployment controls",
+          "description": "Instruction policy, moderation, retrieval and tools",
+          "status": "unknown",
+          "summary": "The deployment FAQ is registered as a source but could not be retrieved during the web check. Domain restrictions and serving instructions require accessible deployment-specific evidence.",
+          "source_ids": [
+            "america-faq"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "personalisation",
+          "label": "Personalisation",
+          "description": "Memory, saved instructions and account adaptations",
+          "status": "unknown",
+          "summary": "The memory, saved instructions and regional or account adaptations for the audited session are unknown.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "evaluations",
+          "label": "Evaluations",
+          "description": "Methods, assessors, dates and deployment applicability",
+          "status": "unknown",
+          "summary": "No independent behavioural audit has been run for this service in this demo.",
+          "source_ids": [],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        },
+        {
+          "id": "governance",
+          "label": "Change governance",
+          "description": "Release history, configuration changes and approvals",
+          "status": "unknown",
+          "summary": "No configuration or approval history is established. The linked GSA information-request page is a route to ask for applicable records, not evidence that they have been supplied.",
+          "source_ids": [
+            "america-foia"
+          ],
+          "reviewed_at": "2026-10-01",
+          "reviewer": "Initial editorial seed",
+          "reviewed_hashes": {}
+        }
+      ],
+      "behaviour_grade": "B0",
+      "attribution_grade": "C0",
+      "environment": {
+        "initial_training": "Unknown: release-specific energy and carbon evidence not established",
+        "updates": "Unknown: dated retraining, fine-tuning and configuration footprints not established",
+        "query": "Unknown: current deployment-specific measurement not established",
+        "boundary": "Hardware manufacture, cooling, development experiments and electricity mix: not established for this deployment"
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "gpt-6.1-sol",
+      "name": "GPT-6.1 Sol",
+      "provider": "OpenAI",
+      "colour": "#68dfbf",
+      "identity": "Published API identifier",
+      "context": 1050000,
+      "context_label": "Context window",
+      "output": 128000,
+      "cutoff": "30 April 2026",
+      "inputs": "Text \u00b7 images",
+      "outputs": "Text",
+      "release": "Current API entry checked 1 October 2026",
+      "source_id": "openai-spec-current",
+      "note": "API specifications for GPT-6.1 Sol. Your reported ChatGPT label is 6.1; that abbreviated label alone does not establish Sol or a backend snapshot.",
+      "checked_at": "2026-10-01",
+      "parameters": "Not disclosed in cited specification",
+      "weights": "Not supplied by cited specification",
+      "session_binding": "Not established",
+      "evidence": "Provider documentation; not independently measured"
+    },
+    {
+      "id": "gemini-3.8-flash",
+      "name": "Gemini 3.8 Flash",
+      "provider": "Google",
+      "colour": "#91aaff",
+      "identity": "Stable API identifier",
+      "context": 1048576,
+      "context_label": "Input token limit",
+      "output": 65536,
+      "cutoff": "Not established in this source",
+      "inputs": "Text \u00b7 images \u00b7 video \u00b7 audio \u00b7 PDF",
+      "outputs": "Text",
+      "release": "Model update: September 2026",
+      "source_id": "gemini-spec-current",
+      "note": "Published Gemini API input and output limits. A stable identifier is not proof of the release serving the consumer app or America.gov.",
+      "checked_at": "2026-10-01",
+      "parameters": "Not disclosed in cited specification",
+      "weights": "Not supplied by cited specification",
+      "session_binding": "Not established",
+      "evidence": "Provider documentation; not independently measured"
+    },
+    {
+      "id": "claude-fable-5-1",
+      "name": "Claude Fable 5.1",
+      "provider": "Anthropic",
+      "colour": "#e8b28d",
+      "identity": "Published API identifier",
+      "context": 1000000,
+      "context_label": "Context window (published as 1M)",
+      "output": 128000,
+      "cutoff": "June 2026 (reliable knowledge)",
+      "inputs": "Text \u00b7 images",
+      "outputs": "Text",
+      "release": "Released: 1 September 2026",
+      "source_id": "claude-spec-current",
+      "note": "Provider publishes 1M context and 128K output. Training data cutoff: June 2026. M/K notation is expanded for display. This does not identify a Claude consumer chat.",
+      "checked_at": "2026-10-01",
+      "parameters": "Not disclosed in cited specification",
+      "weights": "Not supplied by cited specification",
+      "session_binding": "Not established",
+      "evidence": "Provider documentation; not independently measured"
+    }
+  ],
+  "historical_models": [
+    {
+      "id": "gpt-6.1-sol",
+      "name": "GPT-6.1 Sol",
+      "provider": "OpenAI",
+      "colour": "#68dfbf",
+      "identity": "Published API identifier",
+      "context": 1050000,
+      "context_label": "Context window",
+      "output": 128000,
+      "cutoff": "30 April 2026",
+      "inputs": "Text \u00b7 images",
+      "outputs": "Text",
+      "release": "Current API entry checked 1 October 2026",
+      "source_id": "openai-spec-current",
+      "note": "API specifications for GPT-6.1 Sol. Your reported ChatGPT label is 6.1; that abbreviated label alone does not establish Sol or a backend snapshot.",
+      "checked_at": "2026-10-01",
+      "parameters": "Not disclosed in cited specification",
+      "weights": "Not supplied by cited specification",
+      "session_binding": "Not established",
+      "evidence": "Provider documentation; not independently measured"
+    },
+    {
+      "id": "gemini-3.8-flash",
+      "name": "Gemini 3.8 Flash",
+      "provider": "Google",
+      "colour": "#91aaff",
+      "identity": "Stable API identifier",
+      "context": 1048576,
+      "context_label": "Input token limit",
+      "output": 65536,
+      "cutoff": "Not established in this source",
+      "inputs": "Text \u00b7 images \u00b7 video \u00b7 audio \u00b7 PDF",
+      "outputs": "Text",
+      "release": "Model update: September 2026",
+      "source_id": "gemini-spec-current",
+      "note": "Published Gemini API input and output limits. A stable identifier is not proof of the release serving the consumer app or America.gov.",
+      "checked_at": "2026-10-01",
+      "parameters": "Not disclosed in cited specification",
+      "weights": "Not supplied by cited specification",
+      "session_binding": "Not established",
+      "evidence": "Provider documentation; not independently measured"
+    },
+    {
+      "id": "claude-fable-5-1",
+      "name": "Claude Fable 5.1",
+      "provider": "Anthropic",
+      "colour": "#e8b28d",
+      "identity": "Published API identifier",
+      "context": 1000000,
+      "context_label": "Context window (published as 1M)",
+      "output": 128000,
+      "cutoff": "June 2026 (reliable knowledge)",
+      "inputs": "Text \u00b7 images",
+      "outputs": "Text",
+      "release": "Released: 1 September 2026",
+      "source_id": "claude-spec-current",
+      "note": "Provider publishes 1M context and 128K output. Training data cutoff: June 2026. M/K notation is expanded for display. This does not identify a Claude consumer chat.",
+      "checked_at": "2026-10-01",
+      "parameters": "Not disclosed in cited specification",
+      "weights": "Not supplied by cited specification",
+      "session_binding": "Not established",
+      "evidence": "Provider documentation; not independently measured"
+    }
+  ],
+  "reported_session": {
+    "service": "ChatGPT",
+    "display_label": "6.1",
+    "reported_at": "2026-10-01",
+    "evidence": "User report; screenshot and API metadata not supplied",
+    "backend_snapshot": "Unknown",
+    "api_equivalence": "Not established"
+  },
+  "environment_references": [
+    {
+      "name": "Gemini Apps text prompt",
+      "energy_wh": 0.24,
+      "carbon_g": 0.03,
+      "date": "May 2025 measurement; published 21 August 2025",
+      "source_id": "energy-gemini",
+      "scope": "Provider-estimated median serving footprint, including idle capacity, CPU/RAM and data-centre overhead. Carbon applies the 2024 fleetwide grid intensity. Not independently verified; not a measurement of Gemini 3.8 or America.gov."
+    },
+    {
+      "name": "Conventional Google search",
+      "energy_wh": 0.3,
+      "carbon_g": 0.2,
+      "date": "12 January 2009 publication",
+      "source_id": "energy-search",
+      "scope": "Historical provider estimate including search-index work. Energy converted from 0.0003 kWh. Not a current web-search measurement; not AI search. Different years and boundaries prevent a valid efficiency ranking."
+    }
+  ],
+  "environment_comparison": {
+    "current_search_energy_wh": null,
+    "current_search_carbon_g": null,
+    "status": "Not established",
+    "comparable": false
+  },
+  "creation_records": [
+    {
+      "model": "BLOOM \u00b7 176B",
+      "period": "2022 training \u00b7 2022 study",
+      "energy_mwh": 433.196,
+      "energy_method": "Modelled final-run dynamic GPU energy: 433,196 kWh / 1,000. GPU hours \u00d7 rated power; not real-time electricity metering.",
+      "training_carbon_t": 24.7,
+      "broader_carbon_t": 50.5,
+      "carbon_basis": "Approximate final-run dynamic emissions; 57 g CO\u2082e/kWh French grid factor. Broader 50.5 t includes allocated equipment manufacture and energy-based operational consumption. These totals are alternatives with different boundaries, not additive.",
+      "gpu_hours": 1082990,
+      "full_development": "Not established as a complete all-development footprint here. The study separately discusses intermediate experiments; the final-run figures do not include all research and development.",
+      "updates": "No dated update/fine-tuning footprint established in this record.",
+      "financial_cost": "Not established in this record.",
+      "source_id": "training-bloom",
+      "checked_at": "2026-10-01",
+      "evidence": "Primary research estimate"
+    },
+    {
+      "model": "Llama 3.1 \u00b7 405B",
+      "period": "Model released 23 July 2024",
+      "energy_mwh": null,
+      "energy_method": "Electricity total not separately extracted as a measured value. Provider reports 30.84 million H100 GPU-hours and 700 W rated GPU power. These are compute/power disclosures, not metered whole-facility electricity.",
+      "training_carbon_t": 8930,
+      "market_carbon_t": 0,
+      "carbon_basis": "Provider-estimated location-based training emissions: 8,930 tons CO\u2082eq. Separately reports 0 market-based tons under renewable-electricity matching. Market-based zero is an accounting claim, not zero electricity consumption or zero physical impact. Source uses \u201ctons\u201d; no mass-unit reinterpretation applied.",
+      "gpu_hours": 30840000,
+      "full_development": "Complete experiments, data preparation, hardware manufacture and all development stages are not established by this training row.",
+      "updates": "No per-release update/fine-tuning energy or carbon series established in this record.",
+      "financial_cost": "Not established in this record.",
+      "source_id": "training-llama",
+      "checked_at": "2026-10-01",
+      "evidence": "Provider model-card estimate"
+    }
+  ],
+  "creation_coverage": [
+    {
+      "model": "GPT-6.1 Sol",
+      "source_id": "openai-spec-current",
+      "status": "Not established in this catalogue",
+      "checked_at": "2026-10-01",
+      "scope": "Reviewed API specifications and targeted source search. No applicable creation-energy, training-carbon or per-update totals established. This is not proof that the provider has never disclosed them."
+    },
+    {
+      "model": "Gemini 3.8 Flash",
+      "source_id": "gemini-spec-current",
+      "status": "Not established in this catalogue",
+      "checked_at": "2026-10-01",
+      "scope": "Reviewed API specifications and targeted source search. No applicable creation-energy, training-carbon or per-update totals established. This is not proof that the provider has never disclosed them."
+    },
+    {
+      "model": "Claude Fable 5.1",
+      "source_id": "claude-spec-current",
+      "status": "Not established in this catalogue",
+      "checked_at": "2026-10-01",
+      "scope": "Reviewed API specifications and targeted source search. No applicable creation-energy, training-carbon or per-update totals established. This is not proof that the provider has never disclosed them."
+    }
+  ],
+  "footprint_models": [
+    {
+      "id": "bloom-176b-reference",
+      "name": "BLOOM 176B \u00b7 footprint reference (2022)",
+      "provider": "BigScience",
+      "colour": "#c4a5ff",
+      "source_id": "training-bloom",
+      "parameters": "176 billion",
+      "note": "Historical research reference. Not a current commercial chatbot.",
+      "checked_at": "2026-10-01"
+    },
+    {
+      "id": "llama-31-405b-reference",
+      "name": "Llama 3.1 405B \u00b7 footprint reference (2024)",
+      "provider": "Meta",
+      "colour": "#8ab8ff",
+      "source_id": "training-llama",
+      "parameters": "405 billion",
+      "note": "Historical model-card training disclosure. Serving configuration varies by operator.",
+      "checked_at": "2026-10-01"
+    },
+    {
+      "id": "mistral-large2-reference",
+      "name": "Mistral Large 2 \u00b7 footprint reference (2025 disclosure)",
+      "provider": "Mistral AI",
+      "colour": "#ffb366",
+      "source_id": "energy-mistral-lca",
+      "note": "Dated lifecycle and Le Chat inference disclosure; not a measurement of current Mistral releases.",
+      "checked_at": "2026-10-01"
+    }
+  ],
+  "footprints": {
+    "gpt-6.1-sol": {
+      "level": "Historical service claim",
+      "query_energy_wh": 0.34,
+      "query_carbon_g": null,
+      "water_ml": null,
+      "period": "June 2025 disclosure",
+      "applies_to": "Average ChatGPT query in an executive statement",
+      "source_id": "energy-openai-claim",
+      "boundary": "Method, workload and included infrastructure unspecified. No mapping to GPT-6.1 Sol.",
+      "creation": "No applicable release-specific total found in this source review.",
+      "updates": "No dated per-update footprint found."
+    },
+    "gemini-3.8-flash": {
+      "level": "Historical production measurement",
+      "query_energy_wh": 0.24,
+      "query_carbon_g": 0.03,
+      "water_ml": 0.26,
+      "period": "May 2025 Gemini Apps text prompts",
+      "applies_to": "Median Gemini Apps text prompt, across the serving fleet",
+      "source_id": "energy-google-paper",
+      "boundary": "Includes accelerator, host, idle capacity and facility overhead. Carbon is market-based plus allocated hardware emissions. Excludes model training and user devices. Not a Gemini 3.8 Flash measurement.",
+      "creation": "No applicable release-specific total found in this source review.",
+      "updates": "No dated per-update footprint found."
+    },
+    "claude-fable-5-1": {
+      "level": "No applicable model measurement found",
+      "period": "Evidence review: 1 October 2026",
+      "source_id": "energy-inference-study",
+      "applies_to": "Generic inference study is available below; not a Claude measurement",
+      "boundary": "Claude-specific architecture, serving hardware and workload allocation are unresolved.",
+      "creation": "No applicable release-specific total found in this source review.",
+      "updates": "No dated per-update footprint found."
+    },
+    "america-gov": {
+      "level": "Deployment footprint unresolved",
+      "period": "Evidence review: 1 October 2026",
+      "source_id": "america-partner",
+      "applies_to": "Gemini technology partnership does not identify a serving footprint",
+      "boundary": "Do not transfer Gemini Apps energy or carbon to a government deployment. Retrieval, tools, routing and infrastructure are unresolved.",
+      "creation": "Underlying release and incremental deployment development not established.",
+      "updates": "No deployment update footprint found."
+    },
+    "bloom-176b-reference": {
+      "level": "Primary research estimate",
+      "period": "2022 final training",
+      "source_id": "training-bloom",
+      "applies_to": "BLOOM 176B final training run",
+      "training_energy_mwh": 433.196,
+      "training_carbon_t": 24.7,
+      "broader_carbon_t": 50.5,
+      "boundary": "Dynamic GPU energy estimate; broader 50.5 tonnes adds allocated equipment manufacture and operational energy. Alternative boundaries, not additive.",
+      "creation": "433.196 MWh dynamic GPU energy; 24.7 tonnes CO\u2082e dynamic, 50.5 tonnes under broader accounting.",
+      "updates": "No dated fine-tuning or update series in the reviewed record."
+    },
+    "llama-31-405b-reference": {
+      "level": "Provider training estimate",
+      "period": "July 2024 model card",
+      "source_id": "training-llama",
+      "applies_to": "Llama 3.1 405B training",
+      "training_energy_mwh": 21588,
+      "training_carbon_t": 8930,
+      "energy_derived": true,
+      "boundary": "Energy proxy derived here: 30.84 million GPU-hours \u00d7 0.7 kW = 21,588 MWh. Rated GPU power, not metered electricity; excludes hosts and facility overhead. Carbon reported as 8,930 tons CO\u2082eq location-based; separate market-based zero is not zero physical impact.",
+      "creation": "21,588 MWh rated-power proxy; provider reports 8,930 tons CO\u2082eq location-based.",
+      "updates": "No dated fine-tuning or update series in the reviewed record."
+    },
+    "mistral-large2-reference": {
+      "level": "Provider lifecycle assessment; external review reported",
+      "period": "July 2025 publication; totals as at January 2025",
+      "source_id": "energy-mistral-lca",
+      "applies_to": "Mistral Large 2 / 400-token Le Chat response",
+      "query_carbon_g": 1.14,
+      "water_ml": 45,
+      "lifecycle_carbon_kt": 20.4,
+      "lifecycle_water_m3": 281000,
+      "boundary": "Inference excludes user devices and includes upstream impacts. The absolute disclosure mentions training and 18 months of usage; cannot isolate training-only impact from this summary.",
+      "creation": "20.4 kt CO\u2082e and 281,000 m\u00b3 water in the absolute disclosure. Training-only energy/carbon not separately established.",
+      "updates": "No dated per-update footprint series in the reviewed record."
+    }
+  },
+  "inference_scenario": {
+    "median_wh": 0.31,
+    "q1_wh": 0.16,
+    "q3_wh": 0.6,
+    "long_median_wh": 3.91,
+    "long_q1_wh": 2.15,
+    "long_q3_wh": 7.05,
+    "source_id": "energy-inference-study",
+    "period": "Joule 2026 / arXiv v2, revised 9 June 2026",
+    "scope": "Bottom-up scenarios for >200B-parameter models on H100 nodes, with throughput, node power and overhead assumptions. The interquartile range describes study scenarios, not a confidence interval or a bound on all queries. Long-query scenario uses 15\u00d7 test-time scaling.",
+    "excludes": "Not a measurement of any currently selected API. Training, user devices and whole lifecycle are not included in this serving-energy scenario.",
+    "illustrative_grid_g_per_kwh": 400
+  },
+  "creation_scenario": {
+    "gpu_hours_low": 1000000,
+    "gpu_hours_high": 30000000,
+    "gpu_kw": 0.7,
+    "host_multiplier": 1.2,
+    "pue": 1.2,
+    "grid_kg_per_kwh": 0.4,
+    "usd_per_gpu_hour": 3,
+    "source_id": "training-estimate-hardware",
+    "boundary": "One final training run. Excludes development experiments, staff, data acquisition, hardware manufacture and later updates. Range is an analyst-selected scenario, not a confidence interval or model-specific measurement.",
+    "basis": "1\u201330 million H100-equivalent GPU-hours, 0.7 kW per GPU, \u00d71.2 host allowance, \u00d71.2 facility overhead; illustrative electricity factor 0.4 kg CO\u2082e/kWh and rental price US$3/GPU-hour. Hours, overheads, grid and rental price are explicit assumptions. Actual costs can lie outside this range."
+  }
+}
