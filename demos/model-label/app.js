@@ -5,7 +5,7 @@
   const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const safeUrl = value => { try { const url = new URL(value); return url.protocol === 'https:' ? escape(url.href) : '#'; } catch { return '#'; } };
   const statusLabels = {partial:'Partial',provider_claim:'Provider claim',unknown:'Unknown',ok:'Captured',blocked:'Blocked',error:'Fetch error'};
-  let data, selected = 'america-gov', detailTab = 'label', view = 'overview', reviewTarget = null, loading = false, previousRunning = false, pollTimer, renderedSignature;
+  let data, selected = 'america-gov', detailTab = 'label', view = location.hash === '#view-bench' ? 'bench' : 'overview', reviewTarget = null, loading = false, previousRunning = false, pollTimer, renderedSignature;
   const TRIAL_KEY = 'model-label-trials-v1';
   let trials = [];
   const responsePrompts = {};
@@ -467,6 +467,12 @@
     for(const [letter,item] of [['A',a],['B',b]]){const suffix=letter.toLowerCase();$('response'+letter).value=item.response||item.error||'No visible text';$('time'+letter).value=item.ended_at.slice(0,16);responsePrompts[letter]=run['prompt_'+suffix];f.elements['disposition_'+suffix].value=item.status==='technical_failure'?'Technical failure':'Not assessed';f.elements['factual_'+suffix].value='Not assessed';f.elements['eligible_'+suffix].value='Unknown';}
     f.elements.memory.value='Unknown / not checked';f.elements.custom_instructions.value='Unknown / not checked';f.elements.tools.value='Unknown / not checked';f.elements.comparable_conditions.value='Confirmed';f.elements.conclusion_comparison.value='Not assessed';f.elements.notes.value='Imported API run '+run.id+', pair '+pair+'. Check finish reasons and truncation before assessing.';previewAnalysis();$('pairAnalysis').scrollIntoView({behavior:'smooth',block:'start'});
   });
+  const apiPanel=document.querySelector('.api-test-panel');
+  const manualAlternative=document.querySelector('.manual-alternative');
+  if(!localMode){
+    if(apiPanel)apiPanel.hidden=true;
+    if(manualAlternative)manualAlternative.open=true;
+  }
   apiPlan();if(localMode)loadApiRuns();
   function analysisMarkup(result) {
     return `<section class="pair-result ${escape(result.outcome)}"><p class="eyebrow">Analysis of this pair · user-coded assessments</p><h3>${escape(result.title)}</h3><p>${escape(result.finding)}</p><div class="result-checks"><span>A: ${result.text_checks.word_count_a} words</span><span>B: ${result.text_checks.word_count_b} words</span><span>${result.text_checks.identical_after_whitespace_normalisation?'Same text after whitespace normalisation':'Different text; meaning is not determined by this check'}</span></div>${result.flags.map(f=>`<p class="review-note">${escape(f)}</p>`).join('')}<h4>What this does not prove</h4><ul>${result.limitations.map(f=>`<li>${escape(f)}</li>`).join('')}</ul>${result.unchecked.length?`<h4>Conditions still unchecked</h4><ul>${result.unchecked.map(f=>`<li>${escape(f)}</li>`).join('')}</ul>`:''}<h4>Next step</h4><p>${escape(result.next_step)}</p></section>`;
