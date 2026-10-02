@@ -170,6 +170,53 @@
     const r=localChecks[service.id], live=liveSignal(service);
     return `<section class="passport-card status-card"><p class="card-index">LIVE / AUTOMATIC</p><h3>Service status &amp; local access</h3><p><b>${escape(live.status)}</b> · ${escape(live.note)}</p>${r?.operator?.reason?`<p>${escape(r.operator.reason)}</p>`:''}<p><b>From this computer:</b> ${r?.checked_at?escape(r.website_status==='reachable'?'Website reachable':r.website_status==='unavailable'?'Website server error':'Check inconclusive'):'Checking…'}</p>${r?.detail?`<p class="card-note">${escape(r.detail)}</p>`:''}${r?.checked_at?`<p class="card-note">${escape(date(r.checked_at))} · ${escape(r.latency_ms??'—')} ms · HTTP ${escape(r.http_status??'no response')}</p>`:''}<p class="card-note">Updates automatically every minute while open. Access checks use the server computer’s connection; run it in Ireland for Irish access. Website reachability does not verify an answer. No paid inference requests.</p>${r?.operator_url?`<a href="${safeUrl(r.operator_url)}" target="_blank" rel="noopener">Official status source ↗</a>`:''}</section>`;
   }
+  function renderSummaryStrip(m,service,live) {
+    const box=(label,value,note='')=>`<div><span>${escape(label)}</span><strong>${escape(value)}</strong><small>${escape(note)}</small></div>`;
+
+    if(m.id==='america-gov') {
+      return `<div class="spec-strip deployment-strip">${box('MODEL FAMILY','Gemini','reported technology family')}${box('EXACT RELEASE','Unresolved','serving release not disclosed')}${box('SERVICE TYPE',service?.kind||'Government assistant','America.gov deployment')}${box('SERVICE STATUS',live.status,live.note)}</div>`;
+    }
+
+    const historical=(data.catalogue.footprint_models||[]).some(item=>item.id===m.id);
+    if(historical) {
+      return `<div class="spec-strip reference-strip">${box('MODEL',m.name,'historical reference')}${box('PROVIDER',m.provider,'source attribution')}${box('PARAMETERS',m.parameters||'Not disclosed','where published')}${box('USE HERE','Reference only','not a current chatbot')}</div>`;
+    }
+
+    const reviewedModel=Boolean(m.source_id && (m.context||m.output||m.inputs||m.outputs));
+    if(reviewedModel) {
+      return `<div class="spec-strip">${box('CONTEXT',m.context?m.context.toLocaleString():'Not disclosed',m.context?'tokens':'provider documentation')}${box('MAX OUTPUT',m.output?m.output.toLocaleString():'Not disclosed',m.output?'tokens':'provider documentation')}${box('KNOWLEDGE CUTOFF',m.cutoff||'Not disclosed','provider documentation')}${box('SERVICE STATUS',live.status,live.note)}</div>`;
+    }
+
+    return `<div class="spec-strip catalogue-strip">${box('IDENTIFIER',m.id,'official catalogue discovery')}${box('PROVIDER',m.provider,'catalogue publisher')}${box('SPECIFICATIONS','Awaiting review','not yet curated')}${box('SESSION BINDING','Not established','discovery does not identify your chat')}</div>`;
+  }
+
+  function renderIdentityCard(m,service,sources) {
+    const known=(value)=>value && !/^not (established|disclosed|supplied)/i.test(String(value));
+    const fact=(label,value,emphasis=false)=>value?`<div${emphasis?' class="identity-key"':''}><dt>${escape(label)}</dt><dd>${escape(value)}</dd></div>`:'';
+    const gap=(items)=>items.length?`<p class="identity-gap"><b>Not publicly established:</b> ${escape(items.join(' · '))}</p>`:'';
+    const identityField=service?.fields?.find(field=>field.id==='identity');
+
+    if(m.id==='america-gov') {
+      return `<section class="passport-card identity-card"><div class="card-top"><p class="card-index">01 / DEPLOYMENT IDENTITY</p><span class="claim-chip">PARTIAL PUBLIC RECORD</span></div><h3>What America.gov is</h3><dl class="simple-facts identity-facts">${fact('Service','America.gov',true)}${fact('Type',service?.kind||'Government-services assistant')}${fact('Technology partner','Google')}${fact('Model family','Gemini')}${fact('Identity reviewed',identityField?.reviewed_at||service?.label_reviewed_at)}</dl>${gap(['exact serving release','routing and fallback behaviour','deployment-specific serving instructions'])}<p class="identity-summary">${escape(identityField?.summary||'The public record identifies Gemini technology, but not the exact release or serving configuration.')}</p><div class="card-sources">${sources}</div></section>`;
+    }
+
+    const historical=(data.catalogue.footprint_models||[]).some(item=>item.id===m.id);
+    if(historical) {
+      return `<section class="passport-card identity-card"><p class="card-index">01 / REFERENCE IDENTITY</p><h3>Historical reference model</h3><dl class="simple-facts identity-facts">${fact('Model',m.name,true)}${fact('Provider',m.provider)}${fact('Parameters',known(m.parameters)?m.parameters:null)}${fact('Evidence type','Historical footprint reference')}${fact('Reviewed',m.checked_at)}${fact('Use in this demo','Comparison reference only',true)}</dl><p class="identity-summary">${escape(m.note||'This record is retained for historical comparison and is not presented as a current chatbot deployment.')}</p><div class="card-sources">${sources}</div></section>`;
+    }
+
+    const reviewedModel=Boolean(m.source_id && (m.context||m.output||m.inputs||m.outputs));
+    if(reviewedModel) {
+      const gaps=[];
+      if(!known(m.parameters))gaps.push('parameter count');
+      if(!known(m.weights))gaps.push('model weights');
+      if(!known(m.session_binding))gaps.push('binding to your current chat session');
+      return `<section class="passport-card identity-card"><p class="card-index">01 / MODEL IDENTITY</p><h3>Identity &amp; evidence</h3><dl class="simple-facts identity-facts">${fact('API identifier',m.id,true)}${fact('Provider',m.provider)}${fact('Release / update',m.release)}${fact('Inputs',m.inputs)}${fact('Outputs',m.outputs)}${fact('Evidence checked',m.checked_at)}</dl>${gap(gaps)}<div class="card-sources">${sources}</div></section>`;
+    }
+
+    return `<section class="passport-card identity-card"><p class="card-index">01 / CATALOGUE IDENTITY</p><h3>Discovered model identifier</h3><dl class="simple-facts identity-facts">${fact('Identifier',m.id,true)}${fact('Provider',m.provider)}${fact('Evidence state','Discovered in official catalogue')}</dl>${gap(['technical specifications','release applicability','binding to a consumer session'])}<p class="identity-summary">${escape(m.note||'Technical specifications and deployment applicability still require editorial review.')}</p><div class="card-sources">${sources}</div></section>`;
+  }
+
   function renderObservatory() {
     const known=[...data.catalogue.models,...(data.catalogue.footprint_models||[])];
     const discovered=Object.values(data.monitor.discovered_models||{}).filter(m=>!known.some(k=>k.id===m.id));
@@ -185,10 +232,9 @@
     // The selector is a permanent node: model changes never wait for blur or polling.
     if(options!==pickerMarkup && document.activeElement?.id!=='modelPicker'){$('modelPicker').innerHTML=options;pickerMarkup=options;}
     $('modelPicker').value=m.id;
-    const fact=(label,value)=>`<div><dt>${label}</dt><dd>${escape(value??unknown)}</dd></div>`;
     const sources=m.source_id?sourceLink(m.source_id):m.source_url?`<a href="${safeUrl(m.source_url)}" target="_blank" rel="noopener">Official catalogue entry ↗</a>`:sourceLink('america-partner');
     const fields=(service?.fields||[]).filter(f=>f.id!=='identity');
-    const markup=`<article class="model-frame" style="--accent:${escape(m.colour||'#ffb366')}"><header class="model-heading"><div><p class="eyebrow">MODEL PASSPORT / ${escape(m.provider)}</p><h2>${escape(m.name)}</h2><code>${escape(m.id==='america-gov'?'Serving model unresolved':m.id)}</code></div><span class="evidence-chip">${m.source_id?'DOCUMENTED SPECIFICATIONS':'PARTIAL PUBLIC RECORD'}</span></header><p class="passport-note">${escape(m.note||'Reported Gemini technology partner. Exact serving model and instructions remain unresolved.')}</p><div class="spec-strip"><div><span>CONTEXT</span><strong>${m.context?m.context.toLocaleString():'Unknown'}</strong><small>tokens</small></div><div><span>MAX OUTPUT</span><strong>${m.output?m.output.toLocaleString():'Unknown'}</strong><small>tokens</small></div><div><span>KNOWLEDGE CUTOFF</span><strong>${escape(m.cutoff||'Unknown')}</strong><small>provider documentation</small></div><div><span>SERVICE STATUS</span><strong class="status-text" data-state="${escape(live.status.toLowerCase())}">${escape(live.status)}</strong><small>${escape(live.note)}</small></div></div><div class="passport-grid"><section class="passport-card identity-card"><p class="card-index">01 / SPECIFICATIONS</p><h3>Technical identity</h3><dl class="simple-facts">${fact('Input',m.inputs)}${fact('Output',m.outputs)}${fact('Parameters',m.parameters)}${fact('Weights',m.weights)}${fact('Reviewed',m.checked_at)}${fact('Your session uses this model?',m.session_binding||unknown)}</dl><div class="card-sources">${sources}</div></section>${renderAvailability(service)}${renderSecurity(m)}${renderCreationEstimate(m)}${renderFootprint(m)}${fields.map((f,i)=>`<section class="passport-card field-${escape(f.id)}"><div class="card-top"><p class="card-index">${String(i+3).padStart(2,'0')} / ${escape(f.id.replace('_',' '))}</p><span class="claim-chip">${escape(statusLabels[f.status]||unknown)}</span></div><h3>${escape(f.label)}</h3><p>${escape(f.summary)}</p><div class="card-sources">${f.source_ids.map(sourceLink).join('')}</div></section>`).join('')}<section class="passport-card status-card"><p class="card-index">STATUS / EVIDENCE LIMIT</p><h3>What this label establishes</h3><p>Specifications describe this named API entry. Control records describe the related service or provider; they do not reveal this model’s hidden instructions.</p><p class="card-note">Last successful operator check: ${escape(date(sig?.item.last_success))}. A check older than ${localMode?30:90} minutes is unknown. No independent availability test of this exact model is recorded.</p></section></div></article>`;
+    const markup=`<article class="model-frame" style="--accent:${escape(m.colour||'#ffb366')}"><header class="model-heading"><div><p class="eyebrow">MODEL PASSPORT / ${escape(m.provider)}</p><h2>${escape(m.name)}</h2><code>${escape(m.id==='america-gov'?'Serving model unresolved':m.id)}</code></div><span class="evidence-chip">${m.source_id?'DOCUMENTED SPECIFICATIONS':'PARTIAL PUBLIC RECORD'}</span></header><p class="passport-note">${escape(m.note||'Reported Gemini technology partner. Exact serving model and instructions remain unresolved.')}</p>${renderSummaryStrip(m,service,live)}<div class="passport-grid">${renderIdentityCard(m,service,sources)}${renderAvailability(service)}${renderSecurity(m)}${renderCreationEstimate(m)}${renderFootprint(m)}${fields.map((f,i)=>`<section class="passport-card field-${escape(f.id)}"><div class="card-top"><p class="card-index">${String(i+3).padStart(2,'0')} / ${escape(f.id.replace('_',' '))}</p><span class="claim-chip">${escape(statusLabels[f.status]||unknown)}</span></div><h3>${escape(f.label)}</h3><p>${escape(f.summary)}</p><div class="card-sources">${f.source_ids.map(sourceLink).join('')}</div></section>`).join('')}<section class="passport-card status-card"><p class="card-index">STATUS / EVIDENCE LIMIT</p><h3>What this label establishes</h3><p>Specifications describe this named API entry. Control records describe the related service or provider; they do not reveal this model’s hidden instructions.</p><p class="card-note">Last successful operator check: ${escape(date(sig?.item.last_success))}. A check older than ${localMode?30:90} minutes is unknown. No independent availability test of this exact model is recorded.</p></section></div></article>`;
     if(markup===labelMarkup)return;
     $('observatory').innerHTML=markup;labelMarkup=markup;queuePassportLayout();
   }
