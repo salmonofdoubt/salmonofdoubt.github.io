@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "title": "Model Label",
-  "version": "0.11.0",
+  "version": "0.17.0",
   "seed_date": "2026-10-01",
   "scope": "Four registered services; public disclosures only. Consumer and API deployments must be audited separately.",
   "template": {
@@ -47,7 +47,7 @@
     },
     {
       "id": "claude-constitution",
-      "title": "Claude\u2019s Constitution",
+      "title": "Claude’s Constitution",
       "url": "https://www.anthropic.com/constitution",
       "publisher": "Anthropic",
       "purpose": "Declared principles for behaviour and post-training"
@@ -232,6 +232,27 @@
       "publisher": "NVIDIA",
       "url": "https://www.nvidia.com/en-us/data-center/h100/",
       "purpose": "Hardware reference for the transparent training scenario; GPU-hours, host allowance, grid factor and rental price are assumptions."
+    },
+    {
+      "id": "security-openai-gpt-6-1-sol",
+      "title": "GPT-6.1 Sol system card addendum",
+      "url": "https://deploymentsafety.openai.com/gpt-6-1-sol/respecting-auto-review",
+      "publisher": "OpenAI",
+      "purpose": "Model-specific safety, cybersecurity capability, jailbreak and safeguards evidence for GPT-6.1 Sol."
+    },
+    {
+      "id": "security-gemini-3-8-flash",
+      "title": "Gemini 3.8 Flash model card",
+      "url": "https://deepmind.google/models/model-cards/gemini-3-8-flash/",
+      "publisher": "Google DeepMind",
+      "purpose": "Model-specific safety evaluations, red teaming, limitations and Frontier Safety assessment for Gemini 3.8 Flash."
+    },
+    {
+      "id": "security-claude-fable-5-1",
+      "title": "Claude Fable 5.1 and Mythos 5.1 system card",
+      "url": "https://www.anthropic.com/claude-fable-5-1-mythos-5-1-system-card",
+      "publisher": "Anthropic",
+      "purpose": "Model-specific deployment safeguards, capability classification and security evaluation evidence for Claude Fable 5.1."
     }
   ],
   "services": [
@@ -405,7 +426,7 @@
           "label": "Training provenance",
           "description": "Disclosed data sources, periods and exclusions",
           "status": "unknown",
-          "summary": "No deployment-specific training inventory has been established through this demo\u2019s recorded sources.",
+          "summary": "No deployment-specific training inventory has been established through this demo’s recorded sources.",
           "source_ids": [],
           "reviewed_at": "2026-10-01",
           "reviewer": "Initial editorial seed",
@@ -464,7 +485,7 @@
           "label": "Change governance",
           "description": "Release history, configuration changes and approvals",
           "status": "partial",
-          "summary": "The model-card index includes published or updated dates. It does not establish the app\u2019s complete configuration or approval history.",
+          "summary": "The model-card index includes published or updated dates. It does not establish the app’s complete configuration or approval history.",
           "source_ids": [
             "gemini-cards"
           ],
@@ -657,7 +678,7 @@
           "label": "Training provenance",
           "description": "Disclosed data sources, periods and exclusions",
           "status": "unknown",
-          "summary": "No deployment-specific training inventory has been established through this demo\u2019s recorded sources.",
+          "summary": "No deployment-specific training inventory has been established through this demo’s recorded sources.",
           "source_ids": [],
           "reviewed_at": "2026-10-01",
           "reviewer": "Initial editorial seed",
@@ -744,7 +765,7 @@
       "context_label": "Context window",
       "output": 128000,
       "cutoff": "30 April 2026",
-      "inputs": "Text \u00b7 images",
+      "inputs": "Text · images",
       "outputs": "Text",
       "release": "Current API entry checked 1 October 2026",
       "source_id": "openai-spec-current",
@@ -753,7 +774,17 @@
       "parameters": "Not disclosed in cited specification",
       "weights": "Not supplied by cited specification",
       "session_binding": "Not established",
-      "evidence": "Provider documentation; not independently measured"
+      "evidence": "Provider documentation; not independently measured",
+      "security": {
+        "status": "Provider-reported · reviewed 2 Oct 2026",
+        "risk": "OpenAI classifies GPT-6.1 Sol as Critical capability in cybersecurity, High in biological/chemical capability, and below the High threshold for AI self-improvement under its Preparedness Framework.",
+        "safeguards": "OpenAI states that GPT-6.1 Sol uses the same safeguards stack as GPT-6 Astra, including deployment monitoring and controls for malicious use and unauthorized model activity.",
+        "testing": "The system-card addendum reports static and multi-turn jailbreak evaluations, realistic work-environment misalignment evaluations, and monitor-evasion testing.",
+        "limit": "These are OpenAI evaluations and deployment claims, not an independent penetration test by Model Label. The card also reports residual failure modes, so the result is not a guarantee of security.",
+        "source_ids": [
+          "security-openai-gpt-6-1-sol"
+        ]
+      }
     },
     {
       "id": "gemini-3.8-flash",
@@ -765,7 +796,7 @@
       "context_label": "Input token limit",
       "output": 65536,
       "cutoff": "Not established in this source",
-      "inputs": "Text \u00b7 images \u00b7 video \u00b7 audio \u00b7 PDF",
+      "inputs": "Text · images · video · audio · PDF",
       "outputs": "Text",
       "release": "Model update: September 2026",
       "source_id": "gemini-spec-current",
@@ -774,7 +805,17 @@
       "parameters": "Not disclosed in cited specification",
       "weights": "Not supplied by cited specification",
       "session_binding": "Not established",
-      "evidence": "Provider documentation; not independently measured"
+      "evidence": "Provider documentation; not independently measured",
+      "security": {
+        "status": "Provider-reported · reviewed 2 Oct 2026",
+        "risk": "Google reports that Gemini 3.8 Flash is unlikely to reach any Tracked or Critical Capability Levels under its April 2026 Frontier Safety Framework assessment.",
+        "safeguards": "Google reports continued work on jailbreak resistance, safety-policy mitigations, and specialist human red teaming outside the model-development team.",
+        "testing": "The model card reports automated text, multilingual and image safety evaluations plus manual red teaming; multilingual safety showed a small regression relative to Gemini 3.7 Flash.",
+        "limit": "Provider evaluations are informative but do not establish the security of every downstream deployment, tool connection, retrieval layer or system prompt.",
+        "source_ids": [
+          "security-gemini-3-8-flash"
+        ]
+      }
     },
     {
       "id": "claude-fable-5-1",
@@ -786,7 +827,7 @@
       "context_label": "Context window (published as 1M)",
       "output": 128000,
       "cutoff": "June 2026 (reliable knowledge)",
-      "inputs": "Text \u00b7 images",
+      "inputs": "Text · images",
       "outputs": "Text",
       "release": "Released: 1 September 2026",
       "source_id": "claude-spec-current",
@@ -795,7 +836,17 @@
       "parameters": "Not disclosed in cited specification",
       "weights": "Not supplied by cited specification",
       "session_binding": "Not established",
-      "evidence": "Provider documentation; not independently measured"
+      "evidence": "Provider documentation; not independently measured",
+      "security": {
+        "status": "Provider-reported · reviewed 2 Oct 2026",
+        "risk": "Anthropic reports deploying Claude Fable 5.1 with ASL-3 protections, treating it as having CB-1 capabilities, with autonomy threat model 1 applicable.",
+        "safeguards": "Anthropic reports extensive stress-testing of Fable 5.1 cybersecurity safeguards, including external testing and automated Gray Swan testing.",
+        "testing": "Anthropic states that it found no evidence of a critical-severity jailbreak for the tested Fable 5.1 cybersecurity safeguards.",
+        "limit": "This is Anthropic's reported assessment. Fable 5.1 and Mythos 5.1 share model capabilities but use different safeguard configurations, so deployment context matters.",
+        "source_ids": [
+          "security-claude-fable-5-1"
+        ]
+      }
     }
   ],
   "historical_models": [
@@ -809,7 +860,7 @@
       "context_label": "Context window",
       "output": 128000,
       "cutoff": "30 April 2026",
-      "inputs": "Text \u00b7 images",
+      "inputs": "Text · images",
       "outputs": "Text",
       "release": "Current API entry checked 1 October 2026",
       "source_id": "openai-spec-current",
@@ -830,7 +881,7 @@
       "context_label": "Input token limit",
       "output": 65536,
       "cutoff": "Not established in this source",
-      "inputs": "Text \u00b7 images \u00b7 video \u00b7 audio \u00b7 PDF",
+      "inputs": "Text · images · video · audio · PDF",
       "outputs": "Text",
       "release": "Model update: September 2026",
       "source_id": "gemini-spec-current",
@@ -851,7 +902,7 @@
       "context_label": "Context window (published as 1M)",
       "output": 128000,
       "cutoff": "June 2026 (reliable knowledge)",
-      "inputs": "Text \u00b7 images",
+      "inputs": "Text · images",
       "outputs": "Text",
       "release": "Released: 1 September 2026",
       "source_id": "claude-spec-current",
@@ -897,13 +948,13 @@
   },
   "creation_records": [
     {
-      "model": "BLOOM \u00b7 176B",
-      "period": "2022 training \u00b7 2022 study",
+      "model": "BLOOM · 176B",
+      "period": "2022 training · 2022 study",
       "energy_mwh": 433.196,
-      "energy_method": "Modelled final-run dynamic GPU energy: 433,196 kWh / 1,000. GPU hours \u00d7 rated power; not real-time electricity metering.",
+      "energy_method": "Modelled final-run dynamic GPU energy: 433,196 kWh / 1,000. GPU hours × rated power; not real-time electricity metering.",
       "training_carbon_t": 24.7,
       "broader_carbon_t": 50.5,
-      "carbon_basis": "Approximate final-run dynamic emissions; 57 g CO\u2082e/kWh French grid factor. Broader 50.5 t includes allocated equipment manufacture and energy-based operational consumption. These totals are alternatives with different boundaries, not additive.",
+      "carbon_basis": "Approximate final-run dynamic emissions; 57 g CO₂e/kWh French grid factor. Broader 50.5 t includes allocated equipment manufacture and energy-based operational consumption. These totals are alternatives with different boundaries, not additive.",
       "gpu_hours": 1082990,
       "full_development": "Not established as a complete all-development footprint here. The study separately discusses intermediate experiments; the final-run figures do not include all research and development.",
       "updates": "No dated update/fine-tuning footprint established in this record.",
@@ -913,13 +964,13 @@
       "evidence": "Primary research estimate"
     },
     {
-      "model": "Llama 3.1 \u00b7 405B",
+      "model": "Llama 3.1 · 405B",
       "period": "Model released 23 July 2024",
       "energy_mwh": null,
       "energy_method": "Electricity total not separately extracted as a measured value. Provider reports 30.84 million H100 GPU-hours and 700 W rated GPU power. These are compute/power disclosures, not metered whole-facility electricity.",
       "training_carbon_t": 8930,
       "market_carbon_t": 0,
-      "carbon_basis": "Provider-estimated location-based training emissions: 8,930 tons CO\u2082eq. Separately reports 0 market-based tons under renewable-electricity matching. Market-based zero is an accounting claim, not zero electricity consumption or zero physical impact. Source uses \u201ctons\u201d; no mass-unit reinterpretation applied.",
+      "carbon_basis": "Provider-estimated location-based training emissions: 8,930 tons CO₂eq. Separately reports 0 market-based tons under renewable-electricity matching. Market-based zero is an accounting claim, not zero electricity consumption or zero physical impact. Source uses “tons”; no mass-unit reinterpretation applied.",
       "gpu_hours": 30840000,
       "full_development": "Complete experiments, data preparation, hardware manufacture and all development stages are not established by this training row.",
       "updates": "No per-release update/fine-tuning energy or carbon series established in this record.",
@@ -955,7 +1006,7 @@
   "footprint_models": [
     {
       "id": "bloom-176b-reference",
-      "name": "BLOOM 176B \u00b7 footprint reference (2022)",
+      "name": "BLOOM 176B · footprint reference (2022)",
       "provider": "BigScience",
       "colour": "#c4a5ff",
       "source_id": "training-bloom",
@@ -965,7 +1016,7 @@
     },
     {
       "id": "llama-31-405b-reference",
-      "name": "Llama 3.1 405B \u00b7 footprint reference (2024)",
+      "name": "Llama 3.1 405B · footprint reference (2024)",
       "provider": "Meta",
       "colour": "#8ab8ff",
       "source_id": "training-llama",
@@ -975,7 +1026,7 @@
     },
     {
       "id": "mistral-large2-reference",
-      "name": "Mistral Large 2 \u00b7 footprint reference (2025 disclosure)",
+      "name": "Mistral Large 2 · footprint reference (2025 disclosure)",
       "provider": "Mistral AI",
       "colour": "#ffb366",
       "source_id": "energy-mistral-lca",
@@ -1035,7 +1086,7 @@
       "training_carbon_t": 24.7,
       "broader_carbon_t": 50.5,
       "boundary": "Dynamic GPU energy estimate; broader 50.5 tonnes adds allocated equipment manufacture and operational energy. Alternative boundaries, not additive.",
-      "creation": "433.196 MWh dynamic GPU energy; 24.7 tonnes CO\u2082e dynamic, 50.5 tonnes under broader accounting.",
+      "creation": "433.196 MWh dynamic GPU energy; 24.7 tonnes CO₂e dynamic, 50.5 tonnes under broader accounting.",
       "updates": "No dated fine-tuning or update series in the reviewed record."
     },
     "llama-31-405b-reference": {
@@ -1046,8 +1097,8 @@
       "training_energy_mwh": 21588,
       "training_carbon_t": 8930,
       "energy_derived": true,
-      "boundary": "Energy proxy derived here: 30.84 million GPU-hours \u00d7 0.7 kW = 21,588 MWh. Rated GPU power, not metered electricity; excludes hosts and facility overhead. Carbon reported as 8,930 tons CO\u2082eq location-based; separate market-based zero is not zero physical impact.",
-      "creation": "21,588 MWh rated-power proxy; provider reports 8,930 tons CO\u2082eq location-based.",
+      "boundary": "Energy proxy derived here: 30.84 million GPU-hours × 0.7 kW = 21,588 MWh. Rated GPU power, not metered electricity; excludes hosts and facility overhead. Carbon reported as 8,930 tons CO₂eq location-based; separate market-based zero is not zero physical impact.",
+      "creation": "21,588 MWh rated-power proxy; provider reports 8,930 tons CO₂eq location-based.",
       "updates": "No dated fine-tuning or update series in the reviewed record."
     },
     "mistral-large2-reference": {
@@ -1060,7 +1111,7 @@
       "lifecycle_carbon_kt": 20.4,
       "lifecycle_water_m3": 281000,
       "boundary": "Inference excludes user devices and includes upstream impacts. The absolute disclosure mentions training and 18 months of usage; cannot isolate training-only impact from this summary.",
-      "creation": "20.4 kt CO\u2082e and 281,000 m\u00b3 water in the absolute disclosure. Training-only energy/carbon not separately established.",
+      "creation": "20.4 kt CO₂e and 281,000 m³ water in the absolute disclosure. Training-only energy/carbon not separately established.",
       "updates": "No dated per-update footprint series in the reviewed record."
     }
   },
@@ -1073,7 +1124,7 @@
     "long_q3_wh": 7.05,
     "source_id": "energy-inference-study",
     "period": "Joule 2026 / arXiv v2, revised 9 June 2026",
-    "scope": "Bottom-up scenarios for >200B-parameter models on H100 nodes, with throughput, node power and overhead assumptions. The interquartile range describes study scenarios, not a confidence interval or a bound on all queries. Long-query scenario uses 15\u00d7 test-time scaling.",
+    "scope": "Bottom-up scenarios for >200B-parameter models on H100 nodes, with throughput, node power and overhead assumptions. The interquartile range describes study scenarios, not a confidence interval or a bound on all queries. Long-query scenario uses 15× test-time scaling.",
     "excludes": "Not a measurement of any currently selected API. Training, user devices and whole lifecycle are not included in this serving-energy scenario.",
     "illustrative_grid_g_per_kwh": 400
   },
@@ -1087,6 +1138,21 @@
     "usd_per_gpu_hour": 3,
     "source_id": "training-estimate-hardware",
     "boundary": "One final training run. Excludes development experiments, staff, data acquisition, hardware manufacture and later updates. Range is an analyst-selected scenario, not a confidence interval or model-specific measurement.",
-    "basis": "1\u201330 million H100-equivalent GPU-hours, 0.7 kW per GPU, \u00d71.2 host allowance, \u00d71.2 facility overhead; illustrative electricity factor 0.4 kg CO\u2082e/kWh and rental price US$3/GPU-hour. Hours, overheads, grid and rental price are explicit assumptions. Actual costs can lie outside this range."
+    "basis": "1–30 million H100-equivalent GPU-hours, 0.7 kW per GPU, ×1.2 host allowance, ×1.2 facility overhead; illustrative electricity factor 0.4 kg CO₂e/kWh and rental price US$3/GPU-hour. Hours, overheads, grid and rental price are explicit assumptions. Actual costs can lie outside this range."
+  },
+  "reviewed_at": "2026-10-02",
+  "security_scope": "Model-specific security information is provider-reported unless explicitly marked otherwise. It does not constitute an independent penetration test or establish a downstream deployment's full security posture.",
+  "deployment_security": {
+    "america-gov": {
+      "status": "Deployment-specific posture unresolved",
+      "risk": "Exact serving model, release, routing and deployment-specific security controls are not established in the public evidence captured by this demo.",
+      "safeguards": "Google's Gemini model-level safeguards cannot be assumed to describe every America.gov serving control, retrieval layer, system instruction or government-side access control.",
+      "testing": "No independent penetration test or deployment-specific security evaluation is recorded by Model Label.",
+      "limit": "The supplier announcement establishes a Gemini technology partnership, not the complete security configuration of the live government portal.",
+      "source_ids": [
+        "america-partner",
+        "security-gemini-3-8-flash"
+      ]
+    }
   }
 }

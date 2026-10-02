@@ -31,6 +31,7 @@ jobs:
           PYTHONPATH=demos/model-label/ops python -m unittest discover -s demos/model-label/ops/tests -q
           node --check demos/model-label/app.js
           node --check demos/model-label/freshness.js
+          node demos/model-label/ops/tests/test_freshness.js
       - name: Refresh public evidence or official status
         env:
           MODEL_LABEL_DATA_DIR: ${{ github.workspace }}/demos/model-label/data
