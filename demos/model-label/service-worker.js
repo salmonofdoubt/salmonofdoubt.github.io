@@ -1,6 +1,6 @@
-const CACHE_NAME = 'model-label-shell-v0.17.0';
+const CACHE_NAME = 'model-label-shell-v0.18.0';
 const BASE = new URL('./', self.location.href);
-const FILES = ['./','./index.html','./template.css?v=0.17.0','./styles.css?v=0.17.0','./passport.css?v=0.17.0','./shell.js?v=0.17.0','./app.js?v=0.17.0','./freshness.js?v=0.17.0','./analysis.js?v=0.17.0','./site-config.js?v=0.17.0','./manifest.webmanifest','./icon.svg'];
+const FILES = ['./','./index.html','./template.css?v=0.18.0','./styles.css?v=0.18.0','./passport.css?v=0.18.0','./shell.js?v=0.18.0','./app.js?v=0.18.0','./freshness.js?v=0.18.0','./analysis.js?v=0.18.0','./site-config.js?v=0.18.0','./manifest.webmanifest','./icon.svg'];
 const SHELL = FILES.map(path => new URL(path, BASE).href);
 // Shared controls are cached with this demo; data and API responses never are.
 SHELL.push(...['demo-return.css','demo-return.js','demo-support.css','demo-support.js'].map(path => new URL('../shared/' + path, BASE).href));
