@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "title": "Model Label",
-  "version": "0.17.0",
+  "version": "0.20.0",
   "seed_date": "2026-10-01",
   "scope": "Four registered services; public disclosures only. Consumer and API deployments must be audited separately.",
   "template": {
@@ -253,6 +253,20 @@
       "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
       "publisher": "Anthropic",
       "purpose": "Model-specific safeguard, cybersecurity testing and deployment context for Claude Fable 5.1 and Mythos 5.1."
+    },
+    {
+      "id": "america-how",
+      "title": "How America.gov works",
+      "url": "https://america.gov/how-it-works",
+      "publisher": "U.S. General Services Administration / America.gov",
+      "purpose": "Deployment capabilities, official-source grounding, supported languages, account requirements, PDF and voice features."
+    },
+    {
+      "id": "america-privacy",
+      "title": "America.gov privacy policy",
+      "url": "https://america.gov/privacy-policy",
+      "publisher": "U.S. General Services Administration / America.gov",
+      "purpose": "Conversation handling, browser-memory retention, sandboxed government-site search, PDF redaction and analytics practices."
     }
   ],
   "services": [
@@ -784,7 +798,41 @@
         "source_ids": [
           "security-openai-gpt-6-1-sol"
         ]
-      }
+      },
+      "identity_facts": [
+        {
+          "label": "Designed for",
+          "value": "Complex coding, computer use and professional work"
+        },
+        {
+          "label": "Reasoning",
+          "value": "low · medium (default) · high · xhigh · max"
+        },
+        {
+          "label": "Tools",
+          "value": "Web/file search · image generation · code interpreter · shell · patching · skills · computer use · MCP · tool search"
+        },
+        {
+          "label": "API pricing",
+          "value": "$2 input · $10 output per 1M tokens"
+        },
+        {
+          "label": "Data residency",
+          "value": "US and EU supported"
+        },
+        {
+          "label": "API features",
+          "value": "Streaming · function calling · structured outputs; fine-tuning not supported"
+        }
+      ],
+      "identity_gaps": [
+        "parameter count",
+        "model weights",
+        "binding to a particular ChatGPT session"
+      ],
+      "identity_source_ids": [
+        "openai-spec-current"
+      ]
     },
     {
       "id": "gemini-3.8-flash",
@@ -815,7 +863,42 @@
         "source_ids": [
           "security-gemini-3-8-flash"
         ]
-      }
+      },
+      "identity_facts": [
+        {
+          "label": "Status",
+          "value": "General availability"
+        },
+        {
+          "label": "Designed for",
+          "value": "Everyday tasks · agentic coding · advanced reasoning · multimodal understanding · knowledge work"
+        },
+        {
+          "label": "Thinking",
+          "value": "low · medium (default) · high"
+        },
+        {
+          "label": "Tools",
+          "value": "Function calling · search as a tool · computer use"
+        },
+        {
+          "label": "API pricing",
+          "value": "$0.75 input · $3.75 output per 1M tokens through end of 2026"
+        },
+        {
+          "label": "Availability",
+          "value": "Gemini App · Enterprise Agent Platform · AI Studio · Gemini API · AI Mode · Antigravity"
+        }
+      ],
+      "identity_gaps": [
+        "parameter count",
+        "model weights",
+        "binding to a particular Gemini app session"
+      ],
+      "identity_source_ids": [
+        "gemini-spec-current",
+        "gemini-cards"
+      ]
     },
     {
       "id": "claude-fable-5-1",
@@ -846,7 +929,45 @@
         "source_ids": [
           "security-claude-fable-5-1"
         ]
-      }
+      },
+      "identity_facts": [
+        {
+          "label": "Status",
+          "value": "Active · latest"
+        },
+        {
+          "label": "Designed for",
+          "value": "Demanding reasoning and long-horizon agentic work"
+        },
+        {
+          "label": "Thinking",
+          "value": "Adaptive, always on · default effort high"
+        },
+        {
+          "label": "Comparative latency",
+          "value": "Slower"
+        },
+        {
+          "label": "API pricing",
+          "value": "$10 input · $50 output per 1M tokens"
+        },
+        {
+          "label": "Lifecycle",
+          "value": "Released 1 Sep 2026 · retirement not sooner than 1 Sep 2027"
+        },
+        {
+          "label": "Platforms",
+          "value": "Claude API · Amazon Bedrock · Google Cloud · Microsoft Foundry · Claude Platform on AWS"
+        }
+      ],
+      "identity_gaps": [
+        "parameter count",
+        "model weights",
+        "binding to a particular Claude consumer session"
+      ],
+      "identity_source_ids": [
+        "claude-spec-current"
+      ]
     }
   ],
   "historical_models": [
@@ -1154,5 +1275,56 @@
         "security-gemini-3-8-flash"
       ]
     }
-  }
+  },
+  "deployment_identity": {
+    "america-gov": {
+      "title": "Deployment identity",
+      "facts": [
+        {
+          "label": "Operator",
+          "value": "U.S. General Services Administration (GSA)"
+        },
+        {
+          "label": "Technology",
+          "value": "Gemini · Google technology partner"
+        },
+        {
+          "label": "Answer sources",
+          "value": "Official federal, state and local government websites"
+        },
+        {
+          "label": "Inputs",
+          "value": "Natural-language questions · government PDFs · browser voice input"
+        },
+        {
+          "label": "Languages",
+          "value": "English · Spanish · French"
+        },
+        {
+          "label": "Account",
+          "value": "No account required"
+        },
+        {
+          "label": "Conversation handling",
+          "value": "No account chat history; conversation held in browser memory; some answers may be cached up to 2 hours"
+        },
+        {
+          "label": "Retrieval",
+          "value": "AI searches government websites in a secure, sandboxed Internet environment"
+        }
+      ],
+      "gaps": [
+        "exact serving model release",
+        "routing/fallback configuration",
+        "deployment-specific system instructions"
+      ],
+      "source_ids": [
+        "america-how",
+        "america-privacy",
+        "america-partner"
+      ],
+      "note": "These are deployment facts published by America.gov and Google. They still do not identify the exact Gemini release serving a particular answer."
+    }
+  },
+  "identity_scope": "Technical identity cards prioritise useful first-party facts about capabilities, deployment, lifecycle and access. Undisclosed architecture details remain explicit evidence gaps rather than occupying the primary fact grid."
 }

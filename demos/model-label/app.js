@@ -190,31 +190,33 @@
     return `<div class="spec-strip catalogue-strip">${box('IDENTIFIER',m.id,'official catalogue discovery')}${box('PROVIDER',m.provider,'catalogue publisher')}${box('SPECIFICATIONS','Awaiting review','not yet curated')}${box('SESSION BINDING','Not established','discovery does not identify your chat')}</div>`;
   }
 
-  function renderIdentityCard(m,service,sources) {
-    const known=(value)=>value && !/^not (established|disclosed|supplied)/i.test(String(value));
-    const fact=(label,value,emphasis=false)=>value?`<div${emphasis?' class="identity-key"':''}><dt>${escape(label)}</dt><dd>${escape(value)}</dd></div>`:'';
-    const gap=(items)=>items.length?`<p class="identity-gap"><b>Not publicly established:</b> ${escape(items.join(' · '))}</p>`:'';
-    const identityField=service?.fields?.find(field=>field.id==='identity');
+  function renderIdentityCard(m,service,fallbackSources) {
+    const fact=(entry,index)=>`<div${index===0?' class="identity-key"':''}><dt>${escape(entry.label)}</dt><dd>${escape(entry.value)}</dd></div>`;
+    const gap=items=>items?.length?`<p class="identity-gap"><b>Still not publicly established:</b> ${escape(items.join(' · '))}</p>`:'';
+    const links=ids=>ids?.length?ids.map(sourceLink).join(''):fallbackSources;
 
-    if(m.id==='america-gov') {
-      return `<section class="passport-card identity-card"><div class="card-top"><p class="card-index">01 / DEPLOYMENT IDENTITY</p><span class="claim-chip">PARTIAL PUBLIC RECORD</span></div><h3>What America.gov is</h3><dl class="simple-facts identity-facts">${fact('Service','America.gov',true)}${fact('Type',service?.kind||'Government-services assistant')}${fact('Technology partner','Google')}${fact('Model family','Gemini')}${fact('Identity reviewed',identityField?.reviewed_at||service?.label_reviewed_at)}</dl>${gap(['exact serving release','routing and fallback behaviour','deployment-specific serving instructions'])}<p class="identity-summary">${escape(identityField?.summary||'The public record identifies Gemini technology, but not the exact release or serving configuration.')}</p><div class="card-sources">${sources}</div></section>`;
+    const deployment=m.id==='america-gov'?data.catalogue.deployment_identity?.['america-gov']:null;
+    if(deployment){
+      return `<section class="passport-card identity-card"><div class="card-top"><p class="card-index">01 / DEPLOYMENT IDENTITY</p><span class="claim-chip">FIRST-PARTY RECORD</span></div><h3>${escape(deployment.title||'Deployment identity')}</h3><dl class="simple-facts identity-facts">${deployment.facts.map(fact).join('')}</dl>${gap(deployment.gaps)}<p class="identity-summary">${escape(deployment.note||'')}</p><div class="card-sources">${links(deployment.source_ids)}</div></section>`;
+    }
+
+    if(Array.isArray(m.identity_facts) && m.identity_facts.length){
+      return `<section class="passport-card identity-card"><p class="card-index">01 / TECHNICAL IDENTITY</p><h3>Useful engineering facts</h3><dl class="simple-facts identity-facts">${m.identity_facts.map(fact).join('')}</dl>${gap(m.identity_gaps)}<div class="card-sources">${links(m.identity_source_ids)}</div></section>`;
     }
 
     const historical=(data.catalogue.footprint_models||[]).some(item=>item.id===m.id);
-    if(historical) {
-      return `<section class="passport-card identity-card"><p class="card-index">01 / REFERENCE IDENTITY</p><h3>Historical reference model</h3><dl class="simple-facts identity-facts">${fact('Model',m.name,true)}${fact('Provider',m.provider)}${fact('Parameters',known(m.parameters)?m.parameters:null)}${fact('Evidence type','Historical footprint reference')}${fact('Reviewed',m.checked_at)}${fact('Use in this demo','Comparison reference only',true)}</dl><p class="identity-summary">${escape(m.note||'This record is retained for historical comparison and is not presented as a current chatbot deployment.')}</p><div class="card-sources">${sources}</div></section>`;
+    if(historical){
+      const facts=[
+        {label:'Model',value:m.name},
+        {label:'Provider',value:m.provider},
+        ...(m.parameters && !/^not /i.test(m.parameters)?[{label:'Parameters',value:m.parameters}]:[]),
+        {label:'Use in this demo',value:'Historical footprint reference only'},
+        ...(m.checked_at?[{label:'Evidence reviewed',value:m.checked_at}]:[])
+      ];
+      return `<section class="passport-card identity-card"><p class="card-index">01 / REFERENCE IDENTITY</p><h3>Historical reference model</h3><dl class="simple-facts identity-facts">${facts.map(fact).join('')}</dl><p class="identity-summary">${escape(m.note||'This record is retained for historical comparison and is not presented as a current chatbot deployment.')}</p><div class="card-sources">${fallbackSources}</div></section>`;
     }
 
-    const reviewedModel=Boolean(m.source_id && (m.context||m.output||m.inputs||m.outputs));
-    if(reviewedModel) {
-      const gaps=[];
-      if(!known(m.parameters))gaps.push('parameter count');
-      if(!known(m.weights))gaps.push('model weights');
-      if(!known(m.session_binding))gaps.push('binding to your current chat session');
-      return `<section class="passport-card identity-card"><p class="card-index">01 / MODEL IDENTITY</p><h3>Identity &amp; evidence</h3><dl class="simple-facts identity-facts">${fact('API identifier',m.id,true)}${fact('Provider',m.provider)}${fact('Release / update',m.release)}${fact('Inputs',m.inputs)}${fact('Outputs',m.outputs)}${fact('Evidence checked',m.checked_at)}</dl>${gap(gaps)}<div class="card-sources">${sources}</div></section>`;
-    }
-
-    return `<section class="passport-card identity-card"><p class="card-index">01 / CATALOGUE IDENTITY</p><h3>Discovered model identifier</h3><dl class="simple-facts identity-facts">${fact('Identifier',m.id,true)}${fact('Provider',m.provider)}${fact('Evidence state','Discovered in official catalogue')}</dl>${gap(['technical specifications','release applicability','binding to a consumer session'])}<p class="identity-summary">${escape(m.note||'Technical specifications and deployment applicability still require editorial review.')}</p><div class="card-sources">${sources}</div></section>`;
+    return `<section class="passport-card identity-card"><p class="card-index">01 / CATALOGUE IDENTITY</p><h3>Discovered model identifier</h3><dl class="simple-facts identity-facts">${[{label:'Identifier',value:m.id},{label:'Provider',value:m.provider},{label:'Evidence state',value:'Discovered in official catalogue'}].map(fact).join('')}</dl>${gap(['technical specifications','release applicability','binding to a consumer session'])}<div class="card-sources">${fallbackSources}</div></section>`;
   }
 
   function renderObservatory() {
