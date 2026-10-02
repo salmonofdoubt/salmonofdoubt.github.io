@@ -1,5 +1,7 @@
 # Model Label
 
+Zenodo archive: https://doi.org/10.5281/zenodo.23111588
+
 Select a model or deployment to inspect specifications, responsibility, environmental evidence and service status.
 
 ## Scheduled public evidence
@@ -18,4 +20,4 @@ Published historical measurements retain their dates and accounting boundaries. 
 
 The workflow commits only monitor.json, uses the existing repository write lock and safe-rebase-push helper, and requests a Pages rebuild after bot commits because GITHUB_TOKEN pushes alone do not trigger branch-based Pages builds.
 
-Install controls, the scoped service worker and fixed DOI placeholder are retained. No DOI has been deposited for this demo.
+Install controls and the scoped service worker are retained. Model Label v0.1.0 is archived on Zenodo as DOI 10.5281/zenodo.23111588.

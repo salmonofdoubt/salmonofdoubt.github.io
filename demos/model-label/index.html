@@ -11,29 +11,29 @@
   <meta name="description" content="A practical observatory for chatbot disclosures, documented changes and behavioural audit records.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./template.css?v=0.21.0">
+  <link rel="stylesheet" href="./template.css?v=0.21.1">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
-  <link rel="stylesheet" href="./styles.css?v=0.21.0">
-  <link rel="stylesheet" href="./passport.css?v=0.21.0">
+  <link rel="stylesheet" href="./styles.css?v=0.21.1">
+  <link rel="stylesheet" href="./passport.css?v=0.21.1">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=0.21.0"></script>
-  <script defer src="./shell.js?v=0.21.0"></script>
-  <script defer src="./analysis.js?v=0.21.0"></script>
-  <script defer src="./freshness.js?v=0.21.0"></script>
-  <script defer src="./app.js?v=0.21.0"></script>
+  <script defer src="./site-config.js?v=0.21.1"></script>
+  <script defer src="./shell.js?v=0.21.1"></script>
+  <script defer src="./analysis.js?v=0.21.1"></script>
+  <script defer src="./freshness.js?v=0.21.1"></script>
+  <script defer src="./app.js?v=0.21.1"></script>
 </head>
 <body>
   <a class="skip-link" href="#workspace">Skip to workspace</a>
   <header class="site-header">
     <a class="brand" href="./" aria-label="Model Label home"><span class="brand-mark" aria-hidden="true">▤</span><span>Model Label <small>Salmon of Doubt</small></span></a>
-    <div class="header-actions"><a class="install-button" href="https://docs.google.com/forms/d/e/1FAIpQLSd0Q_9EKTaeHgChIxHpa3KtDeIDWNfkjDFbzcLqXCJ7ba553A/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" style="background:transparent;color:#a8d9d4;border:1px solid #385163;text-decoration:none" aria-label="Give feedback (opens Google Form in a new tab)">Give feedback</a><span class="version-tag">BUILD 0.21.0</span><button class="install-button" type="button" id="installApp" aria-haspopup="dialog"><span aria-hidden="true">↓</span><span>Install</span></button></div>
+    <div class="header-actions"><a class="install-button" href="https://docs.google.com/forms/d/e/1FAIpQLSd0Q_9EKTaeHgChIxHpa3KtDeIDWNfkjDFbzcLqXCJ7ba553A/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" style="background:transparent;color:#a8d9d4;border:1px solid #385163;text-decoration:none" aria-label="Give feedback (opens Google Form in a new tab)">Give feedback</a><span class="version-tag">BUILD 0.21.1</span><button class="install-button" type="button" id="installApp" aria-haspopup="dialog"><span aria-hidden="true">↓</span><span>Install</span></button></div>
   </header>
   <main class="demo-stage" id="workspace">
     <section class="hero">
       <div><p class="eyebrow">Chatbot disclosure observatory</p><h1>Inspect a model.</h1><p class="hero-intro">Select one model. Read what is known, and what is missing.</p><div class="hero-actions"><button class="primary-button" id="refreshAll">Re:fresh</button><button class="quiet-button" id="exportCatalogue">Export record ↓</button></div></div>
-      <aside class="monitor-panel" aria-label="Monitor status"><div class="monitor-top"><span class="live-dot" id="liveDot"></span><strong id="modeLabel">Loading catalogue…</strong><span class="small-tag">BUILD 0.21.0 · LOCAL</span></div><p id="monitorSummary">Connecting to the local monitor.</p><div class="monitor-divider"></div><dl><div><dt>Last collection round</dt><dd id="lastRefresh">Not yet checked</dd></div><div><dt>Scheduled checks</dt><dd id="scheduleStatus">While the server runs</dd></div><div><dt>Label review</dt><dd>Separate from collection</dd></div></dl><p class="monitor-foot">A changed document is a review signal. It does not establish a changed model.</p></aside>
+      <aside class="monitor-panel" aria-label="Monitor status"><div class="monitor-top"><span class="live-dot" id="liveDot"></span><strong id="modeLabel">Loading catalogue…</strong><span class="small-tag">BUILD 0.21.1 · LOCAL</span></div><p id="monitorSummary">Connecting to the local monitor.</p><div class="monitor-divider"></div><dl><div><dt>Last collection round</dt><dd id="lastRefresh">Not yet checked</dd></div><div><dt>Scheduled checks</dt><dd id="scheduleStatus">While the server runs</dd></div><div><dt>Label review</dt><dd>Separate from collection</dd></div></dl><p class="monitor-foot">A changed document is a review signal. It does not establish a changed model.</p></aside>
     </section>
     <div id="refreshProgress" class="refresh-progress" hidden><div class="progress-heading"><span id="refreshProgressText">Checking sources</span></div><progress id="refreshProgressBar" max="1" value="0" aria-label="Public source refresh progress"></progress></div>
     <div class="notice" id="jobNotice" role="status" aria-live="polite" hidden></div>
@@ -79,6 +79,6 @@
   <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle"><form method="dialog"><button class="dialog-close" value="close" aria-label="Close">×</button><p class="eyebrow">Installable web app</p><h2 id="installDialogTitle">Keep Model Label on this device.</h2><div id="installInstructions" class="install-instructions"></div><div class="dialog-actions"><button class="primary-button" value="close">Got it</button></div></form></dialog>
   <dialog class="review-dialog" id="reviewDialog" aria-labelledby="reviewTitle"><form id="reviewForm"><div class="section-heading"><h2 id="reviewTitle">Review label</h2><button class="quiet-button" type="button" id="closeReview" aria-label="Close review">×</button></div><p class="small-note">Review the linked official pages before recording a statement. Saving records your review, not independent verification.</p><label>Disclosure status<select name="status"><option value="partial">Partial public information</option><option value="provider_claim">Provider claim</option><option value="unknown">Unknown / not established</option></select></label><label>Statement<textarea name="summary" required maxlength="1200"></textarea></label><fieldset><legend>Evidence references</legend><div id="reviewSources"></div></fieldset><p id="reviewError" class="error-message" role="alert"></p><button class="primary-button" type="submit">Record review</button></form></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <span class="doi-pill is-placeholder" id="doiPill" title="No Zenodo record has been deposited. Template placeholder: 10.5281/zenodo.0000000"><b>DOI</b><span id="doiText">pending</span></span>
+  <a class="doi-pill" id="doiPill" href="https://doi.org/10.5281/zenodo.23111588" target="_blank" rel="noopener noreferrer" title="Open Model Label v0.1.0 on Zenodo"><b>DOI</b><span id="doiText">10.5281/zenodo.23111588</span></a>
 </body>
 </html>
