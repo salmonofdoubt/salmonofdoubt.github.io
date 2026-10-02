@@ -172,9 +172,10 @@
   }
   function renderSummaryStrip(m,service,live) {
     const box=(label,value,note='')=>`<div><span>${escape(label)}</span><strong>${escape(value)}</strong><small>${escape(note)}</small></div>`;
+    const statusBox=(status,note='')=>`<div><span>SERVICE STATUS</span><strong class="status-text" data-state="${escape(String(status||'unknown').toLowerCase())}">${escape(status||'Unknown')}</strong><small>${escape(note)}</small></div>`;
 
     if(m.id==='america-gov') {
-      return `<div class="spec-strip deployment-strip">${box('MODEL FAMILY','Gemini','reported technology family')}${box('EXACT RELEASE','Unresolved','serving release not disclosed')}${box('SERVICE TYPE',service?.kind||'Government assistant','America.gov deployment')}${box('SERVICE STATUS',live.status,live.note)}</div>`;
+      return `<div class="spec-strip deployment-strip">${box('MODEL FAMILY','Gemini','reported technology family')}${box('EXACT RELEASE','Unresolved','serving release not disclosed')}${box('SERVICE TYPE',service?.kind||'Government assistant','America.gov deployment')}${statusBox(live.status,live.note)}</div>`;
     }
 
     const historical=(data.catalogue.footprint_models||[]).some(item=>item.id===m.id);
@@ -184,7 +185,7 @@
 
     const reviewedModel=Boolean(m.source_id && (m.context||m.output||m.inputs||m.outputs));
     if(reviewedModel) {
-      return `<div class="spec-strip">${box('CONTEXT',m.context?m.context.toLocaleString():'Not disclosed',m.context?'tokens':'provider documentation')}${box('MAX OUTPUT',m.output?m.output.toLocaleString():'Not disclosed',m.output?'tokens':'provider documentation')}${box('KNOWLEDGE CUTOFF',m.cutoff||'Not disclosed','provider documentation')}${box('SERVICE STATUS',live.status,live.note)}</div>`;
+      return `<div class="spec-strip">${box('CONTEXT',m.context?m.context.toLocaleString():'Not disclosed',m.context?'tokens':'provider documentation')}${box('MAX OUTPUT',m.output?m.output.toLocaleString():'Not disclosed',m.output?'tokens':'provider documentation')}${box('KNOWLEDGE CUTOFF',m.cutoff||'Not disclosed','provider documentation')}${statusBox(live.status,live.note)}</div>`;
     }
 
     return `<div class="spec-strip catalogue-strip">${box('IDENTIFIER',m.id,'official catalogue discovery')}${box('PROVIDER',m.provider,'catalogue publisher')}${box('SPECIFICATIONS','Awaiting review','not yet curated')}${box('SESSION BINDING','Not established','discovery does not identify your chat')}</div>`;
