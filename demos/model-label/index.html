@@ -11,29 +11,29 @@
   <meta name="description" content="A practical observatory for chatbot disclosures, documented changes and behavioural audit records.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./template.css?v=0.22.0">
+  <link rel="stylesheet" href="./template.css?v=0.22.1">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
-  <link rel="stylesheet" href="./styles.css?v=0.22.0">
-  <link rel="stylesheet" href="./passport.css?v=0.22.0">
+  <link rel="stylesheet" href="./styles.css?v=0.22.1">
+  <link rel="stylesheet" href="./passport.css?v=0.22.1">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=0.22.0"></script>
-  <script defer src="./shell.js?v=0.22.0"></script>
-  <script defer src="./analysis.js?v=0.22.0"></script>
-  <script defer src="./freshness.js?v=0.22.0"></script>
-  <script defer src="./app.js?v=0.22.0"></script>
+  <script defer src="./site-config.js?v=0.22.1"></script>
+  <script defer src="./shell.js?v=0.22.1"></script>
+  <script defer src="./analysis.js?v=0.22.1"></script>
+  <script defer src="./freshness.js?v=0.22.1"></script>
+  <script defer src="./app.js?v=0.22.1"></script>
 </head>
 <body>
   <a class="skip-link" href="#workspace">Skip to workspace</a>
   <header class="site-header">
     <a class="brand" href="./" aria-label="Model Label home"><span class="brand-mark" aria-hidden="true">▤</span><span>Model Label <small>Salmon of Doubt</small></span></a>
-    <div class="header-actions"><a class="install-button" href="https://docs.google.com/forms/d/e/1FAIpQLSd0Q_9EKTaeHgChIxHpa3KtDeIDWNfkjDFbzcLqXCJ7ba553A/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" style="background:transparent;color:#a8d9d4;border:1px solid #385163;text-decoration:none" aria-label="Give feedback (opens Google Form in a new tab)">Give feedback</a><span class="version-tag">BUILD 0.22.0</span><button class="install-button" type="button" id="installApp" aria-haspopup="dialog"><span aria-hidden="true">↓</span><span>Install</span></button></div>
+    <div class="header-actions"><a class="install-button" href="https://docs.google.com/forms/d/e/1FAIpQLSd0Q_9EKTaeHgChIxHpa3KtDeIDWNfkjDFbzcLqXCJ7ba553A/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" style="background:transparent;color:#a8d9d4;border:1px solid #385163;text-decoration:none" aria-label="Give feedback (opens Google Form in a new tab)">Give feedback</a><span class="version-tag">BUILD 0.22.1</span><button class="install-button" type="button" id="installApp" aria-haspopup="dialog"><span aria-hidden="true">↓</span><span>Install</span></button></div>
   </header>
   <main class="demo-stage" id="workspace">
     <section class="hero">
       <div><p class="eyebrow">Chatbot disclosure observatory</p><h1>Inspect a model.</h1><p class="hero-intro">Select one model. Read what is known, and what is missing.</p><div class="hero-actions"><button class="primary-button" id="refreshAll">Re:fresh</button><button class="quiet-button" id="exportCatalogue">Export record ↓</button></div></div>
-      <aside class="monitor-panel" aria-label="Monitor status"><div class="monitor-top"><span class="live-dot" id="liveDot"></span><strong id="modeLabel">Loading catalogue…</strong><span class="small-tag">BUILD 0.22.0 · LOCAL</span></div><p id="monitorSummary">Connecting to the local monitor.</p><div class="monitor-divider"></div><dl><div><dt>Last collection round</dt><dd id="lastRefresh">Not yet checked</dd></div><div><dt>Scheduled checks</dt><dd id="scheduleStatus">While the server runs</dd></div><div><dt>Label review</dt><dd>Separate from collection</dd></div></dl><p class="monitor-foot">A changed document is a review signal. It does not establish a changed model.</p></aside>
+      <aside class="monitor-panel" aria-label="Monitor status"><div class="monitor-top"><span class="live-dot" id="liveDot"></span><strong id="modeLabel">Loading catalogue…</strong><span class="small-tag">BUILD 0.22.1 · LOCAL</span></div><p id="monitorSummary">Connecting to the local monitor.</p><div class="monitor-divider"></div><dl><div><dt>Last collection round</dt><dd id="lastRefresh">Not yet checked</dd></div><div><dt>Scheduled checks</dt><dd id="scheduleStatus">While the server runs</dd></div><div><dt>Label review</dt><dd>Separate from collection</dd></div></dl><p class="monitor-foot">A changed document is a review signal. It does not establish a changed model.</p></aside>
     </section>
     <div id="refreshProgress" class="refresh-progress" hidden><div class="progress-heading"><span id="refreshProgressText">Checking sources</span></div><progress id="refreshProgressBar" max="1" value="0" aria-label="Public source refresh progress"></progress></div>
     <div class="notice" id="jobNotice" role="status" aria-live="polite" hidden></div>
