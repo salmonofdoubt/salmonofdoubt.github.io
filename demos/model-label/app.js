@@ -37,35 +37,6 @@
     document.querySelectorAll('[data-view]').forEach(button=>{if(button.dataset.view===name)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
   }
 
-  let passportLayoutFrame;
-  function layoutPassportGrid() {
-    const grid=document.querySelector('.passport-grid');
-    if(!grid)return;
-    const cards=[...grid.children].filter(card=>card.classList.contains('passport-card'));
-    cards.forEach(card=>{card.style.gridColumn='';card.style.gridRow='';});
-    if(window.matchMedia('(max-width:760px)').matches)return;
-
-    const styles=getComputedStyle(grid);
-    const rowHeight=parseFloat(styles.gridAutoRows)||8;
-    const gap=parseFloat(styles.rowGap)||16;
-    const nextRow=[1,1];
-
-    cards.forEach(card=>{
-      const height=card.getBoundingClientRect().height;
-      const span=Math.max(1,Math.ceil((height+gap)/(rowHeight+gap)));
-      const column=nextRow[0]<=nextRow[1]?0:1;
-      card.style.gridColumn=String(column+1);
-      card.style.gridRow=`${nextRow[column]} / span ${span}`;
-      nextRow[column]+=span;
-    });
-  }
-  function queuePassportLayout() {
-    cancelAnimationFrame(passportLayoutFrame);
-    passportLayoutFrame=requestAnimationFrame(layoutPassportGrid);
-  }
-  window.addEventListener('resize',queuePassportLayout,{passive:true});
-  document.addEventListener('toggle',event=>{if(event.target.closest?.('#observatory'))queuePassportLayout();},true);
-
   async function loadData() {
     if (loading) return;
     clearTimeout(pollTimer);
@@ -166,9 +137,9 @@
   }
   function renderAvailability(service) {
     if(!service)return '';
-    if(!data.collector.available){const sig=signal(service);return `<section class="passport-card status-card"><p class="card-index">STATUS / PUBLISHED SNAPSHOT</p><h3>Official service report</h3><p><b>${escape(sig.status)}</b> · ${escape(date(sig.item.last_success))}</p><p>${escape(sig.item.operator?.reason||'Official status not established in the latest snapshot.')}</p><p class="card-note">Official feeds refresh hourly on GitHub. Reports older than 90 minutes are marked unknown. This is an operator report, not an Irish connection or inference test.</p>${service.status_source?sourceLink(service.status_source):'<p class="card-note">No applicable operator feed mapped.</p>'}</section>`;}
+    if(!data.collector.available){const sig=signal(service);return `<section class="passport-card status-card"><p class="card-index">ID.2 / SERVICE STATE</p><h3>Official service report</h3><p><b>${escape(sig.status)}</b> · ${escape(date(sig.item.last_success))}</p><p>${escape(sig.item.operator?.reason||'Official status not established in the latest snapshot.')}</p><p class="card-note">Official feeds refresh hourly on GitHub. Reports older than 90 minutes are marked unknown. This is an operator report, not an Irish connection or inference test.</p>${service.status_source?sourceLink(service.status_source):'<p class="card-note">No applicable operator feed mapped.</p>'}</section>`;}
     const r=localChecks[service.id], live=liveSignal(service);
-    return `<section class="passport-card status-card"><p class="card-index">LIVE / AUTOMATIC</p><h3>Service status &amp; local access</h3><p><b>${escape(live.status)}</b> · ${escape(live.note)}</p>${r?.operator?.reason?`<p>${escape(r.operator.reason)}</p>`:''}<p><b>From this computer:</b> ${r?.checked_at?escape(r.website_status==='reachable'?'Website reachable':r.website_status==='unavailable'?'Website server error':'Check inconclusive'):'Checking…'}</p>${r?.detail?`<p class="card-note">${escape(r.detail)}</p>`:''}${r?.checked_at?`<p class="card-note">${escape(date(r.checked_at))} · ${escape(r.latency_ms??'—')} ms · HTTP ${escape(r.http_status??'no response')}</p>`:''}<p class="card-note">Updates automatically every minute while open. Access checks use the server computer’s connection; run it in Ireland for Irish access. Website reachability does not verify an answer. No paid inference requests.</p>${r?.operator_url?`<a href="${safeUrl(r.operator_url)}" target="_blank" rel="noopener">Official status source ↗</a>`:''}</section>`;
+    return `<section class="passport-card status-card"><p class="card-index">ID.2 / SERVICE STATE</p><h3>Service status &amp; local access</h3><p><b>${escape(live.status)}</b> · ${escape(live.note)}</p>${r?.operator?.reason?`<p>${escape(r.operator.reason)}</p>`:''}<p><b>From this computer:</b> ${r?.checked_at?escape(r.website_status==='reachable'?'Website reachable':r.website_status==='unavailable'?'Website server error':'Check inconclusive'):'Checking…'}</p>${r?.detail?`<p class="card-note">${escape(r.detail)}</p>`:''}${r?.checked_at?`<p class="card-note">${escape(date(r.checked_at))} · ${escape(r.latency_ms??'—')} ms · HTTP ${escape(r.http_status??'no response')}</p>`:''}<p class="card-note">Updates automatically every minute while open. Access checks use the server computer’s connection; run it in Ireland for Irish access. Website reachability does not verify an answer. No paid inference requests.</p>${r?.operator_url?`<a href="${safeUrl(r.operator_url)}" target="_blank" rel="noopener">Official status source ↗</a>`:''}</section>`;
   }
   function renderSummaryStrip(m,service,live) {
     const box=(label,value,note='')=>`<div><span>${escape(label)}</span><strong>${escape(value)}</strong><small>${escape(note)}</small></div>`;
@@ -198,11 +169,11 @@
 
     const deployment=m.id==='america-gov'?data.catalogue.deployment_identity?.['america-gov']:null;
     if(deployment){
-      return `<section class="passport-card identity-card"><div class="card-top"><p class="card-index">01 / DEPLOYMENT IDENTITY</p><span class="claim-chip">FIRST-PARTY RECORD</span></div><h3>${escape(deployment.title||'Deployment identity')}</h3><dl class="simple-facts identity-facts">${deployment.facts.map(fact).join('')}</dl>${gap(deployment.gaps)}<p class="identity-summary">${escape(deployment.note||'')}</p><div class="card-sources">${links(deployment.source_ids)}</div></section>`;
+      return `<section class="passport-card identity-card"><div class="card-top"><p class="card-index">ID.1 / DEPLOYMENT IDENTITY</p><span class="claim-chip">FIRST-PARTY RECORD</span></div><h3>${escape(deployment.title||'Deployment identity')}</h3><dl class="simple-facts identity-facts">${deployment.facts.map(fact).join('')}</dl>${gap(deployment.gaps)}<p class="identity-summary">${escape(deployment.note||'')}</p><div class="card-sources">${links(deployment.source_ids)}</div></section>`;
     }
 
     if(Array.isArray(m.identity_facts) && m.identity_facts.length){
-      return `<section class="passport-card identity-card"><p class="card-index">01 / TECHNICAL IDENTITY</p><h3>Useful engineering facts</h3><dl class="simple-facts identity-facts">${m.identity_facts.map(fact).join('')}</dl>${gap(m.identity_gaps)}<div class="card-sources">${links(m.identity_source_ids)}</div></section>`;
+      return `<section class="passport-card identity-card"><p class="card-index">ID.1 / TECHNICAL IDENTITY</p><h3>Useful engineering facts</h3><dl class="simple-facts identity-facts">${m.identity_facts.map(fact).join('')}</dl>${gap(m.identity_gaps)}<div class="card-sources">${links(m.identity_source_ids)}</div></section>`;
     }
 
     const historical=(data.catalogue.footprint_models||[]).some(item=>item.id===m.id);
@@ -214,10 +185,20 @@
         {label:'Use in this demo',value:'Historical footprint reference only'},
         ...(m.checked_at?[{label:'Evidence reviewed',value:m.checked_at}]:[])
       ];
-      return `<section class="passport-card identity-card"><p class="card-index">01 / REFERENCE IDENTITY</p><h3>Historical reference model</h3><dl class="simple-facts identity-facts">${facts.map(fact).join('')}</dl><p class="identity-summary">${escape(m.note||'This record is retained for historical comparison and is not presented as a current chatbot deployment.')}</p><div class="card-sources">${fallbackSources}</div></section>`;
+      return `<section class="passport-card identity-card"><p class="card-index">ID.1 / REFERENCE IDENTITY</p><h3>Historical reference model</h3><dl class="simple-facts identity-facts">${facts.map(fact).join('')}</dl><p class="identity-summary">${escape(m.note||'This record is retained for historical comparison and is not presented as a current chatbot deployment.')}</p><div class="card-sources">${fallbackSources}</div></section>`;
     }
 
-    return `<section class="passport-card identity-card"><p class="card-index">01 / CATALOGUE IDENTITY</p><h3>Discovered model identifier</h3><dl class="simple-facts identity-facts">${[{label:'Identifier',value:m.id},{label:'Provider',value:m.provider},{label:'Evidence state',value:'Discovered in official catalogue'}].map(fact).join('')}</dl>${gap(['technical specifications','release applicability','binding to a consumer session'])}<div class="card-sources">${fallbackSources}</div></section>`;
+    return `<section class="passport-card identity-card"><p class="card-index">ID.1 / CATALOGUE IDENTITY</p><h3>Discovered model identifier</h3><dl class="simple-facts identity-facts">${[{label:'Identifier',value:m.id},{label:'Provider',value:m.provider},{label:'Evidence state',value:'Discovered in official catalogue'}].map(fact).join('')}</dl>${gap(['technical specifications','release applicability','binding to a consumer session'])}<div class="card-sources">${fallbackSources}</div></section>`;
+  }
+
+  function renderFieldCard(field,code) {
+    if(!field)return '';
+    return `<section class="passport-card field-${escape(field.id)}"><div class="card-top"><p class="card-index">${escape(code)}</p><span class="claim-chip">${escape(statusLabels[field.status]||'Unknown')}</span></div><h3>${escape(field.label)}</h3><p>${escape(field.summary)}</p><div class="card-sources">${field.source_ids.map(sourceLink).join('')}</div></section>`;
+  }
+
+  function renderBand(code,title,description,content,classes='') {
+    if(!content)return '';
+    return `<section class="passport-band ${escape(classes)}"><header class="band-heading"><span class="band-code">${escape(code)}</span><div><h3>${escape(title)}</h3><p>${escape(description)}</p></div></header>${content}</section>`;
   }
 
   function renderObservatory() {
@@ -230,39 +211,83 @@
     const sig=service?signal(service):null;
     updateAvailability(service);
     const live=liveSignal(service);
-    const unknown='Not established';
     const options=models.map(k=>`<option value="${escape(k.id)}">${escape(k.name)} · ${escape(k.provider)}</option>`).join('');
-    // The selector is a permanent node: model changes never wait for blur or polling.
     if(options!==pickerMarkup && document.activeElement?.id!=='modelPicker'){$('modelPicker').innerHTML=options;pickerMarkup=options;}
     $('modelPicker').value=m.id;
+
     const sources=m.source_id?sourceLink(m.source_id):m.source_url?`<a href="${safeUrl(m.source_url)}" target="_blank" rel="noopener">Official catalogue entry ↗</a>`:sourceLink('america-partner');
-    const fields=(service?.fields||[]).filter(f=>f.id!=='identity');
-    const markup=`<article class="model-frame" style="--accent:${escape(m.colour||'#ffb366')}"><header class="model-heading"><div><p class="eyebrow">MODEL PASSPORT / ${escape(m.provider)}</p><h2>${escape(m.name)}</h2><code>${escape(m.id==='america-gov'?'Serving model unresolved':m.id)}</code></div><span class="evidence-chip">${m.source_id?'DOCUMENTED SPECIFICATIONS':'PARTIAL PUBLIC RECORD'}</span></header><p class="passport-note">${escape(m.note||'Reported Gemini technology partner. Exact serving model and instructions remain unresolved.')}</p>${renderSummaryStrip(m,service,live)}<div class="passport-grid">${renderIdentityCard(m,service,sources)}${renderAvailability(service)}${renderSecurity(m)}${renderCreationEstimate(m)}${renderFootprint(m)}${fields.map((f,i)=>`<section class="passport-card field-${escape(f.id)}"><div class="card-top"><p class="card-index">${String(i+3).padStart(2,'0')} / ${escape(f.id.replace('_',' '))}</p><span class="claim-chip">${escape(statusLabels[f.status]||unknown)}</span></div><h3>${escape(f.label)}</h3><p>${escape(f.summary)}</p><div class="card-sources">${f.source_ids.map(sourceLink).join('')}</div></section>`).join('')}<section class="passport-card status-card"><p class="card-index">STATUS / EVIDENCE LIMIT</p><h3>What this label establishes</h3><p>Specifications describe this named API entry. Control records describe the related service or provider; they do not reveal this model’s hidden instructions.</p><p class="card-note">Last successful operator check: ${escape(date(sig?.item.last_success))}. A check older than ${localMode?30:90} minutes is unknown. No independent availability test of this exact model is recorded.</p></section></div></article>`;
+    const fields=Object.fromEntries((service?.fields||[]).map(field=>[field.id,field]));
+    const availability=renderAvailability(service);
+
+    const identityBand=renderBand(
+      '01 / IDENTITY LAYER',
+      'What is this system?',
+      'Published model or deployment identity, useful engineering facts and current operator state.',
+      `<div class="band-grid${availability?'':' one-card'}">${renderIdentityCard(m,service,sources)}${availability}</div>`,
+      'band-identity'
+    );
+
+    const controlBand=service?renderBand(
+      '02 / CONTROL PLANE',
+      'How is behaviour constrained at runtime?',
+      'Security safeguards, deployment controls and personalisation sit between the base model and the observed answer.',
+      `<div class="band-grid control-grid"><div class="band-stack">${renderSecurity(m)}</div><div class="band-stack">${renderFieldCard(fields.controls,'CP.2 / DEPLOYMENT CONTROLS')}${renderFieldCard(fields.personalisation,'CP.3 / PERSONALISATION')}</div></div>`,
+      'band-control'
+    ):'';
+
+    const lifecycleBand=service?renderBand(
+      '03 / MODEL LIFECYCLE',
+      'How was the model shaped?',
+      'Training provenance and post-training belong to model creation. They are deliberately separated from live deployment controls.',
+      `<div class="band-grid">${renderFieldCard(fields.training,'LC.1 / TRAINING PROVENANCE')}${renderFieldCard(fields.post_training,'LC.2 / POST-TRAINING')}</div>`,
+      'band-lifecycle'
+    ):'';
+
+    const resourceBand=renderBand(
+      '04 / RESOURCE PROFILE',
+      'What does building and serving it cost?',
+      'Build-phase compute and financial assumptions are paired with serving-phase energy, carbon and water evidence. Measurements and scenarios remain distinct.',
+      `<div class="band-grid resource-grid">${renderCreationEstimate(m)}${renderFootprint(m)}</div>`,
+      'band-resource'
+    );
+
+    const evidenceLimit=`<section class="passport-card status-card"><p class="card-index">GV.4 / EVIDENCE LIMIT</p><h3>What this label establishes</h3><p>Specifications describe this named model or deployment. Control records describe the related service or provider; they do not reveal hidden serving instructions.</p><p class="card-note">Last successful operator check: ${escape(date(sig?.item.last_success))}. A check older than ${localMode?30:90} minutes is unknown. No independent availability test of this exact model is recorded.</p></section>`;
+
+    const governanceBand=service?renderBand(
+      '05 / GOVERNANCE & EVIDENCE',
+      'Who is accountable, and how strong is the record?',
+      'Responsibility, evaluation evidence, change governance and explicit evidence limits belong together.',
+      `<div class="band-grid governance-grid"><div class="band-stack">${renderFieldCard(fields.responsibility,'GV.1 / SERVICE RESPONSIBILITY')}${renderFieldCard(fields.evaluations,'GV.2 / EVALUATIONS')}</div><div class="band-stack">${renderFieldCard(fields.governance,'GV.3 / CHANGE GOVERNANCE')}${evidenceLimit}</div></div>`,
+      'band-governance'
+    ):'';
+
+    const markup=`<article class="model-frame" style="--accent:${escape(m.colour||'#ffb366')}"><header class="model-heading"><div><p class="eyebrow">MODEL PASSPORT / ${escape(m.provider)}</p><h2>${escape(m.name)}</h2><code>${escape(m.id==='america-gov'?'Serving model unresolved':m.id)}</code></div><span class="evidence-chip">${m.source_id?'DOCUMENTED SPECIFICATIONS':'PARTIAL PUBLIC RECORD'}</span></header><p class="passport-note">${escape(m.note||'Reported Gemini technology partner. Exact serving model and instructions remain unresolved.')}</p>${renderSummaryStrip(m,service,live)}<div class="passport-flow">${identityBand}${controlBand}${lifecycleBand}${resourceBand}${governanceBand}</div></article>`;
     if(markup===labelMarkup)return;
-    $('observatory').innerHTML=markup;labelMarkup=markup;queuePassportLayout();
+    $('observatory').innerHTML=markup;labelMarkup=markup;
   }
+
   function renderSecurity(m) {
     const s=m.security;
-    if(!s)return `<section class="passport-card security-card"><p class="card-index">SECURITY / NOT ASSESSED</p><h3>Security &amp; safeguards</h3><p>This entry is retained as a historical footprint reference. Model Label has not established a current deployment-security posture for it.</p><p class="card-note">Do not infer present-day jailbreak resistance, access controls or service safeguards from a historical model or lifecycle record.</p><div class="card-sources">${m.source_id?sourceLink(m.source_id):''}</div></section>`;
+    if(!s)return `<section class="passport-card security-card"><p class="card-index">CP.1 / SECURITY & SAFEGUARDS</p><h3>Security &amp; safeguards</h3><p>This entry is retained as a historical footprint reference. Model Label has not established a current deployment-security posture for it.</p><p class="card-note">Do not infer present-day jailbreak resistance, access controls or service safeguards from a historical model or lifecycle record.</p><div class="card-sources">${m.source_id?sourceLink(m.source_id):''}</div></section>`;
     const refs=(s.source_ids||[]).map(sourceLink).join('');
     const item=(label,value)=>`<div><dt>${label}</dt><dd>${escape(value||'Not established')}</dd></div>`;
-    return `<section class="passport-card security-card"><div class="card-top"><p class="card-index">SECURITY / PROVIDER-REPORTED</p><span class="claim-chip">${escape(s.status||'Provider report')}</span></div><h3>Security &amp; safeguards</h3><dl class="simple-facts">${item('Capability / risk',s.risk)}${item('Safeguards',s.safeguards)}${item('Testing',s.testing)}${item('Evidence limit',s.limit)}</dl><div class="card-sources">${refs}</div></section>`;
+    return `<section class="passport-card security-card"><div class="card-top"><p class="card-index">CP.1 / SECURITY & SAFEGUARDS</p><span class="claim-chip">${escape(s.status||'Provider report')}</span></div><h3>Security &amp; safeguards</h3><dl class="simple-facts">${item('Capability / risk',s.risk)}${item('Safeguards',s.safeguards)}${item('Testing',s.testing)}${item('Evidence limit',s.limit)}</dl><div class="card-sources">${refs}</div></section>`;
   }
 
   function renderCreationEstimate(m) {
     const f=data.catalogue.footprints?.[m.id], a=data.catalogue.creation_scenario;
     const number=n=>Math.round(n).toLocaleString('en-IE');
-    if(f?.training_energy_mwh!==undefined) return `<section class="passport-card creation-estimate"><p class="card-index">BUILD / SOURCED ESTIMATE</p><h3>Creating ${escape(m.name)}</h3><div class="footprint-values"><div><span>TRAINING ELECTRICITY</span><strong>${number(f.training_energy_mwh)}</strong><small>MWh · ${f.energy_derived?'rated-power proxy':'research estimate'}</small></div><div><span>TRAINING CARBON</span><strong>${number(f.training_carbon_t)}</strong><small>${m.id==='llama-31-405b-reference'?'tons':'tonnes'} CO₂e</small></div></div><p>${escape(f.boundary)}</p><p>Financial cost: no applicable expenditure disclosed in this record.</p><div class="card-sources">${sourceLink(f.source_id)}</div></section>`;
+    if(f?.training_energy_mwh!==undefined) return `<section class="passport-card creation-estimate"><p class="card-index">RP.1 / BUILD PHASE</p><h3>Creating ${escape(m.name)}</h3><div class="footprint-values"><div><span>TRAINING ELECTRICITY</span><strong>${number(f.training_energy_mwh)}</strong><small>MWh · ${f.energy_derived?'rated-power proxy':'research estimate'}</small></div><div><span>TRAINING CARBON</span><strong>${number(f.training_carbon_t)}</strong><small>${m.id==='llama-31-405b-reference'?'tons':'tonnes'} CO₂e</small></div></div><p>${escape(f.boundary)}</p><p>Financial cost: no applicable expenditure disclosed in this record.</p><div class="card-sources">${sourceLink(f.source_id)}</div></section>`;
     if(!a)return '';
     const low=a.gpu_hours_low*a.gpu_kw*a.host_multiplier*a.pue, high=a.gpu_hours_high*a.gpu_kw*a.host_multiplier*a.pue;
-    return `<section class="passport-card creation-estimate"><p class="card-index">BUILD / ASSUMPTION-BASED SCENARIO</p><h3>Model creation · estimated scenario</h3><p class="claim-chip">NOT A MEASUREMENT OF ${escape(m.name)}</p><div class="footprint-values"><div><span>ELECTRICITY</span><strong>${number(low/1000000)}–${number(high/1000000)}</strong><small>GWh / final training run</small></div><div><span>CARBON</span><strong>${number(low*a.grid_kg_per_kwh/1000)}–${number(high*a.grid_kg_per_kwh/1000)}</strong><small>tonnes CO₂e / run</small></div><div><span>RENTED COMPUTE</span><strong>$${number(a.gpu_hours_low*a.usd_per_gpu_hour/1000000)}–$${number(a.gpu_hours_high*a.usd_per_gpu_hour/1000000)}m</strong><small>USD · assumed rental price</small></div></div><p>${m.id==='america-gov'?'America.gov is a deployment, not a separately disclosed trained model. These figures are a generic underlying-model scenario, not the portal’s incremental cost.':'Release-specific build inputs are not disclosed in the recorded evidence. These figures are a reproducible scenario, not a measurement of this model.'}</p><details class="evidence-detail"><summary>How this scenario is calculated</summary><div class="evidence-detail-body"><p>${escape(a.basis)}</p><p>${escape(a.boundary)}</p>${f?.lifecycle_carbon_kt?`<p>Separate published lifecycle figure: ${f.lifecycle_carbon_kt} kt CO₂e. Includes usage; cannot isolate creation.</p>`:''}<p class="scenario-calculation">Energy = GPU-hours × kW × host allowance × facility overhead. Carbon = kWh × grid factor. Compute spend = GPU-hours × rental price.</p><div class="card-sources">${sourceLink(a.source_id)}</div><p class="card-note">The same unknown inputs produce the same fallback range across undisclosed models. These ranges cannot rank models, and no per-update cost is inferred.</p></div></details></section>`;
+    return `<section class="passport-card creation-estimate"><p class="card-index">RP.1 / BUILD PHASE</p><h3>Model creation · estimated scenario</h3><p class="claim-chip">NOT A MEASUREMENT OF ${escape(m.name)}</p><div class="footprint-values"><div><span>ELECTRICITY</span><strong>${number(low/1000000)}–${number(high/1000000)}</strong><small>GWh / final training run</small></div><div><span>CARBON</span><strong>${number(low*a.grid_kg_per_kwh/1000)}–${number(high*a.grid_kg_per_kwh/1000)}</strong><small>tonnes CO₂e / run</small></div><div><span>RENTED COMPUTE</span><strong>$${number(a.gpu_hours_low*a.usd_per_gpu_hour/1000000)}–$${number(a.gpu_hours_high*a.usd_per_gpu_hour/1000000)}m</strong><small>USD · assumed rental price</small></div></div><p>${m.id==='america-gov'?'America.gov is a deployment, not a separately disclosed trained model. These figures are a generic underlying-model scenario, not the portal’s incremental cost.':'Release-specific build inputs are not disclosed in the recorded evidence. These figures are a reproducible scenario, not a measurement of this model.'}</p><details class="evidence-detail"><summary>How this scenario is calculated</summary><div class="evidence-detail-body"><p>${escape(a.basis)}</p><p>${escape(a.boundary)}</p>${f?.lifecycle_carbon_kt?`<p>Separate published lifecycle figure: ${f.lifecycle_carbon_kt} kt CO₂e. Includes usage; cannot isolate creation.</p>`:''}<p class="scenario-calculation">Energy = GPU-hours × kW × host allowance × facility overhead. Carbon = kWh × grid factor. Compute spend = GPU-hours × rental price.</p><div class="card-sources">${sourceLink(a.source_id)}</div><p class="card-note">The same unknown inputs produce the same fallback range across undisclosed models. These ranges cannot rank models, and no per-update cost is inferred.</p></div></details></section>`;
   }
   function renderFootprint(m) {
     const f=data.catalogue.footprints?.[m.id], scenario=data.catalogue.inference_scenario;
     const metric=(label,value,unit)=>`<div><span>${label}</span><strong>${value===undefined||value===null?'Not disclosed':escape(value)}</strong><small>${value===undefined||value===null?'':unit}</small></div>`;
     const selected=f?`<p class="claim-chip">${escape(f.level)}</p><p class="card-note">${escape(f.period)} · ${escape(f.applies_to)}</p><p class="card-note"><b>${f.level.startsWith('Historical')?'Historical service reference · not the selected release':'Query metrics within the stated source scope'}</b></p><div class="footprint-values">${metric('QUERY ENERGY',f.query_energy_wh,'Wh / query')}${metric('QUERY CARBON',f.query_carbon_g,'g CO₂e / response')}${metric('QUERY WATER',f.water_ml,'mL / response')}</div>${f.training_energy_mwh!==undefined?`<div class="footprint-values">${metric(f.energy_derived?'TRAINING ENERGY PROXY':'DYNAMIC TRAINING ENERGY',f.training_energy_mwh.toLocaleString(),'MWh')}${metric('TRAINING EMISSIONS',f.training_carbon_t.toLocaleString(),m.id==='llama-31-405b-reference'?'tons CO₂eq · location-based':'tonnes CO₂e · dynamic')}${f.broader_carbon_t?metric('BROADER TRAINING ACCOUNTING',f.broader_carbon_t,'tonnes CO₂e'):''}</div>`:''}${f.lifecycle_carbon_kt?`<div class="footprint-values">${metric('ABSOLUTE DISCLOSURE',f.lifecycle_carbon_kt,'kt CO₂e · mixed scope')}${metric('ABSOLUTE WATER',f.lifecycle_water_m3.toLocaleString(),'m³')}</div>`:''}<p>${escape(f.boundary)}</p><div class="creation-footprint"><b>Initial creation</b><p>${escape(f.creation)}</p><b>Every update</b><p>${escape(f.updates)}</p></div><div class="card-sources">${sourceLink(f.source_id)}</div>`:'<p>No deployment-specific footprint is established. The contextual research estimates below are available when you need them.</p>';
     const carbon=scenario?(scenario.median_wh/1000*scenario.illustrative_grid_g_per_kwh).toFixed(3):'';
-    return `<section class="passport-card footprint-card"><p class="card-index">02 / ENVIRONMENTAL FOOTPRINT</p><h3>Energy, carbon &amp; water</h3>${selected}<details class="evidence-detail"><summary>Research estimate · planning reference</summary><div class="evidence-detail-body"><p>${escape(scenario?.period)}. Generic H100 / frontier-scale scenarios; not a footprint assigned to ${escape(m.name)}.</p><div class="footprint-values">${metric('TYPICAL SCENARIO MEDIAN',scenario?.median_wh,'Wh / query')}${metric('MIDDLE 50% OF SCENARIOS',scenario?'0.16–0.60':null,'Wh / query')}${metric('LONG REASONING MEDIAN',scenario?.long_median_wh,'Wh / query')}</div><p>Long-query interquartile range: 2.15–7.05 Wh. These are study scenarios, not guaranteed bounds. Serving energy excludes training and whole lifecycle.</p><p class="scenario-calculation"><b>Illustrative carbon conversion:</b> ${scenario?.median_wh} Wh ÷ 1,000 × ${scenario?.illustrative_grid_g_per_kwh} g CO₂e/kWh = <b>${carbon} g CO₂e</b>. The grid factor is an example assumption, not this model’s actual electricity mix. Hardware manufacture is additional.</p><div class="card-sources">${sourceLink('energy-inference-study')}</div></div></details><details class="evidence-detail"><summary>Ordinary web search · historical reference</summary><div class="evidence-detail-body"><p><b>0.3 Wh</b> and <b>0.2 g CO₂</b> per average Google search were disclosed in 2009, including index-building allocation. A current equivalent has not been established.</p><p>Different years, workloads and carbon-accounting methods mean these figures cannot establish that Gemini uses less energy than today’s Google search.</p><div class="card-sources">${sourceLink('energy-search')}</div></div></details></section>`;
+    return `<section class="passport-card footprint-card"><p class="card-index">RP.2 / SERVING & LIFECYCLE</p><h3>Energy, carbon &amp; water</h3>${selected}<details class="evidence-detail"><summary>Research estimate · planning reference</summary><div class="evidence-detail-body"><p>${escape(scenario?.period)}. Generic H100 / frontier-scale scenarios; not a footprint assigned to ${escape(m.name)}.</p><div class="footprint-values">${metric('TYPICAL SCENARIO MEDIAN',scenario?.median_wh,'Wh / query')}${metric('MIDDLE 50% OF SCENARIOS',scenario?'0.16–0.60':null,'Wh / query')}${metric('LONG REASONING MEDIAN',scenario?.long_median_wh,'Wh / query')}</div><p>Long-query interquartile range: 2.15–7.05 Wh. These are study scenarios, not guaranteed bounds. Serving energy excludes training and whole lifecycle.</p><p class="scenario-calculation"><b>Illustrative carbon conversion:</b> ${scenario?.median_wh} Wh ÷ 1,000 × ${scenario?.illustrative_grid_g_per_kwh} g CO₂e/kWh = <b>${carbon} g CO₂e</b>. The grid factor is an example assumption, not this model’s actual electricity mix. Hardware manufacture is additional.</p><div class="card-sources">${sourceLink('energy-inference-study')}</div></div></details><details class="evidence-detail"><summary>Ordinary web search · historical reference</summary><div class="evidence-detail-body"><p><b>0.3 Wh</b> and <b>0.2 g CO₂</b> per average Google search were disclosed in 2009, including index-building allocation. A current equivalent has not been established.</p><p>Different years, workloads and carbon-accounting methods mean these figures cannot establish that Gemini uses less energy than today’s Google search.</p><div class="card-sources">${sourceLink('energy-search')}</div></div></details></section>`;
   }
   function renderControlMap() {
     const s=data.catalogue.services.find(s=>s.id===selected) || data.catalogue.services[0];
