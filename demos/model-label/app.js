@@ -99,8 +99,45 @@
 
 
 
+
+  const hostedChecks = {};
+  function parseOperatorFeed(payload, serviceId) {
+    if(serviceId==='gemini'){
+      if(!Array.isArray(payload) || payload.some(i=>!i || typeof i!=='object'))throw new Error('Unexpected incident feed');
+      const incidents=payload.filter(i=>!i.end && (String(i.service_name||'').toLowerCase()==='gemini' || (i.affected_products||[]).some(p=>String(p.title||'').toLowerCase()==='gemini')));
+      const states=incidents.map(i=>i.most_recent_update?.status||i.status_impact);
+      return {status:states.includes('SERVICE_OUTAGE')?'unavailable':states.includes('SERVICE_DISRUPTION')?'degraded':incidents.length?'unknown':'serving',reason:incidents.length?'Active Google Workspace Gemini incident; operator report':'Google Workspace Gemini status: no active incident reported'};
+    }
+    if(!Array.isArray(payload.components))throw new Error('Unexpected component feed');
+    const needle=serviceId==='chatgpt'?'chatgpt':'claude.ai';
+    const values=payload.components.filter(c=>String(c.name||'').toLowerCase().includes(needle)).map(c=>c.status);
+    return {status:!values.length?'unknown':values.includes('major_outage')?'unavailable':values.some(v=>['partial_outage','degraded_performance','under_maintenance'].includes(v))?'degraded':values.every(v=>v==='operational')?'serving':'unknown',reason:'Operator-reported service components; not an independent query test'};
+  }
+  async function updateHostedAvailability(service) {
+    const feed=source(service.status_source);
+    if(!feed)return;
+    const last=availabilityRequests.get(service.id);
+    if(last && (last.running || Date.now()-last.at<60000))return;
+    availabilityRequests.set(service.id,{at:Date.now(),running:true});
+    const controller=new AbortController(), timeout=setTimeout(()=>controller.abort(),8000);
+    try{
+      const response=await fetch(feed.url,{cache:'no-store',credentials:'omit',signal:controller.signal});
+      if(!response.ok)throw new Error('Official feed HTTP '+response.status);
+      hostedChecks[service.id]={status:'ok',last_success:new Date().toISOString(),operator:parseOperatorFeed(await response.json(),service.id)};
+    }catch{
+      // Cross-origin restrictions or network failure must not become a service outage.
+      if(hostedChecks[service.id])hostedChecks[service.id].error='Live feed could not be refreshed; last successful report retained.';
+      else hostedChecks[service.id]={error:'Live feed could not be read in this browser; using the published GitHub report.'};
+    }finally{
+      clearTimeout(timeout);
+      availabilityRequests.set(service.id,{at:Date.now(),running:false});
+      renderObservatory();
+    }
+  }
+
   function signal(s) {
-    const item=s.status_source?capture(s.status_source):{};
+    const live=hostedChecks[s.id];
+    const item=live?.last_success?live:(s.status_source?capture(s.status_source):{});
     const stale=!item.last_success || Date.now()-new Date(item.last_success).getTime()>(data.collector.available?30:90)*60*1000;
     const status=item.status==='ok' && !stale ? item.operator?.status || 'unknown':'unknown';
     return {status,stale,item};
@@ -110,7 +147,8 @@
   document.addEventListener('change',event=>{if(event.target.id==='modelPicker'){inspectedModel=event.target.value;renderObservatory();}});
   const availabilityRequests = new Map();
   async function updateAvailability(service) {
-    if(!service || !data.collector.available)return;
+    if(!service)return;
+    if(!data.collector.available){void updateHostedAvailability(service);return;}
     const previous=localChecks[service.id], last=availabilityRequests.get(service.id);
     const interval=previous?.checking?2000:60000;
     if(last && (last.running || Date.now()-last.at<interval))return;
@@ -131,13 +169,14 @@
     const r=localChecks[service.id], fallback=signal(service);
     const stale=r?.checked_at && Date.now()-new Date(r.checked_at).getTime()>120000;
     if(r?.operator)return {status:stale?'Stale':({serving:'Serving',degraded:'Degraded',unavailable:'Unavailable',unknown:'Unknown'}[r.operator.status]||'Unknown'),note:r.checking?'Updating automatically…':'Operator report · '+date(r.checked_at)};
+    if(!data.collector.available)return {status:fallback.stale&&fallback.item.last_success?'Stale report':({serving:'Serving',degraded:'Degraded',unavailable:'Unavailable',unknown:'Unknown'}[fallback.status]||'Unknown'),note:fallback.item.last_success?'Operator report · '+date(fallback.item.last_success):'No applicable operator report'};
     if(fallback.status!=='unknown')return {status:fallback.status,note:'Operator report · '+date(fallback.item.last_success)};
     if(r?.checking || !r)return {status:data.collector.available?'Checking…':'Unknown',note:'Automatic service check'};
     return {status:r.website_status==='reachable'?'Website reachable':r.website_status==='unavailable'?'Website error':'Unknown',note:'Local access check · '+date(r.checked_at)};
   }
   function renderAvailability(service) {
     if(!service)return '';
-    if(!data.collector.available){const sig=signal(service);return `<section class="passport-card status-card"><p class="card-index">ID.2 / SERVICE STATE</p><h3>Official service report</h3><p><b>${escape(sig.status)}</b> · ${escape(date(sig.item.last_success))}</p><p>${escape(sig.item.operator?.reason||'Official status not established in the latest snapshot.')}</p><p class="card-note">Official feeds refresh hourly on GitHub. Reports older than 90 minutes are marked unknown. This is an operator report, not an Irish connection or inference test.</p>${service.status_source?sourceLink(service.status_source):'<p class="card-note">No applicable operator feed mapped.</p>'}</section>`;}
+    if(!data.collector.available){const sig=signal(service);return `<section class="passport-card status-card"><p class="card-index">ID.2 / SERVICE STATE</p><h3>Official service report</h3><p><b>${escape(liveSignal(service).status)}</b> · ${escape(date(sig.item.last_success))}</p>${sig.stale&&sig.item.operator?`<p>Last reported state: <b>${escape(sig.item.operator.status)}</b>. Current availability is unconfirmed.</p>`:''}${hostedChecks[service.id]?.error?`<p class="card-note">${escape(hostedChecks[service.id].error)}</p>`:''}<p>${escape(sig.item.operator?.reason||'Official status not established in the latest snapshot.')}</p><p class="card-note">Official feeds are checked directly while this page is open where the browser permits access, with scheduled GitHub snapshots as fallback. Reports older than 90 minutes are marked stale. This is an operator report, not an Irish connection or inference test.</p>${service.status_source?sourceLink(service.status_source):'<p class="card-note">No applicable operator feed mapped.</p>'}</section>`;}
     const r=localChecks[service.id], live=liveSignal(service);
     return `<section class="passport-card status-card"><p class="card-index">ID.2 / SERVICE STATE</p><h3>Service status &amp; local access</h3><p><b>${escape(live.status)}</b> · ${escape(live.note)}</p>${r?.operator?.reason?`<p>${escape(r.operator.reason)}</p>`:''}<p><b>From this computer:</b> ${r?.checked_at?escape(r.website_status==='reachable'?'Website reachable':r.website_status==='unavailable'?'Website server error':'Check inconclusive'):'Checking…'}</p>${r?.detail?`<p class="card-note">${escape(r.detail)}</p>`:''}${r?.checked_at?`<p class="card-note">${escape(date(r.checked_at))} · ${escape(r.latency_ms??'—')} ms · HTTP ${escape(r.http_status??'no response')}</p>`:''}<p class="card-note">Updates automatically every minute while open. Access checks use the server computer’s connection; run it in Ireland for Irish access. Website reachability does not verify an answer. No paid inference requests.</p>${r?.operator_url?`<a href="${safeUrl(r.operator_url)}" target="_blank" rel="noopener">Official status source ↗</a>`:''}</section>`;
   }
@@ -360,8 +399,10 @@
 
   async function refresh(service_id) {
     if(!data.collector.available){
+      availabilityRequests.clear();
       await loadData();
-      notify('Loaded the latest published snapshot. GitHub refreshes evidence daily and official status hourly.');
+      await Promise.all(data.catalogue.services.filter(s=>s.status_source).map(updateHostedAvailability));
+      notify('Reloaded the published snapshot and attempted current official service feeds. See each card for freshness and source.');
       return;
     }
     try {
