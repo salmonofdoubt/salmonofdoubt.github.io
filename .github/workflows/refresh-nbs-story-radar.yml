@@ -4,10 +4,19 @@ on:
   schedule:
     - cron: "23 5 * * *"
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/refresh-nbs-story-radar.yml"
+      - "demos/wnbs/ops/**"
+      - "demos/wnbs/data/source-registry.json"
 
 permissions:
   contents: write
   issues: write
+
+concurrency:
+  group: refresh-nbs-story-radar
+  cancel-in-progress: true
 
 jobs:
   refresh:
@@ -15,6 +24,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: master
 
       - name: Set up Python
         uses: actions/setup-python@v5
