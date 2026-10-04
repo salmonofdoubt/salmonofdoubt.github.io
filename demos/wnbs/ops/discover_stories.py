@@ -30,6 +30,7 @@ REPORT_DIR = ROOT / "reports"
 REGISTRY_PATH = DATA_DIR / "source-registry.json"
 STORIES_PATH = DATA_DIR / "stories.json"
 LATEST_REPORT_PATH = REPORT_DIR / "latest.md"
+NDRT_RADAR_URL = "https://nannydelvin.ie/news/data/news.json"
 
 USER_AGENT = "WaterNbSStoryRadar/0.2 (+https://salmonofdoubt.github.io/; source-led environmental monitoring)"
 TIMEOUT = 20
@@ -275,6 +276,7 @@ DILUTION_TERMS: dict[str, int] = {
 }
 
 ANGLE_RULES: list[tuple[str, list[str]]] = [
+    ("Local planning and river-corridor governance", ["traffic relief", "bypass", "road scheme", "route option", "route options", "route selection", "bridge", "crossing", "culvert", "drainage", "river corridor", "riparian", "floodplain", "eiar", "eia", "appropriate assessment", "nis", "r132"]),
     ("Farm runoff and nutrient interception", ["farm runoff", "agriculture", "farmer", "farming for water", "acres", "buffer strip", "cattle exclusion", "drinking point", "farmyard runoff", "nutrient", "phosphorus", "nitrate"]),
     ("Riparian buffers and river corridors", ["riparian", "river corridor", "buffer strip", "woodland buffer", "riparian planting", "stream", "river", "bank", "instream habitat", "fish passage"]),
     ("Wetlands, ponds and sediment control", ["constructed wetland", "treatment wetland", "integrated constructed wetland", "wetland", "pond", "sediment pond", "silt", "attenuation pond", "phosphorus trap"]),
@@ -449,6 +451,53 @@ def discover_source(source: dict[str, Any]) -> list[RawItem]:
     except Exception as exc:
         print(f"WARN source failed: {source.get('id')} {exc}", file=sys.stderr)
     return []
+
+
+def discover_ndrt_local_signals() -> list[RawItem]:
+    """Import only NDRT items explicitly flagged as possible wider stories."""
+    try:
+        response = fetch(NDRT_RADAR_URL)
+        response.raise_for_status()
+        payload = response.json()
+    except Exception as exc:
+        print(f"WARN NDRT cross-pollination failed: {exc}", file=sys.stderr)
+        return []
+
+    items: list[RawItem] = []
+    for item in payload.get("items", []):
+        cross = item.get("cross_pollination") if isinstance(item.get("cross_pollination"), dict) else {}
+        if not item.get("linkedin_story_candidate") and cross.get("target") != "water-nbs-story-radar":
+            continue
+
+        local = item.get("local_relevance") if isinstance(item.get("local_relevance"), dict) else {}
+        pressures = item.get("pressure_categories") if isinstance(item.get("pressure_categories"), list) else []
+        source = {
+            "id": "ndrt-local-case-study",
+            "name": item.get("source_name") or "NDRT local signal",
+            "trust": 0.86,
+            "scope": "Ireland Meath Nanny-Delvin local catchment river corridor riparian planning infrastructure",
+            "tags": [
+                "NDRT local case study",
+                "planning and infrastructure",
+                local.get("label", "local relevance"),
+                *pressures[:4],
+            ],
+        }
+        summary_parts = [
+            item.get("summary", ""),
+            item.get("action_relevance", ""),
+            cross.get("reason", ""),
+        ]
+        summary = clean_text(" ".join(part for part in summary_parts if part), 900)
+        items.append(RawItem(
+            source=source,
+            title=clean_text(item.get("title", ""), 240),
+            url=canonical_url(item.get("url", "")),
+            summary=summary,
+            published=parse_date(item.get("published")),
+        ))
+
+    return [item for item in items if item.title and item.url][:20]
 
 
 def term_hits(text: str, terms: dict[str, int]) -> tuple[int, list[str]]:
