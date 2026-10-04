@@ -685,6 +685,8 @@ def enrich(item: RawItem, previous: dict[str, Any] | None = None) -> dict[str, A
         score -= 12
     if recency_cap is not None:
         score = min(score, recency_cap)
+    if is_local_case:
+        score = min(score, 88)
     score = max(0, min(100, score))
 
     if score < MIN_SCORE:
@@ -693,6 +695,11 @@ def enrich(item: RawItem, previous: dict[str, Any] | None = None) -> dict[str, A
     angle = choose_angle(text)
     evidence = list(dict.fromkeys(water_hits + measure_hits + implementation_hits + ireland_hits + general_hits))[:14]
     ireland, water, practical, brand_fit, why = build_relevance_text(angle, ireland_hits, water_hits, measure_hits, implementation_hits)
+    if is_local_case:
+        ireland = "Direct East Meath / Nanny-Delvin local relevance imported from the NDRT catchment radar."
+        water = "Catchment relevance is inferred from NDRT screening metadata. Verify the primary source for any claimed river crossing, riparian, drainage, floodplain or ecological interaction before posting."
+        practical = "Planning and route-selection signal. The editorial value is in asking when river-corridor function enters option comparison, not in assuming an environmental impact."
+        why = "Use as a local governance case study only after checking the primary source and project evidence. Keep the distinction clear between a catchment-screening signal and demonstrated ecological impact."
     identifier = item_id(item.url, item.title)
     out = {
         "id": identifier,
