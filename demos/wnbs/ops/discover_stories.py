@@ -570,6 +570,7 @@ def build_relevance_text(
         "Peatland hydrology and water quality": "Good fit where peatland restoration is connected to hydrology, downstream water quality, dissolved organic carbon, or aquatic habitat.",
         "WFD, monitoring and evidence": "Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.",
         "Funding, guidance and delivery": "Useful when it gives practitioners a route to implement real measures rather than simply admiring the concept.",
+        "Local planning and river-corridor governance": "Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.",
     }.get(angle, "Keep only if there is a clear practical water-quality, aquatic ecology, or water-biodiversity angle.")
 
     why = f"{brand_fit} The strongest LinkedIn angle is practical: what measure was used, what pressure it addresses, where it fits in the catchment, and how success will be monitored."
@@ -582,6 +583,24 @@ def linkedin_draft(item: RawItem, angle: str, brand_fit: str) -> str:
     title = item.title or "Untitled item"
     url = item.url or ""
     citation = f"{source}. ({published}). {title}." + "\n" + url
+
+    if item.source.get("id") == "ndrt-local-case-study":
+        return (
+            "A local catchment-planning signal from East Meath.\n\n"
+            f"{title}\n\n"
+            "What interests me here is not the transport politics by itself, but the point at which environmental function enters route selection. "
+            "Where infrastructure may interact with a river corridor, the useful questions come before mitigation is designed.\n\n"
+            "I would want to know:\n"
+            "• whether any option crosses or constrains a river or riparian corridor\n"
+            "• how drainage, sediment and construction runoff are treated\n"
+            "• whether floodplain and hydromorphological function are part of option comparison\n"
+            "• what ecological survey evidence exists at the route-selection stage\n"
+            "• whether avoidance has been tested before mitigation\n\n"
+            "This is a screening question, not a claim that a particular option is environmentally unacceptable. "
+            "The broader NbS point is that river corridors are functioning infrastructure too, and route selection should recognise that function early.\n\n"
+            f"Source:\n{citation}\n\n"
+            "#NatureBasedSolutions #CatchmentManagement #Riparian #WaterQuality #Planning #Ireland"
+        )
 
     return (
         "A practical Water NbS signal for Ireland.\n\n"
@@ -628,6 +647,7 @@ def source_scope_boost(source_id: str) -> int:
         "teagasc-environment": 8,
         "biodiversity-ireland": 6,
         "climate-adapt-nbs": 3,
+        "ndrt-local-case-study": 16,
     }.get(source_id, 3)
 
 
@@ -640,8 +660,9 @@ def enrich(item: RawItem, previous: dict[str, Any] | None = None) -> dict[str, A
     general_score, general_hits = term_hits(text, GENERAL_NBS_TERMS)
     dilution_score, dilution_hits = term_hits(text, DILUTION_TERMS)
 
+    is_local_case = item.source.get("id") == "ndrt-local-case-study"
     has_water_core = water_score >= 20 or any(term in water_hits for term in ["water quality", "surface water", "ecological status", "aquatic ecology", "aquatic biodiversity"])
-    has_practical_core = measure_score >= 24 or implementation_score >= 20
+    has_practical_core = measure_score >= 24 or implementation_score >= 20 or is_local_case
 
     trust_score = int(float(item.source.get("trust", 0.7)) * 10)
     source_boost = source_scope_boost(str(item.source.get("id", "")))
@@ -649,8 +670,10 @@ def enrich(item: RawItem, previous: dict[str, Any] | None = None) -> dict[str, A
 
     # Water and practical implementation dominate. Generic NbS and climate terms can help but cannot carry a story.
     score = water_score + measure_score + implementation_score + ireland_score + min(general_score, 24) + trust_score + source_boost - dilution_score - recency_penalty
+    if is_local_case:
+        score += 18
     if not has_water_core:
-        score -= 22
+        score -= 6 if is_local_case else 22
     if not has_practical_core:
         score -= 12
     if dilution_hits and not has_water_core:
@@ -711,8 +734,9 @@ def markdown_report(payload: dict[str, Any]) -> str:
         "",
         f"Generated: {payload.get('generated_at')}",
         f"Candidates: {payload.get('candidate_count', 0)} from {payload.get('source_count', 0)} sources",
+        f"NDRT local case-study candidates imported: {payload.get('cross_pollinated_count', 0)}",
         "",
-        "Editorial lens: practical measures that improve surface water quality, aquatic ecology, and water-related biodiversity in Ireland.",
+        "Editorial lens: practical measures that improve surface water quality, aquatic ecology, and water-related biodiversity in Ireland, plus selected local planning/infrastructure signals where river-corridor function may be relevant.",
         "",
         "## Editorial picks to consider",
         "",
@@ -761,6 +785,9 @@ def main() -> None:
     for source in registry.get("sources", []):
         raw_items.extend(discover_source(source))
 
+    ndrt_items = discover_ndrt_local_signals()
+    raw_items.extend(ndrt_items)
+
     enriched: dict[str, dict[str, Any]] = {}
     for raw in raw_items:
         identifier = item_id(raw.url, raw.title)
@@ -784,9 +811,10 @@ def main() -> None:
         "version": "0.2.0",
         "generated_at": now_utc().isoformat(),
         "run_id": now_utc().strftime("%Y%m%dT%H%M%SZ"),
-        "source_count": len(registry.get("sources", [])),
+        "source_count": len(registry.get("sources", [])) + (1 if ndrt_items else 0),
+        "cross_pollinated_count": len(ndrt_items),
         "candidate_count": len(items),
-        "editorial_lens": "Practical surface-water quality, aquatic ecology, and water-related biodiversity stories for Ireland-focused NbS communication.",
+        "editorial_lens": "Practical surface-water quality, aquatic ecology, water-related biodiversity, plus selected local catchment-planning case studies for Ireland-focused NbS communication.",
         "items": items,
     }
     write_json(STORIES_PATH, payload)
