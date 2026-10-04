@@ -1,9 +1,10 @@
 # Water NbS Story Radar · 2026-10-04
 
-Generated: 2026-10-04T11:10:28.937516+00:00
+Generated: 2026-10-04T15:26:59.340121+00:00
 Candidates: 160 from 11 sources
+NDRT local case-study candidates imported: 0
 
-Editorial lens: practical measures that improve surface water quality, aquatic ecology, and water-related biodiversity in Ireland.
+Editorial lens: practical measures that improve surface water quality, aquatic ecology, and water-related biodiversity in Ireland, plus selected local planning/infrastructure signals where river-corridor function may be relevant.
 
 ## Editorial picks to consider
 
