@@ -464,11 +464,16 @@ def discover_ndrt_local_signals() -> list[RawItem]:
         return []
 
     items: list[RawItem] = []
+    flagged = []
     for item in payload.get("items", []):
         cross = item.get("cross_pollination") if isinstance(item.get("cross_pollination"), dict) else {}
-        if not item.get("linkedin_story_candidate") and cross.get("target") != "water-nbs-story-radar":
-            continue
+        if item.get("linkedin_story_candidate") or cross.get("target") == "water-nbs-story-radar":
+            flagged.append(item)
 
+    flagged.sort(key=lambda item: (item.get("published") or "", int(item.get("score", 0))), reverse=True)
+
+    for item in flagged[:6]:
+        cross = item.get("cross_pollination") if isinstance(item.get("cross_pollination"), dict) else {}
         local = item.get("local_relevance") if isinstance(item.get("local_relevance"), dict) else {}
         pressures = item.get("pressure_categories") if isinstance(item.get("pressure_categories"), list) else []
         source = {
