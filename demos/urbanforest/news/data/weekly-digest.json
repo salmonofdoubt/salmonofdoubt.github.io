@@ -1,63 +1,63 @@
 {
-  "generated_at": "2026-10-03T10:33:44.808712+00:00",
-  "latest_generated_at": "2026-10-03T10:33:44.714718+00:00",
+  "generated_at": "2026-10-04T11:16:04.195027+00:00",
+  "latest_generated_at": "2026-10-04T11:16:04.082013+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 25,
-    "funding-opportunities": 22,
-    "research-evidence": 40,
-    "design-maintenance-risk": 3,
+    "ireland-urban-forest-practice": 28,
+    "funding-opportunities": 17,
+    "research-evidence": 43,
+    "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
-      "benefit": "Funding / grants",
-      "count": 32
+      "benefit": "Biodiversity / habitat",
+      "count": 31
     },
     {
-      "benefit": "Biodiversity / habitat",
-      "count": 28
+      "benefit": "Funding / grants",
+      "count": 23
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 21
+      "count": 22
+    },
+    {
+      "benefit": "Urban heat / shade",
+      "count": 20
     },
     {
       "benefit": "Urban forest / NbS",
-      "count": 16
+      "count": 19
+    },
+    {
+      "benefit": "Community stewardship",
+      "count": 18
     },
     {
       "benefit": "School / education",
       "count": 16
     },
     {
-      "benefit": "Community stewardship",
-      "count": 15
-    },
-    {
-      "benefit": "Planning / policy",
-      "count": 14
+      "benefit": "Stormwater / SuDS",
+      "count": 16
     },
     {
       "benefit": "Monitoring / evaluation",
-      "count": 14
+      "count": 13
     },
     {
-      "benefit": "Stormwater / SuDS",
-      "count": 14
-    },
-    {
-      "benefit": "Urban heat / shade",
+      "benefit": "Wellbeing / health",
       "count": 12
-    },
-    {
-      "benefit": "Risk / safety",
-      "count": 11
     },
     {
       "benefit": "Soil health",
       "count": 10
+    },
+    {
+      "benefit": "Planning / policy",
+      "count": 9
     }
   ],
   "items": [
@@ -94,6 +94,32 @@
       },
       "research_use_type": "Review / evidence synthesis",
       "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "b7b1c3580c1b6759",
+      "title": "Community-centered instrumentation and monitoring of nature-based solutions for urban stormwater control",
+      "url": "https://doi.org/10.3389/frwa.2024.1370501",
+      "section": "research-evidence",
+      "source_name": "Frontiers in Water",
+      "published": "2024-08-02",
+      "score": 100,
+      "practical_score": 146.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Biodiversity / habitat",
+        "Stormwater / SuDS",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
       "id": "04d23228324de796",
@@ -188,37 +214,8 @@
       "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
-      "id": "72c194e792f74f13",
-      "title": "Maintenance in sustainable stormwater management: issues, barriers and challenges",
-      "url": "https://doi.org/10.1080/09640568.2024.2325041",
-      "section": "research-evidence",
-      "source_name": "Journal of Environmental Planning and Management",
-      "published": "2024-03-25",
-      "score": 100,
-      "practical_score": 131.0,
-      "benefit_categories": [
-        "Stormwater / SuDS",
-        "Tree survival / maintenance",
-        "Funding / grants",
-        "Planning / policy"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 59,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Review / evidence synthesis",
-      "urbanforest_relevance": "Opportunity signal: may help fund stormwater / suds, tree survival / maintenance, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
       "id": "073b2523d843a620",
-      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - comptroller.nyc.gov",
+      "title": "New York City’s Living Infrastructure: Funding and Managing NYC’s Urban Forest and Tree Canopy - NYC.gov",
       "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPN3NOaGR2RVkwS09NWkNtNFNGeGtVbjc3NHgwZXQ1bE0xZlI5anNNNHRhcGRhQmMtVmQ1MzB3RzZoMkxTUGI1VEdCTGQ1UXBJNDNXNWxNYk9lU09kaGtmdnRUaFJzZUdmRU1nNjVJU1dRckxBMWJ0Q25BbC1ZNlVCY2xLVXljaUhQVG82dm1Gemg5TXZGSTJQWDZ3U1plLVBWVEdNNkFfR0lmM2Y3Q1Z2X1o0dTVlME5HZTJXeGpJRndwdXZlVTBZ?oc=5",
       "section": "funding-opportunities",
       "source_name": "Google News: urban forest survival and maintenance",
@@ -291,41 +288,51 @@
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "8547e65a00b18eae",
-      "title": "It Is Not Easy Being Green: Recognizing Unintended Consequences of Green Stormwater Infrastructure",
-      "url": "https://doi.org/10.3390/w12020522",
+      "id": "e757641b544c01e2",
+      "title": "Engaging Residents in Street Tree Stewardship: Results of a Tree Watering Outreach Intervention",
+      "url": "https://doi.org/10.48044/jauf.2016.027",
       "section": "research-evidence",
-      "source_name": "Water",
-      "published": "2020-02-13",
+      "source_name": "Arboriculture & Urban Forestry",
+      "published": "2016-09-01",
       "score": 100,
       "practical_score": 129.0,
       "benefit_categories": [
-        "Stormwater / SuDS",
+        "Soil health",
         "Wellbeing / health",
+        "School / education",
+        "Community stewardship",
         "Tree survival / maintenance",
-        "Monitoring / evaluation"
+        "Funding / grants"
       ],
       "local_relevance": {
         "score": 0,
         "label": "Transferable relevance",
         "matched_terms": []
       },
-      "opportunity_fit": null,
-      "research_use_type": "Review / evidence synthesis",
-      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 73,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Survival / maintenance evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund soil health, wellbeing / health, school / education, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
-      "id": "e71eafacd7687633",
-      "title": "Cooling efficacy of trees across cities is determined by background climate, urban morphology, and tree trait",
-      "url": "https://doi.org/10.1038/s43247-024-01908-4",
+      "id": "96e2f52d03b06df2",
+      "title": "Urban Soil Health and Tree Performance: A Diagnostic Framework and Biochar–Inactivated Yeast Case Study from Toronto",
+      "url": "https://hdl.handle.net/1807/151152",
       "section": "research-evidence",
-      "source_name": "Communications Earth & Environment",
-      "published": "2024-12-10",
-      "score": 96,
-      "practical_score": 125.0,
+      "source_name": "TSpace (University of Toronto)",
+      "published": "2026-01-12",
+      "score": 90,
+      "practical_score": 126.0,
       "benefit_categories": [
         "Urban heat / shade",
         "Biodiversity / habitat",
+        "Soil health",
+        "Stormwater / SuDS",
+        "Wellbeing / health",
         "Tree survival / maintenance"
       ],
       "local_relevance": {
@@ -334,7 +341,7 @@
         "matched_terms": []
       },
       "opportunity_fit": null,
-      "research_use_type": "Survival / maintenance evidence",
+      "research_use_type": "Monitoring method",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     }
   ]
