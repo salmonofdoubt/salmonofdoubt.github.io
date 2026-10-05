@@ -26,9 +26,9 @@ Use the real public-domain 3D model:
 - digital model: CC0 / Public Domain
 - distributed through Wikimedia Commons
 
-The production app should never depend on an embedded third-party viewer. The current beta fetches the raw public-domain STL directly from Wikimedia and parses it locally.
+The production app should never depend on an embedded third-party viewer. The tested beta ships a preprocessed, indexed derivative of the Scan the World model with smooth vertex normals. The browser no longer attempts to repair raw STL normals at runtime.
 
-Future optimisation: create a browser-ready GLB/mesh derivative that preserves facial detail while reducing the 51.66 MB first-load cost.
+Current optimisation: a roughly 7.1 MB browser-ready indexed derivative preserves facial form while removing the roughly 57 MB raw-STL first-load and runtime-normal problems.
 
 ## 3. Modes
 

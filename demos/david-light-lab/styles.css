@@ -235,7 +235,7 @@ body.paint-mode .reference-lock{top:10px}
   .header-button{display:block}
   .demo-stage{padding-top:6px;padding-bottom:82px}
   .lab-shell{display:block;position:relative;min-height:calc(100dvh - 80px)}
-  .viewer-shell{min-height:calc(100dvh - 110px)}
+  .viewer-shell{height:calc(100dvh - 110px);min-height:calc(100dvh - 110px)}
   .control-panel{
     position:absolute;right:10px;top:10px;z-index:40;width:min(330px,calc(100% - 20px));max-height:calc(100% - 20px);
     border:1px solid var(--line);border-radius:16px;box-shadow:0 25px 65px rgba(0,0,0,.5);backdrop-filter:blur(14px)

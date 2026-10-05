@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const MODEL_URL = 'https://upload.wikimedia.org/wikipedia/commons/4/4d/David_%28Michelangelo%29.stl';
+  const MODEL_URL = './assets/david-head.dlb?v=20261005-1630';
   const STORAGE_KEY = 'david-light-lab:study:v1';
 
   const $ = (id) => document.getElementById(id);
@@ -110,18 +110,22 @@
   // ---------- WebGL ----------
   const vs = `#version 300 es
   in vec3 aPos;
+  in vec3 aNormal;
   uniform mat4 uModel;
   uniform mat4 uMVP;
   out vec3 vPos;
+  out vec3 vNormal;
   void main(){
     vec4 p=uModel*vec4(aPos,1.0);
     vPos=p.xyz;
+    vNormal=normalize(mat3(uModel)*aNormal);
     gl_Position=uMVP*vec4(aPos,1.0);
   }`;
 
   const fs = `#version 300 es
   precision highp float;
   in vec3 vPos;
+  in vec3 vNormal;
   uniform vec3 uLight;
   uniform float uKey;
   uniform float uFill;
@@ -131,30 +135,31 @@
   uniform int uValueMode;
   out vec4 outColor;
 
-  float quantize(float x,float steps){
-    return floor(x*steps)/(steps-1.0);
-  }
-
   void main(){
     vec3 V=normalize(-vPos);
-    vec3 N=normalize(cross(dFdx(vPos),dFdy(vPos)));
-    if(dot(N,V)<0.0) N=-N;
+    vec3 N=normalize(vNormal);
+    if(!gl_FrontFacing) N=-N;
     vec3 L=normalize(uLight-vPos);
     vec3 H=normalize(L+V);
-    float raw=max(dot(N,L),0.0);
-    float wrap=mix(raw, clamp((dot(N,L)+0.42)/(1.42),0.0,1.0), uSoft);
+
+    float ndl=dot(N,L);
+    float raw=max(ndl,0.0);
+    float wrapped=clamp((ndl+0.34)/1.34,0.0,1.0);
+    float diffuse=mix(raw,wrapped,uSoft*0.72);
+
     float dist=length(uLight-vPos);
     float att=1.0/(1.0+0.085*dist*dist);
-    float diff=wrap*uKey*att;
-    float shine=max(5.0,uShine);
-    float spec=pow(max(dot(N,H),0.0),shine);
-    float rim=pow(1.0-max(dot(N,V),0.0),2.4);
+    float lit=diffuse*uKey*att;
 
-    // Matte plaster: form is carried primarily by diffuse value, not glossy
-    // triangle highlights. This avoids the white shard artefacts of raw STL shading.
-    vec3 base=vec3(uTone,uTone*0.992,uTone*0.965);
-    vec3 col=base*(uFill+diff)+vec3(1.0)*spec*uKey*0.008*(1.0-uSoft*0.85)+base*rim*0.02;
-    col=min(col,vec3(1.0));
+    float shine=max(8.0,uShine);
+    float spec=pow(max(dot(N,H),0.0),shine);
+    float rim=pow(1.0-max(dot(N,V),0.0),2.5);
+
+    vec3 base=vec3(uTone,uTone*0.992,uTone*0.968);
+    vec3 col=base*(uFill+lit)
+      +vec3(1.0)*spec*uKey*0.018*(1.0-uSoft*0.7)
+      +base*rim*0.018;
+    col=clamp(col,0.0,1.0);
 
     float lum=dot(col,vec3(0.2126,0.7152,0.0722));
     if(uValueMode==1){
@@ -186,6 +191,7 @@
 
   const loc={
     pos:gl.getAttribLocation(program,'aPos'),
+    normal:gl.getAttribLocation(program,'aNormal'),
     model:gl.getUniformLocation(program,'uModel'),
     mvp:gl.getUniformLocation(program,'uMVP'),
     light:gl.getUniformLocation(program,'uLight'),
@@ -197,7 +203,7 @@
     valueMode:gl.getUniformLocation(program,'uValueMode')
   };
 
-  let posBuf=null,vertexCount=0;
+  let posBuf=null,normBuf=null,indexBuf=null,vertexCount=0,indexCount=0,indexed=false;
   gl.enable(gl.DEPTH_TEST);
   gl.disable(gl.CULL_FACE);
 
@@ -216,75 +222,111 @@
       return;
     }
     if(msg.type==='mesh'){
-      uploadMesh(new Float32Array(msg.positions),msg.triangleCount,msg.info);
+      uploadRawMesh(new Float32Array(msg.positions),msg.triangleCount,msg.info);
     }
   };
 
   async function loadRemote(){
     loadingCard.classList.remove('is-hidden');
     loadingTitle.textContent='Loading David';
-    loadingText.textContent='Fetching the featured Scan the World David scan from Wikimedia Commons.';
-    progressBar.style.width='2%';
+    loadingText.textContent='Loading the cleaned artist mesh.';
+    progressBar.style.width='4%';
     try{
-      const response=await fetch(MODEL_URL,{mode:'cors',cache:'force-cache'});
+      const response=await fetch(MODEL_URL,{cache:'force-cache'});
       if(!response.ok) throw new Error('HTTP '+response.status);
       const total=Number(response.headers.get('content-length'))||0;
-      if(!response.body){
-        const buffer=await response.arrayBuffer();
-        worker.postMessage({type:'parse',buffer,cropTop:true},[buffer]);
-        return;
-      }
-      const reader=response.body.getReader();
-      let received=0;
-      let merged=total?new Uint8Array(total):null;
-      const chunks=total?null:[];
-      while(true){
-        const {done,value}=await reader.read();
-        if(done)break;
-        if(merged){
-          merged.set(value,received);
-        }else{
-          chunks.push(value);
+      const reader=response.body?.getReader();
+      let buffer;
+      if(!reader){
+        buffer=await response.arrayBuffer();
+      }else{
+        let received=0;
+        let merged=total?new Uint8Array(total):null;
+        const chunks=total?null:[];
+        while(true){
+          const {done,value}=await reader.read();
+          if(done)break;
+          if(merged) merged.set(value,received); else chunks.push(value);
+          received+=value.byteLength;
+          if(total){
+            progressBar.style.width=Math.min(88,Math.round(received/total*88))+'%';
+            loadingText.textContent='Loading cleaned mesh · '+(received/1048576).toFixed(1)+' / '+(total/1048576).toFixed(1)+' MB';
+          }
         }
-        received+=value.byteLength;
-        if(total){
-          const pct=Math.min(72,Math.round(received/total*72));
-          progressBar.style.width=pct+'%';
-          loadingText.textContent='Downloading scan · '+Math.round(received/1048576)+' / '+Math.round(total/1048576)+' MB';
-        }else{
-          loadingText.textContent='Downloading scan · '+Math.round(received/1048576)+' MB';
+        if(!merged){
+          merged=new Uint8Array(received);
+          let off=0;for(const c of chunks){merged.set(c,off);off+=c.byteLength;}
         }
+        buffer=merged.buffer;
       }
-      if(!merged){
-        merged=new Uint8Array(received);
-        let offset=0;
-        for(const c of chunks){ merged.set(c,offset); offset+=c.byteLength; }
-      }
-      loadingText.textContent='Preparing geometry…';
-      worker.postMessage({type:'parse',buffer:merged.buffer,cropTop:true},[merged.buffer]);
+      parseDLB(buffer);
     }catch(err){
       showLoadError(err.message);
     }
   }
 
-  function showLoadError(message){
-    loadingTitle.textContent='Could not load the scan automatically';
-    loadingText.textContent='The viewer is ready, but the model fetch failed ('+message+'). Retry, or open the original STL from your device.';
-    progressBar.style.width='0%';
+  function parseDLB(buffer){
+    const bytes=new Uint8Array(buffer,0,4);
+    if(bytes[0]!==68||bytes[1]!==76||bytes[2]!==66||bytes[3]!==49) throw new Error('Invalid David mesh header');
+    const dv=new DataView(buffer);
+    const vertices=dv.getUint32(4,true);
+    const indices=dv.getUint32(8,true);
+    const posOff=12;
+    const norOff=posOff+vertices*3*4;
+    const idxOff=norOff+vertices*3*4;
+    const expected=idxOff+indices*4;
+    if(expected!==buffer.byteLength) throw new Error('David mesh is truncated');
+    uploadIndexedMesh(
+      new Float32Array(buffer,posOff,vertices*3),
+      new Float32Array(buffer,norOff,vertices*3),
+      new Uint32Array(buffer,idxOff,indices)
+    );
   }
 
-  function uploadMesh(positions,count,info){
+  function clearMeshBuffers(){
     if(posBuf)gl.deleteBuffer(posBuf);
-    posBuf=gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
-    gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);
-    vertexCount=positions.length/3;
+    if(normBuf)gl.deleteBuffer(normBuf);
+    if(indexBuf)gl.deleteBuffer(indexBuf);
+    posBuf=normBuf=indexBuf=null;
+  }
+
+  function uploadIndexedMesh(positions,normals,indices){
+    clearMeshBuffers();
+    posBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);
+    normBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);gl.bufferData(gl.ARRAY_BUFFER,normals,gl.STATIC_DRAW);
+    indexBuf=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,indices,gl.STATIC_DRAW);
+    vertexCount=positions.length/3;indexCount=indices.length;indexed=true;
     state.loaded=true;
     loadingCard.classList.add('is-hidden');
-    $('localStl').value='';
-    setStatus('Loaded '+Number(count).toLocaleString()+' triangles');
-    applyHashState();
-    updateAllUI();
+    progressBar.style.width='100%';
+    setStatus('Clean artist mesh loaded · '+Math.round(indexCount/3).toLocaleString()+' triangles');
+    applyHashState();updateAllUI();
+  }
+
+  function uploadRawMesh(positions,count,info){
+    clearMeshBuffers();
+    const normals=new Float32Array(positions.length);
+    for(let i=0;i<positions.length;i+=9){
+      const ax=positions[i],ay=positions[i+1],az=positions[i+2];
+      const bx=positions[i+3],by=positions[i+4],bz=positions[i+5];
+      const cx=positions[i+6],cy=positions[i+7],cz=positions[i+8];
+      const ux=bx-ax,uy=by-ay,uz=bz-az,vx=cx-ax,vy=cy-ay,vz=cz-az;
+      let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;
+      const l=Math.hypot(nx,ny,nz)||1;nx/=l;ny/=l;nz/=l;
+      for(let v=0;v<3;v++){const o=i+v*3;normals[o]=nx;normals[o+1]=ny;normals[o+2]=nz;}
+    }
+    posBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);
+    normBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);gl.bufferData(gl.ARRAY_BUFFER,normals,gl.STATIC_DRAW);
+    vertexCount=positions.length/3;indexCount=0;indexed=false;
+    state.loaded=true;loadingCard.classList.add('is-hidden');
+    setStatus('Local STL loaded · '+Number(count).toLocaleString()+' triangles');
+    applyHashState();updateAllUI();
+  }
+
+  function showLoadError(message){
+    loadingTitle.textContent='Could not load the cleaned David mesh';
+    loadingText.textContent='The built-in mesh failed ('+message+'). Retry, or use Open local STL as a fallback.';
+    progressBar.style.width='0%';
   }
 
   async function loadLocal(file){
@@ -378,6 +420,9 @@
       gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
       gl.enableVertexAttribArray(loc.pos);
       gl.vertexAttribPointer(loc.pos,3,gl.FLOAT,false,0,0);
+      gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);
+      gl.enableVertexAttribArray(loc.normal);
+      gl.vertexAttribPointer(loc.normal,3,gl.FLOAT,false,0,0);
       gl.uniformMatrix4fv(loc.model,false,model);
       gl.uniformMatrix4fv(loc.mvp,false,mvp);
       gl.uniform3f(loc.light,light[0],light[1],light[2]);
@@ -387,7 +432,7 @@
       gl.uniform1f(loc.shine,+controls.shine.value);
       gl.uniform1f(loc.soft,+controls.soft.value);
       gl.uniform1i(loc.valueMode,valueModeIndex());
-      gl.drawArrays(gl.TRIANGLES,0,vertexCount);
+      if(indexed){gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);gl.drawElements(gl.TRIANGLES,indexCount,gl.UNSIGNED_INT,0);}else{gl.drawArrays(gl.TRIANGLES,0,vertexCount);}
 
       if(state.markerVisible && state.mode!=='paint'){
         const sp=projectPoint(light,vp);
