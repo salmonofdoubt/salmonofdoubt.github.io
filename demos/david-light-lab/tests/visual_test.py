@@ -3,6 +3,7 @@ from pathlib import Path
 from PIL import Image
 from playwright.async_api import async_playwright
 
+# Diagnostic note: page errors are surfaced on load timeout.
 URL = "http://127.0.0.1:8000/demos/david-light-lab/"
 OUT = Path(__file__).parent / "output"
 OUT.mkdir(parents=True, exist_ok=True)
