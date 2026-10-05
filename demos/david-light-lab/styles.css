@@ -240,7 +240,7 @@ body.paint-mode .reference-lock{top:10px}
     position:absolute;right:10px;top:10px;z-index:40;width:min(330px,calc(100% - 20px));max-height:calc(100% - 20px);
     border:1px solid var(--line);border-radius:16px;box-shadow:0 25px 65px rgba(0,0,0,.5);backdrop-filter:blur(14px)
   }
-  .control-panel.is-hidden{display:none}
+  .control-panel.is-hidden{display:none!important}
   .button-grid.four{grid-template-columns:repeat(2,1fr)}
   .check-grid{grid-template-columns:1fr}
   .viewer-toolbar{left:10px;top:10px}
