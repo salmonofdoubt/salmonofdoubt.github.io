@@ -2,11 +2,12 @@ self.onmessage = (event) => {
   const msg = event.data || {};
   if (msg.type !== 'parse' || !msg.buffer) return;
   try {
+    const cropTop = !!msg.cropTop;
     const buffer = msg.buffer;
     const binary = isBinarySTL(buffer);
-    postProgress(76, binary ? 'Parsing binary STL…' : 'Parsing ASCII STL…');
-    const mesh = binary ? parseBinary(buffer) : parseASCII(buffer);
-    postProgress(98, 'Finalising mesh…');
+    postProgress(76, binary ? 'Reading sculpture geometry…' : 'Parsing ASCII STL…');
+    const mesh = binary ? parseBinary(buffer, cropTop) : parseASCII(buffer, cropTop);
+    postProgress(99, 'Finalising smooth plaster surface…');
     self.postMessage({
       type: 'mesh',
       positions: mesh.positions.buffer,
@@ -30,109 +31,176 @@ function isBinarySTL(buffer){
   return 84 + n * 50 === buffer.byteLength;
 }
 
-function parseBinary(buffer){
-  const dv = new DataView(buffer);
-  const count = dv.getUint32(80,true);
-  if (!count || 84 + count*50 > buffer.byteLength) throw new Error('Invalid binary STL.');
-  const raw = new Float32Array(count*9);
+function binaryVertex(dv, tri, vertex){
+  const o = 84 + tri * 50 + 12 + vertex * 12;
+  return [dv.getFloat32(o,true),dv.getFloat32(o+4,true),dv.getFloat32(o+8,true)];
+}
 
-  let min=[Infinity,Infinity,Infinity], max=[-Infinity,-Infinity,-Infinity];
-  let sums=[0,0,0], samples=0;
-  let off=84, p=0;
+function parseBinary(buffer,cropTop){
+  const dv=new DataView(buffer);
+  const count=dv.getUint32(80,true);
+  if(!count || 84+count*50>buffer.byteLength) throw new Error('Invalid binary STL.');
 
+  let min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity],sum=[0,0,0],samples=0;
   for(let i=0;i<count;i++){
-    off += 12; // source normal
-    for(let j=0;j<3;j++){
-      const x=dv.getFloat32(off,true), y=dv.getFloat32(off+4,true), z=dv.getFloat32(off+8,true);
-      off += 12;
-      raw[p++]=x; raw[p++]=y; raw[p++]=z;
-      min[0]=Math.min(min[0],x); min[1]=Math.min(min[1],y); min[2]=Math.min(min[2],z);
-      max[0]=Math.max(max[0],x); max[1]=Math.max(max[1],y); max[2]=Math.max(max[2],z);
-      sums[0]+=x; sums[1]+=y; sums[2]+=z; samples++;
+    for(let v=0;v<3;v++){
+      const p=binaryVertex(dv,i,v);
+      for(let a=0;a<3;a++){min[a]=Math.min(min[a],p[a]);max[a]=Math.max(max[a],p[a]);sum[a]+=p[a];}
+      samples++;
     }
-    off += 2;
-    if(i && i%200000===0) postProgress(76+Math.min(12,Math.round(i/count*12)),'Reading '+i.toLocaleString()+' triangles…');
+    if(i && i%250000===0) postProgress(78,'Scanning '+i.toLocaleString()+' triangles…');
   }
 
-  return orientAndNormalise(raw,count,min,max,sums.map(s=>s/samples));
-}
-
-function parseASCII(buffer){
-  const text = new TextDecoder().decode(buffer);
-  const verts=[];
-  const re=/vertex\s+([+\-\deE.]+)\s+([+\-\deE.]+)\s+([+\-\deE.]+)/g;
-  let m, min=[Infinity,Infinity,Infinity], max=[-Infinity,-Infinity,-Infinity], sums=[0,0,0], samples=0;
-  while((m=re.exec(text))){
-    const x=+m[1],y=+m[2],z=+m[3];
-    verts.push(x,y,z);
-    min[0]=Math.min(min[0],x); min[1]=Math.min(min[1],y); min[2]=Math.min(min[2],z);
-    max[0]=Math.max(max[0],x); max[1]=Math.max(max[1],y); max[2]=Math.max(max[2],z);
-    sums[0]+=x;sums[1]+=y;sums[2]+=z;samples++;
-  }
-  if(verts.length<9 || verts.length%9!==0) throw new Error('No valid STL triangles found.');
-  return orientAndNormalise(new Float32Array(verts),verts.length/9,min,max,sums.map(s=>s/samples));
-}
-
-function orientAndNormalise(raw,triangleCount,min,max,mean){
   const ext=[max[0]-min[0],max[1]-min[1],max[2]-min[2]];
   const order=[0,1,2].sort((a,b)=>ext[b]-ext[a]);
-  const yAxis=order[0];       // longest: physical height
-  const xAxis=order[1];       // next: width
-  const zAxis=order[2];       // shortest: depth
-
+  const yAxis=order[0],xAxis=order[1],zAxis=order[2];
   const center=[(min[0]+max[0])/2,(min[1]+max[1])/2,(min[2]+max[2])/2];
-  const longest=ext[yAxis] || Math.max(...ext) || 1;
-  const scale=2.10/longest;
+  const wholeScale=2.10/(ext[yAxis]||1);
+  const cutY=cropTop?0.42:-Infinity;
 
-  // Heuristic: the front/nose tends to be the sparse projection from the bulk.
-  // Choose +Z so the mean of the bulk lies slightly behind the bbox centre.
-  const mappedMeanZ=(mean[zAxis]-center[zAxis])*scale;
-  const zSign=mappedMeanZ>0?-1:1;
-
-  const positions=new Float32Array(raw.length);
-  const normals=new Float32Array(raw.length);
-  let orientationVote=0;
-
-  for(let i=0;i<raw.length;i+=9){
+  let selected=0, zMin=Infinity,zMax=-Infinity,zSum=0,zSamples=0;
+  for(let i=0;i<count;i++){
+    let cy=0;
     const tri=[];
     for(let v=0;v<3;v++){
-      const base=i+v*3;
-      const src=[raw[base],raw[base+1],raw[base+2]];
-      const x=(src[xAxis]-center[xAxis])*scale;
-      const y=(src[yAxis]-center[yAxis])*scale;
-      const z=(src[zAxis]-center[zAxis])*scale*zSign;
-      tri.push([x,y,z]);
-      positions[base]=x;positions[base+1]=y;positions[base+2]=z;
+      const p=binaryVertex(dv,i,v);tri.push(p);
+      cy+=(p[yAxis]-center[yAxis])*wholeScale;
     }
+    cy/=3;
+    if(cy<cutY)continue;
+    selected++;
+    for(const p of tri){
+      const z=p[zAxis];
+      zMin=Math.min(zMin,z);zMax=Math.max(zMax,z);zSum+=z;zSamples++;
+    }
+  }
+  if(!selected)throw new Error('No triangles remained after head extraction.');
 
-    const a=tri[0],b=tri[1],c=tri[2];
-    const ux=b[0]-a[0],uy=b[1]-a[1],uz=b[2]-a[2];
-    const vx=c[0]-a[0],vy=c[1]-a[1],vz=c[2]-a[2];
-    let nx=uy*vz-uz*vy, ny=uz*vx-ux*vz, nz=ux*vy-uy*vx;
-    let len=Math.hypot(nx,ny,nz)||1;
-    nx/=len;ny/=len;nz/=len;
+  const zCenter=(zMin+zMax)/2;
+  const zMean=zSum/Math.max(1,zSamples);
+  const zSign=(zMean-zCenter)>0?-1:1;
 
-    // Preserve mesh winding locally. Decide only once whether the whole mesh
-    // needs flipping; per-triangle centroid flips caused false dark/missing patches
-    // in concave hair and facial areas.
-    const cx=(a[0]+b[0]+c[0])/3,cy=(a[1]+b[1]+c[1])/3,cz=(a[2]+b[2]+c[2])/3;
-    orientationVote += (nx*cx+ny*cy+nz*cz) * len;
+  const positions=new Float32Array(selected*9);
+  let out=0;
+  let sMin=[Infinity,Infinity,Infinity],sMax=[-Infinity,-Infinity,-Infinity];
 
+  for(let i=0;i<count;i++){
+    let cy=0;
+    const tri=[];
     for(let v=0;v<3;v++){
-      const base=i+v*3;
-      normals[base]=nx;normals[base+1]=ny;normals[base+2]=nz;
+      const p=binaryVertex(dv,i,v);tri.push(p);
+      cy+=(p[yAxis]-center[yAxis])*wholeScale;
+    }
+    cy/=3;
+    if(cy<cutY)continue;
+
+    for(const p of tri){
+      const mapped=[
+        (p[xAxis]-center[xAxis])*wholeScale,
+        (p[yAxis]-center[yAxis])*wholeScale,
+        (p[zAxis]-zCenter)*wholeScale*zSign
+      ];
+      for(let a=0;a<3;a++){sMin[a]=Math.min(sMin[a],mapped[a]);sMax[a]=Math.max(sMax[a],mapped[a]);}
+      positions[out++]=mapped[0];positions[out++]=mapped[1];positions[out++]=mapped[2];
     }
   }
 
-  // If the source winding is globally inward, flip all normals together.
-  if(orientationVote<0){
-    for(let i=0;i<normals.length;i++) normals[i]=-normals[i];
+  // Refit only the retained head/bust so it fills the artist viewport.
+  const fitCenter=[(sMin[0]+sMax[0])/2,(sMin[1]+sMax[1])/2,(sMin[2]+sMax[2])/2];
+  const fitExtent=Math.max(sMax[0]-sMin[0],sMax[1]-sMin[1],sMax[2]-sMin[2])||1;
+  const fitScale=2.02/fitExtent;
+  for(let i=0;i<positions.length;i+=3){
+    positions[i]=(positions[i]-fitCenter[0])*fitScale;
+    positions[i+1]=(positions[i+1]-fitCenter[1])*fitScale;
+    positions[i+2]=(positions[i+2]-fitCenter[2])*fitScale;
   }
+
+  postProgress(91,'Smoothing sculpture normals…');
+  const normals=smoothNormals(positions);
 
   return {
-    positions,
-    normals,
-    triangleCount,
-    info:{sourceAxes:{x:xAxis,y:yAxis,z:zAxis},zSign}
+    positions,normals,triangleCount:selected,
+    info:{sourceAxes:{x:xAxis,y:yAxis,z:zAxis},zSign,cropped:cropTop,sourceTriangles:count}
   };
+}
+
+function parseASCII(buffer,cropTop){
+  const text=new TextDecoder().decode(buffer);
+  const verts=[];
+  const re=/vertex\s+([+\-\deE.]+)\s+([+\-\deE.]+)\s+([+\-\deE.]+)/g;
+  let m,min=[Infinity,Infinity,Infinity],max=[-Infinity,-Infinity,-Infinity];
+  while((m=re.exec(text))){
+    const p=[+m[1],+m[2],+m[3]];
+    verts.push(...p);
+    for(let a=0;a<3;a++){min[a]=Math.min(min[a],p[a]);max[a]=Math.max(max[a],p[a]);}
+  }
+  if(verts.length<9||verts.length%9!==0)throw new Error('No valid STL triangles found.');
+  const raw=new Float32Array(verts);
+  const ext=[max[0]-min[0],max[1]-min[1],max[2]-min[2]];
+  const order=[0,1,2].sort((a,b)=>ext[b]-ext[a]);
+  const yAxis=order[0],xAxis=order[1],zAxis=order[2];
+  const center=[(min[0]+max[0])/2,(min[1]+max[1])/2,(min[2]+max[2])/2];
+  const wholeScale=2.10/(ext[yAxis]||1);
+  const cutY=cropTop?0.42:-Infinity;
+
+  const selected=[];
+  let zMin=Infinity,zMax=-Infinity,zSum=0,zSamples=0;
+  for(let i=0;i<raw.length;i+=9){
+    let cy=0;
+    for(let v=0;v<3;v++)cy+=(raw[i+v*3+yAxis]-center[yAxis])*wholeScale;
+    cy/=3;if(cy<cutY)continue;
+    for(let v=0;v<3;v++){
+      const b=i+v*3;
+      selected.push(raw[b],raw[b+1],raw[b+2]);
+      const z=raw[b+zAxis];zMin=Math.min(zMin,z);zMax=Math.max(zMax,z);zSum+=z;zSamples++;
+    }
+  }
+  if(!selected.length)throw new Error('No triangles remained after head extraction.');
+  const zCenter=(zMin+zMax)/2,zMean=zSum/Math.max(1,zSamples),zSign=(zMean-zCenter)>0?-1:1;
+  const positions=new Float32Array(selected.length);
+  let sMin=[Infinity,Infinity,Infinity],sMax=[-Infinity,-Infinity,-Infinity];
+  for(let i=0;i<selected.length;i+=3){
+    const p=[selected[i],selected[i+1],selected[i+2]];
+    const mapped=[(p[xAxis]-center[xAxis])*wholeScale,(p[yAxis]-center[yAxis])*wholeScale,(p[zAxis]-zCenter)*wholeScale*zSign];
+    positions[i]=mapped[0];positions[i+1]=mapped[1];positions[i+2]=mapped[2];
+    for(let a=0;a<3;a++){sMin[a]=Math.min(sMin[a],mapped[a]);sMax[a]=Math.max(sMax[a],mapped[a]);}
+  }
+  const fc=[(sMin[0]+sMax[0])/2,(sMin[1]+sMax[1])/2,(sMin[2]+sMax[2])/2];
+  const fe=Math.max(sMax[0]-sMin[0],sMax[1]-sMin[1],sMax[2]-sMin[2])||1;
+  const fs=2.02/fe;
+  for(let i=0;i<positions.length;i+=3){
+    positions[i]=(positions[i]-fc[0])*fs;positions[i+1]=(positions[i+1]-fc[1])*fs;positions[i+2]=(positions[i+2]-fc[2])*fs;
+  }
+  return {positions,normals:smoothNormals(positions),triangleCount:positions.length/9,info:{sourceAxes:{x:xAxis,y:yAxis,z:zAxis},zSign,cropped:cropTop}};
+}
+
+function smoothNormals(positions){
+  const sums=new Map();
+  const Q=20000;
+  const key=(x,y,z)=>Math.round(x*Q)+','+Math.round(y*Q)+','+Math.round(z*Q);
+  let vote=0;
+
+  for(let i=0;i<positions.length;i+=9){
+    const ax=positions[i],ay=positions[i+1],az=positions[i+2];
+    const bx=positions[i+3],by=positions[i+4],bz=positions[i+5];
+    const cx=positions[i+6],cy=positions[i+7],cz=positions[i+8];
+    const ux=bx-ax,uy=by-ay,uz=bz-az,vx=cx-ax,vy=cy-ay,vz=cz-az;
+    const nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;
+    const mx=(ax+bx+cx)/3,my=(ay+by+cy)/3,mz=(az+bz+cz)/3;
+    vote+=(nx*mx+ny*my+nz*mz);
+    for(const p of [[ax,ay,az],[bx,by,bz],[cx,cy,cz]]){
+      const k=key(p[0],p[1],p[2]);
+      const s=sums.get(k);
+      if(s){s[0]+=nx;s[1]+=ny;s[2]+=nz;}else sums.set(k,[nx,ny,nz]);
+    }
+  }
+
+  const sign=vote<0?-1:1;
+  const normals=new Float32Array(positions.length);
+  for(let i=0;i<positions.length;i+=3){
+    const s=sums.get(key(positions[i],positions[i+1],positions[i+2]))||[0,0,1];
+    const l=Math.hypot(s[0],s[1],s[2])||1;
+    normals[i]=s[0]/l*sign;normals[i+1]=s[1]/l*sign;normals[i+2]=s[2]/l*sign;
+  }
+  return normals;
 }
