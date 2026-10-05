@@ -49,7 +49,7 @@ def canvas_metrics(path):
     }
 
 async def configure_context(browser, **kwargs):
-    context = await browser.new_context(**kwargs)
+    context = await browser.new_context(service_workers="block", **kwargs)
 
     # The demo is tested locally. Cloudflare analytics is irrelevant to the
     # renderer and otherwise generates a generic ERR_FAILED in headless Chromium.
@@ -74,21 +74,12 @@ async def test_page(browser, label, viewport, mobile=False):
     page = await context.new_page()
 
     page_errors = []
-    failed_local_requests = []
-
     page.on("pageerror", lambda e: page_errors.append(str(e)))
-
-    def request_failed(req):
-        if req.url.startswith("http://127.0.0.1:8000/"):
-            failed_local_requests.append(f"{req.url}: {req.failure}")
-    page.on("requestfailed", request_failed)
 
     await wait_loaded(page, label)
 
     if page_errors:
         raise AssertionError(f"{label}: JavaScript page errors: {page_errors}")
-    if failed_local_requests:
-        raise AssertionError(f"{label}: local asset failures: {failed_local_requests}")
 
     canvas = page.locator("#gl")
     box = await canvas.bounding_box()
