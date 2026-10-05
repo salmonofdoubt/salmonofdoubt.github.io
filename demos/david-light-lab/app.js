@@ -141,6 +141,7 @@
 
   void main(){
     vec3 N=normalize(vNormal);
+    if(!gl_FrontFacing) N=-N;
     vec3 L=normalize(uLight-vPos);
     vec3 V=normalize(-vPos);
     vec3 H=normalize(L+V);
@@ -149,12 +150,15 @@
     float dist=length(uLight-vPos);
     float att=1.0/(1.0+0.085*dist*dist);
     float diff=wrap*uKey*att;
-    float shine=mix(uShine,max(3.0,uShine*0.35),uSoft);
-    float spec=pow(max(dot(N,H),0.0),shine)*(1.0-uSoft*0.62);
-    float rim=pow(1.0-max(dot(N,V),0.0),2.2);
+    float shine=max(5.0,uShine);
+    float spec=pow(max(dot(N,H),0.0),shine);
+    float rim=pow(1.0-max(dot(N,V),0.0),2.4);
 
+    // Matte plaster: form is carried primarily by diffuse value, not glossy
+    // triangle highlights. This avoids the white shard artefacts of raw STL shading.
     vec3 base=vec3(uTone,uTone*0.992,uTone*0.965);
-    vec3 col=base*(uFill+diff)+vec3(1.0)*spec*uKey*0.18+base*rim*0.06;
+    vec3 col=base*(uFill+diff)+vec3(1.0)*spec*uKey*0.025*(1.0-uSoft*0.75)+base*rim*0.025;
+    col=min(col,vec3(1.0));
 
     float lum=dot(col,vec3(0.2126,0.7152,0.0722));
     if(uValueMode==1){
@@ -203,7 +207,7 @@
   gl.disable(gl.CULL_FACE);
 
   // ---------- STL loading ----------
-  const worker = new Worker('./stl-worker.js?v=20261005-1506');
+  const worker = new Worker('./stl-worker.js?v=20261005-1552');
 
   worker.onmessage = (event) => {
     const msg=event.data;
