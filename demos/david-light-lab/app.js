@@ -452,6 +452,13 @@
   }
 
   // ---------- Interaction ----------
+  function panByScreen(dx,dy,sensitivity=.0026){
+    if(state.locks.camera||state.locks.all)return;
+    // Move the sculpture in the same direction as the pointer/fingers.
+    state.pan[0]=clamp(state.pan[0]-dx*sensitivity,-.8,.8);
+    state.pan[1]=clamp(state.pan[1]+dy*sensitivity,-.8,.8);
+  }
+
   let dragging=false,lastX=0,lastY=0,dragButton=0;
   const activeTouchPointers=new Set();
 
@@ -476,11 +483,10 @@
     if(!dragging || state.locks.all)return;
     const dx=e.clientX-lastX,dy=e.clientY-lastY;
     const cameraGesture=e.altKey||e.metaKey||dragButton===1;
-    const panGesture=dragButton===2;
+    const panGesture=state.mode==='compose'||dragButton===2;
 
     if(panGesture && !state.locks.camera){
-      state.pan[0]+=dx*0.0026;
-      state.pan[1]-=dy*0.0026;
+      panByScreen(dx,dy);
     }else if(cameraGesture && !state.locks.camera){
       state.cameraQuat=qMul(qAxis([0,1,0],-dx*.008),qMul(qAxis([1,0,0],-dy*.008),state.cameraQuat));
     }else if(!state.locks.head){
@@ -502,6 +508,14 @@
   canvas.addEventListener('wheel',e=>{
     if(!state.loaded || state.locks.camera || state.locks.all)return;
     e.preventDefault();
+
+    // Mac trackpads emit wheel events for two-finger movement and ctrl+wheel
+    // for pinch. In Compose, two-finger movement pans; pinch still zooms.
+    if(state.mode==='compose' && !e.ctrlKey){
+      panByScreen(-e.deltaX,-e.deltaY,.0017);
+      return;
+    }
+
     controls.zoom.value=clamp((+controls.zoom.value)*Math.exp(-e.deltaY*.001),.45,2.8).toFixed(2);
     updateOutputs();
   },{passive:false});
@@ -525,8 +539,7 @@
 
     if(touchDistance){
       controls.zoom.value=clamp(+controls.zoom.value*(d/touchDistance),.45,2.8).toFixed(2);
-      state.pan[0]+=(midX-touchMidX)*0.0026;
-      state.pan[1]-=(midY-touchMidY)*0.0026;
+      panByScreen(midX-touchMidX,midY-touchMidY);
       updateOutputs();
     }
     touchDistance=d;touchMidX=midX;touchMidY=midY;
@@ -742,6 +755,15 @@
     }else{
       if(state.wakeLock){ try{await state.wakeLock.release();}catch(e){} state.wakeLock=null; }
     }
+    if(mode==='compose'){
+      setStatus(isMobileLayout()
+        ? 'Compose: drag to place · pinch to zoom'
+        : 'Compose: click-drag to place · two-finger trackpad pan · pinch to zoom');
+    }else if(mode==='explore'){
+      setStatus(isMobileLayout()
+        ? 'Explore: drag to turn · pinch to zoom'
+        : 'Explore: drag to turn · trackpad pinch/wheel to zoom');
+    }
     updateCrop();
   }
 
@@ -953,16 +975,20 @@
     el.textContent=text;
     clearTimeout(setStatus.t);
     setStatus.t=setTimeout(()=>{
-      el.textContent=isMobileLayout()
-        ? 'Drag to turn · pinch to zoom · Controls for studio tools'
-        : 'Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+      el.textContent=state.mode==='compose'
+        ? (isMobileLayout()
+            ? 'Compose: drag to place · pinch to zoom'
+            : 'Compose: click-drag to place · two-finger trackpad pan')
+        : (isMobileLayout()
+            ? 'Explore: drag to turn · pinch to zoom'
+            : 'Explore: drag to turn · trackpad pinch/wheel to zoom');
     },3500);
   }
 
   let wasMobile=isMobileLayout();
   if(wasMobile){
     prepareMobileControls();
-    $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+    $('viewerHelp').textContent='Explore: drag to turn · pinch to zoom';
   }
 
   function syncResponsiveUI(){
@@ -970,10 +996,10 @@
     if(mobile!==wasMobile){
       if(mobile){
         prepareMobileControls();
-        $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+        $('viewerHelp').textContent='Explore: drag to turn · pinch to zoom';
       }else{
         setPanelOpen(true);
-        $('viewerHelp').textContent='Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+        $('viewerHelp').textContent='Explore: drag to turn · trackpad pinch/wheel to zoom';
       }
       wasMobile=mobile;
     }
