@@ -67,15 +67,15 @@ The application shell and cleaned David artist mesh are cached by the PWA servic
 
 ## Status
 
-**v0.1.0-beta**
+**v0.1.0**
 
 The current build implements the core live-reference workflow. The detailed product and engineering roadmap is in [PLAN.md](./PLAN.md).
 
 ## Citation / DOI
 
-A Zenodo placeholder is wired into the demo template pending the first stable release:
+Zenodo DOI for the software release:
 
-10.5281/zenodo.0000000
+10.5281/zenodo.23172580
 
 ## Licence
 
