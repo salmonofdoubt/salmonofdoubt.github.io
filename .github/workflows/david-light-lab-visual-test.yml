@@ -7,6 +7,10 @@ on:
       - 'demos/david-light-lab/**'
       - '.github/workflows/david-light-lab-visual-test.yml'
 
+concurrency:
+  group: david-light-lab-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   visual-test:
     runs-on: ubuntu-latest
