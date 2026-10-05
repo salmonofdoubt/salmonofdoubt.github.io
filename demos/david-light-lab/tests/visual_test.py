@@ -7,7 +7,7 @@ URL = "http://127.0.0.1:8000/demos/david-light-lab/"
 OUT = Path(__file__).parent / "output"
 OUT.mkdir(parents=True, exist_ok=True)
 
-async def wait_loaded(page, label):
+async def wait_loaded(page, label, page_errors=None):
     await page.goto(URL, wait_until="domcontentloaded", timeout=60_000)
     await page.wait_for_selector("#loadingCard", timeout=10_000)
     try:
@@ -18,7 +18,8 @@ async def wait_loaded(page, label):
     except Exception:
         title = await page.locator("#loadingTitle").inner_text()
         text = await page.locator("#loadingText").inner_text()
-        raise AssertionError(f"{label}: model did not load: {title} / {text}")
+        errors = page_errors or []
+        raise AssertionError(f"{label}: model did not load: {title} / {text}; page_errors={errors}")
 
 async def set_controls(page, values):
     await page.evaluate(
@@ -76,7 +77,7 @@ async def test_page(browser, label, viewport, mobile=False):
     page_errors = []
     page.on("pageerror", lambda e: page_errors.append(str(e)))
 
-    await wait_loaded(page, label)
+    await wait_loaded(page, label, page_errors)
 
     if page_errors:
         raise AssertionError(f"{label}: JavaScript page errors: {page_errors}")
