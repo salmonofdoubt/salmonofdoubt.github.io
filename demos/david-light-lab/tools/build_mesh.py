@@ -41,8 +41,8 @@ width_axis = remaining[int(ext[remaining[1]] > ext[remaining[0]])]
 depth_axis = remaining[0] if remaining[1] == width_axis else remaining[1]
 
 # Keep enough of the upper statue to include David's head, shoulders and the full raised hand.
-# The previous 0.82 crop cut through the hand and made it look accidental.
-cut = mins[height_axis] + ext[height_axis] * 0.76
+# Lower crop keeps the complete raised hand and more shoulder context.
+cut = mins[height_axis] + ext[height_axis] * 0.70
 centres = verts_src.mean(axis=1)
 keep = centres[:, height_axis] >= cut
 verts_src = verts_src[keep]
