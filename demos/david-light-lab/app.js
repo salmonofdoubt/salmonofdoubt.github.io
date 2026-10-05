@@ -236,12 +236,17 @@
         return;
       }
       const reader=response.body.getReader();
-      const chunks=[];
       let received=0;
+      let merged=total?new Uint8Array(total):null;
+      const chunks=total?null:[];
       while(true){
         const {done,value}=await reader.read();
         if(done)break;
-        chunks.push(value);
+        if(merged){
+          merged.set(value,received);
+        }else{
+          chunks.push(value);
+        }
         received+=value.byteLength;
         if(total){
           const pct=Math.min(72,Math.round(received/total*72));
@@ -251,9 +256,11 @@
           loadingText.textContent='Downloading scan · '+Math.round(received/1048576)+' MB';
         }
       }
-      const merged=new Uint8Array(received);
-      let offset=0;
-      for(const c of chunks){ merged.set(c,offset); offset+=c.byteLength; }
+      if(!merged){
+        merged=new Uint8Array(received);
+        let offset=0;
+        for(const c of chunks){ merged.set(c,offset); offset+=c.byteLength; }
+      }
       loadingText.textContent='Preparing geometry…';
       worker.postMessage({type:'parse',buffer:merged.buffer},[merged.buffer]);
     }catch(err){
