@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const MODEL_URL = './assets/david-head.dlb?v=20261005-1630';
+  const MODEL_URL = './assets/david-head.dlb?v=20261005-H70';
   const STORAGE_KEY = 'david-light-lab:study:v1';
 
   const $ = (id) => document.getElementById(id);
@@ -945,6 +945,7 @@
   const cfg=window.DAVID_LIGHT_LAB_CONFIG||{doi:'10.5281/zenodo.0000000',doiUrl:'https://zenodo.org/records/0000000'};
   $('doiText').textContent=cfg.doi;
   $('doiPill').href=cfg.doiUrl;
+  if($('buildPill')) $('buildPill').textContent='BUILD '+(cfg.build||'unknown');
   $('doiPill').classList.toggle('is-placeholder',cfg.doi.includes('0000000'));
 
   updateAllUI();

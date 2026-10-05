@@ -256,3 +256,14 @@ body.paint-mode .reference-lock{top:10px}
   .viewer-toolbar button{padding:.35rem .5rem;font-size:.62rem}
   .format-badge{right:8px;bottom:8px}
 }
+
+.build-pill{
+  position:absolute;right:14px;top:52px;z-index:10;padding:.35rem .5rem;border-radius:999px;
+  border:1px solid rgba(228,207,135,.38);background:rgba(5,10,15,.78);
+  color:#f0dda0;font:900 .58rem/1 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  letter-spacing:.06em;backdrop-filter:blur(8px)
+}
+body.paint-mode .build-pill{right:10px;top:44px}
+@media(max-width:780px){
+  .build-pill{right:10px;top:88px}
+}
