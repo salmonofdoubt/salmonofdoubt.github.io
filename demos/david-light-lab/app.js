@@ -228,7 +228,7 @@
   async function loadRemote(){
     loadingCard.classList.remove('is-hidden');
     loadingTitle.textContent='Loading David';
-    loadingText.textContent='Fetching the public-domain SMK scan from Wikimedia Commons.';
+    loadingText.textContent='Fetching the featured Scan the World David scan from Wikimedia Commons.';
     progressBar.style.width='2%';
     try{
       const response=await fetch(MODEL_URL,{mode:'cors',cache:'force-cache'});
