@@ -139,6 +139,24 @@ async def test_page(browser, label, viewport, mobile=False):
     assert diff > 1.0, f"{label}: Compose click-drag did not visibly pan the sculpture (diff={diff:.3f})"
     await page.locator('[data-mode="explore"]').click()
 
+    # Explicit pan controls must work without a mouse.
+    await page.locator("#panX").evaluate("(el) => {el.value='0.22'; el.dispatchEvent(new Event('input',{bubbles:true}));}")
+    await page.locator("#panY").evaluate("(el) => {el.value='-0.16'; el.dispatchEvent(new Event('input',{bubbles:true}));}")
+    assert await page.locator("#panXOut").inner_text() == "22%"
+    assert await page.locator("#panYOut").inner_text() == "-16%"
+    await page.locator("#centerSubject").click()
+    assert await page.locator("#panXOut").inner_text() == "0%"
+    assert await page.locator("#panYOut").inner_text() == "0%"
+
+    # Mac trackpad two-finger scroll path must pan even in Explore.
+    before_x = await page.locator("#panXOut").inner_text()
+    before_y = await page.locator("#panYOut").inner_text()
+    await canvas.dispatch_event("wheel", {"deltaX": 70, "deltaY": -45, "ctrlKey": False})
+    await page.wait_for_timeout(100)
+    after_x = await page.locator("#panXOut").inner_text()
+    after_y = await page.locator("#panYOut").inner_text()
+    assert (after_x, after_y) != (before_x, before_y), f"{label}: trackpad wheel path did not pan"
+
     # Flat-light diagnostic: proves the actual mesh is continuous/present
     # independently of directional-light shading.
     await set_controls(page, {
