@@ -24,9 +24,9 @@ jobs:
           pip install playwright pillow
           python -m playwright install --with-deps chromium
 
-      - name: Start local site
+      - name: Start local site with CDN-like compressed mesh
         run: |
-          python -m http.server 8000 --bind 127.0.0.1 > /tmp/david-http.log 2>&1 &
+          python demos/david-light-lab/tests/server.py > /tmp/david-http.log 2>&1 &
           echo $! > /tmp/david-http.pid
           sleep 2
 
