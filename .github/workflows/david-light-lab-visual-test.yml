@@ -1,0 +1,46 @@
+name: David Light Lab visual test
+
+on:
+  push:
+    branches:
+      - fix/david-light-lab-tested-renderer
+  pull_request:
+    paths:
+      - 'demos/david-light-lab/**'
+      - '.github/workflows/david-light-lab-visual-test.yml'
+
+jobs:
+  visual-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install playwright pillow
+          python -m playwright install --with-deps chromium
+
+      - name: Start local site
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 > /tmp/david-http.log 2>&1 &
+          echo $! > /tmp/david-http.pid
+          sleep 2
+
+      - name: Run desktop and mobile render tests
+        run: python demos/david-light-lab/tests/visual_test.py
+
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: david-light-lab-visual-test
+          path: |
+            demos/david-light-lab/tests/output/*.png
+            demos/david-light-lab/tests/output/report.txt
+          if-no-files-found: warn
