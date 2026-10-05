@@ -1,12 +1,6 @@
 name: Build David social card
 
 on:
-  push:
-    branches:
-      - feature/david-social-precision-controls
-    paths:
-      - 'demos/david-light-lab/tools/build_social_card.py'
-      - '.github/workflows/david-light-lab-social-card.yml'
   workflow_dispatch:
 
 permissions:
@@ -15,11 +9,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: feature/david-social-precision-controls
 
       - uses: actions/setup-python@v5
         with:
@@ -45,5 +37,4 @@ jobs:
           git add demos/david-light-lab/social-card.jpg
           git diff --cached --quiet && exit 0
           git commit -m "Generate David Light Lab social preview"
-          git pull --rebase origin feature/david-social-precision-controls
-          git push origin HEAD:feature/david-social-precision-controls
+          git push origin HEAD
