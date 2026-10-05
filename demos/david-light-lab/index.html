@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071018">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="David Light Lab">
+  <title>David Light Lab · Salmon of Doubt</title>
+  <meta name="description" content="Interactive 3D reference for drawing, painting, composition, form and value studies using a real scan of Michelangelo's David.">
+
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="stylesheet" href="./styles.css?v=20261005-1506">
+  <link rel="stylesheet" href="../shared/demo-return.css">
+  <link rel="stylesheet" href="../shared/demo-support.css">
+
+  <script defer src="../shared/demo-return.js"></script>
+  <script defer src="../shared/demo-support.js"></script>
+  <script defer src="./site-config.js?v=20261005-1506"></script>
+  <script defer src="./app.js?v=20261005-1506"></script>
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="David Light Lab home">
+      <span class="brand-mark" aria-hidden="true">◐</span>
+      <span>David Light Lab</span>
+    </a>
+    <div class="header-actions">
+      <button class="header-button" id="togglePanel" type="button" aria-controls="controlPanel" aria-expanded="true">Controls</button>
+      <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
+        <span aria-hidden="true">↓</span><span>Install</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="demo-stage">
+    <section class="lab-shell" aria-label="David Light Lab">
+      <div class="viewer-shell" id="viewerShell">
+        <canvas id="gl" aria-label="Interactive 3D view of David's head"></canvas>
+
+        <div class="loading-card" id="loadingCard" role="status" aria-live="polite">
+          <div class="loading-mark">◐</div>
+          <strong id="loadingTitle">Loading David</strong>
+          <p id="loadingText">Fetching the public-domain SMK scan from Wikimedia Commons.</p>
+          <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+          <div class="loading-actions">
+            <button class="secondary-button" id="retryLoad" type="button">Retry</button>
+            <label class="secondary-button file-button" for="localStl">Open local STL</label>
+            <input id="localStl" type="file" accept=".stl,model/stl,application/sla">
+          </div>
+        </div>
+
+        <div class="reference-lock" id="referenceLock" hidden>REFERENCE LOCKED</div>
+        <div class="mode-pill" id="modePill">EXPLORE</div>
+        <div class="light-marker" id="lightMarker" hidden><span></span><b>KEY LIGHT</b></div>
+
+        <div class="crop-layer" id="cropLayer" hidden>
+          <div class="crop-frame" id="cropFrame">
+            <div class="guide guide-v-half" data-guide="halves"></div>
+            <div class="guide guide-h-half" data-guide="halves"></div>
+            <div class="guide guide-v-third a" data-guide="thirds"></div>
+            <div class="guide guide-v-third b" data-guide="thirds"></div>
+            <div class="guide guide-h-third a" data-guide="thirds"></div>
+            <div class="guide guide-h-third b" data-guide="thirds"></div>
+            <div class="guide guide-diag d1" data-guide="diagonals"></div>
+            <div class="guide guide-diag d2" data-guide="diagonals"></div>
+            <div class="guide guide-diag d3" data-guide="diagonals"></div>
+            <div class="guide guide-diag d4" data-guide="diagonals"></div>
+          </div>
+          <div class="format-badge" id="formatBadge">A3 Portrait · 297 × 420 mm</div>
+        </div>
+
+        <div class="viewer-toolbar">
+          <button type="button" data-mode="explore" class="is-active">Explore</button>
+          <button type="button" data-mode="compose">Compose</button>
+          <button type="button" data-mode="paint">Paint</button>
+        </div>
+
+        <div class="viewer-help" id="viewerHelp">
+          Drag to turn · Shift-drag to roll · wheel/pinch to zoom
+        </div>
+      </div>
+
+      <aside class="control-panel" id="controlPanel">
+        <div class="panel-intro">
+          <p class="eyebrow">Artist reference instrument</p>
+          <h1>Turn the sculpture.<br>Move the light.<br>Study the form.</h1>
+          <p>A live 3D reference built for painting and drawing, using a real scan of the head from Michelangelo's <em>David</em>.</p>
+        </div>
+
+        <details open>
+          <summary>01 / Pose</summary>
+          <div class="panel-body">
+            <div class="button-grid three">
+              <button data-view="front">Front</button>
+              <button data-view="threeLeft">¾ Left</button>
+              <button data-view="profileLeft">Profile L</button>
+              <button data-view="threeRight">¾ Right</button>
+              <button data-view="profileRight">Profile R</button>
+              <button data-view="back">Back</button>
+            </div>
+            <div class="control-row">
+              <button id="setFront">Set current as front</button>
+              <button id="resetPose">Reset</button>
+            </div>
+
+            <label>Pitch X <output id="rxOut">0°</output></label>
+            <input id="rx" type="range" min="-180" max="180" value="0" step="1">
+            <label>Turn Y <output id="ryOut">0°</output></label>
+            <input id="ry" type="range" min="-180" max="180" value="0" step="1">
+            <label>Roll Z <output id="rzOut">0°</output></label>
+            <input id="rz" type="range" min="-180" max="180" value="0" step="1">
+          </div>
+        </details>
+
+        <details open>
+          <summary>02 / Camera</summary>
+          <div class="panel-body">
+            <div class="segmented" id="projectionControl">
+              <button data-projection="perspective" class="is-active">Perspective</button>
+              <button data-projection="orthographic">Orthographic</button>
+            </div>
+
+            <label>Zoom <output id="zoomOut">1.00×</output></label>
+            <input id="zoom" type="range" min="0.45" max="2.8" value="1" step="0.01">
+
+            <label>Field of view <output id="fovOut">42°</output></label>
+            <input id="fov" type="range" min="18" max="70" value="42" step="1">
+
+            <div class="control-row">
+              <button id="fitView">Fit head</button>
+              <button id="lockCamera" data-lock="camera">Lock POV</button>
+            </div>
+          </div>
+        </details>
+
+        <details open>
+          <summary>03 / Light</summary>
+          <div class="panel-body">
+            <div class="button-grid four">
+              <button data-light="front">Front</button>
+              <button data-light="three">¾</button>
+              <button data-light="side">Side</button>
+              <button data-light="top">Top</button>
+              <button data-light="under">Under</button>
+              <button data-light="rim">Rim</button>
+              <button data-light="flat">Flat</button>
+              <button data-light="dramatic">Drama</button>
+            </div>
+
+            <label>Azimuth <output id="azOut">35°</output></label>
+            <input id="az" type="range" min="-180" max="180" value="35" step="1">
+            <label>Elevation <output id="elOut">30°</output></label>
+            <input id="el" type="range" min="-80" max="85" value="30" step="1">
+            <label>Distance <output id="distOut">2.20</output></label>
+            <input id="dist" type="range" min="1.1" max="5" value="2.2" step="0.01">
+            <label>Key intensity <output id="keyOut">1.30</output></label>
+            <input id="key" type="range" min="0" max="3" value="1.3" step="0.01">
+            <label>Fill / ambient <output id="fillOut">0.18</output></label>
+            <input id="fill" type="range" min="0" max="1" value="0.18" step="0.01">
+            <label>Light softness <output id="softOut">0.35</output></label>
+            <input id="soft" type="range" min="0" max="1" value="0.35" step="0.01">
+
+            <div class="segmented" id="lightSpaceControl">
+              <button data-light-space="world" class="is-active">World lock</button>
+              <button data-light-space="head">Head lock</button>
+            </div>
+
+            <div class="control-row">
+              <button id="lockLight" data-lock="light">Lock light</button>
+              <button id="toggleLightMarker">Hide marker</button>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>04 / Format</summary>
+          <div class="panel-body">
+            <label>Paper / canvas</label>
+            <select id="format">
+              <option value="A5">A5 · 148 × 210 mm</option>
+              <option value="A4">A4 · 210 × 297 mm</option>
+              <option value="A3" selected>A3 · 297 × 420 mm</option>
+              <option value="A2">A2 · 420 × 594 mm</option>
+              <option value="A1">A1 · 594 × 841 mm</option>
+              <option value="1:1">Square · 1:1</option>
+              <option value="2:3">2:3</option>
+              <option value="3:4">3:4</option>
+              <option value="4:5">4:5</option>
+              <option value="5:7">5:7</option>
+              <option value="16:9">16:9</option>
+              <option value="letter">US Letter · 8.5 × 11 in</option>
+            </select>
+
+            <div class="segmented" id="orientationControl">
+              <button data-orientation="portrait" class="is-active">Portrait</button>
+              <button data-orientation="landscape">Landscape</button>
+            </div>
+
+            <div class="control-row">
+              <button id="toggleCrop" class="is-active">Crop frame</button>
+              <button id="lockCrop" data-lock="crop">Lock crop</button>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>05 / Guides</summary>
+          <div class="panel-body">
+            <div class="check-grid">
+              <label class="check"><input id="guideHalves" type="checkbox" checked> Halves</label>
+              <label class="check"><input id="guideThirds" type="checkbox" checked> Thirds</label>
+              <label class="check"><input id="guideDiagonals" type="checkbox"> Diagonals</label>
+            </div>
+            <label>Guide opacity <output id="guideOpacityOut">45%</output></label>
+            <input id="guideOpacity" type="range" min="0.1" max="1" value="0.45" step="0.05">
+          </div>
+        </details>
+
+        <details>
+          <summary>06 / Values</summary>
+          <div class="panel-body">
+            <label>Study mode</label>
+            <select id="valueMode">
+              <option value="plaster">Plaster</option>
+              <option value="grayscale">Grayscale</option>
+              <option value="five">5-value</option>
+              <option value="three">3-value</option>
+              <option value="silhouette">Silhouette</option>
+            </select>
+
+            <label>Plaster tone <output id="toneOut">0.82</output></label>
+            <input id="tone" type="range" min="0.25" max="1" value="0.82" step="0.01">
+            <label>Shininess <output id="shineOut">28</output></label>
+            <input id="shine" type="range" min="2" max="160" value="28" step="1">
+            <label>Background <output id="bgOut">0.08</output></label>
+            <input id="bg" type="range" min="0" max="0.75" value="0.08" step="0.01">
+          </div>
+        </details>
+
+        <details>
+          <summary>07 / Study</summary>
+          <div class="panel-body">
+            <div class="control-row">
+              <button id="freezeStudy">Lock everything</button>
+              <button id="randomStudy">Random study</button>
+            </div>
+
+            <label>Timer</label>
+            <select id="timerSelect">
+              <option value="0">Off</option>
+              <option value="30">30 sec</option>
+              <option value="60">1 min</option>
+              <option value="120">2 min</option>
+              <option value="300">5 min</option>
+              <option value="600">10 min</option>
+              <option value="1200">20 min</option>
+            </select>
+            <div class="timer-display" id="timerDisplay">00:00</div>
+
+            <div class="control-row">
+              <button id="saveStudy">Save study</button>
+              <button id="restoreStudy">Restore last</button>
+            </div>
+            <div class="control-row">
+              <button id="copyStudy">Copy study link</button>
+              <button id="exportPng">Save PNG</button>
+            </div>
+          </div>
+        </details>
+
+        <details>
+          <summary>08 / About & source</summary>
+          <div class="panel-body about-copy">
+            <p><strong>Head from Michelangelo's David, KAS2232</strong></p>
+            <p>Statens Museum for Kunst, Copenhagen. Plaster cast. Digital 3D file released CC0 / Public Domain and supplied via Wikimedia Commons.</p>
+            <p>The web viewer loads the source scan remotely so the repository does not duplicate a 51.66 MB public-domain file.</p>
+            <p><a href="https://commons.wikimedia.org/wiki/File:Michelangelo_Buonarroti,_Hoved_fra_statuen_af_David,_,_KAS2232,_Statens_Museum_for_Kunst,_3D_model.stl" target="_blank" rel="noopener">Open source record ↗</a></p>
+            <p><a href="./PLAN.md">Read the product/build plan ↗</a></p>
+            <p class="version">v0.1.0-beta</p>
+          </div>
+        </details>
+      </aside>
+    </section>
+  </main>
+
+  <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
+    <form method="dialog">
+      <button class="dialog-close" type="submit" value="close" aria-label="Close">×</button>
+      <p class="eyebrow">Installable web app</p>
+      <h2 id="installDialogTitle">Keep David Light Lab on this device.</h2>
+      <div id="installInstructions" class="install-instructions"><p>Use your browser's Install or Add to Home Screen command.</p></div>
+      <div class="dialog-actions"><button class="primary-button" type="submit" value="close">Got it</button></div>
+    </form>
+  </dialog>
+
+  <a class="doi-pill is-placeholder" id="doiPill" href="https://zenodo.org/records/0000000" target="_blank" rel="noopener noreferrer" aria-label="Zenodo DOI placeholder 10.5281/zenodo.0000000">
+    <b>DOI</b><span id="doiText">10.5281/zenodo.0000000</span>
+  </a>
+</body>
+</html>
