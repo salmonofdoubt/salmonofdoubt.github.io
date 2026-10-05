@@ -44,6 +44,7 @@ a{color:var(--accent-2)}
 .install-button.is-ready{color:#041217;background:linear-gradient(135deg,#8ef4ff,#c8faff)}
 .install-button span+span{margin-left:.3rem}
 .header-button{display:none}
+#sharePage{display:block}
 
 .demo-stage{width:min(1420px,calc(100% - 32px));margin:0 auto;padding:10px 0 88px}
 .lab-shell{
@@ -326,4 +327,19 @@ body.paint-mode .reference-lock{top:10px}
 body.paint-mode .build-pill{right:10px;top:44px}
 @media(max-width:780px){
   .build-pill{right:8px;top:8px}
+}
+
+.framing-block{
+  margin:.7rem 0;padding:.65rem .7rem .7rem;border:1px solid rgba(24,198,216,.18);
+  border-radius:12px;background:rgba(4,12,18,.56)
+}
+.framing-title{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:.15rem}
+.framing-title span{font-size:.68rem;font-weight:900;color:#dff9f8;letter-spacing:.04em}
+.framing-title button{min-height:32px;padding:.35rem .55rem}
+.control-hint{margin:.55rem 0 0;color:var(--muted);font-size:.64rem;line-height:1.4}
+@media(max-width:780px){
+  .header-actions{gap:.3rem}
+  #sharePage{display:block}
+  .framing-title button{min-height:44px}
+  .framing-block{padding:.7rem}
 }
