@@ -23,7 +23,7 @@
   const controls = {};
   [
     'rx','ry','rz','zoom','fov','az','el','dist','key','fill','soft',
-    'tone','shine','bg','guideOpacity','format','valueMode','timerSelect'
+    'tone','shine','bg','guideOpacity','format','valueMode','timerSelect','panX','panY'
   ].forEach(id => controls[id] = $(id));
 
   const gl = canvas.getContext('webgl2', { antialias: true, preserveDrawingBuffer: true });
@@ -452,6 +452,20 @@
   }
 
   // ---------- Interaction ----------
+  function syncPanControls(){
+    if(controls.panX) controls.panX.value=clamp(-state.pan[0],-.8,.8).toFixed(3);
+    if(controls.panY) controls.panY.value=clamp(-state.pan[1],-.8,.8).toFixed(3);
+  }
+
+  function panByScreen(dx,dy,sensitivity=.0026){
+    if(state.locks.camera||state.locks.all)return;
+    // Move the sculpture in the same direction as the pointer/fingers.
+    state.pan[0]=clamp(state.pan[0]-dx*sensitivity,-.8,.8);
+    state.pan[1]=clamp(state.pan[1]+dy*sensitivity,-.8,.8);
+    syncPanControls();
+    updateOutputs();
+  }
+
   let dragging=false,lastX=0,lastY=0,dragButton=0;
   const activeTouchPointers=new Set();
 
@@ -476,11 +490,10 @@
     if(!dragging || state.locks.all)return;
     const dx=e.clientX-lastX,dy=e.clientY-lastY;
     const cameraGesture=e.altKey||e.metaKey||dragButton===1;
-    const panGesture=dragButton===2;
+    const panGesture=state.mode==='compose'||dragButton===2;
 
     if(panGesture && !state.locks.camera){
-      state.pan[0]+=dx*0.0026;
-      state.pan[1]-=dy*0.0026;
+      panByScreen(dx,dy);
     }else if(cameraGesture && !state.locks.camera){
       state.cameraQuat=qMul(qAxis([0,1,0],-dx*.008),qMul(qAxis([1,0,0],-dy*.008),state.cameraQuat));
     }else if(!state.locks.head){
@@ -502,6 +515,15 @@
   canvas.addEventListener('wheel',e=>{
     if(!state.loaded || state.locks.camera || state.locks.all)return;
     e.preventDefault();
+
+    // Mac trackpads emit wheel events for two-finger movement and ctrl+wheel
+    // for pinch. Two-finger movement pans the sculpture in Explore or Compose;
+    // pinch remains zoom. This requires no mouse and no modifier key.
+    if(state.mode!=='paint' && !e.ctrlKey){
+      panByScreen(-e.deltaX,-e.deltaY,.0017);
+      return;
+    }
+
     controls.zoom.value=clamp((+controls.zoom.value)*Math.exp(-e.deltaY*.001),.45,2.8).toFixed(2);
     updateOutputs();
   },{passive:false});
@@ -525,8 +547,7 @@
 
     if(touchDistance){
       controls.zoom.value=clamp(+controls.zoom.value*(d/touchDistance),.45,2.8).toFixed(2);
-      state.pan[0]+=(midX-touchMidX)*0.0026;
-      state.pan[1]-=(midY-touchMidY)*0.0026;
+      panByScreen(midX-touchMidX,midY-touchMidY);
       updateOutputs();
     }
     touchDistance=d;touchMidX=midX;touchMidY=midY;
@@ -559,6 +580,24 @@
       updateOutputs();
       if(id==='guideOpacity')updateGuides();
     });
+  });
+
+  controls.panX.addEventListener('input',()=>{
+    if(state.locks.camera||state.locks.all)return;
+    state.pan[0]=-(+controls.panX.value);
+    updateOutputs();
+  });
+  controls.panY.addEventListener('input',()=>{
+    if(state.locks.camera||state.locks.all)return;
+    state.pan[1]=-(+controls.panY.value);
+    updateOutputs();
+  });
+  $('centerSubject').addEventListener('click',()=>{
+    if(state.locks.camera||state.locks.all)return;
+    state.pan=[0,0];
+    syncPanControls();
+    updateOutputs();
+    setStatus('Subject centred.');
   });
 
   // ---------- Presets ----------
@@ -603,7 +642,7 @@
 
   $('fitView').addEventListener('click',()=>{
     if(state.locks.camera||state.locks.all)return;
-    controls.zoom.value=1;state.pan=[0,0];state.cameraQuat=[0,0,0,1];updateOutputs();
+    controls.zoom.value=1;state.pan=[0,0];state.cameraQuat=[0,0,0,1];syncPanControls();updateOutputs();
   });
 
   const lightPresets={
@@ -741,6 +780,15 @@
       await requestWakeLock();
     }else{
       if(state.wakeLock){ try{await state.wakeLock.release();}catch(e){} state.wakeLock=null; }
+    }
+    if(mode==='compose'){
+      setStatus(isMobileLayout()
+        ? 'Compose: drag to place · pinch to zoom'
+        : 'Compose: click-drag to place · two-finger trackpad pan · pinch to zoom');
+    }else if(mode==='explore'){
+      setStatus(isMobileLayout()
+        ? 'Explore: drag to turn · pinch to zoom'
+        : 'Explore: drag to turn · two-finger trackpad pan · pinch to zoom');
     }
     updateCrop();
   }
@@ -925,7 +973,8 @@
     const pairs={
       rx:'rxOut',ry:'ryOut',rz:'rzOut',zoom:'zoomOut',fov:'fovOut',
       az:'azOut',el:'elOut',dist:'distOut',key:'keyOut',fill:'fillOut',
-      soft:'softOut',tone:'toneOut',shine:'shineOut',bg:'bgOut',guideOpacity:'guideOpacityOut'
+      soft:'softOut',tone:'toneOut',shine:'shineOut',bg:'bgOut',guideOpacity:'guideOpacityOut',
+      panX:'panXOut',panY:'panYOut'
     };
     Object.entries(pairs).forEach(([k,id])=>{
       const v=controls[k].value;
@@ -934,10 +983,12 @@
       if(k==='zoom')text=(+v).toFixed(2)+'×';
       if(['dist','key','fill','soft','tone','bg'].includes(k))text=(+v).toFixed(2);
       if(k==='guideOpacity')text=Math.round(+v*100)+'%';
+      if(k==='panX'||k==='panY')text=Math.round(+v*100)+'%';
       $(id).textContent=text;
     });
   }
   function updateAllUI(){
+    syncPanControls();
     updateOutputs();
     updateSegmented('#projectionControl','data-projection',state.projection);
     updateSegmented('#orientationControl','data-orientation',state.orientation);
@@ -953,16 +1004,20 @@
     el.textContent=text;
     clearTimeout(setStatus.t);
     setStatus.t=setTimeout(()=>{
-      el.textContent=isMobileLayout()
-        ? 'Drag to turn · pinch to zoom · Controls for studio tools'
-        : 'Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+      el.textContent=state.mode==='compose'
+        ? (isMobileLayout()
+            ? 'Compose: drag to place · pinch to zoom'
+            : 'Compose: click-drag to place · two-finger trackpad pan')
+        : (isMobileLayout()
+            ? 'Explore: drag to turn · pinch to zoom'
+            : 'Explore: drag to turn · two-finger trackpad pan · pinch to zoom');
     },3500);
   }
 
   let wasMobile=isMobileLayout();
   if(wasMobile){
     prepareMobileControls();
-    $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+    $('viewerHelp').textContent='Explore: drag to turn · pinch to zoom';
   }
 
   function syncResponsiveUI(){
@@ -970,10 +1025,10 @@
     if(mobile!==wasMobile){
       if(mobile){
         prepareMobileControls();
-        $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+        $('viewerHelp').textContent='Explore: drag to turn · pinch to zoom';
       }else{
         setPanelOpen(true);
-        $('viewerHelp').textContent='Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+        $('viewerHelp').textContent='Explore: drag to turn · two-finger trackpad pan · pinch to zoom';
       }
       wasMobile=mobile;
     }
