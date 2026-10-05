@@ -1,12 +1,7 @@
 name: Build David head mesh
 
 on:
-  push:
-    branches:
-      - fix/david-light-lab-tested-renderer
-    paths:
-      - 'demos/david-light-lab/tools/build_mesh.py'
-      - '.github/workflows/david-light-lab-build-mesh.yml'
+  workflow_dispatch:
 
 permissions:
   contents: write
