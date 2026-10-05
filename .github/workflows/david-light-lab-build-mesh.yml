@@ -25,7 +25,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install mesh tooling
-        run: pip install numpy trimesh networkx
+        run: pip install numpy
 
       - name: Build cleaned indexed head mesh
         run: python demos/david-light-lab/tools/build_mesh.py
