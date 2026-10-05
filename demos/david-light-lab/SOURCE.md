@@ -1,30 +1,33 @@
 # Source model provenance
 
-David Light Lab uses the public-domain 3D scan:
+David Light Lab currently uses the Wikimedia Commons featured 3D model:
 
-**Michelangelo Buonarroti — Head from the statue of David, KAS2232**
+**David (Michelangelo).stl**
 
-- Collection: Statens Museum for Kunst (SMK), Copenhagen
-- Medium: plaster cast
-- Dimensions listed by the source record: 1370 × 800 × 675 mm
+- Subject: Michelangelo's *David*
+- Digitisation: Scan the World
+- Method described by the source: photogrammetry and structured-light scanning
 - Digital file: STL
-- Source file size: approximately 51.66 MB
-- Licence: CC0 1.0 / Public Domain
+- File size: approximately 57.22 MB
+- Licence: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 
 Wikimedia Commons source:
 
-https://commons.wikimedia.org/wiki/File:Michelangelo_Buonarroti,_Hoved_fra_statuen_af_David,_,_KAS2232,_Statens_Museum_for_Kunst,_3D_model.stl
+https://commons.wikimedia.org/wiki/File:David_(Michelangelo).stl
 
-The application does not claim authorship of the sculpture or source scan. The scan is fetched directly from Wikimedia Commons in the beta build and processed locally in the browser.
+Attribution: Scan the World / Jonathan Beck via Wikimedia Commons.
 
 ## Technical transformation
 
-The beta STL worker:
+The application does not store a modified copy of the source mesh in the repository. At runtime the browser:
 
-1. reads the source triangles;
-2. infers physical up/width/depth axes from the model bounding dimensions;
-3. normalises the model into viewer space;
-4. recomputes display normals;
-5. renders the result locally with WebGL.
+1. downloads the source STL from Wikimedia Commons;
+2. identifies the sculpture's major physical axes;
+3. retains the upper portion containing the head, neck and shoulder region;
+4. recentres and rescales that retained region for the artist viewport;
+5. welds coincident display vertices conceptually by position and computes averaged smooth normals;
+6. renders the result locally with WebGL.
 
-A future stable release may include an optimised derivative mesh to reduce download and parsing cost. Any such derivative will retain this provenance statement.
+This runtime extraction replaced the earlier SMK head-cast scan because that file contains substantial scan voids that remain visible under studio lighting.
+
+The source model remains subject to CC BY-SA 4.0. The application code and surrounding site retain their own repository licensing.
