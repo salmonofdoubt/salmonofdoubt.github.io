@@ -30,8 +30,8 @@ async def diagnostic_setup(page):
         el.dispatchEvent(new Event('input', {bubbles:true}));
         el.dispatchEvent(new Event('change', {bubbles:true}));
       };
-      set('key', '0.35');
-      set('fill', '0.75');
+      set('key', '0.00');
+      set('fill', '0.82');
       set('soft', '0.85');
       set('tone', '0.82');
       set('shine', '8');
@@ -71,6 +71,7 @@ async def run():
         assert canvas_box and canvas_box["width"] > 600 and canvas_box["height"] > 500, canvas_box
         report.append(f"desktop_metrics={screenshot_metrics(desktop_path)}")
         report.append(f"desktop_errors={errors}")
+        errors = [e for e in errors if "cloudflareinsights.com" not in e and "cdn-cgi/rum" not in e]
         if errors:
             raise AssertionError("Desktop console/page errors: " + " | ".join(errors))
         await context.close()
@@ -97,6 +98,7 @@ async def run():
         assert canvas_box and canvas_box["width"] >= 360 and canvas_box["height"] >= 650, canvas_box
         report.append(f"mobile_metrics={screenshot_metrics(mobile_path)}")
         report.append(f"mobile_errors={errors}")
+        errors = [e for e in errors if "cloudflareinsights.com" not in e and "cdn-cgi/rum" not in e]
         if errors:
             raise AssertionError("Mobile console/page errors: " + " | ".join(errors))
         await context.close()
