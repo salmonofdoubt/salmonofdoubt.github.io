@@ -5,6 +5,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from playwright.async_api import async_playwright
 
+# Rebuild marker: rerun after share-control initialization fix.
 URL = "http://127.0.0.1:8000/demos/david-light-lab/"
 OUT = Path("demos/david-light-lab/social-card.jpg")
 TMP = Path("/tmp/david-social-source.png")
