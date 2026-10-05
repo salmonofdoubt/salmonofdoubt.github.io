@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import io
 import struct
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 import numpy as np
-import trimesh
 
 SOURCE = "https://upload.wikimedia.org/wikipedia/commons/4/4d/David_%28Michelangelo%29.stl"
 OUT = Path("demos/david-light-lab/assets/david-head.dlb")
@@ -17,89 +15,116 @@ with urlopen(req, timeout=180) as r:
     data = r.read()
 print(f"Downloaded {len(data)/1024/1024:.1f} MB")
 
-mesh = trimesh.load(io.BytesIO(data), file_type="stl", force="mesh", process=False)
-if not isinstance(mesh, trimesh.Trimesh):
-    mesh = trimesh.util.concatenate(tuple(mesh.geometry.values()))
+if len(data) < 84:
+    raise RuntimeError("Source STL is too small")
+tri_count = struct.unpack_from("<I", data, 80)[0]
+if 84 + tri_count * 50 != len(data):
+    raise RuntimeError("Expected binary STL")
 
-mesh.remove_unreferenced_vertices()
-mesh.merge_vertices(digits_vertex=6)
-mesh.remove_unreferenced_vertices()
+dtype = np.dtype([
+    ("normal", "<f4", (3,)),
+    ("vertices", "<f4", (3, 3)),
+    ("attr", "<u2"),
+])
+tri = np.frombuffer(data, dtype=dtype, count=tri_count, offset=84)
+verts_src = np.asarray(tri["vertices"], dtype=np.float64)
+normals_src = np.asarray(tri["normal"], dtype=np.float64)
 
-ext = np.asarray(mesh.extents, dtype=float)
+flat = verts_src.reshape(-1, 3)
+mins = flat.min(axis=0)
+maxs = flat.max(axis=0)
+ext = maxs - mins
+
 height_axis = int(np.argmax(ext))
-other = [i for i in range(3) if i != height_axis]
-# Of the remaining dimensions, width is normally larger than depth.
-width_axis = other[int(ext[other[1]] > ext[other[0]])]
-depth_axis = other[0] if other[1] == width_axis else other[1]
+remaining = [i for i in range(3) if i != height_axis]
+width_axis = remaining[int(ext[remaining[1]] > ext[remaining[0]])]
+depth_axis = remaining[0] if remaining[1] == width_axis else remaining[1]
 
-v = np.asarray(mesh.vertices, dtype=np.float64)
-mins = v.min(axis=0)
-maxs = v.max(axis=0)
-center = (mins + maxs) * 0.5
-height = maxs[height_axis] - mins[height_axis]
+# Keep the upper ~18% of the statue, enough for hair, head, neck and shoulder base.
+cut = mins[height_axis] + ext[height_axis] * 0.82
+centres = verts_src.mean(axis=1)
+keep = centres[:, height_axis] >= cut
+verts_src = verts_src[keep]
+normals_src = normals_src[keep]
+print(f"Retained {len(verts_src):,} / {tri_count:,} triangles")
 
-# Keep roughly the top quarter of the statue: hair through upper chest.
-# This avoids the damaged lower-body regions while retaining a useful bust.
-cut = mins[height_axis] + height * 0.73
-face_centres = v[np.asarray(mesh.faces)].mean(axis=1)
-keep = face_centres[:, height_axis] >= cut
-mesh.update_faces(keep)
-mesh.remove_unreferenced_vertices()
+# Reorient into artist-view coordinates.
+mapped = np.empty_like(verts_src, dtype=np.float64)
+mapped[:, :, 0] = verts_src[:, :, width_axis]
+mapped[:, :, 1] = verts_src[:, :, height_axis]
+mapped[:, :, 2] = verts_src[:, :, depth_axis]
 
-# Reorient to X=width, Y=up, Z=depth.
-v = np.asarray(mesh.vertices, dtype=np.float64)
-mapped = np.column_stack((
-    v[:, width_axis],
-    v[:, height_axis],
-    v[:, depth_axis],
-))
+mapped_normals = np.empty_like(normals_src, dtype=np.float64)
+mapped_normals[:, 0] = normals_src[:, width_axis]
+mapped_normals[:, 1] = normals_src[:, height_axis]
+mapped_normals[:, 2] = normals_src[:, depth_axis]
 
-# Choose a front sign heuristically: the face/nose is the thinner protruding side,
-# so the vertex distribution is more skewed toward the rear bulk.
-z = mapped[:, 2]
-z_mid = (z.min() + z.max()) * 0.5
-if z.mean() > z_mid:
-    mapped[:, 2] *= -1.0
+# Pick Z direction so the face projects toward +Z.
+z_all = mapped[:, :, 2].reshape(-1)
+z_mid = (z_all.min() + z_all.max()) * 0.5
+if z_all.mean() > z_mid:
+    mapped[:, :, 2] *= -1.0
+    mapped_normals[:, 2] *= -1.0
 
-mapped -= (mapped.min(axis=0) + mapped.max(axis=0)) * 0.5
-scale = 2.0 / max(np.ptp(mapped, axis=0))
-mapped *= scale
-mesh.vertices = mapped
+# Centre and scale the retained head/bust.
+mflat = mapped.reshape(-1, 3)
+lo = mflat.min(axis=0)
+hi = mflat.max(axis=0)
+centre = (lo + hi) * 0.5
+span = np.max(hi - lo)
+mapped = (mapped - centre) * (2.0 / span)
 
-# Repair topology and normals once, offline, rather than guessing in WebGL.
-mesh.merge_vertices(digits_vertex=5)
-mesh.remove_unreferenced_vertices()
-trimesh.repair.fix_normals(mesh, multibody=True)
+# Weld coincident STL triangle vertices into an indexed mesh.
+raw = mapped.reshape(-1, 3)
+quant = np.round(raw * 100000.0).astype(np.int64)
+_, unique_idx, inverse = np.unique(quant, axis=0, return_index=True, return_inverse=True)
+vertices = raw[unique_idx].astype(np.float32)
+faces = inverse.reshape(-1, 3).astype(np.uint32)
 
-# Drop tiny disconnected scan fragments: retain the largest connected component.
-parts = mesh.split(only_watertight=False)
-if len(parts) > 1:
-    parts = sorted(parts, key=lambda m: len(m.faces), reverse=True)
-    main = parts[0]
-    if len(main.faces) >= len(mesh.faces) * 0.80:
-        mesh = main
-        mesh.remove_unreferenced_vertices()
-        trimesh.repair.fix_normals(mesh, multibody=True)
+# Remove degenerate triangles after welding.
+good = (faces[:,0] != faces[:,1]) & (faces[:,1] != faces[:,2]) & (faces[:,2] != faces[:,0])
+faces = faces[good]
+mapped_normals = mapped_normals[good]
 
-positions = np.asarray(mesh.vertices, dtype="<f4")
-normals = np.asarray(mesh.vertex_normals, dtype="<f4")
-indices = np.asarray(mesh.faces, dtype="<u4").reshape(-1)
+# Ensure the indexed face winding agrees globally with the STL source normals.
+v0 = vertices[faces[:,0]].astype(np.float64)
+v1 = vertices[faces[:,1]].astype(np.float64)
+v2 = vertices[faces[:,2]].astype(np.float64)
+computed = np.cross(v1-v0, v2-v0)
+agreement = np.einsum("ij,ij->i", computed, mapped_normals)
+if np.nanmedian(agreement) < 0:
+    faces[:, [1,2]] = faces[:, [2,1]]
+    v1, v2 = v2, v1
+    computed = -computed
 
-if not np.isfinite(positions).all() or not np.isfinite(normals).all():
+# Area-weighted smooth vertex normals.
+normals = np.zeros((len(vertices), 3), dtype=np.float64)
+np.add.at(normals, faces[:,0], computed)
+np.add.at(normals, faces[:,1], computed)
+np.add.at(normals, faces[:,2], computed)
+lengths = np.linalg.norm(normals, axis=1)
+valid = lengths > 1e-14
+normals[valid] /= lengths[valid, None]
+normals[~valid] = np.array([0.0, 0.0, 1.0])
+normals = normals.astype(np.float32)
+
+indices = faces.reshape(-1).astype(np.uint32)
+
+if not np.isfinite(vertices).all() or not np.isfinite(normals).all():
     raise RuntimeError("Generated mesh contains non-finite values")
-if len(positions) < 1000 or len(indices) < 3000:
+if len(vertices) < 10000 or len(indices) < 30000:
     raise RuntimeError("Generated head mesh is unexpectedly small")
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 with OUT.open("wb") as f:
     f.write(b"DLB1")
-    f.write(struct.pack("<II", len(positions), len(indices)))
-    f.write(positions.tobytes(order="C"))
-    f.write(normals.tobytes(order="C"))
-    f.write(indices.tobytes(order="C"))
+    f.write(struct.pack("<II", len(vertices), len(indices)))
+    f.write(vertices.astype("<f4", copy=False).tobytes(order="C"))
+    f.write(normals.astype("<f4", copy=False).tobytes(order="C"))
+    f.write(indices.astype("<u4", copy=False).tobytes(order="C"))
 
 print("Generated", OUT)
-print("Vertices:", len(positions))
+print("Vertices:", len(vertices))
 print("Triangles:", len(indices)//3)
-print("Bounds:", positions.min(axis=0), positions.max(axis=0))
+print("Bounds:", vertices.min(axis=0), vertices.max(axis=0))
 print("Size MB:", OUT.stat().st_size/1024/1024)
