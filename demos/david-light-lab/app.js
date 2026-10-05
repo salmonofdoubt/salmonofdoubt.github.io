@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const MODEL_URL = 'https://upload.wikimedia.org/wikipedia/commons/4/44/Michelangelo_Buonarroti%2C_Hoved_fra_statuen_af_David%2C_%2C_KAS2232%2C_Statens_Museum_for_Kunst%2C_3D_model.stl';
+  const MODEL_URL = 'https://upload.wikimedia.org/wikipedia/commons/4/4d/David_%28Michelangelo%29.stl';
   const STORAGE_KEY = 'david-light-lab:study:v1';
 
   const $ = (id) => document.getElementById(id);
@@ -207,7 +207,7 @@
   gl.disable(gl.CULL_FACE);
 
   // ---------- STL loading ----------
-  const worker = new Worker('./stl-worker.js?v=20261005-1552');
+  const worker = new Worker('./stl-worker.js?v=20261005-1625');
 
   worker.onmessage = (event) => {
     const msg=event.data;
@@ -236,7 +236,7 @@
       const total=Number(response.headers.get('content-length'))||0;
       if(!response.body){
         const buffer=await response.arrayBuffer();
-        worker.postMessage({type:'parse',buffer},[buffer]);
+        worker.postMessage({type:'parse',buffer,cropTop:true},[buffer]);
         return;
       }
       const reader=response.body.getReader();
@@ -266,7 +266,7 @@
         for(const c of chunks){ merged.set(c,offset); offset+=c.byteLength; }
       }
       loadingText.textContent='Preparing geometry…';
-      worker.postMessage({type:'parse',buffer:merged.buffer},[merged.buffer]);
+      worker.postMessage({type:'parse',buffer:merged.buffer,cropTop:true},[merged.buffer]);
     }catch(err){
       showLoadError(err.message);
     }
@@ -304,7 +304,7 @@
     progressBar.style.width='15%';
     try{
       const buffer=await file.arrayBuffer();
-      worker.postMessage({type:'parse',buffer},[buffer]);
+      worker.postMessage({type:'parse',buffer,cropTop:false},[buffer]);
     }catch(err){ showLoadError(err.message); }
   }
 
