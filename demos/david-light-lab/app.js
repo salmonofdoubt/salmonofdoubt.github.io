@@ -41,7 +41,7 @@
     lightSpace: 'world',
     cropVisible: true,
     markerVisible: true,
-    locks: { camera:false, head:false, light:false, crop:false, all:false },
+    locks: { camera:false, head:false, light:false, crop:false, guides:false, all:false },
     guides: { halves:true, thirds:true, diagonals:false },
     headQuat: [0,0,0,1],
     frontQuat: [0,0,0,1],
@@ -590,7 +590,7 @@
 
   ['guideHalves','guideThirds','guideDiagonals'].forEach(id=>{
     $(id).addEventListener('change',()=>{
-      if(state.locks.crop||state.locks.all)return;
+      if(state.locks.guides||state.locks.all)return;
       state.guides.halves=$('guideHalves').checked;
       state.guides.thirds=$('guideThirds').checked;
       state.guides.diagonals=$('guideDiagonals').checked;
@@ -645,11 +645,12 @@
   $('freezeStudy').addEventListener('click',()=>setLock('all',!state.locks.all));
 
   function updateLocks(){
-    const map={camera:'lockCamera',light:'lockLight',crop:'lockCrop'};
+    const map={camera:'lockCamera',head:'lockHead',light:'lockLight',crop:'lockCrop',guides:'lockGuides'};
     Object.entries(map).forEach(([k,id])=>{
       const b=$(id);
       b.classList.toggle('is-locked',state.locks[k]||state.locks.all);
-      b.textContent=(state.locks[k]||state.locks.all)?('Unlock '+(k==='camera'?'POV':k)):('Lock '+(k==='camera'?'POV':k));
+      const label=k==='camera'?'POV':k;
+      b.textContent=(state.locks[k]||state.locks.all)?('Unlock '+label):('Lock '+label);
     });
     $('freezeStudy').classList.toggle('is-locked',state.locks.all);
     $('freezeStudy').textContent=state.locks.all?'Unlock everything':'Lock everything';
