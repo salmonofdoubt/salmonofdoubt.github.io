@@ -29,7 +29,7 @@ David Light Lab is an artist-focused browser tool built around a real 3D scan of
 
 ## Quick start
 
-Open the demo and wait for the scan to load. The public-domain STL is fetched from Wikimedia Commons and parsed locally in a Web Worker.
+Open the demo and wait for the scan to load. A cleaned, indexed artist mesh derived from the Wikimedia Commons Scan the World model loads directly from the demo.
 
 - Drag: rotate the sculpture.
 - Shift + drag: roll.
@@ -38,7 +38,7 @@ Open the demo and wait for the scan to load. The public-domain STL is fetched fr
 - Wheel/pinch: zoom.
 - Space: enter/leave Paint Mode.
 
-The first load is large because the source STL is approximately 51.66 MB. The repository deliberately does not duplicate that file.
+The built-in derivative mesh is about 7.1 MB, substantially smaller than the roughly 57 MB source STL, and includes precomputed smooth vertex normals.
 
 ## Artist workflow
 
@@ -63,7 +63,7 @@ Study state is stored locally in the browser when the user chooses **Save study*
 
 ## Offline behaviour
 
-The application shell is cached as a PWA. The large source model is intentionally not precached in v0.1.0-beta. A network connection is therefore required to fetch the scan unless the user opens a local copy of the STL.
+The application shell and cleaned David artist mesh are cached by the PWA service worker for offline use after installation/first cache fill. Local STL loading remains available as a fallback.
 
 ## Status
 
