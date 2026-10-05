@@ -38,4 +38,5 @@ jobs:
           git add demos/david-light-lab/assets/david-head.dlb
           git diff --cached --quiet && exit 0
           git commit -m "Generate David mesh with complete hand"
+          git pull --rebase origin fix/david-full-hand-build-badge
           git push origin HEAD:fix/david-full-hand-build-badge
