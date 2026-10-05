@@ -1,4 +1,4 @@
-const CACHE_NAME = 'david-light-lab-shell-v6';
+const CACHE_NAME = 'david-light-lab-shell-v7';
 const SHELL = [
   './',
   './index.html',
