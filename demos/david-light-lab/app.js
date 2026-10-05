@@ -141,9 +141,9 @@
 
   void main(){
     vec3 N=normalize(vNormal);
-    if(!gl_FrontFacing) N=-N;
-    vec3 L=normalize(uLight-vPos);
     vec3 V=normalize(-vPos);
+    if(dot(N,V)<0.0) N=-N;
+    vec3 L=normalize(uLight-vPos);
     vec3 H=normalize(L+V);
     float raw=max(dot(N,L),0.0);
     float wrap=mix(raw, clamp((dot(N,L)+0.42)/(1.42),0.0,1.0), uSoft);
@@ -313,7 +313,8 @@
 
   // ---------- Rendering ----------
   function resize(){
-    const dpr=Math.min(devicePixelRatio||1,2);
+    const mobile=window.matchMedia('(max-width: 780px)').matches;
+    const dpr=mobile?1:Math.min(devicePixelRatio||1,2);
     const w=Math.max(1,Math.floor(canvas.clientWidth*dpr));
     const h=Math.max(1,Math.floor(canvas.clientHeight*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
@@ -858,6 +859,11 @@
     el.textContent=text;
     clearTimeout(setStatus.t);
     setStatus.t=setTimeout(()=>{el.textContent='Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';},3500);
+  }
+
+  if(window.matchMedia('(max-width: 780px)').matches){
+    panel.classList.add('is-hidden');
+    $('togglePanel').setAttribute('aria-expanded','false');
   }
 
   window.addEventListener('resize',updateCrop);
