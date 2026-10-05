@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const MODEL_URL = './assets/david-head.dlb?v=20261005-1630';
+  const MODEL_URL = './assets/david-head.dlb?v=20261005-H70';
   const STORAGE_KEY = 'david-light-lab:study:v1';
 
   const $ = (id) => document.getElementById(id);
