@@ -1,0 +1,18 @@
+{
+  "name": "David Light Lab",
+  "short_name": "David Light Lab",
+  "description": "Interactive 3D reference for drawing, painting and studying light.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#050a0f",
+  "theme_color": "#071018",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
