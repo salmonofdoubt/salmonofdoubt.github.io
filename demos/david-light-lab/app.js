@@ -110,22 +110,18 @@
   // ---------- WebGL ----------
   const vs = `#version 300 es
   in vec3 aPos;
-  in vec3 aNormal;
   uniform mat4 uModel;
   uniform mat4 uMVP;
   out vec3 vPos;
-  out vec3 vNormal;
   void main(){
     vec4 p=uModel*vec4(aPos,1.0);
     vPos=p.xyz;
-    vNormal=normalize(mat3(uModel)*aNormal);
     gl_Position=uMVP*vec4(aPos,1.0);
   }`;
 
   const fs = `#version 300 es
   precision highp float;
   in vec3 vPos;
-  in vec3 vNormal;
   uniform vec3 uLight;
   uniform float uKey;
   uniform float uFill;
@@ -140,8 +136,8 @@
   }
 
   void main(){
-    vec3 N=normalize(vNormal);
     vec3 V=normalize(-vPos);
+    vec3 N=normalize(cross(dFdx(vPos),dFdy(vPos)));
     if(dot(N,V)<0.0) N=-N;
     vec3 L=normalize(uLight-vPos);
     vec3 H=normalize(L+V);
@@ -157,7 +153,7 @@
     // Matte plaster: form is carried primarily by diffuse value, not glossy
     // triangle highlights. This avoids the white shard artefacts of raw STL shading.
     vec3 base=vec3(uTone,uTone*0.992,uTone*0.965);
-    vec3 col=base*(uFill+diff)+vec3(1.0)*spec*uKey*0.025*(1.0-uSoft*0.75)+base*rim*0.025;
+    vec3 col=base*(uFill+diff)+vec3(1.0)*spec*uKey*0.008*(1.0-uSoft*0.85)+base*rim*0.02;
     col=min(col,vec3(1.0));
 
     float lum=dot(col,vec3(0.2126,0.7152,0.0722));
@@ -190,7 +186,6 @@
 
   const loc={
     pos:gl.getAttribLocation(program,'aPos'),
-    normal:gl.getAttribLocation(program,'aNormal'),
     model:gl.getUniformLocation(program,'uModel'),
     mvp:gl.getUniformLocation(program,'uMVP'),
     light:gl.getUniformLocation(program,'uLight'),
@@ -202,12 +197,12 @@
     valueMode:gl.getUniformLocation(program,'uValueMode')
   };
 
-  let posBuf=null,normBuf=null,vertexCount=0;
+  let posBuf=null,vertexCount=0;
   gl.enable(gl.DEPTH_TEST);
   gl.disable(gl.CULL_FACE);
 
   // ---------- STL loading ----------
-  const worker = new Worker('./stl-worker.js?v=20261005-1625');
+  const worker = new Worker('./stl-worker.js?v=20261005-1640');
 
   worker.onmessage = (event) => {
     const msg=event.data;
@@ -221,7 +216,7 @@
       return;
     }
     if(msg.type==='mesh'){
-      uploadMesh(new Float32Array(msg.positions),new Float32Array(msg.normals),msg.triangleCount,msg.info);
+      uploadMesh(new Float32Array(msg.positions),msg.triangleCount,msg.info);
     }
   };
 
@@ -278,15 +273,11 @@
     progressBar.style.width='0%';
   }
 
-  function uploadMesh(positions,normals,count,info){
+  function uploadMesh(positions,count,info){
     if(posBuf)gl.deleteBuffer(posBuf);
-    if(normBuf)gl.deleteBuffer(normBuf);
     posBuf=gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
     gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);
-    normBuf=gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);
-    gl.bufferData(gl.ARRAY_BUFFER,normals,gl.STATIC_DRAW);
     vertexCount=positions.length/3;
     state.loaded=true;
     loadingCard.classList.add('is-hidden');
@@ -387,10 +378,6 @@
       gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
       gl.enableVertexAttribArray(loc.pos);
       gl.vertexAttribPointer(loc.pos,3,gl.FLOAT,false,0,0);
-      gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);
-      gl.enableVertexAttribArray(loc.normal);
-      gl.vertexAttribPointer(loc.normal,3,gl.FLOAT,false,0,0);
-
       gl.uniformMatrix4fv(loc.model,false,model);
       gl.uniformMatrix4fv(loc.mvp,false,mvp);
       gl.uniform3f(loc.light,light[0],light[1],light[2]);
