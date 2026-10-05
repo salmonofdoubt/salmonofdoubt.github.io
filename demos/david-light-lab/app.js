@@ -23,7 +23,7 @@
   const controls = {};
   [
     'rx','ry','rz','zoom','fov','az','el','dist','key','fill','soft',
-    'tone','shine','bg','guideOpacity','format','valueMode','timerSelect'
+    'tone','shine','bg','guideOpacity','format','valueMode','timerSelect','frameX','frameY'
   ].forEach(id => controls[id] = $(id));
 
   const gl = canvas.getContext('webgl2', { antialias: true, preserveDrawingBuffer: true });
@@ -452,6 +452,20 @@
   }
 
   // ---------- Interaction ----------
+  function syncFrameControls(){
+    controls.frameX.value=clamp(-state.pan[0],-.75,.75).toFixed(3);
+    controls.frameY.value=clamp(-state.pan[1],-.75,.75).toFixed(3);
+  }
+
+  function panByScreen(dx,dy,sensitivity=.0026){
+    if(state.locks.camera||state.locks.all)return;
+    // state.pan is camera-space; invert it so the sculpture follows the pointer.
+    state.pan[0]=clamp(state.pan[0]-dx*sensitivity,-.75,.75);
+    state.pan[1]=clamp(state.pan[1]+dy*sensitivity,-.75,.75);
+    syncFrameControls();
+    updateOutputs();
+  }
+
   let dragging=false,lastX=0,lastY=0,dragButton=0;
   const activeTouchPointers=new Set();
 
@@ -476,11 +490,10 @@
     if(!dragging || state.locks.all)return;
     const dx=e.clientX-lastX,dy=e.clientY-lastY;
     const cameraGesture=e.altKey||e.metaKey||dragButton===1;
-    const panGesture=dragButton===2;
+    const panGesture=state.mode==='compose'||dragButton===2;
 
     if(panGesture && !state.locks.camera){
-      state.pan[0]+=dx*0.0026;
-      state.pan[1]-=dy*0.0026;
+      panByScreen(dx,dy);
     }else if(cameraGesture && !state.locks.camera){
       state.cameraQuat=qMul(qAxis([0,1,0],-dx*.008),qMul(qAxis([1,0,0],-dy*.008),state.cameraQuat));
     }else if(!state.locks.head){
@@ -502,6 +515,14 @@
   canvas.addEventListener('wheel',e=>{
     if(!state.loaded || state.locks.camera || state.locks.all)return;
     e.preventDefault();
+
+    const trackpadPinch=e.ctrlKey;
+    if(state.mode==='compose' && !trackpadPinch){
+      // In Compose, a two-finger trackpad scroll frames the sculpture.
+      panByScreen(-e.deltaX,-e.deltaY,.0017);
+      return;
+    }
+
     controls.zoom.value=clamp((+controls.zoom.value)*Math.exp(-e.deltaY*.001),.45,2.8).toFixed(2);
     updateOutputs();
   },{passive:false});
@@ -525,8 +546,7 @@
 
     if(touchDistance){
       controls.zoom.value=clamp(+controls.zoom.value*(d/touchDistance),.45,2.8).toFixed(2);
-      state.pan[0]+=(midX-touchMidX)*0.0026;
-      state.pan[1]-=(midY-touchMidY)*0.0026;
+      panByScreen(midX-touchMidX,midY-touchMidY);
       updateOutputs();
     }
     touchDistance=d;touchMidX=midX;touchMidY=midY;
@@ -559,6 +579,24 @@
       updateOutputs();
       if(id==='guideOpacity')updateGuides();
     });
+  });
+
+  controls.frameX.addEventListener('input',()=>{
+    if(state.locks.camera||state.locks.all)return;
+    state.pan[0]=-(+controls.frameX.value);
+    updateOutputs();
+  });
+  controls.frameY.addEventListener('input',()=>{
+    if(state.locks.camera||state.locks.all)return;
+    state.pan[1]=-(+controls.frameY.value);
+    updateOutputs();
+  });
+  $('centerFrame').addEventListener('click',()=>{
+    if(state.locks.camera||state.locks.all)return;
+    state.pan=[0,0];
+    syncFrameControls();
+    updateOutputs();
+    setStatus('Framing centred.');
   });
 
   // ---------- Presets ----------
@@ -603,7 +641,7 @@
 
   $('fitView').addEventListener('click',()=>{
     if(state.locks.camera||state.locks.all)return;
-    controls.zoom.value=1;state.pan=[0,0];state.cameraQuat=[0,0,0,1];updateOutputs();
+    controls.zoom.value=1;state.pan=[0,0];state.cameraQuat=[0,0,0,1];syncFrameControls();updateOutputs();
   });
 
   const lightPresets={
@@ -741,6 +779,15 @@
       await requestWakeLock();
     }else{
       if(state.wakeLock){ try{await state.wakeLock.release();}catch(e){} state.wakeLock=null; }
+    }
+    if(mode==='compose'){
+      setStatus(isMobileLayout()
+        ? 'Compose: drag to place · pinch to zoom · use Frame X/Y for precision'
+        : 'Compose: drag to place · two-finger scroll to frame · pinch/wheel to zoom');
+    }else if(mode==='explore'){
+      setStatus(isMobileLayout()
+        ? 'Explore: drag to turn · pinch to zoom'
+        : 'Explore: drag to turn · wheel/pinch to zoom');
     }
     updateCrop();
   }
@@ -925,7 +972,8 @@
     const pairs={
       rx:'rxOut',ry:'ryOut',rz:'rzOut',zoom:'zoomOut',fov:'fovOut',
       az:'azOut',el:'elOut',dist:'distOut',key:'keyOut',fill:'fillOut',
-      soft:'softOut',tone:'toneOut',shine:'shineOut',bg:'bgOut',guideOpacity:'guideOpacityOut'
+      soft:'softOut',tone:'toneOut',shine:'shineOut',bg:'bgOut',guideOpacity:'guideOpacityOut',
+      frameX:'frameXOut',frameY:'frameYOut'
     };
     Object.entries(pairs).forEach(([k,id])=>{
       const v=controls[k].value;
@@ -934,10 +982,12 @@
       if(k==='zoom')text=(+v).toFixed(2)+'×';
       if(['dist','key','fill','soft','tone','bg'].includes(k))text=(+v).toFixed(2);
       if(k==='guideOpacity')text=Math.round(+v*100)+'%';
+      if(k==='frameX'||k==='frameY')text=Math.round(+v*100)+'%';
       $(id).textContent=text;
     });
   }
   function updateAllUI(){
+    syncFrameControls();
     updateOutputs();
     updateSegmented('#projectionControl','data-projection',state.projection);
     updateSegmented('#orientationControl','data-orientation',state.orientation);
@@ -953,16 +1003,20 @@
     el.textContent=text;
     clearTimeout(setStatus.t);
     setStatus.t=setTimeout(()=>{
-      el.textContent=isMobileLayout()
-        ? 'Drag to turn · pinch to zoom · Controls for studio tools'
-        : 'Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+      el.textContent=state.mode==='compose'
+        ? (isMobileLayout()
+            ? 'Compose: drag to place · pinch to zoom'
+            : 'Compose: drag to place · two-finger scroll to frame')
+        : (isMobileLayout()
+            ? 'Explore: drag to turn · pinch to zoom'
+            : 'Explore: drag to turn · wheel/pinch to zoom · right-drag = frame');
     },3500);
   }
 
   let wasMobile=isMobileLayout();
   if(wasMobile){
     prepareMobileControls();
-    $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+    $('viewerHelp').textContent='Explore: drag to turn · pinch to zoom';
   }
 
   function syncResponsiveUI(){
@@ -970,10 +1024,10 @@
     if(mobile!==wasMobile){
       if(mobile){
         prepareMobileControls();
-        $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+        $('viewerHelp').textContent='Explore: drag to turn · pinch to zoom';
       }else{
         setPanelOpen(true);
-        $('viewerHelp').textContent='Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+        $('viewerHelp').textContent='Explore: drag to turn · wheel/pinch to zoom · right-drag = frame';
       }
       wasMobile=mobile;
     }
@@ -984,6 +1038,28 @@
   window.addEventListener('orientationchange',()=>setTimeout(syncResponsiveUI,120));
   document.addEventListener('visibilitychange',()=>{
     if(document.visibilityState==='visible'&&state.mode==='paint')requestWakeLock();
+  });
+
+  // ---------- Share ----------
+  $('sharePage').addEventListener('click',async()=>{
+    const data={
+      title:'David Light Lab',
+      text:'Turn the sculpture. Move the light. Study the form.',
+      url:'https://salmonofdoubt.github.io/demos/david-light-lab/'
+    };
+    try{
+      if(navigator.share){
+        await navigator.share(data);
+        setStatus('Share sheet opened.');
+      }else if(navigator.clipboard){
+        await navigator.clipboard.writeText(data.url);
+        setStatus('David Light Lab link copied.');
+      }else{
+        setStatus(data.url);
+      }
+    }catch(err){
+      if(err && err.name!=='AbortError') setStatus('Share cancelled. You can copy the page URL.');
+    }
   });
 
   // ---------- Install / PWA ----------
