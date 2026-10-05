@@ -11,10 +11,9 @@ self.onmessage = (event) => {
     self.postMessage({
       type: 'mesh',
       positions: mesh.positions.buffer,
-      normals: mesh.normals.buffer,
       triangleCount: mesh.triangleCount,
       info: mesh.info
-    }, [mesh.positions.buffer, mesh.normals.buffer]);
+    }, [mesh.positions.buffer]);
   } catch (error) {
     self.postMessage({ type:'error', error:error && error.message ? error.message : String(error) });
   }
@@ -115,11 +114,9 @@ function parseBinary(buffer,cropTop){
     positions[i+2]=(positions[i+2]-fitCenter[2])*fitScale;
   }
 
-  postProgress(91,'Smoothing sculpture normals…');
-  const normals=smoothNormals(positions);
-
+  postProgress(94,'Preparing sculpture surface…');
   return {
-    positions,normals,triangleCount:selected,
+    positions,triangleCount:selected,
     info:{sourceAxes:{x:xAxis,y:yAxis,z:zAxis},zSign,cropped:cropTop,sourceTriangles:count}
   };
 }
@@ -171,36 +168,5 @@ function parseASCII(buffer,cropTop){
   for(let i=0;i<positions.length;i+=3){
     positions[i]=(positions[i]-fc[0])*fs;positions[i+1]=(positions[i+1]-fc[1])*fs;positions[i+2]=(positions[i+2]-fc[2])*fs;
   }
-  return {positions,normals:smoothNormals(positions),triangleCount:positions.length/9,info:{sourceAxes:{x:xAxis,y:yAxis,z:zAxis},zSign,cropped:cropTop}};
-}
-
-function smoothNormals(positions){
-  const sums=new Map();
-  const Q=20000;
-  const key=(x,y,z)=>Math.round(x*Q)+','+Math.round(y*Q)+','+Math.round(z*Q);
-  let vote=0;
-
-  for(let i=0;i<positions.length;i+=9){
-    const ax=positions[i],ay=positions[i+1],az=positions[i+2];
-    const bx=positions[i+3],by=positions[i+4],bz=positions[i+5];
-    const cx=positions[i+6],cy=positions[i+7],cz=positions[i+8];
-    const ux=bx-ax,uy=by-ay,uz=bz-az,vx=cx-ax,vy=cy-ay,vz=cz-az;
-    const nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;
-    const mx=(ax+bx+cx)/3,my=(ay+by+cy)/3,mz=(az+bz+cz)/3;
-    vote+=(nx*mx+ny*my+nz*mz);
-    for(const p of [[ax,ay,az],[bx,by,bz],[cx,cy,cz]]){
-      const k=key(p[0],p[1],p[2]);
-      const s=sums.get(k);
-      if(s){s[0]+=nx;s[1]+=ny;s[2]+=nz;}else sums.set(k,[nx,ny,nz]);
-    }
-  }
-
-  const sign=vote<0?-1:1;
-  const normals=new Float32Array(positions.length);
-  for(let i=0;i<positions.length;i+=3){
-    const s=sums.get(key(positions[i],positions[i+1],positions[i+2]))||[0,0,1];
-    const l=Math.hypot(s[0],s[1],s[2])||1;
-    normals[i]=s[0]/l*sign;normals[i+1]=s[1]/l*sign;normals[i+2]=s[2]/l*sign;
-  }
-  return normals;
+  return {positions,triangleCount:positions.length/9,info:{sourceAxes:{x:xAxis,y:yAxis,z:zAxis},zSign,cropped:cropTop}};
 }
