@@ -293,10 +293,10 @@ body.paint-mode .reference-lock{top:10px}
   .viewer-toolbar{left:8px;top:8px}
   .viewer-toolbar button{min-height:36px;padding:.42rem .62rem}
   .viewer-help{
-    left:8px;bottom:8px;max-width:calc(100% - 16px);padding:.4rem .5rem;font-size:.61rem
+    left:8px;top:54px;bottom:auto;max-width:72%;padding:.38rem .48rem;font-size:.6rem
   }
   .mode-pill{display:none}
-  .format-badge{right:8px;bottom:36px}
+  .format-badge{right:8px;bottom:52px}
   .doi-pill{
     right:8px;bottom:calc(8px + env(safe-area-inset-bottom));max-width:calc(100vw - 116px);
     font-size:9px;padding:6px 8px
