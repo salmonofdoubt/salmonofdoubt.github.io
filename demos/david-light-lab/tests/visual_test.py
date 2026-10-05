@@ -144,7 +144,9 @@ async def test_page(browser, label, viewport, mobile=False):
     await page.locator("#panY").evaluate("(el) => {el.value='-0.16'; el.dispatchEvent(new Event('input',{bubbles:true}));}")
     assert await page.locator("#panXOut").inner_text() == "22%"
     assert await page.locator("#panYOut").inner_text() == "-16%"
-    await page.locator("#centerSubject").click()
+    # On mobile the Camera panel is intentionally hidden until opened; invoke
+    # the control handler directly so the same centering logic is tested.
+    await page.locator("#centerSubject").evaluate("(el) => el.click()")
     assert await page.locator("#panXOut").inner_text() == "0%"
     assert await page.locator("#panYOut").inner_text() == "0%"
 
