@@ -119,6 +119,26 @@ async def test_page(browser, label, viewport, mobile=False):
         header_controls = await page.locator("#togglePanel").evaluate("(el) => getComputedStyle(el).display")
         assert header_controls == "none", f"{label}: desktop Controls button should remain hidden, got {header_controls}"
 
+    # Composition interaction diagnostic: a plain click-drag in Compose must
+    # move the sculpture. This is the Mac-trackpad path (no mouse required).
+    await page.locator('[data-mode="compose"]').click()
+    before_compose = OUT / f"{label}_compose_before.png"
+    after_compose = OUT / f"{label}_compose_after.png"
+    await canvas.screenshot(path=str(before_compose))
+    cbox = await canvas.bounding_box()
+    await page.mouse.move(cbox["x"] + cbox["width"]*0.50, cbox["y"] + cbox["height"]*0.50)
+    await page.mouse.down()
+    await page.mouse.move(cbox["x"] + cbox["width"]*0.62, cbox["y"] + cbox["height"]*0.43, steps=8)
+    await page.mouse.up()
+    await page.wait_for_timeout(150)
+    await canvas.screenshot(path=str(after_compose))
+
+    before_im = Image.open(before_compose).convert("L")
+    after_im = Image.open(after_compose).convert("L")
+    diff = sum(abs(a-b) for a,b in zip(before_im.getdata(), after_im.getdata())) / (before_im.width*before_im.height)
+    assert diff > 1.0, f"{label}: Compose click-drag did not visibly pan the sculpture (diff={diff:.3f})"
+    await page.locator('[data-mode="explore"]').click()
+
     # Flat-light diagnostic: proves the actual mesh is continuous/present
     # independently of directional-light shading.
     await set_controls(page, {
