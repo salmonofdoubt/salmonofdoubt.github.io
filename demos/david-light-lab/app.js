@@ -945,6 +945,7 @@
   const cfg=window.DAVID_LIGHT_LAB_CONFIG||{doi:'10.5281/zenodo.0000000',doiUrl:'https://zenodo.org/records/0000000'};
   $('doiText').textContent=cfg.doi;
   $('doiPill').href=cfg.doiUrl;
+  if($('buildPill')) $('buildPill').textContent='BUILD '+(cfg.build||'unknown');
   $('doiPill').classList.toggle('is-placeholder',cfg.doi.includes('0000000'));
 
   updateAllUI();
