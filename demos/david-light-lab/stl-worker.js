@@ -91,6 +91,7 @@ function orientAndNormalise(raw,triangleCount,min,max,mean){
 
   const positions=new Float32Array(raw.length);
   const normals=new Float32Array(raw.length);
+  let orientationVote=0;
 
   for(let i=0;i<raw.length;i+=9){
     const tri=[];
@@ -111,14 +112,21 @@ function orientAndNormalise(raw,triangleCount,min,max,mean){
     let len=Math.hypot(nx,ny,nz)||1;
     nx/=len;ny/=len;nz/=len;
 
-    // Prefer outward-facing normal relative to the model centre.
+    // Preserve mesh winding locally. Decide only once whether the whole mesh
+    // needs flipping; per-triangle centroid flips caused false dark/missing patches
+    // in concave hair and facial areas.
     const cx=(a[0]+b[0]+c[0])/3,cy=(a[1]+b[1]+c[1])/3,cz=(a[2]+b[2]+c[2])/3;
-    if(nx*cx+ny*cy+nz*cz<0){nx=-nx;ny=-ny;nz=-nz;}
+    orientationVote += (nx*cx+ny*cy+nz*cz) * len;
 
     for(let v=0;v<3;v++){
       const base=i+v*3;
       normals[base]=nx;normals[base+1]=ny;normals[base+2]=nz;
     }
+  }
+
+  // If the source winding is globally inward, flip all normals together.
+  if(orientationVote<0){
+    for(let i=0;i<normals.length;i++) normals[i]=-normals[i];
   }
 
   return {
