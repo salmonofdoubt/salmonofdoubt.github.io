@@ -119,6 +119,32 @@ async def test_page(browser, label, viewport, mobile=False):
         header_controls = await page.locator("#togglePanel").evaluate("(el) => getComputedStyle(el).display")
         assert header_controls == "none", f"{label}: desktop Controls button should remain hidden, got {header_controls}"
 
+    # Composition controls must allow precise placement against thirds/halves.
+    await page.locator('[data-mode="compose"]').click()
+    before_x = await page.locator("#frameXOut").inner_text()
+    before_y = await page.locator("#frameYOut").inner_text()
+
+    # Simulate a trackpad two-finger scroll in Compose mode.
+    await canvas.dispatch_event("wheel", {"deltaX": -80, "deltaY": 55, "ctrlKey": False})
+    await page.wait_for_timeout(100)
+    after_x = await page.locator("#frameXOut").inner_text()
+    after_y = await page.locator("#frameYOut").inner_text()
+    assert (after_x, after_y) != (before_x, before_y), f"{label}: Compose trackpad framing did not change X/Y"
+
+    # Precision sliders provide a non-gesture way to place the sculpture.
+    await page.locator("#frameX").evaluate("(el) => { el.value='0.20'; el.dispatchEvent(new Event('input',{bubbles:true})); }")
+    await page.locator("#frameY").evaluate("(el) => { el.value='-0.15'; el.dispatchEvent(new Event('input',{bubbles:true})); }")
+    assert await page.locator("#frameXOut").inner_text() == "20%"
+    assert await page.locator("#frameYOut").inner_text() == "-15%"
+
+    compose_path = OUT / f"{label}_compose.png"
+    await canvas.screenshot(path=str(compose_path))
+
+    await page.locator("#centerFrame").click()
+    assert await page.locator("#frameXOut").inner_text() == "0%"
+    assert await page.locator("#frameYOut").inner_text() == "0%"
+    await page.locator('[data-mode="explore"]').click()
+
     # Flat-light diagnostic: proves the actual mesh is continuous/present
     # independently of directional-light shading.
     await set_controls(page, {
