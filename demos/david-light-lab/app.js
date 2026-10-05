@@ -240,23 +240,27 @@
       if(!reader){
         buffer=await response.arrayBuffer();
       }else{
+        // Do not preallocate from Content-Length. CDNs may report the compressed
+        // transfer size while fetch() exposes the decompressed stream, which made
+        // Uint8Array.set() overflow on GitHub Pages.
+        const chunks=[];
         let received=0;
-        let merged=total?new Uint8Array(total):null;
-        const chunks=total?null:[];
         while(true){
           const {done,value}=await reader.read();
           if(done)break;
-          if(merged) merged.set(value,received); else chunks.push(value);
+          chunks.push(value);
           received+=value.byteLength;
           if(total){
-            progressBar.style.width=Math.min(88,Math.round(received/total*88))+'%';
-            loadingText.textContent='Loading cleaned mesh · '+(received/1048576).toFixed(1)+' / '+(total/1048576).toFixed(1)+' MB';
+            const shownTotal=Math.max(total,received);
+            progressBar.style.width=Math.min(88,Math.round(received/shownTotal*88))+'%';
+            loadingText.textContent='Loading cleaned mesh · '+(received/1048576).toFixed(1)+' MB';
+          }else{
+            loadingText.textContent='Loading cleaned mesh · '+(received/1048576).toFixed(1)+' MB';
           }
         }
-        if(!merged){
-          merged=new Uint8Array(received);
-          let off=0;for(const c of chunks){merged.set(c,off);off+=c.byteLength;}
-        }
+        const merged=new Uint8Array(received);
+        let off=0;
+        for(const c of chunks){merged.set(c,off);off+=c.byteLength;}
         buffer=merged.buffer;
       }
       parseDLB(buffer);
