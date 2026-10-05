@@ -296,7 +296,7 @@ body.paint-mode .reference-lock{top:10px}
     left:8px;top:54px;bottom:auto;max-width:72%;padding:.38rem .48rem;font-size:.6rem
   }
   .mode-pill{display:none}
-  .format-badge{right:8px;bottom:72px;font-size:.56rem}
+  .format-badge{right:8px;bottom:92px;font-size:.56rem}
   .doi-pill{
     right:8px;bottom:calc(8px + env(safe-area-inset-bottom));max-width:calc(100vw - 116px);
     font-size:9px;padding:6px 8px
