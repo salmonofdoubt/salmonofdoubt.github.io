@@ -1,9 +1,7 @@
 name: David Light Lab visual test
 
 on:
-  push:
-    branches:
-      - fix/david-light-lab-tested-renderer
+  workflow_dispatch:
   pull_request:
     paths:
       - 'demos/david-light-lab/**'
