@@ -12,8 +12,6 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: fix/david-light-lab-tested-renderer
 
       - uses: actions/setup-python@v5
         with:
@@ -25,11 +23,11 @@ jobs:
       - name: Build cleaned indexed head mesh
         run: python demos/david-light-lab/tools/build_mesh.py
 
-      - name: Commit generated mesh to test branch
+      - name: Commit generated mesh to the selected branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add demos/david-light-lab/assets/david-head.dlb
           git diff --cached --quiet && exit 0
-          git commit -m "Generate cleaned David head mesh"
-          git push origin HEAD:fix/david-light-lab-tested-renderer
+          git commit -m "Generate cleaned David mesh"
+          git push origin HEAD
