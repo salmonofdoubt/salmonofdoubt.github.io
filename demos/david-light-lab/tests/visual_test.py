@@ -89,8 +89,35 @@ async def test_page(browser, label, viewport, mobile=False):
         panel_display = await page.locator("#controlPanel").evaluate("(el) => getComputedStyle(el).display")
         assert panel_display == "none", f"{label}: mobile controls should start hidden, got {panel_display}"
         assert box["width"] >= 360 and box["height"] >= 650, box
+
+        toggle = page.locator("#togglePanel")
+        assert await toggle.is_visible(), f"{label}: mobile Controls button must be visible"
+        await toggle.click()
+        await page.wait_for_timeout(200)
+
+        panel_box = await page.locator("#controlPanel").bounding_box()
+        assert panel_box, f"{label}: controls drawer did not open"
+        assert panel_box["width"] >= 360, panel_box
+        assert panel_box["height"] <= viewport["height"] * 0.78, panel_box
+        assert panel_box["y"] + panel_box["height"] <= viewport["height"], panel_box
+
+        close_box = await page.locator("#mobilePanelClose").bounding_box()
+        assert close_box and close_box["width"] >= 44 and close_box["height"] >= 44, close_box
+
+        open_details = await page.locator("#controlPanel details[open]").count()
+        assert open_details == 0, f"{label}: mobile control groups should start collapsed"
+
+        drawer_path = OUT / f"{label}_controls.png"
+        await page.screenshot(path=str(drawer_path), full_page=True)
+
+        await page.locator("#mobilePanelClose").click()
+        await page.wait_for_timeout(100)
+        panel_display = await page.locator("#controlPanel").evaluate("(el) => getComputedStyle(el).display")
+        assert panel_display == "none", f"{label}: controls drawer did not close"
     else:
         assert box["width"] > 600 and box["height"] > 500, box
+        header_controls = await page.locator("#togglePanel").evaluate("(el) => getComputedStyle(el).display")
+        assert header_controls == "none", f"{label}: desktop Controls button should remain hidden, got {header_controls}"
 
     # Flat-light diagnostic: proves the actual mesh is continuous/present
     # independently of directional-light shading.

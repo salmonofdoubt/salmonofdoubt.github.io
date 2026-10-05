@@ -453,14 +453,26 @@
 
   // ---------- Interaction ----------
   let dragging=false,lastX=0,lastY=0,dragButton=0;
+  const activeTouchPointers=new Set();
 
   canvas.addEventListener('pointerdown',e=>{
     if(!state.loaded)return;
+    if(e.pointerType==='touch'){
+      activeTouchPointers.add(e.pointerId);
+      canvas.setPointerCapture(e.pointerId);
+      if(activeTouchPointers.size>1){
+        dragging=false;
+        return;
+      }
+    }
     dragging=true;lastX=e.clientX;lastY=e.clientY;dragButton=e.button;
     canvas.setPointerCapture(e.pointerId);
   });
 
   canvas.addEventListener('pointermove',e=>{
+    // Two-finger touch is handled by the pinch/pan gesture below. Do not let
+    // either finger independently rotate the sculpture at the same time.
+    if(e.pointerType==='touch' && activeTouchPointers.size>1)return;
     if(!dragging || state.locks.all)return;
     const dx=e.clientX-lastX,dy=e.clientY-lastY;
     const cameraGesture=e.altKey||e.metaKey||dragButton===1;
@@ -479,8 +491,12 @@
     lastX=e.clientX;lastY=e.clientY;
   });
 
-  canvas.addEventListener('pointerup',()=>dragging=false);
-  canvas.addEventListener('pointercancel',()=>dragging=false);
+  function endPointer(e){
+    if(e.pointerType==='touch')activeTouchPointers.delete(e.pointerId);
+    dragging=false;
+  }
+  canvas.addEventListener('pointerup',endPointer);
+  canvas.addEventListener('pointercancel',endPointer);
   canvas.addEventListener('contextmenu',e=>e.preventDefault());
 
   canvas.addEventListener('wheel',e=>{
@@ -490,21 +506,34 @@
     updateOutputs();
   },{passive:false});
 
-  let touchDistance=0;
+  let touchDistance=0,touchMidX=0,touchMidY=0;
   canvas.addEventListener('touchstart',e=>{
     if(e.touches.length===2){
-      touchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      const a=e.touches[0],b=e.touches[1];
+      touchDistance=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+      touchMidX=(a.clientX+b.clientX)/2;
+      touchMidY=(a.clientY+b.clientY)/2;
     }
   },{passive:true});
+
   canvas.addEventListener('touchmove',e=>{
-    if(e.touches.length===2 && !state.locks.camera && !state.locks.all){
-      const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      if(touchDistance){
-        controls.zoom.value=clamp(+controls.zoom.value*(d/touchDistance),.45,2.8).toFixed(2);
-        updateOutputs();
-      }
-      touchDistance=d;
+    if(e.touches.length!==2 || state.locks.camera || state.locks.all)return;
+    e.preventDefault();
+    const a=e.touches[0],b=e.touches[1];
+    const d=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+    const midX=(a.clientX+b.clientX)/2,midY=(a.clientY+b.clientY)/2;
+
+    if(touchDistance){
+      controls.zoom.value=clamp(+controls.zoom.value*(d/touchDistance),.45,2.8).toFixed(2);
+      state.pan[0]+=(midX-touchMidX)*0.0026;
+      state.pan[1]-=(midY-touchMidY)*0.0026;
+      updateOutputs();
     }
+    touchDistance=d;touchMidX=midX;touchMidY=midY;
+  },{passive:false});
+
+  canvas.addEventListener('touchend',e=>{
+    if(e.touches.length<2)touchDistance=0;
   },{passive:true});
 
   function syncEulerFromGesture(){
@@ -839,14 +868,43 @@
     $('toggleLightMarker').textContent=state.markerVisible?'Hide marker':'Show marker';
   });
 
+  const mobilePanelBackdrop=$('mobilePanelBackdrop');
+  const mobilePanelClose=$('mobilePanelClose');
+  const mobileMedia=window.matchMedia('(max-width: 780px)');
+
+  function isMobileLayout(){ return mobileMedia.matches; }
+
+  function setPanelOpen(open){
+    if(!isMobileLayout()){
+      panel.classList.remove('is-hidden');
+      document.body.classList.remove('mobile-controls-open');
+      if(mobilePanelBackdrop) mobilePanelBackdrop.hidden=true;
+      $('togglePanel').setAttribute('aria-expanded','true');
+      return;
+    }
+    panel.classList.toggle('is-hidden',!open);
+    document.body.classList.toggle('mobile-controls-open',open);
+    if(mobilePanelBackdrop) mobilePanelBackdrop.hidden=!open;
+    $('togglePanel').setAttribute('aria-expanded',String(open));
+    if(open) panel.scrollTop=0;
+  }
+
+  function prepareMobileControls(){
+    if(!isMobileLayout()) return;
+    panel.querySelectorAll('details').forEach(detail=>detail.removeAttribute('open'));
+    setPanelOpen(false);
+  }
+
   $('togglePanel').addEventListener('click',()=>{
-    const hidden=panel.classList.toggle('is-hidden');
-    $('togglePanel').setAttribute('aria-expanded',String(!hidden));
+    setPanelOpen(panel.classList.contains('is-hidden'));
   });
+  mobilePanelClose?.addEventListener('click',()=>setPanelOpen(false));
+  mobilePanelBackdrop?.addEventListener('click',()=>setPanelOpen(false));
 
   document.addEventListener('keydown',e=>{
     const tag=(document.activeElement&&document.activeElement.tagName)||'';
     if(['INPUT','SELECT','TEXTAREA'].includes(tag))return;
+    if(e.key==='Escape'&&isMobileLayout()&&!panel.classList.contains('is-hidden')){setPanelOpen(false);return;}
     if(e.code==='Space'){e.preventDefault();setMode(state.mode==='paint'?'compose':'paint');return;}
     if(e.key==='Escape'&&state.mode==='paint'){setMode('compose');return;}
     if(e.key.toLowerCase()==='o'&&!state.locks.camera){state.projection=state.projection==='perspective'?'orthographic':'perspective';updateAllUI();}
@@ -894,15 +952,36 @@
     const old=el.textContent;
     el.textContent=text;
     clearTimeout(setStatus.t);
-    setStatus.t=setTimeout(()=>{el.textContent='Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';},3500);
+    setStatus.t=setTimeout(()=>{
+      el.textContent=isMobileLayout()
+        ? 'Drag to turn · pinch to zoom · Controls for studio tools'
+        : 'Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+    },3500);
   }
 
-  if(window.matchMedia('(max-width: 780px)').matches){
-    panel.classList.add('is-hidden');
-    $('togglePanel').setAttribute('aria-expanded','false');
+  let wasMobile=isMobileLayout();
+  if(wasMobile){
+    prepareMobileControls();
+    $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
   }
 
-  window.addEventListener('resize',updateCrop);
+  function syncResponsiveUI(){
+    const mobile=isMobileLayout();
+    if(mobile!==wasMobile){
+      if(mobile){
+        prepareMobileControls();
+        $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+      }else{
+        setPanelOpen(true);
+        $('viewerHelp').textContent='Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+      }
+      wasMobile=mobile;
+    }
+    updateCrop();
+  }
+
+  window.addEventListener('resize',syncResponsiveUI);
+  window.addEventListener('orientationchange',()=>setTimeout(syncResponsiveUI,120));
   document.addEventListener('visibilitychange',()=>{
     if(document.visibilityState==='visible'&&state.mode==='paint')requestWakeLock();
   });
