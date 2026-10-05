@@ -1,0 +1,49 @@
+name: Build David social card
+
+on:
+  push:
+    branches:
+      - feature/david-social-precision-controls
+    paths:
+      - 'demos/david-light-lab/tools/build_social_card.py'
+      - '.github/workflows/david-light-lab-social-card.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/david-social-precision-controls
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install social-card dependencies
+        run: |
+          pip install pillow playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Start local demo
+        run: |
+          python demos/david-light-lab/tests/server.py > /tmp/david-social-http.log 2>&1 &
+          sleep 2
+
+      - name: Render social card
+        run: python demos/david-light-lab/tools/build_social_card.py
+
+      - name: Commit generated social card
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add demos/david-light-lab/social-card.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m "Generate David Light Lab social preview"
+          git pull --rebase origin feature/david-social-precision-controls
+          git push origin HEAD:feature/david-social-precision-controls
