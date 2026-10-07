@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-10-06T12:03:37.590020+00:00",
-  "latest_generated_at": "2026-10-06T12:03:25.830476+00:00",
+  "generated_at": "2026-10-07T11:49:17.096282+00:00",
+  "latest_generated_at": "2026-10-07T11:49:04.305523+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 20,
-  "sources_checked_no_current_items": 9,
+  "sources_active": 21,
+  "sources_checked_no_current_items": 8,
   "sources_failed": 1,
   "items_by_section": {
     "research-papers": 36,
-    "grants-opportunities": 17,
+    "grants-opportunities": 18,
     "ireland-catchment-practice": 18,
-    "waterbody-evidence-alerts": 24
+    "waterbody-evidence-alerts": 23
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 20,
-    "research_use_type": 56
+    "opportunity_fit": 21,
+    "research_use_type": 55
   },
-  "archive_snapshots": 127,
+  "archive_snapshots": 128,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +33,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 13,
-      "elapsed_ms": 96,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 52,
-      "elapsed_ms": 126,
+      "discovered_hint_count": 51,
+      "elapsed_ms": 73,
       "error": null
     },
     {
@@ -63,7 +63,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 75,
-      "elapsed_ms": 112,
+      "elapsed_ms": 83,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 140,
+      "current_item_count": 4,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 83,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 9,
       "discovered_hint_count": 100,
-      "elapsed_ms": 115,
+      "elapsed_ms": 96,
       "error": null
     },
     {
@@ -108,7 +108,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 73,
-      "elapsed_ms": 112,
+      "elapsed_ms": 82,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 69,
-      "elapsed_ms": 118,
+      "discovered_hint_count": 66,
+      "elapsed_ms": 74,
       "error": null
     },
     {
@@ -134,11 +134,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 1,
       "discovered_hint_count": 48,
-      "elapsed_ms": 93,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 77,
-      "elapsed_ms": 126,
+      "discovered_hint_count": 78,
+      "elapsed_ms": 84,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 93,
-      "elapsed_ms": 747,
+      "elapsed_ms": 959,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 250,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -198,7 +198,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 47,
-      "elapsed_ms": 93,
+      "elapsed_ms": 68,
       "error": null
     },
     {
@@ -213,7 +213,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 73,
-      "elapsed_ms": 142,
+      "elapsed_ms": 81,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 51,
-      "elapsed_ms": 89,
+      "discovered_hint_count": 50,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 86,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 25,
-      "elapsed_ms": 97,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 49,
-      "elapsed_ms": 100,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
+      "current_item_count": 6,
       "discovered_hint_count": 48,
-      "elapsed_ms": 86,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -302,8 +302,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 84,
+      "discovered_hint_count": 47,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1132,
+      "elapsed_ms": 1248,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 113,
-      "elapsed_ms": 920,
+      "elapsed_ms": 1083,
       "error": null
     },
     {
@@ -346,9 +346,9 @@
       "host": "www.epa.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
-      "discovered_hint_count": 224,
-      "elapsed_ms": 368,
+      "current_item_count": 1,
+      "discovered_hint_count": 221,
+      "elapsed_ms": 489,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 720,
+      "elapsed_ms": 1315,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 422,
-      "elapsed_ms": 894,
+      "elapsed_ms": 1033,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 810,
+      "elapsed_ms": 766,
       "error": null
     },
     {
@@ -407,8 +407,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 38,
-      "elapsed_ms": 1952,
+      "discovered_hint_count": 36,
+      "elapsed_ms": 2226,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 131,
+      "elapsed_ms": 49,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 106,
-      "elapsed_ms": 79,
+      "elapsed_ms": 78,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 11,
       "discovered_hint_count": 94,
-      "elapsed_ms": 914,
+      "elapsed_ms": 806,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 893,
+      "elapsed_ms": 1254,
       "error": null
     }
   ]
