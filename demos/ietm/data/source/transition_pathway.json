@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-06T20:54:58+00:00",
+    "generated_at": "2026-10-07T06:23:27+00:00",
     "schema_version": "transition_pathway_v2",
     "builder": "build_transition_pathway.py",
     "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -47,29 +47,22 @@
     "status": "available",
     "observed_window": {
       "start_date": "2026-05-12",
-      "end_date": "2026-10-06",
-      "value": 29.6,
+      "end_date": "2026-10-07",
+      "value": 29.5,
       "unit": "%",
       "method": "demand_weighted_observed_daily_history",
-      "sample_count": 148,
+      "sample_count": 149,
       "caveat": "Observed grid renewable-cover proxy from local daily history. This is not official annual RES-E and must not be joined silently to the SEAI series."
     },
     "latest_snapshot": {
-      "datetime": "2026-10-06T21:45:00+01:00",
-      "value": 17.8,
+      "datetime": "2026-10-07T07:15:00+01:00",
+      "value": 22.3,
       "unit": "%",
       "basis": "latest_grid_snapshot",
       "source_label": "Smart Grid Dashboard API",
       "caveat": "Single live/latest grid snapshot. Useful for current status only; not an annual RES-E observation and not suitable as a trajectory point."
     },
     "daily_values": [
-      {
-        "date": "2026-07-09",
-        "captured_at": "2026-07-09T23:22:39+00:00",
-        "value": 3.2,
-        "weight_mw": 4406.0,
-        "estimated_backfill": false
-      },
       {
         "date": "2026-07-10",
         "captured_at": "2026-07-10T23:15:17+00:00",
@@ -691,6 +684,13 @@
         "captured_at": "2026-10-06T20:54:57+00:00",
         "value": 17.8,
         "weight_mw": 5264.0,
+        "estimated_backfill": false
+      },
+      {
+        "date": "2026-10-07",
+        "captured_at": "2026-10-07T06:23:25+00:00",
+        "value": 22.3,
+        "weight_mw": 5372.0,
         "estimated_backfill": false
       }
     ]
