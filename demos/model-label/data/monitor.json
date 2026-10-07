@@ -569,13 +569,13 @@
     "status-openai": {
       "source_id": "status-openai",
       "url": "https://status.openai.com/api/v2/summary.json",
-      "last_attempt": "2026-10-07T01:39:12Z",
+      "last_attempt": "2026-10-07T08:51:01Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
-      "last_success": "2026-10-07T01:39:12Z",
+      "last_success": "2026-10-07T08:51:01Z",
       "error": null,
       "operator": {
-        "status": "serving",
+        "status": "degraded",
         "reason": "Operator-reported components; not an independent query test",
         "components": [
           {
@@ -584,7 +584,7 @@
           },
           {
             "name": "Codex in ChatGPT Desktop",
-            "status": "operational"
+            "status": "partial_outage"
           }
         ]
       }
@@ -592,10 +592,10 @@
     "status-claude": {
       "source_id": "status-claude",
       "url": "https://status.claude.com/api/v2/summary.json",
-      "last_attempt": "2026-10-07T01:39:13Z",
+      "last_attempt": "2026-10-07T08:51:02Z",
       "robots": "Public machine-readable status API",
-      "status": "ok",
-      "error": null,
+      "status": "error",
+      "error": "The read operation timed out",
       "last_success": "2026-10-07T01:39:14Z",
       "operator": {
         "status": "serving",
@@ -868,10 +868,10 @@
     "status-gemini": {
       "source_id": "status-gemini",
       "url": "https://www.google.com/appsstatus/dashboard/incidents.json",
-      "last_attempt": "2026-10-07T01:39:14Z",
+      "last_attempt": "2026-10-07T08:51:13Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
-      "last_success": "2026-10-07T01:39:14Z",
+      "last_success": "2026-10-07T08:51:13Z",
       "error": null,
       "operator": {
         "status": "serving",
@@ -1766,6 +1766,27 @@
   ],
   "last_refresh": "2026-10-06T12:15:10Z",
   "availability_history": [
+    {
+      "at": "2026-10-07T08:51:13Z",
+      "service_id": "gemini",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
+    {
+      "at": "2026-10-07T08:51:12Z",
+      "service_id": "claude",
+      "status": "unknown",
+      "check_status": "error",
+      "method": "Operator feed"
+    },
+    {
+      "at": "2026-10-07T08:51:01Z",
+      "service_id": "chatgpt",
+      "status": "degraded",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
     {
       "at": "2026-10-07T01:39:14Z",
       "service_id": "gemini",
