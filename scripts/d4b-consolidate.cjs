@@ -10,12 +10,30 @@ function fetchHtml(url,depth=0){return new Promise((resolve,reject)=>{
   if([301,302,307,308].includes(res.statusCode)){let loc=res.headers.location;res.resume();return loc?resolve(fetchHtml(new URL(loc,url).href,depth+1)):reject(Error('Invalid redirect'))}
   if(res.statusCode!==200){res.resume();return reject(Error('HTTP '+res.statusCode))}
   let chunks=[],size=0;res.on('data',x=>{size+=x.length;if(size>1048576)return req.destroy(Error('Oversize'));chunks.push(x)});
-  res.on('end',()=>resolve({fingerprint:hash(Buffer.concat(chunks)),bytes:size}));res.on('error',reject);
+  res.on('end',()=>{const buffer=Buffer.concat(chunks);resolve({fingerprint:hash(buffer),bytes:size,body:buffer.toString('utf8')})});res.on('error',reject);
  });req.on('timeout',()=>req.destroy(Error('Timeout')));req.on('error',reject);
 })}
 async function discover(){const previous=read('source-check.json')?.sources||[];const result={checked_at:time(),sources:[]};for(const s of read('sources.json').sources){
  let record={id:s.id,name:s.name,mode:s.mode};
- if(s.kind==='public'){try{Object.assign(record,{status:'reachable-shell',...await fetchHtml(s.url)})}catch(e){record.status='unavailable';record.error=String(e.message).slice(0,100)}}
+ if(s.kind==='public'){
+  try{
+   const page=await fetchHtml(s.url),origin=new URL(s.url).origin;
+   const scripts=[...page.body.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)]
+    .map(m=>{try{return new URL(m[1],s.url)}catch{return null}})
+    .filter(u=>u&&u.origin===origin&&/\.js$/i.test(u.pathname))
+    .map(u=>u.href);
+   const unique=[...new Set(scripts)].slice(0,8),assets=[];
+   for(const url of unique){
+    try{const file=await fetchHtml(url);assets.push({path:new URL(url).pathname,fingerprint:file.fingerprint,status:'checked'})}
+    catch(e){assets.push({path:new URL(url).pathname,status:'unavailable',error:String(e.message).slice(0,80)})}
+   }
+   const checked=assets.filter(a=>a.status==='checked').length;
+   Object.assign(record,{status:'reachable-shell',bytes:page.bytes,
+    html_fingerprint:page.fingerprint,assets_checked:checked,assets_total:assets.length,assets,
+    fingerprint:hash(JSON.stringify({page:page.fingerprint,assets}))});
+   if(checked!==assets.length)record.note='Some same-origin scripts were unavailable; change detection is incomplete.';
+  }catch(e){record.status='unavailable';record.error=String(e.message).slice(0,100)}
+ }
  else record.status='not-connected';
  const old=previous.find(x=>x.id===s.id);
  record.content_changed=record.status==='reachable-shell'&&old?.status==='reachable-shell'?record.fingerprint!==old.fingerprint:null;
