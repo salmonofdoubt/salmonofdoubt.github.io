@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-10-07T11:48:00+00:00",
+  "generated_at": "2026-10-08T12:02:55+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
-  "links_seen": 4496,
-  "funding_like_links": 476,
+  "links_seen": 4499,
+  "funding_like_links": 477,
   "candidate_fetches": 300,
-  "pending_review_count": 117,
+  "pending_review_count": 104,
   "status_counts": {
-    "pending_review": 117,
-    "suppressed_non_actionable": 45,
+    "pending_review": 104,
+    "suppressed_non_actionable": 42,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 11,
-    "suppressed_stale": 4,
+    "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 55
+    "suppressed_fetch_error": 72
   },
   "candidate_type_counts": {
     "recurring_programme": 60,
-    "funding_call": 90,
+    "funding_call": 77,
     "scholarship": 19,
     "generic_funding_hub": 6,
-    "tender": 13,
-    "unknown": 55
+    "tender": 11,
+    "unknown": 72
   },
   "seeds": [
     {
@@ -65,9 +65,9 @@
       "url": "https://www.epa.ie/our-services/research/epa--research-funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 236,
-      "funding_like_links": 15,
-      "candidates_fetched": 15
+      "links_seen": 239,
+      "funding_like_links": 16,
+      "candidates_fetched": 16
     },
     {
       "id": "ifi_funding_hub",
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 615,
       "funding_like_links": 58,
-      "candidates_fetched": 5
+      "candidates_fetched": 4
     },
     {
       "id": "geo_dfg_heisenberg_watch",
