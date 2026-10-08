@@ -25,7 +25,7 @@ function weeks(){
  $('week').value=distinct.some(x=>String(x)===chosen)?chosen:'all';
  updateAvailability();
 }
-function pool(){return questions.filter(q=>($('module').value==='all'||q.module===$('module').value)&&($('week').value==='all'||q.week===Number($('week').value)))}
+function pool(){return questions.filter(q=>q.verification!=='flagged'&&($('module').value==='all'||q.module===$('module').value)&&($('week').value==='all'||q.week===Number($('week').value)))}
 function eligible(){
  const p=pool();
  return $('mode').value==='mistakes'?p.filter(q=>history[q.id]&&history[q.id].correct<history[q.id].attempts):p;

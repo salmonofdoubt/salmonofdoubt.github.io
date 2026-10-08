@@ -63,3 +63,13 @@ Test desktop and mobile for selection highlighting, ability to switch answer unt
 ## Important remaining connectors
 
 Automatic full-text extraction from either peer site is not implemented (access/reuse permission not established). Automatic ingestion from the user's Drive and ChatGPT conversations in a GitHub Actions run is **not implemented** and requires a private authorisation/deployment design. The current refresh ingests new *staged original* questions and monitors external content hashes; it does not hallucinate lecturer questions or claim every question is verified.
+
+## October 2026 quiz recovery and traceability
+
+The source-review session on 9 October examined the four current MSc summary booklets, mapped the **91 public questions to their 18 module-week sections**, and produced `booklet-traceability.json` with per-item lexical location evidence. **This is not independent answer verification**: the pre-existing nine primary-source-verified items remain the only items marked `verified`, while 82 still need complete answer/distractor checks against the relevant original teaching and/or academic source.
+
+Every successful refresh also generates `review-queue.json`, an item-by-item to-do list keyed by stable question ID, verification status, current evidence URL/locator, and required next action. The queue is derived from `questions.js` so adding questions does not create a separate synchronisation problem. A `flagged` item is excluded from scored practice.
+
+The private recovery pack supplied in the ChatGPT session contains two full original AI for Business W5 Moodle items (Q6 and Q7), with all answer options recovered from the conversation context. It also records 13 quiz assessment/result entries from the booklets **without** pretending that their answer-topic summaries are complete Moodle question transcripts. One conflict exists between answer-letter sequences for Innovation W4, which must be reconciled from original graded Moodle output before importing any such letter answers. These original quiz records must not be uploaded to this public repository.
+
+**Source limitation:** previous-conversation retrieval was unavailable during the session. The recovered inventory is a documented first pass, not an exhaustive history scrape. The public workflow still cannot access the private ChatGPT and Google Drive connectors.

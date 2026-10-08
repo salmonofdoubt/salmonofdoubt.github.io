@@ -1,0 +1,1675 @@
+{
+  "schema_version": 1,
+  "method": "Private Google Drive booklet week-section existence and keyword locator check. NO semantic grading and NO Moodle original answer verification. Not a replacement for primary-source research.",
+  "summary": {
+    "questions": 91,
+    "weeks": 18,
+    "booklet_week_located": 91,
+    "primary_reference_recorded": 9,
+    "booklet_concept_lexical_match": 82,
+    "needs_manual": 0
+  },
+  "records": [
+    {
+      "id": "d4b-001",
+      "module": "GEN",
+      "week": 1,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "generative",
+        "families",
+        "adversarial",
+        "network",
+        "training",
+        "generator",
+        "discriminator",
+        "learns"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-002",
+      "module": "GEN",
+      "week": 1,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "generative",
+        "families",
+        "diffusion",
+        "produces",
+        "successive",
+        "denoising"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-003",
+      "module": "GEN",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "representation",
+        "tokens",
+        "contextual",
+        "meaning",
+        "weights",
+        "terms",
+        "based",
+        "document"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-004",
+      "module": "GEN",
+      "week": 2,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "embeddings",
+        "character",
+        "subword",
+        "information",
+        "fasttext",
+        "grams",
+        "representations",
+        "unseen"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-005",
+      "module": "GEN",
+      "week": 3,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "transformers",
+        "select",
+        "current",
+        "position",
+        "queries",
+        "attention",
+        "weights",
+        "combine"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-006",
+      "module": "GEN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "transformer",
+        "encoder",
+        "decoder",
+        "introduced",
+        "using",
+        "bidirectional",
+        "autoregressive"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-007",
+      "module": "GEN",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "prompt",
+        "engineering",
+        "constraints",
+        "expected",
+        "output",
+        "format",
+        "explicit",
+        "structure"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-008",
+      "module": "AIB",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "systems",
+        "machine",
+        "learning",
+        "subset",
+        "field"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-009",
+      "module": "AIB",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "heuristic",
+        "search",
+        "remaining",
+        "optimal",
+        "admissible",
+        "reach"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-010",
+      "module": "AIB",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "optimisation",
+        "escape",
+        "local",
+        "minima",
+        "search",
+        "occasional",
+        "moves",
+        "optima"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-011",
+      "module": "AIB",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "adversarial",
+        "search",
+        "opponent",
+        "chooses",
+        "moves",
+        "minimise",
+        "minimax",
+        "against"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-012",
+      "module": "AIB",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "ethics",
+        "dataset",
+        "unrepresentative",
+        "sampling",
+        "systematically",
+        "performance"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-013",
+      "module": "INN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "innovation",
+        "creativity",
+        "invention",
+        "realised",
+        "novelty",
+        "alone",
+        "establish",
+        "adoption"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-014",
+      "module": "INN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "complementary",
+        "assets",
+        "manufacturing",
+        "distribution",
+        "service",
+        "market",
+        "access",
+        "necessary"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-015",
+      "module": "INN",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "disruption",
+        "market",
+        "improvement",
+        "trajectory",
+        "business",
+        "often",
+        "merely",
+        "scale"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-016",
+      "module": "INN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "foresight",
+        "backcasting",
+        "desired",
+        "future",
+        "present",
+        "decisions"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-017",
+      "module": "DTR",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "digital",
+        "transformation",
+        "digitisation",
+        "analogue",
+        "information",
+        "without",
+        "organisational"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-018",
+      "module": "DTR",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "organisational",
+        "change",
+        "fashionista",
+        "fashionistas",
+        "strong",
+        "digital",
+        "transformation",
+        "leadership"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-019",
+      "module": "DTR",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "transformation",
+        "technology",
+        "capabilities",
+        "value",
+        "creation",
+        "digital",
+        "concerns",
+        "strategic"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-020",
+      "module": "DTR",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "societal",
+        "dimensions",
+        "digital",
+        "access",
+        "capabilities",
+        "transformation",
+        "skills",
+        "inclusion"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-021",
+      "module": "GEN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "learning",
+        "paradigms",
+        "symbolic",
+        "rules",
+        "encode",
+        "explicit",
+        "constraints",
+        "learned"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-022",
+      "module": "GEN",
+      "week": 2,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "contextual",
+        "embeddings",
+        "context",
+        "representation",
+        "dependent",
+        "representations",
+        "words",
+        "fixed"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-023",
+      "module": "GEN",
+      "week": 3,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "attention",
+        "value",
+        "vectors",
+        "scores",
+        "weight",
+        "contextual",
+        "representation"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-024",
+      "module": "GEN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "selection",
+        "encoder",
+        "transformer",
+        "representations",
+        "suited",
+        "labelling",
+        "retrieval"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-025",
+      "module": "GEN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "cards",
+        "review",
+        "licence",
+        "provenance",
+        "deployment",
+        "before",
+        "operational",
+        "constraints"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-026",
+      "module": "GEN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "inference",
+        "pipelines",
+        "processing",
+        "labels",
+        "probabilities",
+        "specific",
+        "scores",
+        "interpretable"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-027",
+      "module": "GEN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "decoding",
+        "probability",
+        "becomes",
+        "higher",
+        "temperature",
+        "token",
+        "distribution",
+        "lower"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-028",
+      "module": "GEN",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "evaluation",
+        "examples",
+        "against",
+        "narrow",
+        "transfer",
+        "unseen",
+        "inputs"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-029",
+      "module": "AIB",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "compute",
+        "support",
+        "parallel",
+        "tensor",
+        "neural",
+        "network",
+        "operations",
+        "benefit"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-030",
+      "module": "AIB",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "search",
+        "estimated",
+        "remaining",
+        "evaluates"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-031",
+      "module": "AIB",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "machine",
+        "learning",
+        "regression",
+        "predicts",
+        "target"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-032",
+      "module": "AIB",
+      "week": 3,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "validation",
+        "selection",
+        "performance",
+        "repeated",
+        "optimisation",
+        "final",
+        "generalisation",
+        "estimate"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-033",
+      "module": "AIB",
+      "week": 3,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "information",
+        "leaks",
+        "training",
+        "preprocessing",
+        "learns",
+        "dataset",
+        "fitted",
+        "avoid"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-034",
+      "module": "AIB",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "database",
+        "design",
+        "records",
+        "across",
+        "related",
+        "foreign",
+        "references",
+        "another"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-035",
+      "module": "AIB",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "database",
+        "modelling",
+        "conceptual",
+        "design",
+        "entity",
+        "relationship",
+        "stage"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-036",
+      "module": "AIB",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "quality",
+        "consistency",
+        "entity",
+        "problem"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-037",
+      "module": "AIB",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "imbalanced",
+        "accuracy",
+        "failure",
+        "minority",
+        "while"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-038",
+      "module": "AIB",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "trustworthy",
+        "ethical",
+        "governance",
+        "demand",
+        "minimum",
+        "legal",
+        "compliance",
+        "obligations"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-039",
+      "module": "INN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "creative",
+        "destruction",
+        "innovation",
+        "creates",
+        "structures",
+        "while",
+        "established",
+        "combinations"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-040",
+      "module": "INN",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "learning",
+        "modes",
+        "doing",
+        "using",
+        "interacting",
+        "practical",
+        "experiential",
+        "interactive"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-041",
+      "module": "INN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "complexity",
+        "feedback",
+        "adaptation",
+        "alter",
+        "interventions",
+        "occur",
+        "complex",
+        "systems"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-042",
+      "module": "INN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "foresight",
+        "plausible",
+        "alternatives",
+        "improve",
+        "today",
+        "decisions",
+        "multiple",
+        "futures"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-043",
+      "module": "INN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "futures",
+        "desirability",
+        "perspective",
+        "values"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-044",
+      "module": "INN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "scanning",
+        "signal",
+        "signals",
+        "early",
+        "ambiguous",
+        "indications",
+        "broad",
+        "persistent"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-045",
+      "module": "DTR",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "digital",
+        "stages",
+        "digitalisation",
+        "using",
+        "technologies",
+        "transformation",
+        "deeper",
+        "organisational"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-046",
+      "module": "DTR",
+      "week": 2,
+      "verification": "verified",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "industry",
+        "human",
+        "centricity",
+        "sustainability",
+        "resilience",
+        "innovation",
+        "around",
+        "worker"
+      ],
+      "review_level": "primary-reference-recorded",
+      "caution": "Primary reference asserted in question metadata; inspect when relevant source changes"
+    },
+    {
+      "id": "d4b-047",
+      "module": "DTR",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "digital",
+        "maturity",
+        "counts",
+        "technology",
+        "adoption",
+        "strategy",
+        "outcomes",
+        "whether"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-048",
+      "module": "DTR",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "human",
+        "robot",
+        "collaboration",
+        "safety",
+        "depends",
+        "application",
+        "specific",
+        "assessment"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-049",
+      "module": "DTR",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "technological",
+        "frontier",
+        "jagged",
+        "between",
+        "tasks",
+        "performance"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-050",
+      "module": "DTR",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "technology",
+        "trade",
+        "technological",
+        "gains",
+        "unevenly",
+        "distributed",
+        "socio",
+        "technical"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-051",
+      "module": "DTR",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "human",
+        "teaming",
+        "fluency",
+        "evidence",
+        "distinct",
+        "generate",
+        "while",
+        "still"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-052",
+      "module": "DTR",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "platforms",
+        "increasing",
+        "digital",
+        "infrastructures",
+        "everyday",
+        "activity",
+        "platformization",
+        "becoming"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-053",
+      "module": "DTR",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "algorithmic",
+        "selection",
+        "visibility",
+        "power",
+        "ranking",
+        "recommendation",
+        "systems",
+        "shape"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-054",
+      "module": "DTR",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "datafication",
+        "relationships",
+        "measurable",
+        "turns",
+        "human",
+        "activity"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-055",
+      "module": "DTR",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "interoperability",
+        "portable",
+        "input",
+        "output",
+        "dependencies",
+        "interoperable",
+        "clear",
+        "dependency"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-056",
+      "module": "GEN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "variational",
+        "learns",
+        "distribution",
+        "latent",
+        "representations",
+        "learn",
+        "sample",
+        "generating"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-057",
+      "module": "GEN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "discriminative",
+        "generative",
+        "learn",
+        "decision",
+        "approaches",
+        "produce"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-058",
+      "module": "GEN",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "contextual",
+        "language",
+        "modelling",
+        "create",
+        "context",
+        "dependent",
+        "representations",
+        "produces"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-059",
+      "module": "GEN",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "smoothing",
+        "language",
+        "sequence",
+        "probability",
+        "unseen",
+        "grams",
+        "receive",
+        "estimates"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-060",
+      "module": "GEN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "multi",
+        "attention",
+        "learning",
+        "different",
+        "representation",
+        "relationships",
+        "parallel",
+        "multiple"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-061",
+      "module": "GEN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "causal",
+        "masking",
+        "information",
+        "future",
+        "positions",
+        "token",
+        "limits",
+        "position"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-062",
+      "module": "GEN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "tokenizer",
+        "converts",
+        "input",
+        "token",
+        "identifiers"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-063",
+      "module": "GEN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "validation",
+        "prefer",
+        "smallest",
+        "requirements",
+        "selection",
+        "provenance",
+        "licence",
+        "quality"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-064",
+      "module": "GEN",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "prompts",
+        "includes",
+        "examples",
+        "required",
+        "input",
+        "output",
+        "behaviour",
+        "prompting"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-065",
+      "module": "GEN",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "prompt",
+        "evaluation",
+        "against",
+        "representative",
+        "unseen",
+        "cases",
+        "examples"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-066",
+      "module": "AIB",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "intelligent",
+        "agents",
+        "environment",
+        "observations",
+        "agent"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-067",
+      "module": "AIB",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "based",
+        "systems",
+        "fixed",
+        "thresholds",
+        "explicit",
+        "rules"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-068",
+      "module": "AIB",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "breadth",
+        "first",
+        "search",
+        "queue",
+        "expands",
+        "nodes",
+        "order",
+        "using"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-069",
+      "module": "AIB",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "genetic",
+        "algorithms",
+        "population",
+        "selection",
+        "crossover",
+        "mutation",
+        "evolutionary",
+        "search"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-070",
+      "module": "AIB",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "evaluation",
+        "positive",
+        "error",
+        "precision",
+        "recall",
+        "separate",
+        "false",
+        "missed"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-071",
+      "module": "AIB",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "early",
+        "stopping",
+        "validation",
+        "performance",
+        "generalisation",
+        "deteriorate",
+        "avoid",
+        "fitting"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-072",
+      "module": "AIB",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "feature",
+        "preprocessing",
+        "split",
+        "first",
+        "training",
+        "records",
+        "transform"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-073",
+      "module": "AIB",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "quality",
+        "rules",
+        "duplicate",
+        "cleaning",
+        "address",
+        "observations",
+        "preserve",
+        "auditability"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-074",
+      "module": "AIB",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "framework",
+        "systems",
+        "requires",
+        "substantial",
+        "unacceptable",
+        "practices",
+        "prohibited"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-075",
+      "module": "AIB",
+      "week": 5,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "meaningful",
+        "oversight",
+        "reviewer",
+        "understand",
+        "limits",
+        "challenge",
+        "authority",
+        "interpret"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-076",
+      "module": "INN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "value",
+        "capture",
+        "strong",
+        "invention",
+        "create",
+        "commercial",
+        "wholly",
+        "route"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-077",
+      "module": "INN",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "strategic",
+        "innovation",
+        "changes",
+        "basis",
+        "value",
+        "creation"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-078",
+      "module": "INN",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "quadruple",
+        "helix",
+        "inclusion",
+        "civil",
+        "society",
+        "public",
+        "industry",
+        "government"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-079",
+      "module": "INN",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "appropriability",
+        "innovators",
+        "capture",
+        "returns",
+        "knowledge",
+        "invention",
+        "other",
+        "retain"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-080",
+      "module": "INN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "foresight",
+        "biases",
+        "confirmation",
+        "evidence",
+        "existing"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-081",
+      "module": "INN",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "complicated",
+        "complex",
+        "changing",
+        "behaviour",
+        "interacting",
+        "incentives",
+        "norms",
+        "feedback"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-082",
+      "module": "INN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "futures",
+        "wheel",
+        "diagrams",
+        "order",
+        "consequences",
+        "around"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-083",
+      "module": "INN",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "roadmapping",
+        "milestones",
+        "actions",
+        "future",
+        "backcasting",
+        "backwards",
+        "desired"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-084",
+      "module": "DTR",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "digital",
+        "transformation",
+        "leadership",
+        "strong",
+        "capability",
+        "combined",
+        "digirati",
+        "capabilities"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-085",
+      "module": "DTR",
+      "week": 1,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "transformation",
+        "assessment",
+        "changed",
+        "value",
+        "creation",
+        "logic",
+        "concerns",
+        "organisations"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-086",
+      "module": "DTR",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "digital",
+        "intensity",
+        "lecture"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-087",
+      "module": "DTR",
+      "week": 2,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "human",
+        "centred",
+        "evaluation",
+        "evaluate",
+        "productivity",
+        "safety",
+        "workload",
+        "before"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-088",
+      "module": "DTR",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "general",
+        "purpose",
+        "technology",
+        "complementary",
+        "skills",
+        "workflows",
+        "develop",
+        "rates"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-089",
+      "module": "DTR",
+      "week": 3,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "skill",
+        "whether",
+        "workers",
+        "retain",
+        "judgement",
+        "independent",
+        "productivity",
+        "evaluated"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-090",
+      "module": "DTR",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "commodification",
+        "turns",
+        "commercial",
+        "value",
+        "products"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    },
+    {
+      "id": "d4b-091",
+      "module": "DTR",
+      "week": 4,
+      "verification": "pending",
+      "booklet_week_located": true,
+      "matched_topic_terms": [
+        "platform",
+        "power",
+        "vertical",
+        "integration",
+        "concentrate",
+        "control",
+        "access",
+        "visibility"
+      ],
+      "review_level": "booklet-concept-location",
+      "caution": "Booklet keyword match alone does not verify correctness or distractors"
+    }
+  ]
+}
