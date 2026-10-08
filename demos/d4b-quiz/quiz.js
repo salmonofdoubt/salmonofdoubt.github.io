@@ -110,8 +110,8 @@ $('officialImport').addEventListener('change',async function(){
  const status=$('importStatus');
  status.textContent='Reading '+filename+'…';
  try{
-  if(/\\.zip$/i.test(filename)||file.type==='application/zip')throw Error('This is the ZIP archive. Unzip it and choose moodle_exact_import.json, not the inventory file.');
-  if(!/\\.json$/i.test(filename))throw Error('Please select the Moodle questions .json file, not a ZIP or another file type.');
+  if(/\.zip$/i.test(filename)||file.type==='application/zip')throw Error('This is the ZIP archive. Unzip it and choose moodle_exact_import.json, not the inventory file.');
+  if(!/\.json$/i.test(filename))throw Error('Please select the Moodle questions .json file, not a ZIP or another file type.');
   if(file.size>500000)throw Error('Maximum JSON import size is 500 KB.');
   let payload;
   try{payload=JSON.parse(await file.text())}catch{throw Error('This is not valid JSON. Choose moodle_exact_import.json from the recovery ZIP.')}
