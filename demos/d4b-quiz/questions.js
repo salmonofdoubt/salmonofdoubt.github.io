@@ -98,10 +98,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "TF-IDF weights lexical terms based on document and corpus frequencies; synonyms need not share a representation.",
     "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://sklearn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html",
+      "locator": "scikit-learn TfidfTransformer: lexical token weighting by term frequency and document frequency; no learned synonym equivalence",
+      "scope": "TF–IDF is term-statistics representation, not direct semantic-similarity modelling",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -245,10 +250,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "An admissible heuristic never overestimates the true cost to reach a goal.",
     "source": "02_AI_for_Business_Booklet, Week 02, Heuristic search",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 02, Heuristic search",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/search/informed.html",
+      "locator": "UC Berkeley CS188 §1.4.4: admissible h(n) cannot exceed h*(n), true optimal cost to goal",
+      "scope": "Meaning of admissible heuristic (not a universal guarantee for graph-search implementation)",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -267,10 +277,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Occasional uphill moves can help a search escape local optima; their acceptance becomes less likely as temperature decreases.",
     "source": "02_AI_for_Business_Booklet, Week 02, Search strategies",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 02, Search strategies",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/csp/local-search.html",
+      "locator": "UC Berkeley CS188 §2.5.2: simulated annealing accepts lower-objective moves with probability set by temperature",
+      "scope": "Worse candidate can enable escape from local optimum",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -289,10 +304,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Minimax plans against an adversary selecting the worst outcome for the current player.",
     "source": "02_AI_for_Business_Booklet, Week 02, Minimax",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 02, Minimax",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/games/minimax.html",
+      "locator": "UC Berkeley CS188 §3.2: minimizer assumes an optimal adversary who acts to reduce our utility",
+      "scope": "Worst-case opponent choice in deterministic zero-sum games",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -426,10 +446,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Digitisation converts analogue information into digital form without necessarily changing organisational processes.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Key distinctions",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01, Key distinctions",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0740624X18304131",
+      "locator": "Mergel, Edelmann & Haug (2019), highlights: digitisation and digitalisation differ from holistic transformation; paper-to-PDF is analogue-to-digital conversion",
+      "scope": "Digitisation of records without changing workflow",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -470,10 +495,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Digital transformation concerns strategic and organisational change, not simply purchasing digital technology.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Vial process",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01, Vial process",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0740624X18304131",
+      "locator": "Mergel et al. (2019), highlights and discussion: organization, culture, relationships and delivery must change beyond technical implementation",
+      "scope": "Digital adoption alone is insufficient for organizational transformation",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -661,10 +691,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Higher temperature flattens the next-token distribution, increasing the relative chance of lower-probability tokens.",
     "source": "01_Generative_AI_Booklet, Week 04, Decoding",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04, Decoding",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://huggingface.co/docs/transformers/v4.55.4/en/main_classes/text_generation",
+      "locator": "Hugging Face GenerationConfig: temperature modulates next-token logits/probabilities; increasing positive temperature flattens a nonuniform softmax distribution",
+      "scope": "Higher positive sampling temperature makes the model probability distribution less concentrated, holding other settings fixed",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -727,10 +762,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A* evaluates f(n)=g(n)+h(n), combining accrued path cost with estimated cost-to-go.",
     "source": "02_AI_for_Business_Booklet, Week 02, A-star search",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 02, A-star search",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/search/informed.html",
+      "locator": "UC Berkeley CS188 §1.4.4: f(n)=g(n)+h(n); g is path cost to node and h is estimated remaining cost",
+      "scope": "A* prioritization score",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -749,10 +789,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Regression predicts a quantitative target rather than a discrete class.",
     "source": "02_AI_for_Business_Booklet, Week 03, Machine-learning tasks",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 03, Machine-learning tasks",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://scikit-learn.org/stable/modules/linear_model.html",
+      "locator": "scikit-learn linear models §1.1 regression: numeric target y is predicted using features",
+      "scope": "Forecast numeric river discharge is regression rather than discrete classification",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -825,10 +870,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A foreign key references a key in another table to express and enforce a relationship.",
     "source": "02_AI_for_Business_Booklet, Week 04, Database design",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04, Database design",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://www.postgresql.org/docs/current/ddl-constraints.html",
+      "locator": "PostgreSQL §5.5.5 Foreign Keys: a column/group references values in a related table and maintains referential integrity",
+      "scope": "Foreign key expresses/enforces relationships between records across tables",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -847,10 +897,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Entity–Relationship modelling captures entities and their relationships at the conceptual design stage.",
     "source": "02_AI_for_Business_Booklet, Week 04, Database modelling",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04, Database modelling",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://www.ibm.com/think/topics/entity-relationship-diagram",
+      "locator": "IBM Entity Relationship Diagram: ERD is high-level conceptual database model in three-schema framework",
+      "scope": "ER diagrams used primarily at conceptual database design stage",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -1072,10 +1127,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Digitalisation changes or streamlines processes using digital technologies; transformation entails deeper organisational or value-creation change.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Digital stages",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01, Digital stages",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0740624X18304131",
+      "locator": "Mergel et al. (2019) distinguishes digitalisation of processes from organization-wide digital transformation; replacing paper approvals is process digitisation/digitalisation",
+      "scope": "Digitalised approval workflow is not necessarily strategic transformation",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -1372,12 +1432,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "ELMo's representations reflect surrounding text; classic Word2Vec produces a fixed vector for a vocabulary item.",
     "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 02 / Embeddings",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://aclanthology.org/N18-1202/",
+      "locator": "Peters et al. (2018), ACL Anthology abstract: ELMo representations depend on context and polysemy from bidirectional LM",
+      "scope": "ELMo context-dependence versus fixed Word2Vec vocabulary vector",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -1531,12 +1596,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Few-shot prompting includes examples within the prompt; zero-shot prompting asks without demonstrated examples.",
     "source": "01_Generative_AI_Booklet, Week 05, Prompting methods",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05 / Prompting methods",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://huggingface.co/docs/transformers/tasks/prompting",
+      "locator": "Hugging Face Transformers Prompt Engineering, few-shot prompting: task examples included as demonstrations",
+      "scope": "Few-shot includes examples rather than parameter retraining",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -1627,12 +1697,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Breadth-first search expands nodes in discovery order using a queue.",
     "source": "02_AI_for_Business_Booklet, Week 02, Uninformed search",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 02 / Uninformed search",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/search/uninformed.html",
+      "locator": "UC Berkeley CS188 §1.3.2: BFS frontier uses a first-in first-out (FIFO) queue",
+      "scope": "Breadth-first search frontier ordering",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
@@ -1651,12 +1726,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Evolutionary search iteratively transforms populations using selection and variation.",
     "source": "02_AI_for_Business_Booklet, Week 02, Genetic algorithms",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 02 / Genetic algorithms",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/csp/local-search.html",
+      "locator": "UC Berkeley CS188 §2.5.3: population, fitness-based parent selection, crossover, random mutation",
+      "scope": "Evolutionary genetic algorithm operations",
+      "method": "Independently checked question stem, correct key, three distractors and rationale against cited academic/technical original source; not an assertion of Moodle grading."
     }
   },
   {
