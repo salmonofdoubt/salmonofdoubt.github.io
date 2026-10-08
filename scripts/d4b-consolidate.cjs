@@ -111,9 +111,10 @@ function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'
   if(!Number.isInteger(q.correct)||q.correct<0||q.correct>3||!q.explanation||!q.source)errors.push(q.id+': key/evidence');
   if(!q.origin||!q.verification||!q.evidence?.source)errors.push(q.id+': provenance');
   const k=q.module+':'+q.week;byWeek[k]=(byWeek[k]||0)+1;
-  if(q.verification==='verified'){if(!q.evidence||q.evidence.originalMaterialChecked!==true||!q.evidence.locator||!q.evidence.reviewed_at)errors.push(q.id+': verification without signed evidence');statuses.verified++}
+  if(q.verification==='verified'){if(!q.evidence||q.evidence.originalMaterialChecked!==true||!q.evidence.locator||!q.evidence.reviewed_at||!/^https:\/\//.test(q.evidence.url||''))errors.push(q.id+': verification without documented source URL, locator and date');statuses.verified++}
   else if(q.verification==='flagged')statuses.flagged++;
-  else statuses.pending++;
+  else if(['pending','key-pending','official-key-confirmed'].includes(q.verification))statuses.pending++;
+  else errors.push(q.id+': unknown verification status');
  }
  const curriculum=parseCurriculum(code);
  const missing=Object.entries(curriculum).flatMap(([m,weeks])=>weeks.map((_,i)=>m+':'+(i+1))).filter(k=>!byWeek[k]);
