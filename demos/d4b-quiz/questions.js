@@ -1,5 +1,33 @@
-/* Original practice questions distilled from the user's D4B booklets; no private booklet text is embedded. */
-window.D4B_QUESTIONS = Object.freeze([
+/* Original source-labelled practice questions. Private booklet content is not published. */
+window.D4B_CURRICULUM=Object.freeze({
+  "GEN": [
+    "Introduction to Generative AI and Machine Learning",
+    "NLP, Embeddings and Large Language Models",
+    "Attention and Transformers",
+    "Models at Work: Text, Speech and Images",
+    "Prompt Engineering"
+  ],
+  "AIB": [
+    "Introduction to AI and its History",
+    "Foundational Knowledge for AI",
+    "Machine Learning",
+    "Data and Datasets",
+    "Ethical and Social Implications in AI"
+  ],
+  "INN": [
+    "Fundamentals of Innovation",
+    "Innovation Systems, Theoretical Strands and Disruption",
+    "Solving Complex Problems and Futures Thinking",
+    "Futures Thinking Methods"
+  ],
+  "DTR": [
+    "Digital Transformation: An Overview",
+    "Human-centred Digital Transformation and Industry 5.0",
+    "AI, Work and Human–AI Teaming",
+    "Big Data and Platform Society"
+  ]
+});
+window.D4B_QUESTIONS=Object.freeze([
   {
     "id": "d4b-001",
     "module": "GEN",
@@ -319,5 +347,565 @@ window.D4B_QUESTIONS = Object.freeze([
     "correct": 1,
     "explanation": "Societal transformation analysis includes access, skills, inclusion, trust and uneven effects.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Societal lens"
+  },
+  {
+    "id": "d4b-021",
+    "module": "GEN",
+    "week": 1,
+    "topic": "Learning paradigms",
+    "stem": "A rule-based eligibility filter is designed to enforce explicit legal exclusions. Which family is most naturally suited to this function?",
+    "choices": [
+      "Symbolic reasoning",
+      "Unsupervised clustering",
+      "Diffusion generation",
+      "Sequence-to-sequence translation"
+    ],
+    "correct": 0,
+    "explanation": "Symbolic rules encode explicit constraints and can be audited independently of learned patterns.",
+    "source": "01_Generative_AI_Booklet, Week 01, Learning paradigms"
+  },
+  {
+    "id": "d4b-022",
+    "module": "GEN",
+    "week": 2,
+    "topic": "Contextual embeddings",
+    "stem": "Why can contextual embeddings represent a word differently in two sentences?",
+    "choices": [
+      "They assign every word a permanent identifier",
+      "They incorporate surrounding context in the representation",
+      "They use only document length",
+      "They discard the sequence"
+    ],
+    "correct": 1,
+    "explanation": "Context-dependent representations vary with surrounding words, unlike fixed one-vector-per-word schemes.",
+    "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings"
+  },
+  {
+    "id": "d4b-023",
+    "module": "GEN",
+    "week": 3,
+    "topic": "Attention",
+    "stem": "What is combined using attention weights after query–key comparisons?",
+    "choices": [
+      "The value vectors",
+      "The optimiser learning rate",
+      "Training labels only",
+      "File metadata"
+    ],
+    "correct": 0,
+    "explanation": "Attention scores weight the value vectors to construct a contextual representation.",
+    "source": "01_Generative_AI_Booklet, Week 03, Attention"
+  },
+  {
+    "id": "d4b-024",
+    "module": "GEN",
+    "week": 4,
+    "topic": "Model selection",
+    "stem": "Which architecture is usually the most natural starting point for text classification or semantic retrieval?",
+    "choices": [
+      "Encoder-only Transformer",
+      "Decoder-only autoregressive model",
+      "Adversarial generator",
+      "Diffusion image model"
+    ],
+    "correct": 0,
+    "explanation": "Encoder representations are well suited to discriminative labelling and embedding-based retrieval.",
+    "source": "01_Generative_AI_Booklet, Week 04, Model selection"
+  },
+  {
+    "id": "d4b-025",
+    "module": "GEN",
+    "week": 4,
+    "topic": "Model cards",
+    "stem": "A model scores well but its licence and training-data provenance are unclear. What is the most defensible next action?",
+    "choices": [
+      "Deploy immediately because accuracy is high",
+      "Review licence, provenance and deployment limits before use",
+      "Assume the hub has guaranteed compliance",
+      "Treat parameter count as proof of safety"
+    ],
+    "correct": 1,
+    "explanation": "Model suitability depends on rights, provenance and operational constraints as well as accuracy.",
+    "source": "01_Generative_AI_Booklet, Week 04, Model cards"
+  },
+  {
+    "id": "d4b-026",
+    "module": "GEN",
+    "week": 4,
+    "topic": "Inference pipelines",
+    "stem": "In a text-classification pipeline, what normally follows raw model logits?",
+    "choices": [
+      "Post-processing to labels or probabilities",
+      "Rewriting the model architecture",
+      "Deleting token identifiers from training data",
+      "Sampling a new training corpus"
+    ],
+    "correct": 0,
+    "explanation": "Task-specific post-processing maps model scores into interpretable outputs.",
+    "source": "01_Generative_AI_Booklet, Week 04, Inference pipelines"
+  },
+  {
+    "id": "d4b-027",
+    "module": "GEN",
+    "week": 4,
+    "topic": "Decoding",
+    "stem": "What happens when generation temperature is increased, other settings held constant?",
+    "choices": [
+      "Probability mass generally becomes less concentrated",
+      "The model gains factual knowledge",
+      "The tokeniser learns new vocabulary",
+      "Output becomes necessarily correct"
+    ],
+    "correct": 0,
+    "explanation": "Higher temperature flattens the next-token distribution, increasing the relative chance of lower-probability tokens.",
+    "source": "01_Generative_AI_Booklet, Week 04, Decoding"
+  },
+  {
+    "id": "d4b-028",
+    "module": "GEN",
+    "week": 5,
+    "topic": "Evaluation",
+    "stem": "A prompt is repeatedly changed after inspecting the same examples. What evaluation risk arises?",
+    "choices": [
+      "Selection overfits the development examples",
+      "All hallucinations become impossible",
+      "Tokenisation becomes unnecessary",
+      "The licence automatically changes"
+    ],
+    "correct": 0,
+    "explanation": "Optimising against a narrow set of examples may not transfer to unseen inputs.",
+    "source": "01_Generative_AI_Booklet, Week 05, Evaluation"
+  },
+  {
+    "id": "d4b-029",
+    "module": "AIB",
+    "week": 1,
+    "topic": "Compute",
+    "stem": "Why are GPUs widely used in deep learning?",
+    "choices": [
+      "They support highly parallel tensor computation",
+      "They enforce legal data consent",
+      "They eliminate model bias",
+      "They replace the need for training data"
+    ],
+    "correct": 0,
+    "explanation": "Many neural-network operations benefit from parallel matrix and tensor computation.",
+    "source": "02_AI_for_Business_Booklet, Week 01, Compute"
+  },
+  {
+    "id": "d4b-030",
+    "module": "AIB",
+    "week": 2,
+    "topic": "A-star search",
+    "stem": "Which score does A* normally use to prioritise a state?",
+    "choices": [
+      "Estimated remaining cost only",
+      "Path cost so far plus estimated remaining cost",
+      "Number of moves only",
+      "Uniform random priority"
+    ],
+    "correct": 1,
+    "explanation": "A* evaluates f(n)=g(n)+h(n), combining accrued path cost with estimated cost-to-go.",
+    "source": "02_AI_for_Business_Booklet, Week 02, A-star search"
+  },
+  {
+    "id": "d4b-031",
+    "module": "AIB",
+    "week": 3,
+    "topic": "Machine-learning tasks",
+    "stem": "Predicting next month's river discharge as a numerical value is primarily an example of what?",
+    "choices": [
+      "Regression",
+      "Classification",
+      "Clustering",
+      "Association-rule discovery"
+    ],
+    "correct": 0,
+    "explanation": "Regression predicts a quantitative target rather than a discrete class.",
+    "source": "02_AI_for_Business_Booklet, Week 03, Machine-learning tasks"
+  },
+  {
+    "id": "d4b-032",
+    "module": "AIB",
+    "week": 3,
+    "topic": "Validation",
+    "stem": "Why should the held-out test set not be used repeatedly to tune hyperparameters?",
+    "choices": [
+      "It would become part of model selection and bias performance estimates",
+      "It contains no information",
+      "Hyperparameters only apply to unsupervised methods",
+      "Tests are unnecessary when training accuracy is high"
+    ],
+    "correct": 0,
+    "explanation": "Repeated optimisation against test results undermines its independence as a final generalisation estimate.",
+    "source": "02_AI_for_Business_Booklet, Week 03, Validation"
+  },
+  {
+    "id": "d4b-033",
+    "module": "AIB",
+    "week": 3,
+    "topic": "Data leakage",
+    "stem": "A scaler is fitted on all samples before the training/test split. What is the issue?",
+    "choices": [
+      "Information from the test distribution leaks into training preprocessing",
+      "The scaler necessarily learns the target label",
+      "Feature scaling cannot be used with supervised models",
+      "All tests must use raw units"
+    ],
+    "correct": 0,
+    "explanation": "Preprocessing that learns dataset statistics should be fitted on training data to avoid leakage.",
+    "source": "02_AI_for_Business_Booklet, Week 03, Data leakage"
+  },
+  {
+    "id": "d4b-034",
+    "module": "AIB",
+    "week": 4,
+    "topic": "Database design",
+    "stem": "What is the primary purpose of a foreign key in a relational database?",
+    "choices": [
+      "Link records across related tables",
+      "Generate synthetic labels",
+      "Make every value unique in its own table",
+      "Standardise a feature distribution"
+    ],
+    "correct": 0,
+    "explanation": "A foreign key references a key in another table to express and enforce a relationship.",
+    "source": "02_AI_for_Business_Booklet, Week 04, Database design"
+  },
+  {
+    "id": "d4b-035",
+    "module": "AIB",
+    "week": 4,
+    "topic": "Database modelling",
+    "stem": "At which stage is an Entity–Relationship model most directly used?",
+    "choices": [
+      "Conceptual database design",
+      "Physical server cabling",
+      "Stochastic optimisation",
+      "Final model scoring"
+    ],
+    "correct": 0,
+    "explanation": "Entity–Relationship modelling captures entities and their relationships at the conceptual design stage.",
+    "source": "02_AI_for_Business_Booklet, Week 04, Database modelling"
+  },
+  {
+    "id": "d4b-036",
+    "module": "AIB",
+    "week": 4,
+    "topic": "Data quality",
+    "stem": "Two departments record the same customer with conflicting addresses. Which property is principally affected?",
+    "choices": [
+      "Consistency",
+      "Dimensionality",
+      "Sampling rate",
+      "Ordinality"
+    ],
+    "correct": 0,
+    "explanation": "Contradictory representations of the same entity indicate a consistency problem.",
+    "source": "02_AI_for_Business_Booklet, Week 04, Data quality"
+  },
+  {
+    "id": "d4b-037",
+    "module": "AIB",
+    "week": 4,
+    "topic": "Imbalanced classes",
+    "stem": "A fraud classifier predicts 'not fraud' for every case in a dataset with 99% legitimate transactions. What is the key warning?",
+    "choices": [
+      "Overall accuracy alone hides failure on the minority class",
+      "The system has perfect recall for fraud",
+      "The dataset must be normally distributed",
+      "The labels are automatically unbiased"
+    ],
+    "correct": 0,
+    "explanation": "Accuracy can be deceptively high while minority-class recall is zero.",
+    "source": "02_AI_for_Business_Booklet, Week 04, Imbalanced classes"
+  },
+  {
+    "id": "d4b-038",
+    "module": "AIB",
+    "week": 5,
+    "topic": "Trustworthy AI",
+    "stem": "Which distinction between AI ethics and the EU AI Act is correct?",
+    "choices": [
+      "Ethical governance may demand more than minimum legal compliance",
+      "The AI Act covers every ethical issue exhaustively",
+      "Ethical principles are identical to criminal law",
+      "Regulation makes human oversight redundant"
+    ],
+    "correct": 0,
+    "explanation": "The AI Act establishes binding obligations, while responsible practice can impose additional ethical safeguards.",
+    "source": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI"
+  },
+  {
+    "id": "d4b-039",
+    "module": "INN",
+    "week": 1,
+    "topic": "Creative destruction",
+    "stem": "Which idea is most associated with Schumpeter's creative destruction?",
+    "choices": [
+      "Innovation creates new structures while displacing established ones",
+      "Firms never lose market share after inventions",
+      "All innovations are incremental",
+      "Every invention has an equal probability of adoption"
+    ],
+    "correct": 0,
+    "explanation": "Creative destruction connects new combinations with displacement of existing economic arrangements.",
+    "source": "03_Innovation_Booklet, Week 01, Creative destruction"
+  },
+  {
+    "id": "d4b-040",
+    "module": "INN",
+    "week": 2,
+    "topic": "Learning modes",
+    "stem": "A manufacturer improves equipment through repeated hands-on interaction with users. Which learning mode is most directly illustrated?",
+    "choices": [
+      "Doing, Using and Interacting (DUI)",
+      "Science, Technology and Innovation (STI) only",
+      "Random sampling",
+      "Automatic text generation"
+    ],
+    "correct": 0,
+    "explanation": "DUI learning highlights practical, experiential and interactive knowledge flows.",
+    "source": "03_Innovation_Booklet, Week 02, Learning modes"
+  },
+  {
+    "id": "d4b-041",
+    "module": "INN",
+    "week": 3,
+    "topic": "Complexity",
+    "stem": "Why might a complex social–environmental problem resist a fixed optimisation plan?",
+    "choices": [
+      "Feedback and adaptation can alter the system as interventions occur",
+      "The problem has no participants",
+      "Every component is independent",
+      "Its outputs are always linear"
+    ],
+    "correct": 0,
+    "explanation": "Complex systems have interacting parts, feedbacks and adaptive responses that change outcomes.",
+    "source": "03_Innovation_Booklet, Week 03, Complexity"
+  },
+  {
+    "id": "d4b-042",
+    "module": "INN",
+    "week": 3,
+    "topic": "Foresight",
+    "stem": "Which statement best describes strategic foresight?",
+    "choices": [
+      "Exploring plausible alternatives to improve today's decisions",
+      "Predicting one certain future",
+      "Replacing all forecasts with intuition",
+      "Selecting only the most probable outcome"
+    ],
+    "correct": 0,
+    "explanation": "Foresight investigates multiple plausible futures rather than claiming certainty about one trajectory.",
+    "source": "03_Innovation_Booklet, Week 03, Foresight"
+  },
+  {
+    "id": "d4b-043",
+    "module": "INN",
+    "week": 3,
+    "topic": "Futures cone",
+    "stem": "A future described as preferable is primarily judged by which dimension?",
+    "choices": [
+      "Desirability from a specified perspective",
+      "Measured occurrence frequency",
+      "Statistical confidence interval",
+      "Historic average trend"
+    ],
+    "correct": 0,
+    "explanation": "Preferability is normative and depends on whose values and interests are considered.",
+    "source": "03_Innovation_Booklet, Week 03, Futures cone"
+  },
+  {
+    "id": "d4b-044",
+    "module": "INN",
+    "week": 4,
+    "topic": "Scanning",
+    "stem": "A faint early sign of a potentially important change is best termed what?",
+    "choices": [
+      "Weak signal",
+      "Megatrend",
+      "Roadmap milestone",
+      "Market saturation"
+    ],
+    "correct": 0,
+    "explanation": "Weak signals are early and ambiguous indications, rather than broad persistent trends.",
+    "source": "03_Innovation_Booklet, Week 04, Scanning"
+  },
+  {
+    "id": "d4b-045",
+    "module": "DTR",
+    "week": 1,
+    "topic": "Digital stages",
+    "stem": "Electronic approvals replace paper routing but the business model stays unchanged. Which change is most directly illustrated?",
+    "choices": [
+      "Digitalisation",
+      "Digitisation alone",
+      "Full organisational transformation",
+      "Platform monopolisation"
+    ],
+    "correct": 0,
+    "explanation": "Digitalisation changes or streamlines processes using digital technologies; transformation entails deeper organisational or value-creation change.",
+    "source": "04_Digital_Transformation_Booklet, Week 01, Digital stages"
+  },
+  {
+    "id": "d4b-046",
+    "module": "DTR",
+    "week": 2,
+    "topic": "Industry 5.0",
+    "stem": "Which set best captures the normative emphasis of Industry 5.0?",
+    "choices": [
+      "Human-centricity, sustainability and resilience",
+      "Only maximum automation and throughput",
+      "Replacement of every worker",
+      "Exclusive focus on digital advertising"
+    ],
+    "correct": 0,
+    "explanation": "Industry 5.0 frames innovation around worker well-being, environmental sustainability and resilience.",
+    "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0"
+  },
+  {
+    "id": "d4b-047",
+    "module": "DTR",
+    "week": 2,
+    "topic": "Digital maturity",
+    "stem": "Why does a high Digital Intensity Index score not prove full transformation maturity?",
+    "choices": [
+      "It counts technology adoption rather than evaluating strategy and outcomes",
+      "It measures only carbon emissions",
+      "It excludes internet connectivity",
+      "It guarantees responsible governance"
+    ],
+    "correct": 0,
+    "explanation": "DII tallies digital technology use, not whether the organisation changes strategy, value creation or governance effectively.",
+    "source": "04_Digital_Transformation_Booklet, Week 02, Digital maturity"
+  },
+  {
+    "id": "d4b-048",
+    "module": "DTR",
+    "week": 2,
+    "topic": "Human–robot collaboration",
+    "stem": "A collaborative robot is installed beside workers. Which safety claim is most defensible?",
+    "choices": [
+      "Safety depends on application-specific risk assessment and safeguards",
+      "The cobot label guarantees safety in every task",
+      "Shared spaces eliminate physical hazards",
+      "Operator training makes protective design unnecessary"
+    ],
+    "correct": 0,
+    "explanation": "Collaborative operation still requires assessment and controls appropriate to the actual task.",
+    "source": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration"
+  },
+  {
+    "id": "d4b-049",
+    "module": "DTR",
+    "week": 3,
+    "topic": "Technological frontier",
+    "stem": "An AI system performs well on one complex task but poorly on a superficially similar one. What concept explains this?",
+    "choices": [
+      "Jagged technological frontier",
+      "Uniform capability scaling",
+      "Perfect transfer learning",
+      "Deterministic productivity"
+    ],
+    "correct": 0,
+    "explanation": "AI competence can vary unexpectedly between neighbouring tasks; performance must be tested at task level.",
+    "source": "04_Digital_Transformation_Booklet, Week 03, Technological frontier"
+  },
+  {
+    "id": "d4b-050",
+    "module": "DTR",
+    "week": 3,
+    "topic": "Technology trade-offs",
+    "stem": "An AI tool speeds report drafting but reduces opportunities for junior staff to practise analysis. Which interpretation is strongest?",
+    "choices": [
+      "Technological gains may come with unevenly distributed costs",
+      "Efficiency automatically creates net benefits for everyone",
+      "The workforce has no reason to evaluate skill loss",
+      "The trade-off disappears if the tool is popular"
+    ],
+    "correct": 0,
+    "explanation": "Socio-technical assessment must consider both benefits and displaced skills, autonomy and responsibilities.",
+    "source": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs"
+  },
+  {
+    "id": "d4b-051",
+    "module": "DTR",
+    "week": 3,
+    "topic": "Human–AI teaming",
+    "stem": "Why does a conversational system's fluent response not establish its reliability?",
+    "choices": [
+      "Fluency and evidence-grounded correctness are distinct",
+      "Humanlike text certifies a data source",
+      "Confidence guarantees calibration",
+      "Long answers cannot contain errors"
+    ],
+    "correct": 0,
+    "explanation": "A model can generate persuasive language while still making unsupported claims.",
+    "source": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming"
+  },
+  {
+    "id": "d4b-052",
+    "module": "DTR",
+    "week": 4,
+    "topic": "Platforms",
+    "stem": "What is platformization?",
+    "choices": [
+      "The increasing embedding of digital platforms as infrastructures of everyday activity",
+      "Converting paper records to PDFs",
+      "Physically connecting desktop printers",
+      "Replacing all software with spreadsheets"
+    ],
+    "correct": 0,
+    "explanation": "Platformization describes platforms becoming integral socio-technical infrastructures.",
+    "source": "04_Digital_Transformation_Booklet, Week 04, Platforms"
+  },
+  {
+    "id": "d4b-053",
+    "module": "DTR",
+    "week": 4,
+    "topic": "Algorithmic selection",
+    "stem": "A ranking algorithm affects which local services users discover. What mechanism is illustrated?",
+    "choices": [
+      "Selection or visibility power",
+      "Pure data storage",
+      "Analogue archiving",
+      "A physical network outage"
+    ],
+    "correct": 0,
+    "explanation": "Ranking and recommendation systems shape visibility and thus influence behaviour and economic outcomes.",
+    "source": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection"
+  },
+  {
+    "id": "d4b-054",
+    "module": "DTR",
+    "week": 4,
+    "topic": "Datafication",
+    "stem": "What is datafication in a platform society?",
+    "choices": [
+      "Representing activities and relationships as measurable data",
+      "Deleting all data after use",
+      "Encrypting a hard drive",
+      "Separating digital work from organisational processes"
+    ],
+    "correct": 0,
+    "explanation": "Datafication turns aspects of human activity into quantified, trackable data.",
+    "source": "04_Digital_Transformation_Booklet, Week 04, Datafication"
+  },
+  {
+    "id": "d4b-055",
+    "module": "DTR",
+    "week": 4,
+    "topic": "Interoperability",
+    "stem": "Which design choice best reduces unnecessary vendor lock-in?",
+    "choices": [
+      "Portable input/output formats and documented dependencies",
+      "Proprietary exports without documentation",
+      "A single inaccessible cloud database",
+      "Removing data lineage records"
+    ],
+    "correct": 0,
+    "explanation": "Interoperable formats and clear dependency documentation support portability and contestability.",
+    "source": "04_Digital_Transformation_Booklet, Week 04, Interoperability"
   }
 ]);
