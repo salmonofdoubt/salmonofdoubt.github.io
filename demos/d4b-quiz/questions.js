@@ -174,10 +174,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "BERT was introduced using a bidirectional Transformer encoder; GPT uses autoregressive Transformer decoding.",
     "source": "01_Generative_AI_Booklet, Week 03, BERT versus GPT",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 03, BERT versus GPT",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://aclanthology.org/N19-1423/",
+      "locator": "Devlin et al., BERT paper, Abstract and architecture; compare Radford et al., GPT 2018, https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf",
+      "scope": "Encoder-oriented BERT versus autoregressive decoder GPT",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -372,10 +377,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Disruption refers to a market and business-model trajectory, often originating in overlooked segments, not merely the scale of technological novelty.",
     "source": "03_Innovation_Booklet, Week 02, Disruption",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 02, Disruption",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://www.christenseninstitute.org/theory/disruptive-innovation/",
+      "locator": "Christensen Institute, Definition and Disruptive vs Sustaining Innovations; low-end/new-market foothold and upmarket trajectory",
+      "scope": "Market trajectory not radical technological novelty",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -624,10 +634,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Task-specific post-processing maps model scores into interpretable outputs.",
     "source": "01_Generative_AI_Booklet, Week 04, Inference pipelines",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04, Inference pipelines",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/pipelines/text_classification.py",
+      "locator": "Hugging Face Transformers TextClassificationPipeline, postprocess: logits -> sigmoid/softmax -> label/score",
+      "scope": "Logit post-processing for text classification",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -876,10 +891,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Accuracy can be deceptively high while minority-class recall is zero.",
     "source": "02_AI_for_Business_Booklet, Week 04, Imbalanced classes",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04, Imbalanced classes",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-09",
+      "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "locator": "scikit-learn model evaluation, balanced accuracy and imbalanced classes; a constant nonfraud prediction has zero positive recall",
+      "scope": "99% accuracy conceals fraud minority-class failure",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1299,12 +1319,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "VAEs learn a probabilistic latent space and sample from it when generating outputs.",
     "source": "01_Generative_AI_Booklet, Week 01, Model families",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 01 / Model families",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://arxiv.org/abs/1312.6114",
+      "locator": "Kingma and Welling, Auto-Encoding Variational Bayes, Abstract and approximate posterior/latent variables",
+      "scope": "Probabilistic latent encoding versus deterministic autoencoder",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1395,12 +1420,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Multiple heads can attend to different relationships or representational subspaces.",
     "source": "01_Generative_AI_Booklet, Week 03, Multi-head attention",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 03 / Multi-head attention",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "locator": "Vaswani et al., Attention Is All You Need, §3.2.2 Multi-Head Attention",
+      "scope": "Multiple representation subspaces and attention relationships",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1419,12 +1449,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A causal mask limits each position's attention to its available past and current context.",
     "source": "01_Generative_AI_Booklet, Week 03, Decoder attention",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 03 / Decoder attention",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "locator": "Vaswani et al., Attention Is All You Need, §3.1 Decoder, masking future positions",
+      "scope": "Causal masking prevents attending to subsequent positions",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1443,12 +1478,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A tokenizer converts input text into token identifiers consumed by the model.",
     "source": "01_Generative_AI_Booklet, Week 04, Hugging Face pipeline",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04 / Hugging Face pipeline",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://github.com/huggingface/transformers/blob/main/docs/source/en/tasks/sequence_classification.md",
+      "locator": "Hugging Face Transformers sequence-classification tutorial, inference: AutoTokenizer(text) -> model logits",
+      "scope": "Tokenizers turn text into token identifiers",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1635,12 +1675,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Precision and recall separate false-positive burden from missed positives, whereas overall accuracy can conceal poor minority-class behaviour.",
     "source": "02_AI_for_Business_Booklet, Week 03, Classification evaluation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 03 / Classification evaluation",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html",
+      "locator": "scikit-learn Precision-Recall example: TP/(TP+FP), TP/(TP+FN), especially imbalanced classes",
+      "scope": "Precision and recall measure distinct minority-positive mistakes",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1659,12 +1704,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Early stopping uses validation trends to avoid excessive fitting to training data.",
     "source": "02_AI_for_Business_Booklet, Week 03, Overfitting and validation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 03 / Overfitting and validation",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://scikit-learn.org/stable/modules/generated/sklearn.neural_network.MLPClassifier.html",
+      "locator": "scikit-learn MLPClassifier parameter early_stopping; validation-score based stopping even if training loss improves",
+      "scope": "Early stopping based on independent validation behaviour",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1683,12 +1733,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Parameters for preprocessing must be learned from the training partition only.",
     "source": "02_AI_for_Business_Booklet, Week 04, Preprocessing and leakage",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04 / Preprocessing and leakage",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage",
+      "locator": "scikit-learn Common Pitfalls: split training/test before fitting transforms; apply train-fitted scaler to test",
+      "scope": "Avoid data leakage during scaling",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1731,12 +1786,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The AI Act requires substantial safeguards for designated high-risk uses, while unacceptable-risk practices may be prohibited.",
     "source": "02_AI_for_Business_Booklet, Week 05, AI Act risk levels",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 05 / AI Act risk levels",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-9",
+      "locator": "AI Act Article 9 high-risk risk-management system; Article 6 risk classification, https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-6",
+      "scope": "High-risk permitted AI category with extensive obligations",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -1755,12 +1815,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Meaningful oversight needs the capability and authority to interpret, contest or override model-assisted outcomes.",
     "source": "02_AI_for_Business_Booklet, Week 05, Human oversight",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 05 / Human oversight",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-14",
+      "locator": "AI Act Article 14(4): human monitors, interprets, overrides and intervenes",
+      "scope": "Oversight demands real authority and comprehension",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
@@ -2019,12 +2084,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The lecture bands are 0–3 very low, 4–6 low, 7–9 high and 10–12 very high.",
     "source": "04_Digital_Transformation_Booklet, Week 02, Digital Intensity Index",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02 / Digital Intensity Index",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-09",
+      "url": "https://ec.europa.eu/eurostat/web/interactive-publications/digitalisation-2024",
+      "locator": "Eurostat Digitalisation in Europe 2024, Digital Intensity Index: 12 technologies, 10–12 = very high",
+      "scope": "Lecture scoring aligns with Eurostat's 10–12 classification",
+      "method": "Checked keyed answer, three alternatives and explanation against named primary technical, scholarly or EU authority; no assertion about Moodle official answers."
     }
   },
   {
