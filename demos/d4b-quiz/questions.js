@@ -44,10 +44,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "GAN training pits a generator against a discriminator; a VAE learns a probabilistic latent representation.",
     "source": "01_Generative_AI_Booklet, Week 01, Model families",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 01, Model families",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "locator": "Goodfellow et al. (2014), abstract: adversarial generator and discriminator",
+      "url": "https://arxiv.org/abs/1406.2661",
+      "scope": "GEN W1 · GAN mechanism",
+      "method": "Independent technical-primary-source answer and distractor check; this does not authenticate Moodle grading."
     }
   },
   {
@@ -66,10 +71,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A diffusion model produces samples through successive denoising steps.",
     "source": "01_Generative_AI_Booklet, Week 01, Model families",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 01, Model families",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://arxiv.org/abs/2006.11239",
+      "locator": "Ho, Jain & Abbeel (2020), Denoising Diffusion Probabilistic Models; denoising-based image synthesis",
+      "scope": "GEN W1 · diffusion",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
@@ -110,10 +120,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "FastText incorporates character n-grams, improving representations of rare or unseen words.",
     "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://arxiv.org/abs/1607.04606",
+      "locator": "Bojanowski et al. (2017), abstract: character n-grams and unseen-word representations",
+      "scope": "GEN W2 · FastText",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
@@ -132,10 +147,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Queries are compared with keys to form attention weights that combine values.",
     "source": "01_Generative_AI_Booklet, Week 03, Attention",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 03, Attention",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "locator": "Vaswani et al. (2017), §3.2.1: query-key compatibility and value weighting",
+      "url": "https://arxiv.org/html/1706.03762v7",
+      "scope": "GEN W3 · attention queries",
+      "method": "Independent technical-primary-source answer and distractor check; this does not authenticate Moodle grading."
     }
   },
   {
@@ -506,10 +526,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Context-dependent representations vary with surrounding words, unlike fixed one-vector-per-word schemes.",
     "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://arxiv.org/abs/1802.05365",
+      "locator": "Peters et al. (2018), abstract: word uses vary by linguistic context (ELMo)",
+      "scope": "GEN W2 · contextual embeddings",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
@@ -528,10 +553,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Attention scores weight the value vectors to construct a contextual representation.",
     "source": "01_Generative_AI_Booklet, Week 03, Attention",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 03, Attention",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "locator": "Vaswani et al. (2017), §3.2.1: weighted sum of values",
+      "url": "https://arxiv.org/html/1706.03762v7",
+      "scope": "GEN W3 · attention values",
+      "method": "Independent technical-primary-source answer and distractor check; this does not authenticate Moodle grading."
     }
   },
   {
@@ -726,10 +756,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Repeated optimisation against test results undermines its independence as a final generalisation estimate.",
     "source": "02_AI_for_Business_Booklet, Week 03, Validation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 03, Validation",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "locator": "scikit-learn Common Pitfalls, §12.2: separation of final test data from model selection",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage",
+      "scope": "AIB W3 · independent testing",
+      "method": "Independent technical-primary-source answer and distractor check; this does not authenticate Moodle grading."
     }
   },
   {
@@ -748,10 +783,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Preprocessing that learns dataset statistics should be fitted on training data to avoid leakage.",
     "source": "02_AI_for_Business_Booklet, Week 03, Data leakage",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 03, Data leakage",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "locator": "scikit-learn Common Pitfalls, §12.2: split data before fitting StandardScaler",
+      "url": "https://scikit-learn.org/stable/common_pitfalls.html#data-leakage",
+      "scope": "AIB W3 · data leakage",
+      "method": "Independent technical-primary-source answer and distractor check; this does not authenticate Moodle grading."
     }
   },
   {
@@ -1034,10 +1074,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Industry 5.0 frames innovation around worker well-being, environmental sustainability and resilience.",
     "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://research-and-innovation.ec.europa.eu/research-area/industrial-research-and-innovation/industry-50_en",
+      "locator": "European Commission, Industry 5.0, 'What is Industry 5.0?' three core priorities",
+      "scope": "DTR W2 · Industry 5.0",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
