@@ -30,6 +30,8 @@ jobs:
           node-version: '22'
       - name: Check external sources
         run: node scripts/d4b-consolidate.cjs discover
+      - name: Incorporate vetted candidate questions
+        run: node scripts/d4b-consolidate.cjs ingest
       - name: Audit question bank
         run: node scripts/d4b-consolidate.cjs audit
       - name: Consolidate evidence report
@@ -39,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add demos/d4b-quiz/source-check.json demos/d4b-quiz/audit-report.json demos/d4b-quiz/consolidation.json
+          git add demos/d4b-quiz/source-check.json demos/d4b-quiz/audit-report.json demos/d4b-quiz/consolidation.json demos/d4b-quiz/ingestion-report.json demos/d4b-quiz/questions.js demos/d4b-quiz/index.html demos/d4b-quiz/service-worker.js
           if git diff --cached --quiet; then
             echo "No report changes."
           else
