@@ -66,7 +66,7 @@ function checkAnswer(){
   else if(i===selected)b.classList.add('wrong');
  });
  $('feedback').classList.remove('hidden');
- $('feedback').innerHTML='<strong>'+(ok?'Correct.':'Not quite.')+'</strong><p>'+esc(q.explanation)+'</p><small>Study source: '+esc(q.source)+'</small>';
+ $('feedback').innerHTML='<strong>'+(ok?'Correct.':'Not quite.')+'</strong><p>'+esc(q.explanation)+'</p><small>Study source: '+esc(q.source)+' · '+(q.verification==='verified'?'Independently checked':'Original-source audit pending')+'</small><p>'+evidenceLink(q)+'</p>';
  $('next').textContent=index===session.length-1?'Finish session':'Next question';
 }
 function advance(){if(index>=session.length-1)finish();else{index++;render()}}
@@ -82,7 +82,7 @@ let out='<p class="eyebrow">SESSION COMPLETE</p><h2>'+correct+' / '+count+' corr
 if(mode==='exam')out+='<p>Timed exam simulation. Feedback was held until the end.</p>';
 if(count<session.length)out+='<p>'+ (session.length-count)+' question(s) unanswered.</p>';
 out+='<h3>Answer review</h3>';
-out+=answers.map(a=>{const q=questions.find(x=>x.id===a.id);return '<details><summary>'+esc(q.topic)+' · '+(a.ok?'Correct':'Review')+'</summary><p>'+esc(q.stem)+'</p><p><b>Your answer:</b> '+esc(q.choices[a.value])+'</p><p><b>Best answer:</b> '+esc(q.choices[q.correct])+'</p><p>'+esc(q.explanation)+'</p><p class="fine">'+esc(q.source)+'</p></details>'}).join('');
+out+=answers.map(a=>{const q=questions.find(x=>x.id===a.id);return '<details><summary>'+esc(q.topic)+' · '+(a.ok?'Correct':'Review')+'</summary><p>'+esc(q.stem)+'</p><p><b>Your answer:</b> '+esc(q.choices[a.value])+'</p><p><b>Best answer:</b> '+esc(q.choices[q.correct])+'</p><p>'+esc(q.explanation)+'</p><p class="fine">'+esc(q.source)+' · '+(q.verification==='verified'?'Independently checked':'Original-source audit pending')+'</p>'+evidenceLink(q)+'</details>'}).join('');
 out+='<div class="actions"><button id="again" class="primary-button">Practise again</button></div>';$('summary').innerHTML=out;$('again').addEventListener('click',start);$('summary').scrollIntoView({behavior:'smooth',block:'start'});deadline=0}
 $('module').addEventListener('change',weeks);$('week').addEventListener('change',updateAvailability);$('mode').addEventListener('change',updateAvailability);$('count').addEventListener('change',updateAvailability);$('start').addEventListener('click',start);$('next').addEventListener('click',next);$('stop').addEventListener('click',finish);
 $('reset').addEventListener('click',()=>{if(confirm('Delete all quiz history stored in this browser?')){history={};save()}});
