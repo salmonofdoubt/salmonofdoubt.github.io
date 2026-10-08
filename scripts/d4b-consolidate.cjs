@@ -117,6 +117,17 @@ function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'
  }
  const curriculum=parseCurriculum(code);
  const missing=Object.entries(curriculum).flatMap(([m,weeks])=>weeks.map((_,i)=>m+':'+(i+1))).filter(k=>!byWeek[k]);
+ const reviewItems=questions.map(q=>({
+ id:q.id,module:q.module,week:q.week,topic:q.topic,
+ origin:q.origin,verification:q.verification,booklet_section:q.source,
+ primary_reference:q.evidence?.url||null,primary_locator:q.evidence?.locator||null,
+ last_independent_review:q.evidence?.reviewed_at||null,
+ next_action:q.verification==='verified'?'Recheck when source or question changes':q.verification==='flagged'?'Resolve ambiguity before scoring':'Check full answer, all three distractors and precise primary/lecturer-source evidence'
+}));
+ const reviewQueue={generated_at:time(),source:'Public original-question bank only; private Moodle material excluded',total:reviewItems.length,
+ waiting_primary_review:reviewItems.filter(q=>q.verification!=='verified').length,
+ items:reviewItems};
+ put('review-queue.json',reviewQueue);
  const result={checked_at:time(),count:questions.length,bank_fingerprint:hash(code),statuses,by_week:byWeek,uncovered_weeks:missing,structural_errors:errors,independently_verified:statuses.pending===0&&statuses.flagged===0&&errors.length===0};
  put('audit-report.json',result);console.log('questions '+result.count+', pending '+statuses.pending+', schema errors '+errors.length);
  if(errors.length)throw Error(errors.join('; '));
