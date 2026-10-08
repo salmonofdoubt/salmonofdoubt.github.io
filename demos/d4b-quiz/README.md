@@ -1,54 +1,65 @@
-# D4B Evidence Quiz | Evidence pipeline
+# D4B Evidence Quiz — ingestion and audit
 
-Built on the existing \`demos/demo-template/\` scaffold. The public question bank and the local personal-study bank have separate trust boundaries.
+This is a GitHub Pages PWA derived from `/demos/demo-template/`. It keeps a *public, original* question bank separate from imported private Moodle questions. The existing learner-progress localStorage key and stable question identifiers are retained.
 
-## Source registry and permitted capabilities
+## Four sources and actual access
 
-| Source | Current actual capability | Private data published? |
+| Source | Current capability | Ingestion |
 | --- | --- | --- |
-| Digital Leprechaun | Public HTML availability and SHA-256 fingerprint only | No |
-| Get Styled D4B | Public HTML availability and SHA-256 fingerprint only | No |
-| User's Google Drive | Requires an authenticated private connector or authorised export | No |
-| ChatGPT quiz conversations | Requires a user-controlled export or private extraction | No |
+| Digital Leprechaun | Check public HTML and up to eight same-origin JavaScript asset fingerprints | **No copying** of peer questions; inspect new source changes and permissions before deriving original practice items |
+| Get Styled D4B | Check public HTML and same-origin JavaScript asset fingerprints | Same restriction |
+| User's Digital4Business Drive | Read with the explicitly connected ChatGPT Drive connector during an authorised content-review session | No background Drive OAuth or GitHub Actions credentials configured |
+| User's quiz conversations | ChatGPT can recover some supplied messages or read a user-provided export | No full-conversation API connection to the public website |
 
-**A successful source check does not mean that questions were ingested.** Neither public quiz site currently provides a validated ingestion contract. The initial 55 questions are booklet-derived; their source markers do not certify their factual correctness.
+Private original Moodle questions must remain browser-local or in an expressly authorised private store. Never commit private quizzes, Drive booklets or ChatGPT exports to this public repository.
 
-## Refresh from the website
+## Supported refresh pipeline
 
-Click **Refresh via GitHub**. The site opens the GitHub Actions workflow. Sign in and select **Run workflow**, with the default branch selected. Return to the quiz page. The progress panel uses real GitHub Actions step states; **Check status** updates it on demand.
+The authenticated `.github/workflows/d4b-refresh.yml` workflow performs:
 
-The workflow performs the following steps:
+1. **Check external sources** — downloads public site shells and linked first-party JavaScript assets; records only hashes, asset counts and changed/unavailable statuses.
+2. **Incorporate vetted candidate questions** — reads `candidates.json`, validates four options, correct-answer index, module/week, source, provenance, stable IDs and collision-free stems; adds approved *original* questions idempotently to `questions.js`.
+3. **Audit question bank** — checks shape, duplicate IDs and stems, week coverage, verification metadata, answer-key formatting and evidence requirements.
+4. **Consolidate** — creates an ingestion report, source check, audit report and manifest with timestamps, counts and explicit access limitations.
+5. **Publish** — commits the consolidated public bank and cache-busted PWA asset URLs only if all preceding stages succeed.
 
-1. Check public-source availability; record checksums, response sizes, connection errors and explicit private-source connection limits. It never commits fetched question text.
-2. Audit public question-bank schema, IDs, answer indexes, provenance fields and evidence-gated verification states.
-3. Consolidate a public, machine-readable report. Record \`last_checked_at\`, \`last_consolidated_at\`, and \`last_question_bank_change_at\` as distinct timestamps.
-4. Commit only the safe metadata files \`source-check.json\`, \`audit-report.json\` and \`consolidation.json\`. On a bad structural audit the workflow fails and the published report remains unchanged.
+Click **Refresh via GitHub** on the quiz, then select **Run workflow** on `master`. The website reads *real* GitHub Actions step state and displays the successful consolidation date and new-question count. Because this is a static public site, refresh **does not** directly hold or use a GitHub write token. A truly single-click action requires an owner-authenticated backend.
 
-An external fetch failure appears as **unavailable**, not "checked and ingested". Manual workflow triggering cannot securely be replaced by an unauthenticated public browser button. A true one-click trigger would require an authenticated service, for example a Cloudflare Access-protected Worker and server-side GitHub workflow token.
+The pull-request workflow tests the ingestion without publishing. It also runs ingestion a second time and requires zero new questions on the repeat, thereby testing idempotence.
 
-## Verification policy
+## First batch
 
-\`verification="pending"\`: not independently fact-checked. \`verification="flagged"\`: known ambiguity or contradiction requiring review. \`verification="verified"\`: allowed only with \`evidence.originalMaterialChecked=true\`, a source \`locator\`, and \`reviewed_at\`. A confirmed Moodle answer key on its own is not independent verification.
+- Previously available: 55 original, booklet-derived MCQs across 18 documented module-weeks.
+- `candidates.json`: 36 additional original MCQs (two per documented week).
+- The next successful production refresh following merge ingests 36, giving **91 public questions** if nothing else changes.
+- Nine original questions have been independently checked against named primary technical research or a competent authority, each with a source URL and precise locator.
+- All remaining items are **pending independent verification**. A structural audit passing is not academic verification.
 
-The workflow checks *structural consistency*, not semantic truth. Indepedent review of the original academic sources and near-miss answer options remains necessary. Never present a question as verified merely because schema tests pass.
+### Candidate question schema
 
-## Private Moodle import
+`candidates.json` contains an `items` array of questions with immutable IDs, module `GEN`, `AIB`, `INN`, `DTR`, week integer, topic, stem, four choices, zero-based correct index, explanation, source, origin `booklet-derived`, verification `pending`, and evidence `{source, originalMaterialChecked:false}`.
 
-The existing private-import control in the quiz takes a local JSON file with original Moodle question text, choices and recorded answer key. It stores that information in browser \`localStorage\` only. It is not synced across devices and disappears if browser site storage is cleared. Do not upload private Moodle records to this public GitHub repository.
+Do **not** re-use an existing ID for a revised question with a different answer. Keep the old ID retired and allocate a new ID, so that historical accuracy/mistake statistics remain meaningful.
 
-## Operations and regression checks
+### Verification
 
-- First run: merge the PR so the new workflow exists on the default branch; then use GitHub Actions to run it.
-- PR changes automatically run the audit workflow without publishing reports to the branch.
-- JS source and manifest must be cache-busted on every change; increase the scoped PWA cache.
-- Desktop and mobile: test the refresh panel, large-text wrapping, touch targets, install button, fixed DOI floater, accessibility labels, question selection, scored review, timer, private import, history persistence and offline fallback.
-- Do not delete the existing progress localStorage key; stable question IDs preserve history.
-- For publication of new public questions, change \`questions.js\` through reviewed GitHub changes and update its cache version. Private sources must not be committed.
+- `pending`: rationale has not yet been independently checked against an authoritative original source.
+- `verified`: the answer and alternative options were checked, and the record carries `evidence.url`, `evidence.locator`, `evidence.originalMaterialChecked=true`, `evidence.reviewed_at`.
+- `flagged`: ambiguous, contradictory or incomplete; requires review and should not be promoted to verified.
+- An *official lecturer answer key* can be recorded separately in the private Moodle import. It is **not** synonymous with independent correctness.
 
-## Remaining engineering work
+Verification takes academic judgement. The automation checks evidence metadata exists, not whether the original paper logically proves the key. Never infer official quiz questions or answers from lecture-note summaries.
 
-- Legitimate external question-feed access and reuse review for both peer sites.
-- Authorised private Drive ingestion and change detection.
-- ChatGPT export processing or another consent-based archive interface.
-- An actual semantic answer-audit queue with per-question evidence signatures and human review.
-- Optional direct one-click authenticated trigger once the operator elects to configure server-side credentials.
+## Browser-local Moodle questions
+
+The **Official Moodle quizzes · private import** control accepts a JSON file. This is stored in browser localStorage and is not synced, uploaded, or included in public GitHub Pages deployments. It preserves original wording and official-key state where available. Export your local history before clearing browser storage.
+
+## Operational testing
+
+Before merging code changes: inspect the PR's D4B Evidence Refresh check; it must pass including idempotency. After a merge: run `master` manually, ensure the generated `ingestion-report.json`, `audit-report.json`, `consolidation.json` and `questions.js` are committed and Pages deployment succeeds.
+
+Test desktop and mobile for selection highlighting, ability to switch answer until submitted, explanation/source links, responsive filters, timed exam mode, install control, DOI floater, private import, history persistence, no horizontal overflow and installed-PWA freshness.
+
+## Important remaining connectors
+
+Automatic full-text extraction from either peer site is not implemented (access/reuse permission not established). Automatic ingestion from the user's Drive and ChatGPT conversations in a GitHub Actions run is **not implemented** and requires a private authorisation/deployment design. The current refresh ingests new *staged original* questions and monitors external content hashes; it does not hallucinate lecturer questions or claim every question is verified.
