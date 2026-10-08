@@ -13,10 +13,12 @@ function fetchHtml(url,depth=0){return new Promise((resolve,reject)=>{
   res.on('end',()=>resolve({fingerprint:hash(Buffer.concat(chunks)),bytes:size}));res.on('error',reject);
  });req.on('timeout',()=>req.destroy(Error('Timeout')));req.on('error',reject);
 })}
-async function discover(){const result={checked_at:time(),sources:[]};for(const s of read('sources.json').sources){
+async function discover(){const previous=read('source-check.json')?.sources||[];const result={checked_at:time(),sources:[]};for(const s of read('sources.json').sources){
  let record={id:s.id,name:s.name,mode:s.mode};
  if(s.kind==='public'){try{Object.assign(record,{status:'reachable-shell',...await fetchHtml(s.url)})}catch(e){record.status='unavailable';record.error=String(e.message).slice(0,100)}}
  else record.status='not-connected';
+ const old=previous.find(x=>x.id===s.id);
+ record.content_changed=record.status==='reachable-shell'&&old?.status==='reachable-shell'?record.fingerprint!==old.fingerprint:null;
  result.sources.push(record);console.log(s.id+': '+record.status);
 }put('source-check.json',result)}
 
@@ -107,7 +109,7 @@ function consolidate(){const audit=read('audit-report.json'),discovery=read('sou
  const output={schema_version:1,last_checked_at:at,last_consolidated_at:changed?at:prev.last_consolidated_at,last_question_bank_change_at:!prev||prev.bank_fingerprint!==audit.bank_fingerprint?at:prev.last_question_bank_change_at,
  content_fingerprint:digest,content_changed:changed,bank_fingerprint:audit.bank_fingerprint,question_count:audit.count,question_status:audit.statuses,by_week:audit.by_week,uncovered_weeks:audit.uncovered_weeks,new_questions_ingested:ingestion.added,source_status:discovery.sources,
  audit:{structural_errors:0,independently_verified:audit.independently_verified},
- limitation:'External sources only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. No question extraction or factual verification is claimed.'};
+ limitation:'36 original booklet-derived candidates can be ingested after an explicit refresh. External peer sites only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. Independent factual verification remains pending.'};
  put('consolidation.json',output);console.log('consolidation '+(changed?'changed':'unchanged'));
 }
 (async()=>{try{if(phase==='discover')await discover();else if(phase==='ingest')ingest();else if(phase==='audit')audit();else if(phase==='consolidate')consolidate();else if(phase==='all'){await discover();ingest();audit();consolidate()}else throw Error('Unknown phase')}catch(e){console.error(e);process.exitCode=1}})();
