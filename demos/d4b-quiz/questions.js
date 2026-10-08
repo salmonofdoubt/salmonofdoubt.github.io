@@ -71,10 +71,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A diffusion model produces samples through successive denoising steps.",
     "source": "01_Generative_AI_Booklet, Week 01, Model families",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 01, Model families",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://arxiv.org/abs/2006.11239",
+      "locator": "Ho, Jain & Abbeel (2020), Denoising Diffusion Probabilistic Models; denoising-based image synthesis",
+      "scope": "GEN W1 · diffusion",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
@@ -115,10 +120,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "FastText incorporates character n-grams, improving representations of rare or unseen words.",
     "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://arxiv.org/abs/1607.04606",
+      "locator": "Bojanowski et al. (2017), abstract: character n-grams and unseen-word representations",
+      "scope": "GEN W2 · FastText",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
@@ -516,10 +526,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Context-dependent representations vary with surrounding words, unlike fixed one-vector-per-word schemes.",
     "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://arxiv.org/abs/1802.05365",
+      "locator": "Peters et al. (2018), abstract: word uses vary by linguistic context (ELMo)",
+      "scope": "GEN W2 · contextual embeddings",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
@@ -1059,10 +1074,15 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Industry 5.0 frames innovation around worker well-being, environmental sustainability and resilience.",
     "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-08",
+      "url": "https://research-and-innovation.ec.europa.eu/research-area/industrial-research-and-innovation/industry-50_en",
+      "locator": "European Commission, Industry 5.0, 'What is Industry 5.0?' three core priorities",
+      "scope": "DTR W2 · Industry 5.0",
+      "method": "Independent primary-source answer and distractor check; does not authenticate Moodle grading."
     }
   },
   {
