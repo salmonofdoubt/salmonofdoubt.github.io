@@ -1,15 +1,15 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-v3';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-v4';
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css?v=20261008-3',
-  './app.js?v=20261008-3',
-  './site-config.js?v=20261008-3',
+  './styles.css?v=20261008-4',
+  './app.js?v=20261008-4',
+  './site-config.js?v=20261008-4',
   './manifest.webmanifest',
   './icon.svg',
-  './quiz.css?v=20261008-3',
-  './questions.js?v=20261008-3',
-  './quiz.js?v=20261008-3'
+  './quiz.css?v=20261008-4',
+  './questions.js?v=20261008-4',
+  './quiz.js?v=20261008-4'
 ];
 
 self.addEventListener('install', (event) => {
