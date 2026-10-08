@@ -13,16 +13,16 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20261008-2">
-  <link rel="stylesheet" href="./quiz.css?v=20261008-2">
+  <link rel="stylesheet" href="./styles.css?v=20261008-3">
+  <link rel="stylesheet" href="./quiz.css?v=20261008-3">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=20261008-2"></script>
-  <script defer src="./app.js?v=20261008-2"></script>
-  <script defer src="./questions.js?v=20261008-2"></script>
-  <script defer src="./quiz.js?v=20261008-2"></script>
+  <script defer src="./site-config.js?v=20261008-3"></script>
+  <script defer src="./app.js?v=20261008-3"></script>
+  <script defer src="./questions.js?v=20261008-3"></script>
+  <script defer src="./quiz.js?v=20261008-3"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
   <!-- End Cloudflare Web Analytics -->
@@ -45,11 +45,11 @@
     <label>Module<select id="module"><option value="all">All four modules</option><option value="GEN">Generative AI</option><option value="AIB">AI for Business</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option></select></label>
     <label>Week<select id="week"><option value="all">All available weeks</option></select></label>
     <label>Practice<select id="mode"><option value="adaptive">Adaptive review</option><option value="exam">Timed exam simulation</option><option value="mistakes">Mistakes only</option></select></label>
-    <label>Questions<select id="count"><option value="10">10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option></select></label>
-   </div><div class="actions"><button class="primary-button" id="start">Start practice</button><button class="quiet-button" id="reset">Reset local history</button><button class="quiet-button" id="export">Export progress</button></div>
+    <label>Questions<select id="count"><option value="all">All available questions</option><option value="10">10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option></select></label>
+   </div><p id="availability" class="availability" role="status"></p><div class="actions"><button class="primary-button" id="start">Start practice</button><button class="quiet-button" id="reset">Reset local history</button><button class="quiet-button" id="export">Export progress</button></div>
    <p class="notice">Prototype bank: original practice items based on your D4B study booklets. Not lecturer-approved; never assume these are official exam questions. The booklets themselves are not published here.</p>
   </section>
-  <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><div><b id="due">0</b><span>Questions to revisit</span></div><div><b id="bank">0</b><span>Questions in bank</span></div></section>
+  <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><div><b id="due">0</b><span>Questions to revisit</span></div><div><b id="bank">0</b><span>Questions in complete bank</span></div></section>
   <section class="quiz-panel hidden" id="session" aria-live="polite"><div class="session-top"><span id="position"></span><strong id="clock" aria-live="off"></strong></div><div class="progress-track"><div id="bar"></div></div><div class="meta" id="topic"></div><h2 id="prompt"></h2><div class="choices" id="choices"></div><div id="feedback" class="feedback hidden"></div><div class="actions"><button class="primary-button" id="next" disabled>Next question</button><button class="quiet-button" id="stop">Finish session</button></div></section>
   <section class="quiz-panel hidden" id="summary" aria-live="polite"></section>
   <section class="quiz-panel"><h2>How this differs</h2><p>Every question has a module, week, topic and named study source. Questions emphasise conceptual distinctions and practical application. Wrong answers enter the review queue. Exam mode delays feedback until the session ends.</p><p class="fine">Sources: your D4B module booklets, September–October 2026. An item’s source label identifies the relevant booklet section, not an official endorsement. Study offline once installed; never rely on this resource during a closed-book exam.</p></section>
