@@ -82,18 +82,22 @@ function ingest(){
   existingStems.add(normalize(q.stem));existingIds.add(q.id);additions.push(q);
  }
  if(errors.length)throw Error('Publication blocked. Candidate validation: '+errors.join('; '));
- if(additions.length){
-  const replaced=code.slice(0,bank.start)+JSON.stringify([...bank.list,...additions],null,2)+code.slice(bank.end);
-  fs.writeFileSync(file,replaced);
-  const version='bank-'+hash(replaced).slice(0,10);
-  const indexPath=path.join(dir,'index.html'),swPath=path.join(dir,'service-worker.js');
-  let index=fs.readFileSync(indexPath,'utf8'),sw=fs.readFileSync(swPath,'utf8');
-  index=index.replace(/(questions\.js\?v=)[^"]+/g,'$1'+version);
-  sw=sw.replace(/(questions\.js\?v=)[^']+/g,'$1'+version);
-  sw=sw.replace(/(const CACHE_NAME = ')[^']+(')/,"$1salmon-d4b-evidence-quiz-"+version+"$2");
-  if(!index.includes('questions.js?v='+version)||!sw.includes('questions.js?v='+version))throw Error('Versioned asset path could not be updated');
-  fs.writeFileSync(indexPath,index);fs.writeFileSync(swPath,sw);
- }
+ // Sync the PWA assets for *any* bank change, not only when questions are added.
+ // In particular, verification-only audits must not keep an obsolete question cache.
+ const revised=additions.length
+  ? code.slice(0,bank.start)+JSON.stringify([...bank.list,...additions],null,2)+code.slice(bank.end)
+  : code;
+ if(revised!==code)fs.writeFileSync(file,revised);
+ const version='bank-'+hash(revised).slice(0,10);
+ const indexPath=path.join(dir,'index.html'),swPath=path.join(dir,'service-worker.js');
+ const beforeIndex=fs.readFileSync(indexPath,'utf8'),beforeSw=fs.readFileSync(swPath,'utf8');
+ const index=beforeIndex.replace(/(questions\.js\?v=)[^"]+/g,'$1'+version);
+ const sw=beforeSw.replace(/(questions\.js\?v=)[^']+/g,'$1'+version)
+  .replace(/(const CACHE_NAME = ')[^']+(')/,"$1salmon-d4b-evidence-quiz-"+version+"$2");
+ if(!index.includes('questions.js?v='+version)||!sw.includes('questions.js?v='+version))
+  throw Error('Versioned asset path could not be updated');
+ if(index!==beforeIndex)fs.writeFileSync(indexPath,index);
+ if(sw!==beforeSw)fs.writeFileSync(swPath,sw);
  const report={processed_at:time(),staged:proposals.length,added:additions.length,already_present:dupes.length,added_ids:additions.map(q=>q.id),
   source:'User booklet-derived original candidate set only. No Moodle or peer-site questions automatically copied.',
   independent_factual_verification_performed:false};
