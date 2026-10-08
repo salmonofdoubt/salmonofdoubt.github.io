@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-08T22:55:54.023Z",
-  "last_consolidated_at": "2026-10-08T22:55:54.023Z",
-  "last_question_bank_change_at": "2026-10-08T22:55:54.023Z",
-  "content_fingerprint": "b6f9456c0c9fee485cba186e1cf5691d2d2379a6ef36bb55e0c7c8e5bfd7823d",
+  "last_checked_at": "2026-10-08T23:47:34.712Z",
+  "last_consolidated_at": "2026-10-08T23:47:34.712Z",
+  "last_question_bank_change_at": "2026-10-08T23:47:34.712Z",
+  "content_fingerprint": "fdbc457b321dd903f8d434bdd81cacdf41f3ad00bfe64e58d7caee7c5dc71e0f",
   "content_changed": true,
-  "bank_fingerprint": "6b782c0bd5617662380b9357a86837a5e2ffced3ff6688b0e64e132eecb3a1d5",
+  "bank_fingerprint": "69a3b2333c631c4c84a2536a10c3243406223eee2800e44ee20760755dfe9e15",
   "question_count": 91,
   "question_status": {
-    "verified": 9,
-    "pending": 82,
+    "verified": 23,
+    "pending": 68,
     "flagged": 0
   },
   "by_week": {
@@ -33,7 +33,7 @@
     "DTR:4": 6
   },
   "uncovered_weeks": [],
-  "new_questions_ingested": 36,
+  "new_questions_ingested": 0,
   "source_status": [
     {
       "id": "leprechaun",
@@ -52,7 +52,7 @@
         }
       ],
       "fingerprint": "1ab02a4337ce4b2844e8c14d1120625c04f7d19dc2da13c393e274850c5c186f",
-      "content_changed": true
+      "content_changed": false
     },
     {
       "id": "get-styled",
@@ -65,7 +65,7 @@
       "assets_total": 0,
       "assets": [],
       "fingerprint": "729ef240dc8829751dad4dc64139838cfdbce2bd53e6bb038dec9779ac5e14b7",
-      "content_changed": true
+      "content_changed": false
     },
     {
       "id": "drive",
