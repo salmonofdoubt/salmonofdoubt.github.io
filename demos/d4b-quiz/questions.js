@@ -42,7 +42,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "GAN training pits a generator against a discriminator; a VAE learns a probabilistic latent representation.",
-    "source": "01_Generative_AI_Booklet, Week 01, Model families"
+    "source": "01_Generative_AI_Booklet, Week 01, Model families",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 01, Model families",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-002",
@@ -58,7 +64,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "A diffusion model produces samples through successive denoising steps.",
-    "source": "01_Generative_AI_Booklet, Week 01, Model families"
+    "source": "01_Generative_AI_Booklet, Week 01, Model families",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 01, Model families",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-003",
@@ -74,7 +86,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "TF-IDF weights lexical terms based on document and corpus frequencies; synonyms need not share a representation.",
-    "source": "01_Generative_AI_Booklet, Week 02, Embeddings"
+    "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-004",
@@ -90,7 +108,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "FastText incorporates character n-grams, improving representations of rare or unseen words.",
-    "source": "01_Generative_AI_Booklet, Week 02, Embeddings"
+    "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-005",
@@ -106,7 +130,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Queries are compared with keys to form attention weights that combine values.",
-    "source": "01_Generative_AI_Booklet, Week 03, Attention"
+    "source": "01_Generative_AI_Booklet, Week 03, Attention",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 03, Attention",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-006",
@@ -122,7 +152,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "BERT was introduced using a bidirectional Transformer encoder; GPT uses autoregressive Transformer decoding.",
-    "source": "01_Generative_AI_Booklet, Week 03, BERT versus GPT"
+    "source": "01_Generative_AI_Booklet, Week 03, BERT versus GPT",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 03, BERT versus GPT",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-007",
@@ -138,7 +174,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Explicit goals, constraints and output structure make success criteria observable.",
-    "source": "01_Generative_AI_Booklet, Week 05, Prompt engineering"
+    "source": "01_Generative_AI_Booklet, Week 05, Prompt engineering",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 05, Prompt engineering",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-008",
@@ -154,7 +196,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "AI is the umbrella field; ML is a subset, and deep learning is a subset of ML.",
-    "source": "02_AI_for_Business_Booklet, Week 01, Key distinctions"
+    "source": "02_AI_for_Business_Booklet, Week 01, Key distinctions",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 01, Key distinctions",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-009",
@@ -170,7 +218,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "An admissible heuristic never overestimates the true cost to reach a goal.",
-    "source": "02_AI_for_Business_Booklet, Week 02, Heuristic search"
+    "source": "02_AI_for_Business_Booklet, Week 02, Heuristic search",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 02, Heuristic search",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-010",
@@ -186,7 +240,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Occasional uphill moves can help a search escape local optima; their acceptance becomes less likely as temperature decreases.",
-    "source": "02_AI_for_Business_Booklet, Week 02, Search strategies"
+    "source": "02_AI_for_Business_Booklet, Week 02, Search strategies",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 02, Search strategies",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-011",
@@ -202,7 +262,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Minimax plans against an adversary selecting the worst outcome for the current player.",
-    "source": "02_AI_for_Business_Booklet, Week 02, Minimax"
+    "source": "02_AI_for_Business_Booklet, Week 02, Minimax",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 02, Minimax",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-012",
@@ -218,7 +284,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Unrepresentative sampling can lead to discriminatory or systematically unequal model performance.",
-    "source": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications"
+    "source": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-013",
@@ -234,7 +306,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Novelty alone does not establish adoption or realised value; the booklet distinguishes creativity, design, implementation and innovation.",
-    "source": "03_Innovation_Booklet, Week 01, Key distinctions"
+    "source": "03_Innovation_Booklet, Week 01, Key distinctions",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 01, Key distinctions",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-014",
@@ -250,7 +328,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Manufacturing, distribution, service and market access can be necessary to commercialise an invention.",
-    "source": "03_Innovation_Booklet, Week 01, Complementary assets"
+    "source": "03_Innovation_Booklet, Week 01, Complementary assets",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 01, Complementary assets",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-015",
@@ -266,7 +350,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Disruption refers to a market and business-model trajectory, often originating in overlooked segments, not merely the scale of technological novelty.",
-    "source": "03_Innovation_Booklet, Week 02, Disruption"
+    "source": "03_Innovation_Booklet, Week 02, Disruption",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 02, Disruption",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-016",
@@ -282,7 +372,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Backcasting derives pathways from a desired future back toward present decisions.",
-    "source": "03_Innovation_Booklet, Week 04, Foresight"
+    "source": "03_Innovation_Booklet, Week 04, Foresight",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 04, Foresight",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-017",
@@ -298,7 +394,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Digitisation converts analogue information into digital form without necessarily changing organisational processes.",
-    "source": "04_Digital_Transformation_Booklet, Week 01, Key distinctions"
+    "source": "04_Digital_Transformation_Booklet, Week 01, Key distinctions",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 01, Key distinctions",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-018",
@@ -314,7 +416,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 2,
     "explanation": "Fashionistas have strong digital investment but relatively weak transformation leadership.",
-    "source": "04_Digital_Transformation_Booklet, Week 01, Westerman typology"
+    "source": "04_Digital_Transformation_Booklet, Week 01, Westerman typology",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 01, Westerman typology",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-019",
@@ -330,7 +438,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Digital transformation concerns strategic and organisational change, not simply purchasing digital technology.",
-    "source": "04_Digital_Transformation_Booklet, Week 01, Vial process"
+    "source": "04_Digital_Transformation_Booklet, Week 01, Vial process",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 01, Vial process",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-020",
@@ -346,7 +460,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Societal transformation analysis includes access, skills, inclusion, trust and uneven effects.",
-    "source": "04_Digital_Transformation_Booklet, Week 01, Societal lens"
+    "source": "04_Digital_Transformation_Booklet, Week 01, Societal lens",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 01, Societal lens",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-021",
@@ -362,7 +482,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Symbolic rules encode explicit constraints and can be audited independently of learned patterns.",
-    "source": "01_Generative_AI_Booklet, Week 01, Learning paradigms"
+    "source": "01_Generative_AI_Booklet, Week 01, Learning paradigms",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 01, Learning paradigms",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-022",
@@ -378,7 +504,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Context-dependent representations vary with surrounding words, unlike fixed one-vector-per-word schemes.",
-    "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings"
+    "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 02, Contextual embeddings",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-023",
@@ -394,7 +526,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Attention scores weight the value vectors to construct a contextual representation.",
-    "source": "01_Generative_AI_Booklet, Week 03, Attention"
+    "source": "01_Generative_AI_Booklet, Week 03, Attention",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 03, Attention",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-024",
@@ -410,7 +548,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Encoder representations are well suited to discriminative labelling and embedding-based retrieval.",
-    "source": "01_Generative_AI_Booklet, Week 04, Model selection"
+    "source": "01_Generative_AI_Booklet, Week 04, Model selection",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 04, Model selection",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-025",
@@ -426,7 +570,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "Model suitability depends on rights, provenance and operational constraints as well as accuracy.",
-    "source": "01_Generative_AI_Booklet, Week 04, Model cards"
+    "source": "01_Generative_AI_Booklet, Week 04, Model cards",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 04, Model cards",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-026",
@@ -442,7 +592,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Task-specific post-processing maps model scores into interpretable outputs.",
-    "source": "01_Generative_AI_Booklet, Week 04, Inference pipelines"
+    "source": "01_Generative_AI_Booklet, Week 04, Inference pipelines",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 04, Inference pipelines",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-027",
@@ -458,7 +614,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Higher temperature flattens the next-token distribution, increasing the relative chance of lower-probability tokens.",
-    "source": "01_Generative_AI_Booklet, Week 04, Decoding"
+    "source": "01_Generative_AI_Booklet, Week 04, Decoding",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 04, Decoding",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-028",
@@ -474,7 +636,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Optimising against a narrow set of examples may not transfer to unseen inputs.",
-    "source": "01_Generative_AI_Booklet, Week 05, Evaluation"
+    "source": "01_Generative_AI_Booklet, Week 05, Evaluation",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 05, Evaluation",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-029",
@@ -490,7 +658,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Many neural-network operations benefit from parallel matrix and tensor computation.",
-    "source": "02_AI_for_Business_Booklet, Week 01, Compute"
+    "source": "02_AI_for_Business_Booklet, Week 01, Compute",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 01, Compute",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-030",
@@ -506,7 +680,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 1,
     "explanation": "A* evaluates f(n)=g(n)+h(n), combining accrued path cost with estimated cost-to-go.",
-    "source": "02_AI_for_Business_Booklet, Week 02, A-star search"
+    "source": "02_AI_for_Business_Booklet, Week 02, A-star search",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 02, A-star search",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-031",
@@ -522,7 +702,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Regression predicts a quantitative target rather than a discrete class.",
-    "source": "02_AI_for_Business_Booklet, Week 03, Machine-learning tasks"
+    "source": "02_AI_for_Business_Booklet, Week 03, Machine-learning tasks",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 03, Machine-learning tasks",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-032",
@@ -538,7 +724,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Repeated optimisation against test results undermines its independence as a final generalisation estimate.",
-    "source": "02_AI_for_Business_Booklet, Week 03, Validation"
+    "source": "02_AI_for_Business_Booklet, Week 03, Validation",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 03, Validation",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-033",
@@ -554,7 +746,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Preprocessing that learns dataset statistics should be fitted on training data to avoid leakage.",
-    "source": "02_AI_for_Business_Booklet, Week 03, Data leakage"
+    "source": "02_AI_for_Business_Booklet, Week 03, Data leakage",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 03, Data leakage",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-034",
@@ -570,7 +768,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "A foreign key references a key in another table to express and enforce a relationship.",
-    "source": "02_AI_for_Business_Booklet, Week 04, Database design"
+    "source": "02_AI_for_Business_Booklet, Week 04, Database design",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 04, Database design",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-035",
@@ -586,7 +790,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Entity–Relationship modelling captures entities and their relationships at the conceptual design stage.",
-    "source": "02_AI_for_Business_Booklet, Week 04, Database modelling"
+    "source": "02_AI_for_Business_Booklet, Week 04, Database modelling",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 04, Database modelling",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-036",
@@ -602,7 +812,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Contradictory representations of the same entity indicate a consistency problem.",
-    "source": "02_AI_for_Business_Booklet, Week 04, Data quality"
+    "source": "02_AI_for_Business_Booklet, Week 04, Data quality",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 04, Data quality",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-037",
@@ -618,7 +834,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Accuracy can be deceptively high while minority-class recall is zero.",
-    "source": "02_AI_for_Business_Booklet, Week 04, Imbalanced classes"
+    "source": "02_AI_for_Business_Booklet, Week 04, Imbalanced classes",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 04, Imbalanced classes",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-038",
@@ -634,7 +856,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "The AI Act establishes binding obligations, while responsible practice can impose additional ethical safeguards.",
-    "source": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI"
+    "source": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-039",
@@ -650,7 +878,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Creative destruction connects new combinations with displacement of existing economic arrangements.",
-    "source": "03_Innovation_Booklet, Week 01, Creative destruction"
+    "source": "03_Innovation_Booklet, Week 01, Creative destruction",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 01, Creative destruction",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-040",
@@ -666,7 +900,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "DUI learning highlights practical, experiential and interactive knowledge flows.",
-    "source": "03_Innovation_Booklet, Week 02, Learning modes"
+    "source": "03_Innovation_Booklet, Week 02, Learning modes",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 02, Learning modes",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-041",
@@ -682,7 +922,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Complex systems have interacting parts, feedbacks and adaptive responses that change outcomes.",
-    "source": "03_Innovation_Booklet, Week 03, Complexity"
+    "source": "03_Innovation_Booklet, Week 03, Complexity",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 03, Complexity",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-042",
@@ -698,7 +944,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Foresight investigates multiple plausible futures rather than claiming certainty about one trajectory.",
-    "source": "03_Innovation_Booklet, Week 03, Foresight"
+    "source": "03_Innovation_Booklet, Week 03, Foresight",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 03, Foresight",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-043",
@@ -714,7 +966,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Preferability is normative and depends on whose values and interests are considered.",
-    "source": "03_Innovation_Booklet, Week 03, Futures cone"
+    "source": "03_Innovation_Booklet, Week 03, Futures cone",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 03, Futures cone",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-044",
@@ -730,7 +988,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Weak signals are early and ambiguous indications, rather than broad persistent trends.",
-    "source": "03_Innovation_Booklet, Week 04, Scanning"
+    "source": "03_Innovation_Booklet, Week 04, Scanning",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 04, Scanning",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-045",
@@ -746,7 +1010,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Digitalisation changes or streamlines processes using digital technologies; transformation entails deeper organisational or value-creation change.",
-    "source": "04_Digital_Transformation_Booklet, Week 01, Digital stages"
+    "source": "04_Digital_Transformation_Booklet, Week 01, Digital stages",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 01, Digital stages",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-046",
@@ -762,7 +1032,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Industry 5.0 frames innovation around worker well-being, environmental sustainability and resilience.",
-    "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0"
+    "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 02, Industry 5.0",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-047",
@@ -778,7 +1054,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "DII tallies digital technology use, not whether the organisation changes strategy, value creation or governance effectively.",
-    "source": "04_Digital_Transformation_Booklet, Week 02, Digital maturity"
+    "source": "04_Digital_Transformation_Booklet, Week 02, Digital maturity",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 02, Digital maturity",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-048",
@@ -794,7 +1076,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Collaborative operation still requires assessment and controls appropriate to the actual task.",
-    "source": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration"
+    "source": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-049",
@@ -810,7 +1098,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "AI competence can vary unexpectedly between neighbouring tasks; performance must be tested at task level.",
-    "source": "04_Digital_Transformation_Booklet, Week 03, Technological frontier"
+    "source": "04_Digital_Transformation_Booklet, Week 03, Technological frontier",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 03, Technological frontier",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-050",
@@ -826,7 +1120,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Socio-technical assessment must consider both benefits and displaced skills, autonomy and responsibilities.",
-    "source": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs"
+    "source": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-051",
@@ -842,7 +1142,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "A model can generate persuasive language while still making unsupported claims.",
-    "source": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming"
+    "source": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-052",
@@ -858,7 +1164,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Platformization describes platforms becoming integral socio-technical infrastructures.",
-    "source": "04_Digital_Transformation_Booklet, Week 04, Platforms"
+    "source": "04_Digital_Transformation_Booklet, Week 04, Platforms",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 04, Platforms",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-053",
@@ -874,7 +1186,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Ranking and recommendation systems shape visibility and thus influence behaviour and economic outcomes.",
-    "source": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection"
+    "source": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-054",
@@ -890,7 +1208,13 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Datafication turns aspects of human activity into quantified, trackable data.",
-    "source": "04_Digital_Transformation_Booklet, Week 04, Datafication"
+    "source": "04_Digital_Transformation_Booklet, Week 04, Datafication",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 04, Datafication",
+      "originalMaterialChecked": false
+    }
   },
   {
     "id": "d4b-055",
@@ -906,6 +1230,12 @@ window.D4B_QUESTIONS=Object.freeze([
     ],
     "correct": 0,
     "explanation": "Interoperable formats and clear dependency documentation support portability and contestability.",
-    "source": "04_Digital_Transformation_Booklet, Week 04, Interoperability"
+    "source": "04_Digital_Transformation_Booklet, Week 04, Interoperability",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 04, Interoperability",
+      "originalMaterialChecked": false
+    }
   }
 ]);

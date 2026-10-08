@@ -13,16 +13,17 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20261008-3">
-  <link rel="stylesheet" href="./quiz.css?v=20261008-3">
+  <link rel="stylesheet" href="./styles.css?v=20261008-5">
+  <link rel="stylesheet" href="./quiz.css?v=20261008-5">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=20261008-3"></script>
-  <script defer src="./app.js?v=20261008-3"></script>
-  <script defer src="./questions.js?v=20261008-3"></script>
-  <script defer src="./quiz.js?v=20261008-3"></script>
+  <script defer src="./site-config.js?v=20261008-5"></script>
+  <script defer src="./app.js?v=20261008-5"></script>
+  <script defer src="./questions.js?v=20261008-5"></script>
+  <script defer src="./quiz.js?v=20261008-5"></script>
+  <script defer src="./refresh.js?v=20261008-5"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
   <!-- End Cloudflare Web Analytics -->
@@ -47,8 +48,17 @@
     <label>Practice<select id="mode"><option value="adaptive">Adaptive review</option><option value="exam">Timed exam simulation</option><option value="mistakes">Mistakes only</option></select></label>
     <label>Questions<select id="count"><option value="all">All available questions</option><option value="10">10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option></select></label>
    </div><p id="availability" class="availability" role="status"></p><div class="actions"><button class="primary-button" id="start">Start practice</button><button class="quiet-button" id="reset">Reset local history</button><button class="quiet-button" id="export">Export progress</button></div>
-   <p class="notice">Prototype bank: original practice items based on your D4B study booklets. Not lecturer-approved; never assume these are official exam questions. The booklets themselves are not published here.</p>
+   <p class="notice">Booklet-derived questions are pending independent verification. Not lecturer-approved; never assume these are official exam questions. The booklets themselves are not published here.</p>
   </section>
+  <section class="quiz-panel" aria-labelledby="refreshTitle">
+   <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">Refresh via GitHub</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
+   <p class="fine">The secure trigger opens GitHub Actions, where you must select <strong>Run workflow</strong>. Only source availability and the public question-bank structure are checked automatically at this stage. Personal Drive documents, ChatGPT chats and original Moodle questions are not automatically ingested.</p>
+   <p id="lastConsolidated">Last consolidated: Checking…</p><p id="lastChecked" class="fine"></p>
+   <div class="refresh-track" id="refreshProgress" role="progressbar" aria-label="Completed workflow stages" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="refreshBar"></div></div>
+   <ol id="refreshStages" class="refresh-stages"></ol><p class="fine" id="refreshMessage" role="status">Checking workflow status…</p>
+   <a id="runLink" target="_blank" rel="noopener noreferrer" hidden>View workflow run details</a><div id="sourceCoverage" class="source-coverage"></div>
+  </section>
+  <section class="quiz-panel" aria-labelledby="official-title"><h2 id="official-title">Official Moodle quizzes · private import</h2><p class="fine">Import original quiz wording and confirmed keys for your own personal study. The imported text stays in this browser and is not published in the repository. Official answer-key confirmation is distinct from independent factual verification.</p><div class="actions"><label class="import-label" for="officialImport">Import JSON file<input id="officialImport" type="file" accept=".json,application/json"></label><button class="quiet-button" type="button" id="exportOfficialTemplate">Download format template</button><button class="quiet-button" type="button" id="clearOfficial">Clear private imports</button></div><p id="importStatus" class="fine" role="status">No import performed this session.</p></section>
   <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><div><b id="due">0</b><span>Questions to revisit</span></div><div><b id="bank">0</b><span>Questions in complete bank</span></div></section>
   <section class="quiz-panel hidden" id="session" aria-live="polite"><div class="session-top"><span id="position"></span><strong id="clock" aria-live="off"></strong></div><div class="progress-track"><div id="bar"></div></div><div class="meta" id="topic"></div><h2 id="prompt"></h2><div class="choices" id="choices"></div><div id="feedback" class="feedback hidden"></div><div class="actions"><button class="primary-button" id="next" disabled>Next question</button><button class="quiet-button" id="stop">Finish session</button></div></section>
   <section class="quiz-panel hidden" id="summary" aria-live="polite"></section>

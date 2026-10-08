@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "leprechaun",
+      "name": "Digital Leprechaun",
+      "kind": "public",
+      "url": "https://www.digital-leprechaun.com/projects/digital4Business/quiz.html",
+      "mode": "fingerprint-only"
+    },
+    {
+      "id": "get-styled",
+      "name": "Get Styled D4B",
+      "kind": "public",
+      "url": "https://get-styled.com/d4b/",
+      "mode": "fingerprint-only"
+    },
+    {
+      "id": "drive",
+      "name": "Private D4B Drive",
+      "kind": "private",
+      "mode": "private-authorisation-needed"
+    },
+    {
+      "id": "chats",
+      "name": "Private ChatGPT quiz conversations",
+      "kind": "private",
+      "mode": "private-export-needed"
+    }
+  ]
+}
