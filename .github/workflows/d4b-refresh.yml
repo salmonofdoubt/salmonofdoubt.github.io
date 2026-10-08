@@ -36,6 +36,12 @@ jobs:
         run: node scripts/d4b-consolidate.cjs audit
       - name: Consolidate evidence report
         run: node scripts/d4b-consolidate.cjs consolidate
+      - name: Confirm idempotent candidate ingestion on PR
+        if: github.event_name == 'pull_request'
+        run: |
+          node scripts/d4b-consolidate.cjs ingest
+          node -e "const assert=require('node:assert/strict');const r=require('./demos/d4b-quiz/ingestion-report.json');assert.equal(r.added,0);assert.equal(r.already_present,36);console.log('Idempotency: 0 re-added, 36 retained.')"
+          node scripts/d4b-consolidate.cjs audit
       - name: Publish consolidation report
         if: github.event_name == 'workflow_dispatch'
         run: |
