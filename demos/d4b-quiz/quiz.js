@@ -3,7 +3,7 @@ const questions=window.D4B_QUESTIONS||[];
 const key='d4b-evidence-quiz-progress-v1';
 const $=id=>document.getElementById(id);
 const read=()=>{try{return JSON.parse(localStorage.getItem(key))||{}}catch{return {}}};
-let history=read(),session=[],index=0,answers=[],deadline=0,timer=null,mode='adaptive',completed=false;
+let history=read(),session=[],index=0,answers=[],deadline=0,timer=null,mode='adaptive',completed=false,selected=null,checked=false;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function save(){try{localStorage.setItem(key,JSON.stringify(history))}catch(e){console.warn('Progress cannot be stored',e)}stats()}
 function stats(){let records=Object.values(history),total=records.reduce((n,x)=>n+x.attempts,0),correct=records.reduce((n,x)=>n+x.correct,0);$('attempts').textContent=total;$('accuracy').textContent=total?Math.round(correct/total*100)+'%':'—';$('due').textContent=questions.filter(q=>history[q.id]&&history[q.id].due<=Date.now()).length;$('bank').textContent=questions.length}
@@ -13,9 +13,40 @@ function shuffle(items){return items.map(q=>({q,k:Math.random()})).sort((a,b)=>a
 function select(){const now=Date.now(),p=pool();if(mode==='mistakes')return shuffle(p.filter(q=>history[q.id]&&history[q.id].correct<history[q.id].attempts));if(mode==='exam')return shuffle(p);return [...p].sort((a,b)=>{let x=history[a.id],y=history[b.id];let sx=x?(x.due<=now?-100000000:0)+x.due: -200000000;let sy=y?(y.due<=now?-100000000:0)+y.due:-200000000;return sx-sy+(Math.random()-.5)*1000})}
 function updateClock(){if(!deadline)return;const ms=Math.max(0,deadline-Date.now());$('clock').textContent=Math.floor(ms/60000)+':'+String(Math.floor(ms%60000/1000)).padStart(2,'0');if(ms===0)finish()}
 function start(){mode=$('mode').value;session=select().slice(0,Number($('count').value));if(!session.length){$('summary').classList.remove('hidden');$('summary').textContent='No questions available for these filters. Try another module or practice mode.';return}answers=[];index=0;completed=false;$('summary').classList.add('hidden');$('session').classList.remove('hidden');deadline=mode==='exam'?Date.now()+Math.round(session.length*90*1000):0;clearInterval(timer);$('clock').textContent='';if(deadline){updateClock();timer=setInterval(updateClock,1000)}render();$('session').scrollIntoView({behavior:'smooth',block:'start'})}
-function render(){const q=session[index];$('position').textContent='Question '+(index+1)+' of '+session.length;$('bar').style.width=(index/session.length*100)+'%';$('topic').textContent=q.module+' / WEEK '+String(q.week).padStart(2,'0')+' / '+q.topic;$('prompt').textContent=q.stem;$('feedback').classList.add('hidden');$('feedback').replaceChildren();$('next').disabled=true;$('next').textContent=index===session.length-1?'Finish session':'Next question';$('choices').replaceChildren(...q.choices.map((answer,i)=>{let b=document.createElement('button');b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.addEventListener('click',()=>choose(i));return b}))}
-function choose(value){if(answers.length!==index)return;const q=session[index],ok=value===q.correct;answers.push({id:q.id,value,ok});const buttons=[...$('choices').children];buttons.forEach((b,i)=>{b.disabled=true;if(mode!=='exam'){if(i===q.correct)b.classList.add('correct');else if(i===value)b.classList.add('wrong')}});$('next').disabled=false;if(mode!=='exam'){$('feedback').classList.remove('hidden');$('feedback').innerHTML='<strong>'+(ok?'Correct.':'Not quite.')+'</strong><p>'+esc(q.explanation)+'</p><small>Study source: '+esc(q.source)+'</small>'}}
-function next(){if(index>=session.length-1)finish();else{index++;render()}}
+function render(){selected=null;checked=false;const q=session[index];$('position').textContent='Question '+(index+1)+' of '+session.length;$('bar').style.width=(index/session.length*100)+'%';$('topic').textContent=q.module+' / WEEK '+String(q.week).padStart(2,'0')+' / '+q.topic;$('prompt').textContent=q.stem;$('feedback').classList.add('hidden');$('feedback').replaceChildren();$('next').disabled=true;$('next').textContent=mode==='exam'?(index===session.length-1?'Finish session':'Next question'):'Check answer';$('choices').replaceChildren(...q.choices.map((answer,i)=>{let b=document.createElement('button');b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>choose(i));return b}))}
+function choose(value){
+ if(checked || completed)return;
+ selected=value;
+ const buttons=[...$('choices').children];
+ buttons.forEach((b,i)=>{
+  const active=i===value;
+  b.classList.toggle('selected',active);
+  b.setAttribute('aria-pressed',String(active));
+ });
+ $('next').disabled=false;
+}
+function checkAnswer(){
+ if(selected===null || checked)return;
+ const q=session[index],ok=selected===q.correct;
+ answers.push({id:q.id,value:selected,ok});
+ checked=true;
+ [...$('choices').children].forEach((b,i)=>{
+  b.disabled=true;
+  b.classList.remove('selected');
+  b.setAttribute('aria-pressed',String(i===selected));
+  if(i===q.correct)b.classList.add('correct');
+  else if(i===selected)b.classList.add('wrong');
+ });
+ $('feedback').classList.remove('hidden');
+ $('feedback').innerHTML='<strong>'+(ok?'Correct.':'Not quite.')+'</strong><p>'+esc(q.explanation)+'</p><small>Study source: '+esc(q.source)+'</small>';
+ $('next').textContent=index===session.length-1?'Finish session':'Next question';
+}
+function advance(){if(index>=session.length-1)finish();else{index++;render()}}
+function next(){
+ if(mode!=='exam'&&!checked){checkAnswer();return}
+ if(mode==='exam'&&selected!==null){const q=session[index];answers.push({id:q.id,value:selected,ok:selected===q.correct})}
+ advance();
+}
 function finish(){if(completed)return;completed=true;clearInterval(timer);const count=answers.length,correct=answers.filter(a=>a.ok).length;
 for(const a of answers){let h=history[a.id]||{attempts:0,correct:0,streak:0,due:0};h.attempts++;h.correct+=a.ok?1:0;h.streak=a.ok?h.streak+1:0;h.due=Date.now()+(a.ok?Math.min(30,Math.pow(2,Math.min(h.streak,5)))*86400000:0);history[a.id]=h}save();
 $('session').classList.add('hidden');$('summary').classList.remove('hidden');const pct=count?Math.round(correct/count*100):0;
