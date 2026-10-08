@@ -2,7 +2,7 @@
 'use strict';
 const workflow='https://github.com/salmonofdoubt/salmonofdoubt.github.io/actions/workflows/d4b-refresh.yml';
 const api='https://api.github.com/repos/salmonofdoubt/salmonofdoubt.github.io/actions';
-const phases=['Check external sources','Audit question bank','Consolidate evidence report','Publish consolidation report'];
+const phases=['Check external sources','Incorporate vetted candidate questions','Audit question bank','Consolidate evidence report','Publish consolidation report'];
 const $=id=>document.getElementById(id);
 let pendingSince=0,tick=null,lastRunId=null;
 const fmt=d=>d?new Intl.DateTimeFormat('en-IE',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Dublin'}).format(new Date(d)):'Not yet recorded';
@@ -31,11 +31,11 @@ async function manifest(){
   if(!r.ok)throw Error('Not published');
   const data=await r.json();
   $('lastConsolidated').textContent='Last consolidated: '+fmt(data.last_consolidated_at);
-  $('lastChecked').textContent='Last refresh checked: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+data.question_status.pending+' pending independent verification';
+  $('lastChecked').textContent='Last refresh checked: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+(data.new_questions_ingested||0)+' incorporated this refresh · '+data.question_status.pending+' pending independent verification';
   const sources=data.source_status||[];
   $('sourceCoverage').replaceChildren(...sources.map(s=>{
    const el=document.createElement('span');
-   el.textContent=s.name+': '+(s.status==='reachable-shell'?'page checked, questions not imported':s.status==='unavailable'?'unavailable':s.status==='not-connected'?'private connection needed':s.status);
+   el.textContent=s.name+': '+(s.status==='reachable-shell'?'page checked'+(s.content_changed===true?' · changed since previous check':'')+'; questions not imported':s.status==='unavailable'?'unavailable':s.status==='not-connected'?'private connection needed':s.status);
    return el;
   }));
   return data;
