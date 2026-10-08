@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "last_checked_at": "2026-10-08T22:40:29.663Z",
+  "last_consolidated_at": "2026-10-08T22:40:29.663Z",
+  "last_question_bank_change_at": "2026-10-08T22:40:29.663Z",
+  "content_fingerprint": "6dbfd1c7041407a47d6100c8031f7872712b23449a06f22fdaacd7aa61a7eeb8",
+  "content_changed": true,
+  "bank_fingerprint": "141559efa3597027d57d7c497568b0a65194e4d24ae333fe970bd4442326d88e",
+  "question_count": 55,
+  "question_status": {
+    "verified": 0,
+    "pending": 55,
+    "flagged": 0
+  },
+  "source_status": [
+    {
+      "id": "leprechaun",
+      "name": "Digital Leprechaun",
+      "mode": "fingerprint-only",
+      "status": "reachable-shell",
+      "fingerprint": "e984785481ce9514840f38f2480992d935f61ac41b3dfd99a315f0d64f4a3c15",
+      "bytes": 9347
+    },
+    {
+      "id": "get-styled",
+      "name": "Get Styled D4B",
+      "mode": "fingerprint-only",
+      "status": "reachable-shell",
+      "fingerprint": "1ee868c6d25e3ee42a39e8543e20999043326314825370f97aeabf38d9991abe",
+      "bytes": 161106
+    },
+    {
+      "id": "drive",
+      "name": "Private D4B Drive",
+      "mode": "private-authorisation-needed",
+      "status": "not-connected"
+    },
+    {
+      "id": "chats",
+      "name": "Private ChatGPT quiz conversations",
+      "mode": "private-export-needed",
+      "status": "not-connected"
+    }
+  ],
+  "audit": {
+    "structural_errors": 0,
+    "independently_verified": false
+  },
+  "limitation": "External sources only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. No question extraction or factual verification is claimed."
+}
