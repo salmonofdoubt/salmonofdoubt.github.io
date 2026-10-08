@@ -1,4 +1,4 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-bank-6b782c0bd5';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-20261009-1';
 const APP_SHELL = [
   './',
   './index.html',
@@ -7,10 +7,10 @@ const APP_SHELL = [
   './site-config.js?v=20261008-5',
   './manifest.webmanifest',
   './icon.svg',
-  './quiz.css?v=20261008-5',
+  './quiz.css?v=20261009-1',
   './questions.js?v=bank-6b782c0bd5',
-  './quiz.js?v=20261008-5',
-  './refresh.js?v=20261008-5'
+  './quiz.js?v=20261009-1',
+  './refresh.js?v=20261009-1'
 ];
 
 self.addEventListener('install', (event) => {
