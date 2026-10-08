@@ -1,12 +1,33 @@
 {
-  "checked_at": "2026-10-08T22:40:29.625Z",
-  "count": 55,
-  "bank_fingerprint": "141559efa3597027d57d7c497568b0a65194e4d24ae333fe970bd4442326d88e",
+  "checked_at": "2026-10-08T22:55:53.970Z",
+  "count": 91,
+  "bank_fingerprint": "6b782c0bd5617662380b9357a86837a5e2ffced3ff6688b0e64e132eecb3a1d5",
   "statuses": {
-    "verified": 0,
-    "pending": 55,
+    "verified": 9,
+    "pending": 82,
     "flagged": 0
   },
+  "by_week": {
+    "GEN:1": 5,
+    "GEN:2": 5,
+    "GEN:3": 5,
+    "GEN:5": 4,
+    "AIB:1": 4,
+    "AIB:2": 6,
+    "AIB:5": 4,
+    "INN:1": 5,
+    "INN:2": 4,
+    "INN:4": 4,
+    "DTR:1": 7,
+    "GEN:4": 6,
+    "AIB:3": 5,
+    "AIB:4": 6,
+    "INN:3": 5,
+    "DTR:2": 5,
+    "DTR:3": 5,
+    "DTR:4": 6
+  },
+  "uncovered_weeks": [],
   "structural_errors": [],
   "independently_verified": false
 }

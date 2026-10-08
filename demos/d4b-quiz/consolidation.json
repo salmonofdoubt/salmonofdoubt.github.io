@@ -1,50 +1,90 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-08T22:40:29.663Z",
-  "last_consolidated_at": "2026-10-08T22:40:29.663Z",
-  "last_question_bank_change_at": "2026-10-08T22:40:29.663Z",
-  "content_fingerprint": "6dbfd1c7041407a47d6100c8031f7872712b23449a06f22fdaacd7aa61a7eeb8",
+  "last_checked_at": "2026-10-08T22:55:54.023Z",
+  "last_consolidated_at": "2026-10-08T22:55:54.023Z",
+  "last_question_bank_change_at": "2026-10-08T22:55:54.023Z",
+  "content_fingerprint": "b6f9456c0c9fee485cba186e1cf5691d2d2379a6ef36bb55e0c7c8e5bfd7823d",
   "content_changed": true,
-  "bank_fingerprint": "141559efa3597027d57d7c497568b0a65194e4d24ae333fe970bd4442326d88e",
-  "question_count": 55,
+  "bank_fingerprint": "6b782c0bd5617662380b9357a86837a5e2ffced3ff6688b0e64e132eecb3a1d5",
+  "question_count": 91,
   "question_status": {
-    "verified": 0,
-    "pending": 55,
+    "verified": 9,
+    "pending": 82,
     "flagged": 0
   },
+  "by_week": {
+    "GEN:1": 5,
+    "GEN:2": 5,
+    "GEN:3": 5,
+    "GEN:5": 4,
+    "AIB:1": 4,
+    "AIB:2": 6,
+    "AIB:5": 4,
+    "INN:1": 5,
+    "INN:2": 4,
+    "INN:4": 4,
+    "DTR:1": 7,
+    "GEN:4": 6,
+    "AIB:3": 5,
+    "AIB:4": 6,
+    "INN:3": 5,
+    "DTR:2": 5,
+    "DTR:3": 5,
+    "DTR:4": 6
+  },
+  "uncovered_weeks": [],
+  "new_questions_ingested": 36,
   "source_status": [
     {
       "id": "leprechaun",
       "name": "Digital Leprechaun",
       "mode": "fingerprint-only",
       "status": "reachable-shell",
-      "fingerprint": "e984785481ce9514840f38f2480992d935f61ac41b3dfd99a315f0d64f4a3c15",
-      "bytes": 9347
+      "bytes": 9347,
+      "html_fingerprint": "e984785481ce9514840f38f2480992d935f61ac41b3dfd99a315f0d64f4a3c15",
+      "assets_checked": 1,
+      "assets_total": 1,
+      "assets": [
+        {
+          "path": "/projects/digital4Business/assets/app.js",
+          "fingerprint": "0343317d9682404608376497814197284345998bc16e6215225150aeca38a6dc",
+          "status": "checked"
+        }
+      ],
+      "fingerprint": "1ab02a4337ce4b2844e8c14d1120625c04f7d19dc2da13c393e274850c5c186f",
+      "content_changed": true
     },
     {
       "id": "get-styled",
       "name": "Get Styled D4B",
       "mode": "fingerprint-only",
       "status": "reachable-shell",
-      "fingerprint": "1ee868c6d25e3ee42a39e8543e20999043326314825370f97aeabf38d9991abe",
-      "bytes": 161106
+      "bytes": 161106,
+      "html_fingerprint": "1ee868c6d25e3ee42a39e8543e20999043326314825370f97aeabf38d9991abe",
+      "assets_checked": 0,
+      "assets_total": 0,
+      "assets": [],
+      "fingerprint": "729ef240dc8829751dad4dc64139838cfdbce2bd53e6bb038dec9779ac5e14b7",
+      "content_changed": true
     },
     {
       "id": "drive",
       "name": "Private D4B Drive",
       "mode": "private-authorisation-needed",
-      "status": "not-connected"
+      "status": "not-connected",
+      "content_changed": null
     },
     {
       "id": "chats",
       "name": "Private ChatGPT quiz conversations",
       "mode": "private-export-needed",
-      "status": "not-connected"
+      "status": "not-connected",
+      "content_changed": null
     }
   ],
   "audit": {
     "structural_errors": 0,
     "independently_verified": false
   },
-  "limitation": "External sources only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. No question extraction or factual verification is claimed."
+  "limitation": "36 original booklet-derived candidates can be ingested after an explicit refresh. External peer sites only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. Independent factual verification remains pending."
 }

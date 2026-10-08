@@ -1,33 +1,51 @@
 {
-  "checked_at": "2026-10-08T22:40:28.038Z",
+  "checked_at": "2026-10-08T22:55:52.102Z",
   "sources": [
     {
       "id": "leprechaun",
       "name": "Digital Leprechaun",
       "mode": "fingerprint-only",
       "status": "reachable-shell",
-      "fingerprint": "e984785481ce9514840f38f2480992d935f61ac41b3dfd99a315f0d64f4a3c15",
-      "bytes": 9347
+      "bytes": 9347,
+      "html_fingerprint": "e984785481ce9514840f38f2480992d935f61ac41b3dfd99a315f0d64f4a3c15",
+      "assets_checked": 1,
+      "assets_total": 1,
+      "assets": [
+        {
+          "path": "/projects/digital4Business/assets/app.js",
+          "fingerprint": "0343317d9682404608376497814197284345998bc16e6215225150aeca38a6dc",
+          "status": "checked"
+        }
+      ],
+      "fingerprint": "1ab02a4337ce4b2844e8c14d1120625c04f7d19dc2da13c393e274850c5c186f",
+      "content_changed": true
     },
     {
       "id": "get-styled",
       "name": "Get Styled D4B",
       "mode": "fingerprint-only",
       "status": "reachable-shell",
-      "fingerprint": "1ee868c6d25e3ee42a39e8543e20999043326314825370f97aeabf38d9991abe",
-      "bytes": 161106
+      "bytes": 161106,
+      "html_fingerprint": "1ee868c6d25e3ee42a39e8543e20999043326314825370f97aeabf38d9991abe",
+      "assets_checked": 0,
+      "assets_total": 0,
+      "assets": [],
+      "fingerprint": "729ef240dc8829751dad4dc64139838cfdbce2bd53e6bb038dec9779ac5e14b7",
+      "content_changed": true
     },
     {
       "id": "drive",
       "name": "Private D4B Drive",
       "mode": "private-authorisation-needed",
-      "status": "not-connected"
+      "status": "not-connected",
+      "content_changed": null
     },
     {
       "id": "chats",
       "name": "Private ChatGPT quiz conversations",
       "mode": "private-export-needed",
-      "status": "not-connected"
+      "status": "not-connected",
+      "content_changed": null
     }
   ]
 }
