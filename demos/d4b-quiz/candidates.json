@@ -1,0 +1,870 @@
+{
+  "schema_version": 1,
+  "note": "Original public practice questions derived from user-supplied study booklet topics. No Moodle or peer-site wording reproduced. These remain pending independent primary-source audit.",
+  "items": [
+    {
+      "id": "d4b-056",
+      "module": "GEN",
+      "week": 1,
+      "topic": "Variational autoencoders",
+      "stem": "What makes a variational autoencoder's bottleneck distinct from a conventional deterministic autoencoder?",
+      "choices": [
+        "It learns a probability distribution over latent representations",
+        "It requires an opponent discriminator",
+        "It encodes only labels, not inputs",
+        "It performs no decoding"
+      ],
+      "correct": 0,
+      "explanation": "VAEs learn a probabilistic latent space and sample from it when generating outputs.",
+      "source": "01_Generative_AI_Booklet, Week 01, Model families",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 01 / Model families",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-057",
+      "module": "GEN",
+      "week": 1,
+      "topic": "Discriminative vs generative models",
+      "stem": "Which system is most clearly discriminative rather than generative?",
+      "choices": [
+        "A classifier labelling water samples as pass or fail",
+        "A diffusion system synthesising images",
+        "A language model drafting text",
+        "A model synthesising new audio"
+      ],
+      "correct": 0,
+      "explanation": "Discriminative models learn decision boundaries or conditional labels, whereas generative approaches model or produce data.",
+      "source": "01_Generative_AI_Booklet, Week 01, Generative versus discriminative AI",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 01 / Generative versus discriminative AI",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-058",
+      "module": "GEN",
+      "week": 2,
+      "topic": "Contextual language modelling",
+      "stem": "How does ELMo differ from a fixed Word2Vec embedding for an ambiguous word?",
+      "choices": [
+        "ELMo can create context-dependent representations",
+        "ELMo is restricted to document frequency counts",
+        "Word2Vec changes its vector for every sentence",
+        "ELMo uses no sequence context"
+      ],
+      "correct": 0,
+      "explanation": "ELMo's representations reflect surrounding text; classic Word2Vec produces a fixed vector for a vocabulary item.",
+      "source": "01_Generative_AI_Booklet, Week 02, Embeddings",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 02 / Embeddings",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-059",
+      "module": "GEN",
+      "week": 2,
+      "topic": "Smoothing in language models",
+      "stem": "Why is smoothing used when estimating probabilities for infrequent or unseen token sequences?",
+      "choices": [
+        "To avoid assigning every unobserved sequence a zero probability",
+        "To reduce vocabulary to one token",
+        "To remove the need for a corpus",
+        "To certify generated claims as true"
+      ],
+      "correct": 0,
+      "explanation": "Smoothing reallocates some probability mass, allowing unseen n-grams to receive nonzero estimates.",
+      "source": "01_Generative_AI_Booklet, Week 02, Language-model smoothing",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 02 / Language-model smoothing",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-060",
+      "module": "GEN",
+      "week": 3,
+      "topic": "Multi-head attention",
+      "stem": "What benefit is usually sought from several attention heads?",
+      "choices": [
+        "Learning different representation relationships in parallel",
+        "Guaranteeing that all heads agree",
+        "Removing positional information completely",
+        "Eliminating computational cost"
+      ],
+      "correct": 0,
+      "explanation": "Multiple heads can attend to different relationships or representational subspaces.",
+      "source": "01_Generative_AI_Booklet, Week 03, Multi-head attention",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 03 / Multi-head attention",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-061",
+      "module": "GEN",
+      "week": 3,
+      "topic": "Causal masking",
+      "stem": "Why does an autoregressive decoder mask later tokens during training?",
+      "choices": [
+        "To prevent information from future positions leaking into next-token predictions",
+        "To hide all input labels from the model",
+        "To prevent the network learning attention weights",
+        "To convert decoding into clustering"
+      ],
+      "correct": 0,
+      "explanation": "A causal mask limits each position's attention to its available past and current context.",
+      "source": "01_Generative_AI_Booklet, Week 03, Decoder attention",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 03 / Decoder attention",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-062",
+      "module": "GEN",
+      "week": 4,
+      "topic": "Tokenisers",
+      "stem": "A Hugging Face classifier accepts raw text in a pipeline. What converts it to the numerical inputs expected by the model?",
+      "choices": [
+        "Tokenizer",
+        "Discriminator",
+        "Roadmap",
+        "Database join"
+      ],
+      "correct": 0,
+      "explanation": "A tokenizer converts input text into token identifiers consumed by the model.",
+      "source": "01_Generative_AI_Booklet, Week 04, Hugging Face pipeline",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 04 / Hugging Face pipeline",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-063",
+      "module": "GEN",
+      "week": 4,
+      "topic": "Model validation",
+      "stem": "A small pretrained model and a larger model both pass the required validation on real task data. What is the lecture's prudent default?",
+      "choices": [
+        "Prefer the smallest model that meets the requirements",
+        "Always choose the largest model regardless of cost",
+        "Ignore licensing if accuracy is equal",
+        "Deploy both without operational testing"
+      ],
+      "correct": 0,
+      "explanation": "Model selection must account for task fit, resource cost, provenance and licence; size alone is not quality.",
+      "source": "01_Generative_AI_Booklet, Week 04, Model selection and validation",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 04 / Model selection and validation",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-064",
+      "module": "GEN",
+      "week": 5,
+      "topic": "Few-shot prompts",
+      "stem": "What makes a few-shot prompt different from a zero-shot task instruction?",
+      "choices": [
+        "It includes examples illustrating the required input–output behaviour",
+        "It must retrain the model parameters",
+        "It requires image input",
+        "It prohibits constraints and formatting"
+      ],
+      "correct": 0,
+      "explanation": "Few-shot prompting includes examples within the prompt; zero-shot prompting asks without demonstrated examples.",
+      "source": "01_Generative_AI_Booklet, Week 05, Prompting methods",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 05 / Prompting methods",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-065",
+      "module": "GEN",
+      "week": 5,
+      "topic": "Prompt evaluation",
+      "stem": "Which is the stronger way to judge whether a prompt revision generalises?",
+      "choices": [
+        "Test it against a held-out set of representative unseen cases",
+        "Judge only the example used while writing it",
+        "Trust the model's self-reported confidence",
+        "Increase length until it looks sophisticated"
+      ],
+      "correct": 0,
+      "explanation": "A held-out test set guards against overfitting a prompt to the examples used during development.",
+      "source": "01_Generative_AI_Booklet, Week 05, Prompt evaluation",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "01_Generative_AI_Booklet, Week 05 / Prompt evaluation",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-066",
+      "module": "AIB",
+      "week": 1,
+      "topic": "Intelligent agents",
+      "stem": "In the classic intelligent-agent model, what completes the core loop after the agent takes an action?",
+      "choices": [
+        "The environment changes and provides new observations",
+        "A developer deletes the state space",
+        "Every next action is predetermined",
+        "The agent becomes a database"
+      ],
+      "correct": 0,
+      "explanation": "An agent perceives the environment, selects actions and receives consequences through subsequent observations.",
+      "source": "02_AI_for_Business_Booklet, Week 01, Intelligent agents",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 01 / Intelligent agents",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-067",
+      "module": "AIB",
+      "week": 1,
+      "topic": "Rule-based vs learned systems",
+      "stem": "Which business requirement is best handled with an explicit deterministic rule rather than a trained classifier?",
+      "choices": [
+        "Rejecting payments that exceed a legally fixed limit",
+        "Recognising damage from diverse image patterns",
+        "Detecting novel speech accents",
+        "Grouping unfamiliar customer behaviour"
+      ],
+      "correct": 0,
+      "explanation": "Known binding thresholds are generally easier to implement and audit using explicit rules.",
+      "source": "02_AI_for_Business_Booklet, Week 01, Rules versus learning",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 01 / Rules versus learning",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-068",
+      "module": "AIB",
+      "week": 2,
+      "topic": "Breadth-first search",
+      "stem": "For an unweighted graph, which frontier structure is characteristic of breadth-first search?",
+      "choices": [
+        "First-in first-out queue",
+        "Last-in first-out stack only",
+        "Priority by learned reward",
+        "Random sampling of final goal nodes"
+      ],
+      "correct": 0,
+      "explanation": "Breadth-first search expands nodes in discovery order using a queue.",
+      "source": "02_AI_for_Business_Booklet, Week 02, Uninformed search",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 02 / Uninformed search",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-069",
+      "module": "AIB",
+      "week": 2,
+      "topic": "Genetic algorithms",
+      "stem": "Which combination is characteristic of a genetic algorithm?",
+      "choices": [
+        "Population, selection, crossover and mutation",
+        "Only one fixed solution and no variation",
+        "Guaranteed globally optimal path on the first step",
+        "Minimax tree pruning without candidates"
+      ],
+      "correct": 0,
+      "explanation": "Evolutionary search iteratively transforms populations using selection and variation.",
+      "source": "02_AI_for_Business_Booklet, Week 02, Genetic algorithms",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 02 / Genetic algorithms",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-070",
+      "module": "AIB",
+      "week": 3,
+      "topic": "Evaluation metrics",
+      "stem": "Why can precision and recall be more informative than accuracy for a rare positive class?",
+      "choices": [
+        "They expose different kinds of positive-class error",
+        "They do not require true labels",
+        "They make class imbalance impossible",
+        "They always have the same value"
+      ],
+      "correct": 0,
+      "explanation": "Precision and recall separate false-positive burden from missed positives, whereas overall accuracy can conceal poor minority-class behaviour.",
+      "source": "02_AI_for_Business_Booklet, Week 03, Classification evaluation",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 03 / Classification evaluation",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-071",
+      "module": "AIB",
+      "week": 3,
+      "topic": "Early stopping",
+      "stem": "Why would a training procedure stop while training loss is still decreasing?",
+      "choices": [
+        "Validation performance has stopped improving and generalisation may deteriorate",
+        "The model no longer contains weights",
+        "Training and test sets have become identical by law",
+        "A lower training loss always proves overfitting"
+      ],
+      "correct": 0,
+      "explanation": "Early stopping uses validation trends to avoid excessive fitting to training data.",
+      "source": "02_AI_for_Business_Booklet, Week 03, Overfitting and validation",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 03 / Overfitting and validation",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-072",
+      "module": "AIB",
+      "week": 4,
+      "topic": "Feature preprocessing",
+      "stem": "Which sequence most directly prevents information leakage when scaling training data?",
+      "choices": [
+        "Split first, fit scaler on training records, then transform held-out records",
+        "Fit scaler on all records and then split",
+        "Tune models repeatedly on the final test set",
+        "Drop target labels after evaluation"
+      ],
+      "correct": 0,
+      "explanation": "Parameters for preprocessing must be learned from the training partition only.",
+      "source": "02_AI_for_Business_Booklet, Week 04, Preprocessing and leakage",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 04 / Preprocessing and leakage",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-073",
+      "module": "AIB",
+      "week": 4,
+      "topic": "Data quality dimensions",
+      "stem": "A monitoring dataset contains duplicate records that inflate counts. What is the most direct action?",
+      "choices": [
+        "Diagnose and resolve duplication with documented rules",
+        "Increase the learning rate until duplicates disappear",
+        "Treat duplicates as proof of high completeness",
+        "Discard the data dictionary"
+      ],
+      "correct": 0,
+      "explanation": "Duplicate detection and cleaning address inflated observations; rules should preserve auditability.",
+      "source": "02_AI_for_Business_Booklet, Week 04, Data cleaning",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 04 / Data cleaning",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-074",
+      "module": "AIB",
+      "week": 5,
+      "topic": "EU AI Act risk framework",
+      "stem": "Which application category receives the most stringent obligations among permitted risk classes under the EU AI Act framework?",
+      "choices": [
+        "High-risk AI systems",
+        "Every minimal-risk calculator",
+        "All spreadsheets regardless of use",
+        "Every generative text output as an unacceptable-risk practice"
+      ],
+      "correct": 0,
+      "explanation": "The AI Act requires substantial safeguards for designated high-risk uses, while unacceptable-risk practices may be prohibited.",
+      "source": "02_AI_for_Business_Booklet, Week 05, AI Act risk levels",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 05 / AI Act risk levels",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-075",
+      "module": "AIB",
+      "week": 5,
+      "topic": "Meaningful oversight",
+      "stem": "What makes human oversight of an AI-assisted business decision substantive rather than ceremonial?",
+      "choices": [
+        "The reviewer can understand limits, challenge outputs and intervene",
+        "A person's name appears on a dashboard",
+        "The human receives no information about error rates",
+        "The model makes the final irreversible decision regardless"
+      ],
+      "correct": 0,
+      "explanation": "Meaningful oversight needs the capability and authority to interpret, contest or override model-assisted outcomes.",
+      "source": "02_AI_for_Business_Booklet, Week 05, Human oversight",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "02_AI_for_Business_Booklet, Week 05 / Human oversight",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-076",
+      "module": "INN",
+      "week": 1,
+      "topic": "Value capture",
+      "stem": "In the expression Innovation = Invention × Commercialisation, why does the multiplicative form matter?",
+      "choices": [
+        "A strong invention cannot create commercial value through a wholly absent route to use",
+        "Invention and commercialisation are always numerically measurable",
+        "Every prototype is already adopted",
+        "Distribution is irrelevant to innovation"
+      ],
+      "correct": 0,
+      "explanation": "The formulation stresses that invention without implementation or a route to value is insufficient.",
+      "source": "03_Innovation_Booklet, Week 01, Innovation equation",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 01 / Innovation equation",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-077",
+      "module": "INN",
+      "week": 1,
+      "topic": "Process versus strategic innovation",
+      "stem": "A factory automates one production step without changing its value proposition. Which category best fits?",
+      "choices": [
+        "Process innovation",
+        "Disruptive entry by definition",
+        "A new national innovation system",
+        "Strategic reinvention of the market"
+      ],
+      "correct": 0,
+      "explanation": "Process innovation alters the way work is performed; strategic innovation changes the basis of value creation.",
+      "source": "03_Innovation_Booklet, Week 01, Process and strategic innovation",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 01 / Process and strategic innovation",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-078",
+      "module": "INN",
+      "week": 2,
+      "topic": "Quadruple Helix",
+      "stem": "What distinguishes the Quadruple Helix from the Triple Helix model?",
+      "choices": [
+        "Inclusion of civil society and the public alongside industry, academia and government",
+        "Replacement of universities by algorithms",
+        "Exclusion of government",
+        "Requirement that every innovation be patented"
+      ],
+      "correct": 0,
+      "explanation": "Quadruple Helix extends university–industry–government interaction with society, citizens or media/cultural actors.",
+      "source": "03_Innovation_Booklet, Week 02, Innovation systems",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 02 / Innovation systems",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-079",
+      "module": "INN",
+      "week": 2,
+      "topic": "Appropriability",
+      "stem": "What is an appropriability regime intended to influence?",
+      "choices": [
+        "How innovators can capture returns from knowledge and invention",
+        "The height of a database table",
+        "How well a model tokenises sentences",
+        "A project's calendar dates only"
+      ],
+      "correct": 0,
+      "explanation": "Appropriability concerns patents, secrecy and other conditions affecting how innovators retain benefits.",
+      "source": "03_Innovation_Booklet, Week 02, Appropriability regimes",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 02 / Appropriability regimes",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-080",
+      "module": "INN",
+      "week": 3,
+      "topic": "Foresight biases",
+      "stem": "A strategy team searches only for evidence supporting its preferred 2040 scenario. Which bias is most directly illustrated?",
+      "choices": [
+        "Confirmation bias",
+        "Sampling of hold-out test records",
+        "Random exploration",
+        "Bayesian calibration"
+      ],
+      "correct": 0,
+      "explanation": "Confirmation bias selectively favours evidence consistent with existing beliefs.",
+      "source": "03_Innovation_Booklet, Week 03, Foresight biases",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 03 / Foresight biases",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-081",
+      "module": "INN",
+      "week": 3,
+      "topic": "Complicated versus complex",
+      "stem": "Which project is more clearly complex rather than merely complicated?",
+      "choices": [
+        "Changing urban travel behaviour through interacting incentives, norms and feedback",
+        "Assembling a machine from a validated fixed blueprint",
+        "Sorting a fixed set of numbered files",
+        "Following a stable arithmetic conversion"
+      ],
+      "correct": 0,
+      "explanation": "Complex systems involve adaptation, changing responses and feedback that reduce predictability.",
+      "source": "03_Innovation_Booklet, Week 03, Complex systems",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 03 / Complex systems",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-082",
+      "module": "INN",
+      "week": 4,
+      "topic": "Futures wheel",
+      "stem": "A team maps second- and third-order consequences of one emerging change. Which foresight tool fits?",
+      "choices": [
+        "Futures Wheel",
+        "Simple linear regression",
+        "A data-normalisation table",
+        "A legal checklist alone"
+      ],
+      "correct": 0,
+      "explanation": "A Futures Wheel diagrams first-order and subsequent consequences around a development.",
+      "source": "03_Innovation_Booklet, Week 04, Futures Wheel",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 04 / Futures Wheel",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-083",
+      "module": "INN",
+      "week": 4,
+      "topic": "Roadmapping",
+      "stem": "After backcasting from a preferred future, what best describes the resulting roadmap?",
+      "choices": [
+        "A sequenced set of milestones and actions towards that future",
+        "A proof that the preferred future will occur",
+        "A list of only historical megatrends",
+        "A single model's confidence score"
+      ],
+      "correct": 0,
+      "explanation": "Backcasting reasons backwards from a desired endpoint; roadmapping organises the resulting steps over time.",
+      "source": "03_Innovation_Booklet, Week 04, Backcasting and roadmapping",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "03_Innovation_Booklet, Week 04 / Backcasting and roadmapping",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-084",
+      "module": "DTR",
+      "week": 1,
+      "topic": "Digital transformation leadership",
+      "stem": "In Westerman's digital-maturity archetypes, what characterises a Digirati organisation?",
+      "choices": [
+        "Strong digital capability combined with strong transformation leadership",
+        "Weak digital capability and weak leadership",
+        "High investment with no leadership",
+        "No adoption despite effective change governance"
+      ],
+      "correct": 0,
+      "explanation": "Digirati integrate digital capabilities with organisational transformation leadership.",
+      "source": "04_Digital_Transformation_Booklet, Week 01, Westerman digital maturity",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 01 / Westerman digital maturity",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-085",
+      "module": "DTR",
+      "week": 1,
+      "topic": "Transformation assessment",
+      "stem": "What is the most convincing indicator of transformation instead of simple technology acquisition?",
+      "choices": [
+        "Changed operating model or value-creation logic supported by people and processes",
+        "Number of newly purchased tablets",
+        "A new software supplier name alone",
+        "Repainting the server room"
+      ],
+      "correct": 0,
+      "explanation": "Transformation concerns how organisations deliver value and organise work, not technology presence in isolation.",
+      "source": "04_Digital_Transformation_Booklet, Week 01, Digital transformation overview",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 01 / Digital transformation overview",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-086",
+      "module": "DTR",
+      "week": 2,
+      "topic": "Digital intensity",
+      "stem": "A firm adopts ten of twelve items in the course's Digital Intensity Index. What band applies in the lecture's scoring?",
+      "choices": [
+        "Very high digital intensity",
+        "Very low digital intensity",
+        "Low digital intensity",
+        "Not classified because the score is even"
+      ],
+      "correct": 0,
+      "explanation": "The lecture bands are 0–3 very low, 4–6 low, 7–9 high and 10–12 very high.",
+      "source": "04_Digital_Transformation_Booklet, Week 02, Digital Intensity Index",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 02 / Digital Intensity Index",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-087",
+      "module": "DTR",
+      "week": 2,
+      "topic": "Human-centred evaluation",
+      "stem": "A cobot improves throughput but increases cognitive workload and near-miss incidents. What is the most defensible conclusion?",
+      "choices": [
+        "Evaluate both task productivity and human safety/workload before declaring success",
+        "Throughput alone proves Industry 5.0 performance",
+        "A cobot cannot produce any safety risk",
+        "Worker feedback should be excluded as subjective"
+      ],
+      "correct": 0,
+      "explanation": "Human-centred evaluation considers safety, workload, wellbeing and operational performance together.",
+      "source": "04_Digital_Transformation_Booklet, Week 02, Human-centred design",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 02 / Human-centred design",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-088",
+      "module": "DTR",
+      "week": 3,
+      "topic": "General-purpose technology",
+      "stem": "Why can adoption of a general-purpose technology initially produce uneven benefits across organisations?",
+      "choices": [
+        "Complementary skills, workflows and infrastructure develop at different rates",
+        "Every firm has identical implementation conditions",
+        "The technology changes no human tasks",
+        "Adoption automatically standardises management quality"
+      ],
+      "correct": 0,
+      "explanation": "General-purpose technologies depend on complementary investments and organisational adaptation.",
+      "source": "04_Digital_Transformation_Booklet, Week 03, General-purpose technology",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 03 / General-purpose technology",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-089",
+      "module": "DTR",
+      "week": 3,
+      "topic": "Skill retention",
+      "stem": "Which measurement best complements a reported AI productivity gain in a learning-intensive role?",
+      "choices": [
+        "Whether workers retain judgement and independent task competence",
+        "Only the number of generated paragraphs",
+        "How confident the chatbot sounds",
+        "The number of interface animations"
+      ],
+      "correct": 0,
+      "explanation": "Productivity must be evaluated alongside effects on cognitive skill development, judgement and autonomy.",
+      "source": "04_Digital_Transformation_Booklet, Week 03, Cognitive offloading and teaming",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 03 / Cognitive offloading and teaming",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-090",
+      "module": "DTR",
+      "week": 4,
+      "topic": "Commodification",
+      "stem": "A platform packages behaviour-derived data to sell advertisers targeted segments. Which mechanism is particularly evident?",
+      "choices": [
+        "Commodification",
+        "Analog digitisation",
+        "Random forest training",
+        "Physical inventory counting"
+      ],
+      "correct": 0,
+      "explanation": "Commodification turns data and activities into commercial value or marketable products.",
+      "source": "04_Digital_Transformation_Booklet, Week 04, Platform mechanisms",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 04 / Platform mechanisms",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    },
+    {
+      "id": "d4b-091",
+      "module": "DTR",
+      "week": 4,
+      "topic": "Platform power",
+      "stem": "What is the main governance concern when a platform controls infrastructure, intermediary services and the user interface?",
+      "choices": [
+        "Vertical integration can concentrate control over access and visibility",
+        "The platform loses all capacity to influence markets",
+        "Interoperability becomes automatic",
+        "Data collection must legally cease"
+      ],
+      "correct": 0,
+      "explanation": "Vertical integration across layers can concentrate infrastructural and informational power.",
+      "source": "04_Digital_Transformation_Booklet, Week 04, Vertical integration and platform power",
+      "origin": "booklet-derived",
+      "verification": "pending",
+      "evidence": {
+        "source": "04_Digital_Transformation_Booklet, Week 04 / Vertical integration and platform power",
+        "originalMaterialChecked": false,
+        "review_type": "booklet-concept-grounding",
+        "note": "Original lecture/reading and lecturer key not independently audited"
+      }
+    }
+  ]
+}
