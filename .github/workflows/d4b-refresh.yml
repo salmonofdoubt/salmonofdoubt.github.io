@@ -1,0 +1,42 @@
+name: D4B Evidence Refresh
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: d4b-evidence-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: D4B source check and audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check external sources
+        run: node scripts/d4b-consolidate.cjs discover
+      - name: Audit question bank
+        run: node scripts/d4b-consolidate.cjs audit
+      - name: Consolidate evidence report
+        run: node scripts/d4b-consolidate.cjs consolidate
+      - name: Publish consolidation report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add demos/d4b-quiz/source-check.json demos/d4b-quiz/audit-report.json demos/d4b-quiz/consolidation.json
+          if git diff --cached --quiet; then
+            echo "No report changes."
+          else
+            git commit -m "chore(d4b): record audited refresh"
+            git push
+          fi
