@@ -1,8 +1,8 @@
-const CACHE_NAME = 'david-light-lab-shell-v13-doi';
+const CACHE_NAME = 'david-light-lab-shell-v14-art-return';
 const SHELL = [
   './',
   './index.html',
-  './styles.css?v=20261005-1912',
+  './styles.css?v=20261008-art-return-1',
   './site-config.js?v=20261005-2255',
   './app.js?v=20261005-1900',
   './stl-worker.js?v=20261005-1640',
@@ -22,7 +22,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
+    caches.keys().then(keys => Promise.all(keys.filter(k => k.startsWith('david-light-lab-shell-') && k !== CACHE_NAME).map(k => caches.delete(k))))
   );
   self.clients.claim();
 });

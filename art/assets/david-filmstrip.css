@@ -1,0 +1,28 @@
+/* Six viewport crops of the approved monochrome concept; one shared image request. */
+.studio-film { margin: 3rem 0; min-width: 0; }
+.studio-film-kicker { display: flex; align-items: center; justify-content: center; gap: 1.2rem; color: #d4ae6c; text-align: center; text-transform: uppercase; letter-spacing: .3em; font: .75rem/1.5 Georgia, serif; margin: 0 0 1.3rem; }
+.studio-film-kicker::before, .studio-film-kicker::after { content: ""; width: 3rem; height: 1px; background: #8d7448; }
+.film-track { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 8px; padding: 0 8px; background: #11100e; border: 1px solid #35322b; border-radius: 3px; }
+.film-frame { display: block; position: relative; min-width: 0; padding: 29px 0; color: #d4ae6c; text-decoration: none; }
+.film-frame::before, .film-frame::after { content: ""; position: absolute; left: 0; right: 0; height: 12px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='12'%3E%3Crect x='4' width='12' height='12' rx='2' fill='%23c6c5c1'/%3E%3C/svg%3E") repeat-x left center; }
+.film-frame::before { top: 8px; } .film-frame::after { bottom: 8px; }
+.film-number { position: absolute; top: 4px; left: 50%; transform: translateX(-50%); background: #11100e; padding: 0 9px; z-index: 1; font: .85rem/20px Georgia, serif; }
+.film-image { display: block; position: relative; overflow: hidden; aspect-ratio: 235 / 291; background: #222; }
+body.art-body .film-image img { position: absolute; width: 653.61703%; max-width: none; height: auto; left: var(--frame-left); top: var(--frame-top); filter: grayscale(1); }
+.film-frame:focus-visible { outline: 2px solid #d4ae6c; outline-offset: -2px; }
+.film-frame:hover .film-image { outline: 1px solid #d4ae6c; outline-offset: -1px; }
+.studio-film-caption { display: flex; justify-content: center; align-items: center; gap: 2rem; margin-top: 1.2rem; text-align: center; }
+.studio-film-caption h2 { margin: 0; color: #fff2d7; font: 400 clamp(2rem,4.6vw,3.8rem)/1.1 Georgia, "Times New Roman", serif; }
+.studio-film-caption p { margin: .4rem 0 0; color: #b8b3a9; font: 1rem/1.5 Georgia, serif; letter-spacing: .08em; }
+.studio-film-open { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .65rem 1.5rem; border: 1px solid #d4ae6c; border-radius: 999px; color: #d4ae6c; text-decoration: none; white-space: nowrap; font: 1rem/1.2 Georgia, serif; }
+.studio-film-open:hover, .studio-film-open:focus-visible { color: #fff2d7; background: #24190f; outline: 2px solid #d4ae6c; outline-offset: 3px; }
+.studio-film-note { margin: .75rem 0 0; text-align: right; color: #ad9a7b; font-size: .68rem; }
+.film-swipe { display: none; }
+@media (max-width: 760px) {
+  .film-track { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 8px; scrollbar-width: thin; scrollbar-color: #8d7448 #11100e; }
+  .film-frame { scroll-snap-align: start; }
+  .studio-film-caption { flex-direction: column; gap: 1rem; }
+  .studio-film-caption h2 { font-size: clamp(1.8rem,7.5vw,3rem); }
+  .studio-film-note { text-align: center; }
+  .film-swipe { display: inline; }
+}

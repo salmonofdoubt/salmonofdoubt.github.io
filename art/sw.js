@@ -1,8 +1,10 @@
-const CACHE_NAME = "diandre-art-v7";
+const CACHE_NAME = "diandre-art-v8-filmstrip";
 
 const CORE_ASSETS = [
   "/art/",
   "/art/index.html",
+  "/art/assets/david-filmstrip.css?v=20261008-1",
+  "/art/assets/david-filmstrip/approved-preview.webp",
   "/art/manifest.webmanifest",
   "/art/assets/diandre-app-icon.svg",
   "/art/assets/diandre-app-icon-192.png",
@@ -28,7 +30,7 @@ self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys()
       .then(keys => Promise.all(keys.map(key => {
-        if (key !== CACHE_NAME) return caches.delete(key);
+        if (key.startsWith("diandre-art-") && key !== CACHE_NAME) return caches.delete(key);
         return Promise.resolve();
       })))
       .then(() => self.clients.claim())
