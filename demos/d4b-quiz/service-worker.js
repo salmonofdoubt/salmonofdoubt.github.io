@@ -2,7 +2,7 @@ const CACHE_NAME = 'salmon-d4b-evidence-quiz-bank-6b782c0bd5';
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css?v=20261008-6',
+  './styles.css?v=20261009-1',
   './app.js?v=20261008-5',
   './site-config.js?v=20261008-5',
   './manifest.webmanifest',
