@@ -1,8 +1,8 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-v5';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-v6';
 const APP_SHELL = [
   './',
   './index.html',
-  './styles.css?v=20261008-5',
+  './styles.css?v=20261008-6',
   './app.js?v=20261008-5',
   './site-config.js?v=20261008-5',
   './manifest.webmanifest',
