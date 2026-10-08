@@ -40,16 +40,22 @@ async function discover(){const previous=read('source-check.json')?.sources||[];
  result.sources.push(record);console.log(s.id+': '+record.status);
 }put('source-check.json',result)}
 
-function parseBank(code){
- const start='window.D4B_QUESTIONS=Object.freeze(',i=code.indexOf(start),j=code.indexOf(');',i+start.length);
- if(i<0||j<0)throw Error('Question bank parse marker absent');
- return {list:JSON.parse(code.slice(i+start.length,j)),start:i+start.length,end:j};
+// Parse the two frozen JSON assignments at known, anchored boundaries.
+// Literal ");" within question text, explanation or source citations is ordinary data.
+function parseFrozenJson(code,name,nextMarker){
+ const marker='window.D4B_'+name+'=Object.freeze(';
+ const prefix=code.indexOf(marker);
+ if(prefix<0)throw Error(name+' assignment missing');
+ const start=prefix+marker.length;
+ const stop=nextMarker?code.indexOf(nextMarker,start):code.length;
+ if(stop<0)throw Error(name+' following assignment missing');
+ const raw=code.slice(start,stop).trimEnd();
+ if(!raw.endsWith(');'))throw Error(name+' assignment must end with );');
+ const json=raw.slice(0,-2);
+ return {list:JSON.parse(json),start,end:start+json.length};
 }
-function parseCurriculum(code){
- const start='window.D4B_CURRICULUM=Object.freeze(',i=code.indexOf(start),j=code.indexOf(');',i+start.length);
- if(i<0||j<0)throw Error('Curriculum data missing');
- return JSON.parse(code.slice(i+start.length,j));
-}
+function parseBank(code){return parseFrozenJson(code,'QUESTIONS')}
+function parseCurriculum(code){return parseFrozenJson(code,'CURRICULUM','window.D4B_QUESTIONS=Object.freeze(').list}
 function normalize(s){return String(s||'').toLowerCase().normalize('NFKC').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ')}
 function validateCandidate(q,curriculum){
  const bad=[];
@@ -105,9 +111,8 @@ function ingest(){
  console.log('New questions incorporated: '+report.added+'; already present: '+report.already_present);
 }
 
-function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'),token='window.D4B_QUESTIONS=Object.freeze(',i=code.indexOf(token),j=code.indexOf(');',i+token.length);
- if(i<0||j<0)throw Error('Question bank parse marker absent');
- const questions=JSON.parse(code.slice(i+token.length,j)),ids=new Set(),stems=new Set(),errors=[],statuses={verified:0,pending:0,flagged:0},byWeek={};
+function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8');
+ const questions=parseBank(code).list,ids=new Set(),stems=new Set(),errors=[],statuses={verified:0,pending:0,flagged:0},byWeek={};
  for(const q of questions){
   if(!q.id||ids.has(q.id))errors.push('duplicate id '+q.id);ids.add(q.id);
   const norm=normalize(q.stem);if(stems.has(norm))errors.push(q.id+': duplicate question wording');stems.add(norm);
@@ -146,4 +151,5 @@ function consolidate(){const audit=read('audit-report.json'),discovery=read('sou
  limitation:'36 original booklet-derived candidates can be ingested after an explicit refresh. External peer sites only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. Independent factual verification remains pending.'};
  put('consolidation.json',output);console.log('consolidation '+(changed?'changed':'unchanged'));
 }
-(async()=>{try{if(phase==='discover')await discover();else if(phase==='ingest')ingest();else if(phase==='audit')audit();else if(phase==='consolidate')consolidate();else if(phase==='all'){await discover();ingest();audit();consolidate()}else throw Error('Unknown phase')}catch(e){console.error(e);process.exitCode=1}})();
+module.exports={parseBank,parseCurriculum};
+if(require.main===module)(async()=>{try{if(phase==='discover')await discover();else if(phase==='ingest')ingest();else if(phase==='audit')audit();else if(phase==='consolidate')consolidate();else if(phase==='all'){await discover();ingest();audit();consolidate()}else throw Error('Unknown phase')}catch(e){console.error(e);process.exitCode=1}})();
