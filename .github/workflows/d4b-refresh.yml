@@ -28,6 +28,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test private Moodle import
+        run: node scripts/test-d4b-private-import.cjs
       - name: Check external sources
         run: node scripts/d4b-consolidate.cjs discover
       - name: Incorporate vetted candidate questions

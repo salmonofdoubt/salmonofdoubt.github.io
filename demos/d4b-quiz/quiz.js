@@ -6,7 +6,23 @@ const curriculum=window.D4B_CURRICULUM||{};
 const key='d4b-evidence-quiz-progress-v1';
 const $=id=>document.getElementById(id);
 const read=()=>{try{return JSON.parse(localStorage.getItem(key))||{}}catch{return {}}};
-function validOfficial(q){return q&&typeof q.id==='string'&&/^official-[a-z0-9-]{1,70}$/.test(q.id)&&['GEN','AIB','INN','DTR'].includes(q.module)&&Number.isInteger(q.week)&&q.week>0&&q.week<=(curriculum[q.module]||[]).length&&typeof q.topic==='string'&&typeof q.stem==='string'&&q.stem.length>=10&&Array.isArray(q.choices)&&q.choices.length===4&&q.choices.every(x=>typeof x==='string'&&x.trim())&&Number.isInteger(q.correct)&&q.correct>=0&&q.correct<4&&typeof q.explanation==='string'&&q.explanation.length>=8&&typeof q.source==='string'&&q.source.length>=5&&q.origin==='official-moodle'&&['key-pending','official-key-confirmed'].includes(q.verification)}
+function officialValidationError(q,index){
+ const name='Item '+(index+1)+(q&&q.id?' ('+q.id+')':'');
+ if(!q||typeof q!=='object'||Array.isArray(q))return name+': expected a question object.';
+ if(typeof q.id!=='string'||!/^official-[a-z0-9-]{1,70}$/.test(q.id))return name+': id must start with official- and contain lowercase letters, digits or hyphens.';
+ if(!['GEN','AIB','INN','DTR'].includes(q.module))return name+': unrecognised module (GEN, AIB, INN or DTR).';
+ if(!Number.isInteger(q.week)||q.week<1||q.week>(curriculum[q.module]||[]).length)return name+': week must be a documented week in that module.';
+ if(typeof q.topic!=='string'||!q.topic.trim())return name+': missing topic.';
+ if(typeof q.stem!=='string'||q.stem.trim().length<10)return name+': question text is missing or too short.';
+ if(!Array.isArray(q.choices)||q.choices.length!==4||q.choices.some(x=>typeof x!=='string'||!x.trim()))return name+': exactly four nonempty answer choices are required.';
+ if(!Number.isInteger(q.correct)||q.correct<0||q.correct>3)return name+': correct must be a numeric index from 0 to 3 (A=0, B=1, C=2, D=3).';
+ if(typeof q.explanation!=='string'||q.explanation.trim().length<8)return name+': explanation is missing or too short.';
+ if(typeof q.source!=='string'||q.source.trim().length<5)return name+': Moodle source is missing.';
+ if(q.origin!=='official-moodle')return name+': origin must be official-moodle.';
+ if(!['key-pending','official-key-confirmed'].includes(q.verification))return name+': verification must be key-pending or official-key-confirmed.';
+ return '';
+}
+function validOfficial(q){return !officialValidationError(q,0)}
 function privateQuestions(){try{const a=JSON.parse(localStorage.getItem(privateKey)||'[]');return Array.isArray(a)?a.filter(validOfficial):[]}catch{return []}}
 function refreshQuestions(){questions=[...builtInQuestions,...privateQuestions()];weeks();stats()}
 let history=read(),session=[],index=0,answers=[],deadline=0,timer=null,mode='adaptive',completed=false,selected=null,checked=false;
@@ -88,17 +104,54 @@ $('module').addEventListener('change',weeks);$('week').addEventListener('change'
 $('reset').addEventListener('click',()=>{if(confirm('Delete all quiz history stored in this browser?')){history={};save()}});
 $('export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({format:'d4b-evidence-quiz-v1',exported:new Date().toISOString(),history},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='d4b-quiz-progress.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
 $('officialImport').addEventListener('change',async function(){
- const file=this.files&&this.files[0];this.value='';if(!file)return;
+ const file=this.files&&this.files[0];
+ if(!file)return;
+ const filename=file.name;
+ const status=$('importStatus');
+ status.textContent='Reading '+filename+'…';
  try{
- if(file.size>500000)throw Error('Maximum import size 500 KB.');
- const items=JSON.parse(await file.text());
- if(!Array.isArray(items)||!items.length||items.length>300||!items.every(validOfficial))throw Error('Incorrect JSON format. Download the template and check required fields.');
- const old=privateQuestions(),ids=items.map(q=>q.id),used=new Set([...old,...builtInQuestions].map(q=>q.id));
- if(new Set(ids).size!==ids.length||ids.some(id=>used.has(id)))throw Error('Question IDs must be unique.');
- localStorage.setItem(privateKey,JSON.stringify([...old,...items]));
- $('importStatus').textContent=items.length+' official quiz questions imported locally. No questions uploaded.';
- refreshQuestions();
- }catch(e){$('importStatus').textContent='Import failed: '+e.message}
+  if(/\.zip$/i.test(filename)||file.type==='application/zip')throw Error('This is the ZIP archive. Unzip it and choose moodle_exact_import.json, not the inventory file.');
+  if(!/\.json$/i.test(filename))throw Error('Please select the Moodle questions .json file, not a ZIP or another file type.');
+  if(file.size>500000)throw Error('Maximum JSON import size is 500 KB.');
+  let payload;
+  try{payload=JSON.parse(await file.text())}catch{throw Error('This is not valid JSON. Choose moodle_exact_import.json from the recovery ZIP.')}
+  if(payload&&typeof payload==='object'&&!Array.isArray(payload)&&Array.isArray(payload.records)){
+   throw Error('This is the quiz recovery inventory, not the questions. Choose moodle_exact_import.json instead.');
+  }
+  const items=Array.isArray(payload)?payload:payload&&Array.isArray(payload.questions)?payload.questions:payload&&Array.isArray(payload.items)?payload.items:null;
+  if(!items)throw Error('Expected an array of Moodle questions, or an object with a questions/items array.');
+  if(items.length===0||items.length>300)throw Error('The file must contain between 1 and 300 questions.');
+  for(let i=0;i<items.length;i++){
+   const issue=officialValidationError(items[i],i);
+   if(issue)throw Error(issue);
+  }
+  const ids=items.map(q=>q.id);
+  if(new Set(ids).size!==ids.length)throw Error('The import file repeats a question ID.');
+  const previous=privateQuestions();
+  const known=new Map([...builtInQuestions,...previous].map(q=>[q.id,q]));
+  const additions=[];let unchanged=0;
+  for(const q of items){
+   const existing=known.get(q.id);
+   if(existing){
+    if(JSON.stringify(existing)!==JSON.stringify(q)){
+     throw Error('Question '+q.id+' already exists with different content. No changes were made.');
+    }
+    unchanged++;
+   }else{
+    additions.push(q);
+   }
+  }
+  if(additions.length){
+   try{localStorage.setItem(privateKey,JSON.stringify([...previous,...additions]));}
+   catch{throw Error('The browser could not save the imported questions. Check storage permissions or free some space.')}
+  }
+  refreshQuestions();
+  status.textContent=filename+': '+additions.length+' question(s) imported, '+unchanged+' already present. '+privateQuestions().length+' private question(s) on this device. No upload occurred.';
+ }catch(e){
+  status.textContent=filename+': import rejected. '+e.message+' No existing private questions were changed.';
+ }finally{
+  this.value='';
+ }
 });
 $('clearOfficial').addEventListener('click',()=>{if(confirm('Delete locally imported official questions?')){localStorage.removeItem(privateKey);$('importStatus').textContent='Local official quiz import cleared.';refreshQuestions()}});
 $('exportOfficialTemplate').addEventListener('click',()=>{
@@ -106,4 +159,5 @@ $('exportOfficialTemplate').addEventListener('click',()=>{
  const url=URL.createObjectURL(new Blob([JSON.stringify(sample,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='d4b-official-quiz-import-template.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 });
 refreshQuestions();
+$('importStatus').textContent=privateQuestions().length+' Moodle question(s) stored privately on this device. Choose a JSON file to add more.';
 })();
