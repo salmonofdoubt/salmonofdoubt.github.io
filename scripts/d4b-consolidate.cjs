@@ -208,5 +208,5 @@ function consolidate(){const audit=read('audit-report.json'),discovery=read('sou
  limitation:'Public GitHub checks only stage previously authored original practice questions and monitor peer-site fingerprints. Changes to private Google Drive and ChatGPT material are not read by this workflow; original-source verification of pending answers remains a separate review.'};
  put('consolidation.json',output);console.log('consolidation '+(changed?'changed':'unchanged'));
 }
-module.exports={parseBank,parseCurriculum};
+module.exports={parseBank,parseCurriculum,publicationLedger};
 if(require.main===module)(async()=>{try{if(phase==='discover')await discover();else if(phase==='ingest')ingest();else if(phase==='audit')audit();else if(phase==='consolidate')consolidate();else if(phase==='all'){await discover();ingest();audit();consolidate()}else throw Error('Unknown phase')}catch(e){console.error(e);process.exitCode=1}})();
