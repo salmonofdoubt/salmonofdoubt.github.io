@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-09T00:29:33.259Z",
-  "last_consolidated_at": "2026-10-09T00:29:33.259Z",
+  "last_checked_at": "2026-10-09T12:41:25.982Z",
+  "last_consolidated_at": "2026-10-09T12:41:25.982Z",
   "last_question_bank_change_at": "2026-10-09T00:29:33.259Z",
-  "content_fingerprint": "f067a511f1058099c6b78074427c87c379a46fc429d4d522aabafbc46ec334e3",
+  "content_fingerprint": "d89638deaeac8c216533084af4b654eb8cdc07c7ce5f2e1013ce508ae0096fb1",
   "content_changed": true,
   "bank_fingerprint": "3ad7d24d6cc04cbbc9e17f3ae83ad9572610ba69f70b69627af9f23ad59e4d9c",
   "question_count": 91,
@@ -63,14 +63,9 @@
       "id": "get-styled",
       "name": "Get Styled D4B",
       "mode": "fingerprint-only",
-      "status": "reachable-shell",
-      "bytes": 161106,
-      "html_fingerprint": "1ee868c6d25e3ee42a39e8543e20999043326314825370f97aeabf38d9991abe",
-      "assets_checked": 0,
-      "assets_total": 0,
-      "assets": [],
-      "fingerprint": "729ef240dc8829751dad4dc64139838cfdbce2bd53e6bb038dec9779ac5e14b7",
-      "content_changed": false
+      "status": "unavailable",
+      "error": "",
+      "content_changed": null
     },
     {
       "id": "drive",
