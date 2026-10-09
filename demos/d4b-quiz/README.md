@@ -75,6 +75,16 @@ The private recovery pack supplied in the ChatGPT session contains two full orig
 **Source limitation:** previous-conversation retrieval was unavailable during the session. The recovered inventory is a documented first pass, not an exhaustive history scrape. The public workflow still cannot access the private ChatGPT and Google Drive connectors.
 
 
+## D4B RELEASE: full current-booklet reconciliation (10 October 2026)
+
+This release process reviewed **all four current canonical MSc module booklets** through the authorised connected Google Drive tool. Their existing module-week coverage is GEN W1–5, AIB W1–5, INN W1–5 and DTR W1–4; no newly published week or Semester 2 module was found in the accessible course-booklet search. The existing question bank already covered each of those 19 weeks. A targeted audit identified 16 distinct **underrepresented concepts**, which were covered by original questions d4b-106–121 (four per module) in merged PR [#204](https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204).
+
+The release was accepted at the GitHub-reported merge time **2026-10-09T23:08:19Z**. In the public `content-updates.json`, eight module/week events reference that same accepted PR and record exactly which stable IDs were introduced to each section. This is *one* cross-module publication, not eight separate deployments. `publicationLedger()` checks each record against the bank and produces grouped publication data for the website while retaining item-level source traceability. The historical INN W5 PR #202 remains represented independently.
+
+All 16 new items are `course_alignment: supported`, `verification: pending`; no direct lecturer-grading or external academic verification is claimed. Recoverable module-chat/quiz feedback was reviewed as context, but the exact original Moodle text and all answer choices could not be recovered with adequate confidence; no Moodle originals are included in the public question bank.
+
+Both peer quiz websites remain monitored through GitHub's public HTML/asset fingerprint checks. This does not grant permission to copy questions, guarantee complete semantic parsing or constitute question ingestion. A direct public read of Get Styled was unavailable in this review environment, while the existing GitHub runner had reported its HTML reachable. **Use actual runner checks** for status and retain an explicit limitation in reports.
+
 ## On-site ingestion and source provenance ledger
 
 The public quiz now shows three **non-interchangeable** facts in its **Refresh evidence** panel:
