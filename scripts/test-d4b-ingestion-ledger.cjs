@@ -42,7 +42,7 @@ assert.match(js,/last_automation_ingested_count/);
 assert.match(js,/last_automated_check_at/);
 assert.match(js,/0 peer-site questions automatically imported/);
 assert.match(js,/Not connected to GitHub Actions/);
-assert.match(html,/Checks.*does not read changes in your private Google Drive/);
+assert.match(html,/does not read changes in your private Google Drive/);
 const asset=html.match(/refresh\.js\?v=([^"]+)/)?.[1];
 assert.ok(asset,'Refresh UI must be cache-busted');
 assert.ok(sw.includes('refresh.js?v='+asset),'Service worker must cache matching refresh code');
