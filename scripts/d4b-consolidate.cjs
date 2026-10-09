@@ -147,11 +147,63 @@ function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'
  put('audit-report.json',result);console.log('questions '+result.count+', pending '+statuses.pending+', schema errors '+errors.length);
  if(errors.length)throw Error(errors.join('; '));
 }
+// Human-reviewed publication records are explicit provenance, not claims that
+// the public Actions runner can access private teaching material.
+function publicationLedger(){
+ const doc=read('content-updates.json');
+ const events=doc?.events||[];
+ if(doc?.schema_version!==1||!Array.isArray(events))throw Error('Invalid content release ledger');
+ const questions=parseBank(fs.readFileSync(path.join(dir,'questions.js'),'utf8')).list;
+ const bank=new Map(questions.map(q=>[q.id,q]));
+ const knownEvents=new Set(),knownQuestions=new Set();
+ const releases=[];
+ for(const row of events){
+  if(!row||typeof row!=='object'||!row.id||knownEvents.has(row.id))throw Error('Missing or duplicate release ID');
+  knownEvents.add(row.id);
+  if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(row.accepted_at||'')||!Number.isFinite(Date.parse(row.accepted_at)))throw Error(row.id+': invalid accepted_at');
+  if(!['GEN','AIB','INN','DTR'].includes(row.module)||!Number.isInteger(row.week)||row.week<1)throw Error(row.id+': invalid module/week');
+  if(!['drive','leprechaun','get-styled','chats','staged-original'].includes(row.source_id))throw Error(row.id+': unrecognised source');
+  if(typeof row.source_name!=='string'||!row.source_name.trim()||typeof row.material!=='string'||!row.material.trim()||typeof row.source_access!=='string'||!row.source_access.trim())throw Error(row.id+': missing source provenance');
+  if(!/^https:\/\/github\.com\/salmonofdoubt\/salmonofdoubt\.github\.io\/pull\/\d+$/.test(row.release_url||''))throw Error(row.id+': untrusted release URL');
+  if(!Array.isArray(row.question_ids)||row.question_ids.length===0||new Set(row.question_ids).size!==row.question_ids.length)throw Error(row.id+': empty/duplicate question IDs');
+  for(const id of row.question_ids){
+   const q=bank.get(id);
+   if(!q||q.module!==row.module||q.week!==row.week)throw Error(row.id+': missing/mismatched released question '+id);
+   if(knownQuestions.has(id))throw Error(row.id+': question counted twice as new content '+id);
+   knownQuestions.add(id);
+  }
+  releases.push({
+   id:row.id,accepted_at:row.accepted_at,source_id:row.source_id,
+   source_name:row.source_name,source_access:row.source_access,material:row.material,
+   module:row.module,week:row.week,
+   question_count:row.question_ids.length,question_ids:row.question_ids,
+   release_url:row.release_url,review_scope:row.review_scope||'',
+  });
+ }
+ releases.sort((a,b)=>b.accepted_at.localeCompare(a.accepted_at));
+ return {latest:releases[0]||null,recent:releases.slice(0,6),recorded_releases:releases.length};
+}
+
 function consolidate(){const audit=read('audit-report.json'),discovery=read('source-check.json'),ingestion=read('ingestion-report.json'),prev=read('consolidation.json');
  if(!audit||!discovery||!ingestion||audit.structural_errors.length)throw Error('Ingest, audit and discovery required');
  const digest=hash(JSON.stringify({bank:audit.bank_fingerprint,external:discovery.sources.map(s=>({id:s.id,fingerprint:s.fingerprint||null}))})),at=time(),changed=!prev||prev.content_fingerprint!==digest;
+ const published=publicationLedger();
  const output={schema_version:1,last_checked_at:at,last_consolidated_at:changed?at:prev.last_consolidated_at,last_question_bank_change_at:!prev||prev.bank_fingerprint!==audit.bank_fingerprint?at:prev.last_question_bank_change_at,
- content_fingerprint:digest,content_changed:changed,bank_fingerprint:audit.bank_fingerprint,question_count:audit.count,question_status:audit.statuses,course_alignment:audit.course_alignment,by_week:audit.by_week,uncovered_weeks:audit.uncovered_weeks,new_questions_ingested:ingestion.added,source_status:discovery.sources,
+ content_fingerprint:digest,content_changed:changed,bank_fingerprint:audit.bank_fingerprint,question_count:audit.count,question_status:audit.statuses,course_alignment:audit.course_alignment,by_week:audit.by_week,uncovered_weeks:audit.uncovered_weeks,new_questions_ingested:ingestion.added,
+ ingestion_tracking:{
+  updated_at:at,
+  last_automated_check_at:discovery.checked_at,
+  last_automation_ingest_at:ingestion.processed_at,
+  last_automation_ingested_count:ingestion.added,
+  last_automation_added_ids:ingestion.added_ids||[],
+  staged_candidate_count:ingestion.staged,
+  staged_already_present:ingestion.already_present,
+  last_reviewed_material_release:published.latest,
+  recent_reviewed_material_releases:published.recent,
+  reviewed_release_count:published.recorded_releases,
+  explicit_source_boundary:'GitHub fingerprints public pages and reconciles already-staged original questions. It cannot independently read private Drive, ChatGPT, or Moodle content; private material releases require a separate authorised review.'
+ },
+ source_status:discovery.sources,
  audit:{structural_errors:0,independently_verified:audit.independently_verified},
  limitation:'Public GitHub checks only stage previously authored original practice questions and monitor peer-site fingerprints. Changes to private Google Drive and ChatGPT material are not read by this workflow; original-source verification of pending answers remains a separate review.'};
  put('consolidation.json',output);console.log('consolidation '+(changed?'changed':'unchanged'));
