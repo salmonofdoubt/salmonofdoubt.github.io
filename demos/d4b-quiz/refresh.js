@@ -4,7 +4,7 @@ const workflow='https://github.com/salmonofdoubt/salmonofdoubt.github.io/actions
 const api='https://api.github.com/repos/salmonofdoubt/salmonofdoubt.github.io/actions';
 const phases=['Check external sources','Incorporate vetted candidate questions','Audit question bank','Consolidate evidence report','Publish consolidation report'];
 const $=id=>document.getElementById(id);
-let pendingSince=0,tick=null,lastRunId=null;
+let tick=null;
 const fmt=d=>d?new Intl.DateTimeFormat('en-IE',{dateStyle:'medium',timeStyle:'short',timeZone:'Europe/Dublin'}).format(new Date(d)):'Not yet recorded';
 function notice(message){$('refreshMessage').textContent=message}
 function showProgress(steps){
@@ -26,42 +26,43 @@ async function getJson(url){
  return r.json();
 }
 async function manifest(){
- try{
-  const r=await fetch('./consolidation.json?check='+Date.now(),{cache:'no-store'});
-  if(!r.ok)throw Error('Not published');
-  const data=await r.json();
-  $('lastConsolidated').textContent='Last consolidated: '+fmt(data.last_consolidated_at);
-  $('lastChecked').textContent='Last refresh checked: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+(data.new_questions_ingested||0)+' incorporated this refresh · '+data.question_status.pending+' pending independent verification'+(data.course_alignment?' · '+(data.course_alignment.supported+data.course_alignment.qualified)+' module-booklet answers reviewed':'');
-  const sources=data.source_status||[];
-  $('sourceCoverage').replaceChildren(...sources.map(s=>{
-   const el=document.createElement('span');
-   el.textContent=s.name+': '+(s.status==='reachable-shell'?'page checked'+(s.content_changed===true?' · changed since previous check':'')+'; questions not imported':s.status==='unavailable'?'unavailable':s.status==='not-connected'?'private connection needed':s.status);
-   return el;
-  }));
-  return data;
- }catch{
-  $('lastConsolidated').textContent='Last consolidated: No published refresh record yet';
-  $('lastChecked').textContent='The first refresh must be run through GitHub Actions after this change is merged.';
-  return null;
+ const paths=[
+  'https://raw.githubusercontent.com/salmonofdoubt/salmonofdoubt.github.io/master/demos/d4b-quiz/consolidation.json',
+  './consolidation.json'
+ ];
+ for(const path of paths){
+  try{
+   const r=await fetch(path+(path.includes('?')?'&':'?')+'check='+Date.now(),{cache:'no-store'});
+   if(!r.ok)throw Error('HTTP '+r.status);
+   const data=await r.json();
+   if(!data||typeof data.question_count!=='number'||!data.question_status||!data.last_checked_at)throw Error('Incomplete consolidation record');
+   $('lastConsolidated').textContent='Last consolidated: '+fmt(data.last_consolidated_at);
+   $('lastChecked').textContent='Last source check: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+(data.new_questions_ingested||0)+' newly ingested · '+data.question_status.pending+' pending independent verification'+(data.course_alignment?' · '+(data.course_alignment.supported+data.course_alignment.qualified)+' booklet checks':'');
+   const sources=data.source_status||[];
+   $('sourceCoverage').replaceChildren(...sources.map(s=>{
+    const el=document.createElement('span');
+    el.textContent=s.name+': '+(s.status==='reachable-shell'?'page checked'+(s.content_changed===true?' · changed':'')+'; no external questions imported':s.status==='unavailable'?'unavailable':s.status==='not-connected'?'private source not connected':s.status);
+    return el;
+   }));
+   return data;
+  }catch(e){console.warn('Consolidation source unavailable:',path,e.message)}
  }
+ $('lastConsolidated').textContent='Last consolidated: Published report currently unavailable';
+ $('lastChecked').textContent='The most recent report could not be loaded; check the workflow run for details.';
+ return null;
 }
 async function check(){
  try{
-  const result=await getJson(api+'/workflows/d4b-refresh.yml/runs?event=workflow_dispatch&per_page=1');
+  const result=await getJson(api+'/workflows/d4b-refresh.yml/runs?branch=master&per_page=1');
   const run=result.workflow_runs?.[0];
-  if(!run){notice('No refresh workflow run has been recorded.');showProgress([]);return}
-  if(pendingSince&&new Date(run.created_at).getTime()<pendingSince-5000){
-   notice('Waiting for you to start a new workflow run in GitHub…');
-   return;
-  }
-  pendingSince=0;lastRunId=run.id;
+  if(!run){notice('No automated refresh run has been recorded yet.');showProgress([]);await manifest();return}
   $('runLink').hidden=false;$('runLink').href=run.html_url;
   const jobs=await getJson(api+'/runs/'+encodeURIComponent(run.id)+'/jobs?per_page=50');
   const steps=jobs.jobs?.flatMap(j=>j.steps||[])||[];
   showProgress(steps);
   await manifest();
   if(run.status==='completed'){
-   notice(run.conclusion==='success'?'GitHub consolidation finished. Check the timestamp above; publication may take a moment.':'Refresh did not complete successfully. Open the workflow log to see the failed step.');
+   notice(run.conclusion==='success'?'Latest automated check finished successfully. Public question updates require an approved release.':'Automatic refresh failed. The existing question bank remains available; see the GitHub workflow log.');
    clearInterval(tick);tick=null;
   }else{
    notice('Refresh '+run.status.replaceAll('_',' ')+'. Progress shows actual completed GitHub Actions steps.');
@@ -73,11 +74,8 @@ async function check(){
  }
 }
 $('refreshWorkflow').addEventListener('click',()=>{
- pendingSince=Date.now();
  window.open(workflow,'_blank','noopener,noreferrer');
- notice('GitHub authentication is required. In the opened page select Run workflow; this page will then report progress.');
- showProgress([]);
- if(!tick)tick=setInterval(check,20000);
+ notice('Automatic checks run daily and after approved releases. GitHub shows the full audit history.');
 });
 $('refreshPoll').addEventListener('click',()=>{check()});
 manifest();check();
