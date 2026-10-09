@@ -75,6 +75,18 @@ The private recovery pack supplied in the ChatGPT session contains two full orig
 **Source limitation:** previous-conversation retrieval was unavailable during the session. The recovered inventory is a documented first pass, not an exhaustive history scrape. The public workflow still cannot access the private ChatGPT and Google Drive connectors.
 
 
+## On-site ingestion and source provenance ledger
+
+The public quiz now shows three **non-interchangeable** facts in its **Refresh evidence** panel:
+
+- **Last reviewed learning added** — sourced from `content-updates.json`. Each approved release entry includes the exact merge timestamp, public source label, module/week, original public practice question IDs and a link to the merged PR. **Only releases that have evidence-backed entries are represented.** Historical releases before the ledger existed are not reconstructed from guesses.
+- **Last automated question import** — sourced from the GitHub workflow's `ingestion-report.json`. An additions count of zero means nothing was *newly staged and inserted during that particular run*, even if the approved question bank recently gained questions in an earlier reviewed PR.
+- **Last source check** — the availability/fingerprint check date for Digital Leprechaun, Get Styled, and the explicit lack of GitHub Actions access to Drive and ChatGPT. A changed external fingerprint is **not** a claim that peer quiz questions have been imported.
+
+The workflow checks every ledger event against the published `questions.js`: IDs must exist, match the declared module/week, appear only once across release entries, and have a genuine recorded date and GitHub PR link. It rejects invented provenance on a subsequent consolidation run. The browser only displays claims present in those checked records, never infers source ingestion from a successful workflow status.
+
+**For every future reviewed source release**, append a new `content-updates.json` event in the same reviewed commit as the newly authored public questions, or in a follow-up reviewed metadata commit referencing an already merged PR and its true timestamp. Include only source labels, public question IDs and approved release evidence. Never include private booklet text, source credentials or Moodle originals. The workflow will regenerate the embedded provenance summary in `consolidation.json` automatically. The latest event supported by the initial ledger is Innovation W5 (14 original questions, PR #202, 9 Oct 2026). This initial record does **not** imply the other historical releases never occurred.
+
 ## Innovation Week 5 and private source boundaries (9 October 2026)
 
 The user's connected private Innovation booklet now includes W5 topics on concrete behaviour-change techniques, ethical nudges and defaults, truthful social proof, the adjacent possible, the Double Diamond, lateral/vertical thinking and divergent-thinking metrics. Fourteen **new, original** course-aligned practice questions (d4b-092 to d4b-105) were authored after the booklet was read through the authorised ChatGPT Google Drive connection. Their source labels name the corresponding booklet Week 05 section, without republishing the private slides or full Moodle wording. They remain pending *independent* academic source verification. The booklet itself reports a Moodle quiz result and answer-letter sequence but does not reproduce the complete original question and option text; do not silently convert such a summary into purported verbatim Moodle items.
