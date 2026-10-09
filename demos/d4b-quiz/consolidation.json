@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-09T22:32:15.768Z",
+  "last_checked_at": "2026-10-09T22:40:41.546Z",
   "last_consolidated_at": "2026-10-09T22:32:15.768Z",
   "last_question_bank_change_at": "2026-10-09T22:32:15.768Z",
   "content_fingerprint": "a12a2fc1fb587a385080842c441a10b3e1139714588542ad6c907ba21fb65e19",
-  "content_changed": true,
+  "content_changed": false,
   "bank_fingerprint": "ca2a796c99e82179baed3b8d3dc2ed7abcb5950dc6d8ff5162eabe04a37ff272",
   "question_count": 105,
   "question_status": {
@@ -40,6 +40,77 @@
   },
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
+  "ingestion_tracking": {
+    "updated_at": "2026-10-09T22:40:41.546Z",
+    "last_automated_check_at": "2026-10-09T22:40:39.736Z",
+    "last_automation_ingest_at": "2026-10-09T22:40:41.470Z",
+    "last_automation_ingested_count": 0,
+    "last_automation_added_ids": [],
+    "staged_candidate_count": 50,
+    "staged_already_present": 50,
+    "last_reviewed_material_release": {
+      "id": "d4b-source-release-20261009-innovation-w5",
+      "accepted_at": "2026-10-09T22:31:46Z",
+      "source_id": "drive",
+      "source_name": "Private D4B Drive (connected ChatGPT review)",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "material": "Innovation module booklet · Week 05",
+      "module": "INN",
+      "week": 5,
+      "question_count": 14,
+      "question_ids": [
+        "d4b-092",
+        "d4b-093",
+        "d4b-094",
+        "d4b-095",
+        "d4b-096",
+        "d4b-097",
+        "d4b-098",
+        "d4b-099",
+        "d4b-100",
+        "d4b-101",
+        "d4b-102",
+        "d4b-103",
+        "d4b-104",
+        "d4b-105"
+      ],
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/202",
+      "review_scope": "14 original booklet-derived practice questions, not copied Moodle originals. Course alignment recorded; independent scientific verification pending."
+    },
+    "recent_reviewed_material_releases": [
+      {
+        "id": "d4b-source-release-20261009-innovation-w5",
+        "accepted_at": "2026-10-09T22:31:46Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "material": "Innovation module booklet · Week 05",
+        "module": "INN",
+        "week": 5,
+        "question_count": 14,
+        "question_ids": [
+          "d4b-092",
+          "d4b-093",
+          "d4b-094",
+          "d4b-095",
+          "d4b-096",
+          "d4b-097",
+          "d4b-098",
+          "d4b-099",
+          "d4b-100",
+          "d4b-101",
+          "d4b-102",
+          "d4b-103",
+          "d4b-104",
+          "d4b-105"
+        ],
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/202",
+        "review_scope": "14 original booklet-derived practice questions, not copied Moodle originals. Course alignment recorded; independent scientific verification pending."
+      }
+    ],
+    "reviewed_release_count": 1,
+    "explicit_source_boundary": "GitHub fingerprints public pages and reconciles already-staged original questions. It cannot independently read private Drive, ChatGPT, or Moodle content; private material releases require a separate authorised review."
+  },
   "source_status": [
     {
       "id": "leprechaun",
