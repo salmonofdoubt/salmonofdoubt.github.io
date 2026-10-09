@@ -14,7 +14,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <link rel="stylesheet" href="./styles.css?v=20261009-1">
-  <link rel="stylesheet" href="./quiz.css?v=20261009-2">
+  <link rel="stylesheet" href="./quiz.css?v=ledger-20261009-v1">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
@@ -23,7 +23,7 @@
   <script defer src="./app.js?v=20261008-5"></script>
   <script defer src="./questions.js?v=bank-ca2a796c99"></script>
   <script defer src="./quiz.js?v=course-20261009-v1"></script>
-  <script defer src="./refresh.js?v=auto-20261009-v1"></script>
+  <script defer src="./refresh.js?v=ledger-20261009-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
   <!-- End Cloudflare Web Analytics -->
@@ -53,10 +53,17 @@
   <section class="quiz-panel" aria-labelledby="refreshTitle">
    <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">View workflow history</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
    <p class="fine">GitHub checks public sources and staged questions automatically; <strong>it does not read changes in your private Google Drive, ChatGPT or Moodle materials</strong>. New module material must first be reviewed and added as original practice questions through an authorised private-source review. A successful refresh confirms the public bank was checked, not that private learning materials were imported.</p>
-   <p id="lastConsolidated">Last consolidated: Checking…</p><p id="lastChecked" class="fine"></p>
+   <div class="ingestion-facts" aria-label="Source check and publication history">
+    <div class="ingestion-fact"><span>Last reviewed learning added</span><strong id="lastContentTitle">Checking published records…</strong><p class="fine" id="lastContentDetail"></p><a id="lastContentLink" class="ingestion-link" rel="noopener noreferrer" target="_blank" hidden>View reviewed release</a></div>
+    <div class="ingestion-fact"><span>Last automated question import</span><strong id="lastRunIngest">Checking…</strong><p class="fine" id="lastRunIngestDetail"></p></div>
+   </div>
+   <p id="lastConsolidated" class="fine">Last content/source consolidation: Checking…</p><p id="lastChecked" class="fine"></p>
    <div class="refresh-track" id="refreshProgress" role="progressbar" aria-label="Completed workflow stages" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="refreshBar"></div></div>
    <ol id="refreshStages" class="refresh-stages"></ol><p class="fine" id="refreshMessage" role="status">Checking workflow status…</p>
-   <a id="runLink" target="_blank" rel="noopener noreferrer" hidden>View workflow run details</a><div id="sourceCoverage" class="source-coverage"></div>
+   <a id="runLink" target="_blank" rel="noopener noreferrer" hidden>View workflow run details</a>
+   <h3 class="source-ledger-heading">Source-by-source ingestion status</h3>
+   <p class="fine">Checked means availability or change detection; it does not mean questions were imported from that source.</p>
+   <ul id="sourceCoverage" class="source-ledger" aria-label="Source status, latest check and accepted material"></ul>
   </section>
   <section class="quiz-panel" aria-labelledby="official-title"><h2 id="official-title">Official Moodle quizzes · private import</h2><p class="fine">Import original quiz wording and confirmed keys for your own personal study. The imported text stays in this browser and is not published in the repository. Official answer-key confirmation is distinct from independent factual verification.</p><div class="actions"><label class="import-label" for="officialImport">Import JSON file<input id="officialImport" type="file" accept=".json,application/json"></label><button class="quiet-button" type="button" id="exportOfficialTemplate">Download format template</button><button class="quiet-button" type="button" id="clearOfficial">Clear private imports</button></div><p class="fine">From the private recovery pack, select <code>moodle_exact_import.json</code>. Do not choose the ZIP archive or <code>quiz_recovery_inventory.json</code>. Imports stay on this device.</p><p id="importStatus" class="fine" role="status" aria-live="polite">Checking locally stored questions…</p></section>
   <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><div><b id="due">0</b><span>Questions to revisit</span></div><div><b id="bank">0</b><span>Questions in complete bank</span></div></section>
