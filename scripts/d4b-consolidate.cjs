@@ -112,7 +112,7 @@ function ingest(){
 }
 
 function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8');
- const questions=parseBank(code).list,ids=new Set(),stems=new Set(),errors=[],statuses={verified:0,pending:0,flagged:0},byWeek={};
+ const questions=parseBank(code).list,ids=new Set(),stems=new Set(),errors=[],statuses={verified:0,pending:0,flagged:0},byWeek={},courseAlignment={supported:0,qualified:0,notReviewed:0};
  for(const q of questions){
   if(!q.id||ids.has(q.id))errors.push('duplicate id '+q.id);ids.add(q.id);
   const norm=normalize(q.stem);if(stems.has(norm))errors.push(q.id+': duplicate question wording');stems.add(norm);
@@ -120,6 +120,11 @@ function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'
   if(!Number.isInteger(q.correct)||q.correct<0||q.correct>3||!q.explanation||!q.source)errors.push(q.id+': key/evidence');
   if(!q.origin||!q.verification||!q.evidence?.source)errors.push(q.id+': provenance');
   const k=q.module+':'+q.week;byWeek[k]=(byWeek[k]||0)+1;
+  const ca=q.course_alignment;
+  if(ca){
+   if(!['supported','qualified'].includes(ca.status)||ca.module!==q.module||ca.week!==q.week||!ca.booklet_locator||!ca.reviewed_at||ca.original_moodle_key_checked!==false)errors.push(q.id+': invalid module alignment metadata');
+   else courseAlignment[ca.status]++;
+  }else courseAlignment.notReviewed++;
   if(q.verification==='verified'){if(!q.evidence||q.evidence.originalMaterialChecked!==true||!q.evidence.locator||!q.evidence.reviewed_at||!/^https:\/\//.test(q.evidence.url||''))errors.push(q.id+': verification without documented source URL, locator and date');statuses.verified++}
   else if(q.verification==='flagged')statuses.flagged++;
   else if(['pending','key-pending','official-key-confirmed'].includes(q.verification))statuses.pending++;
@@ -129,7 +134,7 @@ function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'
  const missing=Object.entries(curriculum).flatMap(([m,weeks])=>weeks.map((_,i)=>m+':'+(i+1))).filter(k=>!byWeek[k]);
  const reviewItems=questions.map(q=>({
  id:q.id,module:q.module,week:q.week,topic:q.topic,
- origin:q.origin,verification:q.verification,booklet_section:q.source,
+ origin:q.origin,verification:q.verification,booklet_section:q.source,course_alignment:q.course_alignment?.status||'not-reviewed',course_qualification:q.course_alignment?.status==='qualified'?q.course_alignment.note:null,
  primary_reference:q.evidence?.url||null,primary_locator:q.evidence?.locator||null,
  last_independent_review:q.evidence?.reviewed_at||null,
  next_action:q.verification==='verified'?'Recheck when source or question changes':q.verification==='flagged'?'Resolve ambiguity before scoring':'Check full answer, all three distractors and precise primary/lecturer-source evidence'
@@ -138,7 +143,7 @@ function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'
  waiting_primary_review:reviewItems.filter(q=>q.verification!=='verified').length,
  items:reviewItems};
  put('review-queue.json',reviewQueue);
- const result={checked_at:time(),count:questions.length,bank_fingerprint:hash(code),statuses,by_week:byWeek,uncovered_weeks:missing,structural_errors:errors,independently_verified:statuses.pending===0&&statuses.flagged===0&&errors.length===0};
+ const result={checked_at:time(),count:questions.length,bank_fingerprint:hash(code),statuses,course_alignment:courseAlignment,by_week:byWeek,uncovered_weeks:missing,structural_errors:errors,independently_verified:statuses.pending===0&&statuses.flagged===0&&errors.length===0};
  put('audit-report.json',result);console.log('questions '+result.count+', pending '+statuses.pending+', schema errors '+errors.length);
  if(errors.length)throw Error(errors.join('; '));
 }
@@ -146,7 +151,7 @@ function consolidate(){const audit=read('audit-report.json'),discovery=read('sou
  if(!audit||!discovery||!ingestion||audit.structural_errors.length)throw Error('Ingest, audit and discovery required');
  const digest=hash(JSON.stringify({bank:audit.bank_fingerprint,external:discovery.sources.map(s=>({id:s.id,fingerprint:s.fingerprint||null}))})),at=time(),changed=!prev||prev.content_fingerprint!==digest;
  const output={schema_version:1,last_checked_at:at,last_consolidated_at:changed?at:prev.last_consolidated_at,last_question_bank_change_at:!prev||prev.bank_fingerprint!==audit.bank_fingerprint?at:prev.last_question_bank_change_at,
- content_fingerprint:digest,content_changed:changed,bank_fingerprint:audit.bank_fingerprint,question_count:audit.count,question_status:audit.statuses,by_week:audit.by_week,uncovered_weeks:audit.uncovered_weeks,new_questions_ingested:ingestion.added,source_status:discovery.sources,
+ content_fingerprint:digest,content_changed:changed,bank_fingerprint:audit.bank_fingerprint,question_count:audit.count,question_status:audit.statuses,course_alignment:audit.course_alignment,by_week:audit.by_week,uncovered_weeks:audit.uncovered_weeks,new_questions_ingested:ingestion.added,source_status:discovery.sources,
  audit:{structural_errors:0,independently_verified:audit.independently_verified},
  limitation:'36 original booklet-derived candidates can be ingested after an explicit refresh. External peer sites only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. Independent factual verification remains pending.'};
  put('consolidation.json',output);console.log('consolidation '+(changed?'changed':'unchanged'));

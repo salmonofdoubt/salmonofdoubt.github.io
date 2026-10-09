@@ -1,4 +1,4 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-audit-20261009-197';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-course-20261009-v1';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,9 +8,9 @@ const APP_SHELL = [
   './manifest.webmanifest',
   './icon.svg',
   './quiz.css?v=20261009-2',
-  './questions.js?v=audit-20261009-197',
-  './quiz.js?v=20261009-2',
-  './refresh.js?v=20261009-1'
+  './questions.js?v=course-20261009-v1',
+  './quiz.js?v=course-20261009-v1',
+  './refresh.js?v=course-20261009-v1'
 ];
 
 self.addEventListener('install', (event) => {
