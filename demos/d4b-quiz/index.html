@@ -21,9 +21,9 @@
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.js?v=20261008-5"></script>
   <script defer src="./app.js?v=20261008-5"></script>
-  <script defer src="./questions.js?v=audit-20261009-197"></script>
-  <script defer src="./quiz.js?v=20261009-2"></script>
-  <script defer src="./refresh.js?v=20261009-1"></script>
+  <script defer src="./questions.js?v=course-20261009-v1"></script>
+  <script defer src="./quiz.js?v=course-20261009-v1"></script>
+  <script defer src="./refresh.js?v=course-20261009-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
   <!-- End Cloudflare Web Analytics -->
@@ -48,7 +48,7 @@
     <label>Practice<select id="mode"><option value="adaptive">Adaptive review</option><option value="exam">Timed exam simulation</option><option value="mistakes">Mistakes only</option></select></label>
     <label>Questions<select id="count"><option value="all">All available questions</option><option value="10">10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option></select></label>
    </div><p id="availability" class="availability" role="status"></p><div class="actions"><button class="primary-button" id="start">Start practice</button><button class="quiet-button" id="reset">Reset local history</button><button class="quiet-button" id="export">Export progress</button></div>
-   <p class="notice">Questions show their individual verification status and reference when independently checked. An independently verified answer is not a lecturer-approved exam question. The booklets themselves are not published here.</p>
+   <p class="notice">Questions distinguish lecturer-module booklet checks from independent factual verification. Moodle-grading confirmation is a separate status. An independently verified answer is not a lecturer-approved exam question. The booklets themselves are not published here.</p>
   </section>
   <section class="quiz-panel" aria-labelledby="refreshTitle">
    <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">Refresh via GitHub</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
