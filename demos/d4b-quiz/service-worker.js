@@ -1,4 +1,4 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-bank-b134b9a8e0';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-bank-709c28502f';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,7 +8,7 @@ const APP_SHELL = [
   './manifest.webmanifest',
   './icon.svg',
   './quiz.css?v=ledger-20261009-v1',
-  './questions.js?v=bank-b134b9a8e0',
+  './questions.js?v=bank-709c28502f',
   './quiz.js?v=course-20261009-v1',
   './refresh.js?v=ledger-20261010-v1'
 ];

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-09T23:30:38.279Z",
+  "generated_at": "2026-10-09T23:41:55.122Z",
   "source": "Public original-question bank only; private Moodle material excluded",
   "total": 121,
-  "waiting_primary_review": 4,
+  "waiting_primary_review": 0,
   "items": [
     {
       "id": "d4b-001",
@@ -940,14 +940,14 @@
       "week": 4,
       "topic": "Model validation",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 04, Model selection and validation",
       "course_alignment": "qualified",
       "course_qualification": "This is the Generative AI Week 4 lecturer's conditional rule of thumb: choose the smallest model that passes the relevant test on the intended data. It is not a universal requirement to prefer small models.",
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://huggingface.co/docs/transformers/main/en/model_doc/auto",
+      "primary_locator": "Perezhohin (2026), original D4B GEN W4 lecture slide 14: 'The rule: the smallest model that passes your test, on your own data.' External URL is contextual only.",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-064",
@@ -1135,14 +1135,14 @@
       "week": 1,
       "topic": "Value capture",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 01, Innovation equation",
       "course_alignment": "qualified",
       "course_qualification": "The Innovation Week 1 lecturer uses Invention × Commercialisation as a pedagogical value-capture model. Do not mistake this for a universal definition of innovation: public and noncommercial implementation can qualify under the OECD Oslo Manual.",
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://news.mit.edu/2013/disciplined-entrepreneurship-bill-aulet-0826",
+      "primary_locator": "Original Innovation presentation, 'On the definition(s) of Innovation', slides 14–15: Innovation = invention * commercialization (Aulet, 2013). MIT reference is contextual.",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-077",
@@ -1720,14 +1720,14 @@
       "week": 4,
       "topic": "Foresight five-stage cycle",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 04, Frame, Scan, Imagine, Decide and Design",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "Ottolino (2026), original Introduction to Futures Thinking slides: 1 FRAME, 2 SCAN, 3 IMAGINE, 4 DECIDE, 5 DESIGN. External reference covers broader toolkit.",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-116",
@@ -1795,14 +1795,14 @@
       "week": 4,
       "topic": "Platformization tree",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Platformization tree: roots, trunk and branches",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://doi.org/10.1177/1461444820940293",
+      "primary_locator": "Van Dijck (2021), 'The platformization tree', pp. 2805–2807: roots infrastructures, trunk intermediary platforms, branches sectors.",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-121",

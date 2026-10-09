@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-09T23:30:38.328Z",
-  "last_consolidated_at": "2026-10-09T23:30:38.328Z",
-  "last_question_bank_change_at": "2026-10-09T23:30:38.328Z",
-  "content_fingerprint": "e354dcb444ed211faf6ada4b27b0c98072386303496d1e00672e8f16e15e8a21",
+  "last_checked_at": "2026-10-09T23:41:55.176Z",
+  "last_consolidated_at": "2026-10-09T23:41:55.176Z",
+  "last_question_bank_change_at": "2026-10-09T23:41:55.176Z",
+  "content_fingerprint": "ddde13615c53f205c4863f4906ef156eecb10d4a0432908cc09c369b9b8e221a",
   "content_changed": true,
-  "bank_fingerprint": "b134b9a8e05cd78ed1270f7201fa9610f8187b0a9c42e081fb3642a4836ec78d",
+  "bank_fingerprint": "709c28502f0bad881162c9dfa03a0255303badc36f834f7b8b35f197bcd0c2dd",
   "question_count": 121,
   "question_status": {
-    "verified": 117,
-    "pending": 4,
+    "verified": 121,
+    "pending": 0,
     "flagged": 0
   },
   "course_alignment": {
@@ -41,9 +41,9 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-09T23:30:38.328Z",
-    "last_automated_check_at": "2026-10-09T23:30:36.176Z",
-    "last_automation_ingest_at": "2026-10-09T23:30:38.236Z",
+    "updated_at": "2026-10-09T23:41:55.176Z",
+    "last_automated_check_at": "2026-10-09T23:41:53.671Z",
+    "last_automation_ingest_at": "2026-10-09T23:41:55.066Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 66,
@@ -413,7 +413,7 @@
   ],
   "audit": {
     "structural_errors": 0,
-    "independently_verified": false
+    "independently_verified": true
   },
   "limitation": "Public GitHub checks only stage previously authored original practice questions and monitor peer-site fingerprints. Changes to private Google Drive and ChatGPT material are not read by this workflow; original-source verification of pending answers remains a separate review."
 }
