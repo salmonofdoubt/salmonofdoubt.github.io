@@ -20,6 +20,7 @@ on:
     paths:
       - 'demos/d4b-quiz/**'
       - 'scripts/d4b-consolidate.cjs'
+      - 'scripts/test-d4b-*.cjs'
       - '.github/workflows/d4b-refresh.yml'
 
 permissions:
