@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-09T23:12:23.949Z",
+  "generated_at": "2026-10-09T23:30:38.279Z",
   "source": "Public original-question bank only; private Moodle material excluded",
   "total": 121,
-  "waiting_primary_review": 82,
+  "waiting_primary_review": 4,
   "items": [
     {
       "id": "d4b-001",
@@ -100,14 +100,14 @@
       "week": 5,
       "topic": "Prompt engineering",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 05, Prompt engineering",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://help.openai.com/en/articles/6654000-best-practices-for-prompting-openai-api",
+      "primary_locator": "OpenAI, Best practices: Rules of Thumb 2–4, specific instructions/context and desired output format",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-008",
@@ -115,14 +115,14 @@
       "week": 1,
       "topic": "AI systems",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 01, Key distinctions",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks",
+      "primary_locator": "IBM, How AI, machine learning, and deep learning relate: nested categories",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-009",
@@ -175,14 +175,14 @@
       "week": 5,
       "topic": "AI ethics",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "primary_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-013",
@@ -190,14 +190,14 @@
       "week": 1,
       "topic": "Innovation basics",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 01, Key distinctions",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "primary_locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-014",
@@ -205,14 +205,14 @@
       "week": 1,
       "topic": "Complementary assets",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 01, Complementary assets",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://doi.org/10.1016/0048-7333(86)90027-2",
+      "primary_locator": "Teece (1986), Profiting from technological innovation: complementary assets, integration and appropriability",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-015",
@@ -235,14 +235,14 @@
       "week": 4,
       "topic": "Foresight",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 04, Foresight",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-017",
@@ -265,14 +265,14 @@
       "week": 1,
       "topic": "Organisational change",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 01, Westerman typology",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://shop.sloanreview.mit.edu/store/the-advantages-of-digital-maturity",
+      "primary_locator": "Westerman, Bonnet and McAfee (2012), MIT Sloan Management Review: Beginners, Conservatives, Fashionistas and Digirati, digital vs leadership intensity",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-019",
@@ -295,14 +295,14 @@
       "week": 1,
       "topic": "Societal dimensions",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 01, Societal lens",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "primary_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-021",
@@ -310,14 +310,14 @@
       "week": 1,
       "topic": "Learning paradigms",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 01, Learning paradigms",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://artint.info/3e/html/ArtInt3e.Ch5.S3.html",
+      "primary_locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §5.3: definite-clause rules, knowledge bases and deterministic inference",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-022",
@@ -355,14 +355,14 @@
       "week": 4,
       "topic": "Model selection",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 04, Model selection",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://huggingface.co/docs/transformers/model_doc/bert",
+      "primary_locator": "Hugging Face original architecture docs, BertForSequenceClassification: encoder representations used for supervised classification",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-025",
@@ -370,14 +370,14 @@
       "week": 4,
       "topic": "Model cards",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 04, Model cards",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://huggingface.co/docs/hub/model-cards",
+      "primary_locator": "Hugging Face Hub documentation, Model Cards: intended use, limitations, training datasets, license and evaluation",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-026",
@@ -415,14 +415,14 @@
       "week": 5,
       "topic": "Evaluation",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 05, Evaluation",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets",
+      "primary_locator": "Google ML Crash Course, Dividing datasets: training, validation and held-out test; repeated testing and selection leakage",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-029",
@@ -430,14 +430,14 @@
       "week": 1,
       "topic": "Compute",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 01, Compute",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+      "primary_locator": "NVIDIA CUDA Programming Guide, introduction and parallel GPU computing model",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-030",
@@ -535,14 +535,14 @@
       "week": 4,
       "topic": "Data quality",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 04, Data quality",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "primary_locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-037",
@@ -565,14 +565,14 @@
       "week": 5,
       "topic": "Trustworthy AI",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "primary_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-039",
@@ -580,14 +580,14 @@
       "week": 1,
       "topic": "Creative destruction",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 01, Creative destruction",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oreilly.com/library/view/will-it-fly/0130462217/apc.html",
+      "primary_locator": "Schumpeter, Capitalism, Socialism and Democracy (1942), pp.82–85, primary text reprinted in Creative Destruction appendix",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-040",
@@ -595,14 +595,14 @@
       "week": 2,
       "topic": "Learning modes",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 02, Learning modes",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.sciencedirect.com/science/article/pii/S0048733307000340",
+      "primary_locator": "Jensen, Johnson, Lorenz and Lundvall (2007), abstract and introduction: codified STI vs experiential Doing–Using–Interacting",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-041",
@@ -610,14 +610,14 @@
       "week": 3,
       "topic": "Complexity",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 03, Complexity",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-042",
@@ -625,14 +625,14 @@
       "week": 3,
       "topic": "Foresight",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 03, Foresight",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-043",
@@ -640,14 +640,14 @@
       "week": 3,
       "topic": "Futures cone",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 03, Futures cone",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-044",
@@ -655,14 +655,14 @@
       "week": 4,
       "topic": "Scanning",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 04, Scanning",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-045",
@@ -700,14 +700,14 @@
       "week": 2,
       "topic": "Digital maturity",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 02, Digital maturity",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/information-data",
+      "primary_locator": "Eurostat, Digital Intensity Index methodology: 12 adoption variables and intensity bands, not a strategy-quality metric",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-048",
@@ -715,14 +715,14 @@
       "week": 2,
       "topic": "Human–robot collaboration",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.iso.org/standard/62996.html",
+      "primary_locator": "ISO/TS 15066:2016, Abstract: safety requirements for collaborative industrial robot systems and working environments",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-049",
@@ -730,14 +730,14 @@
       "week": 3,
       "topic": "Technological frontier",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 03, Technological frontier",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://aiinstitute.hbs.edu/navigating-the-jagged-technological-frontier/",
+      "primary_locator": "Harvard Business School and BCG (2023), key findings: task-specific jagged technological frontier in a field experiment",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-050",
@@ -745,14 +745,14 @@
       "week": 3,
       "topic": "Technology trade-offs",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://student.cs.uwaterloo.ca/~cs492/papers/neil-postman--five-things.html",
+      "primary_locator": "Neil Postman, Five Things We Need to Know about Technological Change (1998), first and second ideas: trade-offs and winners/losers",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-051",
@@ -760,14 +760,14 @@
       "week": 3,
       "topic": "Human–AI teaming",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "primary_locator": "OpenAI, Does ChatGPT tell the truth?: fluent and confident text may include false or unsupported claims",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-052",
@@ -775,14 +775,14 @@
       "week": 4,
       "topic": "Platforms",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Platforms",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "primary_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-053",
@@ -790,14 +790,14 @@
       "week": 4,
       "topic": "Algorithmic selection",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "primary_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-054",
@@ -805,14 +805,14 @@
       "week": 4,
       "topic": "Datafication",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Datafication",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "primary_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-055",
@@ -820,14 +820,14 @@
       "week": 4,
       "topic": "Interoperability",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Interoperability",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/dealing-requests-individuals_en",
+      "primary_locator": "European Commission, Data portability requests: structured machine-readable interoperable export promotes service switching",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-056",
@@ -850,14 +850,14 @@
       "week": 1,
       "topic": "Discriminative vs generative models",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 01, Generative versus discriminative AI",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks",
+      "primary_locator": "IBM AI taxonomy: predictive/discriminative classification contrasted with generative model content creation",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-058",
@@ -880,14 +880,14 @@
       "week": 2,
       "topic": "Smoothing in language models",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 02, Language-model smoothing",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://web.stanford.edu/~jurafsky/slp3/index.html",
+      "primary_locator": "Jurafsky and Martin, Speech and Language Processing (Aug 2026), ch.3 N-gram Language Models: smoothing and avoiding zeros for unseen n-grams",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-060",
@@ -970,14 +970,14 @@
       "week": 5,
       "topic": "Prompt evaluation",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 05, Prompt evaluation",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets",
+      "primary_locator": "Google ML Crash Course, Dividing datasets: training, validation and held-out test; repeated testing and selection leakage",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-066",
@@ -985,14 +985,14 @@
       "week": 1,
       "topic": "Intelligent agents",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 01, Intelligent agents",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://artint.info/3e/html/ArtInt3e.Ch2.S1.html",
+      "primary_locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §2.1: agent–environment cycle, percepts, actions and subsequent stimuli",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-067",
@@ -1000,14 +1000,14 @@
       "week": 1,
       "topic": "Rule-based vs learned systems",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 01, Rules versus learning",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://artint.info/3e/html/ArtInt3e.Ch5.S3.html",
+      "primary_locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §5.3: definite-clause rules, knowledge bases and deterministic inference",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-068",
@@ -1090,14 +1090,14 @@
       "week": 4,
       "topic": "Data quality dimensions",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 04, Data cleaning",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "primary_locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-074",
@@ -1150,14 +1150,14 @@
       "week": 1,
       "topic": "Process versus strategic innovation",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 01, Process and strategic innovation",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "primary_locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-078",
@@ -1165,14 +1165,14 @@
       "week": 2,
       "topic": "Quadruple Helix",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 02, Innovation systems",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.researchgate.net/publication/240295704_%27Mode_3%27_and_%27Quadruple_Helix%27_toward_a_21st_century_fractal_innovation_ecosystem",
+      "primary_locator": "Carayannis and Campbell (2009), original Quadruple Helix research: additional media-based, culture-based public",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-079",
@@ -1180,14 +1180,14 @@
       "week": 2,
       "topic": "Appropriability",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 02, Appropriability regimes",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://doi.org/10.1016/0048-7333(86)90027-2",
+      "primary_locator": "Teece (1986), Profiting from technological innovation: complementary assets, integration and appropriability",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-080",
@@ -1195,14 +1195,14 @@
       "week": 3,
       "topic": "Foresight biases",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 03, Foresight biases",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://airc.nist.gov/airmf-resources/playbook/govern/",
+      "primary_locator": "NIST AI RMF Playbook, Govern: counteract confirmation bias in AI risk governance",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-081",
@@ -1210,14 +1210,14 @@
       "week": 3,
       "topic": "Complicated versus complex",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 03, Complex systems",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-082",
@@ -1225,14 +1225,14 @@
       "week": 4,
       "topic": "Futures wheel",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 04, Futures Wheel",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-083",
@@ -1240,14 +1240,14 @@
       "week": 4,
       "topic": "Roadmapping",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 04, Backcasting and roadmapping",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-084",
@@ -1255,14 +1255,14 @@
       "week": 1,
       "topic": "Digital transformation leadership",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 01, Westerman digital maturity",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://shop.sloanreview.mit.edu/store/the-advantages-of-digital-maturity",
+      "primary_locator": "Westerman, Bonnet and McAfee (2012), MIT Sloan Management Review: Beginners, Conservatives, Fashionistas and Digirati, digital vs leadership intensity",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-085",
@@ -1270,14 +1270,14 @@
       "week": 1,
       "topic": "Transformation assessment",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 01, Digital transformation overview",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://doi.org/10.1016/j.jsis.2019.01.003",
+      "primary_locator": "Vial (2019), Understanding digital transformation, abstract and introduction: strategic, organisational and value-creation change",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-086",
@@ -1300,14 +1300,14 @@
       "week": 2,
       "topic": "Human-centred evaluation",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 02, Human-centred design",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.iso.org/standard/62996.html",
+      "primary_locator": "ISO/TS 15066:2016, Abstract: safety requirements for collaborative industrial robot systems and working environments",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-088",
@@ -1315,14 +1315,14 @@
       "week": 3,
       "topic": "General-purpose technology",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 03, General-purpose technology",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.researchgate.net/publication/4858619_General_Purpose_Technologies_%27Engines_of_Growth%27/fulltext/00b1254b0cf2d1b855032db3/General-Purpose-Technologies-Engines-of-Growth.pdf",
+      "primary_locator": "Bresnahan and Trajtenberg (1995), General Purpose Technologies, pp.83–85: pervasiveness, dynamism and innovation complementarities",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-089",
@@ -1330,14 +1330,14 @@
       "week": 3,
       "topic": "Skill retention",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 03, Cognitive offloading and teaming",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/?lang=ko-kr%2Fbibtex%2F",
+      "primary_locator": "Lee et al. (CHI 2025), 319-knowledge-worker study: AI use and critical-thinking effort; identifies skill and task stewardship as relevant evaluation dimensions",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-090",
@@ -1345,14 +1345,14 @@
       "week": 4,
       "topic": "Commodification",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Platform mechanisms",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "primary_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-091",
@@ -1360,14 +1360,14 @@
       "week": 4,
       "topic": "Platform power",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Vertical integration and platform power",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "primary_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-092",
@@ -1375,14 +1375,14 @@
       "week": 5,
       "topic": "Behaviour change techniques",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Behaviour change techniques",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://discovery.ucl.ac.uk/id/eprint/1400691/",
+      "primary_locator": "Michie et al. (2013), Behaviour Change Technique Taxonomy v1: goal setting, action planning and feedback on behaviour",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-093",
@@ -1390,14 +1390,14 @@
       "week": 5,
       "topic": "Choice architecture",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "primary_locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-094",
@@ -1405,14 +1405,14 @@
       "week": 5,
       "topic": "Defaults",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "primary_locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-095",
@@ -1420,14 +1420,14 @@
       "week": 5,
       "topic": "Social proof",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.bi.team/east-tool/methodology/",
+      "primary_locator": "Behavioural Insights Team EAST framework: Easy, Attractive, Social, Timely; social norms and credible comparison",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-096",
@@ -1435,14 +1435,14 @@
       "week": 5,
       "topic": "Ethics of nudging",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "primary_locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-097",
@@ -1450,14 +1450,14 @@
       "week": 5,
       "topic": "Adjacent possible",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Adjacent possible",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://arxiv.org/abs/1310.1953",
+      "primary_locator": "Tria, Loreto, Servedio and Strogatz (2014), The dynamics of correlated novelties, abstract: expanding adjacent possible",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-098",
@@ -1465,14 +1465,14 @@
       "week": 5,
       "topic": "Feasibility versus adoption",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Adjacent possible",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "primary_locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-099",
@@ -1480,14 +1480,14 @@
       "week": 5,
       "topic": "Double Diamond sequence",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Double Diamond",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "primary_locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-100",
@@ -1495,14 +1495,14 @@
       "week": 5,
       "topic": "Problem definition",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Double Diamond",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "primary_locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-101",
@@ -1510,14 +1510,14 @@
       "week": 5,
       "topic": "Lateral versus vertical thinking",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Lateral and vertical thinking",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://onlinelibrary.wiley.com/doi/10.1002/j.2162-6057.1969.tb00124.x",
+      "primary_locator": "Edward de Bono (1969), original article abstract: vertical sequential thought versus lateral shifts in approach",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-102",
@@ -1525,14 +1525,14 @@
       "week": 5,
       "topic": "Divergent-thinking flexibility",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Creative thinking measures",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.frontiersin.org/journals/communication/articles/10.3389/fcomm.2023.1115360/full",
+      "primary_locator": "Original empirical study, §4.5.4 Creativity analysis: fluency (number), flexibility (categories), originality (rarity), elaboration (detail)",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-103",
@@ -1540,14 +1540,14 @@
       "week": 5,
       "topic": "Divergent-thinking elaboration",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Creative thinking measures",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.frontiersin.org/journals/communication/articles/10.3389/fcomm.2023.1115360/full",
+      "primary_locator": "Original empirical study, §4.5.4 Creativity analysis: fluency (number), flexibility (categories), originality (rarity), elaboration (detail)",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-104",
@@ -1555,14 +1555,14 @@
       "week": 5,
       "topic": "Divergence and convergence",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Double Diamond",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "primary_locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-105",
@@ -1570,14 +1570,14 @@
       "week": 5,
       "topic": "Evidence limits",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 05, Evidence and methodological caution",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7946162/",
+      "primary_locator": "Authors' 2021 nudging research synthesis: variable effect sizes, heterogeneous contexts and replicability/validity limits",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-106",
@@ -1585,14 +1585,14 @@
       "week": 5,
       "topic": "Prompt injection in retrieved text",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 05, PROMPT INJECTION | INSTRUCTIONS CAN ARRIVE INSIDE THE DATA",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://openai.com/safety/prompt-injections/",
+      "primary_locator": "OpenAI security guidance, Understanding prompt injections: attacker-controlled content may attempt to redirect assistants",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-107",
@@ -1600,14 +1600,14 @@
       "week": 5,
       "topic": "Few-shot example selection",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 05, EXAMPLES AND IN-CONTEXT LEARNING",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://help.openai.com/en/articles/6654000-best-practices-for-prompting-openai-api",
+      "primary_locator": "OpenAI, Best practices: Rules of Thumb 2–4, specific instructions/context and desired output format",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-108",
@@ -1615,14 +1615,14 @@
       "week": 5,
       "topic": "Document-grounded answers",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 05, SOURCE-GROUNDED PROMPTING | GIVE THE TEXT, THEN CHECK",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "primary_locator": "OpenAI, Does ChatGPT tell the truth?: fluent and confident text may include false or unsupported claims",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-109",
@@ -1630,14 +1630,14 @@
       "week": 5,
       "topic": "Modular prompt workflows",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "01_Generative_AI_Booklet, Week 05, ONE JOB PER PROMPT | MAKE FAILURE VISIBLE",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "primary_locator": "Google Cloud Architecture, Guidelines: testability, experimental tracking and decomposed data/training/testing pipelines",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-110",
@@ -1645,14 +1645,14 @@
       "week": 3,
       "topic": "Underfitting diagnosis",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 03, Loss, training error and generalisation",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting",
+      "primary_locator": "Google ML Crash Course, Fitting/overfitting/underfitting: poor training and test accuracy signifies underfit",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-111",
@@ -1660,14 +1660,14 @@
       "week": 4,
       "topic": "SMOTE evaluation leakage",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 04, Class imbalance and resampling safeguards",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://imbalanced-learn.org/stable/common_pitfalls.html",
+      "primary_locator": "imbalanced-learn official documentation, §9.1: resampling before train/test split causes evaluation data leakage",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-112",
@@ -1675,14 +1675,14 @@
       "week": 4,
       "topic": "Data fitness for purpose",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 04, Data quality versus fitness for purpose",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "primary_locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-113",
@@ -1690,14 +1690,14 @@
       "week": 5,
       "topic": "Responsible decision oversight",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "02_AI_for_Business_Booklet, Week 05, Ethics as a business and system property",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "primary_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-114",
@@ -1705,14 +1705,14 @@
       "week": 2,
       "topic": "STI and DUI learning",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 02, STI versus DUI innovation learning modes",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.sciencedirect.com/science/article/pii/S0048733307000340",
+      "primary_locator": "Jensen, Johnson, Lorenz and Lundvall (2007), abstract and introduction: codified STI vs experiential Doing–Using–Interacting",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-115",
@@ -1735,14 +1735,14 @@
       "week": 4,
       "topic": "Three Horizons",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 04, Three Horizons and scenario planning",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-117",
@@ -1750,14 +1750,14 @@
       "week": 4,
       "topic": "2x2 scenario planning",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "03_Innovation_Booklet, Week 04, Scenario planning and critical uncertainties",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "primary_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-118",
@@ -1765,14 +1765,14 @@
       "week": 4,
       "topic": "Platform network effects",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Power and dependency: network effects, lock-in and walled gardens",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/en/publications/oecd-digital-economy-outlook-2020_bb167041-en/full-report/component-13.html",
+      "primary_locator": "OECD Digital Economy Outlook 2020, Evolving Business Models: 'Positive direct network effects' definition and messaging/social platform examples",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-119",
@@ -1780,14 +1780,14 @@
       "week": 4,
       "topic": "Walled garden dependency",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 04, Power and dependency: network effects, lock-in and walled gardens",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/05/an-introduction-to-online-platforms-and-their-role-in-the-digital-transformation_970fc377/53e5f593-en.pdf",
+      "primary_locator": "OECD (2019), An Introduction to Online Platforms, policy discussion on switching costs, interoperability, lock-in and platform competition",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     },
     {
       "id": "d4b-120",
@@ -1810,14 +1810,14 @@
       "week": 3,
       "topic": "Technology trade-off analysis",
       "origin": "booklet-derived",
-      "verification": "pending",
+      "verification": "verified",
       "booklet_section": "04_Digital_Transformation_Booklet, Week 03, Technology as a trade-off: Postman",
       "course_alignment": "supported",
       "course_qualification": null,
-      "primary_reference": null,
-      "primary_locator": null,
-      "last_independent_review": null,
-      "next_action": "Check full answer, all three distractors and precise primary/lecturer-source evidence"
+      "primary_reference": "https://student.cs.uwaterloo.ca/~cs492/papers/neil-postman--five-things.html",
+      "primary_locator": "Neil Postman, Five Things We Need to Know about Technological Change (1998), first and second ideas: trade-offs and winners/losers",
+      "last_independent_review": "2026-10-10",
+      "next_action": "Recheck when source or question changes"
     }
   ]
 }
