@@ -2309,15 +2309,23 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Model selection must account for task fit, resource cost, provenance and licence; size alone is not quality.",
     "source": "01_Generative_AI_Booklet, Week 04, Model selection and validation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04 / Model selection and validation",
-      "originalMaterialChecked": false,
+      "reviewed_at": "2026-10-10",
+      "url": "https://huggingface.co/docs/transformers/main/en/model_doc/auto",
+      "locator": "Perezhohin (2026), original D4B GEN W4 lecture slide 14: 'The rule: the smallest model that passes your test, on your own data.' External URL is contextual only.",
+      "scope": "Course-specific rule, not a universal requirement",
+      "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
+      "key_checked": 0,
+      "distractor_indices_checked": [1,2,3],
+      "source_review_status": "instructor-or-primary-source-confirmed",
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited",
       "independent_review_at": "2026-10-10",
-      "independent_review_result": "pending",
-      "independent_review_blocker": "Course-specific 'smallest passing model' recommendation is plausible, but general model-doc sources do not independently establish this lecturer-specific default; preserve qualified course alignment."
+      "independent_review_result": "confirmed-direct-original-source",
+      "independent_review_blocker": null
     },
     "course_alignment": {
       "status": "qualified",
@@ -2328,7 +2336,7 @@ window.D4B_QUESTIONS=Object.freeze([
       "reviewed_at": "2026-10-09",
       "note": "This is the Generative AI Week 4 lecturer's conditional rule of thumb: choose the smallest model that passes the relevant test on the intended data. It is not a universal requirement to prefer small models.",
       "original_moodle_key_checked": false,
-      "original_lecture_slides_directly_checked": false
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
@@ -2767,15 +2775,23 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The formulation stresses that invention without implementation or a route to value is insufficient.",
     "source": "03_Innovation_Booklet, Week 01, Innovation equation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01 / Innovation equation",
-      "originalMaterialChecked": false,
+      "reviewed_at": "2026-10-10",
+      "url": "https://news.mit.edu/2013/disciplined-entrepreneurship-bill-aulet-0826",
+      "locator": "Original Innovation presentation, 'On the definition(s) of Innovation', slides 14–15: Innovation = invention * commercialization (Aulet, 2013). MIT reference is contextual.",
+      "scope": "Business management mnemonic, not a universal definition of innovation",
+      "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
+      "key_checked": 0,
+      "distractor_indices_checked": [1,2,3],
+      "source_review_status": "instructor-or-primary-source-confirmed",
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited",
       "independent_review_at": "2026-10-10",
-      "independent_review_result": "pending",
-      "independent_review_blocker": "The mnemonic Invention × Commercialisation is a lecture teaching simplification. OECD's Oslo Manual does not require sales or commercial success for innovation; avoid certifying the formula as a universal definition."
+      "independent_review_result": "confirmed-direct-original-source",
+      "independent_review_blocker": null
     },
     "course_alignment": {
       "status": "qualified",
@@ -2786,7 +2802,7 @@ window.D4B_QUESTIONS=Object.freeze([
       "reviewed_at": "2026-10-09",
       "note": "The Innovation Week 1 lecturer uses Invention × Commercialisation as a pedagogical value-capture model. Do not mistake this for a universal definition of innovation: public and noncommercial implementation can qualify under the OECD Oslo Manual.",
       "original_moodle_key_checked": false,
-      "original_lecture_slides_directly_checked": false
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
@@ -4573,15 +4589,23 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The taught process is Frame → Scan → Imagine → Decide → Design. After framing and scanning, teams explore plausible scenarios before choosing strategic responses.",
     "source": "03_Innovation_Booklet, Week 04, Frame, Scan, Imagine, Decide and Design",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04 / Frame, Scan, Imagine, Decide and Design",
-      "originalMaterialChecked": false,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "Ottolino (2026), original Introduction to Futures Thinking slides: 1 FRAME, 2 SCAN, 3 IMAGINE, 4 DECIDE, 5 DESIGN. External reference covers broader toolkit.",
+      "scope": "Exact instructor ordering, not universal methodology",
+      "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
+      "key_checked": 0,
+      "distractor_indices_checked": [1,2,3],
+      "source_review_status": "instructor-or-primary-source-confirmed",
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
       "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
       "independent_review_at": "2026-10-10",
-      "independent_review_result": "pending",
-      "independent_review_blocker": "The exact named five-stage Frame–Scan–Imagine–Decide–Design cycle is a course-specific ordering, not independently established by the UK Government Futures Toolkit; teaching alignment remains, primary corroboration unresolved."
+      "independent_review_result": "confirmed-direct-original-source",
+      "independent_review_blocker": null
     },
     "course_alignment": {
       "status": "supported",
@@ -4592,7 +4616,7 @@ window.D4B_QUESTIONS=Object.freeze([
       "reviewed_at": "2026-10-10",
       "note": "The answer and all distractors were reviewed against the named topic in the connected private module booklet. This is course alignment, not independent academic verification or confirmation of any official Moodle answer key.",
       "original_moodle_key_checked": false,
-      "original_lecture_slides_directly_checked": false
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
@@ -4799,15 +4823,23 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "In the lecture metaphor roots represent technical/material infrastructure, the trunk represents concentrated intermediary control of data and services, and branches represent sectoral applications.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Platformization tree: roots, trunk and branches",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04 / Platformization tree: roots, trunk and branches",
-      "originalMaterialChecked": false,
+      "reviewed_at": "2026-10-10",
+      "url": "https://doi.org/10.1177/1461444820940293",
+      "locator": "Van Dijck (2021), 'The platformization tree', pp. 2805–2807: roots infrastructures, trunk intermediary platforms, branches sectors.",
+      "scope": "Directly verified against original peer-reviewed paper",
+      "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
+      "key_checked": 1,
+      "distractor_indices_checked": [0,2,3],
+      "source_review_status": "instructor-or-primary-source-confirmed",
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
       "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
       "independent_review_at": "2026-10-10",
-      "independent_review_result": "pending",
-      "independent_review_blocker": "The precise 'roots/trunk/branches' platformization-tree attribution and meaning were not located in an independently accessible original van Dijck passage; the booklet alone is insufficient for independent verification."
+      "independent_review_result": "confirmed-direct-original-source",
+      "independent_review_blocker": null
     },
     "course_alignment": {
       "status": "supported",
@@ -4818,7 +4850,7 @@ window.D4B_QUESTIONS=Object.freeze([
       "reviewed_at": "2026-10-10",
       "note": "The answer and all distractors were reviewed against the named topic in the connected private module booklet. This is course alignment, not independent academic verification or confirmation of any official Moodle answer key.",
       "original_moodle_key_checked": false,
-      "original_lecture_slides_directly_checked": false
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
