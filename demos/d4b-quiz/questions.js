@@ -207,10 +207,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Explicit goals, constraints and output structure make success criteria observable.",
     "source": "01_Generative_AI_Booklet, Week 05, Prompt engineering",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05, Prompt engineering",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompting-openai-api",
+      "locator": "OpenAI, Best practices: Rules of Thumb 2–4, specific instructions/context and desired output format",
+      "scope": "GEN W5 · Prompt engineering",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -240,10 +252,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "AI is the umbrella field; ML is a subset, and deep learning is a subset of ML.",
     "source": "02_AI_for_Business_Booklet, Week 01, Key distinctions",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 01, Key distinctions",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks",
+      "locator": "IBM, How AI, machine learning, and deep learning relate: nested categories",
+      "scope": "AIB W1 · AI systems",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -354,10 +378,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Unrepresentative sampling can lead to discriminatory or systematically unequal model performance.",
     "source": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "scope": "AIB W5 · AI ethics",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -387,10 +423,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Novelty alone does not establish adoption or realised value; the booklet distinguishes creativity, design, implementation and innovation.",
     "source": "03_Innovation_Booklet, Week 01, Key distinctions",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01, Key distinctions",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "scope": "INN W1 · Innovation basics",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -420,10 +468,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Manufacturing, distribution, service and market access can be necessary to commercialise an invention.",
     "source": "03_Innovation_Booklet, Week 01, Complementary assets",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01, Complementary assets",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://doi.org/10.1016/0048-7333(86)90027-2",
+      "locator": "Teece (1986), Profiting from technological innovation: complementary assets, integration and appropriability",
+      "scope": "INN W1 · Complementary assets",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -480,10 +540,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Backcasting derives pathways from a desired future back toward present decisions.",
     "source": "03_Innovation_Booklet, Week 04, Foresight",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04, Foresight",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W4 · Foresight",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -540,10 +612,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Fashionistas have strong digital investment but relatively weak transformation leadership.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Westerman typology",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01, Westerman typology",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://shop.sloanreview.mit.edu/store/the-advantages-of-digital-maturity",
+      "locator": "Westerman, Bonnet and McAfee (2012), MIT Sloan Management Review: Beginners, Conservatives, Fashionistas and Digirati, digital vs leadership intensity",
+      "scope": "DTR W1 · Organisational change",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -600,10 +684,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Societal transformation analysis includes access, skills, inclusion, trust and uneven effects.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Societal lens",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01, Societal lens",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "scope": "DTR W1 · Societal dimensions",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -633,10 +729,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Symbolic rules encode explicit constraints and can be audited independently of learned patterns.",
     "source": "01_Generative_AI_Booklet, Week 01, Learning paradigms",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 01, Learning paradigms",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://artint.info/3e/html/ArtInt3e.Ch5.S3.html",
+      "locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §5.3: definite-clause rules, knowledge bases and deterministic inference",
+      "scope": "GEN W1 · Learning paradigms",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -720,10 +828,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Encoder representations are well suited to discriminative labelling and embedding-based retrieval.",
     "source": "01_Generative_AI_Booklet, Week 04, Model selection",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04, Model selection",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://huggingface.co/docs/transformers/model_doc/bert",
+      "locator": "Hugging Face original architecture docs, BertForSequenceClassification: encoder representations used for supervised classification",
+      "scope": "GEN W4 · Model selection",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -753,10 +873,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Model suitability depends on rights, provenance and operational constraints as well as accuracy.",
     "source": "01_Generative_AI_Booklet, Week 04, Model cards",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04, Model cards",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://huggingface.co/docs/hub/model-cards",
+      "locator": "Hugging Face Hub documentation, Model Cards: intended use, limitations, training datasets, license and evaluation",
+      "scope": "GEN W4 · Model cards",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -840,10 +972,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Optimising against a narrow set of examples may not transfer to unseen inputs.",
     "source": "01_Generative_AI_Booklet, Week 05, Evaluation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05, Evaluation",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets",
+      "locator": "Google ML Crash Course, Dividing datasets: training, validation and held-out test; repeated testing and selection leakage",
+      "scope": "GEN W5 · Evaluation",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -873,10 +1017,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Many neural-network operations benefit from parallel matrix and tensor computation.",
     "source": "02_AI_for_Business_Booklet, Week 01, Compute",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 01, Compute",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+      "locator": "NVIDIA CUDA Programming Guide, introduction and parallel GPU computing model",
+      "scope": "AIB W1 · Compute",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1068,10 +1224,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Contradictory representations of the same entity indicate a consistency problem.",
     "source": "02_AI_for_Business_Booklet, Week 04, Data quality",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04, Data quality",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "scope": "AIB W4 · Data quality",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1128,10 +1296,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The AI Act establishes binding obligations, while responsible practice can impose additional ethical safeguards.",
     "source": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "scope": "AIB W5 · Trustworthy AI",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1161,10 +1341,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Creative destruction connects new combinations with displacement of existing economic arrangements.",
     "source": "03_Innovation_Booklet, Week 01, Creative destruction",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01, Creative destruction",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oreilly.com/library/view/will-it-fly/0130462217/apc.html",
+      "locator": "Schumpeter, Capitalism, Socialism and Democracy (1942), pp.82–85, primary text reprinted in Creative Destruction appendix",
+      "scope": "INN W1 · Creative destruction",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1194,10 +1386,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "DUI learning highlights practical, experiential and interactive knowledge flows.",
     "source": "03_Innovation_Booklet, Week 02, Learning modes",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 02, Learning modes",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0048733307000340",
+      "locator": "Jensen, Johnson, Lorenz and Lundvall (2007), abstract and introduction: codified STI vs experiential Doing–Using–Interacting",
+      "scope": "INN W2 · Learning modes",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1227,10 +1431,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Complex systems have interacting parts, feedbacks and adaptive responses that change outcomes.",
     "source": "03_Innovation_Booklet, Week 03, Complexity",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03, Complexity",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W3 · Complexity",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1260,10 +1476,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Foresight investigates multiple plausible futures rather than claiming certainty about one trajectory.",
     "source": "03_Innovation_Booklet, Week 03, Foresight",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03, Foresight",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W3 · Foresight",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1293,10 +1521,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Preferability is normative and depends on whose values and interests are considered.",
     "source": "03_Innovation_Booklet, Week 03, Futures cone",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03, Futures cone",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W3 · Futures cone",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1326,10 +1566,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Weak signals are early and ambiguous indications, rather than broad persistent trends.",
     "source": "03_Innovation_Booklet, Week 04, Scanning",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04, Scanning",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W4 · Scanning",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1413,10 +1665,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "DII tallies digital technology use, not whether the organisation changes strategy, value creation or governance effectively.",
     "source": "04_Digital_Transformation_Booklet, Week 02, Digital maturity",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02, Digital maturity",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/information-data",
+      "locator": "Eurostat, Digital Intensity Index methodology: 12 adoption variables and intensity bands, not a strategy-quality metric",
+      "scope": "DTR W2 · Digital maturity",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1446,10 +1710,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Collaborative operation still requires assessment and controls appropriate to the actual task.",
     "source": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.iso.org/standard/62996.html",
+      "locator": "ISO/TS 15066:2016, Abstract: safety requirements for collaborative industrial robot systems and working environments",
+      "scope": "DTR W2 · Human–robot collaboration",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1479,10 +1755,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "AI competence can vary unexpectedly between neighbouring tasks; performance must be tested at task level.",
     "source": "04_Digital_Transformation_Booklet, Week 03, Technological frontier",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03, Technological frontier",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://aiinstitute.hbs.edu/navigating-the-jagged-technological-frontier/",
+      "locator": "Harvard Business School and BCG (2023), key findings: task-specific jagged technological frontier in a field experiment",
+      "scope": "DTR W3 · Technological frontier",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1512,10 +1800,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Socio-technical assessment must consider both benefits and displaced skills, autonomy and responsibilities.",
     "source": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://student.cs.uwaterloo.ca/~cs492/papers/neil-postman--five-things.html",
+      "locator": "Neil Postman, Five Things We Need to Know about Technological Change (1998), first and second ideas: trade-offs and winners/losers",
+      "scope": "DTR W3 · Technology trade-offs",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1545,10 +1845,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A model can generate persuasive language while still making unsupported claims.",
     "source": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "locator": "OpenAI, Does ChatGPT tell the truth?: fluent and confident text may include false or unsupported claims",
+      "scope": "DTR W3 · Human–AI teaming",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1578,10 +1890,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Platformization describes platforms becoming integral socio-technical infrastructures.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Platforms",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Platforms",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "scope": "DTR W4 · Platforms",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1611,10 +1935,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Ranking and recommendation systems shape visibility and thus influence behaviour and economic outcomes.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "scope": "DTR W4 · Algorithmic selection",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1644,10 +1980,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Datafication turns aspects of human activity into quantified, trackable data.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Datafication",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Datafication",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "scope": "DTR W4 · Datafication",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1677,10 +2025,22 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Interoperable formats and clear dependency documentation support portability and contestability.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Interoperability",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Interoperability",
-      "originalMaterialChecked": false
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-10",
+      "url": "https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/dealing-requests-individuals_en",
+      "locator": "European Commission, Data portability requests: structured machine-readable interoperable export promotes service switching",
+      "scope": "DTR W4 · Interoperability",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1739,12 +2099,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Discriminative models learn decision boundaries or conditional labels, whereas generative approaches model or produce data.",
     "source": "01_Generative_AI_Booklet, Week 01, Generative versus discriminative AI",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 01 / Generative versus discriminative AI",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks",
+      "locator": "IBM AI taxonomy: predictive/discriminative classification contrasted with generative model content creation",
+      "scope": "GEN W1 · Discriminative vs generative models",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1803,12 +2175,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Smoothing reallocates some probability mass, allowing unseen n-grams to receive nonzero estimates.",
     "source": "01_Generative_AI_Booklet, Week 02, Language-model smoothing",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 02 / Language-model smoothing",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://web.stanford.edu/~jurafsky/slp3/index.html",
+      "locator": "Jurafsky and Martin, Speech and Language Processing (Aug 2026), ch.3 N-gram Language Models: smoothing and avoiding zeros for unseen n-grams",
+      "scope": "GEN W2 · Smoothing in language models",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -1930,7 +2314,10 @@ window.D4B_QUESTIONS=Object.freeze([
       "source": "01_Generative_AI_Booklet, Week 04 / Model selection and validation",
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "independent_review_at": "2026-10-10",
+      "independent_review_result": "pending",
+      "independent_review_blocker": "Course-specific 'smallest passing model' recommendation is plausible, but general model-doc sources do not independently establish this lecturer-specific default; preserve qualified course alignment."
     },
     "course_alignment": {
       "status": "qualified",
@@ -1989,12 +2376,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A held-out test set guards against overfitting a prompt to the examples used during development.",
     "source": "01_Generative_AI_Booklet, Week 05, Prompt evaluation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05 / Prompt evaluation",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets",
+      "locator": "Google ML Crash Course, Dividing datasets: training, validation and held-out test; repeated testing and selection leakage",
+      "scope": "GEN W5 · Prompt evaluation",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2024,12 +2423,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "An agent perceives the environment, selects actions and receives consequences through subsequent observations.",
     "source": "02_AI_for_Business_Booklet, Week 01, Intelligent agents",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 01 / Intelligent agents",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://artint.info/3e/html/ArtInt3e.Ch2.S1.html",
+      "locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §2.1: agent–environment cycle, percepts, actions and subsequent stimuli",
+      "scope": "AIB W1 · Intelligent agents",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2059,12 +2470,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Known binding thresholds are generally easier to implement and audit using explicit rules.",
     "source": "02_AI_for_Business_Booklet, Week 01, Rules versus learning",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 01 / Rules versus learning",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://artint.info/3e/html/ArtInt3e.Ch5.S3.html",
+      "locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §5.3: definite-clause rules, knowledge bases and deterministic inference",
+      "scope": "AIB W1 · Rule-based vs learned systems",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2239,12 +2662,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Duplicate detection and cleaning address inflated observations; rules should preserve auditability.",
     "source": "02_AI_for_Business_Booklet, Week 04, Data cleaning",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04 / Data cleaning",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "scope": "AIB W4 · Data quality dimensions",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2337,7 +2772,10 @@ window.D4B_QUESTIONS=Object.freeze([
       "source": "03_Innovation_Booklet, Week 01 / Innovation equation",
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "independent_review_at": "2026-10-10",
+      "independent_review_result": "pending",
+      "independent_review_blocker": "The mnemonic Invention × Commercialisation is a lecture teaching simplification. OECD's Oslo Manual does not require sales or commercial success for innovation; avoid certifying the formula as a universal definition."
     },
     "course_alignment": {
       "status": "qualified",
@@ -2367,12 +2805,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Process innovation alters the way work is performed; strategic innovation changes the basis of value creation.",
     "source": "03_Innovation_Booklet, Week 01, Process and strategic innovation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01 / Process and strategic innovation",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "scope": "INN W1 · Process versus strategic innovation",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2402,12 +2852,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Quadruple Helix extends university–industry–government interaction with society, citizens or media/cultural actors.",
     "source": "03_Innovation_Booklet, Week 02, Innovation systems",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 02 / Innovation systems",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.researchgate.net/publication/240295704_%27Mode_3%27_and_%27Quadruple_Helix%27_toward_a_21st_century_fractal_innovation_ecosystem",
+      "locator": "Carayannis and Campbell (2009), original Quadruple Helix research: additional media-based, culture-based public",
+      "scope": "INN W2 · Quadruple Helix",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2437,12 +2899,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Appropriability concerns patents, secrecy and other conditions affecting how innovators retain benefits.",
     "source": "03_Innovation_Booklet, Week 02, Appropriability regimes",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 02 / Appropriability regimes",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://doi.org/10.1016/0048-7333(86)90027-2",
+      "locator": "Teece (1986), Profiting from technological innovation: complementary assets, integration and appropriability",
+      "scope": "INN W2 · Appropriability",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2472,12 +2946,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Confirmation bias selectively favours evidence consistent with existing beliefs.",
     "source": "03_Innovation_Booklet, Week 03, Foresight biases",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03 / Foresight biases",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://airc.nist.gov/airmf-resources/playbook/govern/",
+      "locator": "NIST AI RMF Playbook, Govern: counteract confirmation bias in AI risk governance",
+      "scope": "INN W3 · Foresight biases",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2507,12 +2993,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Complex systems involve adaptation, changing responses and feedback that reduce predictability.",
     "source": "03_Innovation_Booklet, Week 03, Complex systems",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03 / Complex systems",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W3 · Complicated versus complex",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2542,12 +3040,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A Futures Wheel diagrams first-order and subsequent consequences around a development.",
     "source": "03_Innovation_Booklet, Week 04, Futures Wheel",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04 / Futures Wheel",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W4 · Futures wheel",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2577,12 +3087,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Backcasting reasons backwards from a desired endpoint; roadmapping organises the resulting steps over time.",
     "source": "03_Innovation_Booklet, Week 04, Backcasting and roadmapping",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04 / Backcasting and roadmapping",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W4 · Roadmapping",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2612,12 +3134,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Digirati integrate digital capabilities with organisational transformation leadership.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Westerman digital maturity",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01 / Westerman digital maturity",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://shop.sloanreview.mit.edu/store/the-advantages-of-digital-maturity",
+      "locator": "Westerman, Bonnet and McAfee (2012), MIT Sloan Management Review: Beginners, Conservatives, Fashionistas and Digirati, digital vs leadership intensity",
+      "scope": "DTR W1 · Digital transformation leadership",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2647,12 +3181,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Transformation concerns how organisations deliver value and organise work, not technology presence in isolation.",
     "source": "04_Digital_Transformation_Booklet, Week 01, Digital transformation overview",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01 / Digital transformation overview",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://doi.org/10.1016/j.jsis.2019.01.003",
+      "locator": "Vial (2019), Understanding digital transformation, abstract and introduction: strategic, organisational and value-creation change",
+      "scope": "DTR W1 · Transformation assessment",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2711,12 +3257,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Human-centred evaluation considers safety, workload, wellbeing and operational performance together.",
     "source": "04_Digital_Transformation_Booklet, Week 02, Human-centred design",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02 / Human-centred design",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.iso.org/standard/62996.html",
+      "locator": "ISO/TS 15066:2016, Abstract: safety requirements for collaborative industrial robot systems and working environments",
+      "scope": "DTR W2 · Human-centred evaluation",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2746,12 +3304,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "General-purpose technologies depend on complementary investments and organisational adaptation.",
     "source": "04_Digital_Transformation_Booklet, Week 03, General-purpose technology",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03 / General-purpose technology",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.researchgate.net/publication/4858619_General_Purpose_Technologies_%27Engines_of_Growth%27/fulltext/00b1254b0cf2d1b855032db3/General-Purpose-Technologies-Engines-of-Growth.pdf",
+      "locator": "Bresnahan and Trajtenberg (1995), General Purpose Technologies, pp.83–85: pervasiveness, dynamism and innovation complementarities",
+      "scope": "DTR W3 · General-purpose technology",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2781,12 +3351,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Productivity must be evaluated alongside effects on cognitive skill development, judgement and autonomy.",
     "source": "04_Digital_Transformation_Booklet, Week 03, Cognitive offloading and teaming",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03 / Cognitive offloading and teaming",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/?lang=ko-kr%2Fbibtex%2F",
+      "locator": "Lee et al. (CHI 2025), 319-knowledge-worker study: AI use and critical-thinking effort; identifies skill and task stewardship as relevant evaluation dimensions",
+      "scope": "DTR W3 · Skill retention",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2816,12 +3398,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Commodification turns data and activities into commercial value or marketable products.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Platform mechanisms",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04 / Platform mechanisms",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "scope": "DTR W4 · Commodification",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2851,12 +3445,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Vertical integration across layers can concentrate infrastructural and informational power.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Vertical integration and platform power",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04 / Vertical integration and platform power",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original lecture/reading and lecturer key not independently audited"
+      "note": "Original lecture/reading and lecturer key not independently audited",
+      "reviewed_at": "2026-10-10",
+      "url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "scope": "DTR W4 · Platform power",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2886,12 +3492,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A target action, timing and feedback turn a broad intention into a specific behaviour-change intervention.",
     "source": "03_Innovation_Booklet, Week 05, Behaviour change techniques",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Behaviour change techniques",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://discovery.ucl.ac.uk/id/eprint/1400691/",
+      "locator": "Michie et al. (2013), Behaviour Change Technique Taxonomy v1: goal setting, action planning and feedback on behaviour",
+      "scope": "INN W5 · Behaviour change techniques",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2921,12 +3539,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A nudge changes how options are presented without removing meaningful freedom of choice.",
     "source": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Nudging and choice architecture",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "scope": "INN W5 · Choice architecture",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2956,12 +3586,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Preselecting an option makes it the path of least resistance while leaving a genuine alternative.",
     "source": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Nudging and choice architecture",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "scope": "INN W5 · Defaults",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -2991,12 +3633,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A credible description of peers' behaviour uses perceived social norms to influence choice.",
     "source": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Nudging and choice architecture",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.bi.team/east-tool/methodology/",
+      "locator": "Behavioural Insights Team EAST framework: Easy, Attractive, Social, Timely; social norms and credible comparison",
+      "scope": "INN W5 · Social proof",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3026,12 +3680,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Transparent defaults and an uncomplicated opt-out safeguard meaningful user choice.",
     "source": "03_Innovation_Booklet, Week 05, Nudging and choice architecture",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Nudging and choice architecture",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "scope": "INN W5 · Ethics of nudging",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3061,12 +3727,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Innovation draws on feasible combinations of existing resources; successful new combinations expand what becomes possible next.",
     "source": "03_Innovation_Booklet, Week 05, Adjacent possible",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Adjacent possible",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://arxiv.org/abs/1310.1953",
+      "locator": "Tria, Loreto, Servedio and Strogatz (2014), The dynamics of correlated novelties, abstract: expanding adjacent possible",
+      "scope": "INN W5 · Adjacent possible",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3096,12 +3774,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Building an effective system and making it suitable, valued and adopted are distinct problems.",
     "source": "03_Innovation_Booklet, Week 05, Adjacent possible",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Adjacent possible",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "scope": "INN W5 · Feasibility versus adoption",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3131,12 +3821,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The first diamond explores and frames the problem; the second explores potential solutions and selects or tests a response.",
     "source": "03_Innovation_Booklet, Week 05, Double Diamond",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Double Diamond",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "scope": "INN W5 · Double Diamond sequence",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3166,12 +3868,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Converging on the underlying need avoids committing to an elegant solution for a poorly framed issue.",
     "source": "03_Innovation_Booklet, Week 05, Double Diamond",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Double Diamond",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "scope": "INN W5 · Problem definition",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3201,12 +3915,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Lateral thinking challenges assumptions and shifts perspective; vertical thinking follows a connected logical path.",
     "source": "03_Innovation_Booklet, Week 05, Lateral and vertical thinking",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Lateral and vertical thinking",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/j.2162-6057.1969.tb00124.x",
+      "locator": "Edward de Bono (1969), original article abstract: vertical sequential thought versus lateral shifts in approach",
+      "scope": "INN W5 · Lateral versus vertical thinking",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3236,12 +3962,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Flexibility is the breadth of categories, whereas fluency is the number of ideas generated.",
     "source": "03_Innovation_Booklet, Week 05, Creative thinking measures",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Creative thinking measures",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.frontiersin.org/journals/communication/articles/10.3389/fcomm.2023.1115360/full",
+      "locator": "Original empirical study, §4.5.4 Creativity analysis: fluency (number), flexibility (categories), originality (rarity), elaboration (detail)",
+      "scope": "INN W5 · Divergent-thinking flexibility",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3271,12 +4009,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Elaboration measures development and specificity rather than the sheer quantity or rarity of ideas.",
     "source": "03_Innovation_Booklet, Week 05, Creative thinking measures",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Creative thinking measures",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.frontiersin.org/journals/communication/articles/10.3389/fcomm.2023.1115360/full",
+      "locator": "Original empirical study, §4.5.4 Creativity analysis: fluency (number), flexibility (categories), originality (rarity), elaboration (detail)",
+      "scope": "INN W5 · Divergent-thinking elaboration",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3306,12 +4056,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The Double Diamond alternates exploring more possibilities with narrowing to a defensible direction.",
     "source": "03_Innovation_Booklet, Week 05, Double Diamond",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Double Diamond",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "scope": "INN W5 · Divergence and convergence",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3341,12 +4103,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Reported effects from one study do not automatically generalise to other users, products or settings.",
     "source": "03_Innovation_Booklet, Week 05, Evidence and methodological caution",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 05 / Evidence and methodological caution",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published."
+      "note": "Original practice question based on private W5 course summary; no verbatim Moodle question or confirmed lecturer key published.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7946162/",
+      "locator": "Authors' 2021 nudging research synthesis: variable effect sizes, heterogeneous contexts and replicability/validity limits",
+      "scope": "INN W5 · Evidence limits",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3376,12 +4150,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "User-supplied or retrieved content can carry attacker-written instructions. Treat source material as untrusted data, maintain instruction boundaries and test defences; delimiters alone do not guarantee protection.",
     "source": "01_Generative_AI_Booklet, Week 05, PROMPT INJECTION | INSTRUCTIONS CAN ARRIVE INSIDE THE DATA",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05 / PROMPT INJECTION | INSTRUCTIONS CAN ARRIVE INSIDE THE DATA",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://openai.com/safety/prompt-injections/",
+      "locator": "OpenAI security guidance, Understanding prompt injections: attacker-controlled content may attempt to redirect assistants",
+      "scope": "GEN W5 · Prompt injection in retrieved text",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3411,12 +4197,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Examples within a prompt guide in-context behaviour without retraining. Unrepresentative or misleading examples can worsen results; validate examples against held-out cases.",
     "source": "01_Generative_AI_Booklet, Week 05, EXAMPLES AND IN-CONTEXT LEARNING",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05 / EXAMPLES AND IN-CONTEXT LEARNING",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompting-openai-api",
+      "locator": "OpenAI, Best practices: Rules of Thumb 2–4, specific instructions/context and desired output format",
+      "scope": "GEN W5 · Few-shot example selection",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3446,12 +4244,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Supplying relevant sources improves grounding but does not ensure accurate interpretation. Evidence-based checks remain necessary for consequential claims.",
     "source": "01_Generative_AI_Booklet, Week 05, SOURCE-GROUNDED PROMPTING | GIVE THE TEXT, THEN CHECK",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05 / SOURCE-GROUNDED PROMPTING | GIVE THE TEXT, THEN CHECK",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "locator": "OpenAI, Does ChatGPT tell the truth?: fluent and confident text may include false or unsupported claims",
+      "scope": "GEN W5 · Document-grounded answers",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3481,12 +4291,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Separate stages with specified inputs, outputs and tests reveal where a pipeline produces uninformative outputs; modularity is a diagnostic practice, not a correctness guarantee.",
     "source": "01_Generative_AI_Booklet, Week 05, ONE JOB PER PROMPT | MAKE FAILURE VISIBLE",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05 / ONE JOB PER PROMPT | MAKE FAILURE VISIBLE",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "locator": "Google Cloud Architecture, Guidelines: testability, experimental tracking and decomposed data/training/testing pipelines",
+      "scope": "GEN W5 · Modular prompt workflows",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3516,12 +4338,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "High error on both training and unseen data is consistent with underfitting. In contrast, much lower training error than test error suggests poor generalisation or overfitting.",
     "source": "02_AI_for_Business_Booklet, Week 03, Loss, training error and generalisation",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 03 / Loss, training error and generalisation",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting",
+      "locator": "Google ML Crash Course, Fitting/overfitting/underfitting: poor training and test accuracy signifies underfit",
+      "scope": "AIB W3 · Underfitting diagnosis",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3551,12 +4385,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Resampling should happen only inside training partitions. Applying it before the split can introduce synthetic-neighbour information into held-out evaluation and inflate scores.",
     "source": "02_AI_for_Business_Booklet, Week 04, Class imbalance and resampling safeguards",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04 / Class imbalance and resampling safeguards",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://imbalanced-learn.org/stable/common_pitfalls.html",
+      "locator": "imbalanced-learn official documentation, §9.1: resampling before train/test split causes evaluation data leakage",
+      "scope": "AIB W4 · SMOTE evaluation leakage",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3586,12 +4432,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Internal data quality is not the same as fitness for purpose. Spatial coverage, timeliness, resolution and deployment context must match the proposed decision.",
     "source": "02_AI_for_Business_Booklet, Week 04, Data quality versus fitness for purpose",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04 / Data quality versus fitness for purpose",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "scope": "AIB W4 · Data fitness for purpose",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3621,12 +4479,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Technical performance is only one dimension of responsible AI. People affected by consequential decisions need appropriate transparency, recourse and accountable human governance.",
     "source": "02_AI_for_Business_Booklet, Week 05, Ethics as a business and system property",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 05 / Ethics as a business and system property",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "scope": "AIB W5 · Responsible decision oversight",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3656,12 +4526,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "DUI describes experiential and interactive learning through work and collaboration; STI places greater emphasis on formal science, research and technical knowledge. The modes can complement each other.",
     "source": "03_Innovation_Booklet, Week 02, STI versus DUI innovation learning modes",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 02 / STI versus DUI innovation learning modes",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0048733307000340",
+      "locator": "Jensen, Johnson, Lorenz and Lundvall (2007), abstract and introduction: codified STI vs experiential Doing–Using–Interacting",
+      "scope": "INN W2 · STI and DUI learning",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3696,7 +4578,10 @@ window.D4B_QUESTIONS=Object.freeze([
       "source": "03_Innovation_Booklet, Week 04 / Frame, Scan, Imagine, Decide and Design",
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "independent_review_at": "2026-10-10",
+      "independent_review_result": "pending",
+      "independent_review_blocker": "The exact named five-stage Frame–Scan–Imagine–Decide–Design cycle is a course-specific ordering, not independently established by the UK Government Futures Toolkit; teaching alignment remains, primary corroboration unresolved."
     },
     "course_alignment": {
       "status": "supported",
@@ -3726,12 +4611,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Three Horizons separates the existing system, the transition where old and emerging practices coexist, and longer-term alternatives. It is a temporal transition lens, not a forecast.",
     "source": "03_Innovation_Booklet, Week 04, Three Horizons and scenario planning",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04 / Three Horizons and scenario planning",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W4 · Three Horizons",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3761,12 +4658,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A two-uncertainty matrix creates distinct internally coherent scenarios for exploring strategic robustness. It does not identify one certain or uniquely probable outcome.",
     "source": "03_Innovation_Booklet, Week 04, Scenario planning and critical uncertainties",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04 / Scenario planning and critical uncertainties",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "scope": "INN W4 · 2x2 scenario planning",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3796,12 +4705,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Network effects mean participant value can rise with the scale or composition of other users. They can reinforce platform concentration but differ from the costs of switching away.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Power and dependency: network effects, lock-in and walled gardens",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04 / Power and dependency: network effects, lock-in and walled gardens",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/en/publications/oecd-digital-economy-outlook-2020_bb167041-en/full-report/component-13.html",
+      "locator": "OECD Digital Economy Outlook 2020, Evolving Business Models: 'Positive direct network effects' definition and messaging/social platform examples",
+      "scope": "DTR W4 · Platform network effects",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3831,12 +4752,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "A walled garden limits interoperability and keeps activity inside one provider's ecosystem. Combined with accumulated files and connections, this increases switching costs and dependency.",
     "source": "04_Digital_Transformation_Booklet, Week 04, Power and dependency: network effects, lock-in and walled gardens",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04 / Power and dependency: network effects, lock-in and walled gardens",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/05/an-introduction-to-online-platforms-and-their-role-in-the-digital-transformation_970fc377/53e5f593-en.pdf",
+      "locator": "OECD (2019), An Introduction to Online Platforms, policy discussion on switching costs, interoperability, lock-in and platform competition",
+      "scope": "DTR W4 · Walled garden dependency",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",
@@ -3871,7 +4804,10 @@ window.D4B_QUESTIONS=Object.freeze([
       "source": "04_Digital_Transformation_Booklet, Week 04 / Platformization tree: roots, trunk and branches",
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "independent_review_at": "2026-10-10",
+      "independent_review_result": "pending",
+      "independent_review_blocker": "The precise 'roots/trunk/branches' platformization-tree attribution and meaning were not located in an independently accessible original van Dijck passage; the booklet alone is insufficient for independent verification."
     },
     "course_alignment": {
       "status": "supported",
@@ -3901,12 +4837,24 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "The trade-off perspective assesses distributed gains, costs and changes in work practices. Productivity alone does not establish an improvement in skills, autonomy or accountability.",
     "source": "04_Digital_Transformation_Booklet, Week 03, Technology as a trade-off: Postman",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03 / Technology as a trade-off: Postman",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding."
+      "note": "Original practice item based on authorised private module booklet review; no verbatim Moodle/peer-site question or confirmed official key; independent factual review outstanding.",
+      "reviewed_at": "2026-10-10",
+      "url": "https://student.cs.uwaterloo.ca/~cs492/papers/neil-postman--five-things.html",
+      "locator": "Neil Postman, Five Things We Need to Know about Technological Change (1998), first and second ideas: trade-offs and winners/losers",
+      "scope": "DTR W3 · Technology trade-off analysis",
+      "method": "Independent primary or competent-authority source examined; stem, keyed answer, explanation and all three alternative options cross-checked. Not an official Moodle key verification.",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_review_status": "independently supported"
     },
     "course_alignment": {
       "status": "supported",

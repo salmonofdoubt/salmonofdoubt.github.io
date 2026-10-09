@@ -75,6 +75,19 @@ The private recovery pack supplied in the ChatGPT session contains two full orig
 **Source limitation:** previous-conversation retrieval was unavailable during the session. The recovered inventory is a documented first pass, not an exhaustive history scrape. The public workflow still cannot access the private ChatGPT and Google Drive connectors.
 
 
+## Independent academic source verification: 82-question audit (10 October 2026)
+
+All **82 formerly pending original public practice questions** received an individual answer-and-distractor review. **78** were corroborated against independently located original academic research or competent-authority technical publications and promoted to `verification: verified`. **Four** remain `pending`, with detailed evidence gaps:
+
+- `d4b-063`: the "prefer the smallest valid model" rule is a plausible course-specific heuristic but not an independently established lecturer-specific requirement.
+- `d4b-076`: the lecture's `Innovation = Invention × Commercialisation` mnemonic is a pedagogic formula, not the OECD Oslo Manual's universal definition of implemented innovation.
+- `d4b-115`: the precise ordering `Frame → Scan → Imagine → Decide → Design` is specified in the private lecture summary, without an equivalent original external standard.
+- `d4b-120`: the exact attribution of the roots/trunk/branches platformization-tree metaphor is not substantiated by an accessible original van Dijck passage, although the concept is in the lecture booklet.
+
+`verification-review-20261010.json` records all 82 decisions, explicit source URLs/locators, keyed answer index, each of the three checked alternative answer indices and a **content fingerprint of the question and explanation at time of review**. New CI test `scripts/test-d4b-independent-verification.cjs` guards these audited records against silent wording/key changes. Source-backed status means the answer is independently supportable, **not** that the lecturer's private Moodle grading keys have been recovered or that a course-specific rubric has been independently authenticated. Future questions may be added without changing the historical 82-question audit; changed historical questions need an explicit renewed evidence review and corresponding fingerprint update.
+
+After this release the 121-question bank has **117 independently source-supported** and **4 pending** public questions. Public release metadata and PWA cache are bumped, but stable IDs, user practice progress and browser-private original Moodle imports remain unchanged.
+
 ## D4B RELEASE: full current-booklet reconciliation (10 October 2026)
 
 This release process reviewed **all four current canonical MSc module booklets** through the authorised connected Google Drive tool. Their existing module-week coverage is GEN W1–5, AIB W1–5, INN W1–5 and DTR W1–4; no newly published week or Semester 2 module was found in the accessible course-booklet search. The existing question bank already covered each of those 19 weeks. A targeted audit identified 16 distinct **underrepresented concepts**, which were covered by original questions d4b-106–121 (four per module) in merged PR [#204](https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204).

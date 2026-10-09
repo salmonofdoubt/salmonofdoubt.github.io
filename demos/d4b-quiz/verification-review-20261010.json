@@ -1,0 +1,1217 @@
+{
+  "schema_version": 1,
+  "review_period": "2026-10-10",
+  "description": "Full independent source review of 82 previously pending questions; source assessment is distinct from official Moodle lecturer-graded key confirmation or syllabus alignment.",
+  "review_population": 82,
+  "verified_this_review": 78,
+  "left_pending": 4,
+  "verified_total": 117,
+  "remaining_pending_total": 4,
+  "review_standard": "For each question, compare exact stem, keyed option, all three distractors and explanation against a cited original academic or competent-authority source. Course-specific lecture claims stay pending when unsupported by that independent source. No private Moodle originals or copyrighted booklet paragraphs are published.",
+  "reviewed": [
+    {
+      "id": "d4b-007",
+      "module": "GEN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompting-openai-api",
+      "source_locator": "OpenAI, Best practices: Rules of Thumb 2–4, specific instructions/context and desired output format",
+      "question_revision_fingerprint": "fnv1a32:b6bd2f16"
+    },
+    {
+      "id": "d4b-008",
+      "module": "AIB",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks",
+      "source_locator": "IBM, How AI, machine learning, and deep learning relate: nested categories",
+      "question_revision_fingerprint": "fnv1a32:c49c977c"
+    },
+    {
+      "id": "d4b-012",
+      "module": "AIB",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "source_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "question_revision_fingerprint": "fnv1a32:69f9155d"
+    },
+    {
+      "id": "d4b-013",
+      "module": "INN",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "source_locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "question_revision_fingerprint": "fnv1a32:b1330551"
+    },
+    {
+      "id": "d4b-014",
+      "module": "INN",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://doi.org/10.1016/0048-7333(86)90027-2",
+      "source_locator": "Teece (1986), Profiting from technological innovation: complementary assets, integration and appropriability",
+      "question_revision_fingerprint": "fnv1a32:05fb8ce7"
+    },
+    {
+      "id": "d4b-016",
+      "module": "INN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:7a1da8eb"
+    },
+    {
+      "id": "d4b-018",
+      "module": "DTR",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://shop.sloanreview.mit.edu/store/the-advantages-of-digital-maturity",
+      "source_locator": "Westerman, Bonnet and McAfee (2012), MIT Sloan Management Review: Beginners, Conservatives, Fashionistas and Digirati, digital vs leadership intensity",
+      "question_revision_fingerprint": "fnv1a32:e0bbd34d"
+    },
+    {
+      "id": "d4b-020",
+      "module": "DTR",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "source_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "question_revision_fingerprint": "fnv1a32:c00eb388"
+    },
+    {
+      "id": "d4b-021",
+      "module": "GEN",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://artint.info/3e/html/ArtInt3e.Ch5.S3.html",
+      "source_locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §5.3: definite-clause rules, knowledge bases and deterministic inference",
+      "question_revision_fingerprint": "fnv1a32:f8411d49"
+    },
+    {
+      "id": "d4b-024",
+      "module": "GEN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://huggingface.co/docs/transformers/model_doc/bert",
+      "source_locator": "Hugging Face original architecture docs, BertForSequenceClassification: encoder representations used for supervised classification",
+      "question_revision_fingerprint": "fnv1a32:c5d4f318"
+    },
+    {
+      "id": "d4b-025",
+      "module": "GEN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://huggingface.co/docs/hub/model-cards",
+      "source_locator": "Hugging Face Hub documentation, Model Cards: intended use, limitations, training datasets, license and evaluation",
+      "question_revision_fingerprint": "fnv1a32:472754bb"
+    },
+    {
+      "id": "d4b-028",
+      "module": "GEN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets",
+      "source_locator": "Google ML Crash Course, Dividing datasets: training, validation and held-out test; repeated testing and selection leakage",
+      "question_revision_fingerprint": "fnv1a32:8146d982"
+    },
+    {
+      "id": "d4b-029",
+      "module": "AIB",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+      "source_locator": "NVIDIA CUDA Programming Guide, introduction and parallel GPU computing model",
+      "question_revision_fingerprint": "fnv1a32:d03b1fdd"
+    },
+    {
+      "id": "d4b-036",
+      "module": "AIB",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "source_locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "question_revision_fingerprint": "fnv1a32:529b23d8"
+    },
+    {
+      "id": "d4b-038",
+      "module": "AIB",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "source_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "question_revision_fingerprint": "fnv1a32:f583024b"
+    },
+    {
+      "id": "d4b-039",
+      "module": "INN",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.oreilly.com/library/view/will-it-fly/0130462217/apc.html",
+      "source_locator": "Schumpeter, Capitalism, Socialism and Democracy (1942), pp.82–85, primary text reprinted in Creative Destruction appendix",
+      "question_revision_fingerprint": "fnv1a32:ab3d599e"
+    },
+    {
+      "id": "d4b-040",
+      "module": "INN",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0048733307000340",
+      "source_locator": "Jensen, Johnson, Lorenz and Lundvall (2007), abstract and introduction: codified STI vs experiential Doing–Using–Interacting",
+      "question_revision_fingerprint": "fnv1a32:0e4a9388"
+    },
+    {
+      "id": "d4b-041",
+      "module": "INN",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:020c2a6f"
+    },
+    {
+      "id": "d4b-042",
+      "module": "INN",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:a24e00fb"
+    },
+    {
+      "id": "d4b-043",
+      "module": "INN",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:d2b5d3b3"
+    },
+    {
+      "id": "d4b-044",
+      "module": "INN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:7d472b05"
+    },
+    {
+      "id": "d4b-047",
+      "module": "DTR",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://ec.europa.eu/eurostat/web/digital-economy-and-society/information-data",
+      "source_locator": "Eurostat, Digital Intensity Index methodology: 12 adoption variables and intensity bands, not a strategy-quality metric",
+      "question_revision_fingerprint": "fnv1a32:edc0fbc5"
+    },
+    {
+      "id": "d4b-048",
+      "module": "DTR",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.iso.org/standard/62996.html",
+      "source_locator": "ISO/TS 15066:2016, Abstract: safety requirements for collaborative industrial robot systems and working environments",
+      "question_revision_fingerprint": "fnv1a32:d989edbc"
+    },
+    {
+      "id": "d4b-049",
+      "module": "DTR",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://aiinstitute.hbs.edu/navigating-the-jagged-technological-frontier/",
+      "source_locator": "Harvard Business School and BCG (2023), key findings: task-specific jagged technological frontier in a field experiment",
+      "question_revision_fingerprint": "fnv1a32:765396ab"
+    },
+    {
+      "id": "d4b-050",
+      "module": "DTR",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://student.cs.uwaterloo.ca/~cs492/papers/neil-postman--five-things.html",
+      "source_locator": "Neil Postman, Five Things We Need to Know about Technological Change (1998), first and second ideas: trade-offs and winners/losers",
+      "question_revision_fingerprint": "fnv1a32:cf28ed18"
+    },
+    {
+      "id": "d4b-051",
+      "module": "DTR",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "source_locator": "OpenAI, Does ChatGPT tell the truth?: fluent and confident text may include false or unsupported claims",
+      "question_revision_fingerprint": "fnv1a32:93bfb091"
+    },
+    {
+      "id": "d4b-052",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "source_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "question_revision_fingerprint": "fnv1a32:d7de98ac"
+    },
+    {
+      "id": "d4b-053",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "source_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "question_revision_fingerprint": "fnv1a32:398c4eda"
+    },
+    {
+      "id": "d4b-054",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "source_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "question_revision_fingerprint": "fnv1a32:f845e7d9"
+    },
+    {
+      "id": "d4b-055",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://commission.europa.eu/law/law-topic/data-protection/information-business-and-organisations/dealing-requests-individuals_en",
+      "source_locator": "European Commission, Data portability requests: structured machine-readable interoperable export promotes service switching",
+      "question_revision_fingerprint": "fnv1a32:df0c1ec3"
+    },
+    {
+      "id": "d4b-057",
+      "module": "GEN",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.ibm.com/think/topics/ai-vs-machine-learning-vs-deep-learning-vs-neural-networks",
+      "source_locator": "IBM AI taxonomy: predictive/discriminative classification contrasted with generative model content creation",
+      "question_revision_fingerprint": "fnv1a32:599cfb62"
+    },
+    {
+      "id": "d4b-059",
+      "module": "GEN",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://web.stanford.edu/~jurafsky/slp3/index.html",
+      "source_locator": "Jurafsky and Martin, Speech and Language Processing (Aug 2026), ch.3 N-gram Language Models: smoothing and avoiding zeros for unseen n-grams",
+      "question_revision_fingerprint": "fnv1a32:023e8499"
+    },
+    {
+      "id": "d4b-065",
+      "module": "GEN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets",
+      "source_locator": "Google ML Crash Course, Dividing datasets: training, validation and held-out test; repeated testing and selection leakage",
+      "question_revision_fingerprint": "fnv1a32:1d5bf897"
+    },
+    {
+      "id": "d4b-066",
+      "module": "AIB",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://artint.info/3e/html/ArtInt3e.Ch2.S1.html",
+      "source_locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §2.1: agent–environment cycle, percepts, actions and subsequent stimuli",
+      "question_revision_fingerprint": "fnv1a32:2fb947a0"
+    },
+    {
+      "id": "d4b-067",
+      "module": "AIB",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://artint.info/3e/html/ArtInt3e.Ch5.S3.html",
+      "source_locator": "Poole and Mackworth, Artificial Intelligence (3rd ed), §5.3: definite-clause rules, knowledge bases and deterministic inference",
+      "question_revision_fingerprint": "fnv1a32:35035df5"
+    },
+    {
+      "id": "d4b-073",
+      "module": "AIB",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "source_locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "question_revision_fingerprint": "fnv1a32:52424e42"
+    },
+    {
+      "id": "d4b-077",
+      "module": "INN",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "source_locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "question_revision_fingerprint": "fnv1a32:b9c38258"
+    },
+    {
+      "id": "d4b-078",
+      "module": "INN",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.researchgate.net/publication/240295704_%27Mode_3%27_and_%27Quadruple_Helix%27_toward_a_21st_century_fractal_innovation_ecosystem",
+      "source_locator": "Carayannis and Campbell (2009), original Quadruple Helix research: additional media-based, culture-based public",
+      "question_revision_fingerprint": "fnv1a32:7fc891b2"
+    },
+    {
+      "id": "d4b-079",
+      "module": "INN",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://doi.org/10.1016/0048-7333(86)90027-2",
+      "source_locator": "Teece (1986), Profiting from technological innovation: complementary assets, integration and appropriability",
+      "question_revision_fingerprint": "fnv1a32:4aca9670"
+    },
+    {
+      "id": "d4b-080",
+      "module": "INN",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://airc.nist.gov/airmf-resources/playbook/govern/",
+      "source_locator": "NIST AI RMF Playbook, Govern: counteract confirmation bias in AI risk governance",
+      "question_revision_fingerprint": "fnv1a32:3c48fc3b"
+    },
+    {
+      "id": "d4b-081",
+      "module": "INN",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:b7c4683c"
+    },
+    {
+      "id": "d4b-082",
+      "module": "INN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:3487d781"
+    },
+    {
+      "id": "d4b-083",
+      "module": "INN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:bf2dcfd4"
+    },
+    {
+      "id": "d4b-084",
+      "module": "DTR",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://shop.sloanreview.mit.edu/store/the-advantages-of-digital-maturity",
+      "source_locator": "Westerman, Bonnet and McAfee (2012), MIT Sloan Management Review: Beginners, Conservatives, Fashionistas and Digirati, digital vs leadership intensity",
+      "question_revision_fingerprint": "fnv1a32:b9c5de13"
+    },
+    {
+      "id": "d4b-085",
+      "module": "DTR",
+      "week": 1,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://doi.org/10.1016/j.jsis.2019.01.003",
+      "source_locator": "Vial (2019), Understanding digital transformation, abstract and introduction: strategic, organisational and value-creation change",
+      "question_revision_fingerprint": "fnv1a32:57aeecab"
+    },
+    {
+      "id": "d4b-087",
+      "module": "DTR",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.iso.org/standard/62996.html",
+      "source_locator": "ISO/TS 15066:2016, Abstract: safety requirements for collaborative industrial robot systems and working environments",
+      "question_revision_fingerprint": "fnv1a32:84dec68c"
+    },
+    {
+      "id": "d4b-088",
+      "module": "DTR",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.researchgate.net/publication/4858619_General_Purpose_Technologies_%27Engines_of_Growth%27/fulltext/00b1254b0cf2d1b855032db3/General-Purpose-Technologies-Engines-of-Growth.pdf",
+      "source_locator": "Bresnahan and Trajtenberg (1995), General Purpose Technologies, pp.83–85: pervasiveness, dynamism and innovation complementarities",
+      "question_revision_fingerprint": "fnv1a32:473ca3f8"
+    },
+    {
+      "id": "d4b-089",
+      "module": "DTR",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking-self-reported-reductions-in-cognitive-effort-and-confidence-effects-from-a-survey-of-knowledge-workers/?lang=ko-kr%2Fbibtex%2F",
+      "source_locator": "Lee et al. (CHI 2025), 319-knowledge-worker study: AI use and critical-thinking effort; identifies skill and task stewardship as relevant evaluation dimensions",
+      "question_revision_fingerprint": "fnv1a32:9a3230d8"
+    },
+    {
+      "id": "d4b-090",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "source_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "question_revision_fingerprint": "fnv1a32:d6120635"
+    },
+    {
+      "id": "d4b-091",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "source_locator": "van Dijck, Poell and de Waal (2018), The Platform Society, ch.2 'Platform Mechanisms': datafication, commodification and algorithmic selection",
+      "question_revision_fingerprint": "fnv1a32:62994ced"
+    },
+    {
+      "id": "d4b-092",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://discovery.ucl.ac.uk/id/eprint/1400691/",
+      "source_locator": "Michie et al. (2013), Behaviour Change Technique Taxonomy v1: goal setting, action planning and feedback on behaviour",
+      "question_revision_fingerprint": "fnv1a32:5c6f82fd"
+    },
+    {
+      "id": "d4b-093",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "source_locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "question_revision_fingerprint": "fnv1a32:9c6122b1"
+    },
+    {
+      "id": "d4b-094",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "source_locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "question_revision_fingerprint": "fnv1a32:31fb1007"
+    },
+    {
+      "id": "d4b-095",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://www.bi.team/east-tool/methodology/",
+      "source_locator": "Behavioural Insights Team EAST framework: Easy, Attractive, Social, Timely; social norms and credible comparison",
+      "question_revision_fingerprint": "fnv1a32:f426bbdb"
+    },
+    {
+      "id": "d4b-096",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 3,
+      "alternative_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_url": "https://www.oecd.org/en/publications/tools-and-ethics-for-applied-behavioural-insights-the-basic-toolkit_9ea76a8f-en/full-report/component-6.html",
+      "source_locator": "OECD BASIC Toolkit (2019), box 2.9 original nudge definition; defaults, preserving choice and avoiding mandates",
+      "question_revision_fingerprint": "fnv1a32:44cb6a93"
+    },
+    {
+      "id": "d4b-097",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://arxiv.org/abs/1310.1953",
+      "source_locator": "Tria, Loreto, Servedio and Strogatz (2014), The dynamics of correlated novelties, abstract: expanding adjacent possible",
+      "question_revision_fingerprint": "fnv1a32:fd8a8c41"
+    },
+    {
+      "id": "d4b-098",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.oecd.org/en/publications/oslo-manual-2018_9789264304604-en/full-report/component-9.html",
+      "source_locator": "OECD/Eurostat Oslo Manual 2018, §§3.9–3.18 and 3.34–3.37: implementation, processes and innovation outcomes",
+      "question_revision_fingerprint": "fnv1a32:13dec467"
+    },
+    {
+      "id": "d4b-099",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "source_locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "question_revision_fingerprint": "fnv1a32:c0f3a352"
+    },
+    {
+      "id": "d4b-100",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 3,
+      "alternative_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_url": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "source_locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "question_revision_fingerprint": "fnv1a32:8b4d0fd3"
+    },
+    {
+      "id": "d4b-101",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://onlinelibrary.wiley.com/doi/10.1002/j.2162-6057.1969.tb00124.x",
+      "source_locator": "Edward de Bono (1969), original article abstract: vertical sequential thought versus lateral shifts in approach",
+      "question_revision_fingerprint": "fnv1a32:b4c08fe5"
+    },
+    {
+      "id": "d4b-102",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.frontiersin.org/journals/communication/articles/10.3389/fcomm.2023.1115360/full",
+      "source_locator": "Original empirical study, §4.5.4 Creativity analysis: fluency (number), flexibility (categories), originality (rarity), elaboration (detail)",
+      "question_revision_fingerprint": "fnv1a32:2f72cea3"
+    },
+    {
+      "id": "d4b-103",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://www.frontiersin.org/journals/communication/articles/10.3389/fcomm.2023.1115360/full",
+      "source_locator": "Original empirical study, §4.5.4 Creativity analysis: fluency (number), flexibility (categories), originality (rarity), elaboration (detail)",
+      "question_revision_fingerprint": "fnv1a32:b2ffceee"
+    },
+    {
+      "id": "d4b-104",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.designcouncil.org.uk/resources/the-double-diamond/history-of-the-double-diamond/",
+      "source_locator": "Design Council, History of Double Diamond: Discover, Define, Develop, Deliver; divergent and convergent phases",
+      "question_revision_fingerprint": "fnv1a32:a4144d6f"
+    },
+    {
+      "id": "d4b-105",
+      "module": "INN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 3,
+      "alternative_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7946162/",
+      "source_locator": "Authors' 2021 nudging research synthesis: variable effect sizes, heterogeneous contexts and replicability/validity limits",
+      "question_revision_fingerprint": "fnv1a32:858dd013"
+    },
+    {
+      "id": "d4b-106",
+      "module": "GEN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://openai.com/safety/prompt-injections/",
+      "source_locator": "OpenAI security guidance, Understanding prompt injections: attacker-controlled content may attempt to redirect assistants",
+      "question_revision_fingerprint": "fnv1a32:ff1d47cd"
+    },
+    {
+      "id": "d4b-107",
+      "module": "GEN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://help.openai.com/en/articles/6654000-best-practices-for-prompting-openai-api",
+      "source_locator": "OpenAI, Best practices: Rules of Thumb 2–4, specific instructions/context and desired output format",
+      "question_revision_fingerprint": "fnv1a32:ca317176"
+    },
+    {
+      "id": "d4b-108",
+      "module": "GEN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 3,
+      "alternative_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_url": "https://help.openai.com/en/articles/8313428-does-chatgpt-tell-the-truth",
+      "source_locator": "OpenAI, Does ChatGPT tell the truth?: fluent and confident text may include false or unsupported claims",
+      "question_revision_fingerprint": "fnv1a32:30a69e59"
+    },
+    {
+      "id": "d4b-109",
+      "module": "GEN",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "source_locator": "Google Cloud Architecture, Guidelines: testability, experimental tracking and decomposed data/training/testing pipelines",
+      "question_revision_fingerprint": "fnv1a32:596e4945"
+    },
+    {
+      "id": "d4b-110",
+      "module": "AIB",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://developers.google.com/machine-learning/crash-course/overfitting/overfitting",
+      "source_locator": "Google ML Crash Course, Fitting/overfitting/underfitting: poor training and test accuracy signifies underfit",
+      "question_revision_fingerprint": "fnv1a32:a8063d10"
+    },
+    {
+      "id": "d4b-111",
+      "module": "AIB",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://imbalanced-learn.org/stable/common_pitfalls.html",
+      "source_locator": "imbalanced-learn official documentation, §9.1: resampling before train/test split causes evaluation data leakage",
+      "question_revision_fingerprint": "fnv1a32:236cecb5"
+    },
+    {
+      "id": "d4b-112",
+      "module": "AIB",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 3,
+      "alternative_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_url": "https://docs.cloud.google.com/architecture/guidelines-for-developing-high-quality-ml-solutions",
+      "source_locator": "Google Cloud Architecture Center, Guidelines: data validity, distributions, schemas, anomaly/duplicate checking and representative test splits",
+      "question_revision_fingerprint": "fnv1a32:4d5f3def"
+    },
+    {
+      "id": "d4b-113",
+      "module": "AIB",
+      "week": 5,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-faqs",
+      "source_locator": "NIST AI RMF FAQ, trustworthiness characteristics: validity, fairness, transparency, accountability and bias",
+      "question_revision_fingerprint": "fnv1a32:e672878e"
+    },
+    {
+      "id": "d4b-114",
+      "module": "INN",
+      "week": 2,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0048733307000340",
+      "source_locator": "Jensen, Johnson, Lorenz and Lundvall (2007), abstract and introduction: codified STI vs experiential Doing–Using–Interacting",
+      "question_revision_fingerprint": "fnv1a32:94b2ee0a"
+    },
+    {
+      "id": "d4b-116",
+      "module": "INN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 3,
+      "alternative_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:bed6101b"
+    },
+    {
+      "id": "d4b-117",
+      "module": "INN",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "UK Government Office for Science, Futures Toolkit: horizon scanning, Three Horizons, scenarios, Futures Wheels, backcasting and roadmapping",
+      "question_revision_fingerprint": "fnv1a32:e017cd21"
+    },
+    {
+      "id": "d4b-118",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.oecd.org/en/publications/oecd-digital-economy-outlook-2020_bb167041-en/full-report/component-13.html",
+      "source_locator": "OECD Digital Economy Outlook 2020, Evolving Business Models: 'Positive direct network effects' definition and messaging/social platform examples",
+      "question_revision_fingerprint": "fnv1a32:7a8f058a"
+    },
+    {
+      "id": "d4b-119",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "verified",
+      "correct_index": 2,
+      "alternative_indices_checked": [
+        0,
+        1,
+        3
+      ],
+      "source_url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2019/05/an-introduction-to-online-platforms-and-their-role-in-the-digital-transformation_970fc377/53e5f593-en.pdf",
+      "source_locator": "OECD (2019), An Introduction to Online Platforms, policy discussion on switching costs, interoperability, lock-in and platform competition",
+      "question_revision_fingerprint": "fnv1a32:a1ada6e9"
+    },
+    {
+      "id": "d4b-121",
+      "module": "DTR",
+      "week": 3,
+      "verdict": "verified",
+      "correct_index": 3,
+      "alternative_indices_checked": [
+        0,
+        1,
+        2
+      ],
+      "source_url": "https://student.cs.uwaterloo.ca/~cs492/papers/neil-postman--five-things.html",
+      "source_locator": "Neil Postman, Five Things We Need to Know about Technological Change (1998), first and second ideas: trade-offs and winners/losers",
+      "question_revision_fingerprint": "fnv1a32:c963170a"
+    }
+  ],
+  "exceptions": [
+    {
+      "id": "d4b-063",
+      "module": "GEN",
+      "week": 4,
+      "verdict": "pending",
+      "blocker": "Course-specific 'smallest passing model' recommendation is plausible, but general model-doc sources do not independently establish this lecturer-specific default; preserve qualified course alignment.",
+      "question_revision_fingerprint": "fnv1a32:b96f3b7d"
+    },
+    {
+      "id": "d4b-076",
+      "module": "INN",
+      "week": 1,
+      "verdict": "pending",
+      "blocker": "The mnemonic Invention × Commercialisation is a lecture teaching simplification. OECD's Oslo Manual does not require sales or commercial success for innovation; avoid certifying the formula as a universal definition.",
+      "question_revision_fingerprint": "fnv1a32:491b6bb1"
+    },
+    {
+      "id": "d4b-115",
+      "module": "INN",
+      "week": 4,
+      "verdict": "pending",
+      "blocker": "The exact named five-stage Frame–Scan–Imagine–Decide–Design cycle is a course-specific ordering, not independently established by the UK Government Futures Toolkit; teaching alignment remains, primary corroboration unresolved.",
+      "question_revision_fingerprint": "fnv1a32:2d1e5b98"
+    },
+    {
+      "id": "d4b-120",
+      "module": "DTR",
+      "week": 4,
+      "verdict": "pending",
+      "blocker": "The precise 'roots/trunk/branches' platformization-tree attribution and meaning were not located in an independently accessible original van Dijck passage; the booklet alone is insufficient for independent verification.",
+      "question_revision_fingerprint": "fnv1a32:fafb3d74"
+    }
+  ]
+}

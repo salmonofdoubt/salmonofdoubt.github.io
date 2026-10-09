@@ -23,7 +23,13 @@ const w5=bank.filter(q=>q.module==='INN'&&q.week===5);
 assert.ok(w5.length>=12,'Innovation Week 05 needs substantive original practice coverage');
 for(const q of w5){
  assert.equal(q.origin,'booklet-derived',q.id+': never copy private Moodle originals into the public site');
- assert.equal(q.verification,'pending',q.id+': course alignment is not independent evidence verification');
+ assert.ok(['pending','verified'].includes(q.verification),q.id+': unexpected independent review state');
+ if(q.verification==='verified'){
+  assert.equal(q.evidence?.originalMaterialChecked,true,q.id+': independently verified question needs checked original material');
+  assert.match(q.evidence?.url||'',/^https:\/\//,q.id+': independent source missing');
+ } else {
+  assert.notEqual(q.evidence?.originalMaterialChecked,true,q.id+': do not claim verified source review for pending item');
+ }
  assert.equal(q.course_alignment?.status,'supported',q.id+': course alignment not recorded');
  assert.equal(q.course_alignment?.week,5,q.id+': alignment week mismatch');
  assert.equal(q.course_alignment?.original_moodle_key_checked,false,q.id+': invented lecturer key');
