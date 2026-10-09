@@ -21,7 +21,7 @@
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.js?v=20261008-5"></script>
   <script defer src="./app.js?v=20261008-5"></script>
-  <script defer src="./questions.js?v=bank-3ad7d24d6c"></script>
+  <script defer src="./questions.js?v=w5-20261009-v1"></script>
   <script defer src="./quiz.js?v=course-20261009-v1"></script>
   <script defer src="./refresh.js?v=auto-20261009-v1"></script>
   <!-- Cloudflare Web Analytics -->
@@ -52,7 +52,7 @@
   </section>
   <section class="quiz-panel" aria-labelledby="refreshTitle">
    <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">View workflow history</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
-   <p class="fine">Source and question-bank checks run automatically after reviewed quiz updates and daily. No manual GitHub action is needed. These checks do not yet extract questions from peer websites or access private Drive, ChatGPT or Moodle content.</p>
+   <p class="fine">GitHub checks public sources and staged questions automatically; <strong>it does not read changes in your private Google Drive, ChatGPT or Moodle materials</strong>. New module material must first be reviewed and added as original practice questions through an authorised private-source review. A successful refresh confirms the public bank was checked, not that private learning materials were imported.</p>
    <p id="lastConsolidated">Last consolidated: Checking…</p><p id="lastChecked" class="fine"></p>
    <div class="refresh-track" id="refreshProgress" role="progressbar" aria-label="Completed workflow stages" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="refreshBar"></div></div>
    <ol id="refreshStages" class="refresh-stages"></ol><p class="fine" id="refreshMessage" role="status">Checking workflow status…</p>
