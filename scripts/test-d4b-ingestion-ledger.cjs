@@ -29,7 +29,19 @@ assert.equal(w5.question_count,14);
 assert.equal(w5.source_id,'drive');
 assert.equal(w5.source_access,'reviewed-via-connected-chatgpt-not-github-actions');
 assert.equal(w5.accepted_at,'2026-10-09T22:31:46Z');
-assert.ok(w5.question_ids.every(id=>byId.get(id)?.verification==='pending'),'Course-checked is not independently verified');
+for(const id of w5.question_ids){
+ const q=byId.get(id);
+ assert.ok(q,id+': previously published W5 question is missing');
+ assert.equal(q.course_alignment?.status,'supported',id+': original course-review metadata must remain');
+ assert.equal(q.course_alignment?.original_moodle_key_checked,false,id+': no unsupported official Moodle grading claim');
+ if(q.verification==='verified'){
+  assert.equal(q.evidence?.originalMaterialChecked,true,id+': independent promotion requires original-source review');
+  assert.match(q.evidence?.url||'',/^https:\/\//,id+': source URL missing');
+ } else {
+  assert.equal(q.verification,'pending',id+': unexpected evidence status');
+  assert.notEqual(q.evidence?.originalMaterialChecked,true,id+': pending item cannot falsely claim independently checked original source');
+ }
+}
 const multi=ledger.groups.find(g=>g.release_url==='https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204');
 assert.ok(multi,'Full-booklet release PR #204 must remain in provenance');
 assert.equal(multi.question_count,16,'Full release should total exactly 16 new original questions');
