@@ -210,6 +210,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05, Prompt engineering",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 5,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 05, Prompt engineering",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -232,6 +243,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 01, Key distinctions",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 1,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 01, Key distinctions",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -335,6 +357,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 5,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 05, Ethical and social implications",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -357,6 +390,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01, Key distinctions",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 1,
+      "booklet_locator": "03_Innovation_Booklet, Week 01, Key distinctions",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -379,6 +423,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01, Complementary assets",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 1,
+      "booklet_locator": "03_Innovation_Booklet, Week 01, Complementary assets",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -428,6 +483,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04, Foresight",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 4,
+      "booklet_locator": "03_Innovation_Booklet, Week 04, Foresight",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -477,6 +543,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01, Westerman typology",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 1,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 01, Westerman typology",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -526,6 +603,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 01, Societal lens",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 1,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 01, Societal lens",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -548,6 +636,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 01, Learning paradigms",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 1,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 01, Learning paradigms",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -624,6 +723,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04, Model selection",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 4,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 04, Model selection",
+      "reviewed_at": "2026-10-09",
+      "note": "Generative AI Week 4 describes encoder models as a natural task fit for classification and retrieval, not the only possible architecture.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -646,6 +756,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 04, Model cards",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 4,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 04, Model cards",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -722,6 +843,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "01_Generative_AI_Booklet, Week 05, Evaluation",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 5,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 05, Evaluation",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -744,6 +876,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 01, Compute",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 1,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 01, Compute",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -928,6 +1071,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 04, Data quality",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 4,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 04, Data quality",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -977,6 +1131,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 5,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 05, Trustworthy AI",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -999,6 +1164,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 01, Creative destruction",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 1,
+      "booklet_locator": "03_Innovation_Booklet, Week 01, Creative destruction",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1021,6 +1197,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 02, Learning modes",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 2,
+      "booklet_locator": "03_Innovation_Booklet, Week 02, Learning modes",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1043,6 +1230,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03, Complexity",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 3,
+      "booklet_locator": "03_Innovation_Booklet, Week 03, Complexity",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1065,6 +1263,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03, Foresight",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 3,
+      "booklet_locator": "03_Innovation_Booklet, Week 03, Foresight",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1087,6 +1296,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 03, Futures cone",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 3,
+      "booklet_locator": "03_Innovation_Booklet, Week 03, Futures cone",
+      "reviewed_at": "2026-10-09",
+      "note": "Innovation Week 3 treats preferable futures as normative and stakeholder-dependent, not probabilistically certain.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1109,6 +1329,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "03_Innovation_Booklet, Week 04, Scanning",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 4,
+      "booklet_locator": "03_Innovation_Booklet, Week 04, Scanning",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1185,6 +1416,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02, Digital maturity",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 2,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 02, Digital maturity",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1207,6 +1449,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 2,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 02, Human–robot collaboration",
+      "reviewed_at": "2026-10-09",
+      "note": "Digital Transformation Week 2 qualifies collaborative robotics safety as application-specific; a cobot label does not guarantee safety.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1229,6 +1482,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03, Technological frontier",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 3,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 03, Technological frontier",
+      "reviewed_at": "2026-10-09",
+      "note": "Digital Transformation Week 3 uses the jagged-frontier concept; task-level testing is necessary, including for tasks that look similar.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1251,6 +1515,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 3,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 03, Technology trade-offs",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1273,6 +1548,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 3,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 03, Human–AI teaming",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1295,6 +1581,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Platforms",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 4,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 04, Platforms",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1317,6 +1614,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 4,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 04, Algorithmic selection",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1339,6 +1647,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Datafication",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 4,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 04, Datafication",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1361,6 +1680,17 @@ window.D4B_QUESTIONS=Object.freeze([
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 04, Interoperability",
       "originalMaterialChecked": false
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 4,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 04, Interoperability",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1414,6 +1744,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 1,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 01, Generative versus discriminative AI",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1467,6 +1808,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 2,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 02, Language-model smoothing",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1578,6 +1930,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "qualified",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 4,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 04, Model selection and validation",
+      "reviewed_at": "2026-10-09",
+      "note": "This is the Generative AI Week 4 lecturer's conditional rule of thumb: choose the smallest model that passes the relevant test on the intended data. It is not a universal requirement to prefer small models.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1631,6 +1994,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "GEN",
+      "week": 5,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 05, Prompt evaluation",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1655,6 +2029,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 1,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 01, Intelligent agents",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1679,6 +2064,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 1,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 01, Rules versus learning",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1848,6 +2244,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "AIB",
+      "week": 4,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 04, Data cleaning",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1930,6 +2337,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "qualified",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 1,
+      "booklet_locator": "03_Innovation_Booklet, Week 01, Innovation equation",
+      "reviewed_at": "2026-10-09",
+      "note": "The Innovation Week 1 lecturer uses Invention × Commercialisation as a pedagogical value-capture model. Do not mistake this for a universal definition of innovation: public and noncommercial implementation can qualify under the OECD Oslo Manual.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1954,6 +2372,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 1,
+      "booklet_locator": "03_Innovation_Booklet, Week 01, Process and strategic innovation",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -1978,6 +2407,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 2,
+      "booklet_locator": "03_Innovation_Booklet, Week 02, Innovation systems",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2002,6 +2442,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 2,
+      "booklet_locator": "03_Innovation_Booklet, Week 02, Appropriability regimes",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2026,6 +2477,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 3,
+      "booklet_locator": "03_Innovation_Booklet, Week 03, Foresight biases",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2050,6 +2512,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 3,
+      "booklet_locator": "03_Innovation_Booklet, Week 03, Complex systems",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2074,6 +2547,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 4,
+      "booklet_locator": "03_Innovation_Booklet, Week 04, Futures Wheel",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2098,6 +2582,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "INN",
+      "week": 4,
+      "booklet_locator": "03_Innovation_Booklet, Week 04, Backcasting and roadmapping",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2122,6 +2617,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 1,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 01, Westerman digital maturity",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2146,6 +2652,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 1,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 01, Digital transformation overview",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2199,6 +2716,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 2,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 02, Human-centred design",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2223,6 +2751,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 3,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 03, General-purpose technology",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2247,6 +2786,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 3,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 03, Cognitive offloading and teaming",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2271,6 +2821,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 4,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 04, Platform mechanisms",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -2295,6 +2856,17 @@ window.D4B_QUESTIONS=Object.freeze([
       "originalMaterialChecked": false,
       "review_type": "booklet-concept-grounding",
       "note": "Original lecture/reading and lecturer key not independently audited"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "private D4B summary booklet",
+      "module": "DTR",
+      "week": 4,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 04, Vertical integration and platform power",
+      "reviewed_at": "2026-10-09",
+      "note": "The correct choice and three distractors were reviewed against the conceptual distinction described in the specified module-week booklet; this is not a Moodle grading confirmation.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   }
 ]);
