@@ -31,7 +31,7 @@ async function manifest(){
   if(!r.ok)throw Error('Not published');
   const data=await r.json();
   $('lastConsolidated').textContent='Last consolidated: '+fmt(data.last_consolidated_at);
-  $('lastChecked').textContent='Last refresh checked: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+(data.new_questions_ingested||0)+' incorporated this refresh · '+data.question_status.pending+' pending independent verification';
+  $('lastChecked').textContent='Last refresh checked: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+(data.new_questions_ingested||0)+' incorporated this refresh · '+data.question_status.pending+' pending independent verification'+(data.course_alignment?' · '+(data.course_alignment.supported+data.course_alignment.qualified)+' module-booklet answers reviewed':'');
   const sources=data.source_status||[];
   $('sourceCoverage').replaceChildren(...sources.map(s=>{
    const el=document.createElement('span');
