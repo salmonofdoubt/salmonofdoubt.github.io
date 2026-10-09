@@ -93,7 +93,6 @@
     return o;
   }
   function tr(x,y,z){ const m=I();m[12]=x;m[13]=y;m[14]=z;return m; }
-  function scale(s){ return new Float32Array([s,0,0,0,0,s,0,0,0,0,s,0,0,0,0,1]); }
   function perspective(fovy,aspect,n,f){
     const q=1/Math.tan(fovy/2),nf=1/(n-f);
     return new Float32Array([q/aspect,0,0,0,0,q,0,0,0,0,(f+n)*nf,-1,0,0,2*f*n*nf,0]);
@@ -127,6 +126,10 @@
   in vec3 vPos;
   in vec3 vNormal;
   uniform vec3 uLight;
+  uniform vec3 uEye;
+  uniform highp samplerCube uShadow;
+  uniform float uShadowSize;
+  uniform float uShadowFar;
   uniform float uKey;
   uniform float uFill;
   uniform float uTone;
@@ -135,8 +138,26 @@
   uniform int uValueMode;
   out vec4 outColor;
 
+  // Compare receiver depth with the lamp's nearest surface in every direction.
+  float visibility(vec3 N, vec3 L){
+    vec3 delta=vPos-uLight;
+    vec3 direction=normalize(delta);
+    vec3 tangent=normalize(cross(direction,abs(direction.y)<0.9?vec3(0,1,0):vec3(1,0,0)));
+    vec3 bitangent=cross(direction,tangent);
+    float texelWorld=2.0*length(delta)/uShadowSize;
+    float bias=texelWorld*(1.0+4.0*(1.0-max(dot(N,L),0.0)));
+    float major=max(max(abs(delta.x),abs(delta.y)),abs(delta.z));
+    float depth=uShadowFar/(uShadowFar-0.01)-uShadowFar*0.01/((uShadowFar-0.01)*max(major-bias,0.01));
+    float radius=(0.5+uSoft*2.5)/uShadowSize;
+    float visible=0.0;
+    for(int y=-1;y<=1;y++) for(int x=-1;x<=1;x++){
+      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*radius;
+      visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
+    }
+    return visible/9.0;
+  }
   void main(){
-    vec3 V=normalize(-vPos);
+    vec3 V=normalize(uEye-vPos);
     vec3 N=normalize(vNormal);
     if(!gl_FrontFacing) N=-N;
     vec3 L=normalize(uLight-vPos);
@@ -144,8 +165,8 @@
 
     float ndl=dot(N,L);
     float raw=max(ndl,0.0);
-    float wrapped=clamp((ndl+0.34)/1.34,0.0,1.0);
-    float diffuse=mix(raw,wrapped,uSoft*0.72);
+    float shadow=raw>0.0?visibility(N,L):0.0;
+    float diffuse=raw*shadow;
 
     float dist=length(uLight-vPos);
     float att=1.0/(1.0+0.085*dist*dist);
@@ -153,12 +174,10 @@
 
     float shine=max(8.0,uShine);
     float spec=pow(max(dot(N,H),0.0),shine);
-    float rim=pow(1.0-max(dot(N,V),0.0),2.5);
 
     vec3 base=vec3(uTone,uTone*0.992,uTone*0.968);
     vec3 col=base*(uFill+lit)
-      +vec3(1.0)*spec*uKey*0.018*(1.0-uSoft*0.7)
-      +base*rim*0.018;
+      +vec3(1.0)*spec*uKey*att*0.018*shadow*step(0.0001,ndl);
     col=clamp(col,0.0,1.0);
 
     float lum=dot(col,vec3(0.2126,0.7152,0.0722));
@@ -195,6 +214,10 @@
     model:gl.getUniformLocation(program,'uModel'),
     mvp:gl.getUniformLocation(program,'uMVP'),
     light:gl.getUniformLocation(program,'uLight'),
+    eye:gl.getUniformLocation(program,'uEye'),
+    shadow:gl.getUniformLocation(program,'uShadow'),
+    shadowSize:gl.getUniformLocation(program,'uShadowSize'),
+    shadowFar:gl.getUniformLocation(program,'uShadowFar'),
     key:gl.getUniformLocation(program,'uKey'),
     fill:gl.getUniformLocation(program,'uFill'),
     tone:gl.getUniformLocation(program,'uTone'),
@@ -206,6 +229,69 @@
   let posBuf=null,normBuf=null,indexBuf=null,vertexCount=0,indexCount=0,indexed=false;
   gl.enable(gl.DEPTH_TEST);
   gl.disable(gl.CULL_FACE);
+
+  // Six depth views cover a point lamp without a spotlight cone or near-light gaps.
+  const shadowSize=Math.min(window.matchMedia('(max-width:780px)').matches?1024:2048,gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE));
+  const shadowTexture=gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_CUBE_MAP,shadowTexture);
+  for(let face=0;face<6;face++) gl.texImage2D(gl.TEXTURE_CUBE_MAP_POSITIVE_X+face,0,gl.DEPTH_COMPONENT24,shadowSize,shadowSize,0,gl.DEPTH_COMPONENT,gl.UNSIGNED_INT,null);
+  gl.texParameteri(gl.TEXTURE_CUBE_MAP,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_CUBE_MAP,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+  for(const axis of [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T,gl.TEXTURE_WRAP_R]) gl.texParameteri(gl.TEXTURE_CUBE_MAP,axis,gl.CLAMP_TO_EDGE);
+  const shadowFramebuffer=gl.createFramebuffer();
+  const shadowProgram=gl.createProgram();
+  gl.attachShader(shadowProgram,compile(gl.VERTEX_SHADER,`#version 300 es
+    in vec3 aPos; uniform mat4 uMVP;
+    void main(){gl_Position=uMVP*vec4(aPos,1.0);}`));
+  gl.attachShader(shadowProgram,compile(gl.FRAGMENT_SHADER,`#version 300 es
+    precision highp float; void main(){}`));
+  gl.linkProgram(shadowProgram);
+  if(!gl.getProgramParameter(shadowProgram,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(shadowProgram));
+  const shadowPos=gl.getAttribLocation(shadowProgram,'aPos');
+  const shadowMVP=gl.getUniformLocation(shadowProgram,'uMVP');
+  let shadowSignature='',meshRadius=2,meshRevision=0;
+  function measureMesh(positions){
+    meshRevision++;meshRadius=0;
+    for(let i=0;i<positions.length;i+=3) meshRadius=Math.max(meshRadius,Math.hypot(positions[i],positions[i+1],positions[i+2]));
+    shadowSignature='';
+  }
+  function drawMesh(){
+    if(indexed){gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);gl.drawElements(gl.TRIANGLES,indexCount,gl.UNSIGNED_INT,0);}
+    else gl.drawArrays(gl.TRIANGLES,0,vertexCount);
+  }
+  function lightView(eye,forward,up){
+    const z=forward.map(v=>-v);
+    const x=[up[1]*z[2]-up[2]*z[1],up[2]*z[0]-up[0]*z[2],up[0]*z[1]-up[1]*z[0]];
+    const y=[z[1]*x[2]-z[2]*x[1],z[2]*x[0]-z[0]*x[2],z[0]*x[1]-z[1]*x[0]];
+    const dot=a=>a.reduce((sum,v,i)=>sum+v*eye[i],0);
+    return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-dot(x),-dot(y),-dot(z),1]);
+  }
+  function renderShadows(model,light){
+    const far=Math.hypot(...light)+meshRadius+1;
+    const signature=Array.from(model).concat(light).join(',');
+    if(signature===shadowSignature)return far;
+    gl.bindFramebuffer(gl.FRAMEBUFFER,shadowFramebuffer);
+    gl.drawBuffers([gl.NONE]);gl.readBuffer(gl.NONE);
+    gl.viewport(0,0,shadowSize,shadowSize);gl.useProgram(shadowProgram);
+    gl.enable(gl.POLYGON_OFFSET_FILL);gl.polygonOffset(1.5,2.0);
+    gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
+    gl.enableVertexAttribArray(shadowPos);gl.vertexAttribPointer(shadowPos,3,gl.FLOAT,false,0,0);
+    const directions=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+    const ups=[[0,-1,0],[0,-1,0],[0,0,1],[0,0,-1],[0,-1,0],[0,-1,0]];
+    const projection=perspective(Math.PI/2,1,0.01,far);
+    for(let face=0;face<6;face++){
+      gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.TEXTURE_CUBE_MAP_POSITIVE_X+face,shadowTexture,0);
+      if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw new Error('Shadow framebuffer unavailable');
+      gl.clear(gl.DEPTH_BUFFER_BIT);
+      gl.uniformMatrix4fv(shadowMVP,false,mul(projection,mul(lightView(light,directions[face],ups[face]),model)));
+      drawMesh();
+    }
+    gl.disable(gl.POLYGON_OFFSET_FILL);
+    gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+    gl.viewport(0,0,canvas.width,canvas.height);
+    shadowSignature=signature;
+    return far;
+  }
 
   // ---------- STL loading ----------
   const worker = new Worker('./stl-worker.js?v=20261005-1640');
@@ -296,6 +382,7 @@
 
   function uploadIndexedMesh(positions,normals,indices){
     clearMeshBuffers();
+    measureMesh(positions);
     posBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);
     normBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);gl.bufferData(gl.ARRAY_BUFFER,normals,gl.STATIC_DRAW);
     indexBuf=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,indices,gl.STATIC_DRAW);
@@ -309,6 +396,7 @@
 
   function uploadRawMesh(positions,count,info){
     clearMeshBuffers();
+    measureMesh(positions);
     const normals=new Float32Array(positions.length);
     for(let i=0;i<positions.length;i+=9){
       const ax=positions[i],ay=positions[i+1],az=positions[i+2];
@@ -350,8 +438,7 @@
 
   // ---------- Rendering ----------
   function resize(){
-    const mobile=window.matchMedia('(max-width: 780px)').matches;
-    const dpr=mobile?1:Math.min(devicePixelRatio||1,2);
+    const dpr=Math.min(devicePixelRatio||1,2.5,Math.sqrt(6000000/Math.max(1,canvas.clientWidth*canvas.clientHeight)));
     const w=Math.max(1,Math.floor(canvas.clientWidth*dpr));
     const h=Math.max(1,Math.floor(canvas.clientHeight*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
@@ -374,7 +461,8 @@
     }
     const fov=rad(+controls.fov.value);
     const p=perspective(fov,aspect,0.1,100);
-    // perspective zoom is model scale so crop remains intuitive
+    // Optical zoom keeps the lamp and sculpture at their physical distances.
+    p[0]*=zoom;p[5]*=zoom;
     return p;
   }
 
@@ -405,22 +493,34 @@
     return {x:(nx*.5+.5)*r.width,y:(1-(ny*.5+.5))*r.height};
   }
 
+  let lastFrameSignature='';
   function render(){
+    requestAnimationFrame(render);
+    const signature=[canvas.clientWidth,canvas.clientHeight,devicePixelRatio,meshRevision,
+      state.loaded,state.mode,state.projection,state.lightSpace,state.markerVisible,
+      ...state.headQuat,...state.cameraQuat,...state.pan,
+      ...Object.values(controls).map(control=>control.value)].join(',');
+    if(signature===lastFrameSignature)return;
+    lastFrameSignature=signature;
     resize();
     const bg=+controls.bg.value;
     gl.clearColor(bg,bg,bg*1.02,1);
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
 
     if(state.loaded){
-      const zoom=state.projection==='perspective'?+controls.zoom.value:1;
-      const model=mul(qMat(state.headQuat),scale(zoom));
+      const model=qMat(state.headQuat);
       const view=buildView();
       const proj=buildProjection();
       const vp=mul(proj,view);
       const mvp=mul(vp,model);
       const light=worldLight(state.headQuat);
 
+      const shadowFar=renderShadows(model,light);
       gl.useProgram(program);
+      gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_CUBE_MAP,shadowTexture);
+      gl.uniform1i(loc.shadow,0);gl.uniform1f(loc.shadowSize,shadowSize);gl.uniform1f(loc.shadowFar,shadowFar);
+      const camera=qMat(state.cameraQuat);
+      gl.uniform3f(loc.eye,state.pan[0]+camera[8]*3.05,state.pan[1]+camera[9]*3.05,camera[10]*3.05);
       gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
       gl.enableVertexAttribArray(loc.pos);
       gl.vertexAttribPointer(loc.pos,3,gl.FLOAT,false,0,0);
@@ -436,7 +536,7 @@
       gl.uniform1f(loc.shine,+controls.shine.value);
       gl.uniform1f(loc.soft,+controls.soft.value);
       gl.uniform1i(loc.valueMode,valueModeIndex());
-      if(indexed){gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);gl.drawElements(gl.TRIANGLES,indexCount,gl.UNSIGNED_INT,0);}else{gl.drawArrays(gl.TRIANGLES,0,vertexCount);}
+      drawMesh();
 
       if(state.markerVisible && state.mode!=='paint'){
         const sp=projectPoint(light,vp);
@@ -448,7 +548,6 @@
       }else lightMarker.hidden=true;
     }
 
-    requestAnimationFrame(render);
   }
 
   // ---------- Interaction ----------

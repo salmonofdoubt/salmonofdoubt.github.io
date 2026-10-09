@@ -19,8 +19,8 @@
 
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=20261005-2255"></script>
-  <script defer src="./app.js?v=20261005-1900"></script>
+  <script defer src="./site-config.js?v=20261009-shadows-1"></script>
+  <script defer src="./app.js?v=20261009-shadows-1"></script>
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
 </head>
@@ -177,7 +177,7 @@
             <input id="key" type="range" min="0" max="3" value="1.05" step="0.01">
             <label>Fill / ambient <output id="fillOut">0.22</output></label>
             <input id="fill" type="range" min="0" max="1" value="0.22" step="0.01">
-            <label>Light softness <output id="softOut">0.50</output></label>
+            <label title="Softens cast-shadow edges; approximates a larger light source.">Shadow softness <output id="softOut">0.50</output></label>
             <input id="soft" type="range" min="0" max="1" value="0.50" step="0.01">
 
             <div class="segmented" id="lightSpaceControl">

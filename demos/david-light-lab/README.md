@@ -80,3 +80,11 @@ Zenodo DOI for the software release:
 ## Licence
 
 The source scan is CC0 / Public Domain as described above. Application code follows the licence of the parent salmonofdoubt.github.io repository.
+
+### Lighting and close-up rendering (9 October 2026)
+
+Direct light and specular highlights now respect self-shadowing through a six-face point-light depth map. Ambient fill remains deliberately uniform: set Fill / ambient to zero when checking which surfaces receive direct light. Shadow softness filters cast-shadow edges; it is an approximation, not an area-light or indirect-light simulation.
+
+Perspective zoom magnifies the camera projection instead of scaling the sculpture toward the lamp. The canvas supports high-density screens up to 2.5×, with a six-million-pixel budget. Static views are not repeatedly drawn, and shadow maps are rebuilt only after the head, lamp or mesh changes. The existing 448,957-triangle scan is unchanged; rendering cannot reconstruct finer detail absent from that source.
+
+A deterministic regression test uses a receiver and blocker to check occlusion, ambient fill and zoom invariance. With a local server running at port 8090 and Playwright available, run `node demos/david-light-lab/tests/lighting-regression.cjs`. Override `DAVID_TEST_URL` for another port; `CHROMIUM_EXECUTABLE` and `CHROMIUM_ARGS` support a custom Chromium installation.
