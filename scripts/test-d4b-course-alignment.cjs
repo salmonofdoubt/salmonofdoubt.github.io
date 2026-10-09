@@ -14,7 +14,8 @@ for(const q of reviewed){
  assert.equal(c.booklet_locator,q.source,q.id+': booklet locator mismatch');
  assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(c.reviewed_at),q.id+': no review date');
  assert.equal(c.original_moodle_key_checked,false,q.id+': never claim Moodle confirmation without a graded attempt');
- assert.equal(c.original_lecture_slides_directly_checked,false,q.id+': no unsupported slide-access claim');
+ assert.equal(typeof c.original_lecture_slides_directly_checked,'boolean',q.id+': missing source-access flag');
+ if(c.original_lecture_slides_directly_checked) assert.ok(q.evidence?.originalMaterialChecked&&q.evidence?.locator&&q.evidence?.method,q.id+': direct source access requires recorded evidence');
  assert.equal(q.origin,'booklet-derived',q.id+': no original Moodle text belongs in public questions.js');
  statuses[c.status]++;
 }
