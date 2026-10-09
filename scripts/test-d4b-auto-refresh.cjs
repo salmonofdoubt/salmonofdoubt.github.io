@@ -1,0 +1,25 @@
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const home=path.resolve(__dirname,'..');
+const workflow=fs.readFileSync(path.join(home,'.github/workflows/d4b-refresh.yml'),'utf8');
+const html=fs.readFileSync(path.join(home,'demos/d4b-quiz/index.html'),'utf8');
+const sw=fs.readFileSync(path.join(home,'demos/d4b-quiz/service-worker.js'),'utf8');
+const client=fs.readFileSync(path.join(home,'demos/d4b-quiz/refresh.js'),'utf8');
+assert.match(workflow,/^  schedule:\s*$/m,'Daily source check must be scheduled');
+assert.match(workflow,/cron:\s*'23 6 \* \* \*'/,'Unexpected schedule');
+assert.match(workflow,/^  push:\s*$/m,'Changes to reviewed quiz material should trigger audit');
+assert.match(workflow,/branches: \[master\]/,'Only the production branch should trigger production refresh');
+assert.match(workflow,/github\.event_name != 'pull_request'/,'PRs may not publish a consolidation');
+assert.doesNotMatch(workflow,/^\s+- 'demos\/d4b-quiz\/consolidation\.json'\s*$/m,'Generated report must not trigger itself');
+assert.match(client,/raw\.githubusercontent\.com\/salmonofdoubt\/salmonofdoubt\.github\.io\/master\/demos\/d4b-quiz\/consolidation\.json/,
+ 'Client must read latest public GitHub report rather than stale Pages copy');
+assert.match(client,/\.\/consolidation\.json/,'Offline/availability fallback must exist');
+assert.match(client,/runs\?branch=master/,'Report actual production runs, not historical manual-only runs');
+assert.doesNotMatch(client,/runs\?event=workflow_dispatch/,'Historical manual-only query not allowed');
+assert.match(html,/run automatically after reviewed quiz updates and daily/,'Explain automatic behaviour honestly');
+assert.doesNotMatch(html,/<strong>Run workflow<\/strong>/,'Do not require user to trigger workflow');
+assert.match(html,/refresh\.js\?v=auto-20261009-v1/,'Changed client must be cache-busted');
+assert.match(sw,/refresh\.js\?v=auto-20261009-v1/,'Service worker must cache matching asset');
+assert.match(sw,/CACHE_NAME = 'salmon-d4b-evidence-quiz-auto-20261009-v1'/,'PWA cache must bump');
+new Function(client);
+console.log('PASS: daily and release triggers, no generated-report loop, privacy-safe PR publication, live consolidation source, cache version parity, client syntax.');

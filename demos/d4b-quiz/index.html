@@ -23,7 +23,7 @@
   <script defer src="./app.js?v=20261008-5"></script>
   <script defer src="./questions.js?v=course-20261009-v1"></script>
   <script defer src="./quiz.js?v=course-20261009-v1"></script>
-  <script defer src="./refresh.js?v=course-20261009-v1"></script>
+  <script defer src="./refresh.js?v=auto-20261009-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
   <!-- End Cloudflare Web Analytics -->
@@ -51,8 +51,8 @@
    <p class="notice">Questions distinguish lecturer-module booklet checks from independent factual verification. Moodle-grading confirmation is a separate status. An independently verified answer is not a lecturer-approved exam question. The booklets themselves are not published here.</p>
   </section>
   <section class="quiz-panel" aria-labelledby="refreshTitle">
-   <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">Refresh via GitHub</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
-   <p class="fine">The secure trigger opens GitHub Actions, where you must select <strong>Run workflow</strong>. Only source availability and the public question-bank structure are checked automatically at this stage. Personal Drive documents, ChatGPT chats and original Moodle questions are not automatically ingested.</p>
+   <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">View workflow history</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
+   <p class="fine">Source and question-bank checks run automatically after reviewed quiz updates and daily. No manual GitHub action is needed. These checks do not yet extract questions from peer websites or access private Drive, ChatGPT or Moodle content.</p>
    <p id="lastConsolidated">Last consolidated: Checking…</p><p id="lastChecked" class="fine"></p>
    <div class="refresh-track" id="refreshProgress" role="progressbar" aria-label="Completed workflow stages" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="refreshBar"></div></div>
    <ol id="refreshStages" class="refresh-stages"></ol><p class="fine" id="refreshMessage" role="status">Checking workflow status…</p>

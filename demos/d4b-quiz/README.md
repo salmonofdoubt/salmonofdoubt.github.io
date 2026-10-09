@@ -23,7 +23,7 @@ The authenticated `.github/workflows/d4b-refresh.yml` workflow performs:
 4. **Consolidate** — creates an ingestion report, source check, audit report and manifest with timestamps, counts and explicit access limitations.
 5. **Publish** — commits the consolidated public bank and cache-busted PWA asset URLs only if all preceding stages succeed.
 
-Click **Refresh via GitHub** on the quiz, then select **Run workflow** on `master`. The website reads *real* GitHub Actions step state and displays the successful consolidation date and new-question count. Because this is a static public site, refresh **does not** directly hold or use a GitHub write token. A truly single-click action requires an owner-authenticated backend.
+Checks run automatically on reviewed changes and daily. The site displays real GitHub Actions steps and the latest public consolidated report; manual dispatch remains an optional operator fallback. There is no browser-held write token.
 
 The pull-request workflow tests the ingestion without publishing. It also runs ingestion a second time and requires zero new questions on the repeat, thereby testing idempotence.
 
@@ -73,3 +73,16 @@ Every successful refresh also generates `review-queue.json`, an item-by-item to-
 The private recovery pack supplied in the ChatGPT session contains two full original AI for Business W5 Moodle items (Q6 and Q7), with all answer options recovered from the conversation context. It also records 13 quiz assessment/result entries from the booklets **without** pretending that their answer-topic summaries are complete Moodle question transcripts. One conflict exists between answer-letter sequences for Innovation W4, which must be reconciled from original graded Moodle output before importing any such letter answers. These original quiz records must not be uploaded to this public repository.
 
 **Source limitation:** previous-conversation retrieval was unavailable during the session. The recovered inventory is a documented first pass, not an exhaustive history scrape. The public workflow still cannot access the private ChatGPT and Google Drive connectors.
+
+
+## Unattended source checks and consolidation (October 2026)
+
+After the automatic-refresh change, the D4B refresh workflow runs **after relevant reviewed changes are pushed to master** and **daily at 06:23 UTC**. The previously available manual GitHub workflow trigger remains an optional operator fallback; a student is not expected to run it after each merge. Pull-request checks still audit without publishing.
+
+The workflow records the public source fingerprints, validates staged *original* question records, checks integrity, and writes public consolidation metadata to master. Because GitHub Pages' source-branch builder is **not triggered by commits created with GITHUB_TOKEN**, the web interface reads the latest public \`consolidation.json\` from raw GitHub (with the bundled Pages copy as a fallback). This prevents an old timestamp being misrepresented as the latest audit.
+
+**Do not confuse automatic monitoring with ingestion of all course materials.** External-site checks still read HTML/first-party JavaScript only and save fingerprints rather than republishing third-party questions. GitHub Actions does not have authorisation to read the user's private Drive or ChatGPT conversations, and it cannot perform true academic judgement without a separately authorised private ingestion and review process.
+
+**Publication boundary:** the static question bank is deployed with a reviewed Pages release. For a wholly new question batch created only inside an automated workflow, bot commits to \`questions.js\` might not deploy to Pages; implement and test an explicit Pages deployment or a canonical approved-bank endpoint before allowing autonomous publication of new public questions. The auto-refresh must never claim that an inaccessible private source was ingested or an unreviewed question was independently verified.
+
+When auditing a question, preserve the distinction between original Moodle grading (\`official-key-confirmed\`), evidence traced to the course booklet (\`course_alignment\`) and independent external factual verification (\`verification\`). Only the last is counted as independently verified.

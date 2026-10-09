@@ -1,6 +1,21 @@
 name: D4B Evidence Refresh
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '23 6 * * *'
+  push:
+    branches: [master]
+    paths:
+      - 'demos/d4b-quiz/questions.js'
+      - 'demos/d4b-quiz/candidates.json'
+      - 'demos/d4b-quiz/sources.json'
+      - 'demos/d4b-quiz/quiz.js'
+      - 'demos/d4b-quiz/refresh.js'
+      - 'demos/d4b-quiz/index.html'
+      - 'demos/d4b-quiz/service-worker.js'
+      - 'scripts/d4b-consolidate.cjs'
+      - 'scripts/test-d4b-*.cjs'
+      - '.github/workflows/d4b-refresh.yml'
   pull_request:
     paths:
       - 'demos/d4b-quiz/**'
@@ -28,6 +43,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test unattended D4B refresh
+        run: node scripts/test-d4b-auto-refresh.cjs
       - name: Test D4B question-bank parser
         run: node scripts/test-d4b-bank-parser.cjs
       - name: Test module-booklet evidence review
@@ -49,7 +66,7 @@ jobs:
           node -e "const assert=require('node:assert/strict');const r=require('./demos/d4b-quiz/ingestion-report.json');assert.equal(r.added,0);assert.equal(r.already_present,36);console.log('Idempotency: 0 re-added, 36 retained.')"
           node scripts/d4b-consolidate.cjs audit
       - name: Publish consolidation report
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
