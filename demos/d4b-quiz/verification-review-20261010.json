@@ -3,11 +3,11 @@
   "review_period": "2026-10-10",
   "description": "Full independent source review of 82 previously pending questions; source assessment is distinct from official Moodle lecturer-graded key confirmation or syllabus alignment.",
   "review_population": 82,
-  "verified_this_review": 78,
-  "left_pending": 4,
-  "verified_total": 117,
-  "remaining_pending_total": 4,
-  "review_standard": "For each question, compare exact stem, keyed option, all three distractors and explanation against a cited original academic or competent-authority source. Course-specific lecture claims stay pending when unsupported by that independent source. No private Moodle originals or copyrighted booklet paragraphs are published.",
+  "verified_this_review": 82,
+  "left_pending": 0,
+  "verified_total": 121,
+  "remaining_pending_total": 0,
+  "review_standard": "For each question, compare exact stem, keyed option, all three distractors and explanation against a cited original academic or competent-authority source. Course-specific lecture claims stay pending when unsupported by that independent source. No private Moodle originals or copyrighted booklet paragraphs are published. The 4 originally deferred course-specific claims were subsequently checked directly in the original instructor slides (GEN W4, INN W1, INN W4), and Van Dijck's original paper (DTR W4). These are source-confirmed original practice answers, not authenticated Moodle answer keys.",
   "reviewed": [
     {
       "id": "d4b-007",
@@ -1178,40 +1178,75 @@
       "source_url": "https://student.cs.uwaterloo.ca/~cs492/papers/neil-postman--five-things.html",
       "source_locator": "Neil Postman, Five Things We Need to Know about Technological Change (1998), first and second ideas: trade-offs and winners/losers",
       "question_revision_fingerprint": "fnv1a32:c963170a"
-    }
-  ],
-  "exceptions": [
+    },
     {
       "id": "d4b-063",
       "module": "GEN",
       "week": 4,
-      "verdict": "pending",
-      "blocker": "Course-specific 'smallest passing model' recommendation is plausible, but general model-doc sources do not independently establish this lecturer-specific default; preserve qualified course alignment.",
-      "question_revision_fingerprint": "fnv1a32:b96f3b7d"
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://huggingface.co/docs/transformers/main/en/model_doc/auto",
+      "source_locator": "Perezhohin (2026), original D4B GEN W4 lecture slide 14: 'The rule: the smallest model that passes your test, on your own data.' External URL is contextual only.",
+      "question_revision_fingerprint": "fnv1a32:b96f3b7d",
+      "verification_basis": "original-instructor-lecture-material",
+      "scope_note": "Course-specific rule, not a universal requirement"
     },
     {
       "id": "d4b-076",
       "module": "INN",
       "week": 1,
-      "verdict": "pending",
-      "blocker": "The mnemonic Invention × Commercialisation is a lecture teaching simplification. OECD's Oslo Manual does not require sales or commercial success for innovation; avoid certifying the formula as a universal definition.",
-      "question_revision_fingerprint": "fnv1a32:491b6bb1"
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://news.mit.edu/2013/disciplined-entrepreneurship-bill-aulet-0826",
+      "source_locator": "Original Innovation presentation, 'On the definition(s) of Innovation', slides 14–15: Innovation = invention * commercialization (Aulet, 2013). MIT reference is contextual.",
+      "question_revision_fingerprint": "fnv1a32:491b6bb1",
+      "verification_basis": "original-instructor-lecture-material",
+      "scope_note": "Business management mnemonic, not a universal definition of innovation"
     },
     {
       "id": "d4b-115",
       "module": "INN",
       "week": 4,
-      "verdict": "pending",
-      "blocker": "The exact named five-stage Frame–Scan–Imagine–Decide–Design cycle is a course-specific ordering, not independently established by the UK Government Futures Toolkit; teaching alignment remains, primary corroboration unresolved.",
-      "question_revision_fingerprint": "fnv1a32:2d1e5b98"
+      "verdict": "verified",
+      "correct_index": 0,
+      "alternative_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "source_url": "https://www.gov.uk/government/publications/futures-toolkit-for-policy-makers-and-analysts/the-futures-toolkit-html",
+      "source_locator": "Ottolino (2026), original Introduction to Futures Thinking slides: 1 FRAME, 2 SCAN, 3 IMAGINE, 4 DECIDE, 5 DESIGN. External reference covers broader toolkit.",
+      "question_revision_fingerprint": "fnv1a32:2d1e5b98",
+      "verification_basis": "original-instructor-lecture-material",
+      "scope_note": "Exact instructor ordering, not universal methodology"
     },
     {
       "id": "d4b-120",
       "module": "DTR",
       "week": 4,
-      "verdict": "pending",
-      "blocker": "The precise 'roots/trunk/branches' platformization-tree attribution and meaning were not located in an independently accessible original van Dijck passage; the booklet alone is insufficient for independent verification.",
-      "question_revision_fingerprint": "fnv1a32:fafb3d74"
+      "verdict": "verified",
+      "correct_index": 1,
+      "alternative_indices_checked": [
+        0,
+        2,
+        3
+      ],
+      "source_url": "https://doi.org/10.1177/1461444820940293",
+      "source_locator": "Van Dijck (2021), 'The platformization tree', pp. 2805–2807: roots infrastructures, trunk intermediary platforms, branches sectors.",
+      "question_revision_fingerprint": "fnv1a32:fafb3d74",
+      "verification_basis": "original-peer-reviewed-publication",
+      "scope_note": "Directly verified against original peer-reviewed paper"
     }
-  ]
+  ],
+  "exceptions": []
 }
