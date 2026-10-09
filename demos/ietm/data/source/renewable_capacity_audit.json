@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T09:12:39+00:00",
+  "generated_at": "2026-10-09T16:17:27+00:00",
   "sources": {
     "eirgrid_system_renewable": {
       "url": "https://www.eirgrid.ie/grid/system-and-renewable-data-reports",
@@ -37,7 +37,7 @@
       "bytes": 204969,
       "pages": 3,
       "source_key": "eirgrid_tso_contracted_wind",
-      "records": 31,
+      "records": 30,
       "source_correct_as_of": "05/08/2026",
       "parser": "pdf_line_window_v1"
     },
@@ -47,7 +47,7 @@
       "bytes": 328156,
       "pages": 9,
       "source_key": "eirgrid_tso_contracted_non_wind",
-      "records": 123,
+      "records": 121,
       "source_correct_as_of": "05/08/2026",
       "parser": "pdf_line_window_v1"
     },

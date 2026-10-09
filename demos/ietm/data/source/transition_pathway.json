@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-09T09:13:01+00:00",
+    "generated_at": "2026-10-09T16:17:44+00:00",
     "schema_version": "transition_pathway_v2",
     "builder": "build_transition_pathway.py",
     "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -48,15 +48,15 @@
     "observed_window": {
       "start_date": "2026-05-12",
       "end_date": "2026-10-09",
-      "value": 30.1,
+      "value": 30.3,
       "unit": "%",
       "method": "demand_weighted_observed_daily_history",
       "sample_count": 151,
       "caveat": "Observed grid renewable-cover proxy from local daily history. This is not official annual RES-E and must not be joined silently to the SEAI series."
     },
     "latest_snapshot": {
-      "datetime": "2026-10-09T10:00:00+01:00",
-      "value": 51.1,
+      "datetime": "2026-10-09T17:15:00+01:00",
+      "value": 73.3,
       "unit": "%",
       "basis": "latest_grid_snapshot",
       "source_label": "Smart Grid Dashboard API",
@@ -688,9 +688,9 @@
       },
       {
         "date": "2026-10-09",
-        "captured_at": "2026-10-09T09:12:59+00:00",
-        "value": 51.1,
-        "weight_mw": 5410.0,
+        "captured_at": "2026-10-09T16:17:42+00:00",
+        "value": 73.3,
+        "weight_mw": 5261.0,
         "estimated_backfill": false
       }
     ]
@@ -701,7 +701,8 @@
     "project_count_by_status": {
       "aggregate_observed": 3,
       "connected": 584,
-      "contracted": 416
+      "contracted": 413,
+      "removed_from_register_candidate": 5
     },
     "stock_by_status_technology_mw": [
       {
@@ -742,7 +743,7 @@
       {
         "status": "contracted",
         "technology": "battery_storage",
-        "capacity_mw": 4320.9
+        "capacity_mw": 3956.9
       },
       {
         "status": "contracted",
@@ -757,7 +758,7 @@
       {
         "status": "contracted",
         "technology": "solar",
-        "capacity_mw": 6965.517
+        "capacity_mw": 7041.817
       },
       {
         "status": "contracted",
@@ -767,7 +768,22 @@
       {
         "status": "contracted",
         "technology": "wind_onshore",
-        "capacity_mw": 3003.802
+        "capacity_mw": 2953.802
+      },
+      {
+        "status": "removed_from_register_candidate",
+        "technology": "battery_storage",
+        "capacity_mw": 364.0
+      },
+      {
+        "status": "removed_from_register_candidate",
+        "technology": "solar",
+        "capacity_mw": 54.5
+      },
+      {
+        "status": "removed_from_register_candidate",
+        "technology": "wind_onshore",
+        "capacity_mw": 50.0
       }
     ],
     "expected_cumulative_by_year": {
@@ -795,13 +811,13 @@
           "uplift_pp": 0.0
         },
         "2026": {
-          "expected_twh": 0.511,
+          "expected_twh": 0.513,
           "expected_by_technology_twh": {
             "bioenergy": 0.016,
             "hydro": 0.0,
-            "solar": 0.352,
+            "solar": 0.356,
             "wave": 0.0,
-            "wind_onshore": 0.143
+            "wind_onshore": 0.14
           },
           "uplift_pp": 1.6
         },
@@ -810,44 +826,44 @@
           "expected_by_technology_twh": {
             "bioenergy": 0.048,
             "hydro": 0.0,
-            "solar": 0.94,
+            "solar": 0.95,
             "wave": 0.0,
-            "wind_onshore": 0.571
+            "wind_onshore": 0.561
           },
           "uplift_pp": 4.9
         },
         "2028": {
-          "expected_twh": 2.902,
+          "expected_twh": 2.898,
           "expected_by_technology_twh": {
             "bioenergy": 0.089,
             "hydro": 0.001,
-            "solar": 1.527,
+            "solar": 1.544,
             "wave": 0.002,
-            "wind_onshore": 1.285
+            "wind_onshore": 1.263
           },
-          "uplift_pp": 9.2
+          "uplift_pp": 9.1
         },
         "2029": {
-          "expected_twh": 4.272,
+          "expected_twh": 4.258,
           "expected_by_technology_twh": {
             "bioenergy": 0.129,
             "hydro": 0.001,
-            "solar": 1.997,
+            "solar": 2.019,
             "wave": 0.004,
-            "wind_onshore": 2.141
+            "wind_onshore": 2.106
           },
-          "uplift_pp": 13.5
+          "uplift_pp": 13.4
         },
         "2030": {
-          "expected_twh": 5.374,
+          "expected_twh": 5.352,
           "expected_by_technology_twh": {
             "bioenergy": 0.161,
             "hydro": 0.001,
-            "solar": 2.349,
+            "solar": 2.375,
             "wave": 0.008,
-            "wind_onshore": 2.855
+            "wind_onshore": 2.807
           },
-          "uplift_pp": 17.0
+          "uplift_pp": 16.9
         }
       },
       "central": {
@@ -874,59 +890,59 @@
           "uplift_pp": 0.0
         },
         "2026": {
-          "expected_twh": 0.804,
+          "expected_twh": 0.806,
           "expected_by_technology_twh": {
             "bioenergy": 0.025,
             "hydro": 0.0,
-            "solar": 0.554,
+            "solar": 0.56,
             "wave": 0.0,
-            "wind_onshore": 0.224
+            "wind_onshore": 0.221
           },
           "uplift_pp": 2.5
         },
         "2027": {
-          "expected_twh": 2.451,
+          "expected_twh": 2.452,
           "expected_by_technology_twh": {
             "bioenergy": 0.076,
             "hydro": 0.0,
-            "solar": 1.477,
+            "solar": 1.493,
             "wave": 0.001,
-            "wind_onshore": 0.897
+            "wind_onshore": 0.882
           },
           "uplift_pp": 7.7
         },
         "2028": {
-          "expected_twh": 4.561,
+          "expected_twh": 4.554,
           "expected_by_technology_twh": {
             "bioenergy": 0.139,
             "hydro": 0.001,
-            "solar": 2.4,
+            "solar": 2.426,
             "wave": 0.002,
-            "wind_onshore": 2.019
+            "wind_onshore": 1.985
           },
           "uplift_pp": 14.4
         },
         "2029": {
-          "expected_twh": 6.713,
+          "expected_twh": 6.691,
           "expected_by_technology_twh": {
             "bioenergy": 0.203,
             "hydro": 0.001,
-            "solar": 3.138,
+            "solar": 3.172,
             "wave": 0.006,
-            "wind_onshore": 3.365
+            "wind_onshore": 3.309
           },
-          "uplift_pp": 21.2
+          "uplift_pp": 21.1
         },
         "2030": {
-          "expected_twh": 8.445,
+          "expected_twh": 8.411,
           "expected_by_technology_twh": {
             "bioenergy": 0.253,
             "hydro": 0.001,
-            "solar": 3.692,
+            "solar": 3.732,
             "wave": 0.012,
-            "wind_onshore": 4.486
+            "wind_onshore": 4.412
           },
-          "uplift_pp": 26.7
+          "uplift_pp": 26.5
         }
       },
       "high": {
@@ -953,59 +969,59 @@
           "uplift_pp": 0.0
         },
         "2026": {
-          "expected_twh": 1.096,
+          "expected_twh": 1.099,
           "expected_by_technology_twh": {
             "bioenergy": 0.035,
             "hydro": 0.0,
-            "solar": 0.755,
+            "solar": 0.763,
             "wave": 0.0,
-            "wind_onshore": 0.306
+            "wind_onshore": 0.301
           },
           "uplift_pp": 3.5
         },
         "2027": {
-          "expected_twh": 3.342,
+          "expected_twh": 3.344,
           "expected_by_technology_twh": {
             "bioenergy": 0.104,
             "hydro": 0.001,
-            "solar": 2.014,
+            "solar": 2.036,
             "wave": 0.001,
-            "wind_onshore": 1.224
+            "wind_onshore": 1.203
           },
-          "uplift_pp": 10.5
+          "uplift_pp": 10.6
         },
         "2028": {
-          "expected_twh": 6.22,
+          "expected_twh": 6.21,
           "expected_by_technology_twh": {
             "bioenergy": 0.19,
             "hydro": 0.001,
-            "solar": 3.272,
+            "solar": 3.308,
             "wave": 0.003,
-            "wind_onshore": 2.753
+            "wind_onshore": 2.707
           },
           "uplift_pp": 19.6
         },
         "2029": {
-          "expected_twh": 9.153,
+          "expected_twh": 9.124,
           "expected_by_technology_twh": {
             "bioenergy": 0.276,
             "hydro": 0.002,
-            "solar": 4.279,
+            "solar": 4.326,
             "wave": 0.008,
-            "wind_onshore": 4.588
+            "wind_onshore": 4.512
           },
-          "uplift_pp": 28.9
+          "uplift_pp": 28.8
         },
         "2030": {
-          "expected_twh": 11.516,
+          "expected_twh": 11.469,
           "expected_by_technology_twh": {
             "bioenergy": 0.346,
             "hydro": 0.002,
-            "solar": 5.034,
+            "solar": 5.089,
             "wave": 0.016,
-            "wind_onshore": 6.118
+            "wind_onshore": 6.016
           },
-          "uplift_pp": 36.3
+          "uplift_pp": 36.2
         }
       }
     },
@@ -1115,16 +1131,16 @@
         "technology": "battery_storage",
         "timing_basis": "raw_line_month_year_weak_not_online_date",
         "timing_year": 2024,
-        "count": 10,
-        "capacity_mw": 869.2
+        "count": 9,
+        "capacity_mw": 819.2
       },
       {
         "status": "contracted",
         "technology": "battery_storage",
         "timing_basis": "raw_line_month_year_weak_not_online_date",
         "timing_year": 2025,
-        "count": 14,
-        "capacity_mw": 1630.0
+        "count": 12,
+        "capacity_mw": 1316.0
       },
       {
         "status": "contracted",
@@ -1212,15 +1228,15 @@
         "timing_basis": "raw_line_month_year_weak_not_online_date",
         "timing_year": 2025,
         "count": 17,
-        "capacity_mw": 1055.9
+        "capacity_mw": 1012.9
       },
       {
         "status": "contracted",
         "technology": "solar",
         "timing_basis": "raw_line_month_year_weak_not_online_date",
         "timing_year": 2026,
-        "count": 13,
-        "capacity_mw": 1062.3
+        "count": 14,
+        "capacity_mw": 1181.6
       },
       {
         "status": "contracted",
@@ -1291,8 +1307,40 @@
         "technology": "wind_onshore",
         "timing_basis": "raw_line_month_year_weak_not_online_date",
         "timing_year": 2026,
-        "count": 7,
-        "capacity_mw": 493.3
+        "count": 6,
+        "capacity_mw": 443.3
+      },
+      {
+        "status": "removed_from_register_candidate",
+        "technology": "battery_storage",
+        "timing_basis": "raw_line_month_year_weak_not_online_date",
+        "timing_year": 2024,
+        "count": 1,
+        "capacity_mw": 50.0
+      },
+      {
+        "status": "removed_from_register_candidate",
+        "technology": "battery_storage",
+        "timing_basis": "raw_line_month_year_weak_not_online_date",
+        "timing_year": 2025,
+        "count": 2,
+        "capacity_mw": 314.0
+      },
+      {
+        "status": "removed_from_register_candidate",
+        "technology": "solar",
+        "timing_basis": "raw_line_month_year_weak_not_online_date",
+        "timing_year": 2025,
+        "count": 1,
+        "capacity_mw": 54.5
+      },
+      {
+        "status": "removed_from_register_candidate",
+        "technology": "wind_onshore",
+        "timing_basis": "raw_line_month_year_weak_not_online_date",
+        "timing_year": 2026,
+        "count": 1,
+        "capacity_mw": 50.0
       }
     ]
   },
@@ -1414,14 +1462,14 @@
       },
       {
         "year": 2029,
-        "value": 21.2,
+        "value": 21.1,
         "basis": "cumulative_expected_arrivals_uplift_pp",
         "note": "Pure uplift component. This is not an RES-E pathway by itself.",
         "timing_basis": "explicit_assumption_profile_not_project_online_dates"
       },
       {
         "year": 2030,
-        "value": 26.7,
+        "value": 26.5,
         "basis": "cumulative_expected_arrivals_uplift_pp",
         "note": "Pure uplift component. This is not an RES-E pathway by itself.",
         "timing_basis": "explicit_assumption_profile_not_project_online_dates"
@@ -1470,18 +1518,18 @@
       },
       {
         "year": 2029,
-        "value": 60.5,
+        "value": 60.4,
         "basis": "central_drag_plus_expected_arrivals",
         "drag_value": 39.3,
-        "uplift_pp": 21.2,
+        "uplift_pp": 21.1,
         "timing_basis": "explicit_assumption_profile_not_project_online_dates"
       },
       {
         "year": 2030,
-        "value": 66.8,
+        "value": 66.6,
         "basis": "central_drag_plus_expected_arrivals",
         "drag_value": 40.1,
-        "uplift_pp": 26.7,
+        "uplift_pp": 26.5,
         "timing_basis": "explicit_assumption_profile_not_project_online_dates"
       }
     ]
