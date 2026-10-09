@@ -48,6 +48,8 @@ jobs:
         run: node scripts/test-d4b-auto-refresh.cjs
       - name: Test D4B question-bank parser
         run: node scripts/test-d4b-bank-parser.cjs
+      - name: Test accepted material ingestion ledger
+        run: node scripts/test-d4b-ingestion-ledger.cjs
       - name: Test D4B curriculum coverage
         run: node scripts/test-d4b-curriculum-coverage.cjs
       - name: Test module-booklet evidence review
