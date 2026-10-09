@@ -56,7 +56,7 @@ The **Official Moodle quizzes · private import** control accepts a JSON file. T
 
 ## Operational testing
 
-Before merging code changes: inspect the PR's D4B Evidence Refresh check; it must pass including idempotency. After a merge: run `master` manually, ensure the generated `ingestion-report.json`, `audit-report.json`, `consolidation.json` and `questions.js` are committed and Pages deployment succeeds.
+Before merging code changes: ensure the PR's D4B Evidence Refresh check passes, including idempotency. Approved quiz changes merged to `master` trigger an automatic refresh; check the resulting `ingestion-report.json`, `audit-report.json`, `consolidation.json` and Pages deployment. Manual workflow dispatch is a fallback, not a required release step.
 
 Test desktop and mobile for selection highlighting, ability to switch answer until submitted, explanation/source links, responsive filters, timed exam mode, install control, DOI floater, private import, history persistence, no horizontal overflow and installed-PWA freshness.
 
@@ -74,6 +74,14 @@ The private recovery pack supplied in the ChatGPT session contains two full orig
 
 **Source limitation:** previous-conversation retrieval was unavailable during the session. The recovered inventory is a documented first pass, not an exhaustive history scrape. The public workflow still cannot access the private ChatGPT and Google Drive connectors.
 
+
+## Innovation Week 5 and private source boundaries (9 October 2026)
+
+The user's connected private Innovation booklet now includes W5 topics on concrete behaviour-change techniques, ethical nudges and defaults, truthful social proof, the adjacent possible, the Double Diamond, lateral/vertical thinking and divergent-thinking metrics. Fourteen **new, original** course-aligned practice questions (d4b-092 to d4b-105) were authored after the booklet was read through the authorised ChatGPT Google Drive connection. Their source labels name the corresponding booklet Week 05 section, without republishing the private slides or full Moodle wording. They remain pending *independent* academic source verification. The booklet itself reports a Moodle quiz result and answer-letter sequence but does not reproduce the complete original question and option text; do not silently convert such a summary into purported verbatim Moodle items.
+
+**Why the original site appeared stale:** a successful public GitHub Actions refresh was only a source fingerprint check plus ingestion of *already staged* original questions. It cannot read the user's ChatGPT-connected Drive or detect whether that private booklet has a new week. Updating Google Drive and then pressing GitHub Refresh alone will therefore not add questions. The quiz now states this prominently. The connected ChatGPT source-review workflow is distinct from GitHub Actions; a genuinely unattended ingestion of private Drive sources needs an explicitly authorised private adapter, safe source retention and a reviewed/deployable public-data boundary.
+
+For each new module-week addition, publish the matching curriculum entry and original answer-audited question records **together** in the reviewed PR, so GitHub Pages deploys the whole bank on merge. Also stage candidate records idempotently for the GitHub integrity check, derive candidate counts dynamically (never hardcode 36), and bump the bank asset URL plus scoped PWA cache. Private browser-local Moodle imports and learner-history storage must be preserved.
 
 ## Unattended source checks and consolidation (October 2026)
 

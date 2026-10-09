@@ -48,6 +48,8 @@ jobs:
         run: node scripts/test-d4b-auto-refresh.cjs
       - name: Test D4B question-bank parser
         run: node scripts/test-d4b-bank-parser.cjs
+      - name: Test D4B curriculum coverage
+        run: node scripts/test-d4b-curriculum-coverage.cjs
       - name: Test module-booklet evidence review
         run: node scripts/test-d4b-course-alignment.cjs
       - name: Test private Moodle import
@@ -64,7 +66,7 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           node scripts/d4b-consolidate.cjs ingest
-          node -e "const assert=require('node:assert/strict');const r=require('./demos/d4b-quiz/ingestion-report.json');assert.equal(r.added,0);assert.equal(r.already_present,36);console.log('Idempotency: 0 re-added, 36 retained.')"
+          node -e "const assert=require('node:assert/strict');const r=require('./demos/d4b-quiz/ingestion-report.json');const items=require('./demos/d4b-quiz/candidates.json').items;assert.equal(r.added,0);assert.equal(r.already_present,items.length);console.log('Idempotency: 0 re-added, '+items.length+' retained.')"
           node scripts/d4b-consolidate.cjs audit
       - name: Publish consolidation report
         if: github.event_name != 'pull_request'

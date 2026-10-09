@@ -20,7 +20,8 @@ assert.match(client,/raw\.githubusercontent\.com\/salmonofdoubt\/salmonofdoubt\.
 assert.match(client,/\.\/consolidation\.json/,'Offline/availability fallback must exist');
 assert.match(client,/runs\?branch=master/,'Show production workflow runs');
 assert.doesNotMatch(client,/runs\?event=workflow_dispatch/,'Manual-only filter must not return');
-assert.match(html,/run automatically after reviewed quiz updates and daily/,'Explain the automatic trigger');
+assert.match(html,/GitHub checks public sources and staged questions automatically/,'Describe public source and staged question checks');
+assert.match(html,/does not read changes in your private Google Drive/,'Avoid claiming that GitHub Actions can ingest private Drive material');
 assert.doesNotMatch(html,/<strong>Run workflow<\/strong>/,'Do not require the user to click Run workflow');
 
 function assetVersion(contents,asset){

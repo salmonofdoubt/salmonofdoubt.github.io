@@ -153,7 +153,7 @@ function consolidate(){const audit=read('audit-report.json'),discovery=read('sou
  const output={schema_version:1,last_checked_at:at,last_consolidated_at:changed?at:prev.last_consolidated_at,last_question_bank_change_at:!prev||prev.bank_fingerprint!==audit.bank_fingerprint?at:prev.last_question_bank_change_at,
  content_fingerprint:digest,content_changed:changed,bank_fingerprint:audit.bank_fingerprint,question_count:audit.count,question_status:audit.statuses,course_alignment:audit.course_alignment,by_week:audit.by_week,uncovered_weeks:audit.uncovered_weeks,new_questions_ingested:ingestion.added,source_status:discovery.sources,
  audit:{structural_errors:0,independently_verified:audit.independently_verified},
- limitation:'36 original booklet-derived candidates can be ingested after an explicit refresh. External peer sites only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. Independent factual verification remains pending.'};
+ limitation:'Public GitHub checks only stage previously authored original practice questions and monitor peer-site fingerprints. Changes to private Google Drive and ChatGPT material are not read by this workflow; original-source verification of pending answers remains a separate review.'};
  put('consolidation.json',output);console.log('consolidation '+(changed?'changed':'unchanged'));
 }
 module.exports={parseBank,parseCurriculum};
