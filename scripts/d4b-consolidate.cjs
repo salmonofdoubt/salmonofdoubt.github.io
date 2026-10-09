@@ -206,7 +206,7 @@ function publicationLedger(){
  }).sort((a,b)=>b.accepted_at.localeCompare(a.accepted_at));
  return {
   latest:releases[0]||null,recent:releases.slice(0,6),
-  recorded_releases:releases.length,releases,
+  recorded_releases:releases.length,releases,groups,
   latest_group:groups[0]||null,recent_groups:groups.slice(0,6)
  };
 }
