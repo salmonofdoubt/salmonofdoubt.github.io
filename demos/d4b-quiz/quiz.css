@@ -10,3 +10,18 @@
 
 /* Private-import guidance: long filenames wrap on phones rather than overflow. */
 #importStatus{overflow-wrap:anywhere;min-height:1.2em}.import-label input{min-width:0;max-width:100%}
+
+/* Evidence-first ingestion ledger: explicit dates and per-source provenance. */
+.ingestion-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0 12px}
+.ingestion-fact{min-width:0;padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(8,25,34,.78)}
+.ingestion-fact>span{display:block;margin-bottom:8px;color:var(--muted);font-size:.72rem;font-weight:800;letter-spacing:.045em;text-transform:uppercase}
+.ingestion-fact>strong{display:block;overflow-wrap:anywhere;font-size:1.04rem;line-height:1.35}
+.ingestion-fact .fine{overflow-wrap:anywhere;margin:.55rem 0 0}
+.ingestion-link{display:inline-block;margin-top:10px;color:#a2f2fd;font-size:.82rem;text-underline-offset:3px}
+.source-ledger-heading{font-size:.94rem;margin:23px 0 7px}
+.source-ledger{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;list-style:none;margin:12px 0 0;padding:0}
+.source-ledger-row{min-width:0;margin:0;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:rgba(8,23,31,.6)}
+.source-ledger-row>strong{display:block;font-size:.85rem;line-height:1.35;overflow-wrap:anywhere}
+.source-ledger-row .fine{margin:.35rem 0 0;overflow-wrap:anywhere}
+.source-ledger-row .source-reviewed{color:#b4ebdd}
+@media(max-width:750px){.ingestion-facts,.source-ledger{grid-template-columns:1fr}.ingestion-fact{padding:13px}.source-ledger-row{padding:12px}}
