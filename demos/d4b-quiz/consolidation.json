@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-09T21:20:56.245Z",
-  "last_consolidated_at": "2026-10-09T15:32:23.918Z",
-  "last_question_bank_change_at": "2026-10-09T00:29:33.259Z",
-  "content_fingerprint": "1b0ef928afce6e450c811bdc8853745db1fe221d83fdf6f954fd2b4fa92b2f30",
-  "content_changed": false,
-  "bank_fingerprint": "3ad7d24d6cc04cbbc9e17f3ae83ad9572610ba69f70b69627af9f23ad59e4d9c",
-  "question_count": 91,
+  "last_checked_at": "2026-10-09T22:32:15.768Z",
+  "last_consolidated_at": "2026-10-09T22:32:15.768Z",
+  "last_question_bank_change_at": "2026-10-09T22:32:15.768Z",
+  "content_fingerprint": "a12a2fc1fb587a385080842c441a10b3e1139714588542ad6c907ba21fb65e19",
+  "content_changed": true,
+  "bank_fingerprint": "ca2a796c99e82179baed3b8d3dc2ed7abcb5950dc6d8ff5162eabe04a37ff272",
+  "question_count": 105,
   "question_status": {
     "verified": 39,
-    "pending": 52,
+    "pending": 66,
     "flagged": 0
   },
   "course_alignment": {
-    "supported": 50,
+    "supported": 64,
     "qualified": 2,
     "notReviewed": 39
   },
@@ -35,7 +35,8 @@
     "INN:3": 5,
     "DTR:2": 5,
     "DTR:3": 5,
-    "DTR:4": 6
+    "DTR:4": 6,
+    "INN:5": 14
   },
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
@@ -91,5 +92,5 @@
     "structural_errors": 0,
     "independently_verified": false
   },
-  "limitation": "36 original booklet-derived candidates can be ingested after an explicit refresh. External peer sites only fingerprinted; private Google Drive/ChatGPT are not connected to Actions. Independent factual verification remains pending."
+  "limitation": "Public GitHub checks only stage previously authored original practice questions and monitor peer-site fingerprints. Changes to private Google Drive and ChatGPT material are not read by this workflow; original-source verification of pending answers remains a separate review."
 }
