@@ -25,6 +25,54 @@ async function getJson(url){
  if(!r.ok)throw Error('HTTP '+r.status);
  return r.json();
 }
+function renderIngestion(data){
+ const tracking=data.ingestion_tracking||null;
+ const accepted=tracking?.last_reviewed_material_release||null;
+ $('lastContentLink').hidden=true;
+ $('lastContentLink').removeAttribute('href');
+ if(accepted){
+  const label=accepted.module+' Week '+String(accepted.week).padStart(2,'0')+' · '+accepted.question_count+' questions';
+  $('lastContentTitle').textContent=label;
+  $('lastContentDetail').textContent=fmt(accepted.accepted_at)+' · '+accepted.material+' · '+accepted.source_name+'. Reviewed original practice content; this was not an automatic private Drive import by GitHub.';
+  if(/^https:\/\/github\.com\/salmonofdoubt\/salmonofdoubt\.github\.io\/pull\/\d+$/.test(accepted.release_url||'')){
+   $('lastContentLink').href=accepted.release_url;
+   $('lastContentLink').hidden=false;
+  }
+ }else{
+  $('lastContentTitle').textContent='No reviewed source release recorded';
+  $('lastContentDetail').textContent='Past releases may predate the ledger. No ingestion is inferred from source fingerprints.';
+ }
+ const count=tracking?.last_automation_ingested_count;
+ $('lastRunIngest').textContent=Number.isInteger(count)?count+' new questions':'No ingestion record';
+ $('lastRunIngestDetail').textContent=Number.isInteger(count)
+  ?fmt(tracking.last_automation_ingest_at)+' · '+tracking.staged_candidate_count+' candidate questions staged; '+tracking.staged_already_present+' already present. These are GitHub-staged originals, not newly accessed Drive or peer-site material.'
+  :'The automated question-ingestion count has not been published.';
+ const list=$('sourceCoverage');
+ list.replaceChildren(...(data.source_status||[]).map(s=>{
+  const row=document.createElement('li');row.className='source-ledger-row';
+  const name=document.createElement('strong');name.textContent=s.name;
+  const mode=document.createElement('p');mode.className='fine';
+  const release=tracking?.recent_reviewed_material_releases?.find(x=>x.source_id===s.id)||null;
+  if(s.status==='reachable-shell'){
+   mode.textContent='Public page fingerprint checked '+fmt(tracking?.last_automated_check_at||data.last_checked_at)
+    +' · '+(s.content_changed===true?'Changed since previous check':s.content_changed===false?'No change detected':'No previous comparison')
+    +' · 0 peer-site questions automatically imported';
+  }else if(s.status==='unavailable'){
+   mode.textContent='Public source unavailable at last check · '+(s.error||'See GitHub report')+' · no questions imported';
+  }else if(s.status==='not-connected'){
+   mode.textContent='Not connected to GitHub Actions · no automatic content retrieval or ingestion';
+  }else{
+   mode.textContent='Status: '+(s.status||'unknown')+' · no independent ingestion evidence';
+  }
+  row.append(name,mode);
+  if(release){
+   const accepted=document.createElement('p');accepted.className='fine source-reviewed';
+   accepted.textContent='Last separately reviewed material: '+fmt(release.accepted_at)+' · '+release.material+' · '+release.question_count+' original questions included in the approved public release';
+   row.append(accepted);
+  }
+  return row;
+ }));
+}
 async function manifest(){
  const paths=[
   'https://raw.githubusercontent.com/salmonofdoubt/salmonofdoubt.github.io/master/demos/d4b-quiz/consolidation.json',
@@ -36,19 +84,20 @@ async function manifest(){
    if(!r.ok)throw Error('HTTP '+r.status);
    const data=await r.json();
    if(!data||typeof data.question_count!=='number'||!data.question_status||!data.last_checked_at)throw Error('Incomplete consolidation record');
-   $('lastConsolidated').textContent='Last consolidated: '+fmt(data.last_consolidated_at);
-   $('lastChecked').textContent='Last source check: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+(data.new_questions_ingested||0)+' newly ingested · '+data.question_status.pending+' pending independent verification'+(data.course_alignment?' · '+(data.course_alignment.supported+data.course_alignment.qualified)+' booklet checks':'');
-   const sources=data.source_status||[];
-   $('sourceCoverage').replaceChildren(...sources.map(s=>{
-    const el=document.createElement('span');
-    el.textContent=s.name+': '+(s.status==='reachable-shell'?'page checked'+(s.content_changed===true?' · changed':'')+'; no external questions imported':s.status==='unavailable'?'unavailable':s.status==='not-connected'?'private source not connected':s.status);
-    return el;
-   }));
+   $('lastConsolidated').textContent='Last consolidation with changed source/bank fingerprint: '+fmt(data.last_consolidated_at);
+   $('lastChecked').textContent='Last GitHub source check: '+fmt(data.last_checked_at)+' · '+data.question_count+' public questions · '+data.question_status.pending+' pending independent verification'
+    +(data.course_alignment?' · '+(data.course_alignment.supported+data.course_alignment.qualified)+' booklet checks':'');
+   renderIngestion(data);
    return data;
   }catch(e){console.warn('Consolidation source unavailable:',path,e.message)}
  }
- $('lastConsolidated').textContent='Last consolidated: Published report currently unavailable';
- $('lastChecked').textContent='The most recent report could not be loaded; check the workflow run for details.';
+ $('lastConsolidated').textContent='Last consolidated: Latest published report unavailable';
+ $('lastChecked').textContent='Source and ingestion claims cannot be verified until the report becomes available.';
+ $('lastContentTitle').textContent='Not available';
+ $('lastContentDetail').textContent='The provenance record could not be loaded.';
+ $('lastRunIngest').textContent='Not available';
+ $('lastRunIngestDetail').textContent='No new-ingestion claim can be made.';
+ $('sourceCoverage').replaceChildren();
  return null;
 }
 async function check(){
