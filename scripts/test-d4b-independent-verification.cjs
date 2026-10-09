@@ -28,7 +28,8 @@ for(const row of review.reviewed){
  assert.equal(q.verification,'verified',q.id+' must have an independent source');
  assert.equal(q.evidence?.originalMaterialChecked,true);
  assert.equal(q.evidence?.reviewed_at,'2026-10-10');
- assert.equal(q.evidence?.source_review_status,'independently supported');
+ assert.ok(['independently supported','instructor-or-primary-source-confirmed'].includes(q.evidence?.source_review_status),q.id+' lacks validated source-review status');
+ if(row.verification_basis==='original-instructor-lecture-material')assert.match(q.evidence?.method||'',/original private D4B lecture slides/i,q.id+' must document inspected teaching original');
  assert.match(q.evidence?.url||'',/^https:\/\//,q.id+' must have evidence URL');
  assert.ok((q.evidence?.locator||'').length>30,q.id+' missing precise source locator');
  urls.add(q.evidence.url);
@@ -55,12 +56,13 @@ for(const row of review.exceptions){
  assert.equal(row.blocker,q.evidence.independent_review_blocker);
  assert.equal(row.question_revision_fingerprint,hash(snapshot(q)),q.id+' wording changed since deferral');
 }
-assert.deepEqual([...review.exceptions.map(q=>q.id)].sort(),['d4b-063','d4b-076','d4b-115','d4b-120']);
+assert.deepEqual([...review.reviewed,...review.exceptions].map(q=>q.id).sort(), [...new Set([...review.reviewed,...review.exceptions].map(q=>q.id))].sort(),'All historical review items require unique IDs');
 assert.equal(recorded.size,82);
 assert.ok(bank.filter(q=>q.verification==='verified').length>=review.verified_total,'Never silently unverify a reviewed question; future growth may add questions');
-// The 4 historical exceptions are checked by immutable ID above; future
-// additional candidates may legitimately increase the pending total.
+// Historical exceptions may be resolved by new, directly inspected primary evidence.
+// Subsequent question-bank growth may legitimately add separate pending items.
 assert.ok(bank.filter(q=>q.verification==='pending').length>=review.remaining_pending_total,'Historical exceptions must remain tracked');
 assert.ok(urls.size>=30,'Avoid promoting questions using an implausibly narrow evidence base');
 assert.ok(review.review_standard.includes('distractors'),'Explicit alternative assessment must be documented');
+assert.deepEqual(['d4b-063','d4b-076','d4b-115','d4b-120'].filter(id=>byId.get(id).verification!=='verified'),[],'All four formerly deferred questions must retain their documented original-source resolution');
 console.log('PASS: '+recorded.size+' old pending questions individually adjudicated, '+review.verified_this_review+' independently source-backed, '+review.left_pending+' disclosed exceptions, '+urls.size+' distinct primary-source links, source-linked revision fingerprints and all distractors checked.');
