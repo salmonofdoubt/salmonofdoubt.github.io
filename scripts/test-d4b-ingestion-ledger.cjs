@@ -10,7 +10,7 @@ const ledger=publicationLedger();
 assert.ok(ledger.recorded_releases>0,'At least one reviewed material release must be recorded');
 assert.equal(ledger.recent.length,Math.min(6,ledger.recorded_releases));
 const ids=new Set();
-for(const release of ledger.recent){
+for(const release of ledger.releases){
  assert.ok(Number.isFinite(Date.parse(release.accepted_at)),release.id+': real release timestamp required');
  assert.match(release.release_url,/^https:\/\/github\.com\/salmonofdoubt\/salmonofdoubt\.github\.io\/pull\/\d+$/);
  assert.ok(release.question_count>0&&release.question_count===release.question_ids.length);
@@ -23,13 +23,22 @@ for(const release of ledger.recent){
   ids.add(id);
  }
 }
-const w5=ledger.recent.find(x=>x.id==='d4b-source-release-20261009-innovation-w5');
+const w5=ledger.releases.find(x=>x.id==='d4b-source-release-20261009-innovation-w5');
 assert.ok(w5,'Preserve independently verifiable 9 October W5 publication event');
 assert.equal(w5.question_count,14);
 assert.equal(w5.source_id,'drive');
 assert.equal(w5.source_access,'reviewed-via-connected-chatgpt-not-github-actions');
 assert.equal(w5.accepted_at,'2026-10-09T22:31:46Z');
 assert.ok(w5.question_ids.every(id=>byId.get(id)?.verification==='pending'),'Course-checked is not independently verified');
+const multi=ledger.groups.find(g=>g.release_url==='https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204');
+assert.ok(multi,'Full-booklet release PR #204 must remain in provenance');
+assert.equal(multi.question_count,16,'Full release should total exactly 16 new original questions');
+assert.equal(multi.module_weeks.length,8,'Multiweek release must preserve all eight module/week sections');
+assert.deepEqual([...new Set(multi.module_weeks.map(x=>x.module))].sort(),['AIB','DTR','GEN','INN']);
+assert.equal(multi.accepted_at,'2026-10-09T23:08:19Z','Recorded acceptance must match actual merge');
+assert.equal(multi.source_access,'reviewed-via-connected-chatgpt-not-github-actions');
+assert.ok(multi.question_ids.every(id=>byId.get(id)?.verification==='pending'),'Course-only verification cannot become independent verification');
+assert.equal(ledger.latest_group.release_url,multi.release_url,'Newest accepted release must be surfaced as a group');
 const html=fs.readFileSync(path.join(quizDir,'index.html'),'utf8');
 const js=fs.readFileSync(path.join(quizDir,'refresh.js'),'utf8');
 const sw=fs.readFileSync(path.join(quizDir,'service-worker.js'),'utf8');
@@ -38,6 +47,7 @@ for(const id of ['lastContentTitle','lastContentDetail','lastContentLink','lastR
  assert.ok(js.includes("'"+id+"'"),id+' is not populated by the refresh UI');
 }
 assert.match(js,/last_reviewed_material_release/);
+assert.match(js,/last_reviewed_release_group/);
 assert.match(js,/last_automation_ingested_count/);
 assert.match(js,/last_automated_check_at/);
 assert.match(js,/0 peer-site questions automatically imported/);
@@ -47,4 +57,4 @@ const asset=html.match(/refresh\.js\?v=([^"]+)/)?.[1];
 assert.ok(asset,'Refresh UI must be cache-busted');
 assert.ok(sw.includes('refresh.js?v='+asset),'Service worker must cache matching refresh code');
 new Function(js);
-console.log('PASS: reviewed publication event, 14 W5 IDs and independent status, explicit private-source boundary, source-by-source UI, PWA parity.');
+console.log('PASS: historical W5 release and 16-question full-module release, immutable module-week provenance, aggregated UI, and PWA parity.');
