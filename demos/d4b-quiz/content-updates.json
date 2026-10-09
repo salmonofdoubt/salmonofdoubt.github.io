@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "description": "A public ledger of reviewed source-to-question releases, distinct from GitHub's automated source checks and staged-question ingestion. Only original public practice question identifiers and limited source labels appear here.",
+  "events": [
+    {
+      "id": "d4b-source-release-20261009-innovation-w5",
+      "accepted_at": "2026-10-09T22:31:46Z",
+      "source_id": "drive",
+      "source_name": "Private D4B Drive (connected ChatGPT review)",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "material": "Innovation module booklet · Week 05",
+      "module": "INN",
+      "week": 5,
+      "material_version": "Review completed 2026-10-09",
+      "question_ids": [
+        "d4b-092",
+        "d4b-093",
+        "d4b-094",
+        "d4b-095",
+        "d4b-096",
+        "d4b-097",
+        "d4b-098",
+        "d4b-099",
+        "d4b-100",
+        "d4b-101",
+        "d4b-102",
+        "d4b-103",
+        "d4b-104",
+        "d4b-105"
+      ],
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/202",
+      "merge_commit": "0ec848b8af9520a8985cb79ab5525e4a455a325d",
+      "review_scope": "14 original booklet-derived practice questions, not copied Moodle originals. Course alignment recorded; independent scientific verification pending."
+    }
+  ]
+}
