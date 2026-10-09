@@ -55,6 +55,8 @@ jobs:
         run: node scripts/test-d4b-curriculum-coverage.cjs
       - name: Test module-booklet evidence review
         run: node scripts/test-d4b-course-alignment.cjs
+      - name: Test independent D4B evidence decisions
+        run: node scripts/test-d4b-independent-verification.cjs
       - name: Test private Moodle import
         run: node scripts/test-d4b-private-import.cjs
       - name: Check external sources
