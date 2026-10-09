@@ -29,19 +29,22 @@ assert.equal(w5.question_count,14);
 assert.equal(w5.source_id,'drive');
 assert.equal(w5.source_access,'reviewed-via-connected-chatgpt-not-github-actions');
 assert.equal(w5.accepted_at,'2026-10-09T22:31:46Z');
-for(const id of w5.question_ids){
- const q=byId.get(id);
- assert.ok(q,id+': previously published W5 question is missing');
- assert.equal(q.course_alignment?.status,'supported',id+': original course-review metadata must remain');
- assert.equal(q.course_alignment?.original_moodle_key_checked,false,id+': no unsupported official Moodle grading claim');
- if(q.verification==='verified'){
-  assert.equal(q.evidence?.originalMaterialChecked,true,id+': independent promotion requires original-source review');
-  assert.match(q.evidence?.url||'',/^https:\/\//,id+': source URL missing');
- } else {
-  assert.equal(q.verification,'pending',id+': unexpected evidence status');
-  assert.notEqual(q.evidence?.originalMaterialChecked,true,id+': pending item cannot falsely claim independently checked original source');
+function assertCourseReleaseEvidence(ids){
+ for(const id of ids){
+  const q=byId.get(id);
+  assert.ok(q,id+': published release question is missing');
+  assert.equal(q.course_alignment?.status,'supported',id+': original course-review metadata must remain');
+  assert.equal(q.course_alignment?.original_moodle_key_checked,false,id+': no unsupported official Moodle grading claim');
+  if(q.verification==='verified'){
+   assert.equal(q.evidence?.originalMaterialChecked,true,id+': independent promotion needs primary evidence');
+   assert.match(q.evidence?.url||'',/^https:\/\//,id+': source URL missing');
+  }else{
+   assert.equal(q.verification,'pending',id+': unexpected evidence status');
+   assert.notEqual(q.evidence?.originalMaterialChecked,true,id+': pending item cannot falsely claim independently checked material');
+  }
  }
 }
+assertCourseReleaseEvidence(w5.question_ids);
 const multi=ledger.groups.find(g=>g.release_url==='https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204');
 assert.ok(multi,'Full-booklet release PR #204 must remain in provenance');
 assert.equal(multi.question_count,16,'Full release should total exactly 16 new original questions');
@@ -49,7 +52,7 @@ assert.equal(multi.module_weeks.length,8,'Multiweek release must preserve all ei
 assert.deepEqual([...new Set(multi.module_weeks.map(x=>x.module))].sort(),['AIB','DTR','GEN','INN']);
 assert.equal(multi.accepted_at,'2026-10-09T23:08:19Z','Recorded acceptance must match actual merge');
 assert.equal(multi.source_access,'reviewed-via-connected-chatgpt-not-github-actions');
-assert.ok(multi.question_ids.every(id=>byId.get(id)?.verification==='pending'),'Course-only verification cannot become independent verification');
+assertCourseReleaseEvidence(multi.question_ids);
 assert.equal(ledger.latest_group.release_url,multi.release_url,'Newest accepted release must be surfaced as a group');
 const html=fs.readFileSync(path.join(quizDir,'index.html'),'utf8');
 const js=fs.readFileSync(path.join(quizDir,'refresh.js'),'utf8');
