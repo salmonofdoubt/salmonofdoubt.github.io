@@ -27,11 +27,13 @@ async function getJson(url){
 }
 function renderIngestion(data){
  const tracking=data.ingestion_tracking||null;
- const accepted=tracking?.last_reviewed_material_release||null;
+ const accepted=tracking?.last_reviewed_release_group||tracking?.last_reviewed_material_release||null;
  $('lastContentLink').hidden=true;
  $('lastContentLink').removeAttribute('href');
  if(accepted){
-  const label=accepted.module+' Week '+String(accepted.week).padStart(2,'0')+' · '+accepted.question_count+' questions';
+  const label=Array.isArray(accepted.module_weeks)
+   ?(accepted.module_weeks.length>1?'Cross-module release · '+accepted.question_count+' questions':accepted.module_weeks[0].module+' Week '+String(accepted.module_weeks[0].week).padStart(2,'0')+' · '+accepted.question_count+' questions')
+   :accepted.module+' Week '+String(accepted.week).padStart(2,'0')+' · '+accepted.question_count+' questions';
   $('lastContentTitle').textContent=label;
   $('lastContentDetail').textContent=fmt(accepted.accepted_at)+' · '+accepted.material+' · '+accepted.source_name+'. Reviewed original practice content; this was not an automatic private Drive import by GitHub.';
   if(/^https:\/\/github\.com\/salmonofdoubt\/salmonofdoubt\.github\.io\/pull\/\d+$/.test(accepted.release_url||'')){
@@ -52,7 +54,7 @@ function renderIngestion(data){
   const row=document.createElement('li');row.className='source-ledger-row';
   const name=document.createElement('strong');name.textContent=s.name;
   const mode=document.createElement('p');mode.className='fine';
-  const release=tracking?.recent_reviewed_material_releases?.find(x=>x.source_id===s.id)||null;
+  const release=(tracking?.recent_reviewed_release_groups||tracking?.recent_reviewed_material_releases)?.find(x=>x.source_id===s.id)||null;
   if(s.status==='reachable-shell'){
    mode.textContent='Public page fingerprint checked '+fmt(tracking?.last_automated_check_at||data.last_checked_at)
     +' · '+(s.content_changed===true?'Changed since previous check':s.content_changed===false?'No change detected':'No previous comparison')

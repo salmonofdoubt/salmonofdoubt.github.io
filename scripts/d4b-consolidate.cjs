@@ -181,7 +181,34 @@ function publicationLedger(){
   });
  }
  releases.sort((a,b)=>b.accepted_at.localeCompare(a.accepted_at));
- return {latest:releases[0]||null,recent:releases.slice(0,6),recorded_releases:releases.length};
+ // A single reviewed PR can publish source-supported questions to several
+ // modules/weeks. Retain per-question traceability while reporting that PR
+ // as ONE accepted release on the website, not eight misleading "last" entries.
+ const byPublication=new Map();
+ for(const r of releases){
+  const key=r.release_url+'|'+r.source_id;
+  if(!byPublication.has(key))byPublication.set(key,{
+   accepted_at:r.accepted_at,source_id:r.source_id,source_name:r.source_name,
+   source_access:r.source_access,release_url:r.release_url,question_count:0,
+   question_ids:[],module_weeks:[],material:''
+  });
+  const g=byPublication.get(key);
+  if(g.accepted_at!==r.accepted_at||g.source_access!==r.source_access)
+   throw Error('Inconsistent metadata for one accepted release '+r.release_url);
+  g.question_count+=r.question_count;
+  g.question_ids.push(...r.question_ids);
+  g.module_weeks.push({module:r.module,week:r.week,question_count:r.question_count,material:r.material});
+ }
+ const groups=[...byPublication.values()].map(g=>{
+  g.module_weeks.sort((a,b)=>a.module.localeCompare(b.module)||a.week-b.week);
+  g.material=g.module_weeks.map(m=>m.module+' W'+String(m.week).padStart(2,'0')).join(' · ');
+  return g;
+ }).sort((a,b)=>b.accepted_at.localeCompare(a.accepted_at));
+ return {
+  latest:releases[0]||null,recent:releases.slice(0,6),
+  recorded_releases:releases.length,releases,groups,
+  latest_group:groups[0]||null,recent_groups:groups.slice(0,6)
+ };
 }
 
 function consolidate(){const audit=read('audit-report.json'),discovery=read('source-check.json'),ingestion=read('ingestion-report.json'),prev=read('consolidation.json');
@@ -200,6 +227,8 @@ function consolidate(){const audit=read('audit-report.json'),discovery=read('sou
   staged_already_present:ingestion.already_present,
   last_reviewed_material_release:published.latest,
   recent_reviewed_material_releases:published.recent,
+  last_reviewed_release_group:published.latest_group,
+  recent_reviewed_release_groups:published.recent_groups,
   reviewed_release_count:published.recorded_releases,
   explicit_source_boundary:'GitHub fingerprints public pages and reconciles already-staged original questions. It cannot independently read private Drive, ChatGPT, or Moodle content; private material releases require a separate authorised review.'
  },
