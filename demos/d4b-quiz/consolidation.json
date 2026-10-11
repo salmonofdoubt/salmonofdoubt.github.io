@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-11T13:01:29.418Z",
-  "last_consolidated_at": "2026-10-11T13:01:29.418Z",
-  "last_question_bank_change_at": "2026-10-09T23:41:55.176Z",
-  "content_fingerprint": "8224cab137c36bedf9e5f9b0eb1b6dc0cc9e431016ad3d2bb026db4c2acd6c7e",
+  "last_checked_at": "2026-10-11T17:24:43.414Z",
+  "last_consolidated_at": "2026-10-11T17:24:43.414Z",
+  "last_question_bank_change_at": "2026-10-11T17:24:43.414Z",
+  "content_fingerprint": "41ce26b32215dff69e6a3e40e56604f73e87320a06a130bf3318505651723296",
   "content_changed": true,
-  "bank_fingerprint": "709c28502f0bad881162c9dfa03a0255303badc36f834f7b8b35f197bcd0c2dd",
-  "question_count": 121,
+  "bank_fingerprint": "25fbe15ca622622a33e938e0b6166d0c4638ac0dd57f272a747052c76728f19a",
+  "question_count": 127,
   "question_status": {
     "verified": 121,
-    "pending": 0,
+    "pending": 6,
     "flagged": 0
   },
   "course_alignment": {
     "supported": 80,
     "qualified": 2,
-    "notReviewed": 39
+    "notReviewed": 45
   },
   "by_week": {
     "GEN:1": 5,
@@ -36,18 +36,19 @@
     "DTR:2": 5,
     "DTR:3": 6,
     "DTR:4": 9,
-    "INN:5": 14
+    "INN:5": 14,
+    "DTR:5": 6
   },
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-11T13:01:29.418Z",
-    "last_automated_check_at": "2026-10-11T13:01:26.836Z",
-    "last_automation_ingest_at": "2026-10-11T13:01:29.310Z",
+    "updated_at": "2026-10-11T17:24:43.414Z",
+    "last_automated_check_at": "2026-10-11T17:24:40.684Z",
+    "last_automation_ingest_at": "2026-10-11T17:24:43.308Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
-    "staged_candidate_count": 66,
-    "staged_already_present": 66,
+    "staged_candidate_count": 72,
+    "staged_already_present": 72,
     "last_reviewed_material_release": {
       "id": "d4b-source-release-20261010-gen-w5",
       "accepted_at": "2026-10-09T23:08:19Z",
@@ -376,7 +377,7 @@
       "assets": [
         {
           "path": "/projects/digital4Business/assets/learn-nav.js",
-          "fingerprint": "86cb0c248d821db37dd0cf8f69b12b61b846dc0815f0ba49a3c1c494f1fe6415",
+          "fingerprint": "80486de902e8604f2986e4cdb51a9b933be267319d096de70ff5ad227b73590b",
           "status": "checked"
         },
         {
@@ -390,7 +391,7 @@
           "status": "checked"
         }
       ],
-      "fingerprint": "e62e0cff92d55cc82a5a8b49ae171d37f52b6937e03d55c6e0efca0dd5683a1c",
+      "fingerprint": "15bdd30ee44c7aec4d0dc506bac39181c758589fd4f63cdb6be3c1fa23392101",
       "content_changed": true
     },
     {
@@ -404,7 +405,7 @@
       "assets_total": 0,
       "assets": [],
       "fingerprint": "82b2605e6278a09fdd15fd5caf5adc2dd56ddaaf37704e1fbc71dad5a187ddff",
-      "content_changed": null
+      "content_changed": false
     },
     {
       "id": "drive",
@@ -423,7 +424,7 @@
   ],
   "audit": {
     "structural_errors": 0,
-    "independently_verified": true
+    "independently_verified": false
   },
   "limitation": "Public GitHub checks only stage previously authored original practice questions and monitor peer-site fingerprints. Changes to private Google Drive and ChatGPT material are not read by this workflow; original-source verification of pending answers remains a separate review."
 }
