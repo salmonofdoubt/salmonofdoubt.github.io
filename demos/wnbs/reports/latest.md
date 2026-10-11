@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-10-10
+# Water NbS Story Radar · 2026-10-11
 
-Generated: 2026-10-10T11:15:33.416579+00:00
+Generated: 2026-10-11T11:28:56.134996+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -547,50 +547,46 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 12. Free Learning Opportunity in the Border Region : ‘Protecting Shared Waters’ ECO Programme
+### 12. Proposal for Julianstown bypass and public realm works enjoys widespread support - The Irish Times
 
-Score: 100 · excellent · Source: Catchments.ie
+Score: 88 · excellent · Source: Google News: East Meath planning and infrastructure
 
-URL: https://www.catchments.ie/fane-catchment-eco-programme/
+URL: https://news.google.com/rss/articles/CBMi0AFBVV95cUxNNTFINUFPY2gyRF9ZLXBlbzVZQ2xUa3NQNnhCNXB0cDRZTnlnY3dFTzIzcDlqLXRnZTJMQUxhUUlvT0x3UG55Y2ozMU9Oc0RPVGVJbXNIejFOdnphWWczcldGOWFOYU1zaGhyNDVMOGlJc29ZODhJZzZZUE92dkpkRFQzdGJqb0FpejdCN09xblpSbFl6TWlzZjlFMTFvTGdtS2VoNmRaVzJJMWhralo3SkRwNGZEbnlVV3FRZ2NNSjNDYngtZElqa05nQ243M05N
 
-Angle: WFD, monitoring and evidence
+Angle: Local planning and river-corridor governance
 
 Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
-Water signal: Strong water-quality/ecology signal detected. Evidence terms: catchment, water framework directive, wfd, ecological status.
+Water signal: Catchment relevance is inferred from NDRT screening metadata. Verify the primary source for any claimed river crossing, riparian, drainage, floodplain or ecological interaction before posting.
 
-Practical signal: Practical delivery signal detected. Evidence terms: measures, monitoring.
+Practical signal: Planning and route-selection signal. The editorial value is in asking when river-corridor function enters option comparison, not in assuming an environmental impact.
 
-Brand fit: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
+Brand fit: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
 
-Summary: Expressions of interest are now being invited for the upcoming ECO Programme within the EU Peace Plus Protecting Shared Waters […] The post Free Learning Opportunity in the Border Region : ‘Protecting Shared Waters’ ECO Programme appeared first on Catchments.ie .
+Summary: Proposal for Julianstown bypass and public realm works enjoys widespread support The Irish Times Planning/infrastructure watch: assess whether route selection, crossings, drainage, culverts, floodplain or riparian changes intersect the Nanny-Delvin catchment. This is a screening signal, not evidence that ecological harm has occurred. Local planning or infrastructure signal with catchment relevance. Verify the river-corridor, riparian, drainage or crossing implications in the primary source before posting.
 
 LinkedIn draft:
 
-A practical Water NbS signal for Ireland.
+A local catchment-planning signal from East Meath.
 
-Free Learning Opportunity in the Border Region : ‘Protecting Shared Waters’ ECO Programme
+Proposal for Julianstown bypass and public realm works enjoys widespread support - The Irish Times
 
-This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+What interests me here is not the transport politics by itself, but the point at which environmental function enters route selection. Where infrastructure may interact with a river corridor, the useful questions come before mitigation is designed.
 
-For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+I would want to know:
+• whether any option crosses or constrains a river or riparian corridor
+• how drainage, sediment and construction runoff are treated
+• whether floodplain and hydromorphological function are part of option comparison
+• what ecological survey evidence exists at the route-selection stage
+• whether avoidance has been tested before mitigation
 
-What I would look for:
-• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
-• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
-• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
-• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
-• repeatability: whether this can be maintained and applied elsewhere in Ireland
-
-My take: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+This is a screening question, not a claim that a particular option is environmentally unacceptable. The broader NbS point is that river corridors are functioning infrastructure too, and route selection should recognise that function early.
 
 Source:
-Catchments.ie. (2026-08-26). Free Learning Opportunity in the Border Region : ‘Protecting Shared Waters’ ECO Programme.
-https://www.catchments.ie/fane-catchment-eco-programme/
+Google News: East Meath planning and infrastructure. (2026-09-26). Proposal for Julianstown bypass and public realm works enjoys widespread support - The Irish Times.
+https://news.google.com/rss/articles/CBMi0AFBVV95cUxNNTFINUFPY2gyRF9ZLXBlbzVZQ2xUa3NQNnhCNXB0cDRZTnlnY3dFTzIzcDlqLXRnZTJMQUxhUUlvT0x3UG55Y2ozMU9Oc0RPVGVJbXNIejFOdnphWWczcldGOWFOYU1zaGhyNDVMOGlJc29ZODhJZzZZUE92dkpkRFQzdGJqb0FpejdCN09xblpSbFl6TWlzZjlFMTFvTGdtS2VoNmRaVzJJMWhralo3SkRwNGZEbnlVV3FRZ2NNSjNDYngtZElqa05nQ243M05N
 
-#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
+#NatureBasedSolutions #CatchmentManagement #Riparian #WaterQuality #Planning #Ireland
 
 Decision: [ ] pick  [ ] watch  [ ] reject
 
