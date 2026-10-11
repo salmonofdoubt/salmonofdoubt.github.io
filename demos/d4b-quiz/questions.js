@@ -25,7 +25,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "Digital Transformation: An Overview",
     "Human-centred Digital Transformation and Industry 5.0",
     "AI, Work and Human–AI Teaming",
-    "Big Data and Platform Society"
+    "Big Data and Platform Society",
+    "Big Data, AI and the Algorithmic Condition"
   ]
 });
 window.D4B_QUESTIONS=Object.freeze([
