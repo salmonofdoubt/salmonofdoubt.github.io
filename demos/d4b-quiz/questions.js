@@ -25,7 +25,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "Digital Transformation: An Overview",
     "Human-centred Digital Transformation and Industry 5.0",
     "AI, Work and Human–AI Teaming",
-    "Big Data and Platform Society"
+    "Big Data and Platform Society",
+    "Big Data, AI and the Algorithmic Condition"
   ]
 });
 window.D4B_QUESTIONS=Object.freeze([
@@ -4898,6 +4899,156 @@ window.D4B_QUESTIONS=Object.freeze([
       "note": "The answer and all distractors were reviewed against the named topic in the connected private module booklet. This is course alignment, not independent academic verification or confirmation of any official Moodle answer key.",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
+    }
+  },
+  {
+    "id": "d4b-122",
+    "module": "DTR",
+    "week": 5,
+    "topic": "Datafication",
+    "stem": "Which statement best explains datafication in platform society?",
+    "choices": [
+      "It converts aspects of behaviour into measurable digital traces",
+      "It guarantees that all online behaviour is recorded without bias",
+      "It requires every collected datum to be sold",
+      "It eliminates human choices about what to measure"
+    ],
+    "correct": 0,
+    "explanation": "Datafication represents selected activities as quantifiable traces; the categories and instruments remain constructed rather than neutral.",
+    "source": "04_Digital_Transformation_Booklet, Week 05, Datafication",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 05 / Datafication",
+      "originalMaterialChecked": false,
+      "review_type": "booklet-concept-grounding",
+      "locator": "van Dijck et al. (2018), The Platform Society, mechanisms of platformization",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+    }
+  },
+  {
+    "id": "d4b-123",
+    "module": "DTR",
+    "week": 5,
+    "topic": "Data versus capta",
+    "stem": "A survey omits informal carers because the questionnaire has no category for them. Which inference is strongest?",
+    "choices": [
+      "The missing carers are proven not to exist",
+      "The resulting dataset reflects selection and classification decisions rather than raw neutral reality",
+      "Increasing the sample size automatically restores the missing category",
+      "An algorithm can recover every unobserved case without new evidence"
+    ],
+    "correct": 1,
+    "explanation": "Measurement instruments determine what can be observed. Absence from a dataset is not proof of absence from society.",
+    "source": "04_Digital_Transformation_Booklet, Week 05, Data versus capta",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 05 / Data versus capta",
+      "originalMaterialChecked": false,
+      "review_type": "booklet-concept-grounding",
+      "locator": "DTR Week 05 lecture, Data versus capta",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+    }
+  },
+  {
+    "id": "d4b-124",
+    "module": "DTR",
+    "week": 5,
+    "topic": "Algorithmic opacity",
+    "stem": "A vendor refuses to disclose the logic of a scoring system, citing commercial confidentiality. Which of Burrell's opacity mechanisms is most directly illustrated?",
+    "choices": [
+      "The inevitable mathematical unintelligibility of every statistical model",
+      "A lack of electricity for model inference",
+      "Intentional corporate or state secrecy",
+      "A lack of sufficiently large datasets"
+    ],
+    "correct": 2,
+    "explanation": "Burrell distinguishes intentional secrecy from technical literacy barriers and opacity associated with complex computation.",
+    "source": "04_Digital_Transformation_Booklet, Week 05, Algorithmic opacity",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 05 / Algorithmic opacity",
+      "originalMaterialChecked": false,
+      "review_type": "booklet-concept-grounding",
+      "locator": "Burrell (2016), How the machine 'thinks', Big Data & Society",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+    }
+  },
+  {
+    "id": "d4b-125",
+    "module": "DTR",
+    "week": 5,
+    "topic": "Data deserts",
+    "stem": "A city has millions of mobility traces but no reliable observations about residents without smartphones. What does this illustrate?",
+    "choices": [
+      "A data desert can coexist with a data deluge",
+      "Big Data necessarily captures every group equally",
+      "More records eliminate all sampling bias",
+      "The DIKW pyramid guarantees wise decisions"
+    ],
+    "correct": 0,
+    "explanation": "Large volumes of traces may coexist with missing groups or crucial inaccessible information. Volume does not ensure coverage.",
+    "source": "04_Digital_Transformation_Booklet, Week 05, Data deserts",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 05 / Data deserts",
+      "originalMaterialChecked": false,
+      "review_type": "booklet-concept-grounding",
+      "locator": "Kitchin (2014), The Data Revolution, data infrastructures and epistemic limitations",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+    }
+  },
+  {
+    "id": "d4b-126",
+    "module": "DTR",
+    "week": 5,
+    "topic": "AI infrastructure",
+    "stem": "Why is releasing model weights insufficient to establish full independence from a platform provider?",
+    "choices": [
+      "Model weights always include unrestricted training data",
+      "Infrastructure, compute, hosting, licensing and data access can remain concentrated",
+      "Open weights eliminate electricity and cooling demand",
+      "The model automatically becomes legally accountable to all affected parties"
+    ],
+    "correct": 1,
+    "explanation": "Weight availability does not itself provide training datasets, compute resources, hosting independence or unrestricted downstream use.",
+    "source": "04_Digital_Transformation_Booklet, Week 05, AI infrastructure",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 05 / AI infrastructure",
+      "originalMaterialChecked": false,
+      "review_type": "booklet-concept-grounding",
+      "locator": "Crawford (2021), Atlas of AI, material infrastructure and power",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+    }
+  },
+  {
+    "id": "d4b-127",
+    "module": "DTR",
+    "week": 5,
+    "topic": "Observe inspect modify",
+    "stem": "A regulator can read a vendor's public model card but cannot independently test the model or demand corrections. Which governance capabilities remain missing?",
+    "choices": [
+      "Observation alone",
+      "Only model deployment at scale",
+      "Inspection and effective modification powers",
+      "Datafication and commodification"
+    ],
+    "correct": 2,
+    "explanation": "Observation supplies information; inspection enables independent scrutiny; modification entails meaningful corrective authority.",
+    "source": "04_Digital_Transformation_Booklet, Week 05, Observe inspect modify",
+    "origin": "booklet-derived",
+    "verification": "pending",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 05 / Observe inspect modify",
+      "originalMaterialChecked": false,
+      "review_type": "booklet-concept-grounding",
+      "locator": "DTR Week 05 lecture, Governing Generative AI: Observe, Inspect, Modify",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
     }
   }
 ]);
