@@ -1,31 +1,46 @@
 {
-  "checked_at": "2026-10-10T12:41:10.400Z",
+  "checked_at": "2026-10-11T13:01:26.836Z",
   "sources": [
     {
       "id": "leprechaun",
       "name": "Digital Leprechaun",
       "mode": "fingerprint-only",
       "status": "reachable-shell",
-      "bytes": 9347,
-      "html_fingerprint": "e984785481ce9514840f38f2480992d935f61ac41b3dfd99a315f0d64f4a3c15",
-      "assets_checked": 1,
-      "assets_total": 1,
+      "bytes": 4632,
+      "html_fingerprint": "9eebd8b7383492271dea2ffab5acc1f3a2f2c70b01ed708965697a67b2929334",
+      "assets_checked": 3,
+      "assets_total": 3,
       "assets": [
         {
+          "path": "/projects/digital4Business/assets/learn-nav.js",
+          "fingerprint": "86cb0c248d821db37dd0cf8f69b12b61b846dc0815f0ba49a3c1c494f1fe6415",
+          "status": "checked"
+        },
+        {
           "path": "/projects/digital4Business/assets/app.js",
-          "fingerprint": "0343317d9682404608376497814197284345998bc16e6215225150aeca38a6dc",
+          "fingerprint": "29d490eaeff42665d14cb701fbefc07cf9b28065f107640c463afc58c8c35d3e",
+          "status": "checked"
+        },
+        {
+          "path": "/projects/digital4Business/assets/coffee.js",
+          "fingerprint": "15ddb8492571c6fc8b8786c48ff0814f4c8477ff558b3f6bc0d1cc806bdbb34c",
           "status": "checked"
         }
       ],
-      "fingerprint": "1ab02a4337ce4b2844e8c14d1120625c04f7d19dc2da13c393e274850c5c186f",
-      "content_changed": false
+      "fingerprint": "e62e0cff92d55cc82a5a8b49ae171d37f52b6937e03d55c6e0efca0dd5683a1c",
+      "content_changed": true
     },
     {
       "id": "get-styled",
       "name": "Get Styled D4B",
       "mode": "fingerprint-only",
-      "status": "unavailable",
-      "error": "",
+      "status": "reachable-shell",
+      "bytes": 187916,
+      "html_fingerprint": "a963e9a4b5342fd43506f60dca4f6e7281ce376aba562c9c6d41cd6efd3fc7ec",
+      "assets_checked": 0,
+      "assets_total": 0,
+      "assets": [],
+      "fingerprint": "82b2605e6278a09fdd15fd5caf5adc2dd56ddaaf37704e1fbc71dad5a187ddff",
       "content_changed": null
     },
     {
