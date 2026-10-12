@@ -53,7 +53,8 @@ assert.deepEqual([...new Set(multi.module_weeks.map(x=>x.module))].sort(),['AIB'
 assert.equal(multi.accepted_at,'2026-10-09T23:08:19Z','Recorded acceptance must match actual merge');
 assert.equal(multi.source_access,'reviewed-via-connected-chatgpt-not-github-actions');
 assertCourseReleaseEvidence(multi.question_ids);
-assert.equal(ledger.latest_group.release_url,multi.release_url,'Newest accepted release must be surfaced as a group');
+const newest=ledger.groups.reduce((a,b)=>Date.parse(a.accepted_at)>=Date.parse(b.accepted_at)?a:b);
+assert.equal(ledger.latest_group.release_url,newest.release_url,'Newest accepted release must be surfaced as a group');
 const html=fs.readFileSync(path.join(quizDir,'index.html'),'utf8');
 const js=fs.readFileSync(path.join(quizDir,'refresh.js'),'utf8');
 const sw=fs.readFileSync(path.join(quizDir,'service-worker.js'),'utf8');
