@@ -4933,13 +4933,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Datafication represents selected activities as quantifiable traces; the categories and instruments remain constructed rather than neutral.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Datafication",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Datafication",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "van Dijck et al. (2018), The Platform Society, mechanisms of platformization",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "van Dijck, Poell and de Waal (2018), The Platform Society, chapter 2 on platform mechanisms; DTR W5 original lecture slide 4",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "method": "Directly read original DTR W5 lecture slide 4; Oxford University Press original chapter previously reviewed for the source-linked DTR W4 datafication question. All alternatives checked.",
+      "source_review_status": "independently supported",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Datafication",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly read original DTR Week 5 lecture slide 4; independent evidence is separate from official Moodle grading.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
