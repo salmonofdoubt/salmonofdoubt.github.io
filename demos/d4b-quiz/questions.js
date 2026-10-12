@@ -2319,7 +2319,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Course-specific rule, not a universal requirement",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 0,
-      "distractor_indices_checked": [1,2,3],
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -2785,7 +2789,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Business management mnemonic, not a universal definition of innovation",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 0,
-      "distractor_indices_checked": [1,2,3],
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -4599,7 +4607,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Exact instructor ordering, not universal methodology",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 0,
-      "distractor_indices_checked": [1,2,3],
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -4833,7 +4845,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Directly verified against original peer-reviewed paper",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 1,
-      "distractor_indices_checked": [0,2,3],
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -4917,13 +4933,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Datafication represents selected activities as quantifiable traces; the categories and instruments remain constructed rather than neutral.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Datafication",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Datafication",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "van Dijck et al. (2018), The Platform Society, mechanisms of platformization",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "van Dijck, Poell and de Waal (2018), The Platform Society, chapter 2 on platform mechanisms; DTR W5 original lecture slide 4",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://academic.oup.com/book/12378/chapter-abstract/161973335",
+      "method": "Directly read original DTR W5 lecture slide 4; Oxford University Press original chapter previously reviewed for the source-linked DTR W4 datafication question. All alternatives checked.",
+      "source_review_status": "independently supported",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Datafication",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly read original DTR Week 5 lecture slide 4; independent evidence is separate from official Moodle grading.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
@@ -4942,13 +4979,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Measurement instruments determine what can be observed. Absence from a dataset is not proof of absence from society.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Data versus capta",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Data versus capta",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "DTR Week 05 lecture, Data versus capta",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Kitchin and Lauriault (2014), Towards Critical Data Studies, abstract on how data assemblages frame generation and organisation; DTR W5 lecture slides 7–13",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://consensus.app/papers/towards-critical-data-studies-charting-and-unpacking-data-kitchin-lauriault/1d4acafd5cc8502b8f6a0bc57971eb91/",
+      "method": "Directly inspected original DTR W5 lecture slides 7–13 and the academic author abstract via Consensus. Checked the keyed inference and all three distractors; research full text not accessed.",
+      "source_review_status": "independently supported",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Data versus capta",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly inspected DTR Week 5 lecture slides 7–13 on capta and constructed data categories; this is not an official Moodle key.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
@@ -4967,13 +5025,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Burrell distinguishes intentional secrecy from technical literacy barriers and opacity associated with complex computation.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Algorithmic opacity",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Algorithmic opacity",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "Burrell (2016), How the machine 'thinks', Big Data & Society",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Burrell (2016), Big Data & Society, abstract: intentional secrecy, technical illiteracy, and opacity arising from algorithmic scale; Mascitti & Macauda DTR W5 lecture slide 26",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://doi.org/10.1177/2053951715622512",
+      "method": "Directly inspected original DTR W5 lecture slide 26 and Burrell 2016 peer-reviewed article abstract; checked correct option and all three distractors.",
+      "source_review_status": "independently supported",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Algorithmic opacity",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly read the original DTR Week 5 teaching deck, slide 26, and compared all answer options; this is not confirmation of an official Moodle key.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
@@ -5017,13 +5096,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Weight availability does not itself provide training datasets, compute resources, hosting independence or unrestricted downstream use.",
     "source": "04_Digital_Transformation_Booklet, Week 05, AI infrastructure",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / AI infrastructure",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "Crawford (2021), Atlas of AI, material infrastructure and power",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Liesenfeld and Dingemanse (2024), FAccT article abstract, 14 openness dimensions and limitations of open weights; DTR W5 lecture slides 24–25",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://doi.org/10.1145/3630106.3659005",
+      "method": "Directly inspected original DTR W5 lecture slides 24–25 and the peer-reviewed original author abstract via Consensus. Reviewed the keyed answer and three distractors.",
+      "source_review_status": "independently supported",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, AI infrastructure",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly inspected original DTR Week 5 lecture slides 24–25 on infrastructure concentration and open-weight limits; not an official Moodle key.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
