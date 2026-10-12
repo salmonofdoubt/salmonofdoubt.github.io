@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-11T17:24:43.414Z",
-  "last_consolidated_at": "2026-10-11T17:24:43.414Z",
-  "last_question_bank_change_at": "2026-10-11T17:24:43.414Z",
-  "content_fingerprint": "41ce26b32215dff69e6a3e40e56604f73e87320a06a130bf3318505651723296",
+  "last_checked_at": "2026-10-12T09:00:14.132Z",
+  "last_consolidated_at": "2026-10-12T09:00:14.132Z",
+  "last_question_bank_change_at": "2026-10-12T09:00:14.132Z",
+  "content_fingerprint": "9302ce9527964eb289d760a23f0cb0ef0411b7188e8b425a1b2ebc4f4a974dfa",
   "content_changed": true,
-  "bank_fingerprint": "25fbe15ca622622a33e938e0b6166d0c4638ac0dd57f272a747052c76728f19a",
+  "bank_fingerprint": "fd2a9484402a3dd5398b70b2b4f0c73fcd2978a69e8a3d67ce0162f8356f71bc",
   "question_count": 127,
   "question_status": {
-    "verified": 121,
-    "pending": 6,
+    "verified": 125,
+    "pending": 2,
     "flagged": 0
   },
   "course_alignment": {
-    "supported": 80,
+    "supported": 84,
     "qualified": 2,
-    "notReviewed": 45
+    "notReviewed": 41
   },
   "by_week": {
     "GEN:1": 5,
@@ -42,9 +42,9 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-11T17:24:43.414Z",
-    "last_automated_check_at": "2026-10-11T17:24:40.684Z",
-    "last_automation_ingest_at": "2026-10-11T17:24:43.308Z",
+    "updated_at": "2026-10-12T09:00:14.132Z",
+    "last_automated_check_at": "2026-10-12T09:00:12.000Z",
+    "last_automation_ingest_at": "2026-10-12T09:00:14.018Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
@@ -392,20 +392,20 @@
         }
       ],
       "fingerprint": "15bdd30ee44c7aec4d0dc506bac39181c758589fd4f63cdb6be3c1fa23392101",
-      "content_changed": true
+      "content_changed": false
     },
     {
       "id": "get-styled",
       "name": "Get Styled D4B",
       "mode": "fingerprint-only",
       "status": "reachable-shell",
-      "bytes": 187916,
-      "html_fingerprint": "a963e9a4b5342fd43506f60dca4f6e7281ce376aba562c9c6d41cd6efd3fc7ec",
+      "bytes": 201334,
+      "html_fingerprint": "773ecad9cb8c6d7d13545cbe801ea4ec82247f075834d9ca22ac6dd13353374e",
       "assets_checked": 0,
       "assets_total": 0,
       "assets": [],
-      "fingerprint": "82b2605e6278a09fdd15fd5caf5adc2dd56ddaaf37704e1fbc71dad5a187ddff",
-      "content_changed": false
+      "fingerprint": "550596575999546908a62742f88cf3204686f5a2d71fc3fb51e60be87053add9",
+      "content_changed": true
     },
     {
       "id": "drive",
