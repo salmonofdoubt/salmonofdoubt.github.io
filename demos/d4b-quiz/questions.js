@@ -4979,13 +4979,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Measurement instruments determine what can be observed. Absence from a dataset is not proof of absence from society.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Data versus capta",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Data versus capta",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "DTR Week 05 lecture, Data versus capta",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Kitchin and Lauriault (2014), Towards Critical Data Studies, abstract on how data assemblages frame generation and organisation; DTR W5 lecture slides 7–13",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://consensus.app/papers/towards-critical-data-studies-charting-and-unpacking-data-kitchin-lauriault/1d4acafd5cc8502b8f6a0bc57971eb91/",
+      "method": "Directly inspected original DTR W5 lecture slides 7–13 and the academic author abstract via Consensus. Checked the keyed inference and all three distractors; research full text not accessed.",
+      "source_review_status": "independently supported",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Data versus capta",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly inspected DTR Week 5 lecture slides 7–13 on capta and constructed data categories; this is not an official Moodle key.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
