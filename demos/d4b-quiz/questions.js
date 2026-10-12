@@ -5096,13 +5096,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Weight availability does not itself provide training datasets, compute resources, hosting independence or unrestricted downstream use.",
     "source": "04_Digital_Transformation_Booklet, Week 05, AI infrastructure",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / AI infrastructure",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "Crawford (2021), Atlas of AI, material infrastructure and power",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Liesenfeld and Dingemanse (2024), FAccT article abstract, 14 openness dimensions and limitations of open weights; DTR W5 lecture slides 24–25",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://doi.org/10.1145/3630106.3659005",
+      "method": "Directly inspected original DTR W5 lecture slides 24–25 and the peer-reviewed original author abstract via Consensus. Reviewed the keyed answer and three distractors.",
+      "source_review_status": "independently supported",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, AI infrastructure",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly inspected original DTR Week 5 lecture slides 24–25 on infrastructure concentration and open-weight limits; not an official Moodle key.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
