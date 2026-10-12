@@ -2319,7 +2319,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Course-specific rule, not a universal requirement",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 0,
-      "distractor_indices_checked": [1,2,3],
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -2785,7 +2789,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Business management mnemonic, not a universal definition of innovation",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 0,
-      "distractor_indices_checked": [1,2,3],
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -4599,7 +4607,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Exact instructor ordering, not universal methodology",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 0,
-      "distractor_indices_checked": [1,2,3],
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -4833,7 +4845,11 @@ window.D4B_QUESTIONS=Object.freeze([
       "scope": "Directly verified against original peer-reviewed paper",
       "method": "Original private D4B lecture slides (or Van Dijck primary article) directly read and each keyed answer, explanation and three distractors checked. No official Moodle key asserted.",
       "key_checked": 1,
-      "distractor_indices_checked": [0,2,3],
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ],
       "source_review_status": "instructor-or-primary-source-confirmed",
       "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
@@ -4967,13 +4983,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Burrell distinguishes intentional secrecy from technical literacy barriers and opacity associated with complex computation.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Algorithmic opacity",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Algorithmic opacity",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "Burrell (2016), How the machine 'thinks', Big Data & Society",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Burrell (2016), Big Data & Society, abstract: intentional secrecy, technical illiteracy, and opacity arising from algorithmic scale; Mascitti & Macauda DTR W5 lecture slide 26",
+      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question.",
+      "reviewed_at": "2026-10-12",
+      "url": "https://doi.org/10.1177/2053951715622512",
+      "method": "Directly inspected original DTR W5 lecture slide 26 and Burrell 2016 peer-reviewed article abstract; checked correct option and all three distractors.",
+      "source_review_status": "independently supported",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Algorithmic opacity",
+      "reviewed_at": "2026-10-12",
+      "note": "Directly read the original DTR Week 5 teaching deck, slide 26, and compared all answer options; this is not confirmation of an official Moodle key.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
     }
   },
   {
