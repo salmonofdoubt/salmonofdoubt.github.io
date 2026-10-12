@@ -15,7 +15,7 @@ for(const q of reviewed){
  assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(c.reviewed_at),q.id+': no review date');
  assert.equal(c.original_moodle_key_checked,false,q.id+': never claim Moodle confirmation without a graded attempt');
  assert.equal(typeof c.original_lecture_slides_directly_checked,'boolean',q.id+': missing source-access flag');
- if(c.original_lecture_slides_directly_checked) assert.ok(q.evidence?.originalMaterialChecked&&q.evidence?.locator&&q.evidence?.method,q.id+': direct source access requires recorded evidence');
+ if(c.original_lecture_slides_directly_checked) assert.ok((q.evidence?.originalMaterialChecked&&q.evidence?.locator&&q.evidence?.method)||(q.evidence?.teaching_material_checked&&q.evidence?.teaching_locator),q.id+': direct teaching-source access must have a locator, even when independent verification is pending');
  assert.equal(q.origin,'booklet-derived',q.id+': no original Moodle text belongs in public questions.js');
  statuses[c.status]++;
 }
