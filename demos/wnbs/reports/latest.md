@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-10-12
+# Water NbS Story Radar · 2026-10-13
 
-Generated: 2026-10-12T13:18:56.884358+00:00
+Generated: 2026-10-13T12:48:11.067874+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -547,50 +547,46 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 12. OPW: Past Coastal Erosion Database
+### 12. Julianstown Traffic Relief Scheme at heart of new residents’ group - Drogheda Life
 
-Score: 100 · excellent · Source: Catchments.ie
+Score: 88 · excellent · Source: Google News: East Meath planning and infrastructure
 
-URL: https://www.catchments.ie/opw-past-coastal-erosion-database/
+URL: https://news.google.com/rss/articles/CBMihgFBVV95cUxNOVZlVGFaTVRSTGZEemFob1E3ZkRCQ2NuaXU0M2ktdW5rR1lCWU1QWFBZYzJ1N3JCV2w4dTRRdVlidmFvaDVBVkNGVjNTSlk5QTNPanlzM3Z6dU5GMjdxSm9QSjlZTF9sWmxoanNKTEZiVEZZLWEweE9KZHRIWWJrVEc0Rm1oQQ
 
-Angle: WFD, monitoring and evidence
+Angle: Local planning and river-corridor governance
 
-Freshness: Current enough for LinkedIn if the practical water hook is strong.
+Freshness: Fresh item; suitable for current commentary if the source is credible.
 
-Water signal: Strong water-quality/ecology signal detected. Evidence terms: catchment, water framework directive, wfd, ecological status.
+Water signal: Catchment relevance is inferred from NDRT screening metadata. Verify the primary source for any claimed river crossing, riparian, drainage, floodplain or ecological interaction before posting.
 
-Practical signal: Practical delivery signal detected. Evidence terms: measures, monitoring.
+Practical signal: Planning and route-selection signal. The editorial value is in asking when river-corridor function enters option comparison, not in assuming an environmental impact.
 
-Brand fit: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
+Brand fit: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
 
-Summary: The OPW has launched an online platform that enables members of the public to report coastal erosion and share local […] The post OPW: Past Coastal Erosion Database appeared first on Catchments.ie .
+Summary: Julianstown Traffic Relief Scheme at heart of new residents’ group Drogheda Life Planning/infrastructure watch: assess whether route selection, crossings, drainage, culverts, floodplain or riparian changes intersect the Nanny-Delvin catchment. This is a screening signal, not evidence that ecological harm has occurred. Local planning or infrastructure signal with catchment relevance. Verify the river-corridor, riparian, drainage or crossing implications in the primary source before posting.
 
 LinkedIn draft:
 
-A practical Water NbS signal for Ireland.
+A local catchment-planning signal from East Meath.
 
-OPW: Past Coastal Erosion Database
+Julianstown Traffic Relief Scheme at heart of new residents’ group - Drogheda Life
 
-This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+What interests me here is not the transport politics by itself, but the point at which environmental function enters route selection. Where infrastructure may interact with a river corridor, the useful questions come before mitigation is designed.
 
-For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+I would want to know:
+• whether any option crosses or constrains a river or riparian corridor
+• how drainage, sediment and construction runoff are treated
+• whether floodplain and hydromorphological function are part of option comparison
+• what ecological survey evidence exists at the route-selection stage
+• whether avoidance has been tested before mitigation
 
-What I would look for:
-• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
-• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
-• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
-• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
-• repeatability: whether this can be maintained and applied elsewhere in Ireland
-
-My take: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+This is a screening question, not a claim that a particular option is environmentally unacceptable. The broader NbS point is that river corridors are functioning infrastructure too, and route selection should recognise that function early.
 
 Source:
-Catchments.ie. (2026-08-28). OPW: Past Coastal Erosion Database.
-https://www.catchments.ie/opw-past-coastal-erosion-database/
+Google News: East Meath planning and infrastructure. (2026-09-29). Julianstown Traffic Relief Scheme at heart of new residents’ group - Drogheda Life.
+https://news.google.com/rss/articles/CBMihgFBVV95cUxNOVZlVGFaTVRSTGZEemFob1E3ZkRCQ2NuaXU0M2ktdW5rR1lCWU1QWFBZYzJ1N3JCV2w4dTRRdVlidmFvaDVBVkNGVjNTSlk5QTNPanlzM3Z6dU5GMjdxSm9QSjlZTF9sWmxoanNKTEZiVEZZLWEweE9KZHRIWWJrVEc0Rm1oQQ
 
-#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
+#NatureBasedSolutions #CatchmentManagement #Riparian #WaterQuality #Planning #Ireland
 
 Decision: [ ] pick  [ ] watch  [ ] reject
 
