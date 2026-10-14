@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-13T14:20:48.237Z",
-  "last_consolidated_at": "2026-10-12T09:00:14.132Z",
+  "last_checked_at": "2026-10-14T12:02:44.971Z",
+  "last_consolidated_at": "2026-10-14T12:02:44.971Z",
   "last_question_bank_change_at": "2026-10-12T09:00:14.132Z",
-  "content_fingerprint": "9302ce9527964eb289d760a23f0cb0ef0411b7188e8b425a1b2ebc4f4a974dfa",
-  "content_changed": false,
+  "content_fingerprint": "102e4f3990ec99d9930d81d87b27771e7dcb5810cf95fd46d0536bb7dd62f2dc",
+  "content_changed": true,
   "bank_fingerprint": "fd2a9484402a3dd5398b70b2b4f0c73fcd2978a69e8a3d67ce0162f8356f71bc",
   "question_count": 127,
   "question_status": {
@@ -42,9 +42,9 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-13T14:20:48.237Z",
-    "last_automated_check_at": "2026-10-13T14:20:45.549Z",
-    "last_automation_ingest_at": "2026-10-13T14:20:48.148Z",
+    "updated_at": "2026-10-14T12:02:44.971Z",
+    "last_automated_check_at": "2026-10-14T12:02:43.046Z",
+    "last_automation_ingest_at": "2026-10-14T12:02:44.857Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
@@ -376,14 +376,9 @@
       "id": "get-styled",
       "name": "Get Styled D4B",
       "mode": "fingerprint-only",
-      "status": "reachable-shell",
-      "bytes": 201334,
-      "html_fingerprint": "773ecad9cb8c6d7d13545cbe801ea4ec82247f075834d9ca22ac6dd13353374e",
-      "assets_checked": 0,
-      "assets_total": 0,
-      "assets": [],
-      "fingerprint": "550596575999546908a62742f88cf3204686f5a2d71fc3fb51e60be87053add9",
-      "content_changed": false
+      "status": "unavailable",
+      "error": "",
+      "content_changed": null
     },
     {
       "id": "drive",
