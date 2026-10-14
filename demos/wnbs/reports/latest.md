@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-10-13
+# Water NbS Story Radar · 2026-10-14
 
-Generated: 2026-10-13T12:48:11.067874+00:00
+Generated: 2026-10-14T10:20:53.775832+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -114,7 +114,7 @@ URL: https://www.catchments.ie/paludiculture-fair-ireland-mayo-2026/
 
 Angle: WFD, monitoring and evidence
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: river, rivers, catchment, water framework directive, wfd, ecological status.
 
@@ -547,11 +547,11 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 12. Julianstown Traffic Relief Scheme at heart of new residents’ group - Drogheda Life
+### 12. Julianstown Traffic Relief Scheme backed after HGV vote, residents say - Drogheda Life
 
 Score: 88 · excellent · Source: Google News: East Meath planning and infrastructure
 
-URL: https://news.google.com/rss/articles/CBMihgFBVV95cUxNOVZlVGFaTVRSTGZEemFob1E3ZkRCQ2NuaXU0M2ktdW5rR1lCWU1QWFBZYzJ1N3JCV2w4dTRRdVlidmFvaDVBVkNGVjNTSlk5QTNPanlzM3Z6dU5GMjdxSm9QSjlZTF9sWmxoanNKTEZiVEZZLWEweE9KZHRIWWJrVEc0Rm1oQQ
+URL: https://news.google.com/rss/articles/CBMid0FVX3lxTFBzNEZjUEJIekhhTWJFUXVQMTRMQ0tFYTgtNXpIUjc1aEJveVUtS3ppeDQzSHpjMHozM2ExTjdPalR5YzhKa3hyY21EQzA4U1Y3NmVBZGFSeXBGLU9MVExwYmM0RzFuX3A2THZqeE50OVV0dl9LeTlj
 
 Angle: Local planning and river-corridor governance
 
@@ -563,13 +563,13 @@ Practical signal: Planning and route-selection signal. The editorial value is in
 
 Brand fit: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
 
-Summary: Julianstown Traffic Relief Scheme at heart of new residents’ group Drogheda Life Planning/infrastructure watch: assess whether route selection, crossings, drainage, culverts, floodplain or riparian changes intersect the Nanny-Delvin catchment. This is a screening signal, not evidence that ecological harm has occurred. Local planning or infrastructure signal with catchment relevance. Verify the river-corridor, riparian, drainage or crossing implications in the primary source before posting.
+Summary: Julianstown Traffic Relief Scheme backed after HGV vote, residents say Drogheda Life Planning/infrastructure watch: assess whether route selection, crossings, drainage, culverts, floodplain or riparian changes intersect the Nanny-Delvin catchment. This is a screening signal, not evidence that ecological harm has occurred. Local planning or infrastructure signal with catchment relevance. Verify the river-corridor, riparian, drainage or crossing implications in the primary source before posting.
 
 LinkedIn draft:
 
 A local catchment-planning signal from East Meath.
 
-Julianstown Traffic Relief Scheme at heart of new residents’ group - Drogheda Life
+Julianstown Traffic Relief Scheme backed after HGV vote, residents say - Drogheda Life
 
 What interests me here is not the transport politics by itself, but the point at which environmental function enters route selection. Where infrastructure may interact with a river corridor, the useful questions come before mitigation is designed.
 
@@ -583,8 +583,8 @@ I would want to know:
 This is a screening question, not a claim that a particular option is environmentally unacceptable. The broader NbS point is that river corridors are functioning infrastructure too, and route selection should recognise that function early.
 
 Source:
-Google News: East Meath planning and infrastructure. (2026-09-29). Julianstown Traffic Relief Scheme at heart of new residents’ group - Drogheda Life.
-https://news.google.com/rss/articles/CBMihgFBVV95cUxNOVZlVGFaTVRSTGZEemFob1E3ZkRCQ2NuaXU0M2ktdW5rR1lCWU1QWFBZYzJ1N3JCV2w4dTRRdVlidmFvaDVBVkNGVjNTSlk5QTNPanlzM3Z6dU5GMjdxSm9QSjlZTF9sWmxoanNKTEZiVEZZLWEweE9KZHRIWWJrVEc0Rm1oQQ
+Google News: East Meath planning and infrastructure. (2026-10-13). Julianstown Traffic Relief Scheme backed after HGV vote, residents say - Drogheda Life.
+https://news.google.com/rss/articles/CBMid0FVX3lxTFBzNEZjUEJIekhhTWJFUXVQMTRMQ0tFYTgtNXpIUjc1aEJveVUtS3ppeDQzSHpjMHozM2ExTjdPalR5YzhKa3hyY21EQzA4U1Y3NmVBZGFSeXBGLU9MVExwYmM0RzFuX3A2THZqeE50OVV0dl9LeTlj
 
 #NatureBasedSolutions #CatchmentManagement #Riparian #WaterQuality #Planning #Ireland
 
