@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-14T12:02:44.916Z",
-  "count": 127,
-  "bank_fingerprint": "fd2a9484402a3dd5398b70b2b4f0c73fcd2978a69e8a3d67ce0162f8356f71bc",
+  "checked_at": "2026-10-15T08:46:46.046Z",
+  "count": 140,
+  "bank_fingerprint": "8d5cc99275a4bff9f38fdbaa234c9207be7525d33974da7b70119558f0bf38b7",
   "statuses": {
-    "verified": 125,
+    "verified": 138,
     "pending": 2,
     "flagged": 0
   },
   "course_alignment": {
-    "supported": 84,
+    "supported": 97,
     "qualified": 2,
     "notReviewed": 41
   },
@@ -32,7 +32,9 @@
     "DTR:3": 6,
     "DTR:4": 9,
     "INN:5": 14,
-    "DTR:5": 6
+    "DTR:5": 6,
+    "GEN:6": 7,
+    "AIB:6": 6
   },
   "uncovered_weeks": [],
   "structural_errors": [],

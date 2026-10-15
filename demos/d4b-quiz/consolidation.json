@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-14T12:02:44.971Z",
-  "last_consolidated_at": "2026-10-14T12:02:44.971Z",
-  "last_question_bank_change_at": "2026-10-12T09:00:14.132Z",
-  "content_fingerprint": "102e4f3990ec99d9930d81d87b27771e7dcb5810cf95fd46d0536bb7dd62f2dc",
+  "last_checked_at": "2026-10-15T08:46:46.086Z",
+  "last_consolidated_at": "2026-10-15T08:46:46.086Z",
+  "last_question_bank_change_at": "2026-10-15T08:46:46.086Z",
+  "content_fingerprint": "527e87c65221a4bcbee33f7e8780de12cd0b8d99e5777d2cecd3da83f2e88d2b",
   "content_changed": true,
-  "bank_fingerprint": "fd2a9484402a3dd5398b70b2b4f0c73fcd2978a69e8a3d67ce0162f8356f71bc",
-  "question_count": 127,
+  "bank_fingerprint": "8d5cc99275a4bff9f38fdbaa234c9207be7525d33974da7b70119558f0bf38b7",
+  "question_count": 140,
   "question_status": {
-    "verified": 125,
+    "verified": 138,
     "pending": 2,
     "flagged": 0
   },
   "course_alignment": {
-    "supported": 84,
+    "supported": 97,
     "qualified": 2,
     "notReviewed": 41
   },
@@ -37,14 +37,16 @@
     "DTR:3": 6,
     "DTR:4": 9,
     "INN:5": 14,
-    "DTR:5": 6
+    "DTR:5": 6,
+    "GEN:6": 7,
+    "AIB:6": 6
   },
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-14T12:02:44.971Z",
-    "last_automated_check_at": "2026-10-14T12:02:43.046Z",
-    "last_automation_ingest_at": "2026-10-14T12:02:44.857Z",
+    "updated_at": "2026-10-15T08:46:46.086Z",
+    "last_automated_check_at": "2026-10-15T08:46:43.928Z",
+    "last_automation_ingest_at": "2026-10-15T08:46:46.000Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
@@ -376,8 +378,13 @@
       "id": "get-styled",
       "name": "Get Styled D4B",
       "mode": "fingerprint-only",
-      "status": "unavailable",
-      "error": "",
+      "status": "reachable-shell",
+      "bytes": 201334,
+      "html_fingerprint": "773ecad9cb8c6d7d13545cbe801ea4ec82247f075834d9ca22ac6dd13353374e",
+      "assets_checked": 0,
+      "assets_total": 0,
+      "assets": [],
+      "fingerprint": "550596575999546908a62742f88cf3204686f5a2d71fc3fb51e60be87053add9",
       "content_changed": null
     },
     {
