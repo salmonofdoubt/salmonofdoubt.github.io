@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-15T08:46:46.086Z",
+  "last_checked_at": "2026-10-15T08:48:32.055Z",
   "last_consolidated_at": "2026-10-15T08:46:46.086Z",
   "last_question_bank_change_at": "2026-10-15T08:46:46.086Z",
   "content_fingerprint": "527e87c65221a4bcbee33f7e8780de12cd0b8d99e5777d2cecd3da83f2e88d2b",
-  "content_changed": true,
+  "content_changed": false,
   "bank_fingerprint": "8d5cc99275a4bff9f38fdbaa234c9207be7525d33974da7b70119558f0bf38b7",
   "question_count": 140,
   "question_status": {
@@ -44,35 +44,79 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-15T08:46:46.086Z",
-    "last_automated_check_at": "2026-10-15T08:46:43.928Z",
-    "last_automation_ingest_at": "2026-10-15T08:46:46.000Z",
+    "updated_at": "2026-10-15T08:48:32.055Z",
+    "last_automated_check_at": "2026-10-15T08:48:30.027Z",
+    "last_automation_ingest_at": "2026-10-15T08:48:31.929Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
     "staged_already_present": 72,
     "last_reviewed_material_release": {
-      "id": "d4b-source-release-20261011-dtr-w5",
-      "accepted_at": "2026-10-11T17:24:12Z",
+      "id": "d4b-source-release-20261015-gen-w6",
+      "accepted_at": "2026-10-15T08:46:18Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "material": "Digital Transformation booklet · Week 05 · Big Data, AI and the Algorithmic Condition",
-      "module": "DTR",
-      "week": 5,
-      "question_count": 6,
+      "material": "Generative AI Week 06 · Generative Media",
+      "module": "GEN",
+      "week": 6,
+      "question_count": 7,
       "question_ids": [
-        "d4b-122",
-        "d4b-123",
-        "d4b-124",
-        "d4b-125",
-        "d4b-126",
-        "d4b-127"
+        "d4b-128",
+        "d4b-129",
+        "d4b-130",
+        "d4b-131",
+        "d4b-132",
+        "d4b-133",
+        "d4b-134"
       ],
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/208",
-      "review_scope": "Six original practice questions from authorised booklet review. Not official Moodle questions. Independent academic verification remains item-specific."
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
+      "review_scope": "Original practice questions; not copied Moodle originals. Course alignment and independent verification are item-specific. Historical Moodle assessment evidence is not imported by this event."
     },
     "recent_reviewed_material_releases": [
+      {
+        "id": "d4b-source-release-20261015-gen-w6",
+        "accepted_at": "2026-10-15T08:46:18Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "material": "Generative AI Week 06 · Generative Media",
+        "module": "GEN",
+        "week": 6,
+        "question_count": 7,
+        "question_ids": [
+          "d4b-128",
+          "d4b-129",
+          "d4b-130",
+          "d4b-131",
+          "d4b-132",
+          "d4b-133",
+          "d4b-134"
+        ],
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
+        "review_scope": "Original practice questions; not copied Moodle originals. Course alignment and independent verification are item-specific. Historical Moodle assessment evidence is not imported by this event."
+      },
+      {
+        "id": "d4b-source-release-20261015-aib-w6",
+        "accepted_at": "2026-10-15T08:46:18Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "material": "AI for Business Week 06 · Automated Planning",
+        "module": "AIB",
+        "week": 6,
+        "question_count": 6,
+        "question_ids": [
+          "d4b-135",
+          "d4b-136",
+          "d4b-137",
+          "d4b-138",
+          "d4b-139",
+          "d4b-140"
+        ],
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
+        "review_scope": "Original practice questions; not copied Moodle originals. Course alignment and independent verification are item-specific. Historical Moodle assessment evidence is not imported by this event."
+      },
       {
         "id": "d4b-source-release-20261011-dtr-w5",
         "accepted_at": "2026-10-11T17:24:12Z",
@@ -145,66 +189,85 @@
         ],
         "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204",
         "review_scope": "Original additional study questions for concepts already in the current canonical module booklet. Course alignment checked; independent factual verification pending. No verbatim Moodle or third-party questions copied."
-      },
-      {
-        "id": "d4b-source-release-20261010-aib-w5",
-        "accepted_at": "2026-10-09T23:08:19Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "material": "AI for Business · Week 05 · accountability and recourse",
-        "module": "AIB",
-        "week": 5,
-        "question_count": 1,
-        "question_ids": [
-          "d4b-113"
-        ],
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204",
-        "review_scope": "Original additional study questions for concepts already in the current canonical module booklet. Course alignment checked; independent factual verification pending. No verbatim Moodle or third-party questions copied."
-      },
-      {
-        "id": "d4b-source-release-20261010-inn-w2",
-        "accepted_at": "2026-10-09T23:08:19Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "material": "Innovation · Week 02 · STI/DUI innovation learning",
-        "module": "INN",
-        "week": 2,
-        "question_count": 1,
-        "question_ids": [
-          "d4b-114"
-        ],
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204",
-        "review_scope": "Original additional study questions for concepts already in the current canonical module booklet. Course alignment checked; independent factual verification pending. No verbatim Moodle or third-party questions copied."
       }
     ],
     "last_reviewed_release_group": {
-      "accepted_at": "2026-10-11T17:24:12Z",
+      "accepted_at": "2026-10-15T08:46:18Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/208",
-      "question_count": 6,
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
+      "question_count": 13,
       "question_ids": [
-        "d4b-122",
-        "d4b-123",
-        "d4b-124",
-        "d4b-125",
-        "d4b-126",
-        "d4b-127"
+        "d4b-128",
+        "d4b-129",
+        "d4b-130",
+        "d4b-131",
+        "d4b-132",
+        "d4b-133",
+        "d4b-134",
+        "d4b-135",
+        "d4b-136",
+        "d4b-137",
+        "d4b-138",
+        "d4b-139",
+        "d4b-140"
       ],
       "module_weeks": [
         {
-          "module": "DTR",
-          "week": 5,
+          "module": "AIB",
+          "week": 6,
           "question_count": 6,
-          "material": "Digital Transformation booklet · Week 05 · Big Data, AI and the Algorithmic Condition"
+          "material": "AI for Business Week 06 · Automated Planning"
+        },
+        {
+          "module": "GEN",
+          "week": 6,
+          "question_count": 7,
+          "material": "Generative AI Week 06 · Generative Media"
         }
       ],
-      "material": "DTR W05"
+      "material": "AIB W06 · GEN W06"
     },
     "recent_reviewed_release_groups": [
+      {
+        "accepted_at": "2026-10-15T08:46:18Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
+        "question_count": 13,
+        "question_ids": [
+          "d4b-128",
+          "d4b-129",
+          "d4b-130",
+          "d4b-131",
+          "d4b-132",
+          "d4b-133",
+          "d4b-134",
+          "d4b-135",
+          "d4b-136",
+          "d4b-137",
+          "d4b-138",
+          "d4b-139",
+          "d4b-140"
+        ],
+        "module_weeks": [
+          {
+            "module": "AIB",
+            "week": 6,
+            "question_count": 6,
+            "material": "AI for Business Week 06 · Automated Planning"
+          },
+          {
+            "module": "GEN",
+            "week": 6,
+            "question_count": 7,
+            "material": "Generative AI Week 06 · Generative Media"
+          }
+        ],
+        "material": "AIB W06 · GEN W06"
+      },
       {
         "accepted_at": "2026-10-11T17:24:12Z",
         "source_id": "drive",
@@ -341,7 +404,7 @@
         "material": "INN W05"
       }
     ],
-    "reviewed_release_count": 10,
+    "reviewed_release_count": 12,
     "explicit_source_boundary": "GitHub fingerprints public pages and reconciles already-staged original questions. It cannot independently read private Drive, ChatGPT, or Moodle content; private material releases require a separate authorised review."
   },
   "source_status": [
@@ -385,7 +448,7 @@
       "assets_total": 0,
       "assets": [],
       "fingerprint": "550596575999546908a62742f88cf3204686f5a2d71fc3fb51e60be87053add9",
-      "content_changed": null
+      "content_changed": false
     },
     {
       "id": "drive",
