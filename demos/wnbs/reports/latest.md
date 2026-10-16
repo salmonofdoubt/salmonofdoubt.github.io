@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-10-15
+# Water NbS Story Radar · 2026-10-16
 
-Generated: 2026-10-15T10:06:33.603460+00:00
+Generated: 2026-10-16T09:56:52.138838+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -8,7 +8,7 @@ Editorial lens: practical measures that improve surface water quality, aquatic e
 
 ## Editorial picks to consider
 
-### 1. Building Water Resilience
+### 1. Conference: Building Water Resilience – Connecting Policy, Action and Communities
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -24,7 +24,7 @@ Practical signal: Practical delivery signal detected. Evidence terms: measures, 
 
 Brand fit: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
 
-Summary: The Water Forum – An Fóram Uisce will welcome Henk Ovink, Executive Director of the Global Commission on the Economics […] The post Building Water Resilience appeared first on Catchments.ie .
+Summary: The Water Forum – An Fóram Uisce will welcome Henk Ovink, Executive Director of the Global Commission on the Economics […] The post Conference: Building Water Resilience – Connecting Policy, Action and Communities appeared first on Catchments.ie .
 
 LinkedIn draft:
 
