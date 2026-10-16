@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-10-15T09:57:37.918390+00:00",
-  "latest_generated_at": "2026-10-15T09:57:26.377190+00:00",
+  "generated_at": "2026-10-16T09:52:55.552451+00:00",
+  "latest_generated_at": "2026-10-16T09:52:45.614656+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 17,
-  "sources_checked_no_current_items": 12,
+  "sources_active": 19,
+  "sources_checked_no_current_items": 10,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 17,
+    "grants-opportunities": 16,
     "ireland-catchment-practice": 19,
     "research-papers": 36,
-    "waterbody-evidence-alerts": 23
+    "waterbody-evidence-alerts": 24
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 19,
-    "research_use_type": 56
+    "opportunity_fit": 18,
+    "research_use_type": 54
   },
-  "archive_snapshots": 136,
+  "archive_snapshots": 137,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -44,11 +44,11 @@
       "scope": "east meath local",
       "url": "https://news.google.com/rss/search?q=%28%22East%20Meath%22%20OR%20Laytown%20OR%20Bettystown%20OR%20Mornington%20OR%20Julianstown%20OR%20Gormanston%20OR%20Stamullen%20OR%20Duleek%20OR%20Sonairte%29%20%28water%20quality%20OR%20river%20OR%20estuary%20OR%20biodiversity%20OR%20pollution%20OR%20wetland%20OR%20flooding%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 54,
-      "elapsed_ms": 61,
+      "current_item_count": 1,
+      "discovered_hint_count": 53,
+      "elapsed_ms": 64,
       "error": null
     },
     {
@@ -63,7 +63,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 76,
-      "elapsed_ms": 68,
+      "elapsed_ms": 73,
       "error": null
     },
     {
@@ -78,7 +78,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 75,
-      "elapsed_ms": 69,
+      "elapsed_ms": 72,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 9,
       "discovered_hint_count": 100,
-      "elapsed_ms": 80,
+      "elapsed_ms": 84,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 70,
-      "elapsed_ms": 65,
+      "current_item_count": 4,
+      "discovered_hint_count": 71,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 59,
-      "elapsed_ms": 61,
+      "discovered_hint_count": 57,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -134,11 +134,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28fish%20kill%20OR%20pollution%20incident%20OR%20algal%20bloom%20OR%20sewage%20overflow%29%20%28river%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
+      "current_item_count": 2,
       "discovered_hint_count": 45,
-      "elapsed_ms": 52,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -153,7 +153,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 76,
-      "elapsed_ms": 70,
+      "elapsed_ms": 72,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 490,
+      "elapsed_ms": 631,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 68,
+      "elapsed_ms": 97,
       "error": null
     },
     {
@@ -197,8 +197,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 45,
-      "elapsed_ms": 54,
+      "discovered_hint_count": 46,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -212,7 +212,7 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 74,
+      "discovered_hint_count": 75,
       "elapsed_ms": 70,
       "error": null
     },
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 50,
-      "elapsed_ms": 54,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 35,
+      "elapsed_ms": 36,
       "error": null
     },
     {
@@ -257,8 +257,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 30,
-      "elapsed_ms": 45,
+      "discovered_hint_count": 29,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 55,
+      "elapsed_ms": 61,
       "error": null
     },
     {
@@ -288,7 +288,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 47,
-      "elapsed_ms": 54,
+      "elapsed_ms": 57,
       "error": null
     },
     {
@@ -302,8 +302,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 45,
-      "elapsed_ms": 51,
+      "discovered_hint_count": 47,
+      "elapsed_ms": 59,
       "error": null
     },
     {
@@ -316,7 +316,7 @@
       "host": "www.catchments.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
+      "current_item_count": 6,
       "discovered_hint_count": 143,
       "elapsed_ms": 792,
       "error": null
@@ -331,9 +331,9 @@
       "host": "lawaters.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 6,
-      "discovered_hint_count": 114,
-      "elapsed_ms": 2818,
+      "current_item_count": 1,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 1245,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 224,
-      "elapsed_ms": 312,
+      "elapsed_ms": 355,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 179,
-      "elapsed_ms": 671,
+      "elapsed_ms": 648,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 423,
-      "elapsed_ms": 830,
+      "elapsed_ms": 869,
       "error": null
     },
     {
@@ -391,9 +391,9 @@
       "host": "www.heritagecouncil.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 82,
-      "elapsed_ms": 766,
+      "current_item_count": 1,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 377,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 36,
-      "elapsed_ms": 1738,
+      "elapsed_ms": 2075,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 106,
-      "elapsed_ms": 81,
+      "elapsed_ms": 80,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 11,
       "discovered_hint_count": 94,
-      "elapsed_ms": 788,
+      "elapsed_ms": 626,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 895,
+      "elapsed_ms": 792,
       "error": null
     }
   ]
