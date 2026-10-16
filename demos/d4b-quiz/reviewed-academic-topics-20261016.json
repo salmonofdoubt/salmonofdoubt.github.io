@@ -9,5 +9,38 @@
       "title": "Self-regulated learning and complex problems",
       "source": "https://doi.org/10.11588/jddm.2026.1.105968"
     }
-  ]
+  ],
+  "questions": [
+    {
+      "module": "INN",
+      "week": 3,
+      "topic": "Complex problem solving",
+      "stem": "Which scenario best represents complex problem solving?",
+      "choices": [
+        "A fixed one-step calculation",
+        "An evolving system with interacting variables, incomplete information and competing goals",
+        "A routine task with no feedback",
+        "A task that excludes human judgment"
+      ],
+      "correct": 1,
+      "explanation": "Complex problems can combine dynamic interdependencies, limited transparency and conflicting objectives.",
+      "evidence_url": "https://doi.org/10.3389/fpsyg.2017.01153"
+    },
+    {
+      "module": "INN",
+      "week": 3,
+      "topic": "Self-regulated learning",
+      "stem": "What do Fahrbach and Fust (2026) propose for developing complex-problem-solving expertise?",
+      "choices": [
+        "Memorise one fixed solution",
+        "Avoid monitoring decisions",
+        "Combine planning, monitoring and evaluation with metacognitive and motivational regulation",
+        "Assume their conceptual framework proves universal effectiveness"
+      ],
+      "correct": 2,
+      "explanation": "Their theoretical paper proposes self-regulated learning strategies; it does not establish a universal causal training effect.",
+      "evidence_url": "https://doi.org/10.11588/jddm.2026.1.105968"
+    }
+  ],
+  "note": "Original practice candidates reviewed against the cited primary articles. Not part of the deployed quiz bank."
 }
