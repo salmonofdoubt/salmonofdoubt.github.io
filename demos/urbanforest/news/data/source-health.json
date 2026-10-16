@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-15T10:15:49.249584+00:00",
-  "latest_generated_at": "2026-10-15T10:15:49.172010+00:00",
+  "generated_at": "2026-10-16T10:04:12.657023+00:00",
+  "latest_generated_at": "2026-10-16T10:04:12.550804+00:00",
   "total_items": 92,
   "total_sources": 20,
-  "sources_active": 10,
-  "sources_checked_no_current_items": 10,
+  "sources_active": 11,
+  "sources_checked_no_current_items": 9,
   "sources_failed": 0,
   "items_by_section": {
     "ireland-urban-forest-practice": 26,
-    "research-evidence": 46,
-    "funding-opportunities": 16,
+    "funding-opportunities": 18,
+    "research-evidence": 44,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
@@ -17,10 +17,10 @@
     "urbanforest_relevance": 92,
     "benefit_categories": 92,
     "local_relevance": 92,
-    "opportunity_fit": 23,
-    "research_use_type": 54
+    "opportunity_fit": 25,
+    "research_use_type": 53
   },
-  "archive_snapshots": 147,
+  "archive_snapshots": 148,
   "sources": [
     {
       "id": "gn-street-tree-survival-drought",
@@ -174,7 +174,7 @@
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tiny%20forest%20OR%20Miyawaki%20OR%20street%20trees%29%20%28maintenance%20OR%20survival%20OR%20watering%20OR%20drought%20OR%20aftercare%20OR%20vandalism%20OR%20soil%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 3
+      "current_item_count": 4
     },
     {
       "id": "gn-urban-forest-carbon-claims",
@@ -239,8 +239,8 @@
       "scope": "dublin institutional",
       "url": "https://www.tcd.ie/news_events/",
       "host": "www.tcd.ie",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     }
   ]
 }
