@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-17",
+  "purpose": "Original practice candidates from newly discovered official DTR teaching activity, not yet in questions.js",
+  "items": [
+    {
+      "proposed_id": "d4b-150",
+      "module": "DTR",
+      "week": 4,
+      "topic": "Repeated-run reliability",
+      "stem": "A chatbot produces different employer shortlists in two fresh chats using the same prompt. What does this establish?",
+      "choices": [
+        "One shortlist must be deliberately fraudulent",
+        "The prompt is invalid because it was written in English",
+        "The output exhibits run-to-run variability; a single shortlist cannot establish stable visibility",
+        "The model provider necessarily changed ownership"
+      ],
+      "correct": 2,
+      "explanation": "Repeated identical conditions can expose variation in model outputs; differences alone do not establish the underlying cause.",
+      "teaching_source": "DTR Topic 3 E-tivity Forms, added 2026-10-16",
+      "teaching_locator": "Step 1: repeat each variant in two separate chats",
+      "independent_source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12637745/",
+      "independent_locator": "A statistical framework for evaluating the repeatability and reproducibility of large language models, abstract",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-151",
+      "module": "DTR",
+      "week": 4,
+      "topic": "Controlled prompt comparisons",
+      "stem": "An LLM visibility audit changes both the applicant's city and career stage between two prompts. What is the main interpretive problem?",
+      "choices": [
+        "It proves that city alone caused any change",
+        "The effects of city and career stage cannot be isolated from that comparison",
+        "The outputs become fully deterministic",
+        "The audit no longer concerns platform power"
+      ],
+      "correct": 1,
+      "explanation": "Changing multiple factors together confounds attribution; one-factor-at-a-time comparisons help isolate a difference but cannot identify interactions or eliminate output variability.",
+      "teaching_source": "DTR Topic 3 E-tivity Forms, added 2026-10-16",
+      "teaching_locator": "Step 1 Variant E: change only one profile element",
+      "independent_source_url": "https://www.itl.nist.gov/div898/handbook/pri/section2/pri212.htm",
+      "independent_locator": "NIST/SEMATECH e-Handbook, section 5.2.1.2, one factor at a time and interaction limitations",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    }
+  ]
+}
