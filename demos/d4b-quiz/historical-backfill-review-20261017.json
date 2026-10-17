@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-17",
+  "note": "Nine original questions, no private Moodle original wording; review record only, not live bank.",
+  "items": [
+    {
+      "proposed_id": "d4b-141",
+      "module": "AIB",
+      "week": 6,
+      "stem": "In deterministic planning, what makes a sequence of actions a valid plan?",
+      "choices": [
+        "It reaches a goal-satisfying state from the initial state using applicable actions",
+        "It lists every possible state without selecting actions",
+        "It predicts only a probability of success",
+        "It has no defined goal"
+      ],
+      "correct": 0,
+      "explanation": "A valid plan applies legal actions to reach a goal state.",
+      "teaching_locator": "Automated Planning lecture, initial and goal states",
+      "independent_source_url": "https://artint.info/3e/html/ArtInt3e.Ch6.html",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-142",
+      "module": "AIB",
+      "week": 6,
+      "stem": "In forward state-space planning, what do graph nodes and directed arcs represent?",
+      "choices": [
+        "Training examples and model weights",
+        "World states and applicable actions leading to other states",
+        "Workers and their wages",
+        "Dates and arbitrary labels"
+      ],
+      "correct": 1,
+      "explanation": "Nodes represent states and arcs represent applicable action transitions.",
+      "teaching_locator": "Automated Planning lecture, state-space search",
+      "independent_source_url": "https://artint.info/3e/html/ArtInt3e.Ch6.S2.html",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-143",
+      "module": "AIB",
+      "week": 6,
+      "stem": "A planner finds a valid plan without proving it has minimum total cost. What has been established?",
+      "choices": [
+        "The task is infeasible",
+        "The plan is proven optimal",
+        "A satisficing plan has been found",
+        "The plan is necessarily the most expensive"
+      ],
+      "correct": 2,
+      "explanation": "Satisficing means valid without a proof of cost optimality.",
+      "teaching_locator": "Automated Planning lecture, satisficing search",
+      "independent_source_url": "https://www.fast-downward.org/",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-144",
+      "module": "AIB",
+      "week": 6,
+      "stem": "What is the principal role of a heuristic in state-space planning?",
+      "choices": [
+        "To replace all action preconditions",
+        "To enumerate every future observation",
+        "To guarantee optimality under every search algorithm",
+        "To estimate remaining effort or cost and guide search"
+      ],
+      "correct": 3,
+      "explanation": "Heuristics guide search; optimality depends on the algorithm and heuristic conditions.",
+      "teaching_locator": "Automated Planning lecture, heuristics",
+      "independent_source_url": "https://www.cs.umd.edu/~nau/planning/slides/",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-145",
+      "module": "AIB",
+      "week": 6,
+      "stem": "Tasks A and B must precede C, but neither precedes the other. What does a standard topological sort provide?",
+      "choices": [
+        "A dependency-respecting order, possibly A-B-C or B-A-C",
+        "Proof that A must always precede B",
+        "All possible valid orders in one standard sort result",
+        "An optimized one-worker schedule"
+      ],
+      "correct": 0,
+      "explanation": "One dependency-respecting ordering is returned; it is not resource optimisation or all orderings.",
+      "teaching_locator": "Automated Planning lecture, topological ordering",
+      "independent_source_url": "https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.dag.topological_sort.html",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-146",
+      "module": "AIB",
+      "week": 6,
+      "stem": "What does sampling uncertain task durations from a probability distribution accomplish?",
+      "choices": [
+        "It proves the fastest adaptive policy",
+        "It represents uncertainty without automatically optimizing a contingent policy",
+        "It makes all real-world durations deterministic",
+        "It removes all precedence constraints"
+      ],
+      "correct": 1,
+      "explanation": "Simulation of uncertain outcomes does not by itself prove an optimal adaptive policy.",
+      "teaching_locator": "Automated Planning lecture, probabilistic planning and Pyro",
+      "independent_source_url": "https://artint.info/3e/html/ArtInt3e.Ch12.S5.html",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-147",
+      "module": "AIB",
+      "week": 6,
+      "stem": "How does hierarchical task-network planning refine a complex goal?",
+      "choices": [
+        "It assigns a single random action",
+        "It ignores all dependencies",
+        "It decomposes compound tasks into subtasks until executable actions remain",
+        "It only trains a classifier"
+      ],
+      "correct": 2,
+      "explanation": "HTN planning decomposes compound tasks into subtasks and primitive actions.",
+      "teaching_locator": "Automated Planning lecture, hierarchical planning",
+      "independent_source_url": "https://www.cs.umd.edu/~nau/planning/slides/",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-148",
+      "module": "INN",
+      "week": 3,
+      "stem": "Which scenario best represents complex problem solving in the account of Dörner and Funke (2017)?",
+      "choices": [
+        "A fixed one-step calculation",
+        "An evolving system with interacting variables, incomplete information and competing goals",
+        "A routine task with no feedback",
+        "A task without human judgment"
+      ],
+      "correct": 1,
+      "explanation": "Complexity involves dynamic interdependence, opacity and competing goals.",
+      "teaching_locator": "Dörner and Funke (2017), Innovation reading added 2026-10-15",
+      "independent_source_url": "https://doi.org/10.3389/fpsyg.2017.01153",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    },
+    {
+      "proposed_id": "d4b-149",
+      "module": "INN",
+      "week": 3,
+      "stem": "What do Fahrbach and Fust (2026) propose to support complex-problem-solving expertise?",
+      "choices": [
+        "Memorise a fixed response",
+        "Avoid metacognitive reflection",
+        "Combine planning, monitoring and evaluation with motivational and metacognitive regulation",
+        "Treat a theoretical proposal as proof of universal effectiveness"
+      ],
+      "correct": 2,
+      "explanation": "The paper proposes an SRL conceptual framework, not demonstrated universal efficacy.",
+      "teaching_locator": "Fahrbach and Fust (2026), Innovation reading added 2026-10-15",
+      "independent_source_url": "https://doi.org/10.11588/jddm.2026.1.105968",
+      "course_alignment_status": "supported",
+      "independent_academic_verification": "source-checked",
+      "official_moodle_key_status": "not-checked",
+      "publication_status": "staged-not-published"
+    }
+  ]
+}
