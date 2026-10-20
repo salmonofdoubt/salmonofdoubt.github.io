@@ -14,6 +14,9 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+import html
+import art_google_photos as google_photos
+
 from art_studio_assets import (
     client_asset as studio_client_asset,
     delete_asset as studio_delete_asset,
@@ -285,6 +288,61 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
     def do_GET(self) -> None:
         path = urlparse(self.path).path
 
+        if path == "/api/google-photos/status":
+            self.send_json(200, {"ok": True, **google_photos.public_status()})
+            return
+
+        if path == "/api/google-photos/connect":
+            try:
+                location = google_photos.oauth_start()
+                self.send_response(302)
+                self.send_header("Location", location)
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+            except ValueError as exc:
+                self.send_error(400, str(exc))
+            return
+
+        if path == "/api/google-photos/callback":
+            query = __import__("urllib.parse", fromlist=["parse_qs"]).parse_qs(
+                urlparse(self.path).query)
+            err = (query.get("error") or [""])[0]
+            if err:
+                message, ok = "Google authorization was not completed: " + err, False
+            else:
+                try:
+                    google_photos.oauth_complete(
+                        (query.get("code") or [""])[0],
+                        (query.get("state") or [""])[0])
+                    message, ok = "Google Photos connected. Return to Studio Assets.", True
+                except (ValueError, OSError) as exc:
+                    message, ok = str(exc), False
+            msg = html.escape(message)
+            result = """<!doctype html><meta charset="utf-8"><title>Google Photos connection</title>
+<style>body{font:16px system-ui;background:#100d0a;color:#f1e1c5;padding:3rem}
+a{color:#d4ae6c}</style><h1>Google Photos</h1><p>""" + msg + """</p>
+<p><a href="/art/manage/">Return to ARTS Manager</a></p>"""
+            if ok:
+                result += """<script>if(window.opener){
+window.opener.postMessage({type:"arts-google-photos-connected"},window.location.origin);
+window.close();}</script>"""
+            content = result.encode("utf-8")
+            self.send_response(200 if ok else 400)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Content-Length", str(len(content)))
+            self.end_headers()
+            self.wfile.write(content)
+            return
+
+        if path == "/api/google-photos/poll":
+            try:
+                self.send_json(200, {"ok": True, **google_photos.poll_session()})
+            except (ValueError, OSError) as exc:
+                self.send_json(400, {"ok": False, "error": str(exc)})
+            return
+
         # Deny direct access to local-only material even with percent-encoded
         # hidden path segments. Files can be read only via explicit asset APIs.
         parts = unquote(path).replace("\\", "/").split("/")
@@ -423,6 +481,36 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
         path = urlparse(self.path).path
 
         try:
+            if path in {"/api/google-photos/configure", "/api/google-photos/start",
+                        "/api/google-photos/import", "/api/google-photos/cancel",
+                        "/api/google-photos/disconnect"}:
+                if int(self.headers.get("Content-Length", "0")) > 40 * 1024:
+                    self.send_json(413, {"ok": False, "error": "Request too large"})
+                    return
+                payload = self.read_payload()
+                try:
+                    if path == "/api/google-photos/configure":
+                        result = google_photos.configure(payload)
+                    elif path == "/api/google-photos/start":
+                        result = google_photos.start_session()
+                    elif path == "/api/google-photos/cancel":
+                        google_photos.stop_session()
+                        result = {"message": "Selection cancelled"}
+                    elif path == "/api/google-photos/disconnect":
+                        google_photos.disconnect(revoke=True)
+                        result = {"message": "Google Photos disconnected"}
+                    else:
+                        result = google_photos.import_picked(payload)
+                        if result.get("imported"):
+                            self.save_and_rebuild("Google Photos media imported",
+                                                  {"googlePhotos": result})
+                            return
+                except (ValueError, OSError) as exc:
+                    self.send_json(400, {"ok": False, "error": str(exc)})
+                    return
+                self.send_json(200, {"ok": True, **result})
+                return
+
             if path in {"/api/studio-upload", "/api/studio-update", "/api/studio-delete"}:
                 if int(self.headers.get("Content-Length", "0")) > 35 * 1024 * 1024:
                     self.send_json(413, {"ok": False, "error": "Studio upload exceeds 25 MB"})

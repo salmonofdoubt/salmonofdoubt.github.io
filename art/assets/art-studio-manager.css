@@ -95,3 +95,36 @@
   .studio-panel { padding: .7rem; }
   .studio-asset { grid-template-columns: 82px minmax(0,1fr); }
 }
+
+
+/* Google Photos Picker. Local manager only. */
+.studio-google {
+  margin: .9rem 0; padding: .7rem;
+  border: 1px solid rgba(212,174,108,.42);
+  background: #17110c;
+}
+.studio-google > summary {
+  cursor: pointer; list-style-position: inside;
+  font-weight: 900; color: #fff2d7; padding: .3rem;
+}
+.studio-google-inner { padding: .75rem .25rem .2rem; }
+.studio-google-inner p { line-height: 1.45; font-size: .81rem; }
+.studio-google-inner code {
+  display: block; padding: .6rem; margin: .4rem 0;
+  overflow-wrap: anywhere; border: 1px solid var(--line);
+  background: #070605; color: #6ee7a8;
+}
+.studio-google-inner a { color: var(--gold, #d4ae6c); }
+.studio-google-inner .studio-error { color: #ff7868; }
+.studio-google-picked {
+  display: grid; gap: .35rem; max-height: 240px;
+  overflow-y: auto; margin: .6rem 0;
+}
+.studio-google-picked label {
+  display: flex; gap: .4rem; align-items: center; margin: 0;
+  padding: .35rem; background: #0b0907;
+  overflow-wrap: anywhere; font-weight: 400;
+}
+.studio-google-picked input { flex: 0 0 auto; min-height: 0; }
+.studio-google-picked small { color: var(--muted); }
+.studio-google [hidden] { display: none !important; }
