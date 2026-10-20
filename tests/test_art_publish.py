@@ -128,6 +128,35 @@ class PublishWorkflowTests(unittest.TestCase):
             with self.assertRaisesRegex(publisher.PublishError, "outside the gallery"):
                 publisher.publish_review()
 
+    def test_reverted_unrelated_commit_is_still_blocked(self):
+        self.write("docs/private-plan.txt", "Do not publish")
+        self.git("add", "docs/private-plan.txt")
+        self.git("commit", "-m", "Temporary private notes")
+        self.git("rm", "docs/private-plan.txt")
+        self.git("commit", "-m", "Revert private notes")
+        self.write("art/index.html", "<h1>New gallery</h1>")
+        self.git("add", "art/index.html")
+        self.git("commit", "-m", "Gallery")
+        # Final HEAD diff contains only art/index.html, but both earlier
+        # private-note commits would become public GitHub history.
+        with patch.object(publisher, "origin_sha", return_value=self.base):
+            with self.assertRaisesRegex(publisher.PublishError, "outside the gallery"):
+                publisher.publish_review()
+
+    def test_outgoing_history_discloses_intermediate_public_revisions(self):
+        self.write("art/index.html", "<h1>Intermediate</h1>")
+        self.git("add", "art/index.html")
+        self.git("commit", "-m", "First public site version")
+        self.write("art/index.html", "<h1>Original gallery again</h1>")
+        self.git("add", "art/index.html")
+        self.git("commit", "-m", "Second public site version")
+        with patch.object(publisher, "origin_sha", return_value=self.base):
+            result = publisher.publish_review()
+        self.assertEqual(2, result["ahead"])
+        self.assertEqual(2, len(result["history"]))
+        self.assertIn("Intermediate", result["history"][0]["files"][0]["diff"])
+        self.assertIn("art/index.html", result["files"])
+
     def test_no_unintentional_push_is_run_during_commit(self):
         self.modify()
         with patch.object(publisher, "run_git", wraps=publisher.run_git) as git:
