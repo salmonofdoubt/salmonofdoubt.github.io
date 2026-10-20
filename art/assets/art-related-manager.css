@@ -556,3 +556,20 @@ body.related-selection-active .card { cursor: crosshair; }
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Studio Assets appear as a local-only virtual Room in Relate mode. */
+.studio-room-card .studio-room-file {
+  display: grid;
+  place-items: center;
+  min-height: 155px;
+  background: #17110c;
+  color: #d4ae6c;
+  font: 900 .9rem system-ui,sans-serif;
+  letter-spacing: .12em;
+}
+.studio-room-card { cursor: pointer; }
+.studio-room-card.related-selected {
+  outline: 3px solid #d4ae6c;
+  outline-offset: 1px;
+}
