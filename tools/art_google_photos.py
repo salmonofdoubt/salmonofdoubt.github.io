@@ -68,6 +68,8 @@ def public_status() -> dict:
                           (tok.get("access_token") and tok.get("expires_at", 0) > time.time())),
         "picking": bool(session.get("id")),
         "redirectUri": callback_uri(),
+        "importTargets": ["room", "studio"],
+        "apiVersion": 3,
     }
 
 
