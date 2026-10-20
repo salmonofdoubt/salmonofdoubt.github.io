@@ -213,7 +213,17 @@
         (result.commits || []).map(value=>'<li>'+esc(value)+'</li>').join("") +
         '</ul><p><strong>Complete outgoing public file review:</strong></p>' +
         '<div class="art-publish-files">' + (result.fileDetails || []).map(fileDisplay).join("") + '</div>' +
-        '<p class="art-publish-warning">These exact commits, not just the last saved artwork, will be pushed. ' +
+        '<h4>Commit history audit (including intermediate changes later reverted)</h4>' +
+        (result.history || []).map(commit => '<details class="art-publish-history"><summary>' +
+          esc(commit.sha.slice(0,9)) + ' · ' + esc(commit.title) +
+          ' · ' + commit.files.length + ' file(s)</summary>' +
+          commit.files.map(file => '<div class="art-publish-history-file"><strong>' +
+            esc(file.path) + '</strong>' +
+            (file.binary ? '<p>Binary content changed in this commit. Review the artwork and file path.</p>' :
+              '<pre>' + esc(file.diff || "(no textual changes)") + '</pre>') +
+            (file.truncated ? '<p class="art-publish-warning">Excerpt truncated. Inspect complete history in Git before approving.</p>' : '') +
+            '</div>').join("") + '</details>').join("") +
+        '<p class="art-publish-warning">These exact commits, including earlier file versions, will be pushed. ' +
         'Public GitHub and Pages visibility can differ in timing.</p>';
     }
     publishButton();
