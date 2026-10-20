@@ -1,28 +1,32 @@
-/* Google Photos in the normal published-work Upload action.
-   Shares OAuth + Picker with Studio Assets, but has a separate Room destination. */
+/* Shared Google Photos Picker: exactly one selection, one Upload menu, two destinations. */
 (() => {
   const existing = document.getElementById("newFile");
   if (!existing) return;
   const section = document.createElement("details");
   section.className = "room-google-import";
   section.innerHTML = [
-    '<summary>Choose images from Google Photos</summary>',
+    '<summary>From Google Photos</summary>',
     '<div class="room-google-body">',
     '<p class="room-google-status" id="roomGoogleStatus" role="status">Checking connection…</p>',
     '<div class="room-google-actions">',
     '<button type="button" id="roomGoogleConnect" hidden>Connect Google Photos</button>',
-    '<button type="button" id="roomGoogleSetup" hidden>Set up in Studio Assets</button>',
+    '<button type="button" id="roomGoogleSetup" hidden>Configure Google Photos</button>',
     '<button type="button" class="primary" id="roomGooglePick" hidden>Choose photos</button>',
     '<button type="button" id="roomGoogleCancel" hidden>Cancel selection</button>',
     '</div>',
     '<a id="roomGooglePickerLink" href="#" target="_blank" rel="noopener noreferrer" hidden>Open Google Photos picker</a>',
+    '<div id="roomGoogleConfig" hidden>',
+    '  <p>One-time Google Photos Picker API setup. Google Cloud OAuth Web application redirect URI:</p>',
+    '  <code id="roomGoogleRedirect"></code>',
+    '  <p><a href="https://console.cloud.google.com/auth/clients" target="_blank" rel="noopener noreferrer">Google Cloud OAuth clients</a></p>',
+    '  <label>Client ID <input id="roomGoogleClientId" autocomplete="off" placeholder="…apps.googleusercontent.com"></label>',
+    '  <label>Client Secret <input id="roomGoogleClientSecret" type="password" autocomplete="off" placeholder="Stored only on your Mac"></label>',
+    '  <button type="button" id="roomGoogleConfigure">Save Google configuration locally</button>',
+    '  <button type="button" id="roomGoogleDisconnect">Disconnect Google Photos</button>',
+    '</div>',
     '<div class="room-google-selected" id="roomGoogleSelected"></div>',
-    '<button id="roomGoogleImport" class="primary" type="button" hidden>Add selected images to Room &amp; rebuild</button>',
-    '<p class="room-google-note">Uses the Room, Medium, Subgroup and Caption fields below. ',
-    'For one image, use the Title field. For several images, filenames become titles. ',
-    'Collection/homepage feature options require a single image. ',
-    'Only JPEG, PNG, WebP and GIF can be uploaded as Room artwork. ',
-    'For working photographs or other formats, use Studio Assets instead.</p>',
+    '<button id="roomGoogleImport" class="primary" type="button" hidden>Import selected</button>',
+    '<p class="room-google-note" id="roomGoogleNote">Choose a destination above, then select the photos to import.</p>',
     '</div>'
   ].join("");
   existing.insertAdjacentElement("afterend", section);
@@ -31,12 +35,16 @@
   const escaped = value => String(value == null ? "" : value)
     .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;").replaceAll("'", "&#39;");
-  const eligible = item => ["image/jpeg", "image/png", "image/webp", "image/gif"]
-    .includes(String(item.mimeType || "").toLowerCase());
+  const destination = () => window.artUploadDestination === "studio" ? "studio" : "room";
+  const eligible = item => destination() === "studio"
+    ? /^(image|video)\//.test(String(item.mimeType || "").toLowerCase())
+    : ["image/jpeg", "image/png", "image/webp", "image/gif"]
+        .includes(String(item.mimeType || "").toLowerCase());
   let selected = [];
   let pollTimer = null;
   let polling = false;
   let importing = false;
+  let serverReady = false;
 
   function notice(message, error=false) {
     $("roomGoogleStatus").textContent = message;
