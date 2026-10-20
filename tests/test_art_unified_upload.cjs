@@ -20,6 +20,14 @@ assert.doesNotMatch(studio,/studio-manager-button|studioGooglePick|studioGoogleI
 assert.match(studio,/window.artStudioUpload =/);
 assert.match(studio,/host.appendChild\(dialog\)/);
 assert.match(picker,/\/api\/google-photos\/import-artworks/);
+assert.doesNotMatch(picker,/id="roomGoogleImport"/, "No second Google Photos import button");
+assert.match(picker,/window.artGooglePhotosSelection =/, "Google selection shared with final submit");
+assert.match(picker,/hasPending/, "Google selection remains staged");
+assert.match(picker,/roomGoogleStage/, "Stage cue tells the user when to submit");
+assert.match(markup,/window.artGooglePhotosSelection\?\.hasPending\(\)/, "Public Room submit uses staged Photos");
+assert.match(studio,/window.artGooglePhotosSelection\?\.hasPending\(\)/, "Studio submit uses staged Photos");
+assert.match(picker,/roomButton\.disabled=importing/, "No duplicate work submissions after import");
+
 assert.match(picker,/\/api\/google-photos\/import"/);
 assert.match(picker,/value\.importTargets/);
 assert.match(switcher,/art-upload-destination-changed/);

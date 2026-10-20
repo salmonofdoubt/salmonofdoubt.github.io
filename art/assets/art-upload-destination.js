@@ -26,6 +26,7 @@
       :"Studio Assets: supporting files kept outside public Rooms. They appear only through See related when linked and marked for publication.";
     controls.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.artDestination===next)));
     window.dispatchEvent(new CustomEvent("art-upload-destination-changed",{detail:{destination:next}}));
+    window.artGooglePhotosSelection?.refreshSubmit();
     if(next==="studio") window.dispatchEvent(new Event("art-studio-activate"));
   }
   controls.forEach(button=>button.addEventListener("click",()=>setDestination(button.dataset.artDestination)));

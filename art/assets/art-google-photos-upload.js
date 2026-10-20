@@ -25,7 +25,7 @@
     '  <button type="button" id="roomGoogleDisconnect">Disconnect Google Photos</button>',
     '</div>',
     '<div class="room-google-selected" id="roomGoogleSelected"></div>',
-    '<button id="roomGoogleImport" class="primary" type="button" hidden>Import selected</button>',
+    '<p class="room-google-stage" id="roomGoogleStage" role="status" hidden></p>',
     '<p class="room-google-note" id="roomGoogleNote">Choose a destination above, then select the photos to import.</p>',
     '</div>'
   ].join("");
@@ -76,14 +76,33 @@
     $("roomGoogleConfig").hidden=!!value.configured;
     if(!serverReady){
       notice("Local server is running older Python code. Stop it with Ctrl+C, run git pull origin master, then ./serve.sh and refresh the page.",true);
-      $("roomGoogleImport").disabled=true;
+      updateSaveButtons();
       return;
     }
-    $("roomGoogleImport").disabled=importing;
+    updateSaveButtons();
     notice(value.connected ? "Google Photos connected. Select images for the destination above."
       : value.configured ? "Connect your Google Photos account to continue."
       : "Enter the Google Cloud OAuth client credentials here once.");
     if(value.picking && value.connected && !selected.length) schedulePoll(2);
+  }
+
+  function checkedIds() {
+    return [...$("roomGoogleSelected").querySelectorAll('input[type="checkbox"]:checked')]
+      .map(node=>node.value);
+  }
+
+  function hasPending() {
+    return checkedIds().length > 0;
+  }
+
+  function updateSaveButtons() {
+    const roomButton=document.getElementById("addWork");
+    const studioButton=document.getElementById("studioSave");
+    const macReady=!!document.getElementById("newFile").files.length;
+    if(roomButton) roomButton.disabled=importing || !(macReady || (hasPending() && serverReady));
+    if(studioButton && studioButton.textContent.trim()!=="Save changes") {
+      studioButton.disabled=importing || !(macReady || (hasPending() && serverReady));
+    }
   }
 
   function renderSelection() {
@@ -95,16 +114,24 @@
           '</span><small>'+escaped(item.mimeType)+(eligible(item)?'':' · Not supported for this destination')+
           '</small></label>').join("")
       : "";
-    $("roomGoogleImport").hidden = !selected.some(eligible);
-    $("roomGoogleImport").textContent=room ? "Add selected as Room artworks" : "Add selected to Studio Assets";
+    const hasReady=selected.some(eligible);
+    const message=$("roomGoogleStage");
+    message.hidden=!hasReady;
+    if(hasReady) {
+      message.textContent=room
+        ? "Ready. Enter the artwork details below, then click Add work(s) & rebuild once."
+        : "Ready. Choose associations and visibility below, then click Upload assets once.";
+    }
     $("roomGoogleNote").textContent=room
-      ? "Imports new exhibited works into the Room selected below. Room metadata applies. Only JPEG, PNG, WebP and GIF are supported; feature flags require a single work."
-      : "Saves supporting media outside published Rooms. Artwork associations and visibility are selected under Studio Assets. Only linked, public assets appear when visitors click See related.";
+      ? "Select photos here, then use the Add work(s) & rebuild button below the artwork details. Only JPEG, PNG, WebP and GIF are supported."
+      : "Select photos here, then use Upload assets below the Studio associations. Linked assets appear through See related, not as Room entries.";
     if(room && selected.length===1 && !document.getElementById("newTitle").value.trim()){
       document.getElementById("newTitle").value =
         String(selected[0].filename||"").replace(/\.[^.]+$/,"").replace(/[-_]+/g," ");
     }
+    updateSaveButtons();
   }
+
 
   function schedulePoll(seconds) {
     if(pollTimer) clearTimeout(pollTimer);
@@ -143,6 +170,10 @@
     const popup=window.open("about:blank","artsGooglePhotosPicker");
     try{
       selected=[];
+      document.getElementById("newFile").value="";
+      if(typeof state!=="undefined") state.imageDataUrl="";
+      const preview=document.getElementById("newPreview");
+      if(preview) preview.style.display="none";
       renderSelection();
       const result=await call("/api/google-photos/start",{});
       const uri=String(result.pickerUri||"");
@@ -200,8 +231,8 @@
       };
     }
     importing=true;
-    $("roomGoogleImport").disabled=true;
     $("roomGooglePick").disabled=true;
+    updateSaveButtons();
     notice("Importing "+ids.length+" files into "+(room?"Public Room":"Studio Assets")+"…");
     try{
       const result=await call(path,payload);
@@ -229,6 +260,11 @@
         $("roomGoogleCancel").hidden=true;
       }
       renderSelection();
+      if(room && added.length && !failures.length){
+        ["newTitle","newMedium","newSubgroup","newCaption"].forEach(id=>{
+          document.getElementById(id).value="";
+        });
+      }
       const outcome=(summary.message||added.length+" imported")+
         (failures.length ? ". "+failures.map(f=>(f.filename||"Item")+": "+f.error).join("; ") : "")+
         ". Review and push your generated public changes when ready.";
@@ -242,8 +278,8 @@
       setStatus(message,"bad");
     }finally{
       importing=false;
-      $("roomGoogleImport").disabled=false;
       $("roomGooglePick").disabled=false;
+      updateSaveButtons();
     }
   }
 
@@ -258,6 +294,25 @@
     }catch(error){notice(error.message,true);}
   }
 
+  window.artGooglePhotosSelection = {
+    hasPending,
+    importPending: importToDestination,
+    refreshSubmit: updateSaveButtons
+  };
+  document.getElementById("newFile").addEventListener("change",() => {
+    if(!document.getElementById("newFile").files.length) {
+      updateSaveButtons();
+      return;
+    }
+    if(pollTimer) clearTimeout(pollTimer);
+    selected=[];
+    renderSelection();
+    $("roomGooglePickerLink").hidden=true;
+    $("roomGoogleStage").hidden=true;
+    notice("Mac file selected. Complete the artwork details and press the Add or Upload button.");
+  });
+  $("roomGoogleSelected").addEventListener("change",updateSaveButtons);
+  updateSaveButtons();
   section.addEventListener("toggle",() => {
     if(section.open) status().catch(error=>notice(error.message,true));
     else if(pollTimer)clearTimeout(pollTimer);
@@ -294,7 +349,7 @@
   $("roomGoogleConnect").addEventListener("click",connect);
   $("roomGooglePick").addEventListener("click",choose);
   $("roomGoogleCancel").addEventListener("click",cancel);
-  $("roomGoogleImport").addEventListener("click",importToDestination);
+  // No second import button: final submission is owned by the destination form.
   window.addEventListener("message",event=>{
     if(event.origin===window.location.origin &&
        event.data && event.data.type==="arts-google-photos-connected" &&

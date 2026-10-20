@@ -55,3 +55,6 @@
 }
 .room-google-import a { color: var(--gold,#d4ae6c); font-size: .78rem; }
 .room-google-import [hidden] { display: none !important; }
+
+.room-google-stage { margin:.35rem 0; padding:.55rem; border-left:3px solid #d4ae6c; background:#20180e; color:#fff2d7; font-size:.79rem; }
+.room-google-stage[hidden] { display:none !important; }

@@ -186,3 +186,22 @@ Python server, the interface tells you to stop the local server, pull the
 new version and restart \`./serve.sh\`. Merely refreshing the browser or
 downloading new static JavaScript is not enough to update a running Python
 process.
+
+
+## Final submit behavior (20 October 2026)
+
+Google Photos selection no longer imports immediately. In the single
+Upload menu:
+
+1. Choose **Public Room** or **Studio Assets**.
+2. Select the image(s) using **From Mac** or **From Google Photos**.
+3. Complete the relevant artwork details, or the Studio association/visibility.
+4. Press **Add work(s) & rebuild** for Public Room, or **Upload assets**
+   for Studio Assets. This is the **only** final submit action.
+5. The selected Google Photos session is consumed upon successful import.
+   The submit button becomes unavailable until another file or photo is
+   selected, preventing accidental duplicate additions.
+
+Earlier versions exposed an extra Google Photos import button that
+saved immediately. Existing artwork imports from that earlier behavior
+remain present; the new interface does not import them again automatically.

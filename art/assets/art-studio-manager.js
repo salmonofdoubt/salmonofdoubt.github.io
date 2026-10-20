@@ -141,6 +141,7 @@
     $("studioVisibility").value = "related";
     $("studioFormHeading").textContent = "Add supporting material";
     $("studioSave").textContent = "Upload assets";
+    window.artGooglePhotosSelection?.refreshSubmit();
     $("studioCancelEdit").hidden = true;
     if (!keepLinks) links = new Set(selectedArtwork() ? [selectedArtwork()] : []);
     updatePending();
@@ -159,6 +160,7 @@
     links = new Set(item.artworkIds || []);
     $("studioFormHeading").textContent = "Edit: " + (item.title || item.originalFilename);
     $("studioSave").textContent = "Save changes";
+    $("studioSave").disabled = false;
     $("studioCancelEdit").hidden = false;
     renderArtworkChoices();
     $("studioPending").textContent = "Existing file is preserved. Edit its details and associations here.";
@@ -195,6 +197,11 @@
 
   async function save() {
     if (busy) return;
+    // Keep edits of existing assets intact; importing new Google Photos
+    // uses the same final Upload assets action as files from the Mac.
+    if (!editingId && window.artGooglePhotosSelection?.hasPending()) {
+      return await window.artGooglePhotosSelection.importPending();
+    }
     if (!editingId) files = [...document.getElementById("newFile").files];
     if (!editingId && !files.length) {
       showMessage("Select or drop one or more files first.", true);

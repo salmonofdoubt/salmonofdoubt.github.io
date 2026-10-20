@@ -901,6 +901,11 @@ function readFileAsDataUrl(file) {
 }
 
 async function addWork() {
+  // One final submit for either source. Selected Google Photos do not
+  // become artwork until this same button is pressed.
+  if (window.artGooglePhotosSelection?.hasPending()) {
+    return await window.artGooglePhotosSelection.importPending();
+  }
   const title = document.getElementById("newTitle").value.trim();
 
   if (!state.imageDataUrl) {
@@ -1023,9 +1028,9 @@ init().catch((error) => {
   }());
 </script>
 <script src="../assets/art-related-manager.js?v=20260926-consolidated-1" defer></script>
-<script src="../assets/art-studio-manager.js?v=20261020-unified-1" defer></script>
+<script src="../assets/art-studio-manager.js?v=20261020-final-submit-1" defer></script>
 <script src="../assets/art-upload-destination.js?v=20261020-unified-1" defer></script>
-<script src="../assets/art-google-photos-upload.js?v=20261020-unified-1" defer></script>
+<script src="../assets/art-google-photos-upload.js?v=20261020-final-submit-1" defer></script>
 
   <!-- ART_PWA_START -->
   <button class="art-install-app" type="button" hidden>Install app</button>
