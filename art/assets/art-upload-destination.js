@@ -29,6 +29,21 @@
     if(next==="studio") window.dispatchEvent(new Event("art-studio-activate"));
   }
   controls.forEach(button=>button.addEventListener("click",()=>setDestination(button.dataset.artDestination)));
+  const source=document.getElementById("artUploadSources");
+  source.addEventListener("dragover",event=>{
+    if(!event.dataTransfer || ![...event.dataTransfer.types].includes("Files")) return;
+    event.preventDefault();
+    source.classList.add("dragover");
+  });
+  source.addEventListener("dragleave",()=>source.classList.remove("dragover"));
+  source.addEventListener("drop",event=>{
+    event.preventDefault();
+    source.classList.remove("dragover");
+    if(!event.dataTransfer || !event.dataTransfer.files.length) return;
+    file.files=event.dataTransfer.files;
+    file.dispatchEvent(new Event("change",{bubbles:true}));
+  });
+
   // Avoid stale browser state when returning to the Upload action.
   window.artUploadDestination="room";
   setDestination("room");
