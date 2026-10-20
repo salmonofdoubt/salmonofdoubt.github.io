@@ -12,7 +12,7 @@ import time
 import uuid
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
 from art_studio_assets import (
     client_asset as studio_client_asset,
@@ -284,6 +284,14 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
+
+        # Deny direct access to local-only material even with percent-encoded
+        # hidden path segments. Files can be read only via explicit asset APIs.
+        parts = unquote(path).replace("\\", "/").split("/")
+        if any(part.startswith(".") and part not in {"", ".well-known"}
+               for part in parts):
+            self.send_error(404)
+            return
 
         if path == "/api/studio-assets":
             self.send_json(200, {
