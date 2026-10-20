@@ -1,0 +1,57 @@
+/* Google Photos for public artwork Upload action. */
+.room-google-import {
+  display: block;
+  min-width: 0;
+  margin: .55rem 0;
+  padding: .5rem;
+  border: 1px solid rgba(212,174,108,.4);
+  background: #17110c;
+}
+.room-google-import > summary {
+  font-size: .82rem;
+  line-height: 1.3;
+  color: #fff2d7;
+  font-weight: 900;
+  cursor: pointer;
+}
+.room-google-body {
+  display: grid;
+  gap: .6rem;
+  padding: .7rem .2rem .25rem;
+}
+.room-google-status {
+  margin: 0;
+  color: #6ee7a8;
+  font-size: .78rem;
+  overflow-wrap: anywhere;
+}
+.room-google-status.room-google-error { color: #ff7868; }
+.room-google-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.room-google-actions button,
+#roomGoogleImport { min-height: 34px; font-size: .75rem; }
+.room-google-selected {
+  display: grid;
+  gap: .3rem;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.room-google-selected p,
+.room-google-note { margin: 0; font-size: .73rem; color: var(--muted,#ad9a7b); }
+.room-google-selected label {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  align-items: center;
+  gap: .25rem .5rem;
+  margin: 0;
+  padding: .35rem;
+  border: 1px solid rgba(212,174,108,.22);
+  cursor: pointer;
+  font-size: .78rem;
+}
+.room-google-selected input[type=checkbox] { min-height: 0; }
+.room-google-selected label span { min-width: 0; overflow-wrap: anywhere; }
+.room-google-selected label small {
+  grid-column: 2; color: var(--muted,#ad9a7b);
+}
+.room-google-import a { color: var(--gold,#d4ae6c); font-size: .78rem; }
+.room-google-import [hidden] { display: none !important; }
