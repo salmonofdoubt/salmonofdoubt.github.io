@@ -57,10 +57,6 @@
   let files = [];
   let editingId = null;
   let busy = false;
-  let googleReady = [];
-  let googlePollTimer = null;
-  let googlePolling = false;
-  let googleImportBusy = false;
 
   function showMessage(message, error = false) {
     const node = $("studioMessage");
@@ -139,14 +135,13 @@
   function resetForm(keepLinks = false) {
     editingId = null;
     files = [];
-    $("studioFiles").value = "";
+    document.getElementById("newFile").value = "";
     $("studioTitle").value = "";
     $("studioNote").value = "";
     $("studioVisibility").value = "related";
     $("studioFormHeading").textContent = "Add supporting material";
     $("studioSave").textContent = "Upload assets";
     $("studioCancelEdit").hidden = true;
-    $("studioDrop").hidden = false;
     if (!keepLinks) links = new Set(selectedArtwork() ? [selectedArtwork()] : []);
     updatePending();
     renderArtworkChoices();
@@ -157,7 +152,7 @@
     if (!item) return;
     editingId = id;
     files = [];
-    $("studioFiles").value = "";
+    document.getElementById("newFile").value = "";
     $("studioTitle").value = item.title || "";
     $("studioNote").value = item.note || "";
     $("studioVisibility").value = item.visibility || "private";
@@ -165,7 +160,6 @@
     $("studioFormHeading").textContent = "Edit: " + (item.title || item.originalFilename);
     $("studioSave").textContent = "Save changes";
     $("studioCancelEdit").hidden = false;
-    $("studioDrop").hidden = true;
     renderArtworkChoices();
     $("studioPending").textContent = "Existing file is preserved. Edit its details and associations here.";
     dialog.querySelector(".studio-panel").scrollIntoView({block: "start", behavior: "smooth"});
@@ -201,6 +195,7 @@
 
   async function save() {
     if (busy) return;
+    if (!editingId) files = [...document.getElementById("newFile").files];
     if (!editingId && !files.length) {
       showMessage("Select or drop one or more files first.", true);
       return;
@@ -264,183 +259,6 @@
   }
 
 
-  function googleNotice(message, error=false) {
-    $("studioGoogleStatus").textContent = message;
-    $("studioGoogleStatus").classList.toggle("studio-error", error);
-  }
-
-  async function googleGet(path) {
-    const resp = await fetch(path + "?ts=" + Date.now(), {cache:"no-store"});
-    const result = await resp.json().catch(()=>({}));
-    if (!resp.ok || !result.ok) throw new Error(result.error || "Google Photos request failed");
-    return result;
-  }
-
-  async function googleRefresh() {
-    const status = await googleGet("/api/google-photos/status");
-    $("studioGoogleRedirect").textContent = status.redirectUri;
-    $("studioGoogleConfig").hidden = status.configured;
-    $("studioGoogleConnect").disabled = !status.configured || status.connected;
-    $("studioGooglePick").disabled = !status.connected || googleImportBusy;
-    $("studioGoogleCancel").hidden = !status.picking;
-    $("studioGoogleDisconnect").disabled = !status.connected;
-    googleNotice(status.connected
-      ? "Google Photos connected. Choose images to import into the local Studio Assets library."
-      : status.configured ? "Google Cloud configured. Connect your account to continue."
-        : "One-time Google Cloud setup required before you can use Google Photos.");
-    if (status.connected && status.picking && !googleReady.length && !googlePolling) {
-      scheduleGooglePoll(1);
-    }
-  }
-
-  function scheduleGooglePoll(seconds) {
-    if (googlePollTimer) clearTimeout(googlePollTimer);
-    googlePollTimer = setTimeout(googlePoll, Math.round(1000 * Math.max(2, seconds || 4)));
-  }
-
-  function renderGooglePicked() {
-    const items = googleReady;
-    $("studioGooglePicked").innerHTML = items.length
-      ? '<p><strong>' + items.length + ' selected in Google Photos</strong></p>' +
-        items.map(item =>
-          '<label><input type="checkbox" value="' + escapes(item.id) +
-          '" checked> ' + escapes(item.filename) + ' <small>' +
-          escapes(item.mimeType || "") + '</small></label>'
-        ).join("")
-      : "";
-    $("studioGoogleImport").hidden = !items.length;
-  }
-
-  async function googlePoll() {
-    if (!dialog.open || googlePolling || !googleReady.length && googleImportBusy) return;
-    googlePolling = true;
-    try {
-      const result = await googleGet("/api/google-photos/poll");
-      if (result.ready) {
-        googleReady = result.items || [];
-        renderGooglePicked();
-        googleNotice(googleReady.length
-          ? "Selection ready. Check the items below, then import."
-          : "No photos were selected. You may choose again.");
-        $("studioGoogleCancel").hidden = false;
-      } else {
-        googleNotice("Choose photos in the Google Photos window and press Done there…");
-        scheduleGooglePoll(result.pollAfter || 4);
-      }
-    } catch (error) {
-      googleNotice(error.message, true);
-    } finally {
-      googlePolling = false;
-    }
-  }
-
-  async function googleConfigure() {
-    try {
-      const result = await apiPost("/api/google-photos/configure", {
-        clientId: $("studioGoogleClientId").value,
-        clientSecret: $("studioGoogleClientSecret").value
-      });
-      $("studioGoogleClientSecret").value = "";
-      $("studioGoogleClientId").value = "";
-      $("studioGoogleConfig").hidden = true;
-      googleNotice("Configuration saved locally. Connect your Google account.");
-      await googleRefresh();
-    } catch (error) {
-      googleNotice(error.message, true);
-    }
-  }
-
-  function googleConnect() {
-    // This is a user gesture, so popups aren't blocked by async setup.
-    const popup = window.open("/api/google-photos/connect", "artsGooglePhotosAuth",
-      "width=620,height=740");
-    if (!popup) {
-      googleNotice("Allow popups for localhost to connect Google Photos.", true);
-    } else {
-      googleNotice("Complete Google sign-in in the new window, then return here.");
-    }
-  }
-
-  async function googleStartPicker() {
-    // Reserve a real popup synchronously; otherwise popup blockers interfere.
-    const popup = window.open("about:blank", "artsGooglePhotosPicker");
-    try {
-      googleReady = [];
-      renderGooglePicked();
-      const result = await apiPost("/api/google-photos/start", {});
-      const uri = String(result.pickerUri || "");
-      if (!uri.startsWith("https://photos.google.com/")) {
-        throw new Error("Google returned an unexpected Picker address");
-      }
-      $("studioGooglePickerFallback").href = uri;
-      $("studioGooglePickerFallback").hidden = false;
-      $("studioGoogleCancel").hidden = false;
-      if (popup) popup.location = uri;
-      googleNotice("Select photos in Google Photos and press Done.");
-      scheduleGooglePoll(result.pollAfter || 4);
-    } catch (error) {
-      if (popup) popup.close();
-      googleNotice(error.message, true);
-    }
-  }
-
-  async function googleImport() {
-    if (googleImportBusy) return;
-    const ids = [...$("studioGooglePicked").querySelectorAll('input[type="checkbox"]:checked')]
-      .map(node=>node.value);
-    if (!ids.length) { googleNotice("Tick at least one photo to import.", true); return; }
-    googleImportBusy = true;
-    $("studioGoogleImport").disabled = true;
-    googleNotice("Importing " + ids.length + " selected media files to Studio Assets…");
-    try {
-      const result = await apiPost("/api/google-photos/import", {
-        ids, artworkIds:[...links], visibility: $("studioVisibility").value
-      });
-      const report = result.googlePhotos || result;
-      await loadAssets();
-      const errors = (report.failures || []);
-      if (errors.length) {
-        googleReady = googleReady.filter(item => errors.some(err => err.id === item.id));
-        renderGooglePicked();
-      } else {
-        googleReady = [];
-        renderGooglePicked();
-        $("studioGooglePickerFallback").hidden = true;
-        $("studioGoogleCancel").hidden = true;
-      }
-      googleNotice((report.message || "Import completed") +
-        (errors.length ? ": " + errors.map(e => e.filename + " (" + e.error + ")").join("; ") : "") +
-        ". Existing published artwork relations are unchanged.", !!errors.length);
-    } catch (error) {
-      googleNotice(error.message, true);
-    } finally {
-      googleImportBusy = false;
-      $("studioGoogleImport").disabled = false;
-    }
-  }
-
-  async function googleCancel() {
-    if (googlePollTimer) clearTimeout(googlePollTimer);
-    try {
-      await apiPost("/api/google-photos/cancel", {});
-      googleReady = [];
-      renderGooglePicked();
-      $("studioGooglePickerFallback").hidden = true;
-      await googleRefresh();
-    } catch (error) { googleNotice(error.message, true); }
-  }
-
-  async function googleDisconnect() {
-    if (!window.confirm("Disconnect Google Photos on this Mac? Studio Assets already imported will remain.")) return;
-    try {
-      await apiPost("/api/google-photos/disconnect", {});
-      if (googlePollTimer) clearTimeout(googlePollTimer);
-      googleReady = [];
-      renderGooglePicked();
-      await googleRefresh();
-    } catch (error) { googleNotice(error.message, true); }
-  }
-
   button.addEventListener("click", async () => {
     if (!dialog.open) dialog.showModal();
     links = new Set(selectedArtwork() ? [selectedArtwork()] : []);
@@ -461,7 +279,7 @@
   });
   dialog.querySelector(".studio-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
-  $("studioFiles").addEventListener("change", event => {
+  document.getElementById("newFile").addEventListener("change", event => {
     files = [...event.target.files];
     updatePending();
   });
