@@ -21,14 +21,16 @@ window.D4B_CURRICULUM=Object.freeze({
     "Innovation Systems, Theoretical Strands and Disruption",
     "Solving Complex Problems and Futures Thinking",
     "Futures Thinking Methods",
-    "Behaviour Change, the Adjacent Possible & Creative Thinking"
+    "Behaviour Change, the Adjacent Possible & Creative Thinking",
+    "Site Hopping: Innovation, AI Tools and Critical Evaluation"
   ],
   "DTR": [
     "Digital Transformation: An Overview",
     "Human-centred Digital Transformation and Industry 5.0",
     "AI, Work and Human–AI Teaming",
     "Big Data and Platform Society",
-    "Big Data, AI and the Algorithmic Condition"
+    "Big Data, AI and the Algorithmic Condition",
+    "New Literacies, Participatory Culture and Digital Citizenship"
   ]
 });
 window.D4B_QUESTIONS=Object.freeze([
