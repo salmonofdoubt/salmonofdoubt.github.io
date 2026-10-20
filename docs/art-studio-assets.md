@@ -7,8 +7,8 @@ viewer without editing or migrating the existing related-work groups or referenc
 ## Use
 
 1. From the repository, start ./serve.sh and open http://localhost:8000/art/manage/.
-2. Select an artwork if convenient, then open **Studio Assets** in the manager dock.
-3. Drag/drop or select several files (maximum 25 MB each). Give them optional
+2. Select an artwork if convenient, then open **Upload → Studio Assets**.
+3. Drag/drop or select several files in the shared **From Mac** area (maximum 25 MB each). Give them optional
    titles and notes.
 4. Check one or more artworks in **Associate with artworks**; you may also leave
    assets unassigned and link them later.
@@ -92,7 +92,7 @@ without your explicit selection.
    redirect URI \`http://localhost:8000/api/google-photos/callback\`.
    If running another port, use that port consistently.
 5. Start \`./serve.sh\`, open http://localhost:8000/art/manage/ and
-   select Studio Assets > Import directly from Google Photos. Paste your
+   select Upload > From Google Photos. Paste your
    client ID and secret and click **Save local Google configuration**.
    Secrets and tokens remain under ignored \`.art-private/google-photos/\`;
    never commit this folder.
@@ -162,3 +162,27 @@ gallery pages are committed and pushed.
 
 The Google Photos connection is independent of Github, and uploading one
 photo in either area does not import it into the other automatically.
+
+
+## Unified Upload interface (October 2026)
+
+The previous separate Studio Assets button and its second Google Photos picker
+have been removed. Everything now starts under **Upload**, with two explicit
+destinations:
+
+- **Public Room**: new exhibited works, with Room, medium, subgroup,
+  title, caption and optional feature controls.
+- **Studio Assets**: local supporting files, notes, links to existing works
+  and archive browsing/editing. These files are not exhibited independently.
+
+There is now **one From Mac file selector and one From Google Photos picker**.
+Switch the destination first, then select files. The picker uses the selected
+destination at import time. Existing Studio Assets and all published
+relationships are preserved as they were.
+
+**Server update warning:** The Google Photos API status response now includes
+the available import destinations. If the local browser is newer than the
+Python server, the interface tells you to stop the local server, pull the
+new version and restart \`./serve.sh\`. Merely refreshing the browser or
+downloading new static JavaScript is not enough to update a running Python
+process.
