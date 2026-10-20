@@ -65,27 +65,42 @@
     const response=await fetch("/api/google-photos/status?ts="+Date.now(),{cache:"no-store"});
     const value=await response.json().catch(()=>({}));
     if(!response.ok || !value.ok) throw new Error(value.error || "Photos API unavailable");
-    $("roomGoogleSetup").hidden = value.configured;
-    $("roomGoogleConnect").hidden = !value.configured || value.connected;
-    $("roomGooglePick").hidden = !value.connected;
-    $("roomGooglePick").disabled = importing;
-    $("roomGoogleCancel").hidden = !value.picking;
-    notice(value.connected ? "Google Photos is connected. Choose artwork photographs."
-      : value.configured ? "Connect Google Photos to choose artwork images."
-        : "Complete Google Photos setup in Studio Assets first.");
+    serverReady=Array.isArray(value.importTargets)&&
+       value.importTargets.includes("studio")&&value.importTargets.includes("room");
+    $("roomGoogleRedirect").textContent=value.redirectUri||"http://localhost:8000/api/google-photos/callback";
+    $("roomGoogleSetup").hidden=false;
+    $("roomGoogleConnect").hidden=!value.configured||value.connected;
+    $("roomGooglePick").hidden=!value.connected;
+    $("roomGooglePick").disabled=importing||!serverReady;
+    $("roomGoogleCancel").hidden=!value.picking;
+    $("roomGoogleConfig").hidden=!!value.configured;
+    if(!serverReady){
+      notice("Local server is running older Python code. Stop it with Ctrl+C, run git pull origin master, then ./serve.sh and refresh the page.",true);
+      $("roomGoogleImport").disabled=true;
+      return;
+    }
+    $("roomGoogleImport").disabled=importing;
+    notice(value.connected ? "Google Photos connected. Select images for the destination above."
+      : value.configured ? "Connect your Google Photos account to continue."
+      : "Enter the Google Cloud OAuth client credentials here once.");
     if(value.picking && value.connected && !selected.length) schedulePoll(2);
   }
 
   function renderSelection() {
+    const room=destination()==="room";
     $("roomGoogleSelected").innerHTML = selected.length
       ? '<p>'+selected.length+' selected in Google Photos</p>'+
         selected.map(item => '<label><input type="checkbox" value="'+escaped(item.id)+'"'+
           (eligible(item)?' checked':' disabled')+'><span>'+escaped(item.filename)+
-          '</span><small>'+escaped(item.mimeType)+(eligible(item)?'':' · Unsupported for Room')+
+          '</span><small>'+escaped(item.mimeType)+(eligible(item)?'':' · Not supported for this destination')+
           '</small></label>').join("")
       : "";
     $("roomGoogleImport").hidden = !selected.some(eligible);
-    if(selected.length===1 && !document.getElementById("newTitle").value.trim()){
+    $("roomGoogleImport").textContent=room ? "Add selected as Room artworks" : "Add selected to Studio Assets";
+    $("roomGoogleNote").textContent=room
+      ? "Imports new exhibited works into the Room selected below. Room metadata applies. Only JPEG, PNG, WebP and GIF are supported; feature flags require a single work."
+      : "Saves supporting media outside published Rooms. Artwork associations and visibility are selected under Studio Assets. Only linked, public assets appear when visitors click See related.";
+    if(room && selected.length===1 && !document.getElementById("newTitle").value.trim()){
       document.getElementById("newTitle").value =
         String(selected[0].filename||"").replace(/\.[^.]+$/,"").replace(/[-_]+/g," ");
     }
@@ -106,7 +121,7 @@
       if(value.ready){
         selected=value.items || [];
         renderSelection();
-        notice(selected.length ? "Select the images to publish, then click Add selected images to Room."
+        notice(selected.length ? "Select which images to import into the chosen destination."
           : "No images selected. Choose again.");
       }else{
         notice("Select photos in the Google Photos window and press Done there…");
