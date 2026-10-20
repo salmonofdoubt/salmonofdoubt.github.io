@@ -40,6 +40,7 @@
   padding: 1rem; background: #17110c;
 }
 .studio-drop.studio-dragover { border-color: #6ee7a8; background: #1c211a; }
+.studio-drop[hidden] { display: none; }
 .studio-drop strong { font: 1.15rem Georgia,serif; color: #fff2d7; }
 .studio-drop span, .studio-file-feedback, .studio-warning, .studio-empty {
   color: var(--muted,#ad9a7b); font-size: .77rem;
