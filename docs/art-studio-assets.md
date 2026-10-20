@@ -269,3 +269,62 @@ requires reviewing, committing and pushing the generated files.
 The previous links made in Upload > Studio Assets remain intact; they
 continue to work, but linking via the existing Relate interface is now
 the recommended approach.
+
+
+## Save → Commit → Publish (local Manager)
+
+The local ARTS Manager has a **Save · Commit · Publish** control.
+
+**Save locally** happens when you upload, edit, arrange, hide or link artworks.
+The local gallery is rebuilt, but none of those changes are sent to GitHub.
+
+**Review and commit**:
+
+1. Open **Save · Commit · Publish** in your local Manager.
+2. Select **Refresh review**. The manager lists exactly which *public gallery*
+   files are modified, created or removed. Expand each file to inspect its
+   changed content, public URL, and artwork or related-group metadata.
+3. Other folders and private originals appear only as excluded paths. They
+   are never staged by the tool. If an unrelated file was already staged
+   in Git, the commit is blocked until it is unstaged.
+4. Confirm you've reviewed the files, edit the commit description if wanted,
+   then click **Commit reviewed files locally**.
+5. This operation stages only allowlisted public ARTS output, saves a
+   local Git commit, and **does not push**.
+
+**Review and publish**:
+
+1. Click **Review outgoing commits** after the local commit succeeds.
+2. The manager contacts GitHub to ensure its \`master\` is exactly the
+   remote tracked by your Mac, then lists all outgoing commits and their
+   full public-gallery file paths, content diffs and metadata changes.
+3. If the local branch is behind GitHub, if unrelated commits are ahead,
+   or if further artwork changes are uncommitted, publication is blocked.
+4. Tick the explicit public-disclosure confirmation, type \`PUBLISH\`, and
+   click **Publish reviewed commits to GitHub**.
+5. GitHub must accept the push before the manager reports success. A
+   GitHub Pages deployment may follow asynchronously.
+
+**Safety guarantees and limits**:
+
+- Never uses \`git push --force\`, \`git reset\`, \`git stash\` or an
+  automatic pull. Never commits unpublished working originals from
+  \`.art-private/\` or sensitive Google Photos OAuth credentials.
+- Only approved public gallery paths can be committed or pushed from
+  the Manager. Other changes remain untouched and visible in Git.
+- A review is bound to the exact file contents and existing Git HEAD;
+  changing files after reviewing requires a fresh review.
+- All committed site files are publicly readable through the GitHub
+  repository, **even where a page doesn't link to them**.
+- Large HTML/JSON diffs may display a truncated excerpt: inspect the
+  complete local file using the provided link before approving. Binary
+  photos/files must be reviewed in their local preview.
+- Neither the Manager nor Git publication replaces backups of the
+  original Studio archive in \`.art-private/studio/\`.
+- Publishing is deliberately restricted to the project repository
+  \`salmonofdoubt/salmonofdoubt.github.io\` on branch \`master\`.
+  If the project or branch is moved, review the local security
+  configuration before updating it.
+- The UI cannot guarantee that GitHub Pages has deployed immediately
+  after the push. Publication success is a confirmed GitHub push,
+  not a deployment verification.
