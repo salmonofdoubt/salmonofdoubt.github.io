@@ -209,6 +209,13 @@ def delete_asset(ident: str) -> None:
         target.unlink()
 
 
+def artwork_public_path(value: str) -> str:
+    value = str(value or "").strip()
+    if not value or value.startswith(("http://", "https://", "/")):
+        return value
+    return "/art/" + value.lstrip("/")
+
+
 def build_public_studio() -> dict:
     # GitHub builds don't have the ignored local store. Never overwrite a
     # previously published projection when the source index is absent.
@@ -258,8 +265,8 @@ def build_public_studio() -> dict:
                      "title": artwork.get("title") or "Untitled",
                      "collection": artwork.get("collection") or "",
                      "medium": artwork.get("medium") or "",
-                     "image": "/art/" + str(artwork.get("image") or "").lstrip("/"),
-                     "thumb": "/art/" + str(artwork.get("thumb") or artwork.get("image") or "").lstrip("/"),
+                     "image": artwork_public_path(artwork.get("image")),
+                     "thumb": artwork_public_path(artwork.get("thumb") or artwork.get("image")),
                      "alt": artwork.get("alt") or artwork.get("title") or "Artwork"},
                     *members,
                 ],
