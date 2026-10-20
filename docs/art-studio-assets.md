@@ -205,3 +205,33 @@ Upload menu:
 Earlier versions exposed an extra Google Photos import button that
 saved immediately. Existing artwork imports from that earlier behavior
 remain present; the new interface does not import them again automatically.
+
+
+## Bulk-link existing Studio Assets to published artworks
+
+From **Upload → Studio Assets**, choose the target painting or drawing in
+the main manager. If it is not checked in the left-hand **Associate with
+artworks** list, click **Use selected artwork** or tick it manually.
+
+In **Asset library**, tick any number of asset thumbnails, or click
+**Select all matching** to select the filtered library in one step.
+The selection survives filtering and searching. The toolbar reports the
+number of selected assets and shows the target artwork(s).
+
+Click **Link selected assets to checked artwork(s)**. This makes one
+atomic update to all selected assets, preserving every previously linked
+artwork. Nothing gets uploaded again. The gallery is rebuilt once.
+
+To remove only the target association from the chosen assets, use
+**Unlink from checked artwork(s)**, which asks for confirmation. Other
+associations remain.
+
+**Privacy:** Bulk linking leaves each file's public/private status intact.
+Private originals stay private unless you explicitly tick
+**Also make previously private files visible in See related**. Selecting
+that checkbox intentionally exposes eligible files in the generated
+public site once the changes are committed and pushed. Unsupported file
+types cannot be published.
+
+These actions never change existing published artwork-to-artwork
+relationships or the historical related-public.json.
