@@ -195,6 +195,11 @@
 
   async function save() {
     if (busy) return;
+    // Keep edits of existing assets intact; importing new Google Photos
+    // uses the same final Upload assets action as files from the Mac.
+    if (!editingId && window.artGooglePhotosSelection?.hasPending()) {
+      return await window.artGooglePhotosSelection.importPending();
+    }
     if (!editingId) files = [...document.getElementById("newFile").files];
     if (!editingId && !files.length) {
       showMessage("Select or drop one or more files first.", true);
