@@ -1,0 +1,46 @@
+/* Single Upload menu, two destinations. */
+.action-menu:has(#unifiedUploadPopover) #unifiedUploadPopover {
+  width: min(900px, calc(100vw - 2rem));
+  right: 0;
+  left: auto;
+  transform: none;
+}
+#unifiedUploadPopover .art-upload-destinations {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: .6rem 0;
+}
+#unifiedUploadPopover .art-upload-destinations button {
+  border-radius: 9px; font-weight: 900; padding: .65rem .4rem;
+}
+#unifiedUploadPopover .art-upload-destinations button[aria-pressed="true"] {
+  background: #3d2e19; border-color: #d4ae6c; color: #fff2d7;
+}
+#unifiedUploadPopover .art-upload-hint {
+  margin: .3rem 0 .75rem; color: var(--muted); font-size: .83rem;
+}
+#unifiedUploadPopover .art-upload-sources {
+  border: 1px dashed rgba(212,174,108,.4);
+  padding: .6rem; margin: .45rem 0;
+}
+#unifiedUploadPopover .art-upload-sources.dragover {
+  border-color: #6ee7a8; background: #1c211a;
+}
+#studioUploadPanel[hidden], #uploadRoomFields[hidden] { display: none !important; }
+#unifiedUploadPopover .studio-dialog.studio-embedded {
+  display: block; width: 100%; max-width: 100%; max-height: none;
+  padding: 0; margin: 0; border: none; background: transparent; position: static;
+}
+#unifiedUploadPopover .studio-embedded .studio-inner {
+  max-height: none; padding: .25rem 0; overflow: visible;
+}
+#unifiedUploadPopover .studio-embedded h2 {font-size: 1.8rem;}
+#unifiedUploadPopover .studio-embedded .studio-layout {gap: .5rem;}
+#unifiedUploadPopover .studio-embedded .studio-panel {padding: .65rem;}
+#unifiedUploadPopover .studio-embedded .studio-list {max-height: 350px;}
+#unifiedUploadPopover .room-google-import {margin: .7rem 0;}
+#unifiedUploadPopover .room-google-import[hidden] {display:none;}
+@media (max-width: 760px) {
+  .action-menu:has(#unifiedUploadPopover) #unifiedUploadPopover {
+    width: calc(100vw - 2rem); right: 0;
+  }
+  #unifiedUploadPopover .studio-embedded .studio-layout {grid-template-columns: 1fr;}
+}
