@@ -141,6 +141,7 @@
     $("studioVisibility").value = "related";
     $("studioFormHeading").textContent = "Add supporting material";
     $("studioSave").textContent = "Upload assets";
+    window.artGooglePhotosSelection?.refreshSubmit();
     $("studioCancelEdit").hidden = true;
     if (!keepLinks) links = new Set(selectedArtwork() ? [selectedArtwork()] : []);
     updatePending();
@@ -159,6 +160,7 @@
     links = new Set(item.artworkIds || []);
     $("studioFormHeading").textContent = "Edit: " + (item.title || item.originalFilename);
     $("studioSave").textContent = "Save changes";
+    $("studioSave").disabled = false;
     $("studioCancelEdit").hidden = false;
     renderArtworkChoices();
     $("studioPending").textContent = "Existing file is preserved. Edit its details and associations here.";
