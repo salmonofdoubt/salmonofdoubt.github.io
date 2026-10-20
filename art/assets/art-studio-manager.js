@@ -1,57 +1,20 @@
 /* STUDIO_ASSETS_V1: independent local archive; no changes to related groups. */
 (() => {
-  const dock = document.querySelector(".action-menus") || document.querySelector(".toolbar");
-  if (!dock) return;
+  const host = document.getElementById("studioUploadPanel");
+  if (!host) return;
 
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "studio-manager-button";
-  button.textContent = "Studio Assets";
-  dock.appendChild(button);
-
-  const dialog = document.createElement("dialog");
-  dialog.className = "studio-dialog";
+  const dialog = document.createElement("div");
+  dialog.className = "studio-dialog studio-embedded";
   dialog.setAttribute("aria-label", "Studio Assets");
   dialog.innerHTML = [
     '<div class="studio-inner">',
-    '  <button type="button" class="studio-close" aria-label="Close">×</button>',
     '  <p class="micro">Local archive · not a published Room</p>',
     '  <h2>Studio Assets</h2>',
     '  <p class="studio-subtitle">Upload working sketches, reference material, underpaintings, documents and other files. Link any asset to one or more published artworks without creating a new Room entry.</p>',
     '  <div class="studio-layout">',
     '    <section class="studio-panel">',
     '      <h3 id="studioFormHeading">Add supporting material</h3>',
-    '      <div class="studio-drop" id="studioDrop" tabindex="0">',
-    '        <strong>Drop files here</strong>',
-    '        <span>or select files from your computer · maximum 25 MB each</span>',
-    '        <input id="studioFiles" type="file" multiple aria-label="Select studio files">',
-    '      </div>',
     '      <div class="studio-file-feedback" id="studioPending">No files selected.</div>',
-    '      <details class="studio-google" id="studioGooglePanel">',
-    '        <summary>Import directly from Google Photos</summary>',
-    '        <div class="studio-google-inner">',
-    '          <p id="studioGoogleStatus" role="status">Checking connection…</p>',
-    '          <div id="studioGoogleConfig" hidden>',
-    '            <p>One-time setup: enable <strong>Google Photos Picker API</strong> in Google Cloud, create an <strong>OAuth Web application</strong> and add this authorized redirect URI:</p>',
-    '            <code id="studioGoogleRedirect"></code>',
-    '            <p><a href="https://console.cloud.google.com/apis/library" target="_blank" rel="noopener noreferrer">Open Google Cloud API Library</a> · <a href="https://console.cloud.google.com/auth/clients" target="_blank" rel="noopener noreferrer">OAuth clients</a></p>',
-    '            <label>OAuth Client ID <input id="studioGoogleClientId" autocomplete="off" placeholder="…apps.googleusercontent.com"></label>',
-    '            <label>OAuth Client Secret <input id="studioGoogleClientSecret" type="password" autocomplete="off" placeholder="Stored locally, never in GitHub"></label>',
-    '            <button type="button" id="studioGoogleConfigure">Save local Google configuration</button>',
-    '          </div>',
-    '          <div class="studio-mini-actions" id="studioGoogleControls">',
-    '            <button type="button" id="studioGoogleConnect">Connect Google Photos</button>',
-    '            <button type="button" class="primary" id="studioGooglePick">Choose photos</button>',
-    '            <button type="button" id="studioGoogleCancel" hidden>Cancel selection</button>',
-    '            <button type="button" id="studioGoogleDisconnect">Disconnect</button>',
-    '            <button type="button" id="studioGoogleSetup">Change configuration</button>',
-    '          </div>',
-    '          <a id="studioGooglePickerFallback" href="#" target="_blank" rel="noopener noreferrer" hidden>Open Google Photos picker</a>',
-    '          <div class="studio-google-picked" id="studioGooglePicked"></div>',
-    '          <button type="button" class="primary" id="studioGoogleImport" hidden>Import selected into Studio Assets</button>',
-    '          <p class="studio-warning">Imported files use the artwork links and visibility selected below. They are not new artworks or independent Room entries. Original Google Photos remain unchanged.</p>',
-    '        </div>',
-    '      </details>',
     '      <label>Title <input id="studioTitle" placeholder="Optional: uses the filename for batch uploads"></label>',
     '      <label>Note <textarea id="studioNote" rows="3" placeholder="Stage, context, source, date…"></textarea></label>',
     '      <label>Visibility <select id="studioVisibility">',
@@ -81,7 +44,7 @@
     '  </div>',
     '</div>'
   ].join("");
-  document.body.appendChild(dialog);
+  host.appendChild(dialog);
 
   const $ = id => dialog.querySelector("#" + id);
   const escapes = value => String(value == null ? "" : value)
