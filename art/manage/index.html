@@ -967,7 +967,10 @@ document.getElementById("addWork").addEventListener("click", () => addWork().cat
     if (!file) return;
 
     if (window.artUploadDestination === "studio") {
-      state.imageDataUrl = "";\n      return;\n    }\n    state.imageDataUrl = await readFileAsDataUrl(file);
+      state.imageDataUrl = "";
+      return;
+    }
+    state.imageDataUrl = await readFileAsDataUrl(file);
 
     const preview = document.getElementById("newPreview");
     preview.src = state.imageDataUrl;
