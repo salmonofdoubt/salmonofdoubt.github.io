@@ -901,6 +901,11 @@ function readFileAsDataUrl(file) {
 }
 
 async function addWork() {
+  // One final submit for either source. Selected Google Photos do not
+  // become artwork until this same button is pressed.
+  if (window.artGooglePhotosSelection?.hasPending()) {
+    return await window.artGooglePhotosSelection.importPending();
+  }
   const title = document.getElementById("newTitle").value.trim();
 
   if (!state.imageDataUrl) {
