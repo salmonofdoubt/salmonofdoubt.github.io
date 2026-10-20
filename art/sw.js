@@ -1,4 +1,4 @@
-const CACHE_NAME = "diandre-art-v13-upload-submit";
+const CACHE_NAME = "diandre-art-v14-studio-bulk-link";
 
 const CORE_ASSETS = [
   "/art/",

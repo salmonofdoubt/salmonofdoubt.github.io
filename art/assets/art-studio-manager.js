@@ -39,6 +39,19 @@
     '      <div class="studio-library-heading"><h3>Asset library</h3><span id="studioCount"></span></div>',
     '      <input id="studioAssetSearch" placeholder="Search assets and file names…">',
     '      <label class="studio-filter"><input id="studioOnlySelected" type="checkbox"> Only assets linked to selected artwork</label>',
+    '      <div class="studio-bulk-toolbar" aria-label="Bulk Studio Asset associations">',
+    '        <div class="studio-bulk-count" id="studioBulkCount" role="status">0 assets selected</div>',
+    '        <div class="studio-mini-actions">',
+    '          <button type="button" id="studioSelectVisible">Select all matching</button>',
+    '          <button type="button" id="studioClearSelected">Clear selection</button>',
+    '        </div>',
+    '        <p class="studio-bulk-target" id="studioBulkTarget">Tick target artwork(s) on the left.</p>',
+    '        <label class="studio-bulk-publish"><input type="checkbox" id="studioBulkPublish"> Also make previously private files visible in See related</label>',
+    '        <div class="studio-mini-actions">',
+    '          <button type="button" class="primary" id="studioBulkLink" disabled>Link selected assets to checked artwork(s)</button>',
+    '          <button type="button" id="studioBulkUnlink" disabled>Unlink from checked artwork(s)</button>',
+    '        </div>',
+    '      </div>',
     '      <div class="studio-list" id="studioList"></div>',
     '    </section>',
     '  </div>',
@@ -57,6 +70,8 @@
   let files = [];
   let editingId = null;
   let busy = false;
+  const selectedAssetIds = new Set();
+  let filteredAssetIds = [];
 
   function showMessage(message, error = false) {
     const node = $("studioMessage");
@@ -82,6 +97,7 @@
       input.addEventListener("change", () => {
         if (input.checked) links.add(input.value);
         else links.delete(input.value);
+        renderBulkToolbar();
       });
     });
   }
@@ -93,6 +109,23 @@
     }).join(", ");
   }
 
+  function renderBulkToolbar() {
+    const n=selectedAssetIds.size;
+    const targetNames=[...links].map(id=>{
+      const item=artworks.find(work=>work.id===id);
+      return item ? item.title : id;
+    });
+    $("studioBulkCount").textContent=n+" asset"+(n===1?"":"s")+" selected";
+    $("studioBulkTarget").textContent=targetNames.length
+      ? "Link to: "+targetNames.join(", ")
+      : "Choose target artwork(s) from the checklist on the left.";
+    const enabled=!!n && !!targetNames.length && !busy;
+    $("studioBulkLink").disabled=!enabled;
+    $("studioBulkUnlink").disabled=!enabled;
+    $("studioSelectVisible").disabled=!filteredAssetIds.length || busy;
+    $("studioClearSelected").disabled=!n || busy;
+  }
+
   function renderLibrary() {
     const search = $("studioAssetSearch").value.toLowerCase().trim();
     const id = selectedArtwork();
@@ -100,6 +133,10 @@
       (!$("studioOnlySelected").checked || (id && (item.artworkIds || []).includes(id))) &&
       [item.title, item.originalFilename, item.note, labelForAsset(item)]
         .join(" ").toLowerCase().includes(search));
+    filteredAssetIds=filtered.map(item=>item.id);
+    for(const id of selectedAssetIds){
+      if(!assets.some(asset=>asset.id===id))selectedAssetIds.delete(id);
+    }
     $("studioCount").textContent = String(assets.length) + " stored";
     $("studioList").innerHTML = filtered.map(item => {
       const preview = item.mime.startsWith("image/") &&
@@ -110,6 +147,10 @@
       const status = item.visibility === "private" ? "Private" :
         !labels ? "Unassigned · not publicly visible" : "See related";
       return '<article class="studio-asset" data-id="' + escapes(item.id) + '">' +
+        '<label class="studio-asset-select" title="Select this asset for bulk linking">' +
+        '<input type="checkbox" data-bulk-asset="' + escapes(item.id) + '"' +
+        (selectedAssetIds.has(item.id)?' checked':'') +
+        ' aria-label="Select ' + escapes(item.title) + ' for bulk linking"><span>Select</span></label>' +
         '<div class="studio-preview">' + preview + '</div>' +
         '<div class="studio-asset-info"><strong>' + escapes(item.title) + '</strong>' +
         '<small>' + escapes(item.originalFilename) + '</small>' +
@@ -124,6 +165,47 @@
       node.addEventListener("click", () => startEdit(node.dataset.edit)));
     $("studioList").querySelectorAll("[data-delete]").forEach(node =>
       node.addEventListener("click", () => deleteItem(node.dataset.delete)));
+    $("studioList").querySelectorAll("[data-bulk-asset]").forEach(node =>
+      node.addEventListener("change", () => {
+        if(node.checked) selectedAssetIds.add(node.dataset.bulkAsset);
+        else selectedAssetIds.delete(node.dataset.bulkAsset);
+        renderBulkToolbar();
+      }));
+    renderBulkToolbar();
+  }
+
+  async function bulkAssociate(action) {
+    if(busy) return;
+    const chosen=[...selectedAssetIds];
+    const targetArtworks=[...links];
+    if(!chosen.length || !targetArtworks.length){
+      showMessage("Select Studio files on the right and target artworks on the left.",true);
+      return;
+    }
+    const makeRelated=action==="add" && $("studioBulkPublish").checked;
+    if(action==="remove" &&
+      !window.confirm("Unlink "+chosen.length+" selected Studio Assets from "+
+                      targetArtworks.length+" artwork(s)? Other links remain."))return;
+    busy=true;
+    renderBulkToolbar();
+    try{
+      const response=await apiPost("/api/studio-bulk-link",{
+        assetIds:chosen, artworkIds:targetArtworks, action, makeRelated
+      });
+      // All validation and the entire metadata update occur in one server request.
+      const outcome=response.bulk || {};
+      selectedAssetIds.clear();
+      $("studioBulkPublish").checked=false;
+      await loadAssets();
+      showMessage((outcome.changedCount ?? chosen.length)+" of "+chosen.length+
+        " Studio Assets updated. Existing artwork relationships retained. "+
+        "Commit and push generated public changes to publish See related.");
+    }catch(error){
+      showMessage(error.message,true);
+    }finally{
+      busy=false;
+      renderBulkToolbar();
+    }
   }
 
   function updatePending() {
@@ -301,11 +383,22 @@
   $("studioUseSelected").addEventListener("click", () => {
     if (selectedArtwork()) links.add(selectedArtwork());
     renderArtworkChoices();
+    renderBulkToolbar();
   });
-  $("studioClearLinks").addEventListener("click", () => { links.clear(); renderArtworkChoices(); });
+  $("studioClearLinks").addEventListener("click", () => { links.clear(); renderArtworkChoices(); renderBulkToolbar(); });
   $("studioArtworkSearch").addEventListener("input", renderArtworkChoices);
   $("studioAssetSearch").addEventListener("input", renderLibrary);
   $("studioOnlySelected").addEventListener("change", renderLibrary);
+  $("studioSelectVisible").addEventListener("click", () => {
+    filteredAssetIds.forEach(id=>selectedAssetIds.add(id));
+    renderLibrary();
+  });
+  $("studioClearSelected").addEventListener("click", () => {
+    selectedAssetIds.clear();
+    renderLibrary();
+  });
+  $("studioBulkLink").addEventListener("click", () => bulkAssociate("add"));
+  $("studioBulkUnlink").addEventListener("click", () => bulkAssociate("remove"));
   $("studioSave").addEventListener("click", save);
   $("studioCancelEdit").addEventListener("click", () => resetForm());
 })();

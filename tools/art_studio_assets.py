@@ -197,6 +197,70 @@ def update_asset(payload: dict) -> dict:
     return item
 
 
+
+def bulk_link_assets(payload: dict) -> dict:
+    """Atomically add/remove artwork links for multiple Studio Assets.
+
+    Do not replace any pre-existing links. Do not alter legacy related groups.
+    Privacy is unchanged unless the user expressly opts into public visibility.
+    Validation completes before any metadata is written.
+    """
+    raw_assets = payload.get("assetIds")
+    if not isinstance(raw_assets, list) or not (1 <= len(raw_assets) <= 500):
+        raise ValueError("Select between 1 and 500 Studio Assets")
+    asset_ids = []
+    for value in raw_assets:
+        if not isinstance(value, str) or not value.startswith("asset-"):
+            raise ValueError("Invalid Studio Asset ID")
+        if value not in asset_ids:
+            asset_ids.append(value)
+
+    work_ids = normalise_links(payload.get("artworkIds"))
+    if not work_ids:
+        raise ValueError("Select at least one target artwork")
+
+    action = str(payload.get("action") or "add")
+    if action not in {"add", "remove"}:
+        raise ValueError("Action must be add or remove")
+    public = payload.get("makeRelated", False)
+    if not isinstance(public, bool):
+        raise ValueError("makeRelated must be true or false")
+    if action != "add" and public:
+        raise ValueError("Cannot publish assets during unlink")
+
+    index = load_assets()
+    by_id = {entry.get("id"): entry for entry in index["assets"]}
+    missing = [ident for ident in asset_ids if ident not in by_id]
+    if missing:
+        raise ValueError("Unknown Studio Asset ID: " + missing[0])
+
+    if public:
+        for ident in asset_ids:
+            asset = by_id[ident]
+            if extension(asset.get("originalFilename") or "") not in PUBLIC_EXTENSIONS:
+                raise ValueError("File type cannot be published: " +
+                                 str(asset.get("originalFilename") or ident))
+            if file_for_asset(asset) is None:
+                raise ValueError("Missing local asset file: " + ident)
+
+    changed = 0
+    # Applying changes to index does not persist anything until write_json.
+    for ident in asset_ids:
+        asset = by_id[ident]
+        before = list(asset.get("artworkIds") or [])
+        previously_private = asset.get("visibility") != "related"
+        if action == "add":
+            asset["artworkIds"] = before + [work for work in work_ids if work not in before]
+            if public:
+                asset["visibility"] = "related"
+        else:
+            asset["artworkIds"] = [work for work in before if work not in work_ids]
+        if asset["artworkIds"] != before or (public and previously_private):
+            changed += 1
+    write_json(INDEX, index, backup=True)
+    return {"selectedCount": len(asset_ids), "changedCount": changed,
+            "artworkIds": work_ids, "action": action, "madePublic": public}
+
 def delete_asset(ident: str) -> None:
     index = load_assets()
     item = next((a for a in index["assets"] if a.get("id") == ident), None)

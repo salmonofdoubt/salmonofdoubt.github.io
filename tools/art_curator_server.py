@@ -18,6 +18,7 @@ import html
 import art_google_photos as google_photos
 
 from art_studio_assets import (
+    bulk_link_assets as studio_bulk_link_assets,
     client_asset as studio_client_asset,
     delete_asset as studio_delete_asset,
     file_for_asset as studio_file_for_asset,
@@ -536,6 +537,20 @@ window.close();}</script>"""
                     self.send_json(400, {"ok": False, "error": str(exc)})
                     return
                 self.send_json(200, {"ok": True, **result})
+                return
+
+            if path == "/api/studio-bulk-link":
+                if int(self.headers.get("Content-Length", "0")) > 100 * 1024:
+                    self.send_json(413, {"ok": False, "error": "Bulk request too large"})
+                    return
+                payload = self.read_payload()
+                try:
+                    outcome = studio_bulk_link_assets(payload)
+                except ValueError as exc:
+                    self.send_json(400, {"ok": False, "error": str(exc)})
+                    return
+                self.save_and_rebuild("Studio Asset associations updated",
+                                      {"bulk": outcome})
                 return
 
             if path in {"/api/studio-upload", "/api/studio-update", "/api/studio-delete"}:
