@@ -650,6 +650,7 @@
         .filter((member) => member.kind === "artwork")
         .map((member) => member.id)
     );
+    relation.selectedStudioIds = new Set(relation.arrangedMembers.filter(m => m.kind === "studio").map(m => m.id));
     relation.activeSelection = true;
     closeDialog(arrangeDialog);
     renderSelection();
@@ -884,6 +885,19 @@
 
     const title = titleInput.value.trim() || "Related works";
     const members = relation.arrangedMembers.map(normalizeMember);
+    const privateStudio = members
+      .filter(m => m.kind === "studio")
+      .map(m => studioAsset(m.id))
+      .filter(item => item && item.visibility !== "related");
+    let makeStudioPublic = false;
+    if (privateStudio.length) {
+      makeStudioPublic = window.confirm(
+        privateStudio.length + " Studio Asset(s) are private.\n\n" +
+        "Click OK to make them publicly visible ONLY through this Related group " +
+        "(once committed and pushed). Cancel to stop without changing anything."
+      );
+      if (!makeStudioPublic) return;
+    }
     let allowDuplicate = false;
 
     if (!relation.editingGroupId) {
@@ -906,7 +920,8 @@
         groupId: relation.editingGroupId,
         title,
         members,
-        allowDuplicate
+        allowDuplicate,
+        makeStudioPublic
       });
 
       relation.groups = (result.related && result.related.groups) || [];
@@ -914,6 +929,7 @@
       relation.editingTitle = "";
       relation.arrangedMembers = [];
       relation.selectedArtworkIds = new Set();
+      relation.selectedStudioIds = new Set();
       relation.activeSelection = false;
 
       closeDialog(arrangeDialog);
@@ -934,6 +950,7 @@
             const result = await apiPost("/api/save-related-group", {
               title,
               members,
+              makeStudioPublic,
               allowDuplicate: true
             });
 
@@ -941,6 +958,7 @@
             relation.editingGroupId = null;
             relation.arrangedMembers = [];
             relation.selectedArtworkIds = new Set();
+            relation.selectedStudioIds = new Set();
             relation.activeSelection = false;
             closeDialog(arrangeDialog);
             updateRelateButton();
