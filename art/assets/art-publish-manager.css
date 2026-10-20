@@ -59,3 +59,10 @@
   .art-publish-phase {padding:.55rem;}
   .art-publish-file > summary {gap:.3rem;}
 }
+
+.art-publish-history { border:1px solid #4a3922; padding:.45rem;margin:.5rem 0;background:#100c08; }
+.art-publish-history summary { cursor:pointer;overflow-wrap:anywhere;font-weight:700;color:#efce97;font-size:.83rem; }
+.art-publish-history-file {padding:.6rem;border-top:1px solid #473720;overflow-wrap:anywhere;margin-top:.35rem; }
+.art-publish-history-file strong {font-size:.78rem;}
+.art-publish-history-file pre {padding:.5rem;white-space:pre-wrap;overflow-wrap:anywhere;
+  max-height:270px;overflow-y:auto;background:#050403;font: .73rem/1.35 ui-monospace,monospace;}
