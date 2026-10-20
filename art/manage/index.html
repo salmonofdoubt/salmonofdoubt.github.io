@@ -452,8 +452,9 @@
   }
 </style>
 <link rel="stylesheet" href="../assets/art-related-manager.css?v=20260926-consolidated-1">
-<link rel="stylesheet" href="../assets/art-studio-manager.css?v=20261020-photos-1">
+<link rel="stylesheet" href="../assets/art-studio-manager.css?v=20261020-unified-1">
 <link rel="stylesheet" href="../assets/art-google-photos-upload.css?v=20261020-room-1">
+<link rel="stylesheet" href="../assets/art-unified-upload.css?v=20261020-unified-1">
 
   <!-- ART_PWA_START -->
   <link rel="manifest" href="/art/manifest.webmanifest">
@@ -541,36 +542,36 @@
         </div>
       </details>
 
-      <details class="action-menu">
+      <details class="action-menu" id="unifiedUploadMenu">
         <summary>Upload</summary>
-        <div class="action-popover">
+        <div class="action-popover" id="unifiedUploadPopover">
           <section class="box">
-            <h2>
-              Upload new work(s)
-              <span class="batch-upload-note">
-                Select several files to add a batch with the same category and medium.
-              </span>
-            </h2>
-            <div class="form-grid">
-              <input id="newFile" type="file" accept="image/*" multiple>
-              <img id="newPreview" class="preview" alt="">
-              <input id="newTitle" placeholder="Title">
-              <select id="newCollection"></select>
-              <input id="newMedium" placeholder="Medium">
-              <input id="newSubgroup" placeholder="Subgroup">
-              <textarea id="newCaption" placeholder="Caption"></textarea>
-              <div class="checks">
-                <label>
-                  <input id="makeCollectionFeature" type="checkbox">
-                  collection feature
-                </label>
-                <label>
-                  <input id="makeHomepageHero" type="checkbox">
-                  homepage hero
-                </label>
-              </div>
-              <button class="primary" id="addWork">Add work(s) & rebuild</button>
+            <h2>Upload to ARTS</h2>
+            <div class="art-upload-destinations" role="group" aria-label="Upload destination">
+              <button type="button" data-art-destination="room" aria-pressed="true">Public Room</button>
+              <button type="button" data-art-destination="studio" aria-pressed="false">Studio Assets</button>
             </div>
+            <p class="art-upload-hint" id="artUploadHint">New artwork, independently exhibited in a public Room.</p>
+            <div class="form-grid art-upload-sources" id="artUploadSources">
+              <label for="newFile">From Mac · choose one or more files</label>
+              <input id="newFile" type="file" accept="image/*" multiple>
+            </div>
+            <div id="uploadRoomFields">
+              <div class="form-grid">
+                <img id="newPreview" class="preview" alt="">
+                <input id="newTitle" placeholder="Title">
+                <select id="newCollection" aria-label="Public Room"></select>
+                <input id="newMedium" placeholder="Medium">
+                <input id="newSubgroup" placeholder="Subgroup">
+                <textarea id="newCaption" placeholder="Caption"></textarea>
+                <div class="checks">
+                  <label><input id="makeCollectionFeature" type="checkbox"> collection feature</label>
+                  <label><input id="makeHomepageHero" type="checkbox"> homepage hero</label>
+                </div>
+                <button class="primary" id="addWork">Add work(s) &amp; rebuild</button>
+              </div>
+            </div>
+            <div id="studioUploadPanel" hidden></div>
           </section>
         </div>
       </details>
@@ -965,6 +966,10 @@ document.getElementById("addWork").addEventListener("click", () => addWork().cat
     const file = event.target.files && event.target.files[0];
     if (!file) return;
 
+    if (window.artUploadDestination === "studio") {
+      state.imageDataUrl = "";
+      return;
+    }
     state.imageDataUrl = await readFileAsDataUrl(file);
 
     const preview = document.getElementById("newPreview");
@@ -1018,8 +1023,9 @@ init().catch((error) => {
   }());
 </script>
 <script src="../assets/art-related-manager.js?v=20260926-consolidated-1" defer></script>
-<script src="../assets/art-studio-manager.js?v=20261020-photos-1" defer></script>
-<script src="../assets/art-google-photos-upload.js?v=20261020-room-1" defer></script>
+<script src="../assets/art-studio-manager.js?v=20261020-unified-1" defer></script>
+<script src="../assets/art-upload-destination.js?v=20261020-unified-1" defer></script>
+<script src="../assets/art-google-photos-upload.js?v=20261020-unified-1" defer></script>
 
   <!-- ART_PWA_START -->
   <button class="art-install-app" type="button" hidden>Install app</button>
