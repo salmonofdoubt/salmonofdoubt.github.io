@@ -71,3 +71,62 @@ corresponding public blobs removed from the commit too.
 
 The public data is independent; restoring the local metadata index and original
 blobs is necessary for full local archive editability on a new machine.
+
+
+## Google Photos direct import
+
+Studio Assets now contains **Import directly from Google Photos**, using Google's
+official **Google Photos Picker API**. It does not browse your Photos library
+without your explicit selection.
+
+### One-time configuration
+
+1. Go to https://console.cloud.google.com/ and choose/create a project.
+2. In APIs & Services > Library, enable **Google Photos Picker API**
+   (not the unrelated "Google Picker API").
+3. Configure Google Auth Platform > Branding and Audience. In Testing
+   mode, add your Google account as a test user. Google may require
+   app verification if you later make this available to other people.
+4. Create an **OAuth 2.0 Web application** client in Google Auth Platform >
+   Clients. Authorize JavaScript origin \`http://localhost:8000\` and
+   redirect URI \`http://localhost:8000/api/google-photos/callback\`.
+   If running another port, use that port consistently.
+5. Start \`./serve.sh\`, open http://localhost:8000/art/manage/ and
+   select Studio Assets > Import directly from Google Photos. Paste your
+   client ID and secret and click **Save local Google configuration**.
+   Secrets and tokens remain under ignored \`.art-private/google-photos/\`;
+   never commit this folder.
+6. Click **Connect Google Photos** and complete Google authorization in
+   the pop-up. This is a separate authorization from Google Drive.
+
+### Day-to-day use
+
+1. Select a work and/or check artwork associations under Studio Assets.
+2. Set visibility to **See related** or **Keep local**.
+3. Choose photos, use Google Photos to select up to 50 photos or videos, and
+   press **Done** in Google Photos.
+4. Back in Studio Assets, untick unwanted items and click **Import selected**.
+   The selected bytes are copied to local Studio Assets and associated with
+   the checked artworks, without changing previously published relations.
+5. Each file must fit the existing 25 MB limit. A failed import is reported.
+   Successfully imported files remain in the local archive, with Google
+   Photos originals untouched.
+6. To publish visible assets, review and commit
+   \`art/data/studio-related.json\` and \`art/assets/studio/\` as usual.
+
+### Limitations and privacy
+
+- Images use Google's \`=d\` original-image download (minus location metadata);
+  videos use \`=dv\` (high quality transcoded format). Video formats may exceed
+  the current Studio Assets limit.
+- The selected media URL normally remains usable for about 60 minutes; import
+  soon after picking. Photos API access is limited to the selected media.
+- Google OAuth testing-mode refresh tokens may expire; reconnect as necessary.
+- Disconnect clears the local token but never deletes imported artworks or assets.
+- Google API client credentials cannot be created automatically by this program.
+  OAuth setup is a one-time action in your Google Cloud account.
+- Live importing requires that setup and your explicit Google consent.
+  Local regression tests use simulated Google responses, not your Photos data.
+
+Official docs: https://developers.google.com/photos/picker/guides/get-started-picker
+and https://developers.google.com/photos/picker/guides/media-items .
