@@ -360,3 +360,83 @@ def import_picked(payload: dict) -> dict:
         stop_session()
     return {"imported": success, "failures": failures,
             "message": str(len(success)) + " imported, " + str(len(failures)) + " failed" }
+
+
+# MAIN_GALLERY_PHOTOS_IMPORT_V1
+# Import selected Photos as new published artwork records rather than Studio Assets.
+# Keep this code separate from import_picked(), which is intentionally archival.
+GALLERY_IMAGE_MIMES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
+
+
+def import_picked_artworks(payload: dict, create_artwork) -> dict:
+    """Download selected Google Photos and invoke the existing artwork creator.
+
+    The caller persists the returned artwork records to artworks.json and
+    performs a single gallery rebuild. No existing artworks or relationship
+    records are changed by this function.
+    """
+    session_id = require_session()
+    session = picker_call("/sessions/" + urllib.parse.quote(session_id, safe=""))
+    if not session.get("mediaItemsSet"):
+        raise ValueError("Finish selecting your photos in Google Photos first")
+
+    wanted = payload.get("ids")
+    if (not isinstance(wanted, list) or not wanted or len(wanted) > 50 or
+            any(not isinstance(identifier, str) or not identifier for identifier in wanted)):
+        raise ValueError("Select between 1 and 50 Google Photos images")
+
+    chosen = {str(obj.get("id")): obj for obj in selected_items(session_id)}
+    unique = list(dict.fromkeys(wanted))
+    # A "feature" selector must never silently choose a winner in a batch.
+    if len(unique) != 1 and (payload.get("makeCollectionFeature") or payload.get("makeHomepageHero")):
+        raise ValueError("Feature selection is available for a single image only")
+
+    collection = str(payload.get("collection") or "").strip()
+    if not collection:
+        raise ValueError("Choose the artwork's Room")
+    title_for_one = str(payload.get("title") or "").strip()
+    imported, failures = [], []
+
+    for media_id in unique:
+        item = chosen.get(media_id)
+        if item is None:
+            failures.append({"id": media_id, "error": "Not in this Google Photos selection"})
+            continue
+        media_file = item.get("mediaFile") or {}
+        mime = str(media_file.get("mimeType") or "").lower()
+        filename = Path(str(media_file.get("filename") or "").replace("\\", "/")).name
+        if mime not in GALLERY_IMAGE_MIMES:
+            failures.append({"id": media_id, "filename": filename,
+                             "error": "This Room upload accepts JPEG, PNG, WebP or GIF images only. Videos and HEIC can go into Studio Assets."})
+            continue
+        if not filename:
+            filename = "google-photo-" + secrets.token_hex(5)
+        title = (title_for_one if len(unique) == 1 and title_for_one else
+                 re.sub(r"[-_]+", " ", Path(filename).stem).strip() or "Google Photos artwork")
+        try:
+            media_url = google_media_url(str(media_file.get("baseUrl") or ""), False)
+            data = download_media(media_url)
+            record = create_artwork({
+                "imageDataUrl": "data:" + mime + ";base64," +
+                                base64.b64encode(data).decode("ascii"),
+                "title": title, "collection": collection,
+                "medium": str(payload.get("medium") or "").strip() or collection,
+                "subgroup": str(payload.get("subgroup") or "").strip() or "Other",
+                "alt": title,
+                "text": str(payload.get("text") or "").strip(),
+                "reading": str(payload.get("text") or "").strip(),
+            })
+            record["source"] = "Google Photos import"
+            imported.append(record)
+        except (ValueError, urllib.error.URLError, OSError) as exc:
+            failures.append({"id": media_id, "filename": filename, "error": str(exc)[:250]})
+
+    # If one import failed, allow the user to retry through the current picker.
+    if not failures:
+        stop_session()
+    return {
+        "imported": imported,
+        "failures": failures,
+        "message": str(len(imported)) + " artwork(s) imported, " +
+                   str(len(failures)) + " failed",
+    }
