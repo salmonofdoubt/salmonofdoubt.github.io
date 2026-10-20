@@ -1,4 +1,4 @@
-const CACHE_NAME = "diandre-art-v15-studio-relate-room";
+const CACHE_NAME = "diandre-art-v16-review-commit-publish";
 
 const CORE_ASSETS = [
   "/art/",
