@@ -166,6 +166,7 @@
     </div>
     <div class="related-selection-actions">
       <button class="primary" id="openRelatedArrange" type="button">Arrange selected</button>
+      <button id="showStudioRoomForRelate" type="button">Studio Assets</button>
       <button id="clearRelatedSelection" type="button">Clear</button>
       <button id="cancelRelatedSelection" type="button">Cancel</button>
     </div>
@@ -1183,6 +1184,11 @@
   });
 
   document.getElementById("openRelatedArrange").addEventListener("click", openArrangeFromSelection);
+  document.getElementById("showStudioRoomForRelate").addEventListener("click", () => {
+    const select = document.getElementById("collectionFilter");
+    select.value = "Studio Assets";
+    select.dispatchEvent(new Event("change"));
+  });
 
   document.getElementById("clearRelatedSelection").addEventListener("click", () => {
     relation.selectedArtworkIds.clear();
