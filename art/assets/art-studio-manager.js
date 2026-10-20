@@ -274,6 +274,9 @@
     const payload = await response.json();
     if (!payload.ok) throw new Error(payload.error || "Could not load Studio Assets");
     assets = payload.assets || [];
+    if(typeof state !== "undefined") state.studioAssets = assets;
+    if (document.getElementById("collectionFilter")?.value === "Studio Assets" &&
+        typeof render === "function") render();
     renderLibrary();
   }
 

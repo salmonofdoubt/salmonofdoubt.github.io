@@ -15,6 +15,19 @@ assert.equal((markup.match(/id="newFile"/g)||[]).length,1,"One Mac file input");
 assert.equal((markup.match(/id="studioUploadPanel"/g)||[]).length,1,"Studio lives under Upload");
 assert.match(markup,/data-art-destination="room"/);
 assert.match(markup,/data-art-destination="studio"/);
+assert.match(markup,/populateSelect\("collectionFilter", \["All", \.\.\.collections, "Studio Assets"\]/,
+  "Studio Assets appears as manager-only Room");
+const relatedManager=p("art/assets/art-related-manager.js");
+const relatedBackend=p("tools/art_related.py");
+assert.match(relatedManager,/selectedStudioIds/, "Relate selector retains Studio Asset selections");
+assert.match(relatedManager,/showStudioRoomForRelate/, "Relate toolbar opens secret Studio Room");
+assert.match(relatedManager,/kind === "studio"/, "Mixed groups carry Studio members");
+assert.match(relatedBackend,/KINDS = \{"artwork", "reference", "studio"\}/,
+  "Canonical relation schema supports Studio members");
+assert.match(relatedBackend,/make_studio_public/, "Explicit publication consent supported");
+assert.doesNotMatch(p("tools/build_art_gallery_static.py"),/COLLECTIONS\.append\([^)]*Studio Assets/,
+  "Studio is not a public collection");
+
 assert.match(markup,/id="unifiedUploadMenu"/);
 assert.doesNotMatch(studio,/studio-manager-button|studioGooglePick|studioGoogleImport|showModal/);
 assert.match(studio,/window.artStudioUpload =/);

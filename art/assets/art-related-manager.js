@@ -13,6 +13,7 @@
     references: [],
     activeSelection: false,
     selectedArtworkIds: new Set(),
+    selectedStudioIds: new Set(),
     arrangedMembers: [],
     editingGroupId: null,
     editingTitle: "",
@@ -37,6 +38,15 @@
 
   function artwork(id) {
     return state.artworks.find((item) => item.id === id) || null;
+  }
+
+  function studioAsset(id) {
+    return (state.studioAssets || []).find(item => item.id === id) || null;
+  }
+
+  function studioImage(item) {
+    return item && item.hasFile && /\.(jpg|jpeg|png|webp|gif|avif)$/i.test(item.originalFilename || "")
+      ? item.localUrl : "";
   }
 
   function reference(id) {
@@ -119,6 +129,7 @@
 
     relation.groups = (groupsResult.related && groupsResult.related.groups) || [];
     relation.references = referencesResult.references || [];
+    if (typeof loadStudioRoom === "function") await loadStudioRoom();
 
     updateRelateButton();
     decorateCards();
@@ -155,6 +166,7 @@
     </div>
     <div class="related-selection-actions">
       <button class="primary" id="openRelatedArrange" type="button">Arrange selected</button>
+      <button id="showStudioRoomForRelate" type="button">Studio Assets</button>
       <button id="clearRelatedSelection" type="button">Clear</button>
       <button id="cancelRelatedSelection" type="button">Cancel</button>
     </div>
@@ -314,6 +326,12 @@
             : "";
         }
 
+        if (member.kind === "studio") {
+          const asset = studioAsset(member.id);
+          const src = studioImage(asset);
+          return src ? `<img src="${escapeHtml(src)}" alt="" loading="lazy">`
+            : '<span class="reference-no-image">Studio</span>';
+        }
         const item = reference(member.id);
         const src = referenceImage(item);
         return src
@@ -374,8 +392,10 @@
       groupList.innerHTML = groups.map((group) => {
         const members = (group.members || []).map(normalizeMember);
         const refs = members.filter((member) => member.kind === "reference").length;
+        const studioCount = members.filter(member => member.kind === "studio").length;
         const descriptor = `${members.length} ${members.length === 1 ? "member" : "members"}`
-          + (refs ? ` · ${refs} ${refs === 1 ? "reference" : "references"}` : "");
+          + (refs ? ` · ${refs} ${refs === 1 ? "reference" : "references"}` : "")
+          + (studioCount ? ` · ${studioCount} Studio Assets` : "");
 
         return `
           <article class="related-group-card" data-group-id="${escapeHtml(group.id)}">
@@ -510,7 +530,8 @@
     grid.querySelectorAll(".card").forEach((card) => {
       card.querySelectorAll(".related-membership-badge").forEach((badge) => badge.remove());
 
-      const groups = groupsForArtwork(card.dataset.id);
+      const isStudio = card.dataset.kind === "studio";
+      const groups = isStudio ? relation.groups.filter(group => (group.members || []).some(member => normalizeMember(member).kind === "studio" && normalizeMember(member).id === card.dataset.id)) : groupsForArtwork(card.dataset.id);
       if (groups.length) {
         const badge = document.createElement("button");
         badge.type = "button";
@@ -533,7 +554,7 @@
 
       card.classList.toggle(
         "related-selected",
-        relation.activeSelection && relation.selectedArtworkIds.has(card.dataset.id)
+        relation.activeSelection && (isStudio ? relation.selectedStudioIds.has(card.dataset.id) : relation.selectedArtworkIds.has(card.dataset.id))
       );
     });
   }
@@ -544,17 +565,18 @@
     document.body.classList.toggle("related-selection-active", relation.activeSelection);
 
     const ids = [...relation.selectedArtworkIds];
+    const studios = [...relation.selectedStudioIds];
     const count = document.getElementById("relatedSelectionCount");
     const tags = document.getElementById("relatedSelectionTags");
     const arrangeButton = document.getElementById("openRelatedArrange");
     const instruction = document.getElementById("relatedSelectionInstruction");
 
-    count.textContent = `${ids.length} ${ids.length === 1 ? "work" : "works"} selected`;
+    count.textContent = `${ids.length} artwork(s), ${studios.length} Studio Asset(s) selected`;
     arrangeButton.disabled = ids.length < 1;
 
     instruction.textContent = relation.editingGroupId
-      ? "Add or remove artworks. References already in the group are preserved."
-      : "Select one or more artworks. You can add references in the arrangement step.";
+      ? "Select published works or Studio Assets from any Room. Existing members remain selected."
+      : "Select artworks, then switch to Studio Assets to select studies or photographs.";
 
     tags.innerHTML = ids.map((id) => {
       const item = artwork(id);
@@ -565,7 +587,19 @@
           <button type="button" data-unselect-related="${escapeHtml(id)}" aria-label="Remove ${escapeHtml(title)}">×</button>
         </span>
       `;
+    }).join("") + studios.map((id) => {
+      const item = studioAsset(id);
+      const title = item ? item.title : id;
+      return `<span class="related-selection-tag"><span>Studio · ${escapeHtml(title)}</span>
+        <button type="button" data-unselect-studio="${escapeHtml(id)}" aria-label="Remove ${escapeHtml(title)}">×</button></span>`;
     }).join("");
+
+    tags.querySelectorAll("[data-unselect-studio]").forEach(button => {
+      button.addEventListener("click", () => {
+        relation.selectedStudioIds.delete(button.dataset.unselectStudio);
+        renderSelection();
+      });
+    });
 
     tags.querySelectorAll("[data-unselect-related]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -583,7 +617,8 @@
     relation.editingGroupId = null;
     relation.editingTitle = "";
     relation.arrangedMembers = [];
-    relation.selectedArtworkIds = new Set();
+    relation.selectedArtworkIds = new Set(state.selectedId && artwork(state.selectedId) ? [state.selectedId] : []);
+    relation.selectedStudioIds = new Set();
     relation.activeSelection = true;
     renderSelection();
   }
@@ -600,6 +635,7 @@
         .filter((member) => member.kind === "artwork")
         .map((member) => member.id)
     );
+    relation.selectedStudioIds = new Set(relation.arrangedMembers.filter(member => member.kind === "studio").map(member => member.id));
     relation.activeSelection = false;
 
     closeDialog(workspace);
@@ -615,6 +651,7 @@
         .filter((member) => member.kind === "artwork")
         .map((member) => member.id)
     );
+    relation.selectedStudioIds = new Set(relation.arrangedMembers.filter(m => m.kind === "studio").map(m => m.id));
     relation.activeSelection = true;
     closeDialog(arrangeDialog);
     renderSelection();
@@ -622,10 +659,12 @@
 
   function reconcileArtworkSelectionIntoArrangement() {
     const selectedIds = [...relation.selectedArtworkIds];
+    const selectedStudioIds = [...relation.selectedStudioIds];
 
     if (relation.arrangedMembers.length) {
       const kept = relation.arrangedMembers.filter((member) => {
         if (member.kind === "reference") return true;
+        if (member.kind === "studio") return relation.selectedStudioIds.has(member.id);
         return relation.selectedArtworkIds.has(member.id);
       });
 
@@ -637,9 +676,11 @@
         .filter((id) => !existingArtworkIds.has(id))
         .forEach((id) => kept.push({kind: "artwork", id}));
 
+      selectedStudioIds.filter(id => !kept.some(member => member.kind === "studio" && member.id === id))
+        .forEach(id => kept.push({kind: "studio", id}));
       relation.arrangedMembers = kept;
     } else {
-      relation.arrangedMembers = selectedIds.map((id) => ({kind: "artwork", id}));
+      relation.arrangedMembers = [...selectedIds.map(id => ({kind: "artwork", id})), ...selectedStudioIds.map(id => ({kind: "studio", id}))];
     }
   }
 
@@ -681,11 +722,8 @@
 
   function removeArranged(index) {
     relation.arrangedMembers.splice(index, 1);
-    relation.selectedArtworkIds = new Set(
-      relation.arrangedMembers
-        .filter((member) => member.kind === "artwork")
-        .map((member) => member.id)
-    );
+    relation.selectedArtworkIds = new Set(relation.arrangedMembers.filter(member => member.kind === "artwork").map(member => member.id));
+    relation.selectedStudioIds = new Set(relation.arrangedMembers.filter(member => member.kind === "studio").map(member => member.id));
     renderArrangeFrame();
   }
 
@@ -736,6 +774,19 @@
           </div>
         </article>
       `;
+    }
+
+    if (member.kind === "studio") {
+      const item = studioAsset(member.id);
+      if (!item) return "";
+      const src = studioImage(item);
+      return `<article class="related-arrange-item reference-member" draggable="true" data-member-key="${escapeHtml(memberKey(member))}">
+        <div class="related-arrange-number">${index+1}</div>
+        <div class="related-arrange-kind">Studio Asset</div>
+        <div class="related-arrange-media">${src ? `<img src="${escapeHtml(src)}" alt="">` : '<div class="reference-no-image">Supporting file</div>'}</div>
+        <div class="related-arrange-copy"><strong>${escapeHtml(item.title || item.originalFilename)}</strong>
+        <small>${escapeHtml(item.visibility === "private" ? "Private" : "See related")}</small>
+        ${arrangeControls(index)}</div></article>`;
     }
 
     const item = reference(member.id);
@@ -835,6 +886,19 @@
 
     const title = titleInput.value.trim() || "Related works";
     const members = relation.arrangedMembers.map(normalizeMember);
+    const privateStudio = members
+      .filter(m => m.kind === "studio")
+      .map(m => studioAsset(m.id))
+      .filter(item => item && item.visibility !== "related");
+    let makeStudioPublic = false;
+    if (privateStudio.length) {
+      makeStudioPublic = window.confirm(
+        privateStudio.length + " Studio Asset(s) are private.\n\n" +
+        "Click OK to make them publicly visible ONLY through this Related group " +
+        "(once committed and pushed). Cancel to stop without changing anything."
+      );
+      if (!makeStudioPublic) return;
+    }
     let allowDuplicate = false;
 
     if (!relation.editingGroupId) {
@@ -857,7 +921,8 @@
         groupId: relation.editingGroupId,
         title,
         members,
-        allowDuplicate
+        allowDuplicate,
+        makeStudioPublic
       });
 
       relation.groups = (result.related && result.related.groups) || [];
@@ -865,6 +930,7 @@
       relation.editingTitle = "";
       relation.arrangedMembers = [];
       relation.selectedArtworkIds = new Set();
+      relation.selectedStudioIds = new Set();
       relation.activeSelection = false;
 
       closeDialog(arrangeDialog);
@@ -885,6 +951,7 @@
             const result = await apiPost("/api/save-related-group", {
               title,
               members,
+              makeStudioPublic,
               allowDuplicate: true
             });
 
@@ -892,6 +959,7 @@
             relation.editingGroupId = null;
             relation.arrangedMembers = [];
             relation.selectedArtworkIds = new Set();
+            relation.selectedStudioIds = new Set();
             relation.activeSelection = false;
             closeDialog(arrangeDialog);
             updateRelateButton();
@@ -1058,8 +1126,13 @@
     event.stopPropagation();
 
     const id = card.dataset.id;
-    if (relation.selectedArtworkIds.has(id)) relation.selectedArtworkIds.delete(id);
-    else relation.selectedArtworkIds.add(id);
+    if (card.dataset.kind === "studio") {
+      if (relation.selectedStudioIds.has(id)) relation.selectedStudioIds.delete(id);
+      else relation.selectedStudioIds.add(id);
+    } else {
+      if (relation.selectedArtworkIds.has(id)) relation.selectedArtworkIds.delete(id);
+      else relation.selectedArtworkIds.add(id);
+    }
 
     renderSelection();
   }, true);
@@ -1111,15 +1184,22 @@
   });
 
   document.getElementById("openRelatedArrange").addEventListener("click", openArrangeFromSelection);
+  document.getElementById("showStudioRoomForRelate").addEventListener("click", () => {
+    const select = document.getElementById("collectionFilter");
+    select.value = "Studio Assets";
+    select.dispatchEvent(new Event("change"));
+  });
 
   document.getElementById("clearRelatedSelection").addEventListener("click", () => {
     relation.selectedArtworkIds.clear();
+    relation.selectedStudioIds.clear();
     renderSelection();
   });
 
   document.getElementById("cancelRelatedSelection").addEventListener("click", () => {
     relation.activeSelection = false;
     relation.selectedArtworkIds.clear();
+    relation.selectedStudioIds.clear();
     relation.editingGroupId = null;
     relation.editingTitle = "";
     relation.arrangedMembers = [];

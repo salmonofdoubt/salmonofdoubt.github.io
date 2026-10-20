@@ -802,6 +802,7 @@ window.close();}</script>"""
                         str(payload.get("title") or "").strip() or "Related works",
                         payload.get("members") if payload.get("members") is not None else payload.get("orderedIds") or [],
                         bool(payload.get("allowDuplicate")),
+                        bool(payload.get("makeStudioPublic")),
                     )
                 except KeyError as exc:
                     self.send_json(404,{"ok":False,"error":str(exc).strip("'")})
@@ -818,8 +819,7 @@ window.close();}</script>"""
                     })
                     return
 
-                self.send_json(200,{
-                    "ok":True,
+                self.save_and_rebuild("Related group saved", {
                     "group":group,
                     "related":{"version":2,"groups":master.get("sets",[])},
                 })

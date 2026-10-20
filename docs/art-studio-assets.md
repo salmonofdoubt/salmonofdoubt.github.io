@@ -235,3 +235,37 @@ types cannot be published.
 
 These actions never change existing published artwork-to-artwork
 relationships or the historical related-public.json.
+
+
+## Studio Assets as a secret Room in Relate
+
+**This is the intended primary association workflow**:
+
+1. Select the finished painting or drawing in the local ARTS Manager.
+2. Click **Relate** and choose **New related group** (or edit an existing one).
+   The selected published artwork is preselected when creating a group.
+3. While Relate selection is active, use the **Studio Assets** shortcut
+   or choose **Studio Assets** from the existing Room filter.
+4. Select as many sketches, underpaintings, process photographs or other
+   Studio Assets as needed, exactly as you select works in Drawings or
+   Oil Paintings. The mixed selection survives switching Room filters.
+5. Choose **Arrange selected**, order the materials and **Save group**.
+
+Studio Assets is a **virtual local Room** for Relate and the local manager.
+It is **never** an independent published Room and does not appear in public
+collection navigation or as a standalone artwork card.
+
+The original related group structure now supports member kind \`studio\`
+alongside \`artwork\` and \`reference\`. Existing groups and relationships
+are preserved. Studio groups use the same ordered See related viewer as
+published works, with each supporting file labelled appropriately.
+
+Private Studio files require an explicit confirmation before a Relate
+group can publish them. Cancel stops saving without changing privacy.
+Published Studio material is only accessible in the public See related
+context (though the underlying file URL is public). Publication still
+requires reviewing, committing and pushing the generated files.
+
+The previous links made in Upload > Studio Assets remain intact; they
+continue to work, but linking via the existing Relate interface is now
+the recommended approach.

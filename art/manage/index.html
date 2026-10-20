@@ -451,7 +451,7 @@
     }
   }
 </style>
-<link rel="stylesheet" href="../assets/art-related-manager.css?v=20260926-consolidated-1">
+<link rel="stylesheet" href="../assets/art-related-manager.css?v=20261020-studio-room-1">
 <link rel="stylesheet" href="../assets/art-studio-manager.css?v=20261020-bulk-link-1">
 <link rel="stylesheet" href="../assets/art-google-photos-upload.css?v=20261020-room-1">
 <link rel="stylesheet" href="../assets/art-unified-upload.css?v=20261020-unified-1">
@@ -592,6 +592,7 @@ let draggedArtworkId = null;
 const state = {
   artworks: [],
   selectedId: null,
+  studioAssets: [],
   imageDataUrl: "",
   curation: {
     homepageHero: {},
@@ -673,6 +674,15 @@ async function loadArtworks() {
   state.artworks = data.artworks || [];
 }
 
+async function loadStudioRoom() {
+  const response = await fetch("/api/studio-assets?ts=" + Date.now(), {cache: "no-store"});
+  if (!response.ok) throw new Error("Local Studio Assets API is not running");
+  const payload = await response.json();
+  if (!payload.ok) throw new Error(payload.error || "Could not load Studio Assets");
+  state.studioAssets = payload.assets || [];
+  if (document.getElementById("collectionFilter").value === "Studio Assets") render();
+}
+
 async function loadCuration() {
   try {
     const response = await fetch("../data/art-curation.json?ts=" + Date.now());
@@ -713,6 +723,30 @@ function render() {
   const collectionFilter = document.getElementById("collectionFilter").value;
   const statusFilter = document.getElementById("statusFilter").value;
   const query = document.getElementById("search").value.trim().toLowerCase();
+
+  if (collectionFilter === "Studio Assets") {
+    const entries = (state.studioAssets || []).filter((asset) =>
+      !query || [asset.title, asset.note, asset.originalFilename].join(" ").toLowerCase().includes(query)
+    );
+    grid.innerHTML = entries.map((asset) => {
+      const preview = asset.mime && /^image\//.test(asset.mime) &&
+        /\.(jpe?g|png|webp|gif|avif)$/i.test(asset.originalFilename || "")
+        ? `<img src="${escapeHtml(asset.localUrl)}" alt="${escapeHtml(asset.title || "")}" loading="lazy">`
+        : `<div class="studio-room-file">FILE</div>`;
+      return `<article class="card studio-room-card" data-kind="studio" data-id="${escapeHtml(asset.id)}">
+        ${preview}
+        <div><strong>${escapeHtml(asset.title || asset.originalFilename)}</strong>
+        <span>STUDIO ASSETS · ${escapeHtml(asset.visibility === "private" ? "PRIVATE" : "SUPPORTING")}</span></div>
+      </article>`;
+    }).join("") || '<p class="hint">No Studio Assets here yet. Add them under Upload → Studio Assets.</p>';
+    grid.querySelectorAll(".studio-room-card").forEach(card => {
+      card.addEventListener("click", () => {
+        if (document.body.classList.contains("related-selection-active")) return;
+        setStatus("Studio Asset selected for viewing. Use Relate to associate it with a published artwork.");
+      });
+    });
+    return;
+  }
 
   const visible = state.artworks.filter((item) => {
     const status = item.status || "active";
@@ -886,6 +920,7 @@ async function hideWork() {
   await postJson("/api/hide-artwork", {id: item.id});
   await loadArtworks();
   await loadCuration();
+  await loadStudioRoom();
   fillForm(selectedItem());
   render();
   setStatus("Hidden and rebuilt. Refresh /art/.", "good");
@@ -950,7 +985,7 @@ async function addWork() {
 }
 
 async function init() {
-  populateSelect("collectionFilter", ["All", ...collections]);
+  populateSelect("collectionFilter", ["All", ...collections, "Studio Assets"]);
   populateSelect("collection", collections);
   populateSelect("newCollection", collections);
 
@@ -959,7 +994,11 @@ async function init() {
   await loadArtworks();
   await loadCuration();
 
-  document.getElementById("collectionFilter").addEventListener("change", render);
+  document.getElementById("collectionFilter").addEventListener("change", () => {
+    if (document.getElementById("collectionFilter").value === "Studio Assets") {
+      loadStudioRoom().catch((error) => setStatus(error.message, "bad"));
+    } else render();
+  });
   document.getElementById("statusFilter").addEventListener("change", render);
   document.getElementById("search").addEventListener("input", render);
   document.getElementById("saveFeature").addEventListener("click", () => saveFeature().catch((error) => setStatus(error.message, "bad")));
@@ -1027,8 +1066,8 @@ init().catch((error) => {
     });
   }());
 </script>
-<script src="../assets/art-related-manager.js?v=20260926-consolidated-1" defer></script>
-<script src="../assets/art-studio-manager.js?v=20261020-bulk-link-1" defer></script>
+<script src="../assets/art-related-manager.js?v=20261020-studio-room-1" defer></script>
+<script src="../assets/art-studio-manager.js?v=20261020-studio-room-1" defer></script>
 <script src="../assets/art-upload-destination.js?v=20261020-unified-1" defer></script>
 <script src="../assets/art-google-photos-upload.js?v=20261020-final-submit-1" defer></script>
 
