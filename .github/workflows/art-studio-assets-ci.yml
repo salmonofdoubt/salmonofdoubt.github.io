@@ -7,6 +7,8 @@ on:
       - "art/assets/art-studio-manager.js"
       - "art/assets/art-google-photos-upload.js"
       - "art/assets/art-google-photos-upload.css"
+      - "art/assets/art-upload-destination.js"
+      - "art/assets/art-unified-upload.css"
       - "art/assets/art-studio-manager.css"
       - "art/manage/index.html"
       - "art/data/studio-related.json"
@@ -42,10 +44,12 @@ jobs:
           node --check art/assets/art-related.js
           node --check art/assets/art-studio-manager.js
           node --check art/assets/art-google-photos-upload.js
+          node --check art/assets/art-upload-destination.js
       - name: Existing relationship isolation and archive tests
         run: |
           python -m unittest discover -s tests -p 'test_art_studio_assets.py' -v
           python -m unittest discover -s tests -p 'test_art_google_photos.py' -v
+          node tests/test_art_unified_upload.cjs
       - name: Static build
         run: |
           python tools/build_art_gallery_static.py
