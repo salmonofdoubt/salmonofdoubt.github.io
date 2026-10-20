@@ -261,6 +261,33 @@ def bulk_link_assets(payload: dict) -> dict:
     return {"selectedCount": len(asset_ids), "changedCount": changed,
             "artworkIds": work_ids, "action": action, "madePublic": public}
 
+
+def validate_publication(ids: list[str]) -> None:
+    current = {item.get("id"): item for item in load_assets()["assets"]}
+    for ident in ids:
+        item = current.get(ident)
+        if item is None:
+            raise ValueError("Studio Asset not found: " + ident)
+        if extension(item.get("originalFilename") or "") not in PUBLIC_EXTENSIONS:
+            raise ValueError("Studio file cannot be published: " + str(item.get("originalFilename")))
+        if file_for_asset(item) is None:
+            raise ValueError("Studio file is missing: " + ident)
+
+
+def publish_assets(ids: list[str]) -> None:
+    """Explicit user opt-in to show selected Studio files in canonical Related groups."""
+    validate_publication(ids)
+    index = load_assets()
+    wanted = set(ids)
+    changed = False
+    for item in index["assets"]:
+        if item.get("id") in wanted and item.get("visibility") != "related":
+            item["visibility"] = "related"
+            changed = True
+    if changed:
+        write_json(INDEX, index, backup=True)
+
+
 def delete_asset(ident: str) -> None:
     index = load_assets()
     item = next((a for a in index["assets"] if a.get("id") == ident), None)
@@ -335,6 +362,28 @@ def build_public_studio() -> dict:
                     *members,
                 ],
             })
+    # Canonical Related groups may include Studio members without generating a
+    # second per-artwork Studio relationship. Their published blobs must survive
+    # the Studio projection's pruning stage and be copied exactly once.
+    from art_related import load_master
+    for group in load_master().get("sets", []):
+        if not any(member.get("kind") == "artwork" and
+                   member.get("id") in active for member in group.get("members", [])):
+            continue
+        for member in group.get("members", []):
+            if member.get("kind") != "studio":
+                continue
+            item = next((a for a in index["assets"] if a.get("id") == member.get("id")), None)
+            if not item or item.get("visibility") != "related":
+                continue
+            src = file_for_asset(item)
+            if src is None or src.suffix.lower() not in PUBLIC_EXTENSIONS:
+                continue
+            desired_files.add(src.name)
+            dst = PUBLIC_FILES / src.name
+            if not dst.exists() or dst.stat().st_size != src.stat().st_size:
+                shutil.copy2(src, dst)
+
     # Only this feature's namespaced blobs are ever removed; no existing
     # published artwork or related-reference file is altered.
     for path in PUBLIC_FILES.iterdir():
