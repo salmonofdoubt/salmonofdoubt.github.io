@@ -23,6 +23,28 @@
   }
 
   function memberHtml(m,i){
+    if(m.kind==="studio"){
+      const url=escapeHtml(imagePath(m.image||""));
+      const kind=m.mediaKind||"file";
+      const media=kind==="image"
+        ? '<img src="'+url+'" alt="'+escapeHtml(m.title||"Studio material")+'" loading="lazy">'
+        : kind==="video"
+          ? '<video src="'+url+'" controls preload="metadata" style="width:100%;max-height:65vh"></video>'
+          : kind==="audio"
+            ? '<audio src="'+url+'" controls preload="none" style="width:100%"></audio>'
+            : '<div class="related-public-reference-placeholder"><strong>'+
+              escapeHtml(m.originalFilename||"Studio file")+
+              '</strong><span>Supporting document or source file</span></div>';
+      return '<article class="related-public-item related-public-reference">'+
+        '<div class="related-public-number">'+(i+1)+'</div>'+
+        '<div class="related-public-kind">Studio material</div>'+
+        '<div class="related-public-media">'+media+'</div>'+
+        '<div class="related-public-copy"><strong>'+escapeHtml(m.title||"Studio material")+'</strong>'+
+        (m.note?'<small>'+escapeHtml(m.note)+'</small>':"")+
+        '<small><a href="'+url+'" target="_blank" rel="noopener noreferrer">Open original · '+
+        escapeHtml(m.originalFilename||"file")+'</a></small></div></article>';
+    }
+
     if(m.kind==="reference"){
       const show=m.visibility==="public"&&m.image;
       return `<article class="related-public-item related-public-reference">
@@ -72,6 +94,9 @@
   function chooserHtml(g){
     const ms=Array.isArray(g.members)?g.members:[];
     const thumbs=ms.slice(0,4).map(m=>{
+      if(m.kind==="studio"&&!m.thumb){
+        return '<span class="related-public-choice-placeholder">File</span>';
+      }
       if(m.kind==="reference"&&!(m.visibility==="public"&&m.thumb)){
         return `<span class="related-public-choice-placeholder">Ref</span>`;
       }
@@ -144,14 +169,15 @@
     if(!links.length)return;
 
     try{
-      const r=await fetch(
-        "../data/related-public.json?ts="+Date.now(),
-        {cache:"no-store"}
-      );
-      if(!r.ok)return;
-
-      const p=await r.json();
-      const sets=Array.isArray(p.sets)?p.sets:[];
+      // Established relationships are never migrated or rewritten.
+      const urls=["../data/related-public.json", "../data/studio-related.json"];
+      const sources=await Promise.all(urls.map(async url=>{
+        try{
+          const response=await fetch(url+"?ts="+Date.now(),{cache:"no-store"});
+          return response.ok?await response.json():{sets:[]};
+        }catch(_error){return {sets:[]};}
+      }));
+      const sets=sources.flatMap(p=>Array.isArray(p.sets)?p.sets:[]);
       const by=new Map();
 
       sets.forEach(g=>(g.members||[])
