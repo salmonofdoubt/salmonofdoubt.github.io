@@ -130,3 +130,35 @@ without your explicit selection.
 
 Official docs: https://developers.google.com/photos/picker/guides/get-started-picker
 and https://developers.google.com/photos/picker/guides/media-items .
+
+
+## Google Photos in the normal artwork Upload menu
+
+Google Photos now has **two explicit destinations**:
+
+- **Upload > Choose images from Google Photos**: create new, independent
+  published artworks in the Room selected in the normal Upload form.
+  These receive standard artwork IDs and use the form's Room, Medium,
+  Subgroup and Caption fields. For a single selected photo, the Title field
+  sets the title. For multiple selected photos, the source filenames supply
+  separate titles. Feature and homepage-hero options are available only
+  when importing one image, to avoid silently choosing one in a batch.
+- **Studio Assets > Import directly from Google Photos**: archive supporting
+  media and optionally link them under the existing **See related** action.
+  These uploads do not create new Room artwork cards.
+
+Both options use the **same Google OAuth connection and Picker API**. Configure
+and authorize it once in Studio Assets. Then use either import destination,
+according to whether the material is a published artwork or supporting material.
+
+The normal Upload menu accepts only JPEG, PNG, WebP or GIF images, matching
+the existing artwork image uploader. For videos, HEIC files and supporting
+documents, use Studio Assets. Each file has the same 25 MB transfer limit.
+
+A normal Room import appends new artwork records and rebuilds the static
+gallery. It never changes existing related artwork groups. Newly imported
+Room works become public only when the generated assets, catalogue and
+gallery pages are committed and pushed.
+
+The Google Photos connection is independent of Github, and uploading one
+photo in either area does not import it into the other automatically.
