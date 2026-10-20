@@ -5,6 +5,8 @@ on:
     paths:
       - "art/assets/art-related.js"
       - "art/assets/art-studio-manager.js"
+      - "art/assets/art-google-photos-upload.js"
+      - "art/assets/art-google-photos-upload.css"
       - "art/assets/art-studio-manager.css"
       - "art/manage/index.html"
       - "art/data/studio-related.json"
@@ -39,6 +41,7 @@ jobs:
           python -m py_compile tools/art_google_photos.py tools/art_studio_assets.py tools/art_curator_server.py tools/build_art_gallery_static.py
           node --check art/assets/art-related.js
           node --check art/assets/art-studio-manager.js
+          node --check art/assets/art-google-photos-upload.js
       - name: Existing relationship isolation and archive tests
         run: |
           python -m unittest discover -s tests -p 'test_art_studio_assets.py' -v
