@@ -472,12 +472,7 @@ def delete_reference_record(ref_id: str) -> tuple[dict, list[str]]:
         if len(related_set["members"]) != before:
             affected.append(related_set.get("id"))
 
-    chosen_studio = [m["id"] for m in members if m["kind"] == "studio"]
-    if make_studio_public and chosen_studio:
-        studio.validate_publication(chosen_studio)
     master=save_master(master)
-    if make_studio_public and chosen_studio:
-        studio.publish_assets(chosen_studio)
     build_public_related()
     return master, affected
 
@@ -562,7 +557,12 @@ def save_related_set(group_id: str, title: str, raw_members, allow_duplicate=Fal
         }
         sets.append(group)
 
+    chosen_studio = [m["id"] for m in members if m["kind"] == "studio"]
+    if make_studio_public and chosen_studio:
+        studio.validate_publication(chosen_studio)
     master=save_master(master)
+    if make_studio_public and chosen_studio:
+        studio.publish_assets(chosen_studio)
     build_public_related()
     return master, group, duplicate
 
