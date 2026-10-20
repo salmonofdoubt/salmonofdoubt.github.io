@@ -259,9 +259,8 @@
   }
 
 
-  button.addEventListener("click", async () => {
-    if (!dialog.open) dialog.showModal();
-    links = new Set(selectedArtwork() ? [selectedArtwork()] : []);
+  let initialized = false;
+  async function activateStudio() {
     try {
       if (typeof state !== "undefined" && state.artworks && state.artworks.length) {
         artworks = state.artworks;
@@ -269,30 +268,27 @@
         const response = await fetch("../data/artworks.json");
         artworks = (await response.json()).artworks || [];
       }
-      resetForm();
+      if (!initialized) {
+        links = new Set(selectedArtwork() ? [selectedArtwork()] : []);
+        resetForm();
+        initialized = true;
+      }
+      files = [...document.getElementById("newFile").files];
+      updatePending();
+      renderArtworkChoices();
       await loadAssets();
-      await googleRefresh().catch(error => googleNotice(error.message, true));
-      showMessage("Studio Assets are stored locally. Nothing is placed in an exhibition Room.");
-    } catch (error) {
-      showMessage(error.message, true);
-    }
-  });
-  dialog.querySelector(".studio-close").addEventListener("click", () => dialog.close());
-  dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
-  document.getElementById("newFile").addEventListener("change", event => {
-    files = [...event.target.files];
-    updatePending();
-  });
-  const drop = $("studioDrop");
-  drop.addEventListener("dragover", event => {
-    event.preventDefault();
-    drop.classList.add("studio-dragover");
-  });
-  drop.addEventListener("dragleave", () => drop.classList.remove("studio-dragover"));
-  drop.addEventListener("drop", event => {
-    event.preventDefault();
-    drop.classList.remove("studio-dragover");
-    files = [...event.dataTransfer.files];
+      showMessage("Studio Assets do not appear as standalone public Room entries.");
+    } catch (error) { showMessage(error.message, true); }
+  }
+
+  window.artStudioUpload = {
+    links: () => [...links],
+    visibility: () => $("studioVisibility").value,
+    refresh: loadAssets
+  };
+  window.addEventListener("art-studio-activate", activateStudio);
+  document.getElementById("newFile").addEventListener("change", () => {
+    files = [...document.getElementById("newFile").files];
     updatePending();
   });
   $("studioUseSelected").addEventListener("click", () => {
@@ -305,22 +301,4 @@
   $("studioOnlySelected").addEventListener("change", renderLibrary);
   $("studioSave").addEventListener("click", save);
   $("studioCancelEdit").addEventListener("click", () => resetForm());
-  $("studioGoogleConfigure").addEventListener("click", googleConfigure);
-  $("studioGoogleConnect").addEventListener("click", googleConnect);
-  $("studioGooglePick").addEventListener("click", googleStartPicker);
-  $("studioGoogleImport").addEventListener("click", googleImport);
-  $("studioGoogleCancel").addEventListener("click", googleCancel);
-  $("studioGoogleDisconnect").addEventListener("click", googleDisconnect);
-  $("studioGoogleSetup").addEventListener("click", () => {
-    $("studioGoogleConfig").hidden = !$("studioGoogleConfig").hidden;
-  });
-  window.addEventListener("message", event => {
-    if (event.origin === window.location.origin &&
-        event.data && event.data.type === "arts-google-photos-connected") {
-      googleRefresh().catch(error => googleNotice(error.message, true));
-    }
-  });
-  dialog.addEventListener("close", () => {
-    if (googlePollTimer) clearTimeout(googlePollTimer);
-  });
 })();
