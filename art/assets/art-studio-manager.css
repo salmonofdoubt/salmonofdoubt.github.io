@@ -1,9 +1,14 @@
 /* Manager-only Studio Assets workspace. Public Rooms remain unchanged. */
+.action-menus:has(.studio-manager-button) {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
 .studio-manager-button {
   border-color: rgba(212,174,108,.65);
   color: #fff2d7;
   background: #24190f;
   font-weight: 900;
+  min-height: 40px;
+  padding: .3rem .45rem;
 }
 .studio-dialog {
   width: min(1250px, calc(100% - 1rem));
@@ -83,6 +88,7 @@
 .studio-asset-info p { margin: .4rem 0; color: #ddd; font-size: .77rem; }
 .studio-asset button { min-height: 30px; padding: .2rem .5rem; font-size: .72rem; }
 @media(max-width: 800px) {
+  .action-menus:has(.studio-manager-button) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .studio-layout { grid-template-columns: 1fr; }
   .studio-list { max-height: unset; }
   .studio-panel { padding: .7rem; }
