@@ -165,7 +165,7 @@ def verify(kind: str, value: str, supplied: str) -> None:
         raise PublishError("The review is outdated or incomplete. Refresh the review before continuing.")
 
 
-def summary_json(path: str) -> dict:
+def summary_json(path: str, base_ref: str = "HEAD") -> dict:
     def records(blob: bytes | None, key: str) -> dict:
         if not blob:
             return {}
@@ -177,7 +177,7 @@ def summary_json(path: str) -> dict:
             return {}
 
     key = "artworks" if path.endswith("/artworks.json") else "sets"
-    before = run_git("show", "HEAD:" + path, check=False)
+    before = run_git("show", base_ref + ":" + path, check=False)
     local = ROOT / path
     after = local.read_bytes() if local.is_file() else None
     earlier, current = records(before, key), records(after, key)
@@ -286,8 +286,6 @@ def origin_sha() -> str:
 
 def outgoing(remote: str) -> dict:
     head = git_text("rev-parse", "HEAD")
-    ancestor = run_git("merge-base", "--is-ancestor", remote, head, check=False)
-    # merge-base --is-ancestor produces no stdout, check via rev-list instead.
     upstream_count = int(git_text("rev-list", "--count", head + ".." + remote))
     if upstream_count:
         raise PublishError("Local branch is behind GitHub; pull before publishing.")
@@ -317,7 +315,28 @@ def outgoing(remote: str) -> dict:
             changed.append(path)
     if any(not allowed_path(path) for path in changed):
         raise PublishError("An unpublished commit modifies files outside the gallery. Publish those separately using Git.")
-    return {"ahead": ahead, "files": sorted(set(changed)), "head": head, "remote": remote}
+    if len(set(changed)) > MAX_CHANGED:
+        raise PublishError("Too many outgoing files. Review them in Git instead.")
+
+    previews = []
+    for path in sorted(set(changed)):
+        current = ROOT / path
+        status_blob = run_git("diff", "--name-status", remote, head, "--", path).decode("utf-8", "replace").strip()
+        status = status_blob.split()[0] if status_blob else "M"
+        record = {"path": path, "change": status, "url": "/" + quote(path, safe="/"),
+                  "size": current.stat().st_size if current.is_file() else 0,
+                  "binary": Path(path).suffix.lower() not in {".json", ".html", ".txt", ".md"},
+                  "public": True, "summary": {}, "diff": "", "truncated": False}
+        if path in {"art/data/artworks.json", "art/data/related-public.json",
+                    "art/data/studio-related.json"}:
+            record["summary"] = summary_json(path, base_ref=remote)
+        if not record["binary"]:
+            text = run_git("diff", "--no-ext-diff", remote, head, "--", path).decode("utf-8", "replace")
+            record["truncated"] = len(text) > MAX_PREVIEW
+            record["diff"] = text[:MAX_PREVIEW]
+        previews.append(record)
+    return {"ahead": ahead, "files": sorted(set(changed)),
+            "fileDetails": previews, "head": head, "remote": remote}
 
 
 def publish_review() -> dict:
