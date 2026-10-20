@@ -8,6 +8,8 @@ import time
 import uuid
 from pathlib import Path
 
+import art_studio_assets as studio
+
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "art"
 ARTWORKS_PATH = ART / "data" / "artworks.json"
@@ -20,7 +22,7 @@ PUBLIC_PATH = ART / "data" / "related-public.json"
 PUBLIC_REFERENCES = ART / "assets" / "related"
 
 VISIBILITIES = {"public", "private", "metadata"}
-KINDS = {"artwork", "reference"}
+KINDS = {"artwork", "reference", "studio"}
 
 
 def read_json(path: Path, fallback):
@@ -248,6 +250,7 @@ def build_public_related() -> dict:
     master = load_master()
     artworks = active_artwork_map()
     references = {item["id"]: item for item in master["references"]}
+    studio_assets = {a["id"]: a for a in studio.load_assets()["assets"]} if studio.INDEX.exists() else {}
 
     PUBLIC_REFERENCES.mkdir(parents=True, exist_ok=True)
     for child in PUBLIC_REFERENCES.iterdir():
@@ -280,6 +283,27 @@ def build_public_related() -> dict:
                     "image": public_art_path(artwork.get("image") or ""),
                     "thumb": public_art_path(artwork.get("thumb") or artwork.get("image") or ""),
                     "alt": artwork.get("alt") or artwork.get("title") or "Artwork",
+                })
+                continue
+
+            if kind == "studio":
+                item = studio_assets.get(member_id)
+                if not item or item.get("visibility") != "related":
+                    continue
+                file = studio.file_for_asset(item)
+                if not file or file.suffix.lower() not in studio.PUBLIC_EXTENSIONS:
+                    continue
+                ext = file.suffix.lower()
+                public_members.append({
+                    "kind": "studio", "id": member_id, "role": role, "note": note,
+                    "title": item.get("title") or item.get("originalFilename") or "Studio material",
+                    "originalFilename": item.get("originalFilename") or "",
+                    "image": "/art/assets/studio/" + file.name,
+                    "thumb": "/art/assets/studio/" + file.name if ext in studio.IMAGE_EXTENSIONS else "",
+                    "mime": item.get("mime") or studio.mime_type(ext),
+                    "mediaKind": "image" if ext in studio.IMAGE_EXTENSIONS else
+                                 "video" if ext in studio.VIDEO_EXTENSIONS else
+                                 "audio" if ext in studio.AUDIO_EXTENSIONS else "file",
                 })
                 continue
 
@@ -448,15 +472,21 @@ def delete_reference_record(ref_id: str) -> tuple[dict, list[str]]:
         if len(related_set["members"]) != before:
             affected.append(related_set.get("id"))
 
+    chosen_studio = [m["id"] for m in members if m["kind"] == "studio"]
+    if make_studio_public and chosen_studio:
+        studio.validate_publication(chosen_studio)
     master=save_master(master)
+    if make_studio_public and chosen_studio:
+        studio.publish_assets(chosen_studio)
     build_public_related()
     return master, affected
 
 
-def save_related_set(group_id: str, title: str, raw_members, allow_duplicate=False):
+def save_related_set(group_id: str, title: str, raw_members, allow_duplicate=False, make_studio_public=False):
     master=load_master()
     artworks=active_artwork_map()
     refs={r.get("id") for r in master.get("references",[]) if r.get("id")}
+    studio_items = {a.get("id"): a for a in studio.load_assets()["assets"]}
     members=[]
     seen=set()
     missing=[]
@@ -489,6 +519,9 @@ def save_related_set(group_id: str, title: str, raw_members, allow_duplicate=Fal
             missing.append(f"reference:{member['id']}")
             continue
 
+        if member["kind"] == "studio" and member["id"] not in studio_items:
+            missing.append(f"studio:{member['id']}")
+            continue
         members.append(member)
 
     if missing:
