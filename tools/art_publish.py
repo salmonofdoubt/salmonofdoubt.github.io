@@ -290,6 +290,40 @@ def outgoing(remote: str) -> dict:
     if upstream_count:
         raise PublishError("Local branch is behind GitHub; pull before publishing.")
     ahead = int(git_text("rev-list", "--count", remote + ".." + head))
+    if ahead > 100:
+        raise PublishError("Too many outgoing commits for an on-screen audit. Review with Git.")
+    if git_text("rev-list", "--merges", remote + ".." + head):
+        raise PublishError("Outgoing merge commits require manual history review before publishing.")
+
+    # GitHub makes the COMPLETE outgoing commit history accessible, not just
+    # the final diff. Validate every path touched by every commit, including
+    # files subsequently reverted.
+    commits = git_text("rev-list", "--reverse", remote + ".." + head).splitlines()
+    history = []
+    touched = set()
+    for sha in commits:
+        raw_names = run_git("diff-tree", "--no-commit-id", "--name-only",
+                            "--no-renames", "-r", "-z", sha)
+        paths = [os.fsdecode(name) for name in raw_names.split(b"\0") if name]
+        if any(not allowed_path(path) for path in paths):
+            bad = next(path for path in paths if not allowed_path(path))
+            raise PublishError("An outgoing commit includes a file outside the gallery: " + bad)
+        touched.update(paths)
+        if len(touched) > MAX_CHANGED:
+            raise PublishError("Too many outgoing file changes for the on-screen audit.")
+        subject = git_text("show", "-s", "--format=%s", sha)
+        items = []
+        for path in paths:
+            binary = Path(path).suffix.lower() not in {".json", ".html", ".txt", ".md"}
+            body = "" if binary else run_git(
+                "show", "--format=", "--no-ext-diff", "--unified=2",
+                sha, "--", path).decode("utf-8", "replace")
+            items.append({
+                "path": path, "binary": binary, "diff": body[:MAX_PREVIEW],
+                "truncated": len(body) > MAX_PREVIEW,
+            })
+        history.append({"sha": sha, "title": subject, "files": items})
+
     raw = run_git("diff", "--name-status", "-z", remote, head, "--")
     fields = raw.split(b"\0")
     changed = []
@@ -315,6 +349,8 @@ def outgoing(remote: str) -> dict:
             changed.append(path)
     if any(not allowed_path(path) for path in changed):
         raise PublishError("An unpublished commit modifies files outside the gallery. Publish those separately using Git.")
+    # Reverted files remain in outgoing Git history and must be disclosed.
+    changed = sorted(set(changed) | touched)
     if len(set(changed)) > MAX_CHANGED:
         raise PublishError("Too many outgoing files. Review them in Git instead.")
 
@@ -336,7 +372,8 @@ def outgoing(remote: str) -> dict:
             record["diff"] = text[:MAX_PREVIEW]
         previews.append(record)
     return {"ahead": ahead, "files": sorted(set(changed)),
-            "fileDetails": previews, "head": head, "remote": remote}
+            "fileDetails": previews, "history": history,
+            "head": head, "remote": remote}
 
 
 def publish_review() -> dict:
