@@ -263,9 +263,33 @@
     else if(pollTimer)clearTimeout(pollTimer);
   });
   $("roomGoogleSetup").addEventListener("click",()=>{
-    const button=document.querySelector(".studio-manager-button");
-    if(button) button.click();
-    else notice("Open Studio Assets in the manager to configure Google Photos.",true);
+    $("roomGoogleConfig").hidden=!$("roomGoogleConfig").hidden;
+  });
+  $("roomGoogleConfigure").addEventListener("click",async()=>{
+    try{
+      await call("/api/google-photos/configure",{
+        clientId:$("roomGoogleClientId").value.trim(),
+        clientSecret:$("roomGoogleClientSecret").value
+      });
+      $("roomGoogleClientSecret").value="";
+      $("roomGoogleClientId").value="";
+      $("roomGoogleConfig").hidden=true;
+      await status();
+      notice("Google credentials saved locally. Click Connect Google Photos.");
+    }catch(error){notice(error.message,true);}
+  });
+  $("roomGoogleDisconnect").addEventListener("click",async()=>{
+    if(!window.confirm("Disconnect Google Photos? Imported artworks and Studio Assets remain unchanged.")) return;
+    try{
+      await call("/api/google-photos/disconnect",{});
+      selected=[];
+      renderSelection();
+      await status();
+    }catch(error){notice(error.message,true);}
+  });
+  window.addEventListener("art-upload-destination-changed",()=>{
+    renderSelection();
+    if(section.open) status().catch(error=>notice(error.message,true));
   });
   $("roomGoogleConnect").addEventListener("click",connect);
   $("roomGooglePick").addEventListener("click",choose);
