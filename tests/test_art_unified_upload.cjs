@@ -18,6 +18,12 @@ assert.match(markup,/data-art-destination="studio"/);
 assert.match(markup,/id="unifiedUploadMenu"/);
 assert.doesNotMatch(studio,/studio-manager-button|studioGooglePick|studioGoogleImport|showModal/);
 assert.match(studio,/window.artStudioUpload =/);
+assert.match(studio,/id="studioSelectVisible"/, "Select all matching assets present");
+assert.match(studio,/id="studioBulkLink"/, "Bulk link button present");
+assert.match(studio,/id="studioBulkUnlink"/, "Bulk unlink button present");
+assert.match(studio,/data-bulk-asset/, "Each asset has a bulk-selection checkbox");
+assert.match(studio,/\/api\/studio-bulk-link/, "One atomic bulk API call");
+
 assert.match(studio,/host.appendChild\(dialog\)/);
 assert.match(picker,/\/api\/google-photos\/import-artworks/);
 assert.doesNotMatch(picker,/id="roomGoogleImport"/, "No second Google Photos import button");
