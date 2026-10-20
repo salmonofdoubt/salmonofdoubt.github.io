@@ -160,62 +160,86 @@
     }
   }
 
-  async function importToRoom() {
+  async function importToDestination() {
     if(importing) return;
-    const ids=[...$("roomGoogleSelected").querySelectorAll('input:checked')].map(x=>x.value);
-    if(!ids.length){notice("Select at least one supported image.",true);return;}
-    if(ids.length>1 &&
-      (document.getElementById("makeCollectionFeature").checked ||
-       document.getElementById("makeHomepageHero").checked)){
-      notice("For multiple works, untick Collection feature and Homepage hero first.",true);
+    if(!serverReady){
+      notice("Restart your local Python server after updating the GitHub repository. The current server cannot import to both destinations.",true);
       return;
     }
-    const collection=document.getElementById("newCollection").value;
-    if(!collection){notice("Choose the Room first.",true);return;}
+    const ids=[...$("roomGoogleSelected").querySelectorAll("input:checked")].map(node=>node.value);
+    if(!ids.length){notice("Select at least one supported photo.",true);return;}
+    const room=destination()==="room";
+    let path, payload;
+    if(room){
+      if(ids.length>1 &&
+         (document.getElementById("makeCollectionFeature").checked ||
+          document.getElementById("makeHomepageHero").checked)){
+        notice("Untick feature and homepage hero when importing several Room artworks.",true);
+        return;
+      }
+      path="/api/google-photos/import-artworks";
+      payload={
+        ids,
+        title: document.getElementById("newTitle").value.trim(),
+        collection: document.getElementById("newCollection").value,
+        medium: document.getElementById("newMedium").value,
+        subgroup: document.getElementById("newSubgroup").value,
+        text: document.getElementById("newCaption").value,
+        makeCollectionFeature: document.getElementById("makeCollectionFeature").checked,
+        makeHomepageHero: document.getElementById("makeHomepageHero").checked
+      };
+    }else{
+      if(!window.artStudioUpload) {
+        notice("Studio Assets has not finished loading. Refresh the Manager.",true);
+        return;
+      }
+      path="/api/google-photos/import";
+      payload={
+        ids, artworkIds:window.artStudioUpload.links(),
+        visibility:window.artStudioUpload.visibility()
+      };
+    }
     importing=true;
     $("roomGoogleImport").disabled=true;
     $("roomGooglePick").disabled=true;
-    notice("Importing "+ids.length+" selected artwork image(s) into "+collection+"…");
+    notice("Importing "+ids.length+" files into "+(room?"Public Room":"Studio Assets")+"…");
     try{
-      const result=await call("/api/google-photos/import-artworks",{
-        ids,
-        title:document.getElementById("newTitle").value.trim(),
-        collection,
-        medium:document.getElementById("newMedium").value,
-        subgroup:document.getElementById("newSubgroup").value,
-        text:document.getElementById("newCaption").value,
-        makeCollectionFeature:document.getElementById("makeCollectionFeature").checked,
-        makeHomepageHero:document.getElementById("makeHomepageHero").checked
-      });
+      const result=await call(path,payload);
       const summary=result.googlePhotos||result;
-      const works=summary.imported||[];
+      const added=summary.imported||[];
       const failures=summary.failures||[];
-      if(works.length){
-        await loadArtworks();
-        await loadCuration();
-        state.selectedId=works[works.length-1].id;
-        fillForm(selectedItem());
-        render();
-        if(window.refreshRelatedForSelection)window.refreshRelatedForSelection();
+      if(added.length){
+        if(room){
+          await loadArtworks();
+          await loadCuration();
+          state.selectedId=added[added.length-1].id;
+          fillForm(selectedItem());
+          render();
+          if(window.refreshRelatedForSelection)window.refreshRelatedForSelection();
+        }else{
+          await window.artStudioUpload.refresh();
+        }
       }
       if(failures.length){
-        const unsuccessful=new Set(failures.map(item=>item.id));
-        selected=selected.filter(item=>unsuccessful.has(item.id));
-        renderSelection();
+        const failedIds=new Set(failures.map(item=>item.id));
+        selected=selected.filter(item=>failedIds.has(item.id));
       }else{
         selected=[];
-        renderSelection();
         $("roomGooglePickerLink").hidden=true;
         $("roomGoogleCancel").hidden=true;
       }
-      const outcome=(summary.message||works.length+" images imported")+
+      renderSelection();
+      const outcome=(summary.message||added.length+" imported")+
         (failures.length ? ". "+failures.map(f=>(f.filename||"Item")+": "+f.error).join("; ") : "")+
-        ". Publish by committing and pushing your local gallery changes.";
-      notice(outcome,!!failures.length);
-      setStatus(outcome, failures.length ? "bad" : "good");
+        ". Review and push your generated public changes when ready.";
+      notice(outcome,failures.length>0);
+      setStatus(outcome, failures.length ? "bad":"good");
     }catch(error){
-      notice(error.message,true);
-      setStatus(error.message,"bad");
+      const message=String(error.message||error);
+      notice(message.includes("Unknown API endpoint")
+        ? "Local Python server is outdated. Stop ./serve.sh with Ctrl+C, update from GitHub, and restart it."
+        : message,true);
+      setStatus(message,"bad");
     }finally{
       importing=false;
       $("roomGoogleImport").disabled=false;
@@ -246,7 +270,7 @@
   $("roomGoogleConnect").addEventListener("click",connect);
   $("roomGooglePick").addEventListener("click",choose);
   $("roomGoogleCancel").addEventListener("click",cancel);
-  $("roomGoogleImport").addEventListener("click",importToRoom);
+  $("roomGoogleImport").addEventListener("click",importToDestination);
   window.addEventListener("message",event=>{
     if(event.origin===window.location.origin &&
        event.data && event.data.type==="arts-google-photos-connected" &&
