@@ -45,7 +45,6 @@
   let polling = false;
   let importing = false;
   let serverReady = false;
-  let importedCount = 0;
 
   function notice(message, error=false) {
     $("roomGoogleStatus").textContent = message;
@@ -100,9 +99,9 @@
     const roomButton=document.getElementById("addWork");
     const studioButton=document.getElementById("studioSave");
     const macReady=!!document.getElementById("newFile").files.length;
-    if(roomButton) roomButton.disabled=importing || !(macReady || hasPending());
+    if(roomButton) roomButton.disabled=importing || !(macReady || (hasPending() && serverReady));
     if(studioButton && studioButton.textContent.trim()!=="Save changes") {
-      studioButton.disabled=importing || !(macReady || hasPending());
+      studioButton.disabled=importing || !(macReady || (hasPending() && serverReady));
     }
   }
 
@@ -261,7 +260,11 @@
         $("roomGoogleCancel").hidden=true;
       }
       renderSelection();
-      importedCount += added.length;
+      if(room && added.length && !failures.length){
+        ["newTitle","newMedium","newSubgroup","newCaption"].forEach(id=>{
+          document.getElementById(id).value="";
+        });
+      }
       const outcome=(summary.message||added.length+" imported")+
         (failures.length ? ". "+failures.map(f=>(f.filename||"Item")+": "+f.error).join("; ") : "")+
         ". Review and push your generated public changes when ready.";
