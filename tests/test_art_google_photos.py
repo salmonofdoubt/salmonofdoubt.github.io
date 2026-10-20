@@ -132,5 +132,108 @@ class GooglePhotosTests(unittest.TestCase):
         self.assertEqual(self.legacy_bytes, self.legacy.read_bytes())
 
 
+    # MAIN_GALLERY_PHOTOS_IMPORT_V1
+    def test_selected_photo_becomes_normal_published_artwork(self):
+        photos.store_secret(photos.PICK, {"id": "room-picker", "created": time.time()})
+        picked = [{"id": "photo-a", "mediaFile": {
+            "filename": "Portrait_Study.JPG", "mimeType": "image/jpeg",
+            "baseUrl": "https://lh3.googleusercontent.com/p/portrait"}}]
+        def fake_call(path, method="GET", payload=None):
+            return {"mediaItemsSet": True} if path.startswith("/sessions/") else {"mediaItems": picked}
+        captured = []
+        def create_artwork(payload):
+            captured.append(payload)
+            return {"id": "new-artwork-1", "title": payload["title"], "image": "assets/works/new.jpg",
+                    "collection": payload["collection"]}
+        with patch.object(photos, "picker_call", side_effect=fake_call), \
+             patch.object(photos, "download_media", return_value=b"fake-jpeg-image"):
+            result = photos.import_picked_artworks({
+                "ids": ["photo-a"], "title": "Portrait Study 2026",
+                "collection": "Oil Paintings", "medium": "Oil on canvas",
+                "subgroup": "Portrait", "text": "First study",
+            }, create_artwork)
+        self.assertEqual(1, len(result["imported"]))
+        self.assertEqual("Google Photos import", result["imported"][0]["source"])
+        self.assertEqual("Portrait Study 2026", captured[0]["title"])
+        self.assertEqual("Oil Paintings", captured[0]["collection"])
+        self.assertEqual("Oil on canvas", captured[0]["medium"])
+        self.assertEqual("Portrait", captured[0]["subgroup"])
+        self.assertEqual("First study", captured[0]["reading"])
+        self.assertTrue(captured[0]["imageDataUrl"].startswith("data:image/jpeg;base64,"))
+        self.assertEqual(self.legacy_bytes, self.legacy.read_bytes())
+        self.assertFalse(photos.PICK.exists())
+
+    def test_batch_titles_follow_filenames_and_feature_not_silently_assigned(self):
+        photos.store_secret(photos.PICK, {"id": "room-picker", "created": time.time()})
+        picked = [
+            {"id": "a", "mediaFile": {"filename": "Venice_Night.png", "mimeType": "image/png",
+                                     "baseUrl": "https://lh3.googleusercontent.com/p/a"}},
+            {"id": "b", "mediaFile": {"filename": "Venice_Dawn.png", "mimeType": "image/png",
+                                     "baseUrl": "https://lh3.googleusercontent.com/p/b"}},
+        ]
+        def fake_call(path, method="GET", payload=None):
+            return {"mediaItemsSet": True} if path.startswith("/sessions/") else {"mediaItems": picked}
+        created = []
+        def make(payload):
+            created.append(payload)
+            return {"id": str(len(created)), "title": payload["title"]}
+        with patch.object(photos, "picker_call", side_effect=fake_call), \
+             patch.object(photos, "download_media", return_value=b"image"):
+            with self.assertRaisesRegex(ValueError, "single image"):
+                photos.import_picked_artworks({
+                    "ids": ["a", "b"], "collection": "Drawings",
+                    "makeHomepageHero": True,
+                }, make)
+            result = photos.import_picked_artworks({
+                "ids": ["a", "b"], "title": "Must not replace filenames",
+                "collection": "Drawings", "medium": "Pencil",
+            }, make)
+        self.assertEqual(["Venice Night", "Venice Dawn"], [x["title"] for x in created])
+        self.assertEqual(2, len(result["imported"]))
+        self.assertEqual([], result["failures"])
+        self.assertEqual(self.legacy_bytes, self.legacy.read_bytes())
+
+    def test_unsupported_photo_and_video_not_created_in_room(self):
+        photos.store_secret(photos.PICK, {"id": "room-picker", "created": time.time()})
+        picked = [
+            {"id": "video", "mediaFile": {"filename": "process.mp4", "mimeType": "video/mp4"}},
+            {"id": "heic", "mediaFile": {"filename": "study.heic", "mimeType": "image/heic"}},
+        ]
+        def fake_call(path, method="GET", payload=None):
+            return {"mediaItemsSet": True} if path.startswith("/sessions/") else {"mediaItems": picked}
+        with patch.object(photos, "picker_call", side_effect=fake_call):
+            result = photos.import_picked_artworks({
+                "ids": ["video", "heic"], "collection": "Experimental"}, 
+                lambda _payload: self.fail("Must not create unsupported artwork"))
+        self.assertEqual([], result["imported"])
+        self.assertEqual(2, len(result["failures"]))
+        self.assertEqual(self.legacy_bytes, self.legacy.read_bytes())
+
+    def test_partial_room_import_keeps_success_and_reports_failures(self):
+        photos.store_secret(photos.PICK, {"id": "room-picker", "created": time.time()})
+        picked = [
+            {"id": "one", "mediaFile": {"filename": "one.jpg", "mimeType": "image/jpeg",
+                                      "baseUrl": "https://lh3.googleusercontent.com/p/a"}},
+            {"id": "two", "mediaFile": {"filename": "two.jpg", "mimeType": "image/jpeg",
+                                      "baseUrl": "https://lh3.googleusercontent.com/p/b"}},
+        ]
+        def fake_call(path, method="GET", payload=None):
+            return {"mediaItemsSet": True} if path.startswith("/sessions/") else {"mediaItems": picked}
+        def download(url):
+            if "/p/b" in url:
+                raise ValueError("Google photo download failed")
+            return b"ok-image"
+        with patch.object(photos, "picker_call", side_effect=fake_call), \
+             patch.object(photos, "download_media", side_effect=download):
+            result = photos.import_picked_artworks({
+                "ids": ["one", "two"], "collection": "Watercolours"},
+                lambda payload: {"id": "new-1", "title": payload["title"]})
+        self.assertEqual(1, len(result["imported"]))
+        self.assertEqual(1, len(result["failures"]))
+        self.assertTrue(photos.PICK.exists())  # Retry unsuccessful media.
+        self.assertEqual(self.legacy_bytes, self.legacy.read_bytes())
+
+
+
 if __name__ == "__main__":
     unittest.main()
