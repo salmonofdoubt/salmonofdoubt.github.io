@@ -81,7 +81,7 @@ class PublishWorkflowTests(unittest.TestCase):
         self.assertTrue(result["ok"])
         committed = set(self.git("show", "--pretty=format:", "--name-only", "HEAD").splitlines())
         self.assertEqual({"art/data/artworks.json", "art/assets/works/oil-paintings/new.jpg"}, committed)
-        self.assertIn("docs/unrelated.txt", self.git("status", "--short"))
+        self.assertIn("docs/unrelated.txt", self.git("status", "--short", "--untracked-files=all"))
         self.assertNotIn(".art-private", self.git("ls-tree", "-r", "--name-only", "HEAD"))
         self.assertNotIn("docs/unrelated.txt", committed)
 
