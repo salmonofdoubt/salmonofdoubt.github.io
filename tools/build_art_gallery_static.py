@@ -5,6 +5,7 @@ import html
 import json
 
 from art_related import build_public_related
+from art_studio_assets import build_public_studio
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "art"
@@ -437,6 +438,7 @@ def collection_page_html(collection: dict, items: list[dict], curation: dict) ->
 
 def main() -> None:
     build_public_related()
+    build_public_studio()
     artworks = load_artworks()
     curation = load_curation()
     grouped = group_by_collection(artworks)
