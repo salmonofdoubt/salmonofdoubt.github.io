@@ -1,4 +1,4 @@
-const CACHE_NAME = "diandre-art-v10-google-photos";
+const CACHE_NAME = "diandre-art-v11-google-photos-main-upload";
 
 const CORE_ASSETS = [
   "/art/",
