@@ -482,7 +482,8 @@ window.close();}</script>"""
 
         try:
             if path in {"/api/google-photos/configure", "/api/google-photos/start",
-                        "/api/google-photos/import", "/api/google-photos/cancel",
+                        "/api/google-photos/import", "/api/google-photos/import-artworks",
+                        "/api/google-photos/cancel",
                         "/api/google-photos/disconnect"}:
                 if int(self.headers.get("Content-Length", "0")) > 40 * 1024:
                     self.send_json(413, {"ok": False, "error": "Request too large"})
@@ -499,6 +500,32 @@ window.close();}</script>"""
                     elif path == "/api/google-photos/disconnect":
                         google_photos.disconnect(revoke=True)
                         result = {"message": "Google Photos disconnected"}
+                    elif path == "/api/google-photos/import-artworks":
+                        room = str(payload.get("collection") or "").strip()
+                        if room not in COLLECTION_SLUGS:
+                            raise ValueError("Choose an existing exhibition Room")
+                        result = google_photos.import_picked_artworks(
+                            payload, create_artwork_from_upload)
+                        imported = result.get("imported") or []
+                        if imported:
+                            # Existing artwork records and related groups are
+                            # preserved, and only new IDs are appended.
+                            data = load_artworks_payload(write_back=True)
+                            data.setdefault("artworks", []).extend(imported)
+                            write_json(ARTWORKS_PATH, data)
+                            if len(imported) == 1 and (
+                                    payload.get("makeCollectionFeature") or
+                                    payload.get("makeHomepageHero")):
+                                curation = load_curation()
+                                selector = record_selector(imported[0])
+                                if payload.get("makeCollectionFeature"):
+                                    curation["collections"].setdefault(room, {})["feature"] = selector
+                                if payload.get("makeHomepageHero"):
+                                    curation["homepageHero"] = selector
+                                write_json(CURATION_PATH, curation)
+                            self.save_and_rebuild("Google Photos artworks imported",
+                                                  {"googlePhotos": result})
+                            return
                     else:
                         result = google_photos.import_picked(payload)
                         if result.get("imported"):
