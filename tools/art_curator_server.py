@@ -12,8 +12,17 @@ import time
 import uuid
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import unquote, urlparse
 
+from art_studio_assets import (
+    client_asset as studio_client_asset,
+    delete_asset as studio_delete_asset,
+    file_for_asset as studio_file_for_asset,
+    find_asset as studio_find_asset,
+    load_assets as studio_load_assets,
+    update_asset as studio_update_asset,
+    upload_asset as studio_upload_asset,
+)
 from art_related import (
     add_reference_upload,
     build_public_related,
@@ -276,6 +285,41 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
     def do_GET(self) -> None:
         path = urlparse(self.path).path
 
+        # Deny direct access to local-only material even with percent-encoded
+        # hidden path segments. Files can be read only via explicit asset APIs.
+        parts = unquote(path).replace("\\", "/").split("/")
+        if any(part.startswith(".") and part not in {"", ".well-known"}
+               for part in parts):
+            self.send_error(404)
+            return
+
+        if path == "/api/studio-assets":
+            self.send_json(200, {
+                "ok": True,
+                "assets": [studio_client_asset(a) for a in studio_load_assets()["assets"]],
+            })
+            return
+
+        if path.startswith("/api/studio-file/"):
+            ident = path.rsplit("/", 1)[-1]
+            item = studio_find_asset(ident)
+            target = studio_file_for_asset(item) if item else None
+            if not target:
+                self.send_error(404, "Studio asset not found")
+                return
+            mime = item.get("mime") or "application/octet-stream"
+            inline = mime.startswith(("image/", "audio/", "video/")) or mime == "application/pdf"
+            data = target.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", mime)
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Content-Disposition", "inline" if inline else "attachment")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
+
         # RELATED_CANONICAL_V1
         if path == "/api/references":
             master = load_master()
@@ -379,6 +423,32 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
         path = urlparse(self.path).path
 
         try:
+            if path in {"/api/studio-upload", "/api/studio-update", "/api/studio-delete"}:
+                if int(self.headers.get("Content-Length", "0")) > 35 * 1024 * 1024:
+                    self.send_json(413, {"ok": False, "error": "Studio upload exceeds 25 MB"})
+                    return
+                payload = self.read_payload()
+                try:
+                    if path == "/api/studio-upload":
+                        item = studio_upload_asset(payload)
+                        message = "Studio asset uploaded"
+                    elif path == "/api/studio-update":
+                        item = studio_update_asset(payload)
+                        message = "Studio asset updated"
+                    else:
+                        studio_delete_asset(str(payload.get("id") or ""))
+                        item = None
+                        message = "Studio asset deleted"
+                except KeyError as exc:
+                    self.send_json(404, {"ok": False, "error": str(exc).strip("'")})
+                    return
+                except ValueError as exc:
+                    self.send_json(400, {"ok": False, "error": str(exc)})
+                    return
+                self.save_and_rebuild(message + " and public projection rebuilt",
+                                      {"asset": studio_client_asset(item) if item else None})
+                return
+
             if path == "/api/save-art-curation":
                 payload = self.read_payload()
                 payload.setdefault("homepageHero", {})

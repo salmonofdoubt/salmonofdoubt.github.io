@@ -1,4 +1,4 @@
-const CACHE_NAME = "diandre-art-v8-filmstrip";
+const CACHE_NAME = "diandre-art-v9-studio-assets";
 
 const CORE_ASSETS = [
   "/art/",
@@ -53,15 +53,16 @@ self.addEventListener("fetch", event => {
   }
 
   // RELATED_PUBLIC_NETWORK_FIRST
-  if (url.pathname === "/art/data/related-public.json") {
+  if (url.pathname === "/art/data/related-public.json" ||
+      url.pathname === "/art/data/studio-related.json") {
     event.respondWith(
       fetch(request)
         .then(response => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put("/art/data/related-public.json", copy));
+          caches.open(CACHE_NAME).then(cache => cache.put(url.pathname, copy));
           return response;
         })
-        .catch(() => caches.match("/art/data/related-public.json"))
+        .catch(() => caches.match(url.pathname))
     );
     return;
   }
