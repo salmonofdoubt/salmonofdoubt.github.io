@@ -211,10 +211,9 @@
         '<p><strong>GitHub:</strong> <code>salmonofdoubt/salmonofdoubt.github.io</code></p>' +
         '<p><strong>Outgoing commit descriptions:</strong></p><ul>' +
         (result.commits || []).map(value=>'<li>'+esc(value)+'</li>').join("") +
-        '</ul><p><strong>Complete list of public paths in outgoing commits:</strong></p><ul>' +
-        result.files.map(path=>'<li><code>'+esc(path)+'</code> ' +
-          '<a href="/'+esc(path)+'" target="_blank" rel="noopener noreferrer">Local preview</a></li>').join("") +
-        '</ul><p class="art-publish-warning">These exact commits, not just the last saved artwork, will be pushed. ' +
+        '</ul><p><strong>Complete outgoing public file review:</strong></p>' +
+        '<div class="art-publish-files">' + (result.fileDetails || []).map(fileDisplay).join("") + '</div>' +
+        '<p class="art-publish-warning">These exact commits, not just the last saved artwork, will be pushed. ' +
         'Public GitHub and Pages visibility can differ in timing.</p>';
     }
     publishButton();
@@ -255,7 +254,7 @@
       $("artPublishPushApproved").checked=false;
       $("artPublishConfirm").value="";
       info(result.message+" Commit "+result.head.slice(0,9)+".");
-      await refreshPublishReview();
+      $("artPublishOutgoing").textContent="Published to GitHub successfully. Refresh to check for any further changes.";
     }catch(error){ info(error.message,true); }
     finally{busy=false; commitButton(); publishButton();}
   }
