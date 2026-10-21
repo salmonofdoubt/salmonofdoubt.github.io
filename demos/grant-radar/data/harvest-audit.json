@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-20T10:08:36+00:00",
+  "generated_at": "2026-10-21T10:12:45+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -17,6 +17,14 @@
       "page_state": "closed",
       "state_source": "deadline_past_recurring",
       "deadline_text": "11th June 2026, 13:00 local Irish time"
+    },
+    {
+      "id": "geo_horizon_energy_supply",
+      "name": "Horizon Europe Sustainable, Secure and Competitive Energy Supply",
+      "registry_state": "open",
+      "page_state": "closed",
+      "state_source": "page_status_closed",
+      "deadline_text": null
     }
   ],
   "fetch_failures_using_last_known_good": [
@@ -107,10 +115,10 @@
     "last_known_good": 8,
     "registry_fallback": 22,
     "deadline_past_recurring": 2,
-    "page_status_closed": 2,
+    "page_status_closed": 3,
     "registry_fallback_after_fetch_error": 4,
     "deadline_future": 2,
-    "page_status_open": 2
+    "page_status_open": 1
   },
   "public_visible_count": 40,
   "total_harvested_count": 42
