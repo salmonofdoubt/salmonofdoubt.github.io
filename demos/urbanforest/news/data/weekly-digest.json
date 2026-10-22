@@ -1,62 +1,62 @@
 {
-  "generated_at": "2026-10-21T10:30:54.832871+00:00",
-  "latest_generated_at": "2026-10-21T10:30:54.740104+00:00",
+  "generated_at": "2026-10-22T10:32:12.973183+00:00",
+  "latest_generated_at": "2026-10-22T10:32:12.878575+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 25,
-    "funding-opportunities": 16,
-    "research-evidence": 47,
+    "ireland-urban-forest-practice": 31,
+    "funding-opportunities": 13,
+    "research-evidence": 44,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
       "benefit": "Biodiversity / habitat",
-      "count": 34
-    },
-    {
-      "benefit": "Funding / grants",
-      "count": 24
+      "count": 30
     },
     {
       "benefit": "Urban heat / shade",
-      "count": 23
+      "count": 22
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 23
+      "count": 21
     },
     {
-      "benefit": "School / education",
-      "count": 19
+      "benefit": "Funding / grants",
+      "count": 20
     },
     {
       "benefit": "Urban forest / NbS",
-      "count": 18
+      "count": 19
     },
     {
       "benefit": "Stormwater / SuDS",
       "count": 18
     },
     {
-      "benefit": "Community stewardship",
-      "count": 15
+      "benefit": "School / education",
+      "count": 16
     },
     {
       "benefit": "Monitoring / evaluation",
       "count": 15
     },
     {
+      "benefit": "Community stewardship",
+      "count": 14
+    },
+    {
       "benefit": "Wellbeing / health",
       "count": 13
     },
     {
-      "benefit": "Soil health",
-      "count": 9
+      "benefit": "Planning / policy",
+      "count": 10
     },
     {
-      "benefit": "Planning / policy",
+      "benefit": "Risk / safety",
       "count": 8
     }
   ],
@@ -181,37 +181,6 @@
       },
       "research_use_type": "Monitoring method",
       "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, biodiversity / habitat, tree survival / maintenance, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
-      "id": "6f4e0ae82572a3f1",
-      "title": "New Ross School Wins National Pollinator Award for Community Wildflower Project - South East Radio",
-      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORlIteGpqajlCVE1EcXZCUnQ3TXpfeS1hVEpiVjFFVUVoVDZtcW9UZ3lHcmZ1NmtiNy1KM3NmRjdrRDJraEhUUTQyZXVqc3dwcXRjWjlzZTBzMVlSVjR4a0RpR2Z5ZkZEeTlENnFsZWFpOGwzSzNYaTEyOVBfZ0tkSmFHczBsOTBiUTlzb0RCeTB1V0xmeU56a1VSY3dyRDdtalNtMXJtemxWUjJYRjI3OGZtdGFuYWQ0QWxMT3VZV0k?oc=5",
-      "section": "funding-opportunities",
-      "source_name": "Google News: school garden tree funding Ireland",
-      "published": "2026-06-08",
-      "score": 86,
-      "practical_score": 133.0,
-      "benefit_categories": [
-        "Biodiversity / habitat",
-        "School / education",
-        "Community stewardship",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 8,
-        "label": "Transferable relevance",
-        "matched_terms": [
-          "school"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "High",
-        "score": 77,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Biodiversity evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "073b2523d843a620",
@@ -339,6 +308,32 @@
       },
       "opportunity_fit": null,
       "research_use_type": "Survival / maintenance evidence",
+      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
+    },
+    {
+      "id": "96e2f52d03b06df2",
+      "title": "Urban Soil Health and Tree Performance: A Diagnostic Framework and Biochar–Inactivated Yeast Case Study from Toronto",
+      "url": "https://hdl.handle.net/1807/151152",
+      "section": "research-evidence",
+      "source_name": "TSpace (University of Toronto)",
+      "published": "2026-01-12",
+      "score": 90,
+      "practical_score": 126.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Biodiversity / habitat",
+        "Soil health",
+        "Stormwater / SuDS",
+        "Wellbeing / health",
+        "Tree survival / maintenance"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     }
   ]
