@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-10-21T10:10:05+00:00",
+  "generated_at": "2026-10-22T10:12:16+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
-  "links_seen": 4502,
-  "funding_like_links": 480,
+  "links_seen": 4336,
+  "funding_like_links": 460,
   "candidate_fetches": 300,
-  "pending_review_count": 115,
+  "pending_review_count": 118,
   "status_counts": {
-    "pending_review": 115,
-    "suppressed_non_actionable": 43,
+    "pending_review": 118,
+    "suppressed_non_actionable": 47,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 60
+    "suppressed_fetch_error": 56
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 89,
+    "funding_call": 92,
     "scholarship": 19,
     "generic_funding_hub": 6,
-    "tender": 11,
-    "unknown": 60
+    "tender": 15,
+    "unknown": 56
   },
   "seeds": [
     {
@@ -93,9 +93,9 @@
       "id": "gsi_geoheritage_watch",
       "name": "Geological Survey Ireland geoheritage watch",
       "url": "https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
-      "status": "fetch_error",
-      "fetch_error": "404 Client Error: Not Found for url: https://www.gsi.ie/en-ie/programmes-and-projects/geoheritage/projects/Pages/Annual-Geoheritage-Grant-Funding.aspx",
-      "links_seen": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 1,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -223,10 +223,10 @@
       "id": "geo_erc_advanced_watch",
       "name": "Geo watch: ERC Advanced Grant",
       "url": "https://erc.europa.eu/funding/advanced-grants",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 167,
-      "funding_like_links": 20,
+      "status": "fetch_error",
+      "fetch_error": "403 Client Error: Forbidden for url: https://erc.europa.eu/funding/advanced-grants",
+      "links_seen": 0,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     },
     {
