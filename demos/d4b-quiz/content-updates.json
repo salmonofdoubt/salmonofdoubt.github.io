@@ -242,6 +242,51 @@
       "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
       "merge_commit": "66c2a59731bc78f049da8a4650a2d5277e1e38ce",
       "review_scope": "Original practice questions; not copied Moodle originals. Course alignment and independent verification are item-specific. Historical Moodle assessment evidence is not imported by this event."
+    },
+    {
+      "accepted_at": "2026-10-23T07:48:25Z",
+      "source_id": "drive",
+      "source_name": "Private D4B Drive (connected ChatGPT review)",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "week": 6,
+      "material_version": "Week 06 teaching material reviewed 2026-10-20; inventory rechecked 2026-10-23",
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/223",
+      "merge_commit": "608db510a796c3a6f3ee2215cac36a40f0110c2c",
+      "review_scope": "Original four-choice practice questions, not Moodle originals or copied third-party quiz text. Course alignment, official Moodle grading and independent verification remain item-specific; no private Drive content is fetched by GitHub Actions.",
+      "id": "d4b-source-release-20261023-inn-w6",
+      "material": "Innovation Week 06 · Innovation, AI Tools and Critical Evaluation",
+      "module": "INN",
+      "question_ids": [
+        "d4b-141",
+        "d4b-142",
+        "d4b-143",
+        "d4b-144",
+        "d4b-145",
+        "d4b-146",
+        "d4b-147",
+        "d4b-148"
+      ]
+    },
+    {
+      "accepted_at": "2026-10-23T07:48:25Z",
+      "source_id": "drive",
+      "source_name": "Private D4B Drive (connected ChatGPT review)",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "week": 6,
+      "material_version": "Week 06 teaching material reviewed 2026-10-20; inventory rechecked 2026-10-23",
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/223",
+      "merge_commit": "608db510a796c3a6f3ee2215cac36a40f0110c2c",
+      "review_scope": "Original four-choice practice questions, not Moodle originals or copied third-party quiz text. Course alignment, official Moodle grading and independent verification remain item-specific; no private Drive content is fetched by GitHub Actions.",
+      "id": "d4b-source-release-20261023-dtr-w6",
+      "material": "Digital Transformation Week 06 · New Literacies and Digital Citizenship",
+      "module": "DTR",
+      "question_ids": [
+        "d4b-149",
+        "d4b-150",
+        "d4b-151",
+        "d4b-152",
+        "d4b-153"
+      ]
     }
   ]
 }
