@@ -9,7 +9,7 @@ A quiet Italian metaphysical piazza, monumental façades, long shadows and facel
 
 ## Prototype scope
 - All 34 classical mat exercises are indexed by name, pedagogical intention and observation.
-- 13 movements have **distinct animated studies**: Hundred, Roll Up, One Leg Circle, Single Leg Stretch, Double Leg Stretch, Spine Stretch Forward, Saw, Swan Dive *preparation*, Single Leg Kick, Shoulder Bridge, Spine Twist, Side Kick, Swimming, Leg Pull Front *preparation*, Push Up. (Fifteen scripts; includes preparatory interpretations.)
+- 15 movements have **distinct animated studies**: Hundred, Roll Up, One Leg Circle, Single Leg Stretch, Double Leg Stretch, Spine Stretch Forward, Saw, Swan Dive *preparation*, Single Leg Kick, Shoulder Bridge, Spine Twist, Side Kick, Swimming, Leg Pull Front *preparation*, Push Up. (Fifteen scripts; includes preparatory interpretations.)
 - Non-animated movements are explicitly marked **choreography pending**, not disguised by a generic animation.
 - Orbit, zoom, playback, speed, scrub, movement traces and responsive layouts.
 - Static GitHub Pages deployment; Three.js is loaded from pinned jsDelivr v0.160.0.
