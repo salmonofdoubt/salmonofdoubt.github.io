@@ -4,7 +4,7 @@
     "openai-cards": {
       "source_id": "openai-cards",
       "url": "https://deploymentsafety.openai.com/",
-      "last_attempt": "2026-10-22T10:40:18Z",
+      "last_attempt": "2026-10-23T10:32:23Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -12,7 +12,7 @@
       "final_url": "https://deploymentsafety.openai.com/",
       "http_status": 200,
       "sha256": "148c261723215260b0266f451a1a37bbabd1a9c5d225d6eeb5108ee4b9ae14d5",
-      "last_success": "2026-10-22T10:40:18Z",
+      "last_success": "2026-10-23T10:32:24Z",
       "language": "en",
       "characters": 1529,
       "excerpt": "Skip to content\nDeployment Safety Hub\nDeployment safety\nSharing the technical work we do to make our systems safe, including how deployed models perform in evaluations, the risks we measure, and the steps we take to impr",
@@ -23,7 +23,7 @@
     "openai-training": {
       "source_id": "openai-training",
       "url": "https://help.openai.com/en/articles/7842364-how-chatgpt-and-our-foundation-models-are-developed",
-      "last_attempt": "2026-10-22T10:40:19Z",
+      "last_attempt": "2026-10-23T10:32:25Z",
       "robots": "checked",
       "status": "blocked",
       "error": "HTTP 403; last successful capture retained if available.",
@@ -41,26 +41,26 @@
     "gemini-cards": {
       "source_id": "gemini-cards",
       "url": "https://deepmind.google/models/model-cards/",
-      "last_attempt": "2026-10-22T10:40:20Z",
+      "last_attempt": "2026-10-23T10:32:26Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
-      "title": "Google DeepMind model cards",
+      "title": "Model cards — Google DeepMind",
       "final_url": "https://deepmind.google/models/model-cards/",
       "http_status": 200,
-      "sha256": "160aa684eb0f2e45257f055a62252784587870cbfb15b3e6af3e1e162198da0a",
-      "last_success": "2026-10-22T10:40:20Z",
-      "language": null,
-      "characters": 17664,
-      "excerpt": "�\b\u0000\u0000\u0000\u0000\u0000\u0002���z\u001bG���}����ۖwX �\u0007��iZ>Hݔ������S\u0004�\u0004�\u0002\n�\u0002H�=~�������^���GV\u0001�\u0003� %�a�@�*+322\"2222��v���|\u0014z�� z�X�^'\n���\n�Q����$�O&\u0003��m�����˯��� ���\u0017\u0005Óv8�0�>y<\b'���\u0005�$����c��݋��p8i���v�= whj2�ÿO�����4�;�`\u0014L�GQ���Y�;�\u0001�i�\u0013��c�?�O�",
+      "sha256": "f6f73d8ce7c6589c12c85c9aa9e025d2496b0897d8bf3ff84df2f61ef4ff8e7b",
+      "last_success": "2026-10-23T10:32:26Z",
+      "language": "en",
+      "characters": 3668,
+      "excerpt": "Skip to main content\nGoogle DeepMind\nBuild with Gemini\nTry Gemini\nModel cards\nSimple, structured overviews of how an advanced AI model was designed and evaluated.\nGemini\nGenerative models\nRobotics\nGemma\nGemini\nOur most i",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-22T10:40:20Z"
+      "changed_at": "2026-10-23T10:32:26Z"
     },
     "gemini-policy": {
       "source_id": "gemini-policy",
       "url": "https://gemini.google/policy-guidelines/",
-      "last_attempt": "2026-10-22T10:40:21Z",
+      "last_attempt": "2026-10-23T10:32:27Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -68,7 +68,7 @@
       "final_url": "https://gemini.google/policy-guidelines/",
       "http_status": 200,
       "sha256": "4258d02904666d41220eaa2d7ea798a4f6946f68b14575c88c5da6ef420cecff",
-      "last_success": "2026-10-22T10:40:21Z",
+      "last_success": "2026-10-23T10:32:28Z",
       "language": "en-US",
       "characters": 3971,
       "excerpt": "Skip to main content\nExplore\nSubscriptions\nWhat's New\nTry Gemini\nPolicy guidelines for the Gemini app\nOur goal for the Gemini app is to be maximally helpful to users, while avoiding outputs that could cause real-world ha",
@@ -78,7 +78,7 @@
     "claude-transparency": {
       "source_id": "claude-transparency",
       "url": "https://www.anthropic.com/transparency",
-      "last_attempt": "2026-10-22T10:40:22Z",
+      "last_attempt": "2026-10-23T10:32:28Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -86,7 +86,7 @@
       "final_url": "https://www.anthropic.com/transparency",
       "http_status": 200,
       "sha256": "d1ce1d43576139511524fb2b0114ff1436b6b71780d56c76827003cf64207afa",
-      "last_success": "2026-10-22T10:40:23Z",
+      "last_success": "2026-10-23T10:32:29Z",
       "language": "en",
       "characters": 164418,
       "excerpt": "Skip to main content\nAnthropic’s Transparency Hub\nA look at Anthropic's key processes, programs, and practices for responsible AI development.\n01Model Report\n02System Trust and Reporting\n03Voluntary Commitments\nChapter 0",
@@ -97,7 +97,7 @@
     "claude-constitution": {
       "source_id": "claude-constitution",
       "url": "https://www.anthropic.com/constitution",
-      "last_attempt": "2026-10-22T10:40:23Z",
+      "last_attempt": "2026-10-23T10:32:30Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -105,7 +105,7 @@
       "final_url": "https://www.anthropic.com/constitution",
       "http_status": 200,
       "sha256": "a800641309d8cfe64dbf348fd9507f3350b4fee3a9746a992aa1a76a9c12c338",
-      "last_success": "2026-10-22T10:40:24Z",
+      "last_success": "2026-10-23T10:32:30Z",
       "language": "en",
       "characters": 191032,
       "excerpt": "Skip to main content\nClaude’s Constitution\nOur vision for Claude's character\nClaude’s constitution is a detailed description of Anthropic’s intentions for Claude’s values and behavior. It plays a crucial role in our trai",
@@ -116,7 +116,7 @@
     "america-faq": {
       "source_id": "america-faq",
       "url": "https://america.gov/faq",
-      "last_attempt": "2026-10-22T10:40:25Z",
+      "last_attempt": "2026-10-23T10:32:31Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -124,7 +124,7 @@
       "title": "Frequently asked questions | America.gov",
       "final_url": "https://america.gov/faq",
       "sha256": "f2c17c6cc313730b100d71469e5722202969281096082669f4a0c27b5dd677a4",
-      "last_success": "2026-10-22T10:40:25Z",
+      "last_success": "2026-10-23T10:32:31Z",
       "language": "en",
       "characters": 2527,
       "excerpt": "Skip to main content\nAn official website of the United States government\nMenu\nFrequently asked questions.\nIs America.gov politically neutral?\nAmerica.gov does not provide campaign or party information. Its answers are ba",
@@ -134,7 +134,7 @@
     "america-foia": {
       "source_id": "america-foia",
       "url": "https://www.gsa.gov/reference/freedom-of-information-act-foia",
-      "last_attempt": "2026-10-22T10:40:27Z",
+      "last_attempt": "2026-10-23T10:32:33Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -142,18 +142,18 @@
       "final_url": "https://www.gsa.gov/reference/freedom-of-information-act-foia",
       "http_status": 200,
       "sha256": "fb059b1d4d72ab2637818ba7e26a21933259455390af316fd2339ca5b85f6db0",
-      "last_success": "2026-10-22T10:40:28Z",
+      "last_success": "2026-10-23T10:32:33Z",
       "language": "en",
       "characters": 12566,
       "excerpt": "Skip to main content\nAn official website of the United States government\nHere’s how you know\nHere’s how you know\nOfficial websites use .gov\nA .gov website belongs to an official government organization in the United Stat",
-      "page_last_modified": "Thu, 22 Oct 2026 10:15:26 GMT",
+      "page_last_modified": "Fri, 23 Oct 2026 10:15:47 GMT",
       "review_needed": true,
       "changed_at": "2026-10-22T10:40:28Z"
     },
     "america-partner": {
       "source_id": "america-partner",
       "url": "https://blog.google/company-news/outreach-and-initiatives/public-policy/america-gov-google-public-sector/",
-      "last_attempt": "2026-10-22T10:40:26Z",
+      "last_attempt": "2026-10-23T10:32:32Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -161,7 +161,7 @@
       "final_url": "https://blog.google/company-news/outreach-and-initiatives/public-policy/america-gov-google-public-sector/",
       "http_status": 200,
       "sha256": "1417d85ac6f4bce18bddaf54b9c4cc734ab9218b089c0eb3def491da46ace9de",
-      "last_success": "2026-10-22T10:40:27Z",
+      "last_success": "2026-10-23T10:32:32Z",
       "language": "en-us",
       "characters": 3924,
       "excerpt": "Back\nInnovation & AI\nSee all in Innovation & AI\nModels & Research\nGoogle DeepMind\nGoogle Research\nGoogle Labs\nGemini models\nQuantum computing\nSee all\nProducts\nDeveloper tools\nGemini app\nGemini Notebook\nSee all\nInfrastruc",
@@ -171,7 +171,7 @@
     "registry-openai": {
       "source_id": "registry-openai",
       "url": "https://developers.openai.com/api/docs/models",
-      "last_attempt": "2026-10-22T10:40:37Z",
+      "last_attempt": "2026-10-23T10:32:42Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -294,19 +294,19 @@
       "title": "Models | OpenAI API",
       "final_url": "https://developers.openai.com/api/docs/models",
       "http_status": 200,
-      "sha256": "8fe213fb9de5fdc473a5951c9cb4ec8b8c2598f36fd9b737fa3d562ae5b6d701",
-      "last_success": "2026-10-22T10:40:38Z",
+      "sha256": "943ec413d6db758be04348b6b64d6af9b376f80ec120ba238ab81207c1ee1972",
+      "last_success": "2026-10-23T10:32:43Z",
       "language": "en",
-      "characters": 14273,
+      "characters": 14324,
       "excerpt": "For the complete documentation index, see llms.txt. Markdown versions of documentation pages are available by appending\n.md to the page URL.\nChatGPT\nStart searching\nAPI Dashboard\nTry ChatGPT\nSearch the API docs\nSearch do",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-20T10:27:10Z"
+      "changed_at": "2026-10-23T10:32:43Z"
     },
     "registry-google": {
       "source_id": "registry-google",
       "url": "https://ai.google.dev/gemini-api/docs/models",
-      "last_attempt": "2026-10-22T10:40:39Z",
+      "last_attempt": "2026-10-23T10:32:44Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -525,19 +525,19 @@
       "title": "Models | Gemini API | Google AI for Developers",
       "final_url": "https://ai.google.dev/gemini-api/docs/models",
       "http_status": 200,
-      "sha256": "2d885d88cafbcb4c022bea10cc1635de1714ab3450da281dd92fc52a99f4d948",
-      "last_success": "2026-10-22T10:40:40Z",
+      "sha256": "57d595306f86a61b1a893e7080bc31c9bacd7a59c70dc5104e86168ed46ca017",
+      "last_success": "2026-10-23T10:32:44Z",
       "language": "en",
-      "characters": 15341,
+      "characters": 15024,
       "excerpt": "Skip to main content\n/\nEnglish\nDeutsch\nEspañol – América Latina\nFrançais\nIndonesia\nItaliano\nPolski\nPortuguês – Brasil\nShqip\nTiếng Việt\nTürkçe\nРусский\nעברית\nالعربيّة\nفارسی\nहिंदी\nবাংলা\nภาษาไทย\n中文 – 简体\n中文 – 繁體\n日本語\n한국어\nGet",
-      "page_last_modified": "Wed, 21 Oct 2026 16:39:28 GMT",
+      "page_last_modified": "Thu, 22 Oct 2026 16:39:31 GMT",
       "review_needed": true,
-      "changed_at": "2026-10-22T10:40:40Z"
+      "changed_at": "2026-10-23T10:32:44Z"
     },
     "registry-anthropic": {
       "source_id": "registry-anthropic",
       "url": "https://platform.claude.com/docs/en/models/overview",
-      "last_attempt": "2026-10-22T10:40:40Z",
+      "last_attempt": "2026-10-23T10:32:45Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -570,22 +570,22 @@
       "title": "Models overview - Claude Platform Docs",
       "final_url": "https://platform.claude.com/docs/en/models/overview",
       "http_status": 200,
-      "sha256": "1efd96c76f6dda4f95461eafa27dc86d202b8807f2cf631d82f4b86eaa0d98d9",
-      "last_success": "2026-10-22T10:40:41Z",
+      "sha256": "b2f2429fc12c6d4037b8d83f961fbe097cab4c246ae270e5645514a69f311f1f",
+      "last_success": "2026-10-23T10:32:46Z",
       "language": "en",
-      "characters": 7142,
+      "characters": 7293,
       "excerpt": "Claude Platform Docs\nAPI reference\nEnglish\nConsoleLog in\n\nSearchCtrlK\nModels\nModels overview\nClaude Fable 5.1\nClaude Opus 5.5\nClaude Sonnet 5.5\nClaude Haiku 5.5\nSpecialized models\nLegacy models\nGuides\nChoosing a ",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-22T10:40:41Z"
+      "changed_at": "2026-10-23T10:32:46Z"
     },
     "status-openai": {
       "source_id": "status-openai",
       "url": "https://status.openai.com/api/v2/summary.json",
-      "last_attempt": "2026-10-23T07:42:01Z",
+      "last_attempt": "2026-10-23T10:32:46Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
-      "last_success": "2026-10-23T07:42:01Z",
+      "last_success": "2026-10-23T10:32:47Z",
       "error": null,
       "operator": {
         "status": "serving",
@@ -605,11 +605,11 @@
     "status-claude": {
       "source_id": "status-claude",
       "url": "https://status.claude.com/api/v2/summary.json",
-      "last_attempt": "2026-10-23T07:42:02Z",
+      "last_attempt": "2026-10-23T10:32:47Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
       "error": null,
-      "last_success": "2026-10-23T07:42:02Z",
+      "last_success": "2026-10-23T10:32:48Z",
       "operator": {
         "status": "serving",
         "reason": "Operator-reported components; not an independent query test",
@@ -624,26 +624,26 @@
     "openai-spec": {
       "source_id": "openai-spec",
       "url": "https://developers.openai.com/api/docs/models/gpt-5.2",
-      "last_attempt": "2026-10-22T10:40:29Z",
+      "last_attempt": "2026-10-23T10:32:34Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
       "title": "GPT-5.2 Model | OpenAI API",
       "final_url": "https://developers.openai.com/api/docs/models/gpt-5.2",
       "http_status": 200,
-      "sha256": "f8c51b0b9c23531341e163666bb6f14afa78990b4a6576c21c61686eef053a6f",
-      "last_success": "2026-10-22T10:40:29Z",
+      "sha256": "e21d910532b3a382ae7b3baa16a9f9141a8f3fbcb0114368b0b31816b42cb8e0",
+      "last_success": "2026-10-23T10:32:34Z",
       "language": "en",
-      "characters": 13470,
+      "characters": 13521,
       "excerpt": "For the complete documentation index, see llms.txt. Markdown versions of documentation pages are available by appending\n.md to the page URL.\nChatGPT\nStart searching\nAPI Dashboard\nTry ChatGPT\nSearch the API docs\nSearch do",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-20T10:27:03Z"
+      "changed_at": "2026-10-23T10:32:34Z"
     },
     "gemini-spec": {
       "source_id": "gemini-spec",
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview",
-      "last_attempt": "2026-10-22T10:40:30Z",
+      "last_attempt": "2026-10-23T10:32:35Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -651,7 +651,7 @@
       "final_url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview",
       "http_status": 200,
       "sha256": "90d01c99582aca89b45b6b2fda316133d463a135a220af74dd2ace3265c3b7f9",
-      "last_success": "2026-10-22T10:40:31Z",
+      "last_success": "2026-10-23T10:32:35Z",
       "language": "en",
       "characters": 3120,
       "excerpt": "Skip to main content\n/\nEnglish\nDeutsch\nEspañol – América Latina\nFrançais\nIndonesia\nItaliano\nPolski\nPortuguês – Brasil\nShqip\nTiếng Việt\nTürkçe\nРусский\nעברית\nالعربيّة\nفارسی\nहिंदी\nবাংলা\nภาษาไทย\n中文 – 简体\n中文 – 繁體\n日本語\n한국어\nGet",
@@ -662,83 +662,83 @@
     "claude-spec": {
       "source_id": "claude-spec",
       "url": "https://platform.claude.com/docs/en/models/opus-4-6/overview",
-      "last_attempt": "2026-10-22T10:40:32Z",
+      "last_attempt": "2026-10-23T10:32:36Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
       "title": "Claude Opus 4.6 - Claude Platform Docs",
       "final_url": "https://platform.claude.com/docs/en/models/opus-4-6/overview",
       "http_status": 200,
-      "sha256": "9043fd5a919a6e1dae895b605737b364201af3c53cfa23facb5bdb93abb10c0a",
-      "last_success": "2026-10-22T10:40:32Z",
+      "sha256": "b6d65616c671a6af5b372584c5b8e79a6e267f57352ae23d55714833400428ff",
+      "last_success": "2026-10-23T10:32:37Z",
       "language": "en",
-      "characters": 2961,
+      "characters": 3143,
       "excerpt": "Claude Platform Docs\nAPI reference\nEnglish\nConsoleLog in\n\nSearchCtrlK\nModels\nModels overview\nClaude Fable 5.1\nClaude Opus 5.5\nClaude Sonnet 5.5\nClaude Haiku 5.5\nSpecialized models\nLegacy models\nClaude Fable 5Clau",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-10T11:23:50Z"
+      "changed_at": "2026-10-23T10:32:37Z"
     },
     "openai-spec-current": {
       "source_id": "openai-spec-current",
       "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
-      "last_attempt": "2026-10-22T10:40:33Z",
+      "last_attempt": "2026-10-23T10:32:37Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
       "title": "GPT-6.1 Sol Model | OpenAI API",
       "final_url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
       "http_status": 200,
-      "sha256": "e09560faedfe250906a43b6e58084129efb41221980cb72fc90cbb46816c27e9",
-      "last_success": "2026-10-22T10:40:34Z",
+      "sha256": "b623fcf5383ac1612929095b2a388794f9857e5bfbda769ca41d564349a8ba16",
+      "last_success": "2026-10-23T10:32:38Z",
       "language": "en",
-      "characters": 14333,
+      "characters": 14384,
       "excerpt": "For the complete documentation index, see llms.txt. Markdown versions of documentation pages are available by appending\n.md to the page URL.\nChatGPT\nStart searching\nAPI Dashboard\nTry ChatGPT\nSearch the API docs\nSearch do",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-20T10:27:07Z"
+      "changed_at": "2026-10-23T10:32:38Z"
     },
     "gemini-spec-current": {
       "source_id": "gemini-spec-current",
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
-      "last_attempt": "2026-10-22T10:40:35Z",
+      "last_attempt": "2026-10-23T10:32:39Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
       "title": "Gemini 3.8 Flash | Gemini API | Google AI for Developers",
       "final_url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
       "http_status": 200,
-      "sha256": "bcd73da48829f79a055a1d8e3c73e361338a9d5906c08d9457acbc77369e3ef1",
-      "last_success": "2026-10-22T10:40:35Z",
+      "sha256": "dfcdd0e4fb766296d69f6c6d27ea2ecab3cd223a829192ac04ea1a18ccef54fd",
+      "last_success": "2026-10-23T10:32:40Z",
       "language": "en",
-      "characters": 2427,
+      "characters": 2445,
       "excerpt": "Skip to main content\n/\nEnglish\nDeutsch\nEspañol – América Latina\nFrançais\nIndonesia\nItaliano\nPolski\nPortuguês – Brasil\nShqip\nTiếng Việt\nTürkçe\nРусский\nעברית\nالعربيّة\nفارسی\nहिंदी\nবাংলা\nภาษาไทย\n中文 – 简体\n中文 – 繁體\n日本語\n한국어\nGet",
-      "page_last_modified": "Wed, 02 Sep 2026 15:04:03 GMT",
+      "page_last_modified": "Thu, 22 Oct 2026 17:08:38 GMT",
       "review_needed": true,
-      "changed_at": "2026-10-14T10:38:30Z"
+      "changed_at": "2026-10-23T10:32:40Z"
     },
     "claude-spec-current": {
       "source_id": "claude-spec-current",
       "url": "https://platform.claude.com/docs/en/models/fable-5-1/overview",
-      "last_attempt": "2026-10-22T10:40:36Z",
+      "last_attempt": "2026-10-23T10:32:41Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
       "title": "Claude Fable 5.1 - Claude Platform Docs",
       "final_url": "https://platform.claude.com/docs/en/models/fable-5-1/overview",
       "http_status": 200,
-      "sha256": "1e5c08bbf3cb96e155ff564bd2e445afe4b5432ca826612b7d59c5e1bc3eb440",
-      "last_success": "2026-10-22T10:40:37Z",
+      "sha256": "ef798be3259bd2adad4fe28e599f4554f8518fe327f13eb64c095c3797c25905",
+      "last_success": "2026-10-23T10:32:42Z",
       "language": "en",
-      "characters": 4585,
+      "characters": 4763,
       "excerpt": "Claude Platform Docs\nAPI reference\nEnglish\nConsoleLog in\n\nSearchCtrlK\nModels\nModels overview\nClaude Fable 5.1\nOverviewWhat's newMigration guide\nClaude Opus 5.5\nClaude Sonnet 5.5\nClaude Haiku 5.5\nSpecialized models",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-22T10:40:37Z"
+      "changed_at": "2026-10-23T10:32:42Z"
     },
     "energy-gemini": {
       "source_id": "energy-gemini",
       "url": "https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference",
-      "last_attempt": "2026-10-22T10:40:44Z",
+      "last_attempt": "2026-10-23T10:32:49Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -746,7 +746,7 @@
       "final_url": "https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference",
       "http_status": 200,
       "sha256": "ecd8071609f72f383b1f674750b993999e6dbf19ab58fbdd882a776c29c169ce",
-      "last_success": "2026-10-22T10:40:46Z",
+      "last_success": "2026-10-23T10:32:49Z",
       "language": "en-US",
       "characters": 9944,
       "excerpt": "Jump to Content\nCloud\nBlog\nContact sales Get started for free\nCloud\nBlog\nContact sales Get started for free\nInfrastructure\nHow much energy does Google’s AI use? We did the math\nAugust 21, 2025\nAmin Vahdat\nSVP and Chief T",
@@ -757,7 +757,7 @@
     "energy-search": {
       "source_id": "energy-search",
       "url": "https://publicpolicy.googleblog.com/2009/01/powering-google-search.html",
-      "last_attempt": "2026-10-22T10:40:46Z",
+      "last_attempt": "2026-10-23T10:32:50Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -765,17 +765,17 @@
       "final_url": "https://publicpolicy.googleblog.com/2009/01/powering-google-search.html",
       "http_status": 200,
       "sha256": "76cb750934f00db21a57f0b36430d0d5d80b6898691ff92dc48a06ddd62cad2d",
-      "last_success": "2026-10-22T10:40:47Z",
+      "last_success": "2026-10-23T10:32:50Z",
       "language": "en",
       "characters": 3720,
       "excerpt": "Public Policy Blog\nUpdates on technology policy issues\nPowering a Google search\nMonday, January 12, 2009\nGoogle\nLabels:\nEnergy Efficiency\n,\nPublic Policy Blog\n3 comments\n:\ncoslyJanuary 12, 2009 at 4:08 PM\nI think Google ",
-      "page_last_modified": "Thu, 22 Oct 2026 09:46:08 GMT",
+      "page_last_modified": "Fri, 23 Oct 2026 07:33:07 GMT",
       "review_needed": false
     },
     "training-bloom": {
       "source_id": "training-bloom",
       "url": "https://arxiv.org/abs/2211.02001",
-      "last_attempt": "2026-10-22T10:40:48Z",
+      "last_attempt": "2026-10-23T10:32:51Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -783,7 +783,7 @@
       "final_url": "https://arxiv.org/abs/2211.02001",
       "http_status": 200,
       "sha256": "e16c9d3c246fcd487877c74e8bedb533d515b3a5da308ade0c132e4d6819b4d7",
-      "last_success": "2026-10-22T10:40:48Z",
+      "last_success": "2026-10-23T10:32:51Z",
       "language": "en",
       "characters": 4032,
       "excerpt": "Skip to main content\nSearch\nSearch arXiv\nPress Enter to search · Advanced search\nComputer Science > Machine Learning\narXiv:2211.02001 (cs)\n[Submitted on 3 Nov 2022]\nTitle:Estimating the Carbon Footprint of BLOOM, a 176B ",
@@ -794,26 +794,26 @@
     "training-llama": {
       "source_id": "training-llama",
       "url": "https://huggingface.co/meta-llama/Llama-3.1-405B",
-      "last_attempt": "2026-10-22T10:40:49Z",
+      "last_attempt": "2026-10-23T10:32:52Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
       "title": "meta-llama/Llama-3.1-405B · Hugging Face",
       "final_url": "https://huggingface.co/meta-llama/Llama-3.1-405B",
       "http_status": 200,
-      "sha256": "c3a4de5fe83e0b20c8fe2d50d7b68422b831276bded4bde4bcb837460685d4ec",
-      "last_success": "2026-10-22T10:40:50Z",
+      "sha256": "97ce2b4ec4073e321dbb6ce0a9f6d817df3941b68c92ce0ff5e10fd41687235a",
+      "last_success": "2026-10-23T10:32:52Z",
       "language": null,
       "characters": 31365,
-      "excerpt": "Hugging Face\nLog In\nSign Up\nmeta-llama\n/\nLlama-3.1-405B\nLike 992\nFollow\nMeta Llama 88.1k\nText Generation\nTransformers\nSafetensors\nPyTorch\n8 languages\nllama\nfacebook\nmeta\nllama-3\nEval Results\ntext-generation-inference\narx",
+      "excerpt": "Hugging Face\nLog In\nSign Up\nmeta-llama\n/\nLlama-3.1-405B\nLike 992\nFollow\nMeta Llama 88.2k\nText Generation\nTransformers\nSafetensors\nPyTorch\n8 languages\nllama\nfacebook\nmeta\nllama-3\nEval Results\ntext-generation-inference\narx",
       "page_last_modified": null,
       "review_needed": true,
-      "changed_at": "2026-10-22T10:40:50Z"
+      "changed_at": "2026-10-23T10:32:52Z"
     },
     "energy-openai-claim": {
       "source_id": "energy-openai-claim",
       "url": "https://blog.samaltman.com/the-gentle-singularity",
-      "last_attempt": "2026-10-22T10:40:50Z",
+      "last_attempt": "2026-10-23T10:32:53Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -821,7 +821,7 @@
       "final_url": "https://blog.samaltman.com/the-gentle-singularity",
       "http_status": 200,
       "sha256": "f91ea993cde0d875a9de70ddd8b116335adf0cdd01582025614425c4cbba4358",
-      "last_success": "2026-10-22T10:40:51Z",
+      "last_success": "2026-10-23T10:32:54Z",
       "language": null,
       "characters": 10381,
       "excerpt": "Sam Altman\n« Back to blog\nThe Gentle Singularity\nWe are past the event horizon; the takeoff has started. Humanity is close to building digital superintelligence, and at least so far it’s much less weird than it seems lik",
@@ -831,7 +831,7 @@
     "energy-inference-study": {
       "source_id": "energy-inference-study",
       "url": "https://arxiv.org/abs/2509.20241v2",
-      "last_attempt": "2026-10-22T10:40:52Z",
+      "last_attempt": "2026-10-23T10:32:55Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -839,7 +839,7 @@
       "final_url": "https://arxiv.org/abs/2509.20241v2",
       "http_status": 200,
       "sha256": "a1fe84d6cd783b25509cbc3c8518a8dc488e81f14172f059cde76f8a323c6307",
-      "last_success": "2026-10-22T10:40:52Z",
+      "last_success": "2026-10-23T10:32:55Z",
       "language": "en",
       "characters": 4484,
       "excerpt": "Skip to main content\nSearch\nSearch arXiv\nPress Enter to search · Advanced search\nComputer Science > Machine Learning\narXiv:2509.20241v2 (cs)\n[Submitted on 24 Sep 2025 (v1), last revised 9 Jun 2026 (this version, v2)]\nTit",
@@ -850,7 +850,7 @@
     "energy-google-paper": {
       "source_id": "energy-google-paper",
       "url": "https://arxiv.org/html/2508.15734v1",
-      "last_attempt": "2026-10-22T10:40:53Z",
+      "last_attempt": "2026-10-23T10:32:56Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -858,7 +858,7 @@
       "final_url": "https://arxiv.org/html/2508.15734v1",
       "http_status": 200,
       "sha256": "d15b0544ac20d5314fb6e8861de6e97473bba174071da1e6cf1c57d1369f2baf",
-      "last_success": "2026-10-22T10:40:53Z",
+      "last_success": "2026-10-23T10:32:56Z",
       "language": "en",
       "characters": 53582,
       "excerpt": "Report GitHub Issue\n×\nTitle:\nContent selection saved. Describe the issue below:\nDescription:\narXiv is now an independent nonprofit!\nLearn more\n×\nBack to arXiv\nLicense: CC BY 4.0\narXiv:2508.15734v1 [cs.AI] 21 Aug 2025\nMea",
@@ -868,7 +868,7 @@
     "energy-mistral-lca": {
       "source_id": "energy-mistral-lca",
       "url": "https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai/",
-      "last_attempt": "2026-10-22T10:40:54Z",
+      "last_attempt": "2026-10-23T10:32:57Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -876,7 +876,7 @@
       "final_url": "https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai/",
       "http_status": 200,
       "sha256": "b4c7396400dbcd184f4a1e14568859764540dc4244ec50253ce61d652f98c4c5",
-      "last_success": "2026-10-22T10:40:55Z",
+      "last_success": "2026-10-23T10:32:57Z",
       "language": "en",
       "characters": 8237,
       "excerpt": "Get in touch\nMenu\nResearch\nSovereign AI\nCloud\nCustomers\nCompany\nGet in touch\nLogin\nWhy Sovereign AI\nProducts\nMethod\nSovereign AI in practice\nInference\nCompute\nEnergy & utilities\nManufacturing\nFinancial services\nPublic se",
@@ -887,10 +887,10 @@
     "status-gemini": {
       "source_id": "status-gemini",
       "url": "https://www.google.com/appsstatus/dashboard/incidents.json",
-      "last_attempt": "2026-10-23T07:42:03Z",
+      "last_attempt": "2026-10-23T10:32:58Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
-      "last_success": "2026-10-23T07:42:03Z",
+      "last_success": "2026-10-23T10:32:58Z",
       "error": null,
       "operator": {
         "status": "serving",
@@ -908,7 +908,7 @@
     "training-estimate-hardware": {
       "source_id": "training-estimate-hardware",
       "url": "https://www.nvidia.com/en-us/data-center/h100/",
-      "last_attempt": "2026-10-22T10:40:56Z",
+      "last_attempt": "2026-10-23T10:32:59Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -916,17 +916,17 @@
       "final_url": "https://www.nvidia.com/en-us/data-center/h100/",
       "http_status": 200,
       "sha256": "1bb08be9d91e353efc5d39ab5c2d2eba4017ec07bdf215744d78a9cf3b8a6562",
-      "last_success": "2026-10-22T10:40:57Z",
+      "last_success": "2026-10-23T10:32:59Z",
       "language": "en-us",
       "characters": 11124,
       "excerpt": "NVIDIA H100 GPU\nExtraordinary performance, scalability, and security for every data center.\nView Datasheet\nIntroduction\nWorkloads\nH100 NVL\nNVIDIA Enterprise\nSpecifications\nIntroduction\nWorkloads\nH100 NVL\nNVIDIA Enterpris",
-      "page_last_modified": "Thu, 15 Oct 2026 07:44:08 GMT",
+      "page_last_modified": "Thu, 22 Oct 2026 21:40:31 GMT",
       "review_needed": false
     },
     "security-openai-gpt-6-1-sol": {
       "source_id": "security-openai-gpt-6-1-sol",
       "url": "https://deploymentsafety.openai.com/gpt-6-1-sol/respecting-auto-review",
-      "last_attempt": "2026-10-22T10:40:57Z",
+      "last_attempt": "2026-10-23T10:33:00Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -934,7 +934,7 @@
       "final_url": "https://deploymentsafety.openai.com/gpt-6-1-sol/respecting-auto-review",
       "http_status": 200,
       "sha256": "19cca2fe729c915d7f5974b84a4a10aad555b8e5cc66110c575ace11ec417c37",
-      "last_success": "2026-10-22T10:40:59Z",
+      "last_success": "2026-10-23T10:33:02Z",
       "language": "en",
       "characters": 40464,
       "excerpt": "Skip to content\nDeployment Safety Hub\nView PDF↗\nPublished September 29, 2026\nAddendum to GPT-6 Astra System Card: GPT-6.1 Sol\n1. Introduction\nToday, we’re introducing GPT-6.1 Sol. GPT-6.1 is the latest model\nfamily in th",
@@ -944,7 +944,7 @@
     "security-gemini-3-8-flash": {
       "source_id": "security-gemini-3-8-flash",
       "url": "https://deepmind.google/models/model-cards/gemini-3-8-flash/",
-      "last_attempt": "2026-10-22T10:40:59Z",
+      "last_attempt": "2026-10-23T10:33:02Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -952,7 +952,7 @@
       "final_url": "https://deepmind.google/models/model-cards/gemini-3-8-flash/",
       "http_status": 200,
       "sha256": "9c8caf74c08b526e7ec5fb585e64beeb101b097241a4ec9d1e83e4548b61f196",
-      "last_success": "2026-10-22T10:41:00Z",
+      "last_success": "2026-10-23T10:33:03Z",
       "language": "en",
       "characters": 9896,
       "excerpt": "Skip to main content\nGoogle DeepMind\nBuild with Gemini\nTry Gemini\nPublished 2 September 2026\nGemini 3.8 Flash\nLearn more\nView PDF version\nModel Cards are intended to provide essential information on Gemini models, includ",
@@ -963,7 +963,7 @@
     "security-claude-fable-5-1": {
       "source_id": "security-claude-fable-5-1",
       "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
-      "last_attempt": "2026-10-22T10:41:01Z",
+      "last_attempt": "2026-10-23T10:33:04Z",
       "robots": "checked",
       "status": "ok",
       "error": null,
@@ -971,7 +971,7 @@
       "final_url": "https://www.anthropic.com/claude-fable-and-mythos-5-1",
       "http_status": 200,
       "sha256": "da8095615ee4d5d2e1c713a8f6c45c6cd9d12cb4f5214a0f2dc76604c7debdd5",
-      "last_success": "2026-10-22T10:41:01Z",
+      "last_success": "2026-10-23T10:33:04Z",
       "language": "en",
       "characters": 33694,
       "excerpt": "Skip to main content\nSeptember 2026\n:Claude: Fable 5.1and Mythos 5.1\nMade with Fable 5.1\nWe’re introducing Claude Fable 5.1 and Claude Mythos 5.1. They’re the world’s most advanced models for coding and knowledge work—an",
@@ -982,7 +982,7 @@
     "america-how": {
       "source_id": "america-how",
       "url": "https://america.gov/how-it-works",
-      "last_attempt": "2026-10-22T10:41:02Z",
+      "last_attempt": "2026-10-23T10:33:05Z",
       "robots": "checked",
       "status": "ok",
       "http_status": 200,
@@ -990,7 +990,7 @@
       "title": "How it works | America.gov",
       "final_url": "https://america.gov/how-it-works",
       "sha256": "aefb931400341ca2903f4842be8ef42a2d4c4d585e3d6a060a0348fe2923bb6f",
-      "last_success": "2026-10-22T10:41:02Z",
+      "last_success": "2026-10-23T10:33:05Z",
       "language": "en",
       "characters": 3532,
       "excerpt": "Skip to main content\nAn official website of the United States government\nMenu\nAmerica.gov starts\nas a conversation.\nInstead of navigating the maze of websites, you ask questions in your own words. America.gov uses Super ",
@@ -1001,7 +1001,7 @@
     "america-privacy": {
       "source_id": "america-privacy",
       "url": "https://america.gov/privacy-policy",
-      "last_attempt": "2026-10-22T10:41:03Z",
+      "last_attempt": "2026-10-23T10:33:06Z",
       "robots": "checked",
       "status": "ok",
       "http_status": 200,
@@ -1009,7 +1009,7 @@
       "title": "Privacy policy | America.gov",
       "final_url": "https://america.gov/privacy-policy",
       "sha256": "4bd26ec8c828c8af62fdffdae0b919eff2ccb66fe871e07e9f831e2fbfad4915",
-      "last_success": "2026-10-22T10:41:03Z",
+      "last_success": "2026-10-23T10:33:06Z",
       "language": "en",
       "characters": 7486,
       "excerpt": "Skip to main content\nAn official website of the United States government\nMenu\nPrivacy policy\nLast updated: October 20, 2026\n1. Scope of this policy\nAmerica.gov is operated by the General Services Administration (GSA). Th",
@@ -1019,6 +1019,86 @@
     }
   },
   "events": [
+    {
+      "at": "2026-10-23T10:32:52Z",
+      "kind": "document_changed",
+      "source_id": "training-llama",
+      "before_sha256": "c3a4de5fe83e0b20c8fe2d50d7b68422b831276bded4bde4bcb837460685d4ec",
+      "after_sha256": "97ce2b4ec4073e321dbb6ce0a9f6d817df3941b68c92ce0ff5e10fd41687235a",
+      "title": "meta-llama/Llama-3.1-405B · Hugging Face"
+    },
+    {
+      "at": "2026-10-23T10:32:46Z",
+      "kind": "document_changed",
+      "source_id": "registry-anthropic",
+      "before_sha256": "1efd96c76f6dda4f95461eafa27dc86d202b8807f2cf631d82f4b86eaa0d98d9",
+      "after_sha256": "b2f2429fc12c6d4037b8d83f961fbe097cab4c246ae270e5645514a69f311f1f",
+      "title": "Models overview - Claude Platform Docs"
+    },
+    {
+      "at": "2026-10-23T10:32:44Z",
+      "kind": "document_changed",
+      "source_id": "registry-google",
+      "before_sha256": "2d885d88cafbcb4c022bea10cc1635de1714ab3450da281dd92fc52a99f4d948",
+      "after_sha256": "57d595306f86a61b1a893e7080bc31c9bacd7a59c70dc5104e86168ed46ca017",
+      "title": "Models | Gemini API | Google AI for Developers"
+    },
+    {
+      "at": "2026-10-23T10:32:43Z",
+      "kind": "document_changed",
+      "source_id": "registry-openai",
+      "before_sha256": "8fe213fb9de5fdc473a5951c9cb4ec8b8c2598f36fd9b737fa3d562ae5b6d701",
+      "after_sha256": "943ec413d6db758be04348b6b64d6af9b376f80ec120ba238ab81207c1ee1972",
+      "title": "Models | OpenAI API"
+    },
+    {
+      "at": "2026-10-23T10:32:42Z",
+      "kind": "document_changed",
+      "source_id": "claude-spec-current",
+      "before_sha256": "1e5c08bbf3cb96e155ff564bd2e445afe4b5432ca826612b7d59c5e1bc3eb440",
+      "after_sha256": "ef798be3259bd2adad4fe28e599f4554f8518fe327f13eb64c095c3797c25905",
+      "title": "Claude Fable 5.1 - Claude Platform Docs"
+    },
+    {
+      "at": "2026-10-23T10:32:40Z",
+      "kind": "document_changed",
+      "source_id": "gemini-spec-current",
+      "before_sha256": "bcd73da48829f79a055a1d8e3c73e361338a9d5906c08d9457acbc77369e3ef1",
+      "after_sha256": "dfcdd0e4fb766296d69f6c6d27ea2ecab3cd223a829192ac04ea1a18ccef54fd",
+      "title": "Gemini 3.8 Flash | Gemini API | Google AI for Developers"
+    },
+    {
+      "at": "2026-10-23T10:32:38Z",
+      "kind": "document_changed",
+      "source_id": "openai-spec-current",
+      "before_sha256": "e09560faedfe250906a43b6e58084129efb41221980cb72fc90cbb46816c27e9",
+      "after_sha256": "b623fcf5383ac1612929095b2a388794f9857e5bfbda769ca41d564349a8ba16",
+      "title": "GPT-6.1 Sol Model | OpenAI API"
+    },
+    {
+      "at": "2026-10-23T10:32:37Z",
+      "kind": "document_changed",
+      "source_id": "claude-spec",
+      "before_sha256": "9043fd5a919a6e1dae895b605737b364201af3c53cfa23facb5bdb93abb10c0a",
+      "after_sha256": "b6d65616c671a6af5b372584c5b8e79a6e267f57352ae23d55714833400428ff",
+      "title": "Claude Opus 4.6 - Claude Platform Docs"
+    },
+    {
+      "at": "2026-10-23T10:32:34Z",
+      "kind": "document_changed",
+      "source_id": "openai-spec",
+      "before_sha256": "f8c51b0b9c23531341e163666bb6f14afa78990b4a6576c21c61686eef053a6f",
+      "after_sha256": "e21d910532b3a382ae7b3baa16a9f9141a8f3fbcb0114368b0b31816b42cb8e0",
+      "title": "GPT-5.2 Model | OpenAI API"
+    },
+    {
+      "at": "2026-10-23T10:32:26Z",
+      "kind": "document_changed",
+      "source_id": "gemini-cards",
+      "before_sha256": "160aa684eb0f2e45257f055a62252784587870cbfb15b3e6af3e1e162198da0a",
+      "after_sha256": "f6f73d8ce7c6589c12c85c9aa9e025d2496b0897d8bf3ff84df2f61ef4ff8e7b",
+      "title": "Model cards — Google DeepMind"
+    },
     {
       "at": "2026-10-22T10:41:00Z",
       "kind": "document_changed",
@@ -2630,8 +2710,29 @@
       "title": "How ChatGPT and our foundation models are developed | OpenAI Help Center"
     }
   ],
-  "last_refresh": "2026-10-22T10:41:04Z",
+  "last_refresh": "2026-10-23T10:33:07Z",
   "availability_history": [
+    {
+      "at": "2026-10-23T10:32:58Z",
+      "service_id": "gemini",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
+    {
+      "at": "2026-10-23T10:32:48Z",
+      "service_id": "claude",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
+    {
+      "at": "2026-10-23T10:32:47Z",
+      "service_id": "chatgpt",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
     {
       "at": "2026-10-23T07:42:03Z",
       "service_id": "gemini",
@@ -4710,27 +4811,6 @@
       "status": "serving",
       "check_status": "ok",
       "method": "Operator feed"
-    },
-    {
-      "at": "2026-10-06T12:15:02Z",
-      "service_id": "gemini",
-      "status": "serving",
-      "check_status": "ok",
-      "method": "Operator feed"
-    },
-    {
-      "at": "2026-10-06T12:14:51Z",
-      "service_id": "claude",
-      "status": "serving",
-      "check_status": "ok",
-      "method": "Operator feed"
-    },
-    {
-      "at": "2026-10-06T12:14:50Z",
-      "service_id": "chatgpt",
-      "status": "serving",
-      "check_status": "ok",
-      "method": "Operator feed"
     }
   ],
   "discovered_models": {
@@ -4740,7 +4820,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-6-astra",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-6.1-sol": {
@@ -4749,7 +4829,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-6-luna": {
@@ -4758,7 +4838,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-6-luna",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-5.6-cyber": {
@@ -4767,7 +4847,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-5.6-cyber",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-daybreak-red-latest": {
@@ -4794,7 +4874,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-image-2.5-flare": {
@@ -4803,7 +4883,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-image-2.5-flare",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-live-1": {
@@ -4812,7 +4892,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-live-1",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-realtime-2.1": {
@@ -4821,7 +4901,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-realtime-2.1-mini": {
@@ -4830,7 +4910,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-realtime-2": {
@@ -4839,7 +4919,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-realtime-2",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-realtime-translate": {
@@ -4848,7 +4928,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-realtime-translate",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-realtime-1.5": {
@@ -4857,7 +4937,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-realtime-1.5",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-realtime-mini": {
@@ -4866,7 +4946,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-realtime-mini",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-4o-mini-tts": {
@@ -4875,7 +4955,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-4o-mini-tts",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-transcribe": {
@@ -4884,7 +4964,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-transcribe",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-live-transcribe": {
@@ -4893,7 +4973,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-live-transcribe",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-realtime-whisper": {
@@ -4902,7 +4982,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-realtime-whisper",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-4o-transcribe": {
@@ -4911,7 +4991,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-4o-transcribe",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "OpenAI:gpt-4o-mini-transcribe": {
@@ -4920,7 +5000,7 @@
       "url": "https://developers.openai.com/api/docs/models/gpt-4o-mini-transcribe",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:45Z",
-      "last_seen": "2026-10-22T10:40:38Z",
+      "last_seen": "2026-10-23T10:32:43Z",
       "registry_source": "registry-openai"
     },
     "Google:gemini-3.8-flash": {
@@ -4929,7 +5009,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.8-live": {
@@ -4938,7 +5018,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-live",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.8-live-extended-thinking": {
@@ -4947,7 +5027,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-live-extended-thinking",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.8-flash-tts": {
@@ -4956,7 +5036,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash-tts",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.8-flash-lite-tts": {
@@ -4965,7 +5045,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash-lite-tts",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.7-flash": {
@@ -4983,7 +5063,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.6-flash",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.5-flash": {
@@ -5001,7 +5081,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.1-flash-lite": {
@@ -5010,7 +5090,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.1-flash-image": {
@@ -5019,7 +5099,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-image",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.1-flash-lite-image": {
@@ -5028,7 +5108,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite-image",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3-pro-image": {
@@ -5037,7 +5117,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3-pro-image",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.5-transcribe": {
@@ -5046,7 +5126,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-transcribe",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.1-pro-preview": {
@@ -5055,7 +5135,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3-flash-preview": {
@@ -5064,7 +5144,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3-flash-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.5-live-translate-preview": {
@@ -5073,7 +5153,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.5-live-translate-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.1-flash-live-preview": {
@@ -5082,7 +5162,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-live-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.1-flash-tts-preview": {
@@ -5091,7 +5171,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-tts-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-omni-flash": {
@@ -5100,7 +5180,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-omni-flash",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-flash": {
@@ -5109,7 +5189,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-flash-image": {
@@ -5118,7 +5198,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash-image",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-flash-native-audio-preview-12-2025": {
@@ -5127,7 +5207,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash-native-audio-preview-12-2025",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-flash-preview-tts": {
@@ -5136,7 +5216,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash-preview-tts",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-flash-lite": {
@@ -5145,7 +5225,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-flash-lite",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-pro": {
@@ -5154,7 +5234,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-pro",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-pro-preview-tts": {
@@ -5163,7 +5243,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-pro-preview-tts",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-embedding-2": {
@@ -5172,7 +5252,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-embedding-2",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-embedding-001": {
@@ -5181,7 +5261,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-embedding-001",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-robotics-er-1.6-preview": {
@@ -5190,7 +5270,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-robotics-er-1.6-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.5-computer-use-preview-10-2025": {
@@ -5199,7 +5279,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.5-computer-use-preview-10-2025",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.0-flash": {
@@ -5208,7 +5288,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.0-flash",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-2.0-flash-lite": {
@@ -5217,7 +5297,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-2.0-flash-lite",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3.1-flash-lite-preview": {
@@ -5226,7 +5306,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Google:gemini-3-pro-preview": {
@@ -5235,7 +5315,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3-pro-preview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:46Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Anthropic:claude-fable-5-1": {
@@ -5244,7 +5324,7 @@
       "url": "https://platform.claude.com/docs/en/models/fable-5-1/overview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:47Z",
-      "last_seen": "2026-10-22T10:40:41Z",
+      "last_seen": "2026-10-23T10:32:46Z",
       "registry_source": "registry-anthropic"
     },
     "Anthropic:claude-opus-5-5": {
@@ -5253,7 +5333,7 @@
       "url": "https://platform.claude.com/docs/en/models/opus-5-5/overview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:47Z",
-      "last_seen": "2026-10-22T10:40:41Z",
+      "last_seen": "2026-10-23T10:32:46Z",
       "registry_source": "registry-anthropic"
     },
     "Anthropic:claude-sonnet-5-5": {
@@ -5262,7 +5342,7 @@
       "url": "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-02T17:15:47Z",
-      "last_seen": "2026-10-22T10:40:41Z",
+      "last_seen": "2026-10-23T10:32:46Z",
       "registry_source": "registry-anthropic"
     },
     "Anthropic:claude-haiku-4-5": {
@@ -5280,7 +5360,7 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-nano-banana-2.1",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-07T12:02:31Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     },
     "Anthropic:claude-haiku-5-5": {
@@ -5289,7 +5369,7 @@
       "url": "https://platform.claude.com/docs/en/models/haiku-5-5/overview",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-08T12:15:49Z",
-      "last_seen": "2026-10-22T10:40:41Z",
+      "last_seen": "2026-10-23T10:32:46Z",
       "registry_source": "registry-anthropic"
     },
     "Google:gemini-4-argon": {
@@ -5298,12 +5378,12 @@
       "url": "https://ai.google.dev/gemini-api/docs/models/gemini-4-argon",
       "evidence": "Discovered in official catalogue; specification review pending",
       "first_seen": "2026-10-14T10:38:34Z",
-      "last_seen": "2026-10-22T10:40:40Z",
+      "last_seen": "2026-10-23T10:32:44Z",
       "registry_source": "registry-google"
     }
   },
   "refresh_summary": {
-    "at": "2026-10-22T10:41:04Z",
+    "at": "2026-10-23T10:33:07Z",
     "total": 35,
     "successful": 34,
     "failed": [
