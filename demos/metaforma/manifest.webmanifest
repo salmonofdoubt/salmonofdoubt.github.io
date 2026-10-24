@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "MetaForma — Classical Pilates 34",
+  "short_name": "MetaForma",
+  "description": "A source-linked artistic atlas of Joseph Pilates' 34 original mat forms.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#121a1b",
+  "theme_color": "#131c1c",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
