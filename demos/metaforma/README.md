@@ -4,6 +4,14 @@
 
 Website route: `/demos/metaforma/`
 
+## Progression and website controls
+
+- Navigation now follows the six progression blocks supplied by the user: 1–4 Foundation & Warm-Up; 5–9 Rolling & Core Series; 10–14 Rotations & Inversions; 15–20 Torso & Leg Integration; 21–26 Lateral & Peak Balance; 27–34 Dynamic Flow & Culmination. All 34 exercise links and evidence records remain unchanged.
+- Shared Salmon of Doubt **Support this work** menu (GitHub Sponsors and Buy Me a Coffee), using `../shared/demo-support.js` and its CSS.
+- Shared **Zenodo DOI** control, currently `10.5281/zenodo.0000000` (pending; non-clickable until a real Zenodo archive exists), with metadata in `demos/data/demos.json`.
+- **Install me** control, app manifest, SVG icon, browser-specific install instructions and scoped, network-first offline shell. Native installation availability varies by browser; externally linked human tutorials are not available offline.
+- `test-site-controls.cjs` verifies these controls and the six-block grouping; GitHub Actions runs it beside the original evidence test.
+
 ## Published scope
 
 - Classical 34 sequence in the same order and terminology as Lesley Logan's [online index](https://onlinepilatesclasses.com/blog/the-original-34-classical-pilates-mat-exercises/).
