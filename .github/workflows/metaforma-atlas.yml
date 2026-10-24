@@ -15,4 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Validate classical 34 / original illustration gate
-        run: node demos/metaforma/test-evidence.cjs
+        run: |
+          node demos/metaforma/test-evidence.cjs
+          node demos/metaforma/test-site-controls.cjs
