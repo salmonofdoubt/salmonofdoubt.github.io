@@ -2,11 +2,11 @@
 
 **Do not generate replacements or re-encode original artwork.**
 
-The first nine pieces have been received as conversation files, but **the current GitHub connector accepts textual files only**, not PNG/JPEG blobs. No illustration assets are committed with this scaffold. The public website will show its existing textual reference cards until matching assets are uploaded.
+All nine original artist-supplied JPEG/PNG files are now committed in this folder. Their Git blob SHA-1 hashes are recorded in `../artwork-intake.json`, and the site-integrity test verifies their exact contents. The originals must never be recompressed or replaced without explicit approval.
 
 ## Placement
 
-When the **original artwork files** are uploaded to this `art/` directory using a binary-compatible GitHub upload method, the existing static viewer automatically displays them at original resolution, retaining full aspect ratio.
+The **original artwork files** are present in this `art/` directory; the static viewer displays them with their natural aspect ratio and provides full-size links.
 
 | Form | Save exact supplied bytes as | Source |
 |---|---|---|
