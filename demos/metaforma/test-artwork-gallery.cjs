@@ -3,6 +3,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const dir = __dirname;
 const html = fs.readFileSync(path.join(dir,'index.html'),'utf8');
 const js = fs.readFileSync(path.join(dir,'artwork-gallery.js'),'utf8');
@@ -14,7 +15,14 @@ for(let i=1;i<=9;i++){
   assert.equal(item.form,i);
   assert.equal(item.path,'./art/'+id+(i<=4?'.jpeg':'.png'),'Wrong image naming');
   assert.equal(item.received,true);
-  assert.equal(item.asset_in_repo,false,'Do not claim binary assets are committed');
+  assert.equal(item.asset_in_repo,true,'Original binary image must be present in repository');
+  assert.equal(item.original_bytes_preserved,true,'Do not re-encode original image');
+  const bytes=fs.readFileSync(path.join(dir,'art',item.filename));
+  const actualSha=crypto.createHash('sha1')
+    .update(Buffer.from('blob '+bytes.length+String.fromCharCode(0)))
+    .update(bytes)
+    .digest('hex');
+  assert.equal(actualSha,item.git_blob_sha,'Original illustration bytes changed: '+id);
   assert.equal(item.instructor_verified,false,'Cannot invent Pilates teacher approval');
   assert.ok(html.includes('data-artwork-number="'+id+'"'),'Missing intake card '+id);
   assert.ok(html.includes('data-artwork-src="'+item.path+'"'),'Missing artist image link '+id);
@@ -30,6 +38,6 @@ assert.ok(!html.includes('mat-standing-spine-stretch-forward/'),'Do not revive w
 assert.ok(html.includes('../shared/demo-doi.js')&&html.includes('../shared/demo-support.js'),'Shared controls lost');
 new Function(js);
 const sw=fs.readFileSync(path.join(dir,'service-worker.js'),'utf8');
-assert.ok(sw.includes('artwork-gallery.js?v=20261025-1'),'Worker cache has stale asset list');
+assert.ok(sw.includes('artwork-gallery.js?v=20261025-2'),'Worker cache has stale asset list');
 new Function(sw);
-console.log('MetaForma artwork gallery: PASS (9 original art intake records, 34 unchanged exercise cards, 6 architecture blocks).');
+console.log('MetaForma artwork gallery: PASS (9 byte-identical original images, 34 exercise cards, 6 architecture blocks).');

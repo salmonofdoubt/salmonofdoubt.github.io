@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": "MetaForma",
   "as_of": "2026-10-25",
-  "status": "Original artworks received in chat; public repository image binary upload pending",
+  "status": "Nine original images uploaded to GitHub and checked byte-for-byte against the upload package; visually reviewed but not Pilates-instructor-certified",
   "policy": "Preserve exact original supplied bytes; do not resize, crop, re-encode, regenerate, or label teacher verified",
   "expected_path": "demos/metaforma/art/",
   "items": [
@@ -14,10 +14,12 @@
       "path": "./art/01.jpeg",
       "source": "Earlier user-provided Gemini JPEG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "artist-supplied; selection provisional"
+      "note": "artist-supplied; selection provisional",
+      "git_blob_sha": "952207c8066eaf503f37dbd752a8d202de77af79",
+      "original_bytes_preserved": true
     },
     {
       "form": 2,
@@ -27,10 +29,12 @@
       "path": "./art/02.jpeg",
       "source": "Earlier user-provided Gemini JPEG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "artist-supplied; selection provisional"
+      "note": "artist-supplied; selection provisional",
+      "git_blob_sha": "71b9528e0e38d6f9b5004e82cf26aa01a2e2c899",
+      "original_bytes_preserved": true
     },
     {
       "form": 3,
@@ -40,10 +44,12 @@
       "path": "./art/03.jpeg",
       "source": "Earlier user-provided Gemini JPEG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "artist-supplied; selection provisional"
+      "note": "artist-supplied; selection provisional",
+      "git_blob_sha": "08f24e23ea33c9275e123dd3bd8b3204f871adea",
+      "original_bytes_preserved": true
     },
     {
       "form": 4,
@@ -53,10 +59,12 @@
       "path": "./art/04.jpeg",
       "source": "Earlier user-provided Gemini JPEG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "artist-supplied; selection provisional"
+      "note": "artist-supplied; selection provisional",
+      "git_blob_sha": "f6ad08eccb96f0ec27f1a3fc3994b9d62d72e189",
+      "original_bytes_preserved": true
     },
     {
       "form": 5,
@@ -66,10 +74,12 @@
       "path": "./art/05.png",
       "source": "Metaforma_Pilates_Block_2_Forms_05_to_09.zip main PNG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "original Block II supplied; requires technique review"
+      "note": "original Block II supplied; requires technique review",
+      "git_blob_sha": "1584af9c0f9d7504b9e6e85242411afc72ee7c5d",
+      "original_bytes_preserved": true
     },
     {
       "form": 6,
@@ -79,10 +89,12 @@
       "path": "./art/06.png",
       "source": "Metaforma_Pilates_Block_2_Forms_05_to_09.zip main PNG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "SETTING MISMATCH: image depicts a square tower rather than canonical red cylindrical tower"
+      "note": "SETTING MISMATCH: image depicts a square tower rather than canonical red cylindrical tower",
+      "git_blob_sha": "10bce04207eea4f9931c608fe1b95d59348e8746",
+      "original_bytes_preserved": true
     },
     {
       "form": 7,
@@ -92,10 +104,12 @@
       "path": "./art/07.png",
       "source": "Metaforma_Pilates_Block_2_Forms_05_to_09.zip main PNG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "original Block II supplied; requires technique review"
+      "note": "original Block II supplied; requires technique review",
+      "git_blob_sha": "32c418fdf7e0cc8693f8e6a4e35e8cbca08233a4",
+      "original_bytes_preserved": true
     },
     {
       "form": 8,
@@ -105,10 +119,12 @@
       "path": "./art/08.png",
       "source": "Metaforma_Pilates_Block_2_Forms_05_to_09.zip main PNG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "original Block II supplied; requires technique review"
+      "note": "original Block II supplied; requires technique review",
+      "git_blob_sha": "443c3b6647bd492f57101eee7efeda5de4cfc828",
+      "original_bytes_preserved": true
     },
     {
       "form": 9,
@@ -118,10 +134,12 @@
       "path": "./art/09.png",
       "source": "Metaforma_Pilates_Block_2_Forms_05_to_09.zip main PNG",
       "received": true,
-      "asset_in_repo": false,
+      "asset_in_repo": true,
       "visual_approved": false,
       "instructor_verified": false,
-      "note": "original Block II supplied; requires technique review"
+      "note": "original Block II supplied; requires technique review",
+      "git_blob_sha": "ff609901a82dedc2e0fd0c9822240fe9f0015327",
+      "original_bytes_preserved": true
     }
   ]
 }

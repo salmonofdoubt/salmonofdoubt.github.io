@@ -12,6 +12,7 @@
     const image = figure.querySelector('img');
     const anchor = figure.querySelector('.artwork-zoom');
     const note = figure.querySelector('.artwork-note');
+    const visible = figure.querySelector('.artwork-visible-note');
     if (!image || !anchor || !note) return;
     if (!isLocal) {
       // Reject missing website assets without leaving a broken image on screen.
@@ -21,6 +22,7 @@
         anchor.href = url;
         anchor.hidden = false;
         note.hidden = true;
+        if (visible) visible.hidden = false;
         delivered.add(figure.dataset.artworkNumber);
       };
       probe.onerror = () => { /* File not on GitHub yet: retain the honest staging note. */ };
@@ -32,6 +34,7 @@
     anchor.hidden = false;
     anchor.target = '_blank';
     note.hidden = true;
+    if (visible) visible.hidden = false;
   }
 
   const basename = name => String(name || '').split(/[\\/]/).pop().toLowerCase().normalize('NFKD');
