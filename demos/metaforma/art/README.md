@@ -40,6 +40,14 @@ VI. **The Temple of the Afternoon** — 27–34.
 
 No trains, locomotives or smoke in any setting.
 
-## Block III reserved paths (not uploaded)
+## Block III originals — uploaded 25 October 2026
 
-Forms 10–14 will use Setting III: **Piazza d'Italia / The Portico of Ariadne**. The website presently reserves `10.png` through `14.png`. These extensions are provisional until the original images are inspected; original bytes and actual formats must be preserved. The originals are not in this repository yet, and no teaching certification is claimed.
+Five original Gemini JPEGs are hosted under their exact original names and matched to exercises by reading each illustration's visible title and movement-stage captions. File renaming or recompression is not required.
+
+- Form 10: `Gemini_Generated_Image_ie95uiie95uiie95.jpeg`
+- Form 11: `Gemini_Generated_Image_ie95uiie95uiie95 (1).jpeg`
+- Form 12: `Gemini_Generated_Image_ie95uiie95uiie95 (2).jpeg`
+- Form 13: `Gemini_Generated_Image_ie95uiie95uiie95 (3).jpeg`
+- Form 14: `Gemini_Generated_Image_ie95uiie95uiie95 (4).jpeg`
+
+Hash checks in `../test-artwork-gallery.cjs` protect all fourteen original binary files. These are art plates for review, **not qualified instructor verification**.
