@@ -69,6 +69,7 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 .exercise:has(.artwork-zoom:not([hidden])){background:#1a2526}
 .chip{white-space:normal}
 @media(min-width:900px){.exercise-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.artwork-zoom img{max-height:370px}}
+.artwork-intake{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:30px;margin-bottom:15px;border:1px solid var(--line);padding:14px 18px;background:#192324}.artwork-intake div{flex:1 1 280px}.artwork-intake strong{color:var(--gold);font-size:13px}.artwork-intake p{font-size:12px;color:var(--muted);margin:3px 0}.artwork-intake-btn{display:inline-block;border:1px solid var(--gold);border-radius:3px;color:var(--gold);padding:8px 12px;cursor:pointer;font-size:12px}.artwork-intake-btn:hover{background:var(--gold);color:#192324}#artworkLocalFeedback{flex-basis:100%;font-size:11px;color:var(--muted)}
 </style>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -98,6 +99,12 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 <div class="tile"><h2>Nothing unverified gets dressed up as truth</h2><p>The first nine artist-supplied illustrations are now catalogued independently of exercise verification. Older defective images remain excluded. A visually accepted plate is not a validated teaching demonstration.</p><p><strong>Publication gate:</strong> reference poses documented → joint/contact constraints checked → qualified Pilates instructor review → marionette image approved. None of these final exercise-visual approvals are being claimed.</p></div>
 </section>
 <section id="library" aria-label="Classical mat exercise library">
+<div class="artwork-intake" aria-label="Optional local artwork preview">
+ <div><strong>Artwork review · Forms 01–09</strong><p>When the original plates are available on the website, they appear automatically. To inspect originals privately before publication, choose the individual image files here; they stay on your device.</p></div>
+ <label class="artwork-intake-btn" for="artworkLocalFiles">Preview local plates</label>
+ <input type="file" id="artworkLocalFiles" accept=".png,.jpeg,.jpg,.webp,image/png,image/jpeg,image/webp" multiple hidden>
+ <span id="artworkLocalFeedback" role="status" aria-live="polite">No images are uploaded by this control.</span>
+</div>
 <div class="controls"><label for="search" class="overline">Find a movement</label><input class="search" id="search" type="search" placeholder="Search name, number or movement family…" autocomplete="off">
 <button class="chip" type="button" data-filter="all" aria-pressed="true">All 34</button>
 <button class="chip" type="button" data-filter="1" aria-pressed="false">I · Foundation & Warm-Up</button>
