@@ -39,3 +39,7 @@ V. **Castello Estense Plaza** — 21–26.
 VI. **The Temple of the Afternoon** — 27–34.
 
 No trains, locomotives or smoke in any setting.
+
+## Block III reserved paths (not uploaded)
+
+Forms 10–14 will use Setting III: **Piazza d'Italia / The Portico of Ariadne**. The website presently reserves `10.png` through `14.png`. These extensions are provisional until the original images are inspected; original bytes and actual formats must be preserved. The originals are not in this repository yet, and no teaching certification is claimed.
