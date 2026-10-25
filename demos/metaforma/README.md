@@ -1,6 +1,6 @@
 # MetaForma — Evidence-First Classical 34 Atlas
 
-**Status:** Static evidence-first gallery. Forms 01–09 original artwork hosted and staged for visual review; no Pilates instructor-verification claimed.
+**Status:** Static evidence-first gallery. Forms 01–14 original artwork hosted, with original bytes protected and no Pilates instructor-verification claimed.
 
 Website route: `/demos/metaforma/`
 
@@ -17,10 +17,10 @@ Website route: `/demos/metaforma/`
 - Classical 34 sequence in the same order and terminology as Lesley Logan's [online index](https://onlinepilatesclasses.com/blog/the-original-34-classical-pilates-mat-exercises/).
 - Direct links to 34 independently located human tutorial pages.
 - Key source correction: the overview link for exercise 8 opens a standing variation; this atlas links to [the seated Spine Stretch Forward mat tutorial](https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-spine-stretch-forward/).
-- Previous anatomy-defective generated poses remain quarantined. The 9 new user-submitted Gemini plates are **distinct incoming art assets** and are shown as works of art, not teaching-certified demonstrations. They are not instructor-verified.
+- Previous anatomy-defective generated poses remain quarantined. The 14 user-submitted Gemini plates are **distinct incoming art assets** and are shown as works of art, not teaching-certified demonstrations. They are not instructor-verified.
 - The original CSS metaphysical piazza remains atmospheric only. All six progression blocks now have a distinct named de Chirico-inspired architectural setting.
 - No animation, republished third-party images, or ungrounded exercise instructions.
-- New `artwork-intake.json`, `artwork-gallery.js`, and `art/README.md` document the nine original-file mappings and completed original binary upload. Missing art shows a placeholder, not a broken image. The optional local preview loads from your own device and does **not** upload artwork.
+- New `artwork-intake.json`, `artwork-gallery.js`, and `art/README.md` document the fourteen original-file mappings and completed original binary upload. Missing art shows a placeholder, not a broken image. The optional local preview loads from your own device and does **not** upload artwork.
 
 ## First batch of illustrated plates (visual review only)
 
@@ -39,7 +39,11 @@ Website route: `/demos/metaforma/`
 - 13 One Leg Kick — FOREARM SPHINX → RIGHT HEEL KICK → THE ONE LEG KICK.
 - 14 Double Kick — PRONE HANDS CLASPED → DOUBLE HEEL KICK → THE DOUBLE KICK.
 
-These labels come from the user's supplied three-pose design brief. **The corresponding image files have not been uploaded.** Five reserved gallery slots use provisional names `10.png`–`14.png`, subject to inspecting the actual ZIP (preserve JPEG/PNG source format, not renaming extensions incorrectly). The gallery links to human reference tutorials remain present. Instructor verification has not been granted.
+The five original JPEGs are now uploaded to GitHub and mapped according to their embedded exercise captions (not guessed from download sequence). They are served under their original filenames; **no file renaming, cropping or recompression**.\n\n- 10: `Gemini_Generated_Image_ie95uiie95uiie95.jpeg`
+- 11: `Gemini_Generated_Image_ie95uiie95uiie95 (1).jpeg`
+- 12: `Gemini_Generated_Image_ie95uiie95uiie95 (2).jpeg`
+- 13: `Gemini_Generated_Image_ie95uiie95uiie95 (3).jpeg`
+- 14: `Gemini_Generated_Image_ie95uiie95uiie95 (4).jpeg`\n\nHuman exercise reference links remain intact. Instructor technique verification has not been granted.
 
 ## Machine-readable evidence and publishing gate
 
