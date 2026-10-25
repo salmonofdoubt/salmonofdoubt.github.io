@@ -18,3 +18,4 @@ jobs:
         run: |
           node demos/metaforma/test-evidence.cjs
           node demos/metaforma/test-site-controls.cjs
+          node demos/metaforma/test-artwork-gallery.cjs

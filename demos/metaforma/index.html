@@ -55,6 +55,21 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 .demo-support-pill::before{color:#d0aa70}
 .demo-support-option:hover,.demo-support-option:focus{background:rgba(208,170,112,.2)}
 @media(max-width:710px){.site-top nav{align-items:center}.install-button{font-size:11px;padding:8px 10px}.demo-doi-pill,.demo-support-widget{z-index:20}}
+
+/* metaforma-artwork-gallery-v1 */
+.setting-title{flex-basis:100%;margin-top:-5px;font-family:"Italiana",Georgia,serif;color:var(--gold);font-size:22px}
+.artwork-preview{margin:17px 0 12px;padding:0;border:1px solid rgba(208,170,112,.28);background:#10191a}
+.artwork-zoom{display:block;position:relative}
+.artwork-zoom[hidden]{display:none}
+.artwork-zoom img{display:block;width:100%;height:auto;aspect-ratio:2048 / 1143;object-fit:contain;max-height:320px;cursor:zoom-in}
+.artwork-zoom::after{content:"View full plate ↗";position:absolute;bottom:8px;right:8px;padding:5px 9px;border-radius:3px;background:#121d1ede;color:#f5dfb8;font-size:10px}
+.artwork-note{margin:0;padding:13px 14px;color:var(--muted);font-size:11px;line-height:1.6;min-height:68px}
+.artwork-note[hidden]{display:none}
+.artwork-awaiting{margin:17px 0 12px;min-height:92px;padding:32px 13px;border:1px dashed rgba(208,170,112,.25);text-align:center;color:var(--muted);font:12px Georgia,serif;letter-spacing:.04em}
+.exercise:has(.artwork-zoom:not([hidden])){background:#1a2526}
+.chip{white-space:normal}
+@media(min-width:900px){.exercise-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.artwork-zoom img{max-height:370px}}
+.artwork-intake{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:30px;margin-bottom:15px;border:1px solid var(--line);padding:14px 18px;background:#192324}.artwork-intake div{flex:1 1 280px}.artwork-intake strong{color:var(--gold);font-size:13px}.artwork-intake p{font-size:12px;color:var(--muted);margin:3px 0}.artwork-intake-btn{display:inline-block;border:1px solid var(--gold);border-radius:3px;color:var(--gold);padding:8px 12px;cursor:pointer;font-size:12px}.artwork-intake-btn:hover{background:var(--gold);color:#192324}#artworkLocalFeedback{flex-basis:100%;font-size:11px;color:var(--muted)}
 </style>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,21 +83,28 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 <script defer src="../shared/demo-doi.js"></script>
 <script defer src="../shared/demo-support.js"></script>
 <script defer src="./pwa.js?v=20261024-1"></script>
+<script defer src="./artwork-gallery.js?v=20261025-1"></script>
 </head>
 <body>
 <a class="skip" href="#library">Skip to the exercise library</a>
 <header class="site-top"><div class="wrap"><a class="brand" href="./">META<span>F</span>ORMA</a><nav><a href="#method">Method</a><a href="#library">Classical 34</a><a href="#sources">Sources</a><a href="../">All demos ↗</a><button class="install-button" type="button" id="installApp" aria-haspopup="dialog" aria-controls="installDialog">↓ Install me</button></nav></div></header>
 <main>
 <section class="hero" aria-labelledby="hero-title">
- <div class="wrap hero-inner"><div class="hero-copy"><div class="overline">Salmon of Doubt · Art × Movement × Evidence</div><h1 id="hero-title">The classical 34.<br>Before the illustration, the evidence.</h1><p class="hero-lede">A metaphysical atlas of Joseph Pilates’ classical mat sequence—linked exercise by exercise to real human demonstrations. The AI-generated poses previously shown here have failed anatomical review and are withheld.</p><a class="jump" href="#library">Explore the repertoire ↓</a><div class="mini-note">Edition 01 · 24 October 2026 · Static reference atlas · No animation</div></div><div class="piazza" aria-hidden="true"><div class="sky"></div><div class="disc"></div><div class="arch a"></div><div class="arch b"></div><div class="arch c"></div><div class="pavement"></div><div class="shadow s1"></div><div class="shadow s2"></div><div class="outline">PIAZZA / METAFISICA</div></div></div>
+ <div class="wrap hero-inner"><div class="hero-copy"><div class="overline">Salmon of Doubt · Art × Movement × Evidence</div><h1 id="hero-title">The classical 34.<br>Before the illustration, the evidence.</h1><p class="hero-lede">A metaphysical atlas of Joseph Pilates’ classical mat sequence—linked exercise by exercise to real human demonstrations. The first nine artist-submitted plates are entering a separate visual review; older defective AI plates remain excluded.</p><a class="jump" href="#library">Explore the repertoire ↓</a><div class="mini-note">Edition 02 · 25 October 2026 · Artist-submitted plate intake · No animation</div></div><div class="piazza" aria-hidden="true"><div class="sky"></div><div class="disc"></div><div class="arch a"></div><div class="arch b"></div><div class="arch c"></div><div class="pavement"></div><div class="shadow s1"></div><div class="shadow s2"></div><div class="outline">PIAZZA / METAFISICA</div></div></div>
 </section>
 <div class="wrap">
-<section class="status-strip" aria-label="Atlas verification metrics"><div class="stat"><div class="number">34 / 34</div><div class="caption">Exercise titles and individual human tutorial links identified</div></div><div class="stat"><div class="number">00 / 34</div><div class="caption">MetaForma exercise images approved for instructional use</div></div><div class="stat"><div class="number">00 / 34</div><div class="caption">Exercise motions signed off by a Pilates instructor</div></div></section>
+<section class="status-strip" aria-label="Atlas verification metrics"><div class="stat"><div class="number">34 / 34</div><div class="caption">Exercise titles and individual human tutorial links identified</div></div><div class="stat"><div class="number">09 / 34</div><div class="caption">Illustration files received for visual review (none instructor-verified)</div></div><div class="stat"><div class="number">00 / 34</div><div class="caption">Exercise motions signed off by a Pilates instructor</div></div></section>
 <section class="method" id="method" aria-label="Evidence and quality rules">
 <div class="tile"><h2>The source is the movement</h2><p>The sequence below follows Lesley Logan’s <a href="https://onlinepilatesclasses.com/blog/the-original-34-classical-pilates-mat-exercises/" target="_blank" rel="noopener">34-exercise index</a>, with direct links to the exercise tutorials. These are references to a qualified human teacher, not a claim that MetaForma has independently validated every movement.</p><p><strong>Correction found in source index:</strong> its Spine Stretch Forward link led to the <em>standing</em> variation. MetaForma links to the separately verified seated mat tutorial instead.</p></div>
-<div class="tile"><h2>Nothing unverified gets dressed up as truth</h2><p>We keep the approved metaphysical aesthetic in the atmospheric architecture. Exercise pictures made with AI are quarantined after observed problems including misidentified exercises, impossible feet and hips, and disconnected anatomy.</p><p><strong>Publication gate:</strong> reference poses documented → joint/contact constraints checked → qualified Pilates instructor review → marionette image approved. None of these final exercise-visual approvals are being claimed.</p></div>
+<div class="tile"><h2>Nothing unverified gets dressed up as truth</h2><p>The first nine artist-supplied illustrations are now catalogued independently of exercise verification. Older defective images remain excluded. A visually accepted plate is not a validated teaching demonstration.</p><p><strong>Publication gate:</strong> reference poses documented → joint/contact constraints checked → qualified Pilates instructor review → marionette image approved. None of these final exercise-visual approvals are being claimed.</p></div>
 </section>
 <section id="library" aria-label="Classical mat exercise library">
+<div class="artwork-intake" aria-label="Optional local artwork preview">
+ <div><strong>Artwork review · Forms 01–09</strong><p>When the original plates are available on the website, they appear automatically. To inspect originals privately before publication, choose the individual image files here; they stay on your device.</p></div>
+ <label class="artwork-intake-btn" for="artworkLocalFiles">Preview local plates</label>
+ <input type="file" id="artworkLocalFiles" accept=".png,.jpeg,.jpg,.webp,image/png,image/jpeg,image/webp" multiple hidden>
+ <span id="artworkLocalFeedback" role="status" aria-live="polite">No images are uploaded by this control.</span>
+</div>
 <div class="controls"><label for="search" class="overline">Find a movement</label><input class="search" id="search" type="search" placeholder="Search name, number or movement family…" autocomplete="off">
 <button class="chip" type="button" data-filter="all" aria-pressed="true">All 34</button>
 <button class="chip" type="button" data-filter="1" aria-pressed="false">I · Foundation & Warm-Up</button>
@@ -93,257 +115,302 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 <button class="chip" type="button" data-filter="27" aria-pressed="false">VI · Dynamic Flow & Culmination</button>
 <span class="filtercount" id="filtercount" aria-live="polite">34 exercises shown</span></div>
 <section class="chapter" data-chapter="1" aria-labelledby="ch-1">
-<div class="chapter-head"><span class="chapter-index">I · Foundation & Warm-Up</span><h2 id="ch-1">Core activation, spinal articulation, and hip mobility</h2><span class="chapter-range">EXERCISES 1–4</span></div>
+<div class="chapter-head"><span class="chapter-index">I · Foundation & Warm-Up</span><h2 id="ch-1">Core activation, spinal articulation, and hip mobility</h2><span class="chapter-range">EXERCISES 1–4</span><div class="setting-title">Setting I · The Piazza of the Cypresses</div></div>
 <div class="exercise-grid"><article class="exercise" id="ex-01" data-section="1" data-search="hundred 1 breath / control">
      <div class="exercise-top"><span class="num">01</span><span class="motif">Breath / control</span></div>
-     <h3>Hundred</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Hundred</h3><figure class="artwork-preview" data-artwork-number="01" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/01.jpeg" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 1" hidden>
+    <img alt="MetaForma exercise 1, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/01.jpeg">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-hundred/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Hundred">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-01">Evidence record ↓</a></div>
      <details id="evidence-01"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-02" data-section="1" data-search="roll up 2 spinal articulation">
      <div class="exercise-top"><span class="num">02</span><span class="motif">Spinal articulation</span></div>
-     <h3>Roll Up</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Roll Up</h3><figure class="artwork-preview" data-artwork-number="02" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/02.jpeg" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 2" hidden>
+    <img alt="MetaForma exercise 2, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/02.jpeg">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-roll-up/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Roll Up">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-02">Evidence record ↓</a></div>
      <details id="evidence-02"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-03" data-section="1" data-search="roll over 3 classical inversion">
      <div class="exercise-top"><span class="num">03</span><span class="motif">Classical inversion</span></div>
-     <h3>Roll Over</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Roll Over</h3><figure class="artwork-preview" data-artwork-number="03" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/03.jpeg" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 3" hidden>
+    <img alt="MetaForma exercise 3, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/03.jpeg">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-roll-over/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Roll Over">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-03">Evidence record ↓</a></div>
      <details id="evidence-03"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-04" data-section="1" data-search="single leg circles 4 hip circles">
      <div class="exercise-top"><span class="num">04</span><span class="motif">Hip circles</span></div>
-     <h3>Single Leg Circles</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Single Leg Circles</h3><figure class="artwork-preview" data-artwork-number="04" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/04.jpeg" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 4" hidden>
+    <img alt="MetaForma exercise 4, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/04.jpeg">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-single-leg-circles/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Single Leg Circles">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-04">Evidence record ↓</a></div>
      <details id="evidence-04"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article></div>
 </section>
 <section class="chapter" data-chapter="5" aria-labelledby="ch-5">
-<div class="chapter-head"><span class="chapter-index">II · Rolling & Core Series</span><h2 id="ch-5">Dynamic balance, rhythmic flexion, and deep abdominal engagement</h2><span class="chapter-range">EXERCISES 5–9</span></div>
+<div class="chapter-head"><span class="chapter-index">II · Rolling & Core Series</span><h2 id="ch-5">Dynamic balance, rhythmic flexion, and deep abdominal engagement</h2><span class="chapter-range">EXERCISES 5–9</span><div class="setting-title">Setting II · The Silent Red Tower</div></div>
 <div class="exercise-grid"><article class="exercise" id="ex-05" data-section="5" data-search="rolling like a ball 5 rolling balance">
      <div class="exercise-top"><span class="num">05</span><span class="motif">Rolling balance</span></div>
-     <h3>Rolling Like a Ball</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Rolling Like a Ball</h3><figure class="artwork-preview" data-artwork-number="05" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/05.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 5" hidden>
+    <img alt="MetaForma exercise 5, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/05.png">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-rolling-like-a-ball/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Rolling Like a Ball">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-05">Evidence record ↓</a></div>
      <details id="evidence-05"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-06" data-section="5" data-search="single leg stretch / pull 6 abdominal sequence">
      <div class="exercise-top"><span class="num">06</span><span class="motif">Abdominal sequence</span></div>
-     <h3>Single Leg Stretch / Pull</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Single Leg Stretch / Pull</h3><figure class="artwork-preview" data-artwork-number="06" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/06.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 6" hidden>
+    <img alt="MetaForma exercise 6, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/06.png">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; setting mismatch pending correction. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-single-leg-stretch/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Single Leg Stretch / Pull">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-06">Evidence record ↓</a></div>
      <details id="evidence-06"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-07" data-section="5" data-search="double leg stretch / pull 7 abdominal sequence">
      <div class="exercise-top"><span class="num">07</span><span class="motif">Abdominal sequence</span></div>
-     <h3>Double Leg Stretch / Pull</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Double Leg Stretch / Pull</h3><figure class="artwork-preview" data-artwork-number="07" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/07.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 7" hidden>
+    <img alt="MetaForma exercise 7, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/07.png">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-double-leg-stretch/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Double Leg Stretch / Pull">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-07">Evidence record ↓</a></div>
      <details id="evidence-07"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-08" data-section="5" data-search="spine stretch forward 8 seated spinal flexion">
      <div class="exercise-top"><span class="num">08</span><span class="motif">Seated spinal flexion</span></div>
-     <h3>Spine Stretch Forward</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Spine Stretch Forward</h3><figure class="artwork-preview" data-artwork-number="08" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/08.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 8" hidden>
+    <img alt="MetaForma exercise 8, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/08.png">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-spine-stretch-forward/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Spine Stretch Forward">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-08">Evidence record ↓</a></div>
      <details id="evidence-08"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-09" data-section="5" data-search="open leg rocker 9 rolling balance">
      <div class="exercise-top"><span class="num">09</span><span class="motif">Rolling balance</span></div>
-     <h3>Open Leg Rocker</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Open Leg Rocker</h3><figure class="artwork-preview" data-artwork-number="09" data-artwork-status="staged">
+  <a class="artwork-zoom" href="./art/09.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 9" hidden>
+    <img alt="MetaForma exercise 9, artist-supplied static sequence, not instructor-verified" loading="lazy" decoding="async" data-artwork-src="./art/09.png">
+  </a>
+  <figcaption class="artwork-note" data-artwork-placeholder="true">Artwork received; final review pending. Illustration will appear here when its original file is uploaded.</figcaption>
+  </figure>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-open-leg-rocker/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Open Leg Rocker">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-09">Evidence record ↓</a></div>
      <details id="evidence-09"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article></div>
 </section>
 <section class="chapter" data-chapter="10" aria-labelledby="ch-10">
-<div class="chapter-head"><span class="chapter-index">III · Rotations & Inversions</span><h2 id="ch-10">Spinal rotation, prone extension, and posterior chain activation</h2><span class="chapter-range">EXERCISES 10–14</span></div>
+<div class="chapter-head"><span class="chapter-index">III · Rotations & Inversions</span><h2 id="ch-10">Spinal rotation, prone extension, and posterior chain activation</h2><span class="chapter-range">EXERCISES 10–14</span><div class="setting-title">Setting III · Piazza d’Italia · The Portico of Ariadne</div></div>
 <div class="exercise-grid"><article class="exercise" id="ex-10" data-section="10" data-search="corkscrew 10 trunk and hip control">
      <div class="exercise-top"><span class="num">10</span><span class="motif">Trunk and hip control</span></div>
-     <h3>Corkscrew</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Corkscrew</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-corkscrew/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Corkscrew">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-10">Evidence record ↓</a></div>
      <details id="evidence-10"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-11" data-section="10" data-search="saw 11 seated rotation">
      <div class="exercise-top"><span class="num">11</span><span class="motif">Seated rotation</span></div>
-     <h3>Saw</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Saw</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-saw/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Saw">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-11">Evidence record ↓</a></div>
      <details id="evidence-11"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-12" data-section="10" data-search="swan dive 12 back extension">
      <div class="exercise-top"><span class="num">12</span><span class="motif">Back extension</span></div>
-     <h3>Swan Dive</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Swan Dive</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-swan-and-swan-dive/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Swan Dive">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-12">Evidence record ↓</a></div>
      <details id="evidence-12"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-13" data-section="10" data-search="single leg kick 13 prone leg work">
      <div class="exercise-top"><span class="num">13</span><span class="motif">Prone leg work</span></div>
-     <h3>Single Leg Kick</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Single Leg Kick</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-single-leg-kick/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Single Leg Kick">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-13">Evidence record ↓</a></div>
      <details id="evidence-13"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-14" data-section="10" data-search="double leg kick 14 prone leg work">
      <div class="exercise-top"><span class="num">14</span><span class="motif">Prone leg work</span></div>
-     <h3>Double Leg Kick</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Double Leg Kick</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-double-leg-kick/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Double Leg Kick">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-14">Evidence record ↓</a></div>
      <details id="evidence-14"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article></div>
 </section>
 <section class="chapter" data-chapter="15" aria-labelledby="ch-15">
-<div class="chapter-head"><span class="chapter-index">IV · Torso & Leg Integration</span><h2 id="ch-15">Inversion stamina, hamstring length, and axial rotation</h2><span class="chapter-range">EXERCISES 15–20</span></div>
+<div class="chapter-head"><span class="chapter-index">IV · Torso & Leg Integration</span><h2 id="ch-15">Inversion stamina, hamstring length, and axial rotation</h2><span class="chapter-range">EXERCISES 15–20</span><div class="setting-title">Setting IV · The Nostalgia of the Infinite</div></div>
 <div class="exercise-grid"><article class="exercise" id="ex-15" data-section="15" data-search="neck pull 15 rolling / spinal flexion">
      <div class="exercise-top"><span class="num">15</span><span class="motif">Rolling / spinal flexion</span></div>
-     <h3>Neck Pull</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Neck Pull</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-neck-pull/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Neck Pull">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-15">Evidence record ↓</a></div>
      <details id="evidence-15"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-16" data-section="15" data-search="high scissors 16 classical inversion">
      <div class="exercise-top"><span class="num">16</span><span class="motif">Classical inversion</span></div>
-     <h3>High Scissors</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>High Scissors</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-high-scissors/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for High Scissors">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-16">Evidence record ↓</a></div>
      <details id="evidence-16"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-17" data-section="15" data-search="high bicycle 17 classical inversion">
      <div class="exercise-top"><span class="num">17</span><span class="motif">Classical inversion</span></div>
-     <h3>High Bicycle</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>High Bicycle</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-high-bicycle/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for High Bicycle">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-17">Evidence record ↓</a></div>
      <details id="evidence-17"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-18" data-section="15" data-search="shoulder bridge 18 bridge">
      <div class="exercise-top"><span class="num">18</span><span class="motif">Bridge</span></div>
-     <h3>Shoulder Bridge</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Shoulder Bridge</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-shoulder-bridge/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Shoulder Bridge">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-18">Evidence record ↓</a></div>
      <details id="evidence-18"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-19" data-section="15" data-search="spine twist 19 seated rotation">
      <div class="exercise-top"><span class="num">19</span><span class="motif">Seated rotation</span></div>
-     <h3>Spine Twist</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Spine Twist</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-spine-twist/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Spine Twist">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-19">Evidence record ↓</a></div>
      <details id="evidence-19"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-20" data-section="15" data-search="jackknife 20 classical inversion">
      <div class="exercise-top"><span class="num">20</span><span class="motif">Classical inversion</span></div>
-     <h3>Jackknife</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Jackknife</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-jackknife/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Jackknife">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-20">Evidence record ↓</a></div>
      <details id="evidence-20"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article></div>
 </section>
 <section class="chapter" data-chapter="21" aria-labelledby="ch-21">
-<div class="chapter-head"><span class="chapter-index">V · Lateral & Peak Balance</span><h2 id="ch-21">Lateral stability, full-body V-balance, and prone/plank shoulder stability</h2><span class="chapter-range">EXERCISES 21–26</span></div>
+<div class="chapter-head"><span class="chapter-index">V · Lateral & Peak Balance</span><h2 id="ch-21">Lateral stability, full-body V-balance, and prone/plank shoulder stability</h2><span class="chapter-range">EXERCISES 21–26</span><div class="setting-title">Setting V · Castello Estense Plaza</div></div>
 <div class="exercise-grid"><article class="exercise" id="ex-21" data-section="21" data-search="side kicks 21 side-lying control">
      <div class="exercise-top"><span class="num">21</span><span class="motif">Side-lying control</span></div>
-     <h3>Side Kicks</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Side Kicks</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-side-kicks/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Side Kicks">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-21">Evidence record ↓</a></div>
      <details id="evidence-21"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-22" data-section="21" data-search="teaser 22 seated balance">
      <div class="exercise-top"><span class="num">22</span><span class="motif">Seated balance</span></div>
-     <h3>Teaser</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Teaser</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-teaser/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Teaser">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-22">Evidence record ↓</a></div>
      <details id="evidence-22"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-23" data-section="21" data-search="hip circles / twist 23 seated trunk control">
      <div class="exercise-top"><span class="num">23</span><span class="motif">Seated trunk control</span></div>
-     <h3>Hip Circles / Twist</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Hip Circles / Twist</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-hip-circles/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Hip Circles / Twist">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-23">Evidence record ↓</a></div>
      <details id="evidence-23"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-24" data-section="21" data-search="swimming 24 prone extension">
      <div class="exercise-top"><span class="num">24</span><span class="motif">Prone extension</span></div>
-     <h3>Swimming</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Swimming</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-swimming/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Swimming">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-24">Evidence record ↓</a></div>
      <details id="evidence-24"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-25" data-section="21" data-search="leg pull front 25 front support">
      <div class="exercise-top"><span class="num">25</span><span class="motif">Front support</span></div>
-     <h3>Leg Pull Front</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Leg Pull Front</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-leg-pull-front/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Leg Pull Front">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-25">Evidence record ↓</a></div>
      <details id="evidence-25"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-26" data-section="21" data-search="leg pull back 26 reverse support">
      <div class="exercise-top"><span class="num">26</span><span class="motif">Reverse support</span></div>
-     <h3>Leg Pull Back</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Leg Pull Back</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-leg-pull/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Leg Pull Back">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-26">Evidence record ↓</a></div>
      <details id="evidence-26"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article></div>
 </section>
 <section class="chapter" data-chapter="27" aria-labelledby="ch-27">
-<div class="chapter-head"><span class="chapter-index">VI · Dynamic Flow & Culmination</span><h2 id="ch-27">Complex multi-planar control, spinal elasticity, and upper-body integration</h2><span class="chapter-range">EXERCISES 27–34</span></div>
+<div class="chapter-head"><span class="chapter-index">VI · Dynamic Flow & Culmination</span><h2 id="ch-27">Complex multi-planar control, spinal elasticity, and upper-body integration</h2><span class="chapter-range">EXERCISES 27–34</span><div class="setting-title">Setting VI · The Temple of the Afternoon</div></div>
 <div class="exercise-grid"><article class="exercise" id="ex-27" data-section="27" data-search="kneeling side kicks 27 kneeling side support">
      <div class="exercise-top"><span class="num">27</span><span class="motif">Kneeling side support</span></div>
-     <h3>Kneeling Side Kicks</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Kneeling Side Kicks</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-kneeling-side-kicks/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Kneeling Side Kicks">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-27">Evidence record ↓</a></div>
      <details id="evidence-27"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-28" data-section="27" data-search="side bend 28 lateral support">
      <div class="exercise-top"><span class="num">28</span><span class="motif">Lateral support</span></div>
-     <h3>Side Bend</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Side Bend</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-side-bend/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Side Bend">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-28">Evidence record ↓</a></div>
      <details id="evidence-28"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-29" data-section="27" data-search="boomerang 29 rolling integration">
      <div class="exercise-top"><span class="num">29</span><span class="motif">Rolling integration</span></div>
-     <h3>Boomerang</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Boomerang</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-boomerang/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Boomerang">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-29">Evidence record ↓</a></div>
      <details id="evidence-29"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-30" data-section="27" data-search="seal 30 rolling balance">
      <div class="exercise-top"><span class="num">30</span><span class="motif">Rolling balance</span></div>
-     <h3>Seal</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Seal</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-seal/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Seal">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-30">Evidence record ↓</a></div>
      <details id="evidence-30"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-31" data-section="27" data-search="crab 31 rolling balance">
      <div class="exercise-top"><span class="num">31</span><span class="motif">Rolling balance</span></div>
-     <h3>Crab</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Crab</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-crab/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Crab">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-31">Evidence record ↓</a></div>
      <details id="evidence-31"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-32" data-section="27" data-search="rocking 32 prone extension">
      <div class="exercise-top"><span class="num">32</span><span class="motif">Prone extension</span></div>
-     <h3>Rocking</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Rocking</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-rocking/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Rocking">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-32">Evidence record ↓</a></div>
      <details id="evidence-32"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-33" data-section="27" data-search="control balance 33 classical inversion">
      <div class="exercise-top"><span class="num">33</span><span class="motif">Classical inversion</span></div>
-     <h3>Control Balance</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Control Balance</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-control-balance/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Control Balance">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-33">Evidence record ↓</a></div>
      <details id="evidence-33"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-34" data-section="27" data-search="push-ups 34 standing-to-floor finish">
      <div class="exercise-top"><span class="num">34</span><span class="motif">Standing-to-floor finish</span></div>
-     <h3>Push-Ups</h3>
-     <p class="record"><span class="point"></span> Original visual: <strong>withheld pending verification</strong></p>
+     <h3>Push-Ups</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-push-ups/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Push-Ups">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-34">Evidence record ↓</a></div>
      <details id="evidence-34"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article></div>
@@ -354,6 +421,7 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 <h2>Sources, limitations & credits</h2>
 <p>Exercise names and ordering: Lesley Logan, <a target="_blank" rel="noopener" href="https://onlinepilatesclasses.com/blog/the-original-34-classical-pilates-mat-exercises/">Joseph Pilates’ 34 Original Mat Exercises: Complete Guide</a> (2025). Individual human tutorials are linked above. Classical origin: Pilates, J. H., and Miller, W. J. (1945), <em>Return to Life Through Contrology</em>.</p>
 <p>This website deliberately does not reproduce third-party exercise imagery, does not claim permission to host external photos or videos, and contains no exercise instructions generated from unverified images. The decorative piazza is original CSS artwork inspired by metaphysical Italian architecture, not an anatomical demonstration. Static reference library only; not a substitute for supervised training.</p>
+<p><strong>Artwork status:</strong> Forms 01–09 have been received for review, but the illustrated figures have <em>not</em> been certified as instructional. Form 06's architectural setting requires correction before final approval. The files are introduced only when available on the public site; missing illustrations never suppress the human demonstration links.</p>
 <p><strong>Known issues:</strong> the earlier grouped AI art plates are unfit for teaching and excluded. The classical sequence itself includes advanced inverted exercises, which may be unsuitable for beginners. Individual tutorial links were located and titles checked on 24 October 2026; no movement-by-movement expert appraisal has been completed.</p>
 <p><a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/238" target="_blank" rel="noopener">MetaForma evidence and correction tracker ↗</a></p>
 </section></div></main>

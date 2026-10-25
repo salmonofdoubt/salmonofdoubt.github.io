@@ -1,6 +1,6 @@
 # MetaForma — Evidence-First Classical 34 Atlas
 
-**Status:** Static, source-linked, anatomically unverified MetaForma artwork **withheld**.
+**Status:** Static evidence-first gallery. Forms 01–09 artist images received and staged for review; no Pilates instructor-verification claimed.
 
 Website route: `/demos/metaforma/`
 
@@ -17,9 +17,17 @@ Website route: `/demos/metaforma/`
 - Classical 34 sequence in the same order and terminology as Lesley Logan's [online index](https://onlinepilatesclasses.com/blog/the-original-34-classical-pilates-mat-exercises/).
 - Direct links to 34 independently located human tutorial pages.
 - Key source correction: the overview link for exercise 8 opens a standing variation; this atlas links to [the seated Spine Stretch Forward mat tutorial](https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-spine-stretch-forward/).
-- All illustrated AI exercise poses quarantined. **Zero generated images** are used for instructional movements.
-- Original CSS metaphysical piazza is atmospheric only; it is not an exercise image.
+- Previous anatomy-defective generated poses remain quarantined. The 9 new user-submitted Gemini plates are **distinct incoming art assets** and may be shown as artworks when the original binary files are uploaded. They are not instructor-verified.
+- The original CSS metaphysical piazza remains atmospheric only. All six progression blocks now have a distinct named de Chirico-inspired architectural setting.
 - No animation, republished third-party images, or ungrounded exercise instructions.
+- New `artwork-intake.json`, `artwork-gallery.js`, and `art/README.md` document the nine original-file mappings and pending binary upload. Missing art shows a placeholder, not a broken image. The optional local preview loads from your own device and does **not** upload artwork.
+
+## First batch of illustrated plates (visual review only)
+
+- **Block I — Setting I, The Piazza of the Cypresses:** 01 The Hundred, 02 Roll Up, 03 Roll Over, 04 One Leg Circle. Four earlier Gemini JPEGs supplied in chat.
+- **Block II — Setting II, The Silent Red Tower:** 05 Rolling Back, 06 Single Leg Stretch, 07 Double Leg Stretch, 08 Spine Stretch, 09 Open Leg Rocker. Five principal PNG files in the supplied Block II ZIP; variants are deliberately excluded.
+- **Form 06:** The main submitted image depicts a different architectural setting; it remains a review candidate, not final.
+- **Binary limitation:** The connected GitHub editing tool writes text files only. The website scaffolding and metadata are in git, but the original JPEG/PNG assets are **not yet uploaded to GitHub Pages**. The exact originals have been staged separately as a ZIP in the conversation and can be uploaded using a binary-capable GitHub method.
 
 ## Machine-readable evidence and publishing gate
 
