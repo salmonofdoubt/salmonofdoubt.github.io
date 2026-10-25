@@ -19,3 +19,16 @@ jobs:
           node demos/metaforma/test-evidence.cjs
           node demos/metaforma/test-site-controls.cjs
           node demos/metaforma/test-artwork-gallery.cjs
+
+      - name: Inspect Block III image captions for accurate identity mapping
+        shell: bash
+        run: |
+          if ! command -v tesseract >/dev/null 2>&1; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr
+          fi
+          find demos/metaforma/art -maxdepth 1 -type f -name 'Gemini_Generated_Image_*.jpeg' -print0 | sort -z | while IFS= read -r -d '' file; do
+            echo "=== START FILE: ${file##*/} ==="
+            tesseract "$file" stdout --psm 11 2>/dev/null | head -c 1900 || true
+            echo
+            echo "=== END FILE ==="
+          done
