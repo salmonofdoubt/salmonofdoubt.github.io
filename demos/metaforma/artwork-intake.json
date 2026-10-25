@@ -2,7 +2,7 @@
   "schema_version": 1,
   "project": "MetaForma",
   "as_of": "2026-10-25",
-  "status": "Nine original images uploaded to GitHub and checked byte-for-byte against the upload package; visually reviewed but not Pilates-instructor-certified",
+  "status": "Original art for Forms 01–09 uploaded and integrity-checked; Forms 10–14 reserved for forthcoming local Block III illustrations.",
   "policy": "Preserve exact original supplied bytes; do not resize, crop, re-encode, regenerate, or label teacher verified",
   "expected_path": "demos/metaforma/art/",
   "items": [
@@ -140,6 +140,111 @@
       "note": "original Block II supplied; requires technique review",
       "git_blob_sha": "ff609901a82dedc2e0fd0c9822240fe9f0015327",
       "original_bytes_preserved": true
+    },
+    {
+      "form": 10,
+      "name": "Cork-Screw",
+      "setting": "Piazza d'Italia (The Portico of Ariadne)",
+      "filename": "10.png",
+      "path": "./art/10.png",
+      "source": "Awaiting user-supplied local Block III artwork",
+      "received": false,
+      "asset_in_repo": false,
+      "original_bytes_preserved": false,
+      "git_blob_sha": null,
+      "visual_approved": false,
+      "instructor_verified": false,
+      "stages": [
+        "SUPINE LEGS UP",
+        "RIGHT CIRCLE SWEEP",
+        "THE CORK-SCREW"
+      ],
+      "description": "Supine lumbo-pelvic rotational control with anchored scapulae",
+      "note": "Three-stage scheme provided by user. Filename and actual image format provisional until ZIP inspection; no illustration supplied to GitHub yet."
+    },
+    {
+      "form": 11,
+      "name": "The Saw",
+      "setting": "Piazza d'Italia (The Portico of Ariadne)",
+      "filename": "11.png",
+      "path": "./art/11.png",
+      "source": "Awaiting user-supplied local Block III artwork",
+      "received": false,
+      "asset_in_repo": false,
+      "original_bytes_preserved": false,
+      "git_blob_sha": null,
+      "visual_approved": false,
+      "instructor_verified": false,
+      "stages": [
+        "SEATED ARMS WIDE",
+        "AXIAL SPINE TWIST",
+        "THE SAW"
+      ],
+      "description": "Seated axial thoracic rotation paired with forward flexion across the extended leg",
+      "note": "Three-stage scheme provided by user. Filename and actual image format provisional until ZIP inspection; no illustration supplied to GitHub yet."
+    },
+    {
+      "form": 12,
+      "name": "Swan-Dive",
+      "setting": "Piazza d'Italia (The Portico of Ariadne)",
+      "filename": "12.png",
+      "path": "./art/12.png",
+      "source": "Awaiting user-supplied local Block III artwork",
+      "received": false,
+      "asset_in_repo": false,
+      "original_bytes_preserved": false,
+      "git_blob_sha": null,
+      "visual_approved": false,
+      "instructor_verified": false,
+      "stages": [
+        "PRONE EXTENSION",
+        "FORWARD ROCK",
+        "THE SWAN-DIVE"
+      ],
+      "description": "Prone thoracic extension and posterior-chain rocking",
+      "note": "Three-stage scheme provided by user. Filename and actual image format provisional until ZIP inspection; no illustration supplied to GitHub yet."
+    },
+    {
+      "form": 13,
+      "name": "One Leg Kick",
+      "setting": "Piazza d'Italia (The Portico of Ariadne)",
+      "filename": "13.png",
+      "path": "./art/13.png",
+      "source": "Awaiting user-supplied local Block III artwork",
+      "received": false,
+      "asset_in_repo": false,
+      "original_bytes_preserved": false,
+      "git_blob_sha": null,
+      "visual_approved": false,
+      "instructor_verified": false,
+      "stages": [
+        "FOREARM SPHINX",
+        "RIGHT HEEL KICK",
+        "THE ONE LEG KICK"
+      ],
+      "description": "Sustained forearm thoracic extension with alternating knee flexion",
+      "note": "Three-stage scheme provided by user. Filename and actual image format provisional until ZIP inspection; no illustration supplied to GitHub yet."
+    },
+    {
+      "form": 14,
+      "name": "Double Kick",
+      "setting": "Piazza d'Italia (The Portico of Ariadne)",
+      "filename": "14.png",
+      "path": "./art/14.png",
+      "source": "Awaiting user-supplied local Block III artwork",
+      "received": false,
+      "asset_in_repo": false,
+      "original_bytes_preserved": false,
+      "git_blob_sha": null,
+      "visual_approved": false,
+      "instructor_verified": false,
+      "stages": [
+        "PRONE HANDS CLASPED",
+        "DOUBLE HEEL KICK",
+        "THE DOUBLE KICK"
+      ],
+      "description": "Prone bilateral knee flexion followed by posterior-chain extension and arms reaching back",
+      "note": "Three-stage scheme provided by user. Filename and actual image format provisional until ZIP inspection; no illustration supplied to GitHub yet."
     }
   ]
 }
