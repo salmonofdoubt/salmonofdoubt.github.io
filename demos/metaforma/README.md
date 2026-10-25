@@ -29,6 +29,18 @@ Website route: `/demos/metaforma/`
 - **Form 06:** The main submitted image depicts a different architectural setting; it remains a review candidate, not final.
 - **Original file preservation:** All nine images were uploaded directly to GitHub as JPEG/PNG and checked against the ZIP originals. SHA-1 content hashes are recorded in `artwork-intake.json` and verified in CI. No replacement or re-encoding is permitted without explicit review.
 
+## Block III intake — artwork pending
+
+**Setting III: Piazza d'Italia — The Portico of Ariadne** (ochre arcades, central statue on pedestal, emerald sky; no trains).
+
+- 10 Cork-Screw — SUPINE LEGS UP → RIGHT CIRCLE SWEEP → THE CORK-SCREW.
+- 11 The Saw — SEATED ARMS WIDE → AXIAL SPINE TWIST → THE SAW.
+- 12 Swan-Dive — PRONE EXTENSION → FORWARD ROCK → THE SWAN-DIVE.
+- 13 One Leg Kick — FOREARM SPHINX → RIGHT HEEL KICK → THE ONE LEG KICK.
+- 14 Double Kick — PRONE HANDS CLASPED → DOUBLE HEEL KICK → THE DOUBLE KICK.
+
+These labels come from the user's supplied three-pose design brief. **The corresponding image files have not been uploaded.** Five reserved gallery slots use provisional names `10.png`–`14.png`, subject to inspecting the actual ZIP (preserve JPEG/PNG source format, not renaming extensions incorrectly). The gallery links to human reference tutorials remain present. Instructor verification has not been granted.
+
 ## Machine-readable evidence and publishing gate
 
 `evidence.json` has exactly 34 records with source URLs and explicit pose/art/instructor approval fields. `test-evidence.cjs` checks repertoire identity, duplicates, all 34 site links and prevents marking any drawing approved without complete keyframe, joint/contact and named instructor review fields.
