@@ -1,7 +1,7 @@
 /* Scoped, network-first offline shell. No third-party tutorial pages are cached. */
 const PREFIX = 'metaforma-static-';
-const CACHE = PREFIX + 'v3-20261025';
-const SHELL = ['./','./index.html','./manifest.webmanifest','./icon.svg','./pwa.js?v=20261024-1','./artwork-gallery.js?v=20261025-2'];
+const CACHE = PREFIX + 'v4-20261025';
+const SHELL = ['./','./index.html','./manifest.webmanifest','./icon.svg','./pwa.js?v=20261024-1','./artwork-gallery.js?v=20261025-3'];
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting()));
 });

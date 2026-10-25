@@ -72,6 +72,7 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 .artwork-intake{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:30px;margin-bottom:15px;border:1px solid var(--line);padding:14px 18px;background:#192324}.artwork-intake div{flex:1 1 280px}.artwork-intake strong{color:var(--gold);font-size:13px}.artwork-intake p{font-size:12px;color:var(--muted);margin:3px 0}.artwork-intake-btn{display:inline-block;border:1px solid var(--gold);border-radius:3px;color:var(--gold);padding:8px 12px;cursor:pointer;font-size:12px}.artwork-intake-btn:hover{background:var(--gold);color:#192324}#artworkLocalFeedback{flex-basis:100%;font-size:11px;color:var(--muted)}
 .artwork-visible-note{padding:8px 12px 10px;background:#172021;color:#beae92;font-size:11px;line-height:1.45}
 .artwork-preview[data-artwork-number="06"] .artwork-visible-note{color:#e8c191}
+.pose-stages{padding:12px 14px;margin:10px 0 14px;border-left:2px solid var(--gold);background:#142020}.pose-stages strong{font-size:11px;color:var(--gold);letter-spacing:.11em;text-transform:uppercase}.pose-stages ol{display:flex;flex-wrap:wrap;gap:5px 20px;padding-left:16px;font-size:11px;color:var(--text)}.pose-stages li{padding-right:3px}.pose-stages p{font-size:11px;color:var(--muted);line-height:1.55}.pose-stages em{font-size:10px}
 </style>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -85,7 +86,7 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 <script defer src="../shared/demo-doi.js"></script>
 <script defer src="../shared/demo-support.js"></script>
 <script defer src="./pwa.js?v=20261024-1"></script>
-<script defer src="./artwork-gallery.js?v=20261025-2"></script>
+<script defer src="./artwork-gallery.js?v=20261025-3"></script>
 </head>
 <body>
 <a class="skip" href="#library">Skip to the exercise library</a>
@@ -102,7 +103,7 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 </section>
 <section id="library" aria-label="Classical mat exercise library">
 <div class="artwork-intake" aria-label="Optional local artwork preview">
- <div><strong>Original artwork · Forms 01–09</strong><p>All nine original plates are now hosted unchanged. They appear automatically. To compare a proposed replacement privately, preview a local image here; nothing is uploaded.</p></div>
+ <div><strong>Artwork · Forms 01–14</strong><p>Nine original plates are hosted unchanged. Five new Block III slots (Forms 10–14) await your local originals. You may preview images privately; nothing is uploaded by this control.</p></div>
  <label class="artwork-intake-btn" for="artworkLocalFiles">Preview local plates</label>
  <input type="file" id="artworkLocalFiles" accept=".png,.jpeg,.jpg,.webp,image/png,image/jpeg,image/webp" multiple hidden>
  <span id="artworkLocalFeedback" role="status" aria-live="polite">No images are uploaded by this control.</span>
@@ -234,35 +235,85 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 <div class="chapter-head"><span class="chapter-index">III · Rotations & Inversions</span><h2 id="ch-10">Spinal rotation, prone extension, and posterior chain activation</h2><span class="chapter-range">EXERCISES 10–14</span><div class="setting-title">Setting III · Piazza d’Italia · The Portico of Ariadne</div></div>
 <div class="exercise-grid"><article class="exercise" id="ex-10" data-section="10" data-search="corkscrew 10 trunk and hip control">
      <div class="exercise-top"><span class="num">10</span><span class="motif">Trunk and hip control</span></div>
-     <h3>Corkscrew</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <h3>Corkscrew</h3><figure class="artwork-preview" data-artwork-number="10" data-artwork-status="staged">
+    <a class="artwork-zoom" href="./art/10.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 10" hidden>
+      <img alt="MetaForma Form 10 — supplied artwork when available; no Pilates instructor certification" loading="lazy" decoding="async" data-artwork-src="./art/10.png">
+    </a>
+    <figcaption class="artwork-note" data-artwork-placeholder="true">Awaiting original Block III artwork for Form 10. No placeholder pose generated.</figcaption>
+    <figcaption class="artwork-visible-note" hidden>Original artist-supplied illustration · visual review pending · not Pilates-instructor-certified</figcaption>
+  </figure>
+  <div class="pose-stages" aria-label="Requested three-pose composition for Form 10">
+    <strong>Planned stages</strong><ol><li>SUPINE LEGS UP</li><li>RIGHT CIRCLE SWEEP</li><li>THE CORK-SCREW</li></ol>
+    <p>Supine lumbo-pelvic rotational control with anchored scapulae <em>— supplied composition brief; technique not independently verified.</em></p>
+  </div>
      <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-corkscrew/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Corkscrew">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-10">Evidence record ↓</a></div>
      <details id="evidence-10"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-11" data-section="10" data-search="saw 11 seated rotation">
      <div class="exercise-top"><span class="num">11</span><span class="motif">Seated rotation</span></div>
-     <h3>Saw</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <h3>Saw</h3><figure class="artwork-preview" data-artwork-number="11" data-artwork-status="staged">
+    <a class="artwork-zoom" href="./art/11.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 11" hidden>
+      <img alt="MetaForma Form 11 — supplied artwork when available; no Pilates instructor certification" loading="lazy" decoding="async" data-artwork-src="./art/11.png">
+    </a>
+    <figcaption class="artwork-note" data-artwork-placeholder="true">Awaiting original Block III artwork for Form 11. No placeholder pose generated.</figcaption>
+    <figcaption class="artwork-visible-note" hidden>Original artist-supplied illustration · visual review pending · not Pilates-instructor-certified</figcaption>
+  </figure>
+  <div class="pose-stages" aria-label="Requested three-pose composition for Form 11">
+    <strong>Planned stages</strong><ol><li>SEATED ARMS WIDE</li><li>AXIAL SPINE TWIST</li><li>THE SAW</li></ol>
+    <p>Seated axial thoracic rotation paired with forward flexion across the extended leg <em>— supplied composition brief; technique not independently verified.</em></p>
+  </div>
      <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-saw/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Saw">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-11">Evidence record ↓</a></div>
      <details id="evidence-11"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-12" data-section="10" data-search="swan dive 12 back extension">
      <div class="exercise-top"><span class="num">12</span><span class="motif">Back extension</span></div>
-     <h3>Swan Dive</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <h3>Swan Dive</h3><figure class="artwork-preview" data-artwork-number="12" data-artwork-status="staged">
+    <a class="artwork-zoom" href="./art/12.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 12" hidden>
+      <img alt="MetaForma Form 12 — supplied artwork when available; no Pilates instructor certification" loading="lazy" decoding="async" data-artwork-src="./art/12.png">
+    </a>
+    <figcaption class="artwork-note" data-artwork-placeholder="true">Awaiting original Block III artwork for Form 12. No placeholder pose generated.</figcaption>
+    <figcaption class="artwork-visible-note" hidden>Original artist-supplied illustration · visual review pending · not Pilates-instructor-certified</figcaption>
+  </figure>
+  <div class="pose-stages" aria-label="Requested three-pose composition for Form 12">
+    <strong>Planned stages</strong><ol><li>PRONE EXTENSION</li><li>FORWARD ROCK</li><li>THE SWAN-DIVE</li></ol>
+    <p>Prone thoracic extension and posterior chain rocking <em>— supplied composition brief; technique not independently verified.</em></p>
+  </div>
      <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-swan-and-swan-dive/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Swan Dive">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-12">Evidence record ↓</a></div>
      <details id="evidence-12"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-13" data-section="10" data-search="single leg kick 13 prone leg work">
      <div class="exercise-top"><span class="num">13</span><span class="motif">Prone leg work</span></div>
-     <h3>Single Leg Kick</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <h3>Single Leg Kick</h3><figure class="artwork-preview" data-artwork-number="13" data-artwork-status="staged">
+    <a class="artwork-zoom" href="./art/13.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 13" hidden>
+      <img alt="MetaForma Form 13 — supplied artwork when available; no Pilates instructor certification" loading="lazy" decoding="async" data-artwork-src="./art/13.png">
+    </a>
+    <figcaption class="artwork-note" data-artwork-placeholder="true">Awaiting original Block III artwork for Form 13. No placeholder pose generated.</figcaption>
+    <figcaption class="artwork-visible-note" hidden>Original artist-supplied illustration · visual review pending · not Pilates-instructor-certified</figcaption>
+  </figure>
+  <div class="pose-stages" aria-label="Requested three-pose composition for Form 13">
+    <strong>Planned stages</strong><ol><li>FOREARM SPHINX</li><li>RIGHT HEEL KICK</li><li>THE ONE LEG KICK</li></ol>
+    <p>Sustained forearm thoracic extension with alternating hamstring flexion <em>— supplied composition brief; technique not independently verified.</em></p>
+  </div>
      <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-single-leg-kick/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Single Leg Kick">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-13">Evidence record ↓</a></div>
      <details id="evidence-13"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
    </article>
 <article class="exercise" id="ex-14" data-section="10" data-search="double leg kick 14 prone leg work">
      <div class="exercise-top"><span class="num">14</span><span class="motif">Prone leg work</span></div>
-     <h3>Double Leg Kick</h3><div class="artwork-awaiting" aria-label="Artwork awaiting submission">Artist's illustration forthcoming</div>
+     <h3>Double Leg Kick</h3><figure class="artwork-preview" data-artwork-number="14" data-artwork-status="staged">
+    <a class="artwork-zoom" href="./art/14.png" target="_blank" rel="noopener" aria-label="Open full illustration for exercise 14" hidden>
+      <img alt="MetaForma Form 14 — supplied artwork when available; no Pilates instructor certification" loading="lazy" decoding="async" data-artwork-src="./art/14.png">
+    </a>
+    <figcaption class="artwork-note" data-artwork-placeholder="true">Awaiting original Block III artwork for Form 14. No placeholder pose generated.</figcaption>
+    <figcaption class="artwork-visible-note" hidden>Original artist-supplied illustration · visual review pending · not Pilates-instructor-certified</figcaption>
+  </figure>
+  <div class="pose-stages" aria-label="Requested three-pose composition for Form 14">
+    <strong>Planned stages</strong><ol><li>PRONE HANDS CLASPED</li><li>DOUBLE HEEL KICK</li><li>THE DOUBLE KICK</li></ol>
+    <p>Prone bilateral knee flexion followed by full posterior chain extension with arms reaching back <em>— supplied composition brief; technique not independently verified.</em></p>
+  </div>
      <p class="record"><span class="point"></span> Original visual: <strong>not instructor-verified</strong></p>
      <div class="actions"><a href="https://onlinepilatesclasses.com/pilates-exercises/mat-exercises/mat-double-leg-kick/" target="_blank" rel="noopener noreferrer" aria-label="Open human demonstration for Double Leg Kick">View human demonstration <span aria-hidden="true">↗</span></a><a href="#evidence-14">Evidence record ↓</a></div>
      <details id="evidence-14"><summary>Audit record</summary><dl><dt>Exercise identity</dt><dd>Listed in source classical sequence</dd><dt>Human tutorial</dt><dd>Individual page located; exercise title checked</dd><dt>Three precise key poses</dt><dd>Not extracted or verified</dd><dt>Biomechanics</dt><dd>Not reviewed by a qualified teacher</dd><dt>MetaForma exercise illustration</dt><dd>Not approved · AI plates quarantined</dd><dt>Publication of proprietary pose</dt><dd>Blocked</dd></dl></details>
@@ -423,6 +474,7 @@ footer{background:#101819;border-top:1px solid var(--line);padding:24px 0;color:
 <h2>Sources, limitations & credits</h2>
 <p>Exercise names and ordering: Lesley Logan, <a target="_blank" rel="noopener" href="https://onlinepilatesclasses.com/blog/the-original-34-classical-pilates-mat-exercises/">Joseph Pilates’ 34 Original Mat Exercises: Complete Guide</a> (2025). Individual human tutorials are linked above. Classical origin: Pilates, J. H., and Miller, W. J. (1945), <em>Return to Life Through Contrology</em>.</p>
 <p>This website deliberately does not reproduce third-party exercise imagery, does not claim permission to host external photos or videos, and contains no exercise instructions generated from unverified images. The decorative piazza is original CSS artwork inspired by metaphysical Italian architecture, not an anatomical demonstration. Static reference library only; not a substitute for supervised training.</p>
+<p><strong>Block III intake:</strong> Five three-position compositions have been specified for Cork-Screw, Saw, Swan-Dive, One Leg Kick and Double Kick. The illustrations have not yet been uploaded; the website retains each exercise&#39;s human demonstration until your originals arrive.</p>
 <p><strong>Artwork status:</strong> Forms 01–09 have been received for review, but the illustrated figures have <em>not</em> been certified as instructional. Form 06's architectural setting requires correction before final approval. The files are introduced only when available on the public site; missing illustrations never suppress the human demonstration links.</p>
 <p><strong>Known issues:</strong> the earlier grouped AI art plates are unfit for teaching and excluded. The classical sequence itself includes advanced inverted exercises, which may be unsuitable for beginners. Individual tutorial links were located and titles checked on 24 October 2026; no movement-by-movement expert appraisal has been completed.</p>
 <p><a href="https://github.com/salmonofdoubt/salmonofdoubt.github.io/issues/238" target="_blank" rel="noopener">MetaForma evidence and correction tracker ↗</a></p>

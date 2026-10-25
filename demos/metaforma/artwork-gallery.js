@@ -40,8 +40,8 @@
   const basename = name => String(name || '').split(/[\\/]/).pop().toLowerCase().normalize('NFKD');
   function matchNumber(name) {
     const v = basename(name);
-    // Accept our staged filenames and the five supplied Block II original names.
-    const numbered = v.match(/^(?:form[_ -])?(0[1-9])(?:[_ .-]|$)/i);
+    // Accept numbered files for all received or reserved Forms 01–14.
+    const numbered = v.match(/^(?:form[_ -])?(0[1-9]|1[0-4])(?:[_ .-]|$)/i);
     if (numbered) return numbered[1];
     // The four Block I Gemini images are intentionally not inferred by filename:
     // artist must use 01, 02, 03, 04 names to avoid switching movements.
@@ -68,7 +68,7 @@
     }
     if (feedback) feedback.textContent = count
       ? count + ' plates visible on this device only. Nothing has been uploaded to the public website.'
-      : 'No matching files. Rename the first nine images 01.jpeg–04.jpeg and 05.png–09.png, then select them.';
+      : 'No matching form numbers. Choose images named 01–14 (e.g. Form_10_Cork_Screw.png or 10.png).';
     localInput.value = '';
   });
   window.addEventListener('pagehide', () => { for (const url of localObjectUrls.values()) URL.revokeObjectURL(url); });
