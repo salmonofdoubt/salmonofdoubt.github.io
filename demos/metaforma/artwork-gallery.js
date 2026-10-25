@@ -34,7 +34,7 @@
     anchor.hidden = false;
     anchor.target = '_blank';
     note.hidden = true;
-        if (visible) visible.hidden = false;
+    if (visible) visible.hidden = false;
   }
 
   const basename = name => String(name || '').split(/[\\/]/).pop().toLowerCase().normalize('NFKD');
