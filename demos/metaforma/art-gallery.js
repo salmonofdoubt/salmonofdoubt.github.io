@@ -1,5 +1,5 @@
 /* MetaForma · Metaphysical Kineticism
-   Art-only exhibition: approved painted Block I masters, with provisional vector art for later blocks.
+   Art-only exhibition: approved painted masters for Blocks I and II, with provisional vector studies for later blocks.
    This scalable preview does not use low-resolution crops of the source poster. */
 (() => {
 "use strict";
@@ -10,19 +10,27 @@ const PALETTES = [
   {id:"botanical",name:"Botanical Silence",swatch:"#6c795c",sky:"#9ca891",light:"#e3dec0",ground:"#78856a",deep:"#324b42",shade:"#637555",bright:"#c7aa7c",line:"#ece6cc"},
   {id:"chromatic",name:"Chromatic Modernism",swatch:"#c8372f",sky:"#bcb6a1",light:"#edcf80",ground:"#ab5547",deep:"#193a58",shade:"#c23530",bright:"#e9a824",line:"#f7e6b1"}
 ];
-const BLOCK_I_MASTERS = [
-  '01-the-hundred','02-roll-up','03-roll-over','04-single-leg-circles'
+const PAINTED_MASTERS = [
+  '01-the-hundred',
+  '02-roll-up',
+  '03-roll-over',
+  '04-single-leg-circles',
+  '05-rolling-like-a-ball',
+  '06-single-leg-stretch',
+  '07-double-leg-stretch',
+  '08-spine-stretch-forward',
+  '09-open-leg-rocker'
 ];
-function isPainted(item) { return item.number >= 1 && item.number <= BLOCK_I_MASTERS.length; }
+function isPainted(item) { return item.number >= 1 && item.number <= PAINTED_MASTERS.length; }
 function pngFilename(item, p) {
   if (!isPainted(item)) return '';
   const paletteName = p.id === 'original' ? 'metaphysical-original' : p.id;
-  return './art/' + BLOCK_I_MASTERS[item.number - 1] + '-' + paletteName + '.png';
+  return './art/' + PAINTED_MASTERS[item.number - 1] + '-' + paletteName + '.png';
 }
 function webFilename(item, p) {
   if (!isPainted(item)) return '';
   const paletteName = p.id === 'original' ? 'metaphysical-original' : p.id;
-  return './art/' + BLOCK_I_MASTERS[item.number - 1] + '-' + paletteName + '.webp';
+  return './art/' + PAINTED_MASTERS[item.number - 1] + '-' + paletteName + '.webp';
 }
 function artworkMarkup(item, p, uid) {
   if (isPainted(item)) {
