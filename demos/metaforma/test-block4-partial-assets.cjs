@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict';
-/* Block IV partial: 2 full-resolution original paintings, 8 colour PNGs, 10 WebPs. */
+/* Original Block IV first two master paintings and their five colour editions. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
@@ -50,6 +50,6 @@ assert.match(css,/object-fit:contain/);
 assert.doesNotMatch(css,/object-fit:cover/);
 for(const n of ['17-high-bicycle','18-shoulder-bridge','19-spine-twist','20-jackknife']){
  assert.ok(fs.existsSync(path.join(art,'studies',n+'-study-crop.png')),'Missing archived cropped study: '+n);
- assert.ok(!fs.existsSync(path.join(art,n+'-metaphysical-original.png')),'Do not fabricate a master from the study: '+n);
+ assert.ok(fs.existsSync(path.join(art,n+'-metaphysical-original.png')),'Full-resolution replacement master missing: '+n);
 }
-console.log('MetaForma partial Block IV PASS: 2 untouched masters, 8 palette PNGs, 10 WebPs, 5 archived study files and native image geometry');
+console.log('MetaForma Block IV 15–16 PASS: 2 untouched masters, 8 palette PNGs, 10 WebPs, archived studies and 4 replacement masters');
