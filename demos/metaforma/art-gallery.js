@@ -1,5 +1,5 @@
 /* MetaForma · Metaphysical Kineticism
-   Art-only edition. 34 original vector studies and five chromatic readings.
+   Art-only exhibition: approved painted Block I masters, with provisional vector art for later blocks.
    This scalable preview does not use low-resolution crops of the source poster. */
 (() => {
 "use strict";
@@ -10,6 +10,28 @@ const PALETTES = [
   {id:"botanical",name:"Botanical Silence",swatch:"#6c795c",sky:"#9ca891",light:"#e3dec0",ground:"#78856a",deep:"#324b42",shade:"#637555",bright:"#c7aa7c",line:"#ece6cc"},
   {id:"chromatic",name:"Chromatic Modernism",swatch:"#c8372f",sky:"#bcb6a1",light:"#edcf80",ground:"#ab5547",deep:"#193a58",shade:"#c23530",bright:"#e9a824",line:"#f7e6b1"}
 ];
+const BLOCK_I_MASTERS = [
+  '01-the-hundred','02-roll-up','03-roll-over','04-single-leg-circles'
+];
+function isPainted(item) { return item.number >= 1 && item.number <= BLOCK_I_MASTERS.length; }
+function pngFilename(item, p) {
+  if (!isPainted(item)) return '';
+  const paletteName = p.id === 'original' ? 'metaphysical-original' : p.id;
+  return './art/' + BLOCK_I_MASTERS[item.number - 1] + '-' + paletteName + '.png';
+}
+function webFilename(item, p) {
+  if (!isPainted(item)) return '';
+  const paletteName = p.id === 'original' ? 'metaphysical-original' : p.id;
+  return './art/' + BLOCK_I_MASTERS[item.number - 1] + '-' + paletteName + '.webp';
+}
+function artworkMarkup(item, p, uid) {
+  if (isPainted(item)) {
+    return '<img src="' + webFilename(item,p) + '" width="1448" height="1086" loading="' +
+      (uid.startsWith('viewer-') ? 'eager' : 'lazy') + '" decoding="async" alt="' +
+      esc(item.title) + ' — ' + esc(p.name) + ', metaphysical abstract painting" />';
+  }
+  return painting(item,p,uid);
+}
 const COLLECTIONS=["All works","I · Emergence","II · Suspension","III · Rotation","IV · Tension","V · Equilibrium","VI · Release"];
 const titles=[
   "The Hundred",
@@ -134,7 +156,7 @@ function render(){
  WORKS.filter(w=>group===0||w.collection===group).forEach(w=>{
    const fig=document.createElement("figure");fig.className="art-card";
    const btn=document.createElement("button");btn.type="button";btn.setAttribute("aria-label","Open "+w.title);
-   const frame=document.createElement("div");frame.className="art-frame";frame.innerHTML=painting(w,palette,"tile-"+w.number+"-"+palette.id);
+   const frame=document.createElement("div");frame.className="art-frame";frame.innerHTML=artworkMarkup(w,palette,"tile-"+w.number+"-"+palette.id);if(isPainted(w))frame.classList.add('raster');
    const meta=document.createElement("div");meta.className="art-meta";meta.innerHTML='<span class="art-title">'+esc(w.title)+'</span><span class="art-number">'+titleCase(w.number)+'</span>';
    const series=document.createElement("div");series.className="art-series";series.textContent=COLLECTIONS[w.collection].split(" · ")[1];
    btn.append(frame,meta,series);btn.onclick=()=>showWork(w.number-1,true);fig.append(btn);g.append(fig);
@@ -146,7 +168,10 @@ function showWork(i,openDialog){
  el("viewerNumber").textContent="STUDY "+titleCase(item.number)+" / 34";
  el("viewerTitle").textContent=item.title;el("viewerDescription").textContent=item.description;
  el("viewerCollection").textContent=COLLECTIONS[item.collection];
- el("viewerArt").innerHTML=painting(item,palette,"viewer-"+item.number+"-"+palette.id);
+ el("viewerArt").innerHTML=artworkMarkup(item,palette,"viewer-"+item.number+"-"+palette.id);
+ const artArea=el("viewerArt");artArea.classList.remove("raster");if(isPainted(item))artArea.classList.add("raster");
+ const download=el("saveSVG");download.textContent=isPainted(item)?"SAVE PNG ARTWORK ↓":"SAVE SVG ARTWORK ↓";
+ el("viewerSmall").textContent=isPainted(item)?"Original-resolution PNG · colour editions preserve the original 4:3 composition":"Vector edition · retains original proportions at every display size";
  palettes(el("viewerPalettes"));
  if(openDialog&&!dialog.open){dialog.showModal();document.body.classList.add("viewer-open")}
 }
@@ -157,7 +182,11 @@ el("previous").onclick=()=>showWork(current-1,false);
 el("next").onclick=()=>showWork(current+1,false);
 document.addEventListener("keydown",e=>{if(!el("viewer").open)return;if(e.key==="ArrowLeft")showWork(current-1,false);if(e.key==="ArrowRight")showWork(current+1,false)});
 el("saveSVG").onclick=()=>{
- const item=WORKS[current],content=painting(item,palette,"export-"+item.number+"-"+palette.id);
+ const item=WORKS[current];
+ if(isPainted(item)){
+   const a=document.createElement("a");a.href=pngFilename(item,palette);a.download=pngFilename(item,palette).split("/").pop();document.body.append(a);a.click();a.remove();return;
+ }
+ const content=painting(item,palette,"export-"+item.number+"-"+palette.id);
  const url=URL.createObjectURL(new Blob([content],{type:"image/svg+xml;charset=utf-8"}));
  const a=document.createElement("a");a.href=url;a.download="metaforma-"+titleCase(item.number)+"-"+palette.id+".svg";document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
 };
