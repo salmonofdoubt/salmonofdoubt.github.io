@@ -1,6 +1,6 @@
 # MetaForma · Metaphysical Kineticism
 
-**Status:** Art-only exhibition. Block I has four approved painterly PNG originals and 16 colour-treated variants. Later blocks remain provisional scalable vector studies.
+**Status:** Art-only exhibition. Blocks I and II have nine approved painterly PNG masters and 36 colour-treated variants. Forms 10–34 remain provisional scalable vector studies.
 
 ## Exhibition
 
@@ -37,9 +37,18 @@ node demos/metaforma/test-artwork-gallery.cjs
 - Four uploaded, user-approved 1448×1086 PNGs remain byte-identical. They are never cropped, stretched or overwritten.
 - Palette generator `tools/generate_palettes.py` creates four additional colour-treated full-resolution PNGs per original, plus lightweight 1448×1086 WebPs for all 20 editions used by the gallery.
 - Nocturne, Venetian Light, Botanical Silence and Chromatic Modernism are systematic transformations of the original pigment hues. They do not alter any geometric pixel locations; they preserve the architectural setting, transparent shapes and surface textures.
-- The website's swatches switch among real painted image assets for the first four forms, rather than the earlier vector approximations. The remaining 30 studies stay in the provisional vector viewer until approved full-frame paintings exist.
+- The website's swatches switch among real painted image assets for the first four forms, rather than the earlier vector approximations. The remaining Forms 10–34 stay in the provisional vector viewer until approved full-frame paintings exist.
 - `test-palette-assets.cjs` checks the approved originals' Git blob SHA-1 and PNG dimensions, all 16 new PNGs, 20 WebPs, manifest, and no-crop display settings. Tests run in GitHub Actions.
 - Gallery WebP files optimise browsing; the artwork viewer downloads the corresponding full-resolution PNG.
+
+## Block II painterly edition (Forms 05–09)
+
+- 05 Rolling Like a Ball; 06 Single Leg Stretch; 07 Double Leg Stretch; 08 Spine Stretch Forward; 09 Open Leg Rocker.
+- Five user-approved 1448 × 1086 original paintings remain byte-identical and are validated against their Git blob SHA-1 hashes.
+- Generate the 20 colour-graded PNG variants and all 25 full-size WebPs using `python demos/metaforma/tools/generate_palettes.py --block II`.
+- The 25 images display in the gallery with real PNG download options, replacing the Block II provisional vectors. The gallery keeps every painting's native 4:3 aspect ratio with `object-fit: contain`.
+- `test-block2-palette-assets.cjs` verifies each uploaded original against its frozen hash, 20 palette PNGs and 25 WebPs, correct dimensions and gallery integration.
+- The palette editions are deterministic reinterpretations of the originals; they are not five separately painted works. They preserve forms and architecture but different colour relationships may need artistic adjustment.
 
 ## Historical files
 
