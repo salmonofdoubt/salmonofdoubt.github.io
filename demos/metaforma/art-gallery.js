@@ -12,12 +12,40 @@ const PALETTES = [
 ];
 const COLLECTIONS=["All works","I · Emergence","II · Suspension","III · Rotation","IV · Tension","V · Equilibrium","VI · Release"];
 const titles=[
-"Suspended Pulse","The Ascent","Circular Memory","A Study in Counterweight","Twin Horizons","The Vertical Line",
-"Two Points of Departure","Crossed Frequencies","The Quiet Extension","The Open Vessel","Orbit of Silence","Aperture",
-"The Long Arc","A Moment Apart","Folded Time","The Crescent","Aerial Geometry","The Weightless Bridge",
-"Scattered Axis","Tidal Memory","The Half Moon","Beyond the Column","Interrupted Gravity","The Still Current",
-"Equilibrium","The Invisible Pivot","The Blue Interval","Countermotion","Arc Without End",
-"The Listening Plane","Unfolding","Axis of Memory","The Last Orbit","After Movement"
+  "The Hundred",
+  "Roll Up",
+  "Roll Over",
+  "Single Leg Circles",
+  "Rolling Like a Ball",
+  "Single Leg Stretch",
+  "Double Leg Stretch",
+  "Spine Stretch Forward",
+  "Open Leg Rocker",
+  "Corkscrew",
+  "Saw",
+  "Swan Dive",
+  "Single Leg Kick",
+  "Double Leg Kick",
+  "Neck Pull",
+  "High Scissors",
+  "High Bicycle",
+  "Shoulder Bridge",
+  "Spine Twist",
+  "Jackknife",
+  "Side Kicks",
+  "Teaser",
+  "Hip Circles / Twist",
+  "Swimming",
+  "Leg Pull Front",
+  "Leg Pull Back",
+  "Kneeling Side Kicks",
+  "Side Bend",
+  "Boomerang",
+  "Seal",
+  "Crab",
+  "Rocking",
+  "Control Balance",
+  "Push-Ups"
 ];
 const descriptions=[
 "A rhythmic interruption of an otherwise empty architectural space.","A suspended climb through light, mass and disappearance.",
@@ -38,7 +66,7 @@ const descriptions=[
 "A flat plane gathers traces of an unheard gesture.","The entire composition seems to emerge from a fold.",
 "An axis becomes visible only through the marks made around it.","A final orbit, incomplete but entirely resolved.","What remains in space after every gesture has passed."
 ];
-const WORKS=titles.map((title,i)=>({number:i+1,title,description:descriptions[i],collection:i<6?1:i<12?2:i<18?3:i<24?4:i<29?5:6,motif:i%17,variation:Math.floor(i/17)}));
+const WORKS=titles.map((title,i)=>({number:i+1,title,description:descriptions[i],collection:i<4?1:i<9?2:i<14?3:i<20?4:i<26?5:6,motif:i%17,variation:Math.floor(i/17)}));
 let palette=PALETTES[0],group=0,current=24;
 const el=id=>document.getElementById(id);
 const titleCase=n=>String(n).padStart(2,"0");
@@ -98,7 +126,7 @@ function palettes(container){
  PALETTES.forEach(p=>{const b=document.createElement("button");b.type="button";b.className="palette-swatch";b.style.background=p.swatch;b.title=p.name;b.setAttribute("aria-label",p.name);b.setAttribute("aria-pressed",String(palette.id===p.id));b.onclick=()=>{palette=p;render();if(el("viewer").open)showWork(current,false)};container.append(b)});
 }
 function render(){
- el("heroArt").innerHTML=painting(WORKS[24],palette,"hero-"+palette.id);
+ el("heroArt").innerHTML=painting(WORKS[21],palette,"hero-"+palette.id);
  const bar=el("collections");bar.replaceChildren();
  COLLECTIONS.forEach((name,i)=>{const b=document.createElement("button");b.type="button";b.textContent=name;b.setAttribute("aria-pressed",String(group===i));b.onclick=()=>{group=i;render()};bar.append(b)});
  palettes(el("globalPalettes"));
