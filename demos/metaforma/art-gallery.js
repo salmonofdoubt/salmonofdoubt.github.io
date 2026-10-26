@@ -1,5 +1,5 @@
 /* MetaForma · Metaphysical Kineticism
-   Art-only exhibition: approved painted masters for Blocks I and II, with provisional vector studies for later blocks.
+   Art-only exhibition: approved painted masters for Blocks I–III, with provisional vector studies for later blocks.
    This scalable preview does not use low-resolution crops of the source poster. */
 (() => {
 "use strict";
@@ -19,7 +19,12 @@ const PAINTED_MASTERS = [
   '06-single-leg-stretch',
   '07-double-leg-stretch',
   '08-spine-stretch-forward',
-  '09-open-leg-rocker'
+  '09-open-leg-rocker',
+  '10-corkscrew',
+  '11-saw',
+  '12-swan-dive',
+  '13-single-leg-kick',
+  '14-double-leg-kick'
 ];
 function isPainted(item) { return item.number >= 1 && item.number <= PAINTED_MASTERS.length; }
 function pngFilename(item, p) {

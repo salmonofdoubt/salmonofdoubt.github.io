@@ -3,7 +3,7 @@
 
 Preserves each user-approved PNG master byte-for-byte. Additional colour
 editions retain every pixel location and native 1448x1086 aspect ratio.
-Requires pillow and numpy. Run with --block I or --block II.
+Requires pillow and numpy. Run with --block I, --block II, or --block III.
 """
 from __future__ import annotations
 from pathlib import Path
@@ -28,6 +28,13 @@ BLOCKS = {
         "07-double-leg-stretch",
         "08-spine-stretch-forward",
         "09-open-leg-rocker",
+    ),
+    "III": (
+        "10-corkscrew",
+        "11-saw",
+        "12-swan-dive",
+        "13-single-leg-kick",
+        "14-double-leg-kick",
     ),
 }
 HUE_ANCHORS = np.array(

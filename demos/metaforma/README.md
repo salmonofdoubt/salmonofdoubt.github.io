@@ -1,6 +1,6 @@
 # MetaForma · Metaphysical Kineticism
 
-**Status:** Art-only exhibition. Blocks I and II have nine approved painterly PNG masters and 36 colour-treated variants. Forms 10–34 remain provisional scalable vector studies.
+**Status:** Art-only exhibition. Blocks I–III have fourteen approved painterly PNG masters and 56 colour-treated variants. Forms 15–34 remain provisional scalable vector studies.
 
 ## Exhibition
 
@@ -49,6 +49,15 @@ node demos/metaforma/test-artwork-gallery.cjs
 - The 25 images display in the gallery with real PNG download options, replacing the Block II provisional vectors. The gallery keeps every painting's native 4:3 aspect ratio with `object-fit: contain`.
 - `test-block2-palette-assets.cjs` verifies each uploaded original against its frozen hash, 20 palette PNGs and 25 WebPs, correct dimensions and gallery integration.
 - The palette editions are deterministic reinterpretations of the originals; they are not five separately painted works. They preserve forms and architecture but different colour relationships may need artistic adjustment.
+
+## Block III painterly edition (Forms 10–14)
+
+- 10 Corkscrew, 11 Saw, 12 Swan Dive, 13 Single Leg Kick, 14 Double Leg Kick.
+- Five original user-approved 1448 × 1086 PNGs are preserved byte-identical and tested by their immutable Git blob SHA-1.
+- `python demos/metaforma/tools/generate_palettes.py --block III` generates 20 graded PNG variants and 25 native-dimension WebP files. The gallery displays these editions in five selectable colour palettes and provides full-resolution PNG downloads.
+- No stretching, destructive cropping or fictional increase in native image detail. Paintings remain 4:3 landscape in Block III.
+- `test-block3-palette-assets.cjs` protects the uploaded original bytes, checks all files and image sizes, and verifies gallery integration.
+- The colour editions are deterministic transformations, not separate newly painted compositions. Review of hue balance remains a curatorial decision.
 
 ## Historical files
 
