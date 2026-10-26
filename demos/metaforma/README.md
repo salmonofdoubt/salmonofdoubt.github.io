@@ -1,22 +1,31 @@
 # MetaForma · Metaphysical Kineticism
 
-**Status:** Art-only exhibition. Forms 01–16 have sixteen uploaded full-resolution painterly PNG masters and 64 colour-treated variants. Forms 17–34 remain provisional scalable vector studies.
+**Status:** Complete exhibition build: 34 standalone original paintings, five editions per form (170 images), six curated blocks. Original PNG masters remain immutable; derivative palettes are colour transformations, not repainted compositions.
+
+## Complete painterly release, October 2026
+
+- 34 original full-resolution PNG paintings are held at `demos/metaforma/art/NN-name-metaphysical-original.png`. Each original retains its upload Git blob SHA-1 and native 4:3 dimensions, with no cropping or resampling.
+- Forms 17–20 were supplied as separate original artworks after earlier low-resolution contact-sheet studies. The original contact sheet and four cropped studies remain in `art/studies/` for historical provenance, not as the public gallery artworks.
+- New palette variants for 17–20, 21–26, and 27–34 are generated with `python tools/generate_palettes.py --block IV-remaining`, `--block V`, and `--block VI`, respectively. Older release manifests for Blocks I–III and Forms 15–16 are preserved.
+- The public gallery displays each original and four variants as responsive, proportion-preserving WebPs and offers full-resolution PNG downloads. The featured artwork is an original painterly rendering, not a vector placeholder.
+- The `test-complete-collection.cjs` test verifies exact Git blob hashes for all newly integrated originals, PNG image signatures and dimensions, 72 additional palette PNGs, 90 corresponding WebPs, gallery mappings and anti-cropping CSS.
+- Five palettes are **Metaphysical Original, Nocturne, Venetian Light, Botanical Silence, Chromatic Modernism**. Review chromatic results as curatorial alternatives, not new artworks independently repainted from scratch.
 
 ## Exhibition
 
-- **34 distinct studies**, each with a title and a short curatorial description.
+- **34 independently rendered paintings**, each with a title and short curatorial description.
 - **Five curated chromatic interpretations:** Metaphysical Original, Nocturne, Venetian Light, Botanical Silence, Chromatic Modernism.
 - Six art-themed groups: Emergence, Suspension, Rotation, Tension, Equilibrium and Release.
-- Responsive, keyboard-accessible gallery with artwork dialog, next/previous navigation, palette swatches and downloadable SVGs.
+- Responsive, keyboard-accessible gallery with artwork dialog, next/previous navigation, palette swatches and downloadable original-size PNG artwork.
 - No Pilates exercise teaching, anatomical claims, tutorial links or approval badges in the public interface.
-- Artwork scales losslessly as vector graphics; no old low-resolution crop is enlarged or distorted.
-- This vector series is a **functional interim release**, not a claim that the final individually rendered paintings are finished.
+- Images retain their original pixels and are presented uncropped using responsive contained layout.
+- The former interim vector series has been replaced by individual paintings for all 34 forms.
 
 ## Long-term image editions
 
 The original 34-image composite and the earlier 170-file WebP package contain some crops only ~170–250 px wide. Those are unsuitable as large exhibition masters and are not referenced in the new public page.
 
-When individual high-resolution painted studies are approved, they may replace or complement the present SVG edition **one artwork at a time**, keeping consistent IDs, titles, palettes and navigation. Do not stretch images or force object-fit:cover on artwork.
+The low-resolution contact sheets are preserved as studies only. Do not stretch, upscale or force object-fit:cover on final paintings.
 
 ## Deployment / testing
 

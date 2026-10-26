@@ -1,5 +1,5 @@
 /* MetaForma · Metaphysical Kineticism
-   Art-only exhibition: approved painted masters for Forms 01–16, with provisional vector studies for Forms 17–34.
+   Art-only exhibition: 34 individually rendered original paintings, five colour editions each.
    This scalable preview does not use low-resolution crops of the source poster. */
 (() => {
 "use strict";
@@ -26,7 +26,25 @@ const PAINTED_MASTERS = [
   '13-single-leg-kick',
   '14-double-leg-kick',
   '15-neck-pull',
-  '16-high-scissors'
+  '16-high-scissors',
+  '17-high-bicycle',
+  '18-shoulder-bridge',
+  '19-spine-twist',
+  '20-jackknife',
+  '21-side-kicks',
+  '22-teaser',
+  '23-hip-circles-twist',
+  '24-swimming',
+  '25-leg-pull-front',
+  '26-leg-pull-back',
+  '27-kneeling-side-kicks',
+  '28-side-bend',
+  '29-boomerang',
+  '30-seal',
+  '31-crab',
+  '32-rocking',
+  '33-control-balance',
+  '34-push-up'
 ];
 function isPainted(item) { return item.number >= 1 && item.number <= PAINTED_MASTERS.length; }
 function pngFilename(item, p) {
@@ -42,7 +60,7 @@ function webFilename(item, p) {
 function artworkMarkup(item, p, uid) {
   if (isPainted(item)) {
     return '<img src="' + webFilename(item,p) + '" loading="' +
-      (uid.startsWith('viewer-') ? 'eager' : 'lazy') + '" decoding="async" alt="' +
+      (uid.startsWith('viewer-') || uid.startsWith('hero-') ? 'eager' : 'lazy') + '" decoding="async" alt="' +
       esc(item.title) + ' — ' + esc(p.name) + ', metaphysical abstract painting" />';
   }
   return painting(item,p,uid);
@@ -163,7 +181,7 @@ function palettes(container){
  PALETTES.forEach(p=>{const b=document.createElement("button");b.type="button";b.className="palette-swatch";b.style.background=p.swatch;b.title=p.name;b.setAttribute("aria-label",p.name);b.setAttribute("aria-pressed",String(palette.id===p.id));b.onclick=()=>{palette=p;render();if(el("viewer").open)showWork(current,false)};container.append(b)});
 }
 function render(){
- el("heroArt").innerHTML=painting(WORKS[21],palette,"hero-"+palette.id);
+ el("heroArt").innerHTML=artworkMarkup(WORKS[21],palette,"hero-"+palette.id);
  const bar=el("collections");bar.replaceChildren();
  COLLECTIONS.forEach((name,i)=>{const b=document.createElement("button");b.type="button";b.textContent=name;b.setAttribute("aria-pressed",String(group===i));b.onclick=()=>{group=i;render()};bar.append(b)});
  palettes(el("globalPalettes"));
@@ -186,7 +204,7 @@ function showWork(i,openDialog){
  el("viewerArt").innerHTML=artworkMarkup(item,palette,"viewer-"+item.number+"-"+palette.id);
  const artArea=el("viewerArt");artArea.classList.remove("raster");if(isPainted(item))artArea.classList.add("raster");
  const download=el("saveSVG");download.textContent=isPainted(item)?"SAVE PNG ARTWORK ↓":"SAVE SVG ARTWORK ↓";
- el("viewerSmall").textContent=isPainted(item)?"Original-resolution PNG · colour editions preserve the original 4:3 composition":"Vector edition · retains original proportions at every display size";
+ el("viewerSmall").textContent=isPainted(item)?"Original-resolution PNG · five palettes; no cropping or stretched images":"Vector edition · retains original proportions at every display size";
  palettes(el("viewerPalettes"));
  if(openDialog&&!dialog.open){dialog.showModal();document.body.classList.add("viewer-open")}
 }
