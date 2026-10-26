@@ -11,6 +11,13 @@
 - The `test-complete-collection.cjs` test verifies exact Git blob hashes for all newly integrated originals, PNG image signatures and dimensions, 72 additional palette PNGs, 90 corresponding WebPs, gallery mappings and anti-cropping CSS.
 - Five palettes are **Metaphysical Original, Nocturne, Venetian Light, Botanical Silence, Chromatic Modernism**. Review chromatic results as curatorial alternatives, not new artworks independently repainted from scratch.
 
+## Website navigation and publication controls
+
+- Main navigation includes **Back to All Demos** and a visible **Install app** control that uses the existing PWA browser event / manual installation instructions and dialog.
+- The established shared Zenodo badge and support widget are restored: `../shared/demo-doi.js`, `../shared/demo-support.js`, and their CSS. Support menu offers the existing GitHub Sponsors and Buy Me a Coffee links.
+- Zenodo metadata for MetaForma is still a **pending placeholder** (`10.5281/zenodo.0000000`); no DOI or published record is claimed. The common DOI widget marks this as pending and deliberately does not link to an invented record.
+- CSS keeps the existing footer navigation and installation button accessible on mobile, with a compact PWA dialog rather than the gallery's fullscreen artwork dialog. `test-public-controls.cjs` checks controls and links during CI.
+
 ## Exhibition
 
 - **34 independently rendered paintings**, each with a title and short curatorial description.
