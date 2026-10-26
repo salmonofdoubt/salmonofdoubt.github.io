@@ -45,7 +45,7 @@ for(const master of masters){
 const js=fs.readFileSync(path.join(root,'art-gallery.js'),'utf8');
 const css=fs.readFileSync(path.join(root,'art-gallery.css'),'utf8');
 for(const m of masters)assert.ok(js.includes("'"+m.base+"'"),'Gallery mapping missing '+m.base);
-assert.match(js,/artworkMarkup\\(w,palette/);
+assert.ok(js.includes('artworkMarkup(w,palette'),'Gallery tiles must show actual image editions');
 assert.match(css,/object-fit:contain/);
 assert.doesNotMatch(css,/object-fit:cover/);
 for(const n of ['17-high-bicycle','18-shoulder-bridge','19-spine-twist','20-jackknife']){
