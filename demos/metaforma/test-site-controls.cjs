@@ -23,6 +23,17 @@ const dd=js.match(/const descriptions=\[([\s\S]*?)\];/);
 assert.ok(tt&&dd,'Art title and description manifests missing');
 const titles=JSON.parse('['+tt[1]+']'),descriptions=JSON.parse('['+dd[1]+']');
 assert.equal(titles.length,34,'Exactly 34 studies required');
+const classicalTitles=[
+'The Hundred','Roll Up','Roll Over','Single Leg Circles','Rolling Like a Ball',
+'Single Leg Stretch','Double Leg Stretch','Spine Stretch Forward','Open Leg Rocker',
+'Corkscrew','Saw','Swan Dive','Single Leg Kick','Double Leg Kick','Neck Pull',
+'High Scissors','High Bicycle','Shoulder Bridge','Spine Twist','Jackknife',
+'Side Kicks','Teaser','Hip Circles / Twist','Swimming','Leg Pull Front',
+'Leg Pull Back','Kneeling Side Kicks','Side Bend','Boomerang','Seal','Crab',
+'Rocking','Control Balance','Push-Ups'];
+assert.deepEqual(titles,classicalTitles,'Artwork titles must preserve the original 34 forms in order');
+assert.match(js,/collection:i<4\?1:i<9\?2:i<14\?3:i<20\?4:i<26\?5:6/,'Six original block boundaries changed');
+
 assert.equal(new Set(titles).size,34,'Art titles must be distinct');
 assert.equal(descriptions.length,34,'Each study needs a curatorial description');
 assert.equal((js.match(/id:"(?:original|nocturne|venetian|botanical|chromatic)"/g)||[]).length,5,'Exactly five palettes required');
