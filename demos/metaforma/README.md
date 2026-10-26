@@ -1,6 +1,6 @@
 # MetaForma · Metaphysical Kineticism
 
-**Status:** Art-only, scalable-vector preview; review before merging. This replaces the public Pilates teaching/research atlas with an independent contemporary-art gallery.
+**Status:** Art-only exhibition. Block I has four approved painterly PNG originals and 16 colour-treated variants. Later blocks remain provisional scalable vector studies.
 
 ## Exhibition
 
@@ -29,6 +29,17 @@ node demos/metaforma/test-artwork-gallery.cjs
 ```
 
 `art-gallery.js` and `art-gallery.css` are separate, cacheable static assets. The offline shell was versioned for the replacement.
+
+
+## Block I painterly edition (Forms 01–04)
+
+- 01 The Hundred, 02 Roll Up, 03 Roll Over, 04 Single Leg Circles. Canonical repertoire names and block boundaries remain unchanged.
+- Four uploaded, user-approved 1448×1086 PNGs remain byte-identical. They are never cropped, stretched or overwritten.
+- Palette generator `tools/generate_palettes.py` creates four additional colour-treated full-resolution PNGs per original, plus lightweight 1448×1086 WebPs for all 20 editions used by the gallery.
+- Nocturne, Venetian Light, Botanical Silence and Chromatic Modernism are systematic transformations of the original pigment hues. They do not alter any geometric pixel locations; they preserve the architectural setting, transparent shapes and surface textures.
+- The website's swatches switch among real painted image assets for the first four forms, rather than the earlier vector approximations. The remaining 30 studies stay in the provisional vector viewer until approved full-frame paintings exist.
+- `test-palette-assets.cjs` checks the approved originals' Git blob SHA-1 and PNG dimensions, all 16 new PNGs, 20 WebPs, manifest, and no-crop display settings. Tests run in GitHub Actions.
+- Gallery WebP files optimise browsing; the artwork viewer downloads the corresponding full-resolution PNG.
 
 ## Historical files
 
