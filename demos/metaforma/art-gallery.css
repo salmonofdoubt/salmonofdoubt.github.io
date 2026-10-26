@@ -6,3 +6,35 @@
 .viewer-art.raster{aspect-ratio:4/3;max-height:78dvh}
 .viewer-art.raster img{display:block;max-width:100%;max-height:78dvh;width:100%;height:auto;object-fit:contain;box-shadow:0 25px 48px #0007}
 @media(prefers-reduced-motion:reduce){.art-frame.raster img{transition:none}}
+
+/* Restore project-level navigation and tools independently of the art exhibition. */
+.site-header nav{flex-wrap:wrap;justify-content:flex-end;row-gap:8px}
+.site-header .back-demos{color:#f0d7aa}
+.install-button{border:1px solid var(--gold);background:#253335;color:#f1dbb5;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:600;white-space:nowrap;letter-spacing:.09em}
+.install-button:hover,.install-button:focus-visible,.install-button.is-ready{background:var(--gold);color:#172523}
+.install-button[hidden]{display:none}
+footer a.footer-return{color:#e9c89b;text-decoration:none}
+footer a.footer-return:hover,footer a.footer-return:focus-visible{text-decoration:underline}
+.install-dialog{width:min(500px,calc(100vw - 28px));height:auto;max-height:calc(100dvh - 28px);inset:0;margin:auto;padding:28px;border:1px solid var(--gold);border-radius:14px;background:#172526;color:var(--paper);box-shadow:0 20px 80px #000b;overflow:auto}
+.install-dialog::backdrop{background:rgba(0,0,0,.72)}
+.install-dialog h2{font:clamp(29px,5vw,42px)/1.15 "Italiana",Georgia,serif;color:var(--gold);margin:0 0 18px}
+.install-dialog p{font-size:14px;line-height:1.7;color:var(--paper)}
+.install-dialog .dialog-actions{display:flex;justify-content:flex-end;margin-top:22px}
+.install-dialog .dialog-actions button{border:1px solid var(--gold);border-radius:7px;background:var(--gold);color:#192a29;padding:10px 18px}
+.demo-doi-pill,.demo-support-pill{border-color:rgba(208,170,112,.65);color:#f1dfc3;background:rgba(14,26,27,.95);box-shadow:0 8px 25px #0008}
+.demo-doi-pill::before{background:#b99056;color:#182322}
+.demo-doi-pill.is-pending::before{background:#726044}
+.demo-support-pill::before{color:#d0aa70}
+.demo-support-option:hover,.demo-support-option:focus{background:rgba(208,170,112,.2)}
+body.viewer-open .demo-doi-pill,body.viewer-open .demo-support-widget{display:none}
+@media(max-width:740px){
+ .site-header{flex-wrap:wrap}
+ .site-header nav{display:flex;width:100%;margin-left:0;justify-content:space-between;gap:10px}
+ .site-header nav a[href="#statement"]{display:none}
+ .site-header .install-button{font-size:10px;padding:8px 10px}
+}
+@media(max-width:390px){
+ .site-header nav{display:flex}
+ .site-header nav a,.site-header .install-button{font-size:10px}
+ .site-header nav a[href="#collection"]{display:none}
+}

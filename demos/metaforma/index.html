@@ -12,15 +12,19 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&display=swap" rel="stylesheet">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../shared/demo-doi.css">
+<link rel="stylesheet" href="../shared/demo-support.css">
 <link rel="stylesheet" href="./art-gallery.css">
 <script defer src="./art-gallery.js"></script>
+<script defer src="../shared/demo-doi.js"></script>
+<script defer src="../shared/demo-support.js"></script>
 <script defer src="./pwa.js"></script>
 </head>
 <body>
 <a class="skip" href="#collection">Skip to collection</a>
 <header class="site-header" id="top">
   <a class="brand" href="#top" aria-label="MetaForma home">META<span>FORMA</span></a>
-  <nav aria-label="Main navigation"><a href="#collection">The collection</a><a href="#statement">Artist's statement</a></nav>
+  <nav aria-label="Main navigation"><a href="#collection">The collection</a><a href="#statement">Artist's statement</a><a href="../" class="back-demos">← All demos</a><button class="install-button" type="button" id="installApp" aria-haspopup="dialog" aria-controls="installDialog">↓ Install app</button></nav>
   <span class="edition">INDEPENDENT ART PROJECT · 2026</span>
 </header>
 <main>
@@ -58,7 +62,7 @@
     </div>
   </section>
 </main>
-<footer><a class="brand" href="#top">META<span>FORMA</span></a><div>METAPHYSICAL KINETICISM · 34 STUDIES</div><div>AN ONGOING ART PROJECT</div></footer>
+<footer><a class="brand" href="#top">META<span>FORMA</span></a><div>METAPHYSICAL KINETICISM · 34 STUDIES</div><div><a class="footer-return" href="../">← BACK TO ALL DEMOS</a></div><div>AN ONGOING ART PROJECT</div></footer>
 <dialog id="viewer" aria-labelledby="viewerTitle">
   <div class="viewer-bar"><span id="viewerNumber">STUDY 01 / 34</span><button type="button" class="close" id="closeViewer" aria-label="Close viewer">CLOSE <span aria-hidden="true">×</span></button></div>
   <div class="viewer-layout">
@@ -71,6 +75,11 @@
     </div>
   </div>
 </dialog>
-<noscript><p class="noscript">Enable JavaScript to explore the thirty-four interactive artworks.</p></noscript>
+<dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
+  <h2 id="installDialogTitle">Keep MetaForma on your device</h2>
+  <div id="installInstructions"><p>Use your browser's <strong>Install app</strong> or <strong>Add to Home Screen</strong> command.</p></div>
+  <div class="dialog-actions"><form method="dialog"><button type="submit">Close</button></form></div>
+</dialog>
+<noscript><p class="noscript">Enable JavaScript to explore the thirty-four interactive artworks. <a href="../">Return to all demos</a>.</p></noscript>
 </body>
 </html>
