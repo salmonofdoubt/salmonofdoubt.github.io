@@ -1,5 +1,5 @@
 /* MetaForma · Metaphysical Kineticism
-   Art-only exhibition: approved painted masters for Blocks I–III, with provisional vector studies for later blocks.
+   Art-only exhibition: approved painted masters for Forms 01–16, with provisional vector studies for Forms 17–34.
    This scalable preview does not use low-resolution crops of the source poster. */
 (() => {
 "use strict";
@@ -24,7 +24,9 @@ const PAINTED_MASTERS = [
   '11-saw',
   '12-swan-dive',
   '13-single-leg-kick',
-  '14-double-leg-kick'
+  '14-double-leg-kick',
+  '15-neck-pull',
+  '16-high-scissors'
 ];
 function isPainted(item) { return item.number >= 1 && item.number <= PAINTED_MASTERS.length; }
 function pngFilename(item, p) {
@@ -39,7 +41,7 @@ function webFilename(item, p) {
 }
 function artworkMarkup(item, p, uid) {
   if (isPainted(item)) {
-    return '<img src="' + webFilename(item,p) + '" width="1448" height="1086" loading="' +
+    return '<img src="' + webFilename(item,p) + '" loading="' +
       (uid.startsWith('viewer-') ? 'eager' : 'lazy') + '" decoding="async" alt="' +
       esc(item.title) + ' — ' + esc(p.name) + ', metaphysical abstract painting" />';
   }

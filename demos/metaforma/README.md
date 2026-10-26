@@ -1,6 +1,6 @@
 # MetaForma · Metaphysical Kineticism
 
-**Status:** Art-only exhibition. Blocks I–III have fourteen approved painterly PNG masters and 56 colour-treated variants. Forms 15–34 remain provisional scalable vector studies.
+**Status:** Art-only exhibition. Forms 01–16 have sixteen uploaded full-resolution painterly PNG masters and 64 colour-treated variants. Forms 17–34 remain provisional scalable vector studies.
 
 ## Exhibition
 
@@ -58,6 +58,15 @@ node demos/metaforma/test-artwork-gallery.cjs
 - No stretching, destructive cropping or fictional increase in native image detail. Paintings remain 4:3 landscape in Block III.
 - `test-block3-palette-assets.cjs` protects the uploaded original bytes, checks all files and image sizes, and verifies gallery integration.
 - The colour editions are deterministic transformations, not separate newly painted compositions. Review of hue balance remains a curatorial decision.
+
+## Block IV partial release (Forms 15–16 only)
+
+- 15 Neck Pull and 16 High Scissors: uploaded originals moved from repository root into `art/` without changing their image bytes.
+- The generator accepts the native image dimensions of each original (15: 1448×1086, 16: 1447×1087); **neither is stretched, cropped, or artificially upscaled**.
+- `python demos/metaforma/tools/generate_palettes.py --block IV` produces 8 additional graded PNGs and 10 WebPs, preserving the shape and geometry of each master.
+- The four additional exercises 17 High Bicycle, 18 Shoulder Bridge, 19 Spine Twist and 20 Jackknife are preserved under `art/studies/` as cropped studies from a panel sheet. They are **not exhibition-grade standalone masters**, and do not receive fabricated palette editions.
+- `test-block4-partial-assets.cjs` verifies image signatures, dimensions, exact original blob SHA-1 and gallery mapping.
+- Gallery artwork for 17–34 remains provisional vector work until full standalone original masters are available.
 
 ## Historical files
 
