@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-10-25T09:50:30.183746+00:00",
-  "latest_generated_at": "2026-10-25T09:50:18.277509+00:00",
+  "generated_at": "2026-10-26T11:09:30.600737+00:00",
+  "latest_generated_at": "2026-10-26T11:09:21.210359+00:00",
   "total_items": 95,
   "total_sources": 30,
   "sources_active": 18,
   "sources_checked_no_current_items": 11,
   "sources_failed": 1,
   "items_by_section": {
-    "ireland-catchment-practice": 18,
-    "research-papers": 36,
     "grants-opportunities": 18,
-    "waterbody-evidence-alerts": 23
+    "ireland-catchment-practice": 17,
+    "research-papers": 36,
+    "waterbody-evidence-alerts": 24
   },
   "annotation_coverage": {
     "action_relevance": 95,
@@ -19,7 +19,7 @@
     "opportunity_fit": 21,
     "research_use_type": 56
   },
-  "archive_snapshots": 146,
+  "archive_snapshots": 147,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +33,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 12,
-      "elapsed_ms": 42,
+      "elapsed_ms": 31,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 33,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 25,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 78,
-      "elapsed_ms": 68,
+      "discovered_hint_count": 27,
+      "elapsed_ms": 35,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
-      "discovered_hint_count": 76,
-      "elapsed_ms": 66,
+      "current_item_count": 1,
+      "discovered_hint_count": 30,
+      "elapsed_ms": 33,
       "error": null
     },
     {
@@ -91,9 +91,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 8,
+      "current_item_count": 7,
       "discovered_hint_count": 100,
-      "elapsed_ms": 78,
+      "elapsed_ms": 70,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 22,
-      "elapsed_ms": 38,
+      "current_item_count": 1,
+      "discovered_hint_count": 69,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -121,9 +121,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 58,
-      "elapsed_ms": 58,
+      "current_item_count": 2,
+      "discovered_hint_count": 60,
+      "elapsed_ms": 51,
       "error": null
     },
     {
@@ -137,8 +137,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 45,
-      "elapsed_ms": 52,
+      "discovered_hint_count": 44,
+      "elapsed_ms": 44,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 64,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -167,8 +167,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 1087,
+      "discovered_hint_count": 92,
+      "elapsed_ms": 603,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 34,
+      "elapsed_ms": 84,
       "error": null
     },
     {
@@ -196,9 +196,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 47,
-      "elapsed_ms": 53,
+      "current_item_count": 3,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 44,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 73,
-      "elapsed_ms": 64,
+      "discovered_hint_count": 75,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 49,
-      "elapsed_ms": 53,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 43,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 35,
+      "elapsed_ms": 25,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 28,
-      "elapsed_ms": 43,
+      "elapsed_ms": 33,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 48,
-      "elapsed_ms": 52,
+      "elapsed_ms": 44,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 18,
-      "elapsed_ms": 38,
+      "current_item_count": 6,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 45,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 49,
-      "elapsed_ms": 52,
+      "elapsed_ms": 44,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 5,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1093,
+      "elapsed_ms": 808,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 6,
       "discovered_hint_count": 114,
-      "elapsed_ms": 1041,
+      "elapsed_ms": 874,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 224,
-      "elapsed_ms": 478,
+      "elapsed_ms": 293,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 180,
-      "elapsed_ms": 1002,
+      "elapsed_ms": 616,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 423,
-      "elapsed_ms": 1046,
+      "elapsed_ms": 921,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 82,
-      "elapsed_ms": 831,
+      "elapsed_ms": 720,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 35,
-      "elapsed_ms": 2176,
+      "elapsed_ms": 1902,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 35,
+      "elapsed_ms": 59,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 105,
-      "elapsed_ms": 65,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 11,
       "discovered_hint_count": 94,
-      "elapsed_ms": 719,
+      "elapsed_ms": 645,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 1173,
+      "elapsed_ms": 812,
       "error": null
     }
   ]
