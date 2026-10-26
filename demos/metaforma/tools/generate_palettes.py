@@ -3,7 +3,7 @@
 
 Preserves each user-approved PNG master byte-for-byte. Additional colour
 editions retain every pixel location and native 1448x1086 aspect ratio.
-Requires pillow and numpy. Run with --block I, --block II, or --block III.
+Requires pillow and numpy. Run with --block I, II, III or IV.
 """
 from __future__ import annotations
 from pathlib import Path
@@ -36,6 +36,8 @@ BLOCKS = {
         "13-single-leg-kick",
         "14-double-leg-kick",
     ),
+    # Block IV is partially complete: only full-resolution originals 15–16.
+    "IV": ("15-neck-pull", "16-high-scissors"),
 }
 HUE_ANCHORS = np.array(
     [0, 18, 40, 60, 100, 155, 190, 220, 250, 290, 345, 360], np.float32
@@ -103,8 +105,10 @@ def main() -> None:
         master_sha = hashlib.sha256(original_bytes).hexdigest()
         with Image.open(master_file) as opened:
             master = opened.convert("RGB")
-        if master.size != (1448, 1086):
-            raise RuntimeError(f"Invalid original dimensions: {base}: {master.size}")
+        width, height = master.size
+        # Original image generator output varies by a few pixels. Never resample.
+        if width < 1400 or height < 1000 or abs(width / height - 4/3) > .02:
+            raise RuntimeError(f"Unexpected original dimensions: {base}: {master.size}")
         # Web-optimised original, while keeping approved master PNG byte-identical.
         master.save(
             ART / (base + "-metaphysical-original.webp"),
@@ -120,7 +124,7 @@ def main() -> None:
             recoloured.save(web_file, "WEBP", quality=91, method=6)
             entries.append({
                 "form": base, "palette": name, "png": png_file.name,
-                "webp": web_file.name, "dimensions": [1448, 1086],
+                "webp": web_file.name, "dimensions": list(master.size),
                 "master_sha256": master_sha
             })
             print("GENERATED", png_file.name, web_file.name)
