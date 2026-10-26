@@ -1,25 +1,35 @@
 #!/usr/bin/env python3
-"""Deterministic MetaForma Block I colour editions.
+"""Deterministic MetaForma original-painting colour editions, by block.
 
-Four user-approved PNG masters are immutable. The 16 colour PNGs and 20
-optimised WebP display images retain every pixel location and the native
-1448 x 1086 dimensions. Requires pillow and numpy.
+Preserves each user-approved PNG master byte-for-byte. Additional colour
+editions retain every pixel location and native 1448x1086 aspect ratio.
+Requires pillow and numpy. Run with --block I or --block II.
 """
 from __future__ import annotations
 from pathlib import Path
 import hashlib
 import json
+import argparse
 
 import numpy as np
 from PIL import Image
 
 ART = Path(__file__).resolve().parent.parent / "art"
-BASES = (
-    "01-the-hundred",
-    "02-roll-up",
-    "03-roll-over",
-    "04-single-leg-circles",
-)
+BLOCKS = {
+    "I": (
+        "01-the-hundred",
+        "02-roll-up",
+        "03-roll-over",
+        "04-single-leg-circles",
+    ),
+    "II": (
+        "05-rolling-like-a-ball",
+        "06-single-leg-stretch",
+        "07-double-leg-stretch",
+        "08-spine-stretch-forward",
+        "09-open-leg-rocker",
+    ),
+}
 HUE_ANCHORS = np.array(
     [0, 18, 40, 60, 100, 155, 190, 220, 250, 290, 345, 360], np.float32
 )
@@ -75,8 +85,12 @@ def colour_grade(img: Image.Image, config: dict) -> Image.Image:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Build MetaForma colour editions")
+    parser.add_argument("--block", choices=BLOCKS, default="I")
+    args = parser.parse_args()
+    bases = BLOCKS[args.block]
     entries = []
-    for base in BASES:
+    for base in bases:
         master_file = ART / (base + "-metaphysical-original.png")
         original_bytes = master_file.read_bytes()
         master_sha = hashlib.sha256(original_bytes).hexdigest()
@@ -105,14 +119,14 @@ def main() -> None:
             print("GENERATED", png_file.name, web_file.name)
         if hashlib.sha256(master_file.read_bytes()).hexdigest() != master_sha:
             raise RuntimeError(f"Original master changed: {base}")
-    (ART / "block-i-palette-editions.json").write_text(
+    (ART / ("block-" + args.block.lower() + "-palette-editions.json")).write_text(
         json.dumps({
             "schemaVersion": 1,
             "method": "HSV colour grading without geometric transforms",
             "variants": entries
         }, indent=2) + "\n", encoding="utf8"
     )
-    print("SUCCESS: 16 colour PNGs + 20 full-resolution WebP editions")
+    print(f"SUCCESS: Block {args.block}, {len(bases) * 4} colour PNGs + {len(bases) * 5} full-resolution WebP editions")
 
 
 if __name__ == "__main__":
