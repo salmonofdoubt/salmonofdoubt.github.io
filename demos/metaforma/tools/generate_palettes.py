@@ -2,8 +2,8 @@
 """Deterministic MetaForma original-painting colour editions, by block.
 
 Preserves each user-approved PNG master byte-for-byte. Additional colour
-editions retain every pixel location and native 1448x1086 aspect ratio.
-Requires pillow and numpy. Run with --block I, II, III or IV.
+editions retain every pixel location and the native dimensions of each master.
+Requires pillow and numpy. Supports separate blocks I, II, III, IV, IV-remaining, V, VI.
 """
 from __future__ import annotations
 from pathlib import Path
@@ -38,6 +38,19 @@ BLOCKS = {
     ),
     # Block IV is partially complete: only full-resolution originals 15–16.
     "IV": ("15-neck-pull", "16-high-scissors"),
+    "IV-remaining": (
+        "17-high-bicycle", "18-shoulder-bridge",
+        "19-spine-twist", "20-jackknife",
+    ),
+    "V": (
+        "21-side-kicks", "22-teaser", "23-hip-circles-twist",
+        "24-swimming", "25-leg-pull-front", "26-leg-pull-back",
+    ),
+    "VI": (
+        "27-kneeling-side-kicks", "28-side-bend", "29-boomerang",
+        "30-seal", "31-crab", "32-rocking", "33-control-balance",
+        "34-push-up",
+    ),
 }
 HUE_ANCHORS = np.array(
     [0, 18, 40, 60, 100, 155, 190, 220, 250, 290, 345, 360], np.float32
