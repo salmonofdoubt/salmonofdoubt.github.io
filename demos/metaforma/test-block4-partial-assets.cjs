@@ -26,7 +26,7 @@ for(const master of masters){
  const name=master.base+'-metaphysical-original.png';
  const original=readPNG(name,master.size);
  const sha=crypto.createHash('sha1')
-   .update(Buffer.concat([Buffer.from('blob '+original.length+'\\0'),original]))
+   .update(Buffer.concat([Buffer.from('blob '+original.length+'\0'),original]))
    .digest('hex');
  assert.equal(sha,master.hash,'Original master changed: '+name);
  for(const p of palettes){
