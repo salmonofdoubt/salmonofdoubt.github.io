@@ -1,56 +1,34 @@
 #!/usr/bin/env node
-/* MetaForma: protect six-block classification, install shell and shared controls. */
 'use strict';
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 const dir=__dirname;
-const root=path.join(dir,'..','..');
 const read=p=>fs.readFileSync(path.join(dir,p),'utf8');
-const html=read('index.html');
-const js=read('pwa.js');
-const sw=read('service-worker.js');
+const html=read('index.html'),css=read('art-gallery.css'),js=read('art-gallery.js'),sw=read('service-worker.js');
 const manifest=JSON.parse(read('manifest.webmanifest'));
-const demos=JSON.parse(fs.readFileSync(path.join(root,'demos','data','demos.json'),'utf8'));
-const groups=[
- [1,4,'Foundation & Warm-Up'],
- [5,9,'Rolling & Core Series'],
- [10,14,'Rotations & Inversions'],
- [15,20,'Torso & Leg Integration'],
- [21,26,'Lateral & Peak Balance'],
- [27,34,'Dynamic Flow & Culmination']
-];
-for(const [start,end,name] of groups) {
- assert.ok(html.includes('data-chapter="'+start+'"'),'Missing section '+start);
- assert.ok(html.includes('data-filter="'+start+'"'),'Missing filter '+start);
- assert.ok(html.includes(name),'Missing grouping label '+name);
- for(let i=start;i<=end;i++){
-  const no=String(i).padStart(2,'0');
-  assert.ok(html.includes('id="ex-'+no+'" data-section="'+start+'"'),'Exercise '+no+' grouped incorrectly');
- }
-}
-assert.equal((html.match(/class="exercise"/g)||[]).length,34);
-assert.equal((html.match(/<section class="chapter"/g)||[]).length,6);
-assert.ok(html.includes('../shared/demo-doi.js'),'Shared DOI widget missing');
-assert.ok(html.includes('../shared/demo-support.js'),'Shared support widget missing');
-assert.ok(html.includes('../shared/demo-doi.css'),'Shared DOI styling missing');
-assert.ok(html.includes('../shared/demo-support.css'),'Shared support styling missing');
-assert.ok(html.includes('id="installApp"'),'Install button must be in static HTML');
-assert.ok(html.includes('id="installDialog"'),'Install fallback must be provided');
-assert.ok(html.includes('rel="manifest"'),'Install manifest link missing');
-assert.ok(html.includes('href="./icon.svg"'),'App icon link missing');
-assert.ok(html.includes('./pwa.js?v=20261024-1'),'PWA controller script not linked');
-assert.ok(fs.existsSync(path.join(dir,'icon.svg')),'Icon missing');
-assert.ok(fs.existsSync(path.join(dir,'service-worker.js')),'Service worker missing');
-assert.ok(fs.existsSync(path.join(root,'demos','shared','demo-doi.js')),'Shared DOI script missing');
-assert.ok(fs.existsSync(path.join(root,'demos','shared','demo-support.js')),'Shared support script missing');
-assert.ok(manifest.start_url==='./' && manifest.scope==='./' && manifest.display==='standalone','Incorrect install scope');
-assert.ok(Array.isArray(manifest.icons)&&manifest.icons.some(icon=>icon.src==='./icon.svg'),'Manifest icon missing');
-new Function(js);
-new Function(sw);
-assert.ok(sw.includes("'/demos/metaforma/'"),'Offline service worker must be scoped to MetaForma');
-assert.ok(sw.includes("key.startsWith(PREFIX)"),'Offline cache cleanup must be scoped');
-const entries=demos.filter(x=>x.path==='metaforma/');
-assert.equal(entries.length,1,'MetaForma demo metadata missing/duplicated');
-assert.equal(entries[0].doi,'10.5281/zenodo.0000000','Do not invent a Zenodo DOI');
-console.log('MetaForma site controls: PASS (6 blocks, 34 exercises, shared support & DOI, scoped PWA shell).');
+assert.match(html,/Metaphysical Kineticism/,'Gallery title missing');
+assert.match(html,/id="gallery"/,'Gallery grid missing');
+assert.match(html,/id="viewer"/,'Artwork viewer missing');
+assert.match(html,/id="globalPalettes"/,'Palette selector missing');
+assert.match(html,/art-gallery\.css/,'Gallery style missing');
+assert.match(html,/art-gallery\.js/,'Artwork renderer missing');
+assert.doesNotMatch(html,/onlinepilatesclasses|instructor|biomechanical|anatomy assessment|classical pilates/i,'Teaching content displayed');
+assert.match(css,/aspect-ratio:1\/1/,'Square original proportion not maintained');
+assert.doesNotMatch(css,/object-fit:cover/,'Art may be cropped');
+assert.match(js,/preserveAspectRatio="xMidYMid meet"/,'SVG proportion safeguard missing');
+assert.match(js,/new Blob/,'Full-vector download missing');
+const tt=js.match(/const titles=\[([\s\S]*?)\];/);
+const dd=js.match(/const descriptions=\[([\s\S]*?)\];/);
+assert.ok(tt&&dd,'Art title and description manifests missing');
+const titles=JSON.parse('['+tt[1]+']'),descriptions=JSON.parse('['+dd[1]+']');
+assert.equal(titles.length,34,'Exactly 34 studies required');
+assert.equal(new Set(titles).size,34,'Art titles must be distinct');
+assert.equal(descriptions.length,34,'Each study needs a curatorial description');
+assert.equal((js.match(/id:"(?:original|nocturne|venetian|botanical|chromatic)"/g)||[]).length,5,'Exactly five palettes required');
+new Function(js);new Function(sw);
+assert.match(sw,/art-gallery\.js/,'Offline shell must include new art renderer');
+assert.match(sw,/art-gallery\.css/,'Offline shell must include new style');
+assert.equal(manifest.name,'MetaForma · Metaphysical Kineticism');
+assert.equal(manifest.scope,'./');
+console.log('MetaForma gallery: PASS (34 distinct artworks, 5 palettes, responsive/vector viewer, art-only shell).');
