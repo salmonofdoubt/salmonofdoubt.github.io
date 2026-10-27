@@ -287,6 +287,32 @@
         "d4b-152",
         "d4b-153"
       ]
+    },
+    {
+      "id": "d4b-source-release-20261027-gen-w7-rag",
+      "accepted_at": "2026-10-27T08:45:06Z",
+      "source_id": "drive",
+      "source_name": "Private D4B Drive (connected ChatGPT review)",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "material": "Generative AI Week 07 · Grounding, Retrieval-Augmented Generation and Evidence Verification",
+      "module": "GEN",
+      "week": 7,
+      "material_version": "Lecturer slides modified 2026-10-26; 20-cell teaching notebook modified 2026-10-27; canonical booklet reviewed 2026-10-27",
+      "question_ids": [
+        "d4b-154",
+        "d4b-155",
+        "d4b-156",
+        "d4b-157",
+        "d4b-158",
+        "d4b-159",
+        "d4b-160",
+        "d4b-161",
+        "d4b-162",
+        "d4b-163"
+      ],
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/260",
+      "merge_commit": "bdc4a11d97cdc2959bc37da351ce37e7a2b38ab1",
+      "review_scope": "Ten original four-choice practice questions, answers and distractors independently checked against cited academic and standards sources and directly inspected lecturer slides. Official Moodle Week 07 grading not available and not claimed. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. Source access was connected ChatGPT review only, not GitHub Actions."
     }
   ]
 }
