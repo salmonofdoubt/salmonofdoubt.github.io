@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-10-26
+# Water NbS Story Radar · 2026-10-27
 
-Generated: 2026-10-26T11:17:53.510880+00:00
+Generated: 2026-10-27T10:42:33.994987+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -359,7 +359,7 @@ URL: https://riverbasin.ie/river-basin-management-service-launches-catchment-sup
 
 Angle: Local planning and river-corridor governance
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, water quality, river, catchment.
 
