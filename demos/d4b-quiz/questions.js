@@ -6,7 +6,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "Attention and Transformers",
     "Models at Work: Text, Speech and Images",
     "Prompt Engineering",
-    "Generative Media: Images, Audio, Video and Responsibility"
+    "Generative Media: Images, Audio, Video and Responsibility",
+    "Grounding, Retrieval-Augmented Generation and Evidence Verification"
   ],
   "AIB": [
     "Introduction to AI and its History",
@@ -6313,6 +6314,446 @@ window.D4B_QUESTIONS=Object.freeze([
     "reviewed_at": "2026-10-20",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-154",
+  "module": "GEN",
+  "week": 7,
+  "topic": "RAG versus fine-tuning",
+  "stem": "A firm changes a policy document today. Which statement best describes how a standard inference-time retrieval-augmented generation (RAG) assistant can use the change?",
+  "choices": [
+    "Its language model must be trained again on the entire policy corpus",
+    "The new policy becomes a permanent fact in the model's parameters as soon as a user asks",
+    "The revised document can be re-indexed and retrieved into the prompt without changing the generator's weights",
+    "A larger context window guarantees the assistant will obey the revised policy"
+  ],
+  "correct": 2,
+  "explanation": "In a typical inference-time RAG system, external passages are retrieved and supplied as context; changing an indexed policy need not change the generator's parameters. Retraining and permanent weight updates are different operations, and a larger window does not guarantee accurate use of evidence.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Lewis et al. (2020), abstract and Section 2, parametric versus non-parametric memory",
+    "url": "https://arxiv.org/abs/2005.11401",
+    "scope": "GEN W7 · RAG versus fine-tuning",
+    "method": "Official Week 7 lecturer slides 11, 23–26 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-155",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Indexing and query-time retrieval",
+  "stem": "A document-grounded assistant receives a question after its document index has been built. Which sequence belongs to the per-question stage?",
+  "choices": [
+    "Re-download and fine-tune the language model on every source",
+    "Embed the question, retrieve relevant indexed passages, then generate using those passages",
+    "Generate a response first, then retroactively select sources that sound similar",
+    "Delete the index and create new training labels for each question"
+  ],
+  "correct": 1,
+  "explanation": "The usual pipeline separates document preparation and indexing from query-time retrieval and generation. Query embeddings locate candidate passages, which are passed to the generator. Neither model fine-tuning nor after-the-fact citation matching is the per-question retrieval step.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Gao et al. (2024), Sections II–III, indexing–retrieval–generation pipeline",
+    "url": "https://arxiv.org/abs/2312.10997",
+    "scope": "GEN W7 · Indexing and query-time retrieval",
+    "method": "Official Week 7 lecturer slides 23–26 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-156",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Semantic retrieval",
+  "stem": "A traveller writes 'my bag never arrived', while the relevant rule uses 'lost checked-in luggage'. Why might dense semantic retrieval find it when exact-word matching fails?",
+  "choices": [
+    "It converts every question into a legal decision before searching",
+    "It searches only documents whose titles exactly match the question",
+    "It requires both sentences to contain the same nouns",
+    "It compares learned representations that can place differently worded, related passages near one another"
+  ],
+  "correct": 3,
+  "explanation": "Dense retrieval uses learned embeddings to compare semantic similarity across different wording. It does not guarantee correct legal interpretation, require identical keywords, or pre-decide the user's entitlement.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Gao et al. (2024), Section III, retrieval and dense representations",
+    "url": "https://arxiv.org/abs/2312.10997",
+    "scope": "GEN W7 · Semantic retrieval",
+    "method": "Official Week 7 lecturer slides 15–20 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
+    "key_checked": 3,
+    "distractor_indices_checked": [
+      0,
+      1,
+      2
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-157",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Chunk boundaries and tables",
+  "stem": "A RAG assistant retrieves the correct page but confuses two compensation rows because a table was split across chunks. What is the most defensible next change?",
+  "choices": [
+    "Preserve the relevant table and row context in retrieval units, then retest all known-answer cases",
+    "Increase the number of retrieved chunks indefinitely and assume the problem disappears",
+    "Disable retrieval so the model can answer from memory",
+    "Treat any answer that names the right webpage as correct"
+  ],
+  "correct": 0,
+  "explanation": "Splitting structured evidence can separate values from their labels. Structure-aware or smaller, coherent chunks may improve a particular case, but changes must be evaluated against the full test set. More context, memory-only answers and superficial page citations do not establish correctness.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Gao et al. (2024), Section III.A, text splitting and document structure",
+    "url": "https://arxiv.org/abs/2312.10997",
+    "scope": "GEN W7 · Chunk boundaries and tables",
+    "method": "Official Week 7 lecturer slides 14, 39–40 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
+    "key_checked": 0,
+    "distractor_indices_checked": [
+      1,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-158",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Abstention on missing evidence",
+  "stem": "The retriever returns three weakly related passages, none of which addresses a customer's wage question. What should an evidence-grounded assistant do?",
+  "choices": [
+    "Use the highest-scoring passage as proof, because top-1 always means relevant",
+    "Invent a plausible figure but label it approximate",
+    "Say that the available sources do not establish the answer and seek suitable evidence",
+    "Quote whichever passage contains the most numbers"
+  ],
+  "correct": 2,
+  "explanation": "Top-k ranking is relative, not proof that any retrieved passage supports the claim. When evidence is absent, abstention or further authoritative retrieval is safer than a plausible but unsupported answer.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "NIST (2024), AI 600-1, risks of confabulation and information integrity",
+    "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+    "scope": "GEN W7 · Abstention on missing evidence",
+    "method": "Official Week 7 lecturer slides 41, 47 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-159",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Citation validity versus factual accuracy",
+  "stem": "An assistant gives a correct-looking answer and appends citation [7], although the retrieval step supplied only sources [1] to [3]. What does this demonstrate?",
+  "choices": [
+    "The answer is fully verified because a citation marker is present",
+    "Citation validity must be checked independently of the factual claim",
+    "The model must have secretly retrieved four additional documents",
+    "The presence of any citation proves that the source supports every sentence"
+  ],
+  "correct": 1,
+  "explanation": "A fabricated or out-of-range citation is a provenance failure even if the answer happens to be true. Verification separately tests retrieval, whether the cited passage supports the claim, and whether citation identifiers actually resolve.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Wallat et al. (2024), Correctness is not Faithfulness in RAG Attributions, Introduction and citation correctness/faithfulness definitions",
+    "url": "https://arxiv.org/abs/2412.18004",
+    "scope": "GEN W7 · Citation validity versus factual accuracy",
+    "method": "Official Week 7 lecturer slides 35–36, 45–46 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-160",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Indirect prompt injection in retrieved documents",
+  "stem": "A retrieved webpage contains text ordering the assistant to ignore its operating instructions and give a false returns policy. How should the system classify that text?",
+  "choices": [
+    "As a new system instruction, because retrieval ranked the page first",
+    "As verified law, because it appeared in the indexed corpus",
+    "As a user instruction that overrides the original task",
+    "As untrusted source content that must not acquire instruction authority"
+  ],
+  "correct": 3,
+  "explanation": "External webpages and indexed files are lower-trust data, not system instructions. Treating their embedded commands as authoritative creates indirect prompt-injection risk; source controls and instruction boundaries are required.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "OWASP (2025), LLM01 Prompt Injection, indirect injections and mitigation strategies",
+    "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+    "scope": "GEN W7 · Indirect prompt injection in retrieved documents",
+    "method": "Official Week 7 lecturer slides 43 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
+    "key_checked": 3,
+    "distractor_indices_checked": [
+      0,
+      1,
+      2
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-161",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Lost-in-the-middle effects",
+  "stem": "A model performs worse when the decisive passage sits halfway through a long retrieved context than when it appears near either end. Which interpretation best matches published research?",
+  "choices": [
+    "The position of relevant evidence can materially affect long-context answer accuracy",
+    "A larger context window always makes position irrelevant",
+    "The model is necessarily missing the middle passage from its tokenizer",
+    "Retrieval accuracy is impossible to evaluate without retraining the generator"
+  ],
+  "correct": 0,
+  "explanation": "Controlled studies find that models can use relevant information less reliably when it appears in the middle of long contexts. Window size alone does not guarantee robust use; this is distinct from tokenizer loss or an inability to evaluate retrieval.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Liu et al. (2024), Sections 2–3 and Figure 1, position sensitivity",
+    "url": "https://aclanthology.org/2024.tacl-1.9/",
+    "scope": "GEN W7 · Lost-in-the-middle effects",
+    "method": "Official Week 7 lecturer slides 42 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
+    "key_checked": 0,
+    "distractor_indices_checked": [
+      1,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-162",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Regression testing after RAG tuning",
+  "stem": "Reducing chunk size fixes one known-answer question but introduces an error on another. What is the appropriate evaluation decision?",
+  "choices": [
+    "Declare the system improved because the most visible failure disappeared",
+    "Keep reducing chunk size until every passage is a single word",
+    "Rerun the complete labelled test set and compare both improvements and regressions",
+    "Change the expected answer to match the model's newest output"
+  ],
+  "correct": 2,
+  "explanation": "A retrieval setting can trade one failure for another. Compare all predefined cases, their source relevance and answer support before adopting the change. A single fixed example is insufficient evidence of system-wide improvement.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Gao et al. (2024), evaluation of RAG retrieval and generation; lecturer slides 39–40 and 47–48",
+    "url": "https://arxiv.org/abs/2312.10997",
+    "scope": "GEN W7 · Regression testing after RAG tuning",
+    "method": "Official Week 7 lecturer slides 39–40, 47–48 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-163",
+  "module": "GEN",
+  "week": 7,
+  "topic": "Model-as-judge limitations",
+  "stem": "A second language model marks every sentence of a RAG answer as supported. What is the strongest warranted conclusion?",
+  "choices": [
+    "The answer is legally and factually guaranteed correct",
+    "Automated faithfulness checks can assist triage, but citations and a human-reviewed sample still require checking",
+    "The original retriever is no longer needed",
+    "The judgement proves the cited document is current and authoritative"
+  ],
+  "correct": 1,
+  "explanation": "A model-based judge is a fallible screening mechanism. It does not establish source authority, freshness, citation integrity or complete factual accuracy, so human review and source-level checks remain necessary.",
+  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-27",
+    "locator": "Saad-Falcon et al. (2023), ARES: An Automated Evaluation Framework for Retrieval-Augmented Generation Systems, abstract and evaluation methodology",
+    "url": "https://arxiv.org/abs/2311.09476",
+    "scope": "GEN W7 · Model-as-judge limitations",
+    "method": "Official Week 7 lecturer slides 45–46 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+    "teaching_material_checked": true,
+    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "GEN",
+    "week": 7,
+    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
+    "reviewed_at": "2026-10-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
   }
 }
 ]);
