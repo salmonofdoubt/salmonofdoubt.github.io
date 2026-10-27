@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-27T08:45:39.758Z",
+  "last_checked_at": "2026-10-27T08:47:11.601Z",
   "last_consolidated_at": "2026-10-27T08:45:39.758Z",
   "last_question_bank_change_at": "2026-10-27T08:45:39.758Z",
   "content_fingerprint": "9ef99601ca928e635fdc7e480f322f0809ef38726d46b73b2347d6cc12d2967e",
-  "content_changed": true,
+  "content_changed": false,
   "bank_fingerprint": "3f7ca6f6c6dd769c80e9f37a2666047280e7189db5abad68566db97d5b731fd4",
   "question_count": 163,
   "question_status": {
@@ -47,37 +47,64 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-27T08:45:39.758Z",
-    "last_automated_check_at": "2026-10-27T08:45:37.888Z",
-    "last_automation_ingest_at": "2026-10-27T08:45:39.646Z",
+    "updated_at": "2026-10-27T08:47:11.601Z",
+    "last_automated_check_at": "2026-10-27T08:47:09.819Z",
+    "last_automation_ingest_at": "2026-10-27T08:47:11.508Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
     "staged_already_present": 72,
     "last_reviewed_material_release": {
-      "id": "d4b-source-release-20261023-inn-w6",
-      "accepted_at": "2026-10-23T07:48:25Z",
+      "id": "d4b-source-release-20261027-gen-w7-rag",
+      "accepted_at": "2026-10-27T08:45:06Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "material": "Innovation Week 06 · Innovation, AI Tools and Critical Evaluation",
-      "module": "INN",
-      "week": 6,
-      "question_count": 8,
+      "material": "Generative AI Week 07 · Grounding, Retrieval-Augmented Generation and Evidence Verification",
+      "module": "GEN",
+      "week": 7,
+      "question_count": 10,
       "question_ids": [
-        "d4b-141",
-        "d4b-142",
-        "d4b-143",
-        "d4b-144",
-        "d4b-145",
-        "d4b-146",
-        "d4b-147",
-        "d4b-148"
+        "d4b-154",
+        "d4b-155",
+        "d4b-156",
+        "d4b-157",
+        "d4b-158",
+        "d4b-159",
+        "d4b-160",
+        "d4b-161",
+        "d4b-162",
+        "d4b-163"
       ],
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/223",
-      "review_scope": "Original four-choice practice questions, not Moodle originals or copied third-party quiz text. Course alignment, official Moodle grading and independent verification remain item-specific; no private Drive content is fetched by GitHub Actions."
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/260",
+      "review_scope": "Ten original four-choice practice questions, answers and distractors independently checked against cited academic and standards sources and directly inspected lecturer slides. Official Moodle Week 07 grading not available and not claimed. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. Source access was connected ChatGPT review only, not GitHub Actions."
     },
     "recent_reviewed_material_releases": [
+      {
+        "id": "d4b-source-release-20261027-gen-w7-rag",
+        "accepted_at": "2026-10-27T08:45:06Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "material": "Generative AI Week 07 · Grounding, Retrieval-Augmented Generation and Evidence Verification",
+        "module": "GEN",
+        "week": 7,
+        "question_count": 10,
+        "question_ids": [
+          "d4b-154",
+          "d4b-155",
+          "d4b-156",
+          "d4b-157",
+          "d4b-158",
+          "d4b-159",
+          "d4b-160",
+          "d4b-161",
+          "d4b-162",
+          "d4b-163"
+        ],
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/260",
+        "review_scope": "Ten original four-choice practice questions, answers and distractors independently checked against cited academic and standards sources and directly inspected lecturer slides. Official Moodle Week 07 grading not available and not claimed. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. Source access was connected ChatGPT review only, not GitHub Actions."
+      },
       {
         "id": "d4b-source-release-20261023-inn-w6",
         "accepted_at": "2026-10-23T07:48:25Z",
@@ -184,66 +211,67 @@
         ],
         "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/208",
         "review_scope": "Six original practice questions from authorised booklet review. Not official Moodle questions. Independent academic verification remains item-specific."
-      },
-      {
-        "id": "d4b-source-release-20261010-gen-w5",
-        "accepted_at": "2026-10-09T23:08:19Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "material": "Generative AI · Week 05 · prompt-safety, example selection and task evaluation",
-        "module": "GEN",
-        "week": 5,
-        "question_count": 4,
-        "question_ids": [
-          "d4b-106",
-          "d4b-107",
-          "d4b-108",
-          "d4b-109"
-        ],
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204",
-        "review_scope": "Original additional study questions for concepts already in the current canonical module booklet. Course alignment checked; independent factual verification pending. No verbatim Moodle or third-party questions copied."
       }
     ],
     "last_reviewed_release_group": {
-      "accepted_at": "2026-10-23T07:48:25Z",
+      "accepted_at": "2026-10-27T08:45:06Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/223",
-      "question_count": 13,
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/260",
+      "question_count": 10,
       "question_ids": [
-        "d4b-141",
-        "d4b-142",
-        "d4b-143",
-        "d4b-144",
-        "d4b-145",
-        "d4b-146",
-        "d4b-147",
-        "d4b-148",
-        "d4b-149",
-        "d4b-150",
-        "d4b-151",
-        "d4b-152",
-        "d4b-153"
+        "d4b-154",
+        "d4b-155",
+        "d4b-156",
+        "d4b-157",
+        "d4b-158",
+        "d4b-159",
+        "d4b-160",
+        "d4b-161",
+        "d4b-162",
+        "d4b-163"
       ],
       "module_weeks": [
         {
-          "module": "DTR",
-          "week": 6,
-          "question_count": 5,
-          "material": "Digital Transformation Week 06 · New Literacies and Digital Citizenship"
-        },
-        {
-          "module": "INN",
-          "week": 6,
-          "question_count": 8,
-          "material": "Innovation Week 06 · Innovation, AI Tools and Critical Evaluation"
+          "module": "GEN",
+          "week": 7,
+          "question_count": 10,
+          "material": "Generative AI Week 07 · Grounding, Retrieval-Augmented Generation and Evidence Verification"
         }
       ],
-      "material": "DTR W06 · INN W06"
+      "material": "GEN W07"
     },
     "recent_reviewed_release_groups": [
+      {
+        "accepted_at": "2026-10-27T08:45:06Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/260",
+        "question_count": 10,
+        "question_ids": [
+          "d4b-154",
+          "d4b-155",
+          "d4b-156",
+          "d4b-157",
+          "d4b-158",
+          "d4b-159",
+          "d4b-160",
+          "d4b-161",
+          "d4b-162",
+          "d4b-163"
+        ],
+        "module_weeks": [
+          {
+            "module": "GEN",
+            "week": 7,
+            "question_count": 10,
+            "material": "Generative AI Week 07 · Grounding, Retrieval-Augmented Generation and Evidence Verification"
+          }
+        ],
+        "material": "GEN W07"
+      },
       {
         "accepted_at": "2026-10-23T07:48:25Z",
         "source_id": "drive",
@@ -456,7 +484,7 @@
         "material": "INN W05"
       }
     ],
-    "reviewed_release_count": 14,
+    "reviewed_release_count": 15,
     "explicit_source_boundary": "GitHub fingerprints public pages and reconciles already-staged original questions. It cannot independently read private Drive, ChatGPT, or Moodle content; private material releases require a separate authorised review."
   },
   "source_status": [
