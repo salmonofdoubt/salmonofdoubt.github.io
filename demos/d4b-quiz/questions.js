@@ -5076,13 +5076,35 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Large volumes of traces may coexist with missing groups or crucial inaccessible information. Volume does not ensure coverage.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Data deserts",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Data deserts",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "Kitchin (2014), The Data Revolution, data infrastructures and epistemic limitations",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Robinson & Franklin (2021), §4 'The Sensor Desert Quandary', explicitly contrasts sensor data deluges with unrepresented places and populations, citing Kitchin (2014, p. 3); Kitchin (2014), The Data Revolution, ch. 9 'Deserts and deluges'.",
+      "note": "Original public practice item. Current canonical Week 05 booklet and peer-reviewed research support answer and distractors; no official Moodle key claimed.",
+      "reviewed_at": "2026-10-28",
+      "url": "https://doi.org/10.1111/tran.12415",
+      "method": "Directly read authorised DTR canonical booklet, Week 05 'Data Deserts, Data Deluges and Informed Scepticism'; independently inspected Robinson and Franklin (2021), §4, and Kitchin (2014) publisher contents. Correct option 0: abundant traces coexist with omitted groups; distractor 1: no universal coverage; distractor 2: volume does not cure selection bias; distractor 3: DIKW does not guarantee wisdom.",
+      "source_review_status": "independently supported",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ],
+      "additional_reference_url": "https://doi.org/10.4135/9781473909472"
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "authorised D4B canonical booklet",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Data deserts",
+      "reviewed_at": "2026-10-28",
+      "note": "Directly read authorised Week 05 booklet and independently checked academic source. Original lecture slides not inspected during this review. No official Moodle key claimed.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   },
   {
@@ -5147,13 +5169,34 @@ window.D4B_QUESTIONS=Object.freeze([
     "explanation": "Observation supplies information; inspection enables independent scrutiny; modification entails meaningful corrective authority.",
     "source": "04_Digital_Transformation_Booklet, Week 05, Observe inspect modify",
     "origin": "booklet-derived",
-    "verification": "pending",
+    "verification": "verified",
     "evidence": {
       "source": "04_Digital_Transformation_Booklet, Week 05 / Observe inspect modify",
-      "originalMaterialChecked": false,
+      "originalMaterialChecked": true,
       "review_type": "booklet-concept-grounding",
-      "locator": "DTR Week 05 lecture, Governing Generative AI: Observe, Inspect, Modify",
-      "note": "Original practice item based on authorised 11 October 2026 booklet review; primary-source and all distractor verification pending; not an official Moodle question."
+      "locator": "Ferrari, van Dijck, & van den Bosch (2025; online 2023), 'Observe, inspect, modify: Three conditions for generative AI governance', abstract and sections 'Public inspectability' and 'Technical modifiability'.",
+      "note": "Original public practice item. Current canonical Week 05 booklet and peer-reviewed research support answer and distractors; no official Moodle key claimed.",
+      "reviewed_at": "2026-10-28",
+      "url": "https://doi.org/10.1177/14614448231214811",
+      "method": "Directly read authorised DTR canonical booklet, Week 05 'Governing Generative AI | Observe, Inspect, Modify'; independently inspected Ferrari et al. original peer-reviewed article. Correct option 2: external inspectability and effective technical modifiability are absent; distractor 0: observation already possible; distractor 1: deployment scale is not a missing governance power; distractor 3: datafication and commodification are distinct platform mechanisms.",
+      "source_review_status": "independently supported",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "authorised D4B canonical booklet",
+      "module": "DTR",
+      "week": 5,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 05, Observe inspect modify",
+      "reviewed_at": "2026-10-28",
+      "note": "Directly read authorised Week 05 booklet and independently checked academic source. Original lecture slides not inspected during this review. No official Moodle key claimed.",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
     }
   }
 ,
