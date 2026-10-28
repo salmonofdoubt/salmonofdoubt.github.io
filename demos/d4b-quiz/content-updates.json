@@ -314,5 +314,31 @@
       "merge_commit": "bdc4a11d97cdc2959bc37da351ce37e7a2b38ab1",
       "review_scope": "Ten original four-choice practice questions, answers and distractors independently checked against cited academic and standards sources and directly inspected lecturer slides. Official Moodle Week 07 grading not available and not claimed. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. Source access was connected ChatGPT review only, not GitHub Actions."
     }
+  ],
+  "verification_events": [
+    {
+      "id": "d4b-verification-20261028-dtr-w5",
+      "event_type": "independent-verification-only",
+      "accepted_at": "2026-10-28T08:40:21Z",
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/263",
+      "merge_commit": "1131384f713062d92b1a7d88c022ac830b6f4b4b",
+      "source_id": "drive-and-peer-reviewed-research",
+      "source_name": "Authorised D4B Digital Transformation Week 05 booklet and independently published research",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "module": "DTR",
+      "week": 5,
+      "question_ids": [
+        "d4b-125",
+        "d4b-127"
+      ],
+      "verified_question_count": 2,
+      "new_question_count": 0,
+      "primary_references": [
+        "https://doi.org/10.1111/tran.12415",
+        "https://doi.org/10.4135/9781473909472",
+        "https://doi.org/10.1177/14614448231214811"
+      ],
+      "review_scope": "Resolved independent verification for two previously pending original practice items by checking correct answer and three distractors against primary academic sources and the authorised DTR Week 05 booklet. Course alignment supported; official Moodle keys not checked. No new questions or private teaching material published."
+    }
   ]
 }
