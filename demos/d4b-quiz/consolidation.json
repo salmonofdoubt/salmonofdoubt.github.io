@@ -1,21 +1,21 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-27T12:22:35.519Z",
-  "last_consolidated_at": "2026-10-27T12:22:35.519Z",
-  "last_question_bank_change_at": "2026-10-27T08:45:39.758Z",
-  "content_fingerprint": "a643ac7d8e7b6e64e4f01e87d958c0c244ea3081450579db5e888a0a6595d782",
+  "last_checked_at": "2026-10-28T08:41:02.487Z",
+  "last_consolidated_at": "2026-10-28T08:41:02.487Z",
+  "last_question_bank_change_at": "2026-10-28T08:41:02.487Z",
+  "content_fingerprint": "c6214412041e16eb8f9c6a87990b59ae8dad709013c9d57dd4d5d1f8b946689d",
   "content_changed": true,
-  "bank_fingerprint": "3f7ca6f6c6dd769c80e9f37a2666047280e7189db5abad68566db97d5b731fd4",
+  "bank_fingerprint": "5b5e4c61d8e023740b566272e6a2ea9d61291feea35f39a4c09e8984e58730bb",
   "question_count": 163,
   "question_status": {
-    "verified": 161,
-    "pending": 2,
+    "verified": 163,
+    "pending": 0,
     "flagged": 0
   },
   "course_alignment": {
-    "supported": 120,
+    "supported": 122,
     "qualified": 2,
-    "notReviewed": 41
+    "notReviewed": 39
   },
   "by_week": {
     "GEN:1": 5,
@@ -47,9 +47,9 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-27T12:22:35.519Z",
-    "last_automated_check_at": "2026-10-27T12:22:33.129Z",
-    "last_automation_ingest_at": "2026-10-27T12:22:35.425Z",
+    "updated_at": "2026-10-28T08:41:02.487Z",
+    "last_automated_check_at": "2026-10-28T08:40:59.831Z",
+    "last_automation_ingest_at": "2026-10-28T08:41:02.392Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
@@ -515,7 +515,7 @@
         }
       ],
       "fingerprint": "2c410253757d3c0f6a222852f272d5b97c2d10bddfa21d237df8cb24b7817d3e",
-      "content_changed": true
+      "content_changed": false
     },
     {
       "id": "get-styled",
@@ -547,7 +547,7 @@
   ],
   "audit": {
     "structural_errors": 0,
-    "independently_verified": false
+    "independently_verified": true
   },
   "limitation": "Public GitHub checks only stage previously authored original practice questions and monitor peer-site fingerprints. Changes to private Google Drive and ChatGPT material are not read by this workflow; original-source verification of pending answers remains a separate review."
 }
