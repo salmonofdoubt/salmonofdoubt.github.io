@@ -5,7 +5,7 @@
       "status": {
         "source": "EirGrid System Data Qtr Hourly spreadsheet",
         "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-        "harvested_at": "2026-10-29T11:43:48+00:00",
+        "harvested_at": "2026-10-29T17:36:48+00:00",
         "parser": {
           "sheet": "System Data",
           "header_row": 1,
@@ -51,7 +51,7 @@
         "smartgrid_live": {
           "source": "EirGrid Smart Grid Dashboard public pages",
           "source_url": "https://www.smartgriddashboard.com",
-          "harvested_at": "2026-10-29T11:43:58+00:00",
+          "harvested_at": "2026-10-29T17:36:58+00:00",
           "mode": "diagnostic-only",
           "caveat": "Smart Grid visible-page parser is disabled for demand, wind and solar because visible-page scraping can confuse actual, forecast and chart values. Core grid quantities use the official EirGrid quarter-hourly workbook instead.",
           "probe_file": "ops/debug/smartgrid_live_probe.json"
@@ -60,12 +60,12 @@
           "source": "Smart Grid Dashboard chart API",
           "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=29-Oct-2026+00%3A00&dateTo=29-Oct-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
           "mode": "api-chart",
-          "harvested_at": "2026-10-29T11:43:59+00:00",
+          "harvested_at": "2026-10-29T17:37:00+00:00",
           "region": "ROI",
           "parser": {
-            "row_count": 71,
-            "candidate_count": 46,
-            "latest_time": "29-Oct-2026 11:15:00",
+            "row_count": 83,
+            "candidate_count": 70,
+            "latest_time": "29-Oct-2026 17:15:00",
             "latest_field": "CO2_INTENSITY"
           },
           "caveat": "Parsed from Smart Grid Dashboard chart API. ROI is preferred; ALL is used only as fallback and labelled."
@@ -73,7 +73,7 @@
         "smartgrid_api_live": {
           "source": "Smart Grid Dashboard API",
           "source_url": "https://www.smartgriddashboard.com/",
-          "harvested_at": "2026-10-29T11:44:03+00:00",
+          "harvested_at": "2026-10-29T17:37:07+00:00",
           "mode": "direct-api-latest-non-null-actual",
           "region": "ALL",
           "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected."
@@ -85,7 +85,7 @@
       "status": {
         "source": "SEAI Energy Price Trends",
         "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/prices",
-        "harvested_at": "2026-10-29T11:44:17+00:00",
+        "harvested_at": "2026-10-29T17:37:24+00:00",
         "mode": "official-fallback-snapshot",
         "electricity_household_rows": 2,
         "gas_household_rows": 2,
@@ -95,7 +95,7 @@
     {
       "name": "Market prices",
       "status": {
-        "generated_at": "2026-10-29T11:44:19+00:00",
+        "generated_at": "2026-10-29T17:37:26+00:00",
         "mode": "system-market-price-layer",
         "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
         "sources": [
@@ -110,7 +110,7 @@
       "status": {
         "source": "SEAI Renewables statistics",
         "source_url": "https://www.seai.ie/data-and-insights/seai-statistics/renewables",
-        "harvested_at": "2026-10-29T11:44:19+00:00",
+        "harvested_at": "2026-10-29T17:37:26+00:00",
         "mode": "official-static-snapshot-plus-scenarios",
         "caveat": "Embedded official annual values; demand and arriving-renewables layers are transparent scenario models."
       }
@@ -120,7 +120,7 @@
       "status": {
         "source": "SEAI Renewable Electricity County Dashboard",
         "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
-        "harvested_at": "2026-10-29T11:44:19+00:00",
+        "harvested_at": "2026-10-29T17:37:26+00:00",
         "mode": "scaffold",
         "caveat": "SEAI beta dashboard integration pending."
       }
@@ -4086,15 +4086,15 @@
     },
     {
       "date": "2026-10-29",
-      "captured_at": "2026-10-29T11:44:19+00:00",
-      "demand_mw": 5513.0,
-      "demand_gw": 5.51,
-      "renewables_percent": 72.4,
-      "wind_percent": 60.8,
-      "solar_percent": 11.6,
+      "captured_at": "2026-10-29T17:37:26+00:00",
+      "demand_mw": 6360.0,
+      "demand_gw": 6.36,
+      "renewables_percent": 58.3,
+      "wind_percent": 58.3,
+      "solar_percent": 0.0,
       "imports_percent": 0.0,
-      "residual_percent": 27.6,
-      "co2_g_per_kwh": 132.0,
+      "residual_percent": 41.7,
+      "co2_g_per_kwh": 153.0,
       "co2_available": true,
       "target_gap_pp": 38.7,
       "target_status": "Off track",
@@ -4106,7 +4106,7 @@
     }
   ],
   "daily_history_meta": {
-    "generated_at": "2026-10-29T11:44:19+00:00",
+    "generated_at": "2026-10-29T17:37:27+00:00",
     "row_count": 199,
     "mode": "daily-snapshot-history",
     "warm_start_window_days": 30,
@@ -4116,7 +4116,7 @@
   },
   "meta": {
     "project": "Ireland Energy Transition Monitor",
-    "generated_at": "2026-10-29T11:44:19+00:00",
+    "generated_at": "2026-10-29T17:37:27+00:00",
     "timezone": "Europe/Dublin",
     "mode": "Generated static dataset with EirGrid harvester",
     "confidence": "Medium",
@@ -4135,11 +4135,11 @@
       "schema_version": "0.2.0"
     },
     "dashboard_version": "0.1.52",
-    "dashboard_version_updated_at": "2026-10-29T11:44:22Z"
+    "dashboard_version_updated_at": "2026-10-29T17:37:30Z"
   },
   "source_model": {
     "meta": {
-      "generated_at": "2026-10-29T11:44:19+00:00",
+      "generated_at": "2026-10-29T17:37:26+00:00",
       "mode": "source-model-and-freshness-gate",
       "project": "Ireland Energy Transition Monitor"
     },
@@ -4150,8 +4150,8 @@
       "status": "live",
       "values_are_live": true,
       "values_are_current": true,
-      "latest_interval": "2026-10-29T11:30:00+00:00",
-      "age_hours": 0.24,
+      "latest_interval": "2026-10-29T17:30:00+00:00",
+      "age_hours": 0.12,
       "public_badge": "Live grid source",
       "public_title": "Current grid pulse",
       "public_caveat": "Core grid values are treated as live because the mapped source interval is within two hours.",
@@ -4221,8 +4221,8 @@
     "status": "live",
     "values_are_live": true,
     "values_are_current": true,
-    "latest_interval": "2026-10-29T11:30:00+00:00",
-    "age_hours": 0.24,
+    "latest_interval": "2026-10-29T17:30:00+00:00",
+    "age_hours": 0.12,
     "public_badge": "Live grid source",
     "public_title": "Current grid pulse",
     "public_caveat": "Core grid values are treated as live because the mapped source interval is within two hours.",
@@ -4248,24 +4248,24 @@
     }
   },
   "electricity_now": {
-    "demand_mw": 5513,
-    "renewables_percent": 72.4,
-    "renewables_output_percent": 72.4,
+    "demand_mw": 6360,
+    "renewables_percent": 58.3,
+    "renewables_output_percent": 58.3,
     "renewable_surplus_percent": 0.0,
-    "renewables_coverage_percent": 72.4,
+    "renewables_coverage_percent": 58.3,
     "renewables_normalised": false,
     "renewables_model": "smartgrid_api_latest_non_null_actual",
     "renewables_definition": "Latest non-null Smart Grid Dashboard API wind plus solar cover of current demand.",
-    "wind_percent": 60.8,
-    "solar_percent": 11.6,
-    "gas_percent": 27.6,
-    "residual_percent": 27.6,
+    "wind_percent": 58.3,
+    "solar_percent": 0.0,
+    "gas_percent": 41.7,
+    "residual_percent": 41.7,
     "imports_percent": 0.0,
     "imports_available": true,
-    "co2_g_per_kwh": 132.0,
+    "co2_g_per_kwh": 153.0,
     "co2_available": true,
     "gas_is_residual_proxy": true,
-    "electricity_datetime": "2026-10-29T11:30:00+00:00",
+    "electricity_datetime": "2026-10-29T17:30:00+00:00",
     "source_label": "Smart Grid Dashboard API",
     "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=29-Oct-2026&dateTo=29-Oct-2026&areas=demandactual",
     "source_freshness": "live chart API latest non-null actual",
@@ -4273,72 +4273,58 @@
     "co2_source": "EirGrid Smart Grid Dashboard, ROI",
     "co2_unit": "gCO2/kWh",
     "co2_region": "ROI",
-    "co2_datetime": "29-Oct-2026 11:15:00",
-    "generation_mw": 5808,
-    "wind_mw": 3354,
-    "solar_mw": 637,
-    "interconnection_mw": -224,
-    "interconnection_percent": -3.85,
-    "net_import_percent": -3.85,
+    "co2_datetime": "29-Oct-2026 17:15:00",
+    "generation_mw": 6607,
+    "wind_mw": 3708,
+    "solar_mw": 0,
+    "interconnection_mw": -276,
+    "interconnection_percent": -4.18,
+    "net_import_percent": -4.18,
     "interconnection_basis": "smartgrid_interconnection_api_mw",
     "interconnection_direction": "exporting",
     "imports_mw": 0,
-    "exports_mw": 224,
-    "exports_percent": 3.85,
+    "exports_mw": 276,
+    "exports_percent": 4.18,
     "smartgrid_live_available": true,
     "smartgrid_api_live": true,
     "interconnection_available": true,
-    "consistency_warnings": [
-      "Generation API unavailable; using visible LATEST SYSTEM GENERATION as a labelled fallback."
-    ],
+    "consistency_warnings": [],
     "smartgrid_visible_overview": {
-      "available": true,
-      "generation_mw": 5808,
-      "renewable_generation_percent": 77.51,
-      "thermal_generation_percent": 25.82,
-      "net_import_percent": -3.33,
-      "derived_interconnection_mw": -193,
+      "available": false,
       "source_url": "https://www.smartgriddashboard.com/all/generation/",
-      "harvested_at": "2026-10-29T11:44:22+00:00",
+      "harvested_at": "2026-10-29T17:37:30+00:00",
       "role": "optional_visible_page_cross_check",
-      "note": "Visible SmartGrid System Generation KPI values. These do not overwrite canonical SmartGrid API electricity values."
-    },
-    "generation_basis": "smartgrid_visible_system_generation_fallback",
-    "generation_fallback": {
-      "source": "SmartGrid visible LATEST SYSTEM GENERATION",
-      "source_url": "https://www.smartgriddashboard.com/all/generation/",
-      "harvested_at": "2026-10-29T11:44:22+00:00",
-      "reason": "Structured SmartGrid generation API did not provide a proven current generation value."
+      "error": "RuntimeError: Could not parse visible metric: LATEST\\s+SYSTEM\\s+GENERATION MW"
     },
     "other_renewables_percent": 0.0,
-    "thermal_other_percent": 27.6,
+    "thermal_other_percent": 41.7,
     "generation_mix_percent": {
-      "wind": 60.8,
-      "solar": 11.6,
+      "wind": 58.3,
+      "solar": 0.0,
       "other_renewables": 0.0,
-      "thermal_other": 27.6,
+      "thermal_other": 41.7,
       "sum": 100.0
     },
     "interconnection_normalisation": "reconciled_from_generation_and_net_import_percent",
-    "demand_balance_expected_mw": 5584,
-    "demand_balance_gap_mw": -71,
+    "demand_balance_expected_mw": 6331,
+    "demand_balance_gap_mw": 29,
     "demand_balance_tolerance_mw": 300,
     "demand_balance_status": "coherent",
     "show_demand_card": true,
-    "normalised_at": "2026-10-29T11:44:22+00:00",
+    "normalised_at": "2026-10-29T17:37:30+00:00",
     "normalisation_version": "current-electricity-v2"
   },
   "fuel_mix_24h": [
     {
       "label": "Wind",
       "class": "wind",
-      "percent": 60.8,
+      "percent": 58.3,
       "available": true
     },
     {
       "label": "Solar",
       "class": "solar",
-      "percent": 11.6,
+      "percent": 0.0,
       "available": true
     },
     {
@@ -4350,7 +4336,7 @@
     {
       "label": "Uncovered",
       "class": "residual",
-      "percent": 27.6,
+      "percent": 41.7,
       "available": true
     }
   ],
@@ -4376,10 +4362,10 @@
     },
     {
       "name": "Thermal/other",
-      "status": "risk",
-      "status_label": "At risk",
+      "status": "off",
+      "status_label": "Off track",
       "reading": "Unclassified remainder",
-      "value": "28%",
+      "value": "42%",
       "rule": "On track ≤20%; at risk 20–35%; off track >35%.",
       "why": "High thermal/other means the system still depends on non-wind, non-solar and unidentified supply.",
       "basis": "Computed live proxy",
@@ -4392,7 +4378,7 @@
       "status": "risk",
       "status_label": "At risk",
       "reading": "Latest carbon signal",
-      "value": "132 g/kWh",
+      "value": "153 g/kWh",
       "rule": "On track ≤100 g/kWh; at risk 100–250; off track >250.",
       "why": "Carbon intensity indicates how clean the electricity actually is at the point of use.",
       "basis": "Live public dashboard",
@@ -4441,12 +4427,12 @@
     }
   ],
   "truth_summary": {
-    "overall_status": "risk",
-    "overall_label": "At risk",
+    "overall_status": "off",
+    "overall_label": "Off track",
     "counts": {
       "on": 1,
-      "risk": 4,
-      "off": 1
+      "risk": 3,
+      "off": 2
     },
     "main_drag": "Renewable electricity",
     "best_signal": "EV transition",
@@ -4592,7 +4578,7 @@
       }
     ],
     "interconnection_direction": "exporting",
-    "interconnection_mw": -212.0,
+    "interconnection_mw": -276.0,
     "target_gap_pp": 38.7
   },
   "electricity_metrics": [
@@ -4901,40 +4887,40 @@
       "demand_low": 39.0,
       "supply_corrected_low": 40.5,
       "arriving_supply_uplift_pp_low": 1.5,
-      "arriving_supply_twh_low": 0.513,
-      "expected_pipeline_twh_low": 0.513,
+      "arriving_supply_twh_low": 0.508,
+      "expected_pipeline_twh_low": 0.508,
       "confirmed_connected_twh_low": 0.0,
       "expected_pipeline_by_technology_twh_low": {
         "bioenergy": 0.016,
         "hydro": 0.0,
         "solar": 0.356,
-        "wind_onshore": 0.14
+        "wind_onshore": 0.136
       },
       "confirmed_connected_by_technology_twh_low": {},
       "demand_central": 37.5,
       "supply_corrected_central": 39.8,
       "arriving_supply_uplift_pp_central": 2.3,
-      "arriving_supply_twh_central": 0.806,
-      "expected_pipeline_twh_central": 0.806,
+      "arriving_supply_twh_central": 0.799,
+      "expected_pipeline_twh_central": 0.799,
       "confirmed_connected_twh_central": 0.0,
       "expected_pipeline_by_technology_twh_central": {
         "bioenergy": 0.025,
         "hydro": 0.0,
-        "solar": 0.56,
-        "wind_onshore": 0.221
+        "solar": 0.559,
+        "wind_onshore": 0.214
       },
       "confirmed_connected_by_technology_twh_central": {},
       "demand_high": 35.8,
-      "supply_corrected_high": 38.9,
-      "arriving_supply_uplift_pp_high": 3.1,
-      "arriving_supply_twh_high": 1.099,
-      "expected_pipeline_twh_high": 1.099,
+      "supply_corrected_high": 38.8,
+      "arriving_supply_uplift_pp_high": 3.0,
+      "arriving_supply_twh_high": 1.089,
+      "expected_pipeline_twh_high": 1.089,
       "confirmed_connected_twh_high": 0.0,
       "expected_pipeline_by_technology_twh_high": {
         "bioenergy": 0.035,
         "hydro": 0.0,
         "solar": 0.763,
-        "wind_onshore": 0.301
+        "wind_onshore": 0.291
       },
       "confirmed_connected_by_technology_twh_high": {}
     },
@@ -4944,45 +4930,45 @@
       "target": 67.7,
       "recent_pace": 47.1,
       "demand_low": 40.6,
-      "supply_corrected_low": 45.2,
+      "supply_corrected_low": 45.1,
       "arriving_supply_uplift_pp_low": 4.5,
-      "arriving_supply_twh_low": 1.56,
-      "expected_pipeline_twh_low": 1.56,
+      "arriving_supply_twh_low": 1.542,
+      "expected_pipeline_twh_low": 1.542,
       "confirmed_connected_twh_low": 0.0,
       "expected_pipeline_by_technology_twh_low": {
-        "bioenergy": 0.048,
+        "bioenergy": 0.049,
         "hydro": 0.0,
-        "solar": 0.95,
+        "solar": 0.949,
         "wave": 0.0,
-        "wind_onshore": 0.561
+        "wind_onshore": 0.543
       },
       "confirmed_connected_by_technology_twh_low": {},
       "demand_central": 38.0,
-      "supply_corrected_central": 44.9,
-      "arriving_supply_uplift_pp_central": 6.9,
-      "arriving_supply_twh_central": 2.452,
-      "expected_pipeline_twh_central": 2.452,
+      "supply_corrected_central": 44.8,
+      "arriving_supply_uplift_pp_central": 6.8,
+      "arriving_supply_twh_central": 2.423,
+      "expected_pipeline_twh_central": 2.423,
       "confirmed_connected_twh_central": 0.0,
       "expected_pipeline_by_technology_twh_central": {
         "bioenergy": 0.076,
         "hydro": 0.0,
-        "solar": 1.493,
+        "solar": 1.492,
         "wave": 0.001,
-        "wind_onshore": 0.882
+        "wind_onshore": 0.854
       },
       "confirmed_connected_by_technology_twh_central": {},
       "demand_high": 35.2,
-      "supply_corrected_high": 44.2,
-      "arriving_supply_uplift_pp_high": 9.0,
-      "arriving_supply_twh_high": 3.344,
-      "expected_pipeline_twh_high": 3.344,
+      "supply_corrected_high": 44.1,
+      "arriving_supply_uplift_pp_high": 8.9,
+      "arriving_supply_twh_high": 3.304,
+      "expected_pipeline_twh_high": 3.304,
       "confirmed_connected_twh_high": 0.0,
       "expected_pipeline_by_technology_twh_high": {
         "bioenergy": 0.104,
         "hydro": 0.001,
-        "solar": 2.036,
+        "solar": 2.034,
         "wave": 0.001,
-        "wind_onshore": 1.203
+        "wind_onshore": 1.165
       },
       "confirmed_connected_by_technology_twh_high": {}
     },
@@ -4992,45 +4978,45 @@
       "target": 71.8,
       "recent_pace": 49.1,
       "demand_low": 42.3,
-      "supply_corrected_low": 50.7,
-      "arriving_supply_uplift_pp_low": 8.4,
-      "arriving_supply_twh_low": 2.898,
-      "expected_pipeline_twh_low": 2.898,
+      "supply_corrected_low": 50.6,
+      "arriving_supply_uplift_pp_low": 8.3,
+      "arriving_supply_twh_low": 2.857,
+      "expected_pipeline_twh_low": 2.857,
       "confirmed_connected_twh_low": 0.0,
       "expected_pipeline_by_technology_twh_low": {
         "bioenergy": 0.089,
         "hydro": 0.001,
-        "solar": 1.544,
+        "solar": 1.543,
         "wave": 0.002,
-        "wind_onshore": 1.263
+        "wind_onshore": 1.223
       },
       "confirmed_connected_by_technology_twh_low": {},
       "demand_central": 38.7,
-      "supply_corrected_central": 51.2,
-      "arriving_supply_uplift_pp_central": 12.5,
-      "arriving_supply_twh_central": 4.554,
-      "expected_pipeline_twh_central": 4.554,
+      "supply_corrected_central": 51.0,
+      "arriving_supply_uplift_pp_central": 12.3,
+      "arriving_supply_twh_central": 4.489,
+      "expected_pipeline_twh_central": 4.489,
       "confirmed_connected_twh_central": 0.0,
       "expected_pipeline_by_technology_twh_central": {
-        "bioenergy": 0.139,
+        "bioenergy": 0.14,
         "hydro": 0.001,
-        "solar": 2.426,
+        "solar": 2.424,
         "wave": 0.002,
-        "wind_onshore": 1.985
+        "wind_onshore": 1.922
       },
       "confirmed_connected_by_technology_twh_central": {},
       "demand_high": 34.8,
-      "supply_corrected_high": 50.9,
-      "arriving_supply_uplift_pp_high": 16.1,
-      "arriving_supply_twh_high": 6.21,
-      "expected_pipeline_twh_high": 6.21,
+      "supply_corrected_high": 50.7,
+      "arriving_supply_uplift_pp_high": 15.9,
+      "arriving_supply_twh_high": 6.121,
+      "expected_pipeline_twh_high": 6.121,
       "confirmed_connected_twh_high": 0.0,
       "expected_pipeline_by_technology_twh_high": {
-        "bioenergy": 0.19,
+        "bioenergy": 0.191,
         "hydro": 0.001,
-        "solar": 3.308,
+        "solar": 3.306,
         "wave": 0.003,
-        "wind_onshore": 2.707
+        "wind_onshore": 2.62
       },
       "confirmed_connected_by_technology_twh_high": {}
     },
@@ -5040,45 +5026,45 @@
       "target": 75.9,
       "recent_pace": 51.0,
       "demand_low": 44.0,
-      "supply_corrected_low": 56.3,
-      "arriving_supply_uplift_pp_low": 12.3,
-      "arriving_supply_twh_low": 4.258,
-      "expected_pipeline_twh_low": 4.258,
+      "supply_corrected_low": 56.1,
+      "arriving_supply_uplift_pp_low": 12.1,
+      "arriving_supply_twh_low": 4.189,
+      "expected_pipeline_twh_low": 4.189,
       "confirmed_connected_twh_low": 0.0,
       "expected_pipeline_by_technology_twh_low": {
         "bioenergy": 0.129,
         "hydro": 0.001,
-        "solar": 2.019,
+        "solar": 2.017,
         "wave": 0.004,
-        "wind_onshore": 2.106
+        "wind_onshore": 2.038
       },
       "confirmed_connected_by_technology_twh_low": {},
       "demand_central": 39.3,
-      "supply_corrected_central": 57.4,
-      "arriving_supply_uplift_pp_central": 18.0,
-      "arriving_supply_twh_central": 6.691,
-      "expected_pipeline_twh_central": 6.691,
+      "supply_corrected_central": 57.1,
+      "arriving_supply_uplift_pp_central": 17.8,
+      "arriving_supply_twh_central": 6.583,
+      "expected_pipeline_twh_central": 6.583,
       "confirmed_connected_twh_central": 0.0,
       "expected_pipeline_by_technology_twh_central": {
         "bioenergy": 0.203,
         "hydro": 0.001,
-        "solar": 3.172,
+        "solar": 3.17,
         "wave": 0.006,
-        "wind_onshore": 3.309
+        "wind_onshore": 3.203
       },
       "confirmed_connected_by_technology_twh_central": {},
       "demand_high": 34.5,
-      "supply_corrected_high": 57.4,
-      "arriving_supply_uplift_pp_high": 22.9,
-      "arriving_supply_twh_high": 9.124,
-      "expected_pipeline_twh_high": 9.124,
+      "supply_corrected_high": 57.0,
+      "arriving_supply_uplift_pp_high": 22.5,
+      "arriving_supply_twh_high": 8.977,
+      "expected_pipeline_twh_high": 8.977,
       "confirmed_connected_twh_high": 0.0,
       "expected_pipeline_by_technology_twh_high": {
-        "bioenergy": 0.276,
+        "bioenergy": 0.277,
         "hydro": 0.002,
-        "solar": 4.326,
+        "solar": 4.323,
         "wave": 0.008,
-        "wind_onshore": 4.512
+        "wind_onshore": 4.367
       },
       "confirmed_connected_by_technology_twh_high": {}
     },
@@ -5088,52 +5074,52 @@
       "target": 80.0,
       "recent_pace": 53.0,
       "demand_low": 45.7,
-      "supply_corrected_low": 61.1,
-      "arriving_supply_uplift_pp_low": 15.4,
-      "arriving_supply_twh_low": 5.352,
-      "expected_pipeline_twh_low": 5.352,
+      "supply_corrected_low": 60.8,
+      "arriving_supply_uplift_pp_low": 15.1,
+      "arriving_supply_twh_low": 5.261,
+      "expected_pipeline_twh_low": 5.261,
       "confirmed_connected_twh_low": 0.0,
       "expected_pipeline_by_technology_twh_low": {
-        "bioenergy": 0.161,
+        "bioenergy": 0.162,
         "hydro": 0.001,
-        "solar": 2.375,
+        "solar": 2.373,
         "wave": 0.008,
-        "wind_onshore": 2.807
+        "wind_onshore": 2.717
       },
       "confirmed_connected_by_technology_twh_low": {},
       "demand_central": 40.1,
-      "supply_corrected_central": 62.4,
-      "arriving_supply_uplift_pp_central": 22.3,
-      "arriving_supply_twh_central": 8.411,
-      "expected_pipeline_twh_central": 8.411,
+      "supply_corrected_central": 62.0,
+      "arriving_supply_uplift_pp_central": 21.9,
+      "arriving_supply_twh_central": 8.267,
+      "expected_pipeline_twh_central": 8.267,
       "confirmed_connected_twh_central": 0.0,
       "expected_pipeline_by_technology_twh_central": {
-        "bioenergy": 0.253,
+        "bioenergy": 0.254,
         "hydro": 0.001,
-        "solar": 3.732,
+        "solar": 3.73,
         "wave": 0.012,
-        "wind_onshore": 4.412
+        "wind_onshore": 4.27
       },
       "confirmed_connected_by_technology_twh_central": {},
       "demand_high": 34.4,
-      "supply_corrected_high": 62.2,
-      "arriving_supply_uplift_pp_high": 27.8,
-      "arriving_supply_twh_high": 11.469,
-      "expected_pipeline_twh_high": 11.469,
+      "supply_corrected_high": 61.7,
+      "arriving_supply_uplift_pp_high": 27.3,
+      "arriving_supply_twh_high": 11.274,
+      "expected_pipeline_twh_high": 11.274,
       "confirmed_connected_twh_high": 0.0,
       "expected_pipeline_by_technology_twh_high": {
-        "bioenergy": 0.346,
+        "bioenergy": 0.347,
         "hydro": 0.002,
-        "solar": 5.089,
+        "solar": 5.086,
         "wave": 0.016,
-        "wind_onshore": 6.016
+        "wind_onshore": 5.823
       },
       "confirmed_connected_by_technology_twh_high": {}
     }
   ],
   "transition_pathway": {
     "meta": {
-      "generated_at": "2026-10-29T05:35:11+00:00",
+      "generated_at": "2026-10-29T11:44:22+00:00",
       "schema_version": "transition_pathway_v2",
       "builder": "build_transition_pathway.py",
       "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -5181,15 +5167,15 @@
       "observed_window": {
         "start_date": "2026-05-12",
         "end_date": "2026-10-29",
-        "value": 32.1,
+        "value": 32.2,
         "unit": "%",
         "method": "demand_weighted_observed_daily_history",
         "sample_count": 171,
         "caveat": "Observed grid renewable-cover proxy from local daily history. This is not official annual RES-E and must not be joined silently to the SEAI series."
       },
       "latest_snapshot": {
-        "datetime": "2026-10-29T05:30:00+00:00",
-        "value": 60.5,
+        "datetime": "2026-10-29T11:30:00+00:00",
+        "value": 72.4,
         "unit": "%",
         "basis": "latest_grid_snapshot",
         "source_label": "Smart Grid Dashboard API",
@@ -5821,9 +5807,9 @@
         },
         {
           "date": "2026-10-29",
-          "captured_at": "2026-10-29T05:35:07+00:00",
-          "value": 60.5,
-          "weight_mw": 4203.0,
+          "captured_at": "2026-10-29T11:44:19+00:00",
+          "value": 72.4,
+          "weight_mw": 5513.0,
           "estimated_backfill": false
         }
       ]
@@ -6706,7 +6692,7 @@
     }
   ],
   "market_price_meta": {
-    "generated_at": "2026-10-29T11:44:19+00:00",
+    "generated_at": "2026-10-29T17:37:26+00:00",
     "mode": "system-market-price-layer",
     "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
     "sources": [
@@ -6716,14 +6702,14 @@
     ]
   },
   "gas": {
-    "share_percent": 27.6,
+    "share_percent": 41.7,
     "signal": "Uncovered demand estimate",
     "narrative": "Uncovered demand is calculated from live demand minus mapped wind and solar cover. It is not measured gas. A later fuel-mix endpoint should split this into gas, hydro, storage, imports and other sources."
   },
   "source_status": {
     "source": "EirGrid System Data Qtr Hourly spreadsheet",
     "source_url": "https://cms.eirgrid.ie/sites/default/files/publications/System-Data-Qtr-Hourly-2026-V3.xlsx",
-    "harvested_at": "2026-10-29T11:43:48+00:00",
+    "harvested_at": "2026-10-29T17:36:48+00:00",
     "parser": {
       "sheet": "System Data",
       "header_row": 1,
@@ -6769,7 +6755,7 @@
     "smartgrid_live": {
       "source": "EirGrid Smart Grid Dashboard public pages",
       "source_url": "https://www.smartgriddashboard.com",
-      "harvested_at": "2026-10-29T11:43:58+00:00",
+      "harvested_at": "2026-10-29T17:36:58+00:00",
       "mode": "diagnostic-only",
       "caveat": "Smart Grid visible-page parser is disabled for demand, wind and solar because visible-page scraping can confuse actual, forecast and chart values. Core grid quantities use the official EirGrid quarter-hourly workbook instead.",
       "probe_file": "ops/debug/smartgrid_live_probe.json"
@@ -6778,12 +6764,12 @@
       "source": "Smart Grid Dashboard chart API",
       "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ROI&chartType=co2&dateRange=day&dateFrom=29-Oct-2026+00%3A00&dateTo=29-Oct-2026+23%3A59&areas=co2intensity%2Cco2intensityforecast",
       "mode": "api-chart",
-      "harvested_at": "2026-10-29T11:43:59+00:00",
+      "harvested_at": "2026-10-29T17:37:00+00:00",
       "region": "ROI",
       "parser": {
-        "row_count": 71,
-        "candidate_count": 46,
-        "latest_time": "29-Oct-2026 11:15:00",
+        "row_count": 83,
+        "candidate_count": 70,
+        "latest_time": "29-Oct-2026 17:15:00",
         "latest_field": "CO2_INTENSITY"
       },
       "caveat": "Parsed from Smart Grid Dashboard chart API. ROI is preferred; ALL is used only as fallback and labelled."
@@ -6791,7 +6777,7 @@
     "smartgrid_api_live": {
       "source": "Smart Grid Dashboard API",
       "source_url": "https://www.smartgriddashboard.com/",
-      "harvested_at": "2026-10-29T11:44:03+00:00",
+      "harvested_at": "2026-10-29T17:37:07+00:00",
       "mode": "direct-api-latest-non-null-actual",
       "region": "ALL",
       "caveat": "Uses latest non-null actual rows at or before Ireland local time. Future null rows are rejected."
@@ -6799,26 +6785,23 @@
     "smartgrid_visible_overview": {
       "source": "SmartGrid Dashboard visible System Generation page",
       "source_url": "https://www.smartgriddashboard.com/all/generation/",
-      "harvested_at": "2026-10-29T11:44:22+00:00",
-      "mode": "visible-page-field-fallback",
-      "available": true,
-      "fallback_applied": true,
-      "fallback_fields": [
-        "generation_mw"
-      ],
-      "caveat": "Visible HTML never overwrites valid structured API values. LATEST SYSTEM GENERATION may fill a missing generation value, and NET IMPORT % may fill missing interconnection fields. Wind, solar and renewable values remain API-authoritative."
+      "harvested_at": "2026-10-29T17:37:30+00:00",
+      "mode": "optional-visible-page-cross-check",
+      "available": false,
+      "caveat": "Visible page could not be parsed. This does not invalidate the structured SmartGrid API harvest.",
+      "error": "RuntimeError: Could not parse visible metric: LATEST\\s+SYSTEM\\s+GENERATION MW"
     },
     "current_electricity_normalisation": {
       "source": "Derived from final electricity_now fields",
       "mode": "post-build-normalisation",
-      "generated_at": "2026-10-29T11:44:22+00:00",
+      "generated_at": "2026-10-29T17:37:30+00:00",
       "caveat": "Generation mix is normalised so wind + solar + other renewables + thermal/other = 100. Interconnection is reconciled from the upstream SmartGrid/API net-flow fields while preserving upstream provenance in electricity_now.interconnection_basis. Demand is withheld from top accounting cards when it fails the generation + net-flow balance check."
     }
   },
   "county_hosting": {
     "title": "County Hosting Index",
     "mode": "schematic-scaffold",
-    "generated_at": "2026-10-29T11:44:19+00:00",
+    "generated_at": "2026-10-29T17:37:26+00:00",
     "source": "SEAI Renewable Electricity County Dashboard",
     "source_url": "https://www.seai.ie/renewable-energy/renewable-electricity/about-dashboard",
     "caveat": "Schematic heatmap scaffold, not official county MWh. Intended to be replaced with SEAI county dashboard values for total MWh, MWh/km² and population-density normalisation.",
