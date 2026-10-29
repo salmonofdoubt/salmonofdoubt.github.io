@@ -313,6 +313,32 @@
       "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/260",
       "merge_commit": "bdc4a11d97cdc2959bc37da351ce37e7a2b38ab1",
       "review_scope": "Ten original four-choice practice questions, answers and distractors independently checked against cited academic and standards sources and directly inspected lecturer slides. Official Moodle Week 07 grading not available and not claimed. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. Source access was connected ChatGPT review only, not GitHub Actions."
+    },
+    {
+      "id": "d4b-source-release-20261029-aib-w7-deep-learning",
+      "accepted_at": "2026-10-29T08:39:21Z",
+      "source_id": "drive",
+      "source_name": "Private D4B Drive (connected ChatGPT review)",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "material": "AI for Business Week 07 · Introduction to Deep Learning",
+      "module": "AIB",
+      "week": 7,
+      "material_version": "Canonical AI for Business booklet modified 2026-10-28T17:41:09Z; W7 notebook and supporting PDFs reviewed 2026-10-29; original official Moodle result 30/30 dated 2026-10-28 recorded privately",
+      "question_ids": [
+        "d4b-164",
+        "d4b-165",
+        "d4b-166",
+        "d4b-167",
+        "d4b-168",
+        "d4b-169",
+        "d4b-170",
+        "d4b-171",
+        "d4b-172",
+        "d4b-173"
+      ],
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/266",
+      "merge_commit": "d2606fdbcacb4f49cdf5a27d7fc78451a905fac7",
+      "review_scope": "Ten original four-choice practice questions with separately recorded course alignment and independent academic verification of each keyed answer and distractors. Authorised booklet and W7 beginner notes, Colab notebook and PDF inspected directly. Official Moodle 30/30 grade is private historical evidence, not the official key for these original public questions. The notebook's LSTM path fits MinMaxScaler before chronological split and uses a one-step input shape; these are flagged as methodological limitations. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. GitHub Actions does not access private Drive."
     }
   ],
   "verification_events": [
