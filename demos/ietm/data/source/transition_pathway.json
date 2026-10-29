@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-10-29T17:37:30+00:00",
+    "generated_at": "2026-10-29T21:58:51+00:00",
     "schema_version": "transition_pathway_v2",
     "builder": "build_transition_pathway.py",
     "caveat": "This layer separates official annual RES-E, provisional grid-observed evidence, demand-drag scenarios, and capacity-arrival assumptions. It is intended to replace browser-side modelling in the RES-E panel."
@@ -48,15 +48,15 @@
     "observed_window": {
       "start_date": "2026-05-12",
       "end_date": "2026-10-29",
-      "value": 32.1,
+      "value": 32.2,
       "unit": "%",
       "method": "demand_weighted_observed_daily_history",
       "sample_count": 171,
       "caveat": "Observed grid renewable-cover proxy from local daily history. This is not official annual RES-E and must not be joined silently to the SEAI series."
     },
     "latest_snapshot": {
-      "datetime": "2026-10-29T17:30:00+00:00",
-      "value": 58.3,
+      "datetime": "2026-10-29T21:45:00+00:00",
+      "value": 75.2,
       "unit": "%",
       "basis": "latest_grid_snapshot",
       "source_label": "Smart Grid Dashboard API",
@@ -688,9 +688,9 @@
       },
       {
         "date": "2026-10-29",
-        "captured_at": "2026-10-29T17:37:26+00:00",
-        "value": 58.3,
-        "weight_mw": 6360.0,
+        "captured_at": "2026-10-29T21:58:49+00:00",
+        "value": 75.2,
+        "weight_mw": 5261.0,
         "estimated_backfill": false
       }
     ]
@@ -701,8 +701,7 @@
     "project_count_by_status": {
       "aggregate_observed": 3,
       "connected": 596,
-      "contracted": 413,
-      "removed_from_register_candidate": 17
+      "contracted": 413
     },
     "stock_by_status_technology_mw": [
       {
@@ -764,21 +763,6 @@
         "status": "contracted",
         "technology": "wind_onshore",
         "capacity_mw": 2858.961
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "bioenergy",
-        "capacity_mw": 0.495
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "solar",
-        "capacity_mw": 129.75
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "wind_onshore",
-        "capacity_mw": 104.341
       }
     ],
     "expected_cumulative_by_year": {
@@ -1296,30 +1280,6 @@
         "timing_year": 2026,
         "count": 6,
         "capacity_mw": 443.3
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "bioenergy",
-        "timing_basis": "generic_year_weak_not_online_date",
-        "timing_year": 2026,
-        "count": 1,
-        "capacity_mw": 0.495
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "solar",
-        "timing_basis": "generic_year_weak_not_online_date",
-        "timing_year": 2026,
-        "count": 9,
-        "capacity_mw": 129.75
-      },
-      {
-        "status": "removed_from_register_candidate",
-        "technology": "wind_onshore",
-        "timing_basis": "generic_year_weak_not_online_date",
-        "timing_year": 2026,
-        "count": 7,
-        "capacity_mw": 104.341
       }
     ]
   },
