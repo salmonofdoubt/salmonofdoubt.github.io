@@ -15,7 +15,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "Machine Learning",
     "Data and Datasets",
     "Ethical and Social Implications in AI",
-    "Automated Planning: PDDL, Fast Downward, CP-SAT and Scheduling"
+    "Automated Planning: PDDL, Fast Downward, CP-SAT and Scheduling",
+    "Introduction to Deep Learning: Neural Networks, CNNs, RNNs and Generative Models"
   ],
   "INN": [
     "Fundamentals of Innovation",
@@ -6797,6 +6798,446 @@ window.D4B_QUESTIONS=Object.freeze([
     "reviewed_at": "2026-10-27",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-164",
+  "module": "AIB",
+  "week": 7,
+  "topic": "Nonlinearity in multilayer networks",
+  "stem": "A team stacks several dense layers but removes every nonlinear activation. What is the resulting limitation?",
+  "choices": [
+    "The network necessarily becomes recurrent",
+    "The composition remains an affine mapping and cannot represent arbitrary nonlinear decision boundaries",
+    "The network can no longer calculate gradients",
+    "Every input is mapped to the same constant"
+  ],
+  "correct": 1,
+  "explanation": "A composition of affine transformations is affine. Nonlinear activations enable richer decision surfaces; gradient calculation and nonconstant outputs remain possible without them.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 6: Deep Feedforward Networks",
+    "url": "https://www.deeplearningbook.org/",
+    "scope": "AIB W7 · Nonlinearity in multilayer networks",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-165",
+  "module": "AIB",
+  "week": 7,
+  "topic": "Multi-label output activation",
+  "stem": "A water utility flags three independent conditions for each sample: high turbidity, high conductivity and sensor failure. Which output design best fits this multi-label task?",
+  "choices": [
+    "A softmax forcing the three flags to sum to one",
+    "A single linear output predicting only one class index",
+    "Three independent sigmoid outputs trained with suitable binary losses",
+    "A clustering algorithm that guarantees calibrated probabilities"
+  ],
+  "correct": 2,
+  "explanation": "Independent labels can co-occur, so sigmoid outputs with binary cross-entropy are appropriate. Softmax enforces competition between mutually exclusive classes; the other designs do not express three independent binary probabilities.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Goodfellow, Bengio, & Courville (2016), Chapters 6 and 11",
+    "url": "https://www.deeplearningbook.org/",
+    "scope": "AIB W7 · Multi-label output activation",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-166",
+  "module": "AIB",
+  "week": 7,
+  "topic": "Backpropagation versus optimisation",
+  "stem": "During neural-network training, what is the specific role of backpropagation?",
+  "choices": [
+    "It directly chooses the business objective without human input",
+    "It computes derivatives of the loss with respect to network parameters using the chain rule",
+    "It automatically creates a leakage-free test set",
+    "It replaces the forward pass and produces final classifications"
+  ],
+  "correct": 1,
+  "explanation": "Backpropagation calculates gradients; an optimiser uses them to change parameters. Business objectives, test-set design and forward predictions are separate tasks.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 6: Back-Propagation",
+    "url": "https://www.deeplearningbook.org/",
+    "scope": "AIB W7 · Backpropagation versus optimisation",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-167",
+  "module": "AIB",
+  "week": 7,
+  "topic": "Generalisation and evaluation",
+  "stem": "A deep model's training loss falls steadily, but its validation error begins to rise. What is the best interpretation?",
+  "choices": [
+    "The model is certainly improving on future unseen data",
+    "The validation data should be added to training and the test set reused repeatedly",
+    "The pattern is consistent with overfitting; assess regularisation, early stopping and held-out performance",
+    "A smaller learning rate guarantees the model will generalise"
+  ],
+  "correct": 2,
+  "explanation": "Diverging training and validation performance can indicate overfitting. Early stopping and regularisation may help, but only appropriately separated evaluation can estimate generalisation.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Goodfellow, Bengio, & Courville (2016), Chapters 5 and 7",
+    "url": "https://www.deeplearningbook.org/",
+    "scope": "AIB W7 · Generalisation and evaluation",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-168",
+  "module": "AIB",
+  "week": 7,
+  "topic": "Pixel-level segmentation",
+  "stem": "A factory needs a predicted defect category for each pixel of a component image. Which model-output design directly addresses that requirement?",
+  "choices": [
+    "A single whole-image softmax label",
+    "A fully convolutional segmentation network producing a spatial prediction map",
+    "A recurrent network that predicts only the next timestamp",
+    "A variational autoencoder whose only output is a product recommendation"
+  ],
+  "correct": 1,
+  "explanation": "Semantic segmentation requires dense spatial labels. Fully convolutional networks support pixel-wise prediction, unlike whole-image classification, one-step forecasting or an unrelated recommendation output.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Long, Shelhamer, & Darrell (2015), Fully Convolutional Networks for Semantic Segmentation",
+    "url": "https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Long_Fully_Convolutional_Networks_2015_CVPR_paper.html",
+    "scope": "AIB W7 · Pixel-level segmentation",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-169",
+  "module": "AIB",
+  "week": 7,
+  "topic": "LSTM and ordered measurements",
+  "stem": "Why might a long short-term memory (LSTM) network be evaluated for a stream of river sensor measurements?",
+  "choices": [
+    "It guarantees better accuracy than every seasonal baseline",
+    "Its gated state can learn temporal dependencies across observations",
+    "It ignores measurement order by design",
+    "It converts every time series into an image without preprocessing"
+  ],
+  "correct": 1,
+  "explanation": "LSTM gates help model information across time steps and mitigate some long-range dependency difficulties. This is a modelling capability, not a guarantee of superiority over simpler forecasting methods.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Hochreiter & Schmidhuber (1997), Long Short-Term Memory",
+    "url": "https://doi.org/10.1162/neco.1997.9.8.1735",
+    "scope": "AIB W7 · LSTM and ordered measurements",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-170",
+  "module": "AIB",
+  "week": 7,
+  "topic": "VAE latent regularisation",
+  "stem": "What is a principal purpose of the Kullback–Leibler (KL) divergence term in a variational autoencoder (VAE) objective?",
+  "choices": [
+    "To force all reconstructions to be pixel-perfect",
+    "To regularise the approximate latent posterior toward a chosen prior distribution",
+    "To replace the decoder with an object detector",
+    "To guarantee that generated samples are free from bias"
+  ],
+  "correct": 1,
+  "explanation": "The KL term penalises divergence from the prior as part of the variational objective. It neither guarantees exact reconstructions nor removes the decoder or assures fairness.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Kingma & Welling (2014), Auto-Encoding Variational Bayes",
+    "url": "https://arxiv.org/abs/1312.6114",
+    "scope": "AIB W7 · VAE latent regularisation",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-171",
+  "module": "AIB",
+  "week": 7,
+  "topic": "Diffusion and product design",
+  "stem": "A fashion retailer uses a diffusion model to propose novel clothing images. What is the defensible business interpretation?",
+  "choices": [
+    "Generated images prove the garments can be manufactured within budget",
+    "Diffusion generation can aid concept exploration, but feasibility and intellectual-property checks remain necessary",
+    "The model must be a recurrent neural network",
+    "The generated concepts have already passed customer testing"
+  ],
+  "correct": 1,
+  "explanation": "Diffusion models can synthesise imagery through learned denoising, but image quality is not evidence of manufacturability, customer demand, intellectual-property clearance or cost compliance.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Ho, Jain, & Abbeel (2020), Denoising Diffusion Probabilistic Models",
+    "url": "https://arxiv.org/abs/2006.11239",
+    "scope": "AIB W7 · Diffusion and product design",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-172",
+  "module": "AIB",
+  "week": 7,
+  "topic": "GPU and host-transfer bottlenecks",
+  "stem": "A GPU has high on-device memory bandwidth, but a pipeline is slow when moving batches from host RAM to the accelerator. Which diagnosis is most precise?",
+  "choices": [
+    "GPU memory bandwidth and host-device transfer bandwidth are identical",
+    "The host-device link and data-loading pipeline may bottleneck throughput despite fast GPU memory",
+    "The solution must be to train on CPUs only",
+    "Increasing the number of classes always eliminates transfer overhead"
+  ],
+  "correct": 1,
+  "explanation": "Bandwidth within GPU memory differs from bandwidth over a CPU–GPU interconnect. Loading and transfer costs can dominate even when the accelerator has high internal bandwidth.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 12: Large-Scale Deep Learning",
+    "url": "https://www.deeplearningbook.org/",
+    "scope": "AIB W7 · GPU and host-transfer bottlenecks",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-173",
+  "module": "AIB",
+  "week": 7,
+  "topic": "Leakage in time-series preprocessing",
+  "stem": "A tutorial fits a MinMaxScaler to an entire time series before splitting earlier training months from later test months. What should a production-minded evaluation change?",
+  "choices": [
+    "Keep the approach because scaling cannot leak information",
+    "Fit the scaler only on training-period observations and apply that fitted transformation to later data",
+    "Randomly shuffle all timestamps so future information is mixed evenly",
+    "Calculate the test period's minimum and maximum before training to improve realism"
+  ],
+  "correct": 1,
+  "explanation": "Fitting preprocessing on the full series leaks information from the held-out future into training. Split chronologically first; fit the scaler on training data and transform later periods without refitting.",
+  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-29",
+    "locator": "scikit-learn, Common pitfalls, Data leakage (accessed 2026-10-29)",
+    "url": "https://scikit-learn.org/stable/common_pitfalls",
+    "scope": "AIB W7 · Leakage in time-series preprocessing",
+    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+    "teaching_material_checked": true,
+    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "module": "AIB",
+    "week": 7,
+    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
+    "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
   }
 }
 ]);
