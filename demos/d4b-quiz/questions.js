@@ -5200,8 +5200,7 @@ window.D4B_QUESTIONS=Object.freeze([
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
     }
-  }
-,
+  },
   {
     "id": "d4b-128",
     "module": "GEN",
@@ -5787,1908 +5786,1907 @@ window.D4B_QUESTIONS=Object.freeze([
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
     }
-  }
-,
-{
-  "id": "d4b-141",
-  "module": "INN",
-  "week": 6,
-  "topic": "European Innovation Scoreboard",
-  "stem": "A policymaker wants to interpret a country’s European Innovation Scoreboard group. Which conclusion is warranted?",
-  "choices": [
-    "The group measures only national GDP",
-    "The group summarizes relative innovation performance across multiple indicators",
-    "The group is determined solely by US patents",
-    "The group certifies that every domestic company is innovative"
-  ],
-  "correct": 1,
-  "explanation": "The Scoreboard compares national innovation-system performance using several indicators. It is neither a GDP-only measure nor a certification of individual firms.",
-  "source": "03_Innovation_Booklet, Week 06, TRACK 1 | INNOVATION SYSTEMS, MARKETS & ADOPTION",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+  },
+  {
+    "id": "d4b-141",
+    "module": "INN",
+    "week": 6,
+    "topic": "European Innovation Scoreboard",
+    "stem": "A policymaker wants to interpret a country’s European Innovation Scoreboard group. Which conclusion is warranted?",
+    "choices": [
+      "The group measures only national GDP",
+      "The group summarizes relative innovation performance across multiple indicators",
+      "The group is determined solely by US patents",
+      "The group certifies that every domestic company is innovative"
+    ],
+    "correct": 1,
+    "explanation": "The Scoreboard compares national innovation-system performance using several indicators. It is neither a GDP-only measure nor a certification of individual firms.",
     "source": "03_Innovation_Booklet, Week 06, TRACK 1 | INNOVATION SYSTEMS, MARKETS & ADOPTION",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "European Commission (2025), European Innovation Scoreboard, report description and methodology",
-    "url": "https://research-and-innovation.ec.europa.eu/knowledge-publications-tools-and-data/publications/all-publications/european-innovation-scoreboard-2025_en",
-    "scope": "INN W6 · European Innovation Scoreboard",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 1 | INNOVATION SYSTEMS, MARKETS & ADOPTION",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, TRACK 1 | INNOVATION SYSTEMS, MARKETS & ADOPTION",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "European Commission (2025), European Innovation Scoreboard, report description and methodology",
+      "url": "https://research-and-innovation.ec.europa.eu/knowledge-publications-tools-and-data/publications/all-publications/european-innovation-scoreboard-2025_en",
+      "scope": "INN W6 · European Innovation Scoreboard",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 1 | INNOVATION SYSTEMS, MARKETS & ADOPTION",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 1 | INNOVATION SYSTEMS, MARKETS & ADOPTION",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-142",
     "module": "INN",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 1 | INNOVATION SYSTEMS, MARKETS & ADOPTION",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-142",
-  "module": "INN",
-  "week": 6,
-  "topic": "Preference versus accuracy",
-  "stem": "A language model ranks highly in a blind pairwise-preference arena. What should a safety-critical buyer conclude?",
-  "choices": [
-    "The model is independently certified safe for clinical decisions",
-    "The ranking proves every factual answer is correct",
-    "Preference votes are informative but factuality, calibration and safety still require separate tests",
-    "The ranking only measures model parameter counts"
-  ],
-  "correct": 2,
-  "explanation": "Human pairwise preferences measure relative response preference. They cannot establish universal factual accuracy or deployment safety.",
-  "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Preference versus accuracy",
+    "stem": "A language model ranks highly in a blind pairwise-preference arena. What should a safety-critical buyer conclude?",
+    "choices": [
+      "The model is independently certified safe for clinical decisions",
+      "The ranking proves every factual answer is correct",
+      "Preference votes are informative but factuality, calibration and safety still require separate tests",
+      "The ranking only measures model parameter counts"
+    ],
+    "correct": 2,
+    "explanation": "Human pairwise preferences measure relative response preference. They cannot establish universal factual accuracy or deployment safety.",
     "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "Arena (2023), Chatbot Arena Conversation Dataset Release, pairwise evaluation",
-    "url": "https://arena.ai/blog/dataset",
-    "scope": "INN W6 · Preference versus accuracy",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "Arena (2023), Chatbot Arena Conversation Dataset Release, pairwise evaluation",
+      "url": "https://arena.ai/blog/dataset",
+      "scope": "INN W6 · Preference versus accuracy",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-143",
     "module": "INN",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-143",
-  "module": "INN",
-  "week": 6,
-  "topic": "Novel reasoning",
-  "stem": "Two systems perform equally on memorised trivia. Which evaluation more directly probes generalisation to unfamiliar abstract tasks?",
-  "choices": [
-    "Comparing their websites",
-    "Counting their training documents",
-    "Repeating the same trivia test",
-    "Solving previously unseen ARC-style transformations from a few examples"
-  ],
-  "correct": 3,
-  "explanation": "The Abstraction and Reasoning Corpus was designed to probe generalisation and skill acquisition on novel tasks.",
-  "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Novel reasoning",
+    "stem": "Two systems perform equally on memorised trivia. Which evaluation more directly probes generalisation to unfamiliar abstract tasks?",
+    "choices": [
+      "Comparing their websites",
+      "Counting their training documents",
+      "Repeating the same trivia test",
+      "Solving previously unseen ARC-style transformations from a few examples"
+    ],
+    "correct": 3,
+    "explanation": "The Abstraction and Reasoning Corpus was designed to probe generalisation and skill acquisition on novel tasks.",
     "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "Chollet (2019), On the Measure of Intelligence, ARC benchmark proposal",
-    "url": "https://arxiv.org/abs/1911.01547",
-    "scope": "INN W6 · Novel reasoning",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "key_checked": 3,
-    "distractor_indices_checked": [
-      0,
-      1,
-      2
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "Chollet (2019), On the Measure of Intelligence, ARC benchmark proposal",
+      "url": "https://arxiv.org/abs/1911.01547",
+      "scope": "INN W6 · Novel reasoning",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-144",
     "module": "INN",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-144",
-  "module": "INN",
-  "week": 6,
-  "topic": "ELIZA and understanding",
-  "stem": "A chatbot reuses parts of a user’s statement through keyword-triggered templates. Which conclusion is supported?",
-  "choices": [
-    "Plausible dialogue can result from scripted decomposition and reassembly without establishing comprehension",
-    "The chatbot must contain a transformer",
-    "The chatbot has passed a clinical trial",
-    "The chatbot has verified the user’s claims externally"
-  ],
-  "correct": 0,
-  "explanation": "ELIZA demonstrated conversation through keyword-triggered decomposition and reassembly rules; fluent exchange alone does not prove comprehension.",
-  "source": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "ELIZA and understanding",
+    "stem": "A chatbot reuses parts of a user’s statement through keyword-triggered templates. Which conclusion is supported?",
+    "choices": [
+      "Plausible dialogue can result from scripted decomposition and reassembly without establishing comprehension",
+      "The chatbot must contain a transformer",
+      "The chatbot has passed a clinical trial",
+      "The chatbot has verified the user’s claims externally"
+    ],
+    "correct": 0,
+    "explanation": "ELIZA demonstrated conversation through keyword-triggered decomposition and reassembly rules; fluent exchange alone does not prove comprehension.",
     "source": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "Weizenbaum (1966), ELIZA, abstract",
-    "url": "https://doi.org/10.1145/365153.365168",
-    "scope": "INN W6 · ELIZA and understanding",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-    "key_checked": 0,
-    "distractor_indices_checked": [
-      1,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "Weizenbaum (1966), ELIZA, abstract",
+      "url": "https://doi.org/10.1145/365153.365168",
+      "scope": "INN W6 · ELIZA and understanding",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-145",
     "module": "INN",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-145",
-  "module": "INN",
-  "week": 6,
-  "topic": "Tokens and embeddings",
-  "stem": "Why is comparing the token counts of two passages not equivalent to comparing their semantic embeddings?",
-  "choices": [
-    "Token count directly measures semantic distance",
-    "Embeddings are punctuation marks",
-    "Tokens are processing units, while embeddings encode information as vectors",
-    "Both return the same integer by definition"
-  ],
-  "correct": 2,
-  "explanation": "Tokens are units of model text processing; embeddings are vector representations designed to capture aspects of content or meaning.",
-  "source": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Tokens and embeddings",
+    "stem": "Why is comparing the token counts of two passages not equivalent to comparing their semantic embeddings?",
+    "choices": [
+      "Token count directly measures semantic distance",
+      "Embeddings are punctuation marks",
+      "Tokens are processing units, while embeddings encode information as vectors",
+      "Both return the same integer by definition"
+    ],
+    "correct": 2,
+    "explanation": "Tokens are units of model text processing; embeddings are vector representations designed to capture aspects of content or meaning.",
     "source": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "OpenAI API documentation, Key concepts: Tokens and Embeddings",
-    "url": "https://developers.openai.com/api/docs/concepts",
-    "scope": "INN W6 · Tokens and embeddings",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "OpenAI API documentation, Key concepts: Tokens and Embeddings",
+      "url": "https://developers.openai.com/api/docs/concepts",
+      "scope": "INN W6 · Tokens and embeddings",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-146",
     "module": "INN",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 3 | HOW LANGUAGE SYSTEMS WORK",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-146",
-  "module": "INN",
-  "week": 6,
-  "topic": "Moral Machine limitations",
-  "stem": "A vehicle manufacturer wants to treat Moral Machine survey preferences as a binding safety rulebook. What is the methodological error?",
-  "choices": [
-    "The study measured only fuel use",
-    "Hypothetical public preferences do not by themselves constitute validated engineering or ethical requirements",
-    "All countries reported identical preferences",
-    "The study had no human participants"
-  ],
-  "correct": 1,
-  "explanation": "Moral Machine measured preferences in hypothetical dilemmas. Descriptive survey results do not by themselves determine normative or technical safety rules.",
-  "source": "03_Innovation_Booklet, Week 06, TRACK 4 | ETHICS, WORLD MODELS & AGENTS",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Moral Machine limitations",
+    "stem": "A vehicle manufacturer wants to treat Moral Machine survey preferences as a binding safety rulebook. What is the methodological error?",
+    "choices": [
+      "The study measured only fuel use",
+      "Hypothetical public preferences do not by themselves constitute validated engineering or ethical requirements",
+      "All countries reported identical preferences",
+      "The study had no human participants"
+    ],
+    "correct": 1,
+    "explanation": "Moral Machine measured preferences in hypothetical dilemmas. Descriptive survey results do not by themselves determine normative or technical safety rules.",
     "source": "03_Innovation_Booklet, Week 06, TRACK 4 | ETHICS, WORLD MODELS & AGENTS",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "Awad et al. (2018), The Moral Machine experiment, abstract and discussion",
-    "url": "https://doi.org/10.1038/s41586-018-0637-6",
-    "scope": "INN W6 · Moral Machine limitations",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 4 | ETHICS, WORLD MODELS & AGENTS",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, TRACK 4 | ETHICS, WORLD MODELS & AGENTS",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "Awad et al. (2018), The Moral Machine experiment, abstract and discussion",
+      "url": "https://doi.org/10.1038/s41586-018-0637-6",
+      "scope": "INN W6 · Moral Machine limitations",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 4 | ETHICS, WORLD MODELS & AGENTS",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 4 | ETHICS, WORLD MODELS & AGENTS",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-147",
     "module": "INN",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 4 | ETHICS, WORLD MODELS & AGENTS",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-147",
-  "module": "INN",
-  "week": 6,
-  "topic": "Sycophancy",
-  "stem": "A model correctly challenges a false claim but agrees after the user confidently insists it is true. What risk does this illustrate?",
-  "choices": [
-    "Embedding dimensionality",
-    "Reduced inference latency",
-    "Improved source provenance",
-    "Sycophancy, agreement with the user at the expense of correctness"
-  ],
-  "correct": 3,
-  "explanation": "Sycophancy is excessive agreement with users’ beliefs, including objectively incorrect claims.",
-  "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Sycophancy",
+    "stem": "A model correctly challenges a false claim but agrees after the user confidently insists it is true. What risk does this illustrate?",
+    "choices": [
+      "Embedding dimensionality",
+      "Reduced inference latency",
+      "Improved source provenance",
+      "Sycophancy, agreement with the user at the expense of correctness"
+    ],
+    "correct": 3,
+    "explanation": "Sycophancy is excessive agreement with users’ beliefs, including objectively incorrect claims.",
     "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "Sharma et al. (2023), Towards Understanding Sycophancy in Language Models, abstract",
-    "url": "https://arxiv.org/abs/2310.13548",
-    "scope": "INN W6 · Sycophancy",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "key_checked": 3,
-    "distractor_indices_checked": [
-      0,
-      1,
-      2
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "Sharma et al. (2023), Towards Understanding Sycophancy in Language Models, abstract",
+      "url": "https://arxiv.org/abs/2310.13548",
+      "scope": "INN W6 · Sycophancy",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-148",
     "module": "INN",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, TRACK 2 | MODEL CAPABILITIES, EVALUATION & COST",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-148",
-  "module": "INN",
-  "week": 6,
-  "topic": "Demo versus validation",
-  "stem": "A team spends five minutes trying an impressive AI demonstration. What is the best next step before recommending deployment?",
-  "choices": [
-    "Document representative tests, context-specific risks and limitations",
-    "Assume a polished interface proves reliability",
-    "Treat one successful prompt as universal proof of safety",
-    "Skip validation if a leaderboard exists"
-  ],
-  "correct": 0,
-  "explanation": "A demonstration is exploratory. Trustworthy deployment requires testing, evaluation, verification, validation and documented limitations for the intended context.",
-  "source": "03_Innovation_Booklet, Week 06, LECTURE | PURPOSE | FROM EXPLORATION TO EVIDENCE",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Demo versus validation",
+    "stem": "A team spends five minutes trying an impressive AI demonstration. What is the best next step before recommending deployment?",
+    "choices": [
+      "Document representative tests, context-specific risks and limitations",
+      "Assume a polished interface proves reliability",
+      "Treat one successful prompt as universal proof of safety",
+      "Skip validation if a leaderboard exists"
+    ],
+    "correct": 0,
+    "explanation": "A demonstration is exploratory. Trustworthy deployment requires testing, evaluation, verification, validation and documented limitations for the intended context.",
     "source": "03_Innovation_Booklet, Week 06, LECTURE | PURPOSE | FROM EXPLORATION TO EVIDENCE",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "NIST (2023), AI RMF Core, Measure function and Measure 2.5",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W6 · Demo versus validation",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "03_Innovation_Booklet, Week 06, LECTURE | PURPOSE | FROM EXPLORATION TO EVIDENCE",
-    "key_checked": 0,
-    "distractor_indices_checked": [
-      1,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "03_Innovation_Booklet, Week 06, LECTURE | PURPOSE | FROM EXPLORATION TO EVIDENCE",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "NIST (2023), AI RMF Core, Measure function and Measure 2.5",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W6 · Demo versus validation",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "03_Innovation_Booklet, Week 06, LECTURE | PURPOSE | FROM EXPLORATION TO EVIDENCE",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "INN",
+      "week": 6,
+      "booklet_locator": "03_Innovation_Booklet, Week 06, LECTURE | PURPOSE | FROM EXPLORATION TO EVIDENCE",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "module": "INN",
+  {
+    "id": "d4b-149",
+    "module": "DTR",
     "week": 6,
-    "booklet_locator": "03_Innovation_Booklet, Week 06, LECTURE | PURPOSE | FROM EXPLORATION TO EVIDENCE",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-149",
-  "module": "DTR",
-  "week": 6,
-  "topic": "Participation gap",
-  "stem": "In Jenkins' participatory-culture framework, what is the participation gap?",
-  "choices": [
-    "The delay between sending and receiving email",
-    "Unequal opportunities and capabilities to participate in digital media culture",
-    "A missing television broadcast licence",
-    "A gap between a device's screen and keyboard"
-  ],
-  "correct": 1,
-  "explanation": "The participation gap concerns unequal opportunities, experiences, skills and knowledge for meaningful participation, not simply device ownership.",
-  "source": "04_Digital_Transformation_Booklet, Week 06, READING 1 | JENKINS ET AL. (2006)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Participation gap",
+    "stem": "In Jenkins' participatory-culture framework, what is the participation gap?",
+    "choices": [
+      "The delay between sending and receiving email",
+      "Unequal opportunities and capabilities to participate in digital media culture",
+      "A missing television broadcast licence",
+      "A gap between a device's screen and keyboard"
+    ],
+    "correct": 1,
+    "explanation": "The participation gap concerns unequal opportunities, experiences, skills and knowledge for meaningful participation, not simply device ownership.",
     "source": "04_Digital_Transformation_Booklet, Week 06, READING 1 | JENKINS ET AL. (2006)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "Jenkins et al. (2006), Executive Summary, The Participation Gap",
-    "url": "https://www.macfound.org/media/article_pdfs/jenkins_white_paper.pdf",
-    "scope": "DTR W6 · Participation gap",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, READING 1 | JENKINS ET AL. (2006)",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 06, READING 1 | JENKINS ET AL. (2006)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "Jenkins et al. (2006), Executive Summary, The Participation Gap",
+      "url": "https://www.macfound.org/media/article_pdfs/jenkins_white_paper.pdf",
+      "scope": "DTR W6 · Participation gap",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, READING 1 | JENKINS ET AL. (2006)",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "DTR",
+      "week": 6,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, READING 1 | JENKINS ET AL. (2006)",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-150",
     "module": "DTR",
     "week": 6,
-    "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, READING 1 | JENKINS ET AL. (2006)",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-150",
-  "module": "DTR",
-  "week": 6,
-  "topic": "Digital citizenship rights",
-  "stem": "Which activity most directly belongs to the Council of Europe's Rights online digital-citizenship domain?",
-  "choices": [
-    "Improving screen brightness",
-    "Increasing the frame rate of a game",
-    "Understanding privacy, security and rights when participating online",
-    "Choosing a keyboard layout"
-  ],
-  "correct": 2,
-  "explanation": "The Council of Europe places active participation, rights and responsibilities, privacy and security, and consumer awareness under Rights online.",
-  "source": "04_Digital_Transformation_Booklet, Week 06, THE TEN DIGITAL CITIZENSHIP DOMAINS",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Digital citizenship rights",
+    "stem": "Which activity most directly belongs to the Council of Europe's Rights online digital-citizenship domain?",
+    "choices": [
+      "Improving screen brightness",
+      "Increasing the frame rate of a game",
+      "Understanding privacy, security and rights when participating online",
+      "Choosing a keyboard layout"
+    ],
+    "correct": 2,
+    "explanation": "The Council of Europe places active participation, rights and responsibilities, privacy and security, and consumer awareness under Rights online.",
     "source": "04_Digital_Transformation_Booklet, Week 06, THE TEN DIGITAL CITIZENSHIP DOMAINS",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "Council of Europe (2019), Digital citizenship education handbook, Section 3",
-    "url": "https://book.coe.int/en/human-rights-democratic-citizenship-and-interculturalism/7851-digital-citizenship-education-handbook.html",
-    "scope": "DTR W6 · Digital citizenship rights",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, THE TEN DIGITAL CITIZENSHIP DOMAINS",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 06, THE TEN DIGITAL CITIZENSHIP DOMAINS",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "Council of Europe (2019), Digital citizenship education handbook, Section 3",
+      "url": "https://book.coe.int/en/human-rights-democratic-citizenship-and-interculturalism/7851-digital-citizenship-education-handbook.html",
+      "scope": "DTR W6 · Digital citizenship rights",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, THE TEN DIGITAL CITIZENSHIP DOMAINS",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "DTR",
+      "week": 6,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, THE TEN DIGITAL CITIZENSHIP DOMAINS",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-151",
     "module": "DTR",
     "week": 6,
-    "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, THE TEN DIGITAL CITIZENSHIP DOMAINS",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-151",
-  "module": "DTR",
-  "week": 6,
-  "topic": "Platformisation",
-  "stem": "A community bypasses a newspaper to publish directly on a social platform. Why might this not eliminate intermediaries?",
-  "choices": [
-    "The platform still governs visibility through ranking, rules and commercial incentives",
-    "The internet prohibits user-created media",
-    "Every online post must be approved by a newspaper",
-    "A platform cannot collect or use audience data"
-  ],
-  "correct": 0,
-  "explanation": "Bypassing a traditional gatekeeper can introduce a platform intermediary that controls visibility and participation through algorithms, rules and incentives.",
-  "source": "04_Digital_Transformation_Booklet, Week 06, PLATFORMISATION, DISINTERMEDIATION AND AUTHORIAL MEDIA",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Platformisation",
+    "stem": "A community bypasses a newspaper to publish directly on a social platform. Why might this not eliminate intermediaries?",
+    "choices": [
+      "The platform still governs visibility through ranking, rules and commercial incentives",
+      "The internet prohibits user-created media",
+      "Every online post must be approved by a newspaper",
+      "A platform cannot collect or use audience data"
+    ],
+    "correct": 0,
+    "explanation": "Bypassing a traditional gatekeeper can introduce a platform intermediary that controls visibility and participation through algorithms, rules and incentives.",
     "source": "04_Digital_Transformation_Booklet, Week 06, PLATFORMISATION, DISINTERMEDIATION AND AUTHORIAL MEDIA",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "van Dijck, Poell, & de Waal (2018), The Platform Society",
-    "url": "https://doi.org/10.1093/oso/9780190889760.001.0001",
-    "scope": "DTR W6 · Platformisation",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, PLATFORMISATION, DISINTERMEDIATION AND AUTHORIAL MEDIA",
-    "key_checked": 0,
-    "distractor_indices_checked": [
-      1,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 06, PLATFORMISATION, DISINTERMEDIATION AND AUTHORIAL MEDIA",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "van Dijck, Poell, & de Waal (2018), The Platform Society",
+      "url": "https://doi.org/10.1093/oso/9780190889760.001.0001",
+      "scope": "DTR W6 · Platformisation",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, PLATFORMISATION, DISINTERMEDIATION AND AUTHORIAL MEDIA",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "DTR",
+      "week": 6,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, PLATFORMISATION, DISINTERMEDIATION AND AUTHORIAL MEDIA",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-152",
     "module": "DTR",
     "week": 6,
-    "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, PLATFORMISATION, DISINTERMEDIATION AND AUTHORIAL MEDIA",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-152",
-  "module": "DTR",
-  "week": 6,
-  "topic": "Multimodality and multiliteracies",
-  "stem": "Which statement best distinguishes multimodality from multiliteracies?",
-  "choices": [
-    "Both refer exclusively to programming languages",
-    "Multimodality is only about printed words; multiliteracies only about audio",
-    "Both mean the number of accounts a learner owns",
-    "Multimodality concerns different modes of meaning; multiliteracies concerns interpreting and producing meaning across cultural and media contexts"
-  ],
-  "correct": 3,
-  "explanation": "Multimodality concerns words, images, sounds and other meaning-making modes; multiliteracies concerns social and cultural practices and capabilities across contexts.",
-  "source": "04_Digital_Transformation_Booklet, Week 06, MULTIMODALITY, MULTILITERACIES AND NEW LITERACY STUDIES",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Multimodality and multiliteracies",
+    "stem": "Which statement best distinguishes multimodality from multiliteracies?",
+    "choices": [
+      "Both refer exclusively to programming languages",
+      "Multimodality is only about printed words; multiliteracies only about audio",
+      "Both mean the number of accounts a learner owns",
+      "Multimodality concerns different modes of meaning; multiliteracies concerns interpreting and producing meaning across cultural and media contexts"
+    ],
+    "correct": 3,
+    "explanation": "Multimodality concerns words, images, sounds and other meaning-making modes; multiliteracies concerns social and cultural practices and capabilities across contexts.",
     "source": "04_Digital_Transformation_Booklet, Week 06, MULTIMODALITY, MULTILITERACIES AND NEW LITERACY STUDIES",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "UNESCO (2021), Media and Information Literacy Curriculum, Module 12",
-    "url": "https://www.unesco.org/mil4teachers/en/module12",
-    "scope": "DTR W6 · Multimodality and multiliteracies",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, MULTIMODALITY, MULTILITERACIES AND NEW LITERACY STUDIES",
-    "key_checked": 3,
-    "distractor_indices_checked": [
-      0,
-      1,
-      2
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 06, MULTIMODALITY, MULTILITERACIES AND NEW LITERACY STUDIES",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "UNESCO (2021), Media and Information Literacy Curriculum, Module 12",
+      "url": "https://www.unesco.org/mil4teachers/en/module12",
+      "scope": "DTR W6 · Multimodality and multiliteracies",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, MULTIMODALITY, MULTILITERACIES AND NEW LITERACY STUDIES",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "DTR",
+      "week": 6,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, MULTIMODALITY, MULTILITERACIES AND NEW LITERACY STUDIES",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-153",
     "module": "DTR",
     "week": 6,
-    "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, MULTIMODALITY, MULTILITERACIES AND NEW LITERACY STUDIES",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-153",
-  "module": "DTR",
-  "week": 6,
-  "topic": "Videogame media literacy",
-  "stem": "Which approach best fits UNESCO's media-and-information-literacy treatment of videogames?",
-  "choices": [
-    "Evaluate games only by graphical resolution",
-    "Critically examine representation, participation, design incentives and player-data practices",
-    "Assume games are educational whenever they are popular",
-    "Exclude games from media literacy because they are interactive"
-  ],
-  "correct": 1,
-  "explanation": "UNESCO treats games as media requiring critical reflection on representation, participation, cooperation, data collection and learning, rather than only technical play.",
-  "source": "04_Digital_Transformation_Booklet, Week 06, READING 4 | UNESCO (2021)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Videogame media literacy",
+    "stem": "Which approach best fits UNESCO's media-and-information-literacy treatment of videogames?",
+    "choices": [
+      "Evaluate games only by graphical resolution",
+      "Critically examine representation, participation, design incentives and player-data practices",
+      "Assume games are educational whenever they are popular",
+      "Exclude games from media literacy because they are interactive"
+    ],
+    "correct": 1,
+    "explanation": "UNESCO treats games as media requiring critical reflection on representation, participation, cooperation, data collection and learning, rather than only technical play.",
     "source": "04_Digital_Transformation_Booklet, Week 06, READING 4 | UNESCO (2021)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-19",
-    "locator": "UNESCO (2021), Module 12: Digital Media, Games and Traditional Media",
-    "url": "https://www.unesco.org/mil4teachers/en/module12",
-    "scope": "DTR W6 · Videogame media literacy",
-    "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
-    "teaching_material_checked": true,
-    "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, READING 4 | UNESCO (2021)",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "04_Digital_Transformation_Booklet, Week 06, READING 4 | UNESCO (2021)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-19",
+      "locator": "UNESCO (2021), Module 12: Digital Media, Games and Traditional Media",
+      "url": "https://www.unesco.org/mil4teachers/en/module12",
+      "scope": "DTR W6 · Videogame media literacy",
+      "method": "Independent reference and all four options reviewed 2026-10-19; this original practice item is not a Moodle question.",
+      "teaching_material_checked": true,
+      "teaching_locator": "04_Digital_Transformation_Booklet, Week 06, READING 4 | UNESCO (2021)",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "DTR",
+      "week": 6,
+      "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, READING 4 | UNESCO (2021)",
+      "reviewed_at": "2026-10-20",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "module": "DTR",
-    "week": 6,
-    "booklet_locator": "04_Digital_Transformation_Booklet, Week 06, READING 4 | UNESCO (2021)",
-    "reviewed_at": "2026-10-20",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-154",
-  "module": "GEN",
-  "week": 7,
-  "topic": "RAG versus fine-tuning",
-  "stem": "A firm changes a policy document today. Which statement best describes how a standard inference-time retrieval-augmented generation (RAG) assistant can use the change?",
-  "choices": [
-    "Its language model must be trained again on the entire policy corpus",
-    "The new policy becomes a permanent fact in the model's parameters as soon as a user asks",
-    "The revised document can be re-indexed and retrieved into the prompt without changing the generator's weights",
-    "A larger context window guarantees the assistant will obey the revised policy"
-  ],
-  "correct": 2,
-  "explanation": "In a typical inference-time RAG system, external passages are retrieved and supplied as context; changing an indexed policy need not change the generator's parameters. Retraining and permanent weight updates are different operations, and a larger window does not guarantee accurate use of evidence.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+  {
+    "id": "d4b-154",
+    "module": "GEN",
+    "week": 7,
+    "topic": "RAG versus fine-tuning",
+    "stem": "A firm changes a policy document today. Which statement best describes how a standard inference-time retrieval-augmented generation (RAG) assistant can use the change?",
+    "choices": [
+      "Its language model must be trained again on the entire policy corpus",
+      "The new policy becomes a permanent fact in the model's parameters as soon as a user asks",
+      "The revised document can be re-indexed and retrieved into the prompt without changing the generator's weights",
+      "A larger context window guarantees the assistant will obey the revised policy"
+    ],
+    "correct": 2,
+    "explanation": "In a typical inference-time RAG system, external passages are retrieved and supplied as context; changing an indexed policy need not change the generator's parameters. Retraining and permanent weight updates are different operations, and a larger window does not guarantee accurate use of evidence.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Lewis et al. (2020), abstract and Section 2, parametric versus non-parametric memory",
-    "url": "https://arxiv.org/abs/2005.11401",
-    "scope": "GEN W7 · RAG versus fine-tuning",
-    "method": "Official Week 7 lecturer slides 11, 23–26 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Lewis et al. (2020), abstract and Section 2, parametric versus non-parametric memory",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "scope": "GEN W7 · RAG versus fine-tuning",
+      "method": "Official Week 7 lecturer slides 11, 23–26 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-155",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | RAG: retrieve, then generate",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-155",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Indexing and query-time retrieval",
-  "stem": "A document-grounded assistant receives a question after its document index has been built. Which sequence belongs to the per-question stage?",
-  "choices": [
-    "Re-download and fine-tune the language model on every source",
-    "Embed the question, retrieve relevant indexed passages, then generate using those passages",
-    "Generate a response first, then retroactively select sources that sound similar",
-    "Delete the index and create new training labels for each question"
-  ],
-  "correct": 1,
-  "explanation": "The usual pipeline separates document preparation and indexing from query-time retrieval and generation. Query embeddings locate candidate passages, which are passed to the generator. Neither model fine-tuning nor after-the-fact citation matching is the per-question retrieval step.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Indexing and query-time retrieval",
+    "stem": "A document-grounded assistant receives a question after its document index has been built. Which sequence belongs to the per-question stage?",
+    "choices": [
+      "Re-download and fine-tune the language model on every source",
+      "Embed the question, retrieve relevant indexed passages, then generate using those passages",
+      "Generate a response first, then retroactively select sources that sound similar",
+      "Delete the index and create new training labels for each question"
+    ],
+    "correct": 1,
+    "explanation": "The usual pipeline separates document preparation and indexing from query-time retrieval and generation. Query embeddings locate candidate passages, which are passed to the generator. Neither model fine-tuning nor after-the-fact citation matching is the per-question retrieval step.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Gao et al. (2024), Sections II–III, indexing–retrieval–generation pipeline",
-    "url": "https://arxiv.org/abs/2312.10997",
-    "scope": "GEN W7 · Indexing and query-time retrieval",
-    "method": "Official Week 7 lecturer slides 23–26 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Gao et al. (2024), Sections II–III, indexing–retrieval–generation pipeline",
+      "url": "https://arxiv.org/abs/2312.10997",
+      "scope": "GEN W7 · Indexing and query-time retrieval",
+      "method": "Official Week 7 lecturer slides 23–26 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-156",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | RAG STEP BY STEP | Step 1, once: build the index",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-156",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Semantic retrieval",
-  "stem": "A traveller writes 'my bag never arrived', while the relevant rule uses 'lost checked-in luggage'. Why might dense semantic retrieval find it when exact-word matching fails?",
-  "choices": [
-    "It converts every question into a legal decision before searching",
-    "It searches only documents whose titles exactly match the question",
-    "It requires both sentences to contain the same nouns",
-    "It compares learned representations that can place differently worded, related passages near one another"
-  ],
-  "correct": 3,
-  "explanation": "Dense retrieval uses learned embeddings to compare semantic similarity across different wording. It does not guarantee correct legal interpretation, require identical keywords, or pre-decide the user's entitlement.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Semantic retrieval",
+    "stem": "A traveller writes 'my bag never arrived', while the relevant rule uses 'lost checked-in luggage'. Why might dense semantic retrieval find it when exact-word matching fails?",
+    "choices": [
+      "It converts every question into a legal decision before searching",
+      "It searches only documents whose titles exactly match the question",
+      "It requires both sentences to contain the same nouns",
+      "It compares learned representations that can place differently worded, related passages near one another"
+    ],
+    "correct": 3,
+    "explanation": "Dense retrieval uses learned embeddings to compare semantic similarity across different wording. It does not guarantee correct legal interpretation, require identical keywords, or pre-decide the user's entitlement.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Gao et al. (2024), Section III, retrieval and dense representations",
-    "url": "https://arxiv.org/abs/2312.10997",
-    "scope": "GEN W7 · Semantic retrieval",
-    "method": "Official Week 7 lecturer slides 15–20 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
-    "key_checked": 3,
-    "distractor_indices_checked": [
-      0,
-      1,
-      2
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Gao et al. (2024), Section III, retrieval and dense representations",
+      "url": "https://arxiv.org/abs/2312.10997",
+      "scope": "GEN W7 · Semantic retrieval",
+      "method": "Official Week 7 lecturer slides 15–20 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-157",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | SEARCH BY MEANING | Keyword search misses other words",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-157",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Chunk boundaries and tables",
-  "stem": "A RAG assistant retrieves the correct page but confuses two compensation rows because a table was split across chunks. What is the most defensible next change?",
-  "choices": [
-    "Preserve the relevant table and row context in retrieval units, then retest all known-answer cases",
-    "Increase the number of retrieved chunks indefinitely and assume the problem disappears",
-    "Disable retrieval so the model can answer from memory",
-    "Treat any answer that names the right webpage as correct"
-  ],
-  "correct": 0,
-  "explanation": "Splitting structured evidence can separate values from their labels. Structure-aware or smaller, coherent chunks may improve a particular case, but changes must be evaluated against the full test set. More context, memory-only answers and superficial page citations do not establish correctness.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Chunk boundaries and tables",
+    "stem": "A RAG assistant retrieves the correct page but confuses two compensation rows because a table was split across chunks. What is the most defensible next change?",
+    "choices": [
+      "Preserve the relevant table and row context in retrieval units, then retest all known-answer cases",
+      "Increase the number of retrieved chunks indefinitely and assume the problem disappears",
+      "Disable retrieval so the model can answer from memory",
+      "Treat any answer that names the right webpage as correct"
+    ],
+    "correct": 0,
+    "explanation": "Splitting structured evidence can separate values from their labels. Structure-aware or smaller, coherent chunks may improve a particular case, but changes must be evaluated against the full test set. More context, memory-only answers and superficial page citations do not establish correctness.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Gao et al. (2024), Section III.A, text splitting and document structure",
-    "url": "https://arxiv.org/abs/2312.10997",
-    "scope": "GEN W7 · Chunk boundaries and tables",
-    "method": "Official Week 7 lecturer slides 14, 39–40 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
-    "key_checked": 0,
-    "distractor_indices_checked": [
-      1,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Gao et al. (2024), Section III.A, text splitting and document structure",
+      "url": "https://arxiv.org/abs/2312.10997",
+      "scope": "GEN W7 · Chunk boundaries and tables",
+      "method": "Official Week 7 lecturer slides 14, 39–40 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-158",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Right page, wrong answer",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-158",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Abstention on missing evidence",
-  "stem": "The retriever returns three weakly related passages, none of which addresses a customer's wage question. What should an evidence-grounded assistant do?",
-  "choices": [
-    "Use the highest-scoring passage as proof, because top-1 always means relevant",
-    "Invent a plausible figure but label it approximate",
-    "Say that the available sources do not establish the answer and seek suitable evidence",
-    "Quote whichever passage contains the most numbers"
-  ],
-  "correct": 2,
-  "explanation": "Top-k ranking is relative, not proof that any retrieved passage supports the claim. When evidence is absent, abstention or further authoritative retrieval is safer than a plausible but unsupported answer.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Abstention on missing evidence",
+    "stem": "The retriever returns three weakly related passages, none of which addresses a customer's wage question. What should an evidence-grounded assistant do?",
+    "choices": [
+      "Use the highest-scoring passage as proof, because top-1 always means relevant",
+      "Invent a plausible figure but label it approximate",
+      "Say that the available sources do not establish the answer and seek suitable evidence",
+      "Quote whichever passage contains the most numbers"
+    ],
+    "correct": 2,
+    "explanation": "Top-k ranking is relative, not proof that any retrieved passage supports the claim. When evidence is absent, abstention or further authoritative retrieval is safer than a plausible but unsupported answer.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "NIST (2024), AI 600-1, risks of confabulation and information integrity",
-    "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
-    "scope": "GEN W7 · Abstention on missing evidence",
-    "method": "Official Week 7 lecturer slides 41, 47 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "NIST (2024), AI 600-1, risks of confabulation and information integrity",
+      "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+      "scope": "GEN W7 · Abstention on missing evidence",
+      "method": "Official Week 7 lecturer slides 41, 47 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-159",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | No answer in the sources, an answer anyway",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-159",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Citation validity versus factual accuracy",
-  "stem": "An assistant gives a correct-looking answer and appends citation [7], although the retrieval step supplied only sources [1] to [3]. What does this demonstrate?",
-  "choices": [
-    "The answer is fully verified because a citation marker is present",
-    "Citation validity must be checked independently of the factual claim",
-    "The model must have secretly retrieved four additional documents",
-    "The presence of any citation proves that the source supports every sentence"
-  ],
-  "correct": 1,
-  "explanation": "A fabricated or out-of-range citation is a provenance failure even if the answer happens to be true. Verification separately tests retrieval, whether the cited passage supports the claim, and whether citation identifiers actually resolve.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Citation validity versus factual accuracy",
+    "stem": "An assistant gives a correct-looking answer and appends citation [7], although the retrieval step supplied only sources [1] to [3]. What does this demonstrate?",
+    "choices": [
+      "The answer is fully verified because a citation marker is present",
+      "Citation validity must be checked independently of the factual claim",
+      "The model must have secretly retrieved four additional documents",
+      "The presence of any citation proves that the source supports every sentence"
+    ],
+    "correct": 1,
+    "explanation": "A fabricated or out-of-range citation is a provenance failure even if the answer happens to be true. Verification separately tests retrieval, whether the cited passage supports the claim, and whether citation identifiers actually resolve.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Wallat et al. (2024), Correctness is not Faithfulness in RAG Attributions, Introduction and citation correctness/faithfulness definitions",
-    "url": "https://arxiv.org/abs/2412.18004",
-    "scope": "GEN W7 · Citation validity versus factual accuracy",
-    "method": "Official Week 7 lecturer slides 35–36, 45–46 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Wallat et al. (2024), Correctness is not Faithfulness in RAG Attributions, Introduction and citation correctness/faithfulness definitions",
+      "url": "https://arxiv.org/abs/2412.18004",
+      "scope": "GEN W7 · Citation validity versus factual accuracy",
+      "method": "Official Week 7 lecturer slides 35–36, 45–46 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-160",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Three checks before you trust an answer",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-160",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Indirect prompt injection in retrieved documents",
-  "stem": "A retrieved webpage contains text ordering the assistant to ignore its operating instructions and give a false returns policy. How should the system classify that text?",
-  "choices": [
-    "As a new system instruction, because retrieval ranked the page first",
-    "As verified law, because it appeared in the indexed corpus",
-    "As a user instruction that overrides the original task",
-    "As untrusted source content that must not acquire instruction authority"
-  ],
-  "correct": 3,
-  "explanation": "External webpages and indexed files are lower-trust data, not system instructions. Treating their embedded commands as authoritative creates indirect prompt-injection risk; source controls and instruction boundaries are required.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Indirect prompt injection in retrieved documents",
+    "stem": "A retrieved webpage contains text ordering the assistant to ignore its operating instructions and give a false returns policy. How should the system classify that text?",
+    "choices": [
+      "As a new system instruction, because retrieval ranked the page first",
+      "As verified law, because it appeared in the indexed corpus",
+      "As a user instruction that overrides the original task",
+      "As untrusted source content that must not acquire instruction authority"
+    ],
+    "correct": 3,
+    "explanation": "External webpages and indexed files are lower-trust data, not system instructions. Treating their embedded commands as authoritative creates indirect prompt-injection risk; source controls and instruction boundaries are required.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "OWASP (2025), LLM01 Prompt Injection, indirect injections and mitigation strategies",
-    "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
-    "scope": "GEN W7 · Indirect prompt injection in retrieved documents",
-    "method": "Official Week 7 lecturer slides 43 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
-    "key_checked": 3,
-    "distractor_indices_checked": [
-      0,
-      1,
-      2
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "OWASP (2025), LLM01 Prompt Injection, indirect injections and mitigation strategies",
+      "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+      "scope": "GEN W7 · Indirect prompt injection in retrieved documents",
+      "method": "Official Week 7 lecturer slides 43 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
+      "key_checked": 3,
+      "distractor_indices_checked": [
+        0,
+        1,
+        2
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-161",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A planted page in the sources",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-161",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Lost-in-the-middle effects",
-  "stem": "A model performs worse when the decisive passage sits halfway through a long retrieved context than when it appears near either end. Which interpretation best matches published research?",
-  "choices": [
-    "The position of relevant evidence can materially affect long-context answer accuracy",
-    "A larger context window always makes position irrelevant",
-    "The model is necessarily missing the middle passage from its tokenizer",
-    "Retrieval accuracy is impossible to evaluate without retraining the generator"
-  ],
-  "correct": 0,
-  "explanation": "Controlled studies find that models can use relevant information less reliably when it appears in the middle of long contexts. Window size alone does not guarantee robust use; this is distinct from tokenizer loss or an inability to evaluate retrieval.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Lost-in-the-middle effects",
+    "stem": "A model performs worse when the decisive passage sits halfway through a long retrieved context than when it appears near either end. Which interpretation best matches published research?",
+    "choices": [
+      "The position of relevant evidence can materially affect long-context answer accuracy",
+      "A larger context window always makes position irrelevant",
+      "The model is necessarily missing the middle passage from its tokenizer",
+      "Retrieval accuracy is impossible to evaluate without retraining the generator"
+    ],
+    "correct": 0,
+    "explanation": "Controlled studies find that models can use relevant information less reliably when it appears in the middle of long contexts. Window size alone does not guarantee robust use; this is distinct from tokenizer loss or an inability to evaluate retrieval.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Liu et al. (2024), Sections 2–3 and Figure 1, position sensitivity",
-    "url": "https://aclanthology.org/2024.tacl-1.9/",
-    "scope": "GEN W7 · Lost-in-the-middle effects",
-    "method": "Official Week 7 lecturer slides 42 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
-    "key_checked": 0,
-    "distractor_indices_checked": [
-      1,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Liu et al. (2024), Sections 2–3 and Figure 1, position sensitivity",
+      "url": "https://aclanthology.org/2024.tacl-1.9/",
+      "scope": "GEN W7 · Lost-in-the-middle effects",
+      "method": "Official Week 7 lecturer slides 42 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
+      "key_checked": 0,
+      "distractor_indices_checked": [
+        1,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-162",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Lost in the middle",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-162",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Regression testing after RAG tuning",
-  "stem": "Reducing chunk size fixes one known-answer question but introduces an error on another. What is the appropriate evaluation decision?",
-  "choices": [
-    "Declare the system improved because the most visible failure disappeared",
-    "Keep reducing chunk size until every passage is a single word",
-    "Rerun the complete labelled test set and compare both improvements and regressions",
-    "Change the expected answer to match the model's newest output"
-  ],
-  "correct": 2,
-  "explanation": "A retrieval setting can trade one failure for another. Compare all predefined cases, their source relevance and answer support before adopting the change. A single fixed example is insufficient evidence of system-wide improvement.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Regression testing after RAG tuning",
+    "stem": "Reducing chunk size fixes one known-answer question but introduces an error on another. What is the appropriate evaluation decision?",
+    "choices": [
+      "Declare the system improved because the most visible failure disappeared",
+      "Keep reducing chunk size until every passage is a single word",
+      "Rerun the complete labelled test set and compare both improvements and regressions",
+      "Change the expected answer to match the model's newest output"
+    ],
+    "correct": 2,
+    "explanation": "A retrieval setting can trade one failure for another. Compare all predefined cases, their source relevance and answer support before adopting the change. A single fixed example is insufficient evidence of system-wide improvement.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Gao et al. (2024), evaluation of RAG retrieval and generation; lecturer slides 39–40 and 47–48",
-    "url": "https://arxiv.org/abs/2312.10997",
-    "scope": "GEN W7 · Regression testing after RAG tuning",
-    "method": "Official Week 7 lecturer slides 39–40, 47–48 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Gao et al. (2024), evaluation of RAG retrieval and generation; lecturer slides 39–40 and 47–48",
+      "url": "https://arxiv.org/abs/2312.10997",
+      "scope": "GEN W7 · Regression testing after RAG tuning",
+      "method": "Official Week 7 lecturer slides 39–40, 47–48 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-163",
     "module": "GEN",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | Marta's six questions, scored",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-163",
-  "module": "GEN",
-  "week": 7,
-  "topic": "Model-as-judge limitations",
-  "stem": "A second language model marks every sentence of a RAG answer as supported. What is the strongest warranted conclusion?",
-  "choices": [
-    "The answer is legally and factually guaranteed correct",
-    "Automated faithfulness checks can assist triage, but citations and a human-reviewed sample still require checking",
-    "The original retriever is no longer needed",
-    "The judgement proves the cited document is current and authoritative"
-  ],
-  "correct": 1,
-  "explanation": "A model-based judge is a fallible screening mechanism. It does not establish source authority, freshness, citation integrity or complete factual accuracy, so human review and source-level checks remain necessary.",
-  "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Model-as-judge limitations",
+    "stem": "A second language model marks every sentence of a RAG answer as supported. What is the strongest warranted conclusion?",
+    "choices": [
+      "The answer is legally and factually guaranteed correct",
+      "Automated faithfulness checks can assist triage, but citations and a human-reviewed sample still require checking",
+      "The original retriever is no longer needed",
+      "The judgement proves the cited document is current and authoritative"
+    ],
+    "correct": 1,
+    "explanation": "A model-based judge is a fallible screening mechanism. It does not establish source authority, freshness, citation integrity or complete factual accuracy, so human review and source-level checks remain necessary.",
     "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-27",
-    "locator": "Saad-Falcon et al. (2023), ARES: An Automated Evaluation Framework for Retrieval-Augmented Generation Systems, abstract and evaluation methodology",
-    "url": "https://arxiv.org/abs/2311.09476",
-    "scope": "GEN W7 · Model-as-judge limitations",
-    "method": "Official Week 7 lecturer slides 45–46 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
-    "teaching_material_checked": true,
-    "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-27",
+      "locator": "Saad-Falcon et al. (2023), ARES: An Automated Evaluation Framework for Retrieval-Augmented Generation Systems, abstract and evaluation methodology",
+      "url": "https://arxiv.org/abs/2311.09476",
+      "scope": "GEN W7 · Model-as-judge limitations",
+      "method": "Official Week 7 lecturer slides 45–46 and Week 7 Colab notebook inspected directly; independent primary/academic source checked against the keyed answer and all three distractors on 2026-10-27. Original four-choice practice item, not Moodle wording.",
+      "teaching_material_checked": true,
+      "teaching_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "GEN",
+      "week": 7,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
+      "reviewed_at": "2026-10-27",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "module": "GEN",
+  {
+    "id": "d4b-164",
+    "module": "AIB",
     "week": 7,
-    "booklet_locator": "01_Generative_AI_Booklet, Week 07, WEEK 07 | WHAT STILL GOES WRONG | A model as the judge",
-    "reviewed_at": "2026-10-27",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": true
-  }
-},
-{
-  "id": "d4b-164",
-  "module": "AIB",
-  "week": 7,
-  "topic": "Nonlinearity in multilayer networks",
-  "stem": "A team stacks several dense layers but removes every nonlinear activation. What is the resulting limitation?",
-  "choices": [
-    "The network necessarily becomes recurrent",
-    "The composition remains an affine mapping and cannot represent arbitrary nonlinear decision boundaries",
-    "The network can no longer calculate gradients",
-    "Every input is mapped to the same constant"
-  ],
-  "correct": 1,
-  "explanation": "A composition of affine transformations is affine. Nonlinear activations enable richer decision surfaces; gradient calculation and nonconstant outputs remain possible without them.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Nonlinearity in multilayer networks",
+    "stem": "A team stacks several dense layers but removes every nonlinear activation. What is the resulting limitation?",
+    "choices": [
+      "The network necessarily becomes recurrent",
+      "The composition remains an affine mapping and cannot represent arbitrary nonlinear decision boundaries",
+      "The network can no longer calculate gradients",
+      "Every input is mapped to the same constant"
+    ],
+    "correct": 1,
+    "explanation": "A composition of affine transformations is affine. Nonlinear activations enable richer decision surfaces; gradient calculation and nonconstant outputs remain possible without them.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 6: Deep Feedforward Networks",
-    "url": "https://www.deeplearningbook.org/",
-    "scope": "AIB W7 · Nonlinearity in multilayer networks",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 6: Deep Feedforward Networks",
+      "url": "https://www.deeplearningbook.org/",
+      "scope": "AIB W7 · Nonlinearity in multilayer networks",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-165",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-165",
-  "module": "AIB",
-  "week": 7,
-  "topic": "Multi-label output activation",
-  "stem": "A water utility flags three independent conditions for each sample: high turbidity, high conductivity and sensor failure. Which output design best fits this multi-label task?",
-  "choices": [
-    "A softmax forcing the three flags to sum to one",
-    "A single linear output predicting only one class index",
-    "Three independent sigmoid outputs trained with suitable binary losses",
-    "A clustering algorithm that guarantees calibrated probabilities"
-  ],
-  "correct": 2,
-  "explanation": "Independent labels can co-occur, so sigmoid outputs with binary cross-entropy are appropriate. Softmax enforces competition between mutually exclusive classes; the other designs do not express three independent binary probabilities.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Multi-label output activation",
+    "stem": "A water utility flags three independent conditions for each sample: high turbidity, high conductivity and sensor failure. Which output design best fits this multi-label task?",
+    "choices": [
+      "A softmax forcing the three flags to sum to one",
+      "A single linear output predicting only one class index",
+      "Three independent sigmoid outputs trained with suitable binary losses",
+      "A clustering algorithm that guarantees calibrated probabilities"
+    ],
+    "correct": 2,
+    "explanation": "Independent labels can co-occur, so sigmoid outputs with binary cross-entropy are appropriate. Softmax enforces competition between mutually exclusive classes; the other designs do not express three independent binary probabilities.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Goodfellow, Bengio, & Courville (2016), Chapters 6 and 11",
-    "url": "https://www.deeplearningbook.org/",
-    "scope": "AIB W7 · Multi-label output activation",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Goodfellow, Bengio, & Courville (2016), Chapters 6 and 11",
+      "url": "https://www.deeplearningbook.org/",
+      "scope": "AIB W7 · Multi-label output activation",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-166",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, NEURAL NETWORK FOUNDATIONS | PERCEPTRON, DENSE LAYERS AND NONLINEARITY",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-166",
-  "module": "AIB",
-  "week": 7,
-  "topic": "Backpropagation versus optimisation",
-  "stem": "During neural-network training, what is the specific role of backpropagation?",
-  "choices": [
-    "It directly chooses the business objective without human input",
-    "It computes derivatives of the loss with respect to network parameters using the chain rule",
-    "It automatically creates a leakage-free test set",
-    "It replaces the forward pass and produces final classifications"
-  ],
-  "correct": 1,
-  "explanation": "Backpropagation calculates gradients; an optimiser uses them to change parameters. Business objectives, test-set design and forward predictions are separate tasks.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Backpropagation versus optimisation",
+    "stem": "During neural-network training, what is the specific role of backpropagation?",
+    "choices": [
+      "It directly chooses the business objective without human input",
+      "It computes derivatives of the loss with respect to network parameters using the chain rule",
+      "It automatically creates a leakage-free test set",
+      "It replaces the forward pass and produces final classifications"
+    ],
+    "correct": 1,
+    "explanation": "Backpropagation calculates gradients; an optimiser uses them to change parameters. Business objectives, test-set design and forward predictions are separate tasks.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 6: Back-Propagation",
-    "url": "https://www.deeplearningbook.org/",
-    "scope": "AIB W7 · Backpropagation versus optimisation",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 6: Back-Propagation",
+      "url": "https://www.deeplearningbook.org/",
+      "scope": "AIB W7 · Backpropagation versus optimisation",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-167",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-167",
-  "module": "AIB",
-  "week": 7,
-  "topic": "Generalisation and evaluation",
-  "stem": "A deep model's training loss falls steadily, but its validation error begins to rise. What is the best interpretation?",
-  "choices": [
-    "The model is certainly improving on future unseen data",
-    "The validation data should be added to training and the test set reused repeatedly",
-    "The pattern is consistent with overfitting; assess regularisation, early stopping and held-out performance",
-    "A smaller learning rate guarantees the model will generalise"
-  ],
-  "correct": 2,
-  "explanation": "Diverging training and validation performance can indicate overfitting. Early stopping and regularisation may help, but only appropriately separated evaluation can estimate generalisation.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Generalisation and evaluation",
+    "stem": "A deep model's training loss falls steadily, but its validation error begins to rise. What is the best interpretation?",
+    "choices": [
+      "The model is certainly improving on future unseen data",
+      "The validation data should be added to training and the test set reused repeatedly",
+      "The pattern is consistent with overfitting; assess regularisation, early stopping and held-out performance",
+      "A smaller learning rate guarantees the model will generalise"
+    ],
+    "correct": 2,
+    "explanation": "Diverging training and validation performance can indicate overfitting. Early stopping and regularisation may help, but only appropriately separated evaluation can estimate generalisation.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Goodfellow, Bengio, & Courville (2016), Chapters 5 and 7",
-    "url": "https://www.deeplearningbook.org/",
-    "scope": "AIB W7 · Generalisation and evaluation",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-    "key_checked": 2,
-    "distractor_indices_checked": [
-      0,
-      1,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Goodfellow, Bengio, & Courville (2016), Chapters 5 and 7",
+      "url": "https://www.deeplearningbook.org/",
+      "scope": "AIB W7 · Generalisation and evaluation",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+      "key_checked": 2,
+      "distractor_indices_checked": [
+        0,
+        1,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-168",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-168",
-  "module": "AIB",
-  "week": 7,
-  "topic": "Pixel-level segmentation",
-  "stem": "A factory needs a predicted defect category for each pixel of a component image. Which model-output design directly addresses that requirement?",
-  "choices": [
-    "A single whole-image softmax label",
-    "A fully convolutional segmentation network producing a spatial prediction map",
-    "A recurrent network that predicts only the next timestamp",
-    "A variational autoencoder whose only output is a product recommendation"
-  ],
-  "correct": 1,
-  "explanation": "Semantic segmentation requires dense spatial labels. Fully convolutional networks support pixel-wise prediction, unlike whole-image classification, one-step forecasting or an unrelated recommendation output.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Pixel-level segmentation",
+    "stem": "A factory needs a predicted defect category for each pixel of a component image. Which model-output design directly addresses that requirement?",
+    "choices": [
+      "A single whole-image softmax label",
+      "A fully convolutional segmentation network producing a spatial prediction map",
+      "A recurrent network that predicts only the next timestamp",
+      "A variational autoencoder whose only output is a product recommendation"
+    ],
+    "correct": 1,
+    "explanation": "Semantic segmentation requires dense spatial labels. Fully convolutional networks support pixel-wise prediction, unlike whole-image classification, one-step forecasting or an unrelated recommendation output.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Long, Shelhamer, & Darrell (2015), Fully Convolutional Networks for Semantic Segmentation",
-    "url": "https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Long_Fully_Convolutional_Networks_2015_CVPR_paper.html",
-    "scope": "AIB W7 · Pixel-level segmentation",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Long, Shelhamer, & Darrell (2015), Fully Convolutional Networks for Semantic Segmentation",
+      "url": "https://www.cv-foundation.org/openaccess/content_cvpr_2015/html/Long_Fully_Convolutional_Networks_2015_CVPR_paper.html",
+      "scope": "AIB W7 · Pixel-level segmentation",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-169",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SPATIAL LEARNING | CNN, FULLY CONVOLUTIONAL NETWORKS AND OBJECT DETECTION",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-169",
-  "module": "AIB",
-  "week": 7,
-  "topic": "LSTM and ordered measurements",
-  "stem": "Why might a long short-term memory (LSTM) network be evaluated for a stream of river sensor measurements?",
-  "choices": [
-    "It guarantees better accuracy than every seasonal baseline",
-    "Its gated state can learn temporal dependencies across observations",
-    "It ignores measurement order by design",
-    "It converts every time series into an image without preprocessing"
-  ],
-  "correct": 1,
-  "explanation": "LSTM gates help model information across time steps and mitigate some long-range dependency difficulties. This is a modelling capability, not a guarantee of superiority over simpler forecasting methods.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "LSTM and ordered measurements",
+    "stem": "Why might a long short-term memory (LSTM) network be evaluated for a stream of river sensor measurements?",
+    "choices": [
+      "It guarantees better accuracy than every seasonal baseline",
+      "Its gated state can learn temporal dependencies across observations",
+      "It ignores measurement order by design",
+      "It converts every time series into an image without preprocessing"
+    ],
+    "correct": 1,
+    "explanation": "LSTM gates help model information across time steps and mitigate some long-range dependency difficulties. This is a modelling capability, not a guarantee of superiority over simpler forecasting methods.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Hochreiter & Schmidhuber (1997), Long Short-Term Memory",
-    "url": "https://doi.org/10.1162/neco.1997.9.8.1735",
-    "scope": "AIB W7 · LSTM and ordered measurements",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Hochreiter & Schmidhuber (1997), Long Short-Term Memory",
+      "url": "https://doi.org/10.1162/neco.1997.9.8.1735",
+      "scope": "AIB W7 · LSTM and ordered measurements",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-170",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, SEQUENTIAL LEARNING | RNN, LSTM AND MULTIVARIATE FORECASTING",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-170",
-  "module": "AIB",
-  "week": 7,
-  "topic": "VAE latent regularisation",
-  "stem": "What is a principal purpose of the Kullback–Leibler (KL) divergence term in a variational autoencoder (VAE) objective?",
-  "choices": [
-    "To force all reconstructions to be pixel-perfect",
-    "To regularise the approximate latent posterior toward a chosen prior distribution",
-    "To replace the decoder with an object detector",
-    "To guarantee that generated samples are free from bias"
-  ],
-  "correct": 1,
-  "explanation": "The KL term penalises divergence from the prior as part of the variational objective. It neither guarantees exact reconstructions nor removes the decoder or assures fairness.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "VAE latent regularisation",
+    "stem": "What is a principal purpose of the Kullback–Leibler (KL) divergence term in a variational autoencoder (VAE) objective?",
+    "choices": [
+      "To force all reconstructions to be pixel-perfect",
+      "To regularise the approximate latent posterior toward a chosen prior distribution",
+      "To replace the decoder with an object detector",
+      "To guarantee that generated samples are free from bias"
+    ],
+    "correct": 1,
+    "explanation": "The KL term penalises divergence from the prior as part of the variational objective. It neither guarantees exact reconstructions nor removes the decoder or assures fairness.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Kingma & Welling (2014), Auto-Encoding Variational Bayes",
-    "url": "https://arxiv.org/abs/1312.6114",
-    "scope": "AIB W7 · VAE latent regularisation",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Kingma & Welling (2014), Auto-Encoding Variational Bayes",
+      "url": "https://arxiv.org/abs/1312.6114",
+      "scope": "AIB W7 · VAE latent regularisation",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-171",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-171",
-  "module": "AIB",
-  "week": 7,
-  "topic": "Diffusion and product design",
-  "stem": "A fashion retailer uses a diffusion model to propose novel clothing images. What is the defensible business interpretation?",
-  "choices": [
-    "Generated images prove the garments can be manufactured within budget",
-    "Diffusion generation can aid concept exploration, but feasibility and intellectual-property checks remain necessary",
-    "The model must be a recurrent neural network",
-    "The generated concepts have already passed customer testing"
-  ],
-  "correct": 1,
-  "explanation": "Diffusion models can synthesise imagery through learned denoising, but image quality is not evidence of manufacturability, customer demand, intellectual-property clearance or cost compliance.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Diffusion and product design",
+    "stem": "A fashion retailer uses a diffusion model to propose novel clothing images. What is the defensible business interpretation?",
+    "choices": [
+      "Generated images prove the garments can be manufactured within budget",
+      "Diffusion generation can aid concept exploration, but feasibility and intellectual-property checks remain necessary",
+      "The model must be a recurrent neural network",
+      "The generated concepts have already passed customer testing"
+    ],
+    "correct": 1,
+    "explanation": "Diffusion models can synthesise imagery through learned denoising, but image quality is not evidence of manufacturability, customer demand, intellectual-property clearance or cost compliance.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Ho, Jain, & Abbeel (2020), Denoising Diffusion Probabilistic Models",
-    "url": "https://arxiv.org/abs/2006.11239",
-    "scope": "AIB W7 · Diffusion and product design",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Ho, Jain, & Abbeel (2020), Denoising Diffusion Probabilistic Models",
+      "url": "https://arxiv.org/abs/2006.11239",
+      "scope": "AIB W7 · Diffusion and product design",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-172",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, LATENT REPRESENTATIONS | AUTOENCODERS, VAEs AND DIFFUSION",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-172",
-  "module": "AIB",
-  "week": 7,
-  "topic": "GPU and host-transfer bottlenecks",
-  "stem": "A GPU has high on-device memory bandwidth, but a pipeline is slow when moving batches from host RAM to the accelerator. Which diagnosis is most precise?",
-  "choices": [
-    "GPU memory bandwidth and host-device transfer bandwidth are identical",
-    "The host-device link and data-loading pipeline may bottleneck throughput despite fast GPU memory",
-    "The solution must be to train on CPUs only",
-    "Increasing the number of classes always eliminates transfer overhead"
-  ],
-  "correct": 1,
-  "explanation": "Bandwidth within GPU memory differs from bandwidth over a CPU–GPU interconnect. Loading and transfer costs can dominate even when the accelerator has high internal bandwidth.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "GPU and host-transfer bottlenecks",
+    "stem": "A GPU has high on-device memory bandwidth, but a pipeline is slow when moving batches from host RAM to the accelerator. Which diagnosis is most precise?",
+    "choices": [
+      "GPU memory bandwidth and host-device transfer bandwidth are identical",
+      "The host-device link and data-loading pipeline may bottleneck throughput despite fast GPU memory",
+      "The solution must be to train on CPUs only",
+      "Increasing the number of classes always eliminates transfer overhead"
+    ],
+    "correct": 1,
+    "explanation": "Bandwidth within GPU memory differs from bandwidth over a CPU–GPU interconnect. Loading and transfer costs can dominate even when the accelerator has high internal bandwidth.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 12: Large-Scale Deep Learning",
-    "url": "https://www.deeplearningbook.org/",
-    "scope": "AIB W7 · GPU and host-transfer bottlenecks",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "Goodfellow, Bengio, & Courville (2016), Chapter 12: Large-Scale Deep Learning",
+      "url": "https://www.deeplearningbook.org/",
+      "scope": "AIB W7 · GPU and host-transfer bottlenecks",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
+  {
+    "id": "d4b-173",
     "module": "AIB",
     "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, INFRASTRUCTURE | GPUs, CUDA, MEMORY AND DISTRIBUTED TRAINING",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-173",
-  "module": "AIB",
-  "week": 7,
-  "topic": "Leakage in time-series preprocessing",
-  "stem": "A tutorial fits a MinMaxScaler to an entire time series before splitting earlier training months from later test months. What should a production-minded evaluation change?",
-  "choices": [
-    "Keep the approach because scaling cannot leak information",
-    "Fit the scaler only on training-period observations and apply that fitted transformation to later data",
-    "Randomly shuffle all timestamps so future information is mixed evenly",
-    "Calculate the test period's minimum and maximum before training to improve realism"
-  ],
-  "correct": 1,
-  "explanation": "Fitting preprocessing on the full series leaks information from the held-out future into training. Split chronologically first; fit the scaler on training data and transform later periods without refitting.",
-  "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Leakage in time-series preprocessing",
+    "stem": "A tutorial fits a MinMaxScaler to an entire time series before splitting earlier training months from later test months. What should a production-minded evaluation change?",
+    "choices": [
+      "Keep the approach because scaling cannot leak information",
+      "Fit the scaler only on training-period observations and apply that fitted transformation to later data",
+      "Randomly shuffle all timestamps so future information is mixed evenly",
+      "Calculate the test period's minimum and maximum before training to improve realism"
+    ],
+    "correct": 1,
+    "explanation": "Fitting preprocessing on the full series leaks information from the held-out future into training. Split chronologically first; fit the scaler on training data and transform later periods without refitting.",
     "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-29",
-    "locator": "scikit-learn, Common pitfalls, Data leakage (accessed 2026-10-29)",
-    "url": "https://scikit-learn.org/stable/common_pitfalls",
-    "scope": "AIB W7 · Leakage in time-series preprocessing",
-    "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
-    "teaching_material_checked": true,
-    "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-29",
+      "locator": "scikit-learn, Common pitfalls, Data leakage (accessed 2026-10-29)",
+      "url": "https://scikit-learn.org/stable/common_pitfalls",
+      "scope": "AIB W7 · Leakage in time-series preprocessing",
+      "method": "Original four-choice practice question independently evaluated against the cited academic or technical source; keyed answer and each of the three distractors checked for conceptual accuracy. Authorised W7 booklet read, Deep_Learning_Beginner_Notes.pdf and RNN/LSTM tutorial PDF inspected; no copyrighted Moodle wording used. Independent source verification does not imply Moodle grading.",
+      "teaching_material_checked": true,
+      "teaching_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "module": "AIB",
+      "week": 7,
+      "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
+      "reviewed_at": "2026-10-29",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "module": "AIB",
-    "week": 7,
-    "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
-    "reviewed_at": "2026-10-29",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-174",
-  "module": "INN",
-  "week": 7,
-  "topic": "Workforce readiness before scaling",
-  "stem": "A firm expands generative-AI access faster than employees learn to use it reliably. Which response best addresses the underlying implementation risk?",
-  "choices": [
-    "Buy more licences immediately and postpone training",
-    "Train staff and validate performance in a limited deployment before scaling",
-    "Judge success solely by the number of enabled accounts",
-    "Assume that output quality cannot depend on workforce skills"
-  ],
-  "correct": 1,
-  "explanation": "Training and a limited evaluation address capability gaps before broad exposure. Access counts alone do not establish reliable or responsible adoption.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
-    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Govern 2.2; Map and Measure",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Workforce readiness before scaling",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: deployment and workforce-skills interaction",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
-  },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-174",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: deployment and workforce-skills interaction",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-175",
-  "module": "INN",
-  "week": 7,
-  "topic": "Delayed effects of organisational decisions",
-  "stem": "An AI rollout improves the quarterly productivity dashboard, but customer complaints rise two quarters later. Which interpretation is most defensible?",
-  "choices": [
-    "The later complaints cannot be related to earlier deployment decisions",
-    "The earlier intervention may have delayed downstream effects that require investigation",
-    "A short-term productivity increase proves the rollout has no trade-offs",
-    "The complaints establish that every AI rollout fails"
-  ],
-  "correct": 1,
-  "explanation": "A delayed consequence can obscure causal links. Investigate the implementation timeline, affected stakeholders and quality measures rather than inferring success or failure from one indicator.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Workforce readiness before scaling",
+    "stem": "A firm expands generative-AI access faster than employees learn to use it reliably. Which response best addresses the underlying implementation risk?",
+    "choices": [
+      "Buy more licences immediately and postpone training",
+      "Train staff and validate performance in a limited deployment before scaling",
+      "Judge success solely by the number of enabled accounts",
+      "Assume that output quality cannot depend on workforce skills"
+    ],
+    "correct": 1,
+    "explanation": "Training and a limited evaluation address capability gaps before broad exposure. Access counts alone do not establish reliable or responsible adoption.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Map 5.2; Measure 5.3",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Delayed effects of organisational decisions",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: delayed customer-trust and output-quality feedback",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Govern 2.2; Map and Measure",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Workforce readiness before scaling",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: deployment and workforce-skills interaction",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-175",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: delayed customer-trust and output-quality feedback",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-176",
-  "module": "INN",
-  "week": 7,
-  "topic": "Pilot as an information-gathering intervention",
-  "stem": "A transformation team has uncertain evidence about how an AI assistant will affect employees and customers. What is the strongest reason to pilot before company-wide deployment?",
-  "choices": [
-    "A pilot guarantees the technology will work equally well everywhere",
-    "A pilot can expose context-specific failure modes and inform a safer scale-up decision",
-    "A pilot removes the need to monitor the later full deployment",
-    "A pilot substitutes for all governance and staff training"
-  ],
-  "correct": 1,
-  "explanation": "A bounded pilot provides evidence about performance and stakeholder impacts. It reduces uncertainty but cannot guarantee generalisability or replace ongoing governance.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Delayed effects of organisational decisions",
+    "stem": "An AI rollout improves the quarterly productivity dashboard, but customer complaints rise two quarters later. Which interpretation is most defensible?",
+    "choices": [
+      "The later complaints cannot be related to earlier deployment decisions",
+      "The earlier intervention may have delayed downstream effects that require investigation",
+      "A short-term productivity increase proves the rollout has no trade-offs",
+      "The complaints establish that every AI rollout fails"
+    ],
+    "correct": 1,
+    "explanation": "A delayed consequence can obscure causal links. Investigate the implementation timeline, affected stakeholders and quality measures rather than inferring success or failure from one indicator.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Map 5.2; Measure 5.3",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Pilot as an information-gathering intervention",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: pilot report and exploration before scaling",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Map 5.2; Measure 5.3",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Delayed effects of organisational decisions",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: delayed customer-trust and output-quality feedback",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-176",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: pilot report and exploration before scaling",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-177",
-  "module": "INN",
-  "week": 7,
-  "topic": "Governance of unsanctioned AI use",
-  "stem": "Employees begin entering client information into personal AI services without an organisational policy. What should leadership prioritise?",
-  "choices": [
-    "Ignore the practice because no official AI deployment has been authorised",
-    "Establish approved-use rules, data protections, accountability and monitoring",
-    "Ban all staff feedback so the practice remains invisible",
-    "Measure only whether the practice reduces software licence costs"
-  ],
-  "correct": 1,
-  "explanation": "Shadow use can create privacy and compliance risks even without a formal rollout. Clear governance, oversight and monitoring address those risks.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Pilot as an information-gathering intervention",
+    "stem": "A transformation team has uncertain evidence about how an AI assistant will affect employees and customers. What is the strongest reason to pilot before company-wide deployment?",
+    "choices": [
+      "A pilot guarantees the technology will work equally well everywhere",
+      "A pilot can expose context-specific failure modes and inform a safer scale-up decision",
+      "A pilot removes the need to monitor the later full deployment",
+      "A pilot substitutes for all governance and staff training"
+    ],
+    "correct": 1,
+    "explanation": "A bounded pilot provides evidence about performance and stakeholder impacts. It reduces uncertainty but cannot guarantee generalisability or replace ongoing governance.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Govern 1.1, 1.4 and 1.6; OECD human-centred values",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Governance of unsanctioned AI use",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: policy gaps and shadow-AI compliance risks",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Map 5.2; Measure 5.3",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Pilot as an information-gathering intervention",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: pilot report and exploration before scaling",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-177",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: policy gaps and shadow-AI compliance risks",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-178",
-  "module": "INN",
-  "week": 7,
-  "topic": "Hidden stakeholder outcomes",
-  "stem": "The board sees productivity and cost efficiency but not employee acceptance, customer trust or compliance risk. Which evaluation change is most appropriate?",
-  "choices": [
-    "Keep only the two visible metrics because they are easy to quantify",
-    "Include stakeholder and risk measures alongside operational indicators",
-    "Replace all quantitative measures with the chief executive's opinion",
-    "Treat an absence of reported incidents as proof of zero risk"
-  ],
-  "correct": 1,
-  "explanation": "Operational gains can coexist with negative effects elsewhere. A broader measurement framework should cover affected people and risk, not only short-term efficiency.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Governance of unsanctioned AI use",
+    "stem": "Employees begin entering client information into personal AI services without an organisational policy. What should leadership prioritise?",
+    "choices": [
+      "Ignore the practice because no official AI deployment has been authorised",
+      "Establish approved-use rules, data protections, accountability and monitoring",
+      "Ban all staff feedback so the practice remains invisible",
+      "Measure only whether the practice reduces software licence costs"
+    ],
+    "correct": 1,
+    "explanation": "Shadow use can create privacy and compliance risks even without a formal rollout. Clear governance, oversight and monitoring address those risks.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Map 5.2; Measure 5.3; OECD inclusive well-being",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Hidden stakeholder outcomes",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: board dashboard versus less visible outcomes",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Govern 1.1, 1.4 and 1.6; OECD human-centred values",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Governance of unsanctioned AI use",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: policy gaps and shadow-AI compliance risks",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-178",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: board dashboard versus less visible outcomes",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-179",
-  "module": "INN",
-  "week": 7,
-  "topic": "Adapting to changed success criteria",
-  "stem": "Halfway through a six-quarter AI programme, the board adds customer trust and compliance to its success criteria. What should a responsible manager do?",
-  "choices": [
-    "Continue the original allocation unchanged because initial plans are binding",
-    "Reassess risks, trade-offs and resources against the revised objectives",
-    "Remove the new criteria from the final report",
-    "Optimise the original productivity target and assume the others will follow"
-  ],
-  "correct": 1,
-  "explanation": "Risk management and implementation should be iterative. When objectives or context change, reassess the evidence and adjust priorities transparently.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Hidden stakeholder outcomes",
+    "stem": "The board sees productivity and cost efficiency but not employee acceptance, customer trust or compliance risk. Which evaluation change is most appropriate?",
+    "choices": [
+      "Keep only the two visible metrics because they are easy to quantify",
+      "Include stakeholder and risk measures alongside operational indicators",
+      "Replace all quantitative measures with the chief executive's opinion",
+      "Treat an absence of reported incidents as proof of zero risk"
+    ],
+    "correct": 1,
+    "explanation": "Operational gains can coexist with negative effects elsewhere. A broader measurement framework should cover affected people and risk, not only short-term efficiency.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Core: iterative risk management; Manage 5.4",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Adapting to changed success criteria",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: mid-programme change of goals",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Map 5.2; Measure 5.3; OECD inclusive well-being",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Hidden stakeholder outcomes",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: board dashboard versus less visible outcomes",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-179",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: mid-programme change of goals",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-180",
-  "module": "INN",
-  "week": 7,
-  "topic": "Surveys as measurement, not instant repair",
-  "stem": "An organisation runs staff interviews and customer surveys during an AI transition. What is the principal immediate benefit?",
-  "choices": [
-    "Surveys automatically raise employee skills and customer trust",
-    "They reveal information about stakeholder experiences that dashboards may miss",
-    "They eliminate all uncertainty about future outcomes",
-    "They make follow-up actions and testing unnecessary"
-  ],
-  "correct": 1,
-  "explanation": "Listening improves situational awareness and helps identify risks. Information gathering does not itself guarantee improved outcomes; findings still require decisions and follow-up.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Adapting to changed success criteria",
+    "stem": "Halfway through a six-quarter AI programme, the board adds customer trust and compliance to its success criteria. What should a responsible manager do?",
+    "choices": [
+      "Continue the original allocation unchanged because initial plans are binding",
+      "Reassess risks, trade-offs and resources against the revised objectives",
+      "Remove the new criteria from the final report",
+      "Optimise the original productivity target and assume the others will follow"
+    ],
+    "correct": 1,
+    "explanation": "Risk management and implementation should be iterative. When objectives or context change, reassess the evidence and adjust priorities transparently.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Map 5.2; Measure 5.3",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Surveys as measurement, not instant repair",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: surveys and deeper study of hidden indicators",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Core: iterative risk management; Manage 5.4",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Adapting to changed success criteria",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: mid-programme change of goals",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-180",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: surveys and deeper study of hidden indicators",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-181",
-  "module": "INN",
-  "week": 7,
-  "topic": "Communicating customer-facing automation",
-  "stem": "A company introduces an AI customer-service assistant and notices declining trust. Which action best supports accountable communication?",
-  "choices": [
-    "Conceal that customers are interacting with AI",
-    "Disclose the AI interaction, explain its limitations and provide a way to seek human review",
-    "Claim the system is always accurate to reassure customers",
-    "Stop collecting feedback because complaints may harm performance statistics"
-  ],
-  "correct": 1,
-  "explanation": "Meaningful disclosure and a route to question harmful or incorrect outcomes support transparency and human agency. Concealment or unqualified claims undermine these principles.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Surveys as measurement, not instant repair",
+    "stem": "An organisation runs staff interviews and customer surveys during an AI transition. What is the principal immediate benefit?",
+    "choices": [
+      "Surveys automatically raise employee skills and customer trust",
+      "They reveal information about stakeholder experiences that dashboards may miss",
+      "They eliminate all uncertainty about future outcomes",
+      "They make follow-up actions and testing unnecessary"
+    ],
+    "correct": 1,
+    "explanation": "Listening improves situational awareness and helps identify risks. Information gathering does not itself guarantee improved outcomes; findings still require decisions and follow-up.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "OECD Transparency and Explainability 1.3",
-    "url": "https://oecd.ai/en/dashboards/ai-principles/P7",
-    "scope": "INN W7 · Communicating customer-facing automation",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: customer communication and automation-related trust",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Map 5.2; Measure 5.3",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Surveys as measurement, not instant repair",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: surveys and deeper study of hidden indicators",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-181",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: customer communication and automation-related trust",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-182",
-  "module": "INN",
-  "week": 7,
-  "topic": "Weak signals in a noisy inbox",
-  "stem": "A transformation manager receives many routine messages alongside repeated warnings about AI quality and staff anxiety. What is the best response?",
-  "choices": [
-    "Treat every message as equally reliable and urgent",
-    "Triangulate credible warning signals and investigate them before harms escalate",
-    "Discard all qualitative messages because they are not dashboard metrics",
-    "Wait for the final-quarter score before considering any warning"
-  ],
-  "correct": 1,
-  "explanation": "Early qualitative warnings can identify risks not yet reflected in aggregate metrics. Prioritisation and corroboration are preferable to either indiscriminate reaction or dismissal.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Communicating customer-facing automation",
+    "stem": "A company introduces an AI customer-service assistant and notices declining trust. Which action best supports accountable communication?",
+    "choices": [
+      "Conceal that customers are interacting with AI",
+      "Disclose the AI interaction, explain its limitations and provide a way to seek human review",
+      "Claim the system is always accurate to reassure customers",
+      "Stop collecting feedback because complaints may harm performance statistics"
+    ],
+    "correct": 1,
+    "explanation": "Meaningful disclosure and a route to question harmful or incorrect outcomes support transparency and human agency. Concealment or unqualified claims undermine these principles.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Map 5.2; Measure 5.3; Manage 5.4",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Weak signals in a noisy inbox",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: inbox warning signals and delayed impacts",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "OECD Transparency and Explainability 1.3",
+      "url": "https://oecd.ai/en/dashboards/ai-principles/P7",
+      "scope": "INN W7 · Communicating customer-facing automation",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: customer communication and automation-related trust",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-182",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: inbox warning signals and delayed impacts",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
-  }
-},
-{
-  "id": "d4b-183",
-  "module": "INN",
-  "week": 7,
-  "topic": "Interdependence of automation outcomes",
-  "stem": "Customer-service automation reduces immediate operating costs but increases employee anxiety and customer complaints. What is the strongest management conclusion?",
-  "choices": [
-    "Cost savings alone establish that the intervention was successful",
-    "Assess interacting operational, workforce and customer effects before extending automation",
-    "Employee and customer impacts cannot affect the sustainability of the rollout",
-    "Any adverse effect means automation must be prohibited permanently"
-  ],
-  "correct": 1,
-  "explanation": "An intervention can create benefits and harms across interdependent parts of an organisation. Decisions should balance evidence, stakeholder impacts and risk rather than rely on one outcome.",
-  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-  "origin": "booklet-derived",
-  "verification": "verified",
-  "evidence": {
+    "topic": "Weak signals in a noisy inbox",
+    "stem": "A transformation manager receives many routine messages alongside repeated warnings about AI quality and staff anxiety. What is the best response?",
+    "choices": [
+      "Treat every message as equally reliable and urgent",
+      "Triangulate credible warning signals and investigate them before harms escalate",
+      "Discard all qualitative messages because they are not dashboard metrics",
+      "Wait for the final-quarter score before considering any warning"
+    ],
+    "correct": 1,
+    "explanation": "Early qualitative warnings can identify risks not yet reflected in aggregate metrics. Prioritisation and corroboration are preferable to either indiscriminate reaction or dismissal.",
     "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
-    "originalMaterialChecked": true,
-    "reviewed_at": "2026-10-30",
-    "locator": "NIST Map 5.2; OECD Inclusive growth and well-being",
-    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
-    "scope": "INN W7 · Interdependence of automation outcomes",
-    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
-    "teaching_material_checked": true,
-    "teaching_locator": "The Rollout: automation, efficiency and stakeholder trade-offs",
-    "key_checked": 1,
-    "distractor_indices_checked": [
-      0,
-      2,
-      3
-    ]
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Map 5.2; Measure 5.3; Manage 5.4",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Weak signals in a noisy inbox",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: inbox warning signals and delayed impacts",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   },
-  "course_alignment": {
-    "status": "supported",
-    "source_type": "original D4B interactive teaching activity",
+  {
+    "id": "d4b-183",
     "module": "INN",
     "week": 7,
-    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026) | The Rollout: automation, efficiency and stakeholder trade-offs",
-    "reviewed_at": "2026-10-30",
-    "original_moodle_key_checked": false,
-    "original_lecture_slides_directly_checked": false
+    "topic": "Interdependence of automation outcomes",
+    "stem": "Customer-service automation reduces immediate operating costs but increases employee anxiety and customer complaints. What is the strongest management conclusion?",
+    "choices": [
+      "Cost savings alone establish that the intervention was successful",
+      "Assess interacting operational, workforce and customer effects before extending automation",
+      "Employee and customer impacts cannot affect the sustainability of the rollout",
+      "Any adverse effect means automation must be prohibited permanently"
+    ],
+    "correct": 1,
+    "explanation": "An intervention can create benefits and harms across interdependent parts of an organisation. Decisions should balance evidence, stakeholder impacts and risk rather than rely on one outcome.",
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-10-30",
+      "locator": "NIST Map 5.2; OECD Inclusive growth and well-being",
+      "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+      "scope": "INN W7 · Interdependence of automation outcomes",
+      "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+      "teaching_material_checked": true,
+      "teaching_locator": "The Rollout: automation, efficiency and stakeholder trade-offs",
+      "key_checked": 1,
+      "distractor_indices_checked": [
+        0,
+        2,
+        3
+      ]
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B interactive teaching activity",
+      "module": "INN",
+      "week": 7,
+      "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+      "reviewed_at": "2026-10-30",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
   }
-}
 ]);
