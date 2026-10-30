@@ -339,6 +339,32 @@
       "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/266",
       "merge_commit": "d2606fdbcacb4f49cdf5a27d7fc78451a905fac7",
       "review_scope": "Ten original four-choice practice questions with separately recorded course alignment and independent academic verification of each keyed answer and distractors. Authorised booklet and W7 beginner notes, Colab notebook and PDF inspected directly. Official Moodle 30/30 grade is private historical evidence, not the official key for these original public questions. The notebook's LSTM path fits MinMaxScaler before chronological split and uses a one-step input shape; these are flagged as methodological limitations. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. GitHub Actions does not access private Drive."
+    },
+    {
+      "id": "d4b-source-release-20261030-inn-w7-rollout",
+      "accepted_at": "2026-10-30T09:28:28Z",
+      "source_id": "drive",
+      "source_name": "Private D4B Drive (connected ChatGPT review)",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "material": "Innovation Week 07 · Complexity and AI Rollout (Topic 4: Entrepreneurial Communication Strategies)",
+      "module": "INN",
+      "week": 7,
+      "material_version": "Authorised interactive 'The Rollout' HTML teaching activity created 2026-10-29T17:59:28Z, LMS page export created 2026-10-29T19:02:35Z; reviewed 2026-10-30. Canonical Innovation booklet last modified 2026-10-19, so new Week 07 content originates from the teaching activity, not a revised booklet.",
+      "question_ids": [
+        "d4b-174",
+        "d4b-175",
+        "d4b-176",
+        "d4b-177",
+        "d4b-178",
+        "d4b-179",
+        "d4b-180",
+        "d4b-181",
+        "d4b-182",
+        "d4b-183"
+      ],
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/269",
+      "merge_commit": "33b2d461a6666ad50c5f91299074292c6603ac5a",
+      "review_scope": "Ten original four-choice practice questions on delayed feedback, workforce skills, pilots, governance, hidden stakeholder outcomes, changing objectives, listening, transparency, weak signals and trade-offs. Course alignment checked directly against the authorised interactive teaching activity; keyed answers and all three distractors independently checked against NIST AI RMF and OECD AI Principles. No official Week 07 Moodle graded key recovered; source HTML and private Moodle originals remain private. Peer-site page shells could not be semantically retrieved. GitHub Actions does not read the private Drive."
     }
   ],
   "verification_events": [
