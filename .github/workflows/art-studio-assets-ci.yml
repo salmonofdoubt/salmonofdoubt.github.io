@@ -17,10 +17,6 @@ on:
       - "art/data/studio-related.json"
       - "tools/art_curator_server.py"
       - "tools/art_studio_assets.py"
-      - "tools/art_publish.py"
-      - "art/assets/art-publish-manager.js"
-      - "art/assets/art-publish-manager.css"
-      - "tests/test_art_publish.py"
       - "tools/art_google_photos.py"
       - "tools/build_art_gallery_static.py"
       - "tests/test_art_studio_assets.py"
@@ -48,17 +44,15 @@ jobs:
           node-version: "22"
       - name: Syntax checks
         run: |
-          python -m py_compile tools/art_google_photos.py tools/art_related.py tools/art_studio_assets.py tools/art_publish.py tools/art_curator_server.py tools/build_art_gallery_static.py
+          python -m py_compile tools/art_google_photos.py tools/art_related.py tools/art_studio_assets.py tools/art_curator_server.py tools/build_art_gallery_static.py
           node --check art/assets/art-related.js
           node --check art/assets/art-studio-manager.js
           node --check art/assets/art-related-manager.js
           node --check art/assets/art-google-photos-upload.js
           node --check art/assets/art-upload-destination.js
-          node --check art/assets/art-publish-manager.js
       - name: Existing relationship isolation and archive tests
         run: |
           python -m unittest discover -s tests -p 'test_art_studio_assets.py' -v
-          python -m unittest discover -s tests -p 'test_art_publish.py' -v
           python -m unittest discover -s tests -p 'test_art_studio_room.py' -v
           python -m unittest discover -s tests -p 'test_art_google_photos.py' -v
           node tests/test_art_unified_upload.cjs

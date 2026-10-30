@@ -245,6 +245,10 @@ def room_tile_html(collection: dict, items: list[dict], curation: dict) -> str:
       </a>'''
 
 
+def david_filmstrip_html() -> str:
+    return (Path(__file__).parent / "templates" / "art-david-filmstrip.html").read_text(encoding="utf-8")
+
+
 def home_page_html(grouped: dict[str, list[dict]], curation: dict) -> str:
     hero = choose_home_hero(grouped, curation)
     tiles = "\n".join(room_tile_html(collection, grouped.get(collection["name"], []), curation) for collection in COLLECTIONS)
@@ -259,6 +263,7 @@ def home_page_html(grouped: dict[str, list[dict]], curation: dict) -> str:
   <meta name="description" content="DiAndré, the visual art practice of André Baumann: oil paintings, watercolours, drawings, experimental work and geospatial imagery.">
   <link rel="stylesheet" href="../assets/css/site.css">
   <link rel="stylesheet" href="assets/art-gallery.css?v=20260926-related-1">
+  <link rel="stylesheet" href="assets/david-filmstrip.css?v=20261008-1">
 </head>
 <body class="art-body art-home">
   <header class="site-header">
@@ -297,6 +302,7 @@ def home_page_html(grouped: dict[str, list[dict]], curation: dict) -> str:
       </div>
     </section>
 
+{david_filmstrip_html()}
     <section class="documentation-callout about-callout" aria-labelledby="about-title">
       <div>
         <strong id="about-title">About</strong>

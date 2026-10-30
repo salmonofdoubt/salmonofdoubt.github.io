@@ -16,7 +16,6 @@ from urllib.parse import unquote, urlparse
 
 import html
 import art_google_photos as google_photos
-import art_publish
 
 from art_studio_assets import (
     bulk_link_assets as studio_bulk_link_assets,
@@ -271,21 +270,6 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def publish_same_origin(self) -> bool:
-        """Strictly local publication capability. Refuse cross-site browser calls."""
-        port = int(os.environ.get("ART_CURATOR_PORT", "8000"))
-        allowed = {f"localhost:{port}", f"127.0.0.1:{port}"}
-        host = self.headers.get("Host", "")
-        if host not in allowed:
-            return False
-        origin = self.headers.get("Origin")
-        if origin and origin not in {"http://" + host}:
-            return False
-        fetch_site = self.headers.get("Sec-Fetch-Site", "")
-        if fetch_site not in {"", "same-origin", "none"}:
-            return False
-        return True
-
     def read_payload(self) -> dict:
         length = int(self.headers.get("Content-Length", "0"))
         raw = self.rfile.read(length).decode("utf-8")
@@ -304,40 +288,6 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
-
-        if path == "/api/art-publish/review":
-            if not self.publish_same_origin():
-                self.send_json(403, {"ok": False, "error": "Open ARTS Manager on localhost to review publication."})
-                return
-            try:
-                self.send_json(200, art_publish.review())
-            except art_publish.PublishError as exc:
-                self.send_json(409, {"ok": False, "error": str(exc)})
-            return
-
-        if path == "/api/art-publish/status":
-            if not self.publish_same_origin():
-                self.send_json(403, {"ok": False, "error": "Local ARTS Manager only."})
-                return
-            try:
-                report = art_publish.review()
-                self.send_json(200, {"ok": True, "pending": len(report["files"]),
-                                     "excluded": len(report["excluded"]),
-                                     "branch": report["branch"]})
-            except art_publish.PublishError as exc:
-                self.send_json(409, {"ok": False, "error": str(exc)})
-            return
-
-        if path == "/api/art-publish/publish-review":
-            if not self.publish_same_origin():
-                self.send_json(403, {"ok": False, "error": "Local ARTS Manager only."})
-                return
-            try:
-                self.send_json(200, art_publish.publish_review())
-            except art_publish.PublishError as exc:
-                self.send_json(409, {"ok": False, "error": str(exc)})
-            return
-
 
         if path == "/api/google-photos/status":
             self.send_json(200, {"ok": True, **google_photos.public_status()})
@@ -532,32 +482,6 @@ window.close();}</script>"""
         path = urlparse(self.path).path
 
         try:
-            if path in {"/api/art-publish/commit", "/api/art-publish/push"}:
-                if not self.publish_same_origin():
-                    self.send_json(403, {"ok": False, "error": "Open the local ARTS Manager to publish."})
-                    return
-                if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
-                    self.send_json(415, {"ok": False, "error": "JSON request required."})
-                    return
-                if int(self.headers.get("Content-Length", "0")) > 4096:
-                    self.send_json(413, {"ok": False, "error": "Publication request too large."})
-                    return
-                payload = self.read_payload()
-                try:
-                    if path.endswith("/commit"):
-                        result = art_publish.commit(
-                            str(payload.get("reviewToken") or ""),
-                            str(payload.get("message") or ""))
-                    else:
-                        result = art_publish.publish(
-                            str(payload.get("reviewToken") or ""),
-                            str(payload.get("confirmation") or ""))
-                except art_publish.PublishError as exc:
-                    self.send_json(409, {"ok": False, "error": str(exc)})
-                    return
-                self.send_json(200, result)
-                return
-
             if path in {"/api/google-photos/configure", "/api/google-photos/start",
                         "/api/google-photos/import", "/api/google-photos/import-artworks",
                         "/api/google-photos/cancel",
