@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-10-30T09:29:18.797Z",
+  "last_checked_at": "2026-10-30T09:30:49.361Z",
   "last_consolidated_at": "2026-10-30T09:29:18.797Z",
   "last_question_bank_change_at": "2026-10-30T09:29:18.797Z",
   "content_fingerprint": "d8b6fbe1cd97a0ceeeb51fe05e77c142526c091420771cc35f9955955549eeb5",
-  "content_changed": true,
+  "content_changed": false,
   "bank_fingerprint": "5a13cedd53918b26e57040e43ef30b5021cc758447ff0970d1a56bed01c44709",
   "question_count": 183,
   "question_status": {
@@ -49,39 +49,64 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-10-30T09:29:18.797Z",
-    "last_automated_check_at": "2026-10-30T09:29:16.201Z",
-    "last_automation_ingest_at": "2026-10-30T09:29:18.703Z",
+    "updated_at": "2026-10-30T09:30:49.361Z",
+    "last_automated_check_at": "2026-10-30T09:30:47.558Z",
+    "last_automation_ingest_at": "2026-10-30T09:30:49.260Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
     "staged_already_present": 72,
     "last_reviewed_material_release": {
-      "id": "d4b-source-release-20261029-aib-w7-deep-learning",
-      "accepted_at": "2026-10-29T08:39:21Z",
+      "id": "d4b-source-release-20261030-inn-w7-rollout",
+      "accepted_at": "2026-10-30T09:28:28Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "material": "AI for Business Week 07 · Introduction to Deep Learning",
-      "module": "AIB",
+      "material": "Innovation Week 07 · Complexity and AI Rollout (Topic 4: Entrepreneurial Communication Strategies)",
+      "module": "INN",
       "week": 7,
       "question_count": 10,
       "question_ids": [
-        "d4b-164",
-        "d4b-165",
-        "d4b-166",
-        "d4b-167",
-        "d4b-168",
-        "d4b-169",
-        "d4b-170",
-        "d4b-171",
-        "d4b-172",
-        "d4b-173"
+        "d4b-174",
+        "d4b-175",
+        "d4b-176",
+        "d4b-177",
+        "d4b-178",
+        "d4b-179",
+        "d4b-180",
+        "d4b-181",
+        "d4b-182",
+        "d4b-183"
       ],
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/266",
-      "review_scope": "Ten original four-choice practice questions with separately recorded course alignment and independent academic verification of each keyed answer and distractors. Authorised booklet and W7 beginner notes, Colab notebook and PDF inspected directly. Official Moodle 30/30 grade is private historical evidence, not the official key for these original public questions. The notebook's LSTM path fits MinMaxScaler before chronological split and uses a one-step input shape; these are flagged as methodological limitations. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. GitHub Actions does not access private Drive."
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/269",
+      "review_scope": "Ten original four-choice practice questions on delayed feedback, workforce skills, pilots, governance, hidden stakeholder outcomes, changing objectives, listening, transparency, weak signals and trade-offs. Course alignment checked directly against the authorised interactive teaching activity; keyed answers and all three distractors independently checked against NIST AI RMF and OECD AI Principles. No official Week 07 Moodle graded key recovered; source HTML and private Moodle originals remain private. Peer-site page shells could not be semantically retrieved. GitHub Actions does not read the private Drive."
     },
     "recent_reviewed_material_releases": [
+      {
+        "id": "d4b-source-release-20261030-inn-w7-rollout",
+        "accepted_at": "2026-10-30T09:28:28Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "material": "Innovation Week 07 · Complexity and AI Rollout (Topic 4: Entrepreneurial Communication Strategies)",
+        "module": "INN",
+        "week": 7,
+        "question_count": 10,
+        "question_ids": [
+          "d4b-174",
+          "d4b-175",
+          "d4b-176",
+          "d4b-177",
+          "d4b-178",
+          "d4b-179",
+          "d4b-180",
+          "d4b-181",
+          "d4b-182",
+          "d4b-183"
+        ],
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/269",
+        "review_scope": "Ten original four-choice practice questions on delayed feedback, workforce skills, pilots, governance, hidden stakeholder outcomes, changing objectives, listening, transparency, weak signals and trade-offs. Course alignment checked directly against the authorised interactive teaching activity; keyed answers and all three distractors independently checked against NIST AI RMF and OECD AI Principles. No official Week 07 Moodle graded key recovered; source HTML and private Moodle originals remain private. Peer-site page shells could not be semantically retrieved. GitHub Actions does not read the private Drive."
+      },
       {
         "id": "d4b-source-release-20261029-aib-w7-deep-learning",
         "accepted_at": "2026-10-29T08:39:21Z",
@@ -196,59 +221,67 @@
         ],
         "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
         "review_scope": "Original practice questions; not copied Moodle originals. Course alignment and independent verification are item-specific. Historical Moodle assessment evidence is not imported by this event."
-      },
-      {
-        "id": "d4b-source-release-20261015-aib-w6",
-        "accepted_at": "2026-10-15T08:46:18Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "material": "AI for Business Week 06 · Automated Planning",
-        "module": "AIB",
-        "week": 6,
-        "question_count": 6,
-        "question_ids": [
-          "d4b-135",
-          "d4b-136",
-          "d4b-137",
-          "d4b-138",
-          "d4b-139",
-          "d4b-140"
-        ],
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/216",
-        "review_scope": "Original practice questions; not copied Moodle originals. Course alignment and independent verification are item-specific. Historical Moodle assessment evidence is not imported by this event."
       }
     ],
     "last_reviewed_release_group": {
-      "accepted_at": "2026-10-29T08:39:21Z",
+      "accepted_at": "2026-10-30T09:28:28Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/266",
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/269",
       "question_count": 10,
       "question_ids": [
-        "d4b-164",
-        "d4b-165",
-        "d4b-166",
-        "d4b-167",
-        "d4b-168",
-        "d4b-169",
-        "d4b-170",
-        "d4b-171",
-        "d4b-172",
-        "d4b-173"
+        "d4b-174",
+        "d4b-175",
+        "d4b-176",
+        "d4b-177",
+        "d4b-178",
+        "d4b-179",
+        "d4b-180",
+        "d4b-181",
+        "d4b-182",
+        "d4b-183"
       ],
       "module_weeks": [
         {
-          "module": "AIB",
+          "module": "INN",
           "week": 7,
           "question_count": 10,
-          "material": "AI for Business Week 07 · Introduction to Deep Learning"
+          "material": "Innovation Week 07 · Complexity and AI Rollout (Topic 4: Entrepreneurial Communication Strategies)"
         }
       ],
-      "material": "AIB W07"
+      "material": "INN W07"
     },
     "recent_reviewed_release_groups": [
+      {
+        "accepted_at": "2026-10-30T09:28:28Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/269",
+        "question_count": 10,
+        "question_ids": [
+          "d4b-174",
+          "d4b-175",
+          "d4b-176",
+          "d4b-177",
+          "d4b-178",
+          "d4b-179",
+          "d4b-180",
+          "d4b-181",
+          "d4b-182",
+          "d4b-183"
+        ],
+        "module_weeks": [
+          {
+            "module": "INN",
+            "week": 7,
+            "question_count": 10,
+            "material": "Innovation Week 07 · Complexity and AI Rollout (Topic 4: Entrepreneurial Communication Strategies)"
+          }
+        ],
+        "material": "INN W07"
+      },
       {
         "accepted_at": "2026-10-29T08:39:21Z",
         "source_id": "drive",
@@ -407,86 +440,9 @@
           }
         ],
         "material": "DTR W05"
-      },
-      {
-        "accepted_at": "2026-10-09T23:08:19Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/204",
-        "question_count": 16,
-        "question_ids": [
-          "d4b-106",
-          "d4b-107",
-          "d4b-108",
-          "d4b-109",
-          "d4b-110",
-          "d4b-111",
-          "d4b-112",
-          "d4b-113",
-          "d4b-114",
-          "d4b-115",
-          "d4b-116",
-          "d4b-117",
-          "d4b-118",
-          "d4b-119",
-          "d4b-120",
-          "d4b-121"
-        ],
-        "module_weeks": [
-          {
-            "module": "AIB",
-            "week": 3,
-            "question_count": 1,
-            "material": "AI for Business · Week 03 · underfitting diagnosis"
-          },
-          {
-            "module": "AIB",
-            "week": 4,
-            "question_count": 2,
-            "material": "AI for Business · Week 04 · resampling leakage and data suitability"
-          },
-          {
-            "module": "AIB",
-            "week": 5,
-            "question_count": 1,
-            "material": "AI for Business · Week 05 · accountability and recourse"
-          },
-          {
-            "module": "DTR",
-            "week": 3,
-            "question_count": 1,
-            "material": "Digital Transformation · Week 03 · technology trade-offs"
-          },
-          {
-            "module": "DTR",
-            "week": 4,
-            "question_count": 3,
-            "material": "Digital Transformation · Week 04 · platform power and dependencies"
-          },
-          {
-            "module": "GEN",
-            "week": 5,
-            "question_count": 4,
-            "material": "Generative AI · Week 05 · prompt-safety, example selection and task evaluation"
-          },
-          {
-            "module": "INN",
-            "week": 2,
-            "question_count": 1,
-            "material": "Innovation · Week 02 · STI/DUI innovation learning"
-          },
-          {
-            "module": "INN",
-            "week": 4,
-            "question_count": 3,
-            "material": "Innovation · Week 04 · foresight methods and scenario planning"
-          }
-        ],
-        "material": "AIB W03 · AIB W04 · AIB W05 · DTR W03 · DTR W04 · GEN W05 · INN W02 · INN W04"
       }
     ],
-    "reviewed_release_count": 16,
+    "reviewed_release_count": 17,
     "explicit_source_boundary": "GitHub fingerprints public pages and reconciles already-staged original questions. It cannot independently read private Drive, ChatGPT, or Moodle content; private material releases require a separate authorised review."
   },
   "source_status": [
