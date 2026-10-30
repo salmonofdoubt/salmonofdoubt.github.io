@@ -24,7 +24,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "Solving Complex Problems and Futures Thinking",
     "Futures Thinking Methods",
     "Behaviour Change, the Adjacent Possible & Creative Thinking",
-    "Site Hopping: Innovation, AI Tools and Critical Evaluation"
+    "Site Hopping: Innovation, AI Tools and Critical Evaluation",
+    "Complexity, Organisational AI Rollout and Entrepreneurial Communication"
   ],
   "DTR": [
     "Digital Transformation: An Overview",
@@ -7236,6 +7237,456 @@ window.D4B_QUESTIONS=Object.freeze([
     "week": 7,
     "booklet_locator": "02_AI_for_Business_Booklet, Week 07 | 28 October 2026 | Introduction to Deep Learning, TRAINING LOOP | LOSS, BACKPROPAGATION, OPTIMISER AND GENERALISATION; CODE EXECUTION | PROVENANCE AND REPRODUCIBILITY",
     "reviewed_at": "2026-10-29",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-174",
+  "module": "INN",
+  "week": 7,
+  "topic": "Workforce readiness before scaling",
+  "stem": "A firm expands generative-AI access faster than employees learn to use it reliably. Which response best addresses the underlying implementation risk?",
+  "choices": [
+    "Buy more licences immediately and postpone training",
+    "Train staff and validate performance in a limited deployment before scaling",
+    "Judge success solely by the number of enabled accounts",
+    "Assume that output quality cannot depend on workforce skills"
+  ],
+  "correct": 1,
+  "explanation": "Training and a limited evaluation address capability gaps before broad exposure. Access counts alone do not establish reliable or responsible adoption.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Govern 2.2; Map and Measure",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Workforce readiness before scaling",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: deployment and workforce-skills interaction",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-175",
+  "module": "INN",
+  "week": 7,
+  "topic": "Delayed effects of organisational decisions",
+  "stem": "An AI rollout improves the quarterly productivity dashboard, but customer complaints rise two quarters later. Which interpretation is most defensible?",
+  "choices": [
+    "The later complaints cannot be related to earlier deployment decisions",
+    "The earlier intervention may have delayed downstream effects that require investigation",
+    "A short-term productivity increase proves the rollout has no trade-offs",
+    "The complaints establish that every AI rollout fails"
+  ],
+  "correct": 1,
+  "explanation": "A delayed consequence can obscure causal links. Investigate the implementation timeline, affected stakeholders and quality measures rather than inferring success or failure from one indicator.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Map 5.2; Measure 5.3",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Delayed effects of organisational decisions",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: delayed customer-trust and output-quality feedback",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-176",
+  "module": "INN",
+  "week": 7,
+  "topic": "Pilot as an information-gathering intervention",
+  "stem": "A transformation team has uncertain evidence about how an AI assistant will affect employees and customers. What is the strongest reason to pilot before company-wide deployment?",
+  "choices": [
+    "A pilot guarantees the technology will work equally well everywhere",
+    "A pilot can expose context-specific failure modes and inform a safer scale-up decision",
+    "A pilot removes the need to monitor the later full deployment",
+    "A pilot substitutes for all governance and staff training"
+  ],
+  "correct": 1,
+  "explanation": "A bounded pilot provides evidence about performance and stakeholder impacts. It reduces uncertainty but cannot guarantee generalisability or replace ongoing governance.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Map 5.2; Measure 5.3",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Pilot as an information-gathering intervention",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: pilot report and exploration before scaling",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-177",
+  "module": "INN",
+  "week": 7,
+  "topic": "Governance of unsanctioned AI use",
+  "stem": "Employees begin entering client information into personal AI services without an organisational policy. What should leadership prioritise?",
+  "choices": [
+    "Ignore the practice because no official AI deployment has been authorised",
+    "Establish approved-use rules, data protections, accountability and monitoring",
+    "Ban all staff feedback so the practice remains invisible",
+    "Measure only whether the practice reduces software licence costs"
+  ],
+  "correct": 1,
+  "explanation": "Shadow use can create privacy and compliance risks even without a formal rollout. Clear governance, oversight and monitoring address those risks.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Govern 1.1, 1.4 and 1.6; OECD human-centred values",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Governance of unsanctioned AI use",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: policy gaps and shadow-AI compliance risks",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-178",
+  "module": "INN",
+  "week": 7,
+  "topic": "Hidden stakeholder outcomes",
+  "stem": "The board sees productivity and cost efficiency but not employee acceptance, customer trust or compliance risk. Which evaluation change is most appropriate?",
+  "choices": [
+    "Keep only the two visible metrics because they are easy to quantify",
+    "Include stakeholder and risk measures alongside operational indicators",
+    "Replace all quantitative measures with the chief executive's opinion",
+    "Treat an absence of reported incidents as proof of zero risk"
+  ],
+  "correct": 1,
+  "explanation": "Operational gains can coexist with negative effects elsewhere. A broader measurement framework should cover affected people and risk, not only short-term efficiency.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Map 5.2; Measure 5.3; OECD inclusive well-being",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Hidden stakeholder outcomes",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: board dashboard versus less visible outcomes",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-179",
+  "module": "INN",
+  "week": 7,
+  "topic": "Adapting to changed success criteria",
+  "stem": "Halfway through a six-quarter AI programme, the board adds customer trust and compliance to its success criteria. What should a responsible manager do?",
+  "choices": [
+    "Continue the original allocation unchanged because initial plans are binding",
+    "Reassess risks, trade-offs and resources against the revised objectives",
+    "Remove the new criteria from the final report",
+    "Optimise the original productivity target and assume the others will follow"
+  ],
+  "correct": 1,
+  "explanation": "Risk management and implementation should be iterative. When objectives or context change, reassess the evidence and adjust priorities transparently.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Core: iterative risk management; Manage 5.4",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Adapting to changed success criteria",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: mid-programme change of goals",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-180",
+  "module": "INN",
+  "week": 7,
+  "topic": "Surveys as measurement, not instant repair",
+  "stem": "An organisation runs staff interviews and customer surveys during an AI transition. What is the principal immediate benefit?",
+  "choices": [
+    "Surveys automatically raise employee skills and customer trust",
+    "They reveal information about stakeholder experiences that dashboards may miss",
+    "They eliminate all uncertainty about future outcomes",
+    "They make follow-up actions and testing unnecessary"
+  ],
+  "correct": 1,
+  "explanation": "Listening improves situational awareness and helps identify risks. Information gathering does not itself guarantee improved outcomes; findings still require decisions and follow-up.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Map 5.2; Measure 5.3",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Surveys as measurement, not instant repair",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: surveys and deeper study of hidden indicators",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-181",
+  "module": "INN",
+  "week": 7,
+  "topic": "Communicating customer-facing automation",
+  "stem": "A company introduces an AI customer-service assistant and notices declining trust. Which action best supports accountable communication?",
+  "choices": [
+    "Conceal that customers are interacting with AI",
+    "Disclose the AI interaction, explain its limitations and provide a way to seek human review",
+    "Claim the system is always accurate to reassure customers",
+    "Stop collecting feedback because complaints may harm performance statistics"
+  ],
+  "correct": 1,
+  "explanation": "Meaningful disclosure and a route to question harmful or incorrect outcomes support transparency and human agency. Concealment or unqualified claims undermine these principles.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "OECD Transparency and Explainability 1.3",
+    "url": "https://oecd.ai/en/dashboards/ai-principles/P7",
+    "scope": "INN W7 · Communicating customer-facing automation",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: customer communication and automation-related trust",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-182",
+  "module": "INN",
+  "week": 7,
+  "topic": "Weak signals in a noisy inbox",
+  "stem": "A transformation manager receives many routine messages alongside repeated warnings about AI quality and staff anxiety. What is the best response?",
+  "choices": [
+    "Treat every message as equally reliable and urgent",
+    "Triangulate credible warning signals and investigate them before harms escalate",
+    "Discard all qualitative messages because they are not dashboard metrics",
+    "Wait for the final-quarter score before considering any warning"
+  ],
+  "correct": 1,
+  "explanation": "Early qualitative warnings can identify risks not yet reflected in aggregate metrics. Prioritisation and corroboration are preferable to either indiscriminate reaction or dismissal.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Map 5.2; Measure 5.3; Manage 5.4",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Weak signals in a noisy inbox",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: inbox warning signals and delayed impacts",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-183",
+  "module": "INN",
+  "week": 7,
+  "topic": "Interdependence of automation outcomes",
+  "stem": "Customer-service automation reduces immediate operating costs but increases employee anxiety and customer complaints. What is the strongest management conclusion?",
+  "choices": [
+    "Cost savings alone establish that the intervention was successful",
+    "Assess interacting operational, workforce and customer effects before extending automation",
+    "Employee and customer impacts cannot affect the sustainability of the rollout",
+    "Any adverse effect means automation must be prohibited permanently"
+  ],
+  "correct": 1,
+  "explanation": "An intervention can create benefits and harms across interdependent parts of an organisation. Decisions should balance evidence, stakeholder impacts and risk rather than rely on one outcome.",
+  "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-10-30",
+    "locator": "NIST Map 5.2; OECD Inclusive growth and well-being",
+    "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/",
+    "scope": "INN W7 · Interdependence of automation outcomes",
+    "method": "Original four-choice question independently checked against the authorised Week 7 interactive simulation and cited primary institutional guidance. The keyed answer and all three distractors were assessed for conceptual consistency; the simulation's contingent numeric rules are not represented as universal scientific claims. No Moodle originals or copyrighted teaching text reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "The Rollout: automation, efficiency and stakeholder trade-offs",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B interactive teaching activity",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "Innovation Week 07 | Topic 4 Entrepreneurial Communication Strategies | The Rollout interactive complexity simulation, 29 October 2026 | private authorised LMS export 'the-rollout-cps.html' (reviewed 30 October 2026)",
+    "reviewed_at": "2026-10-30",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": false
   }
