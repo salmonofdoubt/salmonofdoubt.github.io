@@ -1,63 +1,63 @@
 {
-  "generated_at": "2026-10-30T11:33:51.577992+00:00",
-  "latest_generated_at": "2026-10-30T11:33:51.507060+00:00",
+  "generated_at": "2026-10-31T11:08:42.664363+00:00",
+  "latest_generated_at": "2026-10-31T11:08:42.557287+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 14,
-    "funding-opportunities": 26,
-    "research-evidence": 47,
-    "design-maintenance-risk": 3,
+    "ireland-urban-forest-practice": 38,
+    "funding-opportunities": 14,
+    "research-evidence": 38,
+    "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
       "benefit": "Biodiversity / habitat",
-      "count": 37
+      "count": 28
+    },
+    {
+      "benefit": "Urban forest / NbS",
+      "count": 25
     },
     {
       "benefit": "Funding / grants",
-      "count": 33
-    },
-    {
-      "benefit": "Tree survival / maintenance",
-      "count": 23
-    },
-    {
-      "benefit": "Urban heat / shade",
-      "count": 22
-    },
-    {
-      "benefit": "School / education",
       "count": 20
     },
     {
-      "benefit": "Community stewardship",
+      "benefit": "Tree survival / maintenance",
+      "count": 19
+    },
+    {
+      "benefit": "Urban heat / shade",
       "count": 17
+    },
+    {
+      "benefit": "School / education",
+      "count": 16
+    },
+    {
+      "benefit": "Community stewardship",
+      "count": 16
     },
     {
       "benefit": "Stormwater / SuDS",
-      "count": 17
-    },
-    {
-      "benefit": "Monitoring / evaluation",
-      "count": 15
+      "count": 16
     },
     {
       "benefit": "Wellbeing / health",
-      "count": 13
+      "count": 14
     },
     {
-      "benefit": "Planning / policy",
-      "count": 10
-    },
-    {
-      "benefit": "Risk / safety",
-      "count": 10
+      "benefit": "Monitoring / evaluation",
+      "count": 14
     },
     {
       "benefit": "Soil health",
       "count": 9
+    },
+    {
+      "benefit": "Planning / policy",
+      "count": 8
     }
   ],
   "items": [
@@ -288,29 +288,6 @@
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "619ef0e33ca25d2e",
-      "title": "The beloved Davis tree canopy needs a lot of maintenance. The city is falling behind - Abridged – PBS KVIE",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5XZld0UDFuUDgtOXBKUWhtYmpkbnRacDJTZjFKLUQyN3ZIZkpJNEdaZFVOd1VLalhhaDk3UlUyWVFvXzlZV3ZQTmpuVEY5OW0zZkhzNWNjZDctUFRL?oc=5",
-      "section": "design-maintenance-risk",
-      "source_name": "Google News: urban forest survival and maintenance",
-      "published": "2026-09-08",
-      "score": 96,
-      "practical_score": 126.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Tree survival / maintenance",
-        "Risk / safety"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Survival / maintenance evidence",
-      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
-    },
-    {
       "id": "96e2f52d03b06df2",
       "title": "Urban Soil Health and Tree Performance: A Diagnostic Framework and Biochar–Inactivated Yeast Case Study from Toronto",
       "url": "https://hdl.handle.net/1807/151152",
@@ -334,6 +311,33 @@
       },
       "opportunity_fit": null,
       "research_use_type": "Monitoring method",
+      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
+    },
+    {
+      "id": "3b6622358dd1ad26",
+      "title": "Rain Garden Design for Sustainable Stormwater Management and Environmental Awareness in University Campuses: A Case Study of Bursa Technical University",
+      "url": "https://doi.org/10.17474/artvinofd.1966687",
+      "section": "research-evidence",
+      "source_name": "Artvin Çoruh Üniversitesi Orman Fakültesi Dergisi",
+      "published": "2026-08-19",
+      "score": 96,
+      "practical_score": 125.0,
+      "benefit_categories": [
+        "Stormwater / SuDS",
+        "School / education",
+        "Tree survival / maintenance",
+        "Monitoring / evaluation",
+        "Risk / safety"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Transferable relevance",
+        "matched_terms": [
+          "campus"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "UrbanForest stormwater evidence",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     }
   ]
