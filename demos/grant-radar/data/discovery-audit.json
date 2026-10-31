@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-10-30T11:24:38+00:00",
+  "generated_at": "2026-10-31T10:56:21+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 6,
-  "links_seen": 4495,
-  "funding_like_links": 480,
+  "seed_pages_failed": 7,
+  "links_seen": 4502,
+  "funding_like_links": 447,
   "candidate_fetches": 300,
-  "pending_review_count": 112,
+  "pending_review_count": 115,
   "status_counts": {
-    "pending_review": 112,
-    "suppressed_non_actionable": 39,
+    "pending_review": 115,
+    "suppressed_non_actionable": 45,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 70
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 58
   },
   "candidate_type_counts": {
     "recurring_programme": 58,
-    "funding_call": 87,
+    "funding_call": 90,
     "scholarship": 19,
-    "generic_funding_hub": 5,
-    "tender": 7,
-    "unknown": 70
+    "generic_funding_hub": 6,
+    "tender": 13,
+    "unknown": 58
   },
   "seeds": [
     {
@@ -185,7 +185,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/research-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 632,
+      "links_seen": 657,
       "funding_like_links": 63,
       "candidates_fetched": 63
     },
@@ -195,7 +195,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 613,
+      "links_seen": 638,
       "funding_like_links": 58,
       "candidates_fetched": 58
     },
@@ -205,7 +205,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/reinhart-koselleck-projects",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 615,
+      "links_seen": 640,
       "funding_like_links": 58,
       "candidates_fetched": 2
     },
@@ -215,7 +215,7 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/heisenberg",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 619,
+      "links_seen": 644,
       "funding_like_links": 60,
       "candidates_fetched": 0
     },
@@ -233,10 +233,10 @@
       "id": "geo_horizon_energy_supply_watch",
       "name": "Geo watch: Horizon Europe Sustainable, Secure and Competitive Energy Supply",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 93,
-      "funding_like_links": 33,
+      "status": "fetch_error",
+      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eur235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "links_seen": 0,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     },
     {
