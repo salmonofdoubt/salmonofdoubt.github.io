@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-10-30
+# Water NbS Story Radar · 2026-10-31
 
-Generated: 2026-10-30T11:28:45.668727+00:00
+Generated: 2026-10-31T10:59:44.593863+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -310,7 +310,7 @@ URL: https://www.catchments.ie/2026-irish-national-hydrology-conference/
 
 Angle: WFD, monitoring and evidence
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: catchment, water framework directive, wfd, ecological status.
 
