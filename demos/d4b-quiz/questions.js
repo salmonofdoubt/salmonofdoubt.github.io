@@ -7690,5 +7690,455 @@ window.D4B_QUESTIONS=Object.freeze([
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": false
   }
+},
+{
+  "id": "d4b-184",
+  "module": "INN",
+  "week": 7,
+  "topic": "Variable count versus connectivity",
+  "stem": "A planner maps 28 separate service variables but has not yet established whether changes to one affect the others. What can the variable count alone establish?",
+  "choices": [
+    "That all 28 variables are mutually dependent",
+    "That the system necessarily changes rapidly over time",
+    "That the problem has many variables, without proving their interdependence",
+    "That none of the variables can be observed"
+  ],
+  "correct": 2,
+  "explanation": "In the lecture's narrow terminology, complexity refers to the number of variables. Connectivity or interdependence requires evidence of relationships among them.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slides 5–6, 'Characteristics of a Complex Problem'; Dörner & Funke (2017), 'Historical Review'",
+    "url": "https://doi.org/10.3389/fpsyg.2017.01153",
+    "scope": "INN W7 · formal complex problem-solving lecture · Variable count versus connectivity",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 2 supported. All three distractors checked individually: [0] assumes connectivity; [1] confuses count with dynamism; [3] confuses count with opacity. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slides 5–6, 'Characteristics of a Complex Problem'",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-185",
+  "module": "INN",
+  "week": 7,
+  "topic": "Recognising opacity",
+  "stem": "A team can observe delivery times but cannot see how subcontractors allocate staff, even though that allocation affects delays. Which characteristic is illustrated most directly?",
+  "choices": [
+    "Opacity of relevant system information",
+    "Polytely between competing objectives",
+    "Dynamism from changes over time",
+    "The number of system variables"
+  ],
+  "correct": 0,
+  "explanation": "Opacity or intransparency means that relevant system states or relationships are not fully observable; it is distinct from changing conditions, conflicting goals and variable count.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slides 5–6, 'Characteristics of a Complex Problem'; Dörner & Funke (2017), 'Historical Review'",
+    "url": "https://doi.org/10.3389/fpsyg.2017.01153",
+    "scope": "INN W7 · formal complex problem-solving lecture · Recognising opacity",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 0 supported. All three distractors checked individually: [1] requires goal conflict; [2] requires temporal change; [3] refers to variable count, not missing visibility. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slides 5–6, 'Characteristics of a Complex Problem'",
+    "key_checked": 0,
+    "distractor_indices_checked": [
+      1,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-186",
+  "module": "INN",
+  "week": 7,
+  "topic": "Dynamism without intervention",
+  "stem": "A regional service's demand pattern shifts each month even while managers leave its policies unchanged. Which complex-system feature is most clearly present?",
+  "choices": [
+    "Polytely, because managers have many goals",
+    "Opacity, because all observations are missing",
+    "Interdependence, because a change must originate in another variable",
+    "Dynamism, because the environment evolves over time independently of the decision maker"
+  ],
+  "correct": 3,
+  "explanation": "Dynamism concerns a system's development over time, including change that can occur without managerial intervention.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slides 5–6, 'Characteristics of a Complex Problem'; Dörner & Funke (2017), 'Historical Review'",
+    "url": "https://doi.org/10.3389/fpsyg.2017.01153",
+    "scope": "INN W7 · formal complex problem-solving lecture · Dynamism without intervention",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 3 supported. All three distractors checked individually: [0] concerns conflicting goals; [1] incorrectly asserts missing data; [2] assumes a causal connection not established by the scenario. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slides 5–6, 'Characteristics of a Complex Problem'",
+    "key_checked": 3,
+    "distractor_indices_checked": [
+      0,
+      1,
+      2
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-187",
+  "module": "INN",
+  "week": 7,
+  "topic": "Polytely in public services",
+  "stem": "A council wants shorter permit delays, lower operating costs and stronger procedural fairness, but its resources make full achievement of all three impossible. Which concept best describes the decision challenge?",
+  "choices": [
+    "Opacity, because the goals cannot be named",
+    "Polytely, because several legitimate goals conflict",
+    "Dynamism, because every target must change daily",
+    "Simple optimisation, because there is one unambiguous objective"
+  ],
+  "correct": 1,
+  "explanation": "Polytely means multiple goals, often in tension, so the problem solver must consider trade-offs rather than optimise one unqualified target.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slides 5–6, 'Multiple Goals'; Dörner & Funke (2017), 'Historical Review'",
+    "url": "https://doi.org/10.3389/fpsyg.2017.01153",
+    "scope": "INN W7 · formal complex problem-solving lecture · Polytely in public services",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 1 supported. All three distractors checked individually: [0] contradicts explicitly stated goals; [2] invents temporal change; [3] denies the multiple-objective trade-off. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slides 5–6, 'Multiple Goals'",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-188",
+  "module": "INN",
+  "week": 7,
+  "topic": "Ill-structured starting conditions",
+  "stem": "An organisation is told to 'make AI adoption successful' but has no agreed baseline, success criteria or understanding of the main barriers. Why is this a complex problem-solving task?",
+  "choices": [
+    "The start state, goal and obstacles require clarification while the system is explored",
+    "A standard procedure can be executed without defining success",
+    "The task is automatically solved by collecting more software licences",
+    "Unclear goals prove that no useful action can ever be taken"
+  ],
+  "correct": 0,
+  "explanation": "Funke's formulation highlights initially uncertain start states, goal states and barriers. Exploration and iterative goal clarification are part of the problem-solving process.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slides 3–4, 'Complex Problem-Solving'; Dörner & Funke (2017), 'What is CPS?'",
+    "url": "https://doi.org/10.3389/fpsyg.2017.01153",
+    "scope": "INN W7 · formal complex problem-solving lecture · Ill-structured starting conditions",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 0 supported. All three distractors checked individually: [1] assumes a well-defined task; [2] substitutes procurement for problem definition; [3] wrongly treats uncertainty as permanent impossibility. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slides 3–4, 'Complex Problem-Solving'",
+    "key_checked": 0,
+    "distractor_indices_checked": [
+      1,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-189",
+  "module": "INN",
+  "week": 7,
+  "topic": "Knowledge acquisition before application",
+  "stem": "Before changing staffing policy, an analyst tests how waiting times respond to demand and staffing levels and builds a causal map. Which phase is the analyst mainly undertaking?",
+  "choices": [
+    "Summative evaluation of the final outcome",
+    "Knowledge application through a committed intervention",
+    "Knowledge acquisition through systematic exploration and model building",
+    "Ballistic action without feedback"
+  ],
+  "correct": 2,
+  "explanation": "Knowledge acquisition develops understanding of a system and its relationships; knowledge application uses that understanding to pursue goals through interventions.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slide 9, 'From Knowledge Acquisition to Knowledge Application'; Fahrbach & Fust (2026), 'The process of complex problem solving'",
+    "url": "https://doi.org/10.11588/jddm.2026.1.105968",
+    "scope": "INN W7 · formal complex problem-solving lecture · Knowledge acquisition before application",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 2 supported. All three distractors checked individually: [0] is a final assessment; [1] would require an intervention; [3] would act without monitoring or exploration. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slide 9, 'From Knowledge Acquisition to Knowledge Application'",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-190",
+  "module": "INN",
+  "week": 7,
+  "topic": "Ballistic decisions",
+  "stem": "A manager introduces a new triage rule, declares the matter closed and never checks its effects. Which lecture-described failure does this illustrate?",
+  "choices": [
+    "Systematic hypothesis testing",
+    "Ballistic decision-making without follow-up",
+    "Metacognitive monitoring",
+    "Knowledge acquisition before intervention"
+  ],
+  "correct": 1,
+  "explanation": "The lecture uses 'ballistic decisions' for acting once without checking results; the remedy is to monitor feedback and adapt.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slide 8, 'How People Fail in Complex Systems'; Dörner & Funke (2017), 'Importance of the Validity Issue'",
+    "url": "https://doi.org/10.3389/fpsyg.2017.01153",
+    "scope": "INN W7 · formal complex problem-solving lecture · Ballistic decisions",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 1 supported. All three distractors checked individually: [0] requires testing; [2] requires reflective monitoring; [3] requires exploratory understanding before action. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slide 8, 'How People Fail in Complex Systems'",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-191",
+  "module": "INN",
+  "week": 7,
+  "topic": "Metacognition during adaptation",
+  "stem": "After a failed pilot, a project lead examines which assumptions drove the original choice and changes how future evidence will be evaluated. What skill is being demonstrated?",
+  "choices": [
+    "Merely increasing the number of tracked variables",
+    "Removing all uncertainty from the system",
+    "Polytely through competing targets",
+    "Metacognition through reflection on one's own reasoning and strategy"
+  ],
+  "correct": 3,
+  "explanation": "Metacognition includes monitoring and evaluating one's reasoning, recognising errors and adapting strategies. It is more than collecting data or having multiple goals.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slides 10–12, 'Key Dimensions' and 'Role of Metacognition'; Fahrbach & Fust (2026), 'Self-regulated learning'",
+    "url": "https://doi.org/10.11588/jddm.2026.1.105968",
+    "scope": "INN W7 · formal complex problem-solving lecture · Metacognition during adaptation",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 3 supported. All three distractors checked individually: [0] is variable count; [1] promises impossible certainty; [2] refers to goal conflict rather than reflection. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slides 10–12, 'Key Dimensions' and 'Role of Metacognition'",
+    "key_checked": 3,
+    "distractor_indices_checked": [
+      0,
+      1,
+      2
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-192",
+  "module": "INN",
+  "week": 7,
+  "topic": "Self-regulated learning and transfer",
+  "stem": "A trainee facing unfamiliar decision simulations sets learning goals, monitors mistakes and deliberately adjusts strategies between cases. Which explanation is best supported?",
+  "choices": [
+    "Repeated practice guarantees transfer without feedback",
+    "The trainee is performing only a final summative test",
+    "Self-regulated learning adds motivational and metacognitive control to practice",
+    "The trainee should preserve the same strategy regardless of feedback"
+  ],
+  "correct": 2,
+  "explanation": "Fahrbach and Fust propose self-regulated learning as a way to strengthen how people learn during complex problem solving, including goal setting, monitoring and strategy adaptation; transfer is not guaranteed.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slide 12, 'Role of Metacognition'; Fahrbach & Fust (2026), abstract and 'Self-regulated learning'",
+    "url": "https://doi.org/10.11588/jddm.2026.1.105968",
+    "scope": "INN W7 · formal complex problem-solving lecture · Self-regulated learning and transfer",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 2 supported. All three distractors checked individually: [0] overclaims transfer; [1] ignores ongoing regulation; [3] contradicts feedback-responsive adaptation. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slide 12, 'Role of Metacognition'",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-193",
+  "module": "INN",
+  "week": 7,
+  "topic": "Cognitive, emotional and social resources",
+  "stem": "An analytically skilled AI project team struggles because staff fear job losses and departments refuse to share information. What does the course's complex problem-solving framework imply?",
+  "choices": [
+    "Only numerical reasoning is relevant to complex problem solving",
+    "Emotional and social resources matter alongside knowledge and cognitive skills",
+    "A technically sound model eliminates the need for stakeholder engagement",
+    "The challenge cannot be complex because its technology is understood"
+  ],
+  "correct": 1,
+  "explanation": "Complex problem solving is not merely technical calculation. Funke's formulation and the lecture emphasise cognitive, emotional and social resources alongside knowledge.",
+  "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-01",
+    "locator": "Slides 3–4, Funke definition; Dörner & Funke (2017), 'Importance of the Validity Issue' and 'What is CPS?'",
+    "url": "https://doi.org/10.3389/fpsyg.2017.01153",
+    "scope": "INN W7 · formal complex problem-solving lecture · Cognitive, emotional and social resources",
+    "method": "Original applied four-choice question checked directly against 29 October 2026 D4B lecture PDF, transcript and Week 07 private booklet, and independently against the cited peer-reviewed source. Key 1 supported. All three distractors checked individually: [0] omits emotional/social dimensions; [2] assumes technology removes social dynamics; [3] confuses technical familiarity with organisational complexity. No original Moodle question wording or answer key reproduced.",
+    "teaching_material_checked": true,
+    "teaching_locator": "Slides 3–4, Funke definition",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ]
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B Week 07 lecture slides, transcript and private study booklet",
+    "module": "INN",
+    "week": 7,
+    "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
+    "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
 }
 ]);
