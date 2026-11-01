@@ -588,10 +588,10 @@
     "status-openai": {
       "source_id": "status-openai",
       "url": "https://status.openai.com/api/v2/summary.json",
-      "last_attempt": "2026-11-01T14:23:38Z",
+      "last_attempt": "2026-11-01T19:01:12Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
-      "last_success": "2026-11-01T14:23:38Z",
+      "last_success": "2026-11-01T19:01:12Z",
       "error": null,
       "operator": {
         "status": "serving",
@@ -611,11 +611,11 @@
     "status-claude": {
       "source_id": "status-claude",
       "url": "https://status.claude.com/api/v2/summary.json",
-      "last_attempt": "2026-11-01T14:23:39Z",
+      "last_attempt": "2026-11-01T19:01:13Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
       "error": null,
-      "last_success": "2026-11-01T14:23:39Z",
+      "last_success": "2026-11-01T19:01:13Z",
       "operator": {
         "status": "serving",
         "reason": "Operator-reported components; not an independent query test",
@@ -893,10 +893,10 @@
     "status-gemini": {
       "source_id": "status-gemini",
       "url": "https://www.google.com/appsstatus/dashboard/incidents.json",
-      "last_attempt": "2026-11-01T14:23:40Z",
+      "last_attempt": "2026-11-01T19:01:14Z",
       "robots": "Public machine-readable status API",
       "status": "ok",
-      "last_success": "2026-11-01T14:23:40Z",
+      "last_success": "2026-11-01T19:01:14Z",
       "error": null,
       "operator": {
         "status": "serving",
@@ -3174,6 +3174,27 @@
   "last_refresh": "2026-11-01T12:03:47Z",
   "availability_history": [
     {
+      "at": "2026-11-01T19:01:14Z",
+      "service_id": "gemini",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
+    {
+      "at": "2026-11-01T19:01:13Z",
+      "service_id": "claude",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
+    {
+      "at": "2026-11-01T19:01:12Z",
+      "service_id": "chatgpt",
+      "status": "serving",
+      "check_status": "ok",
+      "method": "Operator feed"
+    },
+    {
       "at": "2026-11-01T14:23:40Z",
       "service_id": "gemini",
       "status": "serving",
@@ -5247,27 +5268,6 @@
     },
     {
       "at": "2026-10-16T18:51:26Z",
-      "service_id": "chatgpt",
-      "status": "serving",
-      "check_status": "ok",
-      "method": "Operator feed"
-    },
-    {
-      "at": "2026-10-16T14:56:07Z",
-      "service_id": "gemini",
-      "status": "serving",
-      "check_status": "ok",
-      "method": "Operator feed"
-    },
-    {
-      "at": "2026-10-16T14:56:06Z",
-      "service_id": "claude",
-      "status": "serving",
-      "check_status": "ok",
-      "method": "Operator feed"
-    },
-    {
-      "at": "2026-10-16T14:56:05Z",
       "service_id": "chatgpt",
       "status": "serving",
       "check_status": "ok",
