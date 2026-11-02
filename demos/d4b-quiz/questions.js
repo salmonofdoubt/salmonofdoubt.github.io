@@ -8189,7 +8189,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8241,7 +8241,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8293,7 +8293,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8345,7 +8345,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8397,7 +8397,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8449,7 +8449,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8501,7 +8501,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8553,7 +8553,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8605,7 +8605,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
@@ -8657,7 +8657,7 @@ window.D4B_QUESTIONS=Object.freeze([
     "source_type": "original D4B W7 lecture, transcript and private booklet",
     "module": "DTR",
     "week": 7,
-    "booklet_locator": "Soriani (2026), 31 October live lecture 'Video Game Literacy' slides and transcript; 04_Digital_Transformation_Booklet, W7",
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
     "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
