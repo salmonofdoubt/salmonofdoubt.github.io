@@ -33,7 +33,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "AI, Work and Human–AI Teaming",
     "Big Data and Platform Society",
     "Big Data, AI and the Algorithmic Condition",
-    "New Literacies, Participatory Culture and Digital Citizenship"
+    "New Literacies, Participatory Culture and Digital Citizenship",
+    "Videogame Literacy, Game-Based Learning and Q.U.A.K.E. Critical Analysis"
   ]
 });
 window.D4B_QUESTIONS=Object.freeze([
@@ -8137,6 +8138,527 @@ window.D4B_QUESTIONS=Object.freeze([
     "week": 7,
     "booklet_locator": "03_Innovation_Booklet, Week 07, Topic 4 'Complex Problem Solving for Entrepreneurial Communication' (reformatted 31 October 2026); original 'Understanding Complex Problem Solving' revised lecture PDF and 'Innovation class - Sept2026 (1).docx' transcript (newly accessible 31 October 2026; inspected 1 November 2026)",
     "reviewed_at": "2026-11-01",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+}
+,
+{
+  "id": "d4b-194",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Gamification versus playing a game",
+  "stem": "A company awards badges when staff finish ordinary compliance lessons, but learners never play an actual game. Which approach is being used?",
+  "choices": [
+    "Game-based learning through a complete game",
+    "Gamification of a non-game learning activity",
+    "Playful learning through learner-created artefacts",
+    "Learning through game design"
+  ],
+  "correct": 1,
+  "explanation": "Badges are game-design elements applied to an otherwise non-game activity. Game-based learning would require learners to use an actual game; playful learning and game design involve different learning processes.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://doi.org/10.1145/2181037.2181040",
+    "locator": "Deterding et al. (2011), definition of gamification as game-design elements in non-game contexts",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'Gamification' and 'Game-based learning'",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ],
+    "distractor_checks": [
+      "A complete playable game is not present.",
+      "Correct choice.",
+      "No creative learning process or project is described.",
+      "Learners are not designing a game."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-195",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Structural versus content gamification",
+  "stem": "A six-week course adds levels, progress badges and a leaderboard around lessons whose subject matter remains unchanged. Which type of gamification is most precise?",
+  "choices": [
+    "Structural gamification",
+    "Content gamification",
+    "Game-based learning",
+    "A serious game"
+  ],
+  "correct": 0,
+  "explanation": "Structural gamification changes the progression and rewards surrounding existing instruction without making the instructional content itself game-like. Content gamification changes how the content is presented.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://inside.collin.edu/tl/pdfs/facdev/Kapp_Workbook%20v4.pdf",
+    "locator": "Kapp (2017), Instructional Content, 'Types of Gamification': Structural Gamification versus Content Gamification, pp. 1–8",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'Gamification of content' versus 'Structural gamification'",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 0,
+    "distractor_indices_checked": [
+      1,
+      2,
+      3
+    ],
+    "distractor_checks": [
+      "Correct choice.",
+      "Content is not rewritten as a game-like narrative or task.",
+      "No complete game is played.",
+      "No stand-alone game with an explicit serious purpose is used."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-196",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Intrinsic and extrinsic motivation",
+  "stem": "A trainee voluntarily revisits a demanding simulation because mastering it feels satisfying, even when there are no prizes or rankings. What is the primary motivation described?",
+  "choices": [
+    "Externally imposed reward motivation",
+    "Intrinsic motivation arising from interest and mastery",
+    "Amotivation, because no reward is offered",
+    "Compliance driven by threatened sanctions"
+  ],
+  "correct": 1,
+  "explanation": "The activity itself is rewarding through interest and mastery, indicating intrinsic motivation. The absence of prizes does not imply lack of motivation.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://doi.org/10.1006/ceps.1999.1020",
+    "locator": "Ryan & Deci (2000), intrinsic versus extrinsic motivation, abstract and definitions",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'Intrinsic motivation' and 'Extrinsic motivation'",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ],
+    "distractor_checks": [
+      "No external reward is described.",
+      "Correct choice.",
+      "The learner actively chooses to return, so motivation is present.",
+      "No threatened penalty is described."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-197",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Game-based learning",
+  "stem": "A company uses a playable emergency-response simulation in which learners make decisions, receive feedback and practise a specified safety competency. Which description best fits?",
+  "choices": [
+    "A points-only reward layer around conventional slides",
+    "An unrelated entertainment activity with no learning objective",
+    "Game-based learning using a complete game to practise a competency",
+    "Only structural gamification, because it contains scoring"
+  ],
+  "correct": 2,
+  "explanation": "The learning objective is pursued by playing a designed game or simulation. Scoring may exist, but it does not change the principal approach into mere gamification.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://arxiv.org/abs/2004.05892",
+    "locator": "Romero (2020), 'Computers in Secondary Schools: Educational Games', abstract: serious games, gamification and game creation distinguished",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'Game-based learning' and pedagogical frames",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ],
+    "distractor_checks": [
+      "The scenario is a playable simulation, not only a reward overlay.",
+      "The exercise has an explicit safety learning objective.",
+      "Correct choice.",
+      "Scoring alone does not define the primary learning medium."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-198",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Creative learning spiral",
+  "stem": "Learners imagine a training scenario, build a prototype, experiment with it, share results, reflect and revise their design. Which learning model is most directly illustrated?",
+  "choices": [
+    "One-way transmission followed by a final test",
+    "Structural gamification by leaderboards alone",
+    "External reward conditioning",
+    "Resnick's creative learning spiral"
+  ],
+  "correct": 3,
+  "explanation": "Imagine, create, play, share and reflect form a recurring creative learning process; revision leads to further imagining rather than ending at a single assessment.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://www.media.mit.edu/publications/lifelong-kindergarten-cultivating-creativity-through-projects-passion-peers-and-play/",
+    "locator": "Resnick (2017), MIT Media Lab, Lifelong Kindergarten: imagining, creating, playing, sharing and reflecting",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'From edutainment to playful learning' and creative learning spiral",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 3,
+    "distractor_indices_checked": [
+      0,
+      1,
+      2
+    ],
+    "distractor_checks": [
+      "The learners construct and revise, not merely receive instruction.",
+      "Leaderboards are absent and do not explain the cycle.",
+      "The activity is not driven by prizes.",
+      "Correct choice."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-199",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Gee and low-stakes experimentation",
+  "stem": "A customer-service simulation lets staff try difficult conversations and learn from mistakes without exposing real customers to harm. Which learning principle is most relevant?",
+  "choices": [
+    "Psychosocial moratorium: lower real-world consequences of experimentation",
+    "Regime of competence: always make the task impossibly hard",
+    "Situated meaning: remove all interaction and context",
+    "Extrinsic motivation: reward only flawless first attempts"
+  ],
+  "correct": 0,
+  "explanation": "Gee's low-stakes risk-taking principle supports exploration and learning from failure in a protected simulation; it does not demand impossible tasks or punish mistakes.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://doi.org/10.2304/elea.2005.2.1.5",
+    "locator": "Gee (2005), Learning by Design, 'Sandboxes' and discussion of a moratorium on punishing failure, pp. 12–13",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'Psychosocial Moratorium' and discussion of failure",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 0,
+    "distractor_indices_checked": [
+      1,
+      2,
+      3
+    ],
+    "distractor_checks": [
+      "Correct choice.",
+      "Regime of competence seeks hard but doable challenges, not impossible ones.",
+      "Situated meaning depends on action and context, not their removal.",
+      "Punishing errors conflicts with safe experimentation."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-200",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Gee's regime of competence",
+  "stem": "A learning game adapts its difficulty so that tasks remain challenging but achievable, with feedback showing progress after setbacks. Which Gee principle is exemplified?",
+  "choices": [
+    "The absence of any learning objective",
+    "A permanent ban on failure",
+    "Regime of competence or pleasantly frustrating challenge",
+    "Rewards as the only source of engagement"
+  ],
+  "correct": 2,
+  "explanation": "Gee describes good learning challenges at the outer edge of a learner's current competence: demanding, feasible and supported by feedback.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://doi.org/10.2304/elea.2005.2.1.5",
+    "locator": "Gee (2005), Learning by Design, 'Pleasantly Frustrating', pp. 10–11",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'Regime of Competence'",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ],
+    "distractor_checks": [
+      "A learning objective is implicit in the adaptive tasks.",
+      "Setbacks are informative rather than forbidden.",
+      "Correct choice.",
+      "Feedback and achievable challenge are not equivalent to prizes."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-201",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Situated meaning in games",
+  "stem": "Instead of memorising a list of unfamiliar terms, learners discover what those terms mean while using them to solve problems inside a simulation. Which principle best explains the benefit?",
+  "choices": [
+    "Memorisation without context",
+    "Structural gamification by ranking",
+    "Purely extrinsic reward motivation",
+    "Situated meaning linked to actions, images and dialogue"
+  ],
+  "correct": 3,
+  "explanation": "Situated meaning connects symbols and words to the contexts in which learners act and solve problems, rather than presenting isolated definitions.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://doi.org/10.18261/ISSN1891-943X-2006-03-02",
+    "locator": "Gee (2006), Are Video Games Good for Learning?, situated meaning and language in interactive contexts",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 lecture slides 'Situated Meaning' under Gee's principles",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 3,
+    "distractor_indices_checked": [
+      0,
+      1,
+      2
+    ],
+    "distractor_checks": [
+      "The question contrasts with isolated memorisation.",
+      "No ranks or points are needed to explain understanding.",
+      "The mechanism is contextual practice, not an external prize.",
+      "Correct choice."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-202",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Q.U.A.K.E. and consequential agency",
+  "stem": "A videogame allows rapid combat controls, but every apparent moral decision leads to exactly the same narrative outcome. Under the course's Q.U.A.K.E. grid, which criticism best targets agency?",
+  "choices": [
+    "Fast button responses prove meaningful narrative choice",
+    "Player decisions appear to have little consequential influence on the story",
+    "The game must have inaccessible subtitles",
+    "High visual polish guarantees ethical agency"
+  ],
+  "correct": 1,
+  "explanation": "The course's agency dimension asks whether player choices genuinely affect paths or outcomes. Responsive controls concern moment-to-moment mechanics, not necessarily consequential moral or narrative agency.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://doi.org/10.2304/elea.2005.2.1.5",
+    "locator": "Gee (2005), Learning by Design, 'Co-design': actions and decisions should matter; course-specific operational meaning checked against Q.U.A.K.E. handout, 'Agency'",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 Q.U.A.K.E. operational handout, dimension 5 'Agency'; lecture 'Queer Media Education and Q.U.A.K.E.'",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 1,
+    "distractor_indices_checked": [
+      0,
+      2,
+      3
+    ],
+    "distractor_checks": [
+      "Control responsiveness does not establish consequential narrative agency.",
+      "Correct choice.",
+      "Subtitle access is an accessibility question, not an inference from fixed outcomes.",
+      "Audiovisual polish does not prove meaningful choice."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": true
+  }
+},
+{
+  "id": "d4b-203",
+  "module": "DTR",
+  "week": 7,
+  "topic": "Q.U.A.K.E. and inclusive accessibility",
+  "stem": "A facilitator is assessing whether a videogame is accessible to a diverse group of trainees. Which evidence best addresses the course's Q.U.A.K.E. accessibility dimension?",
+  "choices": [
+    "The game's advertising budget and sales ranking",
+    "Whether the graphics are technically impressive",
+    "Tested subtitle, control-remapping and sensory options with the intended learners",
+    "Whether the protagonist is always successful in combat"
+  ],
+  "correct": 2,
+  "explanation": "Accessibility concerns whether people with differing sensory, physical and cognitive needs can participate. Adjustable controls, captions and sensory options, ideally tested with intended users, are more relevant than sales, visual polish or character success.",
+  "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+  "origin": "booklet-derived",
+  "verification": "verified",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-02",
+    "url": "https://www.cast.org/resources/about-universal-design-for-learning/",
+    "locator": "CAST (2024), Universal Design for Learning Guidelines 3.0: multiple means of engagement, representation and action/expression; course-specific handout 'Accessibility & Design justice'",
+    "scope": "DTR W7 · Videogame literacy, learning design and Q.U.A.K.E.",
+    "teaching_locator": "W7 Q.U.A.K.E. operational handout, dimension 3 'Accessibility & Design justice'",
+    "method": "Original four-choice item checked directly against authorised D4B Week 07 lecture PDF, transcript, revised private booklet and (where applicable) Q.U.A.K.E. handout. Correct option and all three distractors individually checked against the named independent academic or competent-authority source. Q.U.A.K.E. is a course-specific critical analysis framework, not claimed as independently validated or as a Moodle answer key.",
+    "key_checked": 2,
+    "distractor_indices_checked": [
+      0,
+      1,
+      3
+    ],
+    "distractor_checks": [
+      "Sales and marketing do not measure access.",
+      "Visual polish alone does not establish accessible participation.",
+      "Correct choice.",
+      "Fictional combat success does not measure learner accessibility."
+    ],
+    "source_review_status": "independently supported; course-defined terminology checked against original lecture",
+    "teaching_material_checked": true
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "original D4B W7 lecture, transcript and private booklet",
+    "module": "DTR",
+    "week": 7,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 07 'Videogame Literacy, Learning Design and Q.U.A.K.E.' (updated 1 November 2026); Soriani (2026), 'Video Game Literacy' lecture slides, 31 October 2026 session; 'Digital Transformation - Sept26 (2).docx' live-session transcript; D4B Q.U.A.K.E. operational handout",
+    "reviewed_at": "2026-11-02",
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
   }
