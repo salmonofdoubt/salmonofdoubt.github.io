@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-02T13:35:19+00:00",
+  "generated_at": "2026-11-03T12:51:40+00:00",
   "engine": "dynamic-state-harvest-2.0",
   "state_mismatches": [
     {
@@ -17,6 +17,14 @@
       "page_state": "closed",
       "state_source": "deadline_past_recurring",
       "deadline_text": "11th June 2026, 13:00 local Irish time"
+    },
+    {
+      "id": "international_joint_initiative_for_research_harnessing_disruptive_techno",
+      "name": "International Joint Initiative for Research Harnessing Disruptive Technologies to Address Global Challenges",
+      "registry_state": "open",
+      "page_state": "upcoming",
+      "state_source": "page_status_upcoming",
+      "deadline_text": "3rd November 2026"
     },
     {
       "id": "geo_horizon_energy_supply",
@@ -80,8 +88,22 @@
     {
       "id": "geo_rifs_klaus_toepfer",
       "name": "RIFS Klaus Töpfer Sustainability Fellowship",
-      "error": "403 Client Error: Forbidden for url: https://www.rifs-potsdam.de/en/node/11996",
+      "error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x77a9d64cacd0>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=10)'))",
       "last_successful_fetch_at": "2026-09-23T10:03:40+00:00",
+      "programme_state": "closed"
+    },
+    {
+      "id": "geo_gfz_jobs_board",
+      "name": "GFZ Scientific Jobs Board",
+      "error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x77a9d64c8f50>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-11-02T13:35:19+00:00",
+      "programme_state": "open"
+    },
+    {
+      "id": "geo_gfz_klaus_toepfer",
+      "name": "GFZ Klaus Töpfer Sustainability Fellowship",
+      "error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x77a9d65336d0>, 'Connection to www.gfz.de timed out. (connect timeout=10)'))",
+      "last_successful_fetch_at": "2026-11-02T13:35:19+00:00",
       "programme_state": "closed"
     }
   ],
@@ -112,13 +134,14 @@
     }
   ],
   "state_source_counts": {
-    "last_known_good": 8,
-    "registry_fallback": 22,
+    "last_known_good": 10,
+    "registry_fallback": 20,
     "deadline_past_recurring": 2,
     "page_status_closed": 3,
     "registry_fallback_after_fetch_error": 4,
-    "deadline_future": 2,
-    "page_status_open": 1
+    "deadline_future": 1,
+    "page_status_open": 1,
+    "page_status_upcoming": 1
   },
   "public_visible_count": 40,
   "total_harvested_count": 42

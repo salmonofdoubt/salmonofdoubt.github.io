@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-02T13:31:48+00:00",
+  "generated_at": "2026-11-03T12:48:17+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 7,
-  "links_seen": 4502,
+  "seed_pages_failed": 9,
+  "links_seen": 4208,
   "funding_like_links": 447,
   "candidate_fetches": 300,
-  "pending_review_count": 116,
+  "pending_review_count": 115,
   "status_counts": {
-    "pending_review": 116,
-    "suppressed_non_actionable": 41,
+    "pending_review": 115,
+    "suppressed_non_actionable": 42,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 64
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 61
   },
   "candidate_type_counts": {
     "recurring_programme": 58,
-    "funding_call": 91,
+    "funding_call": 89,
     "scholarship": 19,
-    "generic_funding_hub": 5,
-    "tender": 9,
-    "unknown": 64
+    "generic_funding_hub": 6,
+    "tender": 11,
+    "unknown": 61
   },
   "seeds": [
     {
@@ -264,7 +264,7 @@
       "name": "Geo watch: RIFS Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.rifs-potsdam.de/en/node/11996",
       "status": "fetch_error",
-      "fetch_error": "403 Client Error: Forbidden for url: https://www.rifs-potsdam.de/en/node/11996",
+      "fetch_error": "HTTPSConnectionPool(host='www.rifs-potsdam.de', port=443): Max retries exceeded with url: /en/node/11996 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.rifs-potsdam.de', port=443) at 0x73fa1d82b690>, 'Connection to www.rifs-potsdam.de timed out. (connect timeout=12)'))",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -273,9 +273,9 @@
       "id": "geo_gfz_jobs_board_watch",
       "name": "Geo watch: GFZ Scientific Jobs Board",
       "url": "https://www.gfz.de/karriere/stellenangebote",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 147,
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x73fa1e15d450>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -283,9 +283,9 @@
       "id": "geo_gfz_klaus_toepfer_watch",
       "name": "Geo watch: GFZ Klaus Töpfer Sustainability Fellowship",
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 147,
+      "status": "fetch_error",
+      "fetch_error": "HTTPSConnectionPool(host='www.gfz.de', port=443): Max retries exceeded with url: /karriere/stellenangebote/details/10891 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.gfz.de', port=443) at 0x73fa1dc7efd0>, 'Connection to www.gfz.de timed out. (connect timeout=12)'))",
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     }
