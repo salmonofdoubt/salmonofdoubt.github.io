@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-11-04T17:05:09+00:00",
+    "generated_at": "2026-11-04T22:31:47+00:00",
     "mode": "system-market-price-layer",
     "caveat": "Market/system prices are not household tariffs. Household affordability remains the SEAI semi-annual price layer.",
     "sources": [
@@ -12,11 +12,11 @@
   "market_prices": [
     {
       "label": "Electricity system price",
-      "value": "771.96 \u20ac/MWh",
-      "numeric_value": 771.96,
+      "value": "167.19 \u20ac/MWh",
+      "numeric_value": 167.19,
       "unit": "\u20ac/MWh",
-      "equivalent_value": "77.20 c/kWh",
-      "numeric_value_c_per_kwh": 77.2,
+      "equivalent_value": "16.72 c/kWh",
+      "numeric_value_c_per_kwh": 16.72,
       "status": "mapped",
       "period": "2026-11-04",
       "freshness": "latest settlement period visible on Smart Grid Dashboard",
@@ -24,12 +24,12 @@
       "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
       "detail": "Latest electricity imbalance settlement price. This is a system/market signal, not a household electricity tariff.",
       "stats": {
-        "latest_eur_per_mwh": 771.96,
-        "latest_c_per_kwh_equivalent": 77.2,
+        "latest_eur_per_mwh": 167.19,
+        "latest_c_per_kwh_equivalent": 16.72,
         "dashboard_date": "04/11/2026",
-        "latest_line": "771.96",
-        "daily_min_eur_per_mwh": 177.61,
-        "daily_max_eur_per_mwh": 771.96
+        "latest_line": "167.19",
+        "daily_min_eur_per_mwh": 167.19,
+        "daily_max_eur_per_mwh": 772.74
       }
     },
     {
