@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-04T12:59:57+00:00",
+  "generated_at": "2026-11-05T13:12:59+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
-  "links_seen": 4593,
+  "links_seen": 4591,
   "funding_like_links": 480,
   "candidate_fetches": 300,
-  "pending_review_count": 114,
+  "pending_review_count": 118,
   "status_counts": {
-    "pending_review": 114,
-    "suppressed_non_actionable": 41,
+    "pending_review": 118,
+    "suppressed_non_actionable": 48,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 66
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 54
   },
   "candidate_type_counts": {
-    "recurring_programme": 58,
-    "funding_call": 89,
+    "recurring_programme": 59,
+    "funding_call": 92,
     "scholarship": 19,
-    "generic_funding_hub": 5,
-    "tender": 9,
-    "unknown": 66
+    "generic_funding_hub": 6,
+    "tender": 16,
+    "unknown": 54
   },
   "seeds": [
     {
@@ -35,9 +35,9 @@
       "url": "https://www.researchireland.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 103,
-      "funding_like_links": 45,
-      "candidates_fetched": 45
+      "links_seen": 104,
+      "funding_like_links": 46,
+      "candidates_fetched": 46
     },
     {
       "id": "heritage_council_funding_hub",
@@ -75,7 +75,7 @@
       "url": "https://www.fisheriesireland.ie/our-services/funding",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 174,
+      "links_seen": 175,
       "funding_like_links": 6,
       "candidates_fetched": 6
     },
@@ -104,7 +104,7 @@
       "name": "Waterways Ireland heritage watch",
       "url": "https://www.waterwaysireland.org/about-us/heritage",
       "status": "fetch_error",
-      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1016)')))",
+      "fetch_error": "HTTPSConnectionPool(host='www.waterwaysireland.org', port=443): Max retries exceeded with url: /about-us/heritage (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1018)')))",
       "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 640,
       "funding_like_links": 58,
-      "candidates_fetched": 2
+      "candidates_fetched": 1
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -225,8 +225,8 @@
       "url": "https://erc.europa.eu/funding/advanced-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 169,
-      "funding_like_links": 21,
+      "links_seen": 161,
+      "funding_like_links": 20,
       "candidates_fetched": 0
     },
     {
@@ -275,7 +275,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 146,
+      "links_seen": 148,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -285,7 +285,7 @@
       "url": "https://www.gfz.de/karriere/stellenangebote/details/10891",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 146,
+      "links_seen": 148,
       "funding_like_links": 0,
       "candidates_fetched": 0
     }
