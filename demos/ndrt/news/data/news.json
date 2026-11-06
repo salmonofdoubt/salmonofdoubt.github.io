@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T13:14:00.083911+00:00",
+  "generated_at": "2026-11-06T12:58:52.260137+00:00",
   "note": "Source-led daily radar for Nanny-Delvin: practical Irish catchment signals, waterbody evidence/alerts, grants/opportunities, and research ranked by Trust usefulness.",
   "sections": [
     {
@@ -23,7 +23,7 @@
       "description": "Scholarly evidence ranked for practical Nanny-Delvin usefulness: Ireland first, comparable temperate systems second, and transferable NbS / water-quality evidence where it helps action."
     }
   ],
-  "count": 59,
+  "count": 95,
   "items": [
     {
       "id": "c15944002653fd1a",
@@ -42,7 +42,7 @@
       ],
       "score": 100,
       "freshness_status": "reference",
-      "freshness_label": "118 days old · background",
+      "freshness_label": "119 days old · background",
       "pressure_categories": [
         "septic / domestic wastewater",
         "funding / grant",
@@ -82,7 +82,7 @@
       ],
       "score": 100,
       "freshness_status": "reference",
-      "freshness_label": "443 days old · background",
+      "freshness_label": "444 days old · background",
       "pressure_categories": [
         "nutrients",
         "habitat / biodiversity",
@@ -96,6 +96,1042 @@
         ]
       },
       "action_relevance": "Restoration signal: potentially useful for riparian, wetland, floodplain, habitat, or runoff-interception measures."
+    },
+    {
+      "id": "c3e66f63591e6856",
+      "title": "Trends and purposes of European river monitoring and restoration",
+      "url": "https://doi.org/10.1016/j.envsci.2025.104130",
+      "summary": "This study provides the first geospatial analysis of the trends and uptake of European river monitoring and restoration. European monitoring targets rivers draining agricultural and urban land, which leads to geospatial biases due to the co-occurrence with soils, topography, and river orders. Most notably, intermittent rivers and ephemeral streams are underrepresented due to lower monitoring intensities in Southern Europe, headwaters, and catchments with steeper slopes or less arable soils. Improving monitoring efforts in these ecosystems can advance our scientific understanding of complex linkages between ecological quality outcomes and specific stressors. Large differences were found in the spatial coverage of river monitoring and chemical status reporting between European river regions, which highlights comparability issues with the outcomes of Water Framework Directive river quality status due to the ’one-out-all-out’ principle. Che",
+      "published": "2025-06-09",
+      "source_id": "openalex",
+      "source_name": "Environmental Science & Policy",
+      "publisher": "Environmental Science & Policy",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2025 · 8 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.1016/j.envsci.2025.104130",
+      "cited_by_count": 8,
+      "openalex_id": "https://openalex.org/W4411143045",
+      "pressure_categories": [
+        "agricultural runoff",
+        "citizen science / monitoring"
+      ],
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around agricultural runoff, citizen science / monitoring."
+    },
+    {
+      "id": "e492fd3e0dc9cab7",
+      "title": "Technical structure and influencing factors of nitrogen and phosphorus removal in constructed wetlands",
+      "url": "https://doi.org/10.2166/wst.2023.414",
+      "summary": "Constructed wetlands purify water quality by synergistically removing nitrogen and phosphorus pollutants from water, among other pollutants such as organic matter through a physical, chemical, and biological composite remediation mechanism formed between plants, fillers, and microorganisms. Compared with large-scale centralized wastewater treatment systems with high cost and energy consumption, the construction and operation costs of artificial wetlands are relatively low, do not require large-scale equipment and high energy consumption treatment processes, and have the characteristics of green, environmental protection, and sustainability. Gradually, constructed wetlands are widely used to treat nitrogen and phosphorus substances in wastewater. Therefore, this article discusses in detail the role and interaction of the main technical structures (plants, microorganisms, and fillers) involved in nitrogen and phosphorus removal in constru",
+      "published": "2023-12-21",
+      "source_id": "openalex",
+      "source_name": "Water Science & Technology",
+      "publisher": "Water Science & Technology",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2023 · 35 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.2166/wst.2023.414",
+      "cited_by_count": 35,
+      "openalex_id": "https://openalex.org/W4390059274",
+      "pressure_categories": [
+        "water quality",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, NbS / restoration."
+    },
+    {
+      "id": "5d6b6c5c3f4b2372",
+      "title": "Soil erosion, sediment sources, connectivity and suspended sediment yields in UK temperate agricultural catchments: Discrepancies and reconciliation of field-based measurements",
+      "url": "https://doi.org/10.1016/j.jenvman.2023.119810",
+      "summary": "Robust understanding of the fine-grained sediment cascades of temperate agricultural catchments is essential for supporting targeted management for addressing the widely reported sediment problem. Within the UK, many independent field-based measurements of soil erosion, sediment sources and catchment suspended sediment yields have been published. However, attempts to review and assess the compatibility of these measurements are limited. The data available suggest that landscape scale net soil erosion rates (∼38 t km−2 yr−1 for arable and ∼26 t km−2 yr−1 grassland) are comparable to the typical suspended sediment yield of a UK catchment (∼44 t km2 yr−1). This finding cannot, however, be reconciled easily with current prevailing knowledge that agricultural topsoils dominate sediment contributions to watercourses, and that catchment sediment delivery ratios are typically low. Channel bank erosion rates can be high at landscape scale (27 km",
+      "published": "2023-12-14",
+      "source_id": "openalex",
+      "source_name": "Journal of Environmental Management",
+      "publisher": "Journal of Environmental Management",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2023 · 30 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1016/j.jenvman.2023.119810",
+      "cited_by_count": 30,
+      "openalex_id": "https://openalex.org/W4389734089",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "sediment / hydromorphology",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, sediment / hydromorphology."
+    },
+    {
+      "id": "f0321dffa6fd3996",
+      "title": "Assessing the impact of COVID-19 lockdown on surface water quality in Ireland using advanced Irish water quality index (IEWQI) model",
+      "url": "https://doi.org/10.1016/j.envpol.2023.122456",
+      "summary": "The COVID-19 pandemic has significantly impacted various aspects of life, including environmental conditions. Surface water quality (WQ) is one area affected by lockdowns imposed to control the virus's spread. Numerous recent studies have revealed the considerable impact of COVID-19 lockdowns on surface WQ. In response, this research aimed to assess the impact of COVID-19 lockdowns on surface water quality in Ireland using an advanced WQ model. To achieve this goal, six years of water quality monitoring data from 2017 to 2022 were collected for nine water quality indicators in Cork Harbour, Ireland, before, during, and after the lockdowns. These indicators include pH, water temperature (TEMP), salinity (SAL), biological oxygen demand (BOD5), dissolved oxygen (DOX), transparency (TRAN), and three nutrient enrichment indicators—dissolved inorganic nitrogen (DIN), molybdate reactive phosphorus (MRP), and total oxidized nitrogen (TON). The",
+      "published": "2023-09-04",
+      "source_id": "openalex",
+      "source_name": "Environmental Pollution",
+      "publisher": "Environmental Pollution",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2023 · 58 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.1016/j.envpol.2023.122456",
+      "cited_by_count": 58,
+      "openalex_id": "https://openalex.org/W4386416063",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "citizen science / monitoring"
+      ],
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff, citizen science / monitoring."
+    },
+    {
+      "id": "eae12a16e498b263",
+      "title": "Wetland nitrogen removal from agricultural runoff in a changing climate",
+      "url": "https://doi.org/10.1016/j.scitotenv.2023.164336",
+      "summary": "Wetlands in agricultural areas mitigate eutrophication by intercepting nutrient transports from land to sea. The role of wetlands for nutrient removal may become even more important in the future because of the expected increase in agricultural runoff due to climate change. Because denitrification is temperature dependent, wetland nitrogen (N) removal usually peaks during the warm summer. However, climate change scenarios for the northern temperate zone predict decreased summer and increased winter flows. Future wetlands may therefore shift towards lower hydraulic loading rate and N load during summer. We hypothesised that low summer N loads would decrease annual wetland N removal and tested this by examining 1.5-3 years of continuous N removal data from created agricultural wetlands in two regions in southern Sweden (East and West) during different periods. West wetlands showed relatively stable hydraulic loads throughout the year, whe",
+      "published": "2023-05-24",
+      "source_id": "openalex",
+      "source_name": "The Science of The Total Environment",
+      "publisher": "The Science of The Total Environment",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2023 · 21 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2023.164336",
+      "cited_by_count": 21,
+      "openalex_id": "https://openalex.org/W4378072465",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "0f904cfcfd9096d8",
+      "title": "Impacts of different vegetation in riparian buffer strips on runoff and sediment loss",
+      "url": "https://doi.org/10.1002/hyp.14733",
+      "summary": "Abstract Buffer strips continue to feature in the management of agricultural runoff and water pollution in many countries. Existing research has explored their efficacy for reducing environmental problems in different geoclimatic settings but, the evidence on the efficacy of different vegetation treatments is less abundant than that for other buffer strip characteristics, including width, and is more contradictory in nature. With policy targets for various environmental outcomes including water or air quality and net zero pointing to the need for conversion of agricultural land, the need for robust experimental evidence on the relative benefits of different vegetation types in buffer strips is now renewed. Our experiment used a replicated plot scale facility to compare the efficacy of 12 m wide buffer strips for controlling runoff and suspended sediment loss during 15 sampled storms spanning 2017–2020. The buffer strips comprised three",
+      "published": "2022-10-14",
+      "source_id": "openalex",
+      "source_name": "Hydrological Processes",
+      "publisher": "Hydrological Processes",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2022 · 52 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.1002/hyp.14733",
+      "cited_by_count": 52,
+      "openalex_id": "https://openalex.org/W4306174787",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "sediment / hydromorphology",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, sediment / hydromorphology."
+    },
+    {
+      "id": "80262afa48e221ee",
+      "title": "Is water quality in British rivers “better than at any time since the end of the Industrial Revolution”?",
+      "url": "https://doi.org/10.1016/j.scitotenv.2022.157014",
+      "summary": "We explore the oft-repeated claim that river water quality in Great Britain is \"better now than at any time since the Industrial Revolution\". We review available data and ancillary evidence for seven different categories of water pollutants: (i) biochemical oxygen demand (BOD) and ammonia; (ii) heavy metals; (iii) sewage-associated organic pollutants (including hormone-like substances, personal care product and pharmaceutical compounds); (iv) macronutrients (nitrogen and phosphorus); (v) pesticides; (vi) acid deposition and (vii) other variables, including natural organic matter and pathogenic micro-organisms. With a few exceptions, observed data are scarce before 1970. However, we can speculate about some of the major water quality pressures which have existed before that. Point-source pollutants are likely to have increased with population growth, increased connection rates to sewerage and industrialisation, although the increased pro",
+      "published": "2022-06-27",
+      "source_id": "openalex",
+      "source_name": "The Science of The Total Environment",
+      "publisher": "The Science of The Total Environment",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited",
+        "review"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2022 · 142 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2022.157014",
+      "cited_by_count": 142,
+      "openalex_id": "https://openalex.org/W4283591267",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff."
+    },
+    {
+      "id": "0176c463ab10b5b8",
+      "title": "Exploring adaptive capacity to phosphorus challenges through two United Kingdom river catchments",
+      "url": "https://doi.org/10.1016/j.envsci.2022.06.001",
+      "summary": "Phosphorus (P) is a critical natural resource for food production, but one that is subject to global supply vulnerabilities. P is also responsible for endemic eutrophication in waterbodies due to poor stewardship in the food chain. Catchments are natural social-ecologically bounded systems for P use in agriculture and water management. Stakeholders, such as farmers, water and sewerage service companies, local authorities, and environmental organisations mediate catchment adaptive capacity to P supply risks and P pollution in waterbodies. Adaptive capacity at this level has been insufficiently explored in addressing the P challenge, yet is essential to it. We address this gap by exploring through a qualitative study of stakeholders in two United Kingdom catchments. Our results suggest that the awareness and relevance of P-supply challenges is low in catchments, but the problem of waterbody vulnerability to excess P is of greater concern.",
+      "published": "2022-06-21",
+      "source_id": "openalex",
+      "source_name": "Environmental Science & Policy",
+      "publisher": "Environmental Science & Policy",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2022 · 6 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1016/j.envsci.2022.06.001",
+      "cited_by_count": 6,
+      "openalex_id": "https://openalex.org/W4283361902",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Supporting evidence",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff."
+    },
+    {
+      "id": "2ba35c94b1962cac",
+      "title": "Riparian Buffers as a Critical Landscape Feature: Insights for Riverscape Conservation and Policy Renovations",
+      "url": "https://doi.org/10.3390/d14030172",
+      "summary": "Riparian zones are critical for functional integrity of riverscapes and conservation of riverscape biodiversity. The synergism of intermediate flood-induced disturbances, moist microclimates, constant nutrient influx, high productivity, and resource heterogeneity make riparian zones disproportionately rich in biodiversity. Riparian vegetation intercepts surface-runoff, filters pollutants, and supplies woody debris as well as coarse particulate organic matter (e.g., leaf litter) to the stream channel. Riparian zones provide critical habitat and climatic refugia for wildlife. Numerous conservation applications have been implemented for riparian-buffer conservation. Although fixed-width buffers have been widely applied as a conservation measure, the effectiveness of these fixed buffer widths is debatable. As an alternative to fixed-width buffers, we suggest adoption of variable buffer widths, which include multiple tiers that vary in habit",
+      "published": "2022-02-27",
+      "source_id": "openalex",
+      "source_name": "Diversity",
+      "publisher": "Diversity",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2022 · 173 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.3390/d14030172",
+      "cited_by_count": 173,
+      "openalex_id": "https://openalex.org/W4214656466",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "sediment / hydromorphology",
+        "NbS / restoration",
+        "habitat / biodiversity"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, sediment / hydromorphology."
+    },
+    {
+      "id": "1bba9b6818a369ed",
+      "title": "A review of technologies for closing the P loop in agriculture runoff: Contributing to the transition towards a circular economy",
+      "url": "https://doi.org/10.1016/j.ecoleng.2022.106571",
+      "summary": "Phosphorus (P) scarcity and the environmental hazards posed by P discharges have triggered the development of technologies for P sequestration and removal from waste streams. Agriculture runoff usually has P concentrations high enough to contribute to eutrophication and harmful algal blooms, but they are still too low for successful P removal with conventional technologies commonly applied in wastewater treatment. For this reason, realistic approaches to remove P from agricultural waste streams mainly include natural assimilation and constructed wetlands. Although these technologies have been implemented for some time, P removal is not always achieved to the needed extent and sometimes sufficient surface areas required are unattainable. Phosphorus sorbing materials, especially materials rich in calcium, have emerged to increase the removal potential of runoff treatment wetlands and at the same time sequester P for potential subsequent r",
+      "published": "2022-02-14",
+      "source_id": "openalex",
+      "source_name": "Ecological Engineering",
+      "publisher": "Ecological Engineering",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "review"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2022 · 47 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.1016/j.ecoleng.2022.106571",
+      "cited_by_count": 47,
+      "openalex_id": "https://openalex.org/W4213296121",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "98cbc67e721f5409",
+      "title": "Can we use mine waste as substrate in constructed wetlands to intensify nutrient removal? A critical assessment of key removal mechanisms and long-term environmental risks",
+      "url": "https://doi.org/10.1016/j.watres.2021.118009",
+      "summary": "The utilization of natural ores and/or mine waste as substrate in constructed wetlands (CWs) to enhance nutrient removal performance has been gaining high popularity recently. However, the knowledge regarding the long-term feasibility and key removal mechanisms, particularly the potential negative environmental effects of contaminants leached from mine waste is far insufficient. This study, for the first time, performed a critical assessment by using different CWs with three mine waste (coal gangue, iron ore and manganese ore) as substrates in a 385-day experiment treating wastewater with varying nutrient loadings. The results showed that the addition of mine waste in CWs increased removal of total phosphorus (TP) by 17-34%, and total nitrogen (TN) by 11-51%. The higher removal of TP is mainly attributed to the strong binding mechanism of phosphate with the oxides and hydroxides of Mn, Fe and/or Al, which are leached out of mine waste.",
+      "published": "2021-12-24",
+      "source_id": "openalex",
+      "source_name": "Water Research",
+      "publisher": "Water Research",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2021 · 124 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.1016/j.watres.2021.118009",
+      "cited_by_count": 124,
+      "openalex_id": "https://openalex.org/W4200075337",
+      "pressure_categories": [
+        "water quality",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, NbS / restoration."
+    },
+    {
+      "id": "9975135875a58ce6",
+      "title": "A Review on Constructed Treatment Wetlands for Removal of Pollutants in the Agricultural Runoff",
+      "url": "https://doi.org/10.3390/su132413578",
+      "summary": "Constructed wetland (CW) is a popular sustainable best management practice for treating different wastewaters. While there are many articles on the removal of pollutants from different wastewaters, a comprehensive and critical review on the removal of pollutants other than nutrients that occur in agricultural field runoff and wastewater from animal facilities, including pesticides, insecticides, veterinary medicine, and antimicrobial-resistant genes are currently unavailable. Consequently, this paper summarized recent findings on the occurrence of such pollutants in the agricultural runoff water, their removal by different wetlands (surface flow, subsurface horizontal flow, subsurface vertical flow, and hybrid), and removal mechanisms, and analyzed the factors that affect the removal. The information is then used to highlight the current research gaps and needs for resilient and sustainable treatment systems. Factors, including contamin",
+      "published": "2021-12-08",
+      "source_id": "openalex",
+      "source_name": "Sustainability",
+      "publisher": "Sustainability",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2021 · 65 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.3390/su132413578",
+      "cited_by_count": 65,
+      "openalex_id": "https://openalex.org/W4200243687",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "06e7b5a6586f23cd",
+      "title": "Catchment water quality in the year preceding and immediately following restoration of a drained afforested blanket bog",
+      "url": "https://doi.org/10.1007/s10533-021-00782-y",
+      "summary": "Abstract The restoration of drained afforested peatlands, through drain blocking and tree removal, is increasing in response to peatland restoration targets and policy incentives. In the short term, these intensive restoration operations may affect receiving watercourses and the biota that depend upon them. This study assessed the immediate effect of ‘forest-to-bog’ restoration by measuring stream and river water quality for a 15 month period pre- and post-restoration, in the Flow Country peatlands of northern Scotland. We found that the chemistry of streams draining restoration areas differed from that of control streams following restoration, with phosphate concentrations significantly higher (1.7–6.2 fold, mean 4.4) in restoration streams compared to the pre-restoration period. This led to a decrease in the pass rate (from 100 to 75%) for the target “good” quality threshold (based on EU Water Framework Directive guidelines) in rivers",
+      "published": "2021-03-30",
+      "source_id": "openalex",
+      "source_name": "Biogeochemistry",
+      "publisher": "Biogeochemistry",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2021 · 12 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.1007/s10533-021-00782-y",
+      "cited_by_count": 12,
+      "openalex_id": "https://openalex.org/W3145767931",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Policy / governance",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff."
+    },
+    {
+      "id": "3a91b5d7b28998ee",
+      "title": "The Use of Constructed Wetland for Mitigating Nitrogen and Phosphorus from Agricultural Runoff: A Review",
+      "url": "https://doi.org/10.3390/w13040476",
+      "summary": "The loss of nitrogen and phosphate fertilizers in agricultural runoff is a global environmental problem, attracting worldwide attention. In the last decades, the constructed wetland has been increasingly used for mitigating the loss of nitrogen and phosphate from agricultural runoff, while the substrate, plants, and wetland structure design remain far from clearly understood. In this paper, the optimum substrates and plant species were identified by reviewing their treatment capacity from the related studies. Specifically, the top three suitable substrates are gravel, zeolite, and slag. In terms of the plant species, emergent plants are the most widely used in the constructed wetlands. Eleocharis dulcis, Typha orientalis, and Scirpus validus are the top three optimum emergent plant species. Submerged plants (Hydrilla verticillata, Ceratophyllum demersum, and Vallisneria natans), free-floating plants (Eichhornia crassipes and Lemna minor",
+      "published": "2021-02-12",
+      "source_id": "openalex",
+      "source_name": "Water",
+      "publisher": "Water",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited",
+        "review"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2021 · 87 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.3390/w13040476",
+      "cited_by_count": 87,
+      "openalex_id": "https://openalex.org/W3129729599",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration",
+        "habitat / biodiversity"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "54fe567b803f286a",
+      "title": "Constructed Wetlands for Water Quality Improvement: A Synthesis on Nutrient Reduction from Agricultural Effluents",
+      "url": "https://doi.org/10.13031/trans.13976",
+      "summary": "Abstract. Excess nutrients from agricultural settings contribute to surface water and groundwater impairment. Constructed wetlands have been widely used for water quality protection in various agricultural systems. We used a synthesis approach to document the performance of constructed wetlands for nutrient removal from a range of landscapes and geographic regions with the following objectives: (1) review the current use of constructed wetlands in agricultural applications, (2) summarize the nutrient removal efficiency of constructed wetlands, and (3) identify the geographic usage and costs associated with constructed wetlands. We reviewed over 130 publications and reports to characterize nutrient removal performance for the following types of agricultural effluents: cropland surface and subsurface drainage, and wastewater from livestock production, greenhouse, aquaculture, and hydroponic systems. Data from the reviewed studies indicate",
+      "published": "2021-01-01",
+      "source_id": "openalex",
+      "source_name": "Transactions of the ASABE",
+      "publisher": "Transactions of the ASABE",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2021 · 36 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.13031/trans.13976",
+      "cited_by_count": 36,
+      "openalex_id": "https://openalex.org/W3130500292",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "eed41a4cc94c2f3e",
+      "title": "Design, Operation and Optimization of Constructed Wetland for Removal of Pollutant",
+      "url": "https://doi.org/10.3390/ijerph17228339",
+      "summary": "Constructed wetlands (CWs) are affordable and reliable green technologies for the treatment of various types of wastewater. Compared to conventional treatment systems, CWs offer an environmentally friendly approach, are low cost, have fewer operational and maintenance requirements, and have a high potential for being applied in developing countries, particularly in small rural communities. However, the sustainable management and successful application of these systems remain a challenge. Therefore, after briefly providing basic information on wetlands and summarizing the classification and use of current CWs, this study aims to provide and inspire sustainable solutions for the performance and application of CWs by giving a comprehensive review of CWs' application and the recent development of their sustainable design, operation, and optimization for wastewater treatment. To accomplish this objective, thee design and management parameter",
+      "published": "2020-11-11",
+      "source_id": "openalex",
+      "source_name": "International Journal of Environmental Research and Public Health",
+      "publisher": "International Journal of Environmental Research and Public Health",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2020 · 213 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.3390/ijerph17228339",
+      "cited_by_count": 213,
+      "openalex_id": "https://openalex.org/W3099570657",
+      "pressure_categories": [
+        "water quality",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, NbS / restoration."
+    },
+    {
+      "id": "dbf06683280f8d0a",
+      "title": "Riparian buffer effectiveness as a function of buffer design and input loads",
+      "url": "https://doi.org/10.1002/jeq2.20149",
+      "summary": "Although many agricultural watersheds rely heavily on riparian buffer adoption to meet water quality goals, design and management constraints in current policies create adoption barriers. Based on focus group feedback, we developed a flexible buffer design paradigm that varies buffer width, vegetation, and harvesting. Sixteen years of daily-scale nutrient and sediment loads simulated with the Soil and Water Assessment Tool (SWAT) were coupled to the three-zone Riparian Ecosystem Management Model (REMM) to compare the effectiveness of traditional, policy-based buffer designs with designs that are more flexible and integrate features important to local farmers. Buffer designs included (i) 10 m grass, (ii) 15 m grass, (iii) 15 m deciduous trees, (iv) 30 m grass and trees, (v) 30 m grass and trees with trees harvested every 3 yr, and (vi) 30 m grass and trees with grass harvested every year. Allowing harvesting in one zone of the buffer veg",
+      "published": "2020-09-27",
+      "source_id": "openalex",
+      "source_name": "Journal of Environmental Quality",
+      "publisher": "Journal of Environmental Quality",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2020 · 28 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.1002/jeq2.20149",
+      "cited_by_count": 28,
+      "openalex_id": "https://openalex.org/W3087107169",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "sediment / hydromorphology",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, sediment / hydromorphology."
+    },
+    {
+      "id": "be9d0c179df182d3",
+      "title": "Biogeochemical and climate drivers of wetland phosphorus and nitrogen release: Implications for nutrient legacies and eutrophication risk",
+      "url": "https://doi.org/10.1002/jeq2.20155",
+      "summary": "The dynamics and processes of nutrient cycling and release were examined for a lowland wetland-pond system, draining woodland in southern England. Hydrochemical and meteorological data were analyzed from 1997 to 2017, along with high-resolution in situ sensor measurements from 2016 to 2017. The results showed that even a relatively pristine wetland can become a source of highly bioavailable phosphorus (P), nitrogen (N), and silicon (Si) during low-flow periods of high ecological sensitivity. The drivers of nutrient release were primary production and accumulation of biomass, which provided a carbon (C) source for microbial respiration and, via mineralization, a source of bioavailable nutrients for P and N co-limited microorganisms. During high-intensity nutrient release events, the dominant N-cycling process switched from denitrification to nitrate ammonification, and a positive feedback cycle of P and N release was sustained over sever",
+      "published": "2020-09-22",
+      "source_id": "openalex",
+      "source_name": "Journal of Environmental Quality",
+      "publisher": "Journal of Environmental Quality",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "highly-cited",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2020 · 54 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1002/jeq2.20155",
+      "cited_by_count": 54,
+      "openalex_id": "https://openalex.org/W3088387940",
+      "pressure_categories": [
+        "water quality",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, NbS / restoration."
+    },
+    {
+      "id": "2769dae787d86ecc",
+      "title": "Nitrogen and Phosphorus Loads in Greek Rivers: Implications for Management in Compliance with the Water Framework Directive",
+      "url": "https://doi.org/10.3390/w12061531",
+      "summary": "Reduction of nutrient loadings is often prioritized among other management measures for improving the water quality of freshwaters within the catchment. However, urban point sources and agriculture still thrive as the main drivers of nitrogen and phosphorus pollution in European rivers. With this article we present a nationwide assessment of nitrogen and phosphorus loads that 18 large rivers in Greece receive with the purpose to assess variability among seasons, catchments, and river types and distinguish relationships between loads and land uses of the catchment. We employed an extensive dataset of 636 field measurements of nutrient concentrations and river discharges to calculate nitrogen and phosphorus loads. Descriptive statistics and a cluster analysis were conducted to identify commonalties and differences among catchments and seasons. In addition a network analysis was conducted and its modularity feature was used to detect commo",
+      "published": "2020-05-27",
+      "source_id": "openalex",
+      "source_name": "Water",
+      "publisher": "Water",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2020 · 22 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.3390/w12061531",
+      "cited_by_count": 22,
+      "openalex_id": "https://openalex.org/W3031968769",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Policy / governance",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff."
+    },
+    {
+      "id": "7c67db657d90ff3c",
+      "title": "Towards ecologically functional riparian zones: A meta-analysis to develop guidelines for protecting ecosystem functions and biodiversity in agricultural landscapes",
+      "url": "https://doi.org/10.1016/j.jenvman.2019.109391",
+      "summary": "Riparian zones contribute with biodiversity and ecosystem functions of fundamental importance for regulating flow and nutrient transport in waterways. However, agricultural land-use and physical changes made to improve crop productivity and yield have resulted in modified hydrology and displaced natural vegetation. The modification to the hydrology and natural vegetation have affected the biodiversity and many ecosystem functions provided by riparian zones. Here we review the literature to provide state-of-the-art recommendations for riparian zones in agricultural landscapes. We analysed all available publications since 1984 that have quantified services provided by riparian zones and use this information to recommend minimum buffer widths. We also analysed publications that gave buffer width recommendations to sustain different groups of organisms. We found that drainage size matters for nutrient and sediment removal, but also that a 3",
+      "published": "2019-08-21",
+      "source_id": "openalex",
+      "source_name": "Journal of Environmental Management",
+      "publisher": "Journal of Environmental Management",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2019 · 201 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.1016/j.jenvman.2019.109391",
+      "cited_by_count": 201,
+      "openalex_id": "https://openalex.org/W2969870655",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "sediment / hydromorphology",
+        "NbS / restoration",
+        "habitat / biodiversity"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, sediment / hydromorphology."
+    },
+    {
+      "id": "9dcd394f95c4613e",
+      "title": "Challenges of Reducing Phosphorus Based Water Eutrophication in the Agricultural Landscapes of Northwest Europe",
+      "url": "https://doi.org/10.3389/fmars.2018.00276",
+      "summary": "In this paper, we outline several recent insights for the priorities and challenges for future research for reducing phosphorus (P) based water eutrophication in the agricultural landscapes of Northwest Europe. We highlight that new research efforts best be focused on headwater catchments as they are a key influence on the initial chemistry of the larger river catchments, and here many management interventions are most effectively made. We emphasize the lack of understanding on how climate change will impact on P losses from agricultural landscapes. Particularly, the capability to disentangle current and future trends in P fluxes, due to climate change itself, from climate driven changes in agricultural management practices and P inputs. Knowing that, future climatic change trajectories for Western Europe will accelerate the release of the most bioavailable soil P. We stress the ambiguities created by the large varieties of sources and",
+      "published": "2018-08-23",
+      "source_id": "openalex",
+      "source_name": "Frontiers in Marine Science",
+      "publisher": "Frontiers in Marine Science",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2018 · 158 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.3389/fmars.2018.00276",
+      "cited_by_count": 158,
+      "openalex_id": "https://openalex.org/W2888317624",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Supporting evidence",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff."
+    },
+    {
+      "id": "cc31a497bc89eada",
+      "title": "Nitrogen and Phosphorus Removal from Agricultural Runoff in Integrated Buffer Zones",
+      "url": "https://doi.org/10.1021/acs.est.8b01036",
+      "summary": "Integrated buffer zones (IBZs) represent a novel form of edge-of-field technology in Northwest Europe. Contrary to the common riparian buffer strips, IBZs collect tile drainage water from agricultural fields by combining a ditch-like pond (POND), where soil particles can settle, and a flow-through filter bed (FILTERBED) planted with Alnus glutinosa (L.), a European alder (black alder). The first experimental IBZ facility was constructed and thoroughly tested in Denmark for its capability to retain various nitrogen (N) and phosphorus (P) species within the first three years after construction. We calculated the water and nutrient budget for the total IBZ and for the two compartments, POND and FILTERBED, separately. Furthermore, a tracer experiment using sodium bromide was conducted in order to trace the water flow and estimate the hydraulic residence time in the FILTERBEDs. The monthly average removal efficiency amounted to 10-67% for to",
+      "published": "2018-05-07",
+      "source_id": "openalex",
+      "source_name": "Environmental Science & Technology",
+      "publisher": "Environmental Science & Technology",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "highly-cited",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2018 · 114 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1021/acs.est.8b01036",
+      "cited_by_count": 114,
+      "openalex_id": "https://openalex.org/W2802755228",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration",
+        "habitat / biodiversity"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "b384a6bfc8d77ed1",
+      "title": "Sediment and nutrient storage in a beaver engineered wetland",
+      "url": "https://doi.org/10.1002/esp.4398",
+      "summary": "Abstract Beavers, primarily through the building of dams, can deliver significant geomorphic modifications and result in changes to nutrient and sediment fluxes. Research is required to understand the implications and possible benefits of widespread beaver reintroduction across Europe. This study surveyed sediment depth, extent and carbon/nitrogen content in a sequence of beaver pond and dam structures in South West England, where a pair of Eurasian beavers ( Castor fiber ) were introduced to a controlled 1.8 ha site in 2011. Results showed that the 13 beaver ponds subsequently created hold a total of 101.53 ± 16.24 t of sediment, equating to a normalised average of 71.40 ± 39.65 kg m 2 . The ponds also hold 15.90 ± 2.50 t of carbon and 0.91 ± 0.15 t of nitrogen within the accumulated pond sediment. The size of beaver pond appeared to be the main control over sediment storage, with larger ponds holding a greater mass of sediment per uni",
+      "published": "2018-04-02",
+      "source_id": "openalex",
+      "source_name": "Earth Surface Processes and Landforms",
+      "publisher": "Earth Surface Processes and Landforms",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "highly-cited",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2018 · 81 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1002/esp.4398",
+      "cited_by_count": 81,
+      "openalex_id": "https://openalex.org/W2795535061",
+      "pressure_categories": [
+        "water quality",
+        "sediment / hydromorphology",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, sediment / hydromorphology, NbS / restoration."
+    },
+    {
+      "id": "94a0e0cb76c29551",
+      "title": "How effective are created or restored freshwater wetlands for nitrogen and phosphorus removal? A systematic review",
+      "url": "https://doi.org/10.1186/s13750-016-0060-0",
+      "summary": "Abstract Background Eutrophication of aquatic environments is a major environmental problem in large parts of the world. In Europe, EU legislation (the Water Framework Directive and the Marine Strategy Framework Directive), international conventions (OSPAR, HELCOM) and national environmental objectives emphasize the need to reduce the input of nutrients to freshwater and marine environments. A widely used method to achieve this is to allow water to pass through a created or restored wetland. However, the large variation in measured nutrient removal rates in such wetlands calls for a systematic review. Methods Searches for primary studies were performed in electronic databases and on the internet. One author performed the screening of all retrieved articles at the title and abstract level. To check that the screening was consistent and complied with the agreed inclusion/exclusion criteria, subsets of 100 articles were screened by the oth",
+      "published": "2016-05-04",
+      "source_id": "openalex",
+      "source_name": "Environmental Evidence",
+      "publisher": "Environmental Evidence",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "highly-cited",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2016 · 260 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.1186/s13750-016-0060-0",
+      "cited_by_count": 260,
+      "openalex_id": "https://openalex.org/W2109326402",
+      "pressure_categories": [
+        "water quality",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, NbS / restoration."
+    },
+    {
+      "id": "1603db32f7d06de4",
+      "title": "Carbon and nitrogen dynamics and greenhouse gas emissions in constructed wetlands treating wastewater: a review",
+      "url": "https://doi.org/10.5194/hess-20-109-2016",
+      "summary": "Abstract. The nitrogen (N) removal efficiency of constructed wetlands (CWs) is very inconsistent and does not alone explain if the removed species are reduced by physical attenuation or if they are transformed to other reactive forms (pollution swapping). There are many pathways for the removed N to remain in the system: accumulation in the sediments, leaching to groundwater (nitrate-NO3- and ammonium-NH4+), emission to atmosphere via nitrous oxide- N2O and ammonia and/or conversion to N2 gas and adsorption to sediments. The kinetics of these pathways/processes varies with CWs management and therefore needs to be studied quantitatively for the sustainable use of CWs. For example, the quality of groundwater underlying CWs with regards to the reactive N (Nr) species is largely unknown. Equally, there is a dearth of information on the extent of Nr accumulation in soils and discharge to surface waters and air. Moreover, CWs are rich in diss",
+      "published": "2016-01-18",
+      "source_id": "openalex",
+      "source_name": "Hydrology and earth system sciences",
+      "publisher": "Hydrology and earth system sciences",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2016 · 91 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.5194/hess-20-109-2016",
+      "cited_by_count": 91,
+      "openalex_id": "https://openalex.org/W2287376826",
+      "pressure_categories": [
+        "water quality",
+        "sediment / hydromorphology",
+        "NbS / restoration",
+        "habitat / biodiversity"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, sediment / hydromorphology, NbS / restoration."
+    },
+    {
+      "id": "e70f709b159f48ee",
+      "title": "Future agriculture with minimized phosphorus losses to waters: Research needs and direction",
+      "url": "https://doi.org/10.1007/s13280-014-0612-x",
+      "summary": "The series of papers in this issue of AMBIO represent technical presentations made at the 7th International Phosphorus Workshop (IPW7), held in September, 2013 in Uppsala, Sweden. At that meeting, the 150 delegates were involved in round table discussions on major, predetermined themes facing the management of agricultural phosphorus (P) for optimum production goals with minimal water quality impairment. The six themes were (1) P management in a changing world; (2) transport pathways of P from soil to water; (3) monitoring, modeling, and communication; (4) importance of manure and agricultural production systems for P management; (5) identification of appropriate mitigation measures for reduction of P loss; and (6) implementation of mitigation strategies to reduce P loss. This paper details the major challenges and research needs that were identified for each theme and identifies a future roadmap for catchment management that cost-effec",
+      "published": "2015-02-15",
+      "source_id": "openalex",
+      "source_name": "AMBIO",
+      "publisher": "AMBIO",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2015 · 290 citations · open access",
+      "practical_fit": "High practical fit · General transferable evidence",
+      "geographic_relevance": "General transferable evidence",
+      "doi": "https://doi.org/10.1007/s13280-014-0612-x",
+      "cited_by_count": 290,
+      "openalex_id": "https://openalex.org/W2102771869",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "citizen science / monitoring"
+      ],
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring evidence: potentially useful for Nanny Watch protocols, volunteer training, or interpreting field observations."
+    },
+    {
+      "id": "39715435f2fe6162",
+      "title": "Do on-farm natural, restored, managed and constructed wetlands mitigate agricultural pollution in Great Britain and Ireland?: a systematic review",
+      "url": "http://nora.nerc.ac.uk/id/eprint/509502/1/N509502CR.pdf",
+      "summary": "Wetlands in agricultural landscapes offer a number of benefits to the landscape function in which they are set, reducing nutrient runoff, providing additional habitat mosaics and offering various ecosystem services. They require careful planning and maintenance in order to perform their optimum design function over a prolonged period of time. They should be treated as functional units of farm infrastructure rather than fit-and-forget systems. \\nA high priority topic within the Department for Environment, Food and Rural Affairs (DEFRA) water quality programme is the mitigation of pollution from agriculture. This programme was set up to meet the requirements of the European Water Framework Directive (WFD) EU (2000). Nutrient loss from agricultural land has been suggested as a major cause of elevated nutrient concentrations in surface waters in the UK. Nitrogen (N) and phosphorus (P) are of particular concern as an excess of either nutrien",
+      "published": "2015-01-01",
+      "source_id": "openalex",
+      "source_name": "NERC Open Research Archive (Natural Environment Research Council)",
+      "publisher": "NERC Open Research Archive (Natural Environment Research Council)",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "review",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2015 · 4 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": null,
+      "cited_by_count": 4,
+      "openalex_id": "https://openalex.org/W1496101810",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration",
+        "habitat / biodiversity"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "672fdaad07ca0485",
+      "title": "Do on-farm natural, restored, managed and constructed wetlands mitigate agricultural pollution in Great Britain and Ireland?",
+      "url": "http://usir.salford.ac.uk/id/eprint/33873/1/12414_WT0989_SystematicReview-finalreport.pdf",
+      "summary": "Wetlands in agricultural landscapes offer a number of benefits to the landscape function in which they are set, reducing nutrient runoff, providing additional habitat mosaics and offering various ecosystem services. They require careful planning and maintenance in order to perform their optimum design function over a prolonged period of time. They should be treated as functional units of farm infrastructure rather than fit-and-forget systems. A high priority topic within the Department for Environment, Food and Rural Affairs (DEFRA) water quality programme is the mitigation of pollution from agriculture. This programme was set up to meet the requirements of the European Water Framework Directive (WFD) EU (2000). Nutrient loss from agricultural land has been suggested as a major cause of elevated nutrient concentrations in surface waters in the UK. Nitrogen (N) and phosphorus (P) are of particular concern as an excess of either nutrient",
+      "published": "2015-01-01",
+      "source_id": "openalex",
+      "source_name": "University of Salford Institutional Repository (University of Salford)",
+      "publisher": "University of Salford Institutional Repository (University of Salford)",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2015 · 1 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": null,
+      "cited_by_count": 1,
+      "openalex_id": "https://openalex.org/W1533844060",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration",
+        "habitat / biodiversity"
+      ],
+      "research_use_type": "NbS effectiveness",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "9397f9bcf2f25a95",
+      "title": "Agriculture and Eutrophication: Where Do We Go from Here?",
+      "url": "https://doi.org/10.3390/su6095853",
+      "summary": "The eutrophication of surface waters has become an endemic global problem. Nutrient loadings from agriculture are a major driver, but it remains very unclear what level of on-farm controls are necessary or can be justified to achieve water quality improvements. In this review article, we use the UK as an example of societies’ multiple stressors on water quality to explore the uncertainties and challenges in achieving a sustainable balance between useable water resources, diverse aquatic ecosystems and a viable agriculture. Our analysis shows that nutrient loss from agriculture is a challenging issue if farm productivity and profitability is to be maintained and increased. Legacy stores of nitrogen (N) and phosphorus (P) in catchments may be sufficient to sustain algal blooms and murky waters for decades to come and more innovation is needed to drawdown and recover these nutrients. Agriculture’s impact on eutrophication risk may also be",
+      "published": "2014-09-02",
+      "source_id": "openalex",
+      "source_name": "Sustainability",
+      "publisher": "Sustainability",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited",
+        "review",
+        "temperate-transfer"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2014 · 569 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.3390/su6095853",
+      "cited_by_count": 569,
+      "openalex_id": "https://openalex.org/W2055208823",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff."
     },
     {
       "id": "ndrt-site-citizen-science",
@@ -836,7 +1872,7 @@
       ],
       "score": 97,
       "freshness_status": "fresh",
-      "freshness_label": "7 days old",
+      "freshness_label": "8 days old",
       "pressure_categories": [
         "habitat / biodiversity",
         "NbS / restoration"
@@ -852,42 +1888,111 @@
       "research_use_type": "NbS effectiveness"
     },
     {
-      "id": "38ead0bdd3ed16af",
-      "title": "Funding Available for Small Dam Removal and River Restoration - fundsforNGOs - Grants and Resources for Sustainability",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOeGkyWWU2a0lRbGsyMU1PNGItUC13elJDdm95VU9LZnNFbXdVYUFPdHg3Z2JKMWh1QTFUNzRRMlY4NUIwa2JkRGNpcm5HbjR1aEhQbXFGMmprNGgtMDZWRFc4b0NUZG1lYlNaa2Fqekc3RDh0UVB5dEllNldnSjVOVC1adUpzbmY2MzIwQUY3aldYdFlHYkdWMnhQaUhwMUctbkR2QTYxLUlEZ9IBrwFBVV95cUxQSVktMUx2T0dCVXhEaG9sNEdJMmdSMXdxSncyYUdGQ2JQU0RhODV0TTlXNFNxcmZUM2k0UFZOTkkxdmtYcUhYZmxSeGNVRlBiajVhejlmOUNnOGc1WDI0UmlqSlYtWldzTHhUWVd1bEowWjVxY29CaEZxakg1QnhiekZST1NPLXRCRDF5QUV2VkxBSzZGRnVELW5nWVAyTmp0SlppT1R1Q0ZuUS1SSXRz?oc=5",
-      "summary": "Funding Available for Small Dam Removal and River Restoration fundsforNGOs - Grants and Resources for Sustainability",
-      "published": "2026-06-04",
-      "source_id": "google-news-river-ecology-ireland",
-      "source_name": "Google News: river ecology Ireland",
-      "publisher": "Google News: river ecology Ireland",
-      "section": "grants-opportunities",
-      "theme": "river-restoration",
+      "id": "5691d937ae8ea9e6",
+      "title": "The impact of cattle access on ecological water quality in streams: Examples from agricultural catchments within Ireland",
+      "url": "https://doi.org/10.1016/j.scitotenv.2015.12.120",
+      "summary": "Open the source to inspect the abstract, journal, DOI, and publication metadata.",
+      "published": "2016-01-09",
+      "source_id": "openalex",
+      "source_name": "The Science of The Total Environment",
+      "publisher": "The Science of The Total Environment",
+      "section": "research-papers",
+      "theme": "water-quality",
       "tags": [
-        "river-restoration",
-        "grant"
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited",
+        "ireland-first"
       ],
       "score": 96,
       "freshness_status": "reference",
-      "freshness_label": "154 days old · background",
+      "freshness_label": "2016 · 50 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2015.12.120",
+      "cited_by_count": 50,
+      "openalex_id": "https://openalex.org/W2222889476",
       "pressure_categories": [
-        "river ecology",
-        "funding / grant",
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Supporting evidence",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff."
+    },
+    {
+      "id": "367ecf406579ca52",
+      "title": "Tracer‐based assessment of flow paths, storage and runoff generation in northern catchments: a review",
+      "url": "https://doi.org/10.1002/hyp.10412",
+      "summary": "Abstract We examine how tracer studies have enhanced our understanding of flow paths, residence times and sources of stream flow in northern catchments. We define northern catchments as non‐glacial sites in the temperate conifer/boreal/permafrost zone, focussing our review mainly on sites in North America and Europe. Improved empirical and theoretical understanding of hydrological functioning has advanced the analytical tools available for tracer‐based hydrograph separations, derivation of transit time distributions and tracer‐aided rainfall‐runoff models that are better able to link hydrological response to storage changes. However, the lack of comprehensive tracer data sets still hinders development of a generalized understanding of how northern catchments will respond to change. This paucity of empirical data leads to many outstanding research needs, particularly in rapidly changing areas that are already responding to climatic warmi",
+      "published": "2014-11-27",
+      "source_id": "openalex",
+      "source_name": "Hydrological Processes",
+      "publisher": "Hydrological Processes",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "highly-cited",
+        "temperate-transfer"
+      ],
+      "score": 96,
+      "freshness_status": "reference",
+      "freshness_label": "2014 · 216 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1002/hyp.10412",
+      "cited_by_count": 216,
+      "openalex_id": "https://openalex.org/W2168796148",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
         "NbS / restoration"
       ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "action_relevance": "Funding signal for the Trust: check whether this can support river ecology, funding / grant, NbS / restoration, citizen science, engagement, or small catchment actions.",
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 63,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      }
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
+      "id": "67c36120ace4c8e2",
+      "title": "Small Water Bodies in Great Britain and Ireland: Ecosystem function, human-generated degradation, and options for restorative action",
+      "url": "https://doi.org/10.1016/j.scitotenv.2018.07.243",
+      "summary": "Open the source to inspect the abstract, journal, DOI, and publication metadata.",
+      "published": "2018-07-25",
+      "source_id": "openalex",
+      "source_name": "The Science of The Total Environment",
+      "publisher": "The Science of The Total Environment",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "highly-cited",
+        "ireland-first"
+      ],
+      "score": 94,
+      "freshness_status": "reference",
+      "freshness_label": "2018 · 149 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2018.07.243",
+      "cited_by_count": 149,
+      "openalex_id": "https://openalex.org/W2882980423",
+      "pressure_categories": [
+        "agricultural runoff"
+      ],
+      "research_use_type": "Supporting evidence",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around agricultural runoff."
     },
     {
       "id": "54003a180edcf2bb",
@@ -905,7 +2010,7 @@
       ],
       "score": 93,
       "freshness_status": "reference",
-      "freshness_label": "455 days old · background",
+      "freshness_label": "456 days old · background",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -922,6 +2027,41 @@
         ]
       },
       "action_relevance": "Local relevance signal: useful because it connects to High local relevance and the Trust's catchment-facing work."
+    },
+    {
+      "id": "17ff6e6679c20914",
+      "title": "Using enhanced wetlands for nitrogen removal in an agricultural watershed",
+      "url": "https://doi.org/10.2489/jswc.69.5.145a",
+      "summary": "Excess nitrogen (N) in temperate watersheds has been associated with an array of environmental problems, including polluted wells and surface water. The hypoxic zone in the Gulf of Mexico has created a particular focus on N loads in the Mississippi River Basin. Nitrogen sources include urban runoff; atmospheric deposition; point sources, such as waste-water treatment plants; and nonpoint sources, such as runoff from agricultural lands. Approximately two-thirds of the N load of the Mississippi River is from agriculture, underscoring the importance of balancing productive farming with water quality improvement (Goolsby and Battaglin 2000).",
+      "published": "2014-09-01",
+      "source_id": "openalex",
+      "source_name": "Journal of Soil and Water Conservation",
+      "publisher": "Journal of Soil and Water Conservation",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "constructed-wetland",
+        "nutrients",
+        "open-access",
+        "temperate-transfer"
+      ],
+      "score": 92,
+      "freshness_status": "reference",
+      "freshness_label": "2014 · 1 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.2489/jswc.69.5.145a",
+      "cited_by_count": 1,
+      "openalex_id": "https://openalex.org/W2107047229",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, NbS / restoration."
     },
     {
       "id": "21ff63a6bc12bb25",
@@ -961,6 +2101,41 @@
       "research_use_type": "Policy / governance"
     },
     {
+      "id": "406f30a93c5e2e09",
+      "title": "Potential for Hybrid Poplar Riparian Buffers to Provide Ecosystem Services in Three Watersheds with Contrasting Agricultural Land Use",
+      "url": "https://doi.org/10.3390/f7020037",
+      "summary": "In temperate agricultural watersheds, the rehabilitation of tree vegetation in degraded riparian zones can provide many ecosystem services. This study evaluated ecosystem service provision potential following the conversion of non-managed herbaceous buffers to hybrid poplar (Populus spp.) buffers in three watersheds (555–771 km2) of southern Québec (Canada), with contrasting agricultural land uses. To extrapolate services at the watershed level, total stream length where hybrid poplars could be established was calculated using GIS data from hydrological and land cover maps. After nine years, a 100% replacement of herbaceous buffers by hybrid poplar buffers along farm streams could lead to the production of 5280–76,151 tons of whole tree (stems + branches) biomass, which could heat 0.5–6.5 ha of greenhouses for nine years, with the potential of displacing 2–29 million litres of fuel oil. Alternatively, the production of 3887–56,135 tons",
+      "published": "2016-02-04",
+      "source_id": "openalex",
+      "source_name": "Forests",
+      "publisher": "Forests",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "temperate-transfer"
+      ],
+      "score": 91,
+      "freshness_status": "reference",
+      "freshness_label": "2016 · 33 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.3390/f7020037",
+      "cited_by_count": 33,
+      "openalex_id": "https://openalex.org/W2258416556",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
       "id": "009fd7cf0c55d70e",
       "title": "Almost six out of ten septic tanks fail inspection, putting Ireland's drinking water wells and rivers at risk - Water Magazine",
       "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQT1JYLVNZLUFQSVA2WERCWHR5NDJsc2NZZXRvV2JadzNmYmthSEExbHJPQkxqb3ZpcS0zWEtQUTJRbTlUOHd3Z3ZPcmVNR1NXTEpyLTBTTk5UR2JDVTM4cGlYSnZjV3EyYl9YRTRWbE1CSmNyU3FKVUtJck1PMC0zcEJhbGlxMnc1X2xqWVM5UUQwUW5ENTVvdjRoQXVrNjhCQVRkNTk1TVd0Z1BMdVdCcWVWRjBZcGdwbE82T2RhZC14RW02R0VPeUc1Y3U3WmFzRjdJSGo2QUFKUVdESFRKbFN5MmtaUQ?oc=5",
@@ -976,7 +2151,7 @@
       ],
       "score": 90,
       "freshness_status": "reference",
-      "freshness_label": "170 days old · background",
+      "freshness_label": "171 days old · background",
       "pressure_categories": [
         "septic / domestic wastewater"
       ],
@@ -988,6 +2163,41 @@
         ]
       },
       "action_relevance": "Potential catchment-pressure signal: septic or domestic wastewater issues can affect groundwater, small streams, bathing waters, and local engagement priorities."
+    },
+    {
+      "id": "4771a9e3024f4d2b",
+      "title": "Do Riparian Buffers Protect Stream Invertebrate Communities in South American Atlantic Forest Agricultural Areas?",
+      "url": "https://doi.org/10.1007/s00267-017-0938-9",
+      "summary": "Open the source to inspect the abstract, journal, DOI, and publication metadata.",
+      "published": "2017-10-04",
+      "source_id": "openalex",
+      "source_name": "Environmental Management",
+      "publisher": "Environmental Management",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "temperate-transfer"
+      ],
+      "score": 90,
+      "freshness_status": "reference",
+      "freshness_label": "2017 · 25 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1007/s00267-017-0938-9",
+      "cited_by_count": 25,
+      "openalex_id": "https://openalex.org/W2763444737",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, NbS / restoration."
     },
     {
       "id": "5821ef6dd0c20b6f",
@@ -1005,7 +2215,7 @@
       ],
       "score": 89,
       "freshness_status": "fresh",
-      "freshness_label": "33 days old",
+      "freshness_label": "34 days old",
       "pressure_categories": [
         "agricultural runoff"
       ],
@@ -1037,7 +2247,7 @@
       ],
       "score": 89,
       "freshness_status": "fresh",
-      "freshness_label": "47 days old",
+      "freshness_label": "48 days old",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -1052,9 +2262,9 @@
     },
     {
       "id": "22fb4e4e3c35145b",
-      "title": "Previous Funding Results Yearly grant reports of projects funded by the Heritage Council Grants offered in 2025",
+      "title": "Previous Funding Results Yearly grant reports of projects funded by the Heritage Council.",
       "url": "https://www.heritagecouncil.ie/funding/funded-projects/previously-funded-projects",
-      "summary": "Previous Funding Results Yearly grant reports of projects funded by the Heritage Council Grants offered in 2025",
+      "summary": "Previous Funding Results Yearly grant reports of projects funded by the Heritage Council.",
       "published": null,
       "source_id": "heritage-council-funding",
       "source_name": "Heritage Council Funding",
@@ -1099,7 +2309,7 @@
       ],
       "score": 88,
       "freshness_status": "fresh",
-      "freshness_label": "0 days old",
+      "freshness_label": "1 days old",
       "pressure_categories": [
         "policy / governance"
       ],
@@ -1154,6 +2364,41 @@
       }
     },
     {
+      "id": "41f984755e4ecb54",
+      "title": "Climate change accelerates water and biogeochemical cycles in temperate agricultural catchments",
+      "url": "https://doi.org/10.1016/j.scitotenv.2024.175365",
+      "summary": "Climate change is expected to significantly deteriorate water quality in heavily managed agricultural landscapes, however, the exact mechanisms of these impacts are unknown. In this study we adopted a modelling approach to predict the multiple effects of climate change on hydrological and biogeochemical responses for dominant solutes and particulates in two agriculture-dominated temperate headwater catchments. We used climatic projections from three climatic models to simulate future flows, mobilisation and delivery of solutes and particulates. This allowed an examination of potential drivers by identifying changes in flow pathway distribution and key environmental variables. We found that future climate conditions will lead to a general increase in stream discharge as well as higher concentrations and loads of solutes and particulates. However, unlike previous studies, we observed a higher magnitude of change during the warmer part of",
+      "published": "2024-08-06",
+      "source_id": "openalex",
+      "source_name": "The Science of The Total Environment",
+      "publisher": "The Science of The Total Environment",
+      "section": "research-papers",
+      "theme": "wetland-nbs",
+      "tags": [
+        "research",
+        "review",
+        "riparian-buffer",
+        "nutrients",
+        "open-access",
+        "temperate-transfer"
+      ],
+      "score": 87,
+      "freshness_status": "reference",
+      "freshness_label": "2024 · 18 citations · open access",
+      "practical_fit": "High practical fit · Comparable temperate relevance",
+      "geographic_relevance": "Comparable temperate relevance",
+      "doi": "https://doi.org/10.1016/j.scitotenv.2024.175365",
+      "cited_by_count": 18,
+      "openalex_id": "https://openalex.org/W4401380160",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff",
+        "NbS / restoration"
+      ],
+      "research_use_type": "Review / evidence synthesis",
+      "action_relevance": "Comparable-system evidence: useful where Nanny-Delvin needs transferable practice for water quality, agricultural runoff, NbS / restoration."
+    },
+    {
       "id": "09e109d73c5e2985",
       "title": "Naul man angry over Delvin River pollution incidents - Irish Independent",
       "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQNWRRRmtVMWJkQTJNNHRSdUpFcExILVVYeUtENWdhbDRSVU9VRnotZFBEektIVWN2TnJDbW9JYUg3WUV3S1FFLTkzbDZfNUJxQmZJX25zN2MwZzVhMGZ3dUhyRERMZVVjcjdMTDJLampSQ3BYWFlzeEFoV3U0MUpROWEzQ0V6ZmkxSkFnb1IxZ3ZKWXc1TmptZjdFX3ZHNWFGNHBqSzc1dS1lYTcyS1Fj?oc=5",
@@ -1171,7 +2416,7 @@
       ],
       "score": 87,
       "freshness_status": "reference",
-      "freshness_label": "2336 days old · background",
+      "freshness_label": "2337 days old · background",
       "pressure_categories": [
         "incident / alert"
       ],
@@ -1242,7 +2487,7 @@
       ],
       "score": 85,
       "freshness_status": "fresh",
-      "freshness_label": "71 days old",
+      "freshness_label": "72 days old",
       "pressure_categories": [
         "septic / domestic wastewater"
       ],
@@ -1376,7 +2621,7 @@
       ],
       "score": 84,
       "freshness_status": "fresh",
-      "freshness_label": "3 days old",
+      "freshness_label": "4 days old",
       "pressure_categories": [
         "habitat / biodiversity",
         "funding / grant"
@@ -1437,6 +2682,43 @@
       }
     },
     {
+      "id": "cfacd82d4ed58411",
+      "title": "Cape Cod grant will help fill gaps in water quality data - Yahoo",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPNk4tdlRPNlF3eFJhTWZsRS1DaE1rREtkWWw4V3RpSndOb0tqU0FORjJHdG5rYU1JeUozTm9uUk5UTkpCS3RVVGx4akVyVWxFb3prS3JnSEs3c3cyV0tBZVZvSjNOb1Y3a3h2RDJlSEJpbXFMRjJSZTJWMGJyV3NzcVhPQktKNU9jYWsw?oc=5",
+      "summary": "Cape Cod grant will help fill gaps in water quality data Yahoo",
+      "published": "2026-11-05",
+      "source_id": "google-news-community-water-grants",
+      "source_name": "Google News: water and biodiversity grants Ireland",
+      "publisher": "Google News: water and biodiversity grants Ireland",
+      "section": "grants-opportunities",
+      "theme": "water-quality",
+      "tags": [
+        "water-quality",
+        "grant"
+      ],
+      "score": 83,
+      "freshness_status": "fresh",
+      "freshness_label": "1 days old",
+      "pressure_categories": [
+        "habitat / biodiversity",
+        "funding / grant"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "action_relevance": "Funding signal for the Trust: check whether this can support habitat / biodiversity, funding / grant, citizen science, engagement, or small catchment actions.",
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 77,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      }
+    },
+    {
       "id": "48ac5ebc0ac686cf",
       "title": "Teenager dies while swimming in River Nanny in Meath - RTE.ie",
       "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPakRWSm9oT1RhVVBJQWdBMXU1dUt4R2VWc0ludHFGU3pZamgxOHRGQ3hTamNxc3BnT0xESXhmRkZCWFpKUjhUQkRocmdxLVU4aVJWMnZTd24zWnoxZmkya3JzUFB5bU5DdTI2SUF2TVdIQ0haWEsxaFk3M2ttMHgwMHprWWVUWGxIUzV0Rm1GM2Q0WXBmLXg2Y24wX01hQ1VwQXR0Ymx3?oc=5",
@@ -1452,7 +2734,7 @@
       ],
       "score": 83,
       "freshness_status": "reference",
-      "freshness_label": "503 days old · background",
+      "freshness_label": "504 days old · background",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -1579,7 +2861,7 @@
       ],
       "score": 81,
       "freshness_status": "fresh",
-      "freshness_label": "0 days old",
+      "freshness_label": "1 days old",
       "pressure_categories": [
         "funding / grant"
       ],
@@ -1742,25 +3024,25 @@
       }
     },
     {
-      "id": "33ce47adf34f312f",
-      "title": "Water Quality on Wane in Famed Killarney Lake – November 4th, 2026 - Radio Kerry",
-      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNRHBNMF9RdEdzMWswbnF6OUtrYl9lblV3c2E0N2l2YVdPUUJLYV82cHM5RVg4a3Bkb1NkVTgycmJiUHQ4ZmVQWGdULTQ0eElsS1RUdndGaTFoNGhwam5pVmVkdS1ZQlpvTEVqTDcxZmJBdDg4Z0Fwa0d4MzloYncxeXRiME1QWnlDZ0UwZHIxVkg0VldERFhrMU9LdjQ2aVJXeG1NT2hWNzE5ZUI3WXpGdmcwbW9ZODM2?oc=5",
-      "summary": "Water Quality on Wane in Famed Killarney Lake – November 4th, 2026 Radio Kerry",
-      "published": "2026-11-04",
+      "id": "671b4825c8293dc5",
+      "title": "Investigation into 'major fish kill' after pollution incident - BBC",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBmdDFoTHF4aXpZMHg4ekJsbEk0YV9TWnFTclNWc3NFRE05YTVmMmtYeldtdzFOUDdHWVVCaWNSekZSbnZGa3FFUTdFcjhrcGxYLVlBSXBsSWQ3bElROVE?oc=5",
+      "summary": "Investigation into 'major fish kill' after pollution incident BBC",
+      "published": "2026-11-05",
       "source_id": "google-news-ireland-river-water-quality",
       "source_name": "Google News: Ireland river water quality",
       "publisher": "Google News: Ireland river water quality",
       "section": "ireland-catchment-practice",
-      "theme": "water-quality",
+      "theme": "incident-alert",
       "tags": [
         "water-quality",
-        "lake"
+        "incident-alert"
       ],
-      "score": 79,
+      "score": 78,
       "freshness_status": "fresh",
       "freshness_label": "1 days old",
       "pressure_categories": [
-        "general catchment signal"
+        "incident / alert"
       ],
       "local_relevance": {
         "score": 10,
@@ -1769,7 +3051,7 @@
           "Ireland"
         ]
       },
-      "action_relevance": "General practical signal: may help the Trust track general catchment signal, policy, funding, monitoring, or community action."
+      "action_relevance": "Operational watch signal: this may indicate a water-quality incident, bathing-water concern, fish kill, pollution pathway, or public-reporting opportunity."
     },
     {
       "id": "3ff82f0663e2a9ce",
@@ -1788,7 +3070,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "167 days old · background",
+      "freshness_label": "168 days old · background",
       "pressure_categories": [
         "habitat / biodiversity",
         "funding / grant"
@@ -1825,7 +3107,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "168 days old · background",
+      "freshness_label": "169 days old · background",
       "pressure_categories": [
         "agricultural runoff",
         "funding / grant",
@@ -1864,7 +3146,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "355 days old · background",
+      "freshness_label": "356 days old · background",
       "pressure_categories": [
         "birds / wetland ecology",
         "habitat / biodiversity",
@@ -1901,7 +3183,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "462 days old · background",
+      "freshness_label": "463 days old · background",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -1913,34 +3195,6 @@
         ]
       },
       "action_relevance": "General practical signal: may help the Trust track general catchment signal, policy, funding, monitoring, or community action."
-    },
-    {
-      "id": "2045b32a20bef3af",
-      "title": "'Several hundred' fish killed due to sewage pollution in River Tolka - RTE.ie",
-      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBkRmc5RVVFcjNzUXBJZ0oxcG9PbU4zMzhkYmlKYmtqWlItSmRSRnZfZGtLVE5WU1RyTjdzWTlIR0dpaTdpdDN1RjJQNjBRWnBidmNtMjJhUTdSQWFnclFsNDcwaHdzdkROSDJPNjBxR09YUnl6bTVmZkt1aUM?oc=5",
-      "summary": "'Several hundred' fish killed due to sewage pollution in River Tolka RTE.ie",
-      "published": "2017-07-19",
-      "source_id": "google-news-fish-kill-pollution",
-      "source_name": "Google News: fish kills and pollution",
-      "publisher": "Google News: fish kills and pollution",
-      "section": "waterbody-evidence-alerts",
-      "theme": "water-quality",
-      "tags": [
-        "water-quality",
-        "incident-alert"
-      ],
-      "score": 76,
-      "freshness_status": "reference",
-      "freshness_label": "3396 days old · background",
-      "pressure_categories": [
-        "incident / alert"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "action_relevance": "Operational watch signal: this may indicate a water-quality incident, bathing-water concern, fish kill, pollution pathway, or public-reporting opportunity."
     },
     {
       "id": "6084518e3a88ff19",
@@ -1958,7 +3212,7 @@
       ],
       "score": 75,
       "freshness_status": "fresh",
-      "freshness_label": "59 days old",
+      "freshness_label": "60 days old",
       "pressure_categories": [
         "agricultural runoff"
       ],
@@ -1988,7 +3242,7 @@
       ],
       "score": 75,
       "freshness_status": "reference",
-      "freshness_label": "853 days old · background",
+      "freshness_label": "854 days old · background",
       "pressure_categories": [
         "habitat / biodiversity",
         "incident / alert"
@@ -2071,6 +3325,42 @@
       "theme": "water-quality",
       "tags": [
         "water-quality",
+        "grant"
+      ],
+      "score": 75,
+      "freshness_status": "reference",
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "funding / grant",
+        "policy / governance"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "action_relevance": "Funding signal for the Trust: check whether this can support funding / grant, policy / governance, citizen science, engagement, or small catchment actions.",
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      }
+    },
+    {
+      "id": "f34880b1a1558280",
+      "title": "EPA Research Funding",
+      "url": "https://www.epa.ie/our-services/research/epa--research-funding/",
+      "summary": "EPA Research Funding",
+      "published": null,
+      "source_id": "epa-water",
+      "source_name": "EPA Ireland Water",
+      "publisher": "EPA Ireland Water",
+      "section": "grants-opportunities",
+      "theme": "grant",
+      "tags": [
         "grant"
       ],
       "score": 75,
