@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-05T13:12:59+00:00",
+  "generated_at": "2026-11-06T12:58:01+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
-  "links_seen": 4591,
+  "links_seen": 4590,
   "funding_like_links": 480,
   "candidate_fetches": 300,
-  "pending_review_count": 118,
+  "pending_review_count": 117,
   "status_counts": {
-    "pending_review": 118,
-    "suppressed_non_actionable": 48,
+    "pending_review": 117,
+    "suppressed_non_actionable": 43,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 54
+    "suppressed_fetch_error": 58
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 92,
+    "funding_call": 91,
     "scholarship": 19,
     "generic_funding_hub": 6,
-    "tender": 16,
-    "unknown": 54
+    "tender": 11,
+    "unknown": 58
   },
   "seeds": [
     {
@@ -45,7 +45,7 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 80,
+      "links_seen": 79,
       "funding_like_links": 13,
       "candidates_fetched": 13
     },
