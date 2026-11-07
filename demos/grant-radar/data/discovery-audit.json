@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-06T12:58:01+00:00",
+  "generated_at": "2026-11-07T11:44:46+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
-  "links_seen": 4590,
-  "funding_like_links": 480,
+  "links_seen": 4594,
+  "funding_like_links": 481,
   "candidate_fetches": 300,
   "pending_review_count": 117,
   "status_counts": {
     "pending_review": 117,
-    "suppressed_non_actionable": 43,
+    "suppressed_non_actionable": 48,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 58
+    "suppressed_fetch_error": 56
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 91,
+    "funding_call": 92,
     "scholarship": 19,
     "generic_funding_hub": 6,
-    "tender": 11,
-    "unknown": 58
+    "tender": 15,
+    "unknown": 56
   },
   "seeds": [
     {
@@ -75,9 +75,9 @@
       "url": "https://www.fisheriesireland.ie/our-services/funding",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 175,
-      "funding_like_links": 6,
-      "candidates_fetched": 6
+      "links_seen": 179,
+      "funding_like_links": 7,
+      "candidates_fetched": 7
     },
     {
       "id": "seai_grants_hub",
@@ -207,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 640,
       "funding_like_links": 58,
-      "candidates_fetched": 1
+      "candidates_fetched": 0
     },
     {
       "id": "geo_dfg_heisenberg_watch",
