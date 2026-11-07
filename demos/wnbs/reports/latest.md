@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-11-06
+# Water NbS Story Radar · 2026-11-07
 
-Generated: 2026-11-06T13:03:58.709956+00:00
+Generated: 2026-11-07T11:49:22.729047+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -212,7 +212,7 @@ URL: https://riverbasin.ie/ballinahown-community-group-claims-national-water-qua
 
 Angle: Riparian buffers and river corridors
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, water quality, river, catchment.
 
@@ -261,7 +261,7 @@ URL: https://farmingforwater.ie/farmers-take-action-on-giant-hogweed-and-water-q
 
 Angle: Farm runoff and nutrient interception
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: water quality, nutrient, nutrients, sediment, runoff.
 
