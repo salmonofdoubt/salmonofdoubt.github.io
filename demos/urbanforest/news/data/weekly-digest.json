@@ -1,42 +1,38 @@
 {
-  "generated_at": "2026-11-07T11:54:06.489967+00:00",
-  "latest_generated_at": "2026-11-07T11:54:06.384995+00:00",
+  "generated_at": "2026-11-08T12:08:18.161033+00:00",
+  "latest_generated_at": "2026-11-08T12:08:18.071017+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 16,
-    "funding-opportunities": 21,
-    "research-evidence": 52,
+    "ireland-urban-forest-practice": 15,
+    "funding-opportunities": 19,
+    "research-evidence": 55,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
       "benefit": "Biodiversity / habitat",
-      "count": 37
+      "count": 38
     },
     {
       "benefit": "Funding / grants",
-      "count": 29
+      "count": 26
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 25
-    },
-    {
-      "benefit": "Urban heat / shade",
-      "count": 21
-    },
-    {
-      "benefit": "School / education",
-      "count": 20
+      "count": 26
     },
     {
       "benefit": "Monitoring / evaluation",
-      "count": 18
+      "count": 21
     },
     {
-      "benefit": "Wellbeing / health",
+      "benefit": "Urban heat / shade",
+      "count": 20
+    },
+    {
+      "benefit": "School / education",
       "count": 17
     },
     {
@@ -45,15 +41,19 @@
     },
     {
       "benefit": "Community stewardship",
-      "count": 15
+      "count": 14
+    },
+    {
+      "benefit": "Wellbeing / health",
+      "count": 14
     },
     {
       "benefit": "Soil health",
-      "count": 11
+      "count": 13
     },
     {
       "benefit": "Planning / policy",
-      "count": 9
+      "count": 10
     },
     {
       "benefit": "Urban forest / NbS",
@@ -257,37 +257,6 @@
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "e757641b544c01e2",
-      "title": "Engaging Residents in Street Tree Stewardship: Results of a Tree Watering Outreach Intervention",
-      "url": "https://doi.org/10.48044/jauf.2016.027",
-      "section": "research-evidence",
-      "source_name": "Arboriculture & Urban Forestry",
-      "published": "2016-09-01",
-      "score": 100,
-      "practical_score": 129.0,
-      "benefit_categories": [
-        "Soil health",
-        "Wellbeing / health",
-        "School / education",
-        "Community stewardship",
-        "Tree survival / maintenance",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 73,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Survival / maintenance evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund soil health, wellbeing / health, school / education, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
       "id": "96e2f52d03b06df2",
       "title": "Urban Soil Health and Tree Performance: A Diagnostic Framework and Biochar–Inactivated Yeast Case Study from Toronto",
       "url": "https://hdl.handle.net/1807/151152",
@@ -338,6 +307,29 @@
       },
       "opportunity_fit": null,
       "research_use_type": "UrbanForest stormwater evidence",
+      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
+    },
+    {
+      "id": "e71eafacd7687633",
+      "title": "Cooling efficacy of trees across cities is determined by background climate, urban morphology, and tree trait",
+      "url": "https://doi.org/10.1038/s43247-024-01908-4",
+      "section": "research-evidence",
+      "source_name": "Communications Earth & Environment",
+      "published": "2024-12-10",
+      "score": 96,
+      "practical_score": 125.0,
+      "benefit_categories": [
+        "Urban heat / shade",
+        "Biodiversity / habitat",
+        "Tree survival / maintenance"
+      ],
+      "local_relevance": {
+        "score": 0,
+        "label": "Transferable relevance",
+        "matched_terms": []
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Survival / maintenance evidence",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     }
   ]
