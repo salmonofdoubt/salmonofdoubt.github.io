@@ -824,11 +824,23 @@
     leftEar:{label:'Left ear',p:[.26,.33,.05],zoom:9,yaw:76},
     rightEar:{label:'Right ear',p:[-.26,.33,.05],zoom:9,yaw:-76}
   });
-  let focusPoints={};
-  try{
-    const stored=JSON.parse(localStorage.getItem(FEATURE_STORAGE_KEY)||'{}');
-    if(stored&&typeof stored==='object')focusPoints=stored;
-  }catch(_){ /* Storage is optional. */ }
+  // Preserve the existing calibration key for Scan the World. Additional
+  // specimens receive separate keys, so their anatomy cannot contaminate it.
+  const focusPointsBySpecimen=Object.create(null);
+  function focusStoreKey(id=state.specimen){
+    return id===DEFAULT_SPECIMEN?FEATURE_STORAGE_KEY:FEATURE_STORAGE_KEY+':'+id;
+  }
+  function focusPointsFor(id=state.specimen){
+    if(!focusPointsBySpecimen[id]){
+      let points={};
+      try{
+        const loaded=JSON.parse(localStorage.getItem(focusStoreKey(id))||'{}');
+        if(loaded&&typeof loaded==='object'&&!Array.isArray(loaded))points=loaded;
+      }catch(_){ /* Storage is optional. */ }
+      focusPointsBySpecimen[id]=points;
+    }
+    return focusPointsBySpecimen[id];
+  }
   let activeFeature=null,navFrame=0;
 
   function markActiveFeature(key){
@@ -896,11 +908,12 @@
     return Number.isFinite(near)?o.map((v,i)=>v+d[i]*near):null;
   }
   function featureAnchor(key){
-    const custom=focusPoints[key];
+    const custom=focusPointsFor()[key];
     if(Array.isArray(custom)&&custom.length===3&&custom.every(Number.isFinite))
       return custom.slice();
     const spec=FEATURES[key],inv=qConj(state.frontQuat);
-    const guess=rotateVector(inv,spec.p);
+    const landmark=SPECIMENS[state.specimen]?.landmarks?.[key]||spec.p;
+    const guess=rotateVector(inv,landmark);
     // Surface snap: cast from the direction the camera will use to inspect.
     const dir=rotateVector(inv,rotateVector(qAxis([0,1,0],rad(spec.yaw)),[0,0,-1]));
     const origin=guess.map((v,i)=>v-dir[i]*3.5);
@@ -950,8 +963,9 @@
     animateCamera(rotateVector(state.headQuat,point),
       state.cameraQuat.slice(),Math.max(9,+controls.zoom.value));
     if(activeFeature){
+      const focusPoints=focusPointsFor();
       focusPoints[activeFeature]=point;
-      try{localStorage.setItem(FEATURE_STORAGE_KEY,JSON.stringify(focusPoints));}
+      try{localStorage.setItem(focusStoreKey(),JSON.stringify(focusPoints));}
       catch(_){ /* Working focus does not depend on persistent storage. */ }
       setStatus(FEATURES[activeFeature].label+' focus calibrated on this device.');
     }else setStatus('Exact detail centred.');
