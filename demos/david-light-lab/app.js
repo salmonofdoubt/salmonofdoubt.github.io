@@ -1,7 +1,45 @@
 (() => {
   'use strict';
 
-  const MODEL_URL = './assets/david-head.dlb?v=20261005-H70';
+  // Authoritative specimen registry: source, format, licence and model are linked.
+  // The original remains the default for all pre-existing studies and links.
+  const DEFAULT_SPECIMEN = 'scan-the-world';
+  const LOCAL_SPECIMEN = 'local-stl';
+  const SPECIMENS = Object.freeze({
+    'local-stl': Object.freeze({
+      label: 'Local STL · Temporary',
+      url: null,
+      source: null,
+      licence: 'User-supplied',
+      description: 'Temporary local STL · source and licensing supplied by the user'
+    }),
+    'scan-the-world': Object.freeze({
+      label: 'Original · Scan the World',
+      url: './assets/david-head.dlb?v=20261005-H70',
+      source: 'https://commons.wikimedia.org/wiki/File:David_(Michelangelo).stl',
+      licence: 'CC BY-SA 4.0',
+      description: 'Full-statue scan, cropped to head and shoulders · CC BY-SA 4.0'
+    }),
+    'smk-kas2232': Object.freeze({
+      label: 'SMK · Plaster cast (HD)',
+      url: './assets/david-smk-kas2232.dlb?v=20261109-smk-1',
+      source: 'https://commons.wikimedia.org/wiki/File:Michelangelo_Buonarroti,_Hoved_fra_statuen_af_David,_,_KAS2232,_Statens_Museum_for_Kunst,_3D_model.stl',
+      licence: 'CC0 1.0',
+      description: 'SMK KAS2232, separate plaster-cast head scan · CC0 1.0',
+      // Initial landmark estimates for the distinct, centred head scan.
+      // Exact point calibration by double-click remains available.
+      landmarks: Object.freeze({
+        eyes: [0,.21,.42],
+        leftEye: [.16,.21,.42],
+        rightEye: [-.16,.21,.42],
+        nose: [0,.02,.53],
+        mouth: [0,-.16,.43],
+        leftEar: [.43,.12,.08],
+        rightEar: [-.43,.12,.08]
+      })
+    })
+  });
+  const SPECIMEN_VIEW_KEY = 'david-light-lab:specimen-views:v1';
   const STORAGE_KEY = 'david-light-lab:study:v1';
   const FEATURE_STORAGE_KEY = 'david-light-lab:feature-focus:v1';
   const DETAIL_PREFERENCE_KEY = 'david-light-lab:studio-detail:v1';
@@ -26,6 +64,10 @@
   const timerDisplay = $('timerDisplay');
   const detailToggle = $('studioDetail');
   const detailStatus = $('detailStatus');
+  const specimenSelect = $('specimenSelect');
+  const specimenDescription = $('specimenDescription');
+  const specimenSource = $('specimenSource');
+  const specimenLoadStatus = $('specimenLoadStatus');
 
   const controls = {};
   [
@@ -42,6 +84,7 @@
 
   const state = {
     loaded: false,
+    specimen: DEFAULT_SPECIMEN,
     mode: 'explore',
     projection: 'perspective',
     orientation: 'portrait',
@@ -69,6 +112,58 @@
     try{localStorage.setItem(DETAIL_PREFERENCE_KEY,state.studioDetail?'on':'off');}
     catch(_){ /* Still usable without localStorage. */ }
   });
+
+  let specimenLoading=false;
+  let specimenViews={};
+  try{
+    const stored=JSON.parse(localStorage.getItem(SPECIMEN_VIEW_KEY)||'{}');
+    if(stored && typeof stored==='object' && !Array.isArray(stored))
+      specimenViews=stored;
+  }catch(_){ /* Private browsing may not allow persistence. */ }
+
+  function captureSpecimenView(){
+    return {
+      headQuat:state.headQuat.slice(),
+      frontQuat:state.frontQuat.slice(),
+      cameraQuat:state.cameraQuat.slice(),
+      pan:state.pan.slice(),
+      rx:controls.rx.value,ry:controls.ry.value,rz:controls.rz.value,
+      zoom:controls.zoom.value,fov:controls.fov.value
+    };
+  }
+  function persistSpecimenViews(){
+    try{localStorage.setItem(SPECIMEN_VIEW_KEY,JSON.stringify(specimenViews));}
+    catch(_){ /* Swapping remains possible without browser storage. */ }
+  }
+  function validQuat(a){
+    return Array.isArray(a)&&a.length===4&&a.every(v=>Number.isFinite(v));
+  }
+  function applySpecimenView(view){
+    const use=view&&validQuat(view.headQuat)&&validQuat(view.frontQuat)
+      &&validQuat(view.cameraQuat)&&Array.isArray(view.pan)
+      &&view.pan.length>=2&&view.pan.slice(0,3).every(Number.isFinite);
+    state.headQuat=use?view.headQuat.slice():[0,0,0,1];
+    state.frontQuat=use?view.frontQuat.slice():[0,0,0,1];
+    state.cameraQuat=use?view.cameraQuat.slice():[0,0,0,1];
+    state.pan=use?[view.pan[0],view.pan[1],view.pan[2]||0]:[0,0,0];
+    for(const id of ['rx','ry','rz'])
+      controls[id].value=use&&view[id]!==undefined?view[id]:0;
+    controls.zoom.value=use&&view.zoom!==undefined?view.zoom:1;
+    controls.fov.value=use&&view.fov!==undefined?view.fov:42;
+    updateOutputs();
+  }
+  function updateSpecimenUI(){
+    const spec=SPECIMENS[state.specimen]||SPECIMENS[DEFAULT_SPECIMEN];
+    specimenSelect.value=state.specimen;
+    specimenSelect.disabled=specimenLoading || state.locks.all || state.mode==='paint';
+    specimenDescription.textContent=spec.description;
+    specimenSource.hidden=!spec.source;
+    if(spec.source)specimenSource.href=spec.source;
+    specimenSource.setAttribute('aria-label','Source and licence for '+spec.label);
+    if(!specimenLoading)specimenLoadStatus.textContent=!state.loaded?'Not loaded'
+      :state.specimen===DEFAULT_SPECIMEN?'Original ready'
+      :state.specimen===LOCAL_SPECIMEN?'Local STL':'SMK ready';
+  }
 
   // ---------- Matrix and quaternion helpers ----------
   const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
@@ -378,16 +473,27 @@
     }
     if(msg.type==='mesh'){
       uploadRawMesh(new Float32Array(msg.positions),msg.triangleCount,msg.info);
+      if(!specimenSelect.querySelector('option[value="local-stl"]')){
+        const option=document.createElement('option');
+        option.value=LOCAL_SPECIMEN;
+        option.textContent='Local STL · Temporary';
+        specimenSelect.add(option);
+      }
+      state.specimen=LOCAL_SPECIMEN;
+      markActiveFeature(null);
+      updateAllUI();
     }
   };
 
-  async function loadRemote(){
+  async function loadRemote(specimenId=state.specimen){
+    const spec=SPECIMENS[specimenId];
+    if(!spec?.url)throw new Error('Unknown packaged specimen: '+specimenId);
     loadingCard.classList.remove('is-hidden');
-    loadingTitle.textContent='Loading David';
-    loadingText.textContent='Loading the cleaned artist mesh.';
+    loadingTitle.textContent='Loading '+spec.label;
+    loadingText.textContent='Loading the indexed '+spec.licence+' artist mesh.';
     progressBar.style.width='4%';
     try{
-      const response=await fetch(MODEL_URL,{cache:'force-cache'});
+      const response=await fetch(spec.url,{cache:'force-cache'});
       if(!response.ok) throw new Error('HTTP '+response.status);
       const total=Number(response.headers.get('content-length'))||0;
       const reader=response.body?.getReader();
@@ -419,8 +525,16 @@
         buffer=merged.buffer;
       }
       parseDLB(buffer);
+      state.specimen=specimenId;
+      updateSpecimenUI();
+      updateAllUI();
+      return true;
     }catch(err){
-      showLoadError(err.message);
+      if(state.loaded){
+        loadingCard.classList.add('is-hidden');
+        setStatus(spec.label+' unavailable; previous specimen preserved ('+err.message+').');
+      }else showLoadError(err.message);
+      return false;
     }
   }
 
@@ -460,8 +574,7 @@
     state.loaded=true;
     loadingCard.classList.add('is-hidden');
     progressBar.style.width='100%';
-    setStatus('Clean artist mesh loaded · '+Math.round(indexCount/3).toLocaleString()+' triangles');
-    applyHashState();updateAllUI();
+    setStatus('Indexed artist mesh loaded · '+Math.round(indexCount/3).toLocaleString()+' triangles');
   }
 
   function uploadRawMesh(positions,count,info){
@@ -483,7 +596,7 @@
     vertexCount=positions.length/3;indexCount=0;indexed=false;
     state.loaded=true;loadingCard.classList.add('is-hidden');
     setStatus('Local STL loaded · '+Number(count).toLocaleString()+' triangles');
-    applyHashState();updateAllUI();
+    updateAllUI();
   }
 
   function showLoadError(message){
@@ -504,8 +617,45 @@
     }catch(err){ showLoadError(err.message); }
   }
 
-  $('retryLoad').addEventListener('click',loadRemote);
+  $('retryLoad').addEventListener('click',()=>loadRemote(state.specimen));
   $('localStl').addEventListener('change',e=>loadLocal(e.target.files[0]));
+
+  async function switchSpecimen(target,{skipSavedView=false}={}){
+    if(target===state.specimen){updateSpecimenUI();return true;}
+    if(specimenLoading||!SPECIMENS[target]?.url){
+      updateSpecimenUI();
+      return false;
+    }
+    if(state.mode==='paint'||state.locks.all){
+      updateSpecimenUI();
+      setStatus('Unlock the reference before changing specimens.');
+      return false;
+    }
+    const previous=state.specimen;
+    stopNavigation();
+    specimenViews[previous]=captureSpecimenView();
+    persistSpecimenViews();
+    specimenLoading=true;
+    specimenSelect.disabled=true;
+    specimenLoadStatus.textContent='Loading…';
+    const ok=await loadRemote(target);
+    if(ok){
+      // Independent first-use view prevents a highly magnified eye being
+      // mistaken for the new specimen's entire face.
+      applySpecimenView(skipSavedView?null:specimenViews[target]);
+      markActiveFeature(null);
+      setStatus(SPECIMENS[target].label+' ready. Anatomical focus can be refined per specimen.');
+    }
+    specimenLoading=false;
+    updateSpecimenUI();
+    updateAllUI();
+    return ok;
+  }
+
+  specimenSelect.addEventListener('change',async()=>{
+    const selected=specimenSelect.value;
+    if(!await switchSpecimen(selected))specimenSelect.value=state.specimen;
+  });
 
   // ---------- Rendering ----------
   const maxViewport=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
@@ -693,11 +843,23 @@
     leftEar:{label:'Left ear',p:[.26,.33,.05],zoom:9,yaw:76},
     rightEar:{label:'Right ear',p:[-.26,.33,.05],zoom:9,yaw:-76}
   });
-  let focusPoints={};
-  try{
-    const stored=JSON.parse(localStorage.getItem(FEATURE_STORAGE_KEY)||'{}');
-    if(stored&&typeof stored==='object')focusPoints=stored;
-  }catch(_){ /* Storage is optional. */ }
+  // Preserve the existing calibration key for Scan the World. Additional
+  // specimens receive separate keys, so their anatomy cannot contaminate it.
+  const focusPointsBySpecimen=Object.create(null);
+  function focusStoreKey(id=state.specimen){
+    return id===DEFAULT_SPECIMEN?FEATURE_STORAGE_KEY:FEATURE_STORAGE_KEY+':'+id;
+  }
+  function focusPointsFor(id=state.specimen){
+    if(!focusPointsBySpecimen[id]){
+      let points={};
+      try{
+        const loaded=JSON.parse(localStorage.getItem(focusStoreKey(id))||'{}');
+        if(loaded&&typeof loaded==='object'&&!Array.isArray(loaded))points=loaded;
+      }catch(_){ /* Storage is optional. */ }
+      focusPointsBySpecimen[id]=points;
+    }
+    return focusPointsBySpecimen[id];
+  }
   let activeFeature=null,navFrame=0;
 
   function markActiveFeature(key){
@@ -765,11 +927,12 @@
     return Number.isFinite(near)?o.map((v,i)=>v+d[i]*near):null;
   }
   function featureAnchor(key){
-    const custom=focusPoints[key];
+    const custom=focusPointsFor()[key];
     if(Array.isArray(custom)&&custom.length===3&&custom.every(Number.isFinite))
       return custom.slice();
     const spec=FEATURES[key],inv=qConj(state.frontQuat);
-    const guess=rotateVector(inv,spec.p);
+    const landmark=SPECIMENS[state.specimen]?.landmarks?.[key]||spec.p;
+    const guess=rotateVector(inv,landmark);
     // Surface snap: cast from the direction the camera will use to inspect.
     const dir=rotateVector(inv,rotateVector(qAxis([0,1,0],rad(spec.yaw)),[0,0,-1]));
     const origin=guess.map((v,i)=>v-dir[i]*3.5);
@@ -819,8 +982,9 @@
     animateCamera(rotateVector(state.headQuat,point),
       state.cameraQuat.slice(),Math.max(9,+controls.zoom.value));
     if(activeFeature){
+      const focusPoints=focusPointsFor();
       focusPoints[activeFeature]=point;
-      try{localStorage.setItem(FEATURE_STORAGE_KEY,JSON.stringify(focusPoints));}
+      try{localStorage.setItem(focusStoreKey(),JSON.stringify(focusPoints));}
       catch(_){ /* Working focus does not depend on persistent storage. */ }
       setStatus(FEATURES[activeFeature].label+' focus calibrated on this device.');
     }else setStatus('Exact detail centred.');
@@ -1171,6 +1335,7 @@
     $('freezeStudy').classList.toggle('is-locked',state.locks.all);
     $('freezeStudy').textContent=state.locks.all?'Unlock everything':'Lock everything';
     referenceLock.hidden=!(state.locks.all||state.mode==='paint');
+    updateSpecimenUI();
   }
 
   // ---------- Modes ----------
@@ -1235,6 +1400,7 @@
   function snapshot(){
     return {
       v:1,
+      specimen:state.specimen,
       controls:Object.fromEntries(Object.entries(controls).filter(([k])=>k!=='timerSelect').map(([k,el])=>[k,el.value])),
       projection:state.projection,
       orientation:state.orientation,
@@ -1249,8 +1415,13 @@
     };
   }
 
-  function restore(data){
+  async function restore(data){
     if(!data||data.v!==1)return false;
+    // Legacy v1 study links without a specimen always mean the original mesh.
+    const requested=SPECIMENS[data.specimen]?.url?data.specimen:DEFAULT_SPECIMEN;
+    if(requested!==state.specimen){
+      if(!await switchSpecimen(requested,{skipSavedView:true}))return false;
+    }
     if(data.controls)Object.entries(data.controls).forEach(([k,v])=>{if(controls[k])controls[k].value=v;});
     state.projection=data.projection||'perspective';
     state.orientation=data.orientation||'portrait';
@@ -1277,10 +1448,10 @@
     localStorage.setItem(STORAGE_KEY,JSON.stringify(snapshot()));
     setStatus('Study saved on this device.');
   });
-  $('restoreStudy').addEventListener('click',()=>{
+  $('restoreStudy').addEventListener('click',async()=>{
     try{
       const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
-      setStatus(restore(d)?'Last saved study restored.':'No saved study found.');
+      setStatus((await restore(d))?'Last saved study restored.':'Study could not be restored.');
     }catch(e){setStatus('Saved study could not be read.');}
   });
   $('copyStudy').addEventListener('click',async()=>{
@@ -1290,12 +1461,12 @@
     catch(e){location.hash='s='+encoded;setStatus('Study state placed in the URL.');}
   });
 
-  function applyHashState(){
+  async function applyHashState(){
     if(!location.hash.startsWith('#s='))return;
     try{
       const json=decodeURIComponent(escape(atob(location.hash.slice(3))));
-      restore(JSON.parse(json));
-      setStatus('Shared study restored.');
+      const ok=await restore(JSON.parse(json));
+      setStatus(ok?'Shared study restored.':'Shared study could not be restored.');
     }catch(e){setStatus('Shared study link could not be decoded.');}
   }
 
@@ -1396,6 +1567,7 @@
     updateCrop();
     updateGuides();
     $('toggleLightMarker').textContent=state.markerVisible?'Hide marker':'Show marker';
+    updateSpecimenUI();
   }
   function setStatus(text){
     const el=$('viewerHelp');
@@ -1479,5 +1651,8 @@
 
   updateAllUI();
   render();
-  loadRemote();
+  // First load remains the original; shared SMK links then select their model.
+  void loadRemote(DEFAULT_SPECIMEN).then(ok=>{
+    if(ok)void applyHashState();
+  });
 })();

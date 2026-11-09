@@ -1,10 +1,10 @@
-const CACHE_NAME = 'david-light-lab-shell-v17-detail';
+const CACHE_NAME = 'david-light-lab-shell-v18-smk';
 const SHELL = [
   './',
   './index.html',
-  './styles.css?v=20261109-detail-1',
-  './site-config.js?v=20261109-detail-1',
-  './app.js?v=20261109-detail-1',
+  './styles.css?v=20261109-specimen-1',
+  './site-config.js?v=20261109-specimen-1',
+  './app.js?v=20261109-specimen-1',
   './stl-worker.js?v=20261005-1640',
   './manifest.webmanifest',
   './icon.svg',
@@ -34,7 +34,7 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(hit => hit || fetch(event.request).then(response => {
       if (event.request.method === 'GET' && response.ok) {
         const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)).catch(()=>{});
       }
       return response;
     }))

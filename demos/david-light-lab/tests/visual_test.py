@@ -149,7 +149,7 @@ async def test_page(browser, label, viewport, mobile=False):
         return await page.evaluate("""() => {
             document.getElementById('saveStudy').click();
             const saved=JSON.parse(localStorage.getItem('david-light-lab:study:v1'));
-            return {head:saved.headQuat, light:saved.controls.az,
+            return {specimen:saved.specimen,head:saved.headQuat, light:saved.controls.az,
                 target:saved.pan, camera:saved.cameraQuat,
                 zoom:Number(saved.controls.zoom)};
         }""")
@@ -240,6 +240,70 @@ async def test_page(browser, label, viewport, mobile=False):
     assert reverted_size == baseline_size["width"]*baseline_size["height"], (
         f"{label}: turning Studio Detail off did not restore regular rendering"
     )
+
+    # Both actual, separately sourced specimens must render correctly.
+    original_view = await camera_snapshot()
+    assert original_view["specimen"] == "scan-the-world", original_view
+    assert await page.locator("#specimenSelect").input_value() == "scan-the-world"
+    assert "David_(Michelangelo).stl" in (
+        await page.locator("#specimenSource").get_attribute("href")
+    )
+
+    async def select_specimen(specimen):
+        await page.evaluate("""id => {
+            const picker=document.getElementById('specimenSelect');
+            picker.value=id;
+            picker.dispatchEvent(new Event('change',{bubbles:true}));
+        }""", specimen)
+        status = "SMK ready" if specimen == "smk-kas2232" else "Original ready"
+        await page.wait_for_function(
+            "(s) => document.getElementById('specimenLoadStatus').textContent===s",
+            arg=status,timeout=120_000
+        )
+
+    await select_specimen("smk-kas2232")
+    smk_initial = await camera_snapshot()
+    assert smk_initial["specimen"] == "smk-kas2232", smk_initial
+    assert smk_initial["zoom"] == 1, f"{label}: new specimen inherited old eye close-up"
+    assert smk_initial["light"] == original_view["light"], (
+        f"{label}: changing specimens altered light azimuth"
+    )
+    assert "KAS2232" in await page.locator("#specimenSource").get_attribute("href")
+    assert "CC0" in await page.locator("#specimenDescription").inner_text()
+
+    await set_controls(page, {"zoom":"1","key":"0.00","fill":"0.82","bg":"0.02"})
+    smk_full_path = OUT / f"{label}_smk_plaster_full.png"
+    await canvas.screenshot(path=str(smk_full_path))
+    smk_full = canvas_metrics(smk_full_path)
+    assert smk_full["mid_or_light_fraction"] > .10, (
+        f"{label}: SMK model renders as blank: {smk_full}"
+    )
+
+    await page.evaluate(
+        "() => document.querySelector('[data-focus=\"eyes\"]').click()"
+    )
+    await page.wait_for_function(
+        "() => Math.abs(Number(document.getElementById('zoom').value)-6.5)<0.05",
+        timeout=20_000
+    )
+    smk_eye_path = OUT / f"{label}_smk_plaster_eye.png"
+    await canvas.screenshot(path=str(smk_eye_path))
+    smk_eye = canvas_metrics(smk_eye_path)
+    assert smk_eye["mid_or_light_fraction"] > .015, (
+        f"{label}: SMK anatomical focus produces blank canvas: {smk_eye}"
+    )
+
+    # The source model and its last camera position are preserved on return.
+    await select_specimen("scan-the-world")
+    restored_original = await camera_snapshot()
+    assert restored_original["specimen"] == "scan-the-world"
+    assert abs(restored_original["zoom"] - original_view["zoom"]) < .05, (
+        f"{label}: switching back did not recover original camera"
+    )
+    assert restored_original["head"] == original_view["head"], (
+        f"{label}: specimen switch changed original head orientation"
+    )
+    assert not page_errors, f"{label}: specimen test raised browser errors: {page_errors}"
 
     assert not page_errors, f"{label}: navigation produced browser errors: {page_errors}"
 
