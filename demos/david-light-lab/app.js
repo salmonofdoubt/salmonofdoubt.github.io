@@ -4,6 +4,8 @@
   const MODEL_URL = './assets/david-head.dlb?v=20261005-H70';
   const STORAGE_KEY = 'david-light-lab:study:v1';
   const FEATURE_STORAGE_KEY = 'david-light-lab:feature-focus:v1';
+  const DETAIL_PREFERENCE_KEY = 'david-light-lab:studio-detail:v1';
+  const DETAIL_IDLE_MS = 360;
   const CAMERA_DISTANCE = 3.05;
   const ZOOM_MIN = 0.45, ZOOM_MAX = 16;
 
@@ -22,6 +24,8 @@
   const cropFrame = $('cropFrame');
   const formatBadge = $('formatBadge');
   const timerDisplay = $('timerDisplay');
+  const detailToggle = $('studioDetail');
+  const detailStatus = $('detailStatus');
 
   const controls = {};
   [
@@ -50,10 +54,21 @@
     frontQuat: [0,0,0,1],
     cameraQuat: [0,0,0,1],
     pan: [0,0,0],
+    studioDetail: false,
     timerEnd: 0,
     timerHandle: null,
     wakeLock: null
   };
+
+  try{
+    state.studioDetail=localStorage.getItem(DETAIL_PREFERENCE_KEY)==='on';
+  }catch(_){ /* Preferences are optional in private or restricted browsers. */ }
+  detailToggle.checked=state.studioDetail;
+  detailToggle.addEventListener('change',()=>{
+    state.studioDetail=detailToggle.checked;
+    try{localStorage.setItem(DETAIL_PREFERENCE_KEY,state.studioDetail?'on':'off');}
+    catch(_){ /* Still usable without localStorage. */ }
+  });
 
   // ---------- Matrix and quaternion helpers ----------
   const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
@@ -145,6 +160,7 @@
   uniform float uShine;
   uniform float uSoft;
   uniform int uValueMode;
+  uniform int uStudioQuality;
   out vec4 outColor;
 
   // Compare receiver depth with the lamp's nearest surface in every direction.
@@ -158,12 +174,18 @@
     float major=max(max(abs(delta.x),abs(delta.y)),abs(delta.z));
     float depth=uShadowFar/(uShadowFar-0.01)-uShadowFar*0.01/((uShadowFar-0.01)*max(major-bias,0.01));
     float radius=(0.5+uSoft*2.5)/uShadowSize;
+    // Interactive: original 3x3 kernel. Settled Studio Detail: denser 5x5
+    // sampling over the same shadow-footprint, without changing the lamp.
+    int halfWidth=uStudioQuality==1?2:1;
+    float spacing=radius/float(halfWidth);
     float visible=0.0;
-    for(int y=-1;y<=1;y++) for(int x=-1;x<=1;x++){
-      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*radius;
+    for(int y=-2;y<=2;y++) for(int x=-2;x<=2;x++){
+      if(abs(x)>halfWidth||abs(y)>halfWidth)continue;
+      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*spacing;
       visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
     }
-    return visible/9.0;
+    float count=float((2*halfWidth+1)*(2*halfWidth+1));
+    return visible/count;
   }
   void main(){
     vec3 V=normalize(uEye-vPos);
@@ -232,7 +254,8 @@
     tone:gl.getUniformLocation(program,'uTone'),
     shine:gl.getUniformLocation(program,'uShine'),
     soft:gl.getUniformLocation(program,'uSoft'),
-    valueMode:gl.getUniformLocation(program,'uValueMode')
+    valueMode:gl.getUniformLocation(program,'uValueMode'),
+    studioQuality:gl.getUniformLocation(program,'uStudioQuality')
   };
 
   let posBuf=null,normBuf=null,indexBuf=null,vertexCount=0,indexCount=0,indexed=false;
@@ -449,17 +472,27 @@
   $('localStl').addEventListener('change',e=>loadLocal(e.target.files[0]));
 
   // ---------- Rendering ----------
-  function resize(){
-    // Supersample close-up outlines without overwhelming mobile graphics.
+  const maxViewport=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
+  function resize(quality){
+    // Render at normal quality during manipulation, then supersample one
+    // settled frame. Never allocate more than the GPU viewport/pixel budget.
     const mobile=window.matchMedia('(max-width:780px)').matches;
-    const pixelBudget=mobile?6000000:8000000;
-    const supersample=(+controls.zoom.value)>=5?1.25:1;
-    const dpr=Math.min((devicePixelRatio||1)*supersample,3,
-      Math.sqrt(pixelBudget/Math.max(1,canvas.clientWidth*canvas.clientHeight)));
-    const w=Math.max(1,Math.floor(canvas.clientWidth*dpr));
-    const h=Math.max(1,Math.floor(canvas.clientHeight*dpr));
+    const refined=quality==='refined';
+    const closeUp=(+controls.zoom.value)>=5;
+    const pixelBudget=mobile?(refined?6500000:6000000)
+      :(refined?12000000:8000000);
+    const boost=refined?(closeUp?2:1.6):(closeUp?1.25:1);
+    const cssWidth=Math.max(1,canvas.clientWidth);
+    const cssHeight=Math.max(1,canvas.clientHeight);
+    const dpr=Math.max(0.5,Math.min((devicePixelRatio||1)*boost,
+      refined?3.25:3,
+      Math.sqrt(pixelBudget/(cssWidth*cssHeight)),
+      maxViewport[0]/cssWidth,maxViewport[1]/cssHeight));
+    const w=Math.max(1,Math.floor(cssWidth*dpr));
+    const h=Math.max(1,Math.floor(cssHeight*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
     gl.viewport(0,0,w,h);
+    return dpr;
   }
 
   function buildView(){
@@ -509,16 +542,30 @@
     return {x:(nx*.5+.5)*r.width,y:(1-(ny*.5+.5))*r.height};
   }
 
-  let lastFrameSignature='';
+  let lastSceneSignature='',lastRenderSignature='',lastRenderQuality='';
+  let lastSceneChange=performance.now();
   function render(){
     requestAnimationFrame(render);
     const signature=[canvas.clientWidth,canvas.clientHeight,devicePixelRatio,meshRevision,
       state.loaded,state.mode,state.projection,state.lightSpace,state.markerVisible,
+      state.studioDetail,
       ...state.headQuat,...state.cameraQuat,...state.pan,
       ...Object.values(controls).map(control=>control.value)].join(',');
-    if(signature===lastFrameSignature)return;
-    lastFrameSignature=signature;
-    resize();
+    const now=performance.now();
+    if(signature!==lastSceneSignature){
+      lastSceneSignature=signature;
+      lastSceneChange=now;
+    }
+    const refined=state.loaded&&state.studioDetail&&now-lastSceneChange>=DETAIL_IDLE_MS;
+    const quality=refined?'refined':'interactive';
+    if(signature===lastRenderSignature&&quality===lastRenderQuality)return;
+    lastRenderSignature=signature;
+    lastRenderQuality=quality;
+    const dpr=resize(quality);
+    const label=!state.studioDetail?'Off'
+      :quality==='refined'?'Refined · '+dpr.toFixed(2)+'×'
+        :'Refining…';
+    if(detailStatus.textContent!==label)detailStatus.textContent=label;
     const bg=+controls.bg.value;
     gl.clearColor(bg,bg,bg*1.02,1);
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
@@ -555,6 +602,7 @@
       gl.uniform1f(loc.shine,+controls.shine.value);
       gl.uniform1f(loc.soft,+controls.soft.value);
       gl.uniform1i(loc.valueMode,valueModeIndex());
+      gl.uniform1i(loc.studioQuality,refined?1:0);
       drawMesh();
 
       if(state.markerVisible && state.mode!=='paint'){
