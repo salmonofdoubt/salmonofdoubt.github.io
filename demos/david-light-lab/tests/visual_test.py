@@ -143,6 +143,49 @@ async def test_page(browser, label, viewport, mobile=False):
     lit_metrics = canvas_metrics(lit_path)
     assert lit_metrics["mid_or_light_fraction"] > 0.08, f"{label}: lit model appears blank: {lit_metrics}"
 
+    # New navigation regression on the real production mesh.
+    # Read saved state through the existing public Save study control.
+    async def camera_snapshot():
+        return await page.evaluate("""() => {
+            document.getElementById('saveStudy').click();
+            const saved=JSON.parse(localStorage.getItem('david-light-lab:study:v1'));
+            return {head:saved.headQuat, light:saved.controls.az,
+                target:saved.pan, camera:saved.cameraQuat,
+                zoom:Number(saved.controls.zoom)};
+        }""")
+
+    await set_controls(page, {"key":"0.00","fill":"0.82","tone":"0.82","zoom":"1"})
+    before_focus = await camera_snapshot()
+    focus = "nose" if mobile else "eyes"
+    await page.evaluate(
+        "(key) => document.querySelector('[data-focus=\"'+key+'\"]').click()",
+        focus,
+    )
+    await page.wait_for_timeout(420)
+    after_focus = await camera_snapshot()
+    assert after_focus["head"] == before_focus["head"], f"{label}: focus altered sculpture pose"
+    assert after_focus["light"] == before_focus["light"], f"{label}: focus altered lamp"
+    assert after_focus["zoom"] >= 6, f"{label}: anatomical focus did not zoom: {after_focus}"
+    assert len(after_focus["target"]) == 3, f"{label}: missing 3D focus target"
+
+    focus_path = OUT / f"{label}_anatomical_focus.png"
+    await canvas.screenshot(path=str(focus_path))
+    focus_metrics = canvas_metrics(focus_path)
+    assert focus_metrics["mid_or_light_fraction"] > 0.015, (
+        f"{label}: anatomical focus shows no sculpture: {focus_metrics}"
+    )
+
+    await page.evaluate("() => document.getElementById('zoomDecrease').click()")
+    assert (await camera_snapshot())["zoom"] < after_focus["zoom"], f"{label}: zoom out did not work"
+    await page.evaluate("() => document.getElementById('zoomIncrease').click()")
+    assert (await camera_snapshot())["zoom"] > 1, f"{label}: zoom in did not work"
+    await page.evaluate("() => document.getElementById('fitView').click()")
+    fitted = await camera_snapshot()
+    assert fitted["zoom"] == 1 and fitted["target"] == [0,0,0], (
+        f"{label}: Fit head did not restore camera: {fitted}"
+    )
+    assert not page_errors, f"{label}: navigation produced browser errors: {page_errors}"
+
     await context.close()
     return flat_metrics, lit_metrics
 
