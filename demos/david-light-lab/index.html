@@ -13,14 +13,14 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20261109-detail-1">
+  <link rel="stylesheet" href="./styles.css?v=20261109-specimen-1">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
 
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
-  <script defer src="./site-config.js?v=20261109-detail-1"></script>
-  <script defer src="./app.js?v=20261109-detail-1"></script>
+  <script defer src="./site-config.js?v=20261109-specimen-1"></script>
+  <script defer src="./app.js?v=20261109-specimen-1"></script>
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
 </head>
@@ -103,6 +103,22 @@
           <h1>Turn the sculpture.<br>Move the light.<br>Study the form.</h1>
           <p>A live 3D reference built for painting and drawing, using a real scan of the head from Michelangelo's <em>David</em>.</p>
         </div>
+
+        <section class="specimen-picker" aria-labelledby="specimenHeading">
+          <div class="specimen-picker-head">
+            <h2 id="specimenHeading">Specimen</h2>
+            <output id="specimenLoadStatus" role="status" aria-live="polite">Original</output>
+          </div>
+          <label class="sr-only" for="specimenSelect">Choose David specimen</label>
+          <select id="specimenSelect" aria-describedby="specimenDescription">
+            <option value="scan-the-world" selected>Original · Scan the World</option>
+            <option value="smk-kas2232">SMK · Plaster cast (HD)</option>
+          </select>
+          <p class="specimen-caption">
+            <span id="specimenDescription">Full-statue scan, cropped to head and shoulders · CC BY-SA 4.0</span>
+            <a id="specimenSource" href="https://commons.wikimedia.org/wiki/File:David_(Michelangelo).stl" target="_blank" rel="noopener noreferrer">Source ↗</a>
+          </p>
+        </section>
 
         <details open>
           <summary>01 / Pose</summary>
