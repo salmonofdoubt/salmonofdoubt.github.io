@@ -99,3 +99,13 @@ Close-ups use bounded adaptive supersampling to reduce edge jaggedness. The unde
 
 To run the camera interaction regression with a local server and Playwright installed:
 `node demos/david-light-lab/tests/navigation-regression.cjs`.
+
+### Studio Detail (9 November 2026)
+
+The Camera panel offers an optional **Studio Detail** checkbox. It is **off by default** to preserve existing rendering on older hardware. When enabled, the view renders at normal quality during movement. After 360 milliseconds without camera, sculpture or lighting changes, David is redrawn once with:
+
+- bounded, device-aware canvas supersampling (up to 3.25× backing scale, 12 million desktop pixels or 6.5 million mobile pixels, subject to the graphics device's viewport limits);
+- a denser 5×5 shadow-filter sampling pattern over the original footprint instead of the interactive 3×3 pattern;
+- live status indicating when detail refinement has completed.
+
+The option is remembered separately from existing saved studies, so shared study URLs, lock states, original lighting settings and offline mesh data are unchanged. The image export uses the currently displayed canvas resolution. Refinement can consume more graphics power and may not add visible detail at the scan's geometric limit. No artificial features, mesh smoothing or new texture data are generated.

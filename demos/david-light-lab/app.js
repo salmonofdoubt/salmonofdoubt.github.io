@@ -4,6 +4,8 @@
   const MODEL_URL = './assets/david-head.dlb?v=20261005-H70';
   const STORAGE_KEY = 'david-light-lab:study:v1';
   const FEATURE_STORAGE_KEY = 'david-light-lab:feature-focus:v1';
+  const DETAIL_PREFERENCE_KEY = 'david-light-lab:studio-detail:v1';
+  const DETAIL_IDLE_MS = 360;
   const CAMERA_DISTANCE = 3.05;
   const ZOOM_MIN = 0.45, ZOOM_MAX = 16;
 
@@ -22,6 +24,8 @@
   const cropFrame = $('cropFrame');
   const formatBadge = $('formatBadge');
   const timerDisplay = $('timerDisplay');
+  const detailToggle = $('studioDetail');
+  const detailStatus = $('detailStatus');
 
   const controls = {};
   [
@@ -50,10 +54,21 @@
     frontQuat: [0,0,0,1],
     cameraQuat: [0,0,0,1],
     pan: [0,0,0],
+    studioDetail: false,
     timerEnd: 0,
     timerHandle: null,
     wakeLock: null
   };
+
+  try{
+    state.studioDetail=localStorage.getItem(DETAIL_PREFERENCE_KEY)==='on';
+  }catch(_){ /* Preferences are optional in private or restricted browsers. */ }
+  detailToggle.checked=state.studioDetail;
+  detailToggle.addEventListener('change',()=>{
+    state.studioDetail=detailToggle.checked;
+    try{localStorage.setItem(DETAIL_PREFERENCE_KEY,state.studioDetail?'on':'off');}
+    catch(_){ /* Still usable without localStorage. */ }
+  });
 
   // ---------- Matrix and quaternion helpers ----------
   const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
@@ -117,8 +132,8 @@
 
   // ---------- WebGL ----------
   const vs = `#version 300 es
-  in vec3 aPos;
-  in vec3 aNormal;
+  layout(location=0) in vec3 aPos;
+  layout(location=1) in vec3 aNormal;
   uniform mat4 uModel;
   uniform mat4 uMVP;
   out vec3 vPos;
@@ -129,6 +144,22 @@
     vNormal=normalize(mat3(uModel)*aNormal);
     gl_Position=uMVP*vec4(aPos,1.0);
   }`;
+
+  // Compile fixed-size shadow kernels: no runtime branch in the interactive shader.
+  const shadowSample3 = `
+    float visible=0.0;
+    for(int y=-1;y<=1;y++) for(int x=-1;x<=1;x++){
+      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*radius;
+      visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
+    }
+    return visible/9.0;`;
+  const shadowSample5 = `
+    float visible=0.0;
+    for(int y=-2;y<=2;y++) for(int x=-2;x<=2;x++){
+      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*(radius*0.5);
+      visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
+    }
+    return visible/25.0;`;
 
   const fs = `#version 300 es
   precision highp float;
@@ -158,12 +189,7 @@
     float major=max(max(abs(delta.x),abs(delta.y)),abs(delta.z));
     float depth=uShadowFar/(uShadowFar-0.01)-uShadowFar*0.01/((uShadowFar-0.01)*max(major-bias,0.01));
     float radius=(0.5+uSoft*2.5)/uShadowSize;
-    float visible=0.0;
-    for(int y=-1;y<=1;y++) for(int x=-1;x<=1;x++){
-      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*radius;
-      visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
-    }
-    return visible/9.0;
+    __SHADOW_SAMPLE_BODY__
   }
   void main(){
     vec3 V=normalize(uEye-vPos);
@@ -211,29 +237,62 @@
     if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
     return s;
   }
-  const program=gl.createProgram();
-  gl.attachShader(program,compile(gl.VERTEX_SHADER,vs));
-  gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fs));
-  gl.linkProgram(program);
-  if(!gl.getProgramParameter(program,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
-
-  const loc={
-    pos:gl.getAttribLocation(program,'aPos'),
-    normal:gl.getAttribLocation(program,'aNormal'),
-    model:gl.getUniformLocation(program,'uModel'),
-    mvp:gl.getUniformLocation(program,'uMVP'),
-    light:gl.getUniformLocation(program,'uLight'),
-    eye:gl.getUniformLocation(program,'uEye'),
-    shadow:gl.getUniformLocation(program,'uShadow'),
-    shadowSize:gl.getUniformLocation(program,'uShadowSize'),
-    shadowFar:gl.getUniformLocation(program,'uShadowFar'),
-    key:gl.getUniformLocation(program,'uKey'),
-    fill:gl.getUniformLocation(program,'uFill'),
-    tone:gl.getUniformLocation(program,'uTone'),
-    shine:gl.getUniformLocation(program,'uShine'),
-    soft:gl.getUniformLocation(program,'uSoft'),
-    valueMode:gl.getUniformLocation(program,'uValueMode')
-  };
+  function createMainProgram(halfWidth){
+    const next=gl.createProgram();
+    const vertex=compile(gl.VERTEX_SHADER,vs);
+    const fragment=compile(gl.FRAGMENT_SHADER,
+      fs.replace('__SHADOW_SAMPLE_BODY__',
+        halfWidth===2?shadowSample5:shadowSample3));
+    gl.attachShader(next,vertex);gl.attachShader(next,fragment);
+    gl.linkProgram(next);
+    gl.deleteShader(vertex);gl.deleteShader(fragment);
+    if(!gl.getProgramParameter(next,gl.LINK_STATUS)){
+      const error=gl.getProgramInfoLog(next);
+      gl.deleteProgram(next);
+      throw new Error(error);
+    }
+    return next;
+  }
+  function mainLocations(p){
+    return {
+      pos:gl.getAttribLocation(p,'aPos'),
+      normal:gl.getAttribLocation(p,'aNormal'),
+      model:gl.getUniformLocation(p,'uModel'),
+      mvp:gl.getUniformLocation(p,'uMVP'),
+      light:gl.getUniformLocation(p,'uLight'),
+      eye:gl.getUniformLocation(p,'uEye'),
+      shadow:gl.getUniformLocation(p,'uShadow'),
+      shadowSize:gl.getUniformLocation(p,'uShadowSize'),
+      shadowFar:gl.getUniformLocation(p,'uShadowFar'),
+      key:gl.getUniformLocation(p,'uKey'),
+      fill:gl.getUniformLocation(p,'uFill'),
+      tone:gl.getUniformLocation(p,'uTone'),
+      shine:gl.getUniformLocation(p,'uShine'),
+      soft:gl.getUniformLocation(p,'uSoft'),
+      valueMode:gl.getUniformLocation(p,'uValueMode')
+    };
+  }
+  const program=createMainProgram(1);
+  const loc=mainLocations(program);
+  let studioProgram=null,studioLoc=null,detailUnavailable=false;
+  function ensureStudioProgram(){
+    if(studioProgram)return true;
+    if(detailUnavailable)return false;
+    try{
+      // Compile once, only when the user enables quality and stops moving.
+      studioProgram=createMainProgram(2);
+      studioLoc=mainLocations(studioProgram);
+      return true;
+    }catch(error){
+      detailUnavailable=true;
+      state.studioDetail=false;
+      detailToggle.checked=false;
+      detailToggle.disabled=true;
+      try{localStorage.setItem(DETAIL_PREFERENCE_KEY,'off');}catch(_){}
+      console.warn('Studio Detail unavailable; regular rendering preserved.',error);
+      return false;
+    }
+  }
 
   let posBuf=null,normBuf=null,indexBuf=null,vertexCount=0,indexCount=0,indexed=false;
   let pickPositions=null,pickIndices=null; // Reuse decoded mesh arrays for feature picking.
@@ -449,17 +508,27 @@
   $('localStl').addEventListener('change',e=>loadLocal(e.target.files[0]));
 
   // ---------- Rendering ----------
-  function resize(){
-    // Supersample close-up outlines without overwhelming mobile graphics.
+  const maxViewport=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
+  function resize(quality){
+    // Render at normal quality during manipulation, then supersample one
+    // settled frame. Never allocate more than the GPU viewport/pixel budget.
     const mobile=window.matchMedia('(max-width:780px)').matches;
-    const pixelBudget=mobile?6000000:8000000;
-    const supersample=(+controls.zoom.value)>=5?1.25:1;
-    const dpr=Math.min((devicePixelRatio||1)*supersample,3,
-      Math.sqrt(pixelBudget/Math.max(1,canvas.clientWidth*canvas.clientHeight)));
-    const w=Math.max(1,Math.floor(canvas.clientWidth*dpr));
-    const h=Math.max(1,Math.floor(canvas.clientHeight*dpr));
+    const refined=quality==='refined';
+    const closeUp=(+controls.zoom.value)>=5;
+    const pixelBudget=mobile?(refined?6500000:6000000)
+      :(refined?12000000:8000000);
+    const boost=refined?(closeUp?2:1.6):(closeUp?1.25:1);
+    const cssWidth=Math.max(1,canvas.clientWidth);
+    const cssHeight=Math.max(1,canvas.clientHeight);
+    const dpr=Math.max(0.5,Math.min((devicePixelRatio||1)*boost,
+      refined?3.25:3,
+      Math.sqrt(pixelBudget/(cssWidth*cssHeight)),
+      maxViewport[0]/cssWidth,maxViewport[1]/cssHeight));
+    const w=Math.max(1,Math.floor(cssWidth*dpr));
+    const h=Math.max(1,Math.floor(cssHeight*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
     gl.viewport(0,0,w,h);
+    return dpr;
   }
 
   function buildView(){
@@ -509,16 +578,32 @@
     return {x:(nx*.5+.5)*r.width,y:(1-(ny*.5+.5))*r.height};
   }
 
-  let lastFrameSignature='';
+  let lastSceneSignature='',lastRenderSignature='',lastRenderQuality='';
+  let lastSceneChange=performance.now();
   function render(){
     requestAnimationFrame(render);
     const signature=[canvas.clientWidth,canvas.clientHeight,devicePixelRatio,meshRevision,
       state.loaded,state.mode,state.projection,state.lightSpace,state.markerVisible,
+      state.studioDetail,
       ...state.headQuat,...state.cameraQuat,...state.pan,
       ...Object.values(controls).map(control=>control.value)].join(',');
-    if(signature===lastFrameSignature)return;
-    lastFrameSignature=signature;
-    resize();
+    const now=performance.now();
+    if(signature!==lastSceneSignature){
+      lastSceneSignature=signature;
+      lastSceneChange=now;
+    }
+    const requested=state.loaded&&state.studioDetail&&now-lastSceneChange>=DETAIL_IDLE_MS;
+    const refined=requested&&ensureStudioProgram();
+    const quality=refined?'refined':'interactive';
+    if(signature===lastRenderSignature&&quality===lastRenderQuality)return;
+    lastRenderSignature=signature;
+    lastRenderQuality=quality;
+    const dpr=resize(quality);
+    const label=detailUnavailable?'Unavailable on this GPU'
+      :!state.studioDetail?'Off'
+      :quality==='refined'?'Refined · '+dpr.toFixed(2)+'×'
+        :'Refining…';
+    if(detailStatus.textContent!==label)detailStatus.textContent=label;
     const bg=+controls.bg.value;
     gl.clearColor(bg,bg,bg*1.02,1);
     gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
@@ -532,29 +617,31 @@
       const light=worldLight(state.headQuat);
 
       const shadowFar=renderShadows(model,light);
-      gl.useProgram(program);
+      const activeProgram=refined?studioProgram:program;
+      const u=refined?studioLoc:loc;
+      gl.useProgram(activeProgram);
       gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_CUBE_MAP,shadowTexture);
-      gl.uniform1i(loc.shadow,0);gl.uniform1f(loc.shadowSize,shadowSize);gl.uniform1f(loc.shadowFar,shadowFar);
+      gl.uniform1i(u.shadow,0);gl.uniform1f(u.shadowSize,shadowSize);gl.uniform1f(u.shadowFar,shadowFar);
       const camera=qMat(state.cameraQuat);
-      gl.uniform3f(loc.eye,
+      gl.uniform3f(u.eye,
         state.pan[0]+camera[8]*CAMERA_DISTANCE,
         state.pan[1]+camera[9]*CAMERA_DISTANCE,
         state.pan[2]+camera[10]*CAMERA_DISTANCE);
       gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
-      gl.enableVertexAttribArray(loc.pos);
-      gl.vertexAttribPointer(loc.pos,3,gl.FLOAT,false,0,0);
+      gl.enableVertexAttribArray(u.pos);
+      gl.vertexAttribPointer(u.pos,3,gl.FLOAT,false,0,0);
       gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);
-      gl.enableVertexAttribArray(loc.normal);
-      gl.vertexAttribPointer(loc.normal,3,gl.FLOAT,false,0,0);
-      gl.uniformMatrix4fv(loc.model,false,model);
-      gl.uniformMatrix4fv(loc.mvp,false,mvp);
-      gl.uniform3f(loc.light,light[0],light[1],light[2]);
-      gl.uniform1f(loc.key,+controls.key.value);
-      gl.uniform1f(loc.fill,+controls.fill.value);
-      gl.uniform1f(loc.tone,+controls.tone.value);
-      gl.uniform1f(loc.shine,+controls.shine.value);
-      gl.uniform1f(loc.soft,+controls.soft.value);
-      gl.uniform1i(loc.valueMode,valueModeIndex());
+      gl.enableVertexAttribArray(u.normal);
+      gl.vertexAttribPointer(u.normal,3,gl.FLOAT,false,0,0);
+      gl.uniformMatrix4fv(u.model,false,model);
+      gl.uniformMatrix4fv(u.mvp,false,mvp);
+      gl.uniform3f(u.light,light[0],light[1],light[2]);
+      gl.uniform1f(u.key,+controls.key.value);
+      gl.uniform1f(u.fill,+controls.fill.value);
+      gl.uniform1f(u.tone,+controls.tone.value);
+      gl.uniform1f(u.shine,+controls.shine.value);
+      gl.uniform1f(u.soft,+controls.soft.value);
+      gl.uniform1i(u.valueMode,valueModeIndex());
       drawMesh();
 
       if(state.markerVisible && state.mode!=='paint'){
