@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-08T11:57:38.983999+00:00",
+  "generated_at": "2026-11-09T13:57:00.192997+00:00",
   "note": "Source-led daily radar for Nanny-Delvin: practical Irish catchment signals, waterbody evidence/alerts, grants/opportunities, and research ranked by Trust usefulness.",
   "sections": [
     {
@@ -42,7 +42,7 @@
       ],
       "score": 100,
       "freshness_status": "reference",
-      "freshness_label": "121 days old · background",
+      "freshness_label": "122 days old · background",
       "pressure_categories": [
         "septic / domestic wastewater",
         "funding / grant",
@@ -82,7 +82,7 @@
       ],
       "score": 100,
       "freshness_status": "reference",
-      "freshness_label": "446 days old · background",
+      "freshness_label": "447 days old · background",
       "pressure_categories": [
         "nutrients",
         "habitat / biodiversity",
@@ -131,6 +131,41 @@
       ],
       "research_use_type": "Monitoring method",
       "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around agricultural runoff, citizen science / monitoring."
+    },
+    {
+      "id": "4f19082db5e8db86",
+      "title": "Water Quality Assessment and Forecasting Along the Liffey and Andarax Rivers by Artificial Neural Network Techniques Toward Sustainable Water Resources Management",
+      "url": "https://doi.org/10.3390/w17030453",
+      "summary": "This research evaluates water quality in two contrasting hydro-climatic regions: the River Liffey in Ireland and the Andarax River in Spain. It utilizes an Artificial Neural Network (ANN) to simulate potential changes in key water-quality parameters based on field measurements. The ANN models showed strong predictive efficiency and performance, achieving R2 values of 0.89 for dissolved oxygen (DO), 0.98 for electrical conductivity (EC), 0.87 for pH, 0.95 for total dissolved solids (TDS), and 0.96 for turbidity. The root mean-square-error (RMSE) values for important parameters were DO (1.25 mg/L), EC (48.06 µS/cm), and turbidity (8.9 FNU). The models were able to capture complex nonlinear relationships under different environmental conditions. The results showed that DO levels in the Liffey will decline by up to 20% over the next decade due to rising nutrient pollution, while TDS levels in the Andarax River are expected to rise by approx",
+      "published": "2025-02-06",
+      "source_id": "openalex",
+      "source_name": "Water",
+      "publisher": "Water",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2025 · 11 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.3390/w17030453",
+      "cited_by_count": 11,
+      "openalex_id": "https://openalex.org/W4407226042",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Supporting evidence",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff."
     },
     {
       "id": "e492fd3e0dc9cab7",
@@ -186,11 +221,11 @@
       ],
       "score": 100,
       "freshness_status": "reference",
-      "freshness_label": "2023 · 32 citations · open access",
+      "freshness_label": "2023 · 33 citations · open access",
       "practical_fit": "High practical fit · Comparable temperate relevance",
       "geographic_relevance": "Comparable temperate relevance",
       "doi": "https://doi.org/10.1016/j.jenvman.2023.119810",
-      "cited_by_count": 32,
+      "cited_by_count": 33,
       "openalex_id": "https://openalex.org/W4389734089",
       "pressure_categories": [
         "water quality",
@@ -294,11 +329,11 @@
       ],
       "score": 100,
       "freshness_status": "reference",
-      "freshness_label": "2022 · 53 citations · open access",
+      "freshness_label": "2022 · 54 citations · open access",
       "practical_fit": "High practical fit · General transferable evidence",
       "geographic_relevance": "General transferable evidence",
       "doi": "https://doi.org/10.1002/hyp.14733",
-      "cited_by_count": 53,
+      "cited_by_count": 54,
       "openalex_id": "https://openalex.org/W4306174787",
       "pressure_categories": [
         "water quality",
@@ -771,41 +806,6 @@
       "action_relevance": "Research signal: background evidence that may support practical catchment action around water quality, agricultural runoff, NbS / restoration."
     },
     {
-      "id": "8aa051169b877afa",
-      "title": "Runoff pH Influences Nutrient Removal Efficacy of Floating Treatment Wetland Systems",
-      "url": "https://doi.org/10.21273/horttech04299-19",
-      "summary": "Floating treatment wetlands (FTWs), a modified constructed wetland technology, can be deployed in ponds for the treatment of nursery and greenhouse irrigation runoff. The pH of nursery and greenhouse operation irrigation water varies from 3.3 to 10.4 across the United States. Water flow rate, plant species selection, and variable nutrient inputs influence the remediation efficacy of FTWs and may interact with the pH of inflow water to change nutrient remediation dynamics. Therefore, an experiment was designed to quantify the effect of pH on the growth and nutrient uptake capacity of three macrophyte species using a mesocosm FTW system. ‘Rising Sun’ japanese iris ( Iris ensata ), bushy bluestem ( Andropogon glomeratus ), and maidencane ( Panicum hemitomon ) were grown for two 6-week periods and exposed to five pH treatment levels representing the range of nursery and greenhouse irrigation runoff, 4.5, 5.5, 6.5, 7.2, and 8.5, for a total",
-      "published": "2019-10-02",
-      "source_id": "openalex",
-      "source_name": "HortTechnology",
-      "publisher": "HortTechnology",
-      "section": "research-papers",
-      "theme": "wetland-nbs",
-      "tags": [
-        "research",
-        "review",
-        "constructed-wetland",
-        "nutrients",
-        "open-access"
-      ],
-      "score": 100,
-      "freshness_status": "reference",
-      "freshness_label": "2019 · 14 citations · open access",
-      "practical_fit": "High practical fit · General transferable evidence",
-      "geographic_relevance": "General transferable evidence",
-      "doi": "https://doi.org/10.21273/horttech04299-19",
-      "cited_by_count": 14,
-      "openalex_id": "https://openalex.org/W2977725467",
-      "pressure_categories": [
-        "water quality",
-        "agricultural runoff",
-        "NbS / restoration",
-        "habitat / biodiversity"
-      ],
-      "research_use_type": "Review / evidence synthesis",
-      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, NbS / restoration."
-    },
-    {
       "id": "7c67db657d90ff3c",
       "title": "Towards ecologically functional riparian zones: A meta-analysis to develop guidelines for protecting ecosystem functions and biodiversity in agricultural landscapes",
       "url": "https://doi.org/10.1016/j.jenvman.2019.109391",
@@ -841,6 +841,41 @@
       ],
       "research_use_type": "Review / evidence synthesis",
       "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, agricultural runoff, sediment / hydromorphology."
+    },
+    {
+      "id": "f3579e349aa10f10",
+      "title": "Phosphorus and organic soils under grassland production: Assessment of phosphorus losses for a more sustainable agriculture",
+      "url": "https://doi.org/10.13025/16970",
+      "summary": "The intensification of agriculture in Ireland aims to increase the exports of dairy and beef products considerably in the coming years, which inevitably implies the expansion of grassland systems to areas that were previously uncultivated. This reclamation of new land is generally made on peats and other related soils rich in organic matter (OM) that typically are located in upland areas, within catchments defined as High Status Waterbodies (HSW) in the European Water Framework Directive (WFD). Previous Irish studies at laboratory scale have shown organic soils to have low phosphorus (P) sorption ability compared to mineral soils. However, the optimum fertiliser P management for these soils is as yet unknown. This is especially important when P fertilisers are applied to these soils to improve grass productivity under land reclamation and expansion. This thesis derived an improved management strategy that accounts for rates, timing and",
+      "published": "2019-06-19",
+      "source_id": "openalex",
+      "source_name": "Arrow@dit (Dublin Institute of Technology)",
+      "publisher": "Arrow@dit (Dublin Institute of Technology)",
+      "section": "research-papers",
+      "theme": "water-quality",
+      "tags": [
+        "research",
+        "ireland",
+        "water-quality",
+        "catchment",
+        "agriculture",
+        "open-access",
+        "ireland-first"
+      ],
+      "score": 100,
+      "freshness_status": "reference",
+      "freshness_label": "2019 · 0 citations · open access",
+      "practical_fit": "High practical fit · Ireland / direct relevance",
+      "geographic_relevance": "Ireland / direct relevance",
+      "doi": "https://doi.org/10.13025/16970",
+      "cited_by_count": 0,
+      "openalex_id": "https://openalex.org/W2949390945",
+      "pressure_categories": [
+        "water quality",
+        "agricultural runoff"
+      ],
+      "research_use_type": "Policy / governance",
+      "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, agricultural runoff."
     },
     {
       "id": "9dcd394f95c4613e",
@@ -985,42 +1020,6 @@
       ],
       "research_use_type": "Review / evidence synthesis",
       "action_relevance": "Ireland-first evidence: use this to support Trust decisions, engagement, or methods around water quality, NbS / restoration."
-    },
-    {
-      "id": "1603db32f7d06de4",
-      "title": "Carbon and nitrogen dynamics and greenhouse gas emissions in constructed wetlands treating wastewater: a review",
-      "url": "https://doi.org/10.5194/hess-20-109-2016",
-      "summary": "Abstract. The nitrogen (N) removal efficiency of constructed wetlands (CWs) is very inconsistent and does not alone explain if the removed species are reduced by physical attenuation or if they are transformed to other reactive forms (pollution swapping). There are many pathways for the removed N to remain in the system: accumulation in the sediments, leaching to groundwater (nitrate-NO3- and ammonium-NH4+), emission to atmosphere via nitrous oxide- N2O and ammonia and/or conversion to N2 gas and adsorption to sediments. The kinetics of these pathways/processes varies with CWs management and therefore needs to be studied quantitatively for the sustainable use of CWs. For example, the quality of groundwater underlying CWs with regards to the reactive N (Nr) species is largely unknown. Equally, there is a dearth of information on the extent of Nr accumulation in soils and discharge to surface waters and air. Moreover, CWs are rich in diss",
-      "published": "2016-01-18",
-      "source_id": "openalex",
-      "source_name": "Hydrology and earth system sciences",
-      "publisher": "Hydrology and earth system sciences",
-      "section": "research-papers",
-      "theme": "wetland-nbs",
-      "tags": [
-        "research",
-        "review",
-        "constructed-wetland",
-        "nutrients",
-        "open-access",
-        "highly-cited"
-      ],
-      "score": 100,
-      "freshness_status": "reference",
-      "freshness_label": "2016 · 94 citations · open access",
-      "practical_fit": "High practical fit · General transferable evidence",
-      "geographic_relevance": "General transferable evidence",
-      "doi": "https://doi.org/10.5194/hess-20-109-2016",
-      "cited_by_count": 94,
-      "openalex_id": "https://openalex.org/W2287376826",
-      "pressure_categories": [
-        "water quality",
-        "sediment / hydromorphology",
-        "NbS / restoration",
-        "habitat / biodiversity"
-      ],
-      "research_use_type": "Review / evidence synthesis",
-      "action_relevance": "Evidence synthesis: useful for explaining why an intervention or monitoring approach is defensible for water quality, sediment / hydromorphology, NbS / restoration."
     },
     {
       "id": "e70f709b159f48ee",
@@ -1872,7 +1871,7 @@
       ],
       "score": 97,
       "freshness_status": "fresh",
-      "freshness_label": "10 days old",
+      "freshness_label": "11 days old",
       "pressure_categories": [
         "habitat / biodiversity",
         "NbS / restoration"
@@ -1904,7 +1903,7 @@
       ],
       "score": 96,
       "freshness_status": "reference",
-      "freshness_label": "157 days old · background",
+      "freshness_label": "158 days old · background",
       "pressure_categories": [
         "river ecology",
         "funding / grant",
@@ -2083,7 +2082,7 @@
       ],
       "score": 93,
       "freshness_status": "reference",
-      "freshness_label": "458 days old · background",
+      "freshness_label": "459 days old · background",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -2189,7 +2188,7 @@
       ],
       "score": 90,
       "freshness_status": "reference",
-      "freshness_label": "173 days old · background",
+      "freshness_label": "174 days old · background",
       "pressure_categories": [
         "septic / domestic wastewater"
       ],
@@ -2253,7 +2252,7 @@
       ],
       "score": 89,
       "freshness_status": "fresh",
-      "freshness_label": "36 days old",
+      "freshness_label": "37 days old",
       "pressure_categories": [
         "agricultural runoff"
       ],
@@ -2285,7 +2284,7 @@
       ],
       "score": 89,
       "freshness_status": "fresh",
-      "freshness_label": "50 days old",
+      "freshness_label": "51 days old",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -2330,38 +2329,6 @@
         "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
         "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
       }
-    },
-    {
-      "id": "237b403f4e7213a2",
-      "title": "EPA report highlights discharge of untreated sewage in Louth - Ireland Live News",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNSExSUUlwcUZPRGtvLWdYSnllc2NWZzBnenZPNHc3RlFfdzg5Q3dfMjIwZVQ4YnBDUFlTT29sYzhySHpHNmlaSU5xaHBVdFRHVlptMmdPc1hzME1yNzJrX0Z2TzBUMTh0RkkxeVJDRjZPVXpxam8xY0FnX2ZLV2RiVDl0Q2lXRGcyZi11MXAteVBFYlNrWjFPekxjaUk3Umd1ZHNNaU9OaUVIVDY1RTlfamRR?oc=5",
-      "summary": "EPA report highlights discharge of untreated sewage in Louth Ireland Live News",
-      "published": "2026-11-05",
-      "source_id": "google-news-meath-louth-fingal-catchment",
-      "source_name": "Google News: Meath Louth Fingal catchment signals",
-      "publisher": "Google News: Meath Louth Fingal catchment signals",
-      "section": "waterbody-evidence-alerts",
-      "theme": "water-quality",
-      "tags": [
-        "water-quality"
-      ],
-      "score": 88,
-      "freshness_status": "fresh",
-      "freshness_label": "3 days old",
-      "pressure_categories": [
-        "policy / governance"
-      ],
-      "local_relevance": {
-        "score": 72,
-        "label": "High local relevance",
-        "matched_terms": [
-          "Ireland",
-          "fingal",
-          "louth",
-          "meath"
-        ]
-      },
-      "action_relevance": "Local relevance signal: useful because it connects to High local relevance and the Trust's catchment-facing work."
     },
     {
       "id": "heritage-council-grants-watch",
@@ -2454,7 +2421,7 @@
       ],
       "score": 87,
       "freshness_status": "reference",
-      "freshness_label": "2339 days old · background",
+      "freshness_label": "2340 days old · background",
       "pressure_categories": [
         "incident / alert"
       ],
@@ -2525,7 +2492,7 @@
       ],
       "score": 86,
       "freshness_status": "fresh",
-      "freshness_label": "2 days old",
+      "freshness_label": "3 days old",
       "pressure_categories": [
         "policy / governance"
       ],
@@ -2557,7 +2524,7 @@
       ],
       "score": 85,
       "freshness_status": "fresh",
-      "freshness_label": "74 days old",
+      "freshness_label": "75 days old",
       "pressure_categories": [
         "septic / domestic wastewater"
       ],
@@ -2691,7 +2658,7 @@
       ],
       "score": 84,
       "freshness_status": "fresh",
-      "freshness_label": "6 days old",
+      "freshness_label": "7 days old",
       "pressure_categories": [
         "habitat / biodiversity",
         "funding / grant"
@@ -2767,7 +2734,7 @@
       ],
       "score": 83,
       "freshness_status": "fresh",
-      "freshness_label": "0 days old",
+      "freshness_label": "1 days old",
       "pressure_categories": [
         "funding / grant"
       ],
@@ -2805,7 +2772,7 @@
       ],
       "score": 83,
       "freshness_status": "reference",
-      "freshness_label": "506 days old · background",
+      "freshness_label": "507 days old · background",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -2914,6 +2881,42 @@
       },
       "action_relevance": "Restoration signal: potentially useful for riparian, wetland, floodplain, habitat, or runoff-interception measures.",
       "research_use_type": "NbS effectiveness"
+    },
+    {
+      "id": "b4bc0cb9ce044e7f",
+      "title": "Ireland’s climate body calls out lack of funds for nature restoration - Big News Network.com",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQWTBEOW9Rb0xZeE9lZXNUYWxPTk9LazZFanpIcUlHdHRXWlFTQ2xmcDdBWXV6ekpoUFRuZTd0RV9saFQxcWlhZ1I5VkxFaDFmVEVaWE9TbS1SOUlGenNLNEdmVFZqNHZjRV9zbU9HMFFQRU1qM05PM3NPcE54MGpjRmR1dThzbGlzck1tRnBEUUFNMmZheXpBc2dLN0Y2dDBDUFBLRXRoTnZMLVFwRDRjbkt6UVdudw?oc=5",
+      "summary": "Ireland’s climate body calls out lack of funds for nature restoration Big News Network.com",
+      "published": "2026-11-05",
+      "source_id": "google-news-estuary-lagoon-ireland",
+      "source_name": "Google News: Ireland estuaries and lagoons",
+      "publisher": "Google News: Ireland estuaries and lagoons",
+      "section": "grants-opportunities",
+      "theme": "river-restoration",
+      "tags": [
+        "river-restoration",
+        "grant"
+      ],
+      "score": 81,
+      "freshness_status": "fresh",
+      "freshness_label": "4 days old",
+      "pressure_categories": [
+        "funding / grant"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "action_relevance": "Funding signal for the Trust: check whether this can support funding / grant, citizen science, engagement, or small catchment actions.",
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      }
     },
     {
       "id": "914d9990e770e6f8",
@@ -3059,36 +3062,6 @@
       }
     },
     {
-      "id": "671b4825c8293dc5",
-      "title": "Investigation into 'major fish kill' after pollution incident - BBC",
-      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBmdDFoTHF4aXpZMHg4ekJsbEk0YV9TWnFTclNWc3NFRE05YTVmMmtYeldtdzFOUDdHWVVCaWNSekZSbnZGa3FFUTdFcjhrcGxYLVlBSXBsSWQ3bElROVE?oc=5",
-      "summary": "Investigation into 'major fish kill' after pollution incident BBC",
-      "published": "2026-11-05",
-      "source_id": "google-news-ireland-river-water-quality",
-      "source_name": "Google News: Ireland river water quality",
-      "publisher": "Google News: Ireland river water quality",
-      "section": "ireland-catchment-practice",
-      "theme": "incident-alert",
-      "tags": [
-        "water-quality",
-        "incident-alert"
-      ],
-      "score": 78,
-      "freshness_status": "fresh",
-      "freshness_label": "3 days old",
-      "pressure_categories": [
-        "incident / alert"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "action_relevance": "Operational watch signal: this may indicate a water-quality incident, bathing-water concern, fish kill, pollution pathway, or public-reporting opportunity."
-    },
-    {
       "id": "d351d5392ad83ae0",
       "title": "Scotland funds nature recovery projects including river restoration - Water Magazine",
       "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOSzRKRVdqaDZoZkhJREFzZ2E1Z1NmYzRTTnFWb1RBcEdrMEJ3UlNmX3IwcW5rMFRZUTdKWGl2MlRSaENXVmpXcVU2V05sR2Z5VEtyblhha01pc1VZU3N6N1B6dHR0OERYcGtvbnc0Rmh5ek5LNjRqaWZZbzdiMEFWdHlZLThUU1RIMC1YdVYyNlBLX1laczVHZWJZTVZJTE1IMDhYRGxoNjZjX3p3NUxkRQ?oc=5",
@@ -3104,7 +3077,7 @@
       ],
       "score": 78,
       "freshness_status": "fresh",
-      "freshness_label": "13 days old",
+      "freshness_label": "14 days old",
       "pressure_categories": [
         "funding / grant",
         "NbS / restoration"
@@ -3141,7 +3114,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "170 days old · background",
+      "freshness_label": "171 days old · background",
       "pressure_categories": [
         "habitat / biodiversity",
         "funding / grant"
@@ -3178,7 +3151,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "171 days old · background",
+      "freshness_label": "172 days old · background",
       "pressure_categories": [
         "agricultural runoff",
         "funding / grant",
@@ -3217,7 +3190,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "358 days old · background",
+      "freshness_label": "359 days old · background",
       "pressure_categories": [
         "birds / wetland ecology",
         "habitat / biodiversity",
@@ -3254,7 +3227,7 @@
       ],
       "score": 77,
       "freshness_status": "reference",
-      "freshness_label": "465 days old · background",
+      "freshness_label": "466 days old · background",
       "pressure_categories": [
         "general catchment signal"
       ],
@@ -3283,7 +3256,7 @@
       ],
       "score": 75,
       "freshness_status": "fresh",
-      "freshness_label": "62 days old",
+      "freshness_label": "63 days old",
       "pressure_categories": [
         "agricultural runoff"
       ],
@@ -3295,35 +3268,6 @@
         ]
       },
       "action_relevance": "General practical signal: may help the Trust track agricultural runoff, policy, funding, monitoring, or community action."
-    },
-    {
-      "id": "52744bc0a573d3d0",
-      "title": "The UK's rivers are riddled with sewage pollution – new wetlands could help clean them up - BBC",
-      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNdHk4OTVQQ1lfaldDNGJxX2hjOERXcEFXRnh4a3hGZHVFMURkR1FjcWZRS3N6V3JnUEstbVhMVGZiMEZnNlZwbm5xeFA4QW4yVWI0WF9NZG9vR0IzcHpyWm1hZ3g2QWhLaXpUT1hRNEF2U0Z5YUtMRXRmS3V4bFRzY0JrWG5kd09Ka1VyMUh6X1hSZUtXXzA0Zw?oc=5",
-      "summary": "The UK's rivers are riddled with sewage pollution – new wetlands could help clean them up BBC",
-      "published": "2024-07-05",
-      "source_id": "google-news-fish-kill-pollution",
-      "source_name": "Google News: fish kills and pollution",
-      "publisher": "Google News: fish kills and pollution",
-      "section": "waterbody-evidence-alerts",
-      "theme": "water-quality",
-      "tags": [
-        "water-quality",
-        "wetland-nbs"
-      ],
-      "score": 75,
-      "freshness_status": "reference",
-      "freshness_label": "856 days old · background",
-      "pressure_categories": [
-        "habitat / biodiversity",
-        "incident / alert"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "action_relevance": "Operational watch signal: this may indicate a water-quality incident, bathing-water concern, fish kill, pollution pathway, or public-reporting opportunity."
     },
     {
       "id": "5f5144b382fcfd34",
@@ -3382,6 +3326,79 @@
         ]
       },
       "action_relevance": "General practical signal: may help the Trust track policy / governance, policy, funding, monitoring, or community action."
+    },
+    {
+      "id": "ee2422d7ab141f0d",
+      "title": "Licensing & Permitting",
+      "url": "https://www.epa.ie/our-services/licensing/",
+      "summary": "Licensing & Permitting Air Climate Change Freshwater & Marine Genetically Modified Organisms Industrial Emissions Licensing (IED) Integrated Pollution Control (IPC) Licensing Radiation Waste water Waste Search for a Licence/Permit",
+      "published": null,
+      "source_id": "epa-water",
+      "source_name": "EPA Ireland Water",
+      "publisher": "EPA Ireland Water",
+      "section": "waterbody-evidence-alerts",
+      "theme": "water-quality",
+      "tags": [
+        "water-quality",
+        "grant"
+      ],
+      "score": 75,
+      "freshness_status": "reference",
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "funding / grant",
+        "policy / governance"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "action_relevance": "Funding signal for the Trust: check whether this can support funding / grant, policy / governance, citizen science, engagement, or small catchment actions.",
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      }
+    },
+    {
+      "id": "f34880b1a1558280",
+      "title": "EPA Research Funding",
+      "url": "https://www.epa.ie/our-services/research/epa--research-funding/",
+      "summary": "EPA Research Funding",
+      "published": null,
+      "source_id": "epa-water",
+      "source_name": "EPA Ireland Water",
+      "publisher": "EPA Ireland Water",
+      "section": "grants-opportunities",
+      "theme": "grant",
+      "tags": [
+        "grant"
+      ],
+      "score": 75,
+      "freshness_status": "reference",
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "funding / grant",
+        "policy / governance"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "action_relevance": "Funding signal for the Trust: check whether this can support funding / grant, policy / governance, citizen science, engagement, or small catchment actions.",
+      "opportunity_fit": {
+        "fit": "Medium",
+        "score": 63,
+        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
+        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
+      }
     }
   ]
 }
