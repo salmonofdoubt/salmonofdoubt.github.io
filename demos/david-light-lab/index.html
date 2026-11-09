@@ -13,14 +13,14 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20261109-anatomy-1">
+  <link rel="stylesheet" href="./styles.css?v=20261109-detail-1">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
 
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.js?v=20261009-shadows-1"></script>
-  <script defer src="./app.js?v=20261109-anatomy-1"></script>
+  <script defer src="./app.js?v=20261109-detail-1"></script>
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
 </head>
@@ -153,6 +153,17 @@
             <div class="control-row">
               <button id="fitView">Fit head</button>
               <button id="lockCamera" data-lock="camera">Lock POV</button>
+            </div>
+
+            <div class="studio-detail-option" role="group" aria-label="Close-up rendering quality">
+              <div class="studio-detail-row">
+                <label class="check studio-detail-toggle" for="studioDetail">
+                  <input id="studioDetail" type="checkbox">
+                  <span>Studio Detail</span>
+                </label>
+                <output id="detailStatus" role="status" aria-live="polite">Off</output>
+              </div>
+              <p class="feature-help">Refines the image and shadow edges when you stop moving. Normal rendering returns during movement. Uses more graphics power.</p>
             </div>
 
             <div class="feature-focus" role="group" aria-label="Anatomical focus">
