@@ -88,3 +88,14 @@ Direct light and specular highlights now respect self-shadowing through a six-fa
 Perspective zoom magnifies the camera projection instead of scaling the sculpture toward the lamp. The canvas supports high-density screens up to 2.5×, with a six-million-pixel budget. Static views are not repeatedly drawn, and shadow maps are rebuilt only after the head, lamp or mesh changes. The existing 448,957-triangle scan is unchanged; rendering cannot reconstruct finer detail absent from that source.
 
 A deterministic regression test uses a receiver and blocker to check occlusion, ambient fill and zoom invariance. With a local server running at port 8090 and Playwright available, run `node demos/david-light-lab/tests/lighting-regression.cjs`. Override `DAVID_TEST_URL` for another port; `CHROMIUM_EXECUTABLE` and `CHROMIUM_ARGS` support a custom Chromium installation.
+
+### Anatomical navigation and detailed inspection (9 November 2026)
+
+The Camera panel now includes **Both eyes**, **Left eye**, **Right eye**, **Nose**, **Mouth**, **Left ear**, and **Right ear**. Each moves **only the camera**, without altering the sculpture pose or the lamp. The first focus position is estimated from the scan's coordinates. For exact alignment, **double-click** the desired detail while a shortcut is active; on touchscreens **double-tap**. This centres the actual 3D surface point and calibrates that shortcut on the current device. These calibrations are stored separately from existing v1 study saves and can be refined again.
+
+Zoom now extends from **0.45× to 16×**, and the mouse wheel zooms toward the cursor. Right-drag pans in the screen's direction at a speed adapted to the current magnification. Two fingers pinch and pan together. The + / − controls offer repeatable increments, while **Fit head** restores the full view. Existing saved studies and share links with two-component pan values remain compatible.
+
+Close-ups use bounded adaptive supersampling to reduce edge jaggedness. The underlying scan remains untouched, and zoom cannot reveal geometric detail beyond what the 3D source contains.
+
+To run the camera interaction regression with a local server and Playwright installed:
+`node demos/david-light-lab/tests/navigation-regression.cjs`.
