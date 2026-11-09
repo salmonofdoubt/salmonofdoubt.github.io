@@ -1,48 +1,52 @@
-# Source model provenance
+# David Light Lab: specimen provenance and reproduction
 
-David Light Lab uses the Wikimedia Commons featured 3D model:
+David Light Lab offers two distinct scans of Michelangelo's *David*. **The original Scan the World specimen remains the default.** The optional SMK specimen is a scan of a separate plaster cast, not a geometric enhancement of the original marble or of Scan the World's asset.
 
-**David (Michelangelo).stl**
+## A · Scan the World (default)
 
-- Subject: Michelangelo's *David*
-- Digitisation: Scan the World
-- Method described by the source: photogrammetry and structured-light scanning
-- Digital source file: STL
-- Source file size: approximately 57.22 MB
-- Licence: Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+- **Source:** *David (Michelangelo).stl*, Wikimedia Commons: https://commons.wikimedia.org/wiki/File:David_(Michelangelo).stl
+- **Digitisation:** Scan the World / Jonathan Beck
+- **Method described by original source:** photogrammetry and structured light
+- **Licence:** Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+- **Original scan:** approximately 57.22 MB STL covering the statue
+- **Displayed derivative:** `assets/david-head.dlb`, 10,786,176 bytes; approximately 448,957 indexed triangles
 
-Wikimedia Commons source:
+The derivative retains the upper statue including head, shoulders and raised hand. Source and derivative licensing obligations remain in force.
 
-https://commons.wikimedia.org/wiki/File:David_(Michelangelo).stl
+### Rebuild
 
-Attribution: Scan the World / Jonathan Beck via Wikimedia Commons.
+`python demos/david-light-lab/tools/build_mesh.py`
 
-## Included derivative mesh
+This script retains the upper portion of the full source and welds vertices, corrects face winding and computes area-weighted smooth normals.
 
-The repository includes:
+## B · Statens Museum for Kunst KAS2232 (optional)
 
-`assets/david-head.dlb`
+- **Source:** *Michelangelo Buonarroti, Hoved fra statuen af David*, KAS2232
+- **Institution:** Statens Museum for Kunst (SMK), Copenhagen
+- **Object:** plaster-cast head, approximately 1,370 × 800 × 675 mm
+- **Licence:** Creative Commons CC0 1.0 Universal
+- **Original source page:** https://commons.wikimedia.org/wiki/File:Michelangelo_Buonarroti,_Hoved_fra_statuen_af_David,_,_KAS2232,_Statens_Museum_for_Kunst,_3D_model.stl
+- **Original STL:** 54,168,584 bytes; 1,083,370 triangles
+- **Verified SHA-1 of original:** `ead5fae70be51dfc883a232ffd633ec236967c4a`
+- **Packaged model:** `assets/david-smk-kas2232.dlb`, 26,000,796 bytes; 541,681 vertices and 1,083,370 triangles
+- **Packaged SHA-256:** `7825d2b92d72e7571bf54437984cc1eb2bc8119611413d8dd14e50a95f9aad1e`
 
-This is a cleaned, indexed derivative generated from the source scan for David Light Lab. It retains the upper sculpture region used by the artist viewer and stores:
+The separate model is larger and has more triangles, but this does **not** by itself prove higher anatomical fidelity. Compare eye, mouth, nose and ear details under identical lighting and zoom before judging it preferable.
 
-- welded vertex positions;
-- precomputed smooth vertex normals;
-- indexed triangles.
+### Rebuild
 
-The derivative is approximately 7.1 MB. It remains subject to the source model's CC BY-SA 4.0 licence.
+`python -m pip install numpy`
 
-## Reproducible preprocessing
+`python demos/david-light-lab/tools/build_smk_specimen.py`
 
-`tools/build_mesh.py` documents the transformation used to generate the derivative:
+The converter downloads the exact STL and verifies its length and SHA-1 before performing coordinate alignment, full-head scaling, vertex welding, degenerate-face removal, winding correction and area-weighted normal calculation. Its output is the same binary `DLB1` format used by David Light Lab.
 
-1. download the Wikimedia source STL;
-2. identify the sculpture's major physical axes;
-3. retain the upper region containing head, neck and shoulders;
-4. reorient, centre and rescale it for the viewer;
-5. weld coincident STL vertices;
-6. remove degenerate triangles;
-7. align face winding with source normals;
-8. compute area-weighted smooth vertex normals;
-9. write the indexed `DLB1` browser mesh.
+## Browser behaviour and attribution
 
-This preprocessing replaced the earlier strategy of guessing/fixing raw STL normals at runtime. The browser now receives deterministic geometry and normals rather than repairing the source on every load.
+The Scan the World mesh is loaded first for ordinary visits. The SMK asset loads only on selection and is cached after first successful retrieval where browser storage allows. No second specimen is part of the install-time precache; users who have never selected it do not download it.
+
+The app saves camera framing and anatomical focal-point calibration separately for each specimen. Older study links without a specimen identifier continue to resolve to Scan the World. A local STL can still be opened as a temporary third state, but cannot be reconstructed from a saved URL alone.
+
+The source model is not sent to any additional third-party service by specimen switching. The visible provenance link identifies the currently selected specimen.
+
+**Licensing note:** SMK's CC0 does not change the licensing of the original Scan the World model or derivative.
