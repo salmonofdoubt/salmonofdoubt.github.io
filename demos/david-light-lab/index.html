@@ -13,14 +13,14 @@
 
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css?v=20261008-art-return-1">
+  <link rel="stylesheet" href="./styles.css?v=20261109-anatomy-1">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
 
   <script defer src="../shared/demo-return.js"></script>
   <script defer src="../shared/demo-support.js"></script>
   <script defer src="./site-config.js?v=20261009-shadows-1"></script>
-  <script defer src="./app.js?v=20261009-shadows-1"></script>
+  <script defer src="./app.js?v=20261109-anatomy-1"></script>
 
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token":"ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
 </head>
@@ -84,7 +84,7 @@
         </div>
 
         <div class="viewer-help" id="viewerHelp">
-          Drag to turn · Shift-drag to roll · wheel/pinch to zoom
+          Drag to turn · right-drag to pan · wheel/pinch to zoom · double-click to focus
         </div>
       </div>
 
@@ -141,7 +141,11 @@
             </div>
 
             <label>Zoom <output id="zoomOut">1.00×</output></label>
-            <input id="zoom" type="range" min="0.45" max="2.8" value="1" step="0.01">
+            <input id="zoom" type="range" min="0.45" max="16" value="1" step="0.01">
+            <div class="control-row" aria-label="Zoom controls">
+              <button id="zoomDecrease" type="button" aria-label="Zoom out">− Zoom</button>
+              <button id="zoomIncrease" type="button" aria-label="Zoom in">+ Zoom</button>
+            </div>
 
             <label>Field of view <output id="fovOut">42°</output></label>
             <input id="fov" type="range" min="18" max="70" value="42" step="1">
@@ -149,6 +153,20 @@
             <div class="control-row">
               <button id="fitView">Fit head</button>
               <button id="lockCamera" data-lock="camera">Lock POV</button>
+            </div>
+
+            <div class="feature-focus" role="group" aria-label="Anatomical focus">
+              <p class="feature-label">Anatomical focus</p>
+              <div class="button-grid three">
+                <button type="button" data-focus="eyes" aria-pressed="false">Both eyes</button>
+                <button type="button" data-focus="leftEye" aria-pressed="false">Left eye</button>
+                <button type="button" data-focus="rightEye" aria-pressed="false">Right eye</button>
+                <button type="button" data-focus="nose" aria-pressed="false">Nose</button>
+                <button type="button" data-focus="mouth" aria-pressed="false">Mouth</button>
+                <button type="button" data-focus="leftEar" aria-pressed="false">Left ear</button>
+                <button type="button" data-focus="rightEar" aria-pressed="false">Right ear</button>
+              </div>
+              <p class="feature-help">Choose a detail to move the camera. Double-click on the sculpture to focus precisely and refine the selected shortcut. On touchscreens, double-tap.</p>
             </div>
           </div>
         </details>
