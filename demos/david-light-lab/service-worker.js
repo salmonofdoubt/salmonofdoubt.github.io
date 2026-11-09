@@ -1,10 +1,10 @@
-const CACHE_NAME = 'david-light-lab-shell-v16-anatomy';
+const CACHE_NAME = 'david-light-lab-shell-v17-detail';
 const SHELL = [
   './',
   './index.html',
-  './styles.css?v=20261109-anatomy-1',
-  './site-config.js?v=20261009-shadows-1',
-  './app.js?v=20261109-anatomy-1',
+  './styles.css?v=20261109-detail-1',
+  './site-config.js?v=20261109-detail-1',
+  './app.js?v=20261109-detail-1',
   './stl-worker.js?v=20261005-1640',
   './manifest.webmanifest',
   './icon.svg',
