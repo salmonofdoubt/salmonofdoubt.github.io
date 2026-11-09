@@ -161,7 +161,13 @@ async def test_page(browser, label, viewport, mobile=False):
         "(key) => document.querySelector('[data-focus=\"'+key+'\"]').click()",
         focus,
     )
-    await page.wait_for_timeout(420)
+    # Await the actual animation target rather than assuming a fast GPU frame rate.
+    expected_zoom = 11 if mobile else 6.5
+    await page.wait_for_function(
+        "(target) => Math.abs(Number(document.getElementById('zoom').value)-target)<0.05",
+        arg=expected_zoom,
+        timeout=15_000,
+    )
     after_focus = await camera_snapshot()
     assert after_focus["head"] == before_focus["head"], f"{label}: focus altered sculpture pose"
     assert after_focus["light"] == before_focus["light"], f"{label}: focus altered lamp"
@@ -189,7 +195,10 @@ async def test_page(browser, label, viewport, mobile=False):
     await page.evaluate(
         "() => document.querySelector('[data-focus=\"eyes\"]').click()"
     )
-    await page.wait_for_timeout(430)
+    await page.wait_for_function(
+        "() => Math.abs(Number(document.getElementById('zoom').value)-6.5)<0.05",
+        timeout=15_000,
+    )
     await set_controls(page, {"zoom":"12","key":"1.15","fill":"0.23","soft":"0.55"})
     baseline_size = await canvas.evaluate(
         "(c) => ({width:c.width,height:c.height,cssWidth:c.clientWidth,cssHeight:c.clientHeight})"
