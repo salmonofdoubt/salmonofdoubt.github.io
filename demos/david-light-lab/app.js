@@ -145,6 +145,22 @@
     gl_Position=uMVP*vec4(aPos,1.0);
   }`;
 
+  // Compile fixed-size shadow kernels: no runtime branch in the interactive shader.
+  const shadowSample3 = `
+    float visible=0.0;
+    for(int y=-1;y<=1;y++) for(int x=-1;x<=1;x++){
+      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*radius;
+      visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
+    }
+    return visible/9.0;`;
+  const shadowSample5 = `
+    float visible=0.0;
+    for(int y=-2;y<=2;y++) for(int x=-2;x<=2;x++){
+      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*(radius*0.5);
+      visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
+    }
+    return visible/25.0;`;
+
   const fs = `#version 300 es
   precision highp float;
   in vec3 vPos;
@@ -173,16 +189,7 @@
     float major=max(max(abs(delta.x),abs(delta.y)),abs(delta.z));
     float depth=uShadowFar/(uShadowFar-0.01)-uShadowFar*0.01/((uShadowFar-0.01)*max(major-bias,0.01));
     float radius=(0.5+uSoft*2.5)/uShadowSize;
-    // Build separate compile-time 3x3 or 5x5 shadow-filter variants.
-    // The moving sculpture always uses the original fast 3x3 shader.
-    const int halfWidth=__SHADOW_HALF_WIDTH__;
-    float spacing=radius/float(halfWidth);
-    float visible=0.0;
-    for(int y=-halfWidth;y<=halfWidth;y++) for(int x=-halfWidth;x<=halfWidth;x++){
-      vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*spacing;
-      visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
-    }
-    return visible/float((2*halfWidth+1)*(2*halfWidth+1));
+    __SHADOW_SAMPLE_BODY__
   }
   void main(){
     vec3 V=normalize(uEye-vPos);
@@ -234,7 +241,8 @@
     const next=gl.createProgram();
     const vertex=compile(gl.VERTEX_SHADER,vs);
     const fragment=compile(gl.FRAGMENT_SHADER,
-      fs.replace('__SHADOW_HALF_WIDTH__',String(halfWidth)));
+      fs.replace('__SHADOW_SAMPLE_BODY__',
+        halfWidth===2?shadowSample5:shadowSample3));
     gl.attachShader(next,vertex);gl.attachShader(next,fragment);
     gl.linkProgram(next);
     gl.deleteShader(vertex);gl.deleteShader(fragment);
