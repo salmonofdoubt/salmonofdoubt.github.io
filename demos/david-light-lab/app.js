@@ -4,7 +4,15 @@
   // Authoritative specimen registry: source, format, licence and model are linked.
   // The original remains the default for all pre-existing studies and links.
   const DEFAULT_SPECIMEN = 'scan-the-world';
+  const LOCAL_SPECIMEN = 'local-stl';
   const SPECIMENS = Object.freeze({
+    'local-stl': Object.freeze({
+      label: 'Local STL · Temporary',
+      url: null,
+      source: null,
+      licence: 'User-supplied',
+      description: 'Temporary local STL · source and licensing supplied by the user'
+    }),
     'scan-the-world': Object.freeze({
       label: 'Original · Scan the World',
       url: './assets/david-head.dlb?v=20261005-H70',
@@ -149,10 +157,12 @@
     specimenSelect.value=state.specimen;
     specimenSelect.disabled=specimenLoading || state.locks.all || state.mode==='paint';
     specimenDescription.textContent=spec.description;
-    specimenSource.href=spec.source;
+    specimenSource.hidden=!spec.source;
+    if(spec.source)specimenSource.href=spec.source;
     specimenSource.setAttribute('aria-label','Source and licence for '+spec.label);
-    if(!specimenLoading)specimenLoadStatus.textContent=state.specimen===DEFAULT_SPECIMEN
-      ? 'Original ready':'SMK ready';
+    if(!specimenLoading)specimenLoadStatus.textContent=!state.loaded?'Not loaded'
+      :state.specimen===DEFAULT_SPECIMEN?'Original ready'
+      :state.specimen===LOCAL_SPECIMEN?'Local STL':'SMK ready';
   }
 
   // ---------- Matrix and quaternion helpers ----------
@@ -463,6 +473,15 @@
     }
     if(msg.type==='mesh'){
       uploadRawMesh(new Float32Array(msg.positions),msg.triangleCount,msg.info);
+      if(!specimenSelect.querySelector('option[value="local-stl"]')){
+        const option=document.createElement('option');
+        option.value=LOCAL_SPECIMEN;
+        option.textContent='Local STL · Temporary';
+        specimenSelect.add(option);
+      }
+      state.specimen=LOCAL_SPECIMEN;
+      markActiveFeature(null);
+      updateAllUI();
     }
   };
 
@@ -1316,6 +1335,7 @@
     $('freezeStudy').classList.toggle('is-locked',state.locks.all);
     $('freezeStudy').textContent=state.locks.all?'Unlock everything':'Lock everything';
     referenceLock.hidden=!(state.locks.all||state.mode==='paint');
+    updateSpecimenUI();
   }
 
   // ---------- Modes ----------
@@ -1380,6 +1400,7 @@
   function snapshot(){
     return {
       v:1,
+      specimen:state.specimen,
       controls:Object.fromEntries(Object.entries(controls).filter(([k])=>k!=='timerSelect').map(([k,el])=>[k,el.value])),
       projection:state.projection,
       orientation:state.orientation,
@@ -1394,8 +1415,13 @@
     };
   }
 
-  function restore(data){
+  async function restore(data){
     if(!data||data.v!==1)return false;
+    // Legacy v1 study links without a specimen always mean the original mesh.
+    const requested=SPECIMENS[data.specimen]?.url?data.specimen:DEFAULT_SPECIMEN;
+    if(requested!==state.specimen){
+      if(!await switchSpecimen(requested,{skipSavedView:true}))return false;
+    }
     if(data.controls)Object.entries(data.controls).forEach(([k,v])=>{if(controls[k])controls[k].value=v;});
     state.projection=data.projection||'perspective';
     state.orientation=data.orientation||'portrait';
@@ -1422,10 +1448,10 @@
     localStorage.setItem(STORAGE_KEY,JSON.stringify(snapshot()));
     setStatus('Study saved on this device.');
   });
-  $('restoreStudy').addEventListener('click',()=>{
+  $('restoreStudy').addEventListener('click',async()=>{
     try{
       const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');
-      setStatus(restore(d)?'Last saved study restored.':'No saved study found.');
+      setStatus((await restore(d))?'Last saved study restored.':'Study could not be restored.');
     }catch(e){setStatus('Saved study could not be read.');}
   });
   $('copyStudy').addEventListener('click',async()=>{
@@ -1435,12 +1461,12 @@
     catch(e){location.hash='s='+encoded;setStatus('Study state placed in the URL.');}
   });
 
-  function applyHashState(){
+  async function applyHashState(){
     if(!location.hash.startsWith('#s='))return;
     try{
       const json=decodeURIComponent(escape(atob(location.hash.slice(3))));
-      restore(JSON.parse(json));
-      setStatus('Shared study restored.');
+      const ok=await restore(JSON.parse(json));
+      setStatus(ok?'Shared study restored.':'Shared study could not be restored.');
     }catch(e){setStatus('Shared study link could not be decoded.');}
   }
 
@@ -1625,5 +1651,8 @@
 
   updateAllUI();
   render();
-  loadRemote();
+  // First load remains the original; shared SMK links then select their model.
+  void loadRemote(DEFAULT_SPECIMEN).then(ok=>{
+    if(ok)void applyHashState();
+  });
 })();
