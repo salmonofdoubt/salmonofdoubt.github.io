@@ -3,6 +3,9 @@
 
   const MODEL_URL = './assets/david-head.dlb?v=20261005-H70';
   const STORAGE_KEY = 'david-light-lab:study:v1';
+  const FEATURE_STORAGE_KEY = 'david-light-lab:feature-focus:v1';
+  const CAMERA_DISTANCE = 3.05;
+  const ZOOM_MIN = 0.45, ZOOM_MAX = 16;
 
   const $ = (id) => document.getElementById(id);
   const canvas = $('gl');
@@ -46,7 +49,7 @@
     headQuat: [0,0,0,1],
     frontQuat: [0,0,0,1],
     cameraQuat: [0,0,0,1],
-    pan: [0,0],
+    pan: [0,0,0],
     timerEnd: 0,
     timerHandle: null,
     wakeLock: null
@@ -84,6 +87,12 @@
       2*(xz+wy),2*(yz-wx),1-2*(xx+yy),0,
       0,0,0,1
     ]);
+  }
+  function rotateVector(q,v){
+    const m=qMat(q);
+    return [m[0]*v[0]+m[4]*v[1]+m[8]*v[2],
+      m[1]*v[0]+m[5]*v[1]+m[9]*v[2],
+      m[2]*v[0]+m[6]*v[1]+m[10]*v[2]];
   }
   function I(){ return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]); }
   function mul(a,b){
@@ -227,6 +236,7 @@
   };
 
   let posBuf=null,normBuf=null,indexBuf=null,vertexCount=0,indexCount=0,indexed=false;
+  let pickPositions=null,pickIndices=null; // Reuse decoded mesh arrays for feature picking.
   gl.enable(gl.DEPTH_TEST);
   gl.disable(gl.CULL_FACE);
 
@@ -383,6 +393,7 @@
   function uploadIndexedMesh(positions,normals,indices){
     clearMeshBuffers();
     measureMesh(positions);
+    pickPositions=positions;pickIndices=indices;
     posBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);gl.bufferData(gl.ARRAY_BUFFER,positions,gl.STATIC_DRAW);
     normBuf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);gl.bufferData(gl.ARRAY_BUFFER,normals,gl.STATIC_DRAW);
     indexBuf=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,indexBuf);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,indices,gl.STATIC_DRAW);
@@ -397,6 +408,7 @@
   function uploadRawMesh(positions,count,info){
     clearMeshBuffers();
     measureMesh(positions);
+    pickPositions=positions;pickIndices=null;
     const normals=new Float32Array(positions.length);
     for(let i=0;i<positions.length;i+=9){
       const ax=positions[i],ay=positions[i+1],az=positions[i+2];
@@ -438,7 +450,12 @@
 
   // ---------- Rendering ----------
   function resize(){
-    const dpr=Math.min(devicePixelRatio||1,2.5,Math.sqrt(6000000/Math.max(1,canvas.clientWidth*canvas.clientHeight)));
+    // Supersample close-up outlines without overwhelming mobile graphics.
+    const mobile=window.matchMedia('(max-width:780px)').matches;
+    const pixelBudget=mobile?6000000:8000000;
+    const supersample=(+controls.zoom.value)>=5?1.25:1;
+    const dpr=Math.min((devicePixelRatio||1)*supersample,3,
+      Math.sqrt(pixelBudget/Math.max(1,canvas.clientWidth*canvas.clientHeight)));
     const w=Math.max(1,Math.floor(canvas.clientWidth*dpr));
     const h=Math.max(1,Math.floor(canvas.clientHeight*dpr));
     if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
@@ -447,9 +464,8 @@
 
   function buildView(){
     const cameraR=qMat(qConj(state.cameraQuat));
-    const pan=tr(-state.pan[0],-state.pan[1],0);
-    const dist=3.05;
-    return mul(tr(0,0,-dist),mul(cameraR,pan));
+    const pan=tr(-state.pan[0],-state.pan[1],-state.pan[2]);
+    return mul(tr(0,0,-CAMERA_DISTANCE),mul(cameraR,pan));
   }
 
   function buildProjection(){
@@ -520,7 +536,10 @@
       gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_CUBE_MAP,shadowTexture);
       gl.uniform1i(loc.shadow,0);gl.uniform1f(loc.shadowSize,shadowSize);gl.uniform1f(loc.shadowFar,shadowFar);
       const camera=qMat(state.cameraQuat);
-      gl.uniform3f(loc.eye,state.pan[0]+camera[8]*3.05,state.pan[1]+camera[9]*3.05,camera[10]*3.05);
+      gl.uniform3f(loc.eye,
+        state.pan[0]+camera[8]*CAMERA_DISTANCE,
+        state.pan[1]+camera[9]*CAMERA_DISTANCE,
+        state.pan[2]+camera[10]*CAMERA_DISTANCE);
       gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
       gl.enableVertexAttribArray(loc.pos);
       gl.vertexAttribPointer(loc.pos,3,gl.FLOAT,false,0,0);
@@ -550,12 +569,235 @@
 
   }
 
+  // ---------- View navigation ----------
+  function sceneUnitsPerPixel(zoom=+controls.zoom.value){
+    const h=Math.max(1,canvas.clientHeight);
+    return state.projection==='orthographic'
+      ? 2*1.25/(zoom*h)
+      : 2*CAMERA_DISTANCE*Math.tan(rad(+controls.fov.value)/2)/(zoom*h);
+  }
+  function panByPixels(dx,dy){
+    const m=qMat(state.cameraQuat),u=sceneUnitsPerPixel();
+    // Right-drag moves the image right; down-drag moves it down.
+    for(let i=0;i<3;i++)state.pan[i]+=(-m[i]*dx+m[4+i]*dy)*u;
+  }
+  function setZoomAt(target,x=canvas.clientWidth/2,y=canvas.clientHeight/2){
+    if(state.locks.camera||state.locks.all)return;
+    const before=+controls.zoom.value;
+    const after=clamp(target,ZOOM_MIN,ZOOM_MAX);
+    if(Math.abs(after-before)<0.00001)return;
+    const difference=sceneUnitsPerPixel(before)-sceneUnitsPerPixel(after);
+    const dx=x-canvas.clientWidth/2,dy=y-canvas.clientHeight/2;
+    const m=qMat(state.cameraQuat);
+    for(let i=0;i<3;i++)state.pan[i]+=(m[i]*dx-m[4+i]*dy)*difference;
+    controls.zoom.value=after.toFixed(3);
+    updateOutputs();
+  }
+
+  // ---------- Anatomical feature camera ----------
+  // Approximate initial centres are in the user-calibrated anatomical frame.
+  // A double-click on the actual mesh refines the selected shortcut permanently.
+  const FEATURES=Object.freeze({
+    eyes:{label:'Both eyes',p:[0,.40,.35],zoom:6.5,yaw:0},
+    leftEye:{label:'Left eye',p:[.11,.40,.35],zoom:11,yaw:0},
+    rightEye:{label:'Right eye',p:[-.11,.40,.35],zoom:11,yaw:0},
+    nose:{label:'Nose',p:[0,.30,.44],zoom:11,yaw:0},
+    mouth:{label:'Mouth',p:[0,.17,.36],zoom:11,yaw:0},
+    leftEar:{label:'Left ear',p:[.26,.33,.05],zoom:9,yaw:76},
+    rightEar:{label:'Right ear',p:[-.26,.33,.05],zoom:9,yaw:-76}
+  });
+  let focusPoints={};
+  try{
+    const stored=JSON.parse(localStorage.getItem(FEATURE_STORAGE_KEY)||'{}');
+    if(stored&&typeof stored==='object')focusPoints=stored;
+  }catch(_){ /* Storage is optional. */ }
+  let activeFeature=null,navFrame=0;
+
+  function markActiveFeature(key){
+    activeFeature=key;
+    document.querySelectorAll('[data-focus]').forEach(btn=>{
+      const on=btn.dataset.focus===key;
+      btn.classList.toggle('is-active',on);
+      btn.setAttribute('aria-pressed',String(on));
+    });
+  }
+  function stopNavigation(){
+    if(navFrame)cancelAnimationFrame(navFrame);
+    navFrame=0;
+  }
+  function animateCamera(toPan,toCamera,toZoom){
+    stopNavigation();
+    const fromPan=state.pan.slice(),fromCamera=state.cameraQuat.slice();
+    const fromZoom=+controls.zoom.value;
+    const q=toCamera.slice();
+    if(fromCamera.reduce((sum,v,i)=>sum+v*q[i],0)<0)
+      for(let i=0;i<4;i++)q[i]=-q[i];
+    const began=performance.now();
+    function step(now){
+      if(state.locks.camera||state.locks.all){navFrame=0;return;}
+      const k=clamp((now-began)/300,0,1),t=k*k*(3-2*k);
+      state.pan=fromPan.map((v,i)=>v+(toPan[i]-v)*t);
+      state.cameraQuat=qNorm(fromCamera.map((v,i)=>v+(q[i]-v)*t));
+      controls.zoom.value=(fromZoom*Math.pow(toZoom/fromZoom,t)).toFixed(3);
+      updateOutputs();
+      if(k<1)navFrame=requestAnimationFrame(step);
+      else{
+        state.pan=toPan.slice();
+        state.cameraQuat=toCamera.slice();
+        controls.zoom.value=toZoom.toFixed(2);
+        navFrame=0;updateOutputs();
+      }
+    }
+    navFrame=requestAnimationFrame(step);
+  }
+
+  // Möller-Trumbore ray/triangle picking, evaluated only on a user action.
+  // Reuses the indexed mesh: no new geometry or resolution changes.
+  function raycastMesh(o,d){
+    if(!pickPositions)return null;
+    const p=pickPositions,idx=pickIndices;
+    const count=idx?idx.length:p.length/3;
+    let near=Infinity;
+    for(let i=0;i<count;i+=3){
+      const a=3*(idx?idx[i]:i),b=3*(idx?idx[i+1]:i+1),c=3*(idx?idx[i+2]:i+2);
+      const ax=p[a],ay=p[a+1],az=p[a+2];
+      const e1x=p[b]-ax,e1y=p[b+1]-ay,e1z=p[b+2]-az;
+      const e2x=p[c]-ax,e2y=p[c+1]-ay,e2z=p[c+2]-az;
+      const px=d[1]*e2z-d[2]*e2y,py=d[2]*e2x-d[0]*e2z,pz=d[0]*e2y-d[1]*e2x;
+      const det=e1x*px+e1y*py+e1z*pz;
+      if(Math.abs(det)<1e-10)continue;
+      const inv=1/det,tx=o[0]-ax,ty=o[1]-ay,tz=o[2]-az;
+      const u=(tx*px+ty*py+tz*pz)*inv;
+      if(u<0||u>1)continue;
+      const qx=ty*e1z-tz*e1y,qy=tz*e1x-tx*e1z,qz=tx*e1y-ty*e1x;
+      const v=(d[0]*qx+d[1]*qy+d[2]*qz)*inv;
+      if(v<0||u+v>1)continue;
+      const distance=(e2x*qx+e2y*qy+e2z*qz)*inv;
+      if(distance>1e-5&&distance<near)near=distance;
+    }
+    return Number.isFinite(near)?o.map((v,i)=>v+d[i]*near):null;
+  }
+  function featureAnchor(key){
+    const custom=focusPoints[key];
+    if(Array.isArray(custom)&&custom.length===3&&custom.every(Number.isFinite))
+      return custom.slice();
+    const spec=FEATURES[key],inv=qConj(state.frontQuat);
+    const guess=rotateVector(inv,spec.p);
+    // Surface snap: cast from the direction the camera will use to inspect.
+    const dir=rotateVector(inv,rotateVector(qAxis([0,1,0],rad(spec.yaw)),[0,0,-1]));
+    const origin=guess.map((v,i)=>v-dir[i]*3.5);
+    return raycastMesh(origin,dir)||guess;
+  }
+  document.querySelectorAll('[data-focus]').forEach(btn=>btn.addEventListener('click',()=>{
+    if(!state.loaded){setStatus('Load David before selecting a detail.');return;}
+    if(state.locks.camera||state.locks.all){setStatus('Unlock POV to focus.');return;}
+    const key=btn.dataset.focus,spec=FEATURES[key];
+    if(!spec)return;
+    const point=rotateVector(state.headQuat,featureAnchor(key));
+    // Camera orbit is relative to the calibrated front. David's pose and lamp
+    // are not changed by anatomical shortcuts.
+    const relative=qMul(state.headQuat,qConj(state.frontQuat));
+    const camera=qMul(relative,qAxis([0,1,0],rad(spec.yaw)));
+    markActiveFeature(key);
+    animateCamera(point,camera,spec.zoom);
+    setStatus(spec.label+' selected. Double-click the exact detail to refine.');
+  }));
+
+  function pickScreen(x,y){
+    const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight);
+    const nx=x*2/w-1,ny=1-y*2/h;
+    const m=qMat(state.cameraQuat);
+    const eye=[state.pan[0]+m[8]*CAMERA_DISTANCE,
+      state.pan[1]+m[9]*CAMERA_DISTANCE,
+      state.pan[2]+m[10]*CAMERA_DISTANCE];
+    let origin,dir;
+    if(state.projection==='orthographic'){
+      const half=1.25/(+controls.zoom.value);
+      origin=eye.map((v,i)=>v+m[i]*nx*half*w/h+m[4+i]*ny*half);
+      dir=rotateVector(state.cameraQuat,[0,0,-1]);
+    }else{
+      const projection=buildProjection();
+      const d=[nx/projection[0],ny/projection[5],-1];
+      const magnitude=Math.hypot(...d);
+      origin=eye;
+      dir=rotateVector(state.cameraQuat,d.map(v=>v/magnitude));
+    }
+    const inv=qConj(state.headQuat);
+    return raycastMesh(rotateVector(inv,origin),rotateVector(inv,dir));
+  }
+  function focusExact(x,y){
+    if(!state.loaded||state.locks.camera||state.locks.all)return;
+    const point=pickScreen(x,y);
+    if(!point){setStatus('Click on the sculpture to centre a detail.');return;}
+    animateCamera(rotateVector(state.headQuat,point),
+      state.cameraQuat.slice(),Math.max(9,+controls.zoom.value));
+    if(activeFeature){
+      focusPoints[activeFeature]=point;
+      try{localStorage.setItem(FEATURE_STORAGE_KEY,JSON.stringify(focusPoints));}
+      catch(_){ /* Working focus does not depend on persistent storage. */ }
+      setStatus(FEATURES[activeFeature].label+' focus calibrated on this device.');
+    }else setStatus('Exact detail centred.');
+  }
+  canvas.addEventListener('dblclick',e=>{
+    e.preventDefault();
+    const r=canvas.getBoundingClientRect();
+    focusExact(e.clientX-r.left,e.clientY-r.top);
+  });
+  let lastTap=null,tapStart=null;
+  canvas.addEventListener('touchstart',e=>{
+    if(e.touches.length!==1){tapStart=null;lastTap=null;return;}
+    tapStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
+  },{passive:true});
+  canvas.addEventListener('touchmove',e=>{
+    if(!tapStart||e.touches.length!==1)return;
+    if(Math.hypot(e.touches[0].clientX-tapStart.x,
+      e.touches[0].clientY-tapStart.y)>12)tapStart=null;
+  },{passive:true});
+  canvas.addEventListener('touchend',e=>{
+    if(!tapStart||e.touches.length||e.changedTouches.length!==1)return;
+    const now=performance.now(),p=e.changedTouches[0];
+    if(lastTap&&now-lastTap.t<330&&Math.hypot(p.clientX-lastTap.x,p.clientY-lastTap.y)<25){
+      lastTap=null;
+      const r=canvas.getBoundingClientRect();
+      focusExact(p.clientX-r.left,p.clientY-r.top);
+    }else lastTap={x:p.clientX,y:p.clientY,t:now};
+    tapStart=null;
+  },{passive:true});
+
+  // ---------- Intuitive camera-relative arcball rotation ----------
+  function arcballPoint(clientX,clientY){
+    const r=canvas.getBoundingClientRect();
+    const radius=Math.max(1,Math.min(r.width,r.height)*.42);
+    let x=(clientX-r.left-r.width/2)/radius;
+    let y=(r.top+r.height/2-clientY)/radius;
+    const length=x*x+y*y;
+    if(length>1){
+      const scale=1/Math.sqrt(length);
+      x*=scale;y*=scale;
+      return [x,y,0];
+    }
+    return [x,y,Math.sqrt(1-length)];
+  }
+  function rotateHeadByDrag(x0,y0,x1,y1){
+    const from=arcballPoint(x0,y0),to=arcballPoint(x1,y1);
+    const axis=[from[1]*to[2]-from[2]*to[1],
+      from[2]*to[0]-from[0]*to[2],
+      from[0]*to[1]-from[1]*to[0]];
+    const length=Math.hypot(...axis);
+    if(length<1e-7)return;
+    const angle=Math.atan2(length,
+      clamp(from[0]*to[0]+from[1]*to[1]+from[2]*to[2],-1,1));
+    state.headQuat=qMul(qAxis(rotateVector(state.cameraQuat,
+      axis.map(v=>v/length)),angle),state.headQuat);
+  }
+
   // ---------- Interaction ----------
   let dragging=false,lastX=0,lastY=0,dragButton=0;
   const activeTouchPointers=new Set();
 
   canvas.addEventListener('pointerdown',e=>{
     if(!state.loaded)return;
+    stopNavigation();
     if(e.pointerType==='touch'){
       activeTouchPointers.add(e.pointerId);
       canvas.setPointerCapture(e.pointerId);
@@ -578,13 +820,16 @@
     const panGesture=dragButton===2;
 
     if(panGesture && !state.locks.camera){
-      state.pan[0]+=dx*0.0026;
-      state.pan[1]-=dy*0.0026;
+      panByPixels(dx,dy);
     }else if(cameraGesture && !state.locks.camera){
       state.cameraQuat=qMul(qAxis([0,1,0],-dx*.008),qMul(qAxis([1,0,0],-dy*.008),state.cameraQuat));
     }else if(!state.locks.head){
-      if(e.shiftKey) state.headQuat=qMul(qAxis([0,0,1],dx*.008),state.headQuat);
-      else state.headQuat=qMul(qAxis([0,1,0],dx*.008),qMul(qAxis([1,0,0],dy*.008),state.headQuat));
+      if(e.shiftKey){
+        const axis=rotateVector(state.cameraQuat,[0,0,1]);
+        state.headQuat=qMul(qAxis(axis,dx*.008),state.headQuat);
+      }else{
+        rotateHeadByDrag(lastX,lastY,e.clientX,e.clientY);
+      }
       syncEulerFromGesture();
     }
     lastX=e.clientX;lastY=e.clientY;
@@ -601,8 +846,12 @@
   canvas.addEventListener('wheel',e=>{
     if(!state.loaded || state.locks.camera || state.locks.all)return;
     e.preventDefault();
-    controls.zoom.value=clamp((+controls.zoom.value)*Math.exp(-e.deltaY*.001),.45,2.8).toFixed(2);
-    updateOutputs();
+    stopNavigation();
+    const delta=e.deltaMode===1?e.deltaY*16:
+      e.deltaMode===2?e.deltaY*canvas.clientHeight:e.deltaY;
+    const r=canvas.getBoundingClientRect();
+    setZoomAt((+controls.zoom.value)*Math.exp(-delta*.001),
+      e.clientX-r.left,e.clientY-r.top);
   },{passive:false});
 
   let touchDistance=0,touchMidX=0,touchMidY=0;
@@ -623,10 +872,10 @@
     const midX=(a.clientX+b.clientX)/2,midY=(a.clientY+b.clientY)/2;
 
     if(touchDistance){
-      controls.zoom.value=clamp(+controls.zoom.value*(d/touchDistance),.45,2.8).toFixed(2);
-      state.pan[0]+=(midX-touchMidX)*0.0026;
-      state.pan[1]-=(midY-touchMidY)*0.0026;
-      updateOutputs();
+      const r=canvas.getBoundingClientRect();
+      setZoomAt((+controls.zoom.value)*(d/touchDistance),
+        touchMidX-r.left,touchMidY-r.top);
+      panByPixels(midX-touchMidX,midY-touchMidY);
     }
     touchDistance=d;touchMidX=midX;touchMidY=midY;
   },{passive:false});
@@ -634,6 +883,13 @@
   canvas.addEventListener('touchend',e=>{
     if(e.touches.length<2)touchDistance=0;
   },{passive:true});
+
+  $('zoomDecrease').addEventListener('click',()=>{
+    stopNavigation();setZoomAt((+controls.zoom.value)/1.3);
+  });
+  $('zoomIncrease').addEventListener('click',()=>{
+    stopNavigation();setZoomAt((+controls.zoom.value)*1.3);
+  });
 
   function syncEulerFromGesture(){
     // Gesture quaternions are not decomposed back to Euler because sliders are an exact pose tool.
@@ -654,6 +910,7 @@
       if(['az','el','dist','key','fill','soft'].includes(id)&&(state.locks.light||state.locks.all))return;
       if(id==='zoom'||id==='fov'){
         if(state.locks.camera||state.locks.all)return;
+        stopNavigation();
       }
       updateOutputs();
       if(id==='guideOpacity')updateGuides();
@@ -702,7 +959,10 @@
 
   $('fitView').addEventListener('click',()=>{
     if(state.locks.camera||state.locks.all)return;
-    controls.zoom.value=1;state.pan=[0,0];state.cameraQuat=[0,0,0,1];updateOutputs();
+    stopNavigation();
+    controls.zoom.value=1;state.pan=[0,0,0];state.cameraQuat=[0,0,0,1];
+    markActiveFeature(null);
+    updateOutputs();
   });
 
   const lightPresets={
@@ -914,7 +1174,11 @@
     if(Array.isArray(data.headQuat))state.headQuat=data.headQuat;
     if(Array.isArray(data.frontQuat))state.frontQuat=data.frontQuat;
     if(Array.isArray(data.cameraQuat))state.cameraQuat=data.cameraQuat;
-    if(Array.isArray(data.pan))state.pan=data.pan;
+    // Older v1 studies have two-component pans; accept them unchanged.
+    if(Array.isArray(data.pan)&&data.pan.length>=2)
+      state.pan=[Number(data.pan[0])||0,Number(data.pan[1])||0,Number(data.pan[2])||0];
+    stopNavigation();
+    markActiveFeature(null);
     $('guideHalves').checked=state.guides.halves;
     $('guideThirds').checked=state.guides.thirds;
     $('guideDiagonals').checked=state.guides.diagonals;
@@ -1053,15 +1317,15 @@
     clearTimeout(setStatus.t);
     setStatus.t=setTimeout(()=>{
       el.textContent=isMobileLayout()
-        ? 'Drag to turn · pinch to zoom · Controls for studio tools'
-        : 'Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+        ? 'Drag to turn · pinch to zoom/pan · double-tap to focus'
+        : 'Drag to turn · wheel = cursor zoom · right-drag = pan · double-click = focus';
     },3500);
   }
 
   let wasMobile=isMobileLayout();
   if(wasMobile){
     prepareMobileControls();
-    $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+    $('viewerHelp').textContent='Drag to turn · pinch to zoom/pan · double-tap to focus';
   }
 
   function syncResponsiveUI(){
@@ -1069,10 +1333,10 @@
     if(mobile!==wasMobile){
       if(mobile){
         prepareMobileControls();
-        $('viewerHelp').textContent='Drag to turn · pinch to zoom · Controls for studio tools';
+        $('viewerHelp').textContent='Drag to turn · pinch to zoom/pan · double-tap to focus';
       }else{
         setPanelOpen(true);
-        $('viewerHelp').textContent='Drag to turn · Alt/Option-drag = orbit camera · right-drag = pan · Shift-drag = roll';
+        $('viewerHelp').textContent='Drag to turn · wheel = cursor zoom · right-drag = pan · double-click = focus';
       }
       wasMobile=mobile;
     }

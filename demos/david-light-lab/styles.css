@@ -122,6 +122,11 @@ label:not(.check){
 }
 output{color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:.67rem}
 input[type=range]{width:100%;accent-color:var(--accent)}
+.feature-focus{margin-top:.9rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.feature-label{margin:.25rem 0 .45rem;color:#dff9f8;font-size:.7rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.feature-help{margin:.55rem 0 0;color:var(--muted);font-size:.69rem;line-height:1.5}
+.feature-focus .button-grid button[aria-pressed="true"]{background:rgba(24,198,216,.18);border-color:var(--accent);color:#dffcff}
+
 select{
   width:100%;min-height:38px;padding:.48rem .55rem;border:1px solid rgba(24,198,216,.23);
   border-radius:9px;background:#07121c;color:var(--ink);font-size:.73rem
