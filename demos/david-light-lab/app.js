@@ -466,13 +466,15 @@
     }
   };
 
-  async function loadRemote(){
+  async function loadRemote(specimenId=state.specimen){
+    const spec=SPECIMENS[specimenId];
+    if(!spec?.url)throw new Error('Unknown packaged specimen: '+specimenId);
     loadingCard.classList.remove('is-hidden');
-    loadingTitle.textContent='Loading David';
-    loadingText.textContent='Loading the cleaned artist mesh.';
+    loadingTitle.textContent='Loading '+spec.label;
+    loadingText.textContent='Loading the indexed '+spec.licence+' artist mesh.';
     progressBar.style.width='4%';
     try{
-      const response=await fetch(MODEL_URL,{cache:'force-cache'});
+      const response=await fetch(spec.url,{cache:'force-cache'});
       if(!response.ok) throw new Error('HTTP '+response.status);
       const total=Number(response.headers.get('content-length'))||0;
       const reader=response.body?.getReader();
@@ -504,8 +506,16 @@
         buffer=merged.buffer;
       }
       parseDLB(buffer);
+      state.specimen=specimenId;
+      updateSpecimenUI();
+      updateAllUI();
+      return true;
     }catch(err){
-      showLoadError(err.message);
+      if(state.loaded){
+        loadingCard.classList.add('is-hidden');
+        setStatus(spec.label+' unavailable; previous specimen preserved ('+err.message+').');
+      }else showLoadError(err.message);
+      return false;
     }
   }
 
@@ -545,8 +555,7 @@
     state.loaded=true;
     loadingCard.classList.add('is-hidden');
     progressBar.style.width='100%';
-    setStatus('Clean artist mesh loaded · '+Math.round(indexCount/3).toLocaleString()+' triangles');
-    applyHashState();updateAllUI();
+    setStatus('Indexed artist mesh loaded · '+Math.round(indexCount/3).toLocaleString()+' triangles');
   }
 
   function uploadRawMesh(positions,count,info){
@@ -568,7 +577,7 @@
     vertexCount=positions.length/3;indexCount=0;indexed=false;
     state.loaded=true;loadingCard.classList.add('is-hidden');
     setStatus('Local STL loaded · '+Number(count).toLocaleString()+' triangles');
-    applyHashState();updateAllUI();
+    updateAllUI();
   }
 
   function showLoadError(message){
@@ -589,8 +598,45 @@
     }catch(err){ showLoadError(err.message); }
   }
 
-  $('retryLoad').addEventListener('click',loadRemote);
+  $('retryLoad').addEventListener('click',()=>loadRemote(state.specimen));
   $('localStl').addEventListener('change',e=>loadLocal(e.target.files[0]));
+
+  async function switchSpecimen(target,{skipSavedView=false}={}){
+    if(target===state.specimen){updateSpecimenUI();return true;}
+    if(specimenLoading||!SPECIMENS[target]?.url){
+      updateSpecimenUI();
+      return false;
+    }
+    if(state.mode==='paint'||state.locks.all){
+      updateSpecimenUI();
+      setStatus('Unlock the reference before changing specimens.');
+      return false;
+    }
+    const previous=state.specimen;
+    stopNavigation();
+    specimenViews[previous]=captureSpecimenView();
+    persistSpecimenViews();
+    specimenLoading=true;
+    specimenSelect.disabled=true;
+    specimenLoadStatus.textContent='Loading…';
+    const ok=await loadRemote(target);
+    if(ok){
+      // Independent first-use view prevents a highly magnified eye being
+      // mistaken for the new specimen's entire face.
+      applySpecimenView(skipSavedView?null:specimenViews[target]);
+      markActiveFeature(null);
+      setStatus(SPECIMENS[target].label+' ready. Anatomical focus can be refined per specimen.');
+    }
+    specimenLoading=false;
+    updateSpecimenUI();
+    updateAllUI();
+    return ok;
+  }
+
+  specimenSelect.addEventListener('change',async()=>{
+    const selected=specimenSelect.value;
+    if(!await switchSpecimen(selected))specimenSelect.value=state.specimen;
+  });
 
   // ---------- Rendering ----------
   const maxViewport=gl.getParameter(gl.MAX_VIEWPORT_DIMS);
@@ -1481,6 +1527,7 @@
     updateCrop();
     updateGuides();
     $('toggleLightMarker').textContent=state.markerVisible?'Hide marker':'Show marker';
+    updateSpecimenUI();
   }
   function setStatus(text){
     const el=$('viewerHelp');
