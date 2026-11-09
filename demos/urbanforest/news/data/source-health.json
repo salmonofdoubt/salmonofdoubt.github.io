@@ -1,26 +1,26 @@
 {
-  "generated_at": "2026-11-08T12:08:18.160004+00:00",
-  "latest_generated_at": "2026-11-08T12:08:18.071017+00:00",
-  "total_items": 93,
+  "generated_at": "2026-11-09T14:14:58.831957+00:00",
+  "latest_generated_at": "2026-11-09T14:14:58.754435+00:00",
+  "total_items": 90,
   "total_sources": 20,
-  "sources_active": 10,
-  "sources_checked_no_current_items": 10,
+  "sources_active": 19,
+  "sources_checked_no_current_items": 1,
   "sources_failed": 0,
   "items_by_section": {
-    "ireland-urban-forest-practice": 15,
-    "funding-opportunities": 19,
-    "research-evidence": 55,
-    "design-maintenance-risk": 2,
-    "transferable-urbanforest-practice": 2
+    "ireland-urban-forest-practice": 14,
+    "funding-opportunities": 32,
+    "research-evidence": 21,
+    "design-maintenance-risk": 20,
+    "transferable-urbanforest-practice": 3
   },
   "annotation_coverage": {
-    "urbanforest_relevance": 93,
-    "benefit_categories": 93,
-    "local_relevance": 93,
-    "opportunity_fit": 26,
-    "research_use_type": 61
+    "urbanforest_relevance": 90,
+    "benefit_categories": 90,
+    "local_relevance": 90,
+    "opportunity_fit": 38,
+    "research_use_type": 50
   },
-  "archive_snapshots": 171,
+  "archive_snapshots": 172,
   "sources": [
     {
       "id": "gn-street-tree-survival-drought",
@@ -30,8 +30,8 @@
       "scope": "maintenance risk trees",
       "url": "https://news.google.com/rss/search?q=%28street%20trees%20OR%20urban%20trees%20OR%20tree%20planting%29%20%28drought%20OR%20watering%20OR%20survival%20OR%20maintenance%20OR%20aftercare%20OR%20establishment%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 7
     },
     {
       "id": "gn-urbanforest-tree-grants-ireland",
@@ -41,8 +41,8 @@
       "scope": "funding ireland trees biodiversity",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20award%20OR%20applications%29%20%28trees%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20garden%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 4
     },
     {
       "id": "gn-urbanforest-maintenance-ireland-uk",
@@ -53,7 +53,7 @@
       "url": "https://news.google.com/rss/search?q=%28urban%20trees%20OR%20street%20trees%20OR%20tree%20canopy%20OR%20tiny%20forest%20OR%20pocket%20forest%20OR%20urban%20forest%29%20%28watering%20OR%20drought%20OR%20survival%20OR%20maintenance%20OR%20aftercare%20OR%20vandalism%20OR%20soil%20OR%20dead%20trees%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 1
+      "current_item_count": 5
     },
     {
       "id": "gn-school-garden-tree-funding-ireland",
@@ -64,7 +64,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20garden%20OR%20school%20trees%20OR%20school%20biodiversity%20OR%20outdoor%20classroom%29%20%28grant%20OR%20funding%20OR%20scheme%20OR%20award%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 8
+      "current_item_count": 7
     },
     {
       "id": "gn-ireland-urban-forest",
@@ -97,7 +97,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20forest%20OR%20campus%20greening%20OR%20school%20garden%20OR%20biodiversity%20campus%29%20Ireland%20%28trees%20OR%20forest%20OR%20planting%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 3
     },
     {
       "id": "gn-urban-nbs-suds",
@@ -107,8 +107,8 @@
       "scope": "urban forest stormwater",
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tree%20canopy%20OR%20street%20trees%20OR%20pocket%20forest%20OR%20tiny%20forest%29%20%28stormwater%20OR%20SuDS%20OR%20rain%20garden%20OR%20bioswale%20OR%20runoff%20OR%20soil%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-urban-heat-shade-trees",
@@ -118,8 +118,8 @@
       "scope": "urban climate",
       "url": "https://news.google.com/rss/search?q=%28urban%20heat%20OR%20heatwave%20OR%20cooling%20OR%20shade%29%20%28trees%20OR%20urban%20forest%20OR%20green%20infrastructure%29%20%28Ireland%20OR%20UK%20OR%20Europe%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 2
     },
     {
       "id": "gn-urban-forest-grants",
@@ -130,7 +130,7 @@
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20scheme%20OR%20call%20OR%20award%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20biodiversity%20OR%20school%20garden%20OR%20community%20greening%20OR%20nature-based%20solutions%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 6
     },
     {
       "id": "heritage-council-funding",
@@ -141,7 +141,7 @@
       "url": "https://www.heritagecouncil.ie/funding",
       "host": "www.heritagecouncil.ie",
       "status": "active",
-      "current_item_count": 4
+      "current_item_count": 7
     },
     {
       "id": "community-foundation-ireland-grants",
@@ -162,8 +162,8 @@
       "scope": "funding europe",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals_en",
       "host": "cinea.ec.europa.eu",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-urban-forest-maintenance-risk",
@@ -174,7 +174,7 @@
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tiny%20forest%20OR%20Miyawaki%20OR%20street%20trees%29%20%28maintenance%20OR%20survival%20OR%20watering%20OR%20drought%20OR%20aftercare%20OR%20vandalism%20OR%20soil%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 1
+      "current_item_count": 7
     },
     {
       "id": "gn-urban-forest-carbon-claims",
@@ -184,8 +184,8 @@
       "scope": "risk evidence",
       "url": "https://news.google.com/rss/search?q=%28urban%20forest%20OR%20tree%20planting%20OR%20tiny%20forest%29%20%28carbon%20OR%20climate%20claim%20OR%20offset%20OR%20greenwashing%20OR%20survival%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 2
     },
     {
       "id": "gn-temperate-tiny-forest",
@@ -195,8 +195,8 @@
       "scope": "temperate practice",
       "url": "https://news.google.com/rss/search?q=%28%22tiny%20forest%22%20OR%20%22pocket%20forest%22%20OR%20Miyawaki%29%20%28UK%20OR%20Netherlands%20OR%20Belgium%20OR%20Germany%20OR%20France%20OR%20Denmark%20OR%20Europe%29%20urban&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 2
     },
     {
       "id": "earthwatch-tiny-forest",
@@ -206,8 +206,8 @@
       "scope": "temperate practice",
       "url": "https://news.google.com/rss/search?q=%28Earthwatch%20%22Tiny%20Forest%22%20OR%20%22Tiny%20Forest%22%20Earthwatch%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "trees-for-cities",
@@ -217,8 +217,8 @@
       "scope": "practice temperate",
       "url": "https://www.treesforcities.org/stories",
       "host": "www.treesforcities.org",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "pocket-forests-ireland",
