@@ -132,8 +132,8 @@
 
   // ---------- WebGL ----------
   const vs = `#version 300 es
-  in vec3 aPos;
-  in vec3 aNormal;
+  layout(location=0) in vec3 aPos;
+  layout(location=1) in vec3 aNormal;
   uniform mat4 uModel;
   uniform mat4 uMVP;
   out vec3 vPos;
@@ -160,7 +160,6 @@
   uniform float uShine;
   uniform float uSoft;
   uniform int uValueMode;
-  uniform int uStudioQuality;
   out vec4 outColor;
 
   // Compare receiver depth with the lamp's nearest surface in every direction.
@@ -174,18 +173,16 @@
     float major=max(max(abs(delta.x),abs(delta.y)),abs(delta.z));
     float depth=uShadowFar/(uShadowFar-0.01)-uShadowFar*0.01/((uShadowFar-0.01)*max(major-bias,0.01));
     float radius=(0.5+uSoft*2.5)/uShadowSize;
-    // Interactive: original 3x3 kernel. Settled Studio Detail: denser 5x5
-    // sampling over the same shadow-footprint, without changing the lamp.
-    int halfWidth=uStudioQuality==1?2:1;
+    // Build separate compile-time 3x3 or 5x5 shadow-filter variants.
+    // The moving sculpture always uses the original fast 3x3 shader.
+    const int halfWidth=__SHADOW_HALF_WIDTH__;
     float spacing=radius/float(halfWidth);
     float visible=0.0;
-    for(int y=-2;y<=2;y++) for(int x=-2;x<=2;x++){
-      if(abs(x)>halfWidth||abs(y)>halfWidth)continue;
+    for(int y=-halfWidth;y<=halfWidth;y++) for(int x=-halfWidth;x<=halfWidth;x++){
       vec3 sampleDir=direction+(tangent*float(x)+bitangent*float(y))*spacing;
       visible+=depth<=texture(uShadow,sampleDir).r?1.0:0.0;
     }
-    float count=float((2*halfWidth+1)*(2*halfWidth+1));
-    return visible/count;
+    return visible/float((2*halfWidth+1)*(2*halfWidth+1));
   }
   void main(){
     vec3 V=normalize(uEye-vPos);
@@ -233,30 +230,61 @@
     if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
     return s;
   }
-  const program=gl.createProgram();
-  gl.attachShader(program,compile(gl.VERTEX_SHADER,vs));
-  gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fs));
-  gl.linkProgram(program);
-  if(!gl.getProgramParameter(program,gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
-
-  const loc={
-    pos:gl.getAttribLocation(program,'aPos'),
-    normal:gl.getAttribLocation(program,'aNormal'),
-    model:gl.getUniformLocation(program,'uModel'),
-    mvp:gl.getUniformLocation(program,'uMVP'),
-    light:gl.getUniformLocation(program,'uLight'),
-    eye:gl.getUniformLocation(program,'uEye'),
-    shadow:gl.getUniformLocation(program,'uShadow'),
-    shadowSize:gl.getUniformLocation(program,'uShadowSize'),
-    shadowFar:gl.getUniformLocation(program,'uShadowFar'),
-    key:gl.getUniformLocation(program,'uKey'),
-    fill:gl.getUniformLocation(program,'uFill'),
-    tone:gl.getUniformLocation(program,'uTone'),
-    shine:gl.getUniformLocation(program,'uShine'),
-    soft:gl.getUniformLocation(program,'uSoft'),
-    valueMode:gl.getUniformLocation(program,'uValueMode'),
-    studioQuality:gl.getUniformLocation(program,'uStudioQuality')
-  };
+  function createMainProgram(halfWidth){
+    const next=gl.createProgram();
+    const vertex=compile(gl.VERTEX_SHADER,vs);
+    const fragment=compile(gl.FRAGMENT_SHADER,
+      fs.replace('__SHADOW_HALF_WIDTH__',String(halfWidth)));
+    gl.attachShader(next,vertex);gl.attachShader(next,fragment);
+    gl.linkProgram(next);
+    gl.deleteShader(vertex);gl.deleteShader(fragment);
+    if(!gl.getProgramParameter(next,gl.LINK_STATUS)){
+      const error=gl.getProgramInfoLog(next);
+      gl.deleteProgram(next);
+      throw new Error(error);
+    }
+    return next;
+  }
+  function mainLocations(p){
+    return {
+      pos:gl.getAttribLocation(p,'aPos'),
+      normal:gl.getAttribLocation(p,'aNormal'),
+      model:gl.getUniformLocation(p,'uModel'),
+      mvp:gl.getUniformLocation(p,'uMVP'),
+      light:gl.getUniformLocation(p,'uLight'),
+      eye:gl.getUniformLocation(p,'uEye'),
+      shadow:gl.getUniformLocation(p,'uShadow'),
+      shadowSize:gl.getUniformLocation(p,'uShadowSize'),
+      shadowFar:gl.getUniformLocation(p,'uShadowFar'),
+      key:gl.getUniformLocation(p,'uKey'),
+      fill:gl.getUniformLocation(p,'uFill'),
+      tone:gl.getUniformLocation(p,'uTone'),
+      shine:gl.getUniformLocation(p,'uShine'),
+      soft:gl.getUniformLocation(p,'uSoft'),
+      valueMode:gl.getUniformLocation(p,'uValueMode')
+    };
+  }
+  const program=createMainProgram(1);
+  const loc=mainLocations(program);
+  let studioProgram=null,studioLoc=null,detailUnavailable=false;
+  function ensureStudioProgram(){
+    if(studioProgram)return true;
+    if(detailUnavailable)return false;
+    try{
+      // Compile once, only when the user enables quality and stops moving.
+      studioProgram=createMainProgram(2);
+      studioLoc=mainLocations(studioProgram);
+      return true;
+    }catch(error){
+      detailUnavailable=true;
+      state.studioDetail=false;
+      detailToggle.checked=false;
+      detailToggle.disabled=true;
+      try{localStorage.setItem(DETAIL_PREFERENCE_KEY,'off');}catch(_){}
+      console.warn('Studio Detail unavailable; regular rendering preserved.',error);
+      return false;
+    }
+  }
 
   let posBuf=null,normBuf=null,indexBuf=null,vertexCount=0,indexCount=0,indexed=false;
   let pickPositions=null,pickIndices=null; // Reuse decoded mesh arrays for feature picking.
@@ -556,13 +584,15 @@
       lastSceneSignature=signature;
       lastSceneChange=now;
     }
-    const refined=state.loaded&&state.studioDetail&&now-lastSceneChange>=DETAIL_IDLE_MS;
+    const requested=state.loaded&&state.studioDetail&&now-lastSceneChange>=DETAIL_IDLE_MS;
+    const refined=requested&&ensureStudioProgram();
     const quality=refined?'refined':'interactive';
     if(signature===lastRenderSignature&&quality===lastRenderQuality)return;
     lastRenderSignature=signature;
     lastRenderQuality=quality;
     const dpr=resize(quality);
-    const label=!state.studioDetail?'Off'
+    const label=detailUnavailable?'Unavailable on this GPU'
+      :!state.studioDetail?'Off'
       :quality==='refined'?'Refined · '+dpr.toFixed(2)+'×'
         :'Refining…';
     if(detailStatus.textContent!==label)detailStatus.textContent=label;
@@ -579,30 +609,31 @@
       const light=worldLight(state.headQuat);
 
       const shadowFar=renderShadows(model,light);
-      gl.useProgram(program);
+      const activeProgram=refined?studioProgram:program;
+      const u=refined?studioLoc:loc;
+      gl.useProgram(activeProgram);
       gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_CUBE_MAP,shadowTexture);
-      gl.uniform1i(loc.shadow,0);gl.uniform1f(loc.shadowSize,shadowSize);gl.uniform1f(loc.shadowFar,shadowFar);
+      gl.uniform1i(u.shadow,0);gl.uniform1f(u.shadowSize,shadowSize);gl.uniform1f(u.shadowFar,shadowFar);
       const camera=qMat(state.cameraQuat);
-      gl.uniform3f(loc.eye,
+      gl.uniform3f(u.eye,
         state.pan[0]+camera[8]*CAMERA_DISTANCE,
         state.pan[1]+camera[9]*CAMERA_DISTANCE,
         state.pan[2]+camera[10]*CAMERA_DISTANCE);
       gl.bindBuffer(gl.ARRAY_BUFFER,posBuf);
-      gl.enableVertexAttribArray(loc.pos);
-      gl.vertexAttribPointer(loc.pos,3,gl.FLOAT,false,0,0);
+      gl.enableVertexAttribArray(u.pos);
+      gl.vertexAttribPointer(u.pos,3,gl.FLOAT,false,0,0);
       gl.bindBuffer(gl.ARRAY_BUFFER,normBuf);
-      gl.enableVertexAttribArray(loc.normal);
-      gl.vertexAttribPointer(loc.normal,3,gl.FLOAT,false,0,0);
-      gl.uniformMatrix4fv(loc.model,false,model);
-      gl.uniformMatrix4fv(loc.mvp,false,mvp);
-      gl.uniform3f(loc.light,light[0],light[1],light[2]);
-      gl.uniform1f(loc.key,+controls.key.value);
-      gl.uniform1f(loc.fill,+controls.fill.value);
-      gl.uniform1f(loc.tone,+controls.tone.value);
-      gl.uniform1f(loc.shine,+controls.shine.value);
-      gl.uniform1f(loc.soft,+controls.soft.value);
-      gl.uniform1i(loc.valueMode,valueModeIndex());
-      gl.uniform1i(loc.studioQuality,refined?1:0);
+      gl.enableVertexAttribArray(u.normal);
+      gl.vertexAttribPointer(u.normal,3,gl.FLOAT,false,0,0);
+      gl.uniformMatrix4fv(u.model,false,model);
+      gl.uniformMatrix4fv(u.mvp,false,mvp);
+      gl.uniform3f(u.light,light[0],light[1],light[2]);
+      gl.uniform1f(u.key,+controls.key.value);
+      gl.uniform1f(u.fill,+controls.fill.value);
+      gl.uniform1f(u.tone,+controls.tone.value);
+      gl.uniform1f(u.shine,+controls.shine.value);
+      gl.uniform1f(u.soft,+controls.soft.value);
+      gl.uniform1i(u.valueMode,valueModeIndex());
       drawMesh();
 
       if(state.markerVisible && state.mode!=='paint'){
