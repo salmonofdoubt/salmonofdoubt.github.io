@@ -1,7 +1,37 @@
 (() => {
   'use strict';
 
-  const MODEL_URL = './assets/david-head.dlb?v=20261005-H70';
+  // Authoritative specimen registry: source, format, licence and model are linked.
+  // The original remains the default for all pre-existing studies and links.
+  const DEFAULT_SPECIMEN = 'scan-the-world';
+  const SPECIMENS = Object.freeze({
+    'scan-the-world': Object.freeze({
+      label: 'Original · Scan the World',
+      url: './assets/david-head.dlb?v=20261005-H70',
+      source: 'https://commons.wikimedia.org/wiki/File:David_(Michelangelo).stl',
+      licence: 'CC BY-SA 4.0',
+      description: 'Full-statue scan, cropped to head and shoulders · CC BY-SA 4.0'
+    }),
+    'smk-kas2232': Object.freeze({
+      label: 'SMK · Plaster cast (HD)',
+      url: './assets/david-smk-kas2232.dlb?v=20261109-smk-1',
+      source: 'https://commons.wikimedia.org/wiki/File:Michelangelo_Buonarroti,_Hoved_fra_statuen_af_David,_,_KAS2232,_Statens_Museum_for_Kunst,_3D_model.stl',
+      licence: 'CC0 1.0',
+      description: 'SMK KAS2232, separate plaster-cast head scan · CC0 1.0',
+      // Initial landmark estimates for the distinct, centred head scan.
+      // Exact point calibration by double-click remains available.
+      landmarks: Object.freeze({
+        eyes: [0,.21,.42],
+        leftEye: [.16,.21,.42],
+        rightEye: [-.16,.21,.42],
+        nose: [0,.02,.53],
+        mouth: [0,-.16,.43],
+        leftEar: [.43,.12,.08],
+        rightEar: [-.43,.12,.08]
+      })
+    })
+  });
+  const SPECIMEN_VIEW_KEY = 'david-light-lab:specimen-views:v1';
   const STORAGE_KEY = 'david-light-lab:study:v1';
   const FEATURE_STORAGE_KEY = 'david-light-lab:feature-focus:v1';
   const DETAIL_PREFERENCE_KEY = 'david-light-lab:studio-detail:v1';
@@ -26,6 +56,10 @@
   const timerDisplay = $('timerDisplay');
   const detailToggle = $('studioDetail');
   const detailStatus = $('detailStatus');
+  const specimenSelect = $('specimenSelect');
+  const specimenDescription = $('specimenDescription');
+  const specimenSource = $('specimenSource');
+  const specimenLoadStatus = $('specimenLoadStatus');
 
   const controls = {};
   [
@@ -42,6 +76,7 @@
 
   const state = {
     loaded: false,
+    specimen: DEFAULT_SPECIMEN,
     mode: 'explore',
     projection: 'perspective',
     orientation: 'portrait',
@@ -69,6 +104,56 @@
     try{localStorage.setItem(DETAIL_PREFERENCE_KEY,state.studioDetail?'on':'off');}
     catch(_){ /* Still usable without localStorage. */ }
   });
+
+  let specimenLoading=false;
+  let specimenViews={};
+  try{
+    const stored=JSON.parse(localStorage.getItem(SPECIMEN_VIEW_KEY)||'{}');
+    if(stored && typeof stored==='object' && !Array.isArray(stored))
+      specimenViews=stored;
+  }catch(_){ /* Private browsing may not allow persistence. */ }
+
+  function captureSpecimenView(){
+    return {
+      headQuat:state.headQuat.slice(),
+      frontQuat:state.frontQuat.slice(),
+      cameraQuat:state.cameraQuat.slice(),
+      pan:state.pan.slice(),
+      rx:controls.rx.value,ry:controls.ry.value,rz:controls.rz.value,
+      zoom:controls.zoom.value,fov:controls.fov.value
+    };
+  }
+  function persistSpecimenViews(){
+    try{localStorage.setItem(SPECIMEN_VIEW_KEY,JSON.stringify(specimenViews));}
+    catch(_){ /* Swapping remains possible without browser storage. */ }
+  }
+  function validQuat(a){
+    return Array.isArray(a)&&a.length===4&&a.every(v=>Number.isFinite(v));
+  }
+  function applySpecimenView(view){
+    const use=view&&validQuat(view.headQuat)&&validQuat(view.frontQuat)
+      &&validQuat(view.cameraQuat)&&Array.isArray(view.pan)
+      &&view.pan.length>=2&&view.pan.slice(0,3).every(Number.isFinite);
+    state.headQuat=use?view.headQuat.slice():[0,0,0,1];
+    state.frontQuat=use?view.frontQuat.slice():[0,0,0,1];
+    state.cameraQuat=use?view.cameraQuat.slice():[0,0,0,1];
+    state.pan=use?[view.pan[0],view.pan[1],view.pan[2]||0]:[0,0,0];
+    for(const id of ['rx','ry','rz'])
+      controls[id].value=use&&view[id]!==undefined?view[id]:0;
+    controls.zoom.value=use&&view.zoom!==undefined?view.zoom:1;
+    controls.fov.value=use&&view.fov!==undefined?view.fov:42;
+    updateOutputs();
+  }
+  function updateSpecimenUI(){
+    const spec=SPECIMENS[state.specimen]||SPECIMENS[DEFAULT_SPECIMEN];
+    specimenSelect.value=state.specimen;
+    specimenSelect.disabled=specimenLoading || state.locks.all || state.mode==='paint';
+    specimenDescription.textContent=spec.description;
+    specimenSource.href=spec.source;
+    specimenSource.setAttribute('aria-label','Source and licence for '+spec.label);
+    if(!specimenLoading)specimenLoadStatus.textContent=state.specimen===DEFAULT_SPECIMEN
+      ? 'Original ready':'SMK ready';
+  }
 
   // ---------- Matrix and quaternion helpers ----------
   const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
