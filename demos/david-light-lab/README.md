@@ -29,7 +29,7 @@ David Light Lab is an artist-focused browser tool built around a real 3D scan of
 
 ## Quick start
 
-Open the demo and wait for the scan to load. A cleaned, indexed artist mesh derived from the Wikimedia Commons Scan the World model loads directly from the demo.
+Open the demo and wait for the scan to load. The original Scan the World model loads by default. Choose **SMK · Plaster cast (HD)** in **Specimen** to load the separate Copenhagen plaster-cast scan on demand.
 
 - Drag: rotate the sculpture.
 - Shift + drag: roll.
@@ -38,7 +38,7 @@ Open the demo and wait for the scan to load. A cleaned, indexed artist mesh deri
 - Wheel/pinch: zoom.
 - Space: enter/leave Paint Mode.
 
-The built-in derivative mesh is about 7.1 MB, substantially smaller than the roughly 57 MB source STL, and includes precomputed smooth vertex normals.
+The original indexed derivative is approximately 10.3 MiB; the optional SMK indexed derivative is 24.8 MiB. Both include precomputed smooth vertex normals. The original SMK source is not downloaded unless that specimen is selected.
 
 ## Artist workflow
 
@@ -46,16 +46,18 @@ The built-in derivative mesh is about 7.1 MB, substantially smaller than the rou
 2. **Compose** — choose projection, paper/canvas ratio, crop and guides.
 3. **Paint** — lock the reference, hide the interface and work directly from the live view.
 
-## Model source
+## Two separately sourced specimens
 
-**Michelangelo Buonarroti, _Head from the statue of David_, KAS2232**  
-Statens Museum for Kunst, Copenhagen.  
-Plaster cast. Digital 3D file released under CC0 / Public Domain.
+| Specimen | Object | Model triangles | Licence |
+| --- | --- | ---: | --- |
+| **Original · Scan the World** (default) | Cropped full-statue scan, including shoulders and raised hand | 448,957 | CC BY-SA 4.0 |
+| **SMK · Plaster cast (HD)** (optional) | SMK KAS2232, separate scan of a plaster-cast head | 1,083,370 | CC0 1.0 |
 
-Source:
-https://commons.wikimedia.org/wiki/File:Michelangelo_Buonarroti,_Hoved_fra_statuen_af_David,_,_KAS2232,_Statens_Museum_for_Kunst,_3D_model.stl
+Sources and checksums are specified in [SOURCE.md](./SOURCE.md). The SMK mesh is a distinct object and is not a reconstruction of missing detail from the original scan. A higher triangle count does not guarantee improved anatomical accuracy.
 
-The viewer performs an automatic axis-orientation heuristic because raw STL files do not carry a standard anatomical coordinate system. If required, rotate the sculpture and use **Set current as front**.
+The Specimen selector loads the alternative only when requested. Each specimen keeps its own camera framing and double-click anatomical focal-point calibrations. The original calibration data remains compatible with older releases. Saved studies and shared links now include the specimen identifier; older links without one still load Scan the World.
+
+Switching specimens leaves lighting, value modes, crop and display tools intact. A newly selected specimen starts fitted to view rather than inheriting a 16× eye close-up. Returning to a previously viewed specimen restores its last framing. **Open local STL** remains available as a temporary fallback.
 
 ## Privacy
 
