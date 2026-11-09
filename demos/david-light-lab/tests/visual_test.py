@@ -184,6 +184,54 @@ async def test_page(browser, label, viewport, mobile=False):
     assert fitted["zoom"] == 1 and fitted["target"] == [0,0,0], (
         f"{label}: Fit head did not restore camera: {fitted}"
     )
+    # Studio Detail comparison uses the real David geometry, not a mock mesh.
+    # It must refine only after settling, and revert cleanly when turned off.
+    await page.evaluate(
+        "() => document.querySelector('[data-focus=\"eyes\"]').click()"
+    )
+    await page.wait_for_timeout(430)
+    await set_controls(page, {"zoom":"12","key":"1.15","fill":"0.23","soft":"0.55"})
+    baseline_size = await canvas.evaluate(
+        "(c) => ({width:c.width,height:c.height,cssWidth:c.clientWidth,cssHeight:c.clientHeight})"
+    )
+    await canvas.screenshot(path=str(OUT / f"{label}_detail_off.png"))
+
+    await page.evaluate("""() => {
+        const t=document.getElementById('studioDetail');
+        t.checked=true;
+        t.dispatchEvent(new Event('change',{bubbles:true}));
+    }""")
+    await page.wait_for_function(
+        "() => document.getElementById('detailStatus').textContent.startsWith('Refined')",
+        timeout=10_000,
+    )
+    refined_size = await canvas.evaluate(
+        "(c) => ({width:c.width,height:c.height,cssWidth:c.clientWidth,cssHeight:c.clientHeight})"
+    )
+    assert refined_size["width"]*refined_size["height"] > (
+        baseline_size["width"]*baseline_size["height"]*1.5
+    ), f"{label}: settled detail did not increase render resolution: {baseline_size} to {refined_size}"
+    assert refined_size["cssWidth"] == baseline_size["cssWidth"], (
+        f"{label}: Studio Detail changed the visible layout"
+    )
+    await canvas.screenshot(path=str(OUT / f"{label}_detail_on.png"))
+    assert await page.evaluate(
+        "() => document.getElementById('gl').getContext('webgl2').getError()"
+    ) == 0, f"{label}: WebGL reported an error after detail pass"
+
+    await page.evaluate("""() => {
+        const t=document.getElementById('studioDetail');
+        t.checked=false;
+        t.dispatchEvent(new Event('change',{bubbles:true}));
+    }""")
+    await page.wait_for_function(
+        "() => document.getElementById('detailStatus').textContent==='Off'"
+    )
+    reverted_size = await canvas.evaluate("(c) => c.width*c.height")
+    assert reverted_size == baseline_size["width"]*baseline_size["height"], (
+        f"{label}: turning Studio Detail off did not restore regular rendering"
+    )
+
     assert not page_errors, f"{label}: navigation produced browser errors: {page_errors}"
 
     await context.close()
