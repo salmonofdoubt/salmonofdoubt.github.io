@@ -764,6 +764,33 @@
     tapStart=null;
   },{passive:true});
 
+  // ---------- Intuitive camera-relative arcball rotation ----------
+  function arcballPoint(clientX,clientY){
+    const r=canvas.getBoundingClientRect();
+    const radius=Math.max(1,Math.min(r.width,r.height)*.42);
+    let x=(clientX-r.left-r.width/2)/radius;
+    let y=(r.top+r.height/2-clientY)/radius;
+    const length=x*x+y*y;
+    if(length>1){
+      const scale=1/Math.sqrt(length);
+      x*=scale;y*=scale;
+      return [x,y,0];
+    }
+    return [x,y,Math.sqrt(1-length)];
+  }
+  function rotateHeadByDrag(x0,y0,x1,y1){
+    const from=arcballPoint(x0,y0),to=arcballPoint(x1,y1);
+    const axis=[from[1]*to[2]-from[2]*to[1],
+      from[2]*to[0]-from[0]*to[2],
+      from[0]*to[1]-from[1]*to[0]];
+    const length=Math.hypot(...axis);
+    if(length<1e-7)return;
+    const angle=Math.atan2(length,
+      clamp(from[0]*to[0]+from[1]*to[1]+from[2]*to[2],-1,1));
+    state.headQuat=qMul(qAxis(rotateVector(state.cameraQuat,
+      axis.map(v=>v/length)),angle),state.headQuat);
+  }
+
   // ---------- Interaction ----------
   let dragging=false,lastX=0,lastY=0,dragButton=0;
   const activeTouchPointers=new Set();
@@ -797,8 +824,12 @@
     }else if(cameraGesture && !state.locks.camera){
       state.cameraQuat=qMul(qAxis([0,1,0],-dx*.008),qMul(qAxis([1,0,0],-dy*.008),state.cameraQuat));
     }else if(!state.locks.head){
-      if(e.shiftKey) state.headQuat=qMul(qAxis([0,0,1],dx*.008),state.headQuat);
-      else state.headQuat=qMul(qAxis([0,1,0],dx*.008),qMul(qAxis([1,0,0],dy*.008),state.headQuat));
+      if(e.shiftKey){
+        const axis=rotateVector(state.cameraQuat,[0,0,1]);
+        state.headQuat=qMul(qAxis(axis,dx*.008),state.headQuat);
+      }else{
+        rotateHeadByDrag(lastX,lastY,e.clientX,e.clientY);
+      }
       syncEulerFromGesture();
     }
     lastX=e.clientX;lastY=e.clientY;
