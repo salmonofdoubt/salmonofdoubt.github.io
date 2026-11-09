@@ -86,6 +86,16 @@ a{color:var(--accent-2)}
   border-left:1px solid var(--line)
 }
 .mobile-panel-backdrop,.mobile-drawer-head{display:none}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.specimen-picker{margin:0 0 .9rem;padding:.7rem .75rem;border:1px solid var(--line-strong);border-radius:12px;background:rgba(24,198,216,.055)}
+.specimen-picker-head{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-bottom:.4rem}
+.specimen-picker-head h2{margin:0;color:var(--accent);font-size:.73rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.specimen-picker-head output{font-size:.64rem;white-space:nowrap}
+.specimen-picker select{min-height:44px;font-size:.8rem;font-weight:800}
+.specimen-picker select:disabled{opacity:.72;cursor:progress}
+.specimen-caption{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:.35rem;margin:.55rem 0 .05rem;color:var(--muted);font-size:.67rem;line-height:1.45}
+.specimen-caption span{flex:1 1 200px}
+.specimen-caption a{white-space:nowrap;font-weight:800}
 .panel-intro{padding:.15rem .15rem .8rem}
 .eyebrow{margin:0 0 .4rem;color:var(--accent);font-size:.68rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
 .panel-intro h1{margin:0;font-size:1.42rem;line-height:1.08;letter-spacing:-.025em}
