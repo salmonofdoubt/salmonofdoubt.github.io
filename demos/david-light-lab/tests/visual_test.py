@@ -102,7 +102,8 @@ async def test_page(browser, label, viewport, mobile=False):
         assert panel_box["y"] + panel_box["height"] <= viewport["height"], panel_box
 
         close_box = await page.locator("#mobilePanelClose").bounding_box()
-        assert close_box and close_box["width"] >= 44 and close_box["height"] >= 44, close_box
+        # CSS specifies 44px. Subpixel browser geometry may report 43.99998px.
+        assert close_box and close_box["width"] >= 43.95 and close_box["height"] >= 43.95, close_box
 
         open_details = await page.locator("#controlPanel details[open]").count()
         assert open_details == 0, f"{label}: mobile control groups should start collapsed"
