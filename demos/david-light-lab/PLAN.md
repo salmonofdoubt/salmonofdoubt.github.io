@@ -222,7 +222,7 @@ Planned:
 
 ## 12. Feature study shortcuts
 
-Planned camera shortcuts:
+Implemented camera shortcuts (9 November 2026):
 
 - full head
 - eyes
@@ -231,7 +231,7 @@ Planned camera shortcuts:
 - left ear
 - right ear
 
-These should only move the camera; they must not deform geometry.
+They move only the camera and never deform geometry or change lighting. Double-click or double-tap corrects a feature's approximate initial focus and stores the exact point locally.
 
 ## 13. PWA / template compliance
 
