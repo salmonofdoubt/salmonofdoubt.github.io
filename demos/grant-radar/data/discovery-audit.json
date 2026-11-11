@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-10T13:29:08+00:00",
+  "generated_at": "2026-11-11T12:44:11+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 6,
-  "links_seen": 4610,
-  "funding_like_links": 485,
+  "seed_pages_failed": 7,
+  "links_seen": 4517,
+  "funding_like_links": 452,
   "candidate_fetches": 300,
-  "pending_review_count": 120,
+  "pending_review_count": 119,
   "status_counts": {
-    "pending_review": 120,
-    "suppressed_non_actionable": 41,
+    "pending_review": 119,
+    "suppressed_non_actionable": 42,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 51
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 52
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 94,
+    "funding_call": 92,
     "scholarship": 19,
-    "generic_funding_hub": 5,
-    "tender": 9,
-    "unknown": 51
+    "generic_funding_hub": 6,
+    "tender": 11,
+    "unknown": 52
   },
   "seeds": [
     {
@@ -233,10 +233,10 @@
       "id": "geo_horizon_energy_supply_watch",
       "name": "Geo watch: Horizon Europe Sustainable, Secure and Competitive Energy Supply",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 93,
-      "funding_like_links": 33,
+      "status": "fetch_error",
+      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "links_seen": 0,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     },
     {
