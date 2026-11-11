@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-11-10
+# Water NbS Story Radar · 2026-11-11
 
-Generated: 2026-11-10T13:37:36.115500+00:00
+Generated: 2026-11-11T12:49:49.525524+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -8,7 +8,56 @@ Editorial lens: practical measures that improve surface water quality, aquatic e
 
 ## Editorial picks to consider
 
-### 1. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
+### 1. Public Meetings Announced on Water Quality in Kilkenny
+
+Score: 100 · excellent · Source: Local Authority Waters Programme
+
+URL: https://riverbasin.ie/public-meetings-announced-on-water-quality-in-kilkenny/
+
+Angle: Riparian buffers and river corridors
+
+Freshness: Fresh item; suitable for current commentary if the source is credible.
+
+Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, water quality, river, rivers, lake, lakes, catchment.
+
+Practical signal: Practical delivery signal detected. Evidence terms: nature-based surface water management, surface water management, measures, community.
+
+Brand fit: Strong fit because it connects land management, hydrological pathways, habitat structure, and river ecology.
+
+Summary: The River Basin Management Service to hold community information meetings in the both the Kilkenny City and Castlecomer Municipal Districts this November. The River Basin Management Service, working on behalf of Ireland’s 31 local authorities to protect and restore good water quality in rivers, lakes, estuaries, ground and coastal water, is holding two community information meetings … Continued
+
+LinkedIn draft:
+
+A practical Water NbS signal for Ireland.
+
+Public Meetings Announced on Water Quality in Kilkenny
+
+This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+
+For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+
+What I would look for:
+• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
+• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
+• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
+• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
+• repeatability: whether this can be maintained and applied elsewhere in Ireland
+
+My take: Strong fit because it connects land management, hydrological pathways, habitat structure, and river ecology.
+
+This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+
+Source:
+Local Authority Waters Programme. (2026-11-11). Public Meetings Announced on Water Quality in Kilkenny.
+https://riverbasin.ie/public-meetings-announced-on-water-quality-in-kilkenny/
+
+#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
+
+Decision: [ ] pick  [ ] watch  [ ] reject
+
+---
+
+### 2. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -57,7 +106,56 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 2. Poor management of wastewater treatment plants by Uisce Éireann continues to harm our environment
+### 3. Minister Christopher O’Sullivan launches practical guide helping communities protect water quality, biodiversity and tackle climate change
+
+Score: 100 · excellent · Source: Local Authority Waters Programme
+
+URL: https://riverbasin.ie/minister-christopher-osullivan-launches-practical-guide-helping-communities-protect-water-quality-biodiversity-and-tackle-climate-change/
+
+Angle: Local planning and river-corridor governance
+
+Freshness: Fresh item; suitable for current commentary if the source is credible.
+
+Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, water quality, catchment.
+
+Practical signal: Practical delivery signal detected. Evidence terms: pond, nature-based surface water management, surface water management, measures, guidance, design, community.
+
+Brand fit: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
+
+Summary: A new resource will help community groups turn environmental ambition into practical action through the LEADER Programme 10th November 2026: Minister of State for Nature, Heritage and Biodiversity Christopher O’Sullivan TD has today launched a new guidance document designed to help communities across Ireland protect their local waterways, enhance biodiversity and respond to the challenges … Continued
+
+LinkedIn draft:
+
+A practical Water NbS signal for Ireland.
+
+Minister Christopher O’Sullivan launches practical guide helping communities protect water quality, biodiversity and tackle climate change
+
+This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+
+For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+
+What I would look for:
+• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
+• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
+• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
+• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
+• repeatability: whether this can be maintained and applied elsewhere in Ireland
+
+My take: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
+
+This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+
+Source:
+Local Authority Waters Programme. (2026-11-10). Minister Christopher O’Sullivan launches practical guide helping communities protect water quality, biodiversity and tackle climate change.
+https://riverbasin.ie/minister-christopher-osullivan-launches-practical-guide-helping-communities-protect-water-quality-biodiversity-and-tackle-climate-change/
+
+#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
+
+Decision: [ ] pick  [ ] watch  [ ] reject
+
+---
+
+### 4. Poor management of wastewater treatment plants by Uisce Éireann continues to harm our environment
 
 Score: 100 · excellent · Source: EPA Ireland News Releases
 
@@ -106,7 +204,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 3. GLOBE Ireland River Ecosystem Campaign 2027
+### 5. GLOBE Ireland River Ecosystem Campaign 2027
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -155,7 +253,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 4. WiseWater Academy: Connecting People, Wellbeing and Water
+### 6. WiseWater Academy: Connecting People, Wellbeing and Water
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -204,7 +302,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 5. Cork Event Wins Water Heritage Day Award at Heritage Week Awards 2026
+### 7. Cork Event Wins Water Heritage Day Award at Heritage Week Awards 2026
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -253,7 +351,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 6. Ballinahown Community Group Claims National Water Quality Prize at SuperValu TidyTowns National Awards
+### 8. Ballinahown Community Group Claims National Water Quality Prize at SuperValu TidyTowns National Awards
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -302,7 +400,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 7. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
+### 9. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
 
 Score: 100 · excellent · Source: Farming for Water EIP
 
@@ -351,7 +449,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 8. Ireland's Air Quality Is Generally Good, Benefitting People's Health
+### 10. Ireland's Air Quality Is Generally Good, Benefitting People's Health
 
 Score: 100 · excellent · Source: EPA Ireland News Releases
 
@@ -400,7 +498,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 9. Hydrology Summary Bulletin – September 2026
+### 11. Hydrology Summary Bulletin – September 2026
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -449,7 +547,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 10. Hydrology Summary Bulletin – August 2026
+### 12. Hydrology Summary Bulletin – August 2026
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -491,104 +589,6 @@ This is where Nature-based Solutions become serious: not as decorative greening,
 Source:
 Catchments.ie. (2026-10-21). Hydrology Summary Bulletin – August 2026.
 https://www.catchments.ie/epa-hydrology-bulletin-august-2026/
-
-#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
-
-Decision: [ ] pick  [ ] watch  [ ] reject
-
----
-
-### 11. 2026 Irish National Hydrology Conference
-
-Score: 100 · excellent · Source: Catchments.ie
-
-URL: https://www.catchments.ie/2026-irish-national-hydrology-conference/
-
-Angle: WFD, monitoring and evidence
-
-Freshness: Current enough for LinkedIn if the practical water hook is strong.
-
-Water signal: Strong water-quality/ecology signal detected. Evidence terms: catchment, water framework directive, wfd, ecological status.
-
-Practical signal: Practical delivery signal detected. Evidence terms: measures, monitoring.
-
-Brand fit: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-Summary: The 2026 Irish National Hydrology Conference will take place on Tuesday, 17 November 2026 at the Tullamore Court Hotel, Co. […] The post 2026 Irish National Hydrology Conference appeared first on Catchments.ie .
-
-LinkedIn draft:
-
-A practical Water NbS signal for Ireland.
-
-2026 Irish National Hydrology Conference
-
-This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
-
-For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
-
-What I would look for:
-• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
-• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
-• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
-• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
-• repeatability: whether this can be maintained and applied elsewhere in Ireland
-
-My take: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
-
-Source:
-Catchments.ie. (2026-10-16). 2026 Irish National Hydrology Conference.
-https://www.catchments.ie/2026-irish-national-hydrology-conference/
-
-#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
-
-Decision: [ ] pick  [ ] watch  [ ] reject
-
----
-
-### 12. Conference: Building Water Resilience – Connecting Policy, Action and Communities
-
-Score: 100 · excellent · Source: Catchments.ie
-
-URL: https://www.catchments.ie/building-water-resilience-conference-2026/
-
-Angle: WFD, monitoring and evidence
-
-Freshness: Current enough for LinkedIn if the practical water hook is strong.
-
-Water signal: Strong water-quality/ecology signal detected. Evidence terms: catchment, water framework directive, wfd, ecological status.
-
-Practical signal: Practical delivery signal detected. Evidence terms: measures, monitoring.
-
-Brand fit: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-Summary: The Water Forum – An Fóram Uisce will welcome Henk Ovink, Executive Director of the Global Commission on the Economics […] The post Conference: Building Water Resilience – Connecting Policy, Action and Communities appeared first on Catchments.ie .
-
-LinkedIn draft:
-
-A practical Water NbS signal for Ireland.
-
-Building Water Resilience
-
-This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
-
-For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
-
-What I would look for:
-• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
-• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
-• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
-• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
-• repeatability: whether this can be maintained and applied elsewhere in Ireland
-
-My take: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
-
-Source:
-Catchments.ie. (2026-10-15). Building Water Resilience.
-https://www.catchments.ie/building-water-resilience-conference-2026/
 
 #NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
 
