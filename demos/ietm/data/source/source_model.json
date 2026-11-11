@@ -1,18 +1,18 @@
 {
   "meta": {
-    "generated_at": "2026-11-10T23:59:32+00:00",
+    "generated_at": "2026-11-11T05:55:40+00:00",
     "mode": "source-model-and-freshness-gate",
     "project": "Ireland Energy Transition Monitor"
   },
   "electricity": {
     "role": "core_grid_values",
     "selected_source": "Smart Grid Dashboard API",
-    "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=10-Nov-2026&dateTo=10-Nov-2026&areas=demandactual",
+    "source_url": "https://www.smartgriddashboard.com/api/chart/?region=ALL&chartType=generation&dateRange=day&dateFrom=11-Nov-2026&dateTo=11-Nov-2026&areas=demandactual",
     "status": "live",
     "values_are_live": true,
     "values_are_current": true,
-    "latest_interval": "2026-11-10T23:45:00+00:00",
-    "age_hours": 0.24,
+    "latest_interval": "2026-11-11T05:45:00+00:00",
+    "age_hours": 0.18,
     "public_badge": "Live grid source",
     "public_title": "Current grid pulse",
     "public_caveat": "Core grid values are treated as live because the mapped source interval is within two hours.",
@@ -45,7 +45,7 @@
         "status": "mapped",
         "source": "EirGrid Smart Grid Dashboard imbalance settlement price",
         "source_url": "https://www.smartgriddashboard.com/roi/market-pricing/",
-        "period": "2026-11-10",
+        "period": "2026-11-11",
         "freshness": "latest settlement period visible on Smart Grid Dashboard",
         "is_household_tariff": false,
         "public_caveat": "System/market signal, not a household tariff."
