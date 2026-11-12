@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-11T12:44:11+00:00",
+  "generated_at": "2026-11-12T13:47:01+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 7,
-  "links_seen": 4517,
-  "funding_like_links": 452,
+  "seed_pages_failed": 6,
+  "links_seen": 4609,
+  "funding_like_links": 485,
   "candidate_fetches": 300,
-  "pending_review_count": 119,
+  "pending_review_count": 117,
   "status_counts": {
-    "pending_review": 119,
-    "suppressed_non_actionable": 42,
+    "pending_review": 117,
+    "suppressed_non_actionable": 41,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 52
+    "suppressed_fetch_error": 61
   },
   "candidate_type_counts": {
     "recurring_programme": 59,
-    "funding_call": 92,
+    "funding_call": 91,
     "scholarship": 19,
     "generic_funding_hub": 6,
-    "tender": 11,
-    "unknown": 52
+    "tender": 9,
+    "unknown": 61
   },
   "seeds": [
     {
@@ -125,7 +125,7 @@
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 136,
+      "links_seen": 135,
       "funding_like_links": 48,
       "candidates_fetched": 48
     },
@@ -233,10 +233,10 @@
       "id": "geo_horizon_energy_supply_watch",
       "name": "Geo watch: Horizon Europe Sustainable, Secure and Competitive Energy Supply",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "status": "fetch_error",
-      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 93,
+      "funding_like_links": 33,
       "candidates_fetched": 0
     },
     {
