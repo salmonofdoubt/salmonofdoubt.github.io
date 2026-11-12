@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-11-11
+# Water NbS Story Radar · 2026-11-12
 
-Generated: 2026-11-11T12:49:49.525524+00:00
+Generated: 2026-11-12T13:52:46.126811+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
