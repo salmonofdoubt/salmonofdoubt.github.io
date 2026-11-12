@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-11-11T12:45:29.872247+00:00",
-  "latest_generated_at": "2026-11-11T12:45:08.836103+00:00",
+  "generated_at": "2026-11-12T13:48:33.519104+00:00",
+  "latest_generated_at": "2026-11-12T13:48:07.511970+00:00",
   "total_items": 95,
   "total_sources": 30,
   "sources_active": 19,
   "sources_checked_no_current_items": 10,
   "sources_failed": 1,
   "items_by_section": {
-    "ireland-catchment-practice": 17,
+    "grants-opportunities": 20,
     "research-papers": 36,
-    "grants-opportunities": 18,
-    "waterbody-evidence-alerts": 24
+    "ireland-catchment-practice": 16,
+    "waterbody-evidence-alerts": 23
   },
   "annotation_coverage": {
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 21,
+    "opportunity_fit": 24,
     "research_use_type": 55
   },
-  "archive_snapshots": 163,
+  "archive_snapshots": 164,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -32,8 +32,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 3,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 29,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 373,
       "error": null
     },
     {
@@ -48,7 +48,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 35,
+      "elapsed_ms": 427,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 27,
-      "elapsed_ms": 34,
+      "discovered_hint_count": 25,
+      "elapsed_ms": 362,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
+      "current_item_count": 3,
       "discovered_hint_count": 31,
-      "elapsed_ms": 36,
+      "elapsed_ms": 374,
       "error": null
     },
     {
@@ -91,9 +91,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
+      "current_item_count": 3,
       "discovered_hint_count": 32,
-      "elapsed_ms": 37,
+      "elapsed_ms": 360,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 5,
-      "discovered_hint_count": 27,
-      "elapsed_ms": 35,
+      "current_item_count": 6,
+      "discovered_hint_count": 29,
+      "elapsed_ms": 364,
       "error": null
     },
     {
@@ -119,11 +119,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28estuary%20OR%20lagoon%20OR%20coastal%20wetland%20OR%20saltmarsh%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 17,
-      "elapsed_ms": 28,
+      "current_item_count": 1,
+      "discovered_hint_count": 18,
+      "elapsed_ms": 366,
       "error": null
     },
     {
@@ -138,7 +138,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 9,
-      "elapsed_ms": 32,
+      "elapsed_ms": 380,
       "error": null
     },
     {
@@ -151,9 +151,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 30,
-      "elapsed_ms": 34,
+      "current_item_count": 2,
+      "discovered_hint_count": 33,
+      "elapsed_ms": 344,
       "error": null
     },
     {
@@ -167,8 +167,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 95,
-      "elapsed_ms": 816,
+      "discovered_hint_count": 94,
+      "elapsed_ms": 882,
       "error": null
     },
     {
@@ -182,8 +182,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 345,
-      "elapsed_ms": 11446,
+      "discovered_hint_count": 346,
+      "elapsed_ms": 9765,
       "error": null
     },
     {
@@ -198,7 +198,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 10,
-      "elapsed_ms": 24,
+      "elapsed_ms": 358,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 32,
-      "elapsed_ms": 36,
+      "discovered_hint_count": 31,
+      "elapsed_ms": 384,
       "error": null
     },
     {
@@ -228,7 +228,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 9,
-      "elapsed_ms": 23,
+      "elapsed_ms": 337,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 32,
+      "elapsed_ms": 394,
       "error": null
     },
     {
@@ -257,8 +257,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 10,
-      "elapsed_ms": 24,
+      "discovered_hint_count": 9,
+      "elapsed_ms": 375,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 22,
-      "elapsed_ms": 30,
+      "elapsed_ms": 337,
       "error": null
     },
     {
@@ -284,11 +284,11 @@
       "scope": "ireland wastewater pressure",
       "url": "https://news.google.com/rss/search?q=%28septic%20tank%20grant%20OR%20septic%20tank%20grants%20OR%20domestic%20wastewater%20grant%20OR%20wastewater%20treatment%20grant%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 11,
-      "elapsed_ms": 28,
+      "current_item_count": 0,
+      "discovered_hint_count": 9,
+      "elapsed_ms": 339,
       "error": null
     },
     {
@@ -303,7 +303,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 9,
-      "elapsed_ms": 23,
+      "elapsed_ms": 374,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 6,
       "discovered_hint_count": 143,
-      "elapsed_ms": 894,
+      "elapsed_ms": 913,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 4,
       "discovered_hint_count": 116,
-      "elapsed_ms": 943,
+      "elapsed_ms": 1084,
       "error": null
     },
     {
@@ -346,9 +346,9 @@
       "host": "www.epa.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 4,
+      "current_item_count": 5,
       "discovered_hint_count": 224,
-      "elapsed_ms": 278,
+      "elapsed_ms": 306,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 181,
-      "elapsed_ms": 735,
+      "elapsed_ms": 792,
       "error": null
     },
     {
@@ -378,7 +378,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 424,
-      "elapsed_ms": 863,
+      "elapsed_ms": 845,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 81,
-      "elapsed_ms": 529,
+      "elapsed_ms": 707,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 36,
-      "elapsed_ms": 2007,
+      "elapsed_ms": 2115,
       "error": null
     },
     {
@@ -420,10 +420,10 @@
       "url": "https://cinea.ec.europa.eu/programmes/life/calls-proposals_en",
       "host": "cinea.ec.europa.eu",
       "status": "failed",
-      "http_status": 404,
+      "http_status": 429,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 97,
+      "elapsed_ms": 497,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 106,
-      "elapsed_ms": 70,
+      "elapsed_ms": 79,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 13,
       "discovered_hint_count": 94,
-      "elapsed_ms": 819,
+      "elapsed_ms": 861,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 769,
+      "elapsed_ms": 666,
       "error": null
     }
   ]
