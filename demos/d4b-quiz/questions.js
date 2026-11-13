@@ -8697,23 +8697,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 8,
       "booklet_locator": "01_Generative_AI_Booklet, Week 08, think–act–observe loop and tool execution; Perezhohin (2026), Week 8 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 8 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 08, think–act–observe loop and tool execution",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W8 · Agent execution loop",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 8,
-      455278"01_Generative_AI_Booklet, Week 08, think–act–observe loop and tool execution; Perezhohin (2026), Week 8 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
@@ -8751,23 +8734,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 8,
       "booklet_locator": "01_Generative_AI_Booklet, Week 08, fixed RAG versus agent loop; Perezhohin (2026), Week 8 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 8 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 08, fixed RAG versus agent loop",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W8 · Workflow versus agent",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 8,
-      457036"01_Generative_AI_Booklet, Week 08, fixed RAG versus agent loop; Perezhohin (2026), Week 8 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
@@ -8805,23 +8771,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 8,
       "booklet_locator": "01_Generative_AI_Booklet, Week 08, schema-constrained outputs versus truth; Perezhohin (2026), Week 8 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 8 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 08, schema-constrained outputs versus truth",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W8 · Structured outputs",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 8,
-      458746"01_Generative_AI_Booklet, Week 08, schema-constrained outputs versus truth; Perezhohin (2026), Week 8 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
@@ -8859,23 +8808,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 8,
       "booklet_locator": "01_Generative_AI_Booklet, Week 08, ReAct and think–act–observe; Perezhohin (2026), Week 8 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 8 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 08, ReAct and think–act–observe",
-      "url": "https://arxiv.org/abs/2210.03629",
-      "scope": "GEN W8 · ReAct",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 8,
-      460449"01_Generative_AI_Booklet, Week 08, ReAct and think–act–observe; Perezhohin (2026), Week 8 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
@@ -8913,23 +8845,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 8,
       "booklet_locator": "01_Generative_AI_Booklet, Week 08, MCP tools/resources/prompts versus A2A; Perezhohin (2026), Week 8 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 8 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 08, MCP tools/resources/prompts versus A2A",
-      "url": "https://modelcontextprotocol.io/introduction",
-      "scope": "GEN W8 · MCP versus A2A",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 8,
-      462075"01_Generative_AI_Booklet, Week 08, MCP tools/resources/prompts versus A2A; Perezhohin (2026), Week 8 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
@@ -8967,23 +8882,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 8,
       "booklet_locator": "01_Generative_AI_Booklet, Week 08, Sofia retail dataset and independent specification checks; Perezhohin (2026), Week 8 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 8 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 08, Sofia retail dataset and independent specification checks",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W8 · Successful execution",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 8,
-      463827"01_Generative_AI_Booklet, Week 08, Sofia retail dataset and independent specification checks; Perezhohin (2026), Week 8 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": false
@@ -9021,23 +8919,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 9,
       "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 17–21, routing; Perezhohin (2026), Week 9 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 9 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 09, lecture slides 17–21, routing",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W9 · Agent architecture selection",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 9,
-      465663"01_Generative_AI_Booklet, Week 09, lecture slides 17–21, routing; Perezhohin (2026), Week 9 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
@@ -9075,23 +8956,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 9,
       "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 24–29, classic versus agentic RAG; Perezhohin (2026), Week 9 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 9 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 09, lecture slides 24–29, classic versus agentic RAG",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W9 · Agentic retrieval",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 9,
-      467430"01_Generative_AI_Booklet, Week 09, lecture slides 24–29, classic versus agentic RAG; Perezhohin (2026), Week 9 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
@@ -9129,23 +8993,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 9,
       "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 56–60, guardrails and human escalation; Perezhohin (2026), Week 9 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 9 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 09, lecture slides 56–60, guardrails and human escalation",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W9 · Human approval boundary",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 9,
-      469265"01_Generative_AI_Booklet, Week 09, lecture slides 56–60, guardrails and human escalation; Perezhohin (2026), Week 9 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
@@ -9183,23 +9030,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 9,
       "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 65–67, tasks and trials; Perezhohin (2026), Week 9 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 9 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 09, lecture slides 65–67, tasks and trials",
-      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
-      "scope": "GEN W9 · Evaluation reliability",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 9,
-      471076"01_Generative_AI_Booklet, Week 09, lecture slides 65–67, tasks and trials; Perezhohin (2026), Week 9 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
@@ -9237,23 +9067,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 9,
       "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 68–70, judge biases; Perezhohin (2026), Week 9 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 9 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 09, lecture slides 68–70, judge biases",
-      "url": "https://arxiv.org/abs/2306.05685",
-      "scope": "GEN W9 · LLM judge position bias",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 9,
-      472879"01_Generative_AI_Booklet, Week 09, lecture slides 68–70, judge biases; Perezhohin (2026), Week 9 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
@@ -9291,23 +9104,6 @@ window.D4B_QUESTIONS=Object.freeze([
       "module": "GEN",
       "week": 9,
       "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 51–60, memory and context cost; Perezhohin (2026), Week 9 lecture slides",
-    "origin": "booklet-derived",
-    "verification": "verified",
-    "evidence": {
-      "source": "Authorised GEN Week 9 booklet and lecture",
-      "originalMaterialChecked": true,
-      "reviewed_at": "2026-11-13",
-      "locator": "Week 09, lecture slides 51–60, memory and context cost",
-      "url": "https://www.anthropic.com/engineering/building-effective-agents",
-      "scope": "GEN W9 · Agent context cost",
-      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
-    },
-    "course_alignment": {
-      "status": "supported",
-      "source_type": "original D4B lecture and private booklet",
-      "module": "GEN",
-      "week": 9,
-      474604"01_Generative_AI_Booklet, Week 09, lecture slides 51–60, memory and context cost; Perezhohin (2026), Week 9 lecture slides",
       "reviewed_at": "2026-11-13",
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
