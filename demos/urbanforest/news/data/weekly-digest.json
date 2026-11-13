@@ -1,47 +1,47 @@
 {
-  "generated_at": "2026-11-12T13:57:23.296384+00:00",
-  "latest_generated_at": "2026-11-12T13:57:23.218401+00:00",
+  "generated_at": "2026-11-13T13:22:54.786097+00:00",
+  "latest_generated_at": "2026-11-13T13:22:54.714231+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 16,
-    "funding-opportunities": 17,
-    "research-evidence": 56,
+    "ireland-urban-forest-practice": 14,
+    "funding-opportunities": 16,
+    "research-evidence": 59,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
       "benefit": "Biodiversity / habitat",
-      "count": 38
+      "count": 40
+    },
+    {
+      "benefit": "Tree survival / maintenance",
+      "count": 27
     },
     {
       "benefit": "Funding / grants",
       "count": 25
     },
     {
-      "benefit": "Tree survival / maintenance",
-      "count": 25
-    },
-    {
       "benefit": "Urban heat / shade",
-      "count": 21
+      "count": 23
     },
     {
       "benefit": "Monitoring / evaluation",
-      "count": 21
-    },
-    {
-      "benefit": "School / education",
-      "count": 18
+      "count": 23
     },
     {
       "benefit": "Stormwater / SuDS",
-      "count": 18
+      "count": 19
+    },
+    {
+      "benefit": "School / education",
+      "count": 17
     },
     {
       "benefit": "Wellbeing / health",
-      "count": 15
+      "count": 17
     },
     {
       "benefit": "Community stewardship",
@@ -49,7 +49,7 @@
     },
     {
       "benefit": "Soil health",
-      "count": 12
+      "count": 13
     },
     {
       "benefit": "Planning / policy",
@@ -57,7 +57,7 @@
     },
     {
       "benefit": "Urban forest / NbS",
-      "count": 9
+      "count": 10
     }
   ],
   "items": [
@@ -89,6 +89,39 @@
       "opportunity_fit": {
         "fit": "High",
         "score": 97,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "b9c89c1efe1a7741",
+      "title": "Funding watch: CINEA calls for proposals",
+      "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals_en",
+      "section": "funding-opportunities",
+      "source_name": "CINEA calls for proposals",
+      "published": null,
+      "score": 100,
+      "practical_score": 153.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 8,
+        "label": "Transferable relevance",
+        "matched_terms": [
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 87,
         "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
         "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
       },
@@ -307,29 +340,6 @@
       },
       "opportunity_fit": null,
       "research_use_type": "UrbanForest stormwater evidence",
-      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
-    },
-    {
-      "id": "e71eafacd7687633",
-      "title": "Cooling efficacy of trees across cities is determined by background climate, urban morphology, and tree trait",
-      "url": "https://doi.org/10.1038/s43247-024-01908-4",
-      "section": "research-evidence",
-      "source_name": "Communications Earth & Environment",
-      "published": "2024-12-10",
-      "score": 96,
-      "practical_score": 125.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Biodiversity / habitat",
-        "Tree survival / maintenance"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Survival / maintenance evidence",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     }
   ]
