@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-11-13T10:25:39.965Z",
+  "last_checked_at": "2026-11-13T10:35:55.891Z",
   "last_consolidated_at": "2026-11-13T10:25:39.965Z",
   "last_question_bank_change_at": "2026-11-13T10:25:39.965Z",
   "content_fingerprint": "7f3a865290645d1b92a5f9cf3cf4109d88d30ca5dc0bb743b3308622b6184ae7",
-  "content_changed": true,
+  "content_changed": false,
   "bank_fingerprint": "b207a67a4551c34ce8e4879bcbb9dba9df9451bc541ed13658ecbae6943ed264",
   "question_count": 215,
   "question_status": {
@@ -52,39 +52,77 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-11-13T10:25:39.965Z",
-    "last_automated_check_at": "2026-11-13T10:25:38.031Z",
-    "last_automation_ingest_at": "2026-11-13T10:25:39.876Z",
+    "updated_at": "2026-11-13T10:35:55.891Z",
+    "last_automated_check_at": "2026-11-13T10:35:53.551Z",
+    "last_automation_ingest_at": "2026-11-13T10:35:55.793Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
     "staged_already_present": 72,
     "last_reviewed_material_release": {
-      "id": "d4b-source-release-20261102-dtr-w7-videogame-literacy",
-      "accepted_at": "2026-11-02T09:02:45Z",
+      "id": "d4b-source-release-20261113-gen-w8-exam",
+      "accepted_at": "2026-11-13T10:25:05Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "material": "Digital Transformation Week 07 · Videogame Literacy, Game-Based Learning and Q.U.A.K.E. Critical Analysis",
-      "module": "DTR",
-      "week": 7,
-      "question_count": 10,
+      "material": "Generative AI Week 08 · AI Agents: From Answers to Actions",
+      "module": "GEN",
+      "week": 8,
+      "question_count": 6,
       "question_ids": [
-        "d4b-194",
-        "d4b-195",
-        "d4b-196",
-        "d4b-197",
-        "d4b-198",
-        "d4b-199",
-        "d4b-200",
-        "d4b-201",
-        "d4b-202",
-        "d4b-203"
+        "d4b-204",
+        "d4b-205",
+        "d4b-206",
+        "d4b-207",
+        "d4b-208",
+        "d4b-209"
       ],
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/276",
-      "review_scope": "Ten original four-option questions on gamification versus game-based learning, structural gamification, intrinsic motivation, creative learning, Gee's psychosocial moratorium, competence and situated meaning, and Q.U.A.K.E. agency/accessibility. Direct course alignment checked against authorised lecture PDF, full transcript, Q.U.A.K.E. handout and revised private booklet; keyed answer and all three distractors individually checked against named external primary academic/competent-authority sources. Course-specific Q.U.A.K.E. rubric is not claimed as an independently validated instrument. Digital Transformation Topic 4 Moodle grading 5/5 (100%) on 1 November 2026 was independently recovered from prior ChatGPT conversation as a separate LMS result, mainly testing W6 New Literacies; no official question wording or key imported. Public peer sites were not semantically accessible; no copyrighted quiz text copied. GitHub Actions has no private Drive access."
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/292",
+      "review_scope": "Six original four-option questions with explanations, teaching locators and external technical references; official Moodle keys not claimed. Existing 203 question IDs retained; browser-local progress unchanged. CI passed on PR #292 before merge. GitHub Actions has no private Drive access."
     },
     "recent_reviewed_material_releases": [
+      {
+        "id": "d4b-source-release-20261113-gen-w8-exam",
+        "accepted_at": "2026-11-13T10:25:05Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "material": "Generative AI Week 08 · AI Agents: From Answers to Actions",
+        "module": "GEN",
+        "week": 8,
+        "question_count": 6,
+        "question_ids": [
+          "d4b-204",
+          "d4b-205",
+          "d4b-206",
+          "d4b-207",
+          "d4b-208",
+          "d4b-209"
+        ],
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/292",
+        "review_scope": "Six original four-option questions with explanations, teaching locators and external technical references; official Moodle keys not claimed. Existing 203 question IDs retained; browser-local progress unchanged. CI passed on PR #292 before merge. GitHub Actions has no private Drive access."
+      },
+      {
+        "id": "d4b-source-release-20261113-gen-w9-exam",
+        "accepted_at": "2026-11-13T10:25:05Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "material": "Generative AI Week 09 · AI Agents in Practice",
+        "module": "GEN",
+        "week": 9,
+        "question_count": 6,
+        "question_ids": [
+          "d4b-210",
+          "d4b-211",
+          "d4b-212",
+          "d4b-213",
+          "d4b-214",
+          "d4b-215"
+        ],
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/292",
+        "review_scope": "Six original four-option questions with explanations, teaching locators and external technical references; official Moodle keys not claimed. Existing 203 question IDs retained; browser-local progress unchanged. CI passed on PR #292 before merge. GitHub Actions has no private Drive access."
+      },
       {
         "id": "d4b-source-release-20261102-dtr-w7-videogame-literacy",
         "accepted_at": "2026-11-02T09:02:45Z",
@@ -184,86 +222,83 @@
         ],
         "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/266",
         "review_scope": "Ten original four-choice practice questions with separately recorded course alignment and independent academic verification of each keyed answer and distractors. Authorised booklet and W7 beginner notes, Colab notebook and PDF inspected directly. Official Moodle 30/30 grade is private historical evidence, not the official key for these original public questions. The notebook's LSTM path fits MinMaxScaler before chronological split and uses a one-step input shape; these are flagged as methodological limitations. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. GitHub Actions does not access private Drive."
-      },
-      {
-        "id": "d4b-source-release-20261027-gen-w7-rag",
-        "accepted_at": "2026-10-27T08:45:06Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "material": "Generative AI Week 07 · Grounding, Retrieval-Augmented Generation and Evidence Verification",
-        "module": "GEN",
-        "week": 7,
-        "question_count": 10,
-        "question_ids": [
-          "d4b-154",
-          "d4b-155",
-          "d4b-156",
-          "d4b-157",
-          "d4b-158",
-          "d4b-159",
-          "d4b-160",
-          "d4b-161",
-          "d4b-162",
-          "d4b-163"
-        ],
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/260",
-        "review_scope": "Ten original four-choice practice questions, answers and distractors independently checked against cited academic and standards sources and directly inspected lecturer slides. Official Moodle Week 07 grading not available and not claimed. No private Moodle wording, raw teaching materials or third-party copyrighted quiz text published. Source access was connected ChatGPT review only, not GitHub Actions."
-      },
-      {
-        "id": "d4b-source-release-20261023-inn-w6",
-        "accepted_at": "2026-10-23T07:48:25Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "material": "Innovation Week 06 · Innovation, AI Tools and Critical Evaluation",
-        "module": "INN",
-        "week": 6,
-        "question_count": 8,
-        "question_ids": [
-          "d4b-141",
-          "d4b-142",
-          "d4b-143",
-          "d4b-144",
-          "d4b-145",
-          "d4b-146",
-          "d4b-147",
-          "d4b-148"
-        ],
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/223",
-        "review_scope": "Original four-choice practice questions, not Moodle originals or copied third-party quiz text. Course alignment, official Moodle grading and independent verification remain item-specific; no private Drive content is fetched by GitHub Actions."
       }
     ],
     "last_reviewed_release_group": {
-      "accepted_at": "2026-11-02T09:02:45Z",
+      "accepted_at": "2026-11-13T10:25:05Z",
       "source_id": "drive",
       "source_name": "Private D4B Drive (connected ChatGPT review)",
       "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/276",
-      "question_count": 10,
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/292",
+      "question_count": 12,
       "question_ids": [
-        "d4b-194",
-        "d4b-195",
-        "d4b-196",
-        "d4b-197",
-        "d4b-198",
-        "d4b-199",
-        "d4b-200",
-        "d4b-201",
-        "d4b-202",
-        "d4b-203"
+        "d4b-204",
+        "d4b-205",
+        "d4b-206",
+        "d4b-207",
+        "d4b-208",
+        "d4b-209",
+        "d4b-210",
+        "d4b-211",
+        "d4b-212",
+        "d4b-213",
+        "d4b-214",
+        "d4b-215"
       ],
       "module_weeks": [
         {
-          "module": "DTR",
-          "week": 7,
-          "question_count": 10,
-          "material": "Digital Transformation Week 07 · Videogame Literacy, Game-Based Learning and Q.U.A.K.E. Critical Analysis"
+          "module": "GEN",
+          "week": 8,
+          "question_count": 6,
+          "material": "Generative AI Week 08 · AI Agents: From Answers to Actions"
+        },
+        {
+          "module": "GEN",
+          "week": 9,
+          "question_count": 6,
+          "material": "Generative AI Week 09 · AI Agents in Practice"
         }
       ],
-      "material": "DTR W07"
+      "material": "GEN W08 · GEN W09"
     },
     "recent_reviewed_release_groups": [
+      {
+        "accepted_at": "2026-11-13T10:25:05Z",
+        "source_id": "drive",
+        "source_name": "Private D4B Drive (connected ChatGPT review)",
+        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/292",
+        "question_count": 12,
+        "question_ids": [
+          "d4b-204",
+          "d4b-205",
+          "d4b-206",
+          "d4b-207",
+          "d4b-208",
+          "d4b-209",
+          "d4b-210",
+          "d4b-211",
+          "d4b-212",
+          "d4b-213",
+          "d4b-214",
+          "d4b-215"
+        ],
+        "module_weeks": [
+          {
+            "module": "GEN",
+            "week": 8,
+            "question_count": 6,
+            "material": "Generative AI Week 08 · AI Agents: From Answers to Actions"
+          },
+          {
+            "module": "GEN",
+            "week": 9,
+            "question_count": 6,
+            "material": "Generative AI Week 09 · AI Agents in Practice"
+          }
+        ],
+        "material": "GEN W08 · GEN W09"
+      },
       {
         "accepted_at": "2026-11-02T09:02:45Z",
         "source_id": "drive",
@@ -408,47 +443,9 @@
           }
         ],
         "material": "GEN W07"
-      },
-      {
-        "accepted_at": "2026-10-23T07:48:25Z",
-        "source_id": "drive",
-        "source_name": "Private D4B Drive (connected ChatGPT review)",
-        "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-        "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/223",
-        "question_count": 13,
-        "question_ids": [
-          "d4b-141",
-          "d4b-142",
-          "d4b-143",
-          "d4b-144",
-          "d4b-145",
-          "d4b-146",
-          "d4b-147",
-          "d4b-148",
-          "d4b-149",
-          "d4b-150",
-          "d4b-151",
-          "d4b-152",
-          "d4b-153"
-        ],
-        "module_weeks": [
-          {
-            "module": "DTR",
-            "week": 6,
-            "question_count": 5,
-            "material": "Digital Transformation Week 06 · New Literacies and Digital Citizenship"
-          },
-          {
-            "module": "INN",
-            "week": 6,
-            "question_count": 8,
-            "material": "Innovation Week 06 · Innovation, AI Tools and Critical Evaluation"
-          }
-        ],
-        "material": "DTR W06 · INN W06"
       }
     ],
-    "reviewed_release_count": 19,
+    "reviewed_release_count": 21,
     "explicit_source_boundary": "GitHub fingerprints public pages and reconciles already-staged original questions. It cannot independently read private Drive, ChatGPT, or Moodle content; private material releases require a separate authorised review."
   },
   "source_status": [
