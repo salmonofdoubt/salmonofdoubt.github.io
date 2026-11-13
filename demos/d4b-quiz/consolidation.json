@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-11-12T15:23:46.551Z",
-  "last_consolidated_at": "2026-11-02T09:03:21.194Z",
-  "last_question_bank_change_at": "2026-11-02T09:03:21.194Z",
-  "content_fingerprint": "e7b3dc5917626ed0079f6fbf05c363404a7f8f3bc062c1870ca90cb8a60d5e52",
-  "content_changed": false,
-  "bank_fingerprint": "63299b0a8208428df9bab1d3078451f7c91c939772e5f8159e529aa4d250639b",
-  "question_count": 203,
+  "last_checked_at": "2026-11-13T10:25:39.965Z",
+  "last_consolidated_at": "2026-11-13T10:25:39.965Z",
+  "last_question_bank_change_at": "2026-11-13T10:25:39.965Z",
+  "content_fingerprint": "7f3a865290645d1b92a5f9cf3cf4109d88d30ca5dc0bb743b3308622b6184ae7",
+  "content_changed": true,
+  "bank_fingerprint": "b207a67a4551c34ce8e4879bcbb9dba9df9451bc541ed13658ecbae6943ed264",
+  "question_count": 215,
   "question_status": {
-    "verified": 203,
+    "verified": 215,
     "pending": 0,
     "flagged": 0
   },
   "course_alignment": {
-    "supported": 162,
+    "supported": 174,
     "qualified": 2,
     "notReviewed": 39
   },
@@ -45,14 +45,16 @@
     "GEN:7": 10,
     "AIB:7": 10,
     "INN:7": 20,
-    "DTR:7": 10
+    "DTR:7": 10,
+    "GEN:8": 6,
+    "GEN:9": 6
   },
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-11-12T15:23:46.551Z",
-    "last_automated_check_at": "2026-11-12T15:23:44.437Z",
-    "last_automation_ingest_at": "2026-11-12T15:23:46.466Z",
+    "updated_at": "2026-11-13T10:25:39.965Z",
+    "last_automated_check_at": "2026-11-13T10:25:38.031Z",
+    "last_automation_ingest_at": "2026-11-13T10:25:39.876Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 72,
