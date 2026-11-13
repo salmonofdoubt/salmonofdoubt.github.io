@@ -7,7 +7,9 @@ window.D4B_CURRICULUM=Object.freeze({
     "Models at Work: Text, Speech and Images",
     "Prompt Engineering",
     "Generative Media: Images, Audio, Video and Responsibility",
-    "Grounding, Retrieval-Augmented Generation and Evidence Verification"
+    "Grounding, Retrieval-Augmented Generation and Evidence Verification",
+    "AI Agents: From Answers to Actions",
+    "AI Agents in Practice: Design, Guardrails and Evaluation"
   ],
   "AIB": [
     "Introduction to AI and its History",
@@ -8662,5 +8664,449 @@ window.D4B_QUESTIONS=Object.freeze([
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": true
   }
-}
+},
+  {
+    "id": "d4b-204",
+    "module": "GEN",
+    "week": 8,
+    "topic": "Agent execution loop",
+    "stem": "A model proposes a tool call to retrieve a customer order. Which component should actually authorise and execute that call?",
+    "choices": [
+      "The host application enforcing tool permissions",
+      "The model's next-token sampler",
+      "The retrieved customer message",
+      "The output-format schema"
+    ],
+    "correct": 0,
+    "explanation": "The model proposes actions, but the host validates permissions and executes the tool; a schema constrains structure, not authority.",
+    "source": "01_Generative_AI_Booklet, Week 08, think–act–observe loop and tool execution; Perezhohin (2026), Week 8 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 8 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 08, think–act–observe loop and tool execution",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W8 · Agent execution loop",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 8,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 08, think–act–observe loop and tool execution; Perezhohin (2026), Week 8 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
+  },
+  {
+    "id": "d4b-205",
+    "module": "GEN",
+    "week": 8,
+    "topic": "Workflow versus agent",
+    "stem": "A refund assistant always follows a programmer-defined sequence: classify, retrieve policy, draft, seek approval. Which description fits best?",
+    "choices": [
+      "A fully autonomous agent choosing every step",
+      "A predetermined workflow with approval",
+      "An unstructured multi-agent negotiation",
+      "A self-training reinforcement-learning policy"
+    ],
+    "correct": 1,
+    "explanation": "A fixed control path is a workflow even when individual steps use an LLM; autonomy concerns who chooses the next step.",
+    "source": "01_Generative_AI_Booklet, Week 08, fixed RAG versus agent loop; Perezhohin (2026), Week 8 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 8 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 08, fixed RAG versus agent loop",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W8 · Workflow versus agent",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 8,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 08, fixed RAG versus agent loop; Perezhohin (2026), Week 8 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
+  },
+  {
+    "id": "d4b-206",
+    "module": "GEN",
+    "week": 8,
+    "topic": "Structured outputs",
+    "stem": "A customer-support model returns a valid JSON object containing a refund amount that contradicts the policy. What does the valid JSON demonstrate?",
+    "choices": [
+      "That the refund is legally authorised",
+      "That the amount was independently calculated",
+      "That the output satisfies a structural contract",
+      "That the order was verified against the database"
+    ],
+    "correct": 2,
+    "explanation": "Schema validity checks form and types; it cannot establish policy compliance or factual correctness.",
+    "source": "01_Generative_AI_Booklet, Week 08, schema-constrained outputs versus truth; Perezhohin (2026), Week 8 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 8 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 08, schema-constrained outputs versus truth",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W8 · Structured outputs",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 8,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 08, schema-constrained outputs versus truth; Perezhohin (2026), Week 8 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
+  },
+  {
+    "id": "d4b-207",
+    "module": "GEN",
+    "week": 8,
+    "topic": "ReAct",
+    "stem": "An assistant alternates between reasoning about a question, calling a search tool and using the observation to choose its next step. Which approach does this illustrate?",
+    "choices": [
+      "Static one-shot prompting",
+      "Purely offline supervised fine-tuning",
+      "A fixed classification-only pipeline",
+      "Reasoning and acting with tool observations"
+    ],
+    "correct": 3,
+    "explanation": "ReAct interleaves reasoning traces, actions and observations to update the next step.",
+    "source": "01_Generative_AI_Booklet, Week 08, ReAct and think–act–observe; Perezhohin (2026), Week 8 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 8 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 08, ReAct and think–act–observe",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "scope": "GEN W8 · ReAct",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 8,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 08, ReAct and think–act–observe; Perezhohin (2026), Week 8 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
+  },
+  {
+    "id": "d4b-208",
+    "module": "GEN",
+    "week": 8,
+    "topic": "MCP versus A2A",
+    "stem": "A company wants to expose an approved database query as a callable capability for an AI assistant. Which interface role is most directly relevant?",
+    "choices": [
+      "A tool exposed through Model Context Protocol",
+      "An agent-to-agent delegation contract",
+      "A model training dataset",
+      "A human grading rubric"
+    ],
+    "correct": 0,
+    "explanation": "MCP provides access to tools, resources and prompts; agent-to-agent protocols address communication between agents.",
+    "source": "01_Generative_AI_Booklet, Week 08, MCP tools/resources/prompts versus A2A; Perezhohin (2026), Week 8 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 8 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 08, MCP tools/resources/prompts versus A2A",
+      "url": "https://modelcontextprotocol.io/introduction",
+      "scope": "GEN W8 · MCP versus A2A",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 8,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 08, MCP tools/resources/prompts versus A2A; Perezhohin (2026), Week 8 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
+  },
+  {
+    "id": "d4b-209",
+    "module": "GEN",
+    "week": 8,
+    "topic": "Successful execution",
+    "stem": "An agent executes Python without errors but includes postage in a revenue calculation that should exclude it. What is the best conclusion?",
+    "choices": [
+      "The calculation is valid because execution succeeded",
+      "The code ran, but the business specification still failed",
+      "The model needs more autonomous tool permissions",
+      "The result is verified because it used a dataframe"
+    ],
+    "correct": 1,
+    "explanation": "Successful execution establishes that code ran, not that its data cleaning or business definition was correct.",
+    "source": "01_Generative_AI_Booklet, Week 08, Sofia retail dataset and independent specification checks; Perezhohin (2026), Week 8 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 8 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 08, Sofia retail dataset and independent specification checks",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W8 · Successful execution",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 8,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 08, Sofia retail dataset and independent specification checks; Perezhohin (2026), Week 8 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": false
+    }
+  },
+  {
+    "id": "d4b-210",
+    "module": "GEN",
+    "week": 9,
+    "topic": "Agent architecture selection",
+    "stem": "A shop receives standard delivery, refund and general questions, each with a different documented procedure. Which architecture is the simplest suitable choice?",
+    "choices": [
+      "Autonomous exploration of every enquiry",
+      "Parallel independent model voting on every enquiry",
+      "Routing to the appropriate documented workflow",
+      "A swarm of agents negotiating the customer's intent"
+    ],
+    "correct": 2,
+    "explanation": "Routing classifies the request and dispatches it to a specialist workflow without unnecessary autonomy.",
+    "source": "01_Generative_AI_Booklet, Week 09, lecture slides 17–21, routing; Perezhohin (2026), Week 9 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 9 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 09, lecture slides 17–21, routing",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W9 · Agent architecture selection",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 9,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 17–21, routing; Perezhohin (2026), Week 9 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
+  },
+  {
+    "id": "d4b-211",
+    "module": "GEN",
+    "week": 9,
+    "topic": "Agentic retrieval",
+    "stem": "A research assistant notices that its first document search is inadequate, reformulates the query and retrieves again. What distinguishes this from a fixed one-pass RAG pipeline?",
+    "choices": [
+      "The system never needs source verification",
+      "Every retrieved passage becomes authoritative",
+      "The answer is guaranteed correct after a second search",
+      "The model chooses and revises retrieval actions"
+    ],
+    "correct": 3,
+    "explanation": "Agentic retrieval can select and repeat search actions; it still requires source and relevance checks.",
+    "source": "01_Generative_AI_Booklet, Week 09, lecture slides 24–29, classic versus agentic RAG; Perezhohin (2026), Week 9 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 9 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 09, lecture slides 24–29, classic versus agentic RAG",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W9 · Agentic retrieval",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 9,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 24–29, classic versus agentic RAG; Perezhohin (2026), Week 9 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
+  },
+  {
+    "id": "d4b-212",
+    "module": "GEN",
+    "week": 9,
+    "topic": "Human approval boundary",
+    "stem": "An assistant has verified a customer's refund eligibility and prepared the transaction. Which next step best respects a high-risk action boundary?",
+    "choices": [
+      "Seek explicit authorised approval before issuing the refund",
+      "Issue the refund automatically because eligibility was verified",
+      "Increase the model temperature before issuing the refund",
+      "Ask another model to execute the refund without approval"
+    ],
+    "correct": 0,
+    "explanation": "High-impact financial actions require an explicit permission boundary; eligibility is not authorisation.",
+    "source": "01_Generative_AI_Booklet, Week 09, lecture slides 56–60, guardrails and human escalation; Perezhohin (2026), Week 9 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 9 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 09, lecture slides 56–60, guardrails and human escalation",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W9 · Human approval boundary",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 9,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 56–60, guardrails and human escalation; Perezhohin (2026), Week 9 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
+  },
+  {
+    "id": "d4b-213",
+    "module": "GEN",
+    "week": 9,
+    "topic": "Evaluation reliability",
+    "stem": "A customer-support agent answers a test correctly once. What evidence is most appropriate before concluding that it is reliable?",
+    "choices": [
+      "A more persuasive explanation of the same output",
+      "Repeated trials on representative cases with predefined success criteria",
+      "A single favourable AI-generated testimonial",
+      "A longer system prompt with no further tests"
+    ],
+    "correct": 1,
+    "explanation": "Repeated trials and representative tasks expose variable failures that one successful run cannot reveal.",
+    "source": "01_Generative_AI_Booklet, Week 09, lecture slides 65–67, tasks and trials; Perezhohin (2026), Week 9 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 9 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 09, lecture slides 65–67, tasks and trials",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "scope": "GEN W9 · Evaluation reliability",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 9,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 65–67, tasks and trials; Perezhohin (2026), Week 9 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
+  },
+  {
+    "id": "d4b-214",
+    "module": "GEN",
+    "week": 9,
+    "topic": "LLM judge position bias",
+    "stem": "An AI judge prefers response A when shown first but prefers B when their order is reversed. Which mitigation directly addresses the observed issue?",
+    "choices": [
+      "Increase both responses to equal token length",
+      "Allow the judge to grade its own answer only",
+      "Repeat pairwise comparisons with positions swapped",
+      "Replace the rubric with an unrestricted preference prompt"
+    ],
+    "correct": 2,
+    "explanation": "Order swapping reveals position sensitivity; disagreements can be flagged for review rather than treated as robust preferences.",
+    "source": "01_Generative_AI_Booklet, Week 09, lecture slides 68–70, judge biases; Perezhohin (2026), Week 9 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 9 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 09, lecture slides 68–70, judge biases",
+      "url": "https://arxiv.org/abs/2306.05685",
+      "scope": "GEN W9 · LLM judge position bias",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 9,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 68–70, judge biases; Perezhohin (2026), Week 9 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
+  },
+  {
+    "id": "d4b-215",
+    "module": "GEN",
+    "week": 9,
+    "topic": "Agent context cost",
+    "stem": "An agent appends every verbose tool result to every subsequent model call. What is the most appropriate design improvement?",
+    "choices": [
+      "Keep all outputs indefinitely to maximise certainty",
+      "Remove every audit log from the system",
+      "Increase tool-call retries without limits",
+      "Summarise or truncate working context while retaining needed evidence"
+    ],
+    "correct": 3,
+    "explanation": "Lean working context reduces repeated token processing; relevant records can be retained separately for audit and retrieval.",
+    "source": "01_Generative_AI_Booklet, Week 09, lecture slides 51–60, memory and context cost; Perezhohin (2026), Week 9 lecture slides",
+    "origin": "booklet-derived",
+    "verification": "verified",
+    "evidence": {
+      "source": "Authorised GEN Week 9 booklet and lecture",
+      "originalMaterialChecked": true,
+      "reviewed_at": "2026-11-13",
+      "locator": "Week 09, lecture slides 51–60, memory and context cost",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "scope": "GEN W9 · Agent context cost",
+      "method": "Original scenario question; answer and each alternative checked against teaching material and linked technical reference; not an official Moodle key."
+    },
+    "course_alignment": {
+      "status": "supported",
+      "source_type": "original D4B lecture and private booklet",
+      "module": "GEN",
+      "week": 9,
+      "booklet_locator": "01_Generative_AI_Booklet, Week 09, lecture slides 51–60, memory and context cost; Perezhohin (2026), Week 9 lecture slides",
+      "reviewed_at": "2026-11-13",
+      "original_moodle_key_checked": false,
+      "original_lecture_slides_directly_checked": true
+    }
+  }
 ]);
