@@ -58,3 +58,7 @@
 
 .room-google-stage { margin:.35rem 0; padding:.55rem; border-left:3px solid #d4ae6c; background:#20180e; color:#fff2d7; font-size:.79rem; }
 .room-google-stage[hidden] { display:none !important; }
+
+.room-google-disclosure { margin: .1rem 0 .5rem; color: var(--muted,#d0bfa4); line-height:1.48; font-size:.77rem; border-left:2px solid #a88751; padding:.4rem .6rem; }
+.room-google-disclosure strong { color:#f0dfbc; }
+.room-google-disclosure a { color:var(--gold,#d4ae6c); }
