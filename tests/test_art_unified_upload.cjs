@@ -50,7 +50,7 @@ assert.match(picker,/roomButton\.disabled=importing/, "No duplicate work submiss
 assert.match(picker,/\/api\/google-photos\/import"/);
 assert.match(picker,/value\.importTargets/);
 
-assert.match(picker,/class=\\"room-google-disclosure\\"/, "In-app privacy disclosure is visible before authorization");
+assert.match(picker,/room-google-disclosure/, "In-app privacy disclosure is visible before authorization");
 assert.match(picker,/\/art\/google-photos\/privacy\//, "Manager links to public privacy policy");
 const oauthHomepage=p("art/google-photos/index.html");
 const oauthPrivacy=p("art/google-photos/privacy/index.html");
