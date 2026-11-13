@@ -49,6 +49,27 @@ assert.match(picker,/roomButton\.disabled=importing/, "No duplicate work submiss
 
 assert.match(picker,/\/api\/google-photos\/import"/);
 assert.match(picker,/value\.importTargets/);
+
+assert.match(picker,/class=\\"room-google-disclosure\\"/, "In-app privacy disclosure is visible before authorization");
+assert.match(picker,/\/art\/google-photos\/privacy\//, "Manager links to public privacy policy");
+const oauthHomepage=p("art/google-photos/index.html");
+const oauthPrivacy=p("art/google-photos/privacy/index.html");
+const oauthTerms=p("art/google-photos/terms/index.html");
+const oauthCss=p("art/google-photos/site.css");
+assert.match(oauthHomepage,/<h1>DiAndré Art Manager Local<\/h1>/, "App homepage identifies the OAuth application");
+assert.match(oauthHomepage,/href="\/art\/google-photos\/privacy\/"/, "App homepage links to privacy");
+assert.match(oauthHomepage,/href="\/art\/google-photos\/terms\/"/, "App homepage links to terms");
+assert.match(oauthPrivacy,/photospicker\.mediaitems\.readonly/, "Privacy details the exact requested scope");
+assert.match(oauthPrivacy,/\.art-private\/google-photos\//, "Privacy identifies local token storage");
+assert.match(oauthPrivacy,/public GitHub repository/, "Privacy describes public publication");
+assert.match(oauthPrivacy,/Disconnect Google Photos/, "Privacy explains withdrawal");
+assert.match(oauthTerms,/public GitHub repository/, "Terms explain public publication");
+assert.match(oauthCss,/background/, "Public OAuth pages share independent static styling");
+for(const html of [oauthHomepage,oauthPrivacy,oauthTerms]){
+  assert.match(html,/href="\/art\/google-photos\/site\.css"/, "Pages use shared stylesheet");
+  assert.doesNotMatch(html,/(?:sk|ghp|gho)_[a-zA-Z0-9]{18,}/, "No apparent token strings in public pages");
+}
+
 assert.match(switcher,/art-upload-destination-changed/);
 assert.match(switcher,/new Event\("art-studio-activate"\)/);
 assert.match(server,/\/api\/google-photos\/import-artworks/);
