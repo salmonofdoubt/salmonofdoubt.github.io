@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-11-12
+# Water NbS Story Radar · 2026-11-13
 
-Generated: 2026-11-12T13:52:46.126811+00:00
+Generated: 2026-11-13T13:15:37.775925+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -310,7 +310,7 @@ URL: https://riverbasin.ie/cork-event-wins-water-heritage-day-award-at-heritage-
 
 Angle: Local planning and river-corridor governance
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, river, catchment, wetland, wetlands.
 
