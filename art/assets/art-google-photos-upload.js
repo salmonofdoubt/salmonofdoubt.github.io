@@ -8,6 +8,7 @@
     '<summary>From Google Photos</summary>',
     '<div class="room-google-body">',
     '<p class="room-google-status" id="roomGoogleStatus" role="status">Checking connection…</p>',
+    '<p class="room-google-disclosure">Google Photos Picker accesses <strong>only photos or videos you select</strong>. Copies are saved locally; publication to your public gallery requires a separate decision. <a href="/art/google-photos/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="/art/google-photos/" target="_blank" rel="noopener noreferrer">How it works</a></p>',
     '<div class="room-google-actions">',
     '<button type="button" id="roomGoogleConnect" hidden>Connect Google Photos</button>',
     '<button type="button" id="roomGoogleSetup" hidden>Configure Google Photos</button>',
