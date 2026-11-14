@@ -97,3 +97,5 @@ dialog.wide-dialog{width:min(940px,calc(100vw - 1.4rem))}
 /* Organise mode adds clear selection marks without additional menus. */
 .multi-check{position:absolute;right:.55rem;top:.55rem;z-index:2;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#18110edb;border:2px solid #d4b475;color:#fff2d7;font-weight:900;font-size:1rem;box-shadow:0 2px 8px #0009}
 .art-card.selected .multi-check{background:#d4b475;color:#201508}
+
+[hidden]{display:none!important}
