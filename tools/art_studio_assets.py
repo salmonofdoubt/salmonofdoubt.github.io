@@ -110,6 +110,8 @@ def client_asset(asset: dict) -> dict:
     return {
         "id": asset["id"],
         "title": asset.get("title") or "",
+        "kind": "studio",
+        "isReference": asset.get("isReference") is True,
         "note": asset.get("note") or "",
         "originalFilename": asset.get("originalFilename") or "",
         "artworkIds": asset.get("artworkIds") or [],
@@ -164,6 +166,7 @@ def upload_asset(payload: dict) -> dict:
         "mime": mime_type(ext),
         "size": len(data),
         "artworkIds": links,
+        "isReference": payload.get("isReference") is True,
         "visibility": visibility,
         "createdAt": time.strftime("%Y-%m-%dT%H:%M:%S"),
     }
@@ -208,6 +211,10 @@ def update_asset(payload: dict) -> dict:
         item["note"] = str(payload["note"]).strip()[:3000]
     if "artworkIds" in payload:
         item["artworkIds"] = normalise_links(payload["artworkIds"])
+    if "isReference" in payload:
+        if not isinstance(payload["isReference"], bool):
+            raise ValueError("Reference marker must be true or false")
+        item["isReference"] = payload["isReference"]
     if "visibility" in payload:
         visibility = str(payload["visibility"])
         if visibility not in {"related", "private"}:
