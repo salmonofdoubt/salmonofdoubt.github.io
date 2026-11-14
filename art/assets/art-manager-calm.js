@@ -5,7 +5,7 @@ const rooms=["Oil Paintings","Watercolours","Drawings","Experimental","GeoSpatia
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
 let draggedWork = null;
-const model={artworks:[],assets:[],curation:{homepageHero:{},collections:{}},view:"gallery",selected:null,destination:"gallery",groups:[],members:[],editingGroup:"",multi:false,chosen:new Set(),commitReview:null,onlineReview:null,busy:false};
+const model={artworks:[],assets:[],curation:{homepageHero:{},collections:{}},view:"gallery",selected:null,destination:"gallery",groups:[],members:[],editingGroup:"",multi:false,chosen:new Set(),pendingRemoval:[],lastTrashId:null,commitReview:null,onlineReview:null,busy:false};
 const selected=()=>model.selected&&(model.selected.kind==="gallery"
     ?model.artworks.find(a=>a.id===model.selected.id)
     :model.assets.find(a=>a.id===model.selected.id));
@@ -41,7 +41,122 @@ async function load(){
  model.curation={homepageHero:curation.homepageHero||{},collections:curation.collections||{}};
  if(model.selected&&!selected())model.selected=null;
  render();
+ await refreshRecentRemovals();
 }
+async function refreshRecentRemovals(){
+ try{
+  const result=await json("/api/trash/recent?ts="+Date.now(),{cache:"no-store"});
+  model.lastTrashId=result.items?.[0]?.trashId||null;
+  $("undoRemoveButton").hidden=!model.lastTrashId;
+ }catch(_error){
+  model.lastTrashId=null;
+  $("undoRemoveButton").hidden=true;
+ }
+}
+function chosenForRemoval(){
+ return selectedKeys().map(key=>{
+  const [slot,...remainder]=key.split(":");
+  const id=remainder.join(":");
+  if(slot==="gallery"){
+    const artwork=model.artworks.find(a=>a.id===id);
+    return artwork?{kind:"gallery",id,title:artwork.title||"Untitled",location:artwork.collection||"Gallery"}:null;
+  }
+  const asset=model.assets.find(a=>a.id===id);
+  return asset?{kind:asset.kind==="reference"?"reference":"studio",
+    id,title:asset.title||"Untitled",location:asset.kind==="reference"?"Studio · Ref":"Studio"}:null;
+ }).filter(Boolean);
+}
+function openRemove(targets){
+ if(model.busy||!targets?.length)return;
+ model.pendingRemoval=targets.map(a=>({...a}));
+ const count=targets.length;
+ $("removeHeading").textContent=count===1?"Remove this item?":"Remove "+count+" items?";
+ $("removeExplanation").textContent=count===1?
+  'Remove "'+targets[0].title+'" from '+targets[0].location+'?':
+  'Remove '+count+' selected items from Gallery or Studio? Each original is backed up locally.';
+ $("confirmRemove").textContent=count===1?"Remove":"Remove "+count;
+ dialog("removeDialog");
+}
+async function confirmRemoval(){
+ if(model.busy||!model.pendingRemoval.length)return;
+ const targets=[...model.pendingRemoval];
+ model.busy=true;$("confirmRemove").disabled=true;
+ let completed=0;
+ const warnings=new Set();
+ try{
+  for(const item of targets){
+   status("Removing "+(completed+1)+" of "+targets.length+"…");
+   const result=await post("/api/remove-art",{kind:item.kind,id:item.id});
+   (result.item?.warnings||[]).forEach(w=>warnings.add(w));
+   completed++;
+  }
+  model.pendingRemoval=[];
+  model.selected=null;model.chosen.clear();
+  model.multi=false;$("organiseButton").textContent="Organise";
+  await load();
+  close("removeDialog");
+  status(completed+" item(s) removed safely into private Trash. "+
+     (warnings.has("The original image remains hosted on its external website.")?
+      "Note: the original on WordPress is not deleted. ":"")+
+     "The Gallery changes will go online only when you Publish.","good");
+  if($("duplicatesDialog").open)await showDuplicates();
+ }catch(error){
+  await load().catch(()=>{});
+  status(error.message+(completed?" ("+completed+" already removed)":""),"bad");
+ }finally{model.busy=false;$("confirmRemove").disabled=false;}
+}
+async function undoRemoval(){
+ if(model.busy||!model.lastTrashId)return;
+ model.busy=true;$("undoRemoveButton").disabled=true;
+ try{
+  const result=await post("/api/restore-art",{trashId:model.lastTrashId});
+  await load();
+  status('"'+(result.item?.title||"Item")+'" restored from private Trash, with its Gallery/Studio position and available relationships.','good');
+  if($("duplicatesDialog").open)await showDuplicates();
+ }catch(error){status(error.message,"bad");}
+ finally{model.busy=false;$("undoRemoveButton").disabled=false;}
+}
+function duplicateImage(item){
+ let src=String(item.image||"");
+ if(!src)return "";
+ if(item.kind==="gallery"){
+   if(!/^(https?:|\/)/.test(src))src="/art/"+src.replace(/^art\//,"");
+ }else if(!item.hasFile)return "";
+ if(!/^(https?:|\/)/.test(src))return "";
+ return '<img src="'+esc(src)+'" alt="" loading="lazy">';
+}
+async function showDuplicates(){
+ const panel=$("duplicatesList");
+ panel.textContent="Looking for exact matches…";
+ try{
+  const answer=await json("/api/duplicates?ts="+Date.now(),{cache:"no-store"});
+  const groups=answer.groups||[];
+  if(!groups.length){
+   panel.innerHTML='<p>No exact duplicate files or repeated image URLs were found. Similar-looking photographs require a visual check.</p>';
+   return;
+  }
+  panel.innerHTML=groups.map((g,i)=>
+   '<section class="duplicate-group"><h3>Match '+(i+1)+
+   ' · '+esc(g.match)+'</h3><div class="duplicate-entries">'+g.items.map(item=>
+     '<div class="duplicate-entry">'+(duplicateImage(item)||'<span class="duplicate-placeholder">File</span>')+
+     '<div class="duplicate-copy"><strong>'+esc(item.title)+'</strong><small>'+esc(item.location)+
+     (item.relatedGroups?" · Related to "+item.relatedGroups+" group(s)":"")+
+     '</small></div><button type="button" data-remove-kind="'+esc(item.kind)+
+     '" data-remove-id="'+esc(item.id)+'">Remove</button></div>'
+   ).join("")+'</div></section>'
+  ).join("");
+  panel.querySelectorAll("[data-remove-kind]").forEach(button=>button.addEventListener("click",()=>{
+   const kind=button.dataset.removeKind,id=button.dataset.removeId;
+   const record=groups.flatMap(g=>g.items).find(x=>x.kind===kind&&x.id===id);
+   if(record)openRemove([record]);
+  }));
+ }catch(error){panel.textContent="Cannot check duplicates: "+error.message;}
+}
+function openDuplicates(){
+ dialog("duplicatesDialog");
+ void showDuplicates();
+}
+
 function setView(view){
  model.view=view;
  model.chosen.clear();model.multi=false;$("organiseButton").textContent="Organise";
@@ -579,6 +694,14 @@ document.querySelectorAll("[data-view]").forEach(tab=>{
  });
 });
 $("relateButton").addEventListener("click",openRelate);
+$("removeButton").addEventListener("click",()=>{
+ const targets=chosenForRemoval();
+ if(!targets.length){status("Select a Gallery or Studio item to remove.","bad");return;}
+ openRemove(targets);
+});
+$("duplicatesButton").addEventListener("click",openDuplicates);
+$("confirmRemove").addEventListener("click",confirmRemoval);
+$("undoRemoveButton").addEventListener("click",undoRemoval);
 $("roomFilter").addEventListener("change",render);
 $("search").addEventListener("input",render);
 document.querySelectorAll("[data-view]").forEach(btn=>btn.addEventListener("click",()=>setView(btn.dataset.view)));

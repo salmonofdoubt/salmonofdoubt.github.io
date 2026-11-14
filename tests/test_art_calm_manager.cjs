@@ -20,6 +20,18 @@ assert.match(manager,/data-view="studio"/);
 assert.match(manager,/id="grid"/);
 assert.match(manager,/id="moveDialog"/);
 assert.match(manager,/id="relateDialog"/);
+assert.match(manager,/id="duplicatesButton"/,"One Duplicates action for all spaces");
+assert.match(manager,/id="removeButton"/,"Single Remove action for any selected work");
+assert.match(manager,/id="undoRemoveButton"/,"Undo remains available after removal");
+assert.match(manager,/id="removeDialog"/,"Removal must be confirmed");
+assert.match(manager,/id="duplicatesDialog"/,"Exact matches are reviewed before removal");
+assert.match(js,/\/api\/duplicates/,"Duplicate scan is user initiated");
+assert.match(js,/\/api\/remove-art/,"Removal is explicitly requested");
+assert.match(js,/\/api\/restore-art/,"Removed items are recoverable");
+assert.match(js,/\/api\/trash\/recent/,"Undo survives a page refresh");
+assert.match(server,/publish_same_origin/,"Removal is local-only");
+assert.match(server,/\/api\/remove-art/,"Gallery, Studio and Ref removal share the same backend");
+
 assert.match(manager,/id="publishDialog"/);
 assert.match(manager,/art-manager-calm\.js/);
 assert.match(manager,/art-manager-calm\.css/);

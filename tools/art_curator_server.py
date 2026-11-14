@@ -22,6 +22,7 @@ from art_studio_library import (
     reorder_all as studio_library_reorder,
 )
 import art_publish
+from art_removal import exact_duplicates, remove_item, restore_item, recent_removed
 
 from art_studio_assets import (
     bulk_link_assets as studio_bulk_link_assets,
@@ -327,6 +328,19 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
             self.send_error(404)
             return
 
+        if path in {"/api/duplicates", "/api/trash/recent"}:
+            if not self.publish_same_origin():
+                self.send_json(403, {"ok": False, "error": "Local ARTS Manager only"})
+                return
+            try:
+                if path == "/api/duplicates":
+                    self.send_json(200, {"ok": True, "groups": exact_duplicates()})
+                else:
+                    self.send_json(200, {"ok": True, "items": recent_removed()})
+            except (ValueError, OSError) as exc:
+                self.send_json(500, {"ok": False, "error": str(exc)})
+            return
+
         if path == "/api/studio-assets":
             self.send_json(200, {
                 "ok": True,
@@ -479,6 +493,32 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                     self.send_json(200, result)
                 except art_publish.PublishError as exc:
                     self.send_json(409, {"ok": False, "error": str(exc)})
+                return
+
+            if path in {"/api/remove-art", "/api/restore-art"}:
+                if not self.publish_same_origin():
+                    self.send_json(403, {"ok": False, "error": "Local ARTS Manager only"})
+                    return
+                if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
+                    self.send_json(415, {"ok": False, "error": "JSON required"})
+                    return
+                if int(self.headers.get("Content-Length", "0")) > 8192:
+                    self.send_json(413, {"ok": False, "error": "Request too large"})
+                    return
+                payload = self.read_payload()
+                try:
+                    if path == "/api/remove-art":
+                        result = remove_item(str(payload.get("kind") or ""),
+                                             str(payload.get("id") or ""))
+                    else:
+                        result = restore_item(str(payload.get("trashId") or ""))
+                except KeyError as exc:
+                    self.send_json(404, {"ok": False, "error": str(exc).strip("'")})
+                    return
+                except (ValueError, OSError) as exc:
+                    self.send_json(409, {"ok": False, "error": str(exc)})
+                    return
+                self.save_and_rebuild("Library updated safely", {"item": result})
                 return
 
             if path == "/api/move-art":

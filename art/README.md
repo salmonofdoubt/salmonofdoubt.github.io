@@ -23,6 +23,28 @@ private by default and do not appear as independent public artworks.
 and studies. Select multiple works in a related group. Existing relationships
 are kept when moving a work between Gallery and Studio.
 
+**Remove an unwanted work or a duplicate:** Select any Gallery artwork,
+Studio item or old Ref, then click **Remove** and confirm. For several
+items, click **Organise**, select those items and click Remove. You can
+also click **Duplicates** next to Search to see *exact* file matches or
+records using the same original image URL across the entire library.
+Review each group and use Remove on unwanted copies only. There is no
+automatic mass deletion and similarly looking but differently encoded
+photographs are **not** assumed to be duplicates.
+
+ARTS first archives the complete record and a verified private media copy
+under `.art-private/trash/`, then removes the selected entry and its
+canonical links. **Undo last removal** restores the most recent item
+and its original links when those groups still exist. The local Trash is
+persistent and must be included in Mac backups. A file shared by other
+works is never deleted from its shared location. Removing a WordPress
+gallery entry does not delete its WordPress-hosted original. Previously
+published images may remain in Git history and external caches.
+
+Gallery changes are **not public until you Publish**. No private Trash
+files, original Reference files or Studio secrets are included in the
+publishing allowlist.
+
 **Your old references live in Studio:** Open **Studio**. Existing references
 from the previous Refs archive appear among your studies with a **Ref** label.
 No old file is moved, duplicated or deleted, and existing related groups keep

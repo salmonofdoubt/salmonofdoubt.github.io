@@ -117,3 +117,27 @@ dialog.wide-dialog{width:min(940px,calc(100vw - 1.4rem))}
 .art-card.reorder-before{box-shadow:inset 5px 0 0 #b0e9c9,0 0 0 3px #b0e9c977;border-color:#b0e9c9}
 .art-card.reorder-after{box-shadow:inset -5px 0 0 #b0e9c9,0 0 0 3px #b0e9c977;border-color:#b0e9c9}
 
+
+
+/* Safe, calm deduplication: only one extra contextual Remove action. */
+.feedback-row{display:flex;justify-content:space-between;gap:.75rem;align-items:center;margin:.5rem 0;flex-wrap:wrap}
+.feedback-row .status{margin:0;flex:1}
+.quiet-button{font-size:.78rem;min-height:34px;padding:.38rem .65rem;border-color:#6f5a3c;background:transparent;color:var(--gold)}
+.quiet-button[hidden]{display:none}
+#duplicatesButton{background:transparent;border-color:#67543d;min-height:42px;white-space:nowrap;color:#e4c995}
+.danger-outline{border-color:#925e4c;color:#ffc1b1;background:transparent}
+.danger-outline:hover{background:#3c1815;border-color:#f7a08e}
+.danger-button{background:#924133;border-color:#b9614d;color:#fff1ec}
+.danger-button:hover{background:#b34f40;border-color:#e78268}
+.duplicate-groups{display:grid;gap:1.15rem}
+.duplicate-group{border:1px solid var(--line);border-radius:12px;background:#0d0906;padding:.85rem}
+.duplicate-group h3{font-family:system-ui,sans-serif;font-size:.9rem;letter-spacing:0;font-weight:750;margin:0 0 .7rem}
+.duplicate-entries{display:grid;gap:.4rem}
+.duplicate-entry{display:flex;align-items:center;gap:.7rem;padding:.55rem;border:1px solid #493827;border-radius:10px;background:#1b140d;min-width:0}
+.duplicate-entry img,.duplicate-placeholder{width:58px;height:65px;object-fit:cover;flex-shrink:0;border-radius:5px;background:#282115}
+.duplicate-placeholder{display:grid;place-items:center;color:var(--gold);font-size:.7rem}
+.duplicate-copy{min-width:0;flex:1}
+.duplicate-copy strong{display:block;overflow-wrap:anywhere;font:700 1rem/1.3 Georgia,serif}
+.duplicate-copy small{display:block;margin-top:.25rem;font-size:.74rem;color:var(--muted)}
+.duplicate-entry button{font-size:.8rem;min-height:36px;border-color:#925e4c;color:#ffc1b1;padding:.45rem .65rem;background:#291714}
+@media(max-width:760px){.feedback-row{align-items:start}.library-bar #duplicatesButton{flex:1}.duplicate-entry img,.duplicate-placeholder{width:48px;height:56px}.duplicate-entry{gap:.4rem}}
