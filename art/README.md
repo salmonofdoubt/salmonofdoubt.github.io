@@ -1,232 +1,89 @@
-# DiAndré Art Site Workflow
-
-This folder contains the public DiAndré art portfolio and its local management workflow.
-
-Live page:
-
-    https://salmonofdoubt.github.io/art/
-
-Local manager:
-
-    http://localhost:8000/art/manage/
-
-## Start locally
-
-From the repository root:
-
-    cd /Users/diandre/Downloads/VC/salmonofdoubt.github.io
-    ./serve.sh
-
-Then open:
-
-    http://localhost:8000/art/manage/
-
-Use the existing local server. Do not start several separate servers.
-
-## Main workflow
-
-Use /art/manage/ to:
-
-    upload one artwork
-    upload several artworks at once
-    assign collection/category
-    set title, medium, subgroup and caption
-    mark a work as collection feature
-    mark a work as homepage hero
-    hide or unhide works
-    drag visible works into order
-    save the visible order
-    rebuild the public art pages
-
-The manager is the normal editing surface. Avoid editing generated collection pages directly.
-
-## Add new artworks
-
-1. Open:
-
-    http://localhost:8000/art/manage/
-
-2. In Upload new work(s), choose one or several image files.
-
-3. Select the collection:
-
-    Oil Paintings
-    Watercolours
-    Drawings
-    Experimental
-    GeoSpatial Imagery
-
-4. Fill in metadata:
-
-    Title
-    Medium
-    Subgroup
-    Caption
-
-For batch uploads, the selected collection, medium, subgroup and caption apply to the whole batch. If the title field is blank, filenames are used as the basis for generated titles.
-
-5. Click:
-
-    Add work(s) & rebuild
-
-6. Check the relevant local page:
-
-    http://localhost:8000/art/oil-paintings/
-    http://localhost:8000/art/watercolours/
-    http://localhost:8000/art/drawings/
-    http://localhost:8000/art/experimental/
-    http://localhost:8000/art/geospatial-imagery/
-
-## Order works
-
-Use /art/manage/.
-
-    1. Drag visible works into the desired order.
-    2. Click Save visible order.
-    3. Recheck the public collection page locally.
-
-Do not reintroduce Move earlier or Move later controls. The current model is drag order plus save.
-
-## Hide works
-
-Use /art/manage/.
-
-    Hide weak, duplicate or not-ready works.
-    Hidden works remain in the data file.
-    Hidden works should not appear publicly.
-    Unhide a work if it should return.
-
-## Source data
-
-Main art data:
-
-    art/data/artworks.json
-    art/data/art-curation.json
-
-Public image assets:
-
-    art/assets/works/
-
-Main art builder:
-
-    tools/build_art_gallery_static.py
-
-Manual rebuild:
-
-    python3 tools/build_art_gallery_static.py
-
-Generated public pages include:
-
-    art/index.html
-    art/oil-paintings/index.html
-    art/watercolours/index.html
-    art/drawings/index.html
-    art/experimental/index.html
-    art/geospatial-imagery/index.html
-
-These generated pages are outputs. Do not use them as the main editing surface.
-
-## Documentation archive
-
-Public page:
-
-    https://salmonofdoubt.github.io/art/documentation/
-
-Local page:
-
-    http://localhost:8000/art/documentation/
-
-Documentation PDFs:
-
-    art/assets/docs/
-
-Documentation thumbnails:
-
-    art/assets/docs/covers/
-
-Documentation manifest:
-
-    art/assets/docs/documentation.json
-
-Documentation builders:
-
-    tools/make_art_documentation_thumbnails.py
-    tools/build_art_documentation.py
-
-After changing documentation PDFs, run:
-
-    python3 tools/make_art_documentation_thumbnails.py
-    python3 tools/build_art_documentation.py
-
-Keep public PDFs compressed. Do not publish large raw export PDFs when web-sized PDFs are sufficient.
-
-## QR code
-
-The art homepage includes a QR share element for:
-
-    https://salmonofdoubt.github.io/art/
-
-QR asset:
-
-    art/assets/diandre-art-qr.png
-
-The QR homepage placement is preserved by:
-
-    tools/build_art_gallery_static.py
-
-## Image size guidance
-
-For public website images, prefer:
-
-    1600-2400 px long edge
-    JPEG or WebP
-    usually under 1-2 MB
-
-Avoid committing huge phone originals unless there is a clear reason.
-
-## Publish art changes
-
-After changing the art site:
-
-    git status --short
-
-    python3 -m py_compile \
-      tools/build_art_gallery_static.py \
-      tools/build_art_collection_pages.py \
-      tools/build_art_documentation.py \
-      tools/make_art_documentation_thumbnails.py
-
-    python3 tools/build_art_gallery_static.py
-    python3 tools/build_art_documentation.py
-
-    git status --short
-
-Then commit:
-
-    git add -A art tools README.md
-    git commit -m "Update art site"
-    git push origin master
-
-Check live after GitHub Pages updates:
-
-    https://salmonofdoubt.github.io/art/
-    https://salmonofdoubt.github.io/art/documentation/
-
-## Do not do this
-
-Do not manually edit generated collection pages as the normal workflow:
-
-    art/oil-paintings/index.html
-    art/watercolours/index.html
-    art/drawings/index.html
-    art/experimental/index.html
-    art/geospatial-imagery/index.html
-
-Do not bring back the temporary Instagram import-review workflow.
-
-The current architecture is:
-
-    /art/manage/          upload, curate, order, hide, rebuild
-    /art/documentation/   process archive and PDFs
-    /art/assets/works/    public image assets
-    /art/assets/docs/     public document assets
+# DiAndré Art: your Studio
+
+The public artwork website is https://salmonofdoubt.github.io/art/.
+Your private, local Manager is http://localhost:8000/art/manage/.
+
+**Start ARTS on your Mac:**
+
+\`\`\`bash
+cd ~/i_VC/salmonofdoubt.github.io
+./serve.sh
+\`\`\`
+
+The Manager has three main buttons: **Add**, **Organise**, **Publish**.
+
+## Everyday operation (Mac files only)
+
+**Add:** Choose local image files, and choose either **Gallery** or **Studio**.
+Gallery images are added to one of five exhibition Rooms. Studio files are
+private by default and do not appear as independent public artworks.
+
+**Organise:** Select a thumbnail. Edit its title, note, Room or visibility,
+**Move** it between Gallery and Studio, or **Relate** it to other artworks
+and studies. Select multiple works in a related group. Existing relationships
+are kept when moving a work between Gallery and Studio.
+
+**Publish:** The local Manager saves and rebuilds immediately. Publication
+requires reviewing what will become public, confirming a local Git commit,
+and separately confirming the GitHub push.
+
+**Moving a painting to Studio:** ARTS saves the full artwork record and a
+verified private copy. The work disappears from the current Gallery once
+those changes are published. For unique images in the managed Gallery works
+folder, it also removes the current public image file. **Previously public
+copies can survive in GitHub history, browser caches, and other archives.**
+Moving to Studio must not be mistaken for retroactively erasing a published
+image everywhere.
+
+**Moving back:** Select the item in Studio, click Move, and pick the Room.
+Artwork identity and saved related-group membership are restored when the
+work had originally come from Gallery. Studio files imported directly can
+be promoted into new Gallery artworks.
+
+## Your two data stores
+
+- Public GitHub Gallery source: \`art/data/artworks.json\`,
+  \`art/data/art-curation.json\`, \`art/assets/works/\`.
+- Private local Studio originals: \`.art-private/studio/files/\`,
+  \`.art-private/studio/assets.json\`.
+- Private editable relationship master:
+  \`.art-private/related/related-master.json\`.
+
+The public Gallery contains five Rooms: Oil Paintings, Watercolours,
+Drawings, Experimental, and GeoSpatial Imagery. Studio is a local-only Room.
+
+**Back up your entire \`.art-private/\` directory independently**. GitHub
+cannot recover it. The transferred source record is in the private Studio
+index, so restore that backup before rebuilding on a new Mac.
+
+Google Photos Picker and Google OAuth are no longer part of ARTS. Existing
+local Google credentials are *not* deleted by upgrading the source code:
+you can securely remove or revoke them separately after verifying your
+backups. Never commit credentials or \`.art-private/\` to GitHub.
+
+## If the Manager looks old
+
+Stop your local server with Ctrl+C, then:
+
+\`\`\`bash
+cd ~/i_VC/salmonofdoubt.github.io
+git status --short
+git pull --ff-only origin master
+./serve.sh
+\`\`\`
+
+If Git reports conflicts, **do not reset, delete, or discard local artwork
+files**. Resolve safely before retrying. Reload the page with Cmd+Shift+R.
+
+## Developers
+
+Local Python server: \`tools/art_curator_server.py\`.
+Artwork transfer: \`tools/art_transfer.py\`.
+Local publication safeguards: \`tools/art_publish.py\`.
+Private Studio: \`tools/art_studio_assets.py\`.
+Canonical related groups: \`tools/art_related.py\`.
+Static public builder: \`tools/build_art_gallery_static.py\`.
+New Manager: \`art/manage/index.html\`,
+\`art/assets/art-manager-calm.js\`, and \`art/assets/art-manager-calm.css\`.
+
+Test via \`.github/workflows/art-studio-assets-ci.yml\`.
