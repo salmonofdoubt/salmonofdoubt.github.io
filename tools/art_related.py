@@ -579,7 +579,7 @@ def save_related_set(group_id: str, title: str, raw_members, allow_duplicate=Fal
         # A reference without a stored photograph may be shown as attributed
         # metadata; no private picture is released in that case.
         for ref in master["references"]:
-            if ref["id"] in chosen_refs and ref.get("visibility") == "private":
+            if ref["id"] in chosen_refs and ref.get("visibility") in {"private", "metadata"}:
                 ref["visibility"] = "public" if ref.get("file") else "metadata"
     master=save_master(master)
     if make_studio_public and chosen_studio:
