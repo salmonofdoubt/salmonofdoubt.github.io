@@ -18,7 +18,7 @@ The Manager has three main buttons: **Add**, **Organise**, **Publish**.
 Gallery images are added to one of five exhibition Rooms. Studio files are
 private by default and do not appear as independent public artworks.
 
-**Organise:** Select a thumbnail. Edit its title, note, Room or visibility,
+**Organise:** Click **Organise**, then tap several thumbnails and use **Move** or **Relate** once. Click **Done selecting** to return to normal. For one work, select its thumbnail and click **Edit** to change its title, note, Room or visibility,
 **Move** it between Gallery and Studio, or **Relate** it to other artworks
 and studies. Select multiple works in a related group. Existing relationships
 are kept when moving a work between Gallery and Studio.
