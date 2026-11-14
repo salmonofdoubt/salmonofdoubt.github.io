@@ -104,6 +104,7 @@ function updateDestination(){
  document.querySelectorAll("[data-destination]").forEach(btn=>btn.setAttribute("aria-pressed",String(btn.dataset.destination===model.destination)));
  $("addRoomRow").hidden=!gallery;
  $("addPrivacy").hidden=gallery;
+ $("addFiles").accept=gallery?"image/jpeg,image/png,image/webp,image/gif,image/avif":"";
  $("addHelp").textContent=gallery?
    "Gallery works appear in the chosen public Room after you Publish.":
    "Studio is your private working space. Files are not public unless you later choose to share them.";
@@ -123,6 +124,7 @@ async function addFiles(event){
  const files=[...$("addFiles").files];
  if(!files.length){status("Select one or more files from your Mac.","bad");return;}
  if(files.some(f=>!f.size||f.size>25*1024*1024)){status("Every file must be between 1 byte and 25 MB.","bad");return;}
+ if(model.destination==="gallery"&&files.some(f=>!/\.(jpe?g|png|webp|gif|avif)$/i.test(f.name))){status("Only JPEG, PNG, WebP, GIF and AVIF images can go into the Gallery.","bad");return;}
  model.busy=true;$("addSave").disabled=true;
  let completed=0;
  try{
@@ -215,7 +217,10 @@ async function move(){
   setView(origin==="gallery"?"studio":"gallery");
   if(result.move?.id)model.selected={kind:model.view,id:result.move.id};
   render();close("moveDialog");
-  status("Moved. Saved on your Mac; publish the Gallery change when ready. Previously published files can remain in Git history.","good");
+  status(result.move?.destination==="Studio"&&!result.move.publicImageRemoved?
+   "Moved into private Studio, but the original file is still on the public site because it is shared or outside the managed gallery. Previous Git history also remains.":
+   "Moved. Saved on your Mac; publish the Gallery change when ready. Previously published files can remain in Git history.",
+   result.move?.destination==="Studio"&&!result.move.publicImageRemoved?"bad":"good");
  }catch(error){status(error.message,"bad");}
  finally{model.busy=false;$("confirmMove").disabled=false;}
 }
