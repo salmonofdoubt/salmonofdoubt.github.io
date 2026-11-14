@@ -26,6 +26,16 @@ assert.match(manager,/art-manager-calm\.css/);
 assert.doesNotMatch(manager,/(?:google-photos|Google Photos|Feature<\/summary>|unifiedUploadMenu|art-related-manager\.js)/i);
 assert.doesNotMatch(js,/google-photos/i,"No picker or Google OAuth dependency");
 assert.match(js,/\/api\/studio-upload/,"Local-only Studio upload remains");
+assert.match(manager,/id="addReference"/,"A simple Reference marker appears when adding to Studio");
+assert.match(manager,/id="editReference"/,"A simple Reference marker appears when editing Studio");
+assert.doesNotMatch(manager,/id="editVisibility"|id="relatePublishStudio"/,
+ "Public visibility is not an unrelated permanent editing control");
+assert.match(js,/makeStudioPublic:makePublic/,"Studio sharing is explicit when a Gallery relation is saved");
+assert.match(js,/kind==="reference"/,"Legacy references stay usable in the same Studio Relate chooser");
+assert.match(server,/studio_library_items\(\)/,"Studio list includes legacy private references");
+assert.match(server,/studio_update_legacy_reference/,"Legacy reference edits preserve the original archive");
+assert.match(server,/studio_library_reorder/,"Studio sorting spans both collections");
+
 assert.match(js,/\/api\/add-artwork/,"Local-only gallery upload remains");
 assert.match(js,/visibility:"private"/,"Studio imports must be private by default");
 assert.match(js,/\/api\/move-art/,"Gallery and Studio are reversible");
