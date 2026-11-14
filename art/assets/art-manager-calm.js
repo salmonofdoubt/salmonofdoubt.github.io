@@ -61,6 +61,94 @@ function setOrganiseMode(){
  status(model.multi?"Tap as many works as you like, then choose Move or Relate.":"Choose a work to edit, move or relate.");
  render();
 }
+function galleryOrderFor(artwork){
+ return model.artworks.filter(item=>item.collection===artwork.collection).sort((a,b)=>
+  Number(a.sortOrder??999999)-Number(b.sortOrder??999999)||
+  String(a.title||"").localeCompare(String(b.title||"")));
+}
+function studioOrder(){
+ return [...model.assets].sort((a,b)=>
+  Number(a.sortOrder??999999)-Number(b.sortOrder??999999)||
+  String(a.title||"").localeCompare(String(b.title||"")));
+}
+function orderFor(kind,id){
+ if(kind==="studio")return studioOrder();
+ const work=model.artworks.find(item=>item.id===id);
+ return work?galleryOrderFor(work):[];
+}
+function renderPosition(){
+ const item=selected(),count=selectedKeys().length;
+ const position=$("positionControl");
+ position.hidden=!item||count!==1;
+ if(!item||count!==1)return;
+ const ids=orderFor(model.selected.kind,item.id);
+ const rank=ids.findIndex(x=>x.id===item.id)+1;
+ $("positionLabel").textContent=model.selected.kind==="gallery"?
+  "Position in "+item.collection:"Position in Studio";
+ $("positionInput").max=String(ids.length);
+ $("positionInput").value=String(rank);
+ $("positionTotal").textContent=" / "+ids.length;
+}
+async function saveOrder(kind,orderedIds,collection){
+ if(model.busy)return;
+ model.busy=true;$("applyPosition").disabled=true;
+ try{
+  if(kind==="gallery")await post("/api/reorder-collection",{collection,orderedIds});
+  else await post("/api/reorder-studio",{orderedIds});
+  await load();
+  status(kind==="gallery"?
+   "New Gallery order saved on your Mac. Publish whenever you want it online.":
+   "Studio order saved privately on your Mac.","good");
+ }catch(error){
+  await load().catch(()=>{});
+  status(error.message,"bad");
+ }finally{model.busy=false;$("applyPosition").disabled=false;}
+}
+function insertBeforeOrAfter(kind,sourceId,targetId,after){
+ const entries=orderFor(kind,sourceId);
+ if(!entries.length||sourceId===targetId)return;
+ const source=entries.find(x=>x.id===sourceId);
+ const target=entries.find(x=>x.id===targetId);
+ if(!source||!target)return;
+ if(kind==="gallery"&&source.collection!==target.collection)return;
+ const ids=entries.map(x=>x.id);
+ const current=ids.indexOf(sourceId);
+ ids.splice(current,1);
+ const newIndex=ids.indexOf(targetId)+(after?1:0);
+ ids.splice(newIndex,0,sourceId);
+ if(ids.every((id,i)=>id===entries[i].id))return;
+ void saveOrder(kind,ids,kind==="gallery"?source.collection:null);
+}
+function repositionSelected(){
+ if(model.busy||selectedKeys().length!==1||!selected())return;
+ const kind=model.selected.kind,id=model.selected.id;
+ const items=orderFor(kind,id);
+ const destination=Number($("positionInput").value);
+ if(!Number.isInteger(destination)||destination<1||destination>items.length){
+  status("Choose a position between 1 and "+items.length+".","bad");
+  return;
+ }
+ const ids=items.map(x=>x.id),old=ids.indexOf(id);
+ if(old===destination-1)return;
+ ids.splice(old,1);
+ ids.splice(destination-1,0,id);
+ void saveOrder(kind,ids,kind==="gallery"?selected().collection:null);
+}
+function reorderTargetAllowed(targetKind,targetId){
+ if(model.busy||!draggedWork||draggedWork.kind!==targetKind||
+    draggedWork.keys.length!==1||$("search").value.trim())return false;
+ const fromId=draggedWork.keys[0].slice(draggedWork.keys[0].indexOf(":")+1);
+ if(fromId===targetId)return false;
+ if(targetKind==="gallery"){
+  const src=model.artworks.find(x=>x.id===fromId),dest=model.artworks.find(x=>x.id===targetId);
+  return !!src&&!!dest&&src.collection===dest.collection&&$("roomFilter").value===src.collection;
+ }
+ return targetKind==="studio";
+}
+function clearReorderTargets(){
+ $("grid").querySelectorAll(".reorder-before,.reorder-after").forEach(card=>
+  card.classList.remove("reorder-before","reorder-after"));
+}
 function select(kind,id){
  if(model.multi){
   const key=kind+":"+id;
@@ -83,8 +171,8 @@ function render(){
    return (!gallery||room==="All"||item.collection===room)&&(!q||text.join(" ").toLowerCase().includes(q));
  });
  items.sort((a,b)=>gallery
-   ?(String(a.collection).localeCompare(String(b.collection))||Number(a.sortOrder??9999)-Number(b.sortOrder??9999)||String(a.title).localeCompare(String(b.title)))
-   :String(a.title||"").localeCompare(String(b.title||"")));
+   ?(String(a.collection).localeCompare(String(b.collection))||Number(a.sortOrder??999999)-Number(b.sortOrder??999999)||String(a.title).localeCompare(String(b.title)))
+   :(Number(a.sortOrder??999999)-Number(b.sortOrder??999999)||String(a.title||"").localeCompare(String(b.title||""))));
  const studio=!gallery;
  $("grid").innerHTML=items.length?items.map(item=>{
    const src=image(item,studio);
@@ -110,13 +198,42 @@ function render(){
      event.dataTransfer.effectAllowed="move";
      event.dataTransfer.setData("text/plain",key);
    });
-   btn.addEventListener("dragend",()=>{draggedWork=null;document.querySelectorAll("[data-view]").forEach(t=>t.classList.remove("drop-ready"));});
+   btn.addEventListener("dragover",event=>{
+     if(!reorderTargetAllowed(btn.dataset.kind,btn.dataset.id))return;
+     event.preventDefault();
+     event.dataTransfer.dropEffect="move";
+     clearReorderTargets();
+     const bounds=btn.getBoundingClientRect();
+     btn.classList.add(event.clientX<bounds.left+bounds.width/2?"reorder-before":"reorder-after");
+   });
+   btn.addEventListener("dragleave",event=>{
+     if(!btn.contains(event.relatedTarget))
+       btn.classList.remove("reorder-before","reorder-after");
+   });
+   btn.addEventListener("drop",event=>{
+     if(!reorderTargetAllowed(btn.dataset.kind,btn.dataset.id))return;
+     event.preventDefault();
+     event.stopPropagation();
+     const before=btn.classList.contains("reorder-before");
+     const original=draggedWork.keys[0];
+     const sourceId=original.slice(original.indexOf(":")+1);
+     const kind=draggedWork.kind;
+     clearReorderTargets();
+     draggedWork=null;
+     insertBeforeOrAfter(kind,sourceId,btn.dataset.id,!before);
+   });
+   btn.addEventListener("dragend",()=>{
+     draggedWork=null;
+     clearReorderTargets();
+     document.querySelectorAll("[data-view]").forEach(t=>t.classList.remove("drop-ready"));
+   });
  });
  const item=selected();
  const count=selectedKeys().length;
  $("selectionPanel").hidden=!item&&!count;
  $("editButton").disabled=count!==1;
  $("moveButton").textContent=(model.selected?.kind==="studio"?"Move → Gallery":"Move → Studio")+(count>1?" ("+count+")":"");
+ renderPosition();
  if(item){
    $("selectedTitle").textContent=count>1?count+" works selected":item.title||item.originalFilename||"Untitled";
    $("selectedMeta").textContent=count>1?"Move them together or relate them in one group.":gallery?(item.collection+" · "+(item.status==="hidden"?"Hidden":"Visible")):
@@ -439,6 +556,8 @@ $("organiseButton").addEventListener("click",setOrganiseMode);
 $("publishButton").addEventListener("click",openPublish);
 $("editButton").addEventListener("click",openEdit);
 $("moveButton").addEventListener("click",openMove);
+$("applyPosition").addEventListener("click",repositionSelected);
+$("positionInput").addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();repositionSelected();}});
 document.querySelectorAll("[data-view]").forEach(tab=>{
  tab.addEventListener("dragover",event=>{
    if(!draggedWork||draggedWork.kind===tab.dataset.view)return;
