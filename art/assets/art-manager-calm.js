@@ -582,8 +582,11 @@ function renderRelated(){
    if(box.checked){
     if(!model.members.some(m=>memberKey(m)===key))model.members.push({kind:box.dataset.memberKind,id:box.value,role:"related",note:""});
    }else model.members=model.members.filter(m=>memberKey(m)!==key);
-   renderRelated();
+   renderRelatedChosen();
  }));
+ renderRelatedChosen();
+}
+function renderRelatedChosen(){
  $("relateCount").textContent="("+model.members.length+")";
  const chosenList=$("relateChosen"),chosenScroll=chosenList.scrollTop;
  chosenList.innerHTML=model.members.map((m,i)=>{
@@ -600,13 +603,19 @@ function renderRelated(){
  chosenList.scrollTop=chosenScroll;
  watchRelatedImages(chosenList);
  $("relateChosen").querySelectorAll("[data-up]").forEach(b=>b.addEventListener("click",()=>{
-  const n=Number(b.dataset.up);[model.members[n-1],model.members[n]]=[model.members[n],model.members[n-1]];renderRelated();
+  const n=Number(b.dataset.up);[model.members[n-1],model.members[n]]=[model.members[n],model.members[n-1]];renderRelatedChosen();
  }));
  $("relateChosen").querySelectorAll("[data-down]").forEach(b=>b.addEventListener("click",()=>{
-  const n=Number(b.dataset.down);[model.members[n],model.members[n+1]]=[model.members[n+1],model.members[n]];renderRelated();
+  const n=Number(b.dataset.down);[model.members[n],model.members[n+1]]=[model.members[n+1],model.members[n]];renderRelatedChosen();
  }));
  $("relateChosen").querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>{
-  model.members.splice(Number(b.dataset.remove),1);renderRelated();
+  const removed=model.members.splice(Number(b.dataset.remove),1)[0];
+  if(removed){
+   const checkbox=[...$("relateCandidates").querySelectorAll("input")].find(x=>
+     x.dataset.memberKind===removed.kind&&x.value===removed.id);
+   if(checkbox)checkbox.checked=false;
+  }
+  renderRelatedChosen();
  }));
 }
 async function saveRelated(){
