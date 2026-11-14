@@ -87,6 +87,11 @@ assert.match(js,/relatedThumbnail\(desc\.preview,desc\.title\)/,
 assert.match(js,/watchRelatedImages\(list\)/,"Chooser previews receive failure fallback");
 assert.match(js,/watchRelatedImages\(chosenList\)/,"Selected previews receive failure fallback");
 assert.match(js,/chosenList\.scrollTop=chosenScroll/,"Reordering does not lose the chosen-panel scroll position");
+assert.match(js,/function renderRelatedChosen\(/,
+ "Checkbox selection updates only the chosen visual list, not the entire image chooser");
+assert.match(js,/if\(checkbox\)checkbox\.checked=false/,
+ "Unlinking from selected group immediately unchecks the matching chooser item");
+
 assert.match(js,/data-up/,"Group ordering arrows still work");
 assert.match(js,/data-remove/,"Unlink from group remains available");
 assert.match(manager,/class="relate-columns"/,"Relate remains a two-panel dialog");
