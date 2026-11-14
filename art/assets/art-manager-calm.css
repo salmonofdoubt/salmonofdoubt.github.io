@@ -99,3 +99,13 @@ dialog.wide-dialog{width:min(940px,calc(100vw - 1.4rem))}
 .art-card.selected .multi-check{background:#d4b475;color:#201508}
 
 [hidden]{display:none!important}
+
+/* Direct Gallery ↔ Studio drop targets. A drop opens confirmation: it never moves immediately. */
+.tabs [data-view] { transition:background .16s,border-color .16s,box-shadow .16s; }
+.tabs [data-view].drop-ready {
+  background:#355341;
+  color:#f6ffe9;
+  box-shadow:0 0 0 3px #9fdbb0;
+  outline:2px dashed #d4edbc;
+  outline-offset:3px;
+}
