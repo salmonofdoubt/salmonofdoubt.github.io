@@ -241,13 +241,20 @@ def remove_item(kind: str, ident: str) -> dict:
         record = copy.deepcopy(records[position])
         # Do not touch legacy public relationships if their private master is
         # not restored on this Mac.
-        if not related.MASTER_PATH.is_file() and kind == "gallery":
+        if not related.MASTER_PATH.is_file():
             public = transfer.read(related.PUBLIC_PATH, {"sets": []})
-            if any(m.get("kind") == "artwork" and m.get("id") == ident
+            public_kind = "artwork" if kind == "gallery" else kind
+            if any(m.get("kind") == public_kind and m.get("id") == ident
                    for g in public.get("sets", []) for m in g.get("members", [])):
-                raise ValueError("Restore your private Related archive before removing this linked artwork.")
+                raise ValueError("Restore your private Related archive before removing this linked item.")
 
         source = _file_for(kind, record)
+        if source is not None and (source.is_symlink() or not source.resolve().is_relative_to(transfer.ROOT.resolve())):
+            raise ValueError("Unsafe original file path; removal cancelled.")
+        if kind == "gallery" and source is None:
+            image = str(record.get("image") or "")
+            if image and not image.startswith(("https://", "http://")):
+                raise ValueError("This local Gallery image is missing. Restore it before removing the entry.")
         if kind == "studio" and source is None and record.get("storedName"):
             raise ValueError("Studio original is missing. Restore it before removing this item.")
         if kind == "reference" and source is None and record.get("file"):
