@@ -141,3 +141,45 @@ dialog.wide-dialog{width:min(940px,calc(100vw - 1.4rem))}
 .duplicate-copy small{display:block;margin-top:.25rem;font-size:.74rem;color:var(--muted)}
 .duplicate-entry button{font-size:.8rem;min-height:36px;border-color:#925e4c;color:#ffc1b1;padding:.45rem .65rem;background:#291714}
 @media(max-width:760px){.feedback-row{align-items:start}.library-bar #duplicatesButton{flex:1}.duplicate-entry img,.duplicate-placeholder{width:48px;height:56px}.duplicate-entry{gap:.4rem}}
+
+
+/* Visual Relate picker: recognise the artwork, not just its filename.
+   The same local/website preview appears in both selection columns. */
+.relate-candidates,.relate-chosen{height:min(43vh,385px)}
+.relate-candidate,.relate-selected-item{
+  min-height:84px;gap:.65rem;padding:.45rem .55rem;
+  align-items:center;border-radius:7px
+}
+.relate-candidate{cursor:pointer}
+.relate-candidate:hover{background:#2b2116}
+.relate-candidate:has(input:checked){background:#302618}
+.relate-candidate input{flex:0 0 18px;margin:0}
+.relate-thumb{
+  display:grid;place-items:center;flex:0 0 70px;
+  width:70px;height:76px;border:1px solid #56432b;
+  border-radius:6px;overflow:hidden;background:#17130f;
+}
+.relate-thumb img{display:block;width:100%;height:100%;object-fit:contain}
+.relate-thumb-empty{color:var(--muted);font-size:.66rem;text-align:center;padding:4px}
+.relate-candidate .content,.relate-selected-item .content{
+  min-width:0;flex:1;overflow-wrap:anywhere;font-size:.85rem;line-height:1.35
+}
+.relate-candidate .content strong,.relate-selected-item .content strong{
+  display:block;font-weight:750;color:#f5e9d4
+}
+.relate-candidate .content small,.relate-selected-item .content small{
+  display:block;margin-top:.3rem;color:var(--muted);font-size:.73rem
+}
+.relate-item-actions{display:flex;flex:0 0 auto;gap:.2rem;align-items:center}
+.relate-item-actions button{
+  min-width:28px;min-height:32px;padding:.15rem .35rem;
+  font-size:.91rem;border-radius:7px
+}
+@media(max-width:760px){
+  .relate-candidates,.relate-chosen{height:min(43vh,340px)}
+  .relate-thumb{flex-basis:66px;width:66px;height:72px}
+}
+@media(max-width:390px){
+  .relate-thumb{flex-basis:55px;width:55px;height:65px}
+  .relate-candidate,.relate-selected-item{gap:.4rem}
+}
