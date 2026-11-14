@@ -77,6 +77,7 @@
       </select></label>
       <label class="field">Title <span class="mini">(optional; used for single image)</span><input id="addTitle" placeholder="Use filename if blank"></label>
       <label class="field">Note <span class="mini">(optional)</span><textarea id="addNote" rows="3" placeholder="A few words about the work"></textarea></label>
+      <label class="checkline" id="addReferenceRow" hidden><input type="checkbox" id="addReference"> Reference</label>
       <p class="small-warning" id="addPrivacy" hidden>Studio uploads stay private by default. You can link them to an exhibited artwork later.</p>
       <div class="dialog-actions"><button class="primary" id="addSave" type="submit">Add to Gallery</button><button type="button" data-close>Cancel</button></div>
     </form>
@@ -93,14 +94,10 @@
         <option>Experimental</option><option>GeoSpatial Imagery</option>
       </select></label>
       <label class="field">Note <textarea id="editNote" rows="4"></textarea></label>
+      <label class="checkline" id="editReferenceRow" hidden><input type="checkbox" id="editReference"> Reference</label>
       <label class="field" id="editStatusRow">Gallery status <select id="editStatus">
         <option value="active">Visible</option><option value="hidden">Hidden from Gallery</option>
       </select></label>
-      <label class="field" id="editVisibilityRow" hidden>Studio visibility <select id="editVisibility">
-        <option value="private">Private (recommended)</option>
-        <option value="related">Allow in public See related</option>
-      </select></label>
-      <p class="small-warning" id="visibilityWarning" hidden>Allowing See related may publish this file when it is linked. Public copies can persist in Git history.</p>
       <div class="dialog-actions"><button class="primary" type="submit" id="editSave">Save changes</button><button type="button" data-close>Cancel</button></div>
     </form>
   </div>
@@ -122,7 +119,7 @@
 <dialog id="relateDialog" class="wide-dialog" aria-labelledby="relateHeading">
   <div class="dialog-inner">
     <div class="dialog-head"><div><p class="eyebrow">RELATE</p><h2 id="relateHeading">Connect artworks and studies</h2></div><button class="close" type="button" data-close aria-label="Close">×</button></div>
-    <p class="subtle">Choose the works that belong together. Studio files only appear publicly if you explicitly allow it.</p>
+    <p class="subtle">Choose the artworks and Studio items that belong together. You decide whether private files become public.</p>
     <label class="field">Related group
       <select id="relateGroup"><option value="">New related group</option></select>
     </label>
@@ -138,8 +135,7 @@
         <div id="relateChosen" class="relate-chosen"></div>
       </section>
     </div>
-    <label class="checkline"><input id="relatePublishStudio" type="checkbox"> Allow selected private Studio files to appear publicly in “See related”</label>
-    <p class="small-warning">Making Studio files public is an explicit publication decision. Public files cannot be reliably recalled from other people's copies.</p>
+    <p class="small-warning">Studio items stay private until you relate them to a Gallery work and approve sharing. Publication still requires your separate Publish action.</p>
     <div class="dialog-actions"><button id="saveRelations" class="primary" type="button">Save relationships</button><button type="button" data-close>Cancel</button></div>
   </div>
 </dialog>
@@ -166,7 +162,7 @@
   </div>
 </dialog>
 
-<script defer src="/art/assets/art-manager-calm.js?v=20261114-grab-1"></script>
+<script defer src="/art/assets/art-manager-calm.js?v=20261114-refs-1"></script>
 
   <!-- ART_PWA_START -->
   <button class="art-install-app" type="button" hidden>Install app</button>

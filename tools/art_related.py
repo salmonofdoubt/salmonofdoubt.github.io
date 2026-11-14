@@ -101,6 +101,8 @@ def normalize_master(payload: dict | None) -> dict:
             "sourceUrl": str(raw_ref.get("sourceUrl") or "").strip(),
             "notes": str(raw_ref.get("notes") or "").strip(),
             "visibility": visibility,
+            "isReference": raw_ref.get("isReference") is not False,
+            "sortOrder": raw_ref.get("sortOrder"),
             "file": str(raw_ref.get("file") or "").strip(),
             "originalFilename": str(raw_ref.get("originalFilename") or "").strip(),
             "createdAt": str(raw_ref.get("createdAt") or "").strip(),
@@ -328,6 +330,7 @@ def build_public_related() -> dict:
                 "rights": reference.get("rights") or "",
                 "sourceUrl": reference.get("sourceUrl") or "",
                 "visibility": visibility,
+                "isReference": reference.get("isReference", True) is not False,
                 "image": "",
                 "thumb": "",
                 "alt": reference.get("title") or "Reference image",
@@ -346,7 +349,7 @@ def build_public_related() -> dict:
             public_members.append(public_ref)
 
         # A public related sequence needs at least two visible members.
-        if len(public_members) >= 2:
+        if len(public_members) >= 2 and any(m["kind"] == "artwork" for m in public_members):
             public_sets.append({
                 "id": related_set["id"],
                 "title": related_set.get("title") or "Related works",
@@ -377,6 +380,7 @@ def client_reference(record: dict) -> dict:
         "sourceUrl": record.get("sourceUrl") or "",
         "privateNote": record.get("notes") or "",
         "visibility": record.get("visibility") or "private",
+        "isReference": record.get("isReference", True) is not False,
         "createdAt": record.get("createdAt") or "",
         "updatedAt": cache_token or record.get("createdAt") or "",
         "hasFile": bool(record.get("file")),
@@ -409,6 +413,8 @@ def save_reference(payload: dict) -> tuple[dict, dict]:
         "sourceUrl": str(payload.get("sourceUrl") or "").strip(),
         "notes": str(payload.get("privateNote") or payload.get("notes") or "").strip(),
         "visibility": visibility,
+        "isReference": (payload.get("isReference") if isinstance(payload.get("isReference"), bool)
+                        else record.get("isReference", True)),
         "createdAt": record.get("createdAt") or time.strftime("%Y-%m-%d"),
     })
 
@@ -558,8 +564,23 @@ def save_related_set(group_id: str, title: str, raw_members, allow_duplicate=Fal
         sets.append(group)
 
     chosen_studio = [m["id"] for m in members if m["kind"] == "studio"]
+    chosen_refs = [m["id"] for m in members if m["kind"] == "reference"]
+    has_gallery = any(m["kind"] == "artwork" for m in members)
+    if make_studio_public and not has_gallery:
+        raise ValueError("Choose a Gallery artwork before making Studio files public")
     if make_studio_public and chosen_studio:
         studio.validate_publication(chosen_studio)
+    if make_studio_public and chosen_refs:
+        for ref_id in chosen_refs:
+            ref = next(r for r in master["references"] if r["id"] == ref_id)
+            file = reference_path(ref_id)
+            if ref.get("file") and (file is None or file.suffix.lower() not in studio.IMAGE_EXTENSIONS):
+                raise ValueError("This legacy reference image is missing or unsupported: " + ref_id)
+        # A reference without a stored photograph may be shown as attributed
+        # metadata; no private picture is released in that case.
+        for ref in master["references"]:
+            if ref["id"] in chosen_refs and ref.get("visibility") in {"private", "metadata"}:
+                ref["visibility"] = "public" if ref.get("file") else "metadata"
     master=save_master(master)
     if make_studio_public and chosen_studio:
         studio.publish_assets(chosen_studio)

@@ -16,6 +16,11 @@ from urllib.parse import unquote, urlparse
 
 import html
 from art_transfer import to_studio, to_gallery
+from art_studio_library import (
+    all_items as studio_library_items,
+    update_legacy_reference as studio_update_legacy_reference,
+    reorder_all as studio_library_reorder,
+)
 import art_publish
 
 from art_studio_assets import (
@@ -325,7 +330,7 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
         if path == "/api/studio-assets":
             self.send_json(200, {
                 "ok": True,
-                "assets": [studio_client_asset(a) for a in studio_load_assets()["assets"]],
+                "assets": studio_library_items(),
             })
             return
 
@@ -520,7 +525,10 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                         item = studio_upload_asset(payload)
                         message = "Studio asset uploaded"
                     elif path == "/api/studio-update":
-                        item = studio_update_asset(payload)
+                        if str(payload.get("id") or "").startswith("ref-"):
+                            item = studio_update_legacy_reference(payload)
+                        else:
+                            item = studio_update_asset(payload)
                         message = "Studio asset updated"
                     else:
                         studio_delete_asset(str(payload.get("id") or ""))
@@ -533,7 +541,7 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                     self.send_json(400, {"ok": False, "error": str(exc)})
                     return
                 self.save_and_rebuild(message + " and public projection rebuilt",
-                                      {"asset": studio_client_asset(item) if item else None})
+                                      {"asset": (next((a for a in studio_library_items() if a["id"] == item["id"]), None) if item else None)})
                 return
 
             if path == "/api/save-art-curation":
@@ -591,7 +599,7 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                     return
                 payload = self.read_payload()
                 try:
-                    result = studio_reorder_assets(payload.get("orderedIds"))
+                    result = studio_library_reorder(payload.get("orderedIds"))
                 except ValueError as exc:
                     self.send_json(409, {"ok": False, "error": str(exc)})
                     return

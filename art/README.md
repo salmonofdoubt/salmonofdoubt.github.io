@@ -23,6 +23,28 @@ private by default and do not appear as independent public artworks.
 and studies. Select multiple works in a related group. Existing relationships
 are kept when moving a work between Gallery and Studio.
 
+**Your old references live in Studio:** Open **Studio**. Existing references
+from the previous Refs archive appear among your studies with a **Ref** label.
+No old file is moved, duplicated or deleted, and existing related groups keep
+their identifiers. Select an item, click **Edit**, and tick **Reference**
+to mark it; untick it for an ordinary study. When adding Mac files to Studio,
+the same optional **Reference** checkbox is available. All new Studio files
+are private by default.
+
+**Show a reference with a Gallery painting:** Select a painting, click
+**Relate**, and pick as many Studio references or studies as you like.
+If any of those files are private, the Manager asks permission **once**
+before allowing them in the Gallery's **See related** view. You still must
+choose **Publish** separately. Merely marking a file Reference or storing
+it in Studio never publishes it. A Reference stays in Studio rather than
+becoming a standalone Gallery Room artwork.
+
+**Your originals remain private:** Old reference files still live under
+`.art-private/related/references/`, and other Studio files under
+`.art-private/studio/files/`. Back up both directories and their indexes.
+Previously published copies can remain in Git history; unpublished
+originals are never sent to GitHub automatically.
+
 **Rearrange your art:** Just grab a thumbnail and drop it on another
 thumbnail. A thin edge highlight shows where it will land. This works while
 viewing **All Rooms**, one Room, or search results, as long as the two
