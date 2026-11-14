@@ -141,7 +141,7 @@ function render(){
  $("studioCount").textContent=model.assets.length;
  const items=(gallery?model.artworks:model.assets).filter(item=>{
    const text=gallery?[item.title,item.collection,item.subgroup,item.text,item.medium]:
-     [item.title,item.note,item.originalFilename];
+     [item.title,item.note,item.originalFilename,item.isReference?"reference ref":"studio"];
    return (!gallery||room==="All"||item.collection===room)&&(!q||text.join(" ").toLowerCase().includes(q));
  });
  items.sort((a,b)=>gallery
@@ -152,7 +152,7 @@ function render(){
    const src=image(item,studio);
    const highlighted=model.multi?model.chosen.has(model.view+":"+item.id):model.selected&&model.selected.id===item.id&&model.selected.kind===model.view;
    const label=gallery?item.collection+(item.status==="hidden"?" · Hidden":""):
-     "Studio · "+(item.visibility==="related"?"See related":"Private");
+     (item.isReference?"Ref · ":"Studio · ")+(item.visibility==="related"?"Related":"Private");
    return '<button type="button" class="art-card'+(highlighted?' selected':'')+
      (gallery&&item.status==="hidden"?' hidden-work':'')+(studio?' studio-card':'')+
      '" data-id="'+esc(item.id)+'" data-kind="'+model.view+'" aria-pressed="'+String(!!highlighted)+'">'+
@@ -214,6 +214,11 @@ function render(){
  $("selectionPanel").hidden=!item&&!count;
  $("editButton").disabled=count!==1;
  $("moveButton").textContent=(model.selected?.kind==="studio"?"Move → Gallery":"Move → Studio")+(count>1?" ("+count+")":"");
+ $("moveButton").hidden=!!item&&model.selected?.kind==="studio"&&
+   selectedKeys().some(key=>{
+     const a=model.assets.find(x=>x.id===key.slice(key.indexOf(":")+1));
+     return a?.isReference||a?.kind==="reference";
+   });
  if(item){
    $("selectedTitle").textContent=count>1?count+" works selected":item.title||item.originalFilename||"Untitled";
    $("selectedMeta").textContent=count>1?"Move them together or relate them in one group.":gallery?(item.collection+" · "+(item.status==="hidden"?"Hidden":"Visible")):
@@ -236,6 +241,7 @@ function updateDestination(){
  document.querySelectorAll("[data-destination]").forEach(btn=>btn.setAttribute("aria-pressed",String(btn.dataset.destination===model.destination)));
  $("addRoomRow").hidden=!gallery;
  $("addPrivacy").hidden=gallery;
+ $("addReferenceRow").hidden=gallery;
  $("addFiles").accept=gallery?"image/jpeg,image/png,image/webp,image/gif,image/avif":"";
  $("addHelp").textContent=gallery?
    "Gallery works appear in the chosen public Room after you Publish.":
@@ -272,7 +278,7 @@ async function addFiles(event){
    }else{
      await post("/api/studio-upload",{
        fileDataUrl:await toDataUrl(file),filename:file.name,title:name,
-       note:$("addNote").value,visibility:"private",artworkIds:[]
+       note:$("addNote").value,isReference:$("addReference").checked,visibility:"private",artworkIds:[]
      });
    }
    completed++;
@@ -291,15 +297,14 @@ function openEdit(){
  const item=selected(), gallery=model.selected.kind==="gallery";
  $("editTitle").value=item.title||"";
  $("editRoomRow").hidden=!gallery;$("editStatusRow").hidden=!gallery;
- $("editVisibilityRow").hidden=gallery;
+ $("editReferenceRow").hidden=gallery;
  $("editNote").value=gallery?(item.text||item.reading||""):(item.note||"");
  if(gallery){
    $("editRoom").value=item.collection||"Experimental";
    $("editStatus").value=item.status==="hidden"?"hidden":"active";
  }else{
-   $("editVisibility").value=item.visibility||"private";
+   $("editReference").checked=!!item.isReference;
  }
- $("visibilityWarning").hidden=gallery||$("editVisibility").value!=="related";
  dialog("editDialog");
 }
 async function saveEdit(event){
@@ -314,12 +319,9 @@ async function saveEdit(event){
       status:$("editStatus").value
     });
   }else{
-    const visibility=$("editVisibility").value;
-    if(visibility==="related"&&item.visibility!=="related"&&!confirm(
-       "Make this Studio file eligible for public See related? Public copies may persist in Git history."))return;
     await post("/api/studio-update",{
       id:item.id,title:$("editTitle").value.trim(),
-      note:$("editNote").value,visibility
+      note:$("editNote").value,isReference:$("editReference").checked
     });
   }
   await load();close("editDialog");status("Changes saved on your Mac.","good");
@@ -327,6 +329,13 @@ async function saveEdit(event){
 }
 function openMove(){
  if(!chooseSelected())return;
+ if(model.selected.kind==="studio"&&selectedKeys().some(key=>{
+   const a=model.assets.find(x=>x.id===key.slice(key.indexOf(":")+1));
+   return a?.isReference||a?.kind==="reference";
+ })){
+   status("References stay in Studio. Use Relate to show them with a Gallery painting.","bad");
+   return;
+ }
  const toStudio=model.selected.kind==="gallery",item=selected();
  const count=selectedKeys().length;
  $("moveHeading").textContent=toStudio?"Move to private Studio?":"Move to Gallery?";
@@ -370,8 +379,11 @@ async function move(){
 function memberKey(m){return m.kind+":"+m.id;}
 function labelMember(m){
  if(m.kind==="artwork"){const a=model.artworks.find(a=>a.id===m.id);return {title:a?.title||"Unlisted artwork",note:a?.collection||"Gallery"};}
- if(m.kind==="studio"){const a=model.assets.find(a=>a.id===m.id);return {title:a?.title||"Studio material",note:a?.visibility==="private"?"Studio · Private":"Studio · See related"};}
- return {title:"Existing reference",note:"Reference (kept in group)"};
+ if(m.kind==="studio"||m.kind==="reference"){
+   const a=model.assets.find(a=>a.id===m.id);
+   return {title:a?.title||"Studio item",note:(a?.isReference?"Ref":"Studio")+" · "+(a?.visibility==="private"?"Private":"Related")};
+ }
+ return {title:"Existing item",note:"Related"};
 }
 async function openRelate(){
  if(!chooseSelected())return;
@@ -380,11 +392,11 @@ async function openRelate(){
  model.groups=r.related?.groups||[];
  $("relateGroup").innerHTML='<option value="">New related group</option>'+
    model.groups.map(g=>'<option value="'+esc(g.id)+'">'+esc(g.title||g.id)+'</option>').join("");
- const key=model.selected.kind==="gallery"?"artwork":"studio";
+ const key=model.selected.kind==="gallery"?"artwork":(selected()?.kind==="reference"?"reference":"studio");
  const match=selectedKeys().length===1?model.groups.find(g=>(g.members||[]).some(m=>m.kind===key&&m.id===model.selected.id)):null;
  model.editingGroup=match?.id||"";
  $("relateGroup").value=model.editingGroup;
- $("relateSearch").value="";$("relateFilter").value="all";$("relatePublishStudio").checked=false;
+ $("relateSearch").value="";$("relateFilter").value="all";
  loadGroup();
  dialog("relateDialog");
  }catch(error){status(error.message,"bad");}
@@ -393,7 +405,11 @@ function loadGroup(){
  const group=model.groups.find(g=>g.id===$("relateGroup").value);
  model.editingGroup=group?.id||"";
  model.members=group?(group.members||[]).map(m=>({...m})):
-   selectedKeys().map(key=>({kind:key.startsWith("gallery:")?"artwork":"studio",id:key.slice(key.indexOf(":")+1),role:"related",note:""}));
+   selectedKeys().map(key=>({
+     kind:key.startsWith("gallery:")?"artwork":
+       (model.assets.find(a=>a.id===key.slice(key.indexOf(":")+1))?.kind==="reference"?"reference":"studio"),
+     id:key.slice(key.indexOf(":")+1),role:"related",note:""
+   }));
  $("relateTitle").value=group?.title||"Studies for "+(selected()?.title||"this work");
  renderRelated();
 }
@@ -401,8 +417,9 @@ function renderRelated(){
  const q=$("relateSearch").value.trim().toLowerCase(),filter=$("relateFilter").value;
  const candidates=[
  ...model.artworks.filter(a=>a.status!=="hidden").map(a=>({kind:"artwork",id:a.id,title:a.title,meta:a.collection})),
- ...model.assets.map(a=>({kind:"studio",id:a.id,title:a.title,meta:"Studio · "+(a.visibility==="private"?"Private":"See related")}))
- ].filter(x=>(filter==="all"||(filter==="gallery"&&x.kind==="artwork")||(filter==="studio"&&x.kind==="studio"))&&
+ ...model.assets.map(a=>({kind:a.kind==="reference"?"reference":"studio",id:a.id,title:a.title,
+   meta:(a.isReference?"Ref":"Studio")+" · "+(a.visibility==="private"?"Private":"Related")}))
+ ].filter(x=>(filter==="all"||(filter==="gallery"&&x.kind==="artwork")||(filter==="studio"&&["studio","reference"].includes(x.kind)))&&
       (!q||(x.title+" "+x.meta).toLowerCase().includes(q)));
  const list=$("relateCandidates"),scroll=list.scrollTop;
  list.innerHTML=candidates.map(c=>'<label class="relate-candidate"><input type="checkbox" data-member-kind="'+c.kind+
@@ -438,9 +455,12 @@ function renderRelated(){
 async function saveRelated(){
  if(model.busy)return;
  if(model.members.length<2){status("A relationship needs at least two artworks or studies.","bad");return;}
- const privateCount=model.members.filter(m=>m.kind==="studio"&&model.assets.some(a=>a.id===m.id&&a.visibility==="private")).length;
- const makePublic=$("relatePublishStudio").checked;
- if(makePublic&&privateCount&&!confirm("Publish "+privateCount+" private Studio file(s) through See related when your website is published?"))return;
+ const privateCount=model.members.filter(m=>["studio","reference"].includes(m.kind)&&
+     model.assets.some(a=>a.id===m.id&&a.visibility==="private")).length;
+ const withGallery=model.members.some(m=>m.kind==="artwork");
+ const makePublic=withGallery&&privateCount>0;
+ if(makePublic&&!confirm("Share "+privateCount+
+   " private Studio item(s) with this Gallery painting in See related when you Publish? Public copies may remain in Git history."))return;
  model.busy=true;$("saveRelations").disabled=true;
  try{
   await post("/api/save-related-group",{
@@ -448,7 +468,7 @@ async function saveRelated(){
     members:model.members,makeStudioPublic:makePublic
   });
   await load();close("relateDialog");
-  status("Relationships saved locally. Private Studio files remain private unless expressly approved.","good");
+  status(makePublic?"Related items saved locally. They become public only when you Publish.":"Relationships saved locally. Unshared Studio items stay private.","good");
  }catch(error){status(error.message,"bad");}
  finally{model.busy=false;$("saveRelations").disabled=false;}
 }
@@ -569,7 +589,6 @@ $("addFiles").addEventListener("change",()=>{
 });
 $("addForm").addEventListener("submit",addFiles);
 $("editForm").addEventListener("submit",saveEdit);
-$("editVisibility").addEventListener("change",()=>$("visibilityWarning").hidden=$("editVisibility").value!=="related");
 $("confirmMove").addEventListener("click",move);
 $("relateGroup").addEventListener("change",loadGroup);
 $("relateSearch").addEventListener("input",renderRelated);
