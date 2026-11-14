@@ -198,7 +198,7 @@ function openMove(){
  $("moveExplanation").textContent=toStudio
    ?'"'+(item.title||"Untitled")+'" will leave the live Gallery after publication. The full artwork record and a verified image copy will be saved in your private Studio, so you can move it back.'
    :'"'+(item.title||"Untitled")+'" will return to a public exhibition Room when you publish.';
- $("moveRoom").value=toStudio?(item.collection||"Oil Paintings"):(item.originArtwork?.collection||"Oil Paintings");
+ $("moveRoom").value=toStudio?(item.collection||"Oil Paintings"):(item.originCollection||"Oil Paintings");
  $("confirmMove").textContent=toStudio?"Move to Studio":"Move to Gallery";
  dialog("moveDialog");
 }
