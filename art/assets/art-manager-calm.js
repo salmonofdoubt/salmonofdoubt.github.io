@@ -76,22 +76,9 @@ function orderFor(kind,id){
  const work=model.artworks.find(item=>item.id===id);
  return work?galleryOrderFor(work):[];
 }
-function renderPosition(){
- const item=selected(),count=selectedKeys().length;
- const position=$("positionControl");
- position.hidden=!item||count!==1;
- if(!item||count!==1)return;
- const ids=orderFor(model.selected.kind,item.id);
- const rank=ids.findIndex(x=>x.id===item.id)+1;
- $("positionLabel").textContent=model.selected.kind==="gallery"?
-  "Position in "+item.collection:"Position in Studio";
- $("positionInput").max=String(ids.length);
- $("positionInput").value=String(rank);
- $("positionTotal").textContent=" / "+ids.length;
-}
 async function saveOrder(kind,orderedIds,collection){
  if(model.busy)return;
- model.busy=true;$("applyPosition").disabled=true;
+ model.busy=true;
  try{
   if(kind==="gallery")await post("/api/reorder-collection",{collection,orderedIds});
   else await post("/api/reorder-studio",{orderedIds});
@@ -102,7 +89,7 @@ async function saveOrder(kind,orderedIds,collection){
  }catch(error){
   await load().catch(()=>{});
   status(error.message,"bad");
- }finally{model.busy=false;$("applyPosition").disabled=false;}
+ }finally{model.busy=false;}
 }
 function insertBeforeOrAfter(kind,sourceId,targetId,after){
  const entries=orderFor(kind,sourceId);
@@ -119,29 +106,16 @@ function insertBeforeOrAfter(kind,sourceId,targetId,after){
  if(ids.every((id,i)=>id===entries[i].id))return;
  void saveOrder(kind,ids,kind==="gallery"?source.collection:null);
 }
-function repositionSelected(){
- if(model.busy||selectedKeys().length!==1||!selected())return;
- const kind=model.selected.kind,id=model.selected.id;
- const items=orderFor(kind,id);
- const destination=Number($("positionInput").value);
- if(!Number.isInteger(destination)||destination<1||destination>items.length){
-  status("Choose a position between 1 and "+items.length+".","bad");
-  return;
- }
- const ids=items.map(x=>x.id),old=ids.indexOf(id);
- if(old===destination-1)return;
- ids.splice(old,1);
- ids.splice(destination-1,0,id);
- void saveOrder(kind,ids,kind==="gallery"?selected().collection:null);
-}
 function reorderTargetAllowed(targetKind,targetId){
+ // Drag-to-reorder works directly in All Rooms and filtered/search results.
+ // The entire underlying Room is reordered, never just visible search hits.
  if(model.busy||!draggedWork||draggedWork.kind!==targetKind||
-    draggedWork.keys.length!==1||$("search").value.trim())return false;
+    draggedWork.keys.length!==1)return false;
  const fromId=draggedWork.keys[0].slice(draggedWork.keys[0].indexOf(":")+1);
  if(fromId===targetId)return false;
  if(targetKind==="gallery"){
   const src=model.artworks.find(x=>x.id===fromId),dest=model.artworks.find(x=>x.id===targetId);
-  return !!src&&!!dest&&src.collection===dest.collection&&$("roomFilter").value===src.collection;
+  return !!src&&!!dest&&src.collection===dest.collection;
  }
  return targetKind==="studio";
 }
@@ -182,7 +156,7 @@ function render(){
    return '<button type="button" class="art-card'+(highlighted?' selected':'')+
      (gallery&&item.status==="hidden"?' hidden-work':'')+(studio?' studio-card':'')+
      '" data-id="'+esc(item.id)+'" data-kind="'+model.view+'" aria-pressed="'+String(!!highlighted)+'">'+
-     (src?'<img src="'+esc(src)+'" alt="'+esc(item.title||"")+'" loading="lazy">':'<span class="no-picture">File</span>')+
+     (src?'<img draggable="false" src="'+esc(src)+'" alt="'+esc(item.title||"")+'" loading="lazy">':'<span class="no-picture">File</span>')+
      (model.multi?'<span class="multi-check" aria-hidden="true">'+(highlighted?"✓":"○")+'</span>':"")+
    '<span class="art-copy"><strong>'+esc(item.title||item.originalFilename||"Untitled")+
      '</strong><small>'+esc(label)+'</small></span></button>';
@@ -191,6 +165,7 @@ function render(){
    btn.addEventListener("click",()=>select(btn.dataset.kind,btn.dataset.id));
    btn.draggable=true;
    btn.addEventListener("dragstart",event=>{
+     if(model.busy){event.preventDefault();return;}
      const key=btn.dataset.kind+":"+btn.dataset.id;
      if(model.multi&&!model.chosen.has(key))model.chosen=new Set([key]);
      if(!model.multi)model.selected={kind:btn.dataset.kind,id:btn.dataset.id};
@@ -211,7 +186,13 @@ function render(){
        btn.classList.remove("reorder-before","reorder-after");
    });
    btn.addEventListener("drop",event=>{
-     if(!reorderTargetAllowed(btn.dataset.kind,btn.dataset.id))return;
+     if(!reorderTargetAllowed(btn.dataset.kind,btn.dataset.id)){
+       if(draggedWork&&draggedWork.kind==="gallery"&&btn.dataset.kind==="gallery"){
+         event.preventDefault();
+         status("For a different Room, edit the artwork's Room. Dragging reorders within the same Room.","bad");
+       }
+       return;
+     }
      event.preventDefault();
      event.stopPropagation();
      const before=btn.classList.contains("reorder-before");
@@ -233,7 +214,6 @@ function render(){
  $("selectionPanel").hidden=!item&&!count;
  $("editButton").disabled=count!==1;
  $("moveButton").textContent=(model.selected?.kind==="studio"?"Move → Gallery":"Move → Studio")+(count>1?" ("+count+")":"");
- renderPosition();
  if(item){
    $("selectedTitle").textContent=count>1?count+" works selected":item.title||item.originalFilename||"Untitled";
    $("selectedMeta").textContent=count>1?"Move them together or relate them in one group.":gallery?(item.collection+" · "+(item.status==="hidden"?"Hidden":"Visible")):
@@ -556,8 +536,6 @@ $("organiseButton").addEventListener("click",setOrganiseMode);
 $("publishButton").addEventListener("click",openPublish);
 $("editButton").addEventListener("click",openEdit);
 $("moveButton").addEventListener("click",openMove);
-$("applyPosition").addEventListener("click",repositionSelected);
-$("positionInput").addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();repositionSelected();}});
 document.querySelectorAll("[data-view]").forEach(tab=>{
  tab.addEventListener("dragover",event=>{
    if(!draggedWork||draggedWork.kind===tab.dataset.view)return;
