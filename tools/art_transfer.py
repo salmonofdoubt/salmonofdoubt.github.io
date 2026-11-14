@@ -248,6 +248,8 @@ def to_gallery(asset_id: str, collection: str) -> dict:
     asset = next((a for a in index["assets"] if a.get("id") == asset_id), None)
     if asset is None:
         raise ValueError("Studio Asset not found")
+    if asset.get("isReference") is True:
+        raise ValueError("References stay in Studio. Use Relate to show them with a Gallery artwork.")
     source = studio.file_for_asset(asset)
     if source is None or source.suffix.lower() not in IMAGES:
         raise ValueError("This Studio item is not a publishable image")
