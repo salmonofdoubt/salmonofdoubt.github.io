@@ -4,7 +4,7 @@
 const rooms=["Oil Paintings","Watercolours","Drawings","Experimental","GeoSpatial Imagery"];
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
-const model={artworks:[],assets:[],curation:{homepageHero:{},collections:{}},view:"gallery",selected:null,destination:"gallery",groups:[],members:[],editingGroup:"",commitReview:null,onlineReview:null,busy:false};
+const model={artworks:[],assets:[],curation:{homepageHero:{},collections:{}},view:"gallery",selected:null,destination:"gallery",groups:[],members:[],editingGroup:"",multi:false,chosen:new Set(),commitReview:null,onlineReview:null,busy:false};
 const selected=()=>model.selected&&(model.selected.kind==="gallery"
     ?model.artworks.find(a=>a.id===model.selected.id)
     :model.assets.find(a=>a.id===model.selected.id));
@@ -43,13 +43,31 @@ async function load(){
 }
 function setView(view){
  model.view=view;
+ model.chosen.clear();model.multi=false;$("organiseButton").textContent="Organise";
  document.querySelectorAll("[data-view]").forEach(btn=>btn.setAttribute("aria-pressed",String(btn.dataset.view===view)));
  $("roomFilter").hidden=view!=="gallery";
  model.selected=null;
  render();
 }
+function selectedKeys(){
+ return model.multi?[...model.chosen]:model.selected?[model.selected.kind+":"+model.selected.id]:[];
+}
+function setOrganiseMode(){
+ model.multi=!model.multi;
+ model.chosen.clear();
+ if(model.multi&&model.selected)model.chosen.add(model.selected.kind+":"+model.selected.id);
+ $("organiseButton").textContent=model.multi?"Done selecting":"Organise";
+ status(model.multi?"Tap as many works as you like, then choose Move or Relate.":"Choose a work to edit, move or relate.");
+ render();
+}
 function select(kind,id){
- model.selected={kind,id};
+ if(model.multi){
+  const key=kind+":"+id;
+  if(model.chosen.has(key))model.chosen.delete(key);
+  else model.chosen.add(key);
+  const first=[...model.chosen][0];
+  model.selected=first?{kind:first.split(":")[0],id:first.slice(first.indexOf(":")+1)}:null;
+ }else model.selected={kind,id};
  render();
 }
 function render(){
@@ -69,27 +87,30 @@ function render(){
  const studio=!gallery;
  $("grid").innerHTML=items.length?items.map(item=>{
    const src=image(item,studio);
-   const highlighted=model.selected&&model.selected.id===item.id&&model.selected.kind===model.view;
+   const highlighted=model.multi?model.chosen.has(model.view+":"+item.id):model.selected&&model.selected.id===item.id&&model.selected.kind===model.view;
    const label=gallery?item.collection+(item.status==="hidden"?" · Hidden":""):
      "Studio · "+(item.visibility==="related"?"See related":"Private");
    return '<button type="button" class="art-card'+(highlighted?' selected':'')+
      (gallery&&item.status==="hidden"?' hidden-work':'')+(studio?' studio-card':'')+
      '" data-id="'+esc(item.id)+'" data-kind="'+model.view+'" aria-pressed="'+String(!!highlighted)+'">'+
      (src?'<img src="'+esc(src)+'" alt="'+esc(item.title||"")+'" loading="lazy">':'<span class="no-picture">File</span>')+
-     '<span class="art-copy"><strong>'+esc(item.title||item.originalFilename||"Untitled")+
+     (model.multi?'<span class="multi-check" aria-hidden="true">'+(highlighted?"✓":"○")+'</span>':"")+
+   '<span class="art-copy"><strong>'+esc(item.title||item.originalFilename||"Untitled")+
      '</strong><small>'+esc(label)+'</small></span></button>';
  }).join(""):'<div class="art-empty">No work here. Choose <strong>Add</strong> to bring something in from your Mac.</div>';
  $("grid").querySelectorAll("[data-id]").forEach(btn=>btn.addEventListener("click",()=>select(btn.dataset.kind,btn.dataset.id)));
  const item=selected();
- $("selectionPanel").hidden=!item;
+ const count=selectedKeys().length;
+ $("selectionPanel").hidden=!item&&!count;
+ $("editButton").disabled=count!==1;
  if(item){
-   $("selectedTitle").textContent=item.title||item.originalFilename||"Untitled";
-   $("selectedMeta").textContent=gallery?(item.collection+" · "+(item.status==="hidden"?"Hidden":"Visible")):
+   $("selectedTitle").textContent=count>1?count+" works selected":item.title||item.originalFilename||"Untitled";
+   $("selectedMeta").textContent=count>1?"Move them together or relate them in one group.":gallery?(item.collection+" · "+(item.status==="hidden"?"Hidden":"Visible")):
      ("Studio · "+(item.visibility==="related"?"May appear in See related":"Private"));
  }
 }
 function chooseSelected(){
- if(!selected()){status("Choose a thumbnail first, then organise it.","bad");$("grid").scrollIntoView({block:"start"});return false;}
+ if(!selectedKeys().length){status("Choose a thumbnail first, then organise it.","bad");$("grid").scrollIntoView({block:"start"});return false;}
  return true;
 }
 function openAdd(){
@@ -155,6 +176,7 @@ async function addFiles(event){
 }
 function openEdit(){
  if(!chooseSelected())return;
+ if(selectedKeys().length!==1){status("Choose just one work to edit its details.","bad");return;}
  const item=selected(), gallery=model.selected.kind==="gallery";
  $("editTitle").value=item.title||"";
  $("editRoomRow").hidden=!gallery;$("editStatusRow").hidden=!gallery;
@@ -195,9 +217,13 @@ async function saveEdit(event){
 function openMove(){
  if(!chooseSelected())return;
  const toStudio=model.selected.kind==="gallery",item=selected();
+ const count=selectedKeys().length;
  $("moveHeading").textContent=toStudio?"Move to private Studio?":"Move to Gallery?";
  $("moveRoomRow").hidden=toStudio;
- $("moveExplanation").textContent=toStudio
+ $("moveExplanation").textContent=count>1
+   ?count+" selected works will move "+(toStudio?"to private Studio. Original identities and relationships will be retained.":"into the chosen Gallery Room.")+
+   " Previously published files may remain in public Git history."
+   :toStudio
    ?'"'+(item.title||"Untitled")+'" will leave the live Gallery after publication. The full artwork record and a verified image copy will be saved in your private Studio, so you can move it back.'
    :'"'+(item.title||"Untitled")+'" will return to a public exhibition Room when you publish.';
  $("moveRoom").value=toStudio?(item.collection||"Oil Paintings"):(item.originCollection||"Oil Paintings");
@@ -206,22 +232,28 @@ function openMove(){
 }
 async function move(){
  if(model.busy||!chooseSelected())return;
- const origin=model.selected.kind,id=model.selected.id;
+ const origin=model.selected.kind;
+ const ids=selectedKeys().map(k=>k.slice(k.indexOf(":")+1));
  model.busy=true;$("confirmMove").disabled=true;
+ let done=0,firstMoved=null,retained=0;
  try{
-  const result=await post("/api/move-art",{
-     id,destination:origin==="gallery"?"studio":"gallery",
-     collection:$("moveRoom").value
-  });
+  for(const id of ids){
+   status("Moving "+(done+1)+" of "+ids.length+"…");
+   const result=await post("/api/move-art",{
+      id,destination:origin==="gallery"?"studio":"gallery",collection:$("moveRoom").value
+   });
+   if(!firstMoved)firstMoved=result.move?.id;
+   if(origin==="gallery"&&!result.move?.publicImageRemoved)retained++;
+   done++;
+  }
   await load();
   setView(origin==="gallery"?"studio":"gallery");
-  if(result.move?.id)model.selected={kind:model.view,id:result.move.id};
+  if(firstMoved)model.selected={kind:model.view,id:firstMoved};
   render();close("moveDialog");
-  status(result.move?.destination==="Studio"&&!result.move.publicImageRemoved?
-   "Moved into private Studio, but the original file is still on the public site because it is shared or outside the managed gallery. Previous Git history also remains.":
-   "Moved. Saved on your Mac; publish the Gallery change when ready. Previously published files can remain in Git history.",
-   result.move?.destination==="Studio"&&!result.move.publicImageRemoved?"bad":"good");
- }catch(error){status(error.message,"bad");}
+  status(done+" work(s) moved. "+
+   (retained?"Important: "+retained+" source file(s) still exist publicly because they are shared or outside the managed Gallery. ":"")+
+   "Save is local; publish the Gallery change when ready. Older Git history may retain images.",retained?"bad":"good");
+ }catch(error){await load().catch(()=>{});status(error.message+(done?" ("+done+" already moved)":""),"bad");}
  finally{model.busy=false;$("confirmMove").disabled=false;}
 }
 function memberKey(m){return m.kind+":"+m.id;}
@@ -250,7 +282,7 @@ function loadGroup(){
  const group=model.groups.find(g=>g.id===$("relateGroup").value);
  model.editingGroup=group?.id||"";
  model.members=group?(group.members||[]).map(m=>({...m})):
-   [{kind:model.selected.kind==="gallery"?"artwork":"studio",id:model.selected.id,role:"related",note:""}];
+   selectedKeys().map(key=>({kind:key.startsWith("gallery:")?"artwork":"studio",id:key.slice(key.indexOf(":")+1),role:"related",note:""}));
  $("relateTitle").value=group?.title||"Studies for "+(selected()?.title||"this work");
  renderRelated();
 }
@@ -389,7 +421,7 @@ async function pushOnline(){
 }
 
 $("addButton").addEventListener("click",openAdd);
-$("organiseButton").addEventListener("click",openEdit);
+$("organiseButton").addEventListener("click",setOrganiseMode);
 $("publishButton").addEventListener("click",openPublish);
 $("editButton").addEventListener("click",openEdit);
 $("moveButton").addEventListener("click",openMove);
