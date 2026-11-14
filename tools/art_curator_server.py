@@ -15,7 +15,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 import html
-import art_google_photos as google_photos
+from art_transfer import to_studio, to_gallery
 
 from art_studio_assets import (
     bulk_link_assets as studio_bulk_link_assets,
@@ -289,61 +289,6 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
     def do_GET(self) -> None:
         path = urlparse(self.path).path
 
-        if path == "/api/google-photos/status":
-            self.send_json(200, {"ok": True, **google_photos.public_status()})
-            return
-
-        if path == "/api/google-photos/connect":
-            try:
-                location = google_photos.oauth_start()
-                self.send_response(302)
-                self.send_header("Location", location)
-                self.send_header("Cache-Control", "no-store")
-                self.end_headers()
-            except ValueError as exc:
-                self.send_error(400, str(exc))
-            return
-
-        if path == "/api/google-photos/callback":
-            query = __import__("urllib.parse", fromlist=["parse_qs"]).parse_qs(
-                urlparse(self.path).query)
-            err = (query.get("error") or [""])[0]
-            if err:
-                message, ok = "Google authorization was not completed: " + err, False
-            else:
-                try:
-                    google_photos.oauth_complete(
-                        (query.get("code") or [""])[0],
-                        (query.get("state") or [""])[0])
-                    message, ok = "Google Photos connected. Return to Studio Assets.", True
-                except (ValueError, OSError) as exc:
-                    message, ok = str(exc), False
-            msg = html.escape(message)
-            result = """<!doctype html><meta charset="utf-8"><title>Google Photos connection</title>
-<style>body{font:16px system-ui;background:#100d0a;color:#f1e1c5;padding:3rem}
-a{color:#d4ae6c}</style><h1>Google Photos</h1><p>""" + msg + """</p>
-<p><a href="/art/manage/">Return to ARTS Manager</a></p>"""
-            if ok:
-                result += """<script>if(window.opener){
-window.opener.postMessage({type:"arts-google-photos-connected"},window.location.origin);
-window.close();}</script>"""
-            content = result.encode("utf-8")
-            self.send_response(200 if ok else 400)
-            self.send_header("Content-Type", "text/html; charset=utf-8")
-            self.send_header("Cache-Control", "no-store")
-            self.send_header("X-Content-Type-Options", "nosniff")
-            self.send_header("Content-Length", str(len(content)))
-            self.end_headers()
-            self.wfile.write(content)
-            return
-
-        if path == "/api/google-photos/poll":
-            try:
-                self.send_json(200, {"ok": True, **google_photos.poll_session()})
-            except (ValueError, OSError) as exc:
-                self.send_json(400, {"ok": False, "error": str(exc)})
-            return
-
         # Deny direct access to local-only material even with percent-encoded
         # hidden path segments. Files can be read only via explicit asset APIs.
         parts = unquote(path).replace("\\", "/").split("/")
@@ -482,61 +427,24 @@ window.close();}</script>"""
         path = urlparse(self.path).path
 
         try:
-            if path in {"/api/google-photos/configure", "/api/google-photos/start",
-                        "/api/google-photos/import", "/api/google-photos/import-artworks",
-                        "/api/google-photos/cancel",
-                        "/api/google-photos/disconnect"}:
-                if int(self.headers.get("Content-Length", "0")) > 40 * 1024:
-                    self.send_json(413, {"ok": False, "error": "Request too large"})
+            if path == "/api/move-art":
+                if int(self.headers.get("Content-Length", "0")) > 4096:
+                    self.send_json(413, {"ok": False, "error": "Move request too large"})
                     return
                 payload = self.read_payload()
                 try:
-                    if path == "/api/google-photos/configure":
-                        result = google_photos.configure(payload)
-                    elif path == "/api/google-photos/start":
-                        result = google_photos.start_session()
-                    elif path == "/api/google-photos/cancel":
-                        google_photos.stop_session()
-                        result = {"message": "Selection cancelled"}
-                    elif path == "/api/google-photos/disconnect":
-                        google_photos.disconnect(revoke=True)
-                        result = {"message": "Google Photos disconnected"}
-                    elif path == "/api/google-photos/import-artworks":
-                        room = str(payload.get("collection") or "").strip()
-                        if room not in COLLECTION_SLUGS:
-                            raise ValueError("Choose an existing exhibition Room")
-                        result = google_photos.import_picked_artworks(
-                            payload, create_artwork_from_upload)
-                        imported = result.get("imported") or []
-                        if imported:
-                            # Existing artwork records and related groups are
-                            # preserved, and only new IDs are appended.
-                            data = load_artworks_payload(write_back=True)
-                            data.setdefault("artworks", []).extend(imported)
-                            write_json(ARTWORKS_PATH, data)
-                            if len(imported) == 1 and (
-                                    payload.get("makeCollectionFeature") or
-                                    payload.get("makeHomepageHero")):
-                                curation = load_curation()
-                                selector = record_selector(imported[0])
-                                if payload.get("makeCollectionFeature"):
-                                    curation["collections"].setdefault(room, {})["feature"] = selector
-                                if payload.get("makeHomepageHero"):
-                                    curation["homepageHero"] = selector
-                                write_json(CURATION_PATH, curation)
-                            self.save_and_rebuild("Google Photos artworks imported",
-                                                  {"googlePhotos": result})
-                            return
+                    destination = str(payload.get("destination") or "")
+                    ident = str(payload.get("id") or "")
+                    if destination == "studio":
+                        result = to_studio(ident)
+                    elif destination == "gallery":
+                        result = to_gallery(ident, str(payload.get("collection") or ""))
                     else:
-                        result = google_photos.import_picked(payload)
-                        if result.get("imported"):
-                            self.save_and_rebuild("Google Photos media imported",
-                                                  {"googlePhotos": result})
-                            return
-                except (ValueError, OSError) as exc:
+                        raise ValueError("Choose Studio or a public Gallery Room")
+                except (KeyError, ValueError, OSError) as exc:
                     self.send_json(400, {"ok": False, "error": str(exc)})
                     return
-                self.send_json(200, {"ok": True, **result})
+                self.save_and_rebuild("Artwork moved and gallery rebuilt", {"move": result})
                 return
 
             if path == "/api/studio-bulk-link":
