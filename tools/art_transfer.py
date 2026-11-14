@@ -186,15 +186,14 @@ def to_gallery(asset_id: str, collection: str) -> dict:
         }
     if any(a.get("id") == art_id for a in artworks["artworks"]):
         raise ValueError("This artwork ID already exists; no file was moved")
+    if target.is_symlink():
+        raise ValueError("Refusing a symlink as the Gallery destination")
     if target.is_file():
         if hashlib.sha256(target.read_bytes()).digest() != hashlib.sha256(source.read_bytes()).digest():
             raise ValueError("A different file already occupies this Gallery path")
-    elif target.is_symlink():
-        raise ValueError("Refusing a symlink as the Gallery destination")
     else:
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
-    newly_copied = target.is_file() and target.read_bytes() == source.read_bytes() and not bool(saved and not asset.get("originPublicRemoved"))
     master = related.load_master()
     rewrite_members(master, "studio", asset_id, "artwork", art_id)
     artworks["artworks"].append(new_record)
