@@ -16,6 +16,7 @@ from urllib.parse import unquote, urlparse
 
 import html
 from art_transfer import to_studio, to_gallery
+import art_publish
 
 from art_studio_assets import (
     bulk_link_assets as studio_bulk_link_assets,
@@ -270,6 +271,16 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def publish_same_origin(self) -> bool:
+        port = int(os.environ.get("ART_CURATOR_PORT", "8000"))
+        host = self.headers.get("Host", "")
+        if host not in {f"localhost:{port}", f"127.0.0.1:{port}"}:
+            return False
+        origin = self.headers.get("Origin")
+        if origin and origin != "http://" + host:
+            return False
+        return self.headers.get("Sec-Fetch-Site", "") in {"", "same-origin", "none"}
+
     def read_payload(self) -> dict:
         length = int(self.headers.get("Content-Length", "0"))
         raw = self.rfile.read(length).decode("utf-8")
@@ -288,6 +299,19 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self) -> None:
         path = urlparse(self.path).path
+
+        if path in {"/api/art-publish/review", "/api/art-publish/publish-review"}:
+            if not self.publish_same_origin():
+                self.send_json(403, {"ok": False, "error": "Local ARTS Manager only"})
+                return
+            try:
+                result = (art_publish.review() if path.endswith("/review") and
+                          path != "/api/art-publish/publish-review"
+                          else art_publish.publish_review())
+                self.send_json(200, result)
+            except art_publish.PublishError as exc:
+                self.send_json(409, {"ok": False, "error": str(exc)})
+            return
 
         # Deny direct access to local-only material even with percent-encoded
         # hidden path segments. Files can be read only via explicit asset APIs.
@@ -427,6 +451,30 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
         path = urlparse(self.path).path
 
         try:
+
+            if path in {"/api/art-publish/commit", "/api/art-publish/push"}:
+                if not self.publish_same_origin():
+                    self.send_json(403, {"ok": False, "error": "Local ARTS Manager only"})
+                    return
+                if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
+                    self.send_json(415, {"ok": False, "error": "JSON required"})
+                    return
+                if int(self.headers.get("Content-Length", "0")) > 4096:
+                    self.send_json(413, {"ok": False, "error": "Request too large"})
+                    return
+                payload = self.read_payload()
+                try:
+                    if path.endswith("/commit"):
+                        result = art_publish.commit(str(payload.get("reviewToken") or ""),
+                                                    str(payload.get("message") or ""))
+                    else:
+                        result = art_publish.publish(str(payload.get("reviewToken") or ""),
+                                                     str(payload.get("confirmation") or ""))
+                    self.send_json(200, result)
+                except art_publish.PublishError as exc:
+                    self.send_json(409, {"ok": False, "error": str(exc)})
+                return
+
             if path == "/api/move-art":
                 if int(self.headers.get("Content-Length", "0")) > 4096:
                     self.send_json(413, {"ok": False, "error": "Move request too large"})
