@@ -72,7 +72,7 @@ def allowed_wordpress_url(value: str) -> bool:
         host = (parts.hostname or "").lower()
         return (parts.scheme == "https" and parts.port in {None, 443}
                 and parts.username is None and parts.password is None
-                and host in {"qiquantum.wordpress.com",
+                and host in {"qiquantum.wordpress.com", "qiquantum.files.wordpress.com",
                              "i0.wp.com", "i1.wp.com", "i2.wp.com", "i3.wp.com"}
                 and not any(x in parts.path for x in ("\x00", "\r", "\n"))
                 and Path(parts.path).suffix.lower() in IMAGES)
