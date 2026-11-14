@@ -52,6 +52,33 @@ class StudioAssetsTests(unittest.TestCase):
                 base64.b64encode(b"studio test bytes").decode("ascii"),
         })
 
+    def test_studio_reorder_is_private_and_keeps_existing_links(self):
+        first = self.upload("first.jpg", ["drawing-a"], visibility="private")
+        second = self.upload("second.jpg", ["painting-b"], visibility="related")
+        third = self.upload("third.jpg", [], visibility="private")
+        result = studio.reorder_assets([third["id"], first["id"], second["id"]])
+        self.assertEqual(3, result["count"])
+        entries = studio.load_assets()["assets"]
+        self.assertEqual([third["id"], first["id"], second["id"]],
+                         [item["id"] for item in entries])
+        self.assertEqual([10, 20, 30], [item["sortOrder"] for item in entries])
+        self.assertEqual(10, studio.client_asset(entries[0])["sortOrder"])
+        self.assertEqual("private", entries[0]["visibility"])
+        self.assertEqual(["drawing-a"], entries[1]["artworkIds"])
+        self.assertEqual(["painting-b"], entries[2]["artworkIds"])
+        self.assertEqual(self.legacy_before, self.legacy.read_bytes())
+
+    def test_studio_reorder_rejects_duplicate_missing_and_stale_ids(self):
+        first = self.upload("first.jpg", [], visibility="private")
+        second = self.upload("second.jpg", [], visibility="private")
+        before = studio.INDEX.read_bytes()
+        for values in ([first["id"], first["id"]],
+                       [first["id"]],
+                       [first["id"], "asset-not-found"]):
+            with self.assertRaisesRegex(ValueError, "stale"):
+                studio.reorder_assets(values)
+            self.assertEqual(before, studio.INDEX.read_bytes())
+
     def test_links_to_multiple_artworks_and_preserves_old_relationships(self):
         entry = self.upload("sketch.jpg", ["drawing-a", "painting-b"])
         projection = studio.build_public_studio()

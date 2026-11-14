@@ -29,6 +29,15 @@ assert.match(js,/\/api\/studio-upload/,"Local-only Studio upload remains");
 assert.match(js,/\/api\/add-artwork/,"Local-only gallery upload remains");
 assert.match(js,/visibility:"private"/,"Studio imports must be private by default");
 assert.match(js,/\/api\/move-art/,"Gallery and Studio are reversible");
+assert.match(manager,/id="positionInput"/,"Selected artwork can be placed at a numbered position");
+assert.match(manager,/id="applyPosition"/,"No extra arrange menu is needed");
+assert.match(js,/\/api\/reorder-collection/,"Gallery order saved through existing API");
+assert.match(js,/\/api\/reorder-studio/,"Studio order saved through private API");
+assert.match(js,/reorder-before/,"Gallery and Studio cards show before/after drop position");
+assert.match(js,/insertBeforeOrAfter/,"Drop between artworks changes local sequence");
+assert.match(server,/\/api\/reorder-studio/,"Private Studio reorder endpoint exists");
+assert.match(server,/Gallery order has changed/,"Gallery order rejects stale inventories");
+
 assert.match(js,/dragstart/,"Artworks support drag to Studio");
 assert.match(js,/drop-ready/,"Studio tab visually accepts artwork drop");
 assert.match(js,/Move → Studio/,"Transfer action is clearly labelled");

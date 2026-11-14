@@ -115,6 +115,7 @@ def client_asset(asset: dict) -> dict:
         "artworkIds": asset.get("artworkIds") or [],
         "visibility": asset.get("visibility") or "private",
         "createdAt": asset.get("createdAt") or "",
+        "sortOrder": asset.get("sortOrder"),
         "size": asset.get("size") or 0,
         "mime": asset.get("mime") or "application/octet-stream",
         "hasFile": file_for_asset(asset) is not None,
@@ -174,6 +175,25 @@ def upload_asset(payload: dict) -> dict:
         target.unlink(missing_ok=True)
         raise
     return item
+
+
+
+def reorder_assets(ordered_ids: list[str]) -> dict:
+    """Reorder the local Studio library without changing file visibility."""
+    index = load_assets()
+    records = index["assets"]
+    existing = [str(item.get("id")) for item in records]
+    if (not isinstance(ordered_ids, list) or len(ordered_ids) != len(existing)
+            or any(not isinstance(ident, str) for ident in ordered_ids)
+            or len(set(ordered_ids)) != len(ordered_ids)
+            or set(ordered_ids) != set(existing)):
+        raise ValueError("Studio order is stale. Refresh the Manager and retry.")
+    by_id = {item["id"]: item for item in records}
+    index["assets"] = [by_id[ident] for ident in ordered_ids]
+    for rank, asset in enumerate(index["assets"], start=1):
+        asset["sortOrder"] = rank * 10
+    write_json(INDEX, index, backup=True)
+    return {"count": len(records)}
 
 
 def update_asset(payload: dict) -> dict:

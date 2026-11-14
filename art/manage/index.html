@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090705">
 <title>DiAndré · Studio Manager</title>
-<link rel="stylesheet" href="/art/assets/art-manager-calm.css?v=20261114-2">
+<link rel="stylesheet" href="/art/assets/art-manager-calm.css?v=20261114-order-1">
 <link rel="manifest" href="/art/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/art/assets/diandre-app-icon-192.png">
 
@@ -48,9 +48,13 @@
     <label class="sr-only" for="search">Search artworks</label>
     <input id="search" type="search" placeholder="Find a work…">
   </section>
-  <div id="status" class="status" role="status" aria-live="polite">Select an artwork and click Move → Studio, or drag it onto the Studio tab.</div>
+  <div id="status" class="status" role="status" aria-live="polite">Choose an artwork to move it, or drag images within a Room to change their order.</div>
   <section id="selectionPanel" class="selection-panel" hidden>
     <div class="selected-copy"><span class="eyebrow">SELECTED</span><strong id="selectedTitle"></strong><small id="selectedMeta"></small></div>
+    <div class="position-control" id="positionControl" hidden>
+      <label for="positionInput" id="positionLabel">Position in Room</label>
+      <div><input id="positionInput" type="number" min="1" step="1" aria-label="Artwork position"><span id="positionTotal"></span><button id="applyPosition" type="button">Set</button></div>
+    </div>
     <div class="selected-actions">
       <button id="editButton" type="button">Edit</button>
       <button id="moveButton" type="button">Move</button>
@@ -166,7 +170,7 @@
   </div>
 </dialog>
 
-<script defer src="/art/assets/art-manager-calm.js?v=20261114-2"></script>
+<script defer src="/art/assets/art-manager-calm.js?v=20261114-order-1"></script>
 
   <!-- ART_PWA_START -->
   <button class="art-install-app" type="button" hidden>Install app</button>
