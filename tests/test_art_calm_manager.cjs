@@ -32,6 +32,7 @@ assert.match(js,/\/api\/move-art/,"Gallery and Studio are reversible");
 assert.match(js,/dragstart/,"Artworks support drag to Studio");
 assert.match(js,/drop-ready/,"Studio tab visually accepts artwork drop");
 assert.match(js,/Move → Studio/,"Transfer action is clearly labelled");
+assert.match(js,/openMove\(\)/,"Dropping uses confirmation dialog");
 assert.match(js,/setOrganiseMode/,"Organise supports multiple selection");
 assert.match(js,/selectedKeys\(\)/,"Move and Relate use selected work batches");
 assert.match(js,/\/api\/save-related-group/,"Existing canonical relations remain manageable");
