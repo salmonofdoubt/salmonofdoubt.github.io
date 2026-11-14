@@ -35,7 +35,7 @@
 
 <main>
   <section class="library-bar" aria-label="Choose work space">
-    <div class="tabs" role="group" aria-label="Workspace">
+    <div class="tabs" role="group" aria-label="Workspace" title="Choose a work and use Move, or drag a thumbnail between Gallery and Studio">
       <button type="button" data-view="gallery" aria-pressed="true">Gallery <span id="galleryCount"></span></button>
       <button type="button" data-view="studio" aria-pressed="false">Studio <span id="studioCount"></span></button>
     </div>
@@ -48,7 +48,7 @@
     <label class="sr-only" for="search">Search artworks</label>
     <input id="search" type="search" placeholder="Find a work…">
   </section>
-  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div id="status" class="status" role="status" aria-live="polite">Select an artwork and click Move → Studio, or drag it onto the Studio tab.</div>
   <section id="selectionPanel" class="selection-panel" hidden>
     <div class="selected-copy"><span class="eyebrow">SELECTED</span><strong id="selectedTitle"></strong><small id="selectedMeta"></small></div>
     <div class="selected-actions">

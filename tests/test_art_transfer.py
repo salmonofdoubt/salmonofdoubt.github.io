@@ -46,7 +46,7 @@ class StudioGalleryTransferTests(unittest.TestCase):
             "members":[{"kind":"artwork","id":"portrait-1","role":"related","note":"first"},
                        {"kind":"artwork","id":"drawing-2","role":"related","note":""}]}]}))
         replacements=[
-            (transfer,"ART",self.art),(transfer,"ARTWORKS",self.artworks),
+            (transfer,"ROOT",root),(transfer,"ART",self.art),(transfer,"ARTWORKS",self.artworks),
             (transfer,"CURATION",self.curation),(studio,"ARTWORKS",self.artworks),
             (studio,"INDEX",self.studio_index),(studio,"PRIVATE_FILES",self.studio_files),
             (studio,"PUBLIC_FILES",self.art / "assets" / "studio"),
@@ -102,6 +102,70 @@ class StudioGalleryTransferTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"Restore the private Related archive"):
             transfer.to_studio("portrait-1")
         self.assertEqual(before,self.artworks.read_bytes())
+
+    def test_wordpress_photo_can_be_moved_into_private_studio(self):
+        external = "https://qiquantum.wordpress.com/wp-content/uploads/2022/08/portrait.jpg"
+        entries=json.loads(self.artworks.read_text())
+        entries["artworks"][0]["image"]=external
+        entries["artworks"][0]["thumb"]=external
+        entries["artworks"][0]["sourceUrl"]=external
+        self.artworks.write_text(json.dumps(entries))
+        with patch.object(transfer,"fetch_wordpress_image",
+                          return_value=("portrait.jpg",b"\xff\xd8\xffpublic-wordpress-photo")) as fetch:
+            moved=transfer.to_studio("portrait-1")
+        fetch.assert_called_once_with(external)
+        self.assertTrue(moved["originRemoteImage"])
+        self.assertFalse(moved["publicImageRemoved"])
+        self.assertIn("WordPress",moved["warning"])
+        studio_item=studio.find_asset(moved["id"])
+        self.assertEqual("private",studio_item["visibility"])
+        self.assertEqual(external,studio_item["originArtwork"]["image"])
+        self.assertEqual(b"\xff\xd8\xffpublic-wordpress-photo",
+                         studio.file_for_asset(studio_item).read_bytes())
+        self.assertEqual("studio",self.read_members()[0]["kind"])
+
+    def test_wordpress_photo_returns_to_gallery_as_local_file(self):
+        external="https://qiquantum.wordpress.com/wp-content/uploads/2023/10/portrait.jpg"
+        entries=json.loads(self.artworks.read_text())
+        entries["artworks"][0]["image"]=external
+        entries["artworks"][0]["thumb"]=external
+        self.artworks.write_text(json.dumps(entries))
+        with patch.object(transfer,"fetch_wordpress_image",
+                          return_value=("portrait.jpg",b"\xff\xd8\xffimage")):
+            moved=transfer.to_studio("portrait-1")
+        restored=transfer.to_gallery(moved["id"],"Oil Paintings")
+        self.assertEqual("portrait-1",restored["id"])
+        painting=next(a for a in self.read_artworks() if a["id"]=="portrait-1")
+        self.assertTrue(painting["image"].startswith("assets/works/oil-paintings/"))
+        self.assertEqual(external,painting["sourceUrl"])
+        self.assertEqual(painting["image"],painting["thumb"])
+        self.assertEqual(b"\xff\xd8\xffimage",(self.art / painting["image"]).read_bytes())
+        self.assertEqual("artwork",self.read_members()[0]["kind"])
+
+    def test_wordpress_fetch_rejects_unknown_or_unencrypted_hosts(self):
+        self.assertTrue(transfer.allowed_wordpress_url(
+            "https://qiquantum.wordpress.com/wp-content/uploads/2022/01/study.jpg"))
+        self.assertFalse(transfer.allowed_wordpress_url("http://qiquantum.wordpress.com/media.jpg"))
+        self.assertFalse(transfer.allowed_wordpress_url("https://localhost/private.jpg"))
+        self.assertFalse(transfer.allowed_wordpress_url("https://evil.com/fake.jpg"))
+        with self.assertRaisesRegex(ValueError,"WordPress library"):
+            transfer.fetch_wordpress_image("https://evil.com/study.jpg")
+
+    def test_legacy_repository_image_path_can_be_archived(self):
+        image=self.art.parent / "images" / "001-2.jpg"
+        image.parent.mkdir(parents=True)
+        image.write_bytes(b"legacy-image-bytes")
+        entries=json.loads(self.artworks.read_text())
+        entries["artworks"][0]["image"]="../images/001-2.jpg"
+        entries["artworks"][0]["thumb"]="../images/001-2.jpg"
+        self.artworks.write_text(json.dumps(entries))
+        moved=transfer.to_studio("portrait-1")
+        self.assertTrue(image.is_file())
+        self.assertEqual(b"legacy-image-bytes",
+                         studio.file_for_asset(studio.find_asset(moved["id"])).read_bytes())
+        transfer.to_gallery(moved["id"],"Oil Paintings")
+        self.assertEqual("../images/001-2.jpg",
+                         next(a for a in self.read_artworks() if a["id"]=="portrait-1")["image"])
 
     def test_shared_gallery_image_is_not_deleted(self):
         entries=json.loads(self.artworks.read_text())

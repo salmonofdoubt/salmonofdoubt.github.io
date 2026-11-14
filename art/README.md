@@ -27,8 +27,15 @@ are kept when moving a work between Gallery and Studio.
 requires reviewing what will become public, confirming a local Git commit,
 and separately confirming the GitHub push.
 
-**Moving a painting to Studio:** ARTS saves the full artwork record and a
-verified private copy. The work disappears from the current Gallery once
+**Moving a painting to Studio:** Click a Gallery thumbnail and choose
+**Move → Studio**, or drag the thumbnail onto the **Studio** tab. Confirm
+the move. ARTS saves the full artwork record and a verified private copy.
+For historic artworks whose image is still hosted on QIQUANTUM WordPress,
+ARTS downloads a private copy first. You need an Internet connection
+for this one-time retrieval. **The original WordPress image remains public**
+until separately removed from WordPress. If retrieval fails, nothing is
+moved; use a locally saved original to replace the image.
+ The work disappears from the current Gallery once
 those changes are published. For unique images in the managed Gallery works
 folder, it also removes the current public image file. **Previously public
 copies can survive in GitHub history, browser caches, and other archives.**
