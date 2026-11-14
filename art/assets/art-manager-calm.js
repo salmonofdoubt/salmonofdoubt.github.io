@@ -270,7 +270,7 @@ async function openRelate(){
  $("relateGroup").innerHTML='<option value="">New related group</option>'+
    model.groups.map(g=>'<option value="'+esc(g.id)+'">'+esc(g.title||g.id)+'</option>').join("");
  const key=model.selected.kind==="gallery"?"artwork":"studio";
- const match=model.groups.find(g=>(g.members||[]).some(m=>m.kind===key&&m.id===model.selected.id));
+ const match=selectedKeys().length===1?model.groups.find(g=>(g.members||[]).some(m=>m.kind===key&&m.id===model.selected.id)):null;
  model.editingGroup=match?.id||"";
  $("relateGroup").value=model.editingGroup;
  $("relateSearch").value="";$("relateFilter").value="all";$("relatePublishStudio").checked=false;
