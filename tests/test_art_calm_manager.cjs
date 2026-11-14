@@ -29,6 +29,8 @@ assert.match(js,/\/api\/studio-upload/,"Local-only Studio upload remains");
 assert.match(js,/\/api\/add-artwork/,"Local-only gallery upload remains");
 assert.match(js,/visibility:"private"/,"Studio imports must be private by default");
 assert.match(js,/\/api\/move-art/,"Gallery and Studio are reversible");
+assert.match(js,/setOrganiseMode/,"Organise supports multiple selection");
+assert.match(js,/selectedKeys\(\)/,"Move and Relate use selected work batches");
 assert.match(js,/\/api\/save-related-group/,"Existing canonical relations remain manageable");
 assert.match(js,/\/api\/art-publish\/review/,"Explicit public review present");
 assert.match(js,/\/api\/art-publish\/push/,"Push confirmation available");
