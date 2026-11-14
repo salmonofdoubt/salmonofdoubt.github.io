@@ -74,6 +74,32 @@ assert.match(js,/Move → Studio/,"Transfer action is clearly labelled");
 assert.match(js,/openMove\(\)/,"Dropping uses confirmation dialog");
 assert.match(js,/setOrganiseMode/,"Organise supports multiple selection");
 assert.match(js,/selectedKeys\(\)/,"Move and Relate use selected work batches");
+
+assert.match(js,/function relatedThumbnail\(/,"Relate renders a real thumbnail or clear placeholder");
+assert.match(js,/function relatedMemberInfo\(/,"Related group thumbnails resolve existing members");
+assert.match(js,/function watchRelatedImages\(/,"Broken image sources fall back gracefully");
+assert.match(js,/preview:image\(a,false\)/,"Gallery thumbnails use the same artwork images as Gallery");
+assert.match(js,/preview:image\(a,true\)/,"Studio and legacy Ref thumbnails use private local image URLs");
+assert.match(js,/relatedThumbnail\(c\.preview,c\.title\)/,
+ "Every chooser item includes its thumbnail");
+assert.match(js,/relatedThumbnail\(desc\.preview,desc\.title\)/,
+ "Every selected group item includes its thumbnail");
+assert.match(js,/watchRelatedImages\(list\)/,"Chooser previews receive failure fallback");
+assert.match(js,/watchRelatedImages\(chosenList\)/,"Selected previews receive failure fallback");
+assert.match(js,/chosenList\.scrollTop=chosenScroll/,"Reordering does not lose the chosen-panel scroll position");
+assert.match(js,/function renderRelatedChosen\(/,
+ "Checkbox selection updates only the chosen visual list, not the entire image chooser");
+assert.match(js,/if\(checkbox\)checkbox\.checked=false/,
+ "Unlinking from selected group immediately unchecks the matching chooser item");
+
+assert.match(js,/data-up/,"Group ordering arrows still work");
+assert.match(js,/data-remove/,"Unlink from group remains available");
+assert.match(manager,/class="relate-columns"/,"Relate remains a two-panel dialog");
+assert.match(read("art/assets/art-manager-calm.css"),/\.relate-thumb img/,
+ "Both sides display visibly sized images instead of filenames only");
+assert.match(read("art/assets/art-manager-calm.css"),/object-fit:contain/,
+ "Artwork previews show the complete composition");
+
 assert.match(js,/\/api\/save-related-group/,"Existing canonical relations remain manageable");
 assert.match(js,/\/api\/art-publish\/review/,"Explicit public review present");
 assert.match(js,/\/api\/art-publish\/push/,"Push confirmation available");
