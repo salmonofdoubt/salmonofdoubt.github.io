@@ -85,6 +85,14 @@ def to_studio(art_id: str) -> dict:
     record = next((a for a in entries if a.get("id") == art_id), None)
     if record is None:
         raise ValueError("Artwork not found in the Gallery")
+    # A clone without .art-private/related may still contain public groups.
+    # Refuse to strand those relationships rather than silently break them.
+    if not related.MASTER_PATH.is_file():
+        public = read(related.PUBLIC_PATH, {"sets": []})
+        if any(m.get("kind") == "artwork" and m.get("id") == art_id
+               for group in public.get("sets", [])
+               for m in group.get("members", [])):
+            raise ValueError("Restore the private Related archive before moving this artwork")
     image, original_path = source_path(record)
     index = studio.load_assets()
     if any(a.get("originArtwork", {}).get("id") == art_id for a in index["assets"]):
