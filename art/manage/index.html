@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090705">
 <title>DiAndré · Studio Manager</title>
-<link rel="stylesheet" href="/art/assets/art-manager-calm.css?v=20261114-grab-1">
+<link rel="stylesheet" href="/art/assets/art-manager-calm.css?v=20261114-remove-1">
 <link rel="manifest" href="/art/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/art/assets/diandre-app-icon-192.png">
 
@@ -47,18 +47,50 @@
     </select>
     <label class="sr-only" for="search">Search artworks</label>
     <input id="search" type="search" placeholder="Find a work…">
+    <button id="duplicatesButton" type="button" title="Review identical photos or exact duplicate entries across Gallery, Studio and Refs">Duplicates</button>
   </section>
-  <div id="status" class="status" role="status" aria-live="polite">Grab an image and drop it to reorder. Drop it on Studio to move it there.</div>
+  <div class="feedback-row">
+    <div id="status" class="status" role="status" aria-live="polite">Grab an image and drop it to reorder. Drop it on Studio to move it there.</div>
+    <button id="undoRemoveButton" class="quiet-button" type="button" hidden>Undo last removal</button>
+  </div>
   <section id="selectionPanel" class="selection-panel" hidden>
     <div class="selected-copy"><span class="eyebrow">SELECTED</span><strong id="selectedTitle"></strong><small id="selectedMeta"></small></div>
     <div class="selected-actions">
       <button id="editButton" type="button">Edit</button>
       <button id="moveButton" type="button">Move</button>
       <button id="relateButton" type="button">Relate</button>
+      <button id="removeButton" class="danger-outline" type="button">Remove</button>
     </div>
   </section>
   <div id="grid" class="art-grid" aria-label="Artworks and Studio Assets"></div>
 </main>
+
+<dialog id="duplicatesDialog" class="wide-dialog" aria-labelledby="duplicatesHeading">
+ <div class="dialog-inner">
+  <div class="dialog-head">
+   <div><p class="eyebrow">CHECK YOUR LIBRARY</p><h2 id="duplicatesHeading">Duplicates</h2></div>
+   <button class="close" type="button" data-close aria-label="Close">×</button>
+  </div>
+  <p class="subtle">Exact same files or image URLs, across all Gallery Rooms, Studio and Refs. Similar-looking paintings are not treated as duplicates. Nothing is removed automatically.</p>
+  <div id="duplicatesList" class="duplicate-groups" role="status">Checking…</div>
+  <div class="dialog-actions"><button type="button" data-close>Done</button></div>
+ </div>
+</dialog>
+
+<dialog id="removeDialog" aria-labelledby="removeHeading">
+ <div class="dialog-inner">
+  <div class="dialog-head">
+   <div><p class="eyebrow">RECOVERABLE REMOVAL</p><h2 id="removeHeading">Remove this item?</h2></div>
+   <button class="close" type="button" data-close aria-label="Close">×</button>
+  </div>
+  <p id="removeExplanation"></p>
+  <p class="small-warning">Your original is backed up in private local Trash before removal. Related groups are updated. Publication is separate. Previously published copies may remain in Git history or caches.</p>
+  <div class="dialog-actions">
+   <button class="danger-button" type="button" id="confirmRemove">Remove</button>
+   <button type="button" data-close>Cancel</button>
+  </div>
+ </div>
+</dialog>
 
 <dialog id="addDialog" aria-labelledby="addHeading">
   <div class="dialog-inner">
@@ -162,7 +194,7 @@
   </div>
 </dialog>
 
-<script defer src="/art/assets/art-manager-calm.js?v=20261114-refs-1"></script>
+<script defer src="/art/assets/art-manager-calm.js?v=20261114-remove-1"></script>
 
   <!-- ART_PWA_START -->
   <button class="art-install-app" type="button" hidden>Install app</button>
