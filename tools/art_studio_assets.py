@@ -118,6 +118,8 @@ def client_asset(asset: dict) -> dict:
         "size": asset.get("size") or 0,
         "mime": asset.get("mime") or "application/octet-stream",
         "hasFile": file_for_asset(asset) is not None,
+        "movedFromGallery": bool(asset.get("originArtwork")),
+        "originCollection": (asset.get("originArtwork") or {}).get("collection") or "",
         "publicEligible": extension(asset.get("originalFilename") or "") in PUBLIC_EXTENSIONS,
         "localUrl": "/api/studio-file/" + asset["id"],
     }
