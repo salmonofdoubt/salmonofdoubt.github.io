@@ -91,6 +91,18 @@ class StudioGalleryTransferTests(unittest.TestCase):
         self.assertEqual("portrait-1",self.read_members()[0]["id"])
         self.assertEqual([],studio.load_assets()["assets"])
 
+    def test_missing_private_related_master_blocks_dangerous_move(self):
+        self.related_master.unlink()
+        public=self.data / "related-public.json"
+        public.write_text(json.dumps({"sets":[{"id":"public","members":[
+            {"kind":"artwork","id":"portrait-1"},
+            {"kind":"artwork","id":"drawing-2"}
+        ]}]}))
+        before=self.artworks.read_bytes()
+        with self.assertRaisesRegex(ValueError,"Restore the private Related archive"):
+            transfer.to_studio("portrait-1")
+        self.assertEqual(before,self.artworks.read_bytes())
+
     def test_shared_gallery_image_is_not_deleted(self):
         entries=json.loads(self.artworks.read_text())
         entries["artworks"][1]["image"]=self.painting["image"]
