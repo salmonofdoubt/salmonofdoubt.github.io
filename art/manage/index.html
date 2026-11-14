@@ -1,1136 +1,163 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manage DiAndré art</title>
-  <style>
-    :root {
-      --bg: #070605;
-      --panel: #100d0a;
-      --panel2: #17110c;
-      --line: rgba(212, 174, 108, 0.28);
-      --text: #f1e1c5;
-      --muted: #ad9a7b;
-      --gold: #d4ae6c;
-      --good: #6ee7a8;
-      --bad: #ff7868;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font: 14px/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    main {
-      width: min(1500px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 1rem 0 3rem;
-    }
-
-    h1, h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      color: #fff2d7;
-      letter-spacing: -.04em;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.4rem, 7vw, 5rem);
-      line-height: .86;
-    }
-
-    h2 {
-      margin: 0 0 .7rem;
-      font-size: 1.35rem;
-    }
-
-    .top {
-      display: grid;
-      grid-template-columns: minmax(0, .8fr) minmax(320px, 1.2fr);
-      gap: 1rem;
-      align-items: end;
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .micro {
-      margin: 0 0 .4rem;
-      color: var(--gold);
-      font-size: .65rem;
-      font-weight: 900;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-
-    .hint {
-      color: var(--muted);
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      align-items: center;
-      margin: 1rem 0;
-    }
-
-    input, select, textarea, button {
-      border: 1px solid var(--line);
-      background: #0e0b08;
-      color: var(--text);
-      font: inherit;
-      font-size: .86rem;
-    }
-
-    input, select, button {
-      min-height: 34px;
-      border-radius: 999px;
-      padding: .32rem .72rem;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 72px;
-      box-sizing: border-box;
-      border-radius: 12px;
-      padding: .55rem;
-      resize: vertical;
-    }
-
-    button {
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    button.primary {
-      background: #24190f;
-      border-color: rgba(212, 174, 108, .55);
-      color: #fff2d7;
-    }
-
-    button.danger {
-      border-color: rgba(255, 120, 104, .6);
-      color: #ffb8ae;
-    }
-
-    a {
-      color: var(--gold);
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    .status.good { color: var(--good); }
-    .status.bad { color: var(--bad); }
-
-    .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 460px;
-      gap: 1rem;
-      align-items: start;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: .75rem;
-      align-items: start;
-    }
-
-    .card {
-      display: inline-block;
-      width: 100%;
-      margin: 0 0 .75rem;
-      
-      border: 1px solid rgba(255,255,255,.07);
-      background: var(--panel);
-      cursor: pointer;
-    }
-
-    .card.hidden {
-      opacity: .45;
-    }
-
-    .card.dragging {
-      opacity: .35;
-    }
-
-    .card.drop-target {
-      outline: 2px dashed var(--gold);
-      outline-offset: 3px;
-    }
-
-    .card.selected {
-      outline: 2px solid var(--gold);
-      outline-offset: 2px;
-    }
-
-    .card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .card div {
-      padding: .5rem;
-    }
-
-    .card strong {
-      display: block;
-      font-family: Georgia, "Times New Roman", serif;
-      color: #fff2d7;
-      line-height: 1.05;
-    }
-
-    .card span {
-      display: block;
-      margin-top: .28rem;
-      color: var(--gold);
-      font-size: .62rem;
-      font-weight: 900;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .panel {
-      position: sticky;
-      top: 1rem;
-      display: grid;
-      gap: 1rem;
-    }
-
-    .box {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      padding: .85rem;
-    }
-
-    .box.feature {
-      background: var(--panel2);
-    }
-
-    .form-grid {
-      display: grid;
-      gap: .55rem;
-    }
-
-    .form-grid input,
-    .form-grid select {
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .button-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .45rem;
-    }
-
-    .preview {
-      display: none;
-      max-width: 100%;
-      max-height: 260px;
-      object-fit: contain;
-      background: #050403;
-      border: 1px solid rgba(255,255,255,.06);
-    }
-
-    .checks {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .7rem;
-      color: var(--muted);
-    }
-
-    .checks label {
-      display: inline-flex;
-      align-items: center;
-      gap: .35rem;
-    }
-
-    .checks input {
-      min-height: auto;
-    }
-
-    @media (max-width: 1050px) {
-      .top, .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .panel {
-        position: static;
-      }
-
-      .grid {
-        grid-template-display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      }
-    }
-  
-    .batch-upload-note {
-      display: block;
-      margin-top: .3rem;
-      color: var(--muted, #ad9a7b);
-      font-size: .72rem;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-weight: 700;
-      letter-spacing: 0;
-      line-height: 1.35;
-    }
-</style>
-<style>
-  /*
-   * Sticky manager dock
-   * Keeps all artwork-management actions independent of gallery height.
-   */
-
-  .manager-dock {
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(420px, 640px);
-    gap: .8rem;
-    align-items: center;
-    margin: 0 0 1rem;
-    padding: .6rem;
-    border: 1px solid var(--line);
-    background: rgba(7, 6, 5, .96);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, .32);
-    backdrop-filter: blur(10px);
-  }
-
-  .selected-context {
-    min-width: 0;
-    padding: 0 .25rem;
-  }
-
-  .selected-context .micro {
-    margin-bottom: .15rem;
-  }
-
-  #current {
-    min-width: 0;
-    overflow: hidden;
-    color: var(--muted);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  #current strong {
-    display: inline;
-    margin-right: .35rem;
-    font-size: .95rem !important;
-  }
-
-  #current p {
-    display: inline;
-    margin: 0 .35rem 0 0;
-    font-size: .72rem;
-  }
-
-  .action-menus {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: .45rem;
-  }
-
-  .action-menu {
-    position: relative;
-    min-width: 0;
-  }
-
-  .action-menu summary {
-    display: flex;
-    min-height: 40px;
-    align-items: center;
-    justify-content: center;
-    gap: .45rem;
-    box-sizing: border-box;
-    border: 1px solid rgba(212, 174, 108, .45);
-    border-radius: 999px;
-    padding: .4rem .75rem;
-    background: #17110c;
-    color: #fff2d7;
-    cursor: pointer;
-    font-size: .82rem;
-    font-weight: 900;
-    list-style: none;
-    user-select: none;
-  }
-
-  .action-menu summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .action-menu summary::after {
-    content: "▾";
-    color: var(--gold);
-    font-size: .8rem;
-  }
-
-  .action-menu[open] summary {
-    border-color: var(--gold);
-    background: #24190f;
-  }
-
-  .action-menu[open] summary::after {
-    content: "▴";
-  }
-
-  .action-popover {
-    position: absolute;
-    top: calc(100% + .55rem);
-    z-index: 60;
-    width: min(440px, calc(100vw - 2rem));
-    max-height: calc(100vh - 7rem);
-    overflow-y: auto;
-    box-sizing: border-box;
-    border: 1px solid rgba(212, 174, 108, .5);
-    background: #100d0a;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, .55);
-  }
-
-  .action-menu:first-child .action-popover {
-    left: 0;
-  }
-
-  .action-menu:nth-child(2) .action-popover {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .action-menu:last-child .action-popover {
-    right: 0;
-  }
-
-  .action-popover .box {
-    margin: 0;
-    border: 0;
-  }
-
-  /*
-   * The gallery no longer needs to reserve 460px for a side panel.
-   */
-  .layout {
-    display: block;
-  }
-
-  @media (max-width: 760px) {
-    .manager-dock {
-      grid-template-columns: 1fr;
-      gap: .45rem;
-      padding: .5rem;
-    }
-
-    .action-menus {
-      order: 1;
-    }
-
-    .selected-context {
-      order: 2;
-    }
-
-    .action-menu summary {
-      min-height: 44px;
-      padding: .35rem .45rem;
-      font-size: .76rem;
-    }
-
-    .action-popover {
-      width: calc(100vw - 2rem);
-      max-height: calc(100vh - 8rem);
-    }
-
-    #current p {
-      display: none;
-    }
-  }
-</style>
-<link rel="stylesheet" href="../assets/art-related-manager.css?v=20261020-studio-room-1">
-<link rel="stylesheet" href="../assets/art-studio-manager.css?v=20261020-bulk-link-1">
-<link rel="stylesheet" href="../assets/art-google-photos-upload.css?v=20261020-room-1">
-<link rel="stylesheet" href="../assets/art-unified-upload.css?v=20261020-unified-1">
-
-  <!-- ART_PWA_START -->
-  <link rel="manifest" href="/art/manifest.webmanifest">
-  <meta name="theme-color" content="#050403">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="DiAndré">
-  <link rel="apple-touch-icon" href="/art/assets/diandre-app-icon-192.png">
-  <!-- ART_PWA_END -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090705">
+<title>DiAndré · Studio Manager</title>
+<link rel="stylesheet" href="/art/assets/art-manager-calm.css?v=20261114-2">
+<link rel="manifest" href="/art/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/art/assets/diandre-app-icon-192.png">
 </head>
 <body>
-<main>
-  <section class="top">
-    <div>
-      <p class="micro">Local art manager</p>
-      <h1>Manage DiAndré art</h1>
-    </div>
-    <p class="hint">
-      One local admin page for feature selection, metadata editing, hiding, and uploading.
-      Changes save locally. Commit and push from VS Code when you are ready to publish.
-    </p>
-  </section>
-
-  <div class="toolbar">
-    <select id="collectionFilter"></select>
-    <select id="statusFilter">
-      <option value="active">Active only</option>
-      <option value="all">All including hidden</option>
-      <option value="hidden">Hidden only</option>
-    </select>
-    <input id="search" placeholder="Search title, collection, image">
-    <a href="../">Open /art/</a>
-    <span id="status" class="status"></span>
+<header class="masthead">
+  <div>
+    <p class="eyebrow">DIANDRÉ / LOCAL STUDIO</p>
+    <h1>Manage your art</h1>
+    <p class="subtle">Your artworks, studies and photographs. Nothing goes online until you choose Publish.</p>
   </div>
+  <a class="visit" href="/art/" target="_blank" rel="noopener">View website <span aria-hidden="true">↗</span></a>
+</header>
 
+<nav class="main-actions" aria-label="Studio actions">
+  <button id="addButton" class="primary" type="button"><span aria-hidden="true">＋</span> Add</button>
+  <button id="organiseButton" type="button">Organise</button>
+  <button id="publishButton" type="button">Publish</button>
+</nav>
 
-  <section class="manager-dock" aria-label="Artwork manager controls">
-    <div class="selected-context">
-      <p class="micro">Selected work</p>
-      <div id="current" class="hint">No work selected.</div>
+<main>
+  <section class="library-bar" aria-label="Choose work space">
+    <div class="tabs" role="group" aria-label="Workspace">
+      <button type="button" data-view="gallery" aria-pressed="true">Gallery <span id="galleryCount"></span></button>
+      <button type="button" data-view="studio" aria-pressed="false">Studio <span id="studioCount"></span></button>
     </div>
-
-    <div class="action-menus">
-
-      <details class="action-menu">
-        <summary>Feature</summary>
-        <div class="action-popover">
-          <section class="box feature">
-            <p class="micro">Feature selected work</p>
-            <div class="form-grid">
-              <select id="featureTarget">
-                <option value="homepageHero">Homepage hero</option>
-                <option value="Oil Paintings">Oil Paintings feature</option>
-                <option value="Watercolours">Watercolours feature</option>
-                <option value="Drawings">Drawings feature</option>
-                <option value="Experimental">Experimental feature</option>
-                <option value="GeoSpatial Imagery">GeoSpatial Imagery feature</option>
-              </select>
-              <button class="primary" id="saveFeature">Save feature & rebuild</button>
-            </div>
-          </section>
-        </div>
-      </details>
-
-      <details class="action-menu">
-        <summary>Edit</summary>
-        <div class="action-popover">
-          <section class="box">
-            <h2>Edit selected work</h2>
-            <div class="form-grid">
-              <input id="title" placeholder="Title">
-              <select id="collection"></select>
-              <input id="medium" placeholder="Medium">
-              <input id="subgroup" placeholder="Subgroup">
-              <textarea id="caption" placeholder="Caption"></textarea>
-              <select id="workStatus">
-                <option value="active">active</option>
-                <option value="hidden">hidden</option>
-              </select>
-              <div class="button-row">
-                <button class="primary" id="saveEdit">Save edit & rebuild</button>
-                <button id="hideWork">Hide selected</button>
-              </div>
-            </div>
-          </section>
-        </div>
-      </details>
-
-      <details class="action-menu" id="unifiedUploadMenu">
-        <summary>Upload</summary>
-        <div class="action-popover" id="unifiedUploadPopover">
-          <section class="box">
-            <h2>Upload to ARTS</h2>
-            <div class="art-upload-destinations" role="group" aria-label="Upload destination">
-              <button type="button" data-art-destination="room" aria-pressed="true">Public Room</button>
-              <button type="button" data-art-destination="studio" aria-pressed="false">Studio Assets</button>
-            </div>
-            <p class="art-upload-hint" id="artUploadHint">New artwork, independently exhibited in a public Room.</p>
-            <div class="form-grid art-upload-sources" id="artUploadSources">
-              <label for="newFile">From Mac · choose one or more files</label>
-              <input id="newFile" type="file" accept="image/*" multiple>
-            </div>
-            <div id="uploadRoomFields">
-              <div class="form-grid">
-                <img id="newPreview" class="preview" alt="">
-                <input id="newTitle" placeholder="Title">
-                <select id="newCollection" aria-label="Public Room"></select>
-                <input id="newMedium" placeholder="Medium">
-                <input id="newSubgroup" placeholder="Subgroup">
-                <textarea id="newCaption" placeholder="Caption"></textarea>
-                <div class="checks">
-                  <label><input id="makeCollectionFeature" type="checkbox"> collection feature</label>
-                  <label><input id="makeHomepageHero" type="checkbox"> homepage hero</label>
-                </div>
-                <button class="primary" id="addWork">Add work(s) &amp; rebuild</button>
-              </div>
-            </div>
-            <div id="studioUploadPanel" hidden></div>
-          </section>
-        </div>
-      </details>
-</div>
+    <label class="sr-only" for="roomFilter">Room</label>
+    <select id="roomFilter" aria-label="Filter gallery by Room">
+      <option value="All">All Rooms</option>
+      <option>Oil Paintings</option><option>Watercolours</option><option>Drawings</option>
+      <option>Experimental</option><option>GeoSpatial Imagery</option>
+    </select>
+    <label class="sr-only" for="search">Search artworks</label>
+    <input id="search" type="search" placeholder="Find a work…">
   </section>
-
-  <section class="layout">
-    <div id="grid" class="grid"></div>
-
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <section id="selectionPanel" class="selection-panel" hidden>
+    <div class="selected-copy"><span class="eyebrow">SELECTED</span><strong id="selectedTitle"></strong><small id="selectedMeta"></small></div>
+    <div class="selected-actions">
+      <button id="editButton" type="button">Edit</button>
+      <button id="moveButton" type="button">Move</button>
+      <button id="relateButton" type="button">Relate</button>
+    </div>
   </section>
+  <div id="grid" class="art-grid" aria-label="Artworks and Studio Assets"></div>
 </main>
 
-<script>
-const collections = ["Oil Paintings", "Watercolours", "Drawings", "Experimental", "GeoSpatial Imagery"];
-
-let draggedArtworkId = null;
-
-const state = {
-  artworks: [],
-  selectedId: null,
-  studioAssets: [],
-  imageDataUrl: "",
-  curation: {
-    homepageHero: {},
-    collections: {}
-  }
-};
-
-function escapeHtml(value) {
-  return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
-function setStatus(message, kind = "") {
-  const el = document.getElementById("status");
-  el.textContent = message;
-  el.className = `status ${kind}`;
-}
-
-function imageOf(item) {
-  const src = item.thumb || item.image || "";
-
-  if (!src) return "";
-  if (src.startsWith("http://") || src.startsWith("https://") || src.startsWith("/") || src.startsWith("../")) {
-    return src;
-  }
-
-  return "../" + src;
-}
-
-function selectedItem() {
-  return state.artworks.find((item) => item.id === state.selectedId);
-}
-
-function numericOrder(item) {
-  const value = Number(item.sortOrder ?? item.order ?? 999999);
-  return Number.isFinite(value) ? value : 999999;
-}
-
-function compareArtworks(a, b) {
-  const collectionCompare = String(a.collection || "").localeCompare(String(b.collection || ""));
-  if (collectionCompare !== 0) return collectionCompare;
-
-  const orderCompare = numericOrder(a) - numericOrder(b);
-  if (orderCompare !== 0) return orderCompare;
-
-  return String(a.title || "").localeCompare(String(b.title || ""));
-}
-
-function populateSelect(id, values) {
-  document.getElementById(id).innerHTML = values
-    .map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)
-    .join("");
-}
-
-function selectorFor(item) {
-  return {
-    id: item.id,
-    title: item.title,
-    titleContains: item.title,
-    collection: item.collection,
-    medium: item.medium,
-    subgroup: item.subgroup,
-    image: item.image,
-    thumb: item.thumb || item.image,
-    sourceUrl: item.sourceUrl || item.image,
-    alt: item.alt || item.title,
-    text: item.text || "",
-    reading: item.reading || ""
-  };
-}
-
-async function loadArtworks() {
-  const response = await fetch("../data/artworks.json?ts=" + Date.now());
-  if (!response.ok) throw new Error("Could not load artworks.json");
-  const data = await response.json();
-  state.artworks = data.artworks || [];
-}
-
-async function loadStudioRoom() {
-  const response = await fetch("/api/studio-assets?ts=" + Date.now(), {cache: "no-store"});
-  if (!response.ok) throw new Error("Local Studio Assets API is not running");
-  const payload = await response.json();
-  if (!payload.ok) throw new Error(payload.error || "Could not load Studio Assets");
-  state.studioAssets = payload.assets || [];
-  if (document.getElementById("collectionFilter").value === "Studio Assets") render();
-}
-
-async function loadCuration() {
-  try {
-    const response = await fetch("../data/art-curation.json?ts=" + Date.now());
-    if (!response.ok) return;
-    state.curation = await response.json();
-    state.curation.homepageHero ||= {};
-    state.curation.collections ||= {};
-  } catch {}
-}
-
-function fillForm(item) {
-  document.getElementById("current").innerHTML = item
-    ? `<strong style="color:#fff2d7;font-family:Georgia,serif;font-size:1.2rem;">${escapeHtml(item.title)}</strong>
-       <p>${escapeHtml(item.collection || "")} · ${escapeHtml(item.subgroup || "")}</p>
-       <p>Status: <code>${escapeHtml(item.status || "active")}</code></p>`
-    : "No work selected.";
-
-  if (!item) return;
-
-  document.getElementById("title").value = item.title || "";
-  document.getElementById("collection").value = item.collection || "Experimental";
-  document.getElementById("medium").value = item.medium || "";
-  document.getElementById("subgroup").value = item.subgroup || "";
-  document.getElementById("caption").value = item.text || item.reading || "";
-  document.getElementById("workStatus").value = item.status || "active";
-}
-
-function setSelected(id) {
-  state.selectedId = id;
-  fillForm(selectedItem());
-  setStatus("Selected. Feature, edit, hide, or upload.", "");
-  render();
-  if (window.refreshRelatedForSelection) window.refreshRelatedForSelection();
-}
-
-function render() {
-  const grid = document.getElementById("grid");
-  const collectionFilter = document.getElementById("collectionFilter").value;
-  const statusFilter = document.getElementById("statusFilter").value;
-  const query = document.getElementById("search").value.trim().toLowerCase();
-
-  if (collectionFilter === "Studio Assets") {
-    const entries = (state.studioAssets || []).filter((asset) =>
-      !query || [asset.title, asset.note, asset.originalFilename].join(" ").toLowerCase().includes(query)
-    );
-    grid.innerHTML = entries.map((asset) => {
-      const preview = asset.mime && /^image\//.test(asset.mime) &&
-        /\.(jpe?g|png|webp|gif|avif)$/i.test(asset.originalFilename || "")
-        ? `<img src="${escapeHtml(asset.localUrl)}" alt="${escapeHtml(asset.title || "")}" loading="lazy">`
-        : `<div class="studio-room-file">FILE</div>`;
-      return `<article class="card studio-room-card" data-kind="studio" data-id="${escapeHtml(asset.id)}">
-        ${preview}
-        <div><strong>${escapeHtml(asset.title || asset.originalFilename)}</strong>
-        <span>STUDIO ASSETS · ${escapeHtml(asset.visibility === "private" ? "PRIVATE" : "SUPPORTING")}</span></div>
-      </article>`;
-    }).join("") || '<p class="hint">No Studio Assets here yet. Add them under Upload → Studio Assets.</p>';
-    grid.querySelectorAll(".studio-room-card").forEach(card => {
-      card.addEventListener("click", () => {
-        if (document.body.classList.contains("related-selection-active")) return;
-        setStatus("Studio Asset selected for viewing. Use Relate to associate it with a published artwork.");
-      });
-    });
-    return;
-  }
-
-  const visible = state.artworks.filter((item) => {
-    const status = item.status || "active";
-    const collectionOk = collectionFilter === "All" || item.collection === collectionFilter;
-    const statusOk =
-      statusFilter === "all" ||
-      (statusFilter === "active" && status !== "hidden") ||
-      (statusFilter === "hidden" && status === "hidden");
-    const blob = [item.title, item.collection, item.subgroup, item.medium, item.image, status].join(" ").toLowerCase();
-    return collectionOk && statusOk && (!query || blob.includes(query));
-  }).sort(compareArtworks);
-
-  grid.innerHTML = visible.map((item) => {
-    const hidden = (item.status || "active") === "hidden";
-    return `
-      <article class="card ${item.id === state.selectedId ? "selected" : ""} ${hidden ? "hidden" : ""}" data-id="${escapeHtml(item.id)}" draggable="true">
-        <img src="${escapeHtml(imageOf(item))}" alt="${escapeHtml(item.alt || item.title)}" loading="lazy">
-        <div>
-          <strong>${escapeHtml(item.title)}</strong>
-          <span>${escapeHtml(item.collection)} · ${escapeHtml(item.subgroup || "")}${hidden ? " · hidden" : ""}</span>
-        </div>
-      </article>
-    `;
-  }).join("");
-
-  grid.querySelectorAll(".card").forEach((card) => {
-    card.addEventListener("click", () => setSelected(card.dataset.id));
-
-    card.addEventListener("dragstart", (event) => {
-      draggedArtworkId = card.dataset.id;
-      card.classList.add("dragging");
-      event.dataTransfer.effectAllowed = "move";
-      event.dataTransfer.setData("text/plain", card.dataset.id);
-    });
-
-    card.addEventListener("dragend", () => {
-      draggedArtworkId = null;
-      card.classList.remove("dragging");
-      grid.querySelectorAll(".drop-target").forEach((item) => item.classList.remove("drop-target"));
-    });
-
-    card.addEventListener("dragover", (event) => {
-      if (!draggedArtworkId || draggedArtworkId === card.dataset.id) return;
-      event.preventDefault();
-      card.classList.add("drop-target");
-    });
-
-    card.addEventListener("dragleave", () => {
-      card.classList.remove("drop-target");
-    });
-
-    card.addEventListener("drop", (event) => {
-      event.preventDefault();
-      card.classList.remove("drop-target");
-      saveDraggedOrder(card.dataset.id).catch((error) => setStatus(error.message, "bad"));
-    });
-  });
-}
-
-async function postJson(url, payload) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(payload)
-  });
-  const result = await response.json();
-  if (!response.ok || !result.ok) throw new Error(result.error || result.message || "Request failed");
-  return result;
-}
-
-async function saveDraggedOrder(targetId) {
-  if (!draggedArtworkId || draggedArtworkId === targetId) return;
-
-  const dragged = state.artworks.find((item) => item.id === draggedArtworkId);
-  const target = state.artworks.find((item) => item.id === targetId);
-
-  if (!dragged || !target) return;
-
-  if (dragged.collection !== target.collection) {
-    setStatus("Drag within the same collection only.", "bad");
-    return;
-  }
-
-  const ordered = state.artworks
-    .filter((item) => item.collection === dragged.collection && (item.status || "active") !== "hidden")
-    .sort(compareArtworks);
-
-  const fromIndex = ordered.findIndex((item) => item.id === dragged.id);
-  const toIndex = ordered.findIndex((item) => item.id === target.id);
-
-  if (fromIndex < 0 || toIndex < 0) return;
-
-  const moved = ordered.splice(fromIndex, 1)[0];
-  ordered.splice(toIndex, 0, moved);
-
-  setStatus("Saving new order and rebuilding...", "");
-
-  const result = await postJson("/api/reorder-collection", {
-    collection: dragged.collection,
-    orderedIds: ordered.map((item) => item.id)
-  });
-
-  await loadArtworks();
-  state.selectedId = dragged.id;
-  fillForm(selectedItem());
-  render();
-  setStatus("Order saved and gallery rebuilt. Refresh /art/.", "good");
-}
-
-async function saveFeature() {
-  const item = selectedItem();
-  if (!item) {
-    setStatus("No work selected.", "bad");
-    return;
-  }
-
-  const target = document.getElementById("featureTarget").value;
-  const selector = selectorFor(item);
-
-  if (target === "homepageHero") {
-    state.curation.homepageHero = selector;
-  } else {
-    state.curation.collections ||= {};
-    state.curation.collections[target] ||= {};
-    state.curation.collections[target].feature = selector;
-  }
-
-  setStatus("Saving feature and rebuilding...", "");
-  await postJson("/api/save-art-curation", state.curation);
-  await loadCuration();
-  setStatus("Feature saved and rebuilt. Refresh /art/.", "good");
-}
-
-async function saveEdit() {
-  const item = selectedItem();
-  if (!item) {
-    setStatus("No work selected.", "bad");
-    return;
-  }
-
-  setStatus("Saving edit and rebuilding...", "");
-
-  await postJson("/api/update-artwork", {
-    id: item.id,
-    title: document.getElementById("title").value,
-    collection: document.getElementById("collection").value,
-    medium: document.getElementById("medium").value,
-    subgroup: document.getElementById("subgroup").value,
-    alt: document.getElementById("title").value,
-    text: document.getElementById("caption").value,
-    reading: document.getElementById("caption").value,
-    status: document.getElementById("workStatus").value
-  });
-
-  await loadArtworks();
-  fillForm(selectedItem());
-  render();
-  setStatus("Edit saved and rebuilt. Refresh /art/.", "good");
-}
-
-async function hideWork() {
-  const item = selectedItem();
-  if (!item) {
-    setStatus("No work selected.", "bad");
-    return;
-  }
-
-  if (!confirm(`Hide "${item.title}" from the public gallery?`)) return;
-
-  setStatus("Hiding and rebuilding...", "");
-  await postJson("/api/hide-artwork", {id: item.id});
-  await loadArtworks();
-  await loadCuration();
-  await loadStudioRoom();
-  fillForm(selectedItem());
-  render();
-  setStatus("Hidden and rebuilt. Refresh /art/.", "good");
-}
-
-function readFileAsDataUrl(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result || ""));
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-
-async function addWork() {
-  // One final submit for either source. Selected Google Photos do not
-  // become artwork until this same button is pressed.
-  if (window.artGooglePhotosSelection?.hasPending()) {
-    return await window.artGooglePhotosSelection.importPending();
-  }
-  const title = document.getElementById("newTitle").value.trim();
-
-  if (!state.imageDataUrl) {
-    setStatus("Choose an image first.", "bad");
-    return;
-  }
-
-  if (!title) {
-    setStatus("Add a title first.", "bad");
-    return;
-  }
-
-  setStatus("Adding work and rebuilding...", "");
-
-  const result = await postJson("/api/add-artwork", {
-    imageDataUrl: state.imageDataUrl,
-    title,
-    collection: document.getElementById("newCollection").value,
-    medium: document.getElementById("newMedium").value,
-    subgroup: document.getElementById("newSubgroup").value || "Other",
-    alt: document.getElementById("newTitle").value,
-    text: document.getElementById("newCaption").value,
-    reading: document.getElementById("newCaption").value,
-    makeCollectionFeature: document.getElementById("makeCollectionFeature").checked,
-    makeHomepageHero: document.getElementById("makeHomepageHero").checked
-  });
-
-  state.imageDataUrl = "";
-  document.getElementById("newFile").value = "";
-  document.getElementById("newPreview").style.display = "none";
-
-  ["newTitle", "newMedium", "newSubgroup", "newCaption"].forEach((id) => {
-    document.getElementById(id).value = "";
-  });
-
-  await loadArtworks();
-  await loadCuration();
-  state.selectedId = result.record.id;
-  fillForm(result.record);
-  render();
-  setStatus("Artwork added and rebuilt. Refresh /art/.", "good");
-}
-
-async function init() {
-  populateSelect("collectionFilter", ["All", ...collections, "Studio Assets"]);
-  populateSelect("collection", collections);
-  populateSelect("newCollection", collections);
-
-  document.getElementById("newCollection").value = "Oil Paintings";
-
-  await loadArtworks();
-  await loadCuration();
-
-  document.getElementById("collectionFilter").addEventListener("change", () => {
-    if (document.getElementById("collectionFilter").value === "Studio Assets") {
-      loadStudioRoom().catch((error) => setStatus(error.message, "bad"));
-    } else render();
-  });
-  document.getElementById("statusFilter").addEventListener("change", render);
-  document.getElementById("search").addEventListener("input", render);
-  document.getElementById("saveFeature").addEventListener("click", () => saveFeature().catch((error) => setStatus(error.message, "bad")));
-  document.getElementById("saveEdit").addEventListener("click", () => saveEdit().catch((error) => setStatus(error.message, "bad")));
-  document.getElementById("hideWork").addEventListener("click", () => hideWork().catch((error) => setStatus(error.message, "bad")));
-document.getElementById("addWork").addEventListener("click", () => addWork().catch((error) => setStatus(error.message, "bad")));
-
-  document.getElementById("newFile").addEventListener("change", async (event) => {
-    const file = event.target.files && event.target.files[0];
-    if (!file) return;
-
-    if (window.artUploadDestination === "studio") {
-      state.imageDataUrl = "";
-      return;
-    }
-    state.imageDataUrl = await readFileAsDataUrl(file);
-
-    const preview = document.getElementById("newPreview");
-    preview.src = state.imageDataUrl;
-    preview.style.display = "block";
-
-    if (!document.getElementById("newTitle").value) {
-      document.getElementById("newTitle").value = file.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ");
-    }
-  });
-
-  render();
-  window.dispatchEvent(new Event("art-manager-ready"));
-}
-
-init().catch((error) => {
-  document.body.innerHTML = `<main><h1>Manager failed</h1><p>${escapeHtml(error.message)}</p></main>`;
-});
-</script>
-<script>
-  /*
-   * Keep the top manager controls behaving like true dropdowns:
-   * only one open at once, click outside to close, Escape to close.
-   */
-  (function () {
-    const menus = [...document.querySelectorAll(".action-menu")];
-
-    menus.forEach((menu) => {
-      menu.addEventListener("toggle", () => {
-        if (!menu.open) return;
-
-        menus.forEach((other) => {
-          if (other !== menu) other.open = false;
-        });
-      });
-    });
-
-    document.addEventListener("click", (event) => {
-      if (event.target.closest(".action-menu")) return;
-      menus.forEach((menu) => {
-        menu.open = false;
-      });
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape") return;
-      menus.forEach((menu) => {
-        menu.open = false;
-      });
-    });
-  }());
-</script>
-<script src="../assets/art-related-manager.js?v=20261020-studio-room-1" defer></script>
-<script src="../assets/art-studio-manager.js?v=20261020-studio-room-1" defer></script>
-<script src="../assets/art-upload-destination.js?v=20261020-unified-1" defer></script>
-<script src="../assets/art-google-photos-upload.js?v=20261020-final-submit-1" defer></script>
-
-  <!-- ART_PWA_START -->
-  <button class="art-install-app" type="button" hidden>Install app</button>
-  <style>
-    .art-install-app {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      z-index: 50;
-      min-height: 38px;
-      border: 1px solid rgba(212, 174, 108, .62);
-      border-radius: 999px;
-      padding: .35rem .9rem;
-      background: #24190f;
-      color: #fff2d7;
-      box-shadow: 0 14px 40px rgba(0,0,0,.32);
-      font: 900 .82rem/1.1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      cursor: pointer;
-    }
-
-    @media (max-width: 640px) {
-      .art-install-app {
-        right: .75rem;
-        bottom: .75rem;
-      }
-    }
-  </style>
-  <script>
-    (function () {
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker.register("/art/sw.js").catch(function () {});
-        });
-      }
-
-      var installPrompt = null;
-      var button = document.querySelector(".art-install-app");
-
-      window.addEventListener("beforeinstallprompt", function (event) {
-        event.preventDefault();
-        installPrompt = event;
-        if (button) button.hidden = false;
-      });
-
-      if (button) {
-        button.addEventListener("click", function () {
-          if (!installPrompt) return;
-          installPrompt.prompt();
-          installPrompt.userChoice.finally(function () {
-            installPrompt = null;
-            button.hidden = true;
-          });
-        });
-      }
-
-      window.addEventListener("appinstalled", function () {
-        if (button) button.hidden = true;
-        installPrompt = null;
-      });
-    }());
-  </script>
-  <!-- ART_PWA_END -->
+<dialog id="addDialog" aria-labelledby="addHeading">
+  <div class="dialog-inner">
+    <div class="dialog-head"><div><p class="eyebrow">ADD FROM YOUR MAC</p><h2 id="addHeading">Add artwork or study</h2></div><button class="close" type="button" data-close aria-label="Close">×</button></div>
+    <form id="addForm">
+      <div class="destination-switch" role="group" aria-label="Where to add">
+        <button type="button" data-destination="gallery" aria-pressed="true">Gallery</button>
+        <button type="button" data-destination="studio" aria-pressed="false">Studio</button>
+      </div>
+      <p id="addHelp" class="subtle">Gallery works appear in a public Room after you Publish.</p>
+      <label class="field">Images from your Mac <input id="addFiles" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif" multiple required></label>
+      <p id="fileCount" class="mini">Choose one or several images. Multiple files use their filenames as titles.</p>
+      <label class="field" id="addRoomRow">Room <select id="addRoom">
+        <option>Oil Paintings</option><option>Watercolours</option><option>Drawings</option>
+        <option>Experimental</option><option>GeoSpatial Imagery</option>
+      </select></label>
+      <label class="field">Title <span class="mini">(optional; used for single image)</span><input id="addTitle" placeholder="Use filename if blank"></label>
+      <label class="field">Note <span class="mini">(optional)</span><textarea id="addNote" rows="3" placeholder="A few words about the work"></textarea></label>
+      <p class="small-warning" id="addPrivacy" hidden>Studio uploads stay private by default. You can link them to an exhibited artwork later.</p>
+      <div class="dialog-actions"><button class="primary" id="addSave" type="submit">Add to Gallery</button><button type="button" data-close>Cancel</button></div>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="editDialog" aria-labelledby="editHeading">
+  <div class="dialog-inner">
+    <div class="dialog-head"><div><p class="eyebrow">ORGANISE</p><h2 id="editHeading">Edit work</h2></div><button class="close" type="button" data-close aria-label="Close">×</button></div>
+    <form id="editForm">
+      <label class="field">Title <input id="editTitle" required></label>
+      <label class="field" id="editRoomRow">Gallery Room <select id="editRoom">
+        <option>Oil Paintings</option><option>Watercolours</option><option>Drawings</option>
+        <option>Experimental</option><option>GeoSpatial Imagery</option>
+      </select></label>
+      <label class="field">Note <textarea id="editNote" rows="4"></textarea></label>
+      <label class="field" id="editStatusRow">Gallery status <select id="editStatus">
+        <option value="active">Visible</option><option value="hidden">Hidden from Gallery</option>
+      </select></label>
+      <label class="field" id="editVisibilityRow" hidden>Studio visibility <select id="editVisibility">
+        <option value="private">Private (recommended)</option>
+        <option value="related">Allow in public See related</option>
+      </select></label>
+      <p class="small-warning" id="visibilityWarning" hidden>Allowing See related may publish this file when it is linked. Public copies can persist in Git history.</p>
+      <div class="dialog-actions"><button class="primary" type="submit" id="editSave">Save changes</button><button type="button" data-close>Cancel</button></div>
+    </form>
+  </div>
+</dialog>
+
+<dialog id="moveDialog" aria-labelledby="moveHeading">
+  <div class="dialog-inner">
+    <div class="dialog-head"><div><p class="eyebrow">MOVE WORK</p><h2 id="moveHeading">Move to Studio?</h2></div><button class="close" type="button" data-close aria-label="Close">×</button></div>
+    <p id="moveExplanation"></p>
+    <label id="moveRoomRow" class="field" hidden>Destination Room <select id="moveRoom">
+      <option>Oil Paintings</option><option>Watercolours</option><option>Drawings</option>
+      <option>Experimental</option><option>GeoSpatial Imagery</option>
+    </select></label>
+    <p class="small-warning" id="moveWarning">Previously published photographs may remain in GitHub history or caches. Moving does not erase that history.</p>
+    <div class="dialog-actions"><button id="confirmMove" class="primary" type="button">Move to Studio</button><button type="button" data-close>Cancel</button></div>
+  </div>
+</dialog>
+
+<dialog id="relateDialog" class="wide-dialog" aria-labelledby="relateHeading">
+  <div class="dialog-inner">
+    <div class="dialog-head"><div><p class="eyebrow">RELATE</p><h2 id="relateHeading">Connect artworks and studies</h2></div><button class="close" type="button" data-close aria-label="Close">×</button></div>
+    <p class="subtle">Choose the works that belong together. Studio files only appear publicly if you explicitly allow it.</p>
+    <label class="field">Related group
+      <select id="relateGroup"><option value="">New related group</option></select>
+    </label>
+    <label class="field">Group title <input id="relateTitle" placeholder="Studies for this painting"></label>
+    <div class="relate-columns">
+      <section>
+        <h3>Choose works</h3>
+        <div class="relate-filters"><select id="relateFilter"><option value="all">All</option><option value="gallery">Gallery</option><option value="studio">Studio</option></select><input type="search" id="relateSearch" placeholder="Find a work…"></div>
+        <div id="relateCandidates" class="relate-candidates"></div>
+      </section>
+      <section>
+        <h3>In this group <small id="relateCount"></small></h3>
+        <div id="relateChosen" class="relate-chosen"></div>
+      </section>
+    </div>
+    <label class="checkline"><input id="relatePublishStudio" type="checkbox"> Allow selected private Studio files to appear publicly in “See related”</label>
+    <p class="small-warning">Making Studio files public is an explicit publication decision. Public files cannot be reliably recalled from other people's copies.</p>
+    <div class="dialog-actions"><button id="saveRelations" class="primary" type="button">Save relationships</button><button type="button" data-close>Cancel</button></div>
+  </div>
+</dialog>
+
+<dialog id="publishDialog" class="wide-dialog" aria-labelledby="publishHeading">
+  <div class="dialog-inner">
+    <div class="dialog-head"><div><p class="eyebrow">YOUR WEBSITE</p><h2 id="publishHeading">Publish your changes</h2></div><button class="close" type="button" data-close aria-label="Close">×</button></div>
+    <div class="publish-steps"><span>1 · Saved on Mac</span><span>2 · Review &amp; commit</span><span>3 · Publish online</span></div>
+    <p class="subtle">Changes are already saved on your Mac. Review which public files and artworks are affected before sending anything to GitHub.</p>
+    <div id="publishReview" role="status"></div>
+    <label id="commitCheckRow" class="checkline"><input id="commitApproved" type="checkbox"> I reviewed these public changes</label>
+    <label id="commitMessageRow" class="field">Short description <input id="commitMessage" value="ARTS: update artwork gallery"></label>
+    <div class="dialog-actions">
+      <button id="publishCommit" class="primary" type="button" disabled>Save reviewed changes to Git</button>
+      <button id="reviewOnline" type="button">Review what goes online</button>
+    </div>
+    <div id="onlineSection" hidden>
+      <h3>Final publication review</h3>
+      <div id="onlineReview"></div>
+      <label class="checkline"><input id="onlineApproved" type="checkbox"> I understand these files will be publicly accessible</label>
+      <label class="field">Type PUBLISH to confirm <input id="onlineConfirm" placeholder="PUBLISH" autocomplete="off"></label>
+      <div class="dialog-actions"><button id="publishPush" class="primary" disabled type="button">Publish to website</button></div>
+    </div>
+  </div>
+</dialog>
+
+<script defer src="/art/assets/art-manager-calm.js?v=20261114-2"></script>
 </body>
 </html>

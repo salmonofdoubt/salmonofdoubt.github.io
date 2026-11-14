@@ -584,3 +584,21 @@ body.art-body img {
     max-height: 40vh;
   }
 }
+
+
+/* November 2026: quieter public gallery, artworks first.
+   Preserves the five Room structure and all existing gallery content. */
+.art-main { width:min(1240px,calc(100% - 2rem)); }
+.room-grid { gap:clamp(.95rem,2vw,1.5rem); }
+.room-tile { border:1px solid var(--art-line); transition:border-color .16s,transform .16s; }
+.room-tile:hover { border-color:var(--art-gold);transform:translateY(-2px); }
+.room-tile-copy { padding:clamp(.85rem,2vw,1.2rem); }
+.archive-wall { columns:4 185px;column-gap:clamp(.7rem,1.8vw,1.35rem); }
+.work-card { margin-bottom:clamp(.7rem,1.8vw,1.35rem); }
+.work-title { font-size:.74rem;letter-spacing:.04em;text-transform:none; }
+.work-meta { font-size:.58rem; }
+.work-card:focus-visible { outline:3px solid var(--art-gold);outline-offset:3px; }
+@media(max-width:640px){
+ .archive-wall { columns:2 140px;column-gap:.6rem; }
+ .room-grid { gap:.9rem; }
+}

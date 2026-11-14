@@ -1,4 +1,4 @@
-const CACHE_NAME = "diandre-art-v17-filmstrip-manual-publish";
+const CACHE_NAME = "diandre-art-v18-calm-local-studio";
 
 const CORE_ASSETS = [
   "/art/",
@@ -49,6 +49,13 @@ self.addEventListener("fetch", event => {
   }
 
   if (!url.pathname.startsWith("/art/")) {
+    return;
+  }
+
+  // The local manager must never serve a stale code or interface bundle.
+  if (url.pathname.startsWith("/art/manage/") ||
+      url.pathname.startsWith("/art/assets/art-manager-calm.")) {
+    event.respondWith(fetch(request).catch(() => caches.match(request)));
     return;
   }
 
