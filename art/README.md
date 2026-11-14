@@ -23,18 +23,18 @@ private by default and do not appear as independent public artworks.
 and studies. Select multiple works in a related group. Existing relationships
 are kept when moving a work between Gallery and Studio.
 
-**Put a picture anywhere in a Room:** Open **Gallery**, choose the
-specific Room (for example **Oil Paintings**), and clear Search. Drag a
-thumbnail onto another picture: the left half places it before, the right
-half places it after. Alternatively, click a picture and type the new
-**Position in Room** (for example 1 of 78), then click **Set**. The order
-is saved locally immediately. Use **Publish** only when you want the new
-order on the public site. Choosing a different Room changes the room,
-not just the image position.
+**Rearrange your art:** Just grab a thumbnail and drop it on another
+thumbnail. A thin edge highlight shows where it will land. This works while
+viewing **All Rooms**, one Room, or search results, as long as the two
+artworks belong to the same Gallery Room. No Organise button, position
+number or extra screen is needed. The complete Room sequence is saved on
+your Mac and can be published when ready.
 
-**Rearrange Studio:** In **Studio**, drag one asset onto another or select
-it and set its **Position in Studio** numerically. This reorders only
-your Studio library and does not change visibility to public.
+**Move a painting into Studio:** Grab the thumbnail and drop it onto the
+**Studio** tab, then confirm. Or click a painting and choose **Move → Studio**.
+
+**Rearrange Studio:** Grab one thumbnail and drop it on another. The order
+stays private on your Mac.
 
 **Order inside See related:** Select a work, click **Relate**, and use
 the ↑ / ↓ controls next to items in that group's sequence.

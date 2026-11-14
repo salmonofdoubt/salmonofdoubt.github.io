@@ -110,14 +110,10 @@ dialog.wide-dialog{width:min(940px,calc(100vw - 1.4rem))}
   outline-offset:3px;
 }
 
-/* Simple artwork sequencing: a single contextual position input and clear drop targets. */
-.position-control{display:grid;gap:.3rem;align-items:center;margin-inline:auto;min-width:160px}
-.position-control[hidden]{display:none}
-.position-control label{font-size:.72rem;color:var(--muted);font-weight:700}
-.position-control > div{display:flex;align-items:center;gap:.4rem}
-.position-control input{width:64px;min-width:64px;min-height:37px;padding:.35rem .45rem;text-align:center}
-.position-control span{color:var(--muted);font-size:.83rem;white-space:nowrap}
-.position-control button{min-width:45px;min-height:36px;padding:.35rem .7rem}
+/* Subtle insertion guides make dropping a painting intuitive. */
+.art-card{cursor:grab;touch-action:pan-y}
+.art-card:active{cursor:grabbing}
+.art-card img{pointer-events:none;user-select:none;-webkit-user-drag:none}
 .art-card.reorder-before{box-shadow:inset 5px 0 0 #b0e9c9,0 0 0 3px #b0e9c977;border-color:#b0e9c9}
 .art-card.reorder-after{box-shadow:inset -5px 0 0 #b0e9c9,0 0 0 3px #b0e9c977;border-color:#b0e9c9}
-@media(max-width:760px){.position-control{margin-inline:0;order:2;flex:1}.selected-actions{order:3}}
+

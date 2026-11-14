@@ -29,8 +29,16 @@ assert.match(js,/\/api\/studio-upload/,"Local-only Studio upload remains");
 assert.match(js,/\/api\/add-artwork/,"Local-only gallery upload remains");
 assert.match(js,/visibility:"private"/,"Studio imports must be private by default");
 assert.match(js,/\/api\/move-art/,"Gallery and Studio are reversible");
-assert.match(manager,/id="positionInput"/,"Selected artwork can be placed at a numbered position");
-assert.match(manager,/id="applyPosition"/,"No extra arrange menu is needed");
+assert.doesNotMatch(manager,/id="positionInput"|id="applyPosition"/,
+ "No manual position-number fields in the artist-facing Manager");
+assert.doesNotMatch(js,/positionInput|applyPosition|repositionSelected/,
+ "Reordering is direct drag and drop, without extra numeric controls");
+assert.match(js,/draggedWork.keys.length!==1\)return false/,
+ "Single artwork can be dragged without changing Manager mode");
+assert.doesNotMatch(js,/roomFilter"\)\.value===src\.collection/,
+ "All Rooms is a supported starting view for reordering");
+assert.doesNotMatch(js,/search"\)\.value\.trim\(\)\)return false/,
+ "Search filter does not disable drag-and-drop");
 assert.match(js,/\/api\/reorder-collection/,"Gallery order saved through existing API");
 assert.match(js,/\/api\/reorder-studio/,"Studio order saved through private API");
 assert.match(js,/reorder-before/,"Gallery and Studio cards show before/after drop position");
