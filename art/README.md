@@ -23,6 +23,22 @@ private by default and do not appear as independent public artworks.
 and studies. Select multiple works in a related group. Existing relationships
 are kept when moving a work between Gallery and Studio.
 
+**Put a picture anywhere in a Room:** Open **Gallery**, choose the
+specific Room (for example **Oil Paintings**), and clear Search. Drag a
+thumbnail onto another picture: the left half places it before, the right
+half places it after. Alternatively, click a picture and type the new
+**Position in Room** (for example 1 of 78), then click **Set**. The order
+is saved locally immediately. Use **Publish** only when you want the new
+order on the public site. Choosing a different Room changes the room,
+not just the image position.
+
+**Rearrange Studio:** In **Studio**, drag one asset onto another or select
+it and set its **Position in Studio** numerically. This reorders only
+your Studio library and does not change visibility to public.
+
+**Order inside See related:** Select a work, click **Relate**, and use
+the ↑ / ↓ controls next to items in that group's sequence.
+
 **Publish:** The local Manager saves and rebuilds immediately. Publication
 requires reviewing what will become public, confirming a local Git commit,
 and separately confirming the GitHub push.
