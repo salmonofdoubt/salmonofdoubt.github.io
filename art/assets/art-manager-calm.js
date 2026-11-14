@@ -492,13 +492,42 @@ async function move(){
  finally{model.busy=false;$("confirmMove").disabled=false;}
 }
 function memberKey(m){return m.kind+":"+m.id;}
-function labelMember(m){
- if(m.kind==="artwork"){const a=model.artworks.find(a=>a.id===m.id);return {title:a?.title||"Unlisted artwork",note:a?.collection||"Gallery"};}
+// Both halves of Relate use the same preview rules as the Gallery and Studio grids.
+// Legacy Refs load ONLY from the local /api/reference-image endpoint.
+function relatedMemberInfo(m){
+ if(m.kind==="artwork"){
+   const a=model.artworks.find(a=>a.id===m.id);
+   return {title:a?.title||"Unlisted artwork",note:a?.collection||"Gallery",
+     preview:a?image(a,false):""};
+ }
  if(m.kind==="studio"||m.kind==="reference"){
    const a=model.assets.find(a=>a.id===m.id);
-   return {title:a?.title||"Studio item",note:(a?.isReference?"Ref":"Studio")+" · "+(a?.visibility==="private"?"Private":"Related")};
+   return {title:a?.title||"Studio item",
+     note:(a?.isReference?"Ref":"Studio")+" · "+(a?.visibility==="private"?"Private":"Related"),
+     preview:a?image(a,true):""};
  }
- return {title:"Existing item",note:"Related"};
+ return {title:"Existing item",note:"Related",preview:""};
+}
+// A file with no image preview gets a clear placeholder rather than a broken icon.
+function relatedThumbnail(src,title){
+ return '<span class="relate-thumb">'+
+   (src?'<img src="'+esc(src)+'" alt="'+esc(title||"Artwork preview")+
+          '" loading="lazy" decoding="async">':
+        '<span class="relate-thumb-empty" aria-hidden="true">No image</span>')+
+   '</span>';
+}
+function watchRelatedImages(container){
+ container.querySelectorAll(".relate-thumb img").forEach(img=>{
+   img.addEventListener("error",()=>{
+     const frame=img.parentElement;
+     if(!frame)return;
+     const empty=document.createElement("span");
+     empty.className="relate-thumb-empty";
+     empty.textContent="No image";
+     empty.setAttribute("aria-hidden","true");
+     img.replaceWith(empty);
+   },{once:true});
+ });
 }
 async function openRelate(){
  if(!chooseSelected())return;
@@ -531,16 +560,23 @@ function loadGroup(){
 function renderRelated(){
  const q=$("relateSearch").value.trim().toLowerCase(),filter=$("relateFilter").value;
  const candidates=[
- ...model.artworks.filter(a=>a.status!=="hidden").map(a=>({kind:"artwork",id:a.id,title:a.title,meta:a.collection})),
- ...model.assets.map(a=>({kind:a.kind==="reference"?"reference":"studio",id:a.id,title:a.title,
-   meta:(a.isReference?"Ref":"Studio")+" · "+(a.visibility==="private"?"Private":"Related")}))
+ ...model.artworks.filter(a=>a.status!=="hidden").map(a=>({
+    kind:"artwork",id:a.id,title:a.title,meta:a.collection,preview:image(a,false)
+ })),
+ ...model.assets.map(a=>({
+    kind:a.kind==="reference"?"reference":"studio",id:a.id,title:a.title,
+    meta:(a.isReference?"Ref":"Studio")+" · "+(a.visibility==="private"?"Private":"Related"),
+    preview:image(a,true)
+ }))
  ].filter(x=>(filter==="all"||(filter==="gallery"&&x.kind==="artwork")||(filter==="studio"&&["studio","reference"].includes(x.kind)))&&
       (!q||(x.title+" "+x.meta).toLowerCase().includes(q)));
  const list=$("relateCandidates"),scroll=list.scrollTop;
  list.innerHTML=candidates.map(c=>'<label class="relate-candidate"><input type="checkbox" data-member-kind="'+c.kind+
    '" value="'+esc(c.id)+'" '+(model.members.some(m=>m.kind===c.kind&&m.id===c.id)?"checked":"")+
-   '><span class="content">'+esc(c.title||"Untitled")+'<small>'+esc(c.meta)+'</small></span></label>').join("");
+   '>'+relatedThumbnail(c.preview,c.title)+
+   '<span class="content"><strong>'+esc(c.title||"Untitled")+'</strong><small>'+esc(c.meta)+'</small></span></label>').join("");
  list.scrollTop=scroll;
+ watchRelatedImages(list);
  list.querySelectorAll("input").forEach(box=>box.addEventListener("change",()=>{
    const key=box.dataset.memberKind+":"+box.value;
    if(box.checked){
@@ -549,14 +585,20 @@ function renderRelated(){
    renderRelated();
  }));
  $("relateCount").textContent="("+model.members.length+")";
- $("relateChosen").innerHTML=model.members.map((m,i)=>{
-  const desc=labelMember(m);
-  return '<div class="relate-selected-item"><span class="content">'+esc(desc.title)+
+ const chosenList=$("relateChosen"),chosenScroll=chosenList.scrollTop;
+ chosenList.innerHTML=model.members.map((m,i)=>{
+  const desc=relatedMemberInfo(m);
+  return '<div class="relate-selected-item">'+relatedThumbnail(desc.preview,desc.title)+
+    '<span class="content"><strong>'+esc(desc.title)+'</strong>'+
     '<small>'+esc(desc.note)+'</small></span>'+
-    '<button type="button" data-up="'+i+'" aria-label="Move up" '+(i===0?"disabled":"")+'>↑</button>'+
-    '<button type="button" data-down="'+i+'" aria-label="Move down" '+(i===model.members.length-1?"disabled":"")+'>↓</button>'+
-    '<button type="button" data-remove="'+i+'" aria-label="Remove from group">×</button></div>';
+    '<div class="relate-item-actions">'+
+    '<button type="button" data-up="'+i+'" aria-label="Move '+esc(desc.title)+' up" '+(i===0?"disabled":"")+'>↑</button>'+
+    '<button type="button" data-down="'+i+'" aria-label="Move '+esc(desc.title)+' down" '+(i===model.members.length-1?"disabled":"")+'>↓</button>'+
+    '<button type="button" data-remove="'+i+'" aria-label="Remove '+esc(desc.title)+' from group">×</button>'+
+    '</div></div>';
  }).join("");
+ chosenList.scrollTop=chosenScroll;
+ watchRelatedImages(chosenList);
  $("relateChosen").querySelectorAll("[data-up]").forEach(b=>b.addEventListener("click",()=>{
   const n=Number(b.dataset.up);[model.members[n-1],model.members[n]]=[model.members[n],model.members[n-1]];renderRelated();
  }));
