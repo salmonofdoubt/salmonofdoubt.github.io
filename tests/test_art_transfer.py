@@ -46,7 +46,7 @@ class StudioGalleryTransferTests(unittest.TestCase):
             "members":[{"kind":"artwork","id":"portrait-1","role":"related","note":"first"},
                        {"kind":"artwork","id":"drawing-2","role":"related","note":""}]}]}))
         replacements=[
-            (transfer,"ART",self.art),(transfer,"ARTWORKS",self.artworks),
+            (transfer,"ROOT",root),(transfer,"ART",self.art),(transfer,"ARTWORKS",self.artworks),
             (transfer,"CURATION",self.curation),(studio,"ARTWORKS",self.artworks),
             (studio,"INDEX",self.studio_index),(studio,"PRIVATE_FILES",self.studio_files),
             (studio,"PUBLIC_FILES",self.art / "assets" / "studio"),
