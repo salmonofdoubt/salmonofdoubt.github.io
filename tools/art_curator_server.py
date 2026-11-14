@@ -25,6 +25,7 @@ from art_studio_assets import (
     file_for_asset as studio_file_for_asset,
     find_asset as studio_find_asset,
     load_assets as studio_load_assets,
+    reorder_assets as studio_reorder_assets,
     update_asset as studio_update_asset,
     upload_asset as studio_upload_asset,
 )
@@ -584,6 +585,19 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                 self.save_and_rebuild("Artwork hidden and gallery rebuilt", {"record": record})
                 return
 
+            if path == "/api/reorder-studio":
+                if int(self.headers.get("Content-Length", "0")) > 100 * 1024:
+                    self.send_json(413, {"ok": False, "error": "Reorder request too large"})
+                    return
+                payload = self.read_payload()
+                try:
+                    result = studio_reorder_assets(payload.get("orderedIds"))
+                except ValueError as exc:
+                    self.send_json(409, {"ok": False, "error": str(exc)})
+                    return
+                self.save_and_rebuild("Studio order saved locally", {"order": result})
+                return
+
             if path == "/api/reorder-collection":
                 payload = self.read_payload()
                 collection = str(payload.get("collection") or "").strip()
@@ -602,6 +616,20 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
 
                 ordered_set = set(ordered_ids)
                 rank = {record_id: index for index, record_id in enumerate(ordered_ids)}
+
+                if collection not in COLLECTION_SLUGS:
+                    self.send_json(400, {"ok": False, "error": "Choose a Gallery Room"})
+                    return
+                current_ids = [
+                    str(record.get("id")) for record in records
+                    if record.get("collection") == collection
+                ]
+                if (len(ordered_ids) != len(current_ids)
+                        or len(set(ordered_ids)) != len(ordered_ids)
+                        or set(ordered_ids) != set(current_ids)):
+                    self.send_json(409, {"ok": False,
+                        "error": "Gallery order has changed. Refresh the Manager and retry."})
+                    return
 
                 selected_collection = []
                 other_records = []
