@@ -4,6 +4,7 @@
 const rooms=["Oil Paintings","Watercolours","Drawings","Experimental","GeoSpatial Imagery"];
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
+let draggedWork = null;
 const model={artworks:[],assets:[],curation:{homepageHero:{},collections:{}},view:"gallery",selected:null,destination:"gallery",groups:[],members:[],editingGroup:"",multi:false,chosen:new Set(),commitReview:null,onlineReview:null,busy:false};
 const selected=()=>model.selected&&(model.selected.kind==="gallery"
     ?model.artworks.find(a=>a.id===model.selected.id)
@@ -98,11 +99,24 @@ function render(){
    '<span class="art-copy"><strong>'+esc(item.title||item.originalFilename||"Untitled")+
      '</strong><small>'+esc(label)+'</small></span></button>';
  }).join(""):'<div class="art-empty">No work here. Choose <strong>Add</strong> to bring something in from your Mac.</div>';
- $("grid").querySelectorAll("[data-id]").forEach(btn=>btn.addEventListener("click",()=>select(btn.dataset.kind,btn.dataset.id)));
+ $("grid").querySelectorAll("[data-id]").forEach(btn=>{
+   btn.addEventListener("click",()=>select(btn.dataset.kind,btn.dataset.id));
+   btn.draggable=true;
+   btn.addEventListener("dragstart",event=>{
+     const key=btn.dataset.kind+":"+btn.dataset.id;
+     if(model.multi&&!model.chosen.has(key))model.chosen=new Set([key]);
+     if(!model.multi)model.selected={kind:btn.dataset.kind,id:btn.dataset.id};
+     draggedWork={kind:btn.dataset.kind,keys:model.multi?[...model.chosen]:[key]};
+     event.dataTransfer.effectAllowed="move";
+     event.dataTransfer.setData("text/plain",key);
+   });
+   btn.addEventListener("dragend",()=>{draggedWork=null;document.querySelectorAll("[data-view]").forEach(t=>t.classList.remove("drop-ready"));});
+ });
  const item=selected();
  const count=selectedKeys().length;
  $("selectionPanel").hidden=!item&&!count;
  $("editButton").disabled=count!==1;
+ $("moveButton").textContent=(model.selected?.kind==="studio"?"Move → Gallery":"Move → Studio")+(count>1?" ("+count+")":"");
  if(item){
    $("selectedTitle").textContent=count>1?count+" works selected":item.title||item.originalFilename||"Untitled";
    $("selectedMeta").textContent=count>1?"Move them together or relate them in one group.":gallery?(item.collection+" · "+(item.status==="hidden"?"Hidden":"Visible")):
@@ -425,6 +439,28 @@ $("organiseButton").addEventListener("click",setOrganiseMode);
 $("publishButton").addEventListener("click",openPublish);
 $("editButton").addEventListener("click",openEdit);
 $("moveButton").addEventListener("click",openMove);
+document.querySelectorAll("[data-view]").forEach(tab=>{
+ tab.addEventListener("dragover",event=>{
+   if(!draggedWork||draggedWork.kind===tab.dataset.view)return;
+   event.preventDefault();event.dataTransfer.dropEffect="move";
+   tab.classList.add("drop-ready");
+ });
+ tab.addEventListener("dragleave",()=>tab.classList.remove("drop-ready"));
+ tab.addEventListener("drop",event=>{
+   tab.classList.remove("drop-ready");
+   if(!draggedWork||draggedWork.kind===tab.dataset.view)return;
+   event.preventDefault();
+   const dragged=draggedWork;
+   draggedWork=null;
+   // Switch only the selection, not the workspace, until confirmation.
+   model.multi=dragged.keys.length>1;
+   model.chosen=new Set(dragged.keys);
+   const first=dragged.keys[0];
+   model.selected={kind:dragged.kind,id:first.slice(first.indexOf(":")+1)};
+   render();
+   openMove();
+ });
+});
 $("relateButton").addEventListener("click",openRelate);
 $("roomFilter").addEventListener("change",render);
 $("search").addEventListener("input",render);
