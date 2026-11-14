@@ -134,7 +134,7 @@ class ArtRemovalTests(unittest.TestCase):
         self.assertEqual(1, removed["affectedGroups"])
         self.assertFalse(self.works.exists())
         self.assertNotIn("gallery-a", self.art_ids())
-        self.assertEqual([], self.group_members()[:1]) if not self.group_members() else self.assertEqual("reference", self.group_members()[0]["kind"])
+        self.assertEqual(["ref-old"], [m["id"] for m in self.group_members()])
         self.assertEqual({}, json.loads(self.curation.read_text())["homepageHero"])
         self.assertEqual([], studio.find_asset(study["id"])["artworkIds"])
         self.assertEqual(1, len(removal.recent_removed()))
