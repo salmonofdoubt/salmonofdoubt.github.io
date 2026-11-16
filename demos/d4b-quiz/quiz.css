@@ -25,3 +25,13 @@
 .source-ledger-row .fine{margin:.35rem 0 0;overflow-wrap:anywhere}
 .source-ledger-row .source-reviewed{color:#b4ebdd}
 @media(max-width:750px){.ingestion-facts,.source-ledger{grid-template-columns:1fr}.ingestion-fact{padding:13px}.source-ledger-row{padding:12px}}
+
+/* November 2026: focused GenAI preparation without removing other modules. */
+.settings{grid-template-columns:repeat(5,minmax(0,1fr))}
+.exam-scope{border-color:#376f78;background:linear-gradient(135deg,rgba(13,42,48,.95),rgba(8,23,34,.96))}
+.exam-scope h2{font-size:clamp(1.25rem,2.5vw,1.65rem);margin:.5rem 0}
+.exam-scope p{max-width:920px;line-height:1.6}
+.exam-scope a{color:#9ef0fd;text-underline-offset:3px}
+@media(max-width:950px){.settings{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:750px){.settings{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:370px){.settings{grid-template-columns:1fr}}
