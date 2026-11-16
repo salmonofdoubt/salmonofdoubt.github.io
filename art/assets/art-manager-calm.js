@@ -406,6 +406,12 @@ async function addFiles(event){
   status(error.message+(completed?" ("+completed+" already saved)":""),"bad");
  }finally{model.busy=false;$("addSave").disabled=false;}
 }
+function syncRoomCoverOption(){
+ const isGallery=model.selected?.kind==="gallery";
+ const visible=isGallery&&$("editStatus").value==="active";
+ $("editRoomCoverRow").hidden=!visible;
+ if(!visible)$("editRoomCover").checked=false;
+}
 function openEdit(){
  if(!chooseSelected())return;
  if(selectedKeys().length!==1){status("Choose just one work to edit its details.","bad");return;}
@@ -417,9 +423,13 @@ function openEdit(){
  if(gallery){
    $("editRoom").value=item.collection||"Experimental";
    $("editStatus").value=item.status==="hidden"?"hidden":"active";
+   const feature=model.curation.collections?.[item.collection]?.feature||{};
+   $("editRoomCover").checked=feature.id===item.id||
+     (!!item.image&&feature.image===item.image);
  }else{
    $("editReference").checked=!!item.isReference;
  }
+ syncRoomCoverOption();
  dialog("editDialog");
 }
 async function saveEdit(event){
@@ -431,7 +441,7 @@ async function saveEdit(event){
     await post("/api/update-artwork",{
       id:item.id,title:$("editTitle").value.trim(),collection:$("editRoom").value,
       text:$("editNote").value,reading:$("editNote").value,
-      status:$("editStatus").value
+      status:$("editStatus").value,roomCover:$("editRoomCover").checked
     });
   }else{
     await post("/api/studio-update",{
@@ -763,6 +773,7 @@ $("addFiles").addEventListener("change",()=>{
 });
 $("addForm").addEventListener("submit",addFiles);
 $("editForm").addEventListener("submit",saveEdit);
+$("editStatus").addEventListener("change",syncRoomCoverOption);
 $("confirmMove").addEventListener("click",move);
 $("relateGroup").addEventListener("change",loadGroup);
 $("relateSearch").addEventListener("input",renderRelated);
