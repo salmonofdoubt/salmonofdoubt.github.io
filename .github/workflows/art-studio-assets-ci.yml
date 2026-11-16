@@ -20,6 +20,7 @@ on:
       - "tools/art_related.py"
       - "tools/build_art_gallery_static.py"
       - "tests/test_art_transfer.py"
+      - "tests/test_art_room_covers.py"
       - "tests/test_art_publish.py"
       - "tests/test_art_studio_assets.py"
       - "tests/test_art_studio_room.py"
@@ -58,6 +59,7 @@ jobs:
           python -m unittest discover -s tests -p 'test_art_studio_unified_refs.py' -v
           python -m unittest discover -s tests -p 'test_art_removal.py' -v
           python -m unittest discover -s tests -p 'test_art_transfer.py' -v
+          python -m unittest discover -s tests -p 'test_art_room_covers.py' -v
           python -m unittest discover -s tests -p 'test_art_publish.py' -v
           node tests/test_art_calm_manager.cjs
           node tests/test_art_related_desktop_original.cjs
