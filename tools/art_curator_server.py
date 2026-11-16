@@ -201,6 +201,30 @@ def prune_curation_for_record(record: dict) -> None:
     write_json(CURATION_PATH, curation)
 
 
+def apply_room_cover_edit(curation: dict, record: dict, previous_collection: str,
+                          requested: bool) -> bool:
+    """Set or clear this Room's cover, without changing the separate homepage hero.
+
+    The same feature drives the main Art Room tile and the lead image inside
+    that Room. The caller validates the request and persists curation.
+    """
+    record_id = record.get("id")
+    record_image = record.get("image")
+    collections = curation.setdefault("collections", {})
+    previous_rule = collections.get(previous_collection, {}).get("feature") or {}
+    was_cover = (previous_rule.get("id") == record_id or
+                 bool(record_image and previous_rule.get("image") == record_image))
+    current_collection = record.get("collection")
+    changed = False
+    if was_cover and (not requested or current_collection != previous_collection):
+        collections[previous_collection].pop("feature", None)
+        changed = True
+    if requested:
+        collections.setdefault(current_collection, {})["feature"] = record_selector(record)
+        changed = True
+    return changed
+
+
 def decode_data_url(data_url: str) -> tuple[bytes, str]:
     if "," not in data_url:
         raise ValueError("Upload payload is not a valid data URL")
@@ -600,20 +624,52 @@ class ArtManagerHandler(SimpleHTTPRequestHandler):
                 if not record:
                     self.send_json(404, {"ok": False, "error": "No matching artwork found"})
                     return
+                if "roomCover" in payload and not isinstance(payload["roomCover"], bool):
+                    self.send_json(400, {"ok": False, "error": "Room cover must be true or false"})
+                    return
 
+                previous_collection = str(record.get("collection") or "")
                 editable_fields = ["title", "collection", "medium", "subgroup", "alt", "text", "reading", "status"]
-
                 for field in editable_fields:
                     if field in payload:
                         record[field] = payload[field]
 
-                record["updatedAt"] = time.strftime("%Y-%m-%d")
+                current_collection = str(record.get("collection") or "")
+                if current_collection not in COLLECTION_SLUGS:
+                    self.send_json(400, {"ok": False, "error": "Choose a valid Gallery Room"})
+                    return
+                status = str(record.get("status", "active")).lower()
+                if payload.get("roomCover") is True and status != "active":
+                    self.send_json(400, {"ok": False, "error": "Only visible artworks can represent a Room"})
+                    return
 
-                if str(record.get("status", "active")).lower() == "hidden":
-                    prune_curation_for_record(record)
+                record["updatedAt"] = time.strftime("%Y-%m-%d")
+                # A single existing Edit save can change the title, Room and
+                # representative painting together. Never touch homepageHero.
+                curation = load_curation()
+                curation_changed = False
+                if "roomCover" in payload:
+                    curation_changed = apply_room_cover_edit(
+                        curation, record, previous_collection, payload["roomCover"]
+                    )
+                if status == "hidden":
+                    record_id = record.get("id")
+                    record_image = record.get("image")
+                    if (curation.get("homepageHero") or {}).get("id") == record_id:
+                        curation["homepageHero"] = {}
+                        curation_changed = True
+                    for rule in curation.get("collections", {}).values():
+                        feature = rule.get("feature") or {}
+                        if feature.get("id") == record_id or (
+                            record_image and feature.get("image") == record_image
+                        ):
+                            rule.pop("feature", None)
+                            curation_changed = True
 
                 write_json(ARTWORKS_PATH, data)
-                self.save_and_rebuild("Artwork updated and gallery rebuilt", {"record": record})
+                if curation_changed:
+                    write_json(CURATION_PATH, curation)
+                self.save_and_rebuild("Artwork and Room cover saved locally", {"record": record})
                 return
 
             if path == "/api/hide-artwork":
