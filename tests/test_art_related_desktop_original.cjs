@@ -100,6 +100,8 @@ async function runScenario(desktop){
   trigger.listeners.click({preventDefault(){},stopPropagation(){}});
   assert.ok(dialog?.open,"Related dialog opens");
   assert.equal(dialog.frame.images.length,3,"All three image types appear");
+  assert.doesNotMatch(dialog.frame.html,/Open original ·/,
+    "Images already open by clicking, so redundant original links are hidden");
   for(const image of dialog.frame.images){
     if(desktop){
       assert.equal(image.dataset.openOriginal,"true");
