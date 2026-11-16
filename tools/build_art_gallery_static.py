@@ -373,7 +373,7 @@ def collection_page_html(collection: dict, items: list[dict], curation: dict) ->
   <meta name="description" content="{esc(collection["description"])}">
   <link rel="stylesheet" href="../../assets/css/site.css">
   <link rel="stylesheet" href="../assets/art-gallery.css?v=20260926-related-1">
-  <link rel="stylesheet" href="../assets/art-related.css?v=20260926-consolidated-1">
+  <link rel="stylesheet" href="../assets/art-related.css?v=20261116-original-click-1">
 </head>
 <body class="art-body">
   <header class="site-header">
@@ -432,7 +432,7 @@ def collection_page_html(collection: dict, items: list[dict], curation: dict) ->
 
 {footer_html()}
   <script src="../assets/art-gallery.js?v=20260926-related-1" defer></script>
-  <script src="../assets/art-related.js?v=20261020-studio-1" defer></script>
+  <script src="../assets/art-related.js?v=20261116-original-click-1" defer></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}}'></script>

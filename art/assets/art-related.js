@@ -77,6 +77,33 @@
     </article>`;
   }
 
+  // Desktop: the image itself opens its full-resolution original.
+  // Touch screens keep their existing pinch-to-zoom behaviour completely intact.
+  function enableDesktopOriginals(frame){
+    if(!window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches)return;
+    frame.querySelectorAll(".related-public-media img").forEach(img=>{
+      const source=img.currentSrc||img.src;
+      if(!source || !/^https?:\/\//i.test(source))return;
+      img.dataset.openOriginal="true";
+      img.tabIndex=0;
+      img.setAttribute("role","link");
+      img.setAttribute("aria-label","Open original image in new tab: "+(img.alt||"Related artwork"));
+      const open=()=>{
+        const url=img.currentSrc||img.src;
+        if(url && /^https?:\/\//i.test(url)){
+          window.open(url,"_blank","noopener,noreferrer");
+        }
+      };
+      img.addEventListener("click",open);
+      img.addEventListener("keydown",event=>{
+        if(event.key==="Enter"||event.key===" "){
+          event.preventDefault();
+          open();
+        }
+      });
+    });
+  }
+
   function openGroup(g){
     const d=makeDialog();
     const f=d.querySelector("#relatedPublicFrame");
@@ -86,6 +113,7 @@
     d.querySelector("#relatedPublicTitle").textContent=g.title||"Related works";
     f.classList.remove("related-public-chooser");
     f.innerHTML=ms.map(memberHtml).join("");
+    enableDesktopOriginals(f);
 
     if(!d.open)d.showModal();
     d.querySelector(".related-public-close").focus();

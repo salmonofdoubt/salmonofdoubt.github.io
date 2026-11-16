@@ -256,3 +256,14 @@
     max-height: 68dvh;
   }
 }
+
+
+/* Desktop only: clicking the artwork opens the original at native resolution.
+   Mobile images stay unchanged, including pinch-to-zoom. No new controls. */
+@media (hover: hover) and (pointer: fine) {
+  .related-public-media img[data-open-original="true"] { cursor: zoom-in; }
+  .related-public-media img[data-open-original="true"]:focus-visible {
+    outline: 2px solid var(--art-gold);
+    outline-offset: 3px;
+  }
+}
