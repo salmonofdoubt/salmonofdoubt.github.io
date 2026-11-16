@@ -1,4 +1,4 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-exam-focus-20261116-1';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-bank-b207a67a45';
 const APP_SHELL = [
   './',
   './index.html',
