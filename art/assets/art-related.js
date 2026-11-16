@@ -41,8 +41,8 @@
         '<div class="related-public-media">'+media+'</div>'+
         '<div class="related-public-copy"><strong>'+escapeHtml(m.title||"Studio material")+'</strong>'+
         (m.note?'<small>'+escapeHtml(m.note)+'</small>':"")+
-        '<small><a href="'+url+'" target="_blank" rel="noopener noreferrer">Open original · '+
-        escapeHtml(m.originalFilename||"file")+'</a></small></div></article>';
+        (kind==="image"?"":'<small><a href="'+url+'" target="_blank" rel="noopener noreferrer">Open original · '+
+        escapeHtml(m.originalFilename||"file")+'</a></small>')+'</div></article>';
     }
 
     if(m.kind==="reference"){
