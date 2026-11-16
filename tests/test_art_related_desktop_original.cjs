@@ -100,6 +100,8 @@ async function runScenario(desktop){
   trigger.listeners.click({preventDefault(){},stopPropagation(){}});
   assert.ok(dialog?.open,"Related dialog opens");
   assert.equal(dialog.frame.images.length,3,"All three image types appear");
+  assert.doesNotMatch(dialog.frame.html,/Open original ·/,
+    "Images already open by clicking, so redundant original links are hidden");
   for(const image of dialog.frame.images){
     if(desktop){
       assert.equal(image.dataset.openOriginal,"true");
@@ -134,7 +136,7 @@ async function runScenario(desktop){
 (async()=>{
   assert.match(css,/@media \(hover: hover\) and \(pointer: fine\)/,"Zoom cursor is desktop only");
   assert.match(css,/cursor: zoom-in/,"Desktop image communicates the click-to-open affordance");
-  assert.match(built,/art-related\.js\?v=20261116-original-click-1/,"Room loads current interaction");
+  assert.match(built,/art-related\.js\?v=20261116-clean-image-links-1/,"Room loads current interaction");
   assert.match(built,/art-related\.css\?v=20261116-original-click-1/,"Room loads current desktop style");
   assert.doesNotMatch(script,/touchstart|touchmove|gesturestart|preventDefault\(\).*pinch/,
     "No mobile touch zoom interception introduced");
