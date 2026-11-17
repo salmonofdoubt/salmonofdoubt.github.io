@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T13:41:41.165821+00:00",
-  "latest_generated_at": "2026-11-16T13:41:33.117097+00:00",
+  "generated_at": "2026-11-17T14:28:10.401915+00:00",
+  "latest_generated_at": "2026-11-17T14:27:59.895449+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
@@ -11,24 +11,24 @@
   },
   "top_pressure_categories": [
     {
-      "pressure": "habitat / biodiversity",
-      "count": 35
-    },
-    {
       "pressure": "NbS / restoration",
-      "count": 31
+      "count": 38
     },
     {
       "pressure": "citizen science / monitoring",
-      "count": 29
+      "count": 32
+    },
+    {
+      "pressure": "habitat / biodiversity",
+      "count": 32
     },
     {
       "pressure": "policy / governance",
-      "count": 29
+      "count": 30
     },
     {
       "pressure": "water quality",
-      "count": 24
+      "count": 25
     },
     {
       "pressure": "funding / grant",
@@ -36,7 +36,7 @@
     },
     {
       "pressure": "agricultural runoff",
-      "count": 20
+      "count": 16
     },
     {
       "pressure": "nutrients",
@@ -44,7 +44,7 @@
     },
     {
       "pressure": "general catchment signal",
-      "count": 8
+      "count": 7
     },
     {
       "pressure": "incident / alert",
@@ -52,45 +52,14 @@
     },
     {
       "pressure": "sediment / hydromorphology",
-      "count": 3
+      "count": 5
     },
     {
-      "pressure": "research evidence",
-      "count": 2
+      "pressure": "septic / domestic wastewater",
+      "count": 3
     }
   ],
   "items": [
-    {
-      "id": "a13f573a9d0e8dd4",
-      "title": "Calls for septic tank grants to be extended to Mayo holiday homes - Ireland Live News",
-      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNV2Mxb2lmdVJPZG1EcjFBSkgwekVRMWtrXzJlSElCdVdNYkRZOWhvZ1lCaEdSNlMxNkRmYzh6WDJHdUNQSnZLN1VGTmlPaTBWVFRPWXpFZk8tRUJWam5mQVhMTkdMYmp2TTh3aFhZeW9GOVBiVEoyVFdoWXlSM094RjFpcjNMeDlqX3JzZmNKR004MVdYc3Y4bnBEVTA4aURMeFFPeTE0SEhKd29HMGYxb2JGNk9aaTA?oc=5",
-      "section": "grants-opportunities",
-      "source_name": "Google News: water and biodiversity grants Ireland",
-      "published": "2026-11-13",
-      "score": 97,
-      "practical_score": 149.0,
-      "freshness_label": "3 days old",
-      "pressure_categories": [
-        "septic / domestic wastewater",
-        "habitat / biodiversity",
-        "funding / grant"
-      ],
-      "local_relevance": {
-        "score": 10,
-        "label": "Ireland-wide relevance",
-        "matched_terms": [
-          "Ireland"
-        ]
-      },
-      "opportunity_fit": {
-        "fit": "High",
-        "score": 77,
-        "eligible_hint": "Likely worth checking for community, biodiversity, water-quality, education, or citizen-science eligibility.",
-        "action_needed": "Check deadline, applicant eligibility, match-funding needs, and whether NDRT or a partner body should lead."
-      },
-      "research_use_type": null,
-      "action_relevance": "Funding signal for the Trust: check whether this can support septic / domestic wastewater, habitat / biodiversity, funding / grant, citizen science, engagement, or small catchment actions."
-    },
     {
       "id": "4f44253263213588",
       "title": "Biodiversity Net Gain",
@@ -319,6 +288,34 @@
       "id": "d2a22c14a8b8f34e",
       "title": "Raw sewage in our rivers",
       "url": "https://theriverstrust.org/about-us/news?c=46810",
+      "section": "waterbody-evidence-alerts",
+      "source_name": "The Rivers Trust News",
+      "published": null,
+      "score": 100,
+      "practical_score": 143.0,
+      "freshness_label": "Date unknown",
+      "pressure_categories": [
+        "nutrients",
+        "habitat / biodiversity",
+        "citizen science / monitoring",
+        "policy / governance",
+        "NbS / restoration"
+      ],
+      "local_relevance": {
+        "score": 10,
+        "label": "Ireland-wide relevance",
+        "matched_terms": [
+          "Ireland"
+        ]
+      },
+      "opportunity_fit": null,
+      "research_use_type": "Monitoring method",
+      "action_relevance": "Monitoring signal: useful for shaping Nanny Watch methods, volunteer training, repeat observations, or field evidence protocols."
+    },
+    {
+      "id": "b31cf059b3ab140c",
+      "title": "River Restoration",
+      "url": "https://theriverstrust.org/about-us/news?c=4564",
       "section": "waterbody-evidence-alerts",
       "source_name": "The Rivers Trust News",
       "published": null,
