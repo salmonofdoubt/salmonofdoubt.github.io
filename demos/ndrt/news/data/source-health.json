@@ -1,25 +1,24 @@
 {
-  "generated_at": "2026-11-17T14:28:10.400458+00:00",
-  "latest_generated_at": "2026-11-17T14:27:59.895449+00:00",
-  "total_items": 95,
+  "generated_at": "2026-11-18T14:01:54.813932+00:00",
+  "latest_generated_at": "2026-11-18T14:01:40.708282+00:00",
+  "total_items": 59,
   "total_sources": 30,
-  "sources_active": 18,
-  "sources_checked_no_current_items": 11,
-  "sources_failed": 1,
+  "sources_active": 15,
+  "sources_checked_no_current_items": 13,
+  "sources_failed": 2,
   "items_by_section": {
-    "ireland-catchment-practice": 17,
-    "research-papers": 36,
-    "grants-opportunities": 18,
-    "waterbody-evidence-alerts": 24
+    "ireland-catchment-practice": 15,
+    "grants-opportunities": 21,
+    "waterbody-evidence-alerts": 23
   },
   "annotation_coverage": {
-    "action_relevance": 95,
-    "pressure_categories": 95,
+    "action_relevance": 59,
+    "pressure_categories": 59,
     "local_relevance": 59,
-    "opportunity_fit": 23,
-    "research_use_type": 55
+    "opportunity_fit": 25,
+    "research_use_type": 19
   },
-  "archive_snapshots": 169,
+  "archive_snapshots": 170,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +32,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 10,
-      "elapsed_ms": 33,
+      "elapsed_ms": 69,
       "error": null
     },
     {
@@ -48,7 +47,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 11,
-      "elapsed_ms": 25,
+      "elapsed_ms": 59,
       "error": null
     },
     {
@@ -62,8 +61,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 26,
-      "elapsed_ms": 31,
+      "discovered_hint_count": 25,
+      "elapsed_ms": 470,
       "error": null
     },
     {
@@ -74,11 +73,11 @@
       "scope": "meath louth fingal regional",
       "url": "https://news.google.com/rss/search?q=%28Meath%20OR%20Louth%20OR%20Fingal%29%20%28catchment%20OR%20river%20OR%20stream%20OR%20estuary%20OR%20lagoon%20OR%20water%20quality%20OR%20septic%20OR%20slurry%20OR%20invasive%20OR%20Spartina%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 29,
-      "elapsed_ms": 36,
+      "current_item_count": 0,
+      "discovered_hint_count": 25,
+      "elapsed_ms": 416,
       "error": null
     },
     {
@@ -89,11 +88,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28river%20OR%20catchment%20OR%20stream%20OR%20lake%20OR%20estuary%20OR%20lagoon%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%20OR%20monitoring%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 0,
       "discovered_hint_count": 31,
-      "elapsed_ms": 36,
+      "elapsed_ms": 363,
       "error": null
     },
     {
@@ -106,9 +105,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 7,
-      "discovered_hint_count": 30,
-      "elapsed_ms": 34,
+      "current_item_count": 8,
+      "discovered_hint_count": 29,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -119,11 +118,11 @@
       "scope": "ireland",
       "url": "https://news.google.com/rss/search?q=%28estuary%20OR%20lagoon%20OR%20coastal%20wetland%20OR%20saltmarsh%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20biodiversity%20OR%20restoration%20OR%20pollution%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
-      "http_status": 200,
+      "status": "failed",
+      "http_status": 429,
       "current_item_count": 0,
-      "discovered_hint_count": 12,
-      "elapsed_ms": 26,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 529,
       "error": null
     },
     {
@@ -137,8 +136,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 26,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 306,
       "error": null
     },
     {
@@ -151,9 +150,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 29,
-      "elapsed_ms": 38,
+      "current_item_count": 2,
+      "discovered_hint_count": 34,
+      "elapsed_ms": 55,
       "error": null
     },
     {
@@ -167,8 +166,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 94,
-      "elapsed_ms": 682,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 823,
       "error": null
     },
     {
@@ -183,7 +182,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 151,
+      "elapsed_ms": 121,
       "error": null
     },
     {
@@ -198,7 +197,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 10,
-      "elapsed_ms": 25,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -209,11 +208,11 @@
       "scope": "ireland birds ecology",
       "url": "https://news.google.com/rss/search?q=%28wetland%20birds%20OR%20waterbirds%20OR%20waders%20OR%20shorebirds%20OR%20estuary%20birds%20OR%20wintering%20birds%29%20%28Ireland%20OR%20Irish%29%20%28estuary%20OR%20river%20OR%20lagoon%20OR%20wetland%20OR%20saltmarsh%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 32,
-      "elapsed_ms": 36,
+      "current_item_count": 0,
+      "discovered_hint_count": 31,
+      "elapsed_ms": 422,
       "error": null
     },
     {
@@ -227,8 +226,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 24,
+      "discovered_hint_count": 8,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -243,7 +242,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 26,
+      "elapsed_ms": 64,
       "error": null
     },
     {
@@ -258,7 +257,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 9,
-      "elapsed_ms": 25,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -272,8 +271,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 20,
-      "elapsed_ms": 29,
+      "discovered_hint_count": 21,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -286,9 +285,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 25,
+      "current_item_count": 3,
+      "discovered_hint_count": 10,
+      "elapsed_ms": 62,
       "error": null
     },
     {
@@ -303,7 +302,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 10,
-      "elapsed_ms": 23,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -318,7 +317,7 @@
       "http_status": 200,
       "current_item_count": 7,
       "discovered_hint_count": 143,
-      "elapsed_ms": 984,
+      "elapsed_ms": 1091,
       "error": null
     },
     {
@@ -331,9 +330,9 @@
       "host": "lawaters.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 115,
-      "elapsed_ms": 1024,
+      "current_item_count": 1,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 654,
       "error": null
     },
     {
@@ -346,9 +345,9 @@
       "host": "www.epa.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 7,
+      "current_item_count": 8,
       "discovered_hint_count": 224,
-      "elapsed_ms": 315,
+      "elapsed_ms": 458,
       "error": null
     },
     {
@@ -361,9 +360,9 @@
       "host": "www.fisheriesireland.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
+      "current_item_count": 5,
       "discovered_hint_count": 181,
-      "elapsed_ms": 588,
+      "elapsed_ms": 873,
       "error": null
     },
     {
@@ -378,7 +377,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 424,
-      "elapsed_ms": 900,
+      "elapsed_ms": 1044,
       "error": null
     },
     {
@@ -391,9 +390,9 @@
       "host": "www.heritagecouncil.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 3,
-      "discovered_hint_count": 81,
-      "elapsed_ms": 614,
+      "current_item_count": 1,
+      "discovered_hint_count": 0,
+      "elapsed_ms": 627,
       "error": null
     },
     {
@@ -408,7 +407,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 36,
-      "elapsed_ms": 1921,
+      "elapsed_ms": 2332,
       "error": null
     },
     {
@@ -420,10 +419,10 @@
       "url": "https://cinea.ec.europa.eu/programmes/life/calls-proposals_en",
       "host": "cinea.ec.europa.eu",
       "status": "failed",
-      "http_status": 429,
+      "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 428,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -438,7 +437,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 106,
-      "elapsed_ms": 66,
+      "elapsed_ms": 77,
       "error": null
     },
     {
@@ -452,8 +451,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 14,
-      "discovered_hint_count": 96,
-      "elapsed_ms": 848,
+      "discovered_hint_count": 94,
+      "elapsed_ms": 1163,
       "error": null
     },
     {
@@ -468,7 +467,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 1104,
+      "elapsed_ms": 1141,
       "error": null
     }
   ]
