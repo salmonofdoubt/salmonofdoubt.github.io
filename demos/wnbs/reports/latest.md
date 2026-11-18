@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-11-17
+# Water NbS Story Radar · 2026-11-18
 
-Generated: 2026-11-17T14:41:51.738386+00:00
+Generated: 2026-11-18T14:19:50.823973+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -8,7 +8,56 @@ Editorial lens: practical measures that improve surface water quality, aquatic e
 
 ## Editorial picks to consider
 
-### 1. Public meeting on water quality in Donegal
+### 1. Community Water Development Fund 2027 opens for applications
+
+Score: 100 · excellent · Source: Local Authority Waters Programme
+
+URL: https://riverbasin.ie/community-water-development-fund-2027-opens-for-applications/
+
+Angle: Riparian buffers and river corridors
+
+Freshness: Fresh item; suitable for current commentary if the source is credible.
+
+Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, water quality, river, catchment.
+
+Practical signal: Practical delivery signal detected. Evidence terms: nature-based surface water management, surface water management, measures, funding, community.
+
+Brand fit: Strong fit because it connects land management, hydrological pathways, habitat structure, and river ecology.
+
+Summary: Community groups across Ireland invited to apply for funding to protect and improve local water quality. The River Basin Management Service has launched the Community Water Development Fund 2027, inviting community and voluntary groups across Ireland to apply for funding for projects that will protect and improve local water quality and biodiversity. The fund provides … Continued
+
+LinkedIn draft:
+
+A practical Water NbS signal for Ireland.
+
+Community Water Development Fund 2027 opens for applications
+
+This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+
+For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+
+What I would look for:
+• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
+• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
+• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
+• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
+• repeatability: whether this can be maintained and applied elsewhere in Ireland
+
+My take: Strong fit because it connects land management, hydrological pathways, habitat structure, and river ecology.
+
+This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+
+Source:
+Local Authority Waters Programme. (2026-11-18). Community Water Development Fund 2027 opens for applications.
+https://riverbasin.ie/community-water-development-fund-2027-opens-for-applications/
+
+#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
+
+Decision: [ ] pick  [ ] watch  [ ] reject
+
+---
+
+### 2. Public meeting on water quality in Donegal
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -57,7 +106,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 2. A Guide for Community Groups Working with Water, Biodiversity and Climate Change
+### 3. A Guide for Community Groups Working with Water, Biodiversity and Climate Change
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -106,7 +155,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 3. Public Meetings Announced on Water Quality in Kilkenny
+### 4. Public Meetings Announced on Water Quality in Kilkenny
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -155,7 +204,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 4. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
+### 5. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -204,7 +253,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 5. Minister Christopher O’Sullivan launches practical guide helping communities protect water quality, biodiversity and tackle climate change
+### 6. Minister Christopher O’Sullivan launches practical guide helping communities protect water quality, biodiversity and tackle climate change
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -253,7 +302,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 6. Poor management of wastewater treatment plants by Uisce Éireann continues to harm our environment
+### 7. Poor management of wastewater treatment plants by Uisce Éireann continues to harm our environment
 
 Score: 100 · excellent · Source: EPA Ireland News Releases
 
@@ -302,7 +351,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 7. GLOBE Ireland River Ecosystem Campaign 2027
+### 8. GLOBE Ireland River Ecosystem Campaign 2027
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -351,7 +400,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 8. WiseWater Academy: Connecting People, Wellbeing and Water
+### 9. WiseWater Academy: Connecting People, Wellbeing and Water
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -359,7 +408,7 @@ URL: https://www.catchments.ie/wisewater-academy-connecting-people-wellbeing-and
 
 Angle: WFD, monitoring and evidence
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: catchment, water framework directive, wfd, ecological status.
 
@@ -400,7 +449,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 9. Cork Event Wins Water Heritage Day Award at Heritage Week Awards 2026
+### 10. Cork Event Wins Water Heritage Day Award at Heritage Week Awards 2026
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -449,7 +498,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 10. Ballinahown Community Group Claims National Water Quality Prize at SuperValu TidyTowns National Awards
+### 11. Ballinahown Community Group Claims National Water Quality Prize at SuperValu TidyTowns National Awards
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -498,7 +547,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 11. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
+### 12. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
 
 Score: 100 · excellent · Source: Farming for Water EIP
 
@@ -540,55 +589,6 @@ This is where Nature-based Solutions become serious: not as decorative greening,
 Source:
 Farming for Water EIP. (2026-10-23). Farmers take action on Giant Hogweed and water quality at Cappawhite training event.
 https://farmingforwater.ie/farmers-take-action-on-giant-hogweed-and-water-quality-at-cappawhite-training-event/
-
-#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
-
-Decision: [ ] pick  [ ] watch  [ ] reject
-
----
-
-### 12. Ireland's Air Quality Is Generally Good, Benefitting People's Health
-
-Score: 100 · excellent · Source: EPA Ireland News Releases
-
-URL: https://www.epa.ie/news-releases/news-releases-2026/-irelands-air-quality-is-generally-good-benefitting-peoples-health.php
-
-Angle: WFD, monitoring and evidence
-
-Freshness: Current enough for LinkedIn if the practical water hook is strong.
-
-Water signal: Strong water-quality/ecology signal detected. Evidence terms: water quality, catchment, wfd, bathing water.
-
-Practical signal: Practical delivery signal detected. Evidence terms: monitoring, evidence, delivery.
-
-Brand fit: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-Summary: The Environmental Protection Agency (EPA) has published its report, Air Quality in Ireland 2025, which is based on data from Ireland’s extensive air monitoring network of 113 stations. It reveals that air quality in Ireland is good, it currently meets EU air quality limits and highlights how pollutants have decreased over the last twenty years. This benefits people’s health and the environment.
-
-LinkedIn draft:
-
-A practical Water NbS signal for Ireland.
-
-Ireland's Air Quality Is Generally Good, Benefitting People's Health
-
-This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
-
-For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
-
-What I would look for:
-• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
-• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
-• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
-• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
-• repeatability: whether this can be maintained and applied elsewhere in Ireland
-
-My take: Strong fit because it lets you discuss measurable outcomes, traceability, and whether interventions improve ecological status.
-
-This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
-
-Source:
-EPA Ireland News Releases. (2026-10-21). Ireland's Air Quality Is Generally Good, Benefitting People's Health.
-https://www.epa.ie/news-releases/news-releases-2026/-irelands-air-quality-is-generally-good-benefitting-peoples-health.php
 
 #NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
 
