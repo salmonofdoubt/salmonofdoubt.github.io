@@ -30,7 +30,11 @@ function freshDate(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(s||''))return null;
 function validLink(v){try{const u=new URL(v);return u.protocol==='https:'?u.href:null}catch{return null}}
 function isToolSite(url){try{const h=new URL(url).hostname.toLowerCase();return h!=='github.com'&&h!=='www.github.com'&&h!=='gitlab.com'&&h!=='www.gitlab.com'}catch{return false}}
 function mergeCatalog(curated,live){
- const rows=curated.map(x=>({...x}));const index=new Map(rows.map(x=>[x.id,x]));
+ // Retire only after two explicit 404/410 checks of the exact catalogued URL.
+ // Do not treat anti-bot responses, outages or access restrictions as retirement.
+ const rows=curated.filter(x=>{
+   const h=live?.toolHealth?.[x.id];return !(h?.state==='retired'&&h.url===x.url);
+ }).map(x=>({...x}));const index=new Map(rows.map(x=>[x.id,x]));
  for(const r of live?.releaseEvents||[]){
    const tool=index.get(r.toolId),when=freshDate(r.eventDate);
    if(!tool||!when||!validLink(r.evidence))continue;
