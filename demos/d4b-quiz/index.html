@@ -24,7 +24,7 @@
   <script defer src="./questions.js?v=bank-b207a67a45"></script>
   <script defer src="./mock-genai-20261119.js?v=20261119-1"></script>
   <script defer src="./concept-groups-20261119.js?v=1"></script>
-  <script defer src="./quiz.js?v=unique-untimed-20261119-1"></script>
+  <script defer src="./quiz.js?v=human-cram-20261119-1"></script>
   <script defer src="./refresh.js?v=ledger-20261010-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
@@ -34,7 +34,7 @@
   <header class="site-header">
     <a class="brand" href="./" aria-label="D4B Evidence Quiz home">
       <span class="brand-mark" aria-hidden="true">◇</span>
-      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.2</span>
+      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.3</span>
     </a>
     <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
       <span aria-hidden="true">↓</span><span>Install</span>
@@ -45,26 +45,35 @@
   <div class="hero"><p class="eyebrow">DIGITAL4BUSINESS / EVIDENCE FIRST</p><h1>Practise what you need to know.</h1><p>Four modules. Source-traceable questions. Mistake-focused revision. Your results stay in this browser.</p></div>
   <section class="quiz-panel exam-scope" aria-labelledby="examFocusTitle">
     <p class="eyebrow">GENERATIVE AI EXAM · 30 NOVEMBER 2026</p>
-    <h2 id="examFocusTitle">Moodle first. Booklet second. No endless question marathon.</h2>
-    <p>Only Weeks 1–9 are examinable. Weeks 10 and 11 are excluded. Start with your own Moodle quiz questions and confirmed answers, then reinforce weak concepts using the original booklet-based questions. External third-party banks are optional, not the syllabus.</p>
-    <p class="fine">Moodle questions stay private on this device and must be imported once. <a href="#official-title">Import my Moodle quiz questions</a> if the count below is zero.</p>
+    <h2 id="examFocusTitle">Ten questions. One concept at a time.</h2>
+    <p>Generative AI Weeks 1–9 only. Start with ten questions, untimed. The selection draws from course-aligned practice and independent mocks, while reducing repeated concepts. Original Moodle quizzes remain your strongest exam evidence.</p>
+    <p class="fine">If you have the original Moodle questions, <a href="#official-title">import them privately</a> for priority in revision.</p>
   </section>
   <section class="quiz-panel" aria-label="Revision settings">
-   <div class="settings">
-    <label>Module<select id="module"><option value="all">All four modules</option><option value="GEN" selected>Generative AI</option><option value="AIB">AI for Business</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option></select></label>
-    <label>Source<select id="source"><option value="moodle-first" selected>Moodle first · then booklet</option><option value="official-only">Moodle only (private)</option><option value="booklet-only">Booklet questions only</option><option value="all">All available sources</option><option value="mock-all">Independent mocks · A+B+C</option><option value="mock-A">Mock A · Foundations (33)</option><option value="mock-B">Mock B · Applications (33)</option><option value="mock-C">Mock C · Agents (33 + written)</option></select></label>
-    <label>Week<select id="week"><option value="all">All available weeks</option></select></label>
-    <label>Practice<select id="mode"><option value="adaptive">Adaptive review</option><option value="exam">Exam simulation · answers at end</option><option value="mistakes">Mistakes only</option></select></label><label>Timing<select id="timing"><option value="untimed" selected>Untimed (default)</option><option value="recommended">Recommended time limit</option></select></label><label>Variation<select id="variation"><option value="unique" selected>Avoid repeat concepts</option><option value="full">All questions, repeats allowed</option></select></label>
-    <label>Questions<select id="count"><option value="10" selected>10 questions · quick review</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option><option value="all">All available (optional)</option></select></label>
-   </div><p id="availability" class="availability" role="status"></p><div class="actions"><button class="primary-button" id="start">Start practice</button><button class="quiet-button" id="reset">Reset local history</button><button class="quiet-button" id="export">Export progress</button></div>
-   <p class="notice">Questions distinguish lecturer-module booklet checks from independent factual verification. Moodle-grading confirmation is a separate status. An independently verified answer is not a lecturer-approved exam question. The booklets themselves are not published here.</p>
+    <h2>Quick cram</h2>
+    <p>Ten questions. No clock. One question per concept. Your mistakes come back for revision.</p>
+    <div class="actions"><button class="primary-button" id="start" type="button">Start 10-question cram</button></div>
+    <p id="availability" class="availability" role="status"></p>
+    <details id="cramOptions">
+      <summary>Study options (module, number, timing)</summary>
+      <div class="settings">
+        <label>Module<select id="module"><option value="all">All four modules</option><option value="GEN" selected>Generative AI</option><option value="AIB">AI for Business</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option></select></label>
+        <label>Questions<select id="count"><option value="10" selected>10 · quick cram</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option><option value="all">All available</option></select></label>
+        <label>Week<select id="week"><option value="all">All weeks</option></select></label>
+        <label>Source<select id="source"><option value="cram" selected>Cram · reduce repeats</option><option value="official-only">Original Moodle (private)</option><option value="booklet-only">Booklet-derived only</option><option value="full">All questions, repeats included</option><option value="mock-A">Mock A (33)</option><option value="mock-B">Mock B (33)</option><option value="mock-C">Mock C (33)</option></select></label>
+        <label>Practice<select id="mode"><option value="adaptive">Learn · feedback after each</option><option value="exam">Exam mode · answers at end</option><option value="mistakes">Mistakes to revisit</option></select></label>
+        <label>Timing<select id="timing"><option value="untimed" selected>Untimed</option><option value="recommended">Recommended timer · optional</option></select></label>
+      </div>
+      <div class="actions"><button class="quiet-button" id="export" type="button">Export progress</button><button class="quiet-button" id="reset" type="button">Clear progress</button></div>
+      <p class="fine">Cram mode keeps one representative question per identified concept. Different wording remains in the full archive. The private Moodle keys and independently authored mock answers have different verification statuses.</p>
+    </details>
   </section>
   <section class="quiz-panel" id="mock-bank" aria-labelledby="mock-bank-title">
     <p class="eyebrow">NEW · INDEPENDENT PRACTICE · NOVEMBER 2026</p>
     <h2 id="mock-bank-title">Three Generative AI mock exams</h2>
     <p>99 multiple-choice questions across Mock A (foundations), Mock B (applications) and Mock C (agents and evaluation), plus one written question. These are <strong>unofficial mock questions</strong> with the supplied answer key, not original Moodle questions or lecturer predictions. Some business scenarios illustrate technical concepts; memorising industry facts is not the objective.</p>
-    <div class="actions"><button class="primary-button" data-mock-exam="A" type="button">Start Mock A · 35 min</button><button class="quiet-button" data-mock-exam="B" type="button">Start Mock B · 40 min</button><button class="quiet-button" data-mock-exam="C" type="button">Start Mock C · 45 min</button></div>
-    <p class="fine">Each button launches all 33 multiple-choice questions in the PDF's original order, with answers shown at the end. All practice is untimed unless you explicitly choose 'Recommended time limit'. Named mock exams retain their full source questions; mixed practice avoids repeated concepts by default. Mock C's written question is available below for self-assessment and is not automatically scored.</p>
+    <div class="actions"><button class="primary-button" data-mock-exam="A" type="button">Mock A · 33 Q</button><button class="quiet-button" data-mock-exam="B" type="button">Mock B · 33 Q</button><button class="quiet-button" data-mock-exam="C" type="button">Mock C · 33 Q</button></div>
+    <p class="fine">Each mock keeps all 33 original questions and shows answers at the end. Untimed unless you explicitly enable the recommended timer in Study options (A 35 min, B 40 min, C 45 min). Mock C also includes a separate, unscored written question.</p>
     <details id="mockWritten"><summary>Mock C · Question 34 · Written response (200–300 words)</summary>
       <p id="mockWrittenPrompt" style="white-space:pre-wrap"></p>
       <details><summary>Reveal the supplied model answer</summary><p id="mockWrittenAnswer" style="white-space:pre-wrap"></p></details>
