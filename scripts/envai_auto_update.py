@@ -296,11 +296,18 @@ def update_health(previous, catalogue, check, today):
         if not isinstance(prior, dict) or prior.get('url') != url:
             prior = {}
         state, code = check(url)
-        misses = int(prior.get('consecutiveMissing', 0)) + 1 if state == 'missing' else 0
+        if state == 'missing':
+            misses = int(prior.get('consecutiveMissing', 0)) + 1
+            visible_state = 'retired' if misses >= 2 else 'suspect'
+        elif state == 'ok':
+            misses, visible_state = 0, 'reachable'
+        else:
+            # A timeout must not resurrect a previously confirmed dead link.
+            retired = prior.get('state') == 'retired'
+            misses = int(prior.get('consecutiveMissing', 0)) if retired else 0
+            visible_state = 'retired' if retired else 'unconfirmed'
         health[tool_id] = {
-            'url': url, 'state': ('retired' if misses >= 2 else
-                                 'suspect' if state == 'missing' else
-                                 'reachable' if state == 'ok' else 'unconfirmed'),
+            'url': url, 'state': visible_state,
             'consecutiveMissing': misses,
             'lastCheckedAt': today.isoformat(),
             'httpStatus': code,
