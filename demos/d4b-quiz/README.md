@@ -129,3 +129,10 @@ The workflow records the public source fingerprints, validates staged *original*
 **Publication boundary:** the static question bank is deployed with a reviewed Pages release. For a wholly new question batch created only inside an automated workflow, bot commits to \`questions.js\` might not deploy to Pages; implement and test an explicit Pages deployment or a canonical approved-bank endpoint before allowing autonomous publication of new public questions. The auto-refresh must never claim that an inaccessible private source was ingested or an unreviewed question was independently verified.
 
 When auditing a question, preserve the distinction between original Moodle grading (\`official-key-confirmed\`), evidence traced to the course booklet (\`course_alignment\`) and independent external factual verification (\`verification\`). Only the last is counted as independently verified.
+
+
+## Independent mock exams A/B/C (19 November 2026)
+
+An authorised, user-supplied 20-page PDF was transcribed into `mock-genai-20261119.js` as **99 multiple-choice questions** with the PDF's own 33/33/33 answer keys, plus **one written-response prompt and supplied model answer**. Mock A/B/C are selectable separately, including the suggested 35/40/45-minute MCQ timers. Question order and letter options are preserved. These are `origin: independent-mock`, `verification: mock-key-supplied`, and **not official Moodle questions, independently verified keys, or guaranteed exam predictions**. The written answer is shown separately for self-assessment, not automatically graded.
+
+The mock bank is separate from `questions.js`, Moodle private import, and the booklet-derived audit pipeline. Exact normalized-stem overlaps against the public existing 215-question bank were zero at import. Existing question IDs and browser progress are unchanged. The on-page total becomes **314 public questions** (215 existing + 99 mock MCQs). The exam scope remains Generative AI Weeks 1–9; do not mistake illustrative business scenarios for examinable industry statistics.
