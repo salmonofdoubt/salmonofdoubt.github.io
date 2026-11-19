@@ -81,7 +81,7 @@ function updateAvailability(){
  if(n>0&&requested>n)status+=' · showing '+n;
  $('availability').textContent=status;
  $('start').disabled=n===0;
- $('start').textContent=isCram?'Start '+chosen+'-question cram':'Start '+chosen+' questions';
+ $('start').textContent=isCram?'Start cram':'Start '+chosen+' questions';
  $('start').title=n===0?'No questions match your choice':'Start '+chosen+' questions';
 }
 function shuffle(items){return items.map(q=>({q,k:Math.random()})).sort((a,b)=>a.k-b.k).map(x=>x.q)}
