@@ -267,75 +267,9 @@ function renderInfo(){
 }
 
 
-// Keep the classification key close to the currently selected constellation.
-// Work in viewport pixels so the position stays correct across SVG viewBox,
-// zoom, pan and small screens. Prefer clear space over clickable name tags.
-let keyFrame=0;
-function queueKeyPosition(){
- if(keyFrame)cancelAnimationFrame(keyFrame);
- keyFrame=requestAnimationFrame(()=>{keyFrame=0;positionKeyByFocus()});
-}
-function positionKeyByFocus(){
- const key=document.querySelector('.class-key'),selected=state.nodes.get(state.selected)||(state.selected?.startsWith('search:')?state.nodes.get('hub:'+lookupTool(state.selected)?.domain):null);
- if(!key)return;
- if(!selected||!state.selected){key.dataset.offscreen='false';return}
- const matrix=selected.getScreenCTM();if(!matrix)return;
- const cx=matrix.e,cy=matrix.f,app=$('app').getBoundingClientRect(),stage=$('stage').getBoundingClientRect();
- const w=key.offsetWidth,h=key.offsetHeight;
- const margin=12,minX=stage.left+margin,maxX=stage.right-w-margin;
- const minY=stage.top+margin,maxY=stage.bottom-h-margin;
- if(maxX<minX||maxY<minY)return;
- // Don't pin a legend to a viewport corner if the cluster is off the map.
- const outside=cx<stage.left-70||cx>stage.right+70||cy<stage.top-70||cy>stage.bottom+70;
- key.dataset.offscreen=String(outside);
- if(outside)return;
- const labels=[...document.querySelectorAll('.node.revealed-label .chip-bg')]
-   .map(el=>el.getBoundingClientRect())
-   .filter(r=>r.width>5&&r.height>5&&r.right>stage.left&&r.left<stage.right&&r.bottom>stage.top&&r.top<stage.bottom);
- // The selected hub itself deserves a clear area even if its label is short.
- const focusRadius=state.selected.startsWith('hub:')?(state.view==='mobile'?36:49):24;
- const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
- const overlap=(a,b)=>Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
- const candidates=[];
- const radii=state.view==='mobile'?[105,160,215]:[140,205,270,335];
- for(const radius of radii){
-  for(let angle=0;angle<360;angle+=22.5){
-   const rad=angle*Math.PI/180;
-   const x=cx+Math.cos(rad)*radius-w/2;
-   const y=cy+Math.sin(rad)*radius-h/2;
-   candidates.push({x,y,radius});
-  }
- }
- // Also consider tucked just beyond the extreme left/right/top/bottom labels.
- if(labels.length){
-  const left=Math.min(...labels.map(r=>r.left)),right=Math.max(...labels.map(r=>r.right));
-  const top=Math.min(...labels.map(r=>r.top)),bottom=Math.max(...labels.map(r=>r.bottom));
-  candidates.push(
-   {x:right+12,y:cy-h/2,radius:Math.abs(right-cx)+w/2},
-   {x:left-w-12,y:cy-h/2,radius:Math.abs(left-cx)+w/2},
-   {x:cx-w/2,y:top-h-11,radius:Math.abs(top-cy)+h/2},
-   {x:cx-w/2,y:bottom+11,radius:Math.abs(bottom-cy)+h/2}
-  );
- }
- let best=null;
- for(const cand of candidates){
-  const x=clamp(cand.x,minX,maxX),y=clamp(cand.y,minY,maxY);
-  const rect={left:x-5,top:y-5,right:x+w+5,bottom:y+h+5};
-  let blocked=0;
-  for(const lab of labels)blocked+=overlap(rect,lab);
-  const closeFocus={left:cx-focusRadius,top:cy-focusRadius,right:cx+focusRadius,bottom:cy+focusRadius};
-  const focusOverlap=overlap(rect,closeFocus);
-  const clamped=Math.hypot(x-cand.x,y-cand.y);
-  const dist=Math.hypot(x+w/2-cx,y+h/2-cy);
-  // A label collision is far worse than being another 30px away.
-  const score=blocked*2.7+focusOverlap*4.0+clamped*.6+dist*.35;
-  if(!best||score<best.score)best={x,y,score};
- }
- if(!best)return;
- key.style.left=(best.x-app.left).toFixed(1)+'px';
- key.style.top=(best.y-app.top).toFixed(1)+'px';
-}
-
+// The legend is now docked in the bottom status rail, outside the map.
+// Kept as a no-op for older focus, zoom and pan call sites.
+function queueKeyPosition(){}
 function updateCamera(focus){
  // Visual-first focus. Keep desktop camera exactly where the explorer left it.
  // Phone only: a small opening zoom makes touch targets legible, then pan only

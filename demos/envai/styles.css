@@ -278,3 +278,64 @@
 /* The floating classification key has a single quiet route to the field guide. */
 .class-key-help{font-size:11px;font-weight:600;letter-spacing:0;text-decoration:none;color:#aef7de;opacity:.8;margin-left:8px;padding:1px 4px;border-radius:50%;pointer-events:auto;transition:color .2s,opacity .2s}
 .class-key-help:hover,.class-key-help:focus-visible{color:#fff;opacity:1;text-shadow:0 0 12px #a8ffe0}
+
+
+/* EnvAI v22: fixed classification key in the bottom information rail.
+   The key is a normal-flow child of the rail, NEVER an overlay on the map. */
+.focus-info{
+  display:grid;grid-template-columns:minmax(0,1fr) 254px;
+  align-items:center;gap:clamp(12px,2vw,24px);
+  padding:14px max(38px,calc((100vw - 1170px)/2));
+  min-height:108px;
+}
+.focus-content{min-width:0;width:100%;max-width:none;margin:0}
+.class-key,.class-key[data-offscreen="true"]{
+  position:relative!important;left:auto!important;right:auto!important;
+  top:auto!important;bottom:auto!important;z-index:0;
+  width:254px;max-width:100%;padding:6px 0 6px 17px;
+  border:0;border-left:1px solid #a6f7df30;border-radius:0;
+  background:none;box-shadow:none;backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  transform:none!important;transition:opacity .25s ease,visibility .25s;
+  opacity:0;visibility:hidden;pointer-events:none;
+}
+.class-key::before{display:none}
+.has-focus .class-key,.has-focus .class-key[data-offscreen="true"]{
+  visibility:visible;opacity:1;pointer-events:auto;transform:none!important;
+}
+.class-key-heading{font-size:8px;letter-spacing:1.3px;margin-bottom:8px}
+.class-key-items{display:grid;grid-template-columns:max-content max-content;gap:7px 12px}
+.class-key-item{font-size:10px;gap:5px}
+.focus-clear{right:max(13px,calc((100vw - 1190px)/2));top:11px}
+@media(max-width:1050px){
+  .focus-info{padding:13px 42px 13px 18px;gap:12px;grid-template-columns:minmax(0,1fr) 234px}
+  .class-key{width:234px;padding-left:13px}
+  .class-key-item{font-size:9px}
+  .focus-clear{right:12px}
+}
+@media(max-width:780px){
+  .focus-info{display:flex;flex-direction:column;align-items:stretch;justify-content:center;
+    gap:8px;min-height:145px;padding:12px 42px 11px 16px}
+  .focus-content{flex:0 0 auto}
+  .class-key{width:100%;max-width:100%;border-left:0;border-top:1px solid #a6f7df25;
+    padding:7px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:5px 10px}
+  .class-key-heading{margin:0;font-size:8px;letter-spacing:1px}
+  .class-key-items{display:flex;flex-wrap:wrap;align-items:center;gap:5px 12px}
+  .class-key-item{font-size:9px}
+  .map-stage{bottom:158px}
+  .map-footer{bottom:167px}
+  .focus-clear{right:9px;top:8px}
+}
+@media(max-width:420px){
+  .focus-info{min-height:153px;padding:11px 36px 10px 12px;gap:7px}
+  .class-key-heading{font-size:7px}
+  .class-key-items{gap:6px 9px}
+  .class-key-item{font-size:9px}
+  .map-stage{bottom:164px}
+  .map-footer{bottom:170px}
+}
+
+/* Reserve the lower rail even under the shared header's responsive `inset` rules. */
+#app .map-stage.map-stage{bottom:112px}
+@media(max-width:780px){#app .map-stage.map-stage{bottom:158px}}
+@media(max-width:420px){#app .map-stage.map-stage{bottom:164px}}

@@ -11,7 +11,7 @@
 <script defer src="./site-config.js"></script>
 <script defer src="./semantic-search.js?v=envai-guide-1"></script>
 <script defer src="./live-data.js?v=usable-1"></script>
-<link rel="stylesheet" href="./styles.css?v=envai-guide-1">
+<link rel="stylesheet" href="./styles.css?v=docked-key-1">
 <link rel="stylesheet" href="./header-controls.css?v=header-1">
 </head>
 <body>
@@ -37,10 +37,7 @@
   <div class="map-intro"><div class="tiny-label"><span class="dash"></span>A LIVING TECHNOLOGY ATLAS</div><h1>Everything is<br><em>connected.</em></h1><p>Environmental science, digital tools and AI — all in one picture. Click any point to see its world light up.</p></div>
   <div class="map-stats" id="stats"><strong id="totalNum">…</strong> TECHNOLOGIES <span aria-hidden="true">·</span> 4 FIELDS<small>Connections reflect shared purpose, data &amp; methods</small></div>
   <div class="toast" id="toast" aria-live="polite"></div><div class="search-caption" id="searchCaption" hidden></div>
-  <aside class="focus-info" id="focusInfo" aria-live="polite"><div id="focusContent" class="focus-content"></div><button type="button" class="focus-clear" id="closeFocus" title="Clear focus" aria-label="Clear selection">×</button></aside>
-  <div class="map-footer"><div class="hint" id="hint"><b>↗ CLICK ANY POINT</b> TO REVEAL ITS CONNECTIONS<br>Drag to wander · scroll to zoom · Esc to reset</div><button type="button" class="control-reset" id="resetBtn" hidden>⟲ &nbsp; Show everything</button></div>
-  <!-- A compact, read-only key appears with the constellation's clickable labels. -->
-  <aside class="class-key" aria-label="Technology classification colours">
+  <aside class="focus-info" id="focusInfo" aria-live="polite"><div id="focusContent" class="focus-content"></div><aside class="class-key" aria-label="Technology classification colours">
     <div class="class-key-heading"><span class="key-spark" aria-hidden="true">✦</span> THE COLOUR KEY <a class="class-key-help" href="./how-it-works.html#classification" title="Learn what the colours mean" aria-label="How are tools classified?">ⓘ</a></div>
     <div class="class-key-items">
       <span class="class-key-item digital"><i aria-hidden="true"></i>Traditional</span>
@@ -48,9 +45,12 @@
       <span class="class-key-item native"><i aria-hidden="true"></i>AI-native</span>
       <span class="class-key-item unverified"><i aria-hidden="true"></i>Unverified</span>
     </div>
-  </aside>
+  </aside><button type="button" class="focus-clear" id="closeFocus" title="Clear focus" aria-label="Clear selection">×</button></aside>
+  <div class="map-footer"><div class="hint" id="hint"><b>↗ CLICK ANY POINT</b> TO REVEAL ITS CONNECTIONS<br>Drag to wander · scroll to zoom · Esc to reset</div><button type="button" class="control-reset" id="resetBtn" hidden>⟲ &nbsp; Show everything</button></div>
+  <!-- The colour key now lives inside the reserved status rail, outside the graph. -->
+  
 </div>
 <dialog id="dialog" class="modal"><button id="dialogClose" class="x" aria-label="Close dialog">×</button><div id="dialogBody"></div></dialog>
-<script defer src="./app.js?v=usable-1"></script>
+<script defer src="./app.js?v=docked-key-1"></script>
 </body>
 </html>
