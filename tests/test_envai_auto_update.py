@@ -154,4 +154,39 @@ class ScanningTests(unittest.TestCase):
   self.assertEqual(third['qgis']['state'],'suspect')
 
 
+ def test_copernicus_catalogue_discovers_new_application(self):
+  html=('''<div><a href="/overview?app=wind-forecast-ai">
+           Wind Forecast AI Explore the application</a></div>
+           <a href="/overview?app=climate-pulse">Climate Pulse</a>''')
+  catalog={'items':CAT['items']+[{
+    'id':'c3s-pulse','title':'Copernicus Climate Pulse',
+    'url':'https://pulse.climate.copernicus.eu/','toolUse':'online'}]}
+  out,stats=mod.scan(fetch=lambda path,params=None:
+       {'items':[]} if path=='/search/repositories' else [],
+       directory_fetch=lambda url:html if url==mod.COPERNICUS_APPS else '',
+       probe=lambda url:True, today=TODAY,catalogue=catalog,
+       previous={'releaseEvents':[],'leads':[]})
+  discoveries=[x for x in out['leads'] if x['id'].startswith('directory:copernicus:')]
+  self.assertEqual(len(discoveries),1)
+  self.assertEqual(discoveries[0]['title'],'Wind Forecast Ai')
+  self.assertEqual(discoveries[0]['domain'],'Climate & energy')
+  self.assertEqual(discoveries[0]['aiType'],'Unverified')
+  self.assertEqual(discoveries[0]['source'],'Copernicus C3S/CAMS applications')
+  self.assertEqual(stats['leadsAdded'],1)
+  again,stats2=mod.scan(fetch=lambda path,params=None:
+       {'items':[]} if path=='/search/repositories' else [],
+       directory_fetch=lambda url:html if url==mod.COPERNICUS_APPS else '',
+       probe=lambda url:True, today=TODAY,catalogue=catalog,previous=out)
+  self.assertEqual(stats2['leadsAdded'],0)
+  self.assertEqual(again['leads'],out['leads'])
+
+ def test_copernicus_parser_rejects_non_app_links(self):
+  parser=mod.CopernicusAppLinks()
+  parser.feed('''<a href="https://example.org/overview?app=untrusted">Untrusted</a>
+  <a href="/search">Catalogue</a><a href="/overview?app=climate-atlas">Climate Atlas</a>
+  <a href="/overview?app=../../bad">Malformed</a>''')
+  self.assertEqual(len(parser.items),1)
+  self.assertEqual(parser.items[0][0],'Climate Atlas')
+
+
 if __name__=='__main__':unittest.main()
