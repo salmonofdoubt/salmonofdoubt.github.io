@@ -1,12 +1,12 @@
 /* EnvAI offline support. Network-first for editorial content and source files;
    local revisions should not silently be masked by an old cached version. */
-const CACHE='sod-envai-v18-public-release';
+const CACHE='sod-envai-v19-live-updates';
 const ASSETS=[
- './','./index.html','./styles.css?v=envai-guide-1','./app.js?v=envai-guide-1',
- './semantic-search.js?v=envai-guide-1','./site-config.js','./header-controls.css?v=header-1','./header-secondary.js?v=header-1',
- './how-it-works.html','./how-it-works.css?v=guide-1','./how-it-works.js?v=guide-1',
- './whats-new.html','./whats-new.js?v=envai-guide-1','./news.css?v=envai-guide-1',
- './data/tools.json','./data/discoveries.json',
+ './','./index.html','./styles.css?v=envai-guide-1','./app.js?v=envai-live-1',
+ './semantic-search.js?v=envai-guide-1','./live-data.js?v=live-1','./site-config.js','./header-controls.css?v=header-1','./header-secondary.js?v=header-1',
+ './how-it-works.html','./how-it-works.css?v=guide-1','./how-it-works.js?v=live-1',
+ './whats-new.html','./whats-new.js?v=envai-live-1','./news.css?v=envai-guide-1',
+ './data/tools.json','./data/discoveries.json','./data/live-updates.json',
  './icon.svg','./icon-192.png','./icon-512.png','./manifest.webmanifest'
 ];
 self.addEventListener('install',event=>{event.waitUntil(

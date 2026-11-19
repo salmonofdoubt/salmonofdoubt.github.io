@@ -395,9 +395,16 @@ if(embedded){
  try{const fallback=JSON.parse(embedded.textContent);setup(fallback.items||[]);loadFocusFromUrl()}
  catch(e){console.error('EnvAI preview data error',e);loadError()}
 }else{
- fetch('./data/tools.json',{cache:'no-store'})
-  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
-  .then(data=>{if(!data||!Array.isArray(data.items))throw new Error('Missing catalogue items');setup(data.items);loadFocusFromUrl()})
+ Promise.all([fetch('./data/tools.json',{cache:'no-store'}),window.EnvAILive?.load()||Promise.resolve(null)])
+  .then(async ([r,live])=>{if(!r.ok)throw new Error('HTTP '+r.status);
+    const data=await r.json();if(!data||!Array.isArray(data.items))throw new Error('Missing catalogue items');
+    const merged=window.EnvAILive?.mergeCatalog(data.items,live)||data.items;
+    setup(merged);loadFocusFromUrl();
+    if(live&&live.scanStatus!=='not-started'&&live.scanStatus!=='unavailable'){
+      const indicator=$('stats').querySelector('small');
+      if(indicator){const date=live.lastSuccessAt||'never';indicator.textContent+=` · auto scan ${date}`;}
+    }
+  })
   .catch(e=>{console.error('EnvAI catalogue error',e);loadError()});
 }
 })();

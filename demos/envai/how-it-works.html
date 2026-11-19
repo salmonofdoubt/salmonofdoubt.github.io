@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="./header-controls.css?v=header-1">
 <script defer src="./site-config.js"></script>
 <script defer src="./header-secondary.js?v=header-1"></script>
-<script defer src="./how-it-works.js?v=guide-1"></script>
+<script defer src="./live-data.js?v=live-1"></script>
+<script defer src="./how-it-works.js?v=live-1"></script>
 </head>
 <body>
 <a class="skip" href="#content">Skip to the explanation</a>
@@ -22,7 +23,7 @@
 <main id="content" class="guide-main">
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> ENVAI / FIELD GUIDE <span class="version">METHODOLOGY 0.1</span></p>
+      <p class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> ENVAI / FIELD GUIDE <span class="version">METHODOLOGY 0.2</span></p>
       <h1 id="hero-title">Curious by design.<br><em>Clear by evidence.</em></h1>
       <p class="lead">EnvAI maps environmental technology across traditional digital tools, AI-augmented workflows and AI-native systems. Here's what the colours mean, why things connect, and when new discoveries actually appear.</p>
       <div class="hero-links"><a class="first-link" href="#classification">Understand the colours <span aria-hidden="true">↘</span></a><a href="#updates">How updates work <span aria-hidden="true">↘</span></a></div>
@@ -55,7 +56,7 @@
       <div class="pipe-step explore"><span class="pipe-index">04</span><span class="pipe-symbol">✺</span><strong>Explore</strong><small>Map · search · What's new</small></div>
     </div>
     <div class="explain-grid">
-      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>One source of truth</h3><p><code>data/tools.json</code> is the approved catalogue. The network and What's New read it directly. <code>data/discoveries.json</code> holds leads not yet approved.</p></div>
+      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>One source of truth</h3><p><code>data/tools.json</code> is the approved catalogue. The network and What's New read it directly. <code>data/discoveries.json</code> contains manually seeded leads. <code>data/live-updates.json</code> is generated daily by GitHub Actions and read directly from the public repository, bypassing Pages' bot-commit build limitation.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>A calm default map</h3><p>Four field clusters have faint purple dotted boundaries. The overview shows <strong>up to 15 representative tools per field</strong> (60 total), never thousands of overlapping nodes.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Meaning-aware search</h3><p>Topic families, aliases and catalogue metadata connect terms such as “whale” to Water and relevant monitoring methods. At most <strong>six temporary results</strong> appear on the map.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Explainable connections</h3><p>Links rank similarity using shared environmental fields, methods, data signals and tasks. They are <strong>not</strong> claims of integration, ownership, investment or partnership.</p></div>
@@ -75,9 +76,9 @@
   <section id="updates" class="guide-section">
     <div class="section-lead"><span class="section-number">03 / FRESHNESS &amp; TRUST</span><h2>When does something <em>appear?</em></h2><p>Finding a lead is fast. Calling it an actual release or confidently classifying its AI is slower. EnvAI deliberately keeps those steps separate.</p></div>
     <div class="update-timeline">
-      <div><span class="update-pin"><i></i></span><span class="update-period">DAILY, IF ENABLED</span><h3>Discover leads</h3><p>The optional GitHub Actions scanner is scheduled for <strong>08:18 UTC daily</strong>. It watches selected GitHub searches and releases. Schedules can run late, be disabled, or fail; this is not internet-wide real-time monitoring.</p></div>
+      <div><span class="update-pin"><i></i></span><span class="update-period">DAILY, WHEN ENABLED</span><h3>Discover leads</h3><p>The included GitHub Actions scanner is scheduled for <strong>07:23 UTC daily</strong> once enabled on the default branch. It watches official GitHub releases for selected catalogued tools and searches for new repositories. GitHub schedules may be delayed or disabled; this is <strong>not internet-wide real-time monitoring</strong>. The current scan status appears on What's New.</p></div>
       <div><span class="update-pin"><i></i></span><span class="update-period">NO GUARANTEED DEADLINE</span><h3>Review the evidence</h3><p>Candidate repositories and announcements appear in <strong>In review</strong>, not as verified product launches. A person must check relevance, source, classification, date and duplicates before approving them.</p></div>
-      <div><span class="update-pin"><i></i></span><span class="update-period">AFTER APPROVAL &amp; PUBLICATION</span><h3>Incorporate into EnvAI</h3><p>Reviewed records go into <code>tools.json</code> and appear in search, the map where appropriate, and What's New after the updated site is published. There is currently <strong>no fixed approval or deployment schedule</strong>.</p></div>
+      <div><span class="update-pin"><i></i></span><span class="update-period">AFTER APPROVAL &amp; PUBLICATION</span><h3>Incorporate into EnvAI</h3><p>Approved records go into <code>tools.json</code> and can join the default constellation after a normal site release. Automated leads already appear in search as UNVERIFIED without map clutter. Editorial approval is not automated, and no fixed review deadline is promised.</p></div>
     </div>
     <div class="signals"><h3>Three signals. Three different meanings.</h3><div class="signal-row"><strong>Release / update</strong><p>A genuine, source-dated product, model or feature event. The map's <b>NEW</b> marker uses a rolling 90-day event window.</p></div><div class="signal-row"><strong>New to EnvAI</strong><p>A tool recently added to the catalogue, even if it has existed for years. This date must never be misrepresented as the tool's launch date.</p></div><div class="signal-row"><strong>In review</strong><p>An automatically collected or manually noted lead; it may be incomplete, irrelevant, duplicated or not actually launched.</p></div><a class="inline-cta" href="./whats-new.html">Browse What's New <span aria-hidden="true">↗</span></a></div>
     <div class="trust"><span aria-hidden="true">◇</span><div><h3>What EnvAI does not claim</h3><p>Inclusion is not a recommendation, accuracy certification, environmental-impact rating or proof that AI outperforms an ordinary digital tool. Links and classifications are provisional and should be checked against their evidence. Sources can become outdated; a missing entry does not mean no solution exists.</p></div></div>

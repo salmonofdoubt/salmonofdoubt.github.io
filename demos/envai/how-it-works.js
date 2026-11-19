@@ -10,7 +10,11 @@
     el('reviewDate').textContent=data.reviewedAt||'Not recorded';
   }catch(e){el('toolCount').textContent='—';el('mappedCount').textContent='—';el('reviewDate').textContent='Unavailable';}
   try{
-    const resp=await fetch('./data/discoveries.json',{cache:'no-store'});if(!resp.ok)throw new Error('Queue unavailable');
-    const data=await resp.json();el('queueCount').textContent=String(Array.isArray(data.items)?data.items.length:0);
+    const [resp,live]=await Promise.all([fetch('./data/discoveries.json',{cache:'no-store'}),
+      window.EnvAILive?.load()||Promise.resolve(null)]);
+    const seeds=resp.ok?(await resp.json()).items||[]:[];
+    const pending=new Set([...seeds,...(live?.leads||[])].map(x=>x.id));
+    el('queueCount').textContent=String(pending.size);
+    if(live?.lastSuccessAt){el('queueCount').title='Latest automatic source scan: '+live.lastSuccessAt}
   }catch(e){el('queueCount').textContent='—';}
 })();
