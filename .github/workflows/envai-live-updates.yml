@@ -1,6 +1,11 @@
 name: EnvAI — daily live updates
 
 on:
+  push:
+    branches: [master]
+    paths:
+      - 'demos/envai/data/tools.json'
+      - 'scripts/envai_auto_update.py'
   schedule:
     - cron: '23 7 * * *'  # daily (UTC); GitHub may delay scheduled workflows
   workflow_dispatch:
