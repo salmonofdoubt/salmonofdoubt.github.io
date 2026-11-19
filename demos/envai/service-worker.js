@@ -1,6 +1,6 @@
 /* EnvAI offline support. Network-first for editorial content and source files;
    local revisions should not silently be masked by an old cached version. */
-const CACHE='sod-envai-v24-quality';
+const CACHE='sod-envai-v25-climate';
 const ASSETS=[
  './','./index.html','./styles.css?v=docked-key-1','./app.js?v=docked-key-1',
  './semantic-search.js?v=envai-guide-1','./live-data.js?v=quality-1','./site-config.js','./header-controls.css?v=header-1','./header-secondary.js?v=header-1',
