@@ -56,7 +56,33 @@ function sourceMatches(q){
 }
 function sourcePriority(q){if(q.verification==='official-key-confirmed')return 0;if(isOfficial(q))return 1;if(isMock(q))return 4;return q.verification==='verified'?2:3}
 function evidenceStatus(q){return isMock(q)?'Supplied mock answer key; unofficial and not independently verified':q.verification==='verified'?'Independently checked':q.verification==='official-key-confirmed'?'Official Moodle key confirmed':isOfficial(q)?'Original Moodle key pending':'Independent verification pending'}
+function syncModuleFocus(){
+ const context={
+  GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI exam focus',desc:'Generative AI Weeks 1–9 only. All eligible reduced-repeat questions are available by default, untimed. Original Moodle questions remain the strongest exam evidence.'},
+  AIB:{eyebrow:'AI FOR BUSINESS · MODULE PRACTICE',title:'AI for Business',desc:'Practise machine learning, neural networks, automated planning and responsible AI using this module’s question bank. All eligible questions are available, untimed by default.'},
+  INN:{eyebrow:'INNOVATION · MODULE PRACTICE',title:'Innovation',desc:'Practise innovation concepts, futures thinking, behaviour change and organisational innovation. All eligible questions are available, untimed by default.'},
+  DTR:{eyebrow:'DIGITAL TRANSFORMATION · MODULE PRACTICE',title:'Digital Transformation',desc:'Practise human-centred transformation, digital societies, platforms and digital literacies. All eligible questions are available, untimed by default.'},
+  all:{eyebrow:'DIGITAL4BUSINESS · ALL MODULES',title:'All four modules',desc:'Practise across all four Digital4Business modules, with similar questions reduced and no time limit unless you choose one.'}
+ };
+ const selected=$('module').value;
+ const focus=context[selected]||context.all;
+ $('moduleFocusEyebrow').textContent=focus.eyebrow;
+ $('examFocusTitle').textContent=focus.title;
+ $('moduleFocusDescription').textContent=focus.desc;
+ const genaiOnly=selected==='GEN';
+ $('mock-bank').hidden=!genaiOnly;
+ $('mock-bank').classList.toggle('hidden',!genaiOnly);
+ // GenAI-specific mock filters must never silently produce an empty non-GenAI pool.
+ for(const option of $('source').options){
+  if(/^mock-[ABC]$/.test(option.value)){
+   option.disabled=!genaiOnly;
+   option.hidden=!genaiOnly;
+  }
+ }
+ if(!genaiOnly&&/^mock-[ABC]$/.test($('source').value))$('source').value='cram';
+}
 function weeks(){
+ syncModuleFocus();
  const m=$('module').value,chosen=$('week').value;
  const keys=m==='all'?Object.keys(curriculum):[m];
  const distinct=[...new Set(keys.flatMap(k=>(curriculum[k]||[]).map((_,i)=>i+1)))].sort((a,b)=>a-b);
