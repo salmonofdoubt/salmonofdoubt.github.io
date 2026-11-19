@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "reviewedAt": "2026-11-19",
-  "about": "Curated EnvAI inventory. The public atlas, search and release feed prioritise directly usable web tools, account-access platforms and installable software; research/code-only references remain documented in this JSON. AI classifications are editorial and provisional. The original 52 seed records do not count as fresh discoveries.",
+  "about": "Curated EnvAI inventory: practical browser tools, account-access apps and installable software are mapped. Research/code-only references remain in JSON. AI classifications are evidence-linked editorial assessments, not claims of independent model audits. Tool candidates discovered automatically remain Unverified until reviewed.",
   "items": [
     {
       "id": "olmoearth",
@@ -1506,6 +1506,355 @@
       "toolUse": "reference",
       "baselineEntry": true,
       "resourceNote": "Code, model or research repository; no direct end-user application verified."
+    },
+    {
+      "id": "c3s-pulse",
+      "title": "Copernicus Climate Pulse",
+      "domain": "Climate & energy",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Weather data",
+        "Climate data"
+      ],
+      "organisation": "Copernicus C3S / ECMWF",
+      "summary": "Daily maps and charts of global air and sea-surface temperatures and anomalies from ERA5.",
+      "url": "https://pulse.climate.copernicus.eu/",
+      "evidence": "https://pulse.climate.copernicus.eu/about",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "temperature",
+        "climate monitoring",
+        "anomalies"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Model-based reanalysis visualisation, not an AI-native forecasting service.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "c3s-atlas",
+      "title": "Copernicus Interactive Climate Atlas",
+      "domain": "Climate & energy",
+      "capability": "Explore & decide",
+      "signals": [
+        "Climate data",
+        "Weather data"
+      ],
+      "organisation": "Copernicus C3S / ECMWF",
+      "summary": "Explore historical and projected temperature, precipitation and extreme-climate indices by region and warming scenario.",
+      "url": "https://atlas.climate.copernicus.eu/",
+      "evidence": "https://atlas.climate.copernicus.eu/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "climate change",
+        "projections",
+        "scenario analysis"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Visualises observations, reanalysis and model projections; AI is not required for its defining interaction.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "c3s-era-explorer",
+      "title": "Copernicus ERA Explorer",
+      "domain": "Climate & energy",
+      "capability": "Explore & decide",
+      "signals": [
+        "Climate data",
+        "Weather data"
+      ],
+      "organisation": "Copernicus C3S / ECMWF",
+      "summary": "Explore decades of ERA5 weather and climate data through interactive location comparisons.",
+      "url": "https://era-explorer.climate.copernicus.eu/",
+      "evidence": "https://apps.climate.copernicus.eu/overview?app=era-explorer",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "historical climate",
+        "reanalysis",
+        "locations"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Interactive reanalysis explorer with no verified AI inference at its core.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "c3s-thermal-trace",
+      "title": "Copernicus Thermal Trace",
+      "domain": "Climate & energy",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Climate data",
+        "Weather data"
+      ],
+      "organisation": "Copernicus C3S / ECMWF",
+      "summary": "Explore heat and cold stress conditions and trends on an interactive climate map.",
+      "url": "https://thermaltrace.climate.copernicus.eu/",
+      "evidence": "https://apps.climate.copernicus.eu/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "heat stress",
+        "temperature",
+        "climate health"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "A climate-health data visualisation application; no core ML feature established.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "ember-electricity",
+      "title": "Ember Electricity Data Explorer",
+      "domain": "Climate & energy",
+      "capability": "Explore & decide",
+      "signals": [
+        "Energy data",
+        "Emissions data"
+      ],
+      "organisation": "Ember",
+      "summary": "Compare electricity generation, demand, capacity and CO₂ emissions across countries and years.",
+      "url": "https://ember-energy.org/data/electricity-data-explorer/",
+      "evidence": "https://ember-energy.org/data/electricity-data-explorer/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "electricity",
+        "energy transition",
+        "emissions"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Analytical electricity-data dashboard; its central user function is not AI inference.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "climate-central-coastal",
+      "title": "Climate Central Coastal Risk Screening",
+      "domain": "Climate & energy",
+      "capability": "Explore & decide",
+      "signals": [
+        "Climate risk data",
+        "Geospatial data"
+      ],
+      "organisation": "Climate Central",
+      "summary": "Explore coastal exposure to sea-level rise and flooding under alternative scenarios.",
+      "url": "https://coastal.climatecentral.org/",
+      "evidence": "https://www.coast.noaa.gov/digitalcoast/tools/coastal-risk-screening.html",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "sea level rise",
+        "coastal risk",
+        "adaptation"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Scenario-based spatial screening and elevation modelling, not an independently evidenced AI-native workflow.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "google-eie",
+      "title": "Google Environmental Insights Explorer",
+      "domain": "Climate & energy",
+      "capability": "Explore & decide",
+      "signals": [
+        "Emissions data",
+        "Geospatial data"
+      ],
+      "organisation": "Google Sustainability",
+      "summary": "Modelled building and transport emissions, rooftop solar potential and tree canopy for cities.",
+      "url": "https://insights.sustainability.google/",
+      "evidence": "https://insights.sustainability.google/methodology",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "urban emissions",
+        "climate action",
+        "machine learning"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Established emissions and urban-data workflow augmented by Google mapping models and machine-learning-derived canopy estimates; methods documented by provider.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "electricity-maps",
+      "title": "Electricity Maps",
+      "domain": "Climate & energy",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Energy data",
+        "Emissions data",
+        "Weather data"
+      ],
+      "organisation": "Electricity Maps",
+      "summary": "Explore live electricity mixes, carbon intensity and renewable generation with machine-learning-supported estimates.",
+      "url": "https://app.electricitymaps.com/",
+      "evidence": "https://www.electricitymaps.com/resources/updates",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "electricity",
+        "grid carbon intensity",
+        "machine learning"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Electricity-mix dashboard and flow-tracing remain fundamental; models add forecasting and estimates where data are incomplete.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "carbon-mapper",
+      "title": "Carbon Mapper Emissions Portal",
+      "domain": "Climate & energy",
+      "capability": "Detect & classify",
+      "signals": [
+        "Satellite imagery",
+        "Emissions data"
+      ],
+      "organisation": "Carbon Mapper",
+      "summary": "Map remotely detected high-emission methane and CO₂ point sources with plume observations and uncertainty.",
+      "url": "https://data.carbonmapper.org/",
+      "evidence": "https://assets.carbonmapper.org/documents/Carbon-Mapper-Plume-Detection-Quality-Control-Public.pdf",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public online tool",
+      "tags": [
+        "methane",
+        "satellites",
+        "point sources"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Remote-sensing emissions-monitoring service with documented ML-supported processing and explicit quality control.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "ecmwf-aifs-charts",
+      "title": "ECMWF AIFS Forecast Charts",
+      "domain": "Climate & energy",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Weather data",
+        "Atmospheric data"
+      ],
+      "organisation": "ECMWF",
+      "summary": "Explore forecast charts produced by ECMWF's operational AI Forecasting System, including deterministic and ensemble predictions.",
+      "url": "https://charts.ecmwf.int/?query=aifs-single",
+      "evidence": "https://www.ecmwf.int/en/newsletter/186/news/machine-learning-services-ecmwf-new-capabilities-users",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public chart service (bot checks may apply)",
+      "tags": [
+        "AI forecasting",
+        "weather",
+        "AIFS"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "The selected AIFS forecast products depend on machine-learning inference; charts are an interface to an AI-native prediction service.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "ecmwf-aifs-compo",
+      "title": "ECMWF AIFS-COMPO Charts",
+      "domain": "Climate & energy",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Atmospheric data",
+        "Air quality data"
+      ],
+      "organisation": "ECMWF / CAMS",
+      "summary": "Explore experimental AI forecasts of aerosols, particulate matter and reactive atmospheric gases.",
+      "url": "https://charts.ecmwf.int/?query=aifs-compo",
+      "evidence": "https://www.ecmwf.int/en/about/media-centre/news/2026/aifs-compo-ai-atmospheric-composition-forecasting",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public chart service (bot checks may apply)",
+      "tags": [
+        "air quality",
+        "AI forecasting",
+        "atmospheric composition"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "AIFS-COMPO uses a transformer-based forecast architecture; its product is inherently ML-derived and experimental.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "google-weatherlab",
+      "title": "Google Weather Lab",
+      "domain": "Climate & energy",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Weather data",
+        "Atmospheric data"
+      ],
+      "organisation": "Google DeepMind / Google Research",
+      "summary": "Explore experimental AI weather forecast maps and tropical cyclone track predictions against meteorological baselines.",
+      "url": "https://deepmind.google.com/science/weatherlab",
+      "evidence": "https://developers.google.com/weathernext/guides/weatherlab",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Experimental preview (Google account may be required)",
+      "tags": [
+        "WeatherNext",
+        "cyclones",
+        "AI forecasting"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "WeatherNext and related forecast systems generate the defining predictions through AI models; not an official warning service.",
+      "toolUse": "access",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
     }
   ],
   "presentationPolicy": "Default atlas, search and public news show practical online, account-access or installable tools only. Repository-only, dataset-only and research references remain in the JSON for transparency. This is editorial screening, NOT a live functional-access guarantee."
