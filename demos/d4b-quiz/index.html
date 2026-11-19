@@ -24,7 +24,7 @@
   <script defer src="./questions.js?v=bank-b207a67a45"></script>
   <script defer src="./mock-genai-20261119.js?v=20261119-1"></script>
   <script defer src="./concept-groups-20261119.js?v=1"></script>
-  <script defer src="./quiz.js?v=human-cram-20261119-1"></script>
+  <script defer src="./quiz.js?v=module-focus-20261119-1"></script>
   <script defer src="./refresh.js?v=ledger-20261010-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
@@ -34,7 +34,7 @@
   <header class="site-header">
     <a class="brand" href="./" aria-label="D4B Evidence Quiz home">
       <span class="brand-mark" aria-hidden="true">◇</span>
-      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.7</span>
+      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.8</span>
     </a>
     <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
       <span aria-hidden="true">↓</span><span>Install</span>
@@ -66,10 +66,10 @@
       <p class="fine">Cram mode keeps one representative question per identified concept. Different wording remains in the full archive. The private Moodle keys and independently authored mock answers have different verification statuses.</p>
     </details>
   </section>
-  <section class="quiz-panel exam-scope" aria-labelledby="examFocusTitle">
-    <p class="eyebrow">GENERATIVE AI EXAM · 30 NOVEMBER 2026</p>
+  <section class="quiz-panel exam-scope" id="moduleFocus" aria-labelledby="examFocusTitle">
+    <p class="eyebrow" id="moduleFocusEyebrow">GENERATIVE AI EXAM · 30 NOVEMBER 2026</p>
     <h2 id="examFocusTitle">Generative AI exam focus</h2>
-    <p>Generative AI Weeks 1–9 only. The complete reduced-repeat question pool is available by default, without a timer. Shorter sessions are optional. Original Moodle questions remain the strongest exam evidence.</p>
+    <p id="moduleFocusDescription">Generative AI Weeks 1–9 only. The complete reduced-repeat question pool is available by default, without a timer. Shorter sessions are optional. Original Moodle questions remain the strongest exam evidence.</p>
     <p class="fine">If you have the original Moodle questions, <a href="#official-title">import them privately</a> for priority in revision.</p>
   </section>
   <section class="quiz-panel" id="mock-bank" aria-labelledby="mock-bank-title">
