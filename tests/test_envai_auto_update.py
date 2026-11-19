@@ -154,4 +154,69 @@ class ScanningTests(unittest.TestCase):
   self.assertEqual(third['qgis']['state'],'suspect')
 
 
+ def test_official_tool_name_aliases(self):
+  self.assertEqual(mod.normalized_title('Copernicus Climate Pulse'),
+                   mod.normalized_title('Climate Pulse'))
+  self.assertEqual(mod.normalized_title('Copernicus Interactive Climate Atlas'),
+                   mod.normalized_title('Climate Atlas'))
+
+ def test_copernicus_catalogue_discovers_new_application(self):
+  html=('''<div><a href="/overview?app=wind-forecast-ai">
+           Wind Forecast AI Explore the application</a></div>
+           <a href="/overview?app=climate-pulse">Climate Pulse</a>''')
+  catalog={'items':CAT['items']+[{
+    'id':'c3s-pulse','title':'Copernicus Climate Pulse',
+    'url':'https://pulse.climate.copernicus.eu/','toolUse':'online'}]}
+  out,stats=mod.scan(fetch=lambda path,params=None:
+       {'items':[]} if path=='/search/repositories' else [],
+       directory_fetch=lambda url:html if url==mod.COPERNICUS_APPS else '',
+       probe=lambda url:True, today=TODAY,catalogue=catalog,
+       previous={'releaseEvents':[],'leads':[]})
+  discoveries=[x for x in out['leads'] if x['id'].startswith('directory:copernicus:')]
+  self.assertEqual(len(discoveries),1)
+  self.assertEqual(discoveries[0]['title'],'Wind Forecast Ai')
+  self.assertEqual(discoveries[0]['domain'],'Climate & energy')
+  self.assertEqual(discoveries[0]['aiType'],'Unverified')
+  self.assertEqual(discoveries[0]['source'],'Copernicus C3S/CAMS applications')
+  self.assertEqual(stats['leadsAdded'],1)
+  again,stats2=mod.scan(fetch=lambda path,params=None:
+       {'items':[]} if path=='/search/repositories' else [],
+       directory_fetch=lambda url:html if url==mod.COPERNICUS_APPS else '',
+       probe=lambda url:True, today=TODAY,catalogue=catalog,previous=out)
+  self.assertEqual(stats2['leadsAdded'],0)
+  self.assertEqual(again['leads'],out['leads'])
+
+ def test_copernicus_parser_rejects_non_app_links(self):
+  parser=mod.CopernicusAppLinks()
+  parser.feed('''<a href="https://example.org/overview?app=untrusted">Untrusted</a>
+  <a href="/search">Catalogue</a><a href="/overview?app=climate-atlas">Climate Atlas</a>
+  <a href="/overview?app=../../bad">Malformed</a>''')
+  self.assertEqual(len(parser.items),1)
+  self.assertEqual(parser.items[0][0],'Climate Atlas')
+
+
+ def test_official_directory_prefix_cta_and_excludes_project_only(self):
+  parser=mod.OfficialToolLinks(('see the *','open the app'))
+  parser.feed('''<h3>ERA Explorer</h3><p>Global climate mapping platform</p>
+               <a href="https://era-explorer.climate.copernicus.eu/">See the ERA Explorer platform</a>
+               <a href="https://example.org/paper">See project</a>''')
+  self.assertEqual(len(parser.items),1)
+  self.assertEqual(parser.items[0][0],'ERA Explorer')
+
+ def test_curated_climate_catalogue_coverage_and_classification(self):
+  data=__import__('json').loads(mod.TOOLS_PATH.read_text(encoding='utf8'))
+  climate=[x for x in data['items'] if x['domain']=='Climate & energy'
+           and x.get('toolUse') in ('online','access','install')
+           and x.get('mapVisible') is not False]
+  self.assertGreaterEqual(len(climate),12)
+  self.assertEqual(len(climate),len({x['id'] for x in climate}))
+  self.assertEqual(set(x['aiType'] for x in climate),
+                   {'Traditional digital','AI-augmented','AI-native'})
+  for tool in climate:
+   self.assertTrue(tool['url'].startswith('https://'),tool['id'])
+   self.assertTrue(tool['evidence'].startswith('https://'),tool['id'])
+   self.assertNotIn('github.com',tool['url'],tool['id'])
+   self.assertTrue(tool.get('classificationEvidence'),tool['id'])
+
+
 if __name__=='__main__':unittest.main()
