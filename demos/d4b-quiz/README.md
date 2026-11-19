@@ -136,3 +136,12 @@ When auditing a question, preserve the distinction between original Moodle gradi
 An authorised, user-supplied 20-page PDF was transcribed into `mock-genai-20261119.js` as **99 multiple-choice questions** with the PDF's own 33/33/33 answer keys, plus **one written-response prompt and supplied model answer**. Mock A/B/C are selectable separately, including the suggested 35/40/45-minute MCQ timers. Question order and letter options are preserved. These are `origin: independent-mock`, `verification: mock-key-supplied`, and **not official Moodle questions, independently verified keys, or guaranteed exam predictions**. The written answer is shown separately for self-assessment, not automatically graded.
 
 The mock bank is separate from `questions.js`, Moodle private import, and the booklet-derived audit pipeline. Exact normalized-stem overlaps against the public existing 215-question bank were zero at import. Existing question IDs and browser progress are unchanged. The on-page total becomes **314 public questions** (215 existing + 99 mock MCQs). The exam scope remains Generative AI Weeks 1–9; do not mistake illustrative business scenarios for examinable industry statistics.
+
+
+## Default untimed practice and semantic repeat management (19 November 2026)
+
+All sessions are **untimed by default**, including the "exam simulation" feedback-at-end mode. Only choosing the explicit **Recommended time limit** selection enables a countdown (Mock A/B/C: 35/40/45 minutes for all 33; other sessions: 90 seconds per question). Buttons for the named mocks preserve the timing selection rather than forcing a countdown.
+
+Mixed practice uses curated `concept-groups-20261119.js` equivalence classes to suppress repeat *concepts within one session* by default; users can select **All questions, repeats allowed**. The source-faithful named Mock A/B/C sets deliberately retain every one of their 33 questions and original ordering, regardless of similarities across mock exams. This is a bounded, human-curated audit, not a guarantee that every possible paraphrase across all four courses has been detected.
+
+Current curated map: 32 clusters containing 71 items; 39 redundant appearances suppressed when all 314 published MCQs are mixed (before any locally imported Moodle questions). No existing question IDs or keys were deleted or changed, and browser answer histories retain their IDs.
