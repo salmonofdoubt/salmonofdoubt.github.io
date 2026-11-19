@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id), today=new Date(), ms=86400000;
-let data={items:[],reviewedAt:null}, seeds={items:[]}, live={releaseEvents:[],leads:[],scanStatus:'not-started'}, type='launch';
+let data={items:[],reviewedAt:null}, seeds={items:[]}, live={releaseEvents:[],leads:[],scanStatus:'not-started'}, type='lead';
 const date=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'')?new Date(s+'T12:00:00Z'):null;
 const daysAgo=s=>{const d=date(s);return d?Math.floor((today-d)/ms):Infinity};
 const fmt=s=>{const d=date(s);return d?new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(d):'Not yet'};
@@ -10,7 +10,9 @@ function link(text,url){const u=safe(url);if(!u)return elt('span',null,text);con
 function isToolSite(url){try{const h=new URL(url).hostname.toLowerCase();return h!=='github.com'&&h!=='www.github.com'&&h!=='gitlab.com'&&h!=='www.gitlab.com'}catch{return false}}
 function records(){
  const rows=[];
- const usable=t=>['online','install','access'].includes(t.toolUse);
+ const usable=t=>{const h=live?.toolHealth?.[t.id];
+  return ['online','install','access'].includes(t.toolUse)&&!(h?.state==='retired'&&h.url===t.url);
+ };
  const approved=new Map(data.items.filter(usable).map(t=>[t.id,t]));
  const curatedRelease=new Set();
  for(const t of data.items.filter(usable)){

@@ -11,7 +11,7 @@ mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 TODAY=dt.date(2026,11,19)
 CAT={'items':[
  {'id':'deepforest','title':'DeepForest','url':'https://github.com/weecology/DeepForest','aiType':'AI-native'},
- {'id':'qgis','title':'QGIS','url':'https://qgis.org/','aiType':'Traditional digital'},
+ {'id':'qgis','title':'QGIS','url':'https://qgis.org/','aiType':'Traditional digital','toolUse':'install'},
 ]}
 
 def repo(**overrides):
@@ -96,5 +96,62 @@ class ScanningTests(unittest.TestCase):
   self.assertEqual(mod.domain_guess('whale identification and acoustic marine monitoring'),'Water & oceans')
   self.assertIsNone(mod.usable_homepage('https://github.com/org/repo'))
   self.assertIsNotNone(mod.usable_homepage('https://example.github.io/whale-map'))
+
+ def test_official_directory_discovers_reachable_tool_not_repo(self):
+  html = ('<h3>Satellite Habitat Monitor</h3><p>AI satellite habitat monitoring '
+          'with an interactive environmental map</p>'
+          '<a href="https://habitats.example.org/app">Explore tool</a>')
+  def directory(url):
+   return html if 'sustainability.google' in url else ''
+  out, stats = mod.scan(fetch=self.fake, probe=lambda url: True,
+      directory_fetch=directory, today=TODAY, catalogue=CAT,
+      previous={'releaseEvents':[], 'leads':[]})
+  leads = [x for x in out['leads'] if x['id'].startswith('directory:')]
+  self.assertEqual(len(leads),1)
+  self.assertEqual(leads[0]['url'],'https://habitats.example.org/app')
+  self.assertEqual(leads[0]['source'],'Google Sustainability / official tool directory')
+  self.assertEqual(leads[0]['aiType'],'Unverified')
+  self.assertEqual(leads[0]['domain'],'Land & satellites')
+  self.assertEqual(stats['leadsAdded'],2)  # also the GitHub sample candidate
+  again,_=mod.scan(fetch=self.fake,probe=lambda url:True,directory_fetch=directory,
+      today=TODAY,catalogue=CAT,previous=out)
+  self.assertEqual(again['leads'],out['leads'])
+
+ def test_directory_skips_unlabelled_and_duplicate_catalogue_entries(self):
+  html = ('<h3>QGIS</h3><a href="https://qgis.org/">Explore tool</a>'
+          '<h3>Wildlife Story</h3><a href="https://wildlife.example.org/story">Learn more</a>')
+  out,_=mod.scan(fetch=lambda path,params=None:
+                 {'items':[]} if path=='/search/repositories' else [],
+      probe=lambda url:True, directory_fetch=lambda url:html,
+      today=TODAY,catalogue=CAT,
+      previous={'releaseEvents':[],'leads':[]})
+  self.assertEqual(out['leads'],[])
+
+ def test_health_retirement_requires_two_explicit_missing_checks(self):
+  previous={'toolHealth':{},'releaseEvents':[],'leads':[]}
+  first=mod.update_health(previous,CAT,lambda url:('missing',404),TODAY)
+  self.assertEqual(first['qgis']['state'],'suspect')
+  second=mod.update_health({'toolHealth':first},CAT,
+                            lambda url:('missing',410),TODAY+dt.timedelta(days=1))
+  self.assertEqual(second['qgis']['state'],'retired')
+  self.assertEqual(second['qgis']['consecutiveMissing'],2)
+  third=mod.update_health({'toolHealth':second},CAT,
+                           lambda url:('unknown',403),TODAY+dt.timedelta(days=2))
+  self.assertEqual(third['qgis']['state'],'retired')
+  restored=mod.update_health({'toolHealth':third},CAT,
+                              lambda url:('ok',200),TODAY+dt.timedelta(days=3))
+  self.assertEqual(restored['qgis']['state'],'reachable')
+  self.assertEqual(restored['qgis']['consecutiveMissing'],0)
+
+ def test_health_does_not_retire_on_transient_error(self):
+  first=mod.update_health({},CAT,lambda url:('missing',404),TODAY)
+  second=mod.update_health({'toolHealth':first},CAT,
+                            lambda url:('unknown',429),TODAY+dt.timedelta(days=1))
+  self.assertEqual(second['qgis']['state'],'unconfirmed')
+  self.assertEqual(second['qgis']['consecutiveMissing'],0)
+  third=mod.update_health({'toolHealth':second},CAT,
+                           lambda url:('missing',404),TODAY+dt.timedelta(days=2))
+  self.assertEqual(third['qgis']['state'],'suspect')
+
 
 if __name__=='__main__':unittest.main()

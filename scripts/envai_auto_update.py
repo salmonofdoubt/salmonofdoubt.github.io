@@ -16,8 +16,9 @@ import re
 import sys
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlencode, urlparse, urljoin
 from urllib.request import Request, urlopen
+from html.parser import HTMLParser
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / 'demos/envai/data/live-updates.json'
@@ -61,8 +62,16 @@ DOMAIN_HINTS = {
     'Climate & energy': ('climate','emission','carbon','solar','weather','renewable energy','energy','warming'),
     'Water & oceans': ('whale','marine','ocean','hydrolog','water','flood','coral','fish','coastal','aquatic'),
 }
-MAX_LEADS, MAX_RELEASES, LOOKBACK_DAYS = 30, 120, 90
-MAX_SITE_PROBES = 16  # Keep daily runs fast and respectful of external servers.
+MAX_LEADS, MAX_RELEASES, LOOKBACK_DAYS = 90, 120, 90
+MAX_SITE_PROBES = 16  # GitHub discovery: limited low-priority website checks.
+MAX_DIRECTORY_PROBES = 24  # Official tool directories have priority.
+# Provider-curated tool listings, not generic search results or research papers.
+DIRECTORIES = (
+    ('Google Sustainability', 'https://sustainability.google/technology/tools/', ('explore tool',)),
+    ('NASA Landsat data tools', 'https://science.nasa.gov/mission/landsat/data-overview/', ('explore',)),
+    ('FathomNet solutions', 'https://www.fathomnet.org/solutions',
+     ('go to fathomnet portal', 'go to fathomnet database', 'go to fathomverse')),
+)
 
 # Product-like metadata is a filter, not proof that an application works.
 TOOL_SIGNALS = (
@@ -188,6 +197,126 @@ def probe_live_site(url):
         return False
 
 
+
+class OfficialToolLinks(HTMLParser):
+    """Extract links explicitly labelled as tools from a trusted directory.
+
+    The directory link itself is evidence of a listing, not of AI capability.
+    We deliberately do not crawl general news, search results or arbitrary
+    links found elsewhere on the same page.
+    """
+    def __init__(self, labels):
+        super().__init__(convert_charrefs=True)
+        self.labels = set(labels)
+        self.heading = ''
+        self._heading_parts = None
+        self._anchor = None
+        self._context = []
+        self.items = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('h3', 'h4'):
+            self._heading_parts = []
+        elif tag == 'a':
+            self._anchor = {'href': dict(attrs).get('href', ''), 'text': []}
+
+    def handle_data(self, data):
+        if self._heading_parts is not None:
+            self._heading_parts.append(data)
+        if self._anchor is not None:
+            self._anchor['text'].append(data)
+        elif self.heading and len(self._context) < 12:
+            t = text(data, 180)
+            if t:
+                self._context.append(t)
+
+    def handle_endtag(self, tag):
+        if tag in ('h3', 'h4') and self._heading_parts is not None:
+            self.heading = text(' '.join(self._heading_parts), 100)
+            self._heading_parts = None
+            self._context = []
+        elif tag == 'a' and self._anchor is not None:
+            label = text(' '.join(self._anchor['text']), 100).lower()
+            if label in self.labels:
+                title = (label.removeprefix('go to ').title()
+                         if label.startswith('go to ') else self.heading)
+                if 3 <= len(title) <= 100:
+                    self.items.append((title, self._anchor['href'],
+                                       text(' '.join(self._context), 280)))
+            self._anchor = None
+
+
+def fetch_directory(url):
+    """Fetch a bounded HTML listing; an outage must not erase earlier leads."""
+    request = Request(url, headers={'User-Agent': 'EnvAI-discovery/2.0',
+                                    'Accept': 'text/html,application/xhtml+xml'})
+    with urlopen(request, timeout=12) as response:
+        if 'html' not in str(response.headers.get('Content-Type', '')).lower():
+            raise ValueError('directory is not HTML')
+        return response.read(1_000_000).decode('utf-8', errors='replace')
+
+
+def health_check(url):
+    """Returns (ok|missing|unknown, HTTP status).
+
+    Only explicit 404/410 responses are evidence of disappearance. Timeouts,
+    authentication, anti-bot blocks, redirects and server errors are not.
+    """
+    try:
+        request = Request(url, headers={'User-Agent': 'EnvAI-health/1.0',
+                                        'Accept': 'text/html,*/*;q=0.4'})
+        with urlopen(request, timeout=6) as response:
+            status = response.status
+            if not 200 <= status < 400:
+                return ('unknown', status)
+            final_url = response.geturl()
+            if urlparse(url).hostname not in ('github.com', 'www.github.com') \
+                    and urlparse(final_url).hostname in ('github.com', 'www.github.com'):
+                return ('unknown', status)
+            return ('ok', status)
+    except HTTPError as error:
+        return ('missing' if error.code in (404, 410) else 'unknown', error.code)
+    except (OSError, URLError, TimeoutError, ValueError, TypeError):
+        return ('unknown', None)
+
+
+def update_health(previous, catalogue, check, today):
+    """Two confirmed missing results hide a tool, without deleting provenance."""
+    existing = previous.get('toolHealth', {})
+    if not isinstance(existing, dict):
+        existing = {}
+    health = {}
+    for tool in catalogue['items']:
+        if tool.get('toolUse') not in ('online', 'install', 'access'):
+            continue
+        tool_id, url = tool['id'], tool.get('url', '')
+        if not url.startswith('https://'):
+            continue
+        prior = existing.get(tool_id, {})
+        if not isinstance(prior, dict) or prior.get('url') != url:
+            prior = {}
+        state, code = check(url)
+        if state == 'missing':
+            misses = int(prior.get('consecutiveMissing', 0)) + 1
+            visible_state = 'retired' if misses >= 2 else 'suspect'
+        elif state == 'ok':
+            misses, visible_state = 0, 'reachable'
+        else:
+            # A timeout must not resurrect a previously confirmed dead link.
+            retired = prior.get('state') == 'retired'
+            misses = int(prior.get('consecutiveMissing', 0)) if retired else 0
+            visible_state = 'retired' if retired else 'unconfirmed'
+        health[tool_id] = {
+            'url': url, 'state': visible_state,
+            'consecutiveMissing': misses,
+            'lastCheckedAt': today.isoformat(),
+            'httpStatus': code,
+            'lastReachableAt': (today.isoformat() if state == 'ok'
+                               else prior.get('lastReachableAt')),
+        }
+    return health
+
+
 def parse_stamp(s):
     raw=text(s,30)[:10]
     try:
@@ -222,7 +351,8 @@ def existing_state():
     return {'schemaVersion':1,'releaseEvents':[],'leads':[]}
 
 
-def scan(*, fetch=api, probe=probe_live_site, today=None, previous=None, catalogue=None):
+def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
+         health_probe=None, today=None, previous=None, catalogue=None):
     today=today or dt.datetime.now(dt.timezone.utc).date()
     previous=previous if previous is not None else existing_state()
     catalogue=catalogue if catalogue is not None else json.loads(TOOLS_PATH.read_text(encoding='utf8'))
@@ -281,6 +411,59 @@ def scan(*, fetch=api, probe=probe_live_site, today=None, previous=None, catalog
     created_cutoff=today-dt.timedelta(days=21)
     seen_homepages={url.lower().rstrip('/') for url in indexed_urls}
     seen_homepages.update(x['url'].lower().rstrip('/') for x in old_leads.values())
+
+    # Authoritative, explicitly labelled tool directories are prioritised over
+    # newly created repositories. A listing yields a candidate, not approval.
+    directory_probes = 0
+    indexed_titles = {re.sub(r'[^a-z0-9]', '', str(t.get('title', '')).lower().replace('google ', ''))
+                      for t in catalogue['items']}
+    indexed_titles.update(
+        re.sub(r'[^a-z0-9]', '', str(x.get('title', '')).lower().replace('google ', ''))
+        for x in old_leads.values())
+    if directory_fetch is not None:
+        for source_name, source_url, labels in DIRECTORIES:
+            try:
+                html = directory_fetch(source_url)
+                parser = OfficialToolLinks(labels)
+                parser.feed(html)
+                sources_ok += 1
+            except (OSError, HTTPError, URLError, TimeoutError, ValueError, TypeError) as error:
+                sources_failed += 1
+                errors.append(text(source_name + ' / ' + str(error), 180))
+                continue
+            for title, link_url, description in parser.items:
+                if directory_probes >= MAX_DIRECTORY_PROBES:
+                    break
+                homepage = usable_homepage(urljoin(source_url, link_url))
+                title_key = re.sub(r'[^a-z0-9]', '', title.lower().replace('google ', ''))
+                if not homepage or title_key in indexed_titles:
+                    continue
+                if homepage.lower().rstrip('/') in seen_homepages:
+                    continue
+                combined = (title + ' ' + description).lower()
+                domain = domain_guess(combined)
+                if not domain:
+                    continue
+                directory_probes += 1
+                if not probe(homepage):
+                    continue
+                entry_id = 'directory:' + re.sub(r'[^a-z0-9]+', '-', source_name.lower()).strip('-') + ':' + title_key
+                old_leads[entry_id] = {
+                    'id': entry_id, 'title': title, 'url': homepage,
+                    'evidence': source_url, 'discoveredAt': today.isoformat(),
+                    'eventDate': today.isoformat(),
+                    'note': (description or 'Listed in an official environmental tools directory.') +
+                            ' · Listed tool website reachable; functionality and AI classification not yet verified.',
+                    'source': source_name + ' / official tool directory',
+                    'status': 'official-directory candidate / functionality unverified',
+                    'domain': domain, 'aiType': 'Unverified', 'accessType': 'web',
+                    'siteReachable': True, 'siteCheckedAt': today.isoformat(),
+                    'tags': ['official-directory'],
+                }
+                seen_homepages.add(homepage.lower().rstrip('/'))
+                indexed_titles.add(title_key)
+                new_lead_count += 1
+
     for q in SEARCHES:
         result=get('/search/repositories',{'q':q+' created:>='+created_cutoff.isoformat(),
                                            'sort':'updated','order':'desc','per_page':14})
@@ -333,13 +516,16 @@ def scan(*, fetch=api, probe=probe_live_site, today=None, previous=None, catalog
     releases=sorted((e for e in old_rel.values() if retain(e)),key=lambda e:(e['eventDate'],e['id']),reverse=True)[:MAX_RELEASES]
     leads=sorted((e for e in old_leads.values() if retain(e)),key=lambda e:(e.get('discoveredAt',''),e['id']),reverse=True)[:MAX_LEADS]
     status='ok' if sources_ok and not sources_failed else 'partial' if sources_ok else 'error'
-    result={'schemaVersion':1,'sourceMode':'scheduled-useful-web-tools',
+    tool_health = (update_health(previous, catalogue, health_probe, today)
+                   if health_probe else previous.get('toolHealth', {}))
+    result={'schemaVersion':1,'sourceMode':'scheduled-multi-source-tools',
             'lastAttemptAt':today.isoformat(),'lastSuccessAt':today.isoformat() if sources_ok else previous.get('lastSuccessAt'),
             'scanStatus':status,'sourcesChecked':sources_ok+sources_failed,
             'sourcesSucceeded':sources_ok,'sourcesFailed':sources_failed,
             'monitorCount':len(watched),'errorSummary':errors[:4],
             'releaseEvents':releases,'leads':leads,'sitesProbed':sites_probed,
-            'notice':'Official releases are monitored. The public discovery feed shows only tool-like candidates with reachable non-repository websites; functionality and AI claims remain UNVERIFIED.',
+            'directorySitesProbed':directory_probes, 'toolHealth':tool_health,
+            'notice':'Official directories and GitHub are checked daily. Candidates remain unverified. Tools with two confirmed missing-link scans are hidden from the public atlas, not deleted from research records.',
            }
     return result, {'releasesAdded':new_release_count,'leadsAdded':new_lead_count,'sourcesSucceeded':sources_ok,'sourcesFailed':sources_failed}
 
@@ -348,7 +534,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dry-run',action='store_true',help='Preview result without writing live data')
     args=parser.parse_args()
-    result,stats=scan()
+    result,stats=scan(directory_fetch=fetch_directory, health_probe=health_check)
     if args.dry_run:
         print(json.dumps({'stats':stats,'status':result['scanStatus'],'sampleReleases':result['releaseEvents'][:2],
                           'sampleLeads':result['leads'][:2]},indent=2))
