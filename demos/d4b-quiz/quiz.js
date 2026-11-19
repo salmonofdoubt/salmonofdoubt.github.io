@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const builtInQuestions=window.D4B_QUESTIONS||[];
+const builtInQuestions=[...(window.D4B_QUESTIONS||[]),...(window.D4B_MOCK_QUESTIONS||[])];
 let questions=[...builtInQuestions];
 const privateKey='d4b-private-moodle-quiz-v1';
 const curriculum=window.D4B_CURRICULUM||{};
@@ -32,9 +32,18 @@ function courseEvidence(q){const c=q.course_alignment;if(!c)return '';const labe
 function save(){try{localStorage.setItem(key,JSON.stringify(history))}catch(e){console.warn('Progress cannot be stored',e)}stats()}
 function stats(){let records=Object.values(history),total=records.reduce((n,x)=>n+x.attempts,0),correct=records.reduce((n,x)=>n+x.correct,0);$('attempts').textContent=total;$('accuracy').textContent=total?Math.round(correct/total*100)+'%':'—';$('due').textContent=questions.filter(q=>history[q.id]&&history[q.id].due<=Date.now()).length;$('bank').textContent=questions.length;updateAvailability()}
 function isOfficial(q){return q.origin==='official-moodle'}
-function sourceMatches(q){const source=$('source').value;return source==='official-only'?isOfficial(q):source==='booklet-only'?!isOfficial(q):true}
+function isMock(q){return q.origin==='independent-mock'}
+function sourceMatches(q){
+ const source=$('source').value;
+ if(source==='official-only')return isOfficial(q);
+ if(source==='booklet-only')return !isOfficial(q)&&!isMock(q);
+ if(source==='moodle-first')return !isMock(q);
+ if(source==='mock-all')return isMock(q);
+ if(/^mock-[ABC]$/.test(source))return isMock(q)&&q.mockExam===source.slice(-1);
+ return true;
+}
 function sourcePriority(q){if(q.verification==='official-key-confirmed')return 0;if(isOfficial(q))return 1;return 2}
-function evidenceStatus(q){return q.verification==='verified'?'Independently checked':q.verification==='official-key-confirmed'?'Official Moodle key confirmed':'Original Moodle key pending'}
+function evidenceStatus(q){return isMock(q)?'Supplied mock answer key; unofficial and not independently verified':q.verification==='verified'?'Independently checked':q.verification==='official-key-confirmed'?'Official Moodle key confirmed':isOfficial(q)?'Original Moodle key pending':'Independent verification pending'}
 function weeks(){
  const m=$('module').value,chosen=$('week').value;
  const keys=m==='all'?Object.keys(curriculum):[m];
@@ -54,8 +63,9 @@ function eligible(){
 function updateAvailability(){
  const items=eligible(),n=items.length,requested=$('count').value==='all'?n:Number($('count').value);
  const privateItems=items.filter(isOfficial),confirmed=privateItems.filter(q=>q.verification==='official-key-confirmed').length;
- const publicItems=items.filter(q=>!isOfficial(q)).length;
- let status=n+' questions available · '+privateItems.length+' private Moodle ('+confirmed+' official keys confirmed) · '+publicItems+' original booklet questions';
+ const publicItems=items.filter(q=>!isOfficial(q)&&!isMock(q)).length;
+ const mockItems=items.filter(isMock).length;
+ let status=n+' questions available · '+privateItems.length+' private Moodle ('+confirmed+' official keys confirmed) · '+publicItems+' original booklet · '+mockItems+' independent mock';
  if($('source').value==='moodle-first'&&!privateItems.length)status+=' · Moodle-first falls back to booklet practice until you import';
  if($('source').value==='official-only'&&!n)status+=' · use the private Moodle import below';
  if(n>0&&requested>n)status+=' · session uses the '+n+' available questions';
@@ -65,10 +75,10 @@ function updateAvailability(){
 }
 function shuffle(items){return items.map(q=>({q,k:Math.random()})).sort((a,b)=>a.k-b.k).map(x=>x.q)}
 function reviewOrder(items){const now=Date.now();return items.map(q=>({q,tie:Math.random()})).sort((a,b)=>{const x=history[a.q.id],y=history[b.q.id];const sx=x?(x.due<=now?-100000000:0)+x.due:-200000000;const sy=y?(y.due<=now?-100000000:0)+y.due:-200000000;const priority=$('source').value==='moodle-first'?sourcePriority(a.q)-sourcePriority(b.q):0;return priority||sx-sy||a.tie-b.tie}).map(x=>x.q)}
-function select(){const p=pool(),focus=$('source').value==='moodle-first';if(mode==='mistakes'){const wrong=p.filter(q=>history[q.id]&&history[q.id].correct<history[q.id].attempts);return focus?reviewOrder(wrong):shuffle(wrong)}if(mode==='exam')return focus?reviewOrder(p):shuffle(p);return reviewOrder(p)}
+function select(){const p=pool(),focus=$('source').value==='moodle-first';if(mode==='exam'&&/^mock-[ABC]$/.test($('source').value))return [...p].sort((a,b)=>a.mockNumber-b.mockNumber);if(mode==='mistakes'){const wrong=p.filter(q=>history[q.id]&&history[q.id].correct<history[q.id].attempts);return focus?reviewOrder(wrong):shuffle(wrong)}if(mode==='exam')return focus?reviewOrder(p):shuffle(p);return reviewOrder(p)}
 function updateClock(){if(!deadline)return;const ms=Math.max(0,deadline-Date.now());$('clock').textContent=Math.floor(ms/60000)+':'+String(Math.floor(ms%60000/1000)).padStart(2,'0');if(ms===0)finish()}
-function start(){mode=$('mode').value;const requested=$('count').value==='all'?eligible().length:Math.min(eligible().length,Number($('count').value));session=select().slice(0,requested);if(!session.length){$('summary').classList.remove('hidden');$('summary').textContent='No questions available for these filters. Try another module or practice mode.';return}answers=[];index=0;completed=false;$('summary').classList.add('hidden');$('session').classList.remove('hidden');deadline=mode==='exam'?Date.now()+Math.round(session.length*90*1000):0;clearInterval(timer);$('clock').textContent='';if(deadline){updateClock();timer=setInterval(updateClock,1000)}render();$('session').scrollIntoView({behavior:'smooth',block:'start'})}
-function render(){selected=null;checked=false;const q=session[index];$('position').textContent='Question '+(index+1)+' of '+session.length;$('bar').style.width=(index/session.length*100)+'%';$('topic').textContent=q.module+' / WEEK '+String(q.week).padStart(2,'0')+' / '+q.topic+' / '+(q.origin==='official-moodle'?'Moodle original':'Booklet-derived')+' / '+(q.verification==='verified'?'Independently verified':q.verification==='official-key-confirmed'?'Official key recorded':'Verification pending');$('prompt').textContent=q.stem;$('feedback').classList.add('hidden');$('feedback').replaceChildren();$('next').disabled=true;$('next').textContent=mode==='exam'?(index===session.length-1?'Finish session':'Next question'):'Check answer';$('choices').replaceChildren(...q.choices.map((answer,i)=>{let b=document.createElement('button');b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>choose(i));return b}))}
+function start(){mode=$('mode').value;const requested=$('count').value==='all'?eligible().length:Math.min(eligible().length,Number($('count').value));session=select().slice(0,requested);if(!session.length){$('summary').classList.remove('hidden');$('summary').textContent='No questions available for these filters. Try another module or practice mode.';return}answers=[];index=0;completed=false;$('summary').classList.add('hidden');$('session').classList.remove('hidden');const mockTimes={'mock-A':35,'mock-B':40,'mock-C':45};const exactMockTime=mode==='exam'&&session.length===33?mockTimes[$('source').value]:0;deadline=mode==='exam'?Date.now()+(exactMockTime?exactMockTime*60000:Math.round(session.length*90*1000)):0;clearInterval(timer);$('clock').textContent='';if(deadline){updateClock();timer=setInterval(updateClock,1000)}render();$('session').scrollIntoView({behavior:'smooth',block:'start'})}
+function render(){selected=null;checked=false;const q=session[index];$('position').textContent='Question '+(index+1)+' of '+session.length;$('bar').style.width=(index/session.length*100)+'%';$('topic').textContent=q.module+' / WEEK '+String(q.week).padStart(2,'0')+' / '+q.topic+' / '+(isMock(q)?'Independent Mock '+q.mockExam+' · Q'+q.mockNumber:q.origin==='official-moodle'?'Moodle original':'Booklet-derived')+' / '+(isMock(q)?'Supplied mock key (unofficial)':q.verification==='verified'?'Independently verified':q.verification==='official-key-confirmed'?'Official key recorded':'Verification pending');$('prompt').textContent=q.stem;$('feedback').classList.add('hidden');$('feedback').replaceChildren();$('next').disabled=true;$('next').textContent=mode==='exam'?(index===session.length-1?'Finish session':'Next question'):'Check answer';$('choices').replaceChildren(...q.choices.map((answer,i)=>{let b=document.createElement('button');b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>choose(i));return b}))}
 function choose(value){
  if(checked || completed)return;
  selected=value;
@@ -111,6 +121,20 @@ if(count<session.length)out+='<p>'+ (session.length-count)+' question(s) unanswe
 out+='<h3>Answer review</h3>';
 out+=answers.map(a=>{const q=questions.find(x=>x.id===a.id);return '<details><summary>'+esc(q.topic)+' · '+(a.ok?'Correct':'Review')+'</summary><p>'+esc(q.stem)+'</p><p><b>Your answer:</b> '+esc(q.choices[a.value])+'</p><p><b>Best answer:</b> '+esc(q.choices[q.correct])+'</p><p>'+esc(q.explanation)+'</p><p class="fine">'+esc(q.source)+' · '+(evidenceStatus(q))+'</p>'+courseEvidence(q)+evidenceLink(q)+'</details>'}).join('');
 out+='<div class="actions"><button id="again" class="primary-button">Practise again</button></div>';$('summary').innerHTML=out;$('again').addEventListener('click',start);$('summary').scrollIntoView({behavior:'smooth',block:'start'});deadline=0}
+const mockWritten=window.D4B_MOCK_WRITTEN;
+if(mockWritten&&$('mockWrittenPrompt')&&$('mockWrittenAnswer')){
+ $('mockWrittenPrompt').textContent=mockWritten.prompt;
+ $('mockWrittenAnswer').textContent=mockWritten.answer;
+}
+document.querySelectorAll('[data-mock-exam]').forEach(button=>button.addEventListener('click',()=>{
+ $('module').value='GEN';
+ $('source').value='mock-'+button.dataset.mockExam;
+ weeks();
+ $('mode').value='exam';
+ $('count').value='all';
+ updateAvailability();
+ start();
+}));
 $('module').addEventListener('change',weeks);$('source').addEventListener('change',weeks);$('week').addEventListener('change',updateAvailability);$('mode').addEventListener('change',updateAvailability);$('count').addEventListener('change',updateAvailability);$('start').addEventListener('click',start);$('next').addEventListener('click',next);$('stop').addEventListener('click',finish);
 $('reset').addEventListener('click',()=>{if(confirm('Delete all quiz history stored in this browser?')){history={};save()}});
 $('export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({format:'d4b-evidence-quiz-v1',exported:new Date().toISOString(),history},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='d4b-quiz-progress.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
