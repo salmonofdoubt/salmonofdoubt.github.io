@@ -150,3 +150,8 @@ Current curated map: 32 clusters containing 71 items; 39 redundant appearances s
 ## Human-first cram experience (19 November 2026)
 
 The default view is a single button for 10 untimed Generative AI questions selected from the whole available curriculum-relevant question pool. Cram mode chooses one representative per curated concept group, preferring official Moodle keys and course-verified booklet checks over independently supplied mock variants. Original questions and stable history IDs remain untouched. Advanced module, week, length, source and optional timing controls are inside one collapsed Study options panel; separate Mock A/B/C buttons provide source-faithful 33-question exams. "All questions, repeats included" intentionally bypasses deduplication. The 32 audited concept groups are helpful, not an assertion that the 314 original questions are 275 scientifically distinct knowledge targets.
+
+
+## Correction: no arbitrary 10-question default (19 November 2026)
+
+The default cram session now includes **all currently eligible reduced-repeat questions** (121 Generative AI items in the published 314-MCQ bank before any private Moodle imports). The previous 10-question default was an unsolicited cap and was removed. A visible selector offers optional 10/20/30/40-question subsets. Untimed remains the default. This is a learner-choice control, not a mandatory short session.
