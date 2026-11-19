@@ -34,7 +34,7 @@
   <header class="site-header">
     <a class="brand" href="./" aria-label="D4B Evidence Quiz home">
       <span class="brand-mark" aria-hidden="true">◇</span>
-      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.6</span>
+      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.7</span>
     </a>
     <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
       <span aria-hidden="true">↓</span><span>Install</span>
@@ -43,24 +43,19 @@
 
   <main class="demo-stage" id="main">
   <div class="hero"><p class="eyebrow">DIGITAL4BUSINESS / EVIDENCE FIRST</p><h1>Practise what you need to know.</h1><p>Four modules. Source-traceable questions. Mistake-focused revision. Your results stay in this browser.</p></div>
-  <section class="quiz-panel exam-scope" aria-labelledby="examFocusTitle">
-    <p class="eyebrow">GENERATIVE AI EXAM · 30 NOVEMBER 2026</p>
-    <h2 id="examFocusTitle">Full GenAI practice. Less repetition.</h2>
-    <p>Generative AI Weeks 1–9 only. The complete reduced-repeat question pool is available by default, without a timer. Shorter sessions are optional. Original Moodle questions remain the strongest exam evidence.</p>
-    <p class="fine">If you have the original Moodle questions, <a href="#official-title">import them privately</a> for priority in revision.</p>
-  </section>
   <section class="quiz-panel" aria-label="Revision settings">
-    <h2>GenAI cram</h2>
-    <p>Full question pool by default. Untimed. Repeated concepts reduced. Choose a shorter session only if you want one.</p>
-    <div class="settings" style="grid-template-columns:minmax(0,1fr);max-width:320px;margin-top:12px">
+    <h2>Choose your module</h2>
+    <p>GenAI, AI for Business, Innovation and Digital Transformation. All questions available, untimed by default, with similar questions reduced.</p>
+    <div class="settings" style="grid-template-columns:repeat(2,minmax(0,1fr));max-width:720px;margin-top:12px">
+      <label>Module<select id="module"><option value="all">All four modules</option><option value="GEN" selected>Generative AI</option><option value="AIB">AI for Business</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option></select></label>
       <label>Questions<select id="count"><option value="all" selected>All available (default)</option><option value="10">10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option></select></label>
     </div>
     <div class="actions"><button class="primary-button" id="start" type="button">Start cram</button></div>
     <p id="availability" class="availability" role="status"></p>
     <details id="cramOptions">
-      <summary>Other options (module, week, timing)</summary>
+      <summary>Other options (week, source, timing)</summary>
+
       <div class="settings">
-        <label>Module<select id="module"><option value="all">All four modules</option><option value="GEN" selected>Generative AI</option><option value="AIB">AI for Business</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option></select></label>
         
         <label>Week<select id="week"><option value="all">All weeks</option></select></label>
         <label>Source<select id="source"><option value="cram" selected>Cram · reduce repeats</option><option value="official-only">Original Moodle (private)</option><option value="booklet-only">Booklet-derived only</option><option value="full">All questions, repeats included</option><option value="mock-A">Mock A (33)</option><option value="mock-B">Mock B (33)</option><option value="mock-C">Mock C (33)</option></select></label>
@@ -70,6 +65,12 @@
       <div class="actions"><button class="quiet-button" id="export" type="button">Export progress</button><button class="quiet-button" id="reset" type="button">Clear progress</button></div>
       <p class="fine">Cram mode keeps one representative question per identified concept. Different wording remains in the full archive. The private Moodle keys and independently authored mock answers have different verification statuses.</p>
     </details>
+  </section>
+  <section class="quiz-panel exam-scope" aria-labelledby="examFocusTitle">
+    <p class="eyebrow">GENERATIVE AI EXAM · 30 NOVEMBER 2026</p>
+    <h2 id="examFocusTitle">Generative AI exam focus</h2>
+    <p>Generative AI Weeks 1–9 only. The complete reduced-repeat question pool is available by default, without a timer. Shorter sessions are optional. Original Moodle questions remain the strongest exam evidence.</p>
+    <p class="fine">If you have the original Moodle questions, <a href="#official-title">import them privately</a> for priority in revision.</p>
   </section>
   <section class="quiz-panel" id="mock-bank" aria-labelledby="mock-bank-title">
     <p class="eyebrow">NEW · INDEPENDENT PRACTICE · NOVEMBER 2026</p>
