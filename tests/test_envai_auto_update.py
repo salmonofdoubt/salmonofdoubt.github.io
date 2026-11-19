@@ -154,6 +154,12 @@ class ScanningTests(unittest.TestCase):
   self.assertEqual(third['qgis']['state'],'suspect')
 
 
+ def test_official_tool_name_aliases(self):
+  self.assertEqual(mod.normalized_title('Copernicus Climate Pulse'),
+                   mod.normalized_title('Climate Pulse'))
+  self.assertEqual(mod.normalized_title('Copernicus Interactive Climate Atlas'),
+                   mod.normalized_title('Climate Atlas'))
+
  def test_copernicus_catalogue_discovers_new_application(self):
   html=('''<div><a href="/overview?app=wind-forecast-ai">
            Wind Forecast AI Explore the application</a></div>
