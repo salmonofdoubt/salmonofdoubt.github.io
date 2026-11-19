@@ -11,7 +11,7 @@ mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
 TODAY=dt.date(2026,11,19)
 CAT={'items':[
  {'id':'deepforest','title':'DeepForest','url':'https://github.com/weecology/DeepForest','aiType':'AI-native'},
- {'id':'qgis','title':'QGIS','url':'https://qgis.org/','aiType':'Traditional digital'},
+ {'id':'qgis','title':'QGIS','url':'https://qgis.org/','aiType':'Traditional digital','toolUse':'install'},
 ]}
 
 def repo(**overrides):
