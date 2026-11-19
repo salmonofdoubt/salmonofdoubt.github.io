@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="./header-controls.css?v=header-1">
 <script defer src="./site-config.js"></script>
 <script defer src="./header-secondary.js?v=header-1"></script>
-<script defer src="./live-data.js?v=useful-1"></script>
-<script defer src="./how-it-works.js?v=useful-1"></script>
+<script defer src="./live-data.js?v=usable-1"></script>
+<script defer src="./how-it-works.js?v=usable-1"></script>
 </head>
 <body>
 <a class="skip" href="#content">Skip to the explanation</a>
@@ -42,13 +42,13 @@
     </div>
   </section>
   <div class="live-stats" aria-label="Current catalogue status">
-    <div><strong id="toolCount">—</strong><span>catalogued technologies</span></div>
+    <div><strong id="toolCount">—</strong><span>practical tools shown</span></div>
     <div><strong id="mappedCount">—</strong><span>representative map nodes</span></div>
     <div><strong id="reviewDate">—</strong><span>catalogue last reviewed</span></div>
     <div><strong id="queueCount">—</strong><span>reachable tool candidates</span></div>
   </div>
   <section id="architecture" class="guide-section">
-    <div class="section-lead"><span class="section-number">01 / THE ARCHITECTURE</span><h2>Depth without <em>clutter.</em></h2><p>The catalogue and the constellation are deliberately different things. EnvAI can index far more technologies than should ever be visible at once.</p></div>
+    <div class="section-lead"><span class="section-number">01 / THE ARCHITECTURE</span><h2>Depth without <em>clutter.</em></h2><p>The reference index is larger than the public constellation. The atlas, search and news prioritise websites people can use, apps they can install, and clearly labelled access-request services. Code-only repositories and research references stay in the source JSON, not in the main interface.</p></div>
     <div class="pipeline" role="img" aria-label="Flow from source discoveries, through review and a curated catalogue, into semantic search, the constellation and What's New">
       <div class="pipe-step"><span class="pipe-index">01</span><span class="pipe-symbol">✧</span><strong>Discover</strong><small>Sources &amp; release leads</small></div><span class="pipe-arrow" aria-hidden="true">›</span>
       <div class="pipe-step review"><span class="pipe-index">02</span><span class="pipe-symbol">◇</span><strong>Review</strong><small>Human verification &amp; dating</small></div><span class="pipe-arrow" aria-hidden="true">›</span>
@@ -56,7 +56,7 @@
       <div class="pipe-step explore"><span class="pipe-index">04</span><span class="pipe-symbol">✺</span><strong>Explore</strong><small>Map · search · What's new</small></div>
     </div>
     <div class="explain-grid">
-      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>One source of truth</h3><p><code>data/tools.json</code> is the approved catalogue. The network and What's New read it directly. <code>data/discoveries.json</code> contains manually seeded leads. <code>data/live-updates.json</code> is generated daily by GitHub Actions and read directly from the public repository, bypassing Pages' bot-commit build limitation.</p></div>
+      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>One source of truth</h3><p><code>data/tools.json</code> is the approved catalogue. The atlas and What's New display only user-facing tools from it. <code>data/discoveries.json</code> contains manually seeded leads. <code>data/live-updates.json</code> is generated daily by GitHub Actions and read directly from the public repository, bypassing Pages' bot-commit build limitation.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>A calm default map</h3><p>Four field clusters have faint purple dotted boundaries. The overview shows <strong>up to 15 representative tools per field</strong> (60 total), never thousands of overlapping nodes.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Meaning-aware search</h3><p>Topic families, aliases and catalogue metadata connect terms such as “whale” to Water and relevant monitoring methods. At most <strong>six temporary results</strong> appear on the map.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Explainable connections</h3><p>Links rank similarity using shared environmental fields, methods, data signals and tasks. They are <strong>not</strong> claims of integration, ownership, investment or partnership.</p></div>
@@ -80,7 +80,7 @@
       <div><span class="update-pin"><i></i></span><span class="update-period">NO GUARANTEED DEADLINE</span><h3>Review the evidence</h3><p>Reachable candidate tools appear in <strong>Try new tools</strong>, clearly marked Unverified rather than treated as validated working products. A person must check relevance, source, classification, date and duplicates before approving them.</p></div>
       <div><span class="update-pin"><i></i></span><span class="update-period">AFTER APPROVAL &amp; PUBLICATION</span><h3>Incorporate into EnvAI</h3><p>Approved records go into <code>tools.json</code> and can join the default constellation after a normal site release. Website-backed candidates appear in search as UNVERIFIED without map clutter. A reachable website alone does not confirm an app functions. Editorial approval is not automated, and no fixed review deadline is promised.</p></div>
     </div>
-    <div class="signals"><h3>Three signals. Three different meanings.</h3><div class="signal-row"><strong>Release / update</strong><p>A genuine, source-dated product, model or feature event. The map's <b>NEW</b> marker uses a rolling 90-day event window.</p></div><div class="signal-row"><strong>New to EnvAI</strong><p>A tool recently added to the catalogue, even if it has existed for years. This date must never be misrepresented as the tool's launch date.</p></div><div class="signal-row"><strong>Try new tools</strong><p>Directly linked environmental tool websites detected by the scanner. They were reachable when checked but have not yet undergone functional or editorial verification. Code-only repositories are hidden.</p></div><a class="inline-cta" href="./whats-new.html">Browse What's New <span aria-hidden="true">↗</span></a></div>
+    <div class="signals"><h3>Three signals. Three different meanings.</h3><div class="signal-row"><strong>Release / update</strong><p>A genuine, source-dated product, model or feature event. The map's <b>NEW</b> marker uses a rolling 90-day event window.</p></div><div class="signal-row"><strong>New to EnvAI</strong><p>A newly added practical tool, excluding the initial seed catalogue, even if it has existed for years. This date must never be misrepresented as the tool's launch date.</p></div><div class="signal-row"><strong>Try new tools</strong><p>Directly linked environmental tool websites detected by the scanner. They were reachable when checked but have not yet undergone functional or editorial verification. Code-only repositories are hidden.</p></div><a class="inline-cta" href="./whats-new.html">Browse What's New <span aria-hidden="true">↗</span></a></div>
     <div class="trust"><span aria-hidden="true">◇</span><div><h3>What EnvAI does not claim</h3><p>Inclusion is not a recommendation, accuracy certification, environmental-impact rating or proof that AI outperforms an ordinary digital tool. Links and classifications are provisional and should be checked against their evidence. Sources can become outdated; a missing entry does not mean no solution exists.</p></div></div>
   </section>
   <section id="contribute" class="guide-section final-section"><span class="section-number">04 / OPEN TO CORRECTION</span><h2>The map is a <em>work in progress.</em></h2><p>If an AI classification looks wrong, a tool is missing, or a source is stale, the right fix is to improve the evidence and the catalogue, not to silently guess. Each indexed technology should be linked to something checkable.</p><div class="closing-links"><a href="./">Return to the constellation ↗</a><a href="./whats-new.html">See recently added records ↗</a><a href="./data/tools.json" target="_blank" rel="noopener">Inspect the JSON catalogue ↗</a></div></section>

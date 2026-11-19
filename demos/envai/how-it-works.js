@@ -3,10 +3,10 @@
   const el=id=>document.getElementById(id);
   try{
     const resp=await fetch('./data/tools.json',{cache:'no-store'});if(!resp.ok)throw new Error('Catalogue unavailable');
-    const data=await resp.json();const list=Array.isArray(data.items)?data.items:[];
+    const data=await resp.json();const list=Array.isArray(data.items)?data.items:[];const usable=list.filter(t=>['online','install','access'].includes(t.toolUse));
     const fields=['Biodiversity & wildlife','Land & satellites','Climate & energy','Water & oceans'];
-    const shown=fields.reduce((n,field)=>n+Math.min(15,list.filter(item=>item.domain===field&&item.mapVisible!==false).length),0);
-    el('toolCount').textContent=String(list.length);el('mappedCount').textContent=String(shown);
+    const shown=fields.reduce((n,field)=>n+Math.min(15,usable.filter(item=>item.domain===field&&item.mapVisible!==false).length),0);
+    el('toolCount').textContent=String(usable.length);el('mappedCount').textContent=String(shown);
     el('reviewDate').textContent=data.reviewedAt||'Not recorded';
   }catch(e){el('toolCount').textContent='—';el('mappedCount').textContent='—';el('reviewDate').textContent='Unavailable';}
   try{

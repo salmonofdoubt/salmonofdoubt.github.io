@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "reviewedAt": "2026-11-19",
-  "about": "Curated illustrative index. Map shows only selected representative tools per field (max 15), while search indexes the entire catalogue. Classification is editorial and based on linked evidence. Newly indexed is not newly launched.",
+  "about": "Curated EnvAI inventory. The public atlas, search and release feed prioritise directly usable web tools, account-access platforms and installable software; research/code-only references remain documented in this JSON. AI classifications are editorial and provisional. The original 52 seed records do not count as fresh discoveries.",
   "items": [
     {
       "id": "olmoearth",
@@ -26,7 +26,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "alphaearth",
@@ -50,7 +54,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "horizon",
@@ -74,7 +82,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "glen",
@@ -98,7 +110,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "lemu",
@@ -123,7 +139,12 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "access",
+      "baselineEntry": true,
+      "accessNote": "Commercial platform; access arrangements may apply.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "birdnetlive",
@@ -146,7 +167,12 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "install",
+      "baselineEntry": true,
+      "accessNote": "Free bird-sound identification app; installation is required.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "wildlifeinsights",
@@ -169,7 +195,12 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "access",
+      "baselineEntry": true,
+      "accessNote": "An account is required for some analysis features.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "sparrow",
@@ -193,7 +224,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "inaturalist",
@@ -205,7 +240,7 @@
       ],
       "organisation": "iNaturalist",
       "summary": "Computer-vision suggestions that help observers identify organisms from photographs.",
-      "url": "https://www.inaturalist.org/",
+      "url": "https://www.inaturalist.org/observations",
       "evidence": "https://www.inaturalist.org/pages/computer_vision_demo",
       "eventDate": null,
       "eventType": null,
@@ -216,7 +251,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "aifs",
@@ -239,7 +278,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "aurora",
@@ -263,7 +306,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "trace",
@@ -276,7 +323,7 @@
       ],
       "organisation": "Climate TRACE coalition",
       "summary": "Observation-led greenhouse-gas emissions inventory with site and sector data.",
-      "url": "https://climatetrace.org/",
+      "url": "https://climatetrace.org/explore",
       "evidence": "https://climatetrace.org/news/climate-trace-releases-august-2026-emissions-data",
       "eventDate": "2026-10-29",
       "eventType": "Monthly data update",
@@ -287,7 +334,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "cdp",
@@ -311,7 +362,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "ocf",
@@ -336,7 +391,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "floodhub",
@@ -360,7 +419,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "gfw",
@@ -384,7 +447,11 @@
       ],
       "addedAt": "2026-11-18",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "sparrow-engine",
@@ -409,7 +476,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "sparrow-comm",
@@ -434,7 +505,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "megadetector",
@@ -457,7 +532,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "speciesnet",
@@ -480,7 +559,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "merlin",
@@ -503,7 +586,12 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "install",
+      "baselineEntry": true,
+      "accessNote": "Free bird identification app; installation is required.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "perch",
@@ -526,7 +614,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "naturelm",
@@ -549,7 +641,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "earthranger",
@@ -573,7 +669,12 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "access",
+      "baselineEntry": true,
+      "accessNote": "A conservation-organisation account is generally needed.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "wildbook",
@@ -597,7 +698,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "bioCLIP",
@@ -620,7 +725,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "satlas",
@@ -644,7 +753,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "dynamicworld",
@@ -668,7 +781,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "deepforest",
@@ -692,7 +809,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "prithvi",
@@ -716,7 +837,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "ea-embeddings",
@@ -740,7 +865,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "google-hydrology",
@@ -764,7 +893,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "aifl",
@@ -788,7 +921,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "skylight",
@@ -812,7 +949,12 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "access",
+      "baselineEntry": true,
+      "accessNote": "Full monitoring features require an account; a limited public demonstration is available.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "oceanmind",
@@ -836,7 +978,12 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "access",
+      "baselineEntry": true,
+      "accessNote": "Professional service; contact the provider for access.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "fathomnet",
@@ -848,7 +995,7 @@
       ],
       "organisation": "FathomNet / MBARI",
       "summary": "AI-assisted annotation and species identification in underwater video and image collections.",
-      "url": "https://www.fathomnet.org/",
+      "url": "https://www.fathomnet.org/solutions",
       "evidence": "https://www.fathomnet.org/solutions",
       "eventDate": null,
       "eventType": null,
@@ -859,7 +1006,12 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "access",
+      "baselineEntry": true,
+      "accessNote": "Portal currently seeks early adopters; request access via the provider.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "satseabio",
@@ -883,7 +1035,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Unverified",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "General project directory rather than a usable tool launch."
     },
     {
       "id": "phenai",
@@ -907,7 +1063,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Unverified",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "General project directory rather than a usable tool launch."
     },
     {
       "id": "wildlife-ai",
@@ -930,7 +1090,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "qgis",
@@ -953,7 +1117,12 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it.",
+      "toolUse": "install",
+      "baselineEntry": true,
+      "accessNote": "Free desktop GIS software to install locally.",
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "gbif",
@@ -976,7 +1145,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "openstreetmap",
@@ -999,7 +1172,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "copernicusbrowser",
@@ -1022,7 +1199,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "earthdata",
@@ -1046,7 +1227,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "openaq",
@@ -1058,7 +1243,7 @@
       ],
       "organisation": "OpenAQ",
       "summary": "Open air-quality data platform and APIs; AI is not needed for its essential data services.",
-      "url": "https://openaq.org/",
+      "url": "https://explore.openaq.org/",
       "evidence": "https://docs.openaq.org/",
       "eventDate": null,
       "eventType": null,
@@ -1069,7 +1254,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "mapVisible": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "hydrosheds",
@@ -1093,7 +1282,11 @@
       ],
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "mapVisible": false,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "whalemap",
@@ -1123,10 +1316,13 @@
         "cetaceans",
         "marine-ecology"
       ],
-      "mapVisible": false,
+      "mapVisible": true,
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Source describes a geospatial observation viewer; no AI functionality is evidenced."
+      "classificationEvidence": "Source describes a geospatial observation viewer; no AI functionality is evidenced.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "whale-insight",
@@ -1159,7 +1355,10 @@
       "mapVisible": false,
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "Its mapping and observation display functions are traditional digital; contributing detection systems may use other techniques."
+      "classificationEvidence": "Its mapping and observation display functions are traditional digital; contributing detection systems may use other techniques.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "resourceNote": "Research or data reference; practical standalone tool not established in this catalogue."
     },
     {
       "id": "orcasound-live",
@@ -1189,10 +1388,13 @@
         "cetaceans",
         "bioacoustics"
       ],
-      "mapVisible": false,
+      "mapVisible": true,
       "addedAt": "2026-11-19",
       "aiType": "Traditional digital",
-      "classificationEvidence": "The live listening interface is traditional digital; separate OrcaHello automates detection using AI."
+      "classificationEvidence": "The live listening interface is traditional digital; separate OrcaHello automates detection using AI.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "happywhale",
@@ -1223,10 +1425,13 @@
         "cetaceans",
         "species-id"
       ],
-      "mapVisible": false,
+      "mapVisible": true,
       "addedAt": "2026-11-19",
       "aiType": "AI-augmented",
-      "classificationEvidence": "The broader citizen-science and data-sharing platform incorporates documented AI image matching."
+      "classificationEvidence": "The broader citizen-science and data-sharing platform incorporates documented AI image matching.",
+      "toolUse": "online",
+      "baselineEntry": true,
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
     },
     {
       "id": "orcahello",
@@ -1260,7 +1465,10 @@
       "mapVisible": false,
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Core real-time detection task relies on a trained deep-learning model documented by the maintainers."
+      "classificationEvidence": "Core real-time detection task relies on a trained deep-learning model documented by the maintainers.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     },
     {
       "id": "orcai",
@@ -1294,7 +1502,11 @@
       "mapVisible": false,
       "addedAt": "2026-11-19",
       "aiType": "AI-native",
-      "classificationEvidence": "Core acoustic detection and classification relies on documented machine-learning models."
+      "classificationEvidence": "Core acoustic detection and classification relies on documented machine-learning models.",
+      "toolUse": "reference",
+      "baselineEntry": true,
+      "resourceNote": "Code, model or research repository; no direct end-user application verified."
     }
-  ]
+  ],
+  "presentationPolicy": "Default atlas, search and public news show practical online, account-access or installable tools only. Repository-only, dataset-only and research references remain in the JSON for transparency. This is editorial screening, NOT a live functional-access guarantee."
 }

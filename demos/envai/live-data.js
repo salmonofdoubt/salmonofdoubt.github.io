@@ -51,7 +51,7 @@ function mergeCatalog(curated,live){
     url:r.url,evidence:validLink(r.evidence)||r.url,
     eventDate:null,eventType:null,addedAt:null,
     access:'Website · unverified',tags:Array.isArray(r.tags)?r.tags.slice(0,8):[],
-    aiType:'Unverified',mapVisible:false,classificationEvidence:'Website was reachable during discovery, but functionality and AI status are not yet verified. Not an approved EnvAI tool.'});
+    aiType:'Unverified',toolUse:'online',mapVisible:false,accessNote:'Candidate website reachable during scan; functionality unverified.',classificationEvidence:'Website was reachable during discovery, but functionality and AI status are not yet verified. Not an approved EnvAI tool.'});
  }
  return rows;
 }

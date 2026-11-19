@@ -10,16 +10,17 @@ function link(text,url){const u=safe(url);if(!u)return elt('span',null,text);con
 function isToolSite(url){try{const h=new URL(url).hostname.toLowerCase();return h!=='github.com'&&h!=='www.github.com'&&h!=='gitlab.com'&&h!=='www.gitlab.com'}catch{return false}}
 function records(){
  const rows=[];
- const approved=new Map(data.items.map(t=>[t.id,t]));
+ const usable=t=>['online','install','access'].includes(t.toolUse);
+ const approved=new Map(data.items.filter(usable).map(t=>[t.id,t]));
  const curatedRelease=new Set();
- for(const t of data.items){
+ for(const t of data.items.filter(usable)){
   if(t.eventDate&&t.eventType){
    rows.push({kind:'launch',date:t.eventDate,title:t.title,detail:t.eventType+' · '+(t.organisation||''),
-    summary:t.summary,url:t.url,evidence:t.evidence,id:t.id,aiType:t.aiType});
+    summary:t.summary,url:t.url,evidence:t.evidence,id:t.id,aiType:t.aiType,toolUse:t.toolUse});
    curatedRelease.add(t.id+'|'+t.eventDate);
   }
-  if(t.addedAt)rows.push({kind:'added',date:t.addedAt,title:t.title,detail:'Newly indexed in EnvAI · '+t.domain,
-    summary:t.summary,url:t.url,evidence:t.evidence,id:t.id,aiType:t.aiType});
+  if(t.addedAt&&!t.baselineEntry)rows.push({kind:'added',date:t.addedAt,title:t.title,detail:'Newly indexed in EnvAI · '+t.domain,
+    summary:t.summary,url:t.url,evidence:t.evidence,id:t.id,aiType:t.aiType,toolUse:t.toolUse});
  }
  for(const r of live.releaseEvents||[]){
   const t=approved.get(r.toolId);
@@ -28,7 +29,7 @@ function records(){
   rows.push({kind:'launch',date:r.eventDate,title:t.title+' · '+(r.tag||'release'),
    detail:(r.eventType||'Official GitHub release')+' · automatically recorded',
    summary:r.summary||'A source-dated official repository release; its significance has not yet been independently assessed.',
-   url:t.url,evidence:r.evidence,id:t.id,aiType:t.aiType});
+   url:t.url,evidence:r.evidence,id:t.id,aiType:t.aiType,toolUse:t.toolUse});
  }
  const leadMap=new Map();
  // Keep announcements and code repositories out of the public tool feed.
@@ -39,7 +40,7 @@ function records(){
   rows.push({kind:'lead',date:r.discoveredAt||r.eventDate,title:r.title,
    detail:'TOOL WEBSITE · '+(r.status||'functionality unverified')+(r.domain?' · '+r.domain:''),
    summary:r.note||'Discovery lead pending editorial review.',url:r.url,evidence:r.evidence||r.url,
-   id:r.id,aiType:'Unverified'});
+   id:r.id,aiType:'Unverified',toolUse:'online'});
  }
  return rows.sort((a,b)=>(b.date||'').localeCompare(a.date||'')||({launch:0,added:1,lead:2}[a.kind]-{launch:0,added:1,lead:2}[b.kind]));
 }
@@ -65,7 +66,7 @@ function render(){
    'AI-native':['native','AI-native'],'Unverified':['unverified','Unverified']};
   const [classToken,classText]=classMap[r.aiType]||classMap.Unverified;
   const titleRow=elt('div','news-title-row');titleRow.append(title,elt('span','news-ai-label '+classToken,classText));
-  const actions=elt('div','actions');actions.append(link(r.kind==='lead'?'Try website ↗':'Open tool ↗',r.url),link('Source / evidence ↗',r.evidence));
+  const actions=elt('div','actions');actions.append(link(r.kind==='lead'?'Try website ↗':r.toolUse==='install'?'Get app ↗':r.toolUse==='access'?'Access details ↗':'Open tool ↗',r.url),link('Source / evidence ↗',r.evidence));
   if(r.kind!=='lead'){
    const a=elt('a',null,'Locate on map ↗');a.href='./?tool='+encodeURIComponent(r.id)+'#atlas';actions.append(a);
   }else if(r.id?.startsWith('candidate:')){
@@ -80,7 +81,7 @@ function render(){
  $('leadCount').textContent=all.filter(t=>t.kind==='lead').length+' leads in review';
  $('reviewStamp').textContent='Catalogue reviewed '+fmt(data.reviewedAt);
  $('scanStamp').textContent=scanLabel();
- $('scanStamp').title='Automatic scanning checks official releases and candidate tool websites. A reachable URL does not prove the tool functions or that its claims are correct.';
+ $('scanStamp').title='The public feed prioritises usable apps and installable software. Repository-only research, initial seed entries and code-only releases are kept out; a reachable URL is not a functional guarantee.';
 }
 async function load(){
  try{

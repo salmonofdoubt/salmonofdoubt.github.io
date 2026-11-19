@@ -11,6 +11,7 @@ const domains={
 };
 const state={catalog:[],searchIndex:[],queryResults:{hits:[],total:0,dominantDomain:null},searchCoords:new Map(),items:[],edges:[],nodes:new Map(),links:new Map(),selected:null,selectedType:null,search:'',view:'desktop',W:1550,H:930,zoom:1,tx:0,ty:0,dragging:false,lastPt:null,moved:false};
 const MAP_LIMIT_PER_FIELD=15; // no catalogue growth can overcrowd the overview
+const publicTool=t=>['online','install','access'].includes(t.toolUse); // reference items stay in JSON, not the experience
 const SEARCH_LIMIT=6; // temporary, query-specific labels; never all search results
 const lookupTool=id=>state.catalog.find(t=>t.id===String(id||'').replace(/^search:/,''));
 let uiTimer=0,autoPrompt=null;
@@ -259,9 +260,9 @@ function renderInfo(){
  const pill=document.createElement('span');pill.className='focus-pill'+(isHub?'':' class-'+(types[t.aiType]||'unverified'));
  pill.textContent=isHub?'Field':t.aiType.replace('Traditional digital','Digital');top.append(pill);main.append(top);
  const sub=document.createElement('div');sub.className='focus-sub';sub.textContent=isHub?`${related} indexed tools in ${domains[dom].short.toLowerCase()} — selected highlights are mapped; search discovers the rest.`:t.summary;main.append(sub);
- const foot=document.createElement('div');foot.className='focus-footer';foot.textContent=isHub?`Up to ${MAP_LIMIT_PER_FIELD} representative tools on the map · search the full index`:isSearch?`Search match · ${t.capability} · ${domains[dom].short} · newly indexed ≠ newly launched`:`${dateRecent(t.eventDate)?'✦ NEW RELEASE / UPDATE  ·  ':''}${related} linked ${related===1?'tool':'tools'}  ·  ${t.capability}  ·  editorial similarity connections`;main.append(foot);
+ const foot=document.createElement('div');foot.className='focus-footer';foot.textContent=isHub?`Only practical tools are shown · source/research records remain archived in the catalogue`:isSearch?`Search match · ${t.capability} · ${domains[dom].short} · ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access may be restricted':'Use online'}`:`${dateRecent(t.eventDate)?'✦ NEW RELEASE / UPDATE  ·  ':''}${related} linked ${related===1?'tool':'tools'}  ·  ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access required':'Use online'}${t.accessNote?' · '+t.accessNote:''}`;main.append(foot);
  root.append(glyph,main);
- if(!isHub&&t.url){const a=document.createElement('a');a.className='focus-visit';a.href=t.url;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',`Visit ${t.title} website`);a.innerHTML='Visit project <span class="link-icon" aria-hidden="true">↗</span>';root.append(a)}
+ if(!isHub&&t.url){const a=document.createElement('a');a.className='focus-visit';a.href=t.url;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',`Visit ${t.title} website`);a.innerHTML=(t.toolUse==='install'?'Get app':t.toolUse==='access'?'Access details':'Open tool')+' <span class="link-icon" aria-hidden="true">↗</span>';root.append(a)}
  else{const tag=document.createElement('span');tag.className='focus-ghost';tag.textContent='Explore the glowing points ↗';root.append(tag)}
 }
 
@@ -371,11 +372,11 @@ function misc(){const menu=$('menu'),btn=$('menuBtn');btn.onclick=()=>{menu.hidd
  $('methodBtn').onclick=()=>{menu.hidden=true;btn.setAttribute('aria-expanded','false')};$('citeBtn').onclick=()=>{menu.hidden=true;setModal('cite')};$('dialogClose').onclick=()=>$('dialog').close();$('installBtn').onclick=()=>{menu.hidden=true;if(autoPrompt){autoPrompt.prompt();autoPrompt=null}else setModal('install')};window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();autoPrompt=e});
  if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(()=>{}))}
 function setup(list){
- state.catalog=list.filter(t=>t&&t.id&&t.domain&&domains[t.domain]&&t.title).map(t=>({...t,aiType:t.aiType||'Unverified'}));
+ state.catalog=list.filter(t=>t&&t.id&&t.domain&&domains[t.domain]&&t.title&&publicTool(t)).map(t=>({...t,aiType:t.aiType||'Unverified'}));
  state.searchIndex=window.EnvAISemantic.prepare(state.catalog);
  state.items=Object.keys(domains).flatMap(dom=>state.catalog.filter(t=>t.domain===dom&&t.mapVisible!==false).slice(0,MAP_LIMIT_PER_FIELD));
  initEdges();computeLayout();draw();$('totalNum').textContent=String(state.catalog.length);
- $('stats').querySelector('small').textContent=`${state.items.length} representative nodes on the map · search the entire catalogue`;
+ $('stats').querySelector('small').textContent=`${state.items.length} practical tools on the map · research references kept outside the public view`;
  toast('Explore the constellation, or search any environmental subject.')
 }
 function loadFocusFromUrl(){
