@@ -1,4 +1,4 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-mock-20261119-2';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-unique-untimed-20261119-1';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,7 +10,8 @@ const APP_SHELL = [
   './quiz.css?v=mock-20261119-1',
   './questions.js?v=bank-b207a67a45',
   './mock-genai-20261119.js?v=20261119-1',
-  './quiz.js?v=mock-20261119-2',
+  './concept-groups-20261119.js?v=1',
+  './quiz.js?v=unique-untimed-20261119-1',
   './refresh.js?v=ledger-20261010-v1'
 ];
 
