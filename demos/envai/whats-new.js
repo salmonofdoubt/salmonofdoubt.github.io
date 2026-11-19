@@ -7,6 +7,7 @@ const fmt=s=>{const d=date(s);return d?new Intl.DateTimeFormat('en-GB',{day:'num
 function safe(s){try{const u=new URL(s);return ['https:','http:'].includes(u.protocol)?u.href:null}catch{return null}}
 function elt(tag,cls,content){const a=document.createElement(tag);if(cls)a.className=cls;if(content!==undefined)a.textContent=content;return a}
 function link(text,url){const u=safe(url);if(!u)return elt('span',null,text);const a=elt('a',null,text);a.href=u;a.target='_blank';a.rel='noopener noreferrer';return a}
+function isToolSite(url){try{const h=new URL(url).hostname.toLowerCase();return h!=='github.com'&&h!=='www.github.com'&&h!=='gitlab.com'&&h!=='www.gitlab.com'}catch{return false}}
 function records(){
  const rows=[];
  const approved=new Map(data.items.map(t=>[t.id,t]));
@@ -30,11 +31,13 @@ function records(){
    url:t.url,evidence:r.evidence,id:t.id,aiType:t.aiType});
  }
  const leadMap=new Map();
- for(const r of seeds.items||[])if(r.id)leadMap.set(r.id,r);
- for(const r of live.leads||[])if(r.id)leadMap.set(r.id,r);
+ // Keep announcements and code repositories out of the public tool feed.
+ // Only directly reachable, tool-like candidate websites are shown.
+ for(const r of seeds.items||[])if(r.id&&r.accessType==='web'&&r.siteReachable===true&&isToolSite(r.url))leadMap.set(r.id,r);
+ for(const r of live.leads||[])if(r.id&&r.accessType==='web'&&r.siteReachable===true&&isToolSite(r.url))leadMap.set(r.id,r);
  for(const r of leadMap.values()){
   rows.push({kind:'lead',date:r.discoveredAt||r.eventDate,title:r.title,
-   detail:'UNVERIFIED · '+(r.status||'awaiting review')+(r.domain?' · '+r.domain:''),
+   detail:'TOOL WEBSITE · '+(r.status||'functionality unverified')+(r.domain?' · '+r.domain:''),
    summary:r.note||'Discovery lead pending editorial review.',url:r.url,evidence:r.evidence||r.url,
    id:r.id,aiType:'Unverified'});
  }
@@ -55,14 +58,14 @@ function render(){
  const feed=$('feedList');feed.replaceChildren();
  for(const r of rows){
   const card=elt('article','news-card');
-  const badge=elt('span','news-tag '+r.kind,r.kind==='launch'?'✦ DATED RELEASE / UPDATE':r.kind==='added'?'＋ NEW TO ENVAI':'◇ DISCOVERY · UNVERIFIED');
+  const badge=elt('span','news-tag '+r.kind,r.kind==='launch'?'✦ DATED RELEASE / UPDATE':r.kind==='added'?'＋ NEW TO ENVAI':'◇ TOOL CANDIDATE · UNVERIFIED');
   const header=elt('div','meta',fmt(r.date)+' · '+(r.kind==='launch'?'RELEASE SIGNAL':r.kind==='added'?'ADDED TO DIRECTORY':'LEAD FOUND'));
   const title=elt('h3',null,r.title),detail=elt('div','meta',r.detail),summary=elt('p',null,r.summary);
   const classMap={'Traditional digital':['traditional','Traditional'],'AI-augmented':['augmented','AI-augmented'],
    'AI-native':['native','AI-native'],'Unverified':['unverified','Unverified']};
   const [classToken,classText]=classMap[r.aiType]||classMap.Unverified;
   const titleRow=elt('div','news-title-row');titleRow.append(title,elt('span','news-ai-label '+classToken,classText));
-  const actions=elt('div','actions');actions.append(link('Open project ↗',r.url),link('Source / evidence ↗',r.evidence));
+  const actions=elt('div','actions');actions.append(link(r.kind==='lead'?'Try website ↗':'Open tool ↗',r.url),link('Source / evidence ↗',r.evidence));
   if(r.kind!=='lead'){
    const a=elt('a',null,'Locate on map ↗');a.href='./?tool='+encodeURIComponent(r.id)+'#atlas';actions.append(a);
   }else if(r.id?.startsWith('candidate:')){
@@ -77,7 +80,7 @@ function render(){
  $('leadCount').textContent=all.filter(t=>t.kind==='lead').length+' leads in review';
  $('reviewStamp').textContent='Catalogue reviewed '+fmt(data.reviewedAt);
  $('scanStamp').textContent=scanLabel();
- $('scanStamp').title='Automatic scanner reports official releases and unverified repository leads; scanning does not confirm product quality or availability.';
+ $('scanStamp').title='Automatic scanning checks official releases and candidate tool websites. A reachable URL does not prove the tool functions or that its claims are correct.';
 }
 async function load(){
  try{

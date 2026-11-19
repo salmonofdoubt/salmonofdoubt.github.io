@@ -28,6 +28,7 @@ async function load(){
 function freshDate(s){if(!/^\d{4}-\d{2}-\d{2}$/.test(s||''))return null;
  const d=new Date(s+'T12:00:00Z');return Number.isFinite(d.valueOf())?d:null}
 function validLink(v){try{const u=new URL(v);return u.protocol==='https:'?u.href:null}catch{return null}}
+function isToolSite(url){try{const h=new URL(url).hostname.toLowerCase();return h!=='github.com'&&h!=='www.github.com'&&h!=='gitlab.com'&&h!=='www.gitlab.com'}catch{return false}}
 function mergeCatalog(curated,live){
  const rows=curated.map(x=>({...x}));const index=new Map(rows.map(x=>[x.id,x]));
  for(const r of live?.releaseEvents||[]){
@@ -42,15 +43,15 @@ function mergeCatalog(curated,live){
  // the default star map. Its cap and existing node positions are preserved.
  const knownUrls=new Set(rows.map(t=>String(t.url||'').toLowerCase().replace(/\/$/,'')));
  for(const r of (live?.leads||[]).slice(0,90)){
-  if(!r.id||!r.title||!r.domain||!validLink(r.url))continue;
+  if(!r.id||!r.title||!r.domain||!validLink(r.url)||r.accessType!=='web'||r.siteReachable!==true||!isToolSite(r.url))continue;
   if(knownUrls.has(r.url.toLowerCase().replace(/\/$/,'')))continue;
   rows.push({id:'lead:'+r.id,title:String(r.title).slice(0,150),
     domain:r.domain,capability:'Explore & decide',signals:[],organisation:'Unverified discovery',
-    summary:'UNVERIFIED REPOSITORY · '+String(r.note||'A new repository was indexed; suitability and release status have not been assessed.').slice(0,280),
+    summary:'UNVERIFIED TOOL CANDIDATE · '+String(r.note||'A reachable tool website was indexed; its functionality has not been independently verified.').slice(0,280),
     url:r.url,evidence:validLink(r.evidence)||r.url,
     eventDate:null,eventType:null,addedAt:null,
-    access:'Unverified',tags:Array.isArray(r.tags)?r.tags.slice(0,8):[],
-    aiType:'Unverified',mapVisible:false,classificationEvidence:'Unverified discovery lead. Not an approved EnvAI tool.'});
+    access:'Website · unverified',tags:Array.isArray(r.tags)?r.tags.slice(0,8):[],
+    aiType:'Unverified',mapVisible:false,classificationEvidence:'Website was reachable during discovery, but functionality and AI status are not yet verified. Not an approved EnvAI tool.'});
  }
  return rows;
 }

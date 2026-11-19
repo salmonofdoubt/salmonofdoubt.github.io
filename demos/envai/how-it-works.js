@@ -13,7 +13,9 @@
     const [resp,live]=await Promise.all([fetch('./data/discoveries.json',{cache:'no-store'}),
       window.EnvAILive?.load()||Promise.resolve(null)]);
     const seeds=resp.ok?(await resp.json()).items||[]:[];
-    const pending=new Set([...seeds,...(live?.leads||[])].map(x=>x.id));
+    // Count only candidates with a direct web-tool URL, not bare repositories.
+    const visible=[...seeds,...(live?.leads||[])].filter(x=>x.accessType==='web'&&x.siteReachable===true);
+    const pending=new Set(visible.map(x=>x.id));
     el('queueCount').textContent=String(pending.size);
     if(live?.lastSuccessAt){el('queueCount').title='Latest automatic source scan: '+live.lastSuccessAt}
   }catch(e){el('queueCount').textContent='—';}

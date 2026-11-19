@@ -1,4 +1,4 @@
-/* No external deps: exercise browser-facing merge without a network or DOM. */
+/* Public view shows useful website candidates, never bare GitHub repositories. */
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const vm=require('node:vm');
@@ -13,16 +13,22 @@ const curated=[
 ];
 const overlay={releaseEvents:[{toolId:'deepforest',eventDate:'2026-11-19',eventType:'Official GitHub release',
  tag:'v1.2.3',evidence:'https://github.com/weecology/DeepForest/releases/tag/v1.2.3'}],leads:[
- {id:'candidate:example/whale',title:'Whale Monitor',domain:'Water & oceans',
-  url:'https://github.com/example/whale',note:'Unverified whale monitor',tags:['whale']},
+ {id:'candidate:example/repository-only',title:'Repo only',domain:'Water & oceans',
+  url:'https://github.com/example/repository-only',note:'Not a usable website'},
+ {id:'candidate:example/whale',title:'Whale tool',domain:'Water & oceans',
+  url:'https://whales.example.org/app',evidence:'https://github.com/example/whale',
+  accessType:'web',siteReachable:true,note:'Live website confirmed, actual function unverified'},
+ {id:'candidate:example/broken',title:'Broken tool',domain:'Water & oceans',
+  url:'https://broken.example.org',accessType:'web',siteReachable:false},
  {id:'candidate:example/duplicate',title:'duplicate',domain:'Water & oceans',
-  url:'https://www.hydrosheds.org/'}]};
+  url:'https://www.hydrosheds.org/',accessType:'web',siteReachable:true}]};
 const out=merge(curated,overlay);
-assert.equal(out.length,3,'duplicate curated link must be suppressed');
-assert.equal(curated[0].eventDate,'2026-01-05','curated source must be unchanged');
-assert.equal(out[0].eventDate,'2026-11-19','official release should refresh existing tool');
+assert.equal(out.length,3,'only useful new website candidate should be searchable');
+assert.equal(curated[0].eventDate,'2026-01-05','curated input must be unchanged');
+assert.equal(out[0].eventDate,'2026-11-19');
 assert.equal(out[0].eventType,'Official GitHub release · v1.2.3');
+assert.equal(out[2].url,'https://whales.example.org/app');
 assert.equal(out[2].aiType,'Unverified');
-assert.equal(out[2].mapVisible,false,'new lead must never fill default constellation');
-assert.match(out[2].summary,/UNVERIFIED/);
-console.log('PASS: existing release refreshed; unverified search-only candidate; map stays capped');
+assert.equal(out[2].mapVisible,false,'candidate never fills default constellation');
+assert.match(out[2].summary,/UNVERIFIED TOOL CANDIDATE/);
+console.log('PASS: repo-only leads hidden; website candidates searchable; map stays capped');
