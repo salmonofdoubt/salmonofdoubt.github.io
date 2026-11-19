@@ -155,3 +155,8 @@ The default view is a single button for 10 untimed Generative AI questions selec
 ## Correction: no arbitrary 10-question default (19 November 2026)
 
 The default cram session now includes **all currently eligible reduced-repeat questions** (121 Generative AI items in the published 314-MCQ bank before any private Moodle imports). The previous 10-question default was an unsolicited cap and was removed. A visible selector offers optional 10/20/30/40-question subsets. Untimed remains the default. This is a learner-choice control, not a mandatory short session.
+
+
+## Restore visible four-module navigation (19 November 2026)
+
+The site never removed the original INNO, DTR, AI4B or GenAI public question records. Their module filter had been hidden under a collapsed advanced panel as part of a GenAI-oriented UI change. This release restores the existing module selector directly beside question count, above the GenAI-only exam notice. Existing questions, answer keys, history and private Moodle imports remain unchanged. All available questions and untimed practice remain defaults.
