@@ -71,6 +71,9 @@ DIRECTORIES = (
     ('NASA Landsat data tools', 'https://science.nasa.gov/mission/landsat/data-overview/', ('explore',)),
     ('FathomNet solutions', 'https://www.fathomnet.org/solutions',
      ('go to fathomnet portal', 'go to fathomnet database', 'go to fathomverse')),
+    ('Space for Climate Observatory', 'https://www.spaceclimateobservatory.org/tools/all/all',
+     ('open the app', 'see the *', 'access the *', 'view the *',
+      'see * demonstrator', 'see * platform')),
 )
 
 # Product-like metadata is a filter, not proof that an application works.
@@ -218,8 +221,9 @@ COPERNICUS_APP_TITLES={
 
 def normalized_title(value):
     """Deduplicate official catalogue aliases, without conflating distinct tools."""
-    return re.sub(r'[^a-z0-9]', '', re.sub(
-        r'^(copernicus|ecmwf|google)\\s+', '', str(value or '').lower()))
+    name=re.sub(r'^(copernicus|ecmwf|google)\\s+', '', str(value or '').lower())
+    name=name.replace('interactive climate atlas','climate atlas')
+    return re.sub(r'[^a-z0-9]', '', name)
 
 class CopernicusAppLinks(HTMLParser):
     """Discover official C3S/CAMS application detail links from live HTML."""
@@ -293,7 +297,10 @@ class OfficialToolLinks(HTMLParser):
             self._context = []
         elif tag == 'a' and self._anchor is not None:
             label = text(' '.join(self._anchor['text']), 100).lower()
-            if label in self.labels:
+            matching = label in self.labels or any(
+                label.startswith(pattern[:-1]) for pattern in self.labels
+                if pattern.endswith('*') and len(pattern)>1)
+            if matching:
                 title = (label.removeprefix('go to ').title()
                          if label.startswith('go to ') else self.heading)
                 if 3 <= len(title) <= 100:
