@@ -130,6 +130,7 @@ document.querySelectorAll('[data-mock-exam]').forEach(button=>button.addEventLis
  $('module').value='GEN';
  $('source').value='mock-'+button.dataset.mockExam;
  weeks();
+ $('week').value='all';
  $('mode').value='exam';
  $('count').value='all';
  updateAvailability();
