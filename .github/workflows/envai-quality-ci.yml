@@ -1,0 +1,27 @@
+name: EnvAI discovery quality
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/envai_auto_update.py'
+      - 'tests/test_envai_auto_update.py'
+      - 'demos/envai/**'
+      - '.github/workflows/envai-quality-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile discovery script
+        run: python3 -m py_compile scripts/envai_auto_update.py
+      - name: Test discovery and retirement behaviour
+        run: python3 -m unittest discover -s tests -p 'test_envai_auto_update.py' -v
