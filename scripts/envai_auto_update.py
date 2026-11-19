@@ -198,6 +198,62 @@ def probe_live_site(url):
 
 
 
+ 
+# Curated live applications catalogue with individual application landing pages.
+# It exposes new launches even when their project has no GitHub repository.
+COPERNICUS_APPS='https://apps.climate.copernicus.eu/'
+COPERNICUS_APP_TITLES={
+    'climate-pulse':'Climate Pulse',
+    'era-explorer':'ERA Explorer',
+    'climate-atlas':'Climate Atlas',
+    'thermal-trace':'Thermal Trace',
+    'methane-explorer':'Methane Hotspot Explorer',
+    'european-climate-data-explorer':'European Climate Data Explorer',
+    'fire-emissions-watch':'Fire Emissions Watch',
+    'weather-replay':'Weather Replay',
+    'global-temperature-trend-monitor':'Global Temperature Trend Monitor',
+    'necd-explorer':'NECD Explorer',
+    'aerosol-alerts':'Aerosol Alerts',
+}
+
+def normalized_title(value):
+    """Deduplicate official catalogue aliases, without conflating distinct tools."""
+    return re.sub(r'[^a-z0-9]', '', re.sub(
+        r'^(copernicus|ecmwf|google)\\s+', '', str(value or '').lower()))
+
+class CopernicusAppLinks(HTMLParser):
+    """Discover official C3S/CAMS application detail links from live HTML."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self._anchor=None
+        self.items=[]
+
+    def handle_starttag(self,tag,attrs):
+        if tag=='a':
+            self._anchor={'href':dict(attrs).get('href',''), 'text':[]}
+
+    def handle_data(self,data):
+        if self._anchor is not None:
+            self._anchor['text'].append(data)
+
+    def handle_endtag(self,tag):
+        if tag!='a' or self._anchor is None:return
+        raw=self._anchor
+        self._anchor=None
+        link=urljoin(COPERNICUS_APPS,raw['href'])
+        parsed=urlparse(link)
+        if parsed.hostname not in ('apps.climate.copernicus.eu',
+                                   'apps.atmosphere.copernicus.eu'):
+            return
+        from urllib.parse import parse_qs
+        if parsed.path.rstrip('/')!='/overview':return
+        slug=parse_qs(parsed.query).get('app',[''])[0]
+        if not re.fullmatch(r'[a-z0-9-]{3,90}',slug):return
+        title=COPERNICUS_APP_TITLES.get(slug,slug.replace('-',' ').title())
+        self.items.append((title,link,
+                           text(' '.join(raw['text']),280)))
+
+
 class OfficialToolLinks(HTMLParser):
     """Extract links explicitly labelled as tools from a trusted directory.
 
@@ -415,12 +471,49 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
     # Authoritative, explicitly labelled tool directories are prioritised over
     # newly created repositories. A listing yields a candidate, not approval.
     directory_probes = 0
-    indexed_titles = {re.sub(r'[^a-z0-9]', '', str(t.get('title', '')).lower().replace('google ', ''))
+    indexed_titles = {normalized_title(t.get('title'))
                       for t in catalogue['items']}
     indexed_titles.update(
-        re.sub(r'[^a-z0-9]', '', str(x.get('title', '')).lower().replace('google ', ''))
+        normalized_title(x.get('title'))
         for x in old_leads.values())
     if directory_fetch is not None:
+        # The application-listing crawl detects newly published Copernicus apps.
+        # This is a discovery *candidate* feed, never automatic classification.
+        source_name='Copernicus C3S/CAMS applications'
+        try:
+            html=directory_fetch(COPERNICUS_APPS)
+            parser=CopernicusAppLinks()
+            parser.feed(html)
+            if not parser.items:
+                raise ValueError('No application links found (directory layout may have changed)')
+            sources_ok+=1
+            for title,detail_url,description in parser.items:
+                if directory_probes>=MAX_DIRECTORY_PROBES:break
+                homepage=usable_homepage(detail_url)
+                title_key=normalized_title(title)
+                if not homepage or title_key in indexed_titles or (
+                    homepage.lower().rstrip('/') in seen_homepages):continue
+                directory_probes+=1
+                if not probe(homepage):continue
+                entry_id='directory:copernicus:' + urlparse(homepage).query.split('app=')[-1]
+                old_leads[entry_id]={
+                    'id':entry_id,'title':title,'url':homepage,'evidence':COPERNICUS_APPS,
+                    'discoveredAt':today.isoformat(),'eventDate':today.isoformat(),
+                    'note':'Official Copernicus climate/atmosphere application listing. '
+                          'Open its detail page to launch the application. '
+                          'Website reachable; functionality and AI status not independently verified.',
+                    'source':source_name,
+                    'status':'official application candidate / functionality unverified',
+                    'domain':'Climate & energy','aiType':'Unverified',
+                    'accessType':'web','siteReachable':True,
+                    'siteCheckedAt':today.isoformat(),'tags':['copernicus','climate'],
+                }
+                seen_homepages.add(homepage.lower().rstrip('/'))
+                indexed_titles.add(title_key)
+                new_lead_count+=1
+        except (OSError,HTTPError,URLError,TimeoutError,ValueError,TypeError) as error:
+            sources_failed+=1
+            errors.append(text(source_name+' / '+str(error),180))
         for source_name, source_url, labels in DIRECTORIES:
             try:
                 html = directory_fetch(source_url)
@@ -435,7 +528,7 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
                 if directory_probes >= MAX_DIRECTORY_PROBES:
                     break
                 homepage = usable_homepage(urljoin(source_url, link_url))
-                title_key = re.sub(r'[^a-z0-9]', '', title.lower().replace('google ', ''))
+                title_key = normalized_title(title)
                 if not homepage or title_key in indexed_titles:
                     continue
                 if homepage.lower().rstrip('/') in seen_homepages:
