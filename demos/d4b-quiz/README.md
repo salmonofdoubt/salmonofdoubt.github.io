@@ -145,3 +145,8 @@ All sessions are **untimed by default**, including the "exam simulation" feedbac
 Mixed practice uses curated `concept-groups-20261119.js` equivalence classes to suppress repeat *concepts within one session* by default; users can select **All questions, repeats allowed**. The source-faithful named Mock A/B/C sets deliberately retain every one of their 33 questions and original ordering, regardless of similarities across mock exams. This is a bounded, human-curated audit, not a guarantee that every possible paraphrase across all four courses has been detected.
 
 Current curated map: 32 clusters containing 71 items; 39 redundant appearances suppressed when all 314 published MCQs are mixed (before any locally imported Moodle questions). No existing question IDs or keys were deleted or changed, and browser answer histories retain their IDs.
+
+
+## Human-first cram experience (19 November 2026)
+
+The default view is a single button for 10 untimed Generative AI questions selected from the whole available curriculum-relevant question pool. Cram mode chooses one representative per curated concept group, preferring official Moodle keys and course-verified booklet checks over independently supplied mock variants. Original questions and stable history IDs remain untouched. Advanced module, week, length, source and optional timing controls are inside one collapsed Study options panel; separate Mock A/B/C buttons provide source-faithful 33-question exams. "All questions, repeats included" intentionally bypasses deduplication. The 32 audited concept groups are helpful, not an assertion that the 314 original questions are 275 scientifically distinct knowledge targets.
