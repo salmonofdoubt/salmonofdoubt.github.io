@@ -1,0 +1,403 @@
+
+(function(){'use strict';
+const $=id=>document.getElementById(id); const NS='http://www.w3.org/2000/svg';
+const types={'AI-native':'native','AI-augmented':'augmented','Traditional digital':'digital','Unverified':'unverified'};
+const classColors={native:'#FFA56B',augmented:'#F2F178',digital:'#76C0FF',unverified:'#B9B6D0'};
+const domains={
+ 'Biodiversity & wildlife':{name:'NATURE',short:'Nature',color:'#92e5c1',cx:340,cy:440,mx:195,my:300},
+ 'Land & satellites':{name:'LAND',short:'Land',color:'#c9a6ef',cx:1010,cy:355,mx:550,my:300},
+ 'Climate & energy':{name:'CLIMATE',short:'Climate',color:'#f7bf8f',cx:1150,cy:735,mx:545,my:770},
+ 'Water & oceans':{name:'WATER',short:'Water',color:'#7fbef0',cx:460,cy:770,mx:220,my:785}
+};
+const state={catalog:[],searchIndex:[],queryResults:{hits:[],total:0,dominantDomain:null},searchCoords:new Map(),items:[],edges:[],nodes:new Map(),links:new Map(),selected:null,selectedType:null,search:'',view:'desktop',W:1550,H:930,zoom:1,tx:0,ty:0,dragging:false,lastPt:null,moved:false};
+const MAP_LIMIT_PER_FIELD=15; // no catalogue growth can overcrowd the overview
+const SEARCH_LIMIT=6; // temporary, query-specific labels; never all search results
+const lookupTool=id=>state.catalog.find(t=>t.id===String(id||'').replace(/^search:/,''));
+let uiTimer=0,autoPrompt=null;
+function dateRecent(str){if(!str)return false;const d=new Date(str+'T12:00:00Z'),today=new Date();const diff=today-d;return Number.isFinite(diff)&&diff>=0&&diff<=90*86400000}
+function seednum(s){let k=2166136261;for(let i=0;i<s.length;i++){k^=s.charCodeAt(i);k=Math.imul(k,16777619)}return k>>>0}
+function rng(s){let v=seednum(s);return ()=>{v=(Math.imul(1664525,v)+1013904223)>>>0;return v/4294967296}}
+function sortscore(a,b){const A=new Set(a.signals||[]),B=new Set(b.signals||[]);let sig=0;for(const k of A)if(B.has(k))sig++;
+ const tagsA=new Set((a.tags||[]).map(x=>x.toLowerCase())), tagsB=new Set((b.tags||[]).map(x=>x.toLowerCase()));let tags=0;for(const k of tagsA)if(tagsB.has(k))tags++;
+ const sameDomain=a.domain===b.domain,sameCap=a.capability===b.capability;
+ return (sameDomain?1.2:0)+(sameCap?3:0)+sig*3.8+Math.min(tags,3)*2.4+(a.aiType===b.aiType?.25:0)}
+function reason(a,b){const shared=(a.signals||[]).filter(x=>(b.signals||[]).includes(x));if(shared.length)return shared[0].toLowerCase();if(a.capability===b.capability)return a.capability.toLowerCase();const sharedTags=(a.tags||[]).filter(x=>(b.tags||[]).includes(x));if(sharedTags.length)return sharedTags[0].toLowerCase();if(a.domain===b.domain)return 'shared environmental field';return 'related workflow'}
+function initEdges(){const links=new Map();for(const a of state.items){const scored=state.items.filter(b=>b.id!==a.id).map(b=>({b,score:sortscore(a,b)})).sort((a,b)=>b.score-a.score);let chosen=scored.filter(x=>x.score>=3.4).slice(0,3);if(chosen.length<2)chosen=scored.slice(0,2);
+  for(const {b,score} of chosen){const key=[a.id,b.id].sort().join('|');if(!links.has(key))links.set(key,{a:a.id,b:b.id,score,why:reason(a,b),cross:a.domain!==b.domain})}}
+ state.edges=[...links.values()].sort((a,b)=>b.score-a.score).filter(x=>x.score>2.9).slice(0,115);
+ state.links.clear();for(const t of state.items)state.links.set(t.id,new Set());for(const e of state.edges){state.links.get(e.a).add(e.b);state.links.get(e.b).add(e.a)}
+}
+function computeLayout(){const mobile=window.innerWidth<620;state.view=mobile?'mobile':'desktop';state.W=mobile?750:1550;state.H=mobile?1080:930;const byDom={};for(const t of state.items)(byDom[t.domain] ||= []).push(t);
+ for(const [name,arr] of Object.entries(byDom)){const d=domains[name];const cx=mobile?d.mx:d.cx,cy=mobile?d.my:d.cy;arr.sort((a,b)=>seednum(a.id)-seednum(b.id));const n=arr.length;
+  arr.forEach((t,i)=>{const rand=rng(t.id),ang=2*Math.PI*(i/n)+(.20*(rand()-.5))+(name==='Land & satellites'? .33: -.13);const ring=i%3===0?174:i%3===1?132:212;const r=mobile?ring*.68:ring;
+   t._x=cx+Math.cos(ang)*(r+rand()*20-10);t._y=cy+Math.sin(ang)*(r*.84+rand()*12-6);t._x=Math.max(22,Math.min(state.W-22,t._x));t._y=Math.max(30,Math.min(state.H-38,t._y))})}
+ // Gently spread crowded labels/nodes while keeping cluster membership legible.
+ for(let it=0;it<100;it++)for(let i=0;i<state.items.length;i++)for(let j=i+1;j<state.items.length;j++){
+  const a=state.items[i],b=state.items[j],dx=a._x-b._x,dy=a._y-b._y,dist=Math.hypot(dx,dy)||1,min=state.view==='mobile'?36:51;
+  if(dist>=min)continue;const step=(min-dist)*.14,ux=dx/dist,uy=dy/dist;a._x+=ux*step;b._x-=ux*step;a._y+=uy*step;b._y-=uy*step}
+}
+function elem(name,attrs,parent){const e=document.createElementNS(NS,name);for(const [k,v] of Object.entries(attrs||{}))e.setAttribute(k,v);parent?.append(e);return e}
+function curved(a,b,bend=.12){const dx=b.x-a.x,dy=b.y-a.y,mx=(a.x+b.x)/2,my=(a.y+b.y)/2,offset=bend*Math.min(100,Math.hypot(dx,dy)*.25);return `M${a.x.toFixed(1)},${a.y.toFixed(1)} Q${(mx-dy/Math.hypot(dx,dy)*offset).toFixed(1)},${(my+dx/Math.hypot(dx,dy)*offset).toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}`}
+// Four understated dotted lavender contours: visual geography, never controls.
+// Derive each outline from the *actual* positioned tools rather than a fixed
+// desktop ellipse; this keeps it accurate when the catalogue grows or the
+// browser changes from desktop to mobile.
+function background(){
+ const layer=$('nebula');layer.replaceChildren();
+ for(const [dom,d] of Object.entries(domains)){
+  const {x:cx,y:cy}=hubXY(dom);
+  elem('circle',{cx,cy,r:state.view==='mobile'?245:320,fill:'url(#fieldGlow)',opacity:'.7'},layer);
+  const tools=state.items.filter(t=>t.domain===dom);
+  const margin=state.view==='mobile'?29:39;
+  const maxDX=Math.max(0,...tools.map(t=>Math.abs(t._x-cx)));
+  const maxDY=Math.max(0,...tools.map(t=>Math.abs(t._y-cy)));
+  const rx=Math.max(state.view==='mobile'?154:215,maxDX+margin);
+  const ry=Math.max(state.view==='mobile'?144:192,maxDY+margin);
+  // A single fine dotted perimeter, plus a near-invisible atmosphere.
+  const outline=elem('ellipse',{cx,cy,rx:rx.toFixed(1),ry:ry.toFixed(1),
+   class:'cluster-boundary','data-field':dom,'aria-hidden':'true'},layer);
+  outline.style.setProperty('--outline-order',Object.keys(domains).indexOf(dom));
+ }
+}
+function hubXY(dom){const d=domains[dom];return {x:state.view==='mobile'?d.mx:d.cx,y:state.view==='mobile'?d.my:d.cy}}
+function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} ${state.H}`);const g=$('edges'), hubs=$('hubs'),n=$('nodes');g.replaceChildren();hubs.replaceChildren();n.replaceChildren();background();state.nodes.clear();
+ const coords=new Map(state.items.map(x=>[x.id,{x:x._x,y:x._y}]));
+ for(const link of state.edges){const path=elem('path',{d:curved(coords.get(link.a),coords.get(link.b),.23),class:'line'+(link.cross?' cross':''),'data-a':link.a,'data-b':link.b},g);link.el=path}
+ for(const [dom,d] of Object.entries(domains)){const p=hubXY(dom);for(const t of state.items.filter(x=>x.domain===dom)){const path=elem('path',{d:curved(p,coords.get(t.id),0),class:'line hubline','data-a':'hub:'+dom,'data-b':t.id},g);path.dataset.hub=dom}
+ const r=state.view==='mobile'?40:57;const group=elem('g',{class:'node hub','data-id':'hub:'+dom,role:'button',tabindex:'0','aria-label':`Show ${d.short} tools`,transform:`translate(${p.x},${p.y})`},hubs);
+ elem('circle',{r:r+20,fill:'none',stroke:d.color,'stroke-opacity':'.16','stroke-width':'1','class':'hub-arc'},group);elem('circle',{r,fill:d.color,'fill-opacity':'.045',stroke:d.color,'stroke-opacity':'.7','stroke-width':'1.3','class':'outer'},group);elem('circle',{r:12,fill:d.color,'fill-opacity':'.1',stroke:d.color,'stroke-opacity':'.4'},group);elem('text',{y:-8,'text-anchor':'middle',class:'node-label'},group).textContent=d.name;elem('text',{y:11,'text-anchor':'middle',class:'sub-label'},group).textContent=`${state.items.filter(x=>x.domain===dom).length} TOOLS`;group.style.setProperty('--nodeColor',d.color);state.nodes.set('hub:'+dom,group);bindNode(group,'hub:'+dom)}
+ const newSet=new Set(state.catalog.filter(x=>dateRecent(x.eventDate)).map(x=>x.id));$('newCount').textContent=String(newSet.size);
+ for(const t of state.items){const d=domains[t.domain],color=d?.color||'#bad9db',AI=types[t.aiType]||'unverified',gTool=elem('g',{class:'node tool'+(state.items.filter(x=>x.domain===t.domain).slice(0,2).includes(t)?' primary':''),'data-id':t.id,role:'button',tabindex:'0','aria-label':`${t.title}, ${t.aiType}`,transform:`translate(${t._x.toFixed(1)},${t._y.toFixed(1)})`},n);gTool.style.setProperty('--nodeColor',color);gTool.style.setProperty('--class-color',classColors[AI]);
+  elem('circle',{r:17,fill:'none',stroke:color,'stroke-opacity':'.20','stroke-width':'1.2',class:'outer'},gTool);
+  elem('circle',{r:8,fill:AI==='native'?color:AI==='augmented'?color:'#09121e','fill-opacity':AI==='native'?'.83':AI==='augmented'?'.2':'1',stroke:color,'stroke-opacity':AI==='unverified'?'.3':'.85','stroke-width':AI==='digital'?'1.5':'1.2','stroke-dasharray':AI==='unverified'?'2 3':null,class:'inner'},gTool);
+  elem('circle',{r:19,class:'glow-ring'},gTool);
+  if(newSet.has(t.id)){const flare=elem('g',{class:'new-flare',transform:'translate(11,-10)'},gTool);elem('circle',{r:3.1,class:'flare-dot'},flare);elem('path',{d:'M0 -7 V-4 M0 4 V7 M-7 0 H-4 M4 0 H7',class:'flare-ray'},flare)}
+  // The compact label is part of the clickable SVG node: no floating cards,
+  // no second click, and no separate overlay that can intercept the map.
+  const tether=elem('path',{class:'chip-tether',d:'M 0 0 L 20 0'},gTool);
+  const chip=elem('g',{class:'tool-chip'},gTool);
+  elem('rect',{class:'chip-bg',x:20,y:-19,width:110,height:27,rx:8},chip);
+  const marker=elem('circle',{class:'chip-type',cx:32,cy:-5.5,r:3.3},chip);
+  marker.setAttribute('fill',classColors[AI]);
+  const lab=elem('text',{class:'node-label',x:43,y:-1.5},chip);lab.textContent=truncate(t.title,state.view==='mobile'?19:24);
+  const title=elem('title',{},gTool);title.textContent=t.title+' · '+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
+ drawSearchCandidates();styleFocus();updateCamera(false)}
+function truncate(s,n){return s.length>n?s.slice(0,n-1).trim()+'…':s}
+function bindNode(el,id){el.addEventListener('pointerenter',ev=>{if(state.dragging)return;const x=ev.clientX,y=ev.clientY;const target=state.items.find(t=>t.id===id);const peer=state.selected&&!state.selected.startsWith('hub:')?state.items.find(t=>t.id===state.selected):null;
+ const isConnected=peer&&target&&state.links.get(peer.id)?.has(target.id);
+ $('tooltip').textContent=target?(isConnected?`${target.title}  ·  connected by ${reason(peer,target)}`:target.title):domains[id.slice(4)]?.short+' tools';$('tooltip').hidden=false;positionTooltip(x,y)});el.addEventListener('pointermove',ev=>positionTooltip(ev.clientX,ev.clientY));el.addEventListener('pointerleave',()=>{$('tooltip').hidden=true});el.addEventListener('click',ev=>{ev.stopPropagation();if(state.moved)return;select(id)});el.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();select(id)}})}
+function positionTooltip(x,y){const stage=$('stage').getBoundingClientRect();$('tooltip').style.left=Math.min(x-stage.left+8,stage.width-190)+'px';$('tooltip').style.top=Math.max(4,y-stage.top-10)+'px'}
+function linkedIds(id){const result=new Set();if(!id)return result;result.add(id);if(id.startsWith('hub:')){const dom=id.slice(4);state.items.filter(x=>x.domain===dom).forEach(x=>result.add(x.id));return result}
+ if(id.startsWith('search:')){const t=lookupTool(id);if(t)result.add('hub:'+t.domain);return result}
+ for(const peer of state.links.get(id)||[])result.add(peer);result.add('hub:'+state.items.find(x=>x.id===id)?.domain);return result}
+
+function traceSignals(){
+ const layer=$('signals');if(!layer)return;layer.replaceChildren();
+ if(!state.selected)return;
+ const selected=state.selected,isHub=selected.startsWith('hub:');
+ const paths=[...$('edges').querySelectorAll('.line.lit')].slice(0,isHub?11:12);
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ for(let i=0;i<paths.length;i++){
+  const path=paths[i],d=path.getAttribute('d');if(!d)continue;
+  // A soft halo follows the same shape as the chosen connection.
+  elem('path',{d,fill:'none',stroke:path.classList.contains('cross')?'#bdb5ff':'#8affdf',
+    'stroke-opacity':i<5?'.14':'.08','stroke-width':i<5?'7':'5',filter:'url(#edgeGlow)',
+    'stroke-linecap':'round'},layer);
+  if(reduced)continue;
+  const color=path.classList.contains('cross')?'#d4bcff':'#b8ffe4';
+  const one=elem('circle',{r:i<5?'3.8':'2.8',fill:color,'fill-opacity':'.93',class:'signal'},layer);
+  elem('animateMotion',{dur:(2.4+(i%5)*.26).toFixed(2)+'s',begin:'-'+(i*.29).toFixed(2)+'s',repeatCount:'indefinite',path:d},one);
+  if(i<5){const two=elem('circle',{r:'1.9',fill:color,'fill-opacity':'.5',class:'signal small'},layer);
+    elem('animateMotion',{dur:(2.4+(i%5)*.26).toFixed(2)+'s',begin:'-'+(i*.29+1.05).toFixed(2)+'s',repeatCount:'indefinite',path:d},two)}
+ }
+}
+
+
+function arrangeFocusLabels(){
+ // Show every revealed tool at the first fan-out, not just the five strongest
+ // neighbours. Place labels OUTWARD from the selected centre and distribute
+ // their rows on each side, like a gentle two-column constellation.
+ for(const t of state.items){const g=state.nodes.get(t.id);if(!g)continue;
+   g.classList.remove('revealed-label');g.style.removeProperty('--tag-delay');
+ }
+ if(!state.selected&&!state.search.trim())return;
+ const hub=!!state.selected&&state.selected.startsWith('hub:');
+ const selectedTool=hub?null:state.items.find(t=>t.id===state.selected);
+ const searchMode=!!state.search.trim()&&(!state.selected||state.selected.startsWith('search:'));
+ if(!hub&&!selectedTool&&!searchMode)return;
+ const domain=searchMode?state.queryResults.dominantDomain:null;
+ const origin=hub?hubXY(state.selected.slice(4)):searchMode?hubXY(domain||'Water & oceans'):{x:selectedTool._x,y:selectedTool._y};
+ const listed=hub?state.items.filter(t=>t.domain===state.selected.slice(4))
+    :searchMode?state.queryResults.hits.map(h=>state.items.find(t=>t.id===h.tool.id)).filter(Boolean)
+    :[selectedTool,...[...(state.links.get(selectedTool.id)||[])].map(id=>state.items.find(t=>t.id===id)).filter(Boolean)];
+ // Two independent lanes avoid most label collisions without moving nodes or
+ // altering the camera. Rows still point back to their own circles.
+ const lanes={left:[],right:[]};
+ for(const t of listed){const g=state.nodes.get(t.id),lab=g?.querySelector('.node-label');if(!lab)continue;
+   const title=lab.textContent||t.title;
+   const fontSize=state.view==='mobile'?19:15;
+   const measured=typeof lab.getComputedTextLength==='function'?lab.getComputedTextLength():0;
+   const width=Math.min(state.view==='mobile'?232:244,Math.max(82,Math.ceil(measured||title.length*fontSize*.54)+36));
+   const side=t._x<origin.x?'left':'right';
+   // Keep the currently focused tool visible even when its neighbours fan out.
+   const preferredY=t._y-(state.view==='mobile'?15:14);
+   lanes[side].push({t,g,lab,width,side,preferredY});
+ }
+ const height=state.view==='mobile'?32:29;
+ const gap=state.view==='mobile'?5:5;
+ const pad=15;
+ for(const [side,entries] of Object.entries(lanes)){
+   entries.sort((a,b)=>a.preferredY-b.preferredY);
+   // Shift overlapping pill labels apart while keeping each near its node.
+   const maxY=state.H-height-pad, minY=pad;
+   entries.forEach((entry,i)=>{entry.y=Math.max(minY,Math.min(maxY,entry.preferredY));if(i)entry.y=Math.max(entry.y,entries[i-1].y+height+gap)});
+   if(entries.length&&entries.at(-1).y>maxY){let overflow=entries.at(-1).y-maxY;
+      for(let i=entries.length-1;i>=0;i--){entries[i].y-=overflow;if(i>0)overflow=Math.max(0,entries[i-1].y+height+gap-entries[i].y)}
+      if(entries[0].y<minY){const add=minY-entries[0].y;for(const e of entries)e.y+=add}
+   }
+   for(const [i,e] of entries.entries()){
+     const {t,g,lab,width}=e;
+     const out=side==='left'?-1:1;
+     // Clamp to SVG bounds, but keep a small connector to the originating dot.
+     let x=out<0?t._x-27-width:t._x+27;
+     x=Math.max(9,Math.min(state.W-width-9,x));
+     const y=e.y;
+     const bg=g.querySelector('.chip-bg'),chip=g.querySelector('.tool-chip'),marker=g.querySelector('.chip-type'),tether=g.querySelector('.chip-tether');
+     bg.setAttribute('x',x-t._x);bg.setAttribute('y',y-t._y);bg.setAttribute('width',width);bg.setAttribute('height',height);
+     marker.setAttribute('cx',x-t._x+12);marker.setAttribute('cy',y-t._y+height/2);
+     lab.setAttribute('x',x-t._x+22);lab.setAttribute('y',y-t._y+height/2+5);
+     lab.removeAttribute('text-anchor');
+     const endX=(out<0?x+width:x)-t._x;
+     const endY=y-t._y+height/2;
+     tether.setAttribute('d',`M 0 0 Q ${endX*.55} ${endY*.30} ${endX} ${endY}`);
+     g.classList.add('revealed-label');g.style.setProperty('--tag-delay',(i*25)+'ms');
+   }
+ }
+}
+
+function drawSearchCandidates(){
+ const layer=$('searchCandidates');if(!layer)return;
+ layer.replaceChildren();state.searchCoords.clear();
+ if(!state.search.trim())return;
+ const extras=state.queryResults.hits.filter(h=>!state.nodes.has(h.tool.id));
+ const groups={};for(const h of extras)(groups[h.tool.domain]||=[]).push(h.tool);
+ for(const [domain,tools] of Object.entries(groups)){
+  if(!domains[domain])continue;const hub=hubXY(domain),rows=Math.ceil(tools.length/2);
+  tools.forEach((t,i)=>{
+   const side=i%2===0?1:-1,row=Math.floor(i/2),Y=hub.y+(row-(rows-1)/2)*(state.view==='mobile'?50:49);
+   const X=hub.x+side*(state.view==='mobile'?94:128);
+   const label=truncate(t.title,state.view==='mobile'?17:23),width=Math.max(100,Math.min(state.view==='mobile'?206:224,label.length*(state.view==='mobile'?9.6:8.0)+29));
+   let lx=side>0?X+14:X-14-width;lx=Math.max(5,Math.min(state.W-width-5,lx));
+   const y=Math.max(28,Math.min(state.H-35,Y));
+   state.searchCoords.set(t.id,{x:X,y});
+   const group=elem('g',{class:'search-candidate','data-tool-id':t.id,role:'button',tabindex:'0','aria-label':`${t.title}, ${t.aiType}, search result`},layer);
+   group.style.setProperty('--class-color',classColors[types[t.aiType]||'unverified']);
+   elem('path',{d:`M${hub.x},${hub.y} Q${(hub.x+X)/2},${(hub.y+y)/2-14} ${X},${y}`,class:'search-thread'},group);
+   elem('circle',{cx:X,cy:y,r:12,class:'search-node-ring'},group);
+   elem('circle',{cx:X,cy:y,r:4.3,class:'search-node-core'},group);
+   elem('rect',{x:lx,y:y-15,width,height:30,rx:7,class:'search-chip'},group);
+   elem('circle',{cx:lx+12,cy:y,r:3.3,class:'search-dot'},group);
+   elem('text',{x:lx+22,y:y+5,class:'search-name'},group).textContent=label;
+   elem('title',{},group).textContent=t.title+' · '+t.aiType;
+   group.addEventListener('click',e=>{e.stopPropagation();if(!state.moved)selectSearch(t.id)});
+   group.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectSearch(t.id)}});
+  });
+ }
+}
+function searchNow(){
+ state.queryResults=window.EnvAISemantic.search(state.searchIndex,state.search,SEARCH_LIMIT);
+ drawSearchCandidates();styleFocus();
+}
+function styleFocus(){
+ const focused=!!state.selected,search=state.search.trim();
+ const hits=new Set(state.queryResults.hits.map(h=>h.tool.id));const connected=linkedIds(state.selected);
+ const searchDomain=search?state.queryResults.dominantDomain:null;
+ const chosenDomain=state.selected?(state.selected.startsWith('hub:')?state.selected.slice(4):lookupTool(state.selected)?.domain):searchDomain;
+ $('app').classList.toggle('has-focus',focused);$('app').classList.toggle('has-search',!!search);$('resetBtn').hidden=!focused&&!search;
+ for(const boundary of $('nebula').querySelectorAll('.cluster-boundary')){
+  boundary.classList.toggle('in-focus',!!chosenDomain&&boundary.dataset.field===chosenDomain);
+  boundary.classList.toggle('out-of-focus',!!chosenDomain&&boundary.dataset.field!==chosenDomain);
+ }
+ for(const [id,g] of state.nodes){
+  const isHub=id.startsWith('hub:');const hubMatch=isHub&&id==='hub:'+searchDomain;
+  g.classList.toggle('selected',id===state.selected);
+  g.classList.toggle('related',(focused&&connected.has(id)&&id!==state.selected)||(!focused&&!!search&&hubMatch));
+  g.classList.toggle('faded',focused&&!connected.has(id));
+  g.classList.toggle('search-faded',!!search&&!hits.has(id)&&!hubMatch);
+  g.classList.toggle('hit',!!search&&hits.has(id));g.setAttribute('aria-pressed',String(id===state.selected));
+ }
+ for(const e of state.edges){const on=focused&&!state.selected.startsWith('hub:')&&(e.a===state.selected||e.b===state.selected);e.el.classList.toggle('lit',on);e.el.classList.toggle('faded',focused&&!on)}
+ for(const path of $('edges').querySelectorAll('.hubline')){const a=path.dataset.a,b=path.dataset.b;const on=(focused&&(state.selected===a||state.selected===b))||(!focused&&!!search&&a==='hub:'+searchDomain&&hits.has(b));path.classList.toggle('lit',on);path.classList.toggle('faded',focused&&!on)}
+ for(const g of $('searchCandidates').querySelectorAll('.search-candidate')){
+  const selected='search:'+g.dataset.toolId===state.selected;
+  g.classList.toggle('selected',selected);
+  g.classList.toggle('dimmed',focused&&!selected);
+ }
+ if(search){
+  $('searchCaption').hidden=false;
+  const res=state.queryResults;
+  const area=res.dominantDomain?domains[res.dominantDomain].short+' · ':'';
+  $('searchCaption').textContent=res.total?`${area}${Math.min(res.total,SEARCH_LIMIT)} of ${res.total} relevant ${res.total===1?'tool':'tools'} · click a name to explore`:
+   (res.dominantDomain?`${area}No direct matches indexed yet · try a related term`:'No indexed matches — try an environmental topic or method');
+ }else $('searchCaption').hidden=true;
+ arrangeFocusLabels();traceSignals();queueKeyPosition();
+ if(!focused&&!search){$('hint').innerHTML='<b>↗ CLICK ANY POINT</b> TO REVEAL ITS CONNECTIONS<br>Drag to wander · scroll to zoom · Esc to reset'}
+ else{$('hint').innerHTML='<b>CLICK A NAME</b> TO FOLLOW A CONNECTION<br>Click the background to show everything'}
+}
+function select(id){if(id===state.selected){reset();return}state.selected=id;state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};drawSearchCandidates();$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true)}
+function selectSearch(id){const key='search:'+id;if(key===state.selected){reset();return}state.selected=key;$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true)}
+function reset(){state.selected=null;state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};drawSearchCandidates();$('tooltip').hidden=true;state.zoom=1;state.tx=0;state.ty=0;styleFocus();updateCamera(false)}
+function newButton(text,onclick,klass){const b=document.createElement('button');b.textContent=text;b.className=klass||'';b.type='button';b.addEventListener('click',onclick);return b}
+function renderInfo(){
+ const root=$('focusContent');root.replaceChildren();const id=state.selected;if(!id)return;
+ const isHub=id.startsWith('hub:');const isSearch=id.startsWith('search:');const t=isHub?null:lookupTool(id);
+ const dom=isHub?id.slice(4):t.domain;
+ const related=isHub?state.catalog.filter(x=>x.domain===dom).length:isSearch?state.queryResults.total:(state.links.get(id)||new Set()).size;
+ const glyph=document.createElement('div');glyph.className='focus-glyph';glyph.style.setProperty('--glyphColor',domains[dom].color);
+ const main=document.createElement('div');main.className='focus-main';const top=document.createElement('div');top.className='focus-top';
+ const h=document.createElement('h2');h.className='focus-title';h.textContent=isHub?domains[dom].short:t.title;top.append(h);
+ const pill=document.createElement('span');pill.className='focus-pill'+(isHub?'':' class-'+(types[t.aiType]||'unverified'));
+ pill.textContent=isHub?'Field':t.aiType.replace('Traditional digital','Digital');top.append(pill);main.append(top);
+ const sub=document.createElement('div');sub.className='focus-sub';sub.textContent=isHub?`${related} indexed tools in ${domains[dom].short.toLowerCase()} — selected highlights are mapped; search discovers the rest.`:t.summary;main.append(sub);
+ const foot=document.createElement('div');foot.className='focus-footer';foot.textContent=isHub?`Up to ${MAP_LIMIT_PER_FIELD} representative tools on the map · search the full index`:isSearch?`Search match · ${t.capability} · ${domains[dom].short} · newly indexed ≠ newly launched`:`${dateRecent(t.eventDate)?'✦ NEW RELEASE / UPDATE  ·  ':''}${related} linked ${related===1?'tool':'tools'}  ·  ${t.capability}  ·  editorial similarity connections`;main.append(foot);
+ root.append(glyph,main);
+ if(!isHub&&t.url){const a=document.createElement('a');a.className='focus-visit';a.href=t.url;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',`Visit ${t.title} website`);a.innerHTML='Visit project <span class="link-icon" aria-hidden="true">↗</span>';root.append(a)}
+ else{const tag=document.createElement('span');tag.className='focus-ghost';tag.textContent='Explore the glowing points ↗';root.append(tag)}
+}
+
+
+// Keep the classification key close to the currently selected constellation.
+// Work in viewport pixels so the position stays correct across SVG viewBox,
+// zoom, pan and small screens. Prefer clear space over clickable name tags.
+let keyFrame=0;
+function queueKeyPosition(){
+ if(keyFrame)cancelAnimationFrame(keyFrame);
+ keyFrame=requestAnimationFrame(()=>{keyFrame=0;positionKeyByFocus()});
+}
+function positionKeyByFocus(){
+ const key=document.querySelector('.class-key'),selected=state.nodes.get(state.selected)||(state.selected?.startsWith('search:')?state.nodes.get('hub:'+lookupTool(state.selected)?.domain):null);
+ if(!key)return;
+ if(!selected||!state.selected){key.dataset.offscreen='false';return}
+ const matrix=selected.getScreenCTM();if(!matrix)return;
+ const cx=matrix.e,cy=matrix.f,app=$('app').getBoundingClientRect(),stage=$('stage').getBoundingClientRect();
+ const w=key.offsetWidth,h=key.offsetHeight;
+ const margin=12,minX=stage.left+margin,maxX=stage.right-w-margin;
+ const minY=stage.top+margin,maxY=stage.bottom-h-margin;
+ if(maxX<minX||maxY<minY)return;
+ // Don't pin a legend to a viewport corner if the cluster is off the map.
+ const outside=cx<stage.left-70||cx>stage.right+70||cy<stage.top-70||cy>stage.bottom+70;
+ key.dataset.offscreen=String(outside);
+ if(outside)return;
+ const labels=[...document.querySelectorAll('.node.revealed-label .chip-bg')]
+   .map(el=>el.getBoundingClientRect())
+   .filter(r=>r.width>5&&r.height>5&&r.right>stage.left&&r.left<stage.right&&r.bottom>stage.top&&r.top<stage.bottom);
+ // The selected hub itself deserves a clear area even if its label is short.
+ const focusRadius=state.selected.startsWith('hub:')?(state.view==='mobile'?36:49):24;
+ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+ const overlap=(a,b)=>Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+ const candidates=[];
+ const radii=state.view==='mobile'?[105,160,215]:[140,205,270,335];
+ for(const radius of radii){
+  for(let angle=0;angle<360;angle+=22.5){
+   const rad=angle*Math.PI/180;
+   const x=cx+Math.cos(rad)*radius-w/2;
+   const y=cy+Math.sin(rad)*radius-h/2;
+   candidates.push({x,y,radius});
+  }
+ }
+ // Also consider tucked just beyond the extreme left/right/top/bottom labels.
+ if(labels.length){
+  const left=Math.min(...labels.map(r=>r.left)),right=Math.max(...labels.map(r=>r.right));
+  const top=Math.min(...labels.map(r=>r.top)),bottom=Math.max(...labels.map(r=>r.bottom));
+  candidates.push(
+   {x:right+12,y:cy-h/2,radius:Math.abs(right-cx)+w/2},
+   {x:left-w-12,y:cy-h/2,radius:Math.abs(left-cx)+w/2},
+   {x:cx-w/2,y:top-h-11,radius:Math.abs(top-cy)+h/2},
+   {x:cx-w/2,y:bottom+11,radius:Math.abs(bottom-cy)+h/2}
+  );
+ }
+ let best=null;
+ for(const cand of candidates){
+  const x=clamp(cand.x,minX,maxX),y=clamp(cand.y,minY,maxY);
+  const rect={left:x-5,top:y-5,right:x+w+5,bottom:y+h+5};
+  let blocked=0;
+  for(const lab of labels)blocked+=overlap(rect,lab);
+  const closeFocus={left:cx-focusRadius,top:cy-focusRadius,right:cx+focusRadius,bottom:cy+focusRadius};
+  const focusOverlap=overlap(rect,closeFocus);
+  const clamped=Math.hypot(x-cand.x,y-cand.y);
+  const dist=Math.hypot(x+w/2-cx,y+h/2-cy);
+  // A label collision is far worse than being another 30px away.
+  const score=blocked*2.7+focusOverlap*4.0+clamped*.6+dist*.35;
+  if(!best||score<best.score)best={x,y,score};
+ }
+ if(!best)return;
+ key.style.left=(best.x-app.left).toFixed(1)+'px';
+ key.style.top=(best.y-app.top).toFixed(1)+'px';
+}
+
+function updateCamera(focus){
+ // Visual-first focus. Keep desktop camera exactly where the explorer left it.
+ // Phone only: a small opening zoom makes touch targets legible, then pan only
+ // when the selected point would otherwise fall outside the visible area.
+ if(!state.selected){state.zoom=1;state.tx=0;state.ty=0}
+ else if(focus&&state.view==='mobile'){
+   const pt=state.selected.startsWith('hub:')?hubXY(state.selected.slice(4)):state.selected.startsWith('search:')?(state.searchCoords.get(state.selected.slice(7))||hubXY(lookupTool(state.selected)?.domain||'Water & oceans')):(()=>{const t=state.items.find(x=>x.id===state.selected);return{x:t._x,y:t._y}})();
+   if(state.zoom<1.04){state.zoom=1.22;state.tx=(state.W*.5-pt.x*state.zoom)*.62;state.ty=(state.H*.47-pt.y*state.zoom)*.58}
+   let x=pt.x*state.zoom+state.tx,y=pt.y*state.zoom+state.ty;
+   const minX=state.W*.16,maxX=state.W*.83,minY=state.H*.17,maxY=state.H*.82;
+   if(x<minX)state.tx+=minX-x;else if(x>maxX)state.tx+=maxX-x;
+   if(y<minY)state.ty+=minY-y;else if(y>maxY)state.ty+=maxY-y;
+ }
+ const g=$('mapVisual');g.setAttribute('transform',`translate(${state.tx.toFixed(2)} ${state.ty.toFixed(2)}) scale(${state.zoom.toFixed(3)})`);queueKeyPosition()
+}
+
+function pointInMap(e){const rect=$('graph').getBoundingClientRect(),ratio=Math.min(rect.width/state.W,rect.height/state.H),offX=(rect.width-state.W*ratio)/2,offY=(rect.height-state.H*ratio)/2;return{x:(e.clientX-rect.left-offX)/ratio,y:(e.clientY-rect.top-offY)/ratio}}
+function enableControls(){const svg=$('graph'),stage=$('stage');let down=null;
+ svg.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType!=='touch')return;down={x:e.clientX,y:e.clientY,tx:state.tx,ty:state.ty};state.moved=false;state.dragging=false;});
+ svg.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(!state.dragging&&Math.hypot(dx,dy)<5)return;state.dragging=true;state.moved=true;svg.setPointerCapture(e.pointerId);stage.classList.add('dragging');$('mapVisual').classList.add('dragging');const r=svg.getBoundingClientRect(),ratio=Math.min(r.width/state.W,r.height/state.H);state.tx=down.tx+dx/ratio;state.ty=down.ty+dy/ratio;updateCamera(false)});
+ const stop=()=>{down=null;stage.classList.remove('dragging');$('mapVisual').classList.remove('dragging');state.dragging=false;setTimeout(()=>state.moved=false,0)};svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
+ svg.addEventListener('click',e=>{if(!state.moved&&!e.target.closest('.node'))reset()});
+ svg.addEventListener('wheel',e=>{e.preventDefault();const pt=pointInMap(e),scale=Math.exp(-e.deltaY*.0012),newZ=Math.min(2.9,Math.max(.72,state.zoom*scale));const localX=(pt.x-state.tx)/state.zoom,localY=(pt.y-state.ty)/state.zoom;state.tx=pt.x-localX*newZ;state.ty=pt.y-localY*newZ;state.zoom=newZ;$('mapVisual').classList.add('dragging');updateCamera(false);clearTimeout(uiTimer);uiTimer=setTimeout(()=>$('mapVisual').classList.remove('dragging'),150)},{passive:false});svg.addEventListener('dblclick',e=>{e.preventDefault();reset()});
+ $('closeFocus').onclick=reset;$('resetBtn').onclick=reset;$('homeBrand').onclick=e=>{e.preventDefault();reset()};
+ let searchDelay=0;
+ $('search').addEventListener('input',e=>{state.search=e.target.value;if(state.selected){state.selected=null;renderInfo();state.zoom=1;state.tx=0;state.ty=0;updateCamera(false)}clearTimeout(searchDelay);searchDelay=setTimeout(searchNow,100)});
+ $('search').addEventListener('keydown',e=>{if(e.key==='Enter'){clearTimeout(searchDelay);searchNow();const first=state.queryResults.hits[0]?.tool;if(first){if(state.nodes.has(first.id))select(first.id);else selectSearch(first.id);$('search').blur();e.preventDefault()}}if(e.key==='Escape'){reset();$('search').blur()}});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){reset();$('menu').hidden=true;$('menuBtn').setAttribute('aria-expanded','false');if($('dialog').open)$('dialog').close()}if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();$('search').focus()}});
+ window.addEventListener('resize',()=>{const want=window.innerWidth<620?'mobile':'desktop';if(want!==state.view){computeLayout();draw();updateCamera(!!state.selected)}});
+}
+function toast(str){const el=$('toast');el.textContent=str;el.classList.add('show');clearTimeout(el._timer);el._timer=setTimeout(()=>el.classList.remove('show'),2700)}
+function setModal(type){const body=$('dialogBody');body.replaceChildren();const h=document.createElement('h2');const p=document.createElement('p');if(type==='method'){h.textContent='AI isn’t a marketing label.';p.textContent='EnvAI describes the role of AI in a tool’s actual environmental workflow. Traditional digital tools work without AI; AI-augmented tools add AI to a broader workflow; AI-native tools depend on AI for their central purpose. “Unverified” means we need better evidence.';body.append(h,p);let t=document.createElement('p');t.textContent='Links between tools indicate shared environmental data, tasks and technical methods. They do not imply investments, interoperability, ownership or partnerships. All classifications are preliminary editorial assessments.';body.append(t)}else if(type==='cite'){h.textContent='Cite EnvAI';p.textContent='Salmon of Doubt (2026). EnvAI: Environmental Technology & AI Landscape [Interactive software demo].';body.append(h,p);const doi=window.SOD_ATLAS_CONFIG?.doi;if(doi){let a=document.createElement('a');a.href='https://doi.org/'+doi;a.textContent=doi;a.target='_blank';a.rel='noopener';body.append(a)}else{const t=document.createElement('p');t.textContent='DOI pending. This is a new demo; no DOI from another project is used.';body.append(t)}}else{h.textContent='Install EnvAI';p.textContent='Once published via HTTPS, choose “Install app” in a compatible browser. On iPhone or iPad in Safari, use Share → Add to Home Screen. Local file previews cannot install a PWA.';body.append(h,p)}$('dialog').showModal()}
+function misc(){const menu=$('menu'),btn=$('menuBtn');btn.onclick=()=>{menu.hidden=!menu.hidden;btn.setAttribute('aria-expanded',String(!menu.hidden))};document.addEventListener('click',e=>{if(!e.target.closest('.topbar')){menu.hidden=true;btn.setAttribute('aria-expanded','false')}});
+ $('methodBtn').onclick=()=>{menu.hidden=true;btn.setAttribute('aria-expanded','false')};$('citeBtn').onclick=()=>{menu.hidden=true;setModal('cite')};$('dialogClose').onclick=()=>$('dialog').close();$('installBtn').onclick=()=>{menu.hidden=true;if(autoPrompt){autoPrompt.prompt();autoPrompt=null}else setModal('install')};window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();autoPrompt=e});
+ if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(()=>{}))}
+function setup(list){
+ state.catalog=list.filter(t=>t&&t.id&&t.domain&&domains[t.domain]&&t.title).map(t=>({...t,aiType:t.aiType||'Unverified'}));
+ state.searchIndex=window.EnvAISemantic.prepare(state.catalog);
+ state.items=Object.keys(domains).flatMap(dom=>state.catalog.filter(t=>t.domain===dom&&t.mapVisible!==false).slice(0,MAP_LIMIT_PER_FIELD));
+ initEdges();computeLayout();draw();$('totalNum').textContent=String(state.catalog.length);
+ $('stats').querySelector('small').textContent=`${state.items.length} representative nodes on the map · search the entire catalogue`;
+ toast('Explore the constellation, or search any environmental subject.')
+}
+function loadFocusFromUrl(){
+ const id=new URLSearchParams(location.search).get('tool');
+ if(id&&state.catalog.some(x=>x.id===id))requestAnimationFrame(()=>{if(state.nodes.has(id))select(id);else{$('search').value=lookupTool(id).title;state.search=lookupTool(id).title;searchNow();selectSearch(id)}});
+}
+function loadError(){
+ $('totalNum').textContent='—';
+ $('newCount').textContent='—';
+ $('hint').textContent='Catalogue unavailable. Please check your connection or reload the page.';
+ $('stats').querySelector('small').textContent='No data loaded';
+}
+$('mapVisual').addEventListener('transitionend',e=>{if(e.target===$('mapVisual')&&e.propertyName==='transform')queueKeyPosition()});
+enableControls();misc();
+const embedded=$('fallbackCatalog');
+if(embedded){
+ try{const fallback=JSON.parse(embedded.textContent);setup(fallback.items||[]);loadFocusFromUrl()}
+ catch(e){console.error('EnvAI preview data error',e);loadError()}
+}else{
+ fetch('./data/tools.json',{cache:'no-store'})
+  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+  .then(data=>{if(!data||!Array.isArray(data.items))throw new Error('Missing catalogue items');setup(data.items);loadFocusFromUrl()})
+  .catch(e=>{console.error('EnvAI catalogue error',e);loadError()});
+}
+})();

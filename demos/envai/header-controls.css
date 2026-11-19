@@ -1,0 +1,50 @@
+/* EnvAI visible template controls — shared across the three public pages */
+:root{--envai-shell-line:#ffffff26}
+.template-link,.template-button,.more-btn.shell-more{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:33px;padding:7px 10px;border:1px solid var(--envai-shell-line);border-radius:9px;background:#10202a99;color:#cbe5e5;font:650 11px/1.2 ui-sans-serif,system-ui,sans-serif;white-space:nowrap;text-decoration:none;cursor:pointer;letter-spacing:0;transition:background .17s,border-color .17s,color .17s}
+.template-link:hover,.template-button:hover,.more-btn.shell-more:hover,.template-link:focus-visible,.template-button:focus-visible,.more-btn.shell-more:focus-visible{border-color:#82efdb8f;background:#18323a;color:#d9fff2;outline-offset:2px}
+.template-link.sponsor{border-color:#bc86db55;color:#f3ddff}
+.template-link.sponsor:hover{border-color:#d68fff;background:#39213f90}
+.template-button.cite{color:#94cfd1;border-color:#60aeba48}
+.more-btn.shell-more{height:35px;width:auto;min-width:75px;font-size:11px;line-height:1.2;padding:7px 11px;font-weight:750}
+.shell-more .chevron{display:inline-block;color:#7ce5cc;font-size:15px;transition:transform .2s;line-height:1}
+.shell-more[aria-expanded=true] .chevron{transform:rotate(180deg)}
+.shell-menu{position:absolute;z-index:150;right:clamp(16px,4.7vw,80px);top:calc(100% - 7px);width:260px;padding:8px;border:1px solid #7ee9ce52;border-radius:14px;background:#0d2029f7;box-shadow:0 20px 70px #000b,0 0 34px #76f5dd14;backdrop-filter:blur(20px);display:grid;gap:3px}
+.shell-menu[hidden]{display:none}
+.shell-menu a,.shell-menu button{display:block;width:100%;padding:10px 12px;text-align:left;border:0;border-radius:8px;background:transparent;color:#d9eded;font:550 12px/1.4 ui-sans-serif,system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.shell-menu a:hover,.shell-menu button:hover,.shell-menu a:focus-visible,.shell-menu button:focus-visible{background:#76edce1b;color:#aafbe8;outline:none}
+.shell-menu .menu-note{padding:6px 12px 7px;color:#84a4ad;font:550 10px/1.4 ui-sans-serif,system-ui,sans-serif;border-top:1px solid #ffffff13}
+.shell-dialog{position:fixed;max-width:min(460px,calc(100vw - 24px));border:1px solid #93dfd156;border-radius:17px;padding:28px;background:#10242c;color:#effff9;box-shadow:0 25px 100px #000c;font:14px/1.6 ui-sans-serif,system-ui,sans-serif}
+.shell-dialog::backdrop{background:#0009;backdrop-filter:blur(6px)}.shell-dialog h2{font-size:22px;line-height:1.2;margin:0 0 12px}.shell-dialog p{margin:9px 0;color:#b3cdca}.shell-dialog .shell-close{margin-top:15px;border:1px solid #8de6cb88;border-radius:8px;padding:8px 14px;background:#1a4a46;color:#e7fff4;cursor:pointer}.shell-dialog a{color:#9afce4;text-decoration:underline}
+/* Atlas: keep first-class demo controls visible; adjust the map to the header's height. */
+#app .nav{display:flex;align-items:center;justify-content:flex-end;gap:7px;min-width:0}
+#app .topbar{gap:16px}
+#app .brand{min-width:160px}
+#app .topsearch{width:clamp(220px,29vw,400px)}
+#app .nav .new-link{font-size:12px;padding-right:4px}
+#app .menu.shell-menu{width:260px;top:calc(100% - 7px);right:clamp(16px,4.7vw,80px)}
+@media(max-width:1180px){
+ #app .topbar{height:114px;display:grid;grid-template-columns:minmax(155px,1fr) auto;grid-template-rows:44px 39px;align-items:center;gap:7px;padding:10px clamp(16px,3vw,40px)}
+ #app .brand{grid-column:1;grid-row:1;min-width:0}
+ #app .nav{grid-column:2;grid-row:1;min-width:0}
+ #app .topsearch{grid-column:1/-1;grid-row:2;width:100%;height:39px}
+ #app .map-stage{top:114px;inset:114px 0 0 0}
+ #app .menu.shell-menu{right:clamp(16px,3vw,40px)}
+}
+@media(max-width:690px){
+ #app .topbar{height:165px;grid-template-columns:1fr;grid-template-rows:36px 56px 37px;gap:4px;padding:8px 13px 10px}
+ #app .brand{grid-column:1;grid-row:1;justify-self:center}
+ #app .nav{grid-column:1;grid-row:2;flex-wrap:wrap;justify-content:center;align-content:center;gap:4px 6px}
+ #app .nav .new-link{padding:0 4px;font-size:11px}
+ #app .template-link,#app .template-button,#app .more-btn.shell-more{min-height:26px;padding:5px 8px;font-size:10px;border-radius:7px}
+ #app .topsearch{grid-column:1;grid-row:3;width:100%;height:37px}
+ #app .map-stage{inset:165px 0 0 0;top:165px}
+ #app .map-intro{top:184px}
+ #app .menu.shell-menu{top:100px;right:12px;width:min(260px,calc(100vw - 24px))}
+}
+@media(max-width:380px){#app .nav{gap:3px 5px}#app .template-link,#app .template-button,#app .more-btn.shell-more{padding:5px 6px;font-size:9px}}
+/* News + guide share these visible controls without assuming the same header structure. */
+.news-head,.guide-header{position:relative}
+.news-head>nav,.guide-header>nav{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex-wrap:wrap}
+.news-head>nav .template-link,.news-head>nav .template-button,.guide-header>nav .template-link,.guide-header>nav .template-button{font-size:11px}
+@media(max-width:1000px){.news-head,.guide-header{height:auto;min-height:81px;padding:13px 18px;flex-wrap:wrap}.news-head>nav,.guide-header>nav{flex:1 1 100%;justify-content:flex-start;gap:7px}.news-head .news-brand,.guide-header .guide-brand{flex:1 1 100%}}
+@media(max-width:570px){.news-head>nav,.guide-header>nav{gap:6px}.news-head>nav .template-link,.news-head>nav .template-button,.guide-header>nav .template-link,.guide-header>nav .template-button,.news-head>nav .shell-more,.guide-header>nav .shell-more{font-size:10px;padding:5px 7px;min-height:29px}}

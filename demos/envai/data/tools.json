@@ -1,0 +1,1300 @@
+{
+  "schemaVersion": 2,
+  "reviewedAt": "2026-11-19",
+  "about": "Curated illustrative index. Map shows only selected representative tools per field (max 15), while search indexes the entire catalogue. Classification is editorial and based on linked evidence. Newly indexed is not newly launched.",
+  "items": [
+    {
+      "id": "olmoearth",
+      "title": "OlmoEarth v1.3 + Explorer",
+      "domain": "Land & satellites",
+      "capability": "Build & analyse",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Ai2",
+      "summary": "Open Earth-observation embeddings and a browser explorer for land change, similar places and rapid classifiers.",
+      "url": "https://olmoearth.allenai.org/",
+      "evidence": "https://allenai.org/blog/olmoearth-v1-3",
+      "eventDate": "2026-10-22",
+      "eventType": "Major model + explorer release",
+      "access": "Open models",
+      "tags": [
+        "land cover",
+        "change detection",
+        "embeddings"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "alphaearth",
+      "title": "AlphaEarth Foundations",
+      "domain": "Land & satellites",
+      "capability": "Build & analyse",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Google DeepMind / Earth Engine",
+      "summary": "Annual satellite embeddings for classification, similarity search and change detection in Earth Engine.",
+      "url": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_SATELLITE_EMBEDDING_V1_ANNUAL",
+      "evidence": "https://developers.google.com/earth-engine/tutorials/community/satellite-embedding-01-introduction",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public dataset",
+      "tags": [
+        "embeddings",
+        "land cover"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "horizon",
+      "title": "Global Nature Watch Horizon",
+      "domain": "Land & satellites",
+      "capability": "Explore & decide",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "World Resources Institute",
+      "summary": "Natural-language investigation of landscape condition and change using environmental and Earth-observation data.",
+      "url": "https://horizon.globalnaturewatch.org/",
+      "evidence": "https://www.wri.org/news/release-global-forest-watch-becomes-global-nature-watch-expanding-cover-more-land-ecosystems",
+      "eventDate": "2026-09-21",
+      "eventType": "Public preview",
+      "access": "Public preview",
+      "tags": [
+        "forests",
+        "restoration"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "glen",
+      "title": "GLEN Geospatial Navigator",
+      "domain": "Land & satellites",
+      "capability": "Explore & decide",
+      "signals": [
+        "Geospatial data",
+        "Satellite imagery"
+      ],
+      "organisation": "UC Berkeley / collaborators",
+      "summary": "Open geospatial assistant that helps conservation researchers ask questions and generate reproducible spatial analyses.",
+      "url": "https://github.com/boettiger-lab/geo-agent",
+      "evidence": "https://dse.berkeley.edu/programs/accelerate-global-conservation-decisionmaking",
+      "eventDate": "2026-07-09",
+      "eventType": "Public announcement",
+      "access": "Open source",
+      "tags": [
+        "conservation",
+        "GIS"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "lemu",
+      "title": "Lemu Atlas",
+      "domain": "Land & satellites",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Satellite imagery",
+        "Camera traps",
+        "Geospatial data"
+      ],
+      "organisation": "Lemu",
+      "summary": "Nature-intelligence platform combining imagery, biodiversity indicators and field observations.",
+      "url": "https://le.mu/",
+      "evidence": "https://le.mu/blog/atlas-1-0-says-hello-world-a-new-digital-infrastructure-for-nature/",
+      "eventDate": "2026-04-22",
+      "eventType": "Atlas 1.0 launch",
+      "access": "Commercial",
+      "tags": [
+        "natural capital",
+        "biodiversity"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "birdnetlive",
+      "title": "BirdNET Live",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Acoustic data"
+      ],
+      "organisation": "Cornell Lab / BirdNET",
+      "summary": "On-device audio recognition for birds and other wildlife, designed for offline field monitoring.",
+      "url": "https://birdnet.cornell.edu/app/",
+      "evidence": "https://www.birds.cornell.edu/home/birdnet-live-app-ai-powered-wildlife-identification/",
+      "eventDate": "2026-09-09",
+      "eventType": "New mobile app",
+      "access": "Free app",
+      "tags": [
+        "bioacoustics",
+        "fieldwork"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "wildlifeinsights",
+      "title": "Wildlife Insights",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps"
+      ],
+      "organisation": "Wildlife Insights / partners",
+      "summary": "AI-assisted camera trap processing and species classification for biodiversity teams.",
+      "url": "https://www.wildlifeinsights.org/",
+      "evidence": "https://www.wildlifeinsights.org/about-wildlife-insights-ai",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Account required",
+      "tags": [
+        "wildlife",
+        "species"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "sparrow",
+      "title": "SPARROW",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Camera traps",
+        "Acoustic data"
+      ],
+      "organisation": "Microsoft AI for Good Lab",
+      "summary": "An ecosystem of field hardware and AI software for biodiversity observations.",
+      "url": "https://microsoft.github.io/Biodiversity/",
+      "evidence": "https://github.com/microsoft/Biodiversity/releases",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "edge AI",
+        "sensors"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "inaturalist",
+      "title": "iNaturalist computer vision",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps"
+      ],
+      "organisation": "iNaturalist",
+      "summary": "Computer-vision suggestions that help observers identify organisms from photographs.",
+      "url": "https://www.inaturalist.org/",
+      "evidence": "https://www.inaturalist.org/pages/computer_vision_demo",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public app",
+      "tags": [
+        "citizen science",
+        "taxonomy"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "aifs",
+      "title": "ECMWF AIFS v2",
+      "domain": "Climate & energy",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Weather data"
+      ],
+      "organisation": "ECMWF",
+      "summary": "Operational machine-learning weather forecasts, including deterministic and ensemble systems.",
+      "url": "https://www.ecmwf.int/en/forecasts/datasets/aifs-machine-learning-data",
+      "evidence": "https://www.ecmwf.int/en/forecasts/datasets/aifs-machine-learning-data",
+      "eventDate": "2026-05-12",
+      "eventType": "v2 operational upgrade",
+      "access": "Open data",
+      "tags": [
+        "weather",
+        "forecasting"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "aurora",
+      "title": "Aurora",
+      "domain": "Climate & energy",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Weather data",
+        "Atmospheric data"
+      ],
+      "organisation": "Microsoft Research",
+      "summary": "Atmospheric foundation model for forecasts including weather and air quality.",
+      "url": "https://labs.ai.azure.com/innovations/aurora/",
+      "evidence": "https://labs.ai.azure.com/innovations/aurora/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open model",
+      "tags": [
+        "weather",
+        "air quality"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "trace",
+      "title": "Climate TRACE",
+      "domain": "Climate & energy",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Satellite imagery",
+        "Emissions data"
+      ],
+      "organisation": "Climate TRACE coalition",
+      "summary": "Observation-led greenhouse-gas emissions inventory with site and sector data.",
+      "url": "https://climatetrace.org/",
+      "evidence": "https://climatetrace.org/news/climate-trace-releases-august-2026-emissions-data",
+      "eventDate": "2026-10-29",
+      "eventType": "Monthly data update",
+      "access": "Open data",
+      "tags": [
+        "emissions",
+        "satellites"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "cdp",
+      "title": "CDP Adaptation & Action Explorer",
+      "domain": "Climate & energy",
+      "capability": "Explore & decide",
+      "signals": [
+        "Climate risk data",
+        "Geospatial data"
+      ],
+      "organisation": "CDP / Google.org",
+      "summary": "AI-assisted exploration of climate vulnerabilities and adaptation actions for cities and regions.",
+      "url": "https://www.cdp.net/en",
+      "evidence": "https://www.cdp.net/es/press-releases/cdp-launches-ai-powered-adaptation-and-action-explorer",
+      "eventDate": "2026-06-08",
+      "eventType": "Tool launch",
+      "access": "Public",
+      "tags": [
+        "adaptation",
+        "decision support"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "ocf",
+      "title": "Open Climate Fix solar forecasting",
+      "domain": "Climate & energy",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Satellite imagery",
+        "Weather data",
+        "Energy data"
+      ],
+      "organisation": "Open Climate Fix",
+      "summary": "AI forecasting of solar generation using weather predictions, imagery and grid measurements.",
+      "url": "https://www.openclimatefix.org/work/solar-forecasting",
+      "evidence": "https://www.openclimatefix.org/work/solar-forecasting",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Commercial / OSS research",
+      "tags": [
+        "solar",
+        "energy"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "floodhub",
+      "title": "Google Flood Hub",
+      "domain": "Water & oceans",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Hydrology data",
+        "Weather data"
+      ],
+      "organisation": "Google",
+      "summary": "Free AI-driven flood forecasting and inundation information shown on a public map.",
+      "url": "https://sites.research.google/floods/l/",
+      "evidence": "https://support.google.com/flood-hub/answer/15636593?hl=en",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public",
+      "tags": [
+        "floods",
+        "hydrology"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "gfw",
+      "title": "Global Fishing Watch · V5",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Vessel tracking",
+        "Satellite imagery"
+      ],
+      "organisation": "Global Fishing Watch",
+      "summary": "Maps and models vessel activity; the V5 data pipeline introduced updated fishing-detection models.",
+      "url": "https://globalfishingwatch.org/our-map/",
+      "evidence": "https://globalfishingwatch.org/platform-update/version-5-data-pipeline-release/",
+      "eventDate": "2026-10-21",
+      "eventType": "Detection-model pipeline update",
+      "access": "Public map",
+      "tags": [
+        "fisheries",
+        "marine monitoring"
+      ],
+      "addedAt": "2026-11-18",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "sparrow-engine",
+      "title": "SPARROW Engine",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps",
+        "Acoustic data"
+      ],
+      "organisation": "Microsoft AI for Good Lab",
+      "summary": "Open-source inference runtime and model catalogue for camera-trap photos and wildlife sounds.",
+      "url": "https://github.com/microsoft/SPARROW-Engine",
+      "evidence": "https://microsoft.github.io/Biodiversity/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "wildlife",
+        "inference",
+        "model zoo"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "sparrow-comm",
+      "title": "SPARROW Comm",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Camera traps",
+        "Acoustic data"
+      ],
+      "organisation": "Microsoft AI for Good Lab",
+      "summary": "Open-source collectors for recordings and camera-trap observations from remote monitoring systems.",
+      "url": "https://github.com/microsoft/SPARROW-Comm",
+      "evidence": "https://microsoft.github.io/Biodiversity/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "wildlife",
+        "field hardware",
+        "connectivity"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "megadetector",
+      "title": "MegaDetector",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps"
+      ],
+      "organisation": "Microsoft AI for Good Lab",
+      "summary": "Animal, person and vehicle object detector used to process large camera-trap datasets.",
+      "url": "https://github.com/agentmorris/MegaDetector",
+      "evidence": "https://microsoft.github.io/Biodiversity/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "wildlife",
+        "camera traps"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "speciesnet",
+      "title": "SpeciesNet",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps"
+      ],
+      "organisation": "Google Research",
+      "summary": "Open model for automatically identifying wildlife species in camera-trap images.",
+      "url": "https://github.com/google/cameratrapai",
+      "evidence": "https://research.google/blog/where-wild-things-roam-identifying-wildlife-with-speciesnet/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "camera traps",
+        "species"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "merlin",
+      "title": "Merlin Bird ID · Sound ID",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Acoustic data"
+      ],
+      "organisation": "Cornell Lab of Ornithology",
+      "summary": "Smartphone tool suggesting bird identifications from recordings, images and observation context.",
+      "url": "https://merlin.allaboutbirds.org/",
+      "evidence": "https://support.ebird.org/en/support/solutions/articles/48001185783-sound-id",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Free app",
+      "tags": [
+        "birds",
+        "bioacoustics"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "perch",
+      "title": "Perch 2.0",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Build & analyse",
+      "signals": [
+        "Acoustic data"
+      ],
+      "organisation": "Google Research",
+      "summary": "Bioacoustic foundation model and embeddings for bird and broader species-audio analysis.",
+      "url": "https://github.com/google-research/perch-hoplite",
+      "evidence": "https://research.google/pubs/perch-20-the-bittern-lesson-for-bioacoustics/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open research",
+      "tags": [
+        "bioacoustics",
+        "audio embeddings"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "naturelm",
+      "title": "NatureLM-audio",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Build & analyse",
+      "signals": [
+        "Acoustic data"
+      ],
+      "organisation": "Earth Species Project",
+      "summary": "Open animal-vocalisation model project for exploring wildlife audio and acoustics.",
+      "url": "https://github.com/earthspecies/NatureLM-audio",
+      "evidence": "https://github.com/earthspecies/NatureLM-audio",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open research",
+      "tags": [
+        "animal communication",
+        "bioacoustics"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "earthranger",
+      "title": "EarthRanger",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Explore & decide",
+      "signals": [
+        "Geospatial data",
+        "Camera traps"
+      ],
+      "organisation": "Ai2 / EarthRanger",
+      "summary": "Protected-area operations system combining wildlife observations, field reports and spatial alerts.",
+      "url": "https://www.earthranger.com/",
+      "evidence": "https://allenai.org/earthranger",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Conservation organisations",
+      "tags": [
+        "protected areas",
+        "wildlife"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "wildbook",
+      "title": "Wildbook",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps",
+        "Geospatial data"
+      ],
+      "organisation": "Wild Me / Conservation X Labs",
+      "summary": "Photo-identification and matching tools to support individual-animal monitoring projects.",
+      "url": "https://www.wildme.org/wildbook",
+      "evidence": "https://www.wildme.org/wildbook",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Conservation platform",
+      "tags": [
+        "species",
+        "photo-ID"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "bioCLIP",
+      "title": "BioCLIP",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Build & analyse",
+      "signals": [
+        "Camera traps"
+      ],
+      "organisation": "Research / open-source contributors",
+      "summary": "Vision-language representation model for biodiversity image and species analysis.",
+      "url": "https://github.com/Imageomics/bioclip",
+      "evidence": "https://github.com/Imageomics/bioclip",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open model",
+      "tags": [
+        "biodiversity",
+        "computer vision"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "satlas",
+      "title": "Satlas",
+      "domain": "Land & satellites",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Allen Institute for AI",
+      "summary": "Public satellite-based monitoring products created with deep learning and Sentinel imagery.",
+      "url": "https://satlas.allen.ai/",
+      "evidence": "https://satlas.allen.ai/ai",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open data",
+      "tags": [
+        "land cover",
+        "infrastructure"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "dynamicworld",
+      "title": "Dynamic World",
+      "domain": "Land & satellites",
+      "capability": "Detect & classify",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Google / World Resources Institute",
+      "summary": "Near-real-time machine-learning land-cover predictions with global 10-metre pixels.",
+      "url": "https://www.dynamicworld.app/",
+      "evidence": "https://developers.google.com/earth-engine/datasets/catalog/GOOGLE_DYNAMICWORLD_V1",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open data",
+      "tags": [
+        "land cover",
+        "change detection"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "deepforest",
+      "title": "DeepForest",
+      "domain": "Land & satellites",
+      "capability": "Detect & classify",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Weecology / research community",
+      "summary": "Python deep-learning toolkit for finding tree crowns and ecological objects in aerial imagery.",
+      "url": "https://github.com/weecology/DeepForest",
+      "evidence": "https://github.com/weecology/DeepForest/releases",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "trees",
+        "remote sensing"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "prithvi",
+      "title": "Prithvi Earth observation model",
+      "domain": "Land & satellites",
+      "capability": "Build & analyse",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "NASA / IBM",
+      "summary": "Open geospatial foundation-model family for interpreting multispectral Earth-observation data.",
+      "url": "https://github.com/NASA-IMPACT/Prithvi-EO-2.0",
+      "evidence": "https://science.nasa.gov/science-research/ai-foundation-model-in-orbit/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open research",
+      "tags": [
+        "foundation model",
+        "satellite"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "ea-embeddings",
+      "title": "AlphaEarth custom embeddings",
+      "domain": "Land & satellites",
+      "capability": "Build & analyse",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Google / Earth Engine",
+      "summary": "Custom high-resolution satellite representations for regional analysis and change detection.",
+      "url": "https://developers.google.com/maps/documentation/custom-satellite-embeddings/overview",
+      "evidence": "https://developers.google.com/maps/documentation/custom-satellite-embeddings/quick-reference",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Preview / restricted",
+      "tags": [
+        "embeddings",
+        "land cover"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "google-hydrology",
+      "title": "Google Hydrology ML Framework",
+      "domain": "Water & oceans",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Hydrology data",
+        "Weather data"
+      ],
+      "organisation": "Google Research",
+      "summary": "Open-source framework for building and training hydrological forecasting models.",
+      "url": "https://github.com/google-research/google-research/tree/master/hydrology",
+      "evidence": "https://research.google/blog/the-next-chapter-in-flood-resilience-open-sourcing-googles-hydrology-framework/",
+      "eventDate": "2026-06-03",
+      "eventType": "Framework open-sourcing",
+      "access": "Open source",
+      "tags": [
+        "floods",
+        "river forecasting"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "aifl",
+      "title": "ECMWF AIFL research",
+      "domain": "Water & oceans",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Hydrology data",
+        "Weather data"
+      ],
+      "organisation": "ECMWF",
+      "summary": "Research AI streamflow-forecasting model; published as research, not a public operational flood-alert product.",
+      "url": "https://www.ecmwf.int/en/about/media-centre/aifs-blog/2026/aifl-global-streamflow-prediction",
+      "evidence": "https://www.ecmwf.int/en/about/media-centre/aifs-blog/2026/aifl-global-streamflow-prediction",
+      "eventDate": "2026-08-27",
+      "eventType": "Research announcement",
+      "access": "Research project",
+      "tags": [
+        "streamflow",
+        "hydrology"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "skylight",
+      "title": "Skylight",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Vessel tracking",
+        "Satellite imagery"
+      ],
+      "organisation": "Ai2",
+      "summary": "AI-assisted maritime monitoring that surfaces vessel behaviour for ocean protection.",
+      "url": "https://www.skylight.global/",
+      "evidence": "https://allenai.org/skylight",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Partner access",
+      "tags": [
+        "marine monitoring",
+        "vessels"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "oceanmind",
+      "title": "OceanMind",
+      "domain": "Water & oceans",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Vessel tracking",
+        "Satellite imagery"
+      ],
+      "organisation": "OceanMind",
+      "summary": "Satellite and AI-assisted maritime monitoring for fisheries enforcement and marine protection.",
+      "url": "https://oceanmind.global/",
+      "evidence": "https://oceanmind.global/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Professional platform",
+      "tags": [
+        "illegal fishing",
+        "shipping"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "fathomnet",
+      "title": "FathomNet Portal",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps"
+      ],
+      "organisation": "FathomNet / MBARI",
+      "summary": "AI-assisted annotation and species identification in underwater video and image collections.",
+      "url": "https://www.fathomnet.org/",
+      "evidence": "https://www.fathomnet.org/solutions",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Beta / early adopters",
+      "tags": [
+        "underwater imagery",
+        "marine species"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "satseabio",
+      "title": "SatSeaBio (ESA project)",
+      "domain": "Water & oceans",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Camera traps",
+        "Geospatial data"
+      ],
+      "organisation": "ESA / project partners",
+      "summary": "In-development marine biodiversity monitoring using subsea video, onboard AI and satellite links.",
+      "url": "https://business.esa.int/projects/theme/erm",
+      "evidence": "https://business.esa.int/projects/theme/erm",
+      "eventDate": null,
+      "eventType": null,
+      "access": "In development",
+      "tags": [
+        "offshore wind",
+        "marine biodiversity"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Unverified",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "phenai",
+      "title": "Pheno-AI (ESA project)",
+      "domain": "Land & satellites",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Satellite imagery",
+        "Weather data"
+      ],
+      "organisation": "ESA / project partners",
+      "summary": "Project using satellite and climate inputs for crop-stage and yield forecasts; implementation stage varies.",
+      "url": "https://business.esa.int/projects/theme/erm",
+      "evidence": "https://business.esa.int/projects/theme/erm",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Project / validation",
+      "tags": [
+        "agriculture",
+        "phenology"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Unverified",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "wildlife-ai",
+      "title": "Wildlife.AI · Spyfish",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Camera traps"
+      ],
+      "organisation": "Wildlife.AI",
+      "summary": "Machine learning and citizen science for identifying wildlife in marine reserve footage.",
+      "url": "https://wildlife.ai/",
+      "evidence": "https://wildlife.ai/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Research / project",
+      "tags": [
+        "marine reserves",
+        "citizen science"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Editorial first-pass: based on described core functionality, not an independent code audit. Review technical evidence before citing this classification."
+    },
+    {
+      "id": "qgis",
+      "title": "QGIS",
+      "domain": "Land & satellites",
+      "capability": "Explore & decide",
+      "signals": [
+        "Geospatial data"
+      ],
+      "organisation": "QGIS.org",
+      "summary": "Open-source GIS for mapping, spatial analysis and cartography. The core platform does not require AI.",
+      "url": "https://qgis.org/",
+      "evidence": "https://docs.qgis.org/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "GIS",
+        "mapping"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+    },
+    {
+      "id": "gbif",
+      "title": "GBIF",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Explore & decide",
+      "signals": [
+        "Biodiversity records"
+      ],
+      "organisation": "GBIF Secretariat",
+      "summary": "Global biodiversity occurrence data and search infrastructure; AI is not required for its core catalogue.",
+      "url": "https://www.gbif.org/",
+      "evidence": "https://www.gbif.org/what-is-gbif",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open data",
+      "tags": [
+        "species",
+        "occurrences"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+    },
+    {
+      "id": "openstreetmap",
+      "title": "OpenStreetMap",
+      "domain": "Land & satellites",
+      "capability": "Explore & decide",
+      "signals": [
+        "Geospatial data"
+      ],
+      "organisation": "OpenStreetMap community",
+      "summary": "Collaborative map database with conventional search, editing and spatial data tools.",
+      "url": "https://www.openstreetmap.org/",
+      "evidence": "https://wiki.openstreetmap.org/wiki/About_OpenStreetMap",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open data",
+      "tags": [
+        "maps",
+        "community"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+    },
+    {
+      "id": "copernicusbrowser",
+      "title": "Copernicus Browser",
+      "domain": "Land & satellites",
+      "capability": "Explore & decide",
+      "signals": [
+        "Satellite imagery"
+      ],
+      "organisation": "Copernicus Data Space Ecosystem",
+      "summary": "Satellite imagery browser and visual analytics; AI is not essential for its baseline viewing features.",
+      "url": "https://browser.dataspace.copernicus.eu/",
+      "evidence": "https://documentation.dataspace.copernicus.eu/Applications/Browser.html",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public browser",
+      "tags": [
+        "Sentinel",
+        "remote sensing"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+    },
+    {
+      "id": "earthdata",
+      "title": "NASA Earthdata Search",
+      "domain": "Climate & energy",
+      "capability": "Explore & decide",
+      "signals": [
+        "Satellite imagery",
+        "Atmospheric data"
+      ],
+      "organisation": "NASA Earthdata",
+      "summary": "Search and access to Earth science datasets, regardless of whether downstream models use AI.",
+      "url": "https://search.earthdata.nasa.gov/",
+      "evidence": "https://www.earthdata.nasa.gov/learn/find-data",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public service",
+      "tags": [
+        "datasets",
+        "climate"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+    },
+    {
+      "id": "openaq",
+      "title": "OpenAQ",
+      "domain": "Climate & energy",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Air quality data"
+      ],
+      "organisation": "OpenAQ",
+      "summary": "Open air-quality data platform and APIs; AI is not needed for its essential data services.",
+      "url": "https://openaq.org/",
+      "evidence": "https://docs.openaq.org/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open data",
+      "tags": [
+        "air quality",
+        "open data"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+    },
+    {
+      "id": "hydrosheds",
+      "title": "HydroSHEDS",
+      "domain": "Water & oceans",
+      "capability": "Explore & decide",
+      "signals": [
+        "Hydrology data",
+        "Geospatial data"
+      ],
+      "organisation": "HydroSHEDS",
+      "summary": "Hydrological map layers and derived basin datasets for spatial analysis, without AI as a core requirement.",
+      "url": "https://www.hydrosheds.org/",
+      "evidence": "https://www.hydrosheds.org/products",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public data",
+      "tags": [
+        "rivers",
+        "watersheds"
+      ],
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Core workflow does not require AI; specific extensions or downstream integrations may use it."
+    },
+    {
+      "id": "whalemap",
+      "title": "WhaleMap",
+      "domain": "Water & oceans",
+      "capability": "Observe & monitor",
+      "signals": [
+        "Geospatial data",
+        "Acoustic monitoring"
+      ],
+      "organisation": "NARWC / research collaborators",
+      "summary": "Map showing near-real-time North Atlantic right whale sightings, survey effort and acoustic detections.",
+      "url": "https://whalemap.org/",
+      "evidence": "https://www.narwc.org/whalemap.html",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public website",
+      "tags": [
+        "whale",
+        "cetacean",
+        "right whale",
+        "sightings",
+        "marine mammal",
+        "acoustic detection"
+      ],
+      "topics": [
+        "cetaceans",
+        "marine-ecology"
+      ],
+      "mapVisible": false,
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Source describes a geospatial observation viewer; no AI functionality is evidenced."
+    },
+    {
+      "id": "whale-insight",
+      "title": "Whale Insight",
+      "domain": "Water & oceans",
+      "capability": "Observe & monitor",
+      "signals": [
+        "Geospatial data",
+        "Acoustic monitoring"
+      ],
+      "organisation": "Fisheries and Oceans Canada",
+      "summary": "Interactive map of North Atlantic right whale detections in Canadian waters, including validated visual and acoustic observations.",
+      "url": "https://www.dfo-mpo.gc.ca/species-especes/mammals-mammiferes/narightwhale-baleinenoirean/alert-alerte/index-eng.html",
+      "evidence": "https://www.dfo-mpo.gc.ca/species-especes/mammals-mammiferes/narightwhale-baleinenoirean/alert-alerte/about-propos-eng.html",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public website",
+      "tags": [
+        "whale",
+        "right whale",
+        "cetacean",
+        "marine mammal",
+        "sightings",
+        "hydrophone"
+      ],
+      "topics": [
+        "cetaceans",
+        "marine-ecology"
+      ],
+      "mapVisible": false,
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Its mapping and observation display functions are traditional digital; contributing detection systems may use other techniques."
+    },
+    {
+      "id": "orcasound-live",
+      "title": "Orcasound Live",
+      "domain": "Water & oceans",
+      "capability": "Observe & monitor",
+      "signals": [
+        "Acoustic monitoring",
+        "Environmental sensors"
+      ],
+      "organisation": "Orcasound",
+      "summary": "Community listening platform for live underwater hydrophone audio and killer-whale monitoring.",
+      "url": "https://live.orcasound.net/",
+      "evidence": "https://github.com/orcasound",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public website",
+      "tags": [
+        "orca",
+        "whale",
+        "marine mammal",
+        "passive acoustic",
+        "hydrophone",
+        "live listening"
+      ],
+      "topics": [
+        "cetaceans",
+        "bioacoustics"
+      ],
+      "mapVisible": false,
+      "addedAt": "2026-11-19",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "The live listening interface is traditional digital; separate OrcaHello automates detection using AI."
+    },
+    {
+      "id": "happywhale",
+      "title": "Happywhale",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Images & video",
+        "Wildlife observations"
+      ],
+      "organisation": "Happywhale",
+      "summary": "Citizen-science whale photo-ID catalogue with AI-based matching of individual humpback whale flukes.",
+      "url": "https://happywhale.com/",
+      "evidence": "https://www.fisheries.noaa.gov/feature-story/ai-sorts-public-photos-show-recovering-pacific-humpback-whales-hit-climate-ceiling",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public platform",
+      "tags": [
+        "whale",
+        "humpback",
+        "cetacean",
+        "marine mammal",
+        "photo identification",
+        "computer vision",
+        "wildlife tracking"
+      ],
+      "topics": [
+        "cetaceans",
+        "species-id"
+      ],
+      "mapVisible": false,
+      "addedAt": "2026-11-19",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "The broader citizen-science and data-sharing platform incorporates documented AI image matching."
+    },
+    {
+      "id": "orcahello",
+      "title": "OrcaHello",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Acoustic monitoring",
+        "AI models"
+      ],
+      "organisation": "Orcasound / AI4Orcas",
+      "summary": "Open-source neural-network system detecting killer-whale calls in live hydrophone audio.",
+      "url": "https://github.com/orcasound/orcahello",
+      "evidence": "https://github.com/orcasound/orcahello",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "orca",
+        "whale",
+        "killer whale",
+        "cetacean",
+        "marine mammal",
+        "bioacoustic",
+        "passive acoustic"
+      ],
+      "topics": [
+        "cetaceans",
+        "bioacoustics"
+      ],
+      "mapVisible": false,
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Core real-time detection task relies on a trained deep-learning model documented by the maintainers."
+    },
+    {
+      "id": "orcai",
+      "title": "orcAI",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Acoustic monitoring",
+        "AI models"
+      ],
+      "organisation": "Research collaborators / ETH Zürich",
+      "summary": "Open-source command-line deep learning tool for detecting and labelling killer-whale sounds in recordings.",
+      "url": "https://github.com/ethz-tb/orcAI",
+      "evidence": "https://github.com/ethz-tb/orcAI",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Open source",
+      "tags": [
+        "orca",
+        "whale",
+        "killer whale",
+        "cetacean",
+        "marine mammal",
+        "bioacoustic",
+        "underwater audio"
+      ],
+      "topics": [
+        "cetaceans",
+        "bioacoustics"
+      ],
+      "mapVisible": false,
+      "addedAt": "2026-11-19",
+      "aiType": "AI-native",
+      "classificationEvidence": "Core acoustic detection and classification relies on documented machine-learning models."
+    }
+  ]
+}
