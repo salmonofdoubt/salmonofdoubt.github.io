@@ -34,7 +34,7 @@
   <header class="site-header">
     <a class="brand" href="./" aria-label="D4B Evidence Quiz home">
       <span class="brand-mark" aria-hidden="true">◇</span>
-      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.3</span>
+      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.4</span>
     </a>
     <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
       <span aria-hidden="true">↓</span><span>Install</span>
@@ -80,6 +80,8 @@
     </details>
   </section>
   <section class="quiz-panel" aria-labelledby="official-title"><h2 id="official-title">Official Moodle quizzes · private import</h2><p class="fine">Import original quiz wording and confirmed keys for your own personal study. The imported text stays in this browser and is not published in the repository. Official answer-key confirmation is distinct from independent factual verification.</p><div class="actions"><label class="import-label" for="officialImport">Import JSON file<input id="officialImport" type="file" accept=".json,application/json"></label><button class="quiet-button" type="button" id="exportOfficialTemplate">Download format template</button><button class="quiet-button" type="button" id="clearOfficial">Clear private imports</button></div><p class="fine">From the private recovery pack, select <code>moodle_exact_import.json</code>. Do not choose the ZIP archive or <code>quiz_recovery_inventory.json</code>. Imports stay on this device. The question bank cannot retrieve your Moodle attempts automatically.</p><p id="importStatus" class="fine" role="status" aria-live="polite">Checking locally stored questions…</p></section>
+  <details class="quiz-panel" id="technicalDetails">
+    <summary>Technical information (optional)</summary>
   <section class="quiz-panel" aria-labelledby="refreshTitle">
    <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">View workflow history</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
    <p class="fine">GitHub checks public sources and staged questions automatically; <strong>it does not read changes in your private Google Drive, ChatGPT or Moodle materials</strong>. New module material must first be reviewed and added as original practice questions through an authorised private-source review. A successful refresh confirms the public bank was checked, not that private learning materials were imported.</p>
@@ -95,6 +97,7 @@
    <p class="fine">Checked means availability or change detection; it does not mean questions were imported from that source.</p>
    <ul id="sourceCoverage" class="source-ledger" aria-label="Source status, latest check and accepted material"></ul>
   </section>
+  </details>
   <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><div><b id="due">0</b><span>Questions to revisit</span></div><div><b id="bank">0</b><span>Questions in complete bank</span></div></section>
   <section class="quiz-panel hidden" id="session" aria-live="polite"><div class="session-top"><span id="position"></span><strong id="clock" aria-live="off"></strong></div><div class="progress-track"><div id="bar"></div></div><div class="meta" id="topic"></div><h2 id="prompt"></h2><div class="choices" id="choices"></div><div id="feedback" class="feedback hidden"></div><div class="actions"><button class="primary-button" id="next" disabled>Next question</button><button class="quiet-button" id="stop">Finish session</button></div></section>
   <section class="quiz-panel hidden" id="summary" aria-live="polite"></section>
