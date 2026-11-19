@@ -221,7 +221,7 @@ COPERNICUS_APP_TITLES={
 
 def normalized_title(value):
     """Deduplicate official catalogue aliases, without conflating distinct tools."""
-    name=re.sub(r'^(copernicus|ecmwf|google)\\s+', '', str(value or '').lower())
+    name=re.sub(r'^(copernicus|ecmwf|google)\s+', '', str(value or '').lower())
     name=name.replace('interactive climate atlas','climate atlas')
     return re.sub(r'[^a-z0-9]', '', name)
 
