@@ -1,57 +1,62 @@
 {
-  "generated_at": "2026-11-18T14:01:54.814610+00:00",
-  "latest_generated_at": "2026-11-18T14:01:40.708282+00:00",
+  "generated_at": "2026-11-19T14:28:13.370662+00:00",
+  "latest_generated_at": "2026-11-19T14:28:00.928943+00:00",
   "title": "NDRT weekly practical digest",
   "summary": "Top practical signals ranked for Nanny-Delvin Rivers Trust action, monitoring, engagement, funding, and evidence use.",
   "lane_counts": {
-    "ireland-catchment-practice": 15,
     "grants-opportunities": 21,
-    "waterbody-evidence-alerts": 23
+    "ireland-catchment-practice": 14,
+    "research-papers": 36,
+    "waterbody-evidence-alerts": 24
   },
   "top_pressure_categories": [
+    {
+      "pressure": "habitat / biodiversity",
+      "count": 35
+    },
+    {
+      "pressure": "NbS / restoration",
+      "count": 34
+    },
     {
       "pressure": "policy / governance",
       "count": 30
     },
     {
+      "pressure": "citizen science / monitoring",
+      "count": 29
+    },
+    {
       "pressure": "funding / grant",
+      "count": 26
+    },
+    {
+      "pressure": "water quality",
       "count": 25
     },
     {
-      "pressure": "habitat / biodiversity",
-      "count": 22
-    },
-    {
-      "pressure": "NbS / restoration",
-      "count": 21
-    },
-    {
-      "pressure": "citizen science / monitoring",
-      "count": 16
+      "pressure": "agricultural runoff",
+      "count": 18
     },
     {
       "pressure": "nutrients",
       "count": 12
     },
     {
-      "pressure": "general catchment signal",
-      "count": 6
+      "pressure": "incident / alert",
+      "count": 7
     },
     {
-      "pressure": "incident / alert",
-      "count": 6
+      "pressure": "general catchment signal",
+      "count": 5
     },
     {
       "pressure": "septic / domestic wastewater",
       "count": 4
     },
     {
-      "pressure": "agricultural runoff",
+      "pressure": "sediment / hydromorphology",
       "count": 4
-    },
-    {
-      "pressure": "river ecology",
-      "count": 1
     }
   ],
   "items": [
