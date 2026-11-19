@@ -160,3 +160,8 @@ The default cram session now includes **all currently eligible reduced-repeat qu
 ## Restore visible four-module navigation (19 November 2026)
 
 The site never removed the original INNO, DTR, AI4B or GenAI public question records. Their module filter had been hidden under a collapsed advanced panel as part of a GenAI-oriented UI change. This release restores the existing module selector directly beside question count, above the GenAI-only exam notice. Existing questions, answer keys, history and private Moodle imports remain unchanged. All available questions and untimed practice remain defaults.
+
+
+## Context-sensitive module display (19 November 2026)
+
+The module picker updates both the question pool **and the visible module focus panel**. The Generative AI exam reminder and its three independent mock exam cards are displayed only for GEN. Digital Transformation, AI for Business, Innovation and All Modules show their corresponding module description, without misleading GenAI exam material. GenAI-only Mock A/B/C source options are disabled and hidden outside the GenAI module, and an incompatible source selection resets to the default cram filter. Question bank, deduplication, untimed default and private browser progress are unchanged.
