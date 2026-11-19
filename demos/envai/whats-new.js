@@ -1,6 +1,6 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id), today=new Date(), ms=86400000;
-let data={items:[],reviewedAt:null}, seeds={items:[]}, live={releaseEvents:[],leads:[],scanStatus:'not-started'}, type='launch';
+let data={items:[],reviewedAt:null}, seeds={items:[]}, live={releaseEvents:[],leads:[],scanStatus:'not-started'}, type='all';
 const date=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'')?new Date(s+'T12:00:00Z'):null;
 const daysAgo=s=>{const d=date(s);return d?Math.floor((today-d)/ms):Infinity};
 const fmt=s=>{const d=date(s);return d?new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(d):'Not yet'};
