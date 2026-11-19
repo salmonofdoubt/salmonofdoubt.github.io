@@ -14,7 +14,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <link rel="stylesheet" href="./styles.css?v=20261009-1">
-  <link rel="stylesheet" href="./quiz.css?v=exam-focus-20261116-1">
+  <link rel="stylesheet" href="./quiz.css?v=mock-20261119-1">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
@@ -22,7 +22,8 @@
   <script defer src="./site-config.js?v=20261008-5"></script>
   <script defer src="./app.js?v=20261008-5"></script>
   <script defer src="./questions.js?v=bank-b207a67a45"></script>
-  <script defer src="./quiz.js?v=exam-focus-20261116-1"></script>
+  <script defer src="./mock-genai-20261119.js?v=20261119-1"></script>
+  <script defer src="./quiz.js?v=mock-20261119-1"></script>
   <script defer src="./refresh.js?v=ledger-20261010-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
@@ -32,7 +33,7 @@
   <header class="site-header">
     <a class="brand" href="./" aria-label="D4B Evidence Quiz home">
       <span class="brand-mark" aria-hidden="true">◇</span>
-      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.16.1</span>
+      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.19.1</span>
     </a>
     <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
       <span aria-hidden="true">↓</span><span>Install</span>
@@ -50,12 +51,23 @@
   <section class="quiz-panel" aria-label="Revision settings">
    <div class="settings">
     <label>Module<select id="module"><option value="all">All four modules</option><option value="GEN" selected>Generative AI</option><option value="AIB">AI for Business</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option></select></label>
-    <label>Source<select id="source"><option value="moodle-first" selected>Moodle first · then booklet</option><option value="official-only">Moodle only (private)</option><option value="booklet-only">Booklet questions only</option><option value="all">All available sources</option></select></label>
+    <label>Source<select id="source"><option value="moodle-first" selected>Moodle first · then booklet</option><option value="official-only">Moodle only (private)</option><option value="booklet-only">Booklet questions only</option><option value="all">All available sources</option><option value="mock-all">Independent mocks · A+B+C</option><option value="mock-A">Mock A · Foundations (33)</option><option value="mock-B">Mock B · Applications (33)</option><option value="mock-C">Mock C · Agents (33 + written)</option></select></label>
     <label>Week<select id="week"><option value="all">All available weeks</option></select></label>
     <label>Practice<select id="mode"><option value="adaptive">Adaptive review</option><option value="exam">Timed exam simulation</option><option value="mistakes">Mistakes only</option></select></label>
     <label>Questions<select id="count"><option value="10" selected>10 questions · quick review</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option><option value="all">All available (optional)</option></select></label>
    </div><p id="availability" class="availability" role="status"></p><div class="actions"><button class="primary-button" id="start">Start practice</button><button class="quiet-button" id="reset">Reset local history</button><button class="quiet-button" id="export">Export progress</button></div>
    <p class="notice">Questions distinguish lecturer-module booklet checks from independent factual verification. Moodle-grading confirmation is a separate status. An independently verified answer is not a lecturer-approved exam question. The booklets themselves are not published here.</p>
+  </section>
+  <section class="quiz-panel" id="mock-bank" aria-labelledby="mock-bank-title">
+    <p class="eyebrow">NEW · INDEPENDENT PRACTICE · NOVEMBER 2026</p>
+    <h2 id="mock-bank-title">Three Generative AI mock exams</h2>
+    <p>99 multiple-choice questions across Mock A (foundations), Mock B (applications) and Mock C (agents and evaluation), plus one written question. These are <strong>unofficial mock questions</strong> with the supplied answer key, not original Moodle questions or lecturer predictions. Some business scenarios illustrate technical concepts; memorising industry facts is not the objective.</p>
+    <div class="actions"><button class="primary-button" data-mock-exam="A" type="button">Start Mock A · 35 min</button><button class="quiet-button" data-mock-exam="B" type="button">Start Mock B · 40 min</button><button class="quiet-button" data-mock-exam="C" type="button">Start Mock C · 45 min</button></div>
+    <p class="fine">Each button launches all 33 multiple-choice questions in the PDF's original order, with answers shown at the end. Mock C's written question is available below for separate, self-assessed practice; it is not automatically scored or included in the MCQ timer.</p>
+    <details id="mockWritten"><summary>Mock C · Question 34 · Written response (200–300 words)</summary>
+      <p id="mockWrittenPrompt" style="white-space:pre-wrap"></p>
+      <details><summary>Reveal the supplied model answer</summary><p id="mockWrittenAnswer" style="white-space:pre-wrap"></p></details>
+    </details>
   </section>
   <section class="quiz-panel" aria-labelledby="official-title"><h2 id="official-title">Official Moodle quizzes · private import</h2><p class="fine">Import original quiz wording and confirmed keys for your own personal study. The imported text stays in this browser and is not published in the repository. Official answer-key confirmation is distinct from independent factual verification.</p><div class="actions"><label class="import-label" for="officialImport">Import JSON file<input id="officialImport" type="file" accept=".json,application/json"></label><button class="quiet-button" type="button" id="exportOfficialTemplate">Download format template</button><button class="quiet-button" type="button" id="clearOfficial">Clear private imports</button></div><p class="fine">From the private recovery pack, select <code>moodle_exact_import.json</code>. Do not choose the ZIP archive or <code>quiz_recovery_inventory.json</code>. Imports stay on this device. The question bank cannot retrieve your Moodle attempts automatically.</p><p id="importStatus" class="fine" role="status" aria-live="polite">Checking locally stored questions…</p></section>
   <section class="quiz-panel" aria-labelledby="refreshTitle">
