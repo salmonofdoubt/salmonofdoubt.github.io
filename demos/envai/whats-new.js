@@ -10,7 +10,9 @@ function link(text,url){const u=safe(url);if(!u)return elt('span',null,text);con
 function isToolSite(url){try{const h=new URL(url).hostname.toLowerCase();return h!=='github.com'&&h!=='www.github.com'&&h!=='gitlab.com'&&h!=='www.gitlab.com'}catch{return false}}
 function records(){
  const rows=[];
- const usable=t=>['online','install','access'].includes(t.toolUse);
+ const usable=t=>{const h=live?.toolHealth?.[t.id];
+  return ['online','install','access'].includes(t.toolUse)&&!(h?.state==='retired'&&h.url===t.url);
+ };
  const approved=new Map(data.items.filter(usable).map(t=>[t.id,t]));
  const curatedRelease=new Set();
  for(const t of data.items.filter(usable)){
