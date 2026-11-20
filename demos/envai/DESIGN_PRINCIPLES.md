@@ -34,10 +34,25 @@ intelligence, not a developer repository directory or a showcase of AI jargon.
    question is what the tool lets someone observe, investigate, monitor,
    predict or decide. The AI architecture follows as an explanation, not a
    prerequisite to using the atlas.
+7. **Clicking a tool opens the tool.** Clicking or tapping a purpose node
+   expands it. Clicking an individual application, unverified discovery or
+   search result opens its actual website in a new browser tab, preserving the
+   expanded constellation in EnvAI. In the full group browser, the tool name
+   itself is the external link. Never use a tool click to collapse the map.
+   Use genuine HTTPS/HTTP anchors, and do not fabricate destinations.
+8. **Display and advance a build identifier for every application release.**
+   A small dated build identifier must exist in the static HTML on first
+   paint and stay visible on phones as well as desktop. Every user-facing
+   app change must increment the build version, cache-bust all loaded main
+   assets and bump the PWA cache. The GitHub pull-request release gate
+   checks these together; never claim publication until Pages has deployed.
 
 ## Release checks
 
 The constellation regression tests must verify every approved tool is assigned
 exactly once, no tools appear arbitrarily alongside group nodes, each topic
 retains mixed AI classifications, and the rendered mobile and desktop maps are
-usable. A changed asset must be cache-busted and the PWA cache bumped.
+usable. Individual map and search results must open their real destinations
+without collapsing the expanded topic. The visible build label, versioned
+asset URLs and PWA cache must agree and advance on each application change.
+Run the real Chromium mobile and desktop checks before merge.
