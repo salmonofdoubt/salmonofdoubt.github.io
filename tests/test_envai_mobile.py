@@ -38,6 +38,9 @@ def check_page(page, width, height):
     assert page.locator("#mobileFields [data-field='Climate & energy']").get_attribute("aria-pressed") == "true"
     assert page.locator("#hubs .node.hub").count() == 1
     assert "CLIMATE" in page.locator("#hubs").text_content()
+    assert page.locator("#nodes .category-node:not([data-id$='review'])").count() == 3
+    assert page.locator("#nodes [data-id='trace']").count() == 0, (
+        "Climate TRACE must not be featured beside its AI-augmented category")
     group = page.locator("#nodes .category-node").first
     if group.count():
         group.click(force=True)
@@ -70,9 +73,30 @@ def main():
             desktop.locator("#nodes .node").first.wait_for(timeout=20000)
             assert desktop.locator("#hubs .node.hub").count() == 4, "Desktop constellation regressed"
             assert not desktop.locator("#mobileFields").is_visible(), "Mobile tabs leak into desktop"
+            assert desktop.locator("#nodes .category-node:not([data-id$='review'])").count() == 12, (
+                "Four fields must each expose exactly three AI-category nodes")
+            assert desktop.locator("#nodes .node:not(.category-node)").count() == 0, (
+                "Individual featured tools must never appear beside categories")
+            assert desktop.locator("#nodes [data-id='trace']").count() == 0, (
+                "Regression: Climate TRACE must be nested")
             desktop.screenshot(path="/tmp/envai-desktop.png", full_page=True)
+            # Explicit regression for the screenshot: only AI-augmented contains
+            # Climate TRACE, with a parent-child edge; never a direct hub edge.
+            group = desktop.locator("#nodes [data-id='group:climate-energy:aug']")
+            assert group.count() == 1, "Missing climate AI-augmented category"
+            group.click(force=True)
+            desktop.locator("#nodes [data-id='trace']").wait_for(timeout=10000)
+            assert desktop.locator("#edges .categoryline[data-b='trace']").count() == 1, (
+                "Climate TRACE must connect to its AI category")
+            assert desktop.locator("#edges .hubline[data-b='trace']").count() == 0, (
+                "A tool must never connect directly to the environmental hub")
+            assert desktop.locator("#nodes [data-id='trace']").count() == 1
+            desktop.screenshot(path="/tmp/envai-climate-augmented.png", full_page=True)
+            desktop.locator("#hubs [data-id='hub:Climate & energy']").click(force=True)
+            assert desktop.locator("#nodes [data-id='trace']").count() == 0, (
+                "Clicking field hub must collapse expanded tools")
             browser.close()
-        print("PASS: mobile 320/390/680 px, no overlap/overflow, tabs, search, groups, desktop unchanged")
+        print("PASS: mobile 320/390/680 and desktop, strict 3-level hierarchy, Climate TRACE nested, category fan-out, no overflow")
     finally:
         server.shutdown()
         server.server_close()
