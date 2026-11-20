@@ -362,3 +362,14 @@
  .group-browser{max-height:45vh}
  .group-browser-row button{min-width:90px}
 }
+
+/* Purpose-led constellations: environmental topic nodes use their field colour,
+   individual tools use the three AI classifications. Keep the category circle
+   distinct from tool nodes, without a second set of floating labels. */
+.node.purpose-node .outer{stroke:var(--nodeColor,#b9dccc);stroke-opacity:.92;stroke-width:2;stroke-dasharray:none;fill:var(--nodeColor,#b9dccc);fill-opacity:.055}
+.node.purpose-node .inner{stroke:var(--nodeColor,#b9dccc);stroke-width:1.8}
+.node.purpose-node .group-name{font-size:13px;font-weight:650;fill:#e4f6ef;stroke:#07131e;stroke-width:4px}
+.node.purpose-node .topic-ai-dot{pointer-events:none}
+.node.pending-node .group-name{fill:#b9b6d0}
+.node.pending-node .outer{stroke-dasharray:3 5;stroke-opacity:.5}
+.node.purpose-node:hover .group-name,.node.purpose-node.selected .group-name{fill:#ffffff}

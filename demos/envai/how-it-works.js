@@ -17,7 +17,7 @@
     };
     const usable=list.filter(available);
     const fields=['Biodiversity & wildlife','Land & satellites','Climate & energy','Water & oceans'];
-    const shown=window.EnvAIClusters.organise(usable,fields,null,10).items.length;
+    const shown=window.EnvAIClusters.organise(usable,fields,null,6).items.length;
     el('toolCount').textContent=String(usable.length);
     el('mappedCount').textContent=String(shown);
     el('reviewDate').textContent=data.reviewedAt||'Not recorded';

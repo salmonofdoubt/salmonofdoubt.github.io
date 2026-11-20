@@ -164,3 +164,9 @@
 @media (prefers-reduced-motion:reduce){
   #app .field-tab{transition:none}
 }
+
+/* Purpose labels remain legible in a one-field map without clipping at edges. */
+@media(max-width:690px){
+ #app .node.purpose-node .group-name{font-size:13px;letter-spacing:.1px;stroke-width:3.5px}
+ #app .node.pending-node .group-name{font-size:12px;letter-spacing:.1px}
+}

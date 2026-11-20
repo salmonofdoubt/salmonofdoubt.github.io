@@ -12,8 +12,8 @@
 <script defer src="./site-config.js"></script>
 <script defer src="./header-secondary.js?v=header-1"></script>
 <script defer src="./live-data.js?v=quality-1"></script>
-<script defer src="./cluster-model.js?v=all-fields-1"></script>
-<script defer src="./how-it-works.js?v=all-fields-1"></script>
+<script defer src="./cluster-model.js?v=topics-1"></script>
+<script defer src="./how-it-works.js?v=topics-1"></script>
 </head>
 <body>
 <a class="skip" href="#content">Skip to the explanation</a>
@@ -39,12 +39,12 @@
         <g stroke-width="2"><circle cx="180" cy="140" r="12" fill="#0e3a37" stroke="#8cf5de"/><circle cx="180" cy="140" r="3.5" fill="#b7ffea"/><circle cx="78" cy="96" r="6" stroke="#76c0ff" fill="#76c0ff" fill-opacity=".23"/><circle cx="264" cy="75" r="6" stroke="#f2f178" fill="#f2f178" fill-opacity=".23"/><circle cx="270" cy="190" r="6" stroke="#ffa56b" fill="#ffa56b" fill-opacity=".23"/><circle cx="98" cy="210" r="5" stroke="#b9b6d0" fill="#b9b6d0" fill-opacity=".22"/></g>
         <g font-family="sans-serif" font-size="11" font-weight="600"><text x="48" y="77" fill="#76c0ff">TRADITIONAL</text><text x="274" y="56" fill="#f2f178">AUGMENTED</text><text x="278" y="213" fill="#ffa56b">AI-NATIVE</text><text x="35" y="232" fill="#b9b6d0">UNVERIFIED</text><text x="180" y="162" text-anchor="middle" fill="#aefde7" font-size="11">ENVAI</text></g>
       </svg>
-      <p>One map. Different kinds of intelligence.</p>
+      <p>Designed for environmentalists: explore the questions, organisms and environmental systems first, then see what technology and AI can help.</p>
     </div>
   </section>
   <div class="live-stats" aria-label="Current catalogue status">
     <div><strong id="toolCount">—</strong><span>practical tools shown</span></div>
-    <div><strong id="mappedCount">—</strong><span>representative map nodes</span></div>
+    <div><strong id="mappedCount">—</strong><span>environmental topic nodes</span></div>
     <div><strong id="reviewDate">—</strong><span>catalogue last reviewed</span></div>
     <div><strong id="queueCount">—</strong><span>reachable tool candidates</span></div>
   </div>
@@ -58,9 +58,9 @@
     </div>
     <div class="explain-grid">
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>One source of truth</h3><p><code>data/tools.json</code> is the approved catalogue. The atlas and What's New display only user-facing tools from it. <code>data/discoveries.json</code> contains manually seeded leads. <code>data/live-updates.json</code> is generated daily from selected official environmental-tool directories across land, biodiversity, climate and water, plus secondary GitHub release monitoring. It also tracks tool-link health. The snapshot is read directly from the public repository, bypassing Pages' bot-commit build limitation.</p></div>
-      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>A calm default map</h3><p>Four field clusters retain their dotted boundaries. When a field exceeds ten practical tools, prominent examples remain visible and additional tools are grouped into <strong>Traditional, AI-augmented and AI-native nodes</strong>. Selecting a group reveals members, while full search reaches every tool. Pending discoveries are shown separately, without invented AI labels.</p></div>
+      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>A calm default map</h3><p>Four environmental fields retain their dotted boundaries. Tools are grouped by <strong>what they investigate or help accomplish</strong>, such as birds, forest change, emissions, air quality, rivers or marine life. Every approved tool has one primary purpose, while its separate Traditional / AI-augmented / AI-native classification remains visible through colour and a small three-dot composition indicator. Select a purpose node to reveal its tools, or search the full catalogue. Unverified candidates stay in separate review nodes.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Meaning-aware search</h3><p>Topic families, aliases and catalogue metadata connect terms such as “whale” to Water and relevant monitoring methods. At most <strong>six temporary results</strong> appear on the map.</p></div>
-      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Explainable connections</h3><p>Links rank similarity using shared environmental fields, methods, data signals and tasks. They are <strong>not</strong> claims of integration, ownership, investment or partnership.</p></div>
+      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Explainable connections</h3><p>The overview links each field to its environmental-purpose nodes. Expanding a topic shows its individual tools and highlights their parent-child relationship. Additional tool similarities are based on fields, methods, data signals and tasks. These links are <strong>not</strong> claims of interoperability, ownership, investment or partnership.</p></div>
     </div>
     <p class="caution"><span aria-hidden="true">✳</span> Search is currently a transparent <strong>curated-vocabulary and relevance-ranking system</strong>, not an LLM or semantic-embedding model. A relevant field can be recognised even when no direct tool is indexed; EnvAI should say so rather than invent a match.</p>
   </section>
