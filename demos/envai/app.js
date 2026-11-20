@@ -218,7 +218,7 @@ function styleFocus(){
  const focused=!!state.selected,search=state.search.trim();
  const hits=new Set(state.queryResults.hits.map(h=>h.tool.id));const connected=linkedIds(state.selected);
  const searchDomain=search?state.queryResults.dominantDomain:null;
- const chosenDomain=state.selected?(state.selected.startsWith('hub:')?state.selected.slice(4):lookupTool(state.selected)?.domain):searchDomain;
+ const chosenDomain=state.selected?(state.selected.startsWith('hub:')?state.selected.slice(4):(state.groupMap.get(state.selected)||lookupTool(state.selected))?.domain):searchDomain;
  $('app').classList.toggle('has-focus',focused);$('app').classList.toggle('has-search',!!search);$('resetBtn').hidden=!focused&&!search;
  for(const boundary of $('nebula').querySelectorAll('.cluster-boundary')){
   boundary.classList.toggle('in-focus',!!chosenDomain&&boundary.dataset.field===chosenDomain);
@@ -302,7 +302,7 @@ function renderInfo(){
  const sub=document.createElement('div');sub.className='focus-sub';sub.textContent=isHub?`${related} approved tools in ${domains[dom].short.toLowerCase()} · grouped by AI category as coverage grows.`:t.summary;main.append(sub);
  const foot=document.createElement('div');foot.className='focus-footer';foot.textContent=isHub?`Only practical tools are shown · source/research records remain archived in the catalogue`:group?`${related} tools · expanded on map · full list available`:isSearch?`Search match · ${t.capability} · ${domains[dom].short} · ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access may be restricted':'Use online'}`:`${dateRecent(t.eventDate)?'✦ NEW RELEASE / UPDATE  ·  ':''}${related} linked ${related===1?'tool':'tools'}  ·  ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access required':'Use online'}${t.accessNote?' · '+t.accessNote:''}`;main.append(foot);
  root.append(glyph,main);
- if(group){const b=newButton('Browse '+related+' tools',()=>showGroupTools(group),'focus-visit focus-group-trigger');b.setAttribute('aria-label','Browse '+related+' '+group.title+' tools');root.append(b)}
+ if(group){const b=newButton('Browse '+related+' tools ↗',()=>showGroupTools(group),'focus-visit focus-group-trigger');b.setAttribute('aria-label','Browse '+related+' '+group.title+' tools');root.append(b)}
  else if(!isHub&&t.url){const a=document.createElement('a');a.className='focus-visit';a.href=t.url;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',`Visit ${t.title} website`);a.innerHTML=(t.toolUse==='install'?'Get app':t.toolUse==='access'?'Access details':'Open tool')+' <span class="link-icon" aria-hidden="true">↗</span>';root.append(a)}
  else{const tag=document.createElement('span');tag.className='focus-ghost';tag.textContent='Explore the glowing points ↗';root.append(tag)}
 }
