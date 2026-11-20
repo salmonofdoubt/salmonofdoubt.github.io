@@ -10,7 +10,7 @@ const domains={
  'Water & oceans':{name:'WATER',short:'Water',color:'#7fbef0',cx:460,cy:770,mx:220,my:785}
 };
 const state={catalog:[],searchIndex:[],queryResults:{hits:[],total:0,dominantDomain:null},searchCoords:new Map(),items:[],edges:[],nodes:new Map(),links:new Map(),groupMap:new Map(),openGroup:null,mobileDomain:'Biodiversity & wildlife',selected:null,selectedType:null,search:'',view:'desktop',W:1550,H:930,zoom:1,tx:0,ty:0,dragging:false,lastPt:null,moved:false};
-const MAX_GROUP_NODES_DESKTOP=8,MAX_GROUP_NODES_MOBILE=4; // all tools remain in group browsers and search
+const MAX_GROUP_NODES_DESKTOP=6,MAX_GROUP_NODES_MOBILE=3; // all tools remain in group browsers and search
 const publicTool=t=>['online','install','access'].includes(t.toolUse); // reference items stay in JSON, not the experience
 const SEARCH_LIMIT=6; // temporary, query-specific labels; never all search results
 const lookupTool=id=>state.catalog.find(t=>t.id===String(id||'').replace(/^search:/,''));
@@ -34,52 +34,45 @@ function computeLayout(){
  state.W=mobile?440:1550;state.H=mobile?440:930;
  const byDom={};
  for(const t of state.items)(byDom[t.domain] ||= []).push(t);
- const angles={
-  'Traditional digital':-2.3,
-  'AI-augmented':-0.75,
-  'AI-native':0.75,
-  'Unverified':2.3
- };
  const bound=(v,min,max)=>Math.max(min,Math.min(max,v));
  for(const [name,arr] of Object.entries(byDom)){
   const d=domains[name],cx=mobile?220:d.cx,cy=mobile?216:d.cy;
-  const groupRadius=mobile?117:143;
-  // Category positions depend on AI class, never catalogue order or featured
-  // tool ranking. The same three branches appear for every environmental field.
-  for(const group of arr.filter(t=>t._group)){
-   const theta=angles[group.aiType];
-   group._x=bound(cx+Math.cos(theta)*groupRadius,24,state.W-24);
-   group._y=bound(cy+Math.sin(theta)*groupRadius*.83,34,state.H-36);
-  }
-  // Expanded tools appear beyond their own AI category, not as siblings
-  // of the environmental hub. A limited fan-out leaves the browser usable.
+  const groups=arr.filter(t=>t._group);
+  const groupRadius=mobile?138:172;
+  // Positions follow environmental purpose nodes. Count changes or the source
+  // order cannot create arbitrary "featured" top-level tool exceptions.
+  groups.forEach((group,i)=>{
+   const angle=-Math.PI/2+2*Math.PI*i/groups.length;
+   group._angle=angle;
+   group._x=bound(cx+Math.cos(angle)*groupRadius,24,state.W-24);
+   group._y=bound(cy+Math.sin(angle)*groupRadius*.83,34,state.H-36);
+  });
   const byParent=new Map();
-  for(const tool of arr.filter(t=>t._groupParent)){
-   const list=byParent.get(tool._groupParent)||[];
-   list.push(tool);byParent.set(tool._groupParent,list);
+  for(const t of arr.filter(x=>x._groupParent)){
+   const list=byParent.get(t._groupParent)||[];
+   list.push(t);byParent.set(t._groupParent,list);
   }
   for(const [parentId,children] of byParent){
-   const group=arr.find(t=>t.id===parentId);
+   const group=groups.find(x=>x.id===parentId);
    if(!group)continue;
-   const centre=angles[group.aiType];
-   const spread=mobile?.59:.93;
-   const radius=mobile?186:228;
+   const centre=group._angle;
+   const radius=mobile?195:242;
+   const spread=mobile?.39:.65;
    children.forEach((tool,index)=>{
     const fraction=children.length===1?0:index/(children.length-1)-.5;
-    const theta=centre+fraction*spread*2;
-    tool._x=bound(cx+Math.cos(theta)*radius,22,state.W-22);
-    tool._y=bound(cy+Math.sin(theta)*radius*(mobile?.82:.85),30,state.H-38);
+    const angle=centre+fraction*spread*2;
+    tool._x=bound(cx+Math.cos(angle)*radius,23,state.W-23);
+    tool._y=bound(cy+Math.sin(angle)*radius*(mobile?.82:.87),30,state.H-38);
    });
   }
  }
- // Adjust only tool siblings when they are crowded; never move the stable
- // AI-category anchors or reclassify a tool based on physical proximity.
+ // Only expanded tool siblings may shift to avoid collision. Purpose anchors
+ // remain fixed so the user can develop a stable mental map of the field.
  const children=state.items.filter(t=>t._groupParent);
  for(let pass=0;pass<45;pass++)for(let i=0;i<children.length;i++)for(let j=i+1;j<children.length;j++){
   const a=children[i],b=children[j];
   if(a.domain!==b.domain)continue;
-  const dx=a._x-b._x,dy=a._y-b._y,dist=Math.hypot(dx,dy)||1;
-  const min=mobile?39:49;
+  const dx=a._x-b._x,dy=a._y-b._y,dist=Math.hypot(dx,dy)||1,min=mobile?43:52;
   if(dist>=min)continue;
   const step=(min-dist)*.16,ux=dx/dist,uy=dy/dist;
   a._x=bound(a._x+ux*step,22,state.W-22);
@@ -131,10 +124,10 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
  const r=state.view==='mobile'?45:57;const group=elem('g',{class:'node hub','data-id':'hub:'+dom,role:'button',tabindex:'0','aria-label':`Show ${d.short} tools`,transform:`translate(${p.x},${p.y})`},hubs);
  elem('circle',{r:r+20,fill:'none',stroke:d.color,'stroke-opacity':'.16','stroke-width':'1','class':'hub-arc'},group);elem('circle',{r,fill:d.color,'fill-opacity':'.045',stroke:d.color,'stroke-opacity':'.7','stroke-width':'1.3','class':'outer'},group);elem('circle',{r:12,fill:d.color,'fill-opacity':'.1',stroke:d.color,'stroke-opacity':'.4'},group);elem('text',{y:-8,'text-anchor':'middle',class:'node-label'},group).textContent=d.name;elem('text',{y:11,'text-anchor':'middle',class:'sub-label'},group).textContent=`${state.catalog.filter(x=>x.domain===dom&&!x.id.startsWith('lead:')&&x.mapVisible!==false).length} TOOLS`;group.style.setProperty('--nodeColor',d.color);state.nodes.set('hub:'+dom,group);bindNode(group,'hub:'+dom)}
  const newSet=new Set(state.catalog.filter(x=>dateRecent(x.eventDate)).map(x=>x.id));$('newCount').textContent=String(newSet.size);
- for(const t of state.items){const d=domains[t.domain],color=d?.color||'#bad9db',AI=types[t.aiType]||'unverified',gTool=elem('g',{class:'node tool'+(t._group?' category-node':'')+(t._group||state.items.filter(x=>x.domain===t.domain&&!x._group).slice(0,2).includes(t)?' primary':''),'data-id':t.id,role:'button',tabindex:'0','aria-label':`${t.title}, ${t.aiType}`,transform:`translate(${t._x.toFixed(1)},${t._y.toFixed(1)})`},n);gTool.style.setProperty('--nodeColor',color);gTool.style.setProperty('--class-color',classColors[AI]);
+ for(const t of state.items){const d=domains[t.domain],color=d?.color||'#bad9db',AI=types[t.aiType]||'unverified',gTool=elem('g',{class:'node tool'+(t._group?' category-node':'')+(t._purpose?' purpose-node':'')+(t._pending?' pending-node':'')+(t._group?' primary':''),'data-id':t.id,role:'button',tabindex:'0','aria-label':t._purpose?`${t.label}, ${t._members.length} tools`:`${t.title}, ${t.aiType}`,transform:`translate(${t._x.toFixed(1)},${t._y.toFixed(1)})`},n);gTool.style.setProperty('--nodeColor',color);gTool.style.setProperty('--class-color',t._purpose?color:classColors[AI]);
   if(state.view==='mobile')elem('circle',{r:29,fill:'transparent',class:'touch-target'},gTool);
   elem('circle',{r:17,fill:'none',stroke:color,'stroke-opacity':'.20','stroke-width':'1.2',class:'outer'},gTool);
-  elem('circle',{r:8,fill:AI==='native'?color:AI==='augmented'?color:'#09121e','fill-opacity':AI==='native'?'.83':AI==='augmented'?'.2':'1',stroke:color,'stroke-opacity':AI==='unverified'?'.3':'.85','stroke-width':AI==='digital'?'1.5':'1.2','stroke-dasharray':AI==='unverified'?'2 3':null,class:'inner'},gTool);
+  elem('circle',{r:8,fill:t._purpose?color:AI==='native'?color:AI==='augmented'?color:'#09121e','fill-opacity':t._purpose?'.46':AI==='native'?'.83':AI==='augmented'?'.2':'1',stroke:t._purpose?color:classColors[AI], 'stroke-opacity':AI==='unverified'&&!t._purpose?'.3':'.85','stroke-width':t._purpose?'2':AI==='digital'?'1.5':'1.2','stroke-dasharray':t._pending?'2 3':null,class:'inner'},gTool);
   elem('circle',{r:19,class:'glow-ring'},gTool);
   if(newSet.has(t.id)){const flare=elem('g',{class:'new-flare',transform:'translate(11,-10)'},gTool);elem('circle',{r:3.1,class:'flare-dot'},flare);elem('path',{d:'M0 -7 V-4 M0 4 V7 M-7 0 H-4 M4 0 H7',class:'flare-ray'},flare)}
   // The compact label is part of the clickable SVG node: no floating cards,
@@ -145,8 +138,8 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
   const marker=elem('circle',{class:'chip-type',cx:32,cy:-5.5,r:3.3},chip);
   marker.setAttribute('fill',classColors[AI]);
   const lab=elem('text',{class:'node-label',x:43,y:-1.5},chip);lab.textContent=truncate(t.title,state.view==='mobile'?19:24);
-  if(t._group){const mobile=state.view==='mobile';const label=t._pending?'TO REVIEW':t.aiType==='Traditional digital'?'TRADITIONAL':t.aiType==='AI-augmented'?'AI-AUGMENTED':'AI-NATIVE';elem('text',{x:mobile?0:23,y:mobile?-33:5,'text-anchor':mobile?'middle':'start',class:'group-name','aria-hidden':'true'},gTool).textContent=mobile?label+' · '+t._members.length:t.title;}
-   const title=elem('title',{},gTool);title.textContent=t.title+' · '+(t._group?'group · ':'')+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
+  if(t._group){const mobile=state.view==='mobile';const label=mobile?(t.short||t.label):t.label;elem('text',{x:mobile?0:23,y:mobile?-33:5,'text-anchor':mobile?'middle':'start',class:'group-name','aria-hidden':'true'},gTool).textContent=label+' · '+t._members.length;}
+   const title=elem('title',{},gTool);title.textContent=t._group?t.title+' · environmental topic':t.title+' · '+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
  drawSearchCandidates();styleFocus();updateCamera(false)}
 function truncate(s,n){return s.length>n?s.slice(0,n-1).trim()+'…':s}
 function bindNode(el,id){el.addEventListener('pointerenter',ev=>{if(state.dragging)return;const x=ev.clientX,y=ev.clientY;const target=state.items.find(t=>t.id===id);const peer=state.selected&&!state.selected.startsWith('hub:')?state.items.find(t=>t.id===state.selected):null;
@@ -381,8 +374,8 @@ function renderInfo(){
  const main=document.createElement('div');main.className='focus-main';const top=document.createElement('div');top.className='focus-top';
  const h=document.createElement('h2');h.className='focus-title';h.textContent=isHub?domains[dom].short:t.title;top.append(h);
  const pill=document.createElement('span');pill.className='focus-pill'+(isHub?'':' class-'+(types[t.aiType]||'unverified'));
- pill.textContent=isHub?'Field':group&&group._pending?'Under review':t.aiType.replace('Traditional digital','Digital');top.append(pill);main.append(top);
- const sub=document.createElement('div');sub.className='focus-sub';sub.textContent=isHub?`${related} approved tools in ${domains[dom].short.toLowerCase()} · grouped by AI category as coverage grows.`:t.summary;main.append(sub);
+ pill.textContent=isHub?'Field':group?(group._pending?'Needs review':'Environmental purpose'):t.aiType.replace('Traditional digital','Digital');top.append(pill);main.append(top);
+ const sub=document.createElement('div');sub.className='focus-sub';sub.textContent=isHub?`${related} approved tools in ${domains[dom].short.toLowerCase()} · organised by what they help investigate or accomplish.`:t.summary;main.append(sub);
  const foot=document.createElement('div');foot.className='focus-footer';foot.textContent=isHub?`Only practical tools are shown · source/research records remain archived in the catalogue`:group?`${related} tools · expanded on map · full list available`:isSearch?`Search match · ${t.capability} · ${domains[dom].short} · ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access may be restricted':'Use online'}`:`${dateRecent(t.eventDate)?'✦ NEW RELEASE / UPDATE  ·  ':''}${related} linked ${related===1?'tool':'tools'}  ·  ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access required':'Use online'}${t.accessNote?' · '+t.accessNote:''}`;main.append(foot);
  root.append(glyph,main);
  if(group&&related){const b=newButton('Browse '+related+' tools ↗',()=>showGroupTools(group),'focus-visit focus-group-trigger');b.setAttribute('aria-label','Browse '+related+' '+group.title+' tools');root.append(b)}
@@ -455,8 +448,8 @@ function setup(list){
  state.openGroup=null;rebuildMap();
  const approved=state.catalog.filter(t=>!t.id.startsWith('lead:')).length;
  $('totalNum').textContent=String(approved);
- $('stats').querySelector('small').textContent=`${approved} practical tools · ${state.items.length} uncluttered nodes · click AI categories to expand`;
- if(state.view!=='mobile')toast('Explore the three AI categories, or search every tool.')
+ $('stats').querySelector('small').textContent=`${approved} practical tools · ${state.items.filter(t=>t._group).length} topic nodes · select a topic to explore`;
+ if(state.view!=='mobile')toast('Explore environmental topics, or search any tool.')
 }
 function loadFocusFromUrl(){
  const id=new URLSearchParams(location.search).get('tool');
