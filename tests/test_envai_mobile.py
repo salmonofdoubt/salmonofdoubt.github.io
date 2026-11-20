@@ -79,7 +79,7 @@ def check_pending_result(page):
     assert result.get_attribute("href") == "https://example.org/fish"
     page.context.route("https://example.org/fish",
         lambda route:route.fulfill(status=200,content_type="text/html",body="<title>Example Fish Tracker</title>"))
-    with page.expect_popup() as opened:
+    with page.context.expect_page(timeout=10000) as opened:
         result.tap(force=True)
     opened.value.close()
     assert result.count()==1, "Tapping a discovery must not collapse its explosion"
@@ -136,7 +136,7 @@ def main():
             assert trace.get_attribute("target") == "_blank"
             desktop.context.route("https://climatetrace.org/**",
                 lambda route: route.fulfill(status=200,content_type="text/html",body="<title>Climate TRACE</title>"))
-            with desktop.expect_popup() as opened:
+            with desktop.context.expect_page(timeout=10000) as opened:
                 trace.click(force=True)
             popup=opened.value
             popup.close()
@@ -153,7 +153,7 @@ def main():
             assert search_result.get_attribute("href") == "https://explore.openaq.org/"
             desktop.context.route("https://explore.openaq.org/**",
                 lambda route: route.fulfill(status=200,content_type="text/html",body="<title>OpenAQ</title>"))
-            with desktop.expect_popup() as opened:
+            with desktop.context.expect_page(timeout=10000) as opened:
                 search_result.click(force=True)
             opened.value.close()
             assert desktop.locator("#searchCandidates [data-tool-id='openaq']").count() == 1, (
