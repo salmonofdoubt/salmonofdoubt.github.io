@@ -46,6 +46,7 @@ function curved(a,b,bend=.12){const dx=b.x-a.x,dy=b.y-a.y,mx=(a.x+b.x)/2,my=(a.y
 function background(){
  const layer=$('nebula');layer.replaceChildren();
  for(const [dom,d] of Object.entries(domains)){
+  if(state.view==='mobile'&&dom!==state.mobileDomain)continue;
   const {x:cx,y:cy}=hubXY(dom);
   elem('circle',{cx,cy,r:state.view==='mobile'?245:320,fill:'url(#fieldGlow)',opacity:'.7'},layer);
   const tools=state.items.filter(t=>t.domain===dom);
@@ -186,7 +187,7 @@ function drawSearchCandidates(){
  const layer=$('searchCandidates');if(!layer)return;
  layer.replaceChildren();state.searchCoords.clear();
  if(!state.search.trim())return;
- const extras=state.queryResults.hits.filter(h=>!state.nodes.has(h.tool.id));
+ const extras=state.queryResults.hits.filter(h=>!state.nodes.has(h.tool.id)&&(state.view!=='mobile'||h.tool.domain===state.mobileDomain));
  const groups={};for(const h of extras)(groups[h.tool.domain]||=[]).push(h.tool);
  for(const [domain,tools] of Object.entries(groups)){
   if(!domains[domain])continue;const hub=hubXY(domain),rows=Math.ceil(tools.length/2);
@@ -333,10 +334,10 @@ function updateCamera(focus){
 
 function pointInMap(e){const rect=$('graph').getBoundingClientRect(),ratio=Math.min(rect.width/state.W,rect.height/state.H),offX=(rect.width-state.W*ratio)/2,offY=(rect.height-state.H*ratio)/2;return{x:(e.clientX-rect.left-offX)/ratio,y:(e.clientY-rect.top-offY)/ratio}}
 function enableControls(){const svg=$('graph'),stage=$('stage');let down=null;
- svg.addEventListener('pointerdown',e=>{if(e.button!==0&&e.pointerType!=='touch')return;down={x:e.clientX,y:e.clientY,tx:state.tx,ty:state.ty};state.moved=false;state.dragging=false;});
- svg.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(!state.dragging&&Math.hypot(dx,dy)<5)return;state.dragging=true;state.moved=true;svg.setPointerCapture(e.pointerId);stage.classList.add('dragging');$('mapVisual').classList.add('dragging');const r=svg.getBoundingClientRect(),ratio=Math.min(r.width/state.W,r.height/state.H);state.tx=down.tx+dx/ratio;state.ty=down.ty+dy/ratio;updateCamera(false)});
+ svg.addEventListener('pointerdown',e=>{if(state.view==='mobile'&&e.pointerType==='touch')return;if(e.button!==0&&e.pointerType!=='touch')return;down={x:e.clientX,y:e.clientY,tx:state.tx,ty:state.ty};state.moved=false;state.dragging=false;});
+ svg.addEventListener('pointermove',e=>{if(state.view==='mobile'&&e.pointerType==='touch')return;if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(!state.dragging&&Math.hypot(dx,dy)<5)return;state.dragging=true;state.moved=true;svg.setPointerCapture(e.pointerId);stage.classList.add('dragging');$('mapVisual').classList.add('dragging');const r=svg.getBoundingClientRect(),ratio=Math.min(r.width/state.W,r.height/state.H);state.tx=down.tx+dx/ratio;state.ty=down.ty+dy/ratio;updateCamera(false)});
  const stop=()=>{down=null;stage.classList.remove('dragging');$('mapVisual').classList.remove('dragging');state.dragging=false;setTimeout(()=>state.moved=false,0)};svg.addEventListener('pointerup',stop);svg.addEventListener('pointercancel',stop);
- svg.addEventListener('click',e=>{if(!state.moved&&!e.target.closest('.node'))reset()});
+ svg.addEventListener('click',e=>{if(!state.moved&&!e.target.closest('.node')&&!e.target.closest('.search-candidate'))reset()});
  svg.addEventListener('wheel',e=>{e.preventDefault();const pt=pointInMap(e),scale=Math.exp(-e.deltaY*.0012),newZ=Math.min(2.9,Math.max(.72,state.zoom*scale));const localX=(pt.x-state.tx)/state.zoom,localY=(pt.y-state.ty)/state.zoom;state.tx=pt.x-localX*newZ;state.ty=pt.y-localY*newZ;state.zoom=newZ;$('mapVisual').classList.add('dragging');updateCamera(false);clearTimeout(uiTimer);uiTimer=setTimeout(()=>$('mapVisual').classList.remove('dragging'),150)},{passive:false});svg.addEventListener('dblclick',e=>{e.preventDefault();reset()});
  $('closeFocus').onclick=reset;$('resetBtn').onclick=reset;$('homeBrand').onclick=e=>{e.preventDefault();reset()};
  let searchDelay=0;
