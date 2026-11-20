@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "reviewedAt": "2026-11-20",
-  "about": "Curated EnvAI inventory: practical browser tools, account-access apps and installable software are mapped. Research/code-only references remain in JSON. AI classifications are evidence-linked editorial assessments, not claims of independent model audits. Tool candidates discovered automatically remain Unverified until reviewed.",
+  "about": "Curated EnvAI inventory. Practical tools have a documented primary environmental purpose (topic grouping), plus an independent AI classification: Traditional, AI-augmented or AI-native. New discoveries remain unverified until their link, environmental role and classification evidence are reviewed. Research/code-only references stay in the archive.",
   "items": [
     {
       "id": "olmoearth",
@@ -30,7 +30,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "land-change"
     },
     {
       "id": "alphaearth",
@@ -86,7 +87,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "forests-restoration"
     },
     {
       "id": "glen",
@@ -144,7 +146,8 @@
       "baselineEntry": true,
       "accessNote": "Commercial platform; access arrangements may apply.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "forests-restoration"
     },
     {
       "id": "birdnetlive",
@@ -172,7 +175,8 @@
       "baselineEntry": true,
       "accessNote": "Free bird-sound identification app; installation is required.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "birds-migration"
     },
     {
       "id": "wildlifeinsights",
@@ -200,7 +204,8 @@
       "baselineEntry": true,
       "accessNote": "An account is required for some analysis features.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "wildlife-identification"
     },
     {
       "id": "sparrow",
@@ -255,7 +260,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "wildlife-identification"
     },
     {
       "id": "aifs",
@@ -338,7 +344,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "emissions-energy"
     },
     {
       "id": "cdp",
@@ -423,7 +430,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "floods-water-stress"
     },
     {
       "id": "gfw",
@@ -451,7 +459,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "fishing-vessels"
     },
     {
       "id": "sparrow-engine",
@@ -591,7 +600,8 @@
       "baselineEntry": true,
       "accessNote": "Free bird identification app; installation is required.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "birds-migration"
     },
     {
       "id": "perch",
@@ -674,7 +684,8 @@
       "baselineEntry": true,
       "accessNote": "A conservation-organisation account is generally needed.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "conservation-habitats"
     },
     {
       "id": "wildbook",
@@ -757,7 +768,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "land-change"
     },
     {
       "id": "dynamicworld",
@@ -785,7 +797,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "land-change"
     },
     {
       "id": "deepforest",
@@ -954,7 +967,8 @@
       "baselineEntry": true,
       "accessNote": "Full monitoring features require an account; a limited public demonstration is available.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "fishing-vessels"
     },
     {
       "id": "oceanmind",
@@ -983,7 +997,8 @@
       "baselineEntry": true,
       "accessNote": "Professional service; contact the provider for access.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "fishing-vessels"
     },
     {
       "id": "fathomnet",
@@ -1011,7 +1026,8 @@
       "baselineEntry": true,
       "accessNote": "Portal currently seeks early adopters; request access via the provider.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "marine-species"
     },
     {
       "id": "satseabio",
@@ -1122,7 +1138,8 @@
       "baselineEntry": true,
       "accessNote": "Free desktop GIS software to install locally.",
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "earth-observation"
     },
     {
       "id": "gbif",
@@ -1149,7 +1166,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "species-distributions"
     },
     {
       "id": "openstreetmap",
@@ -1176,7 +1194,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "earth-observation"
     },
     {
       "id": "copernicusbrowser",
@@ -1203,7 +1222,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "earth-observation"
     },
     {
       "id": "earthdata",
@@ -1231,7 +1251,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "climate-observations"
     },
     {
       "id": "openaq",
@@ -1258,7 +1279,8 @@
       "toolUse": "online",
       "baselineEntry": true,
       "mapVisible": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "air-quality"
     },
     {
       "id": "hydrosheds",
@@ -1322,7 +1344,8 @@
       "classificationEvidence": "Source describes a geospatial observation viewer; no AI functionality is evidenced.",
       "toolUse": "online",
       "baselineEntry": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "marine-species"
     },
     {
       "id": "whale-insight",
@@ -1394,7 +1417,8 @@
       "classificationEvidence": "The live listening interface is traditional digital; separate OrcaHello automates detection using AI.",
       "toolUse": "online",
       "baselineEntry": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "marine-species"
     },
     {
       "id": "happywhale",
@@ -1431,7 +1455,8 @@
       "classificationEvidence": "The broader citizen-science and data-sharing platform incorporates documented AI image matching.",
       "toolUse": "online",
       "baselineEntry": true,
-      "resourceNote": "Product, user-facing application or installable software; access requirements vary."
+      "resourceNote": "Product, user-facing application or installable software; access requirements vary.",
+      "purpose": "marine-species"
     },
     {
       "id": "orcahello",
@@ -1534,7 +1559,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "climate-observations"
     },
     {
       "id": "c3s-atlas",
@@ -1563,7 +1589,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "climate-observations"
     },
     {
       "id": "c3s-era-explorer",
@@ -1592,7 +1619,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "climate-observations"
     },
     {
       "id": "c3s-thermal-trace",
@@ -1621,7 +1649,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "weather-hazards"
     },
     {
       "id": "ember-electricity",
@@ -1650,7 +1679,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "emissions-energy"
     },
     {
       "id": "climate-central-coastal",
@@ -1679,7 +1709,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "weather-hazards"
     },
     {
       "id": "google-eie",
@@ -1708,7 +1739,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "emissions-energy"
     },
     {
       "id": "electricity-maps",
@@ -1738,7 +1770,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "emissions-energy"
     },
     {
       "id": "carbon-mapper",
@@ -1767,7 +1800,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "emissions-energy"
     },
     {
       "id": "ecmwf-aifs-charts",
@@ -1796,7 +1830,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "weather-hazards"
     },
     {
       "id": "ecmwf-aifs-compo",
@@ -1825,7 +1860,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "air-quality"
     },
     {
       "id": "google-weatherlab",
@@ -1854,7 +1890,8 @@
       "toolUse": "access",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+      "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions.",
+      "purpose": "weather-hazards"
     },
     {
       "id": "nasa-worldview",
@@ -1882,7 +1919,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "earth-observation"
     },
     {
       "id": "nasa-firms",
@@ -1911,7 +1949,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "forests-restoration"
     },
     {
       "id": "copernicus-land-viewer",
@@ -1940,7 +1979,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "land-change"
     },
     {
       "id": "collect-earth-online",
@@ -1969,7 +2009,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "land-change"
     },
     {
       "id": "openforis-sepal",
@@ -1998,7 +2039,8 @@
       "toolUse": "access",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "land-change"
     },
     {
       "id": "global-mangrove-watch",
@@ -2027,7 +2069,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "forests-restoration"
     },
     {
       "id": "glad-global-forest-change",
@@ -2056,7 +2099,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "forests-restoration"
     },
     {
       "id": "ebird-explore",
@@ -2085,7 +2129,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "birds-migration"
     },
     {
       "id": "map-of-life",
@@ -2114,7 +2159,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "species-distributions"
     },
     {
       "id": "protected-planet",
@@ -2143,7 +2189,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "conservation-habitats"
     },
     {
       "id": "natureserve-explorer",
@@ -2171,7 +2218,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "species-distributions"
     },
     {
       "id": "ala-spatial-portal",
@@ -2200,7 +2248,8 @@
       "toolUse": "access",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "species-distributions"
     },
     {
       "id": "birdcast-live",
@@ -2229,7 +2278,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "birds-migration"
     },
     {
       "id": "seek-inaturalist",
@@ -2258,7 +2308,8 @@
       "toolUse": "install",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "wildlife-identification"
     },
     {
       "id": "irish-biodiversity-maps",
@@ -2287,7 +2338,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "species-distributions"
     },
     {
       "id": "aqueduct-water-risk",
@@ -2316,7 +2368,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "floods-water-stress"
     },
     {
       "id": "aqueduct-floods",
@@ -2345,7 +2398,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "floods-water-stress"
     },
     {
       "id": "copernicus-myocean",
@@ -2374,7 +2428,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "ocean-conditions"
     },
     {
       "id": "emodnet-map",
@@ -2403,7 +2458,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "ocean-conditions"
     },
     {
       "id": "epa-ireland-waters",
@@ -2432,7 +2488,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "rivers-water-quality"
     },
     {
       "id": "epa-how-waterway",
@@ -2461,7 +2518,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "rivers-water-quality"
     },
     {
       "id": "jrc-surface-water",
@@ -2490,7 +2548,8 @@
       "toolUse": "online",
       "baselineEntry": false,
       "mapVisible": true,
-      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary.",
+      "purpose": "rivers-water-quality"
     }
   ],
   "presentationPolicy": "Default atlas, search and public news show practical online, account-access or installable tools only. Repository-only, dataset-only and research references remain in the JSON for transparency. This is editorial screening, NOT a live functional-access guarantee."
