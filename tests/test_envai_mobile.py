@@ -56,6 +56,37 @@ def check_page(page, width, height):
     page.wait_for_timeout(300)
     assert page.locator("#mobileFields [data-field='Biodiversity & wildlife']").get_attribute("aria-pressed") == "true", "Search must switch to matching field"
 
+def check_pending_result(page):
+    # Recreate the user's screenshot deterministically: one fresh, unverified
+    # lead is expanded and then tapped. The atlas must remain expanded.
+    example={"schemaVersion":1,"releaseEvents":[],"toolHealth":{},
+      "leads":[{"id":"fixture-fish","title":"Example Fish Tracker",
+        "domain":"Water & oceans","accessType":"web","siteReachable":True,
+        "url":"https://example.org/fish","evidence":"https://example.org/evidence",
+        "note":"A discovered environmental website awaiting review.",
+        "tags":["fish"]}]}
+    page.route("**/data/live-updates.json*",
+        lambda route:route.fulfill(json=example))
+    page.goto("http://127.0.0.1:8897/demos/envai/",wait_until="domcontentloaded")
+    page.locator("#nodes .node").first.wait_for(timeout=20000)
+    page.locator("#mobileFields [data-field='Water & oceans']").click()
+    group=page.locator("#nodes [data-id='group:water-oceans:review']")
+    group.wait_for(timeout=10000)
+    group.click(force=True)
+    result=page.locator("#nodes [data-id='lead:fixture-fish']")
+    result.wait_for(timeout=10000)
+    assert result.evaluate("(el) => el.tagName.toLowerCase()") == "a"
+    assert result.get_attribute("href") == "https://example.org/fish"
+    page.context.route("https://example.org/fish",
+        lambda route:route.fulfill(status=200,content_type="text/html",body="<title>Example Fish Tracker</title>"))
+    with page.expect_popup() as opened:
+        result.tap(force=True)
+    opened.value.close()
+    assert result.count()==1, "Tapping a discovery must not collapse its explosion"
+    assert page.locator("#nodes [data-id='group:water-oceans:review']").count()==1
+    assert page.locator("#focusInfo").is_visible(), "Topic details must remain available"
+
+
 def main():
     handler = functools.partial(QuietHandler, directory=str(ROOT))
     server = ThreadingHTTPServer(("127.0.0.1", 8897), handler)
@@ -97,12 +128,45 @@ def main():
             assert desktop.locator("#edges .hubline[data-b='trace']").count() == 0, (
                 "An individual tool must not bypass its environmental topic")
             assert desktop.locator("#nodes [data-id='trace']").count() == 1
+            # A tool is a real outbound link, never another select() operation.
+            # Opening it must leave the underlying topic fan-out intact.
+            trace=desktop.locator("#nodes [data-id='trace']")
+            assert trace.evaluate("(el) => el.tagName.toLowerCase()") == "a"
+            assert trace.get_attribute("href") == "https://climatetrace.org/explore"
+            assert trace.get_attribute("target") == "_blank"
+            desktop.context.route("https://climatetrace.org/**",
+                lambda route: route.fulfill(status=200,content_type="text/html",body="<title>Climate TRACE</title>"))
+            with desktop.expect_popup() as opened:
+                trace.click(force=True)
+            popup=opened.value
+            popup.close()
+            assert desktop.locator("#nodes [data-id='trace']").count() == 1, (
+                "Opening a tool must not retract the expanded topic")
+            assert desktop.locator("#nodes [data-id='group:climate-energy:emissions-energy']").count() == 1
             desktop.screenshot(path="/tmp/envai-climate-augmented.png", full_page=True)
+
+            # Search results have the same single-tap outbound behaviour.
+            desktop.locator("#search").fill("OpenAQ")
+            search_result=desktop.locator("#searchCandidates [data-tool-id='openaq']")
+            search_result.wait_for(timeout=10000)
+            assert search_result.evaluate("(el) => el.tagName.toLowerCase()") == "a"
+            assert search_result.get_attribute("href") == "https://explore.openaq.org/"
+            desktop.context.route("https://explore.openaq.org/**",
+                lambda route: route.fulfill(status=200,content_type="text/html",body="<title>OpenAQ</title>"))
+            with desktop.expect_popup() as opened:
+                search_result.click(force=True)
+            opened.value.close()
+            assert desktop.locator("#searchCandidates [data-tool-id='openaq']").count() == 1, (
+                "Opening a search hit must preserve search results")
+            desktop.locator("#search").fill("")
             desktop.locator("#hubs [data-id='hub:Climate & energy']").click(force=True)
             assert desktop.locator("#nodes [data-id='trace']").count() == 0, (
                 "Clicking field hub must collapse expanded tools")
+            phone=browser.new_page(viewport={"width":390,"height":844},has_touch=True,is_mobile=True)
+            check_pending_result(phone)
+            phone.close()
             browser.close()
-        print("PASS: mobile 320/390/680 and desktop, 16 purpose nodes, Climate TRACE nested, topic fan-out, no overflow")
+        print("PASS: mobile 320/390/680 + desktop; individual tools, search hits and mobile unverified results open without collapsing; versioned layout")
     finally:
         server.shutdown()
         server.server_close()
