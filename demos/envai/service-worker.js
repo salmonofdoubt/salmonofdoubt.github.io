@@ -1,8 +1,8 @@
 /* EnvAI offline support. Network-first for editorial content and source files;
    local revisions should not silently be masked by an old cached version. */
-const CACHE='sod-envai-v26-all-fields';
+const CACHE='sod-envai-v27-mobile-fields';
 const ASSETS=[
- './','./index.html','./styles.css?v=all-fields-1','./app.js?v=all-fields-1',
+ './','./index.html','./styles.css?v=all-fields-1','./mobile.css?v=mobile-1','./app.js?v=mobile-1',
  './cluster-model.js?v=all-fields-1','./semantic-search.js?v=envai-guide-1','./live-data.js?v=quality-1','./site-config.js','./header-controls.css?v=header-1','./header-secondary.js?v=header-1',
  './how-it-works.html','./how-it-works.css?v=guide-1','./how-it-works.js?v=all-fields-1',
  './whats-new.html','./whats-new.js?v=quality-2','./news.css?v=envai-guide-1',
