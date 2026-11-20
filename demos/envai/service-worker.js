@@ -1,10 +1,10 @@
 /* EnvAI offline support. Network-first for editorial content and source files;
    local revisions should not silently be masked by an old cached version. */
-const CACHE='sod-envai-v29-purpose-topics';
+const CACHE='sod-envai-v30-b2026.11.20.01';
 const ASSETS=[
- './','./index.html','./styles.css?v=topics-1','./mobile.css?v=topics-1','./app.js?v=topics-1',
- './cluster-model.js?v=topics-1','./semantic-search.js?v=envai-guide-1','./live-data.js?v=quality-1','./site-config.js','./header-controls.css?v=header-1','./header-secondary.js?v=header-1',
- './how-it-works.html','./how-it-works.css?v=guide-1','./how-it-works.js?v=topics-1',
+ './','./index.html','./styles.css?v=b2026.11.20.01','./mobile.css?v=b2026.11.20.01','./app.js?v=b2026.11.20.01',
+ './cluster-model.js?v=b2026.11.20.01','./semantic-search.js?v=envai-guide-1','./live-data.js?v=quality-1','./site-config.js','./header-controls.css?v=header-1','./header-secondary.js?v=header-1',
+ './how-it-works.html','./how-it-works.css?v=guide-1','./how-it-works.js?v=b2026.11.20.01',
  './whats-new.html','./whats-new.js?v=quality-2','./news.css?v=envai-guide-1',
  './data/tools.json','./data/discoveries.json','./data/live-updates.json',
  './icon.svg','./icon-192.png','./icon-512.png','./manifest.webmanifest'
