@@ -45,6 +45,13 @@ def validate():
     assert cache.group(2)==build, "Build stamp differs from PWA cache build"
     base=os.getenv("ENVAI_BASE_SHA","").strip()
     if base:
+        # Shallow CI checkouts need only one extra base commit, not the entire
+        # repository history. Fetch it explicitly when it is absent.
+        present=subprocess.run(["git","cat-file","-e",f"{base}^{{commit}}"],
+                               capture_output=True,check=False)
+        if present.returncode:
+            subprocess.run(["git","fetch","--no-tags","--depth=1","origin",base],
+                           capture_output=True,text=True,check=True)
         old_html=subprocess.run(["git","show",f"{base}:demos/envai/index.html"],
                  capture_output=True,text=True,check=True).stdout
         old_sw=subprocess.run(["git","show",f"{base}:demos/envai/service-worker.js"],
