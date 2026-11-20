@@ -4,7 +4,7 @@ const $=id=>document.getElementById(id); const NS='http://www.w3.org/2000/svg';
 const types={'AI-native':'native','AI-augmented':'augmented','Traditional digital':'digital','Unverified':'unverified'};
 const classColors={native:'#FFA56B',augmented:'#F2F178',digital:'#76C0FF',unverified:'#B9B6D0'};
 const domains={
- 'Biodiversity & wildlife':{name:'NATURE',short:'Nature',color:'#92e5c1',cx:340,cy:440,mx:195,my:300},
+ 'Biodiversity & wildlife':{name:'NATURE',short:'Nature',color:'#92e5c1',cx:410,cy:440,mx:195,my:300},
  'Land & satellites':{name:'LAND',short:'Land',color:'#c9a6ef',cx:1010,cy:355,mx:550,my:300},
  'Climate & energy':{name:'CLIMATE',short:'Climate',color:'#f7bf8f',cx:1150,cy:735,mx:545,my:770},
  'Water & oceans':{name:'WATER',short:'Water',color:'#7fbef0',cx:460,cy:770,mx:220,my:785}
