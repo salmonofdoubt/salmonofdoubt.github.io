@@ -345,7 +345,7 @@
  * touch-friendly browsing in the shared modal on small screens. */
 .node.category-node .outer{stroke:var(--class-color,#b9b6d0);stroke-width:2;stroke-opacity:.75;stroke-dasharray:3 4}
 .node.category-node .inner{fill:var(--class-color,#b9b6d0);fill-opacity:.6}
-.node.category-node .group-name{font:600 14px/1 'DM Sans',sans-serif;fill:var(--class-color,#b9b6d0);stroke:#09121e;stroke-width:3.5px;paint-order:stroke fill;pointer-events:none;opacity:.93}
+.node.category-node .group-name{font:600 14px/1 'DM Sans',sans-serif;fill:var(--class-color,#b9b6d0);stroke:#09121e;stroke-width:3.5px;paint-order:stroke fill;pointer-events:visiblePainted;cursor:pointer;opacity:.93}
 .node.category-node:hover .group-name,.node.category-node.selected .group-name{opacity:1;fill:#f4fff8}
 .node.category-node .tool-chip{display:none}
 .group-browser{display:grid;gap:4px;margin:16px 0 0;max-height:min(52vh,420px);overflow:auto}
