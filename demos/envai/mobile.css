@@ -1,0 +1,166 @@
+/* EnvAI mobile experience.
+ * Desktop keeps its original four-field constellation and visual treatment.
+ * On narrow screens the page scrolls naturally: header, introduction, four
+ * accessible field selectors, one readable constellation, then details.
+ * This avoids shrinking the desktop atlas into a phone viewport.
+ */
+.mobile-fields{display:none}
+@media (max-width:690px){
+  html,body{min-width:0;width:100%;overflow-x:hidden;overflow-y:auto}
+  #app{display:flex;flex-direction:column;min-height:100dvh;overflow:visible}
+  #app .topbar{
+    order:0;position:relative;width:100%;height:auto;min-height:0;
+    display:grid;grid-template-columns:minmax(0,1fr);
+    grid-template-rows:36px 62px 40px;gap:7px;
+    align-items:center;padding:10px 12px 12px;z-index:30
+  }
+  #app .brand{grid-column:1;grid-row:1;justify-self:center;min-width:0;gap:8px}
+  #app .brand-symbol{width:33px;height:33px;flex:none}
+  #app .brand-main{font-size:23px;white-space:nowrap}
+  #app .brand-by{display:none}
+  #app .nav{
+    grid-column:1;grid-row:2;min-width:0;display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,29px);
+    gap:4px 6px;justify-content:stretch;align-items:stretch;
+    width:min(100%,440px);justify-self:center;
+    align-content:stretch;flex-wrap:nowrap
+  }
+  #app .nav>*{
+    display:flex;justify-content:center;align-items:center;width:100%;
+    min-width:0;min-height:29px;max-height:29px;
+    border-radius:7px;padding:4px 5px;font-size:10.5px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  }
+  #app .nav .new-link{padding:4px 5px;font-size:10.5px;gap:5px;
+    border:1px solid #ffffff26;background:#10202a99;border-radius:7px}
+  #app .nav .news-count{min-width:17px;width:auto;height:17px;line-height:17px;font-size:9px}
+  #app .topsearch{
+    grid-column:1;grid-row:3;width:min(100%,560px);justify-self:center;min-width:0;height:40px;
+    padding:0 12px;background:#0e1f298c;border-radius:9px
+  }
+  #app .topsearch input{min-width:0;font-size:13px}
+  #app .shortcut{display:none}
+  #app .menu.shell-menu{
+    top:calc(100% - 1px);right:12px;width:min(270px,calc(100vw - 24px))
+  }
+
+  /* The title has its own space. It must never sit over nodes or outlines. */
+  #app .map-intro{
+    position:relative;order:1;left:auto;top:auto;right:auto;bottom:auto;
+    width:100%;margin:0;padding:13px 16px 7px;z-index:3;
+    min-height:74px;opacity:1;transform:none;transition:none;pointer-events:none
+  }
+  #app .map-intro .tiny-label{font-size:9px;letter-spacing:1.6px;line-height:1.3}
+  #app .map-intro .dash{width:14px;margin-right:6px}
+  #app .map-intro h1{
+    max-width:none;margin:5px 0 0;font-size:clamp(21px,5.7vw,27px);
+    line-height:1.18;letter-spacing:-.8px;font-weight:560;white-space:normal
+  }
+  #app .map-intro h1 br{display:none}
+  #app .map-intro h1 em::before{content:" "}
+  #app .map-intro p{display:none}
+  #app.has-focus .map-intro,#app.has-search .map-intro,
+  #app.has-focus .map-intro h1,#app.has-focus .map-intro p{
+    display:block;opacity:1;transform:none
+  }
+
+  /* The four fields are a compact, thumb-sized switcher, not four tiny maps. */
+  #app .mobile-fields{
+    order:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:5px;padding:5px 12px 9px;width:100%;max-width:570px;align-self:center;z-index:4
+  }
+  #app .field-tab{
+    min-width:0;min-height:45px;border:1px solid #607b8380;border-radius:10px;
+    background:#101e29;color:#9db4bc;display:flex;flex-direction:column;
+    gap:2px;align-items:center;justify-content:center;padding:5px 2px;
+    transition:background .15s,border-color .15s
+  }
+  #app .field-tab .field-name{font-size:11px;font-weight:750;letter-spacing:.1px}
+  #app .field-tab .field-count{font-size:10px;color:#819da5;font-variant-numeric:tabular-nums}
+  #app .field-tab.active{background:#163b3b;border-color:#8af2cf;color:#effff6}
+  #app .field-tab.active .field-count{color:#baf9df}
+  #app .field-tab:focus-visible{outline:2px solid #b9ffe3;outline-offset:2px}
+
+  /* A full-width, genuinely legible single-field SVG. Scrolling the page
+     remains native; drag-to-pan only applies when the pointer starts on a node. */
+  #app .map-stage.map-stage{
+    order:3;position:relative;inset:auto;top:auto;bottom:auto;
+    flex:none;width:100%;height:clamp(365px,106vw,485px);
+    min-height:365px;max-height:none;overflow:hidden;touch-action:pan-y;
+    border-top:1px solid #ffffff0b;border-bottom:1px solid #ffffff13
+  }
+  #app .map-stage svg{
+    display:block;width:100%;height:100%;max-width:510px;margin:0 auto;
+    touch-action:pan-y;cursor:default
+  }
+  #app .map-stage::before{display:none}
+  #app .map-stage::after{background:radial-gradient(circle at 50% 50%,#83ffee09,transparent 58%)}
+  #app .node.category-node .group-name{
+    font-size:18px;letter-spacing:.3px;pointer-events:visiblePainted
+  }
+  #app .node.tool .touch-target{pointer-events:fill;cursor:pointer}
+  #app .node.hub .node-label{font-size:23px}
+  #app .node.hub .sub-label{font-size:10px;letter-spacing:1.5px}
+  #app .map-stats{display:none}
+  #app .search-caption{top:8px;max-width:92%;white-space:normal;font-size:11px;text-align:center}
+  #app .tooltip{display:none}
+
+  /* The information rail follows the map in document flow; it never steals
+     the space used by the constellation, even on short-height phones. */
+  #app .map-footer{
+    order:4;position:relative;bottom:auto;left:auto;right:auto;
+    width:100%;max-width:none;padding:8px 16px 13px;
+    display:flex;justify-content:center;z-index:5;min-height:27px
+  }
+  #app .map-footer .hint{display:none}
+  #app .control-reset{min-height:38px;justify-content:center;padding:7px 13px}
+  #app .focus-info{
+    order:5;position:relative;left:auto;right:auto;top:auto;bottom:auto;
+    width:100%;max-width:none;max-height:none;min-height:0;
+    margin:0;padding:15px 42px 17px 15px;
+    display:none;flex-direction:column;justify-content:flex-start;gap:11px;
+    opacity:0;transform:none;pointer-events:none;
+    background:#0c212af5;border:0;border-top:1px solid #9cf5d23d;
+    border-radius:0;box-shadow:none;backdrop-filter:none;scroll-margin-bottom:12px
+  }
+  #app.has-focus .focus-info{display:flex;opacity:1;transform:none;pointer-events:auto}
+  #app .focus-content{width:100%;max-width:none;min-width:0;display:grid;
+    grid-template-columns:35px minmax(0,1fr) auto;column-gap:9px;align-items:center}
+  #app .focus-glyph{width:33px;height:33px}
+  #app .focus-title{font-size:15px;white-space:normal;overflow:visible}
+  #app .focus-pill{font-size:8px}
+  #app .focus-sub{white-space:normal;overflow:visible;line-height:1.45}
+  #app .focus-footer{white-space:normal;line-height:1.35}
+  #app .focus-visit{min-height:39px;min-width:39px;padding:0 9px;font-size:0;
+    gap:0;justify-content:center}
+  #app .focus-visit .link-icon{font-size:18px}
+  #app .focus-group-trigger{font-size:0;min-width:39px;height:39px}
+  #app .focus-group-trigger::after{content:"☷";font-size:22px}
+  #app .focus-clear{right:7px;top:7px;min-width:30px;min-height:30px}
+  #app .class-key,#app .class-key[data-offscreen="true"]{
+    position:relative!important;top:auto!important;left:auto!important;
+    bottom:auto!important;width:100%;max-width:100%;padding:9px 0 0;
+    border-left:0;border-top:1px solid #a6f7df25;display:flex;
+    flex-wrap:wrap;align-items:center;gap:5px 10px
+  }
+  #app .class-key-heading{margin:0;font-size:8px}
+  #app .class-key-items{display:flex;flex-wrap:wrap;gap:7px 12px}
+  #app .class-key-item{font-size:10px}
+  #app .group-browser{max-height:50dvh}
+  #app .group-browser-row button{min-height:42px}
+  #app .group-browser-row a{min-height:38px;display:inline-flex;align-items:center}
+  #app .toast{position:fixed;top:auto;bottom:12px;left:50%;
+    max-width:calc(100vw - 32px);white-space:normal;text-align:center;z-index:45}
+
+  /* The site can scroll vertically, but no element may escape phone width. */
+  #app .modal{max-width:calc(100vw - 24px)}
+}
+@media (max-width:370px){
+  #app .topbar{padding-left:9px;padding-right:9px}
+  #app .nav{column-gap:3px}
+  #app .nav>*{font-size:9.7px;padding-left:3px;padding-right:3px}
+  #app .field-tab .field-name{font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  #app .field-tab{transition:none}
+}

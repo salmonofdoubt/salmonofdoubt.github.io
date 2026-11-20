@@ -14,6 +14,7 @@
 <script defer src="./cluster-model.js?v=all-fields-1"></script>
 <link rel="stylesheet" href="./styles.css?v=all-fields-1">
 <link rel="stylesheet" href="./header-controls.css?v=header-1">
+<link rel="stylesheet" href="./mobile.css?v=mobile-1">
 </head>
 <body>
 <a class="skip-map" href="./whats-new.html">View the latest tools in a list</a>
@@ -36,6 +37,12 @@
     <div class="tooltip" id="tooltip" hidden></div>
   </section>
   <div class="map-intro"><div class="tiny-label"><span class="dash"></span>A LIVING TECHNOLOGY ATLAS</div><h1>Everything is<br><em>connected.</em></h1><p>Environmental science, digital tools and AI — all in one picture. Click any point to see its world light up.</p></div>
+  <nav class="mobile-fields" id="mobileFields" aria-label="Choose environmental field">
+    <button type="button" class="field-tab active" data-field="Biodiversity &amp; wildlife" aria-pressed="true" aria-controls="graph"><span class="field-name">Nature</span><span class="field-count" aria-label="tools">…</span></button>
+    <button type="button" class="field-tab" data-field="Land &amp; satellites" aria-pressed="false" aria-controls="graph"><span class="field-name">Land</span><span class="field-count" aria-label="tools">…</span></button>
+    <button type="button" class="field-tab" data-field="Climate &amp; energy" aria-pressed="false" aria-controls="graph"><span class="field-name">Climate</span><span class="field-count" aria-label="tools">…</span></button>
+    <button type="button" class="field-tab" data-field="Water &amp; oceans" aria-pressed="false" aria-controls="graph"><span class="field-name">Water</span><span class="field-count" aria-label="tools">…</span></button>
+  </nav>
   <div class="map-stats" id="stats"><strong id="totalNum">…</strong> TECHNOLOGIES <span aria-hidden="true">·</span> 4 FIELDS<small>Connections reflect shared purpose, data &amp; methods</small></div>
   <div class="toast" id="toast" aria-live="polite"></div><div class="search-caption" id="searchCaption" hidden></div>
   <aside class="focus-info" id="focusInfo" aria-live="polite"><div id="focusContent" class="focus-content"></div><aside class="class-key" aria-label="Technology classification colours">
@@ -52,6 +59,6 @@
   
 </div>
 <dialog id="dialog" class="modal"><button id="dialogClose" class="x" aria-label="Close dialog">×</button><div id="dialogBody"></div></dialog>
-<script defer src="./app.js?v=all-fields-1"></script>
+<script defer src="./app.js?v=mobile-1"></script>
 </body>
 </html>

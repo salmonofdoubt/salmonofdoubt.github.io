@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/envai_auto_update.py'
       - 'tests/test_envai_auto_update.py'
+      - 'tests/test_envai_mobile.py'
       - 'demos/envai/**'
       - '.github/workflows/envai-quality-ci.yml'
   workflow_dispatch:
@@ -15,7 +16,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -34,3 +35,19 @@ jobs:
         run: node tests/envai_cluster_model.test.cjs
       - name: Test discovery and retirement behaviour
         run: python3 -m unittest discover -s tests -p 'test_envai_auto_update.py' -v
+      - name: Prepare headless browser for viewport tests
+        run: |
+          python3 -m pip install --quiet playwright
+          python3 -m playwright install --with-deps chromium
+      - name: Test mobile and desktop viewports in real Chromium
+        run: python3 tests/test_envai_mobile.py
+      - name: Keep layout screenshots for visual review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: envai-layout-screenshots
+          path: |
+            /tmp/envai-mobile-*.png
+            /tmp/envai-desktop.png
+          if-no-files-found: ignore
+          retention-days: 3
