@@ -64,7 +64,7 @@ DOMAIN_HINTS = {
 }
 MAX_LEADS, MAX_RELEASES, LOOKBACK_DAYS = 90, 120, 90
 MAX_SITE_PROBES = 16  # GitHub discovery: limited low-priority website checks.
-MAX_DIRECTORY_PROBES = 24  # Official tool directories have priority.
+MAX_DIRECTORY_PROBES = 48  # Shared budget with per-source and per-domain caps.
 # Provider-curated tool listings, not generic search results or research papers.
 DIRECTORIES = (
     ('Google Sustainability', 'https://sustainability.google/technology/tools/', ('explore tool',)),
@@ -74,7 +74,28 @@ DIRECTORIES = (
     ('Space for Climate Observatory', 'https://www.spaceclimateobservatory.org/tools/all/all',
      ('open the app', 'see the *', 'access the *', 'view the *',
       'see * demonstrator', 'see * platform')),
+    ('WRI Aqueduct applications', 'https://www.wri.org/aqueduct/tools', ('launch tool',)),
+    ('Open Foris applications', 'https://www.openforis.org/', ('launch *',)),
+    ('Atlas of Living Australia services', 'https://www.ala.org.au/sites-and-services/',
+     ('spatial portal', 'biocollect', 'fishmap', 'explore your area', 'species list')),
+    ('EPA Ireland map services', 'https://gis.epa.ie/SeeMaps',
+     ('water maps', 'epa maps', 'my local environment',
+      'beaches.ie bathing water quality', 'environment & wellbeing')),
+    ('Copernicus Marine services', 'https://data.marine.copernicus.eu/',
+     ('myocean pro', 'myocean light', 'myocean health', 'explore viewer')),
 )
+# A provider-directory field cue is not a machine-learning or AI classification.
+SOURCE_DOMAINS = {
+    'WRI Aqueduct applications': 'Water & oceans',
+    'Open Foris applications': 'Land & satellites',
+    'Atlas of Living Australia services': 'Biodiversity & wildlife',
+    'EPA Ireland map services': 'Water & oceans',
+    'Copernicus Marine services': 'Water & oceans',
+    'NASA Landsat data tools': 'Land & satellites',
+    'FathomNet solutions': 'Water & oceans',
+}
+MAX_NEW_PER_SOURCE = 6
+MAX_NEW_PER_DOMAIN = 12
 
 # Product-like metadata is a filter, not proof that an application works.
 TOOL_SIGNALS = (
