@@ -153,6 +153,12 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
    },n);
    gTool.style.setProperty('--nodeColor',color);
    gTool.style.setProperty('--class-color',t._purpose?color:classColors[AI]);
+   if(url){
+    // SVG link bounds include an unpainted gap between the symbol and label.
+    // This transparent painted hit area makes both reliably clickable.
+    elem('rect',{x:-22,y:-22,width:168,height:45,fill:'transparent',
+      'pointer-events':'all',class:'tool-link-hitarea','aria-hidden':'true'},gTool);
+   }
   if(state.view==='mobile')elem('circle',{r:29,fill:'transparent',class:'touch-target'},gTool);
   elem('circle',{r:17,fill:'none',stroke:color,'stroke-opacity':'.20','stroke-width':'1.2',class:'outer'},gTool);
   elem('circle',{r:8,fill:t._purpose?color:AI==='native'?color:AI==='augmented'?color:'#09121e','fill-opacity':t._purpose?'.46':AI==='native'?'.83':AI==='augmented'?'.2':'1',stroke:t._purpose?color:classColors[AI], 'stroke-opacity':AI==='unverified'&&!t._purpose?'.3':'.85','stroke-width':t._purpose?'2':AI==='digital'?'1.5':'1.2','stroke-dasharray':t._pending?'2 3':null,class:'inner'},gTool);
