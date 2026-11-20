@@ -71,9 +71,11 @@ assert.equal(bigExpanded.groups.get(bigNative.id)._members.length,bigNative._mem
 const small=[{id:'unique-augmented',title:'Only one',domain:fields[0],
  aiType:'AI-augmented',mapVisible:true,toolUse:'online',url:'https://example.org/one'}];
 const one=model.organise(small,fields);
-assert.equal(one.items.length,1,'single-tool AI category is still a category node');
-assert.equal(one.items[0]._members[0],'unique-augmented');
-assert.equal(one.items[0]._group,true);
+assert.equal(one.items.length,3,'all three AI categories remain even for singleton fields');
+assert.ok(one.items.every(x=>x._group),'no direct tool exceptions');
+assert.equal(one.items.find(x=>x.aiType==='AI-augmented')._members[0],'unique-augmented');
+assert.ok(one.items.filter(x=>x._empty).length===2,'zero-tool categories are explicit');
+assert.ok(one.items.filter(x=>x._empty).every(x=>x._members.length===0));
 
 const leads=Array.from({length:42},(_,i)=>({
  id:'lead:candidate-'+i,title:'Review tool '+i,
