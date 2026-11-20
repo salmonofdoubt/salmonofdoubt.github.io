@@ -146,8 +146,27 @@ def main():
             }""",bounds_trace)
             assert pointer_target["node"]=="trace", (
                 f"SVG tool is visually obstructed / not hit-testable: {pointer_target}")
-            with desktop.context.expect_page(timeout=5000) as opened:
-                trace.click()
+            desktop.evaluate("""() => {
+              window.__envaiTraceEvents=[];
+              const el=document.querySelector("#nodes [data-id='trace']");
+              el.addEventListener("click", ev => window.__envaiTraceEvents.push({
+                type:"capture", trusted:ev.isTrusted, prevented:ev.defaultPrevented,
+                target:ev.target?.tagName, href:el.getAttribute("href")
+              }),true);
+              el.addEventListener("click", ev => window.__envaiTraceEvents.push({
+                type:"bubble", trusted:ev.isTrusted, prevented:ev.defaultPrevented
+              }));
+            }""")
+            try:
+                with desktop.context.expect_page(timeout=5000) as opened:
+                    trace.click(timeout=5500)
+            except Exception as exc:
+                data=desktop.evaluate("""() => ({
+                  events:window.__envaiTraceEvents,
+                  pages:window.open ? "window.open available" : "no window.open",
+                  selected:document.querySelector("#nodes [data-id='trace']")?.classList.value
+                })""")
+                raise AssertionError(f"Real tool click failed: hit={pointer_target}, diagnostics={data}") from exc
             popup=opened.value
             popup.close()
             assert desktop.locator("#nodes [data-id='trace']").count() == 1, (
