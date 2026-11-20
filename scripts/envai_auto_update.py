@@ -330,7 +330,7 @@ class OfficialToolLinks(HTMLParser):
                 elif label.startswith('launch '):
                     title=label.removeprefix('launch ').title()
                 elif label.startswith(('see the ','access the ','view the ')):
-                    title=label.split(' ',2)[-1].title()
+                    title=self.heading or label.split(' ',2)[-1].title()
                 else:
                     title=label.title()
                 if 3 <= len(title) <= 100:
@@ -655,14 +655,21 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
                    key=lambda e:(e.get('discoveredAt',''),e['id']),reverse=True)
     per_field={field:0 for field in DOMAIN_HINTS}
     leads=[]
+    unassigned=[]
     for entry in ordered:
         field=entry.get('domain')
-        if field not in per_field or per_field[field]>=MAX_LEADS//len(per_field):
+        if field not in per_field:
+            # Preserve historical, validated website leads with no field metadata.
+            # They remain unclassified and cannot enter a field constellation.
+            unassigned.append(entry)
+            continue
+        if per_field[field]>=MAX_LEADS//len(per_field):
             continue
         leads.append(entry)
         per_field[field]+=1
         if len(leads)>=MAX_LEADS:
             break
+    leads.extend(unassigned[:max(0, MAX_LEADS-len(leads))])
     status='ok' if sources_ok and not sources_failed else 'partial' if sources_ok else 'error'
     tool_health = (update_health(previous, catalogue, health_probe, today)
                    if health_probe else previous.get('toolHealth', {}))
