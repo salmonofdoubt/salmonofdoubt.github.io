@@ -46,7 +46,7 @@ function mergeCatalog(curated,live){
  // Candidates join *search only*, remain clearly Unverified, and never join
  // the default star map. Its cap and existing node positions are preserved.
  const knownUrls=new Set(rows.map(t=>String(t.url||'').toLowerCase().replace(/\/$/,'')));
- for(const r of (live?.leads||[]).slice(0,90)){
+ for(const r of (live?.leads||[]).slice(0,120)){
   if(!r.id||!r.title||!r.domain||!validLink(r.url)||r.accessType!=='web'||r.siteReachable!==true||!isToolSite(r.url))continue;
   if(knownUrls.has(r.url.toLowerCase().replace(/\/$/,'')))continue;
   rows.push({id:'lead:'+r.id,title:String(r.title).slice(0,150),

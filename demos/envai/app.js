@@ -9,8 +9,8 @@ const domains={
  'Climate & energy':{name:'CLIMATE',short:'Climate',color:'#f7bf8f',cx:1150,cy:735,mx:545,my:770},
  'Water & oceans':{name:'WATER',short:'Water',color:'#7fbef0',cx:460,cy:770,mx:220,my:785}
 };
-const state={catalog:[],searchIndex:[],queryResults:{hits:[],total:0,dominantDomain:null},searchCoords:new Map(),items:[],edges:[],nodes:new Map(),links:new Map(),selected:null,selectedType:null,search:'',view:'desktop',W:1550,H:930,zoom:1,tx:0,ty:0,dragging:false,lastPt:null,moved:false};
-const MAP_LIMIT_PER_FIELD=15; // no catalogue growth can overcrowd the overview
+const state={catalog:[],searchIndex:[],queryResults:{hits:[],total:0,dominantDomain:null},searchCoords:new Map(),items:[],edges:[],nodes:new Map(),links:new Map(),groupMap:new Map(),openGroup:null,selected:null,selectedType:null,search:'',view:'desktop',W:1550,H:930,zoom:1,tx:0,ty:0,dragging:false,lastPt:null,moved:false};
+const GROUP_THRESHOLD=10; // group dense fields by AI type; never discard tools
 const publicTool=t=>['online','install','access'].includes(t.toolUse); // reference items stay in JSON, not the experience
 const SEARCH_LIMIT=6; // temporary, query-specific labels; never all search results
 const lookupTool=id=>state.catalog.find(t=>t.id===String(id||'').replace(/^search:/,''));
@@ -23,7 +23,7 @@ function sortscore(a,b){const A=new Set(a.signals||[]),B=new Set(b.signals||[]);
  const sameDomain=a.domain===b.domain,sameCap=a.capability===b.capability;
  return (sameDomain?1.2:0)+(sameCap?3:0)+sig*3.8+Math.min(tags,3)*2.4+(a.aiType===b.aiType?.25:0)}
 function reason(a,b){const shared=(a.signals||[]).filter(x=>(b.signals||[]).includes(x));if(shared.length)return shared[0].toLowerCase();if(a.capability===b.capability)return a.capability.toLowerCase();const sharedTags=(a.tags||[]).filter(x=>(b.tags||[]).includes(x));if(sharedTags.length)return sharedTags[0].toLowerCase();if(a.domain===b.domain)return 'shared environmental field';return 'related workflow'}
-function initEdges(){const links=new Map();for(const a of state.items){const scored=state.items.filter(b=>b.id!==a.id).map(b=>({b,score:sortscore(a,b)})).sort((a,b)=>b.score-a.score);let chosen=scored.filter(x=>x.score>=3.4).slice(0,3);if(chosen.length<2)chosen=scored.slice(0,2);
+function initEdges(){const links=new Map();const actual=state.items.filter(t=>!t._group);for(const a of actual){const scored=actual.filter(b=>b.id!==a.id).map(b=>({b,score:sortscore(a,b)})).sort((a,b)=>b.score-a.score);let chosen=scored.filter(x=>x.score>=3.4).slice(0,3);if(chosen.length<2)chosen=scored.slice(0,2);
   for(const {b,score} of chosen){const key=[a.id,b.id].sort().join('|');if(!links.has(key))links.set(key,{a:a.id,b:b.id,score,why:reason(a,b),cross:a.domain!==b.domain})}}
  state.edges=[...links.values()].sort((a,b)=>b.score-a.score).filter(x=>x.score>2.9).slice(0,115);
  state.links.clear();for(const t of state.items)state.links.set(t.id,new Set());for(const e of state.edges){state.links.get(e.a).add(e.b);state.links.get(e.b).add(e.a)}
@@ -66,9 +66,9 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
  for(const link of state.edges){const path=elem('path',{d:curved(coords.get(link.a),coords.get(link.b),.23),class:'line'+(link.cross?' cross':''),'data-a':link.a,'data-b':link.b},g);link.el=path}
  for(const [dom,d] of Object.entries(domains)){const p=hubXY(dom);for(const t of state.items.filter(x=>x.domain===dom)){const path=elem('path',{d:curved(p,coords.get(t.id),0),class:'line hubline','data-a':'hub:'+dom,'data-b':t.id},g);path.dataset.hub=dom}
  const r=state.view==='mobile'?40:57;const group=elem('g',{class:'node hub','data-id':'hub:'+dom,role:'button',tabindex:'0','aria-label':`Show ${d.short} tools`,transform:`translate(${p.x},${p.y})`},hubs);
- elem('circle',{r:r+20,fill:'none',stroke:d.color,'stroke-opacity':'.16','stroke-width':'1','class':'hub-arc'},group);elem('circle',{r,fill:d.color,'fill-opacity':'.045',stroke:d.color,'stroke-opacity':'.7','stroke-width':'1.3','class':'outer'},group);elem('circle',{r:12,fill:d.color,'fill-opacity':'.1',stroke:d.color,'stroke-opacity':'.4'},group);elem('text',{y:-8,'text-anchor':'middle',class:'node-label'},group).textContent=d.name;elem('text',{y:11,'text-anchor':'middle',class:'sub-label'},group).textContent=`${state.items.filter(x=>x.domain===dom).length} TOOLS`;group.style.setProperty('--nodeColor',d.color);state.nodes.set('hub:'+dom,group);bindNode(group,'hub:'+dom)}
+ elem('circle',{r:r+20,fill:'none',stroke:d.color,'stroke-opacity':'.16','stroke-width':'1','class':'hub-arc'},group);elem('circle',{r,fill:d.color,'fill-opacity':'.045',stroke:d.color,'stroke-opacity':'.7','stroke-width':'1.3','class':'outer'},group);elem('circle',{r:12,fill:d.color,'fill-opacity':'.1',stroke:d.color,'stroke-opacity':'.4'},group);elem('text',{y:-8,'text-anchor':'middle',class:'node-label'},group).textContent=d.name;elem('text',{y:11,'text-anchor':'middle',class:'sub-label'},group).textContent=`${state.catalog.filter(x=>x.domain===dom&&!x.id.startsWith('lead:')&&x.mapVisible!==false).length} TOOLS`;group.style.setProperty('--nodeColor',d.color);state.nodes.set('hub:'+dom,group);bindNode(group,'hub:'+dom)}
  const newSet=new Set(state.catalog.filter(x=>dateRecent(x.eventDate)).map(x=>x.id));$('newCount').textContent=String(newSet.size);
- for(const t of state.items){const d=domains[t.domain],color=d?.color||'#bad9db',AI=types[t.aiType]||'unverified',gTool=elem('g',{class:'node tool'+(state.items.filter(x=>x.domain===t.domain).slice(0,2).includes(t)?' primary':''),'data-id':t.id,role:'button',tabindex:'0','aria-label':`${t.title}, ${t.aiType}`,transform:`translate(${t._x.toFixed(1)},${t._y.toFixed(1)})`},n);gTool.style.setProperty('--nodeColor',color);gTool.style.setProperty('--class-color',classColors[AI]);
+ for(const t of state.items){const d=domains[t.domain],color=d?.color||'#bad9db',AI=types[t.aiType]||'unverified',gTool=elem('g',{class:'node tool'+(t._group?' category-node':'')+(t._group||state.items.filter(x=>x.domain===t.domain&&!x._group).slice(0,2).includes(t)?' primary':''),'data-id':t.id,role:'button',tabindex:'0','aria-label':`${t.title}, ${t.aiType}`,transform:`translate(${t._x.toFixed(1)},${t._y.toFixed(1)})`},n);gTool.style.setProperty('--nodeColor',color);gTool.style.setProperty('--class-color',classColors[AI]);
   elem('circle',{r:17,fill:'none',stroke:color,'stroke-opacity':'.20','stroke-width':'1.2',class:'outer'},gTool);
   elem('circle',{r:8,fill:AI==='native'?color:AI==='augmented'?color:'#09121e','fill-opacity':AI==='native'?'.83':AI==='augmented'?'.2':'1',stroke:color,'stroke-opacity':AI==='unverified'?'.3':'.85','stroke-width':AI==='digital'?'1.5':'1.2','stroke-dasharray':AI==='unverified'?'2 3':null,class:'inner'},gTool);
   elem('circle',{r:19,class:'glow-ring'},gTool);
@@ -81,7 +81,8 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
   const marker=elem('circle',{class:'chip-type',cx:32,cy:-5.5,r:3.3},chip);
   marker.setAttribute('fill',classColors[AI]);
   const lab=elem('text',{class:'node-label',x:43,y:-1.5},chip);lab.textContent=truncate(t.title,state.view==='mobile'?19:24);
-  const title=elem('title',{},gTool);title.textContent=t.title+' · '+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
+  if(t._group)elem('text',{x:23,y:5,class:'group-name','aria-hidden':'true'},gTool).textContent=t.title;
+   const title=elem('title',{},gTool);title.textContent=t.title+' · '+(t._group?'group · ':'')+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
  drawSearchCandidates();styleFocus();updateCamera(false)}
 function truncate(s,n){return s.length>n?s.slice(0,n-1).trim()+'…':s}
 function bindNode(el,id){el.addEventListener('pointerenter',ev=>{if(state.dragging)return;const x=ev.clientX,y=ev.clientY;const target=state.items.find(t=>t.id===id);const peer=state.selected&&!state.selected.startsWith('hub:')?state.items.find(t=>t.id===state.selected):null;
@@ -90,7 +91,9 @@ function bindNode(el,id){el.addEventListener('pointerenter',ev=>{if(state.draggi
 function positionTooltip(x,y){const stage=$('stage').getBoundingClientRect();$('tooltip').style.left=Math.min(x-stage.left+8,stage.width-190)+'px';$('tooltip').style.top=Math.max(4,y-stage.top-10)+'px'}
 function linkedIds(id){const result=new Set();if(!id)return result;result.add(id);if(id.startsWith('hub:')){const dom=id.slice(4);state.items.filter(x=>x.domain===dom).forEach(x=>result.add(x.id));return result}
  if(id.startsWith('search:')){const t=lookupTool(id);if(t)result.add('hub:'+t.domain);return result}
- for(const peer of state.links.get(id)||[])result.add(peer);result.add('hub:'+state.items.find(x=>x.id===id)?.domain);return result}
+ const group=state.groupMap.get(id);
+  if(group){for(const member of group._members)result.add(member);result.add('hub:'+group.domain);return result}
+  for(const peer of state.links.get(id)||[])result.add(peer);result.add('hub:'+state.items.find(x=>x.id===id)?.domain);return result}
 
 function traceSignals(){
  const layer=$('signals');if(!layer)return;layer.replaceChildren();
@@ -124,11 +127,13 @@ function arrangeFocusLabels(){
  if(!state.selected&&!state.search.trim())return;
  const hub=!!state.selected&&state.selected.startsWith('hub:');
  const selectedTool=hub?null:state.items.find(t=>t.id===state.selected);
+ const group=state.groupMap.get(state.selected);
  const searchMode=!!state.search.trim()&&(!state.selected||state.selected.startsWith('search:'));
  if(!hub&&!selectedTool&&!searchMode)return;
  const domain=searchMode?state.queryResults.dominantDomain:null;
  const origin=hub?hubXY(state.selected.slice(4)):searchMode?hubXY(domain||'Water & oceans'):{x:selectedTool._x,y:selectedTool._y};
  const listed=hub?state.items.filter(t=>t.domain===state.selected.slice(4))
+    :group?state.items.filter(t=>t._groupParent===group.id)
     :searchMode?state.queryResults.hits.map(h=>state.items.find(t=>t.id===h.tool.id)).filter(Boolean)
     :[selectedTool,...[...(state.links.get(selectedTool.id)||[])].map(id=>state.items.find(t=>t.id===id)).filter(Boolean)];
  // Two independent lanes avoid most label collisions without moving nodes or
@@ -213,7 +218,7 @@ function styleFocus(){
  const focused=!!state.selected,search=state.search.trim();
  const hits=new Set(state.queryResults.hits.map(h=>h.tool.id));const connected=linkedIds(state.selected);
  const searchDomain=search?state.queryResults.dominantDomain:null;
- const chosenDomain=state.selected?(state.selected.startsWith('hub:')?state.selected.slice(4):lookupTool(state.selected)?.domain):searchDomain;
+ const chosenDomain=state.selected?(state.selected.startsWith('hub:')?state.selected.slice(4):(state.groupMap.get(state.selected)||lookupTool(state.selected))?.domain):searchDomain;
  $('app').classList.toggle('has-focus',focused);$('app').classList.toggle('has-search',!!search);$('resetBtn').hidden=!focused&&!search;
  for(const boundary of $('nebula').querySelectorAll('.cluster-boundary')){
   boundary.classList.toggle('in-focus',!!chosenDomain&&boundary.dataset.field===chosenDomain);
@@ -245,24 +250,60 @@ function styleFocus(){
  if(!focused&&!search){$('hint').innerHTML='<b>↗ CLICK ANY POINT</b> TO REVEAL ITS CONNECTIONS<br>Drag to wander · scroll to zoom · Esc to reset'}
  else{$('hint').innerHTML='<b>CLICK A NAME</b> TO FOLLOW A CONNECTION<br>Click the background to show everything'}
 }
-function select(id){if(id===state.selected){reset();return}state.selected=id;state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};drawSearchCandidates();$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true)}
+function rebuildMap(){
+ const model=window.EnvAIClusters.organise(state.catalog,Object.keys(domains),state.openGroup,GROUP_THRESHOLD);
+ state.items=model.items;state.groupMap=model.groups;
+ if(state.openGroup&&!state.groupMap.has(state.openGroup))state.openGroup=null;
+ initEdges();computeLayout();draw();
+}
+function select(id){
+ if(id===state.selected){reset();return}
+ if(state.groupMap.has(id)){state.openGroup=id;state.selected=id;rebuildMap()}
+ else if(id.startsWith('hub:')||(!state.items.some(t=>t.id===id&&t._groupParent===state.openGroup))){
+   if(state.openGroup){state.openGroup=null;rebuildMap()}
+   state.selected=id;
+ }else state.selected=id;
+ state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};
+ drawSearchCandidates();$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true)
+}
 function selectSearch(id){const key='search:'+id;if(key===state.selected){reset();return}state.selected=key;$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true)}
-function reset(){state.selected=null;state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};drawSearchCandidates();$('tooltip').hidden=true;state.zoom=1;state.tx=0;state.ty=0;styleFocus();updateCamera(false)}
+function reset(){state.selected=null;state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};if(state.openGroup){state.openGroup=null;rebuildMap()}drawSearchCandidates();$('tooltip').hidden=true;state.zoom=1;state.tx=0;state.ty=0;styleFocus();updateCamera(false)}
 function newButton(text,onclick,klass){const b=document.createElement('button');b.textContent=text;b.className=klass||'';b.type='button';b.addEventListener('click',onclick);return b}
+function showGroupTools(group){
+ const modal=$('dialog'),body=$('dialogBody');body.replaceChildren();
+ const h=document.createElement('h2');h.textContent=group.title;body.append(h);
+ const p=document.createElement('p');p.textContent=group.summary;body.append(p);
+ const list=document.createElement('div');list.className='group-browser';
+ for(const id of group._members){
+  const t=lookupTool(id);if(!t)continue;
+  const row=document.createElement('div');row.className='group-browser-row';
+  const name=document.createElement('button');name.type='button';name.textContent=t.title;
+  name.setAttribute('aria-label','Inspect '+t.title+' on constellation');
+  name.onclick=()=>{modal.close();if(state.items.some(item=>item.id===id))select(id);else{
+   $('search').value=t.title;state.search=t.title;searchNow();selectSearch(id)
+  }};row.append(name);
+  const kind=document.createElement('span');kind.textContent=t.aiType.replace('Traditional digital','Traditional');
+  row.append(kind);
+  if(t.url){const a=document.createElement('a');a.href=t.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Open ↗';row.append(a)}
+  list.append(row);
+ }
+ body.append(list);modal.showModal()
+}
 function renderInfo(){
  const root=$('focusContent');root.replaceChildren();const id=state.selected;if(!id)return;
- const isHub=id.startsWith('hub:');const isSearch=id.startsWith('search:');const t=isHub?null:lookupTool(id);
+ const isHub=id.startsWith('hub:');const isSearch=id.startsWith('search:');const group=state.groupMap.get(id);const t=isHub?null:(group||lookupTool(id));
  const dom=isHub?id.slice(4):t.domain;
- const related=isHub?state.catalog.filter(x=>x.domain===dom).length:isSearch?state.queryResults.total:(state.links.get(id)||new Set()).size;
+ const related=isHub?state.catalog.filter(x=>x.domain===dom&&!x.id.startsWith('lead:')).length:group?group._members.length:isSearch?state.queryResults.total:(state.links.get(id)||new Set()).size;
  const glyph=document.createElement('div');glyph.className='focus-glyph';glyph.style.setProperty('--glyphColor',domains[dom].color);
  const main=document.createElement('div');main.className='focus-main';const top=document.createElement('div');top.className='focus-top';
  const h=document.createElement('h2');h.className='focus-title';h.textContent=isHub?domains[dom].short:t.title;top.append(h);
  const pill=document.createElement('span');pill.className='focus-pill'+(isHub?'':' class-'+(types[t.aiType]||'unverified'));
- pill.textContent=isHub?'Field':t.aiType.replace('Traditional digital','Digital');top.append(pill);main.append(top);
- const sub=document.createElement('div');sub.className='focus-sub';sub.textContent=isHub?`${related} indexed tools in ${domains[dom].short.toLowerCase()} — selected highlights are mapped; search discovers the rest.`:t.summary;main.append(sub);
- const foot=document.createElement('div');foot.className='focus-footer';foot.textContent=isHub?`Only practical tools are shown · source/research records remain archived in the catalogue`:isSearch?`Search match · ${t.capability} · ${domains[dom].short} · ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access may be restricted':'Use online'}`:`${dateRecent(t.eventDate)?'✦ NEW RELEASE / UPDATE  ·  ':''}${related} linked ${related===1?'tool':'tools'}  ·  ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access required':'Use online'}${t.accessNote?' · '+t.accessNote:''}`;main.append(foot);
+ pill.textContent=isHub?'Field':group&&group._pending?'Under review':t.aiType.replace('Traditional digital','Digital');top.append(pill);main.append(top);
+ const sub=document.createElement('div');sub.className='focus-sub';sub.textContent=isHub?`${related} approved tools in ${domains[dom].short.toLowerCase()} · grouped by AI category as coverage grows.`:t.summary;main.append(sub);
+ const foot=document.createElement('div');foot.className='focus-footer';foot.textContent=isHub?`Only practical tools are shown · source/research records remain archived in the catalogue`:group?`${related} tools · expanded on map · full list available`:isSearch?`Search match · ${t.capability} · ${domains[dom].short} · ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access may be restricted':'Use online'}`:`${dateRecent(t.eventDate)?'✦ NEW RELEASE / UPDATE  ·  ':''}${related} linked ${related===1?'tool':'tools'}  ·  ${t.toolUse==='install'?'Install locally':t.toolUse==='access'?'Access required':'Use online'}${t.accessNote?' · '+t.accessNote:''}`;main.append(foot);
  root.append(glyph,main);
- if(!isHub&&t.url){const a=document.createElement('a');a.className='focus-visit';a.href=t.url;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',`Visit ${t.title} website`);a.innerHTML=(t.toolUse==='install'?'Get app':t.toolUse==='access'?'Access details':'Open tool')+' <span class="link-icon" aria-hidden="true">↗</span>';root.append(a)}
+ if(group){const b=newButton('Browse '+related+' tools ↗',()=>showGroupTools(group),'focus-visit focus-group-trigger');b.setAttribute('aria-label','Browse '+related+' '+group.title+' tools');root.append(b)}
+ else if(!isHub&&t.url){const a=document.createElement('a');a.className='focus-visit';a.href=t.url;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label',`Visit ${t.title} website`);a.innerHTML=(t.toolUse==='install'?'Get app':t.toolUse==='access'?'Access details':'Open tool')+' <span class="link-icon" aria-hidden="true">↗</span>';root.append(a)}
  else{const tag=document.createElement('span');tag.className='focus-ghost';tag.textContent='Explore the glowing points ↗';root.append(tag)}
 }
 
@@ -308,10 +349,11 @@ function misc(){const menu=$('menu'),btn=$('menuBtn');btn.onclick=()=>{menu.hidd
 function setup(list){
  state.catalog=list.filter(t=>t&&t.id&&t.domain&&domains[t.domain]&&t.title&&publicTool(t)).map(t=>({...t,aiType:t.aiType||'Unverified'}));
  state.searchIndex=window.EnvAISemantic.prepare(state.catalog);
- state.items=Object.keys(domains).flatMap(dom=>state.catalog.filter(t=>t.domain===dom&&t.mapVisible!==false).slice(0,MAP_LIMIT_PER_FIELD));
- initEdges();computeLayout();draw();$('totalNum').textContent=String(state.catalog.length);
- $('stats').querySelector('small').textContent=`${state.items.length} practical tools on the map · research references kept outside the public view`;
- toast('Explore the constellation, or search any environmental subject.')
+ state.openGroup=null;rebuildMap();
+ const approved=state.catalog.filter(t=>!t.id.startsWith('lead:')).length;
+ $('totalNum').textContent=String(approved);
+ $('stats').querySelector('small').textContent=`${approved} practical tools · ${state.items.length} uncluttered nodes · click AI categories to expand`;
+ toast('Explore the three AI categories, or search every tool.')
 }
 function loadFocusFromUrl(){
  const id=new URLSearchParams(location.search).get('tool');

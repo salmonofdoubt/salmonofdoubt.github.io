@@ -219,4 +219,71 @@ class ScanningTests(unittest.TestCase):
    self.assertTrue(tool.get('classificationEvidence'),tool['id'])
 
 
+ def test_official_sources_cover_all_four_environmental_fields(self):
+  self.assertTrue(any('WRI Aqueduct' in name for name,url,labels in mod.DIRECTORIES))
+  self.assertTrue(any('Open Foris' in name for name,url,labels in mod.DIRECTORIES))
+  self.assertTrue(any('Atlas of Living Australia' in name for name,url,labels in mod.DIRECTORIES))
+  self.assertTrue(any('Copernicus' in name for name,url,labels in mod.DIRECTORIES))
+  self.assertEqual(mod.SOURCE_DOMAINS['Atlas of Living Australia services'],
+                   'Biodiversity & wildlife')
+  self.assertEqual(mod.SOURCE_DOMAINS['Open Foris applications'],
+                   'Land & satellites')
+
+ def test_daily_multi_field_discovery_retains_evidence_without_ai_guess(self):
+  pages={
+   'https://www.wri.org/aqueduct/tools':
+     '<h3>New Watershed Mapper</h3><p>River basin assessment portal</p>'
+     '<a href="https://water.example.org/app">Launch Tool</a>',
+   'https://www.openforis.org/':
+     '<h3>New Land Explorer</h3><p>Satellite land mapping application</p>'
+     '<a href="https://land.example.org/app">Launch Land Explorer</a>',
+   'https://www.ala.org.au/sites-and-services/':
+     '<h3>Biodiversity Map Toolkit</h3><p>Species occurrence portal</p>'
+     '<a href="https://bio.example.org/app">Spatial Portal</a>',
+   mod.COPERNICUS_APPS:
+     '<a href="/overview?app=novel-heat-viewer">New Heat Viewer</a>',
+  }
+  result,stats=mod.scan(fetch=lambda path,params=None:
+           {'items':[]} if path=='/search/repositories' else [],
+      directory_fetch=lambda url:pages.get(url,''),
+      probe=lambda url:True,today=TODAY,catalogue=CAT,
+      previous={'releaseEvents':[],'leads':[]})
+  grouped={}
+  for lead in result['leads']:
+   grouped.setdefault(lead['domain'],[]).append(lead)
+   self.assertEqual(lead['aiType'],'Unverified')
+   self.assertEqual(lead['accessType'],'web')
+   self.assertTrue(lead['url'].startswith('https://'))
+   self.assertFalse(lead['url'].startswith('https://github.com/'))
+   self.assertIn('directory:',lead['id'])
+  self.assertEqual(set(grouped),set(mod.DOMAIN_HINTS))
+  self.assertEqual(stats['leadsAdded'],4)
+  self.assertEqual(sum(result['candidateCountByField'].values()),4)
+  self.assertEqual(result['catalogueCountByField']['Climate & energy'],0)
+
+ def test_directory_probe_quota_does_not_favour_one_busy_source(self):
+  many=''.join('<h3>New Water Map '+str(i)+'</h3><p>Water mapping tool</p>'
+       '<a href="https://water.example.org/'+str(i)+'">Launch Tool</a>'
+       for i in range(20))
+  result,_=mod.scan(fetch=lambda path,params=None:
+                  {'items':[]} if path=='/search/repositories' else [],
+      directory_fetch=lambda url:many if 'aqueduct/tools' in url else '',
+      probe=lambda url:True,today=TODAY,catalogue=CAT,
+      previous={'releaseEvents':[],'leads':[]})
+  self.assertLessEqual(len(result['leads']),mod.MAX_NEW_PER_SOURCE)
+
+ def test_all_fields_have_practical_classified_tools(self):
+  data=__import__('json').loads(mod.TOOLS_PATH.read_text(encoding='utf8'))
+  for field in mod.DOMAIN_HINTS:
+   tools=[t for t in data['items'] if t.get('domain')==field
+          and t.get('toolUse') in ('online','install','access')
+          and t.get('mapVisible') is not False]
+   self.assertGreaterEqual(len(tools),12,field)
+   self.assertEqual(set(t['aiType'] for t in tools),
+                    {'Traditional digital','AI-augmented','AI-native'},field)
+   for tool in tools:
+    self.assertTrue(tool.get('classificationEvidence'),tool['id'])
+    self.assertTrue(tool.get('evidence','').startswith('https://'),tool['id'])
+
+
 if __name__=='__main__':unittest.main()

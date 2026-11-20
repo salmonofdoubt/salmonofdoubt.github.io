@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "reviewedAt": "2026-11-19",
+  "reviewedAt": "2026-11-20",
   "about": "Curated EnvAI inventory: practical browser tools, account-access apps and installable software are mapped. Research/code-only references remain in JSON. AI classifications are evidence-linked editorial assessments, not claims of independent model audits. Tool candidates discovered automatically remain Unverified until reviewed.",
   "items": [
     {
@@ -1855,6 +1855,642 @@
       "baselineEntry": false,
       "mapVisible": true,
       "resourceNote": "Evidence-backed browser application. Access and full functionality may vary by region, login or automated-site restrictions."
+    },
+    {
+      "id": "nasa-worldview",
+      "title": "NASA Worldview",
+      "domain": "Land & satellites",
+      "capability": "Explore & decide",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "NASA EOSDIS",
+      "summary": "Explore near-real-time satellite imagery and environmental layers across time.",
+      "url": "https://worldview.earthdata.nasa.gov/",
+      "evidence": "https://worldview.earthdata.nasa.gov/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "imagery",
+        "earth observation"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Satellite-data visualisation and layer comparison do not require AI inference.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "nasa-firms",
+      "title": "NASA FIRMS Fire Map",
+      "domain": "Land & satellites",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "NASA LANCE",
+      "summary": "Map near-real-time satellite active-fire and thermal anomaly observations.",
+      "url": "https://firms.modaps.eosdis.nasa.gov/map/",
+      "evidence": "https://firms.modaps.eosdis.nasa.gov/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "wildfires",
+        "heat",
+        "satellite"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Satellite hotspot detection and interactive mapping are not presented as AI-native inference.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "copernicus-land-viewer",
+      "title": "Copernicus Land Data Viewer",
+      "domain": "Land & satellites",
+      "capability": "Explore & decide",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Copernicus Land Monitoring Service",
+      "summary": "Explore and compare European land-cover, vegetation and landscape datasets in a browser.",
+      "url": "https://land.copernicus.eu/en",
+      "evidence": "https://land.copernicus.eu/en/how-to-guides/how-to-download-spatial-data/how-to-view-and-download-datasets-in-the-data-viewer",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "land cover",
+        "vegetation",
+        "Europe"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Primarily a dataset viewer; AI is not required for its essential mapping workflow.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "collect-earth-online",
+      "title": "Collect Earth Online",
+      "domain": "Land & satellites",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "FAO Open Foris",
+      "summary": "Collaboratively interpret satellite image samples and record land-change observations.",
+      "url": "https://www.openforis.org/collect-earth-online/",
+      "evidence": "https://www.openforis.org/collect-earth-online/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Online (account for projects)",
+      "tags": [
+        "forest",
+        "land cover",
+        "surveys"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Core workflow is human imagery interpretation and collaborative data collection.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "openforis-sepal",
+      "title": "Open Foris SEPAL",
+      "domain": "Land & satellites",
+      "capability": "Build & analyse",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "FAO Open Foris",
+      "summary": "Process satellite images, classify land cover and run reproducible geospatial machine-learning workflows.",
+      "url": "https://www.openforis.org/sepal/",
+      "evidence": "https://www.openforis.org/sepal/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "machine learning",
+        "forest",
+        "classification"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Evidence-based editorial classification: Established remote-sensing processing environment supports ML and AI analysis alongside conventional geospatial operations.",
+      "toolUse": "access",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "global-mangrove-watch",
+      "title": "Global Mangrove Watch",
+      "domain": "Land & satellites",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "Global Mangrove Alliance / Wetlands International",
+      "summary": "Track mangrove extent, change, coastal carbon stocks and restoration opportunities.",
+      "url": "https://www.globalmangrovewatch.org/",
+      "evidence": "https://www.mangrovealliance.org/global-mangrove-watch",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "mangroves",
+        "restoration",
+        "coasts"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Remote-sensing map layers support the workflow; a defining AI-native service has not been demonstrated.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "glad-global-forest-change",
+      "title": "GLAD Global Forest Change Explorer",
+      "domain": "Land & satellites",
+      "capability": "Detect & classify",
+      "signals": [
+        "Satellite imagery",
+        "Geospatial data"
+      ],
+      "organisation": "University of Maryland GLAD",
+      "summary": "Visualise satellite-derived forest change, including detected loss and related forest monitoring indicators.",
+      "url": "https://glad.earthengine.app/view/global-forest-change",
+      "evidence": "https://glad.umd.edu/dataset/glad-forest-alerts",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "forest loss",
+        "deforestation",
+        "change detection"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Evidence-based editorial classification: Automated satellite image classification and disturbance detection augment a spatial monitoring interface.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "ebird-explore",
+      "title": "eBird Explore",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Explore & decide",
+      "signals": [
+        "Species observations",
+        "Geospatial data"
+      ],
+      "organisation": "Cornell Lab of Ornithology",
+      "summary": "Explore bird records, hotspots, regional checklists and observation summaries.",
+      "url": "https://ebird.org/explore",
+      "evidence": "https://support.ebird.org/en/support/solutions/articles/48001255129-explore-regions-and-hotspots",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "birds",
+        "citizen science",
+        "hotspots"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Species observation searches and hotspot maps function without AI-assisted identification.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "map-of-life",
+      "title": "Map of Life",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Explore & decide",
+      "signals": [
+        "Species observations",
+        "Geospatial data"
+      ],
+      "organisation": "Map of Life / Yale",
+      "summary": "Explore species distributions, habitats, regions and model-derived biodiversity indicators.",
+      "url": "https://mol.org/",
+      "evidence": "https://mol.org/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "species ranges",
+        "biodiversity indicators",
+        "habitats"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Evidence-based editorial classification: Biodiversity data exploration is augmented by spatial species distribution modelling and predictions; model provenance varies by layer.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "protected-planet",
+      "title": "Protected Planet Explorer",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Explore & decide",
+      "signals": [
+        "Geospatial data",
+        "Species observations"
+      ],
+      "organisation": "UNEP-WCMC / IUCN",
+      "summary": "Explore mapped protected areas and other effective area-based conservation measures worldwide.",
+      "url": "https://www.protectedplanet.net/",
+      "evidence": "https://www.protectedplanet.net/en/thematic-areas/wdpa?tab=WDPA-data",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "protected areas",
+        "conservation",
+        "OECMs"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Uses curated conservation area records and spatial search; AI not intrinsic.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "natureserve-explorer",
+      "title": "NatureServe Explorer",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Explore & decide",
+      "signals": [
+        "Species observations",
+        "Geospatial data"
+      ],
+      "organisation": "NatureServe",
+      "summary": "Search threatened species, ecological communities, conservation status and distributions in the Americas.",
+      "url": "https://explorer.natureserve.org/",
+      "evidence": "https://explorer.natureserve.org/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "endangered species",
+        "conservation status"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Expert-curated biodiversity reference and spatial search are not inherently AI.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "ala-spatial-portal",
+      "title": "Atlas of Living Australia Spatial Portal",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Build & analyse",
+      "signals": [
+        "Species observations",
+        "Geospatial data"
+      ],
+      "organisation": "Atlas of Living Australia / CSIRO",
+      "summary": "Map species records with environmental layers and create spatial biodiversity analyses.",
+      "url": "https://spatial.ala.org.au/",
+      "evidence": "https://www.ala.org.au/ala-knowledge-base/spatial-portal-help/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "spatial analysis",
+        "Australia",
+        "habitats"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: General GIS and biodiversity data analysis can include predictive models but its baseline service does not require AI inference.",
+      "toolUse": "access",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "birdcast-live",
+      "title": "BirdCast Live Migration Maps",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Weather data",
+        "Species observations"
+      ],
+      "organisation": "Cornell Lab of Ornithology",
+      "summary": "Explore near-real-time nocturnal bird migration estimated from weather radar across the United States.",
+      "url": "https://birdcast.org/migration-tools/live-migration-maps/",
+      "evidence": "https://birdcast.org/migration-tools/live-migration-maps/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "radar",
+        "bird migration",
+        "migration forecasts"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Evidence-based editorial classification: Automated radar signal processing and bird migration estimation augment observational monitoring; model particulars vary by product.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "seek-inaturalist",
+      "title": "Seek by iNaturalist",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Detect & classify",
+      "signals": [
+        "Species observations",
+        "Images"
+      ],
+      "organisation": "iNaturalist",
+      "summary": "Identify wildlife, plants and fungi from a mobile camera using on-device image recognition.",
+      "url": "https://www.inaturalist.org/pages/seek_app",
+      "evidence": "https://help.inaturalist.org/en/support/solutions/articles/151000169914-what-is-the-difference-between-inaturalist-and-seek-by-inaturalist-",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Mobile installation",
+      "tags": [
+        "computer vision",
+        "identification",
+        "mobile"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "AI-native",
+      "classificationEvidence": "Evidence-based editorial classification: Real-time computer-vision inference provides Seek's defining species-identification functionality.",
+      "toolUse": "install",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "irish-biodiversity-maps",
+      "title": "Irish Biodiversity Maps",
+      "domain": "Biodiversity & wildlife",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Species observations",
+        "Geospatial data"
+      ],
+      "organisation": "National Biodiversity Data Centre Ireland",
+      "summary": "Explore Irish species records, threatened and invasive species datasets and distribution maps.",
+      "url": "https://maps.biodiversityireland.ie/",
+      "evidence": "https://maps.biodiversityireland.ie/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "Ireland",
+        "species records",
+        "invasive species"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: National observation-record portal and map exploration without required AI inference.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "aqueduct-water-risk",
+      "title": "Aqueduct Water Risk Atlas",
+      "domain": "Water & oceans",
+      "capability": "Explore & decide",
+      "signals": [
+        "Hydrology data",
+        "Climate risk data"
+      ],
+      "organisation": "World Resources Institute",
+      "summary": "Map current and future water stress, depletion and drought-related risk across watersheds.",
+      "url": "https://www.wri.org/aqueduct/tools",
+      "evidence": "https://www.wri.org/data/aqueduct-water-risk-atlas",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "water stress",
+        "risk",
+        "catchments"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Published hydrological risk indicators and scenario mapping, not a defining AI prediction service.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "aqueduct-floods",
+      "title": "Aqueduct Floods",
+      "domain": "Water & oceans",
+      "capability": "Forecast & predict",
+      "signals": [
+        "Hydrology data",
+        "Climate risk data"
+      ],
+      "organisation": "World Resources Institute",
+      "summary": "Explore projected coastal and riverine flood risk and compare flood-protection options.",
+      "url": "https://www.wri.org/data/aqueduct-floods",
+      "evidence": "https://www.wri.org/data/aqueduct-floods",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "flood",
+        "climate adaptation",
+        "coastal risk"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Hydrodynamic scenarios and cost-benefit analysis, not a demonstrated AI-native inference workflow.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "copernicus-myocean",
+      "title": "Copernicus MyOcean Pro",
+      "domain": "Water & oceans",
+      "capability": "Explore & decide",
+      "signals": [
+        "Oceanographic data",
+        "Geospatial data"
+      ],
+      "organisation": "Copernicus Marine Service",
+      "summary": "Inspect and analyse marine temperature, salinity, currents, chlorophyll and other ocean variables.",
+      "url": "https://data.marine.copernicus.eu/viewer",
+      "evidence": "https://help.marine.copernicus.eu/en/articles/6482737-introduction-to-myocean-pro-viewer",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "oceans",
+        "marine",
+        "water quality"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Interactive geospatial ocean data analysis is separate from any AI in underlying forecast products.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "emodnet-map",
+      "title": "EMODnet Map Viewer",
+      "domain": "Water & oceans",
+      "capability": "Explore & decide",
+      "signals": [
+        "Oceanographic data",
+        "Geospatial data"
+      ],
+      "organisation": "European Marine Observation and Data Network",
+      "summary": "Explore European seabed bathymetry, habitats, human activities and marine observations.",
+      "url": "https://emodnet.ec.europa.eu/geoviewer/",
+      "evidence": "https://emodnet.ec.europa.eu/geoviewer/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "marine",
+        "bathymetry",
+        "Europe"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Multilayer geographic data visualisation with no essential AI functionality.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "epa-ireland-waters",
+      "title": "EPA Ireland Water Maps",
+      "domain": "Water & oceans",
+      "capability": "Measure & monitor",
+      "signals": [
+        "Water quality data",
+        "Geospatial data"
+      ],
+      "organisation": "Environmental Protection Agency Ireland",
+      "summary": "Inspect Irish waterbody ecological status, pressures, nutrient sensitivity and catchments.",
+      "url": "https://gis.epa.ie/EPAMaps/",
+      "evidence": "https://gis.epa.ie/EPAMaps/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "rivers",
+        "catchments",
+        "Ireland"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Authoritative spatial water-quality database with conventional GIS visualisation.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "epa-how-waterway",
+      "title": "US EPA How's My Waterway",
+      "domain": "Water & oceans",
+      "capability": "Explore & decide",
+      "signals": [
+        "Water quality data",
+        "Hydrology data"
+      ],
+      "organisation": "US Environmental Protection Agency",
+      "summary": "Explore waterbody condition, pollution indicators and restoration measures in US watersheds.",
+      "url": "https://www.epa.gov/waterdata/hows-my-waterway",
+      "evidence": "https://www.epa.gov/waterdata/hows-my-waterway-updates",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "water quality",
+        "pollution",
+        "United States"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "Traditional digital",
+      "classificationEvidence": "Evidence-based editorial classification: Regulatory and observational water-status portal; AI is not required for the core application.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
+    },
+    {
+      "id": "jrc-surface-water",
+      "title": "JRC Global Surface Water Explorer",
+      "domain": "Water & oceans",
+      "capability": "Detect & classify",
+      "signals": [
+        "Satellite imagery",
+        "Hydrology data"
+      ],
+      "organisation": "European Commission Joint Research Centre",
+      "summary": "Visualise satellite-derived surface water extent, occurrence and changes over decades.",
+      "url": "https://global-surface-water.appspot.com/map",
+      "evidence": "https://global-surface-water.appspot.com/",
+      "eventDate": null,
+      "eventType": null,
+      "access": "Public tool (some features require login)",
+      "tags": [
+        "water extent",
+        "change detection",
+        "remote sensing"
+      ],
+      "addedAt": "2026-11-20",
+      "aiType": "AI-augmented",
+      "classificationEvidence": "Evidence-based editorial classification: Automated Landsat image classification and water detection enrich the satellite monitoring map; not general-purpose generative AI.",
+      "toolUse": "online",
+      "baselineEntry": false,
+      "mapVisible": true,
+      "resourceNote": "Application source and access route reviewed; full interactive functionality and regional coverage may vary."
     }
   ],
   "presentationPolicy": "Default atlas, search and public news show practical online, account-access or installable tools only. Repository-only, dataset-only and research references remain in the JSON for transparency. This is editorial screening, NOT a live functional-access guarantee."

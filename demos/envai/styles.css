@@ -339,3 +339,26 @@
 #app .map-stage.map-stage{bottom:112px}
 @media(max-width:780px){#app .map-stage.map-stage{bottom:158px}}
 @media(max-width:420px){#app .map-stage.map-stage{bottom:164px}}
+
+/* Dense catalogue: category groups are meaningful nodes, not omitted tools.
+ * Keep labels quiet until a group or parent field is selected, and preserve
+ * touch-friendly browsing in the shared modal on small screens. */
+.node.category-node .outer{stroke:var(--class-color,#b9b6d0);stroke-width:2;stroke-opacity:.75;stroke-dasharray:3 4}
+.node.category-node .inner{fill:var(--class-color,#b9b6d0);fill-opacity:.6}
+.node.category-node .group-name{font:600 14px/1 'DM Sans',sans-serif;fill:var(--class-color,#b9b6d0);stroke:#09121e;stroke-width:3.5px;paint-order:stroke fill;pointer-events:visiblePainted;cursor:pointer;opacity:.93}
+.node.category-node:hover .group-name,.node.category-node.selected .group-name{opacity:1;fill:#f4fff8}
+.node.category-node .tool-chip{display:none}
+.group-browser{display:grid;gap:4px;margin:16px 0 0;max-height:min(52vh,420px);overflow:auto}
+.group-browser-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 4px;border-bottom:1px solid #ffffff25}
+.group-browser-row button{flex:1;min-width:150px;text-align:left;border:0;background:transparent;color:#defbee;padding:8px;border-radius:7px;font-weight:600}
+.group-browser-row button:hover,.group-browser-row button:focus-visible{background:#ffffff16}
+.group-browser-row span{font-size:11px;color:#a1afc1}
+.group-browser-row a{font-size:11px;font-weight:700;color:#9af5d9;padding:8px 12px;border:1px solid #9af5d955;border-radius:7px}
+.focus-group-trigger{border:0;min-width:118px;text-align:center}
+@media(max-width:620px){
+ .node.category-node .group-name{font-size:18px}
+ .focus-group-trigger{width:37px;height:37px;min-width:37px;font-size:0;padding:0;white-space:nowrap}
+ .focus-group-trigger::after{content:"☷";font-size:23px}
+ .group-browser{max-height:45vh}
+ .group-browser-row button{min-width:90px}
+}
