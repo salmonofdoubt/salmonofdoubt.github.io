@@ -376,7 +376,7 @@ function setup(list){
  const approved=state.catalog.filter(t=>!t.id.startsWith('lead:')).length;
  $('totalNum').textContent=String(approved);
  $('stats').querySelector('small').textContent=`${approved} practical tools · ${state.items.length} uncluttered nodes · click AI categories to expand`;
- toast('Explore the three AI categories, or search every tool.')
+ if(state.view!=='mobile')toast('Explore the three AI categories, or search every tool.')
 }
 function loadFocusFromUrl(){
  const id=new URLSearchParams(location.search).get('tool');
