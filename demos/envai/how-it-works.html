@@ -12,8 +12,8 @@
 <script defer src="./site-config.js"></script>
 <script defer src="./header-secondary.js?v=header-1"></script>
 <script defer src="./live-data.js?v=quality-1"></script>
-<script defer src="./cluster-model.js?v=hierarchy-1"></script>
-<script defer src="./how-it-works.js?v=all-fields-1"></script>
+<script defer src="./cluster-model.js?v=topics-1"></script>
+<script defer src="./how-it-works.js?v=topics-1"></script>
 </head>
 <body>
 <a class="skip" href="#content">Skip to the explanation</a>
@@ -44,7 +44,7 @@
   </section>
   <div class="live-stats" aria-label="Current catalogue status">
     <div><strong id="toolCount">—</strong><span>practical tools shown</span></div>
-    <div><strong id="mappedCount">—</strong><span>representative map nodes</span></div>
+    <div><strong id="mappedCount">—</strong><span>environmental topic nodes</span></div>
     <div><strong id="reviewDate">—</strong><span>catalogue last reviewed</span></div>
     <div><strong id="queueCount">—</strong><span>reachable tool candidates</span></div>
   </div>
@@ -58,9 +58,9 @@
     </div>
     <div class="explain-grid">
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>One source of truth</h3><p><code>data/tools.json</code> is the approved catalogue. The atlas and What's New display only user-facing tools from it. <code>data/discoveries.json</code> contains manually seeded leads. <code>data/live-updates.json</code> is generated daily from selected official environmental-tool directories across land, biodiversity, climate and water, plus secondary GitHub release monitoring. It also tracks tool-link health. The snapshot is read directly from the public repository, bypassing Pages' bot-commit build limitation.</p></div>
-      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>A calm default map</h3><p>Four field clusters retain their dotted boundaries. Each environmental field contains three distinct groups: <strong>Traditional, AI-augmented and AI-native</strong>. Every approved tool belongs to its corresponding AI category, with no featured-tool exceptions. Select a category to reveal its applications; full search can find every entry. Unverified discoveries appear separately for review.</p></div>
+      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>A calm default map</h3><p>Four environmental fields retain their dotted boundaries. Tools are grouped by <strong>what they investigate or help accomplish</strong>, such as birds, forest change, emissions, air quality, rivers or marine life. Every approved tool has one primary purpose, while its separate Traditional / AI-augmented / AI-native classification remains visible through colour and a small three-dot composition indicator. Select a purpose node to reveal its tools, or search the full catalogue. Unverified candidates stay in separate review nodes.</p></div>
       <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Meaning-aware search</h3><p>Topic families, aliases and catalogue metadata connect terms such as “whale” to Water and relevant monitoring methods. At most <strong>six temporary results</strong> appear on the map.</p></div>
-      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Explainable connections</h3><p>Links rank similarity using shared environmental fields, methods, data signals and tasks. They are <strong>not</strong> claims of integration, ownership, investment or partnership.</p></div>
+      <div class="explain"><span class="line-mark" aria-hidden="true"></span><h3>Explainable connections</h3><p>The overview links each field to its environmental-purpose nodes. Expanding a topic shows its individual tools and highlights their parent-child relationship. Additional tool similarities are based on fields, methods, data signals and tasks. These links are <strong>not</strong> claims of interoperability, ownership, investment or partnership.</p></div>
     </div>
     <p class="caution"><span aria-hidden="true">✳</span> Search is currently a transparent <strong>curated-vocabulary and relevance-ranking system</strong>, not an LLM or semantic-embedding model. A relevant field can be recognised even when no direct tool is indexed; EnvAI should say so rather than invent a match.</p>
   </section>
