@@ -37,7 +37,7 @@ def check_page(page, width, height):
     page.locator("#mobileFields [data-field='Climate & energy']").click()
     assert page.locator("#mobileFields [data-field='Climate & energy']").get_attribute("aria-pressed") == "true"
     assert page.locator("#hubs .node.hub").count() == 1
-    assert "CLIMATE" in page.locator("#hubs").inner_text()
+    assert "CLIMATE" in page.locator("#hubs").text_content()
     group = page.locator("#nodes .category-node").first
     if group.count():
         group.click(force=True)
