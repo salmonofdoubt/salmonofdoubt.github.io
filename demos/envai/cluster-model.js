@@ -30,13 +30,14 @@
       counts[domain]={approved:approved.length,pending:pending.length};
       for(const type of TYPES){
         const matching=approved.filter(t=>t.aiType===type);
-        if(!matching.length)continue;
         const id='group:'+slug(domain)+':'+SHORT[type];
         const group={
           id,title:TYPE_NAMES[type]+' · '+matching.length,
           domain,aiType:type,capability:'Explore & decide',signals:[],tags:[],
-          _group:true,_members:matching.map(t=>t.id),
-          summary:matching.length+' '+TYPE_NAMES[type]+
+          _group:true,_empty:matching.length===0,_members:matching.map(t=>t.id),
+          summary:matching.length===0?
+            'No currently available '+TYPE_NAMES[type]+' tools in this field. Some tools may be awaiting a working link or evidence review.':
+            matching.length+' '+TYPE_NAMES[type]+
             ' '+(matching.length===1?'application':'applications')+
             '. Select this category to reveal its tools or browse the complete list.'
         };
