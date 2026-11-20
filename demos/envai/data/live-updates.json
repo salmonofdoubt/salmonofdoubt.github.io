@@ -372,6 +372,25 @@
       ]
     },
     {
+      "id": "directory:nasa-landsat-data-tools:globalforestchange",
+      "title": "Global Forest Change",
+      "url": "https://glad.earthengine.app/view/global-forest-change#bl=off;old=off;dl=1;lon=20;lat=10;zoom=3",
+      "evidence": "https://science.nasa.gov/mission/landsat/data-overview/",
+      "discoveredAt": "2026-11-20",
+      "eventDate": "2026-11-20",
+      "note": "A University of Maryland project that monitors global forest extent and change. · Listed tool website reachable; functionality and AI classification not yet verified.",
+      "source": "NASA Landsat data tools / official tool directory",
+      "status": "official-directory candidate / functionality unverified",
+      "domain": "Land & satellites",
+      "aiType": "Unverified",
+      "accessType": "web",
+      "siteReachable": true,
+      "siteCheckedAt": "2026-11-20",
+      "tags": [
+        "official-directory"
+      ]
+    },
+    {
       "id": "directory:nasa-landsat-data-tools:esrilandsatexplorer",
       "title": "Esri Landsat Explorer",
       "url": "https://livingatlas.arcgis.com/landsatexplorer/#mapCenter=89.08000%2C21.90900%2C11.557&mode=dynamic&mainScene=%7CShort-wave+Infrared+for+Visualization%7C",
@@ -379,6 +398,44 @@
       "discoveredAt": "2026-11-20",
       "eventDate": "2026-11-20",
       "note": "View, explore, and analyze the Landsat data archive through customizable band combinations, spectral indices, temporal filters, and interactive visualization tools. · Listed tool website reachable; functionality and AI classification not yet verified.",
+      "source": "NASA Landsat data tools / official tool directory",
+      "status": "official-directory candidate / functionality unverified",
+      "domain": "Land & satellites",
+      "aiType": "Unverified",
+      "accessType": "web",
+      "siteReachable": true,
+      "siteCheckedAt": "2026-11-20",
+      "tags": [
+        "official-directory"
+      ]
+    },
+    {
+      "id": "directory:nasa-landsat-data-tools:datainharmonynasasharmonizedlandsatandsentinel2project",
+      "title": "Data in Harmony: NASA's Harmonized Landsat and Sentinel-2 Project",
+      "url": "https://earthobservatory.nasa.gov/features/LandsatBigData",
+      "evidence": "https://science.nasa.gov/mission/landsat/data-overview/",
+      "discoveredAt": "2026-11-20",
+      "eventDate": "2026-11-20",
+      "note": "NASA's Harmonized Landsat and Sentinel-2 (HLS) project is a groundbreaking initiative that combines data from Landsats 8 & 9 with the European Space Agency's Sentinel-2A & 2B satel featured article Big Data Helps Scientists Dig Deeper Landsat’s multi-decade, global archive—compri · Listed tool website reachable; functionality and AI classification not yet verified.",
+      "source": "NASA Landsat data tools / official tool directory",
+      "status": "official-directory candidate / functionality unverified",
+      "domain": "Land & satellites",
+      "aiType": "Unverified",
+      "accessType": "web",
+      "siteReachable": true,
+      "siteCheckedAt": "2026-11-20",
+      "tags": [
+        "official-directory"
+      ]
+    },
+    {
+      "id": "directory:nasa-landsat-data-tools:croplanddatalayercdl",
+      "title": "Cropland Data Layer (CDL)",
+      "url": "https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php",
+      "evidence": "https://science.nasa.gov/mission/landsat/data-overview/",
+      "discoveredAt": "2026-11-20",
+      "eventDate": "2026-11-20",
+      "note": "An annual, geo-referenced, land cover data layer developed by the USDA that distinguishes crop types in the contiguous U.S. · Listed tool website reachable; functionality and AI classification not yet verified.",
       "source": "NASA Landsat data tools / official tool directory",
       "status": "official-directory candidate / functionality unverified",
       "domain": "Land & satellites",
@@ -874,7 +931,7 @@
     }
   ],
   "sitesProbed": 0,
-  "directorySitesProbed": 15,
+  "directorySitesProbed": 4,
   "toolHealth": {
     "olmoearth": {
       "url": "https://olmoearth.allenai.org/",
@@ -935,7 +992,7 @@
     "floodhub": {
       "url": "https://sites.research.google/floods/l/",
       "state": "retired",
-      "consecutiveMissing": 2,
+      "consecutiveMissing": 3,
       "lastCheckedAt": "2026-11-20",
       "httpStatus": 404,
       "lastReachableAt": null
@@ -1351,7 +1408,7 @@
   },
   "candidateCountByField": {
     "Biodiversity & wildlife": 5,
-    "Land & satellites": 13,
+    "Land & satellites": 16,
     "Climate & energy": 13,
     "Water & oceans": 5
   },
