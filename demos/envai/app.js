@@ -9,7 +9,7 @@ const domains={
  'Climate & energy':{name:'CLIMATE',short:'Climate',color:'#f7bf8f',cx:1150,cy:735,mx:545,my:770},
  'Water & oceans':{name:'WATER',short:'Water',color:'#7fbef0',cx:460,cy:770,mx:220,my:785}
 };
-const state={catalog:[],searchIndex:[],queryResults:{hits:[],total:0,dominantDomain:null},searchCoords:new Map(),items:[],edges:[],nodes:new Map(),links:new Map(),groupMap:new Map(),openGroup:null,selected:null,selectedType:null,search:'',view:'desktop',W:1550,H:930,zoom:1,tx:0,ty:0,dragging:false,lastPt:null,moved:false};
+const state={catalog:[],searchIndex:[],queryResults:{hits:[],total:0,dominantDomain:null},searchCoords:new Map(),items:[],edges:[],nodes:new Map(),links:new Map(),groupMap:new Map(),openGroup:null,mobileDomain:'Biodiversity & wildlife',selected:null,selectedType:null,search:'',view:'desktop',W:1550,H:930,zoom:1,tx:0,ty:0,dragging:false,lastPt:null,moved:false};
 const GROUP_THRESHOLD=10; // group dense fields by AI type; never discard tools
 const publicTool=t=>['online','install','access'].includes(t.toolUse); // reference items stay in JSON, not the experience
 const SEARCH_LIMIT=6; // temporary, query-specific labels; never all search results
@@ -28,10 +28,10 @@ function initEdges(){const links=new Map();const actual=state.items.filter(t=>!t
  state.edges=[...links.values()].sort((a,b)=>b.score-a.score).filter(x=>x.score>2.9).slice(0,115);
  state.links.clear();for(const t of state.items)state.links.set(t.id,new Set());for(const e of state.edges){state.links.get(e.a).add(e.b);state.links.get(e.b).add(e.a)}
 }
-function computeLayout(){const mobile=window.innerWidth<620;state.view=mobile?'mobile':'desktop';state.W=mobile?750:1550;state.H=mobile?1080:930;const byDom={};for(const t of state.items)(byDom[t.domain] ||= []).push(t);
- for(const [name,arr] of Object.entries(byDom)){const d=domains[name];const cx=mobile?d.mx:d.cx,cy=mobile?d.my:d.cy;arr.sort((a,b)=>seednum(a.id)-seednum(b.id));const n=arr.length;
-  arr.forEach((t,i)=>{const rand=rng(t.id),ang=2*Math.PI*(i/n)+(.20*(rand()-.5))+(name==='Land & satellites'? .33: -.13);const ring=i%3===0?174:i%3===1?132:212;const r=mobile?ring*.68:ring;
-   t._x=cx+Math.cos(ang)*(r+rand()*20-10);t._y=cy+Math.sin(ang)*(r*.84+rand()*12-6);t._x=Math.max(22,Math.min(state.W-22,t._x));t._y=Math.max(30,Math.min(state.H-38,t._y))})}
+function computeLayout(){const mobile=window.innerWidth<=690;state.view=mobile?'mobile':'desktop';state.W=mobile?440:1550;state.H=mobile?440:930;const byDom={};for(const t of state.items)(byDom[t.domain] ||= []).push(t);
+ for(const [name,arr] of Object.entries(byDom)){const d=domains[name];const cx=mobile?220:d.cx,cy=mobile?216:d.cy;arr.sort((a,b)=>seednum(a.id)-seednum(b.id));const n=arr.length;
+  arr.forEach((t,i)=>{const rand=rng(t.id),ang=mobile?(-Math.PI/2+2*Math.PI*i/n):2*Math.PI*(i/n)+(.20*(rand()-.5))+(name==='Land & satellites'? .33: -.13);const ring=mobile?(n>9?(i%2?143:160):140):(i%3===0?174:i%3===1?132:212);const r=ring;
+   t._x=cx+Math.cos(ang)*(mobile?r:r+rand()*20-10);t._y=cy+Math.sin(ang)*(mobile?r*.82:r*.84+rand()*12-6);t._x=Math.max(22,Math.min(state.W-22,t._x));t._y=Math.max(30,Math.min(state.H-38,t._y))})}
  // Gently spread crowded labels/nodes while keeping cluster membership legible.
  for(let it=0;it<100;it++)for(let i=0;i<state.items.length;i++)for(let j=i+1;j<state.items.length;j++){
   const a=state.items[i],b=state.items[j],dx=a._x-b._x,dy=a._y-b._y,dist=Math.hypot(dx,dy)||1,min=state.view==='mobile'?36:51;
@@ -49,26 +49,27 @@ function background(){
   const {x:cx,y:cy}=hubXY(dom);
   elem('circle',{cx,cy,r:state.view==='mobile'?245:320,fill:'url(#fieldGlow)',opacity:'.7'},layer);
   const tools=state.items.filter(t=>t.domain===dom);
-  const margin=state.view==='mobile'?29:39;
+  const margin=state.view==='mobile'?24:39;
   const maxDX=Math.max(0,...tools.map(t=>Math.abs(t._x-cx)));
   const maxDY=Math.max(0,...tools.map(t=>Math.abs(t._y-cy)));
-  const rx=Math.max(state.view==='mobile'?154:215,maxDX+margin);
-  const ry=Math.max(state.view==='mobile'?144:192,maxDY+margin);
+  const rx=Math.max(state.view==='mobile'?152:215,maxDX+margin);
+  const ry=Math.max(state.view==='mobile'?126:192,maxDY+margin);
   // A single fine dotted perimeter, plus a near-invisible atmosphere.
   const outline=elem('ellipse',{cx,cy,rx:rx.toFixed(1),ry:ry.toFixed(1),
    class:'cluster-boundary','data-field':dom,'aria-hidden':'true'},layer);
   outline.style.setProperty('--outline-order',Object.keys(domains).indexOf(dom));
  }
 }
-function hubXY(dom){const d=domains[dom];return {x:state.view==='mobile'?d.mx:d.cx,y:state.view==='mobile'?d.my:d.cy}}
+function hubXY(dom){const d=domains[dom];return {x:state.view==='mobile'?220:d.cx,y:state.view==='mobile'?216:d.cy}}
 function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} ${state.H}`);const g=$('edges'), hubs=$('hubs'),n=$('nodes');g.replaceChildren();hubs.replaceChildren();n.replaceChildren();background();state.nodes.clear();
  const coords=new Map(state.items.map(x=>[x.id,{x:x._x,y:x._y}]));
  for(const link of state.edges){const path=elem('path',{d:curved(coords.get(link.a),coords.get(link.b),.23),class:'line'+(link.cross?' cross':''),'data-a':link.a,'data-b':link.b},g);link.el=path}
- for(const [dom,d] of Object.entries(domains)){const p=hubXY(dom);for(const t of state.items.filter(x=>x.domain===dom)){const path=elem('path',{d:curved(p,coords.get(t.id),0),class:'line hubline','data-a':'hub:'+dom,'data-b':t.id},g);path.dataset.hub=dom}
- const r=state.view==='mobile'?40:57;const group=elem('g',{class:'node hub','data-id':'hub:'+dom,role:'button',tabindex:'0','aria-label':`Show ${d.short} tools`,transform:`translate(${p.x},${p.y})`},hubs);
+ for(const [dom,d] of Object.entries(domains)){if(state.view==='mobile'&&dom!==state.mobileDomain)continue;const p=hubXY(dom);for(const t of state.items.filter(x=>x.domain===dom)){const path=elem('path',{d:curved(p,coords.get(t.id),0),class:'line hubline','data-a':'hub:'+dom,'data-b':t.id},g);path.dataset.hub=dom}
+ const r=state.view==='mobile'?45:57;const group=elem('g',{class:'node hub','data-id':'hub:'+dom,role:'button',tabindex:'0','aria-label':`Show ${d.short} tools`,transform:`translate(${p.x},${p.y})`},hubs);
  elem('circle',{r:r+20,fill:'none',stroke:d.color,'stroke-opacity':'.16','stroke-width':'1','class':'hub-arc'},group);elem('circle',{r,fill:d.color,'fill-opacity':'.045',stroke:d.color,'stroke-opacity':'.7','stroke-width':'1.3','class':'outer'},group);elem('circle',{r:12,fill:d.color,'fill-opacity':'.1',stroke:d.color,'stroke-opacity':'.4'},group);elem('text',{y:-8,'text-anchor':'middle',class:'node-label'},group).textContent=d.name;elem('text',{y:11,'text-anchor':'middle',class:'sub-label'},group).textContent=`${state.catalog.filter(x=>x.domain===dom&&!x.id.startsWith('lead:')&&x.mapVisible!==false).length} TOOLS`;group.style.setProperty('--nodeColor',d.color);state.nodes.set('hub:'+dom,group);bindNode(group,'hub:'+dom)}
  const newSet=new Set(state.catalog.filter(x=>dateRecent(x.eventDate)).map(x=>x.id));$('newCount').textContent=String(newSet.size);
  for(const t of state.items){const d=domains[t.domain],color=d?.color||'#bad9db',AI=types[t.aiType]||'unverified',gTool=elem('g',{class:'node tool'+(t._group?' category-node':'')+(t._group||state.items.filter(x=>x.domain===t.domain&&!x._group).slice(0,2).includes(t)?' primary':''),'data-id':t.id,role:'button',tabindex:'0','aria-label':`${t.title}, ${t.aiType}`,transform:`translate(${t._x.toFixed(1)},${t._y.toFixed(1)})`},n);gTool.style.setProperty('--nodeColor',color);gTool.style.setProperty('--class-color',classColors[AI]);
+  if(state.view==='mobile')elem('circle',{r:29,fill:'transparent',class:'touch-target'},gTool);
   elem('circle',{r:17,fill:'none',stroke:color,'stroke-opacity':'.20','stroke-width':'1.2',class:'outer'},gTool);
   elem('circle',{r:8,fill:AI==='native'?color:AI==='augmented'?color:'#09121e','fill-opacity':AI==='native'?'.83':AI==='augmented'?'.2':'1',stroke:color,'stroke-opacity':AI==='unverified'?'.3':'.85','stroke-width':AI==='digital'?'1.5':'1.2','stroke-dasharray':AI==='unverified'?'2 3':null,class:'inner'},gTool);
   elem('circle',{r:19,class:'glow-ring'},gTool);
@@ -81,7 +82,7 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
   const marker=elem('circle',{class:'chip-type',cx:32,cy:-5.5,r:3.3},chip);
   marker.setAttribute('fill',classColors[AI]);
   const lab=elem('text',{class:'node-label',x:43,y:-1.5},chip);lab.textContent=truncate(t.title,state.view==='mobile'?19:24);
-  if(t._group)elem('text',{x:23,y:5,class:'group-name','aria-hidden':'true'},gTool).textContent=t.title;
+  if(t._group){const mobile=state.view==='mobile';const label=t._pending?'TO REVIEW':t.aiType==='Traditional digital'?'TRADITIONAL':t.aiType==='AI-augmented'?'AI-AUGMENTED':'AI-NATIVE';elem('text',{x:mobile?0:23,y:mobile?-33:5,'text-anchor':mobile?'middle':'start',class:'group-name','aria-hidden':'true'},gTool).textContent=mobile?label+' · '+t._members.length:t.title;}
    const title=elem('title',{},gTool);title.textContent=t.title+' · '+(t._group?'group · ':'')+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
  drawSearchCandidates();styleFocus();updateCamera(false)}
 function truncate(s,n){return s.length>n?s.slice(0,n-1).trim()+'…':s}
@@ -212,6 +213,7 @@ function drawSearchCandidates(){
 }
 function searchNow(){
  state.queryResults=window.EnvAISemantic.search(state.searchIndex,state.search,SEARCH_LIMIT);
+ if(state.view==='mobile'&&state.queryResults.dominantDomain&&state.queryResults.dominantDomain!==state.mobileDomain){state.mobileDomain=state.queryResults.dominantDomain;rebuildMap()}
  drawSearchCandidates();styleFocus();
 }
 function styleFocus(){
@@ -252,9 +254,10 @@ function styleFocus(){
 }
 function rebuildMap(){
  const model=window.EnvAIClusters.organise(state.catalog,Object.keys(domains),state.openGroup,GROUP_THRESHOLD);
- state.items=model.items;state.groupMap=model.groups;
+ const mobile=window.innerWidth<=690;
+ state.items=mobile?model.items.filter(t=>t.domain===state.mobileDomain):model.items;state.groupMap=model.groups;
  if(state.openGroup&&!state.groupMap.has(state.openGroup))state.openGroup=null;
- initEdges();computeLayout();draw();
+ initEdges();computeLayout();draw();updateMobileTabs();
 }
 function select(id){
  if(id===state.selected){reset();return}
@@ -264,9 +267,9 @@ function select(id){
    state.selected=id;
  }else state.selected=id;
  state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};
- drawSearchCandidates();$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true)
+ drawSearchCandidates();$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true);revealMobileDetail()
 }
-function selectSearch(id){const key='search:'+id;if(key===state.selected){reset();return}state.selected=key;$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true)}
+function selectSearch(id){const key='search:'+id;if(key===state.selected){reset();return}const t=lookupTool(id);if(state.view==='mobile'&&t&&t.domain!==state.mobileDomain){state.mobileDomain=t.domain;rebuildMap()}state.selected=key;$('tooltip').hidden=true;styleFocus();renderInfo();updateCamera(true);revealMobileDetail()}
 function reset(){state.selected=null;state.search='';$('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};if(state.openGroup){state.openGroup=null;rebuildMap()}drawSearchCandidates();$('tooltip').hidden=true;state.zoom=1;state.tx=0;state.ty=0;styleFocus();updateCamera(false)}
 function newButton(text,onclick,klass){const b=document.createElement('button');b.textContent=text;b.className=klass||'';b.type='button';b.addEventListener('click',onclick);return b}
 function showGroupTools(group){
@@ -311,6 +314,7 @@ function renderInfo(){
 // The legend is now docked in the bottom status rail, outside the map.
 // Kept as a no-op for older focus, zoom and pan call sites.
 function queueKeyPosition(){}
+function revealMobileDetail(){if(state.view==='mobile'&&state.selected&&document.activeElement!==$('search'))requestAnimationFrame(()=>$('focusInfo').scrollIntoView({behavior:'smooth',block:'nearest'}))}
 function updateCamera(focus){
  // Visual-first focus. Keep desktop camera exactly where the explorer left it.
  // Phone only: a small opening zoom makes touch targets legible, then pan only
@@ -318,7 +322,7 @@ function updateCamera(focus){
  if(!state.selected){state.zoom=1;state.tx=0;state.ty=0}
  else if(focus&&state.view==='mobile'){
    const pt=state.selected.startsWith('hub:')?hubXY(state.selected.slice(4)):state.selected.startsWith('search:')?(state.searchCoords.get(state.selected.slice(7))||hubXY(lookupTool(state.selected)?.domain||'Water & oceans')):(()=>{const t=state.items.find(x=>x.id===state.selected);return{x:t._x,y:t._y}})();
-   if(state.zoom<1.04){state.zoom=1.22;state.tx=(state.W*.5-pt.x*state.zoom)*.62;state.ty=(state.H*.47-pt.y*state.zoom)*.58}
+   if(state.zoom<1.04){state.zoom=1.08;state.tx=(state.W*.5-pt.x*state.zoom)*.40;state.ty=(state.H*.49-pt.y*state.zoom)*.40}
    let x=pt.x*state.zoom+state.tx,y=pt.y*state.zoom+state.ty;
    const minX=state.W*.16,maxX=state.W*.83,minY=state.H*.17,maxY=state.H*.82;
    if(x<minX)state.tx+=minX-x;else if(x>maxX)state.tx+=maxX-x;
@@ -339,13 +343,31 @@ function enableControls(){const svg=$('graph'),stage=$('stage');let down=null;
  $('search').addEventListener('input',e=>{state.search=e.target.value;if(state.selected){state.selected=null;renderInfo();state.zoom=1;state.tx=0;state.ty=0;updateCamera(false)}clearTimeout(searchDelay);searchDelay=setTimeout(searchNow,100)});
  $('search').addEventListener('keydown',e=>{if(e.key==='Enter'){clearTimeout(searchDelay);searchNow();const first=state.queryResults.hits[0]?.tool;if(first){if(state.nodes.has(first.id))select(first.id);else selectSearch(first.id);$('search').blur();e.preventDefault()}}if(e.key==='Escape'){reset();$('search').blur()}});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'){reset();$('menu').hidden=true;$('menuBtn').setAttribute('aria-expanded','false');if($('dialog').open)$('dialog').close()}if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();$('search').focus()}});
- window.addEventListener('resize',()=>{const want=window.innerWidth<620?'mobile':'desktop';if(want!==state.view){computeLayout();draw();updateCamera(!!state.selected)}});
+ window.addEventListener('resize',()=>{const want=window.innerWidth<=690?'mobile':'desktop';if(want!==state.view){if(state.selected&&!state.selected.startsWith('hub:')&&!state.selected.startsWith('group:'))state.mobileDomain=lookupTool(state.selected)?.domain||state.mobileDomain;rebuildMap();updateCamera(!!state.selected)}});
 }
 function toast(str){const el=$('toast');el.textContent=str;el.classList.add('show');clearTimeout(el._timer);el._timer=setTimeout(()=>el.classList.remove('show'),2700)}
 function setModal(type){const body=$('dialogBody');body.replaceChildren();const h=document.createElement('h2');const p=document.createElement('p');if(type==='method'){h.textContent='AI isn’t a marketing label.';p.textContent='EnvAI describes the role of AI in a tool’s actual environmental workflow. Traditional digital tools work without AI; AI-augmented tools add AI to a broader workflow; AI-native tools depend on AI for their central purpose. “Unverified” means we need better evidence.';body.append(h,p);let t=document.createElement('p');t.textContent='Links between tools indicate shared environmental data, tasks and technical methods. They do not imply investments, interoperability, ownership or partnerships. All classifications are preliminary editorial assessments.';body.append(t)}else if(type==='cite'){h.textContent='Cite EnvAI';p.textContent='Salmon of Doubt (2026). EnvAI: Environmental Technology & AI Landscape [Interactive software demo].';body.append(h,p);const doi=window.SOD_ATLAS_CONFIG?.doi;if(doi){let a=document.createElement('a');a.href='https://doi.org/'+doi;a.textContent=doi;a.target='_blank';a.rel='noopener';body.append(a)}else{const t=document.createElement('p');t.textContent='DOI pending. This is a new demo; no DOI from another project is used.';body.append(t)}}else{h.textContent='Install EnvAI';p.textContent='Once published via HTTPS, choose “Install app” in a compatible browser. On iPhone or iPad in Safari, use Share → Add to Home Screen. Local file previews cannot install a PWA.';body.append(h,p)}$('dialog').showModal()}
 function misc(){const menu=$('menu'),btn=$('menuBtn');btn.onclick=()=>{menu.hidden=!menu.hidden;btn.setAttribute('aria-expanded',String(!menu.hidden))};document.addEventListener('click',e=>{if(!e.target.closest('.topbar')){menu.hidden=true;btn.setAttribute('aria-expanded','false')}});
  $('methodBtn').onclick=()=>{menu.hidden=true;btn.setAttribute('aria-expanded','false')};$('citeBtn').onclick=()=>{menu.hidden=true;setModal('cite')};$('dialogClose').onclick=()=>$('dialog').close();$('installBtn').onclick=()=>{menu.hidden=true;if(autoPrompt){autoPrompt.prompt();autoPrompt=null}else setModal('install')};window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();autoPrompt=e});
  if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(()=>{}))}
+function updateMobileTabs(){
+ const nav=$('mobileFields');if(!nav)return;
+ for(const button of nav.querySelectorAll('[data-field]')){
+  const domain=button.dataset.field;
+  const count=state.catalog.filter(t=>t.domain===domain&&!t.id.startsWith('lead:')&&t.mapVisible!==false).length;
+  button.querySelector('.field-count').textContent=String(count);
+  const on=domain===state.mobileDomain;
+  button.setAttribute('aria-pressed',String(on));
+  button.classList.toggle('active',on);
+ }
+}
+function showMobileField(domain){
+ if(!domains[domain]||state.view!=='mobile'||domain===state.mobileDomain)return;
+ state.mobileDomain=domain;state.openGroup=null;state.selected=null;state.search='';
+ $('search').value='';state.queryResults={hits:[],total:0,dominantDomain:null};
+ state.zoom=1;state.tx=0;state.ty=0;
+ rebuildMap();drawSearchCandidates();styleFocus();renderInfo();updateCamera(false);
+}
 function setup(list){
  state.catalog=list.filter(t=>t&&t.id&&t.domain&&domains[t.domain]&&t.title&&publicTool(t)).map(t=>({...t,aiType:t.aiType||'Unverified'}));
  state.searchIndex=window.EnvAISemantic.prepare(state.catalog);
@@ -366,7 +388,7 @@ function loadError(){
  $('stats').querySelector('small').textContent='No data loaded';
 }
 $('mapVisual').addEventListener('transitionend',e=>{if(e.target===$('mapVisual')&&e.propertyName==='transform')queueKeyPosition()});
-enableControls();misc();
+enableControls();misc();$('mobileFields')?.addEventListener('click',e=>{const button=e.target.closest('[data-field]');if(button)showMobileField(button.dataset.field)});
 const embedded=$('fallbackCatalog');
 if(embedded){
  try{const fallback=JSON.parse(embedded.textContent);setup(fallback.items||[]);loadFocusFromUrl()}
