@@ -129,6 +129,17 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
   elem('circle',{r:17,fill:'none',stroke:color,'stroke-opacity':'.20','stroke-width':'1.2',class:'outer'},gTool);
   elem('circle',{r:8,fill:t._purpose?color:AI==='native'?color:AI==='augmented'?color:'#09121e','fill-opacity':t._purpose?'.46':AI==='native'?'.83':AI==='augmented'?'.2':'1',stroke:t._purpose?color:classColors[AI], 'stroke-opacity':AI==='unverified'&&!t._purpose?'.3':'.85','stroke-width':t._purpose?'2':AI==='digital'?'1.5':'1.2','stroke-dasharray':t._pending?'2 3':null,class:'inner'},gTool);
   elem('circle',{r:19,class:'glow-ring'},gTool);
+  if(t._purpose){
+   // Miniature composition key: a topic mixes technologies while each
+   // individual tool retains its real AI classification.
+   const mix=[['Traditional digital','digital'],['AI-augmented','augmented'],['AI-native','native']];
+   for(let i=0;i<mix.length;i++){
+    const [type,key]=mix[i],count=t._aiCounts?.[type]||0;
+    const dot=elem('circle',{cx:(i-1)*10,cy:24,r:3.5,
+      fill:classColors[key],'fill-opacity':count?'.93':'.12',
+      'aria-hidden':'true',class:'topic-ai-dot'},gTool);
+   }
+  }
   if(newSet.has(t.id)){const flare=elem('g',{class:'new-flare',transform:'translate(11,-10)'},gTool);elem('circle',{r:3.1,class:'flare-dot'},flare);elem('path',{d:'M0 -7 V-4 M0 4 V7 M-7 0 H-4 M4 0 H7',class:'flare-ray'},flare)}
   // The compact label is part of the clickable SVG node: no floating cards,
   // no second click, and no separate overlay that can intercept the map.
@@ -139,7 +150,11 @@ function draw(){const svg=$('graph');svg.setAttribute('viewBox',`0 0 ${state.W} 
   marker.setAttribute('fill',classColors[AI]);
   const lab=elem('text',{class:'node-label',x:43,y:-1.5},chip);lab.textContent=truncate(t.title,state.view==='mobile'?19:24);
   if(t._group){const mobile=state.view==='mobile';const label=mobile?(t.short||t.label):t.label;elem('text',{x:mobile?0:23,y:mobile?-33:5,'text-anchor':mobile?'middle':'start',class:'group-name','aria-hidden':'true'},gTool).textContent=label+' · '+t._members.length;}
-   const title=elem('title',{},gTool);title.textContent=t._group?t.title+' · environmental topic':t.title+' · '+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
+   const title=elem('title',{},gTool);title.textContent=t._purpose?
+   t.title+' · Traditional '+(t._aiCounts?.['Traditional digital']||0)+
+   ', AI-augmented '+(t._aiCounts?.['AI-augmented']||0)+
+   ', AI-native '+(t._aiCounts?.['AI-native']||0):
+   t._group?t.title+' · pending review':t.title+' · '+t.aiType;state.nodes.set(t.id,gTool);bindNode(gTool,t.id)}
  drawSearchCandidates();styleFocus();updateCamera(false)}
 function truncate(s,n){return s.length>n?s.slice(0,n-1).trim()+'…':s}
 function bindNode(el,id){el.addEventListener('pointerenter',ev=>{if(state.dragging)return;const x=ev.clientX,y=ev.clientY;const target=state.items.find(t=>t.id===id);const peer=state.selected&&!state.selected.startsWith('hub:')?state.items.find(t=>t.id===state.selected):null;
