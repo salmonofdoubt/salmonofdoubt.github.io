@@ -66,6 +66,7 @@
           label:def.label,short:def.short,domain,purpose:def.id,
           aiType:'Purpose group',capability:'Explore & decide',signals:[],tags:[],
           _group:true,_purpose:true,_members:matching.map(t=>t.id),
+          _aiCounts:Object.fromEntries(TYPES.map(type=>[type,matching.filter(t=>t.aiType===type).length])),
           summary:def.description+' '+matching.length+
             ' '+(matching.length===1?'tool':'tools')+' available.'};
         groups.set(id,group);items.push(group);
