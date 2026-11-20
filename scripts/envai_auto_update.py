@@ -62,9 +62,9 @@ DOMAIN_HINTS = {
     'Climate & energy': ('climate','emission','carbon','solar','weather','renewable energy','energy','warming'),
     'Water & oceans': ('whale','marine','ocean','hydrolog','water','flood','coral','fish','coastal','aquatic'),
 }
-MAX_LEADS, MAX_RELEASES, LOOKBACK_DAYS = 90, 120, 90
+MAX_LEADS, MAX_RELEASES, LOOKBACK_DAYS = 120, 120, 90
 MAX_SITE_PROBES = 16  # GitHub discovery: limited low-priority website checks.
-MAX_DIRECTORY_PROBES = 48  # Shared budget with per-source and per-domain caps.
+MAX_DIRECTORY_PROBES = 32  # Bounded run with per-source and per-domain caps.
 # Provider-curated tool listings, not generic search results or research papers.
 DIRECTORIES = (
     ('Google Sustainability', 'https://sustainability.google/technology/tools/', ('explore tool',)),
@@ -322,8 +322,17 @@ class OfficialToolLinks(HTMLParser):
                 label.startswith(pattern[:-1]) for pattern in self.labels
                 if pattern.endswith('*') and len(pattern)>1)
             if matching:
-                title = (label.removeprefix('go to ').title()
-                         if label.startswith('go to ') else self.heading)
+                generic={'launch tool','visit website','explore','open the app'}
+                if label in generic:
+                    title=self.heading
+                elif label.startswith('go to '):
+                    title=label.removeprefix('go to ').title()
+                elif label.startswith('launch '):
+                    title=label.removeprefix('launch ').title()
+                elif label.startswith(('see the ','access the ','view the ')):
+                    title=label.split(' ',2)[-1].title()
+                else:
+                    title=label.title()
                 if 3 <= len(title) <= 100:
                     self.items.append((title, self._anchor['href'],
                                        text(' '.join(self._context), 280)))
@@ -499,6 +508,7 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
     # Authoritative, explicitly labelled tool directories are prioritised over
     # newly created repositories. A listing yields a candidate, not approval.
     directory_probes = 0
+    domain_additions = {field:0 for field in DOMAIN_HINTS}
     indexed_titles = {normalized_title(t.get('title'))
                       for t in catalogue['items']}
     indexed_titles.update(
@@ -516,7 +526,7 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
                 raise ValueError('No application links found (directory layout may have changed)')
             sources_ok+=1
             for title,detail_url,description in parser.items:
-                if directory_probes>=MAX_DIRECTORY_PROBES:break
+                if directory_probes>=MAX_DIRECTORY_PROBES or domain_additions['Climate & energy']>=MAX_NEW_PER_DOMAIN:break
                 homepage=usable_homepage(detail_url)
                 title_key=normalized_title(title)
                 if not homepage or title_key in indexed_titles or (
@@ -539,6 +549,7 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
                 seen_homepages.add(homepage.lower().rstrip('/'))
                 indexed_titles.add(title_key)
                 new_lead_count+=1
+                domain_additions['Climate & energy']+=1
         except (OSError,HTTPError,URLError,TimeoutError,ValueError,TypeError) as error:
             sources_failed+=1
             errors.append(text(source_name+' / '+str(error),180))
@@ -552,8 +563,9 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
                 sources_failed += 1
                 errors.append(text(source_name + ' / ' + str(error), 180))
                 continue
+            source_additions=0
             for title, link_url, description in parser.items:
-                if directory_probes >= MAX_DIRECTORY_PROBES:
+                if directory_probes >= MAX_DIRECTORY_PROBES or source_additions>=MAX_NEW_PER_SOURCE:
                     break
                 homepage = usable_homepage(urljoin(source_url, link_url))
                 title_key = normalized_title(title)
@@ -562,8 +574,8 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
                 if homepage.lower().rstrip('/') in seen_homepages:
                     continue
                 combined = (title + ' ' + description).lower()
-                domain = domain_guess(combined)
-                if not domain:
+                domain = SOURCE_DOMAINS.get(source_name) or domain_guess(combined)
+                if not domain or domain_additions[domain]>=MAX_NEW_PER_DOMAIN:
                     continue
                 directory_probes += 1
                 if not probe(homepage):
@@ -584,6 +596,8 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
                 seen_homepages.add(homepage.lower().rstrip('/'))
                 indexed_titles.add(title_key)
                 new_lead_count += 1
+                source_additions += 1
+                domain_additions[domain] += 1
 
     for q in SEARCHES:
         result=get('/search/repositories',{'q':q+' created:>='+created_cutoff.isoformat(),
@@ -635,7 +649,20 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
         day=parse_stamp(row.get('eventDate') or row.get('discoveredAt'))
         return day is not None and day>=cutoff and day<=today
     releases=sorted((e for e in old_rel.values() if retain(e)),key=lambda e:(e['eventDate'],e['id']),reverse=True)[:MAX_RELEASES]
-    leads=sorted((e for e in old_leads.values() if retain(e)),key=lambda e:(e.get('discoveredAt',''),e['id']),reverse=True)[:MAX_LEADS]
+    # Reserve equal retention capacity per environmental field. A busy source
+    # must not evict all water, biodiversity or land discoveries.
+    ordered=sorted((e for e in old_leads.values() if retain(e)),
+                   key=lambda e:(e.get('discoveredAt',''),e['id']),reverse=True)
+    per_field={field:0 for field in DOMAIN_HINTS}
+    leads=[]
+    for entry in ordered:
+        field=entry.get('domain')
+        if field not in per_field or per_field[field]>=MAX_LEADS//len(per_field):
+            continue
+        leads.append(entry)
+        per_field[field]+=1
+        if len(leads)>=MAX_LEADS:
+            break
     status='ok' if sources_ok and not sources_failed else 'partial' if sources_ok else 'error'
     tool_health = (update_health(previous, catalogue, health_probe, today)
                    if health_probe else previous.get('toolHealth', {}))
@@ -645,7 +672,12 @@ def scan(*, fetch=api, probe=probe_live_site, directory_fetch=None,
             'sourcesSucceeded':sources_ok,'sourcesFailed':sources_failed,
             'monitorCount':len(watched),'errorSummary':errors[:4],
             'releaseEvents':releases,'leads':leads,'sitesProbed':sites_probed,
-            'directorySitesProbed':directory_probes, 'toolHealth':tool_health,
+            'directorySitesProbed':directory_probes,'toolHealth':tool_health,
+            'candidateCountByField':{field:sum(1 for e in leads if e.get('domain')==field)
+                                     for field in DOMAIN_HINTS},
+            'catalogueCountByField':{field:sum(1 for t in catalogue['items']
+                               if t.get('domain')==field and t.get('toolUse')
+                               in ('online','install','access')) for field in DOMAIN_HINTS},
             'notice':'Official directories and GitHub are checked daily. Candidates remain unverified. Tools with two confirmed missing-link scans are hidden from the public atlas, not deleted from research records.',
            }
     return result, {'releasesAdded':new_release_count,'leadsAdded':new_lead_count,'sourcesSucceeded':sources_ok,'sourcesFailed':sources_failed}
