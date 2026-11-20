@@ -17,8 +17,7 @@
     };
     const usable=list.filter(available);
     const fields=['Biodiversity & wildlife','Land & satellites','Climate & energy','Water & oceans'];
-    const shown=fields.reduce((n,field)=>n+
-      Math.min(15,usable.filter(item=>item.domain===field&&item.mapVisible!==false).length),0);
+    const shown=window.EnvAIClusters.organise(usable,fields,null,10).items.length;
     el('toolCount').textContent=String(usable.length);
     el('mappedCount').textContent=String(shown);
     el('reviewDate').textContent=data.reviewedAt||'Not recorded';
