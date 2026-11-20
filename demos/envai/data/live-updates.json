@@ -11,6 +11,32 @@
   "errorSummary": [],
   "releaseEvents": [
     {
+      "id": "release:qgis/qgis:final-4_4_0",
+      "toolId": "qgis",
+      "title": "QGIS",
+      "tag": "final-4_4_0",
+      "eventDate": "2026-11-20",
+      "eventType": "Official GitHub release",
+      "url": "https://github.com/qgis/QGIS/releases/tag/final-4_4_0",
+      "evidence": "https://github.com/qgis/QGIS/releases/tag/final-4_4_0",
+      "source": "GitHub release / qgis/QGIS",
+      "summary": "A source-dated release from the project’s watched GitHub repository. Features and impact are not independently assessed.",
+      "aiType": "Traditional digital"
+    },
+    {
+      "id": "release:qgis/qgis:final-3_44_16",
+      "toolId": "qgis",
+      "title": "QGIS",
+      "tag": "final-3_44_16",
+      "eventDate": "2026-11-20",
+      "eventType": "Official GitHub release",
+      "url": "https://github.com/qgis/QGIS/releases/tag/final-3_44_16",
+      "evidence": "https://github.com/qgis/QGIS/releases/tag/final-3_44_16",
+      "source": "GitHub release / qgis/QGIS",
+      "summary": "A source-dated release from the project’s watched GitHub repository. Features and impact are not independently assessed.",
+      "aiType": "Traditional digital"
+    },
+    {
       "id": "release:boettiger-lab/geo-agent:v4.1.0",
       "toolId": "glen",
       "title": "GLEN Geospatial Navigator",
@@ -360,6 +386,25 @@
       "discoveredAt": "2026-11-20",
       "eventDate": "2026-11-20",
       "note": "Annually-updated land cover and land cover change datasets for the contiguous U.S., produced by the USGS Earth Resources Observation and Science (EROS) Center. · Listed tool website reachable; functionality and AI classification not yet verified.",
+      "source": "NASA Landsat data tools / official tool directory",
+      "status": "official-directory candidate / functionality unverified",
+      "domain": "Land & satellites",
+      "aiType": "Unverified",
+      "accessType": "web",
+      "siteReachable": true,
+      "siteCheckedAt": "2026-11-20",
+      "tags": [
+        "official-directory"
+      ]
+    },
+    {
+      "id": "directory:nasa-landsat-data-tools:harmonizedlandsatsentinel2hls",
+      "title": "Harmonized Landsat Sentinel-2 (HLS)",
+      "url": "https://www.earthdata.nasa.gov/data/projects/hls",
+      "evidence": "https://science.nasa.gov/mission/landsat/data-overview/",
+      "discoveredAt": "2026-11-20",
+      "eventDate": "2026-11-20",
+      "note": "A global land surface reflectance dataset that combines imagery from NASA/USGS Landsat and European Space Agency (ESA) Sentinel-2 satellites. · Listed tool website reachable; functionality and AI classification not yet verified.",
       "source": "NASA Landsat data tools / official tool directory",
       "status": "official-directory candidate / functionality unverified",
       "domain": "Land & satellites",
@@ -931,7 +976,7 @@
     }
   ],
   "sitesProbed": 0,
-  "directorySitesProbed": 4,
+  "directorySitesProbed": 1,
   "toolHealth": {
     "olmoearth": {
       "url": "https://olmoearth.allenai.org/",
@@ -992,7 +1037,7 @@
     "floodhub": {
       "url": "https://sites.research.google/floods/l/",
       "state": "retired",
-      "consecutiveMissing": 3,
+      "consecutiveMissing": 4,
       "lastCheckedAt": "2026-11-20",
       "httpStatus": 404,
       "lastReachableAt": null
@@ -1167,11 +1212,11 @@
     },
     "ember-electricity": {
       "url": "https://ember-energy.org/data/electricity-data-explorer/",
-      "state": "unconfirmed",
+      "state": "reachable",
       "consecutiveMissing": 0,
       "lastCheckedAt": "2026-11-20",
-      "httpStatus": 403,
-      "lastReachableAt": null
+      "httpStatus": 200,
+      "lastReachableAt": "2026-11-20"
     },
     "climate-central-coastal": {
       "url": "https://coastal.climatecentral.org/",
@@ -1303,10 +1348,10 @@
     },
     "protected-planet": {
       "url": "https://www.protectedplanet.net/",
-      "state": "reachable",
+      "state": "unconfirmed",
       "consecutiveMissing": 0,
       "lastCheckedAt": "2026-11-20",
-      "httpStatus": 200,
+      "httpStatus": null,
       "lastReachableAt": "2026-11-20"
     },
     "natureserve-explorer": {
@@ -1408,7 +1453,7 @@
   },
   "candidateCountByField": {
     "Biodiversity & wildlife": 5,
-    "Land & satellites": 16,
+    "Land & satellites": 17,
     "Climate & energy": 13,
     "Water & oceans": 5
   },
