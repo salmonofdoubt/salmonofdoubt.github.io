@@ -136,8 +136,18 @@ def main():
             assert trace.get_attribute("target") == "_blank"
             desktop.context.route("https://climatetrace.org/**",
                 lambda route: route.fulfill(status=200,content_type="text/html",body="<title>Climate TRACE</title>"))
-            with desktop.context.expect_page(timeout=10000) as opened:
-                trace.click(force=True)
+            bounds_trace=trace.bounding_box()
+            assert bounds_trace is not None
+            pointer_target=desktop.evaluate("""box => {
+              const e=document.elementFromPoint(box.x+box.width/2,box.y+box.height/2);
+              return {tag:e?.tagName||null,
+                node:e?.closest('[data-id]')?.getAttribute('data-id')||null,
+                className:e?.getAttribute('class')||null};
+            }""",bounds_trace)
+            assert pointer_target["node"]=="trace", (
+                f"SVG tool is visually obstructed / not hit-testable: {pointer_target}")
+            with desktop.context.expect_page(timeout=5000) as opened:
+                trace.click()
             popup=opened.value
             popup.close()
             assert desktop.locator("#nodes [data-id='trace']").count() == 1, (
