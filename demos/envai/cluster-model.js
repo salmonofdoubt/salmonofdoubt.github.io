@@ -12,6 +12,7 @@
   const TYPE_NAMES={'Traditional digital':'Traditional','AI-augmented':'AI-augmented','AI-native':'AI-native'};
   const SHORT={'Traditional digital':'trad','AI-augmented':'aug','AI-native':'native'};
   const slug=s=>String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const EXPANDED_LIMIT=8; // Avoid overflowing mobile even with large future catalogues.
   function organise(catalog,domainNames,expandedId=null,threshold=10){
     const items=[],groups=new Map(),counts={};
     for(const domain of domainNames){
@@ -38,7 +39,7 @@
             summary:matching.length+' '+TYPE_NAMES[type]+' applications. Select this node to reveal each tool, or open the full group list.'};
           groups.set(id,group);
           items.push(group);
-          if(expandedId===id)items.push(...matching.map(t=>({...t,_groupParent:id})));
+          if(expandedId===id)items.push(...matching.slice(0,EXPANDED_LIMIT).map(t=>({...t,_groupParent:id})));
         }
       }
       if(pending.length){
@@ -48,7 +49,7 @@
           tags:[],_group:true,_pending:true,_members:pending.map(t=>t.id),
           summary:'Website-backed discoveries awaiting scientific and AI classification checks. They are not approved catalogue entries.'};
         groups.set(id,group);items.push(group);
-        if(expandedId===id)items.push(...pending.map(t=>({...t,_groupParent:id})));
+        if(expandedId===id)items.push(...pending.slice(0,EXPANDED_LIMIT).map(t=>({...t,_groupParent:id})));
       }
     }
     return {items,groups,counts};
