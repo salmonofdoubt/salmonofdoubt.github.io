@@ -170,3 +170,8 @@
  #app .node.purpose-node .group-name{font-size:13px;letter-spacing:.1px;stroke-width:3.5px}
  #app .node.pending-node .group-name{font-size:12px;letter-spacing:.1px}
 }
+
+@media(max-width:690px){
+ #app .map-footer .build-stamp{min-height:25px;margin-left:auto;margin-right:auto;font-size:9px}
+ #app .group-browser-row .group-tool-link{min-width:100px;min-height:44px;padding:10px 8px}
+}

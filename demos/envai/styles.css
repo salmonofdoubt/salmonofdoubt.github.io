@@ -373,3 +373,18 @@
 .node.pending-node .group-name{fill:#b9b6d0}
 .node.pending-node .outer{stroke-dasharray:3 5;stroke-opacity:.5}
 .node.purpose-node:hover .group-name,.node.purpose-node.selected .group-name{fill:#ffffff}
+
+/* Release identifier is visible from first paint, without using header space.
+ * Group browser names are now the actual outbound links (one action per row). */
+.build-stamp{display:inline-flex;align-items:center;flex:none;padding:3px 7px;
+ border:1px solid #9fd4c12a;border-radius:5px;background:#0c1b23a6;
+ color:#8eada9;font:600 9px/1.35 ui-monospace,SFMono-Regular,Consolas,monospace;
+ letter-spacing:.35px;white-space:nowrap;pointer-events:none}
+.group-browser-row .group-tool-link{flex:1;min-width:150px;min-height:42px;
+ display:inline-flex;align-items:center;text-align:left;
+ padding:9px 10px;border:0;border-radius:7px;background:transparent;
+ color:#defbee;font-size:13px;font-weight:650;line-height:1.35;
+ text-decoration:none}
+.group-browser-row .group-tool-link:hover,
+.group-browser-row .group-tool-link:focus-visible{
+ background:#ffffff18;outline:1px solid #97ecc55c}

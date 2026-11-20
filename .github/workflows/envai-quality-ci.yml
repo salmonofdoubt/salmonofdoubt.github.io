@@ -6,6 +6,7 @@ on:
       - 'scripts/envai_auto_update.py'
       - 'tests/test_envai_auto_update.py'
       - 'tests/test_envai_mobile.py'
+      - 'tests/test_envai_build.py'
       - 'demos/envai/**'
       - '.github/workflows/envai-quality-ci.yml'
   workflow_dispatch:
@@ -19,6 +20,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -31,6 +34,10 @@ jobs:
           node --check demos/envai/whats-new.js
           node --check demos/envai/how-it-works.js
           node --check demos/envai/app.js
+      - name: Validate visible build and release cache version
+        env:
+          ENVAI_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: python3 tests/test_envai_build.py
       - name: Test grouped constellation and future catalogue growth
         run: node tests/envai_cluster_model.test.cjs
       - name: Test discovery and retirement behaviour
