@@ -14,7 +14,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <link rel="stylesheet" href="./styles.css?v=20261009-1">
-  <link rel="stylesheet" href="./quiz.css?v=mobile-20261121-4">
+  <link rel="stylesheet" href="./quiz.css?v=review-20261121-5">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
@@ -24,7 +24,7 @@
   <script defer src="./questions.js?v=bank-20261121-inn-w8w10"></script>
   <script defer src="./mock-genai-20261119.js?v=20261119-1"></script>
   <script defer src="./concept-groups-20261119.js?v=1"></script>
-  <script defer src="./quiz.js?v=mobile-20261121-4"></script>
+  <script defer src="./quiz.js?v=review-20261121-5"></script>
   <script defer src="./refresh.js?v=ledger-20261010-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
@@ -34,7 +34,7 @@
   <header class="site-header">
     <a class="brand" href="./" aria-label="D4B Evidence Quiz home">
       <span class="brand-mark" aria-hidden="true">◇</span>
-      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.21.4</span>
+      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.21.5</span>
     </a>
     <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
       <span aria-hidden="true">↓</span><span>Install</span>
@@ -84,7 +84,7 @@
    <ul id="sourceCoverage" class="source-ledger" aria-label="Source status, latest check and accepted material"></ul>
   </section>
   </details>
-  <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><div><b id="due">0</b><span>Questions to revisit</span></div><div><b id="bank">0</b><span>Questions available here</span></div></section>
+  <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><button type="button" class="stat-review" id="reviewDue" disabled aria-label="No questions currently due for review"><b id="due">0</b><span>Questions to revisit</span><small id="dueAction">All caught up</small></button><div><b id="bank">0</b><span>Questions available here</span></div></section>
   <section class="quiz-panel hidden" id="session" aria-label="Current quiz question">
     <div class="session-top"><span id="position"></span><strong id="clock" aria-live="off"></strong></div>
     <div class="progress-track"><div id="bar"></div></div>
