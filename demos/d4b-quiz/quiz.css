@@ -172,3 +172,10 @@ body.quiz-active .doi-pill {
   cursor:default;
   opacity:.7;
 }
+
+/* Build 2026.11.21.14: quiet provenance note, no overlays or banners. */
+.hero.quiz-intro .student-notice{margin:12px 0 0;font-size:.72rem;line-height:1.5;color:var(--muted);font-weight:400;max-width:780px;opacity:.88}
+.student-credits{width:min(100% - 40px,1120px);margin:4px auto 48px;padding:0 6px;font-size:.7rem;line-height:1.5;color:var(--muted);opacity:.86}
+.student-credits a{color:inherit;text-decoration:underline;text-decoration-color:currentColor;text-underline-offset:2px}
+.student-credits a:hover,.student-credits a:focus-visible{opacity:1;color:var(--ink)}
+@media(max-width:700px){.student-credits{width:calc(100% - 28px);margin-bottom:84px}.hero.quiz-intro .student-notice{font-size:.69rem}}
