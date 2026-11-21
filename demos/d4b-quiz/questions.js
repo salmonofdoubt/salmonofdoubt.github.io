@@ -39,7 +39,9 @@ window.D4B_CURRICULUM=Object.freeze({
     "Big Data and Platform Society",
     "Big Data, AI and the Algorithmic Condition",
     "New Literacies, Participatory Culture and Digital Citizenship",
-    "Videogame Literacy, Game-Based Learning and Q.U.A.K.E. Critical Analysis"
+    "Videogame Literacy, Game-Based Learning and Q.U.A.K.E. Critical Analysis",
+    "Sustainable Development, AI in Education, and Inclusive Design",
+    "Sustainable Digital Work, Technostress and Digital Well-being"
   ]
 });
 window.D4B_QUESTIONS=Object.freeze([
