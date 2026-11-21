@@ -76,7 +76,7 @@ function syncModuleFocus(){
  const context={
   GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI · original Moodle questions by week',desc:'61 verified Moodle questions from Weeks 1, 2, 3 and 5, with the original wording, options and confirmed correct answers. Weeks 4 and 6 have no retrieved quiz entries in this archive. The exam covers Weeks 1–9.'},
   AIB:{eyebrow:'AI FOR BUSINESS · MODULE PRACTICE',title:'AI for Business',desc:'Practise machine learning, neural networks, automated planning and responsible AI using this module’s question bank. All eligible questions are available, untimed by default.'},
-  INN:{eyebrow:'INNOVATION EXAM · 17 DECEMBER 2026',title:'Innovation · original Moodle questions by week',desc:'80 verified original Moodle questions archived: 10 each for Weeks 1–6, Week 9 and Week 10. Week 7 has a confirmed quiz but the complete original questions are not yet recovered. Week 8 has no confirmed quiz review. Choose a week to practise its complete archived quiz.'},
+  INN:{eyebrow:'INNOVATION EXAM · 17 DECEMBER 2026 · 40 QUESTIONS IN 40 MINUTES',title:'Innovation · Moodle quizzes by teaching week',desc:'Moodle shows ten quizzes across six topics: two each in Topics 1–4 and one each in Topics 5–6. Eight complete reviews (80 questions) are archived for Weeks 1–6 and 9–10. Topic 4 Quiz 1 (Week 7) was completed 10/10, but its original question wording is missing. Topic 4 Quiz 2 (Week 8) exists, but its original questions and result are not yet recovered.'},
   DTR:{eyebrow:'DIGITAL TRANSFORMATION · MODULE PRACTICE',title:'Digital Transformation',desc:'Practise human-centred transformation, digital societies, platforms and digital literacies. All eligible questions are available, untimed by default.'},
   all:{eyebrow:'DIGITAL4BUSINESS · ALL MODULES',title:'All four modules',desc:'Practise across all four Digital4Business modules, with similar questions reduced and no time limit unless you choose one.'}
  };
@@ -98,6 +98,7 @@ function syncModuleFocus(){
  if(!genaiOnly&&$('source').value==='moodle'&&!questions.some(q=>q.module===selected&&isOfficial(q)))$('source').value='cram';
  if($('mockWritten'))$('mockWritten').hidden=!(genaiOnly&&$('source').value==='mock-C');
 }
+const innoTopicByWeek={1:'Topic 1 · Quiz 1',2:'Topic 1 · Quiz 2',3:'Topic 2 · Quiz 1',4:'Topic 2 · Quiz 2',5:'Topic 3 · Quiz 1',6:'Topic 3 · Quiz 2',7:'Topic 4 · Quiz 1',8:'Topic 4 · Quiz 2',9:'Topic 5 · Quiz 1',10:'Topic 6 · Quiz 1'};
 function weeks(){
  syncModuleFocus();
  const m=$('module').value,chosen=$('week').value;
@@ -105,7 +106,9 @@ function weeks(){
  const distinct=[...new Set(keys.flatMap(k=>(curriculum[k]||[]).map((_,i)=>i+1)))].sort((a,b)=>a-b);
  $('week').replaceChildren(new Option('All documented weeks','all'),...distinct.map(w=>{
  const filtered=questions.filter(q=>(m==='all'||q.module===m)&&q.week===w&&sourceMatches(q));
- return new Option('Week '+String(w).padStart(2,'0')+' · '+filtered.length+($('source').value==='moodle'?' Moodle':' questions'),String(w));
+ const innLabel=m==='INN'?' · '+(innoTopicByWeek[w]||'') : '';
+ const status=m==='INN'&&$('source').value==='moodle'&&filtered.length===0&&(w===7||w===8)?' · review missing':(' · '+filtered.length+($('source').value==='moodle'?' official Q':' questions'));
+ return new Option('Week '+String(w).padStart(2,'0')+innLabel+status,String(w));
  }));
  $('week').value=distinct.some(x=>String(x)===chosen)?chosen:'all';
  updateAvailability();
@@ -120,7 +123,7 @@ function updateAvailability(){
  const chosen=Math.min(n,requested);
  const isCram=$('source').value==='cram',isMoodle=$('source').value==='moodle';
  let status=n+' question'+(n===1?'':'s')+' available'+(isCram?' after reducing repeated concepts':'')+' · '+($('timing').value==='recommended'?'timed':'untimed');
- if(isMoodle&&!n)status='No verified Moodle questions archived for this week. Try another week or Additional practice.';
+ if(isMoodle&&!n)status=$('module').value==='INN'&&$('week').value==='7'?'Topic 4 Quiz 1 exists and was completed 10/10, but its original question options are still missing from the archive.':$('module').value==='INN'&&$('week').value==='8'?'Topic 4 Quiz 2 is listed in Moodle, but its original questions and result are not yet in the archive.':'No verified Moodle questions archived for this week. Try another week or Additional practice.';
  if(n>0&&requested>n)status+=' · showing '+n;
  $('availability').textContent=status;
  $('start').disabled=n===0;
@@ -144,7 +147,7 @@ function beginSession(useTimer){
  document.body.classList.add('quiz-active');
  const mockTimes={'mock-A':35,'mock-B':40,'mock-C':45};
  const exactMockTime=mode==='exam'&&session.length===33?mockTimes[$('source').value]:0;
- deadline=useTimer&&$('timing').value==='recommended'?Date.now()+(exactMockTime?exactMockTime*60000:Math.round(session.length*90*1000)):0;
+ deadline=useTimer&&$('timing').value==='recommended'?Date.now()+(exactMockTime?exactMockTime*60000:($('module').value==='INN'&&mode==='exam'?session.length*60000:Math.round(session.length*90*1000))):0;
  clearInterval(timer);
  $('clock').textContent='';
  if(deadline){updateClock();timer=setInterval(updateClock,1000)}
