@@ -136,3 +136,39 @@ body.quiz-active .doi-pill {
     min-width: 58px;
   }
 }
+
+/* Build 2026.11.21.5: actionable spaced-repetition card. */
+.stats>button.stat-review{
+  display:grid;
+  gap:4px;
+  padding:17px;
+  text-align:left;
+  font:inherit;
+  color:var(--ink);
+  background:#091620;
+  border:1px solid var(--line);
+  border-radius:14px;
+  min-width:0;
+}
+.stats>button.stat-review small{
+  color:#a9edf6;
+  font-size:.74rem;
+  font-weight:700;
+  margin-top:2px;
+}
+.stats>button.stat-review:not(:disabled){
+  cursor:pointer;
+  border-color:rgba(24,198,216,.64);
+  background:linear-gradient(140deg,rgba(18,68,79,.56),#091620);
+}
+.stats>button.stat-review:not(:disabled):hover,
+.stats>button.stat-review:not(:disabled):focus-visible{
+  border-color:#8ef4ff;
+  background:#12323d;
+  outline:2px solid #8ef4ff;
+  outline-offset:2px;
+}
+.stats>button.stat-review:disabled{
+  cursor:default;
+  opacity:.7;
+}
