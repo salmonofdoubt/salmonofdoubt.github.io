@@ -35,3 +35,69 @@
 @media(max-width:950px){.settings{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:750px){.settings{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:370px){.settings{grid-template-columns:1fr}}
+
+/* Build 2026.11.21.3: one clear setup surface, and thumb-first mobile sessions. */
+.quiz-intro{padding:16px 5px 6px}
+.quiz-intro h1{font-size:clamp(1.65rem,3.2vw,2.6rem);letter-spacing:-.04em;margin:.25rem 0}
+.quiz-intro p:last-child{margin:.35rem 0 .75rem;max-width:850px}
+.settings-panel{margin-top:8px}
+.setup-heading{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:18px}
+.setup-heading h2{font-size:1.45rem;margin:.3rem 0 0}
+.setup-heading #bankScope{max-width:370px;text-align:right;margin:0;font-size:.74rem}
+.settings.settings-main{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.settings-main label{font-size:.81rem}
+.setup-footer{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.start-button{min-height:52px;padding:12px 25px;font-size:1rem}
+.setup-footer .availability{margin:0}
+.setup-extra{margin-top:13px;font-size:.8rem;color:var(--muted)}
+.setup-extra>summary,.mock-written>summary{cursor:pointer;min-height:36px;padding:9px 0}
+.mock-written{margin-top:12px;padding:10px;border:1px solid var(--line);border-radius:12px}
+.module-hint{padding:15px 20px;margin:10px 0;border-radius:14px}
+.module-hint h2{font-size:1.06rem;margin:4px 0}
+.module-hint p{font-size:.83rem;line-height:1.4;margin:4px 0}
+#session{scroll-margin-top:76px}
+#session .session-actions{align-items:center}
+#session .session-actions #next{min-width:190px;min-height:50px}
+.feedback-head{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.feedback-head strong{color:#9af4cb;font-size:1.03rem;white-space:nowrap}
+.feedback-head span{flex:1;min-width:0;overflow-wrap:anywhere}
+.feedback-explanation{margin:.5rem 0;line-height:1.45}
+.feedback-source{font-size:.76rem;color:var(--muted);margin-top:5px}
+.feedback-source summary{cursor:pointer;color:#b9eaf1}
+body.quiz-active .quiz-intro,body.quiz-active #quizSetup,body.quiz-active #moduleFocus,body.quiz-active #technicalDetails,body.quiz-active .stats,body.quiz-active .help-panel{display:none!important}
+body.quiz-active .demo-stage{padding-top:0}
+body.quiz-active .doi-pill{display:none}
+@media(max-width:850px){.settings.settings-main{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+  .quiz-intro{padding:6px 2px 0}
+  .quiz-intro h1{font-size:1.65rem}
+  .settings-panel{padding:14px}
+  .setup-heading{display:block;margin-bottom:13px}
+  .setup-heading h2{font-size:1.25rem}
+  .setup-heading #bankScope{text-align:left;margin:8px 0 0;max-width:none}
+  .settings.settings-main{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .settings-main label{font-size:.75rem}
+  .settings-main select{padding:9px 7px;font-size:.86rem;min-height:47px}
+  .setup-footer{display:block;margin-top:14px}
+  .start-button{width:100%;min-height:52px}
+  .setup-footer .availability{margin:9px 0 0;font-size:.78rem}
+  .module-hint{padding:12px}
+  .module-hint p{font-size:.78rem}
+  body.quiz-active #session{min-height:calc(100dvh - 70px);margin:0;padding:14px 13px calc(110px + env(safe-area-inset-bottom));border-radius:14px}
+  #session .session-top{font-size:.78rem}
+  #session .progress-track{margin:10px 0}
+  #session .meta{font-size:.67rem;letter-spacing:0;line-height:1.35}
+  #session #prompt{font-size:clamp(1.08rem,4.6vw,1.3rem);line-height:1.33;margin:12px 0 15px}
+  #session .choices{grid-template-columns:1fr;gap:9px}
+  #session .choices button{min-height:52px;padding:12px 13px;font-size:.97rem;line-height:1.35;overflow-wrap:anywhere}
+  #session .choices button.selected{padding:11px 12px}
+  #session .session-actions{position:fixed;left:0;right:0;bottom:0;z-index:150;display:flex;flex-wrap:nowrap;gap:10px;margin:0;padding:10px max(13px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(13px,env(safe-area-inset-left));background:rgba(5,13,20,.97);border-top:1px solid var(--line-strong);box-shadow:0 -10px 35px rgba(0,0,0,.4);backdrop-filter:blur(14px)}
+  #session .session-actions #next{flex:1;min-width:0;min-height:52px;font-size:1rem}
+  #session .session-actions #stop{flex:0 0 auto;min-width:66px;min-height:52px;padding:10px 13px}
+  #session #feedback:not(.hidden){position:fixed;z-index:145;left:10px;right:10px;bottom:calc(82px + env(safe-area-inset-bottom));max-height:min(37dvh,265px);overflow:auto;overscroll-behavior:contain;margin:0;padding:13px 15px;box-shadow:0 -8px 35px rgba(0,0,0,.6);background:#102b32;border-color:#4ac1b0;border-radius:14px;font-size:.88rem}
+  #session #feedback .feedback-head{display:block}
+  #session #feedback .feedback-head span{display:block;margin-top:3px;line-height:1.4}
+  #session #feedback .feedback-explanation{margin:6px 0}
+}
+@media(max-width:380px){.settings.settings-main{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-main select{font-size:.78rem}}
+@media(prefers-reduced-motion:reduce){.progress-track>div{transition:none}}
