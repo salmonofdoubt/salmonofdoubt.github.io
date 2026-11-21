@@ -101,3 +101,38 @@ body.quiz-active .doi-pill{display:none}
 }
 @media(max-width:380px){.settings.settings-main{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-main select{font-size:.78rem}}
 @media(prefers-reduced-motion:reduce){.progress-track>div{transition:none}}
+
+/* Build 2026.11.21.4: prevent shared floating controls from covering the quiz dock. */
+body.quiz-active .demo-return-pill,
+body.quiz-active .demo-support-widget,
+body.quiz-active .doi-pill {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+@media (max-width:700px) {
+  body.quiz-active #session .session-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: stretch;
+    z-index: 200;
+    width: 100%;
+    box-sizing: border-box;
+    isolation: isolate;
+  }
+  body.quiz-active #session .session-actions #next {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: clamp(.86rem, 4vw, 1rem);
+  }
+  body.quiz-active #session .session-actions #stop {
+    width: auto;
+    white-space: nowrap;
+    min-width: 58px;
+  }
+}
