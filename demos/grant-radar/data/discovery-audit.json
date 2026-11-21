@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-20T14:01:38+00:00",
+  "generated_at": "2026-11-21T13:29:19+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
-  "seed_pages_failed": 7,
-  "links_seen": 4538,
-  "funding_like_links": 453,
+  "seed_pages_failed": 6,
+  "links_seen": 4632,
+  "funding_like_links": 486,
   "candidate_fetches": 300,
-  "pending_review_count": 118,
+  "pending_review_count": 116,
   "status_counts": {
-    "pending_review": 118,
-    "suppressed_non_actionable": 44,
+    "pending_review": 116,
+    "suppressed_non_actionable": 49,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
     "suppressed_generic_page": 5,
-    "suppressed_fetch_error": 55
+    "suppressed_fetch_error": 51
   },
   "candidate_type_counts": {
     "recurring_programme": 60,
-    "funding_call": 90,
+    "funding_call": 89,
     "scholarship": 19,
     "generic_funding_hub": 6,
-    "tender": 13,
-    "unknown": 55
+    "tender": 17,
+    "unknown": 51
   },
   "seeds": [
     {
@@ -55,7 +55,7 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 115,
+      "links_seen": 116,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -233,10 +233,10 @@
       "id": "geo_horizon_energy_supply_watch",
       "name": "Geo watch: Horizon Europe Sustainable, Secure and Competitive Energy Supply",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "status": "fetch_error",
-      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 93,
+      "funding_like_links": 33,
       "candidates_fetched": 0
     },
     {
