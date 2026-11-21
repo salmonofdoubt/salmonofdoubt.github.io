@@ -1,4 +1,4 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-inno-topics-20261121-8';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-inno-complete-20261121-9';
 const APP_SHELL = [
   './',
   './index.html',
@@ -10,10 +10,10 @@ const APP_SHELL = [
   './quiz.css?v=review-20261121-5',
   './questions.js?v=bank-20261121-inn-w8w10',
   './moodle-genai-w1-w6-20261121.js?v=1',
-  './moodle-inno-w1-w10-20261121.js?v=1',
+  './moodle-inno-w1-w10-20261121.js?v=2',
   './mock-genai-20261119.js?v=20261119-1',
   './concept-groups-20261119.js?v=1',
-  './quiz.js?v=inno-topics-20261121-8',
+  './quiz.js?v=inno-complete-20261121-9',
   './refresh.js?v=ledger-20261010-v1'
 ];
 
