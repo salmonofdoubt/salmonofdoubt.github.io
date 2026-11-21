@@ -1,4 +1,4 @@
-/* Original Digital4Business DTR Topic 5 Moodle questions (14 November 2026), verbatim student-supplied review, confirmed answer keys. Topics 1–4 originals not yet available for inclusion. */
+/* Original Digital4Business DTR Topic 5 Moodle questions (14 November 2026), verbatim student-supplied review, confirmed answer keys. Topics 1–4 are preserved in the separate t1-t4 archive. */
 window.D4B_MOODLE_DTR_QUESTIONS=Object.freeze([
   {
     "id": "official-dtr-t5-q01",
