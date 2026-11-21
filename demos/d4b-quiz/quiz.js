@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const builtInQuestions=[...(window.D4B_QUESTIONS||[]),...(window.D4B_MOODLE_QUESTIONS||[]),...(window.D4B_MOCK_QUESTIONS||[])];
+const builtInQuestions=[...(window.D4B_QUESTIONS||[]),...(window.D4B_MOODLE_QUESTIONS||[]),...(window.D4B_MOODLE_INNO_QUESTIONS||[]),...(window.D4B_MOCK_QUESTIONS||[])];
 const conceptGroups=window.D4B_CONCEPT_GROUPS||{};
 const stemKey=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 function uniqueByConcept(items){
@@ -76,7 +76,7 @@ function syncModuleFocus(){
  const context={
   GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI · original Moodle questions by week',desc:'61 verified Moodle questions from Weeks 1, 2, 3 and 5, with the original wording, options and confirmed correct answers. Weeks 4 and 6 have no retrieved quiz entries in this archive. The exam covers Weeks 1–9.'},
   AIB:{eyebrow:'AI FOR BUSINESS · MODULE PRACTICE',title:'AI for Business',desc:'Practise machine learning, neural networks, automated planning and responsible AI using this module’s question bank. All eligible questions are available, untimed by default.'},
-  INN:{eyebrow:'INNOVATION · MODULE PRACTICE',title:'Innovation',desc:'Practise innovation, communication, AI-related training and Week 10 leadership. All published practice questions are built into the app.'},
+  INN:{eyebrow:'INNOVATION EXAM · 17 DECEMBER 2026',title:'Innovation · original Moodle questions by week',desc:'80 verified original Moodle questions archived: 10 each for Weeks 1–6, Week 9 and Week 10. Week 7 has a confirmed quiz but the complete original questions are not yet recovered. Week 8 has no confirmed quiz review. Choose a week to practise its complete archived quiz.'},
   DTR:{eyebrow:'DIGITAL TRANSFORMATION · MODULE PRACTICE',title:'Digital Transformation',desc:'Practise human-centred transformation, digital societies, platforms and digital literacies. All eligible questions are available, untimed by default.'},
   all:{eyebrow:'DIGITAL4BUSINESS · ALL MODULES',title:'All four modules',desc:'Practise across all four Digital4Business modules, with similar questions reduced and no time limit unless you choose one.'}
  };
@@ -225,7 +225,7 @@ if(mockWritten&&$('mockWrittenPrompt')&&$('mockWrittenAnswer')){
  $('mockWrittenPrompt').textContent=mockWritten.prompt;
  $('mockWrittenAnswer').textContent=mockWritten.answer;
 }
-$('module').addEventListener('change',weeks);$('source').addEventListener('change',()=>{if(/^mock-[ABC]$/.test($('source').value)){$('module').value='GEN';$('mode').value='exam';$('count').value='all';$('week').value='all';}weeks();});$('week').addEventListener('change',updateAvailability);$('mode').addEventListener('change',updateAvailability);$('timing').addEventListener('change',updateAvailability);$('count').addEventListener('change',updateAvailability);$('start').addEventListener('click',start);$('reviewDue').addEventListener('click',startDueReview);$('next').addEventListener('click',next);$('stop').addEventListener('click',finish);
+$('module').addEventListener('change',weeks);$('source').addEventListener('change',()=>{if($('source').value==='moodle'&&$('week').value!=='all')$('count').value='all';if(/^mock-[ABC]$/.test($('source').value)){$('module').value='GEN';$('mode').value='exam';$('count').value='all';$('week').value='all';}weeks();});$('week').addEventListener('change',()=>{if($('source').value==='moodle'&&$('week').value!=='all')$('count').value='all';updateAvailability()});$('mode').addEventListener('change',updateAvailability);$('timing').addEventListener('change',updateAvailability);$('count').addEventListener('change',updateAvailability);$('start').addEventListener('click',start);$('reviewDue').addEventListener('click',startDueReview);$('next').addEventListener('click',next);$('stop').addEventListener('click',finish);
 $('reset').addEventListener('click',()=>{if(confirm('Delete all quiz history stored in this browser?')){history={};save()}});
 $('export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({format:'d4b-evidence-quiz-v1',exported:new Date().toISOString(),history},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='d4b-quiz-progress.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
 $('officialImport').addEventListener('change',async function(){
