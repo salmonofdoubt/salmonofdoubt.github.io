@@ -77,7 +77,7 @@ function syncModuleFocus(){
   GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI · original Moodle questions by week',desc:'61 verified Moodle questions from Weeks 1, 2, 3 and 5, with the original wording, options and confirmed correct answers. Weeks 4 and 6 have no retrieved quiz entries in this archive. The exam covers Weeks 1–9.'},
   AIB:{eyebrow:'AI FOR BUSINESS · MODULE PRACTICE',title:'AI for Business',desc:'Practise machine learning, neural networks, automated planning and responsible AI using this module’s question bank. All eligible questions are available, untimed by default.'},
   INN:{eyebrow:'INNOVATION EXAM · 17 DECEMBER 2026 · 40 QUESTIONS IN 40 MINUTES',title:'Innovation · all 10 original Moodle quizzes',desc:'All 100 original Innovation Moodle questions are now included, 10 for each teaching week from W1 through W10. The Moodle course groups these as Topics 1–6: two quizzes each in Topics 1–4, followed by Topic 5 Quiz 1 and Topic 6 Quiz 1. Choose any week for its complete original Moodle quiz.'},
-  DTR:{eyebrow:'DIGITAL TRANSFORMATION EXAM · 19 DECEMBER 2026 · 30 MCQS IN 45 MINUTES',title:'Digital Transformation · Moodle quizzes by topic',desc:'Five Topic quizzes are confirmed (25/25 correct in your recorded attempts). The five exact original questions for Topic 5 (Week 9) are built in with verified keys. Topics 1–4 also scored 5/5 each, but their original stems and options remain in a companion booklet not currently recovered. Additional course-based practice questions remain available by week.'},
+  DTR:{eyebrow:'DIGITAL TRANSFORMATION EXAM · 19 DECEMBER 2026 · 30 MCQS IN 45 MINUTES',title:'Digital Transformation · five Moodle topic quizzes',desc:'Moodle lists Topic 1 (W1), Topic 2 (W2–3), Topic 3 (W4–5), Topic 4 (W6–7) and Topic 5 (W8–9), with one five-question quiz each. All five were completed 5/5 (25/25). The five exact Topic 5 quiz questions are available under Week 9. Topics 1–4 original question options are not yet recovered. Weeks 10–11 cover Digital Competences; no quiz is listed in the supplied Moodle outline.'},
   all:{eyebrow:'DIGITAL4BUSINESS · ALL MODULES',title:'All four modules',desc:'Practise across all four Digital4Business modules, with similar questions reduced and no time limit unless you choose one.'}
  };
  const selected=$('module').value;
@@ -99,7 +99,7 @@ function syncModuleFocus(){
  if($('mockWritten'))$('mockWritten').hidden=!(genaiOnly&&$('source').value==='mock-C');
 }
 const innoTopicByWeek={1:'Topic 1 · Quiz 1',2:'Topic 1 · Quiz 2',3:'Topic 2 · Quiz 1',4:'Topic 2 · Quiz 2',5:'Topic 3 · Quiz 1',6:'Topic 3 · Quiz 2',7:'Topic 4 · Quiz 1',8:'Topic 4 · Quiz 2',9:'Topic 5 · Quiz 1',10:'Topic 6 · Quiz 1'};
-const dtrTopicByWeek={1:'Topic 1 · Moodle quiz',2:'Topic 2 · teaching',3:'Topic 2 · Moodle quiz',4:'Topic 3 · teaching',5:'Topic 3 · Moodle quiz',6:'Topic 4 · teaching',7:'Topic 4 · Moodle quiz',8:'Topic 5 · teaching',9:'Topic 5 · Moodle quiz'};
+const dtrTopicByWeek={1:'Topic 1 · Quiz Topic 1',2:'Topic 2 · W2–3',3:'Topic 2 · Quiz Topic 2',4:'Topic 3 · W4–5',5:'Topic 3 · Quiz Topic 3',6:'Topic 4 · W6–7',7:'Topic 4 · Quiz Topic 4',8:'Topic 5 · W8–9',9:'Topic 5 · QUIZ TOPIC 5',10:'Digital Competences · W10–11',11:'Digital Competences · W10–11'};
 function weeks(){
  syncModuleFocus();
  const m=$('module').value,chosen=$('week').value;
@@ -108,8 +108,11 @@ function weeks(){
  $('week').replaceChildren(new Option('All documented weeks','all'),...distinct.map(w=>{
  const filtered=questions.filter(q=>(m==='all'||q.module===m)&&q.week===w&&sourceMatches(q));
  const courseLabel=m==='INN'?' · '+(innoTopicByWeek[w]||''):m==='DTR'?' · '+(dtrTopicByWeek[w]||''):'';
- const officialUnrecovered=m==='DTR'&&$('source').value==='moodle'&&[1,3,5,7].includes(w)&&filtered.length===0;
- const status=officialUnrecovered?' · quiz text missing':(' · '+filtered.length+($('source').value==='moodle'?' official Q':' questions'));
+ const isDtrMoodle=m==='DTR'&&$('source').value==='moodle';
+ const officialUnrecovered=isDtrMoodle&&[1,3,5,7].includes(w)&&filtered.length===0;
+ const noOfficialQuiz=isDtrMoodle&&[10,11].includes(w);
+ const quizNext=isDtrMoodle&&[2,4,6,8].includes(w);
+ const status=officialUnrecovered?' · original text missing':noOfficialQuiz?' · no Moodle quiz listed':quizNext?' · quiz in following week':(' · '+filtered.length+($('source').value==='moodle'?' official Q':' questions'));
  return new Option('Week '+String(w).padStart(2,'0')+courseLabel+status,String(w));
  }));
  $('week').value=distinct.some(x=>String(x)===chosen)?chosen:'all';
@@ -125,7 +128,10 @@ function updateAvailability(){
  const chosen=Math.min(n,requested);
  const isCram=$('source').value==='cram',isMoodle=$('source').value==='moodle';
  let status=n+' question'+(n===1?'':'s')+' available'+(isCram?' after reducing repeated concepts':'')+' · '+($('timing').value==='recommended'?'timed':'untimed');
- if(isMoodle&&!n)status=$('mode').value==='mistakes'?'No Moodle questions currently due for review in this selection.':$('module').value==='DTR'&&[1,3,5,7].includes(Number($('week').value))?'This DTR Topic quiz was completed 5/5; original question wording and options have not yet been recovered. Use Additional practice for now.':'No verified Moodle questions available for this selection. Try another week or Additional practice.';
+ if(isMoodle&&!n){
+  const w=Number($('week').value),isDtr=$('module').value==='DTR';
+  status=$('mode').value==='mistakes'?'No Moodle questions currently due for review in this selection.':isDtr&&[1,3,5,7].includes(w)?'This DTR topic quiz was completed 5/5, but its exact original question wording and four answer options remain unrecovered. Select Additional practice for these concepts.':isDtr&&[2,4,6,8].includes(w)?'This is the first week of a two-week DTR topic. Its Moodle quiz is mapped to the following teaching week.':isDtr&&[10,11].includes(w)?'No official Moodle quiz is listed for Digital Competences (Weeks 10–11) in the supplied course outline.':'No verified Moodle questions available for this selection. Try another week or Additional practice.';
+ }
  if(n>0&&requested>n)status+=' · showing '+n;
  $('availability').textContent=status;
  $('start').disabled=n===0;
