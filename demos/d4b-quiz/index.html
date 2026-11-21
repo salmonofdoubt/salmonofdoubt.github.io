@@ -14,7 +14,7 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <link rel="stylesheet" href="./styles.css?v=20261009-1">
-  <link rel="stylesheet" href="./quiz.css?v=mock-20261119-1">
+  <link rel="stylesheet" href="./quiz.css?v=mobile-20261121-3">
   <link rel="stylesheet" href="../shared/demo-return.css">
   <link rel="stylesheet" href="../shared/demo-support.css">
   <script defer src="../shared/demo-return.js"></script>
@@ -24,7 +24,7 @@
   <script defer src="./questions.js?v=bank-20261121-inn-w8w10"></script>
   <script defer src="./mock-genai-20261119.js?v=20261119-1"></script>
   <script defer src="./concept-groups-20261119.js?v=1"></script>
-  <script defer src="./quiz.js?v=unified-20261121-2"></script>
+  <script defer src="./quiz.js?v=mobile-20261121-3"></script>
   <script defer src="./refresh.js?v=ledger-20261010-v1"></script>
   <!-- Cloudflare Web Analytics -->
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ba3bb7ae04424113b5e7cebe70bd86d4"}'></script>
@@ -34,7 +34,7 @@
   <header class="site-header">
     <a class="brand" href="./" aria-label="D4B Evidence Quiz home">
       <span class="brand-mark" aria-hidden="true">◇</span>
-      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.21.2</span>
+      <span>D4B Evidence Quiz</span><span id="buildNumber" title="Published application build" style="font-size:.7rem;opacity:.75;white-space:nowrap;margin-left:.5rem">Build 2026.11.21.3</span>
     </a>
     <button class="install-button" type="button" id="installApp" aria-haspopup="dialog">
       <span aria-hidden="true">↓</span><span>Install</span>
@@ -42,54 +42,32 @@
   </header>
 
   <main class="demo-stage" id="main">
-  <div class="hero"><p class="eyebrow">DIGITAL4BUSINESS / EVIDENCE FIRST</p><h1>Practise what you need to know.</h1><p>All published practice questions are built into the app and available on every device. Your personal progress stays in this browser.</p></div>
-  <section class="quiz-panel" aria-label="Revision settings">
-    <h2>Choose your module</h2>
-    <p>GenAI, AI for Business, Innovation and Digital Transformation. No separate question downloads or imports required. Filter by week or take a complete practice session.</p>
-    <div class="settings" style="grid-template-columns:repeat(2,minmax(0,1fr));max-width:720px;margin-top:12px">
-      <label>Module<select id="module"><option value="all">All four modules</option><option value="GEN" selected>Generative AI</option><option value="AIB">AI for Business</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option></select></label>
-      <label>Questions<select id="count"><option value="all" selected>All available (default)</option><option value="10">10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option></select></label>
+  <div class="hero quiz-intro"><p class="eyebrow">DIGITAL4BUSINESS / EVIDENCE FIRST</p><h1>Practice, without the clutter.</h1><p>Choose a module, adjust your session and start. The public practice bank is already included.</p></div>
+  <section class="quiz-panel settings-panel" id="quizSetup" aria-labelledby="settingsTitle">
+    <div class="setup-heading"><div><p class="eyebrow">YOUR REVISION SESSION</p><h2 id="settingsTitle">Set up your quiz</h2></div><p id="bankScope" class="fine" role="status"></p></div>
+    <div class="settings settings-main">
+      <label>Module<select id="module"><option value="GEN" selected>Generative AI</option><option value="INN">Innovation</option><option value="DTR">Digital Transformation</option><option value="AIB">AI for Business</option><option value="all">All four modules</option></select></label>
+      <label>Question bank<select id="source"><option value="cram" selected>Best mix · fewer repeats</option><option value="full">All available questions</option><option value="mock-A">GenAI Mock A · 33 questions</option><option value="mock-B">GenAI Mock B · 33 questions</option><option value="mock-C">GenAI Mock C · 33 questions</option><option value="official-only">Private Moodle originals (optional)</option></select></label>
+      <label>Week<select id="week"><option value="all">All weeks</option></select></label>
+      <label>Questions<select id="count"><option value="10" selected>10 questions</option><option value="20">20 questions</option><option value="30">30 questions</option><option value="40">40 questions</option><option value="all">All available</option></select></label>
+      <label>How to practise<select id="mode"><option value="adaptive" selected>Learn · instant answer</option><option value="exam">Exam · answers at end</option><option value="mistakes">Review my mistakes</option></select></label>
+      <label>Timer<select id="timing"><option value="untimed" selected>Off · no pressure</option><option value="recommended">On · recommended</option></select></label>
     </div>
-    <div class="actions"><button class="primary-button" id="start" type="button">Start cram</button></div>
-    <p id="availability" class="availability" role="status"></p>
-    <p id="bankScope" class="fine" role="status"></p>
-    <details id="cramOptions">
-      <summary>Other options (week, source, timing)</summary>
-
-      <div class="settings">
-        
-        <label>Week<select id="week"><option value="all">All weeks</option></select></label>
-        <label>Source<select id="source"><option value="cram" selected>Best mix · fewer repeats</option><option value="full">Complete bank · all questions</option><option value="official-only">My optional private Moodle originals</option><option value="mock-A">Mock A (33)</option><option value="mock-B">Mock B (33)</option><option value="mock-C">Mock C (33)</option></select></label>
-        <label>Practice<select id="mode"><option value="adaptive">Learn · feedback after each</option><option value="exam">Exam mode · answers at end</option><option value="mistakes">Mistakes to revisit</option></select></label>
-        <label>Timing<select id="timing"><option value="untimed" selected>Untimed</option><option value="recommended">Recommended timer · optional</option></select></label>
-      </div>
-      <div class="actions"><button class="quiet-button" id="export" type="button">Export progress</button><button class="quiet-button" id="reset" type="button">Clear progress</button></div>
-      <p class="fine">All published study questions and independent mock exams are included. Best mix reduces repeated concepts. Complete bank shows every question. Exact Moodle wording, if added privately, stays only on your device.</p>
-    </details>
+    <div class="setup-footer"><button class="primary-button start-button" id="start" type="button">Start 10 questions</button><p id="availability" class="availability" role="status"></p></div>
+    <details class="setup-extra"><summary>Progress tools</summary><div class="actions"><button class="quiet-button" id="export" type="button">Export progress</button><button class="quiet-button" id="reset" type="button">Clear progress</button></div></details>
+    <details id="mockWritten" class="mock-written" hidden><summary>Mock C · optional written question (200–300 words)</summary><p id="mockWrittenPrompt" style="white-space:pre-wrap"></p><details><summary>Show supplied model answer</summary><p id="mockWrittenAnswer" style="white-space:pre-wrap"></p></details></details>
   </section>
-  <section class="quiz-panel exam-scope" id="moduleFocus" aria-labelledby="examFocusTitle">
+  <section class="quiz-panel exam-scope module-hint" id="moduleFocus" aria-labelledby="examFocusTitle">
     <p class="eyebrow" id="moduleFocusEyebrow">GENERATIVE AI EXAM · 30 NOVEMBER 2026</p>
     <h2 id="examFocusTitle">Generative AI exam focus</h2>
-    <p id="moduleFocusDescription">Generative AI Weeks 1–9 only. The complete reduced-repeat question pool is available by default, without a timer. Shorter sessions are optional. Original Moodle questions remain the strongest exam evidence.</p>
-    <p class="fine">Published study questions are included automatically. Exact official Moodle wording remains in your private study records.</p>
-  </section>
-  <section class="quiz-panel" id="mock-bank" aria-labelledby="mock-bank-title">
-    <p class="eyebrow">NEW · INDEPENDENT PRACTICE · NOVEMBER 2026</p>
-    <h2 id="mock-bank-title">Three Generative AI mock exams</h2>
-    <p>99 multiple-choice questions across Mock A (foundations), Mock B (applications) and Mock C (agents and evaluation), plus one written question. These are <strong>unofficial mock questions</strong> with the supplied answer key, not original Moodle questions or lecturer predictions. Some business scenarios illustrate technical concepts; memorising industry facts is not the objective.</p>
-    <div class="actions"><button class="primary-button" data-mock-exam="A" type="button">Mock A · 33 Q</button><button class="quiet-button" data-mock-exam="B" type="button">Mock B · 33 Q</button><button class="quiet-button" data-mock-exam="C" type="button">Mock C · 33 Q</button></div>
-    <p class="fine">Each mock keeps all 33 original questions and shows answers at the end. Untimed unless you explicitly enable the recommended timer in Study options (A 35 min, B 40 min, C 45 min). Mock C also includes a separate, unscored written question.</p>
-    <details id="mockWritten"><summary>Mock C · Question 34 · Written response (200–300 words)</summary>
-      <p id="mockWrittenPrompt" style="white-space:pre-wrap"></p>
-      <details><summary>Reveal the supplied model answer</summary><p id="mockWrittenAnswer" style="white-space:pre-wrap"></p></details>
-    </details>
+    <p id="moduleFocusDescription">Generative AI Weeks 1–9. Choose Best mix for condensed revision or one of the three mocks in Question bank.</p>
   </section>
   <details class="quiz-panel" id="technicalDetails">
+    <summary>Technical details and private Moodle imports (optional)</summary>
   <details class="quiz-panel"><summary>Optional: private original Moodle wording</summary>
   <section class="quiz-panel" aria-labelledby="official-title"><h2 id="official-title">Private original questions</h2><p class="fine">The complete published practice bank works without imports. Only use this optional feature to add verbatim Moodle assessment wording for your own study on this device. Original Moodle questions are not published on GitHub or synced across devices.</p><div class="actions"><label class="import-label" for="officialImport">Import JSON file<input id="officialImport" type="file" accept=".json,application/json"></label><button class="quiet-button" type="button" id="exportOfficialTemplate">Download format template</button><button class="quiet-button" type="button" id="clearOfficial">Clear private imports</button></div><p id="importStatus" class="fine" role="status" aria-live="polite">Checking locally stored questions…</p></section>
   </details>
 
-    <summary>Technical information (optional)</summary>
   <section class="quiz-panel" aria-labelledby="refreshTitle">
    <div class="refresh-head"><div><p class="eyebrow">SOURCE CONSOLIDATION</p><h2 id="refreshTitle">Refresh evidence</h2></div><div class="actions"><button class="primary-button" id="refreshWorkflow" type="button">View workflow history</button><button class="quiet-button" id="refreshPoll" type="button">Check status</button></div></div>
    <p class="fine">GitHub checks public sources and staged questions automatically; <strong>it does not read changes in your private Google Drive, ChatGPT or Moodle materials</strong>. New module material must first be reviewed and added as original practice questions through an authorised private-source review. A successful refresh confirms the public bank was checked, not that private learning materials were imported.</p>
@@ -107,9 +85,17 @@
   </section>
   </details>
   <section class="stats" aria-label="Practice statistics"><div><b id="attempts">0</b><span>Answered</span></div><div><b id="accuracy">—</b><span>Accuracy</span></div><div><b id="due">0</b><span>Questions to revisit</span></div><div><b id="bank">0</b><span>Questions available here</span></div></section>
-  <section class="quiz-panel hidden" id="session" aria-live="polite"><div class="session-top"><span id="position"></span><strong id="clock" aria-live="off"></strong></div><div class="progress-track"><div id="bar"></div></div><div class="meta" id="topic"></div><h2 id="prompt"></h2><div class="choices" id="choices"></div><div id="feedback" class="feedback hidden"></div><div class="actions"><button class="primary-button" id="next" disabled>Next question</button><button class="quiet-button" id="stop">Finish session</button></div></section>
+  <section class="quiz-panel hidden" id="session" aria-label="Current quiz question">
+    <div class="session-top"><span id="position"></span><strong id="clock" aria-live="off"></strong></div>
+    <div class="progress-track"><div id="bar"></div></div>
+    <div class="meta" id="topic"></div>
+    <h2 id="prompt" tabindex="-1"></h2>
+    <div class="choices" id="choices" role="group" aria-label="Choose your answer"></div>
+    <div id="feedback" class="feedback hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="actions session-actions"><button class="primary-button" id="next" disabled>Choose an answer</button><button class="quiet-button" id="stop" type="button">End</button></div>
+  </section>
   <section class="quiz-panel hidden" id="summary" aria-live="polite"></section>
-  <section class="quiz-panel"><h2>How this differs</h2><p>Every question has a module, week, topic and named study source. Questions emphasise conceptual distinctions and practical application. Wrong answers enter the review queue. Exam mode delays feedback until the session ends.</p><p class="fine">The included study questions are original educational practice items based on reviewed module materials. They are not verbatim official Moodle questions. Optional private Moodle originals and your personal progress remain in this browser. Never use this resource during a closed-book exam.</p></section>
+  <section class="quiz-panel help-panel"><h2>What is included?</h2><p>Every question has a module, week, topic and named study source. Questions emphasise conceptual distinctions and practical application. In Learn mode you see the correct response immediately after tapping an option; Exam mode waits until the end.</p><p class="fine">The included study questions are original educational practice items based on reviewed module materials. They are not verbatim official Moodle questions. Optional private Moodle originals and your personal progress remain in this browser. Never use this resource during a closed-book exam.</p></section>
  </main>
 
   <dialog class="install-dialog" id="installDialog" aria-labelledby="installDialogTitle">
