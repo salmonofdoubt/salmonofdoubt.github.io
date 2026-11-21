@@ -27,7 +27,10 @@ window.D4B_CURRICULUM=Object.freeze({
     "Futures Thinking Methods",
     "Behaviour Change, the Adjacent Possible & Creative Thinking",
     "Site Hopping: Innovation, AI Tools and Critical Evaluation",
-    "Complexity, Organisational AI Rollout and Entrepreneurial Communication"
+    "Complexity, Organisational AI Rollout and Entrepreneurial Communication",
+    "Hybrid Intelligence, Corporate Storytelling and Entrepreneurial Communication",
+    "AI, Corporate Training and Sustainable Human Skills",
+    "Strategy and Leadership: Relational Influence and Behavioural Domains"
   ],
   "DTR": [
     "Digital Transformation: An Overview",
