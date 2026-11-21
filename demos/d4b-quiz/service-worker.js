@@ -1,4 +1,4 @@
-const CACHE_NAME = 'salmon-d4b-evidence-quiz-dtr-outline-20261121-11';
+const CACHE_NAME = 'salmon-d4b-evidence-quiz-dtr-all25-20261121-12';
 const APP_SHELL = [
   './',
   './index.html',
@@ -11,10 +11,11 @@ const APP_SHELL = [
   './questions.js?v=dtr-outline-20261121-11',
   './moodle-genai-w1-w6-20261121.js?v=1',
   './moodle-inno-w1-w10-20261121.js?v=2',
+  './moodle-dtr-t1-t4-20261121.js?v=1',
   './moodle-dtr-t5-20261121.js?v=1',
   './mock-genai-20261119.js?v=20261119-1',
   './concept-groups-20261119.js?v=1',
-  './quiz.js?v=dtr-outline-20261121-11',
+  './quiz.js?v=dtr-all25-20261121-12',
   './refresh.js?v=ledger-20261010-v1'
 ];
 
