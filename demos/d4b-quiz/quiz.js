@@ -76,7 +76,7 @@ function syncModuleFocus(){
  const context={
   GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI · original Moodle questions by week',desc:'61 verified Moodle questions from Weeks 1, 2, 3 and 5, with the original wording, options and confirmed correct answers. Weeks 4 and 6 have no retrieved quiz entries in this archive. The exam covers Weeks 1–9.'},
   AIB:{eyebrow:'AI FOR BUSINESS · MODULE PRACTICE',title:'AI for Business',desc:'Practise machine learning, neural networks, automated planning and responsible AI using this module’s question bank. All eligible questions are available, untimed by default.'},
-  INN:{eyebrow:'INNOVATION EXAM · 17 DECEMBER 2026 · 40 QUESTIONS IN 40 MINUTES',title:'Innovation · Moodle quizzes by teaching week',desc:'Moodle shows ten quizzes across six topics: two each in Topics 1–4 and one each in Topics 5–6. Eight complete reviews (80 questions) are archived for Weeks 1–6 and 9–10. Topic 4 Quiz 1 (Week 7) was completed 10/10, but its original question wording is missing. Topic 4 Quiz 2 (Week 8) exists, but its original questions and result are not yet recovered.'},
+  INN:{eyebrow:'INNOVATION EXAM · 17 DECEMBER 2026 · 40 QUESTIONS IN 40 MINUTES',title:'Innovation · all 10 original Moodle quizzes',desc:'All 100 original Innovation Moodle questions are now included, 10 for each teaching week from W1 through W10. The Moodle course groups these as Topics 1–6: two quizzes each in Topics 1–4, followed by Topic 5 Quiz 1 and Topic 6 Quiz 1. Choose any week for its complete original Moodle quiz.'},
   DTR:{eyebrow:'DIGITAL TRANSFORMATION · MODULE PRACTICE',title:'Digital Transformation',desc:'Practise human-centred transformation, digital societies, platforms and digital literacies. All eligible questions are available, untimed by default.'},
   all:{eyebrow:'DIGITAL4BUSINESS · ALL MODULES',title:'All four modules',desc:'Practise across all four Digital4Business modules, with similar questions reduced and no time limit unless you choose one.'}
  };
@@ -123,7 +123,7 @@ function updateAvailability(){
  const chosen=Math.min(n,requested);
  const isCram=$('source').value==='cram',isMoodle=$('source').value==='moodle';
  let status=n+' question'+(n===1?'':'s')+' available'+(isCram?' after reducing repeated concepts':'')+' · '+($('timing').value==='recommended'?'timed':'untimed');
- if(isMoodle&&!n)status=$('module').value==='INN'&&$('week').value==='7'?'Topic 4 Quiz 1 exists and was completed 10/10, but its original question options are still missing from the archive.':$('module').value==='INN'&&$('week').value==='8'?'Topic 4 Quiz 2 is listed in Moodle, but its original questions and result are not yet in the archive.':'No verified Moodle questions archived for this week. Try another week or Additional practice.';
+ if(isMoodle&&!n)status=$('mode').value==='mistakes'?'No Moodle questions currently due for review in this selection.':'No verified Moodle questions available for this selection. Try another week or Additional practice.';
  if(n>0&&requested>n)status+=' · showing '+n;
  $('availability').textContent=status;
  $('start').disabled=n===0;
@@ -172,7 +172,7 @@ function startDueReview(){
  session=reviewOrder(pending);
  beginSession(false);
 }
-function render(){selected=null;checked=false;const q=session[index];$('position').textContent='Question '+(index+1)+' of '+session.length;$('bar').style.width=(index/session.length*100)+'%';$('topic').textContent=q.module+' · WEEK '+String(q.week).padStart(2,'0')+' · '+(isMock(q)?'Mock '+q.mockExam+' / Q'+q.mockNumber:q.origin==='official-moodle'?'Private Moodle original':q.topic);$('prompt').textContent=q.stem;$('feedback').classList.add('hidden');$('feedback').replaceChildren();$('session').classList.remove('has-feedback');$('next').disabled=true;$('next').textContent='Next question';$('choices').replaceChildren(...q.choices.map((answer,i)=>{let b=document.createElement('button');b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>choose(i));return b}))}
+function render(){selected=null;checked=false;const q=session[index];$('position').textContent='Question '+(index+1)+' of '+session.length;$('bar').style.width=(index/session.length*100)+'%';$('topic').textContent=q.module+' · WEEK '+String(q.week).padStart(2,'0')+' · '+(isMock(q)?'Mock '+q.mockExam+' / Q'+q.mockNumber:q.origin==='official-moodle'?(q.module==='INN'?(innoTopicByWeek[q.week]||q.quiz||'Original Moodle quiz'):'Original Moodle quiz'):q.topic);$('prompt').textContent=q.stem;$('feedback').classList.add('hidden');$('feedback').replaceChildren();$('session').classList.remove('has-feedback');$('next').disabled=true;$('next').textContent='Next question';$('choices').replaceChildren(...q.choices.map((answer,i)=>{let b=document.createElement('button');b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>choose(i));return b}))}
 function choose(value){
  if(checked || completed)return;
  selected=value;
