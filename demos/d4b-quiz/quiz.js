@@ -43,7 +43,22 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 function evidenceLink(q){const u=q.evidence?.url;return typeof u==='string'&&/^https:\/\//.test(u)?'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">Independently checked reference</a>':''}
 function courseEvidence(q){const c=q.course_alignment;if(!c)return '';const label=c.status==='qualified'?'Course rule checked — qualification applies':'Answer checked against module booklet';return '<p class="fine"><strong>'+esc(label)+'</strong> · '+esc(c.booklet_locator||'')+'</p>'+(c.status==='qualified'?'<p class="fine">'+esc(c.note||'')+'</p>':'')}
 function save(){try{localStorage.setItem(key,JSON.stringify(history))}catch(e){console.warn('Progress cannot be stored',e)}stats()}
-function stats(){let records=Object.values(history),total=records.reduce((n,x)=>n+x.attempts,0),correct=records.reduce((n,x)=>n+x.correct,0);$('attempts').textContent=total;$('accuracy').textContent=total?Math.round(correct/total*100)+'%':'—';$('due').textContent=questions.filter(q=>history[q.id]&&history[q.id].due<=Date.now()).length;$('bank').textContent=questions.length;$('bankScope').textContent=builtInQuestions.length+' built into the website (all devices) · '+privateQuestions().length+' optional Moodle originals stored only in this browser.';updateAvailability()}
+function dueQuestions(){
+ const now=Date.now();
+ return questions.filter(q=>q.verification!=='flagged'&&history[q.id]&&history[q.id].attempts>0&&Number.isFinite(history[q.id].due)&&history[q.id].due<=now);
+}
+function stats(){
+ const records=Object.values(history),total=records.reduce((n,x)=>n+x.attempts,0),correct=records.reduce((n,x)=>n+x.correct,0),due=dueQuestions().length;
+ $('attempts').textContent=total;
+ $('accuracy').textContent=total?Math.round(correct/total*100)+'%':'—';
+ $('due').textContent=due;
+ $('reviewDue').disabled=due===0;
+ $('reviewDue').setAttribute('aria-label',due?('Retry '+due+' question'+(due===1?'':'s')+' due for review'):'No questions currently due for review');
+ $('dueAction').textContent=due?'Tap to retry':'All caught up';
+ $('bank').textContent=questions.length;
+ $('bankScope').textContent=builtInQuestions.length+' built into the website (all devices) · '+privateQuestions().length+' optional Moodle originals stored only in this browser.';
+ updateAvailability();
+}
 function isOfficial(q){return q.origin==='official-moodle'}
 function isMock(q){return q.origin==='independent-mock'}
 function sourceMatches(q){
@@ -96,7 +111,7 @@ function weeks(){
 function pool(){return questions.filter(q=>q.verification!=='flagged'&&sourceMatches(q)&&($('module').value==='all'||q.module===$('module').value)&&($('week').value==='all'||q.week===Number($('week').value)))}
 function eligible(){
  const p=pool();
- return uniqueByConcept($('mode').value==='mistakes'?p.filter(q=>history[q.id]&&history[q.id].correct<history[q.id].attempts):p);
+ return uniqueByConcept($('mode').value==='mistakes'?p.filter(q=>dueQuestions().some(d=>d.id===q.id)):p);
 }
 function updateAvailability(){
  const items=eligible(),n=items.length,requested=$('count').value==='all'?n:Number($('count').value);
@@ -115,12 +130,43 @@ function reviewOrder(items){const now=Date.now();return items.map(q=>({q,tie:Mat
 function select(){
  const p=pool();
  if(mode==='exam'&&/^mock-[ABC]$/.test($('source').value))return [...p].sort((a,b)=>a.mockNumber-b.mockNumber);
- const available=mode==='mistakes'?p.filter(q=>history[q.id]&&history[q.id].correct<history[q.id].attempts):p;
+ const available=mode==='mistakes'?p.filter(q=>dueQuestions().some(d=>d.id===q.id)):p;
  const varied=uniqueByConcept(available);
  return mode==='exam'?shuffle(varied):reviewOrder(varied);
 }
 function updateClock(){if(!deadline)return;const ms=Math.max(0,deadline-Date.now());$('clock').textContent=Math.floor(ms/60000)+':'+String(Math.floor(ms%60000/1000)).padStart(2,'0');if(ms===0)finish()}
-function start(){mode=$('mode').value;const requested=$('count').value==='all'?eligible().length:Math.min(eligible().length,Number($('count').value));session=select().slice(0,requested);if(!session.length){$('summary').classList.remove('hidden');$('summary').textContent='No questions available for these filters. Try another module or practice mode.';return}answers=[];index=0;completed=false;$('summary').classList.add('hidden');$('session').classList.remove('hidden');document.body.classList.add('quiz-active');const mockTimes={'mock-A':35,'mock-B':40,'mock-C':45};const exactMockTime=mode==='exam'&&session.length===33?mockTimes[$('source').value]:0;deadline=$('timing').value==='recommended'?Date.now()+(exactMockTime?exactMockTime*60000:Math.round(session.length*90*1000)):0;clearInterval(timer);$('clock').textContent='';if(deadline){updateClock();timer=setInterval(updateClock,1000)}render();$('session').scrollIntoView({behavior:'auto',block:'start'})}
+function beginSession(useTimer){
+ answers=[];index=0;completed=false;
+ $('summary').classList.add('hidden');
+ $('session').classList.remove('hidden');
+ document.body.classList.add('quiz-active');
+ const mockTimes={'mock-A':35,'mock-B':40,'mock-C':45};
+ const exactMockTime=mode==='exam'&&session.length===33?mockTimes[$('source').value]:0;
+ deadline=useTimer&&$('timing').value==='recommended'?Date.now()+(exactMockTime?exactMockTime*60000:Math.round(session.length*90*1000)):0;
+ clearInterval(timer);
+ $('clock').textContent='';
+ if(deadline){updateClock();timer=setInterval(updateClock,1000)}
+ render();
+ $('session').scrollIntoView({behavior:'auto',block:'start'});
+}
+function start(){
+ mode=$('mode').value;
+ const requested=$('count').value==='all'?eligible().length:Math.min(eligible().length,Number($('count').value));
+ session=select().slice(0,requested);
+ if(!session.length){
+  $('summary').classList.remove('hidden');
+  $('summary').textContent='No questions available for these filters. Try another module or practice mode.';
+  return;
+ }
+ beginSession(true);
+}
+function startDueReview(){
+ const pending=dueQuestions();
+ if(!pending.length){stats();return}
+ mode='adaptive';
+ session=reviewOrder(pending);
+ beginSession(false);
+}
 function render(){selected=null;checked=false;const q=session[index];$('position').textContent='Question '+(index+1)+' of '+session.length;$('bar').style.width=(index/session.length*100)+'%';$('topic').textContent=q.module+' · WEEK '+String(q.week).padStart(2,'0')+' · '+(isMock(q)?'Mock '+q.mockExam+' / Q'+q.mockNumber:q.origin==='official-moodle'?'Private Moodle original':q.topic);$('prompt').textContent=q.stem;$('feedback').classList.add('hidden');$('feedback').replaceChildren();$('session').classList.remove('has-feedback');$('next').disabled=true;$('next').textContent='Next question';$('choices').replaceChildren(...q.choices.map((answer,i)=>{let b=document.createElement('button');b.type='button';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>choose(i));return b}))}
 function choose(value){
  if(checked || completed)return;
@@ -165,13 +211,19 @@ if(mode==='exam')out+='<p>Exam simulation: feedback was held until the end.'+(de
 if(count<session.length)out+='<p>'+ (session.length-count)+' question(s) unanswered.</p>';
 out+='<h3>Answer review</h3>';
 out+=answers.map(a=>{const q=questions.find(x=>x.id===a.id);return '<details><summary>'+esc(q.topic)+' · '+(a.ok?'Correct':'Review')+'</summary><p>'+esc(q.stem)+'</p><p><b>Your answer:</b> '+esc(q.choices[a.value])+'</p><p><b>Best answer:</b> '+esc(q.choices[q.correct])+'</p><p>'+esc(q.explanation)+'</p><p class="fine">'+esc(q.source)+' · '+(evidenceStatus(q))+'</p>'+courseEvidence(q)+evidenceLink(q)+'</details>'}).join('');
-out+='<div class="actions"><button id="again" class="primary-button">Practise again</button></div>';$('summary').innerHTML=out;$('again').addEventListener('click',start);$('summary').scrollIntoView({behavior:'smooth',block:'start'});deadline=0}
+const remaining=dueQuestions().length;
+out+='<div class="actions"><button id="again" class="primary-button">Practise again</button>'+(remaining?'<button id="retryDue" class="quiet-button" type="button">Retry '+remaining+' question'+(remaining===1?'':'s')+' to revisit</button>':'')+'</div>';
+$('summary').innerHTML=out;
+$('again').addEventListener('click',start);
+if(remaining)$('retryDue').addEventListener('click',startDueReview);
+$('summary').scrollIntoView({behavior:'smooth',block:'start'});
+deadline=0}
 const mockWritten=window.D4B_MOCK_WRITTEN;
 if(mockWritten&&$('mockWrittenPrompt')&&$('mockWrittenAnswer')){
  $('mockWrittenPrompt').textContent=mockWritten.prompt;
  $('mockWrittenAnswer').textContent=mockWritten.answer;
 }
-$('module').addEventListener('change',weeks);$('source').addEventListener('change',()=>{if(/^mock-[ABC]$/.test($('source').value)){$('module').value='GEN';$('mode').value='exam';$('count').value='all';$('week').value='all';}weeks();});$('week').addEventListener('change',updateAvailability);$('mode').addEventListener('change',updateAvailability);$('timing').addEventListener('change',updateAvailability);$('count').addEventListener('change',updateAvailability);$('start').addEventListener('click',start);$('next').addEventListener('click',next);$('stop').addEventListener('click',finish);
+$('module').addEventListener('change',weeks);$('source').addEventListener('change',()=>{if(/^mock-[ABC]$/.test($('source').value)){$('module').value='GEN';$('mode').value='exam';$('count').value='all';$('week').value='all';}weeks();});$('week').addEventListener('change',updateAvailability);$('mode').addEventListener('change',updateAvailability);$('timing').addEventListener('change',updateAvailability);$('count').addEventListener('change',updateAvailability);$('start').addEventListener('click',start);$('reviewDue').addEventListener('click',startDueReview);$('next').addEventListener('click',next);$('stop').addEventListener('click',finish);
 $('reset').addEventListener('click',()=>{if(confirm('Delete all quiz history stored in this browser?')){history={};save()}});
 $('export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({format:'d4b-evidence-quiz-v1',exported:new Date().toISOString(),history},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='d4b-quiz-progress.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
 $('officialImport').addEventListener('change',async function(){
