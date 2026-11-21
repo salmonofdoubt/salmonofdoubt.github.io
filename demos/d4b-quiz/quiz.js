@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const builtInQuestions=[...(window.D4B_QUESTIONS||[]),...(window.D4B_MOCK_QUESTIONS||[])];
+const builtInQuestions=[...(window.D4B_QUESTIONS||[]),...(window.D4B_MOODLE_QUESTIONS||[]),...(window.D4B_MOCK_QUESTIONS||[])];
 const conceptGroups=window.D4B_CONCEPT_GROUPS||{};
 const stemKey=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 function uniqueByConcept(items){
@@ -37,7 +37,7 @@ function officialValidationError(q,index){
 }
 function validOfficial(q){return !officialValidationError(q,0)}
 function privateQuestions(){try{const a=JSON.parse(localStorage.getItem(privateKey)||'[]');return Array.isArray(a)?a.filter(validOfficial):[]}catch{return []}}
-function refreshQuestions(){questions=[...builtInQuestions,...privateQuestions()];weeks();stats()}
+function refreshQuestions(){const officialStems=new Set(builtInQuestions.filter(q=>q.origin==="official-moodle").map(q=>q.module+"|"+q.week+"|"+stemKey(q.stem)));questions=[...builtInQuestions,...privateQuestions().filter(q=>!officialStems.has(q.module+"|"+q.week+"|"+stemKey(q.stem)))];weeks();stats()}
 let history=read(),session=[],index=0,answers=[],deadline=0,timer=null,mode='adaptive',completed=false,selected=null,checked=false;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function evidenceLink(q){const u=q.evidence?.url;return typeof u==='string'&&/^https:\/\//.test(u)?'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">Independently checked reference</a>':''}
@@ -63,7 +63,8 @@ function isOfficial(q){return q.origin==='official-moodle'}
 function isMock(q){return q.origin==='independent-mock'}
 function sourceMatches(q){
  const source=$('source').value;
- if(source==='official-only')return isOfficial(q);
+ if(source==='moodle'||source==='official-only')return isOfficial(q);
+ if(source==='practice')return !isOfficial(q)&&!isMock(q);
  if(source==='booklet-only')return !isOfficial(q)&&!isMock(q);
  if(source==='cram'||source==='full')return true;
  if(/^mock-[ABC]$/.test(source))return isMock(q)&&q.mockExam===source.slice(-1);
@@ -73,7 +74,7 @@ function sourcePriority(q){if(q.verification==='official-key-confirmed')return 0
 function evidenceStatus(q){return isMock(q)?'Supplied mock answer key; unofficial and not independently verified':q.verification==='verified'?'Independently checked':q.verification==='official-key-confirmed'?'Official Moodle key confirmed':isOfficial(q)?'Original Moodle key pending':'Independent verification pending'}
 function syncModuleFocus(){
  const context={
-  GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI exam focus',desc:'Generative AI Weeks 1–9 only. All eligible reduced-repeat questions are available by default, untimed. Original Moodle questions remain the strongest exam evidence.'},
+  GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI · original Moodle questions by week',desc:'61 verified Moodle questions from Weeks 1, 2, 3 and 5, with the original wording, options and confirmed correct answers. Weeks 4 and 6 have no retrieved quiz entries in this archive. The exam covers Weeks 1–9.'},
   AIB:{eyebrow:'AI FOR BUSINESS · MODULE PRACTICE',title:'AI for Business',desc:'Practise machine learning, neural networks, automated planning and responsible AI using this module’s question bank. All eligible questions are available, untimed by default.'},
   INN:{eyebrow:'INNOVATION · MODULE PRACTICE',title:'Innovation',desc:'Practise innovation, communication, AI-related training and Week 10 leadership. All published practice questions are built into the app.'},
   DTR:{eyebrow:'DIGITAL TRANSFORMATION · MODULE PRACTICE',title:'Digital Transformation',desc:'Practise human-centred transformation, digital societies, platforms and digital literacies. All eligible questions are available, untimed by default.'},
@@ -94,6 +95,7 @@ function syncModuleFocus(){
   }
  }
  if(!genaiOnly&&/^mock-[ABC]$/.test($('source').value))$('source').value='cram';
+ if(!genaiOnly&&$('source').value==='moodle'&&!questions.some(q=>q.module===selected&&isOfficial(q)))$('source').value='cram';
  if($('mockWritten'))$('mockWritten').hidden=!(genaiOnly&&$('source').value==='mock-C');
 }
 function weeks(){
@@ -103,7 +105,7 @@ function weeks(){
  const distinct=[...new Set(keys.flatMap(k=>(curriculum[k]||[]).map((_,i)=>i+1)))].sort((a,b)=>a-b);
  $('week').replaceChildren(new Option('All documented weeks','all'),...distinct.map(w=>{
  const filtered=questions.filter(q=>(m==='all'||q.module===m)&&q.week===w&&sourceMatches(q));
- return new Option('Week '+String(w).padStart(2,'0')+' · '+filtered.length+' questions',String(w));
+ return new Option('Week '+String(w).padStart(2,'0')+' · '+filtered.length+($('source').value==='moodle'?' Moodle':' questions'),String(w));
  }));
  $('week').value=distinct.some(x=>String(x)===chosen)?chosen:'all';
  updateAvailability();
@@ -116,13 +118,13 @@ function eligible(){
 function updateAvailability(){
  const items=eligible(),n=items.length,requested=$('count').value==='all'?n:Number($('count').value);
  const chosen=Math.min(n,requested);
- const isCram=$('source').value==='cram';
+ const isCram=$('source').value==='cram',isMoodle=$('source').value==='moodle';
  let status=n+' question'+(n===1?'':'s')+' available'+(isCram?' after reducing repeated concepts':'')+' · '+($('timing').value==='recommended'?'timed':'untimed');
- if($('source').value==='official-only'&&!n)status='No private Moodle originals stored here. Use Best mix to see the built-in questions.';
+ if(isMoodle&&!n)status='No verified Moodle questions archived for this week. Try another week or Additional practice.';
  if(n>0&&requested>n)status+=' · showing '+n;
  $('availability').textContent=status;
  $('start').disabled=n===0;
- $('start').textContent=/^mock-[ABC]$/.test($('source').value)?'Start Mock '+$('source').value.slice(-1)+' · '+chosen+' Q':$('mode').value==='exam'?'Start exam practice · '+chosen+' Q':$('mode').value==='mistakes'?'Review '+chosen+' mistakes':'Start learning · '+chosen+' Q';
+ $('start').textContent=/^mock-[ABC]$/.test($('source').value)?'Start Mock '+$('source').value.slice(-1)+' · '+chosen+' Q':isMoodle?'Start Moodle quiz · '+chosen+' Q':$('mode').value==='exam'?'Start exam practice · '+chosen+' Q':$('mode').value==='mistakes'?'Review '+chosen+' mistakes':'Start learning · '+chosen+' Q';
  $('start').title=n===0?'No questions match your choice':'Start '+chosen+' questions';
 }
 function shuffle(items){return items.map(q=>({q,k:Math.random()})).sort((a,b)=>a.k-b.k).map(x=>x.q)}
