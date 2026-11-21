@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const builtInQuestions=[...(window.D4B_QUESTIONS||[]),...(window.D4B_MOODLE_QUESTIONS||[]),...(window.D4B_MOODLE_INNO_QUESTIONS||[]),...(window.D4B_MOODLE_DTR_QUESTIONS||[]),...(window.D4B_MOCK_QUESTIONS||[])];
+const builtInQuestions=[...(window.D4B_QUESTIONS||[]),...(window.D4B_MOODLE_QUESTIONS||[]),...(window.D4B_MOODLE_INNO_QUESTIONS||[]),...(window.D4B_MOODLE_DTR_T1_T4_QUESTIONS||[]),...(window.D4B_MOODLE_DTR_QUESTIONS||[]),...(window.D4B_MOCK_QUESTIONS||[])];
 const conceptGroups=window.D4B_CONCEPT_GROUPS||{};
 const stemKey=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 function uniqueByConcept(items){
@@ -77,7 +77,7 @@ function syncModuleFocus(){
   GEN:{eyebrow:'GENERATIVE AI EXAM · 30 NOVEMBER 2026',title:'Generative AI · original Moodle questions by week',desc:'61 verified Moodle questions from Weeks 1, 2, 3 and 5, with the original wording, options and confirmed correct answers. Weeks 4 and 6 have no retrieved quiz entries in this archive. The exam covers Weeks 1–9.'},
   AIB:{eyebrow:'AI FOR BUSINESS · MODULE PRACTICE',title:'AI for Business',desc:'Practise machine learning, neural networks, automated planning and responsible AI using this module’s question bank. All eligible questions are available, untimed by default.'},
   INN:{eyebrow:'INNOVATION EXAM · 17 DECEMBER 2026 · 40 QUESTIONS IN 40 MINUTES',title:'Innovation · all 10 original Moodle quizzes',desc:'All 100 original Innovation Moodle questions are now included, 10 for each teaching week from W1 through W10. The Moodle course groups these as Topics 1–6: two quizzes each in Topics 1–4, followed by Topic 5 Quiz 1 and Topic 6 Quiz 1. Choose any week for its complete original Moodle quiz.'},
-  DTR:{eyebrow:'DIGITAL TRANSFORMATION EXAM · 19 DECEMBER 2026 · 30 MCQS IN 45 MINUTES',title:'Digital Transformation · five Moodle topic quizzes',desc:'Moodle lists Topic 1 (W1), Topic 2 (W2–3), Topic 3 (W4–5), Topic 4 (W6–7) and Topic 5 (W8–9), with one five-question quiz each. All five were completed 5/5 (25/25). The five exact Topic 5 quiz questions are available under Week 9. Topics 1–4 original question options are not yet recovered. Weeks 10–11 cover Digital Competences; no quiz is listed in the supplied Moodle outline.'},
+  DTR:{eyebrow:'DIGITAL TRANSFORMATION EXAM · 19 DECEMBER 2026 · 30 MCQS IN 45 MINUTES',title:'Digital Transformation · all five original Moodle quizzes',desc:'All 25 verified original Moodle questions are included: Topic 1 under W1, Topic 2 under W3, Topic 3 under W5, Topic 4 under W7 and Topic 5 under W9. Each has five questions. Moodle accepted both B and D for Topic 3 Q4, although standard BAT means Baidu, Alibaba and Tencent (B). Digital Competences (W10–11) has no quiz listed.'},
   all:{eyebrow:'DIGITAL4BUSINESS · ALL MODULES',title:'All four modules',desc:'Practise across all four Digital4Business modules, with similar questions reduced and no time limit unless you choose one.'}
  };
  const selected=$('module').value;
@@ -109,10 +109,9 @@ function weeks(){
  const filtered=questions.filter(q=>(m==='all'||q.module===m)&&q.week===w&&sourceMatches(q));
  const courseLabel=m==='INN'?' · '+(innoTopicByWeek[w]||''):m==='DTR'?' · '+(dtrTopicByWeek[w]||''):'';
  const isDtrMoodle=m==='DTR'&&$('source').value==='moodle';
- const officialUnrecovered=isDtrMoodle&&[1,3,5,7].includes(w)&&filtered.length===0;
  const noOfficialQuiz=isDtrMoodle&&[10,11].includes(w);
  const quizNext=isDtrMoodle&&[2,4,6,8].includes(w);
- const status=officialUnrecovered?' · original text missing':noOfficialQuiz?' · no Moodle quiz listed':quizNext?' · quiz in following week':(' · '+filtered.length+($('source').value==='moodle'?' official Q':' questions'));
+ const status=noOfficialQuiz?' · no Moodle quiz listed':quizNext?' · quiz in following week':(' · '+filtered.length+($('source').value==='moodle'?' official Q':' questions'));
  return new Option('Week '+String(w).padStart(2,'0')+courseLabel+status,String(w));
  }));
  $('week').value=distinct.some(x=>String(x)===chosen)?chosen:'all';
@@ -130,7 +129,7 @@ function updateAvailability(){
  let status=n+' question'+(n===1?'':'s')+' available'+(isCram?' after reducing repeated concepts':'')+' · '+($('timing').value==='recommended'?'timed':'untimed');
  if(isMoodle&&!n){
   const w=Number($('week').value),isDtr=$('module').value==='DTR';
-  status=$('mode').value==='mistakes'?'No Moodle questions currently due for review in this selection.':isDtr&&[1,3,5,7].includes(w)?'This DTR topic quiz was completed 5/5, but its exact original question wording and four answer options remain unrecovered. Select Additional practice for these concepts.':isDtr&&[2,4,6,8].includes(w)?'This is the first week of a two-week DTR topic. Its Moodle quiz is mapped to the following teaching week.':isDtr&&[10,11].includes(w)?'No official Moodle quiz is listed for Digital Competences (Weeks 10–11) in the supplied course outline.':'No verified Moodle questions available for this selection. Try another week or Additional practice.';
+  status=$('mode').value==='mistakes'?'No Moodle questions currently due for review in this selection.':isDtr&&[2,4,6,8].includes(w)?'This is the first week of a two-week DTR topic. Its full Moodle quiz is mapped to the following teaching week.':isDtr&&[10,11].includes(w)?'No official Moodle quiz is listed for Digital Competences (Weeks 10–11) in the supplied course outline.':'No verified Moodle questions available for this selection. Try another week or Additional practice.';
  }
  if(n>0&&requested>n)status+=' · showing '+n;
  $('availability').textContent=status;
@@ -193,27 +192,30 @@ function choose(value){
  $('next').disabled=false;
  if(mode!=='exam')checkAnswer();
 }
+function correctIndexes(q){return Array.isArray(q.acceptedCorrect)&&q.acceptedCorrect.length?q.acceptedCorrect:[q.correct]}
+function isCorrectChoice(q,value){return correctIndexes(q).includes(value)}
+function answerSummary(q){const options=correctIndexes(q);return (options.length>1?'Moodle-accepted answers: ':'Best answer: ')+options.map(i=>'<b>'+String.fromCharCode(65+i)+'</b> · '+esc(q.choices[i])).join(' / ')}
 function checkAnswer(){
  if(selected===null || checked)return;
- const q=session[index],ok=selected===q.correct;
+ const q=session[index],ok=isCorrectChoice(q,selected);
  answers.push({id:q.id,value:selected,ok});
  checked=true;
  [...$('choices').children].forEach((b,i)=>{
   b.disabled=true;
   b.classList.remove('selected');
   b.setAttribute('aria-pressed',String(i===selected));
-  if(i===q.correct)b.classList.add('correct');
+  if(isCorrectChoice(q,i))b.classList.add('correct');
   else if(i===selected)b.classList.add('wrong');
  });
  $('feedback').classList.remove('hidden');
- $('feedback').innerHTML='<div class="feedback-head"><strong>'+(ok?'✓ Correct':'Not quite')+'</strong><span>Best answer: <b>'+String.fromCharCode(65+q.correct)+'</b> · '+esc(q.choices[q.correct])+'</span></div><p class="feedback-explanation">'+esc(q.explanation)+'</p><details class="feedback-source"><summary>Source and evidence</summary><p>'+esc(q.source)+' · '+esc(evidenceStatus(q))+'</p>'+courseEvidence(q)+evidenceLink(q)+'</details>';
+ $('feedback').innerHTML='<div class="feedback-head"><strong>'+(ok?'✓ Correct':'Not quite')+'</strong><span>'+answerSummary(q)+'</span></div><p class="feedback-explanation">'+esc(q.explanation)+'</p><details class="feedback-source"><summary>Source and evidence</summary><p>'+esc(q.source)+' · '+esc(evidenceStatus(q))+'</p>'+courseEvidence(q)+evidenceLink(q)+'</details>';
  $('session').classList.add('has-feedback');
  $('next').textContent=index===session.length-1?'Finish session':'Next question';
 }
 function advance(){if(index>=session.length-1)finish();else{index++;render();$('session').scrollIntoView({behavior:'auto',block:'start'})}}
 function next(){
  if(mode!=='exam'&&!checked){checkAnswer();return}
- if(mode==='exam'&&selected!==null){const q=session[index];answers.push({id:q.id,value:selected,ok:selected===q.correct})}
+ if(mode==='exam'&&selected!==null){const q=session[index];answers.push({id:q.id,value:selected,ok:isCorrectChoice(q,selected)})}
  advance();
 }
 function finish(){if(completed)return;completed=true;clearInterval(timer);document.body.classList.remove('quiz-active');const count=answers.length,correct=answers.filter(a=>a.ok).length;
@@ -223,7 +225,7 @@ let out='<p class="eyebrow">SESSION COMPLETE</p><h2>'+correct+' / '+count+' corr
 if(mode==='exam')out+='<p>Exam simulation: feedback was held until the end.'+(deadline?' Recommended timing enabled.':' Untimed.')+'</p>';
 if(count<session.length)out+='<p>'+ (session.length-count)+' question(s) unanswered.</p>';
 out+='<h3>Answer review</h3>';
-out+=answers.map(a=>{const q=questions.find(x=>x.id===a.id);return '<details><summary>'+esc(q.topic)+' · '+(a.ok?'Correct':'Review')+'</summary><p>'+esc(q.stem)+'</p><p><b>Your answer:</b> '+esc(q.choices[a.value])+'</p><p><b>Best answer:</b> '+esc(q.choices[q.correct])+'</p><p>'+esc(q.explanation)+'</p><p class="fine">'+esc(q.source)+' · '+(evidenceStatus(q))+'</p>'+courseEvidence(q)+evidenceLink(q)+'</details>'}).join('');
+out+=answers.map(a=>{const q=questions.find(x=>x.id===a.id);return '<details><summary>'+esc(q.topic)+' · '+(a.ok?'Correct':'Review')+'</summary><p>'+esc(q.stem)+'</p><p><b>Your answer:</b> '+esc(q.choices[a.value])+'</p><p><b>'+(correctIndexes(q).length>1?'Moodle-accepted answers':'Best answer')+':</b> '+correctIndexes(q).map(i=>esc(q.choices[i])).join(' / ')+'</p><p>'+esc(q.explanation)+'</p><p class="fine">'+esc(q.source)+' · '+(evidenceStatus(q))+'</p>'+courseEvidence(q)+evidenceLink(q)+'</details>'}).join('');
 const remaining=dueQuestions().length;
 out+='<div class="actions"><button id="again" class="primary-button">Practise again</button>'+(remaining?'<button id="retryDue" class="quiet-button" type="button">Retry '+remaining+' question'+(remaining===1?'':'s')+' to revisit</button>':'')+'</div>';
 $('summary').innerHTML=out;
