@@ -9111,5 +9111,830 @@ window.D4B_QUESTIONS=Object.freeze([
       "original_moodle_key_checked": false,
       "original_lecture_slides_directly_checked": true
     }
+  },
+{
+  "id": "d4b-216",
+  "module": "INN",
+  "week": 8,
+  "topic": "Hybrid intelligence",
+  "stem": "An AI assistant drafts a climate report while analysts check evidence and stakeholder impacts. What is the collaboration model?",
+  "choices": [
+    "Complete automation",
+    "Hybrid intelligence",
+    "Purely manual analysis",
+    "Unsupervised delegation"
+  ],
+  "correct": 1,
+  "explanation": "The arrangement combines machine assistance with human judgement and verification.",
+  "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 8,
+    "booklet_locator": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": false
   }
+},
+{
+  "id": "d4b-217",
+  "module": "INN",
+  "week": 8,
+  "topic": "Evidence-based communication",
+  "stem": "A polished AI-generated message describes regulatory changes. Which action best reduces misleading claims?",
+  "choices": [
+    "Check primary evidence and framing",
+    "Choose the most persuasive adjectives",
+    "Count the generated sentences",
+    "Publish because the prose is confident"
+  ],
+  "correct": 0,
+  "explanation": "Accuracy requires checking the source facts, context and interpretation before communicating.",
+  "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 8,
+    "booklet_locator": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": false
+  }
+},
+{
+  "id": "d4b-218",
+  "module": "INN",
+  "week": 8,
+  "topic": "Communication outcomes",
+  "stem": "Which indicator most directly assesses whether a sustainability message worked?",
+  "choices": [
+    "Number of slides produced",
+    "Number of images generated",
+    "Audience understanding and informed action",
+    "Novelty of colour palette"
+  ],
+  "correct": 2,
+  "explanation": "Understanding and appropriate responses are stronger outcome measures than output volume.",
+  "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 8,
+    "booklet_locator": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": false
+  }
+},
+{
+  "id": "d4b-219",
+  "module": "INN",
+  "week": 8,
+  "topic": "Transmedia",
+  "stem": "A climate venture uses linked videos, diagrams and interactive stories to explain complementary parts of one project. Which approach is this?",
+  "choices": [
+    "Single-channel publication",
+    "Transmedia storytelling",
+    "Linear forecasting",
+    "Pure numerical modelling"
+  ],
+  "correct": 1,
+  "explanation": "Transmedia storytelling coordinates different narrative contributions across channels.",
+  "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 8,
+    "booklet_locator": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": false
+  }
+},
+{
+  "id": "d4b-220",
+  "module": "INN",
+  "week": 8,
+  "topic": "Metacognition",
+  "stem": "A manager reviews the validity of her own assumptions when an AI assistant offers a fluent recommendation. What capability is she applying?",
+  "choices": [
+    "Automatic obedience",
+    "Statistical sampling",
+    "Delegation without scrutiny",
+    "Metacognition"
+  ],
+  "correct": 3,
+  "explanation": "Metacognition means reflecting on and monitoring one's own reasoning and judgement.",
+  "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 8,
+    "booklet_locator": "03_Innovation_Booklet, Week 08: Hybrid Intelligence and Entrepreneurial Communication (5 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": false
+  }
+},
+{
+  "id": "d4b-221",
+  "module": "INN",
+  "week": 9,
+  "topic": "Trust and verification",
+  "stem": "An analyst trusts an AI system and gradually stops checking the primary documents. What risk has increased?",
+  "choices": [
+    "Reduced critical scrutiny",
+    "Guaranteed factual accuracy",
+    "Stronger unaided expertise",
+    "Better source quality"
+  ],
+  "correct": 0,
+  "explanation": "Greater trust can be associated with less critical checking even when source validation remains necessary.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-222",
+  "module": "INN",
+  "week": 9,
+  "topic": "Skills commons",
+  "stem": "Each team trims apprentice practice to save money, eventually leaving too few experts across the firm. Which dilemma is illustrated?",
+  "choices": [
+    "Over-specialisation of AI models",
+    "Depletion of a shared skills resource",
+    "Excessive software redundancy",
+    "Unnecessary record keeping"
+  ],
+  "correct": 1,
+  "explanation": "Individually rational training cuts can cumulatively undermine organisational expertise.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-223",
+  "module": "INN",
+  "week": 9,
+  "topic": "Independent competence",
+  "stem": "Staff write good reports with AI but cannot solve similar problems alone. What must be assessed separately?",
+  "choices": [
+    "Server uptime",
+    "Hardware expenditure",
+    "Independent competence",
+    "Total number of documents"
+  ],
+  "correct": 2,
+  "explanation": "Assisted performance and durable human learning are distinct outcomes.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-224",
+  "module": "INN",
+  "week": 9,
+  "topic": "Human oversight",
+  "stem": "A manager must approve every AI recommendation but lacks time and subject expertise. What safeguard is missing?",
+  "choices": [
+    "A formal job title",
+    "A larger model",
+    "A shorter approval form",
+    "Substantive human oversight"
+  ],
+  "correct": 3,
+  "explanation": "Effective oversight requires competence, time, evidence and authority to challenge.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-225",
+  "module": "INN",
+  "week": 9,
+  "topic": "Unnoticed learning loss",
+  "stem": "A student completes assisted tasks smoothly but scores poorly in an unaided assessment. What may have been concealed?",
+  "choices": [
+    "A learning deficit",
+    "A guaranteed improvement",
+    "Excessive subject knowledge",
+    "A low software subscription fee"
+  ],
+  "correct": 0,
+  "explanation": "Smooth assisted output can mask gaps in independent skill formation.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-226",
+  "module": "INN",
+  "week": 9,
+  "topic": "Jagged frontier",
+  "stem": "A model handles routine summaries well but fails an unfamiliar analytical task. Which concept captures this unevenness?",
+  "choices": [
+    "Linear improvement",
+    "The jagged technological frontier",
+    "Complete model generality",
+    "Hardware obsolescence"
+  ],
+  "correct": 1,
+  "explanation": "AI capabilities vary across tasks, and the capability boundary can be hard to identify.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-227",
+  "module": "INN",
+  "week": 9,
+  "topic": "Intergenerational sustainability",
+  "stem": "A firm protects training opportunities for future employees even when automating today's workflows. Which sustainability principle is applied by analogy?",
+  "choices": [
+    "Maximise only current throughput",
+    "Eliminate all human error",
+    "Preserve future generations' capability",
+    "Prohibit new technology"
+  ],
+  "correct": 2,
+  "explanation": "The intergenerational analogy asks whether today's choices undermine tomorrow's ability to learn.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-228",
+  "module": "INN",
+  "week": 9,
+  "topic": "Uneven AI benefits",
+  "stem": "AI advice improves results for one set of workers but not for another. What conclusion is most warranted?",
+  "choices": [
+    "Everyone benefits uniformly",
+    "Outcomes depend on task and user judgement",
+    "Novices always benefit most",
+    "Experts always benefit most"
+  ],
+  "correct": 1,
+  "explanation": "Effects vary with task demands, experience, conditions and use patterns.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-229",
+  "module": "INN",
+  "week": 9,
+  "topic": "Expertise loop",
+  "stem": "A firm automates tasks used to train new analysts, then lacks people able to challenge AI errors. What is the causal risk?",
+  "choices": [
+    "Lack of marketing",
+    "Too many mentors",
+    "Too much independent testing",
+    "Removing practice erodes checking expertise"
+  ],
+  "correct": 3,
+  "explanation": "The ability to verify AI depends on expertise that develops partly through practical experience.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-230",
+  "module": "INN",
+  "week": 9,
+  "topic": "Productive struggle",
+  "stem": "A tutoring assistant provides prompts and feedback while learners solve problems themselves. What is it preserving?",
+  "choices": [
+    "Productive struggle",
+    "Pointless delays",
+    "Permanent tool dependence",
+    "Unaided isolation"
+  ],
+  "correct": 0,
+  "explanation": "Scaffolded effort can build understanding without withholding supportive guidance.",
+  "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 9,
+    "booklet_locator": "03_Innovation_Booklet, Week 09: AI and Corporate Training (12 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-231",
+  "module": "INN",
+  "week": 10,
+  "topic": "Clarifying roles",
+  "stem": "A project lead makes clear which team member owns each deliverable. Which action is shown?",
+  "choices": [
+    "Public advocacy",
+    "Role clarification",
+    "External negotiation",
+    "Conflict avoidance"
+  ],
+  "correct": 1,
+  "explanation": "Defining task ownership and responsibilities is task-centred role clarification.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-232",
+  "module": "INN",
+  "week": 10,
+  "topic": "Followers' actions",
+  "stem": "A leader makes promises but the team does not act differently. What better measures leadership influence?",
+  "choices": [
+    "Job seniority",
+    "Private intentions",
+    "Followers' behaviour",
+    "Number of speeches"
+  ],
+  "correct": 2,
+  "explanation": "Leadership effectiveness is expressed in the actions and collaboration of followers.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-233",
+  "module": "INN",
+  "week": 10,
+  "topic": "Support",
+  "stem": "A supervisor notices an employee struggling and offers personal support. Which leadership domain is primary?",
+  "choices": [
+    "Task-centred",
+    "Boundary-oriented",
+    "Change-oriented",
+    "Relation-centred"
+  ],
+  "correct": 3,
+  "explanation": "Personal support and development belong to relation-centred behaviours.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-234",
+  "module": "INN",
+  "week": 10,
+  "topic": "Individual differences",
+  "stem": "A manager gives different employees appropriate guidance rather than treating everyone identically. Which 'good enough' quality is shown?",
+  "choices": [
+    "Recognising individual differences",
+    "Avoiding all accountability",
+    "Maintaining personal control",
+    "Making every choice alone"
+  ],
+  "correct": 0,
+  "explanation": "Good-enough leadership acknowledges distinctive needs and capabilities.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-235",
+  "module": "INN",
+  "week": 10,
+  "topic": "Empowerment",
+  "stem": "A specialist takes ownership of a result and can choose how best to achieve it. Which practice is represented?",
+  "choices": [
+    "Increased supervision",
+    "Empowerment",
+    "Centralised control",
+    "Restricted participation"
+  ],
+  "correct": 1,
+  "explanation": "Empowerment combines meaningful responsibility with autonomy.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-236",
+  "module": "INN",
+  "week": 10,
+  "topic": "Consistency",
+  "stem": "A leader sometimes errs but remains dependable and accountable. Which quality matters more than perfection?",
+  "choices": [
+    "Absolute control",
+    "Unquestioned authority",
+    "Stability and consistency",
+    "Infallible decisions"
+  ],
+  "correct": 2,
+  "explanation": "Good-enough leadership values reliable, sufficient guidance rather than perfectionism.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-237",
+  "module": "INN",
+  "week": 10,
+  "topic": "Influence",
+  "stem": "What distinguishes leadership from simply possessing formal authority?",
+  "choices": [
+    "Holding a managerial title",
+    "Having specialised knowledge",
+    "Owning the organisation",
+    "Influencing people toward shared goals"
+  ],
+  "correct": 3,
+  "explanation": "Leadership concerns relational influence over collective action, not status alone.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-238",
+  "module": "INN",
+  "week": 10,
+  "topic": "Monitoring work",
+  "stem": "A project manager checks progress and work quality against defined objectives. Which domain is primary?",
+  "choices": [
+    "Task-centred",
+    "Relation-centred",
+    "Boundary-oriented",
+    "Change-oriented"
+  ],
+  "correct": 0,
+  "explanation": "Monitoring execution and standards is task-centred behaviour.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-239",
+  "module": "INN",
+  "week": 10,
+  "topic": "Relational leadership",
+  "stem": "Colleagues without managerial titles influence how a team addresses a challenge. Why is this leadership?",
+  "choices": [
+    "Rank is the sole defining feature",
+    "Influence occurs through relationships",
+    "It depends only on technical competence",
+    "It is exclusively an individual trait"
+  ],
+  "correct": 1,
+  "explanation": "Leadership is a relational process and can occur without formal line authority.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-240",
+  "module": "INN",
+  "week": 10,
+  "topic": "Enabling performance",
+  "stem": "A supervisor develops colleagues' skills and helps them contribute effectively. What modern leadership objective is illustrated?",
+  "choices": [
+    "More punitive control",
+    "Reduced delegation",
+    "Helping people give their best",
+    "Greater status distance"
+  ],
+  "correct": 2,
+  "explanation": "Contemporary leadership seeks to enable others' contribution and development.",
+  "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "originalMaterialChecked": true,
+    "reviewed_at": "2026-11-21",
+    "scope": "Original public study question based on course material; not official Moodle wording"
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "INN",
+    "week": 10,
+    "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
+    "reviewed_at": "2026-11-21",
+    "original_moodle_key_checked": true
+  }
+}
 ]);
