@@ -1,4 +1,4 @@
-/* Digital4Business Innovation original Moodle quiz bank, transcribed from the user's verified attempt archives. Weeks 1-6, 9, 10. Week 7 not yet recovered verbatim. */
+/* Digital4Business Innovation original Moodle quiz bank. All 10 official quizzes, Topics 1-6, teaching Weeks 1-10, each 10/10, with exact wording and confirmed keys transcribed from the student's completed attempt records. */
 window.D4B_MOODLE_INNO_QUESTIONS=Object.freeze([
   {
     "id": "official-inn-w1-q01",
@@ -1498,6 +1498,566 @@ window.D4B_MOODLE_INNO_QUESTIONS=Object.freeze([
       "originalMoodleReview": true,
       "source_document": "INNO_Official_Quiz_Bank_W1-W6_COMPLETE_2026-10-19.docx",
       "reviewed_at": "2026-10-19"
+    }
+  },
+  {
+    "id": "official-inn-w7-q01",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 1,
+    "topic": "Complex Problem Solving",
+    "stem": "According to Funke's definition, Complex Problem Solving demands the use of:",
+    "choices": [
+      "financial, technological and organisational resources",
+      "cognitive, emotional and social resources, as well as knowledge",
+      "analytical tools, data and domain expertise",
+      "cognitive resources only, supported by technical knowledge"
+    ],
+    "correct": 1,
+    "explanation": "The correct answer is: cognitive, emotional and social resources, as well as knowledge (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q02",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 2,
+    "topic": "Complex Problem Solving",
+    "stem": "In the list of characteristics of a complex problem, \"Complexity\" refers to:",
+    "choices": [
+      "how long the problem takes to solve",
+      "the number of variables that interact with one another",
+      "the number of departments responsible for the problem",
+      "how difficult the problem feels to the people involved"
+    ],
+    "correct": 1,
+    "explanation": "The correct answer is: the number of variables that interact with one another (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q03",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 3,
+    "topic": "Complex Problem Solving",
+    "stem": "Which statement best describes Complex Problem Solving (CPS)?",
+    "choices": [
+      "Solving technically difficult problems faster than others by using expert knowledge",
+      "Finding the single optimal solution once complete and reliable data are available",
+      "Applying a proven standard procedure efficiently to a well-defined problem",
+      "Addressing complex, dynamic, uncertain and ill-structured problems for which no standard procedure exists"
+    ],
+    "correct": 3,
+    "explanation": "The correct answer is: Addressing complex, dynamic, uncertain and ill-structured problems for which no standard procedure exists (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q04",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 4,
+    "topic": "Complex Problem Solving",
+    "stem": "A team's implementation plan becomes outdated because a new regulation is introduced while the project is underway. Which characteristic does this illustrate most directly?",
+    "choices": [
+      "Multiple goals",
+      "Dynamism",
+      "Interdependence",
+      "Opacity"
+    ],
+    "correct": 1,
+    "explanation": "The correct answer is: Dynamism (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q05",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 5,
+    "topic": "Complex Problem Solving",
+    "stem": "Which of these is a complex problem rather than a merely complicated one?",
+    "choices": [
+      "Introducing generative AI across an organisation",
+      "Replacing all the office printers with a new model",
+      "Calculating the return on an investment",
+      "Repairing a jet engine"
+    ],
+    "correct": 0,
+    "explanation": "The correct answer is: Introducing generative AI across an organisation (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q06",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 6,
+    "topic": "Complex Problem Solving",
+    "stem": "A problem is described as \"ill-structured\" when:",
+    "choices": [
+      "its data are stored in incompatible formats across departments",
+      "the starting situation, the goal and even the criteria for success may be unclear or change",
+      "there are too many possible solutions to compare in the time available",
+      "the roles and responsibilities of the team are poorly defined"
+    ],
+    "correct": 1,
+    "explanation": "The correct answer is: the starting situation, the goal and even the criteria for success may be unclear or change (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q07",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 7,
+    "topic": "Complex Problem Solving",
+    "stem": "Because complex problems involve multiple, sometimes conflicting goals, managers typically look for:",
+    "choices": [
+      "external experts who can define the correct goal",
+      "the single optimal solution that maximises every objective",
+      "a way to eliminate all but one objective",
+      "acceptable trade-offs between objectives"
+    ],
+    "correct": 3,
+    "explanation": "The correct answer is: acceptable trade-offs between objectives (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q08",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 8,
+    "topic": "Complex Problem Solving",
+    "stem": "According to Joachim Funke, Complex Problem Solving is best understood as:",
+    "choices": [
+      "a purely intellectual activity based on logical analysis",
+      "a continuous interaction between the problem solver and a dynamic system",
+      "the correct application of a decision-making algorithm",
+      "a sequence of independent decisions taken one after the other"
+    ],
+    "correct": 1,
+    "explanation": "The correct answer is: a continuous interaction between the problem solver and a dynamic system (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q09",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 9,
+    "topic": "Complex Problem Solving",
+    "stem": "Funke describes complex problems as partially \"intransparent\". This means that:",
+    "choices": [
+      "relevant information is unavailable or cannot be observed directly",
+      "the decision process is not documented for stakeholders",
+      "the problem has no solution that can be justified",
+      "some stakeholders deliberately hide their real goals"
+    ],
+    "correct": 0,
+    "explanation": "The correct answer is: relevant information is unavailable or cannot be observed directly (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w7-q10",
+    "module": "INN",
+    "week": 7,
+    "quiz": "Topic 4: Quiz 1",
+    "quiz_question": 10,
+    "topic": "Complex Problem Solving",
+    "stem": "A company reduces office space to cut costs. This reduces collaboration, which slows innovation, which affects customer satisfaction. Which characteristic does this illustrate most directly?",
+    "choices": [
+      "Interdependence",
+      "Multiple goals",
+      "Dynamism",
+      "Opacity"
+    ],
+    "correct": 0,
+    "explanation": "The correct answer is: Interdependence (Moodle-confirmed answer; no separate explanation supplied.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4: Quiz 1, Week 7 [Official Moodle attempt review supplied by student, 2026-10-31; 5 min 20 sec; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-10-31",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q01",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 1,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "Every company has many audiences. What makes the stories of frontier AI labs especially unusual?",
+    "choices": [
+      "They never talk about the future.",
+      "They only communicate with investors.",
+      "The same companies warn that AI may be dangerous and ask for money to build it faster.",
+      "They do not communicate with governments."
+    ],
+    "correct": 2,
+    "explanation": "Having many audiences is normal; selling the danger and the safeguard together is not. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q02",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 2,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "In the three levels of corporate storytelling, which level is controlled by the stakeholders, not by the organisation?",
+    "choices": [
+      "All three levels equally.",
+      "Evaluative: narrative credibility.",
+      "Communicative: the storytelling strategy.",
+      "Strategic: the corporate narrative."
+    ],
+    "correct": 1,
+    "explanation": "The organisation writes and tells the story; stakeholders decide whether to believe it. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q03",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 3,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "What does research say about teams of humans and AI working together?",
+    "choices": [
+      "They never perform better than AI alone.",
+      "They do not always perform better; it depends on the task and on how well the human uses the AI.",
+      "They always perform better than humans or AI alone.",
+      "They only perform better on decision tasks."
+    ],
+    "correct": 1,
+    "explanation": "Vaccaro et al. (2024): human-AI teams often do better on creative tasks, worse on decision tasks. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q04",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 4,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "A frontier lab wants growth, safety and public trust at the same time, but these goals pull in different directions. Which feature of a complex problem is this?",
+    "choices": [
+      "Conflicting goals.",
+      "Change over time.",
+      "Hidden information.",
+      "Many connected parts."
+    ],
+    "correct": 0,
+    "explanation": "Growth, safety and trust are competing goals: a trade-off. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q05",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 5,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "\"A story can win legitimacy before it has earned it.\" What does this mean?",
+    "choices": [
+      "Only regulators can give an organisation legitimacy.",
+      "A good story makes a company legal.",
+      "People may support an organisation because of its story, before there is evidence that its claims are true.",
+      "Corporate stories are always false."
+    ],
+    "correct": 2,
+    "explanation": "Stories can win support before the evidence exists (Lounsbury & Glynn; Navis & Glynn). (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q06",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 6,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "The lesson said: \"The more AI does, the more metacognition we need.\" Why?",
+    "choices": [
+      "Because AI never makes mistakes, so humans can focus on other tasks.",
+      "Because AI cannot do any cognitive tasks.",
+      "Because metacognition is a task that AI can fully automate.",
+      "Because AI produces fluent answers that must be judged before we trust them."
+    ],
+    "correct": 3,
+    "explanation": "Fluent AI output can sound right without being right, so judging it matters more. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q07",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 7,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "What does \"Hybrid Intelligence\" mean?",
+    "choices": [
+      "Humans and AI combine their different strengths.",
+      "AI learns to copy human emotions.",
+      "AI replaces humans in complex tasks.",
+      "Humans check AI only at the end of a project."
+    ],
+    "correct": 0,
+    "explanation": "Hybrid Intelligence combines complementary human and AI strengths (Memmert & Bittner, 2022). (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q08",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 8,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "A corporate narrative answers four questions. Which one can stakeholders actually check?",
+    "choices": [
+      "What we do to prove it.",
+      "The future we promise.",
+      "Why we exist.",
+      "Who we are."
+    ],
+    "correct": 0,
+    "explanation": "Identity, purpose and promised future are claims; actions can be checked. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q09",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 9,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "According to the research review in the lesson, in which dimension of problem solving does AI give the strongest support?",
+    "choices": [
+      "Cognitive: understanding the problem, finding information, generating solutions.",
+      "Metacognitive: planning, monitoring and questioning your own thinking.",
+      "Affective: emotions, motivation and trust.",
+      "Social: working together and negotiating."
+    ],
+    "correct": 0,
+    "explanation": "Joksimovic et al. (2023): AI support is strong on the cognitive side, weak on the human side. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
+    }
+  },
+  {
+    "id": "official-inn-w8-q10",
+    "module": "INN",
+    "week": 8,
+    "quiz": "Topic 4 - Quiz 2",
+    "quiz_question": 10,
+    "topic": "Entrepreneurial Communication, Hybrid Intelligence and Metacognition",
+    "stem": "Which of these is an example of metacognition?",
+    "choices": [
+      "Writing a summary of a report.",
+      "Searching a database for sales figures.",
+      "Asking yourself: \"What am I assuming, and what could I be missing?\"",
+      "Presenting results to a client."
+    ],
+    "correct": 2,
+    "explanation": "Metacognition is thinking about your own thinking: checking assumptions and gaps. (Original Moodle feedback.)",
+    "source": "Digital4Business (2026). Innovation, Topic 4 - Quiz 2, Week 8 [Official Moodle attempt review supplied by student, 2026-11-11; 15 min; 10/10].",
+    "origin": "official-moodle",
+    "verification": "official-key-confirmed",
+    "evidence": {
+      "originalMoodleReview": true,
+      "reviewed_at": "2026-11-21",
+      "attempt_date": "2026-11-11",
+      "score": "10/10",
+      "exact_wording": true,
+      "source_document": "User-supplied completed Moodle attempt in chat"
     }
   },
   {
