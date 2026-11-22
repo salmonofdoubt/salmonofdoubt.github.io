@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-21T13:30:11.697469+00:00",
-  "latest_generated_at": "2026-11-21T13:30:00.392617+00:00",
+  "generated_at": "2026-11-22T13:23:57.296904+00:00",
+  "latest_generated_at": "2026-11-22T13:23:33.860725+00:00",
   "total_items": 95,
   "total_sources": 30,
   "sources_active": 20,
@@ -8,9 +8,9 @@
   "sources_failed": 1,
   "items_by_section": {
     "grants-opportunities": 19,
-    "ireland-catchment-practice": 15,
+    "ireland-catchment-practice": 16,
     "research-papers": 36,
-    "waterbody-evidence-alerts": 25
+    "waterbody-evidence-alerts": 24
   },
   "annotation_coverage": {
     "action_relevance": 95,
@@ -19,7 +19,7 @@
     "opportunity_fit": 24,
     "research_use_type": 55
   },
-  "archive_snapshots": 173,
+  "archive_snapshots": 174,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +33,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 10,
-      "elapsed_ms": 31,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -48,7 +48,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 11,
-      "elapsed_ms": 24,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 30,
-      "elapsed_ms": 36,
+      "discovered_hint_count": 32,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -76,9 +76,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 31,
-      "elapsed_ms": 33,
+      "current_item_count": 1,
+      "discovered_hint_count": 29,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -91,9 +91,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
+      "current_item_count": 4,
       "discovered_hint_count": 32,
-      "elapsed_ms": 34,
+      "elapsed_ms": 64,
       "error": null
     },
     {
@@ -107,8 +107,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 6,
-      "discovered_hint_count": 29,
-      "elapsed_ms": 31,
+      "discovered_hint_count": 25,
+      "elapsed_ms": 57,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 54,
-      "elapsed_ms": 51,
+      "discovered_hint_count": 16,
+      "elapsed_ms": 56,
       "error": null
     },
     {
@@ -137,8 +137,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 48,
-      "elapsed_ms": 43,
+      "discovered_hint_count": 47,
+      "elapsed_ms": 66,
       "error": null
     },
     {
@@ -152,8 +152,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 34,
-      "elapsed_ms": 37,
+      "discovered_hint_count": 33,
+      "elapsed_ms": 60,
       "error": null
     },
     {
@@ -167,8 +167,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 0,
-      "elapsed_ms": 783,
+      "discovered_hint_count": 95,
+      "elapsed_ms": 855,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 347,
-      "elapsed_ms": 1169,
+      "elapsed_ms": 11579,
       "error": null
     },
     {
@@ -198,7 +198,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 10,
-      "elapsed_ms": 23,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -213,7 +213,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 32,
-      "elapsed_ms": 36,
+      "elapsed_ms": 62,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 8,
-      "elapsed_ms": 23,
+      "discovered_hint_count": 9,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 22,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -258,7 +258,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 28,
+      "elapsed_ms": 54,
       "error": null
     },
     {
@@ -273,7 +273,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 21,
-      "elapsed_ms": 28,
+      "elapsed_ms": 55,
       "error": null
     },
     {
@@ -287,8 +287,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 12,
-      "elapsed_ms": 25,
+      "discovered_hint_count": 13,
+      "elapsed_ms": 53,
       "error": null
     },
     {
@@ -302,8 +302,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 10,
-      "elapsed_ms": 24,
+      "discovered_hint_count": 9,
+      "elapsed_ms": 47,
       "error": null
     },
     {
@@ -318,7 +318,7 @@
       "http_status": 200,
       "current_item_count": 6,
       "discovered_hint_count": 143,
-      "elapsed_ms": 940,
+      "elapsed_ms": 1075,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 117,
-      "elapsed_ms": 928,
+      "elapsed_ms": 1134,
       "error": null
     },
     {
@@ -348,7 +348,7 @@
       "http_status": 200,
       "current_item_count": 7,
       "discovered_hint_count": 224,
-      "elapsed_ms": 264,
+      "elapsed_ms": 472,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 181,
-      "elapsed_ms": 659,
+      "elapsed_ms": 1052,
       "error": null
     },
     {
@@ -376,9 +376,9 @@
       "host": "www.npws.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
+      "current_item_count": 1,
       "discovered_hint_count": 425,
-      "elapsed_ms": 805,
+      "elapsed_ms": 1051,
       "error": null
     },
     {
@@ -393,7 +393,7 @@
       "http_status": 200,
       "current_item_count": 3,
       "discovered_hint_count": 81,
-      "elapsed_ms": 514,
+      "elapsed_ms": 965,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 38,
-      "elapsed_ms": 1964,
+      "elapsed_ms": 2130,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 810,
+      "elapsed_ms": 55,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 107,
-      "elapsed_ms": 74,
+      "elapsed_ms": 67,
       "error": null
     },
     {
@@ -453,7 +453,7 @@
       "http_status": 200,
       "current_item_count": 13,
       "discovered_hint_count": 94,
-      "elapsed_ms": 873,
+      "elapsed_ms": 727,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 757,
+      "elapsed_ms": 1087,
       "error": null
     }
   ]
