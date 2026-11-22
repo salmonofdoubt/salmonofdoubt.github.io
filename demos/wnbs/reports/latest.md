@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-11-20
+# Water NbS Story Radar · 2026-11-22
 
-Generated: 2026-11-20T14:10:07.626401+00:00
+Generated: 2026-11-22T13:28:25.079981+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -8,7 +8,56 @@ Editorial lens: practical measures that improve surface water quality, aquatic e
 
 ## Editorial picks to consider
 
-### 1. Research 522: HydroDARE: Detection and Attribution of Change in Hydrological Series
+### 1. Minister O’Sullivan launches new campaign celebrating West Cork’s Blue Dot waters
+
+Score: 100 · excellent · Source: Local Authority Waters Programme
+
+URL: https://riverbasin.ie/minister-osullivan-launches-new-campaign-celebrating-west-corks-blue-dot-waters/
+
+Angle: Local planning and river-corridor governance
+
+Freshness: Fresh item; suitable for current commentary if the source is credible.
+
+Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, catchment, high status, blue dot.
+
+Practical signal: Practical delivery signal detected. Evidence terms: nature-based surface water management, surface water management, measures, community.
+
+Brand fit: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
+
+Summary: New sculpture and documentary highlight the importance of protecting Ireland’s high status objective waterways 20th November 2026: Minister of State for Nature, Heritage and Biodiversity at the Department of Housing, Local Government and Heritage, Christopher O’Sullivan TD, has launched a new initiative raising awareness of the Blue Dot waterbodies in West Cork. Blue Dot waterbodies … Continued
+
+LinkedIn draft:
+
+A practical Water NbS signal for Ireland.
+
+Minister O’Sullivan launches new campaign celebrating West Cork’s Blue Dot waters
+
+This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
+
+For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
+
+What I would look for:
+• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
+• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
+• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
+• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
+• repeatability: whether this can be maintained and applied elsewhere in Ireland
+
+My take: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
+
+This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
+
+Source:
+Local Authority Waters Programme. (2026-11-20). Minister O’Sullivan launches new campaign celebrating West Cork’s Blue Dot waters.
+https://riverbasin.ie/minister-osullivan-launches-new-campaign-celebrating-west-corks-blue-dot-waters/
+
+#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
+
+Decision: [ ] pick  [ ] watch  [ ] reject
+
+---
+
+### 2. Research 522: HydroDARE: Detection and Attribution of Change in Hydrological Series
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -57,7 +106,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 2. Catchments Newsletter Series – Stranooden Group Water Scheme, Protecting Water at Source
+### 3. Catchments Newsletter Series – Stranooden Group Water Scheme, Protecting Water at Source
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -106,7 +155,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 3. Community Water Development Fund 2027 opens for applications
+### 4. Community Water Development Fund 2027 opens for applications
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -155,7 +204,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 4. Public meeting on water quality in Donegal
+### 5. Public meeting on water quality in Donegal
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -204,7 +253,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 5. A Guide for Community Groups Working with Water, Biodiversity and Climate Change
+### 6. A Guide for Community Groups Working with Water, Biodiversity and Climate Change
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -253,7 +302,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 6. Public Meetings Announced on Water Quality in Kilkenny
+### 7. Public Meetings Announced on Water Quality in Kilkenny
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -302,7 +351,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 7. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
+### 8. Farmers take action on Giant Hogweed and water quality at Cappawhite training event
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -351,7 +400,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 8. Minister Christopher O’Sullivan launches practical guide helping communities protect water quality, biodiversity and tackle climate change
+### 9. Minister Christopher O’Sullivan launches practical guide helping communities protect water quality, biodiversity and tackle climate change
 
 Score: 100 · excellent · Source: Local Authority Waters Programme
 
@@ -400,7 +449,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 9. Poor management of wastewater treatment plants by Uisce Éireann continues to harm our environment
+### 10. Poor management of wastewater treatment plants by Uisce Éireann continues to harm our environment
 
 Score: 100 · excellent · Source: EPA Ireland News Releases
 
@@ -449,7 +498,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 10. GLOBE Ireland River Ecosystem Campaign 2027
+### 11. GLOBE Ireland River Ecosystem Campaign 2027
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -498,7 +547,7 @@ Decision: [ ] pick  [ ] watch  [ ] reject
 
 ---
 
-### 11. WiseWater Academy: Connecting People, Wellbeing and Water
+### 12. WiseWater Academy: Connecting People, Wellbeing and Water
 
 Score: 100 · excellent · Source: Catchments.ie
 
@@ -540,55 +589,6 @@ This is where Nature-based Solutions become serious: not as decorative greening,
 Source:
 Catchments.ie. (2026-11-03). WiseWater Academy: Connecting People, Wellbeing and Water.
 https://www.catchments.ie/wisewater-academy-connecting-people-wellbeing-and-water/
-
-#NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
-
-Decision: [ ] pick  [ ] watch  [ ] reject
-
----
-
-### 12. Cork Event Wins Water Heritage Day Award at Heritage Week Awards 2026
-
-Score: 100 · excellent · Source: Local Authority Waters Programme
-
-URL: https://riverbasin.ie/cork-event-wins-water-heritage-day-award-at-heritage-week-awards-2026/
-
-Angle: Local planning and river-corridor governance
-
-Freshness: Current enough for LinkedIn if the practical water hook is strong.
-
-Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, river, catchment, wetland, wetlands.
-
-Practical signal: Practical delivery signal detected. Evidence terms: nature-based surface water management, surface water management, measures, community.
-
-Brand fit: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
-
-Summary: ‘The Wellbeing of our Wetlands and Waters’, an event organised by WiseWater Academy, in partnership with Ballinspittle BEO, claimed the national award in today’s ceremony in Dublin. 29th October, 2026: The River Basin Management Service welcomes the announcement of WiseWater Academy, in partnership with Ballinspittle BEO, from Co. Cork as the winner of the Water … Continued
-
-LinkedIn draft:
-
-A practical Water NbS signal for Ireland.
-
-Cork Event Wins Water Heritage Day Award at Heritage Week Awards 2026
-
-This caught my attention because it connects land management with what ultimately matters in a catchment: cleaner surface water, healthier aquatic ecology, and better conditions for water-related biodiversity.
-
-For me, the useful question is not simply whether a project is green or nature-based. The useful question is whether it changes a pressure pathway.
-
-What I would look for:
-• pressure reduced: nutrients, sediment, runoff, hydromorphological alteration, or habitat fragmentation
-• catchment position: source area, pathway, riparian zone, floodplain, wetland, drain, stream, or receiving water
-• practical intervention: buffer, wetland, pond, SuDS feature, peatland rewetting, river restoration, fencing, planting, or flow attenuation
-• monitoring evidence: chemistry, sediment, flow, macroinvertebrates, fish, habitat condition, or ecological status
-• repeatability: whether this can be maintained and applied elsewhere in Ireland
-
-My take: Strong local case-study fit when route selection or infrastructure decisions may interact with river corridors, riparian function, drainage, floodplains or aquatic connectivity. The environmental interaction must be verified in the primary source before posting.
-
-This is where Nature-based Solutions become serious: not as decorative greening, but as practical catchment infrastructure that supports water quality, ecology, and biodiversity.
-
-Source:
-Local Authority Waters Programme. (2026-10-29). Cork Event Wins Water Heritage Day Award at Heritage Week Awards 2026.
-https://riverbasin.ie/cork-event-wins-water-heritage-day-award-at-heritage-week-awards-2026/
 
 #NatureBasedSolutions #WaterQuality #FreshwaterEcology #Biodiversity #Ireland #CatchmentManagement
 
