@@ -1,32 +1,32 @@
 {
-  "generated_at": "2026-11-22T13:21:51+00:00",
+  "generated_at": "2026-11-23T15:59:34+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 6,
-  "links_seen": 4632,
-  "funding_like_links": 486,
+  "links_seen": 4641,
+  "funding_like_links": 490,
   "candidate_fetches": 300,
-  "pending_review_count": 112,
+  "pending_review_count": 119,
   "status_counts": {
-    "pending_review": 112,
-    "suppressed_non_actionable": 42,
+    "pending_review": 119,
+    "suppressed_non_actionable": 43,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 63
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 55
   },
   "candidate_type_counts": {
     "recurring_programme": 60,
-    "funding_call": 84,
+    "funding_call": 91,
     "scholarship": 19,
-    "generic_funding_hub": 5,
-    "tender": 11,
-    "unknown": 63
+    "generic_funding_hub": 6,
+    "tender": 12,
+    "unknown": 55
   },
   "seeds": [
     {
@@ -55,7 +55,7 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 116,
+      "links_seen": 117,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -185,9 +185,9 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/research-grants",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 659,
-      "funding_like_links": 64,
-      "candidates_fetched": 64
+      "links_seen": 661,
+      "funding_like_links": 65,
+      "candidates_fetched": 65
     },
     {
       "id": "geo_dfg_scientific_networks_watch",
@@ -195,9 +195,9 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/scientific-networks",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 640,
-      "funding_like_links": 59,
-      "candidates_fetched": 56
+      "links_seen": 642,
+      "funding_like_links": 60,
+      "candidates_fetched": 55
     },
     {
       "id": "geo_dfg_reinhart_koselleck_watch",
@@ -205,8 +205,8 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/reinhart-koselleck-projects",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 642,
-      "funding_like_links": 59,
+      "links_seen": 644,
+      "funding_like_links": 60,
       "candidates_fetched": 0
     },
     {
@@ -215,8 +215,8 @@
       "url": "https://www.dfg.de/en/research-funding/funding-opportunities/programmes/individual/heisenberg",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 646,
-      "funding_like_links": 61,
+      "links_seen": 648,
+      "funding_like_links": 62,
       "candidates_fetched": 0
     },
     {
