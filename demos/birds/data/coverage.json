@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T14:08:26.384093+00:00",
+  "generated_at": "2026-11-23T16:51:27.733653+00:00",
   "total_species": 496,
   "species_with_audio": 485,
   "species_without_audio": 11,
@@ -786,7 +786,8 @@
       "gen:Larus sp:glaucescens q:A type:call"
     ],
     "Plegadis falcinellus": [
-      "gen:Plegadis sp:falcinellus q:A type:song"
+      "gen:Plegadis sp:falcinellus q:A type:song",
+      "gen:Plegadis sp:falcinellus q:B type:song"
     ],
     "Regulus regulus": [
       "gen:Regulus sp:regulus q:A type:song"
@@ -832,9 +833,7 @@
       "gen:Calidris sp:tenuirostris q:A type:song",
       "gen:Calidris sp:tenuirostris q:B type:song",
       "gen:Calidris sp:tenuirostris type:song",
-      "gen:Calidris sp:tenuirostris q:A type:call",
-      "gen:Calidris sp:tenuirostris q:B type:call",
-      "gen:Calidris sp:tenuirostris type:call"
+      "gen:Calidris sp:tenuirostris q:A type:call"
     ],
     "Gavia immer": [
       "gen:Gavia sp:immer q:A type:song"
@@ -1027,7 +1026,8 @@
       "gen:Lanius sp:minor q:A type:song"
     ],
     "Falco naumanni": [
-      "gen:Falco sp:naumanni q:A type:song"
+      "gen:Falco sp:naumanni q:A type:song",
+      "gen:Falco sp:naumanni q:B type:song"
     ],
     "Acanthis cabaret": [
       "gen:Acanthis sp:cabaret q:A type:song"
@@ -1664,7 +1664,8 @@
       "gen:Tetrao sp:urogallus q:A type:song"
     ],
     "Bubulcus ibis": [
-      "gen:Bubulcus sp:ibis q:A type:song"
+      "gen:Bubulcus sp:ibis q:A type:song",
+      "gen:Bubulcus sp:ibis q:B type:song"
     ],
     "Circus aeruginosus": [
       "gen:Circus sp:aeruginosus q:A type:song"
