@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-11-23T16:01:02.919654+00:00",
-  "latest_generated_at": "2026-11-23T16:00:50.252361+00:00",
+  "generated_at": "2026-11-24T15:55:29.745256+00:00",
+  "latest_generated_at": "2026-11-24T15:55:18.886823+00:00",
   "total_items": 95,
   "total_sources": 30,
-  "sources_active": 19,
-  "sources_checked_no_current_items": 10,
+  "sources_active": 18,
+  "sources_checked_no_current_items": 11,
   "sources_failed": 1,
   "items_by_section": {
-    "grants-opportunities": 19,
-    "ireland-catchment-practice": 16,
+    "grants-opportunities": 21,
+    "ireland-catchment-practice": 14,
     "research-papers": 36,
     "waterbody-evidence-alerts": 24
   },
@@ -16,10 +16,10 @@
     "action_relevance": 95,
     "pressure_categories": 95,
     "local_relevance": 59,
-    "opportunity_fit": 24,
-    "research_use_type": 55
+    "opportunity_fit": 25,
+    "research_use_type": 56
   },
-  "archive_snapshots": 175,
+  "archive_snapshots": 176,
   "sources": [
     {
       "id": "google-news-nanny-delvin-local",
@@ -33,7 +33,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 10,
-      "elapsed_ms": 86,
+      "elapsed_ms": 44,
       "error": null
     },
     {
@@ -47,8 +47,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 13,
-      "elapsed_ms": 82,
+      "discovered_hint_count": 55,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -62,8 +62,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 29,
-      "elapsed_ms": 84,
+      "discovered_hint_count": 76,
+      "elapsed_ms": 69,
       "error": null
     },
     {
@@ -78,7 +78,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 29,
-      "elapsed_ms": 74,
+      "elapsed_ms": 41,
       "error": null
     },
     {
@@ -93,7 +93,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 33,
-      "elapsed_ms": 80,
+      "elapsed_ms": 45,
       "error": null
     },
     {
@@ -106,9 +106,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 6,
-      "discovered_hint_count": 26,
-      "elapsed_ms": 84,
+      "current_item_count": 5,
+      "discovered_hint_count": 73,
+      "elapsed_ms": 68,
       "error": null
     },
     {
@@ -122,8 +122,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 13,
-      "elapsed_ms": 68,
+      "discovered_hint_count": 55,
+      "elapsed_ms": 58,
       "error": null
     },
     {
@@ -138,7 +138,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 9,
-      "elapsed_ms": 79,
+      "elapsed_ms": 35,
       "error": null
     },
     {
@@ -149,11 +149,11 @@
       "scope": "funding",
       "url": "https://news.google.com/rss/search?q=%28grant%20OR%20funding%20OR%20call%20OR%20scheme%29%20%28river%20OR%20water%20quality%20OR%20biodiversity%20OR%20wetland%20OR%20catchment%20OR%20citizen%20science%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
-      "discovered_hint_count": 27,
-      "elapsed_ms": 81,
+      "current_item_count": 0,
+      "discovered_hint_count": 26,
+      "elapsed_ms": 41,
       "error": null
     },
     {
@@ -168,7 +168,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 95,
-      "elapsed_ms": 823,
+      "elapsed_ms": 892,
       "error": null
     },
     {
@@ -183,7 +183,7 @@
       "http_status": 307,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 89,
+      "elapsed_ms": 40,
       "error": null
     },
     {
@@ -194,11 +194,11 @@
       "scope": "ireland river ecology",
       "url": "https://news.google.com/rss/search?q=%28river%20ecology%20OR%20freshwater%20ecology%20OR%20aquatic%20ecology%20OR%20macroinvertebrates%20OR%20fish%20passage%20OR%20habitat%20restoration%29%20%28Ireland%20OR%20Irish%29%20%28river%20OR%20stream%20OR%20catchment%20OR%20water%20quality%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "checked-no-current-items",
+      "status": "active",
       "http_status": 200,
-      "current_item_count": 0,
-      "discovered_hint_count": 10,
-      "elapsed_ms": 75,
+      "current_item_count": 1,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 63,
       "error": null
     },
     {
@@ -212,8 +212,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 1,
-      "discovered_hint_count": 74,
-      "elapsed_ms": 115,
+      "discovered_hint_count": 31,
+      "elapsed_ms": 42,
       "error": null
     },
     {
@@ -227,8 +227,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 65,
+      "discovered_hint_count": 50,
+      "elapsed_ms": 50,
       "error": null
     },
     {
@@ -243,7 +243,7 @@
       "http_status": 200,
       "current_item_count": 0,
       "discovered_hint_count": 10,
-      "elapsed_ms": 89,
+      "elapsed_ms": 33,
       "error": null
     },
     {
@@ -257,8 +257,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 9,
-      "elapsed_ms": 71,
+      "discovered_hint_count": 26,
+      "elapsed_ms": 39,
       "error": null
     },
     {
@@ -272,8 +272,8 @@
       "status": "checked-no-current-items",
       "http_status": 200,
       "current_item_count": 0,
-      "discovered_hint_count": 20,
-      "elapsed_ms": 80,
+      "discovered_hint_count": 48,
+      "elapsed_ms": 51,
       "error": null
     },
     {
@@ -286,9 +286,9 @@
       "host": "news.google.com",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 2,
-      "discovered_hint_count": 13,
-      "elapsed_ms": 96,
+      "current_item_count": 7,
+      "discovered_hint_count": 49,
+      "elapsed_ms": 57,
       "error": null
     },
     {
@@ -299,11 +299,11 @@
       "scope": "ireland wastewater pressure",
       "url": "https://news.google.com/rss/search?q=%28septic%20tank%20OR%20septic%20tanks%20OR%20domestic%20wastewater%20OR%20on-site%20wastewater%20OR%20onsite%20wastewater%29%20%28Ireland%20OR%20Irish%29%20%28water%20quality%20OR%20pollution%20OR%20river%20OR%20lake%20OR%20groundwater%20OR%20grant%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
-      "status": "active",
+      "status": "checked-no-current-items",
       "http_status": 200,
-      "current_item_count": 1,
+      "current_item_count": 0,
       "discovered_hint_count": 9,
-      "elapsed_ms": 82,
+      "elapsed_ms": 34,
       "error": null
     },
     {
@@ -316,9 +316,9 @@
       "host": "www.catchments.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 7,
+      "current_item_count": 6,
       "discovered_hint_count": 143,
-      "elapsed_ms": 1165,
+      "elapsed_ms": 907,
       "error": null
     },
     {
@@ -333,7 +333,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 118,
-      "elapsed_ms": 1145,
+      "elapsed_ms": 1047,
       "error": null
     },
     {
@@ -346,9 +346,9 @@
       "host": "www.epa.ie",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 7,
+      "current_item_count": 6,
       "discovered_hint_count": 224,
-      "elapsed_ms": 381,
+      "elapsed_ms": 280,
       "error": null
     },
     {
@@ -363,7 +363,7 @@
       "http_status": 200,
       "current_item_count": 2,
       "discovered_hint_count": 181,
-      "elapsed_ms": 782,
+      "elapsed_ms": 608,
       "error": null
     },
     {
@@ -377,8 +377,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 2,
-      "discovered_hint_count": 425,
-      "elapsed_ms": 943,
+      "discovered_hint_count": 426,
+      "elapsed_ms": 892,
       "error": null
     },
     {
@@ -392,8 +392,8 @@
       "status": "active",
       "http_status": 200,
       "current_item_count": 3,
-      "discovered_hint_count": 81,
-      "elapsed_ms": 798,
+      "discovered_hint_count": 83,
+      "elapsed_ms": 648,
       "error": null
     },
     {
@@ -408,7 +408,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 38,
-      "elapsed_ms": 2100,
+      "elapsed_ms": 2141,
       "error": null
     },
     {
@@ -423,7 +423,7 @@
       "http_status": 404,
       "current_item_count": 0,
       "discovered_hint_count": 0,
-      "elapsed_ms": 998,
+      "elapsed_ms": 856,
       "error": null
     },
     {
@@ -438,7 +438,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 107,
-      "elapsed_ms": 89,
+      "elapsed_ms": 76,
       "error": null
     },
     {
@@ -451,9 +451,9 @@
       "host": "theriverstrust.org",
       "status": "active",
       "http_status": 200,
-      "current_item_count": 14,
+      "current_item_count": 13,
       "discovered_hint_count": 94,
-      "elapsed_ms": 860,
+      "elapsed_ms": 606,
       "error": null
     },
     {
@@ -468,7 +468,7 @@
       "http_status": 200,
       "current_item_count": 1,
       "discovered_hint_count": 109,
-      "elapsed_ms": 938,
+      "elapsed_ms": 777,
       "error": null
     }
   ]
