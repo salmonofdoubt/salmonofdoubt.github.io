@@ -1,6 +1,6 @@
-# Water NbS Story Radar · 2026-11-24
+# Water NbS Story Radar · 2026-11-25
 
-Generated: 2026-11-24T16:01:29.465006+00:00
+Generated: 2026-11-25T15:48:54.485194+00:00
 Candidates: 160 from 12 sources
 NDRT local case-study candidates imported: 6
 
@@ -359,7 +359,7 @@ URL: https://www.catchments.ie/giant-hogweed-control-farmers-tipperary/
 
 Angle: WFD, monitoring and evidence
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: water quality, catchment, water framework directive, wfd, ecological status.
 
@@ -408,7 +408,7 @@ URL: https://riverbasin.ie/minister-christopher-osullivan-launches-practical-gui
 
 Angle: Local planning and river-corridor governance
 
-Freshness: Fresh item; suitable for current commentary if the source is credible.
+Freshness: Current enough for LinkedIn if the practical water hook is strong.
 
 Water signal: Strong water-quality/ecology signal detected. Evidence terms: surface water, water quality, catchment.
 
