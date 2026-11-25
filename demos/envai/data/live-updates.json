@@ -1,15 +1,56 @@
 {
   "schemaVersion": 1,
   "sourceMode": "scheduled-multi-source-tools",
-  "lastAttemptAt": "2026-11-24",
-  "lastSuccessAt": "2026-11-24",
-  "scanStatus": "ok",
+  "lastAttemptAt": "2026-11-25",
+  "lastSuccessAt": "2026-11-25",
+  "scanStatus": "partial",
   "sourcesChecked": 30,
-  "sourcesSucceeded": 30,
-  "sourcesFailed": 0,
+  "sourcesSucceeded": 29,
+  "sourcesFailed": 1,
   "monitorCount": 13,
-  "errorSummary": [],
+  "errorSummary": [
+    "Open Foris applications / The read operation timed out"
+  ],
   "releaseEvents": [
+    {
+      "id": "release:boettiger-lab/geo-agent:v4.6.0",
+      "toolId": "glen",
+      "title": "GLEN Geospatial Navigator",
+      "tag": "v4.6.0",
+      "eventDate": "2026-11-25",
+      "eventType": "Official GitHub release",
+      "url": "https://github.com/SchmidtDSE/glen/releases/tag/v4.6.0",
+      "evidence": "https://github.com/SchmidtDSE/glen/releases/tag/v4.6.0",
+      "source": "GitHub release / boettiger-lab/geo-agent",
+      "summary": "A source-dated release from the project’s watched GitHub repository. Features and impact are not independently assessed.",
+      "aiType": "AI-augmented"
+    },
+    {
+      "id": "release:boettiger-lab/geo-agent:v4.5.0",
+      "toolId": "glen",
+      "title": "GLEN Geospatial Navigator",
+      "tag": "v4.5.0",
+      "eventDate": "2026-11-25",
+      "eventType": "Official GitHub release",
+      "url": "https://github.com/SchmidtDSE/glen/releases/tag/v4.5.0",
+      "evidence": "https://github.com/SchmidtDSE/glen/releases/tag/v4.5.0",
+      "source": "GitHub release / boettiger-lab/geo-agent",
+      "summary": "A source-dated release from the project’s watched GitHub repository. Features and impact are not independently assessed.",
+      "aiType": "AI-augmented"
+    },
+    {
+      "id": "release:boettiger-lab/geo-agent:v4.4.0",
+      "toolId": "glen",
+      "title": "GLEN Geospatial Navigator",
+      "tag": "v4.4.0",
+      "eventDate": "2026-11-24",
+      "eventType": "Official GitHub release",
+      "url": "https://github.com/SchmidtDSE/glen/releases/tag/v4.4.0",
+      "evidence": "https://github.com/SchmidtDSE/glen/releases/tag/v4.4.0",
+      "source": "GitHub release / boettiger-lab/geo-agent",
+      "summary": "A source-dated release from the project’s watched GitHub repository. Features and impact are not independently assessed.",
+      "aiType": "AI-augmented"
+    },
     {
       "id": "release:boettiger-lab/geo-agent:v4.3.0",
       "toolId": "glen",
@@ -246,6 +287,23 @@
     }
   ],
   "leads": [
+    {
+      "id": "candidate:kumaranshmishra/aqua-sense-problem-statement",
+      "title": "Aqua Sense Problem statement",
+      "url": "https://aqua-sense-problem.vercel.app/",
+      "evidence": "https://github.com/kumaranshmishra/Aqua-Sense-Problem-statement",
+      "discoveredAt": "2026-11-25",
+      "eventDate": "2026-11-25",
+      "note": "Aqua Sense is an IoT-based smart river water quality monitoring system that measures temperature, turbidity, and total dissolved solids (TDS). It collects real-time sensor data and visualizes water quality through an interactive web dashboard. The project aims to support environmental monitoring, po · Linked website was reachable at discovery, but functionality and claims are unverified.",
+      "source": "GitHub project metadata + reachable tool website",
+      "status": "live-site candidate / functionality not verified",
+      "domain": "Water & oceans",
+      "aiType": "Unverified",
+      "accessType": "web",
+      "siteReachable": true,
+      "siteCheckedAt": "2026-11-25",
+      "tags": []
+    },
     {
       "id": "directory:wri-aqueduct-applications:aqueductfood",
       "title": "Aqueduct Food",
@@ -1014,54 +1072,54 @@
       ]
     }
   ],
-  "sitesProbed": 0,
+  "sitesProbed": 1,
   "directorySitesProbed": 0,
   "toolHealth": {
     "olmoearth": {
       "url": "https://olmoearth.allenai.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "horizon": {
       "url": "https://horizon.globalnaturewatch.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "lemu": {
       "url": "https://le.mu/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "birdnetlive": {
       "url": "https://birdnet.cornell.edu/app/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "wildlifeinsights": {
       "url": "https://www.wildlifeinsights.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "inaturalist": {
       "url": "https://www.inaturalist.org/observations",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 403,
       "lastReachableAt": null
     },
@@ -1069,15 +1127,15 @@
       "url": "https://climatetrace.org/explore",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "floodhub": {
       "url": "https://sites.research.google/floods/l/",
       "state": "retired",
-      "consecutiveMissing": 8,
-      "lastCheckedAt": "2026-11-24",
+      "consecutiveMissing": 9,
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 404,
       "lastReachableAt": null
     },
@@ -1085,15 +1143,15 @@
       "url": "https://globalfishingwatch.org/our-map/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "merlin": {
       "url": "https://merlin.allaboutbirds.org/",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 403,
       "lastReachableAt": null
     },
@@ -1101,63 +1159,63 @@
       "url": "https://www.earthranger.com/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "satlas": {
       "url": "https://satlas.allen.ai/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "dynamicworld": {
       "url": "https://www.dynamicworld.app/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "skylight": {
       "url": "https://www.skylight.global/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "oceanmind": {
       "url": "https://oceanmind.global/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "fathomnet": {
       "url": "https://www.fathomnet.org/solutions",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "qgis": {
       "url": "https://qgis.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "gbif": {
       "url": "https://www.gbif.org/",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 403,
       "lastReachableAt": null
     },
@@ -1165,39 +1223,39 @@
       "url": "https://www.openstreetmap.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "copernicusbrowser": {
       "url": "https://browser.dataspace.copernicus.eu/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "earthdata": {
       "url": "https://search.earthdata.nasa.gov/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "openaq": {
       "url": "https://explore.openaq.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "whalemap": {
       "url": "https://whalemap.org/",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": null,
       "lastReachableAt": null
     },
@@ -1205,55 +1263,55 @@
       "url": "https://live.orcasound.net/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "happywhale": {
       "url": "https://happywhale.com/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "c3s-pulse": {
       "url": "https://pulse.climate.copernicus.eu/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "c3s-atlas": {
       "url": "https://atlas.climate.copernicus.eu/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "c3s-era-explorer": {
       "url": "https://era-explorer.climate.copernicus.eu/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "c3s-thermal-trace": {
       "url": "https://thermaltrace.climate.copernicus.eu/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "ember-electricity": {
       "url": "https://ember-energy.org/data/electricity-data-explorer/",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 403,
       "lastReachableAt": "2026-11-20"
     },
@@ -1261,23 +1319,23 @@
       "url": "https://coastal.climatecentral.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "google-eie": {
       "url": "https://insights.sustainability.google/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "electricity-maps": {
       "url": "https://app.electricitymaps.com/",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 403,
       "lastReachableAt": null
     },
@@ -1285,55 +1343,55 @@
       "url": "https://data.carbonmapper.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "ecmwf-aifs-charts": {
       "url": "https://charts.ecmwf.int/?query=aifs-single",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "ecmwf-aifs-compo": {
       "url": "https://charts.ecmwf.int/?query=aifs-compo",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "google-weatherlab": {
       "url": "https://deepmind.google.com/science/weatherlab",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "nasa-worldview": {
       "url": "https://worldview.earthdata.nasa.gov/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "nasa-firms": {
       "url": "https://firms.modaps.eosdis.nasa.gov/map/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "copernicus-land-viewer": {
       "url": "https://land.copernicus.eu/en",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": null,
       "lastReachableAt": "2026-11-23"
     },
@@ -1341,87 +1399,87 @@
       "url": "https://www.openforis.org/collect-earth-online/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "openforis-sepal": {
       "url": "https://www.openforis.org/sepal/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "global-mangrove-watch": {
       "url": "https://www.globalmangrovewatch.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "glad-global-forest-change": {
       "url": "https://glad.earthengine.app/view/global-forest-change",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "ebird-explore": {
       "url": "https://ebird.org/explore",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "map-of-life": {
       "url": "https://mol.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "protected-planet": {
       "url": "https://www.protectedplanet.net/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "natureserve-explorer": {
       "url": "https://explorer.natureserve.org/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "ala-spatial-portal": {
       "url": "https://spatial.ala.org.au/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "birdcast-live": {
       "url": "https://birdcast.org/migration-tools/live-migration-maps/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "seek-inaturalist": {
       "url": "https://www.inaturalist.org/pages/seek_app",
       "state": "unconfirmed",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 403,
       "lastReachableAt": null
     },
@@ -1429,72 +1487,72 @@
       "url": "https://maps.biodiversityireland.ie/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "aqueduct-water-risk": {
       "url": "https://www.wri.org/aqueduct/tools",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "aqueduct-floods": {
       "url": "https://www.wri.org/data/aqueduct-floods",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "copernicus-myocean": {
       "url": "https://data.marine.copernicus.eu/viewer",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "emodnet-map": {
       "url": "https://emodnet.ec.europa.eu/geoviewer/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "epa-ireland-waters": {
       "url": "https://gis.epa.ie/EPAMaps/",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     },
     "epa-how-waterway": {
       "url": "https://www.epa.gov/waterdata/hows-my-waterway",
-      "state": "unconfirmed",
+      "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
-      "httpStatus": null,
-      "lastReachableAt": "2026-11-23"
+      "lastCheckedAt": "2026-11-25",
+      "httpStatus": 200,
+      "lastReachableAt": "2026-11-25"
     },
     "jrc-surface-water": {
       "url": "https://global-surface-water.appspot.com/map",
       "state": "reachable",
       "consecutiveMissing": 0,
-      "lastCheckedAt": "2026-11-24",
+      "lastCheckedAt": "2026-11-25",
       "httpStatus": 200,
-      "lastReachableAt": "2026-11-24"
+      "lastReachableAt": "2026-11-25"
     }
   },
   "candidateCountByField": {
     "Biodiversity & wildlife": 5,
     "Land & satellites": 17,
     "Climate & energy": 13,
-    "Water & oceans": 5
+    "Water & oceans": 6
   },
   "catalogueCountByField": {
     "Biodiversity & wildlife": 14,
