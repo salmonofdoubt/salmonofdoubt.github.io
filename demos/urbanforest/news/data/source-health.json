@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-26T15:40:44.486549+00:00",
-  "latest_generated_at": "2026-11-26T15:40:44.409925+00:00",
+  "generated_at": "2026-11-27T15:30:28.191555+00:00",
+  "latest_generated_at": "2026-11-27T15:30:27.850271+00:00",
   "total_items": 94,
   "total_sources": 20,
-  "sources_active": 9,
-  "sources_checked_no_current_items": 11,
+  "sources_active": 10,
+  "sources_checked_no_current_items": 10,
   "sources_failed": 0,
   "items_by_section": {
-    "ireland-urban-forest-practice": 31,
-    "funding-opportunities": 10,
-    "research-evidence": 49,
+    "ireland-urban-forest-practice": 24,
+    "funding-opportunities": 15,
+    "research-evidence": 51,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
@@ -17,8 +17,8 @@
     "urbanforest_relevance": 94,
     "benefit_categories": 94,
     "local_relevance": 94,
-    "opportunity_fit": 18,
-    "research_use_type": 55
+    "opportunity_fit": 23,
+    "research_use_type": 59
   },
   "archive_snapshots": 180,
   "sources": [
@@ -64,7 +64,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20garden%20OR%20school%20trees%20OR%20school%20biodiversity%20OR%20outdoor%20classroom%29%20%28grant%20OR%20funding%20OR%20scheme%20OR%20award%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 6
+      "current_item_count": 10
     },
     {
       "id": "gn-ireland-urban-forest",
@@ -75,7 +75,7 @@
       "url": "https://news.google.com/rss/search?q=%28%22urban%20forest%22%20OR%20%22pocket%20forest%22%20OR%20%22tiny%20forest%22%20OR%20Miyawaki%29%20Ireland&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 7
+      "current_item_count": 16
     },
     {
       "id": "gn-dublin-urban-greening",
@@ -86,7 +86,7 @@
       "url": "https://news.google.com/rss/search?q=%28Dublin%20OR%20Trinity%20OR%20TCD%20OR%20Fingal%20OR%20%22Dublin%20City%20Council%22%29%20%28urban%20forest%20OR%20tree%20planting%20OR%20urban%20greening%20OR%20biodiversity%20OR%20pocket%20forest%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 15
+      "current_item_count": 2
     },
     {
       "id": "gn-ireland-school-campus-forest",
@@ -97,7 +97,7 @@
       "url": "https://news.google.com/rss/search?q=%28school%20forest%20OR%20campus%20greening%20OR%20school%20garden%20OR%20biodiversity%20campus%29%20Ireland%20%28trees%20OR%20forest%20OR%20planting%29&hl=en-IE&gl=IE&ceid=IE:en",
       "host": "news.google.com",
       "status": "active",
-      "current_item_count": 6
+      "current_item_count": 3
     },
     {
       "id": "gn-urban-nbs-suds",
@@ -162,8 +162,8 @@
       "scope": "funding europe",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals_en",
       "host": "cinea.ec.europa.eu",
-      "status": "checked-no-current-items",
-      "current_item_count": 0
+      "status": "active",
+      "current_item_count": 1
     },
     {
       "id": "gn-urban-forest-maintenance-risk",

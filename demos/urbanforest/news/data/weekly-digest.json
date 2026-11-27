@@ -1,42 +1,46 @@
 {
-  "generated_at": "2026-11-26T15:40:44.487271+00:00",
-  "latest_generated_at": "2026-11-26T15:40:44.409925+00:00",
+  "generated_at": "2026-11-27T15:30:28.192644+00:00",
+  "latest_generated_at": "2026-11-27T15:30:27.850271+00:00",
   "title": "UrbanForest weekly practical digest",
   "summary": "Top practical signals for urban forest and UrbanForest delivery, funding, evidence, maintenance, and communication.",
   "lane_counts": {
-    "ireland-urban-forest-practice": 31,
-    "funding-opportunities": 10,
-    "research-evidence": 49,
+    "ireland-urban-forest-practice": 24,
+    "funding-opportunities": 15,
+    "research-evidence": 51,
     "design-maintenance-risk": 2,
     "transferable-urbanforest-practice": 2
   },
   "top_benefit_categories": [
     {
       "benefit": "Biodiversity / habitat",
-      "count": 38
+      "count": 41
     },
     {
       "benefit": "Tree survival / maintenance",
-      "count": 24
-    },
-    {
-      "benefit": "Urban forest / NbS",
-      "count": 20
-    },
-    {
-      "benefit": "Monitoring / evaluation",
-      "count": 19
-    },
-    {
-      "benefit": "Urban heat / shade",
-      "count": 18
+      "count": 26
     },
     {
       "benefit": "Funding / grants",
-      "count": 18
+      "count": 23
+    },
+    {
+      "benefit": "Urban heat / shade",
+      "count": 22
+    },
+    {
+      "benefit": "Monitoring / evaluation",
+      "count": 21
     },
     {
       "benefit": "School / education",
+      "count": 19
+    },
+    {
+      "benefit": "Community stewardship",
+      "count": 19
+    },
+    {
+      "benefit": "Urban forest / NbS",
       "count": 17
     },
     {
@@ -44,20 +48,16 @@
       "count": 16
     },
     {
-      "benefit": "Community stewardship",
-      "count": 14
-    },
-    {
       "benefit": "Wellbeing / health",
       "count": 13
     },
     {
-      "benefit": "Soil health",
-      "count": 11
+      "benefit": "Planning / policy",
+      "count": 9
     },
     {
-      "benefit": "Planning / policy",
-      "count": 7
+      "benefit": "Soil health",
+      "count": 9
     }
   ],
   "items": [
@@ -96,6 +96,39 @@
       "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
+      "id": "b9c89c1efe1a7741",
+      "title": "Funding watch: CINEA calls for proposals",
+      "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals_en",
+      "section": "funding-opportunities",
+      "source_name": "CINEA calls for proposals",
+      "published": null,
+      "score": 100,
+      "practical_score": 153.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Tree survival / maintenance",
+        "Funding / grants",
+        "Monitoring / evaluation"
+      ],
+      "local_relevance": {
+        "score": 8,
+        "label": "Transferable relevance",
+        "matched_terms": [
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 87,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Review / evidence synthesis",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
       "id": "b7b1c3580c1b6759",
       "title": "Community-centered instrumentation and monitoring of nature-based solutions for urban stormwater control",
       "url": "https://doi.org/10.3389/frwa.2024.1370501",
@@ -120,6 +153,37 @@
       "opportunity_fit": null,
       "research_use_type": "Review / evidence synthesis",
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
+    },
+    {
+      "id": "04d23228324de796",
+      "title": "Double national success for Ramsgrange Community School at Nature Hero Awards - Irish Independent",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPcWRwRnExZk9TNENUU3AxcFpRZEE1VFVhczJQd3hqNHkyRlVNWjZKSmlteWQxd1VhWEJZSUJBeEZoYWUzc0NsZjk5M0J0Ykl1NWlJVnNXemI2Q3VSRXp3SnJkaThZMWVHVnowN1dJS2FYX3hZQlcwNTROUG56Q3pJLWlfWHZkQWtXX3RremlxRW5TVklhaUV5LVdtd2ZmX1FRblNCZEc1NkQwUHdWRXpVb0pWa19xLVBLaE1MSjh6YTByNGlMNFJaMm45UnRJN0Y0ZHc?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: school garden tree funding Ireland",
+      "published": "2026-09-22",
+      "score": 91,
+      "practical_score": 141.0,
+      "benefit_categories": [
+        "School / education",
+        "Community stewardship",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 24,
+        "label": "Strong Ireland relevance",
+        "matched_terms": [
+          "irish",
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 87,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": null,
+      "urbanforest_relevance": "Opportunity signal: may help fund school / education, community stewardship, funding / grants, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "c3b846abd3021b59",
@@ -150,6 +214,37 @@
       },
       "research_use_type": "Monitoring method",
       "urbanforest_relevance": "Opportunity signal: may help fund urban heat / shade, biodiversity / habitat, tree survival / maintenance, school/community planting, monitoring, maintenance, or UrbanForest delivery."
+    },
+    {
+      "id": "6f4e0ae82572a3f1",
+      "title": "New Ross School Wins National Pollinator Award for Community Wildflower Project - South East Radio",
+      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORlIteGpqajlCVE1EcXZCUnQ3TXpfeS1hVEpiVjFFVUVoVDZtcW9UZ3lHcmZ1NmtiNy1KM3NmRjdrRDJraEhUUTQyZXVqc3dwcXRjWjlzZTBzMVlSVjR4a0RpR2Z5ZkZEeTlENnFsZWFpOGwzSzNYaTEyOVBfZ0tkSmFHczBsOTBiUTlzb0RCeTB1V0xmeU56a1VSY3dyRDdtalNtMXJtemxWUjJYRjI3OGZtdGFuYWQ0QWxMT3VZV0k?oc=5",
+      "section": "funding-opportunities",
+      "source_name": "Google News: school garden tree funding Ireland",
+      "published": "2026-06-08",
+      "score": 86,
+      "practical_score": 133.0,
+      "benefit_categories": [
+        "Biodiversity / habitat",
+        "School / education",
+        "Community stewardship",
+        "Funding / grants"
+      ],
+      "local_relevance": {
+        "score": 8,
+        "label": "Transferable relevance",
+        "matched_terms": [
+          "school"
+        ]
+      },
+      "opportunity_fit": {
+        "fit": "High",
+        "score": 77,
+        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
+        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
+      },
+      "research_use_type": "Biodiversity evidence",
+      "urbanforest_relevance": "Opportunity signal: may help fund biodiversity / habitat, school / education, community stewardship, school/community planting, monitoring, maintenance, or UrbanForest delivery."
     },
     {
       "id": "073b2523d843a620",
@@ -226,37 +321,6 @@
       "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
     },
     {
-      "id": "e757641b544c01e2",
-      "title": "Engaging Residents in Street Tree Stewardship: Results of a Tree Watering Outreach Intervention",
-      "url": "https://doi.org/10.48044/jauf.2016.027",
-      "section": "research-evidence",
-      "source_name": "Arboriculture & Urban Forestry",
-      "published": "2016-09-01",
-      "score": 100,
-      "practical_score": 129.0,
-      "benefit_categories": [
-        "Soil health",
-        "Wellbeing / health",
-        "School / education",
-        "Community stewardship",
-        "Tree survival / maintenance",
-        "Funding / grants"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": {
-        "fit": "Medium",
-        "score": 73,
-        "eligible_hint": "Check fit for schools, community groups, universities, local authorities, NGOs, biodiversity projects, monitoring, or maintenance.",
-        "action_needed": "Check deadline, lead applicant, match funding, eligible costs, and whether maintenance or monitoring can be funded."
-      },
-      "research_use_type": "Survival / maintenance evidence",
-      "urbanforest_relevance": "Opportunity signal: may help fund soil health, wellbeing / health, school / education, school/community planting, monitoring, maintenance, or UrbanForest delivery."
-    },
-    {
       "id": "30586c1f56b646cf",
       "title": "How suitable are Miyawaki forests in 21st century England? -- The exploration of the perceptions towards the Miyawaki Forest method’s application in 21st England.",
       "url": "https://etheses.whiterose.ac.uk/id/eprint/37763/",
@@ -269,58 +333,6 @@
         "Biodiversity / habitat",
         "Tree survival / maintenance",
         "Monitoring / evaluation"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
-    },
-    {
-      "id": "2d012a6e2b8426e7",
-      "title": "Evaluating the Miyawaki Afforestation Technique in Urban Landscapes: Opportunities and Challenges",
-      "url": "https://doi.org/10.15320/iconarp.2025.326",
-      "section": "research-evidence",
-      "source_name": "Iconarp International J of Architecture and Planning",
-      "published": "2025-06-30",
-      "score": 91,
-      "practical_score": 127.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Biodiversity / habitat",
-        "Soil health",
-        "Stormwater / SuDS",
-        "Tree survival / maintenance",
-        "Planning / policy"
-      ],
-      "local_relevance": {
-        "score": 0,
-        "label": "Transferable relevance",
-        "matched_terms": []
-      },
-      "opportunity_fit": null,
-      "research_use_type": "Monitoring method",
-      "urbanforest_relevance": "Maintenance signal: useful because urban forests succeed or fail through watering, aftercare, replacement planting, soil care, and stewardship after launch."
-    },
-    {
-      "id": "96e2f52d03b06df2",
-      "title": "Urban Soil Health and Tree Performance: A Diagnostic Framework and Biochar–Inactivated Yeast Case Study from Toronto",
-      "url": "https://hdl.handle.net/1807/151152",
-      "section": "research-evidence",
-      "source_name": "TSpace (University of Toronto)",
-      "published": "2026-01-12",
-      "score": 90,
-      "practical_score": 126.0,
-      "benefit_categories": [
-        "Urban heat / shade",
-        "Biodiversity / habitat",
-        "Soil health",
-        "Stormwater / SuDS",
-        "Wellbeing / health",
-        "Tree survival / maintenance"
       ],
       "local_relevance": {
         "score": 0,
