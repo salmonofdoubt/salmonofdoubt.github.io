@@ -1,32 +1,31 @@
 {
-  "generated_at": "2026-11-26T15:18:52+00:00",
+  "generated_at": "2026-11-27T15:06:40+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 7,
-  "links_seen": 4507,
-  "funding_like_links": 444,
+  "links_seen": 4085,
+  "funding_like_links": 429,
   "candidate_fetches": 300,
-  "pending_review_count": 103,
+  "pending_review_count": 113,
   "status_counts": {
-    "pending_review": 103,
-    "suppressed_non_actionable": 48,
+    "pending_review": 113,
+    "suppressed_non_actionable": 30,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 4,
-    "suppressed_fetch_error": 31
+    "suppressed_generic_page": 3,
+    "suppressed_fetch_error": 22
   },
   "candidate_type_counts": {
-    "recurring_programme": 63,
-    "funding_call": 72,
+    "recurring_programme": 50,
+    "funding_call": 92,
     "scholarship": 21,
-    "generic_funding_hub": 5,
-    "tender": 15,
-    "unknown": 31
+    "generic_funding_hub": 4,
+    "unknown": 22
   },
   "seeds": [
     {
@@ -45,9 +44,9 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 81,
-      "funding_like_links": 15,
-      "candidates_fetched": 15
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "lawpro_funding_hub",
@@ -55,7 +54,7 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 117,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -113,21 +112,21 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 119,
-      "funding_like_links": 48,
-      "candidates_fetched": 48
+      "status": "fetch_error",
+      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals-2023_en",
+      "links_seen": 0,
+      "funding_like_links": 0,
+      "candidates_fetched": 0
     },
     {
       "id": "horizon_cluster6_watch",
       "name": "Horizon Europe Cluster 6 watch",
       "url": "https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
-      "status": "fetch_error",
-      "fetch_error": "500 Server Error: Internal Server Error for url: https://rea.ec.europa.eu/funding-and-grants/horizon-europe-cluster-6-food-bioeconomy-natural-resources-agriculture-and-environment_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 135,
+      "funding_like_links": 48,
+      "candidates_fetched": 48
     },
     {
       "id": "farming_for_water_hub",
@@ -135,7 +134,7 @@
       "url": "https://farmingforwater.ie/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 91,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -145,7 +144,7 @@
       "url": "https://farmingforwater.ie/measures/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 149,
+      "links_seen": 0,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -207,7 +206,7 @@
       "fetch_error": null,
       "links_seen": 644,
       "funding_like_links": 60,
-      "candidates_fetched": 41
+      "candidates_fetched": 56
     },
     {
       "id": "geo_dfg_heisenberg_watch",
