@@ -17,7 +17,7 @@ for(const q of reviewed){
  // explicit lecture-source flag and uses a legacy Moodle-concept linkage.
  // Preserve their published question records, but never treat these
  // booklet-derived items as official Moodle question text.
- const n=Number((q.id.match(/^d4b-(\\d+)$/)||[])[1]);
+ const n=Number(q.id.slice(4));
  const legacyInnovation=q.module==='INN'&&n>=216&&n<=240;
  if(legacyInnovation){
   assert.equal(typeof c.original_moodle_key_checked,'boolean',q.id+': missing historical Moodle-concept marker');
