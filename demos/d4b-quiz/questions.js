@@ -10500,5 +10500,285 @@ window.D4B_QUESTIONS=Object.freeze([
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": false
   }
+},
+{
+  "id": "d4b-257",
+  "module": "DTR",
+  "week": 10,
+  "topic": "DigCompEdu: Digital Resources",
+  "stem": "A trainer selects an accessible article, adapts it and checks whether its licence permits redistribution. Which DigCompEdu competence area most directly covers these decisions?",
+  "choices": [
+    "Professional Engagement",
+    "Digital Resources",
+    "Empowering Learners",
+    "Assessment"
+  ],
+  "correct": 1,
+  "explanation": "Area 2, Digital Resources, concerns choosing, creating, managing, adapting and responsibly sharing digital learning materials.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Digital Resources",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Digital Resources",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Digital Resources",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-258",
+  "module": "DTR",
+  "week": 10,
+  "topic": "DigCompEdu: Empowering Learners",
+  "stem": "An educator adjusts activities and delivery so learners with different disabilities can participate. Which DigCompEdu area is most directly addressed?",
+  "choices": [
+    "Digital Resources",
+    "Professional Engagement",
+    "Empowering Learners",
+    "Assessment"
+  ],
+  "correct": 2,
+  "explanation": "Area 5, Empowering Learners, focuses on accessibility, inclusion, differentiation and active learner engagement.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Empowering Learners",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Empowering Learners",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Empowering Learners",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-259",
+  "module": "DTR",
+  "week": 10,
+  "topic": "DigCompEdu proficiency stages",
+  "stem": "Which title corresponds to proficiency level B2 in the European Framework for the Digital Competence of Educators?",
+  "choices": [
+    "Explorer",
+    "Integrator",
+    "Leader",
+    "Expert"
+  ],
+  "correct": 3,
+  "explanation": "The 2017 progression is A1 Newcomer, A2 Explorer, B1 Integrator, B2 Expert, C1 Leader and C2 Pioneer.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): proficiency progression",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): proficiency progression",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): proficiency progression",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-260",
+  "module": "DTR",
+  "week": 10,
+  "topic": "IRE versus deeper dialogue",
+  "stem": "A lecturer asks participants to recite definitions, then declares each response correct or incorrect. What is the main limitation of this Initiate–Response–Evaluate approach?",
+  "choices": [
+    "It can assess recall without necessarily fostering evidence-based reasoning or dialogue",
+    "It always encourages learners to critique authors as they read",
+    "It guarantees development of independent questioning skills",
+    "It is incapable of checking factual knowledge"
+  ],
+  "correct": 0,
+  "explanation": "IRE checks basic knowledge but does not by itself require the deeper explanations, questions and learner-led dialogue described in the TEAL reading.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Initiate–Response–Evaluate",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Initiate–Response–Evaluate",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Initiate–Response–Evaluate",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-261",
+  "module": "DTR",
+  "week": 10,
+  "topic": "K-W-L questioning strategy",
+  "stem": "Which sequence accurately represents the K-W-L learning strategy?",
+  "choices": [
+    "Key words, Written answers, Lecture notes",
+    "What learners Know, Want to know and have Learned",
+    "Knowledge assessment, Workplace tools, Learning platform",
+    "Keyword extraction, Web search, Link verification"
+  ],
+  "correct": 1,
+  "explanation": "K-W-L elicits prior knowledge, questions for inquiry and the learning achieved after engagement with the text.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): K-W-L",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): K-W-L",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): K-W-L",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-262",
+  "module": "DTR",
+  "week": 10,
+  "topic": "Question the Author",
+  "stem": "While reading, learners stop to ask what the writer means, why evidence was selected and which assumptions remain unstated. Which method is illustrated?",
+  "choices": [
+    "Initiate–Response–Evaluate drill",
+    "Lecture transcription",
+    "Question the Author",
+    "Summative grading"
+  ],
+  "correct": 2,
+  "explanation": "Question the Author asks readers to interrogate an author's reasoning and language during reading rather than passively receive the text.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Question the Author",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Question the Author",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Question the Author",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-263",
+  "module": "DTR",
+  "week": 10,
+  "topic": "GenAI and inquiry-based lesson design",
+  "stem": "A trainer wants a GenAI tool to help design an inquiry-based lesson. Which sequence best aligns with the assigned research?",
+  "choices": [
+    "Pick the newest tool and accept its first plan",
+    "Replace all learner activities with generated summaries",
+    "Omit assessment because AI automatically proves success",
+    "Specify objectives and inquiry activities, then select and critically check GenAI assistance"
+  ],
+  "correct": 3,
+  "explanation": "The inquiry-based lesson plan should follow educational aims and methods; generating a plan does not validate its pedagogy or outcomes.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Moundridou et al. (2024): inquiry-based learning and GenAI",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Moundridou et al. (2024): inquiry-based learning and GenAI",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Moundridou et al. (2024): inquiry-based learning and GenAI",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-264",
+  "module": "DTR",
+  "week": 10,
+  "topic": "Critical digital competence",
+  "stem": "Which observation best demonstrates digital competence beyond memorised software procedures?",
+  "choices": [
+    "A learner judges source credibility and limitations before selecting a suitable digital method",
+    "A learner memorises where a menu item appears",
+    "A learner always selects the most recently released platform",
+    "A learner completes more clicks regardless of task quality"
+  ],
+  "correct": 0,
+  "explanation": "Digital competence includes critical information appraisal, purposeful choice, communication and responsible participation, not only interface mechanics.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Ferrari (2026): procedural versus engaged digital competence",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Ferrari (2026): procedural versus engaged digital competence",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Ferrari (2026): procedural versus engaged digital competence",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
 }
 ]);
