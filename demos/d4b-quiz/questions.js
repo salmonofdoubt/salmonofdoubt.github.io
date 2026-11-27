@@ -9940,5 +9940,285 @@ window.D4B_QUESTIONS=Object.freeze([
     "reviewed_at": "2026-11-21",
     "original_moodle_key_checked": true
   }
+},
+{
+  "id": "d4b-241",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Decent work and social dialogue",
+  "stem": "A platform employer consults workers about a new algorithm and allows representatives to influence its implementation. Which International Labour Organization decent-work pillar is most directly supported?",
+  "choices": [
+    "Employment creation",
+    "Social dialogue",
+    "Social protection",
+    "Digital skills provision"
+  ],
+  "correct": 1,
+  "explanation": "Social dialogue concerns worker voice and influence over decisions. The other decent-work pillars concern employment, rights and protection.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and decent-work pillars",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and decent-work pillars",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and decent-work pillars",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-242",
+  "module": "DTR",
+  "week": 8,
+  "topic": "SDG 8 beyond job counts",
+  "stem": "A digital business creates 300 jobs, but workers report unsafe conditions, poor pay and no representation. Which assessment best reflects SDG 8?",
+  "choices": [
+    "Count jobs alone as sufficient evidence",
+    "Use productivity growth as the only measure",
+    "Assess fair pay, rights, protection and worker voice alongside job numbers",
+    "Treat workplace conditions as unrelated to sustainable development"
+  ],
+  "correct": 2,
+  "explanation": "Decent work includes employment quality, rights, protection and social dialogue, not simply job creation or GDP growth.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and work quality",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and work quality",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and work quality",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-243",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Industry 5.0 policy vision",
+  "stem": "A manager says Industry 5.0 means Industry 4.0 with a faster AI system. Which correction is most defensible?",
+  "choices": [
+    "Its defining characteristic is blockchain adoption",
+    "It abandons industrial technology entirely",
+    "Its sole objective is maximum automation",
+    "It emphasises human-centred, sustainable and resilient industrial change"
+  ],
+  "correct": 3,
+  "explanation": "The European Industry 5.0 vision complements efficiency with worker well-being, resilience and environmental sustainability.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Industry 5.0",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Industry 5.0",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Industry 5.0",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-244",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Platform work and precarity",
+  "stem": "An app allows couriers to choose working hours but offers unpredictable income and little protection. What follows?",
+  "choices": [
+    "Flexibility can coexist with insecurity and inadequate protection",
+    "Choice of hours guarantees decent work",
+    "Platform workers have no need for social dialogue",
+    "Uncertain wages prove that autonomy has improved"
+  ],
+  "correct": 0,
+  "explanation": "Gig-platform flexibility can coexist with precarious income, social-protection gaps and limited career development.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Platform work and precarity",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Platform work and precarity",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Platform work and precarity",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-245",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Human-centred worker autonomy",
+  "stem": "An automated scheduling system fixes breaks without consulting staff or considering differing tasks. What is the best redesign?",
+  "choices": [
+    "Judge only the scheduling algorithm's speed",
+    "Involve workers, allow safety-aware discretion and explain exceptions",
+    "Remove appeal procedures for automated decisions",
+    "Require identical breaks regardless of task demands"
+  ],
+  "correct": 1,
+  "explanation": "Human-centred work design balances safety and efficiency with worker autonomy, participation and task-specific conditions.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Human-centred design",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Human-centred design",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Human-centred design",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-246",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Macro-level sustainability action",
+  "stem": "Which measure operates principally at the macro level of a sustainable digital-work strategy?",
+  "choices": [
+    "An employee improves keyboard proficiency",
+    "A line manager changes meeting frequency",
+    "Government establishes labour safeguards and finances digital-skills infrastructure",
+    "Colleagues mentor one another on a platform"
+  ],
+  "correct": 2,
+  "explanation": "Macro-level action concerns public policy, labour rules and infrastructure; organisations, managers and individuals work at other levels.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Multi-level action",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Multi-level action",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Multi-level action",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-247",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Four-step SDG 8 cycle",
+  "stem": "Which sequence reflects the four-step organisational SDG 8 improvement cycle presented in Week 8?",
+  "choices": [
+    "Publish a positive report, then select issues and targets",
+    "Purchase an AI system, report success, then identify needs",
+    "Set publicity targets, deploy software, omit negative outcomes",
+    "Define material priorities, set baseline-linked targets, implement, report and revise"
+  ],
+  "correct": 3,
+  "explanation": "The cycle begins with material priorities and stakeholder input, then targets, accountable implementation and transparent review.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Four-step organisational SDG 8 cycle",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Four-step organisational SDG 8 cycle",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Four-step organisational SDG 8 cycle",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-248",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Training attendance versus outcomes",
+  "stem": "A firm reports that 95% of employees attended digital-skills training. Which conclusion is justified?",
+  "choices": [
+    "Attendance is an activity indicator; skills and job-quality outcomes still need assessment",
+    "The firm has proved improved worker well-being",
+    "All attendees can perform new tasks independently",
+    "Training has demonstrated reduced psychosocial risk"
+  ],
+  "correct": 0,
+  "explanation": "Participation metrics measure activity, not necessarily competency gains, equity, improved workloads or sustained benefits.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 indicators and outcomes",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 indicators and outcomes",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, SDG 8 indicators and outcomes",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
 }
 ]);
