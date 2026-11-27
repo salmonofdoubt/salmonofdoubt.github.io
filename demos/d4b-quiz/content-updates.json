@@ -461,7 +461,35 @@
       "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/292",
       "merge_commit": "35a925131d46b1049992585cf64978fe6d8265a6",
       "review_scope": "Six original four-option questions with explanations, teaching locators and external technical references; official Moodle keys not claimed. Existing 203 question IDs retained; browser-local progress unchanged. CI passed on PR #292 before merge. GitHub Actions has no private Drive access."
-    },
+    }
+  ],
+  "verification_events": [
+    {
+      "id": "d4b-verification-20261028-dtr-w5",
+      "event_type": "independent-verification-only",
+      "accepted_at": "2026-10-28T08:40:21Z",
+      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/263",
+      "merge_commit": "1131384f713062d92b1a7d88c022ac830b6f4b4b",
+      "source_id": "drive-and-peer-reviewed-research",
+      "source_name": "Authorised D4B Digital Transformation Week 05 booklet and independently published research",
+      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
+      "module": "DTR",
+      "week": 5,
+      "question_ids": [
+        "d4b-125",
+        "d4b-127"
+      ],
+      "verified_question_count": 2,
+      "new_question_count": 0,
+      "primary_references": [
+        "https://doi.org/10.1111/tran.12415",
+        "https://doi.org/10.4135/9781473909472",
+        "https://doi.org/10.1177/14614448231214811"
+      ],
+      "review_scope": "Resolved independent verification for two previously pending original practice items by checking correct answer and three distractors against primary academic sources and the authorised DTR Week 05 booklet. Course alignment supported; official Moodle keys not checked. No new questions or private teaching material published."
+    }
+  ],
+  "supplemental_course_records": [
     {
       "id": "d4b-source-release-20261121-inn-w8w10-unified",
       "accepted_at": "2026-11-21",
@@ -769,30 +797,5 @@
       "review_scope": "Non-commercial and independent positioning only. Notes source attribution, closed-book exam restriction and content review/removal route. No claim of license or copyright permission."
     }
   ],
-  "verification_events": [
-    {
-      "id": "d4b-verification-20261028-dtr-w5",
-      "event_type": "independent-verification-only",
-      "accepted_at": "2026-10-28T08:40:21Z",
-      "release_url": "https://github.com/salmonofdoubt/salmonofdoubt.github.io/pull/263",
-      "merge_commit": "1131384f713062d92b1a7d88c022ac830b6f4b4b",
-      "source_id": "drive-and-peer-reviewed-research",
-      "source_name": "Authorised D4B Digital Transformation Week 05 booklet and independently published research",
-      "source_access": "reviewed-via-connected-chatgpt-not-github-actions",
-      "module": "DTR",
-      "week": 5,
-      "question_ids": [
-        "d4b-125",
-        "d4b-127"
-      ],
-      "verified_question_count": 2,
-      "new_question_count": 0,
-      "primary_references": [
-        "https://doi.org/10.1111/tran.12415",
-        "https://doi.org/10.4135/9781473909472",
-        "https://doi.org/10.1177/14614448231214811"
-      ],
-      "review_scope": "Resolved independent verification for two previously pending original practice items by checking correct answer and three distractors against primary academic sources and the authorised DTR Week 05 booklet. Course alignment supported; official Moodle keys not checked. No new questions or private teaching material published."
-    }
-  ]
+  "supplemental_course_records_note": "Historical 21 November 2026 Moodle-archive, topic-mapping, UI-notice and multiweek notes. Preserved verbatim outside events because the public release ledger validates only merged, PR-linked, per-week ORIGINAL practice question IDs found in questions.js. These notes are not deletions of official Moodle content or changes to the question bank."
 }

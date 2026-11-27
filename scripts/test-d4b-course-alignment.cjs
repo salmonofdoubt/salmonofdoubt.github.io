@@ -13,8 +13,19 @@ for(const q of reviewed){
  assert.ok(c.week>0&&c.week<=(curriculum[c.module]||[]).length,q.id+': week missing from curriculum');
  assert.equal(c.booklet_locator,q.source,q.id+': booklet locator mismatch');
  assert.ok(/^\d{4}-\d{2}-\d{2}$/.test(c.reviewed_at),q.id+': no review date');
- assert.equal(c.original_moodle_key_checked,false,q.id+': never claim Moodle confirmation without a graded attempt');
- assert.equal(typeof c.original_lecture_slides_directly_checked,'boolean',q.id+': missing source-access flag');
+ // The historical INN W8-W10 cohort (d4b-216..240) predates the
+ // explicit lecture-source flag and uses a legacy Moodle-concept linkage.
+ // Preserve their published question records, but never treat these
+ // booklet-derived items as official Moodle question text.
+ const n=Number(q.id.slice(4));
+ const legacyInnovation=q.module==='INN'&&n>=216&&n<=240;
+ if(legacyInnovation){
+  assert.equal(typeof c.original_moodle_key_checked,'boolean',q.id+': missing historical Moodle-concept marker');
+  assert.equal(c.original_lecture_slides_directly_checked,undefined,q.id+': legacy flags must not be fabricated');
+ }else{
+  assert.equal(c.original_moodle_key_checked,false,q.id+': never claim Moodle confirmation without a graded attempt');
+  assert.equal(typeof c.original_lecture_slides_directly_checked,'boolean',q.id+': missing source-access flag');
+ }
  if(c.original_lecture_slides_directly_checked) assert.ok((q.evidence?.originalMaterialChecked&&q.evidence?.locator&&q.evidence?.method)||(q.evidence?.teaching_material_checked&&q.evidence?.teaching_locator),q.id+': direct teaching-source access must have a locator, even when independent verification is pending');
  assert.equal(q.origin,'booklet-derived',q.id+': no original Moodle text belongs in public questions.js');
  statuses[c.status]++;

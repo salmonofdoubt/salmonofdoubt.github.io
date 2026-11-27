@@ -10,7 +10,7 @@ function harness(){
  const elements=new Map(),storage=new Map();
  const create=id=>{
   const el={id,value:'all',textContent:'',files:[],handlers:{},style:{},title:'',
-   disabled:false,children:[],
+   disabled:false,children:[],options:[],
    classList:{add(){},remove(){},toggle(){}},
    addEventListener(event,fn){this.handlers[event]=fn;},
    replaceChildren(...children){this.children=children;},

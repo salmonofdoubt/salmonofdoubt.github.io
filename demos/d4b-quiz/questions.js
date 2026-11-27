@@ -42,8 +42,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "Videogame Literacy, Game-Based Learning and Q.U.A.K.E. Critical Analysis",
     "Sustainable Development, AI in Education, and Inclusive Design",
     "Sustainable Digital Work, Technostress and Digital Well-being",
-    "Digital Competences: Digital Citizenship, Data Literacy and Explainable AI",
-    "Digital Competences: Algorithmic Systems, the Metaverse and Future Skills"
+    "Digital Competences: DigCompEdu, Critical Digital Literacy and Questioning",
+    "Digital Competences: Educational Sustainability, OER and GenAI Lesson Design"
   ]
 });
 window.D4B_QUESTIONS=Object.freeze([
@@ -9939,6 +9939,1126 @@ window.D4B_QUESTIONS=Object.freeze([
     "booklet_locator": "03_Innovation_Booklet, Week 10: Strategy and Leadership (19 November 2026)",
     "reviewed_at": "2026-11-21",
     "original_moodle_key_checked": true
+  }
+},
+{
+  "id": "d4b-241",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Decent work and social dialogue",
+  "stem": "A platform employer consults workers about a new algorithm and allows representatives to influence its implementation. Which International Labour Organization decent-work pillar is most directly supported?",
+  "choices": [
+    "Employment creation",
+    "Social dialogue",
+    "Social protection",
+    "Digital skills provision"
+  ],
+  "correct": 1,
+  "explanation": "Social dialogue concerns worker voice and influence over decisions. The other decent-work pillars concern employment, rights and protection.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and decent-work pillars",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and decent-work pillars",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and decent-work pillars",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-242",
+  "module": "DTR",
+  "week": 8,
+  "topic": "SDG 8 beyond job counts",
+  "stem": "A digital business creates 300 jobs, but workers report unsafe conditions, poor pay and no representation. Which assessment best reflects SDG 8?",
+  "choices": [
+    "Count jobs alone as sufficient evidence",
+    "Use productivity growth as the only measure",
+    "Assess fair pay, rights, protection and worker voice alongside job numbers",
+    "Treat workplace conditions as unrelated to sustainable development"
+  ],
+  "correct": 2,
+  "explanation": "Decent work includes employment quality, rights, protection and social dialogue, not simply job creation or GDP growth.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and work quality",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and work quality",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, SDG 8 and work quality",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-243",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Industry 5.0 policy vision",
+  "stem": "A manager says Industry 5.0 means Industry 4.0 with a faster AI system. Which correction is most defensible?",
+  "choices": [
+    "Its defining characteristic is blockchain adoption",
+    "It abandons industrial technology entirely",
+    "Its sole objective is maximum automation",
+    "It emphasises human-centred, sustainable and resilient industrial change"
+  ],
+  "correct": 3,
+  "explanation": "The European Industry 5.0 vision complements efficiency with worker well-being, resilience and environmental sustainability.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Industry 5.0",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Industry 5.0",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Industry 5.0",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-244",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Platform work and precarity",
+  "stem": "An app allows couriers to choose working hours but offers unpredictable income and little protection. What follows?",
+  "choices": [
+    "Flexibility can coexist with insecurity and inadequate protection",
+    "Choice of hours guarantees decent work",
+    "Platform workers have no need for social dialogue",
+    "Uncertain wages prove that autonomy has improved"
+  ],
+  "correct": 0,
+  "explanation": "Gig-platform flexibility can coexist with precarious income, social-protection gaps and limited career development.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Platform work and precarity",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Platform work and precarity",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Platform work and precarity",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-245",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Human-centred worker autonomy",
+  "stem": "An automated scheduling system fixes breaks without consulting staff or considering differing tasks. What is the best redesign?",
+  "choices": [
+    "Judge only the scheduling algorithm's speed",
+    "Involve workers, allow safety-aware discretion and explain exceptions",
+    "Remove appeal procedures for automated decisions",
+    "Require identical breaks regardless of task demands"
+  ],
+  "correct": 1,
+  "explanation": "Human-centred work design balances safety and efficiency with worker autonomy, participation and task-specific conditions.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Human-centred design",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Human-centred design",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Human-centred design",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-246",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Macro-level sustainability action",
+  "stem": "Which measure operates principally at the macro level of a sustainable digital-work strategy?",
+  "choices": [
+    "An employee improves keyboard proficiency",
+    "A line manager changes meeting frequency",
+    "Government establishes labour safeguards and finances digital-skills infrastructure",
+    "Colleagues mentor one another on a platform"
+  ],
+  "correct": 2,
+  "explanation": "Macro-level action concerns public policy, labour rules and infrastructure; organisations, managers and individuals work at other levels.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Multi-level action",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Multi-level action",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Multi-level action",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-247",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Four-step SDG 8 cycle",
+  "stem": "Which sequence reflects the four-step organisational SDG 8 improvement cycle presented in Week 8?",
+  "choices": [
+    "Publish a positive report, then select issues and targets",
+    "Purchase an AI system, report success, then identify needs",
+    "Set publicity targets, deploy software, omit negative outcomes",
+    "Define material priorities, set baseline-linked targets, implement, report and revise"
+  ],
+  "correct": 3,
+  "explanation": "The cycle begins with material priorities and stakeholder input, then targets, accountable implementation and transparent review.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, Four-step organisational SDG 8 cycle",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, Four-step organisational SDG 8 cycle",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, Four-step organisational SDG 8 cycle",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-248",
+  "module": "DTR",
+  "week": 8,
+  "topic": "Training attendance versus outcomes",
+  "stem": "A firm reports that 95% of employees attended digital-skills training. Which conclusion is justified?",
+  "choices": [
+    "Attendance is an activity indicator; skills and job-quality outcomes still need assessment",
+    "The firm has proved improved worker well-being",
+    "All attendees can perform new tasks independently",
+    "Training has demonstrated reduced psychosocial risk"
+  ],
+  "correct": 0,
+  "explanation": "Participation metrics measure activity, not necessarily competency gains, equity, improved workloads or sustained benefits.",
+  "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 indicators and outcomes",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 08, SDG 8 indicators and outcomes",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 8,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 08, SDG 8 indicators and outcomes",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-249",
+  "module": "DTR",
+  "week": 9,
+  "topic": "TAM perceived usefulness",
+  "stem": "In Davis's Technology Acceptance Model, an employee believes a new data system will improve the accuracy of a valued task. Which construct is illustrated?",
+  "choices": [
+    "Perceived ease of use",
+    "Perceived usefulness",
+    "Techno-invasion",
+    "Behavioural intention"
+  ],
+  "correct": 1,
+  "explanation": "Perceived usefulness concerns the belief that technology helps with task performance; it differs from how easy a tool feels to use.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived usefulness",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived usefulness",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived usefulness",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-250",
+  "module": "DTR",
+  "week": 9,
+  "topic": "TAM perceived ease of use",
+  "stem": "A useful analytics platform is unpopular because staff expect that operating it will require excessive effort. Which TAM construct is at issue?",
+  "choices": [
+    "Social dialogue",
+    "Job insecurity",
+    "Perceived ease of use",
+    "Techno-overload"
+  ],
+  "correct": 2,
+  "explanation": "Perceived ease of use measures expected effort and usability, rather than belief that the platform benefits task performance.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived ease of use",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived ease of use",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived ease of use",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-251",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Intention and actual adoption",
+  "stem": "A survey finds that workers intend to try a new AI assistant. What evidence is still needed before claiming sustainable adoption?",
+  "choices": [
+    "Only the supplier's marketing claims",
+    "Only the number of purchased licences",
+    "None: behavioural intention proves beneficial use",
+    "Observed usage, task outcomes and impacts on different worker groups"
+  ],
+  "correct": 3,
+  "explanation": "Intention is not actual usage; use alone also does not demonstrate meaningful, equitable or sustainable benefits.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, TAM: behavioural intention versus actual use",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, TAM: behavioural intention versus actual use",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, TAM: behavioural intention versus actual use",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-252",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Job-person fit and overload",
+  "stem": "Employees know how to operate a system, but digital requests exceed their available working time. Which response targets the underlying problem?",
+  "choices": [
+    "Adjust workload and capacity rather than rely only on additional training",
+    "Require more training outside working hours",
+    "Assume technology anxiety is the only cause",
+    "Treat high message counts as improved productivity"
+  ],
+  "correct": 0,
+  "explanation": "A demands–capacity mismatch requires realistic workloads and resources; digital literacy training alone cannot remove excess demand.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Job–person fit and demands–capacity mismatch",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Job–person fit and demands–capacity mismatch",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Job–person fit and demands–capacity mismatch",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-253",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Technostress: invasion",
+  "stem": "Employees are expected to answer a messaging platform during weekends and annual leave. Which technostress creator is clearest?",
+  "choices": [
+    "Techno-complexity",
+    "Techno-invasion",
+    "Techno-uncertainty",
+    "Techno-insecurity"
+  ],
+  "correct": 1,
+  "explanation": "Techno-invasion describes digital reachability extending work demands into private life and protected non-work time.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-invasion",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-invasion",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-invasion",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-254",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Technostress: uncertainty",
+  "stem": "A company revises its software interface almost every week, forcing employees to continually adapt to updates. Which technostress creator is most direct?",
+  "choices": [
+    "Techno-insecurity",
+    "Techno-overload",
+    "Techno-uncertainty",
+    "Techno-invasion"
+  ],
+  "correct": 2,
+  "explanation": "Techno-uncertainty is the continuing change itself; techno-complexity instead emphasises the difficulty of learning a system.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-uncertainty",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-uncertainty",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-uncertainty",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-255",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Technostress: insecurity",
+  "stem": "A worker fears that more digitally skilled colleagues may replace them as a new AI tool is introduced, though no redundancy is announced. Which concept fits?",
+  "choices": [
+    "Techno-invasion",
+    "Confirmed unemployment",
+    "Workplace chemical exposure",
+    "Techno-insecurity"
+  ],
+  "correct": 3,
+  "explanation": "Techno-insecurity is a perceived employment or competence threat associated with technology; actual dismissal need not have occurred.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-insecurity",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-insecurity",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-insecurity",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-256",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Gender mainstreaming",
+  "stem": "A company adds AI-assisted hiring and flexible-work rules. Which action best applies gender mainstreaming?",
+  "choices": [
+    "Examine unequal impacts across hiring, development, promotion and flexibility",
+    "Use one recruitment percentage as proof of equality",
+    "Check only software throughput and availability",
+    "Remove human appeals because screening is automated"
+  ],
+  "correct": 0,
+  "explanation": "Gender mainstreaming integrates equality considerations into recruitment, progression, training and working conditions rather than treating them as a standalone headline.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Sustainable-work pillar: gender mainstreaming",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Sustainable-work pillar: gender mainstreaming",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Sustainable-work pillar: gender mainstreaming",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-257",
+  "module": "DTR",
+  "week": 10,
+  "topic": "DigCompEdu: Digital Resources",
+  "stem": "A trainer selects an accessible article, adapts it and checks whether its licence permits redistribution. Which DigCompEdu competence area most directly covers these decisions?",
+  "choices": [
+    "Professional Engagement",
+    "Digital Resources",
+    "Empowering Learners",
+    "Assessment"
+  ],
+  "correct": 1,
+  "explanation": "Area 2, Digital Resources, concerns choosing, creating, managing, adapting and responsibly sharing digital learning materials.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Digital Resources",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Digital Resources",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Digital Resources",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-258",
+  "module": "DTR",
+  "week": 10,
+  "topic": "DigCompEdu: Empowering Learners",
+  "stem": "An educator adjusts activities and delivery so learners with different disabilities can participate. Which DigCompEdu area is most directly addressed?",
+  "choices": [
+    "Digital Resources",
+    "Professional Engagement",
+    "Empowering Learners",
+    "Assessment"
+  ],
+  "correct": 2,
+  "explanation": "Area 5, Empowering Learners, focuses on accessibility, inclusion, differentiation and active learner engagement.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Empowering Learners",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Empowering Learners",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): Empowering Learners",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-259",
+  "module": "DTR",
+  "week": 10,
+  "topic": "DigCompEdu proficiency stages",
+  "stem": "Which title corresponds to proficiency level B2 in the European Framework for the Digital Competence of Educators?",
+  "choices": [
+    "Explorer",
+    "Integrator",
+    "Leader",
+    "Expert"
+  ],
+  "correct": 3,
+  "explanation": "The 2017 progression is A1 Newcomer, A2 Explorer, B1 Integrator, B2 Expert, C1 Leader and C2 Pioneer.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): proficiency progression",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): proficiency progression",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Redecker (2017): proficiency progression",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-260",
+  "module": "DTR",
+  "week": 10,
+  "topic": "IRE versus deeper dialogue",
+  "stem": "A lecturer asks participants to recite definitions, then declares each response correct or incorrect. What is the main limitation of this Initiate–Response–Evaluate approach?",
+  "choices": [
+    "It can assess recall without necessarily fostering evidence-based reasoning or dialogue",
+    "It always encourages learners to critique authors as they read",
+    "It guarantees development of independent questioning skills",
+    "It is incapable of checking factual knowledge"
+  ],
+  "correct": 0,
+  "explanation": "IRE checks basic knowledge but does not by itself require the deeper explanations, questions and learner-led dialogue described in the TEAL reading.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Initiate–Response–Evaluate",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Initiate–Response–Evaluate",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Initiate–Response–Evaluate",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-261",
+  "module": "DTR",
+  "week": 10,
+  "topic": "K-W-L questioning strategy",
+  "stem": "Which sequence accurately represents the K-W-L learning strategy?",
+  "choices": [
+    "Key words, Written answers, Lecture notes",
+    "What learners Know, Want to know and have Learned",
+    "Knowledge assessment, Workplace tools, Learning platform",
+    "Keyword extraction, Web search, Link verification"
+  ],
+  "correct": 1,
+  "explanation": "K-W-L elicits prior knowledge, questions for inquiry and the learning achieved after engagement with the text.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): K-W-L",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): K-W-L",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): K-W-L",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-262",
+  "module": "DTR",
+  "week": 10,
+  "topic": "Question the Author",
+  "stem": "While reading, learners stop to ask what the writer means, why evidence was selected and which assumptions remain unstated. Which method is illustrated?",
+  "choices": [
+    "Initiate–Response–Evaluate drill",
+    "Lecture transcription",
+    "Question the Author",
+    "Summative grading"
+  ],
+  "correct": 2,
+  "explanation": "Question the Author asks readers to interrogate an author's reasoning and language during reading rather than passively receive the text.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Question the Author",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Question the Author",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Corley and Rauscher (2013): Question the Author",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-263",
+  "module": "DTR",
+  "week": 10,
+  "topic": "GenAI and inquiry-based lesson design",
+  "stem": "A trainer wants a GenAI tool to help design an inquiry-based lesson. Which sequence best aligns with the assigned research?",
+  "choices": [
+    "Pick the newest tool and accept its first plan",
+    "Replace all learner activities with generated summaries",
+    "Omit assessment because AI automatically proves success",
+    "Specify objectives and inquiry activities, then select and critically check GenAI assistance"
+  ],
+  "correct": 3,
+  "explanation": "The inquiry-based lesson plan should follow educational aims and methods; generating a plan does not validate its pedagogy or outcomes.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Moundridou et al. (2024): inquiry-based learning and GenAI",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Moundridou et al. (2024): inquiry-based learning and GenAI",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Moundridou et al. (2024): inquiry-based learning and GenAI",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-264",
+  "module": "DTR",
+  "week": 10,
+  "topic": "Critical digital competence",
+  "stem": "Which observation best demonstrates digital competence beyond memorised software procedures?",
+  "choices": [
+    "A learner judges source credibility and limitations before selecting a suitable digital method",
+    "A learner memorises where a menu item appears",
+    "A learner always selects the most recently released platform",
+    "A learner completes more clicks regardless of task quality"
+  ],
+  "correct": 0,
+  "explanation": "Digital competence includes critical information appraisal, purposeful choice, communication and responsible participation, not only interface mechanics.",
+  "source": "04_Digital_Transformation_Booklet, Week 10, Ferrari (2026): procedural versus engaged digital competence",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 10, Ferrari (2026): procedural versus engaged digital competence",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 10,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 10, Ferrari (2026): procedural versus engaged digital competence",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-265",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Educational digital sustainability",
+  "stem": "In Luca Ferrari's lecture, what did digital sustainability primarily mean for an education or training organisation?",
+  "choices": [
+    "Reducing cloud-computing emissions alone",
+    "Maintaining educational processes, functions and diversity through organisational change",
+    "Buying new devices each year",
+    "Assuming every digital lesson is environmentally beneficial"
+  ],
+  "correct": 1,
+  "explanation": "Ferrari discussed the ability of educational systems to maintain and adapt their functions and practices over time, not only environmental impacts.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): educational digital sustainability",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): educational digital sustainability",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): educational digital sustainability",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-266",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Pedagogy before technology",
+  "stem": "A new teaching platform permits only one learner to interact at a time, although the activity requires simultaneous team work. What should guide the decision?",
+  "choices": [
+    "The platform vendor's marketing claims",
+    "The number of optional features included",
+    "Learning objectives and group interactions, followed by appropriate technology selection",
+    "A requirement to replace all existing tools with newer ones"
+  ],
+  "correct": 2,
+  "explanation": "The instructional design and desired participation should determine which technological affordances are appropriate.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): pedagogy first and affordances",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): pedagogy first and affordances",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): pedagogy first and affordances",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-267",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Norman's mapping principle",
+  "stem": "An interface arranges each control beside the function it affects, so a learner can readily predict the result of pressing it. Which design principle is most directly illustrated?",
+  "choices": [
+    "Social dialogue",
+    "Technostress reduction",
+    "Gender mainstreaming",
+    "Mapping"
+  ],
+  "correct": 3,
+  "explanation": "Mapping refers to the understandable correspondence between a control, an action and its effect.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): Norman's design principles",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): Norman's design principles",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): Norman's design principles",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-268",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Formative feedback",
+  "stem": "A learner submits a weak evaluation of a digital teaching tool. Which response is the strongest example of formative feedback?",
+  "choices": [
+    "Identify an unsupported claim and specify the evidence needed to improve it",
+    "Say the learner is brilliant without reference to their work",
+    "Provide only a numeric mark without guidance",
+    "Replace the response without explaining the changes"
+  ],
+  "correct": 0,
+  "explanation": "Useful formative feedback targets work quality, explains the gap and gives actionable guidance for improving a particular response.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): formative feedback",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): formative feedback",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): formative feedback",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-269",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Open access versus open licensing",
+  "stem": "A free online course allows learners to watch videos but states no permission for modification or redistribution. What can be concluded?",
+  "choices": [
+    "Anyone may adapt and republish its videos",
+    "Free access alone does not grant reuse or adaptation rights",
+    "Every video automatically has a Creative Commons Attribution licence",
+    "All MOOCs permit unrestricted copying"
+  ],
+  "correct": 1,
+  "explanation": "Viewing material for free is different from holding the legal permission to reuse, adapt or redistribute it; the licence matters.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): OER and Creative Commons",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): OER and Creative Commons",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): OER and Creative Commons",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-270",
+  "module": "DTR",
+  "week": 11,
+  "topic": "MOOC instructional-design limitations",
+  "stem": "An online course consists only of repeated videos followed by fact-recall quizzes. Which concern aligns with Ferrari's critique?",
+  "choices": [
+    "It necessarily offers too much student collaboration",
+    "It guarantees transfer to unfamiliar practical problems",
+    "The delivery format may constrain dialogue, active inquiry and richer participation",
+    "It cannot technically be delivered through a web browser"
+  ],
+  "correct": 2,
+  "explanation": "A video-quiz sequence can reproduce a transmissive approach and may not exploit platforms for active, collaborative or higher-order learning.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): MOOC design limitations",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): MOOC design limitations",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): MOOC design limitations",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-271",
+  "module": "DTR",
+  "week": 11,
+  "topic": "GenAI lesson-plan quality",
+  "stem": "An AI tool generates a convincing workshop agenda. What should an instructional designer do before accepting it?",
+  "choices": [
+    "Trust the agenda because it contains precise timings",
+    "Recruit participants before defining assessment",
+    "Use the model's confidence as evidence of learning outcomes",
+    "Check objective alignment, realistic duration, accessibility, sources and observable assessment"
+  ],
+  "correct": 3,
+  "explanation": "An AI-generated plan is a draft; human review should test its pedagogy, feasibility, factual grounding and measurable learning outcomes.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): GenAI and instructional planning",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): GenAI and instructional planning",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): GenAI and instructional planning",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-272",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Assessing critical digital competence",
+  "stem": "Learners use a digital resource directory in a training exercise. Which assessment best shows they can critically evaluate a candidate tool?",
+  "choices": [
+    "Check its provider evidence, task fit and limitations, and justify an evidence-based use or no-use decision",
+    "Record the number of directory links clicked during the exercise",
+    "Repeat the directory summary without examining the provider's claims",
+    "Assume a listed tool is independently validated by the directory"
+  ],
+  "correct": 0,
+  "explanation": "Meaningful digital competence includes evaluating source claims, practical suitability and uncertainty, not merely navigation or unquestioned acceptance.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): critical digital competence and instructional design",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): critical digital competence and instructional design",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): critical digital competence and instructional design",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
   }
 }
 ]);

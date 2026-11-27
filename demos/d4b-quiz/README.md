@@ -165,3 +165,12 @@ The site never removed the original INNO, DTR, AI4B or GenAI public question rec
 ## Context-sensitive module display (19 November 2026)
 
 The module picker updates both the question pool **and the visible module focus panel**. The Generative AI exam reminder and its three independent mock exam cards are displayed only for GEN. Digital Transformation, AI for Business, Innovation and All Modules show their corresponding module description, without misleading GenAI exam material. GenAI-only Mock A/B/C source options are disabled and hidden outside the GenAI module, and an incompatible source selection resets to the default cram filter. Question bank, deduplication, untimed default and private browser progress are unchanged.
+
+
+## DTR W8–W11 source-grounded practice expansion (27 November 2026)
+
+32 original DTR practice questions (8 per week) were added to the existing public practice bank as `d4b-241`–`d4b-272`, sourced from the canonical DTR module booklet's Weeks 08–11 and the connected lecture/assigned-reading digests. These are **not** official Moodle questions or exam predictions; their keys and distractors are course-reviewed, with independent external validation still explicitly `pending`. The existing DTR Topic 1–5 Moodle archive remains unchanged (25 official-key-confirmed questions), as do all earlier public questions, stable IDs, user progress and private browser-local imports. No new Moodle quiz was invented for Weeks 10–11.
+
+The DTR curriculum selector now names the actual Week 10 DigCompEdu and questioning readings and the Week 11 Ferrari educational-sustainability, OER and GenAI instructional-design lecture. The displayed DTR appointment is 19 December 2026, 09:00–11:00 Dublin time; an unconfirmed 45-minute examination duration has been removed from the notice. Browser questions and offline-cache version were bumped together; all other module labels and question banks are unchanged.
+
+Following an accepted PR, add the true acceptance timestamp, PR link, and merge SHA to `content-updates.json` as four Week 08–11 entries, grouped by the same accepted release, so the on-site publication ledger does not invent a timestamp.
