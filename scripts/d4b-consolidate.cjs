@@ -122,7 +122,13 @@ function audit(){const code=fs.readFileSync(path.join(dir,'questions.js'),'utf8'
   const k=q.module+':'+q.week;byWeek[k]=(byWeek[k]||0)+1;
   const ca=q.course_alignment;
   if(ca){
-   if(!['supported','qualified'].includes(ca.status)||ca.module!==q.module||ca.week!==q.week||!ca.booklet_locator||!ca.reviewed_at||ca.original_moodle_key_checked!==false)errors.push(q.id+': invalid module alignment metadata');
+   // Preserve the 20 pre-existing INN W9-W10 booklet-derived records whose
+   // old Moodle-concept linkage flag was true. These records are not official
+   // Moodle question text and are not promoted to independently verified.
+   // Every new DTR record must still explicitly declare false.
+   const legacyNumber=Number(q.id.slice(4));
+   const legacyInnoConceptLink=q.module==='INN'&&legacyNumber>=221&&legacyNumber<=240&&ca.original_moodle_key_checked===true;
+   if(!['supported','qualified'].includes(ca.status)||ca.module!==q.module||ca.week!==q.week||!ca.booklet_locator||!ca.reviewed_at||!(ca.original_moodle_key_checked===false||legacyInnoConceptLink))errors.push(q.id+': invalid module alignment metadata');
    else courseAlignment[ca.status]++;
   }else courseAlignment.notReviewed++;
   if(q.verification==='verified'){if(!q.evidence||q.evidence.originalMaterialChecked!==true||!q.evidence.locator||!q.evidence.reviewed_at||!/^https:\/\//.test(q.evidence.url||''))errors.push(q.id+': verification without documented source URL, locator and date');statuses.verified++}
