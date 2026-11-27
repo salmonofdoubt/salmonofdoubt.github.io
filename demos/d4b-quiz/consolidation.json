@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "last_checked_at": "2026-11-27T11:32:55.986Z",
+  "last_checked_at": "2026-11-27T16:47:27.862Z",
   "last_consolidated_at": "2026-11-27T11:32:55.986Z",
   "last_question_bank_change_at": "2026-11-27T11:32:55.986Z",
   "content_fingerprint": "8134af7bb7ca00e81f045c39d4057e43f0d74fa46b9ccd2be9d0ec837d16a81d",
-  "content_changed": true,
+  "content_changed": false,
   "bank_fingerprint": "82ccec7139374de705737761c978ce94bdec2eb08292bee0a019d73e83395e3f",
   "question_count": 272,
   "question_status": {
@@ -59,9 +59,9 @@
   "uncovered_weeks": [],
   "new_questions_ingested": 0,
   "ingestion_tracking": {
-    "updated_at": "2026-11-27T11:32:55.986Z",
-    "last_automated_check_at": "2026-11-27T11:32:53.160Z",
-    "last_automation_ingest_at": "2026-11-27T11:32:55.893Z",
+    "updated_at": "2026-11-27T16:47:27.862Z",
+    "last_automated_check_at": "2026-11-27T16:47:25.781Z",
+    "last_automation_ingest_at": "2026-11-27T16:47:27.769Z",
     "last_automation_ingested_count": 0,
     "last_automation_added_ids": [],
     "staged_candidate_count": 104,
@@ -554,7 +554,7 @@
         }
       ],
       "fingerprint": "ea10cc69f4ae6ae2d83659b5db3af5f4a5258b7db9b5ec14ca59dc422bf9bcd0",
-      "content_changed": true
+      "content_changed": false
     },
     {
       "id": "get-styled",
