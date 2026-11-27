@@ -42,8 +42,8 @@ window.D4B_CURRICULUM=Object.freeze({
     "Videogame Literacy, Game-Based Learning and Q.U.A.K.E. Critical Analysis",
     "Sustainable Development, AI in Education, and Inclusive Design",
     "Sustainable Digital Work, Technostress and Digital Well-being",
-    "Digital Competences: Digital Citizenship, Data Literacy and Explainable AI",
-    "Digital Competences: Algorithmic Systems, the Metaverse and Future Skills"
+    "Digital Competences: DigCompEdu, Critical Digital Literacy and Questioning",
+    "Digital Competences: Educational Sustainability, OER and GenAI Lesson Design"
   ]
 });
 window.D4B_QUESTIONS=Object.freeze([
