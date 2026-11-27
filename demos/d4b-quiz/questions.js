@@ -10780,5 +10780,285 @@ window.D4B_QUESTIONS=Object.freeze([
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": false
   }
+},
+{
+  "id": "d4b-265",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Educational digital sustainability",
+  "stem": "In Luca Ferrari's lecture, what did digital sustainability primarily mean for an education or training organisation?",
+  "choices": [
+    "Reducing cloud-computing emissions alone",
+    "Maintaining educational processes, functions and diversity through organisational change",
+    "Buying new devices each year",
+    "Assuming every digital lesson is environmentally beneficial"
+  ],
+  "correct": 1,
+  "explanation": "Ferrari discussed the ability of educational systems to maintain and adapt their functions and practices over time, not only environmental impacts.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): educational digital sustainability",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): educational digital sustainability",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): educational digital sustainability",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-266",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Pedagogy before technology",
+  "stem": "A new teaching platform permits only one learner to interact at a time, although the activity requires simultaneous team work. What should guide the decision?",
+  "choices": [
+    "The platform vendor's marketing claims",
+    "The number of optional features included",
+    "Learning objectives and group interactions, followed by appropriate technology selection",
+    "A requirement to replace all existing tools with newer ones"
+  ],
+  "correct": 2,
+  "explanation": "The instructional design and desired participation should determine which technological affordances are appropriate.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): pedagogy first and affordances",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): pedagogy first and affordances",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): pedagogy first and affordances",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-267",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Norman's mapping principle",
+  "stem": "An interface arranges each control beside the function it affects, so a learner can readily predict the result of pressing it. Which design principle is most directly illustrated?",
+  "choices": [
+    "Social dialogue",
+    "Technostress reduction",
+    "Gender mainstreaming",
+    "Mapping"
+  ],
+  "correct": 3,
+  "explanation": "Mapping refers to the understandable correspondence between a control, an action and its effect.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): Norman's design principles",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): Norman's design principles",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): Norman's design principles",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-268",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Formative feedback",
+  "stem": "A learner submits a weak evaluation of a digital teaching tool. Which response is the strongest example of formative feedback?",
+  "choices": [
+    "Identify an unsupported claim and specify the evidence needed to improve it",
+    "Say the learner is brilliant without reference to their work",
+    "Provide only a numeric mark without guidance",
+    "Replace the response without explaining the changes"
+  ],
+  "correct": 0,
+  "explanation": "Useful formative feedback targets work quality, explains the gap and gives actionable guidance for improving a particular response.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): formative feedback",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): formative feedback",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): formative feedback",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-269",
+  "module": "DTR",
+  "week": 11,
+  "topic": "Open access versus open licensing",
+  "stem": "A free online course allows learners to watch videos but states no permission for modification or redistribution. What can be concluded?",
+  "choices": [
+    "Anyone may adapt and republish its videos",
+    "Free access alone does not grant reuse or adaptation rights",
+    "Every video automatically has a Creative Commons Attribution licence",
+    "All MOOCs permit unrestricted copying"
+  ],
+  "correct": 1,
+  "explanation": "Viewing material for free is different from holding the legal permission to reuse, adapt or redistribute it; the licence matters.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): OER and Creative Commons",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): OER and Creative Commons",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): OER and Creative Commons",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-270",
+  "module": "DTR",
+  "week": 11,
+  "topic": "MOOC instructional-design limitations",
+  "stem": "An online course consists only of repeated videos followed by fact-recall quizzes. Which concern aligns with Ferrari's critique?",
+  "choices": [
+    "It necessarily offers too much student collaboration",
+    "It guarantees transfer to unfamiliar practical problems",
+    "The delivery format may constrain dialogue, active inquiry and richer participation",
+    "It cannot technically be delivered through a web browser"
+  ],
+  "correct": 2,
+  "explanation": "A video-quiz sequence can reproduce a transmissive approach and may not exploit platforms for active, collaborative or higher-order learning.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): MOOC design limitations",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): MOOC design limitations",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): MOOC design limitations",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-271",
+  "module": "DTR",
+  "week": 11,
+  "topic": "GenAI lesson-plan quality",
+  "stem": "An AI tool generates a convincing workshop agenda. What should an instructional designer do before accepting it?",
+  "choices": [
+    "Trust the agenda because it contains precise timings",
+    "Recruit participants before defining assessment",
+    "Use the model's confidence as evidence of learning outcomes",
+    "Check objective alignment, realistic duration, accessibility, sources and observable assessment"
+  ],
+  "correct": 3,
+  "explanation": "An AI-generated plan is a draft; human review should test its pedagogy, feasibility, factual grounding and measurable learning outcomes.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): GenAI and instructional planning",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): GenAI and instructional planning",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, Ferrari (2026): GenAI and instructional planning",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-272",
+  "module": "DTR",
+  "week": 11,
+  "topic": "EnvAI discovery versus validation",
+  "stem": "In the completed EnvAI training-plan e-tivity, a learner cannot identify a suitable, verifiable listed tool. What is an acceptable learning outcome?",
+  "choices": [
+    "Record the missing evidence and justify that no candidate has yet been verified",
+    "Assume the first directory entry is scientifically validated",
+    "Invent a tool so the activity looks successful",
+    "Claim EnvAI answered the environmental question"
+  ],
+  "correct": 0,
+  "explanation": "The exercise explicitly distinguishes discovery from scientific validation and permits a transparent conclusion that no suitable tool was found.",
+  "source": "04_Digital_Transformation_Booklet, Week 11, E-tivity Topic 6: EnvAI training plan",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 11, E-tivity Topic 6: EnvAI training plan",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 11,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 11, E-tivity Topic 6: EnvAI training plan",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
 }
 ]);
