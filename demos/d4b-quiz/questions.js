@@ -10220,5 +10220,285 @@ window.D4B_QUESTIONS=Object.freeze([
     "original_moodle_key_checked": false,
     "original_lecture_slides_directly_checked": false
   }
+},
+{
+  "id": "d4b-249",
+  "module": "DTR",
+  "week": 9,
+  "topic": "TAM perceived usefulness",
+  "stem": "In Davis's Technology Acceptance Model, an employee believes a new data system will improve the accuracy of a valued task. Which construct is illustrated?",
+  "choices": [
+    "Perceived ease of use",
+    "Perceived usefulness",
+    "Techno-invasion",
+    "Behavioural intention"
+  ],
+  "correct": 1,
+  "explanation": "Perceived usefulness concerns the belief that technology helps with task performance; it differs from how easy a tool feels to use.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived usefulness",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived usefulness",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived usefulness",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-250",
+  "module": "DTR",
+  "week": 9,
+  "topic": "TAM perceived ease of use",
+  "stem": "A useful analytics platform is unpopular because staff expect that operating it will require excessive effort. Which TAM construct is at issue?",
+  "choices": [
+    "Social dialogue",
+    "Job insecurity",
+    "Perceived ease of use",
+    "Techno-overload"
+  ],
+  "correct": 2,
+  "explanation": "Perceived ease of use measures expected effort and usability, rather than belief that the platform benefits task performance.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived ease of use",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived ease of use",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technology Acceptance Model: perceived ease of use",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-251",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Intention and actual adoption",
+  "stem": "A survey finds that workers intend to try a new AI assistant. What evidence is still needed before claiming sustainable adoption?",
+  "choices": [
+    "Only the supplier's marketing claims",
+    "Only the number of purchased licences",
+    "None: behavioural intention proves beneficial use",
+    "Observed usage, task outcomes and impacts on different worker groups"
+  ],
+  "correct": 3,
+  "explanation": "Intention is not actual usage; use alone also does not demonstrate meaningful, equitable or sustainable benefits.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, TAM: behavioural intention versus actual use",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, TAM: behavioural intention versus actual use",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, TAM: behavioural intention versus actual use",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-252",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Job-person fit and overload",
+  "stem": "Employees know how to operate a system, but digital requests exceed their available working time. Which response targets the underlying problem?",
+  "choices": [
+    "Adjust workload and capacity rather than rely only on additional training",
+    "Require more training outside working hours",
+    "Assume technology anxiety is the only cause",
+    "Treat high message counts as improved productivity"
+  ],
+  "correct": 0,
+  "explanation": "A demands–capacity mismatch requires realistic workloads and resources; digital literacy training alone cannot remove excess demand.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Job–person fit and demands–capacity mismatch",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Job–person fit and demands–capacity mismatch",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Job–person fit and demands–capacity mismatch",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-253",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Technostress: invasion",
+  "stem": "Employees are expected to answer a messaging platform during weekends and annual leave. Which technostress creator is clearest?",
+  "choices": [
+    "Techno-complexity",
+    "Techno-invasion",
+    "Techno-uncertainty",
+    "Techno-insecurity"
+  ],
+  "correct": 1,
+  "explanation": "Techno-invasion describes digital reachability extending work demands into private life and protected non-work time.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-invasion",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-invasion",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-invasion",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-254",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Technostress: uncertainty",
+  "stem": "A company revises its software interface almost every week, forcing employees to continually adapt to updates. Which technostress creator is most direct?",
+  "choices": [
+    "Techno-insecurity",
+    "Techno-overload",
+    "Techno-uncertainty",
+    "Techno-invasion"
+  ],
+  "correct": 2,
+  "explanation": "Techno-uncertainty is the continuing change itself; techno-complexity instead emphasises the difficulty of learning a system.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-uncertainty",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-uncertainty",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-uncertainty",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-255",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Technostress: insecurity",
+  "stem": "A worker fears that more digitally skilled colleagues may replace them as a new AI tool is introduced, though no redundancy is announced. Which concept fits?",
+  "choices": [
+    "Techno-invasion",
+    "Confirmed unemployment",
+    "Workplace chemical exposure",
+    "Techno-insecurity"
+  ],
+  "correct": 3,
+  "explanation": "Techno-insecurity is a perceived employment or competence threat associated with technology; actual dismissal need not have occurred.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-insecurity",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-insecurity",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Technostress creator: techno-insecurity",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
+},
+{
+  "id": "d4b-256",
+  "module": "DTR",
+  "week": 9,
+  "topic": "Gender mainstreaming",
+  "stem": "A company adds AI-assisted hiring and flexible-work rules. Which action best applies gender mainstreaming?",
+  "choices": [
+    "Examine unequal impacts across hiring, development, promotion and flexibility",
+    "Use one recruitment percentage as proof of equality",
+    "Check only software throughput and availability",
+    "Remove human appeals because screening is automated"
+  ],
+  "correct": 0,
+  "explanation": "Gender mainstreaming integrates equality considerations into recruitment, progression, training and working conditions rather than treating them as a standalone headline.",
+  "source": "04_Digital_Transformation_Booklet, Week 09, Sustainable-work pillar: gender mainstreaming",
+  "origin": "booklet-derived",
+  "verification": "pending",
+  "evidence": {
+    "source": "04_Digital_Transformation_Booklet, Week 09, Sustainable-work pillar: gender mainstreaming",
+    "originalMaterialChecked": false,
+    "reviewed_at": "2026-11-27",
+    "review_type": "canonical-booklet-review",
+    "note": "Original course-aligned practice. No official Moodle key or independent external verification is claimed."
+  },
+  "course_alignment": {
+    "status": "supported",
+    "source_type": "authorised Digital4Business module booklet",
+    "module": "DTR",
+    "week": 9,
+    "booklet_locator": "04_Digital_Transformation_Booklet, Week 09, Sustainable-work pillar: gender mainstreaming",
+    "reviewed_at": "2026-11-27",
+    "original_moodle_key_checked": false,
+    "original_lecture_slides_directly_checked": false
+  }
 }
 ]);
