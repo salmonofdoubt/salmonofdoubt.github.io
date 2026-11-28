@@ -1,31 +1,32 @@
 {
-  "generated_at": "2026-11-27T15:06:40+00:00",
+  "generated_at": "2026-11-28T14:12:54+00:00",
   "engine": "hub-discovery-2.0",
   "discovery_degraded": false,
   "coverage_warning": null,
   "seed_count": 26,
   "seed_pages_attempted": 26,
   "seed_pages_failed": 7,
-  "links_seen": 4085,
-  "funding_like_links": 429,
+  "links_seen": 4549,
+  "funding_like_links": 459,
   "candidate_fetches": 300,
-  "pending_review_count": 113,
+  "pending_review_count": 121,
   "status_counts": {
-    "pending_review": 113,
-    "suppressed_non_actionable": 30,
+    "pending_review": 121,
+    "suppressed_non_actionable": 47,
     "rejected": 3,
     "promoted": 3,
     "suppressed_existing": 10,
     "suppressed_stale": 5,
-    "suppressed_generic_page": 3,
-    "suppressed_fetch_error": 22
+    "suppressed_generic_page": 5,
+    "suppressed_fetch_error": 51
   },
   "candidate_type_counts": {
-    "recurring_programme": 50,
-    "funding_call": 92,
+    "recurring_programme": 60,
+    "funding_call": 94,
     "scholarship": 21,
-    "generic_funding_hub": 4,
-    "unknown": 22
+    "generic_funding_hub": 6,
+    "tender": 13,
+    "unknown": 51
   },
   "seeds": [
     {
@@ -44,9 +45,9 @@
       "url": "https://www.heritagecouncil.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "links_seen": 81,
+      "funding_like_links": 15,
+      "candidates_fetched": 15
     },
     {
       "id": "lawpro_funding_hub",
@@ -54,7 +55,7 @@
       "url": "https://lawaters.ie/funding/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 0,
+      "links_seen": 117,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -112,11 +113,11 @@
       "id": "life_calls_watch",
       "name": "EU LIFE calls watch",
       "url": "https://cinea.ec.europa.eu/programmes/life/life-calls-proposals_en",
-      "status": "fetch_error",
-      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/programmes/life/life-calls-proposals-2023_en",
-      "links_seen": 0,
-      "funding_like_links": 0,
-      "candidates_fetched": 0
+      "status": "ok",
+      "fetch_error": null,
+      "links_seen": 119,
+      "funding_like_links": 48,
+      "candidates_fetched": 48
     },
     {
       "id": "horizon_cluster6_watch",
@@ -134,7 +135,7 @@
       "url": "https://farmingforwater.ie/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 0,
+      "links_seen": 91,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -144,7 +145,7 @@
       "url": "https://farmingforwater.ie/measures/",
       "status": "ok",
       "fetch_error": null,
-      "links_seen": 0,
+      "links_seen": 149,
       "funding_like_links": 0,
       "candidates_fetched": 0
     },
@@ -196,7 +197,7 @@
       "fetch_error": null,
       "links_seen": 642,
       "funding_like_links": 60,
-      "candidates_fetched": 60
+      "candidates_fetched": 53
     },
     {
       "id": "geo_dfg_reinhart_koselleck_watch",
@@ -206,7 +207,7 @@
       "fetch_error": null,
       "links_seen": 644,
       "funding_like_links": 60,
-      "candidates_fetched": 56
+      "candidates_fetched": 0
     },
     {
       "id": "geo_dfg_heisenberg_watch",
@@ -232,10 +233,10 @@
       "id": "geo_horizon_energy_supply_watch",
       "name": "Geo watch: Horizon Europe Sustainable, Secure and Competitive Energy Supply",
       "url": "https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
-      "status": "ok",
-      "fetch_error": null,
-      "links_seen": 93,
-      "funding_like_links": 33,
+      "status": "fetch_error",
+      "fetch_error": "429 Client Error: Too Many Requests for url: https://cinea.ec.europa.eu/funding-opportunities/calls-proposals/horizon-europe-eu235-million-projects-supporting-sustainable-secure-and-competitive-energy-supply_en",
+      "links_seen": 0,
+      "funding_like_links": 0,
       "candidates_fetched": 0
     },
     {
